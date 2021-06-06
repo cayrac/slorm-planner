@@ -38,6 +38,7 @@ import { Bytes } from '../model/bytes';
 import { ElementRank } from '../model/element-rank';
 import { EquipmentList } from '../model/equipment_list';
 import { HeroesData } from '../model/heroes-data';
+import { Influence } from '../model/influence';
 import { Inventory } from '../model/inventory';
 import { Missions } from '../model/missions';
 import { Profile } from '../model/profile';
@@ -50,10 +51,11 @@ import { Traits } from '../model/traits';
 import { Tutorials } from '../model/tutorials';
 import { WeaponData } from '../model/weapon-data';
 import { Xp } from '../model/xp';
-import { bytesToString, byteToNumber, takeUntil, toBytes } from '../util/bytes.util';
+import { bytesToString, takeUntil, toBytes } from '../util/bytes.util';
 import {
     mapHeroesArray,
     splitHeroesData,
+    strictParseFloat,
     strictParseInt,
     toHeroes,
     toItem,
@@ -61,7 +63,7 @@ import {
     toWeapon,
 } from '../util/save.util';
 
-@Injectable()
+@Injectable({ providedIn: 'root'})
 export class SlormancerSaveService {
 
     constructor() { }
@@ -80,7 +82,7 @@ export class SlormancerSaveService {
         const data = bytesToString(bytes).trim();
 
         return {
-            unknown_value: byteToNumber(unknownByte),
+            unknown_value: null, // byteToNumber(unknownByte),
             stats: toHeroes(mapHeroesArray(splitHeroesData(data), v => toNumberArray(v)))
         }
     }
@@ -97,7 +99,7 @@ export class SlormancerSaveService {
         const unknownByte = bytes.splice(4, 1)[0];
         const data = bytesToString(bytes);
         return {
-            unknown_value: byteToNumber(unknownByte),
+            unknown_value: null, // byteToNumber(unknownByte),
             items: data.split(';').map(toItem)
         };
     }
@@ -109,7 +111,7 @@ export class SlormancerSaveService {
     private parseWeaponData(bytes: Bytes): WeaponData {
         const unknownByte = bytes.splice(4, 1)[0];
         return {
-            unknown_value: byteToNumber(unknownByte),
+            unknown_value: null, // byteToNumber(unknownByte),
             weapon_data: toHeroes(mapHeroesArray(splitHeroesData(bytesToString(bytes)), v => v.split(',').map(toWeapon)))
         };
     }
@@ -121,8 +123,8 @@ export class SlormancerSaveService {
     private parseSkillEquip(bytes: Bytes): SkillEquip {
         const unknownByte = bytes.splice(4, 1)[0];
         return {
-            unknown_value: byteToNumber(unknownByte),
-            skills: toHeroes(mapHeroesArray(splitHeroesData(bytesToString(bytes)), v => v.split(',').map(strictParseInt)))
+            unknown_value: null, // byteToNumber(unknownByte),
+            skill_equip: toHeroes(mapHeroesArray(splitHeroesData(bytesToString(bytes)), v => v.split(',').map(strictParseInt)))
         };
     }
 
@@ -133,7 +135,7 @@ export class SlormancerSaveService {
     private parseMissions(bytes: Bytes): Missions {
         const unknownByte = bytes.splice(4, 1)[0];
         return {
-            unknown_value: byteToNumber(unknownByte),
+            unknown_value: null, // byteToNumber(unknownByte),
             missions: toHeroes(mapHeroesArray(splitHeroesData(bytesToString(bytes)), v => v.split(',').map(strictParseInt)))
         };
     }
@@ -145,7 +147,7 @@ export class SlormancerSaveService {
     private parseTraits(bytes: Bytes): Traits {
         const unknownByte = bytes.splice(4, 1)[0];
         return {
-            unknown_value: byteToNumber(unknownByte),
+            unknown_value: null, // byteToNumber(unknownByte),
             traits: toHeroes(mapHeroesArray(splitHeroesData(bytesToString(bytes)), v => v.split(',').map(strictParseInt)))
         };
     }
@@ -161,8 +163,8 @@ export class SlormancerSaveService {
     private parseSkillRank(bytes: Bytes): SkillRank {
         const unknownByte = bytes.splice(4, 1)[0];
         return {
-            unknown_value: byteToNumber(unknownByte),
-            skills: toHeroes(mapHeroesArray(splitHeroesData(bytesToString(bytes)), v => v.split(',').map(strictParseInt)))
+            unknown_value: null, // byteToNumber(unknownByte),
+            skill_rank: toHeroes(mapHeroesArray(splitHeroesData(bytesToString(bytes)), v => v.split(',').map(strictParseInt)))
         };
     }
 
@@ -177,7 +179,7 @@ export class SlormancerSaveService {
     private parseXp(bytes: Bytes): Xp {
         const unknownByte = bytes.splice(4, 1)[0];
         return {
-            unknown_value: byteToNumber(unknownByte),
+            unknown_value: null, // byteToNumber(unknownByte),
             xp: toHeroes(mapHeroesArray(splitHeroesData(bytesToString(bytes)), strictParseInt))
         };
         return 
@@ -186,7 +188,7 @@ export class SlormancerSaveService {
     private parseInventory(bytes: Bytes): Inventory {
         const unknownByte = bytes.splice(4, 1)[0];
         return {
-            unknown_value: byteToNumber(unknownByte),
+            unknown_value: null, // byteToNumber(unknownByte),
             inventory: toHeroes(mapHeroesArray(splitHeroesData(bytesToString(bytes)), v => v.split(';').map(toItem)))
         };
     }
@@ -195,8 +197,12 @@ export class SlormancerSaveService {
         return toHeroes(mapHeroesArray(splitHeroesData(bytesToString(bytes)), strictParseInt));
     }
 
-    private parseInfluence(bytes: Bytes): Array<number> {
-        return bytesToString(bytes).split('|').map(strictParseInt);
+    private parseInfluence(bytes: Bytes): Influence {
+        const unknownByte = bytes.splice(4, 1)[0];
+        return {
+            unknown_value: null, // byteToNumber(unknownByte),
+            influence: bytesToString(bytes).split('|').map(strictParseFloat)
+        };
     }
 
     private parseElementEquip(bytes: Bytes): HeroesData<Array<number>> {
@@ -206,7 +212,7 @@ export class SlormancerSaveService {
     private parseTutorials(bytes: Bytes): Tutorials {
         const unknownByte = bytes.splice(4, 1)[0];
         return {
-            unknown_value: byteToNumber(unknownByte),
+            unknown_value: null, // byteToNumber(unknownByte),
             tutorials: bytesToString(bytes).split('|').map(strictParseInt)
         };
     }
@@ -214,7 +220,7 @@ export class SlormancerSaveService {
     private parseEquipmentList(bytes: Bytes): EquipmentList {
         const unknownByte = bytes.splice(4, 1)[0];
         return {
-            unknown_value: byteToNumber(unknownByte),
+            unknown_value: null, // byteToNumber(unknownByte),
             equipments: toHeroes(mapHeroesArray(splitHeroesData(bytesToString(bytes)), v => v.split(';')))
         };
     }
@@ -222,7 +228,7 @@ export class SlormancerSaveService {
     private parseElementRank(bytes: Bytes): ElementRank {
         const unknownByte = bytes.splice(4, 1)[0];
         return {
-            unknown_value: byteToNumber(unknownByte),
+            unknown_value: null, // byteToNumber(unknownByte),
             element_rank: toHeroes(mapHeroesArray(splitHeroesData(bytesToString(bytes)), v => v.split(',').map(strictParseInt)))
         };
     }
@@ -234,7 +240,7 @@ export class SlormancerSaveService {
     private parseAuras(bytes: Bytes): Auras {
         const unknownByte = bytes.splice(4, 1)[0];
         return {
-            unknown_value: byteToNumber(unknownByte),
+            unknown_value: null, // byteToNumber(unknownByte),
             auras: toHeroes(mapHeroesArray(splitHeroesData(bytesToString(bytes)), v => v.split(',').map(strictParseInt)))
         };
     }
@@ -242,7 +248,7 @@ export class SlormancerSaveService {
     private parseProfile(bytes: Bytes): Profile {
         const unknownByte = bytes.splice(4, 1)[0];
         return {
-            unknown_value: byteToNumber(unknownByte),
+            unknown_value: null, // byteToNumber(unknownByte),
             profile: toHeroes(mapHeroesArray(splitHeroesData(bytesToString(bytes)), v => v.split(',').map(strictParseInt)))
         };
     }

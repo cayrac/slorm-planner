@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 
+import { NEW_GAME_MAGE } from '../saves/new_game_mage';
 import { Bytes, SlormancerSaveService, SlormSave } from '../slormancer';
-import { NEW_GAME_SAVE } from './save';
 import { BytesService } from './services/bytes.service';
 
 @Component({
-  selector: 'app-slormloader',
-  templateUrl: './slormloader.component.html',
-  styleUrls: ['./slormloader.component.scss']
+  selector: 'app-hexa-comparator',
+  templateUrl: './hexa-comparator.component.html',
+  styleUrls: ['./hexa-comparator.component.scss']
 })
-export class SlormloaderComponent {
+export class HexaComparatorComponent {
 
     public error: boolean = false;
     public loading: boolean = false;
@@ -22,7 +22,7 @@ export class SlormloaderComponent {
 
     constructor(private slormSaveService: SlormancerSaveService,
                 private bytesService: BytesService) {
-        this.initLoader(NEW_GAME_SAVE);
+        this.initLoader(NEW_GAME_MAGE);
     }
 
     private initLoader(save: string) {
@@ -40,7 +40,8 @@ export class SlormloaderComponent {
         this.selectionMax = -1;
     }
 
-    public loadSave(file: File) {
+    public loadSave(file) {
+        console.log(file);
         this.loading = true;
         this.error = false;
         this.slormSave = null;
@@ -57,7 +58,7 @@ export class SlormloaderComponent {
 			reader = null;
 		};
  
-		reader.readAsText(file);
+		reader.readAsText(file.files[0]);
     }
 
     public showLoading(): boolean {

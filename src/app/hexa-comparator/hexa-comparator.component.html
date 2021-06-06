@@ -1,6 +1,6 @@
 <div *ngIf="!showSave()">
     <p>C:\Users\Cayrac\AppData\Local\The_Slormancer</p>
-    <p>Fichier : <input (change)="loadSave($event.target.files[0])" type="file"></p>
+    <p>Fichier : <input (change)="loadSave($event.target)" type="file"></p>
 </div>
 <div *ngIf="showSave()"><button (click)="reset()">RESET</button></div>
 <div class="save-view" *ngIf="showSave()">

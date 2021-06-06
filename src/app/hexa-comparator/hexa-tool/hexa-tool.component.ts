@@ -3,7 +3,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Bytes } from '../../slormancer';
 import { SlormSave } from '../../slormancer/model/slormsave';
 import { BytesService } from '../services/bytes.service';
-import { SavePrintService } from '../services/save-print.service';
 
 @Component({
   selector: 'app-hexa-tool',
@@ -30,8 +29,7 @@ export class HexaToolComponent {
     @Output()
     public readonly maxChange = new EventEmitter<number>();
 
-    constructor(private bytesService: BytesService,
-                private savePrintService: SavePrintService) { }
+    constructor(private bytesService: BytesService) { }
 
     public hasSelection(): boolean {
         return this.min >= 0 && this.max >= 0;
@@ -85,9 +83,5 @@ export class HexaToolComponent {
 
     public allText(): string {
         return this.data.map(c => this.convertByte(c)).join('');
-    }
-
-    public formatedSave(): string {
-        return this.savePrintService.saveToString(this.save);
     }
 }

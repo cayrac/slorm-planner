@@ -3,17 +3,21 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { JsonComponent } from './component/json/json.component';
+import { HexaComparatorComponent } from './hexa-comparator/hexa-comparator.component';
+import { HexaToolComponent } from './hexa-comparator/hexa-tool/hexa-tool.component';
+import { HexaViewComponent } from './hexa-comparator/hexa-view/hexa-view.component';
+import { SaveComparatorComponent } from './save-comparator/save-comparator.component';
 import { SlormancerModule } from './slormancer';
-import { HexaToolComponent } from './slormloader/hexa-tool/hexa-tool.component';
-import { HexaViewComponent } from './slormloader/hexa-view/hexa-view.component';
-import { SlormloaderComponent } from './slormloader/slormloader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SlormloaderComponent,
+    HexaComparatorComponent,
     HexaViewComponent,
-    HexaToolComponent
+    HexaToolComponent,
+    JsonComponent,
+    SaveComparatorComponent
   ],
   imports: [
     BrowserModule,

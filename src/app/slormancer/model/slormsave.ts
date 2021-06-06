@@ -2,6 +2,7 @@ import { Auras } from './auras';
 import { ElementRank } from './element-rank';
 import { EquipmentList } from './equipment_list';
 import { HeroesData } from './heroes-data';
+import { Influence } from './influence';
 import { Inventory } from './inventory';
 import { Missions } from './missions';
 import { Profile } from './profile';
@@ -37,7 +38,7 @@ export interface SlormSave {
     xp: Xp,
     inventory: Inventory,
     slorm: HeroesData<number>,
-    influence: Array<number>,
+    influence: Influence,
     element_equip: HeroesData<Array<number>>,
     tutorials: Tutorials,
     equipment_list: EquipmentList,

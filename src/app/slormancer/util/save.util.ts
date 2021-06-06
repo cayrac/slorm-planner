@@ -3,7 +3,10 @@ import { Item } from '../model/item';
 import { Weapon } from '../model/weapon';
 
 export function splitHeroesData(data: string): [string, string, string]  {
-    const result = data.split('|', 3);
+    const result = data.split('|');
+    if (result.length !== 3) {
+        throw new Error('Split hero data failed : expected "' + data + '" to have 3 values separated by |, but got ' + result.length);
+    }
     return <[string, string, string]>result;
 }
 
@@ -17,14 +20,13 @@ export function mapHeroesArray<T, U>(data: [T, T, T], map: (value: T) => U): [U,
 
 export function toHeroes<T>(data: [T, T, T]): HeroesData<T> {
     return {
-        mage: data[0],
+        warrior: data[0],
         hunter: data[1],
-        warrior: data[2]
+        mage: data[2]
     }
 }
 
 export function toItem(data: string): Item | null {
-    console.log('toItem', data);
     return data === '0' ? null : data;
 }
 
@@ -42,6 +44,14 @@ export function toNumberArray(data: string): Array<number> {
 
 export function strictParseInt(data: string): number {
     const value = parseInt(data, 10);
+    if (data !== value.toString()) {
+        throw new Error('Int parse error : expected "' + data + '" but got "' + value + '"');
+    }
+    return value;
+}
+
+export function strictParseFloat(data: string): number {
+    const value = parseFloat(data);
     if (data !== value.toString()) {
         throw new Error('Int parse error : expected "' + data + '" but got "' + value + '"');
     }

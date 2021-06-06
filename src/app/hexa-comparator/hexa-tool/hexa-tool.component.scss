@@ -67,33 +67,16 @@
     margin: 10px;
     overflow: auto;
     flex-grow: 1;
-    height: 200px;
-
-    .save {
-        margin-top: 10px;
-    }
+    display: flex;
+    flex-direction: column;
 
     .brut {
         background-color: #ddd;
-    }
-
-    .brut, .save {
         padding: 10px;
         overflow: auto;
     }
-}
 
-.save {
-    background-color: #212121;
-    color: #eeeeee;
-    font-weight: bold;
-
-    ::ng-deep {
-        .text {
-            color: rgb(224, 151, 14);
-        }
-        .number.non-zero {
-            color: green;
-        }
+    .json {
+        max-height: 600px;
     }
 }

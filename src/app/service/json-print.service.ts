@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 
-import { SlormSave } from '../../slormancer';
-
-@Injectable({providedIn: 'root'})
-export class SavePrintService {
+@Injectable({ providedIn: 'root'})
+export class JsonPrintService {
 
     public readonly TAB = '&nbsp;&nbsp;&nbsp;&nbsp;';
     public readonly RETURN = "\n";
+
+    private tabs(quantity: number): string {
+        return this.TAB.repeat(quantity);
+    }
 
     private toText(value: string): string {
         return '<span class="text">"' + value + '"</span>'
@@ -15,15 +17,17 @@ export class SavePrintService {
     private toNumber(value: number): string {
         const classes = ['number'];
 
-        if (value !== 0) {
-            classes.push('non-zero')
+        if (value === -1) {
+            classes.push('minus-one');
+        } else if (value !== 0) {
+            classes.push('non-zero');
         }
-
+        
         return '<span class="' + classes.join(' ') + '">' + value + '</span>';
     }
 
 
-    private valueTostring(data: any): string {
+    public jsonToString(data: any, level: number = 0): string {
         let value = '[value]';
 
         if (data === null) {
@@ -33,20 +37,14 @@ export class SavePrintService {
         } else if (typeof data === 'number') {
             value = this.toNumber(data);
         } else if (Array.isArray(data)) {
-            value = '[' + data.map(v => this.valueTostring(v)).join(', ') + ']';
+            value = '[' + data.map(v => this.jsonToString(v, level + 1)).join(', ') + ']';
         } else {
-            value = '{ ' + Object.keys(data).map(key => '"' + key + '": ' + this.valueTostring(data[key])).join(', ') + ' }';
+            const content = Object.keys(data)
+                .map(key => this.tabs(level + 1) + '"' + key + '": ' + this.jsonToString(data[key], level + 1)).join(',' + this.RETURN);
+            value = '{ ' + this.RETURN + content + this.RETURN + this.tabs(level) + '}';
         }
 
 
         return value
-    }
-
-    public saveToString(save: SlormSave): string {
-        return [
-            '{',
-            ...Object.keys(save).map(key => this.TAB + '"' + key + '": ' + this.valueTostring(save[key])),
-            '}'
-        ].join(this.RETURN);
     }
 }

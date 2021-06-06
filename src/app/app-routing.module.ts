@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { SlormloaderComponent } from './slormloader/slormloader.component';
+import { RouterModule, Routes } from '@angular/router';
+
+import { HexaComparatorComponent } from './hexa-comparator/hexa-comparator.component';
+import { SaveComparatorComponent } from './save-comparator/save-comparator.component';
 
 const routes: Routes = [
-  { path: 'slormloader', component: SlormloaderComponent },
-  { path: '**', redirectTo: 'slormloader' }
+  { path: 'hexa-comparator', component: HexaComparatorComponent },
+  { path: 'save-comparator', component: SaveComparatorComponent },
+  { path: '**', redirectTo: 'hexa-comparator' }
 ];
 
 @NgModule({

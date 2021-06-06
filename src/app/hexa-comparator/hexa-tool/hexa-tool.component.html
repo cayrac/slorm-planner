@@ -30,5 +30,7 @@
 </div>
 <div class="full">
     <pre class="brut">{{allText()}}</pre>
-    <pre class="save" [innerHTML]="formatedSave()"></pre>
+    <div class="json">
+        <app-json [data]="save"></app-json>
+    </div>
 </div>
