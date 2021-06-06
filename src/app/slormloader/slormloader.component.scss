@@ -1,0 +1,10 @@
+
+.save-view {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    app-hexa-tool {
+        flex-grow: 1;
+    }
+}

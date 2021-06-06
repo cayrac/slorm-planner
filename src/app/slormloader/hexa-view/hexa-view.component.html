@@ -1,0 +1,28 @@
+<p>Lines : {{data.length}}</p>
+<div class="header">
+    <div class="pos">Pos</div>
+    <div class="hex">Hexa</div>
+    <div class="string">String</div>
+</div>
+<div class="line" (click)="selectLine(i)" *ngFor="let bytesLine of getBytesView(); let i = index">
+    <div class="pos">{{line + i}}</div>
+    <div class="hex">
+        <span *ngFor="let byte of bytesLine; let c = index" [class.selected]="isSelected(line + i, c)">
+            {{byte}}
+        </span>
+    </div>
+    <div class="string">
+        <span *ngFor="let car of getLineAsString(bytesLine); let c = index" [innerHTML]="car" [class.selected]="isSelected(line + i, c)"></span>
+    </div>
+</div>
+<div class="pager">
+    <div class="previous">
+        <button (click)="addLine(PAGE_SIZE * -10)" [disabled]="line === 0">-10</button>
+        <button (click)="addLine(PAGE_SIZE * -1)" [disabled]="line === 0">&lt;</button>
+    </div>
+    <div class="page">{{line}} - {{line + PAGE_SIZE}}</div>
+    <div class="next">
+        <button (click)="addLine(PAGE_SIZE * 1)">&gt;</button>
+        <button (click)="addLine(PAGE_SIZE * 10)">+10</button>
+    </div>
+</div>

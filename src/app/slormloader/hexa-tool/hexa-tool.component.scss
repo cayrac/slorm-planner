@@ -1,0 +1,99 @@
+
+:host {
+    border :1px solid #aaa;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    overflow: hidden;
+}
+.selection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+}
+
+.edition {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 20px;
+    background-color: #ddd;
+
+    .min, .max {
+        display: flex;
+        flex-direction: row;
+        flex-grow: 1;
+
+        .value {
+            width: 40px;
+            text-align: center;
+        }
+    }
+
+    .min {
+        justify-content: flex-start;
+    }
+
+    .max {
+        justify-content: flex-end;
+    }
+}
+
+.conversions {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+
+    .conversion {
+        background-color: #eee;
+
+        .title, .content {
+            text-align: center;
+            margin: 10px;
+        }
+
+        .title {
+            font-weight: bold;
+        }
+
+        &:not(:first-child) {
+            margin-top: 10px;
+        }
+    }
+}
+
+.full {
+    margin: 10px;
+    overflow: auto;
+    flex-grow: 1;
+    height: 200px;
+
+    .save {
+        margin-top: 10px;
+    }
+
+    .brut {
+        background-color: #ddd;
+    }
+
+    .brut, .save {
+        padding: 10px;
+        overflow: auto;
+    }
+}
+
+.save {
+    background-color: #212121;
+    color: #eeeeee;
+    font-weight: bold;
+
+    ::ng-deep {
+        .text {
+            color: rgb(224, 151, 14);
+        }
+        .number.non-zero {
+            color: green;
+        }
+    }
+}

@@ -1,0 +1,34 @@
+
+<div class="selection">
+    <ng-container *ngIf="!hasSelection()">No selection</ng-container>
+    <ng-container *ngIf="hasSelection()">
+        <b>{{getSelection().join(' ')}}</b>
+    </ng-container>
+</div>
+<div class="edition" *ngIf="hasSelection()">
+    <div class="min">
+        <div class="minus" (click)="reduceMin()"><button>-</button></div>
+        <div class="value">{{min}}</div>
+        <div class="plus" (click)="increaseMin()"><button>+</button></div>
+    </div>
+    <div class="size">{{ getSelection().length }}</div>
+    <div class="max">
+        <div class="minus" (click)="reduceMax()"><button>-</button></div>
+        <div class="value">{{max}}</div>
+        <div class="plus" (click)="increaseMax()"><button>+</button></div>
+    </div>
+</div>
+<div class="conversions" *ngIf="hasSelection()">
+    <div class="conversion">
+        <div class="title">Ascii</div>
+        <div class="content" [innerHTML]="getAscii()"></div>
+    </div>
+    <div class="conversion">
+        <div class="title">Integer</div>
+        <div class="content" [innerHTML]="getInteger()"></div>
+    </div>
+</div>
+<div class="full">
+    <pre class="brut">{{allText()}}</pre>
+    <pre class="save" [innerHTML]="formatedSave()"></pre>
+</div>
