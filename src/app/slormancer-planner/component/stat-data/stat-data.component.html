@@ -1,0 +1,117 @@
+<input type="number" (keyup)="computeStats()" (click)="computeStats()" [(ngModel)]="reinforcment">
+Flat min : <input type="text" (keyup)="computeStats()" [(ngModel)]="minFormula">
+Flat max : <input type="text" (keyup)="computeStats()" [(ngModel)]="maxFormula">
+Percent : <input type="text" (keyup)="computeStats()" [(ngModel)]="maxPercentFormula">
+Low percent : <input type="text" (keyup)="computeStats()" [(ngModel)]="maxLowPercentFormula">
+<div class="table">
+    <div class="col">
+        <div class="cell">Level</div>
+        <div class="cell">Life</div>
+        <div class="cell">Raw</div>
+        <!--<div class="cell">Elem %</div>
+        <div class="cell">Gold %</div>
+        <div class="cell">Reta %</div>
+        <div class="cell">%ana L %</div>
+        <div class="cell">Life L %</div>-->
+        <div class="cell"></div>
+        <div class="cell">Life</div>
+        <div class="cell">Raw</div>
+        <!--<div class="cell">Elem %</div>
+        <div class="cell">Gold %</div>
+        <div class="cell">Reta %</div>
+        <div class="cell">%ana L %</div>
+        <div class="cell">Life L %</div>-->
+    </div>
+    <div class="col">
+        <div class="cell">0 (base)</div>
+        <div class="cell">{{LIFE_BASE}}</div>
+        <div class="cell">{{RAW_BASE}}</div>
+        <!--<div class="cell">{{ELEMM_DAMAGE_PERCENT_BASE}}</div>
+        <div class="cell">{{GOLDUS_PERCENT_BASE}}</div>
+        <div class="cell">{{RETALIATE_PERCENT_BASE}}</div>
+        <div class="cell">{{MANA_LEECH_BASE}}</div>
+        <div class="cell">{{LIFE_LEECH_BASE}}</div>-->
+        <div class="cell"></div>
+        <div class="cell">{{LIFE_BASE}}</div>
+        <div class="cell">{{RAW_BASE}}</div>
+        <!--<div class="cell">{{ELEMM_DAMAGE_PERCENT_BASE}}</div>
+        <div class="cell">{{GOLDUS_PERCENT_BASE}}</div>
+        <div class="cell">{{RETALIATE_PERCENT_BASE}}</div>
+        <div class="cell">{{MANA_LEECH_BASE}}</div>
+        <div class="cell">{{LIFE_LEECH_BASE}}</div>-->
+    </div>
+    <div class="col" *ngFor="let level of LEVELS">
+        <div class="cell">{{level}}</div>
+    <div class="cell">  <span [class.same]="getLine(level).data.life.min === getComputedLine(level).data.life.min">{{getLine(level).data.life.min}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getDiff(level, "life", "min")}}</span> - 
+                            <span [class.same]="getLine(level).data.life.max === getComputedLine(level).data.life.max">{{getLine(level).data.life.max}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getDiff(level, "life", "max")}}</span>
+        </div>
+        <div class="cell">  <span [class.same]="getLine(level).data.raw.min === getComputedLine(level).data.raw.min">{{getLine(level).data.raw.min}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getDiff(level, "raw", "min")}}</span> - 
+                            <span [class.same]="getLine(level).data.raw.max === getComputedLine(level).data.raw.max">{{getLine(level).data.raw.max}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getDiff(level, "raw", "max")}}</span>
+        </div>
+        <!--<div class="cell">  <span [class.same]="getLine(level).data.elemp.min === getComputedLine(level).data.elemp.min">{{getLine(level).data.elemp.min}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentDiff(level, "elemp", "min")}}</span> - 
+                            <span [class.same]="getLine(level).data.elemp.max === getComputedLine(level).data.elemp.max">{{getLine(level).data.elemp.max}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentDiff(level, "elemp", "max")}}</span>
+        </div>
+        <div class="cell">  <span [class.same]="getLine(level).data.gold.min === getComputedLine(level).data.gold.min">{{getLine(level).data.gold.min}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentDiff(level, "gold", "min")}}</span> - 
+                            <span [class.same]="getLine(level).data.gold.max === getComputedLine(level).data.gold.max">{{getLine(level).data.gold.max}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentDiff(level, "gold", "max")}}</span>
+        </div>
+        <div class="cell">  <span [class.same]="getLine(level).data.reta.min === getComputedLine(level).data.reta.min">{{getLine(level).data.reta.min}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentDiff(level, "reta", "min")}}</span> - 
+                            <span [class.same]="getLine(level).data.reta.max === getComputedLine(level).data.reta.max">{{getLine(level).data.reta.max}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentDiff(level, "reta", "max")}}</span>
+        </div>
+        <div class="cell">  <span [class.same]="getLine(level).data.manal.min === getComputedLine(level).data.manal.min">{{getLine(level).data.manal.min}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentDiff(level, "manal", "min")}}</span> - 
+                            <span [class.same]="getLine(level).data.manal.max === getComputedLine(level).data.manal.max">{{getLine(level).data.manal.max}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentDiff(level, "manal", "max")}}</span>
+        </div>
+        <div class="cell">  <span [class.same]="getLine(level).data.lifel.min === getComputedLine(level).data.lifel.min">{{getLine(level).data.lifel.min}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentDiff(level, "lifel", "min")}}</span> - 
+                            <span [class.same]="getLine(level).data.lifel.max === getComputedLine(level).data.lifel.max">{{getLine(level).data.lifel.max}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentDiff(level, "lifel", "max")}}</span>
+        </div>-->
+        <div class="cell"></div>
+        <div class="cell">  <span [class.same]="getLine(level).data.life.min === getComputedLine(level).data.life.min">{{getComputedLine(level).data.life.min}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getComputedDiff(level, "life", "min")}}</span> - 
+                            <span [class.same]="getLine(level).data.life.max === getComputedLine(level).data.life.max">{{getComputedLine(level).data.life.max}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getComputedDiff(level, "life", "max")}}</span>
+        </div>
+        <div class="cell">  <span [class.same]="getLine(level).data.raw.min === getComputedLine(level).data.raw.min">{{getComputedLine(level).data.raw.min}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getComputedDiff(level, "raw", "min")}}</span> - 
+                            <span [class.same]="getLine(level).data.raw.max === getComputedLine(level).data.raw.max">{{getComputedLine(level).data.raw.max}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getComputedDiff(level, "raw", "max")}}</span>
+        </div>
+        <!--<div class="cell">  <span [class.same]="getLine(level).data.elemp.min === getComputedLine(level).data.elemp.min">{{getComputedLine(level).data.elemp.min}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentComputedDiff(level, "elemp", "min")}}</span> - 
+                            <span [class.same]="getLine(level).data.elemp.max === getComputedLine(level).data.elemp.max">{{getComputedLine(level).data.elemp.max}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentComputedDiff(level, "elemp", "max")}}</span>
+        </div>
+        <div class="cell">  <span [class.same]="getLine(level).data.gold.min === getComputedLine(level).data.gold.min">{{getComputedLine(level).data.gold.min}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentComputedDiff(level, "gold", "min")}}</span> - 
+                            <span [class.same]="getLine(level).data.gold.max === getComputedLine(level).data.gold.max">{{getComputedLine(level).data.gold.max}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentComputedDiff(level, "gold", "max")}}</span>
+        </div>
+        <div class="cell">  <span [class.same]="getLine(level).data.reta.min === getComputedLine(level).data.reta.min">{{getComputedLine(level).data.reta.min}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentComputedDiff(level, "reta", "min")}}</span> - 
+                            <span [class.same]="getLine(level).data.reta.max === getComputedLine(level).data.reta.max">{{getComputedLine(level).data.reta.max}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentComputedDiff(level, "reta", "max")}}</span>
+        </div>
+        <div class="cell">  <span [class.same]="getLine(level).data.manal.min === getComputedLine(level).data.manal.min">{{getComputedLine(level).data.manal.min}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentComputedDiff(level, "manal", "min")}}</span> - 
+                            <span [class.same]="getLine(level).data.manal.max === getComputedLine(level).data.manal.max">{{getComputedLine(level).data.manal.max}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentComputedDiff(level, "manal", "max")}}</span>
+        </div>
+        <div class="cell">  <span [class.same]="getLine(level).data.lifel.min === getComputedLine(level).data.lifel.min">{{getComputedLine(level).data.lifel.min}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentComputedDiff(level, "lifel", "min")}}</span> - 
+                            <span [class.same]="getLine(level).data.lifel.max === getComputedLine(level).data.lifel.max">{{getComputedLine(level).data.lifel.max}}</span>
+                            <span class="change" *ngIf="hasDiff(level)">+{{getPercentComputedDiff(level, "lifel", "max")}}</span>
+        </div>-->
+    </div>
+</div>

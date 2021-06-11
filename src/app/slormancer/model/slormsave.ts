@@ -1,19 +1,4 @@
-import { Auras } from './auras';
-import { ElementRank } from './element-rank';
-import { EquipmentList } from './equipment_list';
-import { HeroesData } from './heroes-data';
-import { Influence } from './influence';
-import { Inventory } from './inventory';
-import { Missions } from './missions';
-import { Profile } from './profile';
-import { SharedInventory } from './shared-inventory';
-import { SkillEquip } from './skill-equip';
-import { SkillRank } from './skill-rank';
-import { StatsFetched } from './stats-fetched';
-import { Traits } from './traits';
-import { Tutorials } from './tutorials';
-import { WeaponData } from './weapon-data';
-import { Xp } from './xp';
+import { Item } from './item';
 
 export interface SlormSave {
     quest_list: string,
@@ -50,3 +35,45 @@ export interface SlormSave {
 
     hash: string;
 }
+
+export declare type Auras = HeroesData<Array<number>>;
+export declare type SkillRank = HeroesData<Array<number>>;
+export declare type ElementRank = HeroesData<Array<number>>;
+export declare type EquipmentList = HeroesData<Array<string>>;
+export declare type Influence = Array<number>;
+export declare type Inventory = HeroesData<HeroInventory>;
+export declare type Missions = HeroesData<Array<number>>;
+export declare type Profile = HeroesData<Array<number>>;
+export declare type SharedInventory = Array<Item | null>;
+export declare type SkillEquip = HeroesData<Array<number>>;
+export declare type StatsFetched = HeroesData<Array<number>>;
+export declare type Traits = HeroesData<Array<number>>;
+export declare type Tutorials = Array<number>;
+export declare type WeaponData = HeroesData<Array<Weapon>>;
+export declare type Xp = HeroesData<number>;
+
+export interface HeroesData<T> {
+    mage: T,
+    warrior: T,
+    huntress: T
+}
+
+export interface HeroInventory {
+    hemlet: Item | null;
+    chest: Item | null;
+    spaulder: Item | null;
+    bracers: Item | null;
+    gloves: Item | null;
+    boots: Item | null;
+    ring_l: Item | null;
+    ring_r: Item | null;
+    amulet: Item | null;
+    belt: Item | null;
+    cape: Item | null;
+    bag: Array<Item | null>;
+};
+
+export interface Weapon {
+    basic: Array<number>; // TODO, pas de basic / primordial
+    primordial: Array<number>;
+};

@@ -1,11 +1,19 @@
 import { NgModule } from '@angular/core';
 
-import { SlormancerSaveService } from './services/slormancer-save.service';
+import { SlormancerItemService } from './services/slormancer-item';
+import { SlormancerItemParserService } from './services/slormancer-item-parser.service';
+import { SlormancerSaveParserService } from './services/slormancer-save-parser.service';
 
 @NgModule({
   declarations: [],
   imports: [],
-  providers: [SlormancerSaveService],
+  providers: [
+    SlormancerSaveParserService,
+    SlormancerItemParserService,
+    SlormancerItemService
+  ],
   bootstrap: []
 })
-export class SlormancerModule { }
+export class SlormancerModule {
+  
+}

@@ -1,0 +1,34 @@
+<div class="content">
+    <div class="upload" *ngIf="!hasSave()">
+        <input (change)="uploadSave($event)" type="file">
+    </div>
+    <div class="save" *ngIf="hasSave()">
+        <div class="header">
+            <button (click)="clearSave()">Clear</button>
+        </div>
+        <div class="navigation">
+            <p>Class : <select [(ngModel)]="selectedClass"><option [value]="option.value" *ngFor="let option of CLASS_OPTIONS">{{option.label}}</option></select></p>
+            <p>Item : <select [(ngModel)]="selectedItem"><option [value]="i" *ngFor="let option of getItemOptions(); let i = index">{{option.label}}</option></select></p>
+        </div>
+        <div class="item" *ngIf="getSelectedItem() !== null">
+            <div class="json">
+                <app-json [data]="getSelectedItem()"></app-json>
+            </div>
+            <div class="parsed">
+                <p>Slot : {{getEquipableItemSlot(getSelectedItem())}}</p>
+                <p>Level : {{getLevel(getSelectedItem())}}</p>
+                <p>Reinforcment : {{getReinforcmentLevel(getSelectedItem())}}</p>
+
+                <div class="affixes">
+                    <div class="affixe" *ngFor="let affixe of getItemAffixes()">
+                        <div class="rarity">{{affixe.rarity}}</div>
+                        <div class="value">{{affixe.value}}</div>
+                        <div class="range">{{getRange(affixe)}}</div>
+                        <div class="name">{{affixeToStat(affixe)}} - ({{getAffixeSlotRatio(getSelectedItem(), affixe)}})</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-stat-data></app-stat-data>
+    </div>
+</div>

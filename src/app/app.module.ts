@@ -1,26 +1,24 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { JsonComponent } from './component/json/json.component';
-import { HexaComparatorComponent } from './hexa-comparator/hexa-comparator.component';
-import { HexaToolComponent } from './hexa-comparator/hexa-tool/hexa-tool.component';
-import { HexaViewComponent } from './hexa-comparator/hexa-view/hexa-view.component';
-import { SaveComparatorComponent } from './save-comparator/save-comparator.component';
 import { SlormancerModule } from './slormancer';
+import { JsonComponent } from './slormancer-planner/component/json/json.component';
+import { StatDataComponent } from './slormancer-planner/component/stat-data/stat-data.component';
+import { SlormancerPlannerComponent } from './slormancer-planner/slormancer-planner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HexaComparatorComponent,
-    HexaViewComponent,
-    HexaToolComponent,
     JsonComponent,
-    SaveComparatorComponent
+    SlormancerPlannerComponent,
+    StatDataComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     SlormancerModule
   ],

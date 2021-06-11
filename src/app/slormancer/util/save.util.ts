@@ -1,6 +1,4 @@
-import { HeroesData } from '../model/heroes-data';
-import { Item } from '../model/item';
-import { Weapon } from '../model/weapon';
+import { HeroesData, Weapon } from '../model/slormsave';
 
 export function splitHeroesData(data: string): [string, string, string]  {
     const result = data.split('|');
@@ -21,13 +19,9 @@ export function mapHeroesArray<T, U>(data: [T, T, T], map: (value: T) => U): [U,
 export function toHeroes<T>(data: [T, T, T]): HeroesData<T> {
     return {
         warrior: data[0],
-        hunter: data[1],
+        huntress: data[1],
         mage: data[2]
     }
-}
-
-export function toItem(data: string): Item | null {
-    return data === '0' ? null : data;
 }
 
 export function toWeapon(data: string): Weapon {
@@ -38,11 +32,22 @@ export function toWeapon(data: string): Weapon {
     }
 }
 
-export function toNumberArray(data: string): Array<number> {
-    return data.split(',').map(v => strictParseInt(v));
+export function strictSplit(data: string, separator = ',', expected: number | null = null): Array<string> {
+    const array = data.split(separator);
+
+    if (expected !== null && array.length !== expected) {
+        throw new Error('Strict split error : expected "' + data + '" splitted with "' + separator + '" to have ' + expected + ' values, but got ' + array.length);
+    }
+
+    return array;
+}
+
+export function toNumberArray(data: string, separator = ',', expected: number | null = null): Array<number> {
+    return strictSplit(data, separator, expected).map(strictParseInt);
 }
 
 export function strictParseInt(data: string): number {
+    data = data.replace(/^0*(.+?)$/, '$1');
     const value = parseInt(data, 10);
     if (data !== value.toString()) {
         throw new Error('Int parse error : expected "' + data + '" but got "' + value + '"');
@@ -51,9 +56,14 @@ export function strictParseInt(data: string): number {
 }
 
 export function strictParseFloat(data: string): number {
+    data = data.replace(/^0*(.+?)0*$/, '$1');
     const value = parseFloat(data);
     if (data !== value.toString()) {
         throw new Error('Int parse error : expected "' + data + '" but got "' + value + '"');
     }
     return value;
+}
+
+export function valueOrNull<T>(value: T | null | undefined): T | null {
+    return value === null || value === undefined ? null : value;
 }

@@ -1,7 +1,7 @@
 import { Bytes } from '../model/bytes';
 
 export function toBytes(content: string): Bytes {
-    return content.match(/.{2}/g);
+    return <Bytes>content.match(/.{2}/g);
 }
 
 export function byteToNumber(byte: string): number {
@@ -21,8 +21,12 @@ export function byteToChar(byte: string): string {
     return char;
 }
 
+export function removeUnwantedChar(value: string): string {
+    return value.trim().replace(/^.+\s{2,}/g, '');
+}
+
 export function bytesToString(bytes: Bytes): string {
-    return bytes.map(byteToChar).join('').trim();
+    return removeUnwantedChar(bytes.map(byteToChar).join(''));
 }
 
 export function bytesEqual(a: Bytes, b: Bytes, size: number): boolean {
@@ -47,15 +51,18 @@ export function slice(bytes: Bytes, position: number, n: number) {
 }
 
 export function splice(bytes: Bytes, position: number, n: number) {
-    return bytes.splice(Math.min(Math.max(position, 0), bytes.length), Math.min(Math.max(position + n, 0), bytes.length));
+    return bytes.splice(Math.min(Math.max(position, 0), bytes.length), Math.min(Math.max(n, 0), bytes.length));
 }
 
-export function takeUntil(data: Bytes, end: Bytes | null = null) {
+export function takeUntil(data: Bytes, end: Bytes | null = null): Bytes {
     let max = end === null ? data.length : bytesIndexOf(data, end);
+    let result: Bytes = [];
 
-    const result = splice(data, 0, max);
-    if (end !== null) {
-        splice(data, 0, end.length);
+    if (max !== null) {
+        result = splice(data, 0, max);
+        if (end !== null) {
+            splice(data, 0, end.length);
+        }
     }
 
     return result;
