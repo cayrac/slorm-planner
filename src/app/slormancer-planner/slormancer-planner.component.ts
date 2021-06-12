@@ -157,8 +157,4 @@ export class SlormancerPlannerComponent {
     public getEquipableItemSlot(item: EquippableItem | null): string {
         return item === null ? '' : this.slormancerItemService.getEquipableItemSlot(item);
     }
-
-    public getAffixeSlotRatio(item: EquippableItem | null, affixe: Affixe): string {
-        return item === null ? '' : this.slormancerItemService.getAffixeSlotRatio(item, affixe);
-    }
 }
