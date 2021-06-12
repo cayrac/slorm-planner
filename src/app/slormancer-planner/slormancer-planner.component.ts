@@ -26,7 +26,6 @@ export class SlormancerPlannerComponent {
     public selectedItem: number | null = null;
 
     constructor(private slormancerSaveService: SlormancerSaveService, private slormancerItemService: SlormancerItemService) {
-        console.log(GAME_DATA.REAPER);
         this.loadSave(SAVE);
     }
     
@@ -48,9 +47,6 @@ export class SlormancerPlannerComponent {
 
     public loadSave(file: string) {
         this.save = this.slormancerSaveService.parseSaveFile(file);
-
-        console.log(GAME_DATA.REAPER[this.save.weapon_equip.huntress]);
-        
     }
 
     public uploadSave(file: Event) {

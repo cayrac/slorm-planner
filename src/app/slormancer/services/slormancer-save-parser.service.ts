@@ -138,8 +138,6 @@ export class SlormancerSaveParserService {
     private parseTraits(bytes: Bytes): Traits {
         const data = bytesToString(bytes);
 
-        console.log(data);
-
         return toHeroes(mapHeroesArray(splitHeroesData(data), toNumberArray));
     }
 

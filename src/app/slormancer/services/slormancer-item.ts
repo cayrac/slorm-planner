@@ -4,42 +4,31 @@ import { GAME_DATA } from '../constants/game-data';
 import { GameDataStat } from '../model/game/stat';
 import { Affixe, EquippableItem, Item, RessourceItem } from '../model/item';
 
+interface MinMax {
+    min: number;
+    max: number;
+}
+
 @Injectable()
 export class SlormancerItemService {
 
     // Cheatengine : chercher des doubles (valeur exacte, déplacer marche, dépiler garde la valeur)
 
-    // pas bon : 
+    // Farmer des items level 30
 
-    // retaliate_percent N +2
-    // peut être les stats S et P ?
+    // Renforcement pas bon avec : 
+    // amulet : thorn M / retaliate N
+    // gants : crit chance M / mag resist / E life leech
 
-    // thorns_percent M => comme si valeur non réduite par M
+    // monter mage avec items à chaque level pour continuer les stats
 
-    // PEUT ÊTRE qu'il faut round puis reinforcment ?
 
     private readonly RARITY_RATIO = {
-        '': {
-            'N': { min: 70, max: 100 },
-            'M': { min: 45, max: 65 },
-            'R': { min: 45, max: 65 },
-            'E': { min: 45, max: 65 },
-            'L': { min: 45, max: 65 }
-        },
-        '%': {
-            'N': { min: 70, max: 100 },
-            'M': { min: 70, max: 100 },
-            'R': { min: 70, max: 100 },
-            'E': { min: 45, max: 65 },
-            'L': { min: 45, max: 65 }
-        },
-        'X': {
-            'N': { min: 70, max: 100 },
-            'M': { min: 45, max: 65 },
-            'R': { min: 45, max: 65 },
-            'E': { min: 45, max: 65 },
-            'L': { min: 45, max: 65 }
-        }
+        'N': { min: 70, max: 100 },
+        'M': { min: 45, max: 65 },
+        'R': { min: 45, max: 65 },
+        'E': { min: 20, max: 40 },
+        'L': { min: 100, max: 100 }
     }
 
     public getEquipableItemSlot(item: EquippableItem): string {
@@ -110,14 +99,11 @@ export class SlormancerItemService {
         if (stat.PERCENT === '%') {
             result = (1 + Math.floor(item.level / 20)) * stat.SCORE * 20;
         } else if (stat.PERCENT === '') {
-            result = stat.SCORE * (1 + (item.level * 3 / 10));
+            result = stat.SCORE * (100 + (item.level * 30)) / 100;
         }
 
-        result = result * (1 + (item.reinforcment * 15 / 100));
-
-
-        if (stat.REF === 'thorns_percent') {
-            console.log('computing value for thorns_percent : ', result);
+        if (stat.REF === 'min_basic_damage_add') {
+            console.log('computing value for min_basic_damage_add : ', result);
             console.log(stat.SCORE, item.level, item.reinforcment);
             if (stat.PERCENT === '%') {
                 console.log(stat.SCORE * 20, (1 + Math.floor(item.level / 20)));
@@ -129,36 +115,53 @@ export class SlormancerItemService {
         return result;
     }
 
+    private round(value: number): number {
+        var r = Math.round(value);
+        return (((((value>0)?value:(-value))%1)===0.5)?(((0===(r%2)))?r:(r-1)):r);
+    }
+
     private roundValue(value: number, affixe: Affixe): number {
         const stat = this.getAffixeGameData(affixe);
         let result = value;
 
         if (stat.PERCENT === '%') {
             if (stat.SCORE < 5) {
-                result = Math.round(value) / 100;
+                result = this.round(value) / 100;
             } else {
                 result = Math.round(value / 50) / 2;
             }
         } else if (stat.PERCENT === '') {
-            result = Math.round(value);
+            if (value.toString().endsWith('.5')) {
+                console.log('Found .5 value : ', value, ' - closest : ' + Math.max(1, this.round(value)));
+            }
+            result = Math.max(1, this.round(value));
         }
 
         return result;
     }
 
-    private getRarityRatio(affixe: Affixe): { min: number, max: number } {
-        const stat = this.getAffixeGameData(affixe);
-        
-        return this.RARITY_RATIO[stat.PERCENT][affixe.rarity];
+    private getRarityRatio(affixe: Affixe): MinMax {     
+        return this.RARITY_RATIO[affixe.rarity];
     }
 
-    public computeAffixeValueRange(item: EquippableItem, affixe: Affixe): { min: number, max: number } {
+    private applyReinforcment(values: MinMax, reinforcment: number): MinMax {
+        return values; /*{
+            min: Math.round(values.min * ((100 + reinforcment * 15 / 100))),
+            max: Math.round(values.max * ((100 + reinforcment * 15 / 100)))
+        };*/
+    }
+
+    public computeAffixeValueRange(item: EquippableItem, affixe: Affixe): MinMax {
         const value = this.getComputedBaseValue(item, affixe);
         const ratio = this.getRarityRatio(affixe);
 
-        return {
-            min: this.roundValue(value * ratio.min / 100, affixe),
-            max: this.roundValue(value * ratio.max / 100, affixe)
-        }
+        const reinforcment = 100 + (15 * item.reinforcment)
+
+        const values = {
+            min: this.roundValue(value * ratio.min / 100 * reinforcment / 100, affixe),
+            max: this.roundValue(value * ratio.max / 100 * reinforcment / 100, affixe)
+        };
+
+        return this.applyReinforcment(values, item.reinforcment);
     }
 }

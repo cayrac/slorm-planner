@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { GAME_DATA } from '../../../slormancer/constants/game-data';
+
 interface MinMax {
   min: number;
   max: number;
@@ -7,9 +9,7 @@ interface MinMax {
 
 interface Line {
   level: number;
-  data: {
-    [key: string]: MinMax;
-  }
+  data: { [key: string]: { [key: string]: MinMax }; }
 };
 
 @Component({
@@ -19,65 +19,83 @@ interface Line {
 })
 export class StatDataComponent {
 
-    public readonly RAW_BASE = 7;
-    public readonly LIFE_BASE = 34;
-    public readonly ELEMM_DAMAGE_PERCENT_BASE = 10;
-    public readonly GOLDUS_PERCENT_BASE = 15;
-    public readonly RETALIATE_PERCENT_BASE = 60;
-    public readonly MANA_LEECH_BASE = 5;
-    public readonly LIFE_LEECH_BASE = 2;
-
-    public readonly LEVELS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    public readonly LEVELS = [10, 20, 40];
+    public readonly RARITIES = ['M'];
+    public readonly STATS = [
+        // Normal
+        'cooldown_reduction_global_mult',
+        'crit_chance_percent',
+        'brut_chance_percent',
+        'res_phy_percent',
+        'res_mag_percent',
+        'dodge_percent',
+        'brut_damage_percent',
+        'crit_damage_percent',
+        'aoe_increased_size_percent',
+        'retaliate_percent',
+        // Magic
+    ];
     
     public readonly STAT_DATA: Array<Line> = [
-        { level: 1, data: { life: { min: 20, max: 29 }, raw: { min: 4, max: 6 } } },
-        { level: 2, data: { life: { min: 24, max: 35 }, raw: { min: 5, max: 7 } } },
-        { level: 3, data: { life: { min: 29, max: 42 }, raw: { min: 6, max: 9 } } },
-        { level: 4, data: { life: { min: 34, max: 49 }, raw: { min: 7, max: 10 } } },
-        { level: 5, data: { life: { min: 38, max: 55 }, raw: { min: 8, max: 11 } } },
-        { level: 6, data: { life: { min: 43, max: 62 }, raw: { min: 9, max: 13 } } },
-        { level: 7, data: { life: { min: 47, max: 69 }, raw: { min: 10, max: 14 } } },
-        { level: 8, data: { life: { min: 52, max: 75 }, raw: { min: 11, max: 15 } } },
-        { level: 9, data: { life: { min: 57, max: 82 }, raw: { min: 12, max: 17 } } },
-        { level: 10, data: { life: { min: 61, max: 88 }, raw: { min: 13, max: 18 } } }
+        { level: 10, data: { 
+            cooldown_reduction_global_mult: { N: { min: 2, max: 3 },            M: { min: 1.5, max: 2 } },
+            crit_chance_percent: { N: { min: 1.5, max: 2 } },
+            brut_chance_percent: { N: { min: 1.5, max: 2 } },
+            res_phy_percent: { N: { min: 0, max: 0 } },
+            res_mag_percent: { N: { min: 0, max: 0 } },
+            dodge_percent: { N: { min: 1.5, max: 2 } },
+            brut_damage_percent: { N: { min: 0, max: 0 } },
+            crit_damage_percent: { N: { min: 4, max: 6 },                       M: { min: 2.5, max: 4 } },
+            aoe_increased_size_percent: { N: { min: 0, max: 0 } },
+            retaliate_percent: { N: { min: 8.5, max: 12 } },
+            increased_proj_speed_percent: {                                     M: { min: 0, max: 0 } },
+            increased_damage_on_elite_percent: {                                M: { min: 0, max: 0 } },
+            basic_damage_percent: {                                             M: { min: 1, max: 1.5 } },
+            mana_leech_percent: {                                               M: { min: 0.5, max: 0.5 } },
+        } },
+        { level: 20, data: {
+            cooldown_reduction_global_mult: { N: { min: 4, max: 6 },            M: { min: 2.5, max: 4 } },
+            crit_chance_percent: { N: { min: 3, max: 4 } },
+            brut_chance_percent: { N: { min: 3, max: 4 },                       M: { min: 2, max: 2.5 } },
+            res_phy_percent: { N: { min: 4, max: 6 } },
+            res_mag_percent: { N: { min: 4, max: 6 } },
+            dodge_percent: { N: { min: 3, max: 4 } },
+            brut_damage_percent: { N: { min: 0, max: 0 } },
+            crit_damage_percent: { N: { min: 8.5, max: 12 },                    M: { min: 5.5, max: 8 } },
+            aoe_increased_size_percent: { N: { min: 0, max: 0 } },
+            retaliate_percent: { N: { min: 17, max: 24 } },
+            increased_proj_speed_percent: {                                     M: { min: 0, max: 0 } },
+            increased_damage_on_elite_percent: {                                M: { min: 4.5, max: 6.5 } },
+            mana_leech_percent: {                                               M: { min: 1, max: 1.5 } },
+        } },
+        { level: 40, data: {
+            cooldown_reduction_global_mult: {   N: { min: 6.5, max: 9 } },
+            crit_chance_percent: {              N: { min: 4, max: 6 } },
+            brut_chance_percent: {              N: { min: 4, max: 6 },          M: { min: 2.5, max: 4 } },
+            res_phy_percent: {                  N: { min: 6.5, max: 9 } },
+            res_mag_percent: {                  N: { min: 6.5, max: 9 } },
+            dodge_percent: {                    N: { min: 4, max: 6 } },
+            brut_damage_percent: {              N: { min: 21, max: 30 },        M: { min: 13.5, max: 19.5 } },
+            crit_damage_percent: {              N: { min: 12.5, max: 18 },      M: { min: 8, max: 11.5 } },
+            aoe_increased_size_percent: {       N: { min: 8.5, max: 12 } },
+            retaliate_percent: {                N: { min: 25, max: 36 } },
+            increased_proj_speed_percent: {                                     M: { min: 7, max: 10 } },
+            mana_leech_percent: {                                               M: { min: 1.5, max: 2 } },
+            basic_damage_percent: {                                             M: { min: 2.5, max: 4 } },
+            chance_to_pierce_percent: {                                         M: { min: 5.5, max: 8 } },
+            recast_chance_percent: {                                            M: { min: 4, max: 6 } },
+            increased_damage_on_elite_percent: {                                M: { min: 0, max: 0 } },
+        } },
     ];
-
-    /*public readonly STAT_DATA: Array<Line> = [
-        { level: 1, data: { elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } },
-        { level: 11, data: { elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } },
-        { level: 12, data: { elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } },
-        { level: 13, data: { elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } },
-        { level: 14, data: { elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } },
-        { level: 16, data: { elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } },
-        { level: 17, data: { elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } },
-        { level: 18, data: { elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } },
-        { level: 19, data: { elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } },
-        { level: 20, data: { elemp: { min: 3, max: 4 }, gold: { min: 4, max: 6 }, reta: { min: 17, max: 24 } } },
-        { level: 29, data: { elemp: { min: 3, max: 4 }, gold: { min: 4, max: 6 }, reta: { min: 17, max: 24 } } },
-        { level: 40, data: { elemp: { min: 4, max: 6 }, gold: { min: 6.5, max: 9 }, reta: { min: 25, max: 36 } } }
-    ];
-
-    public readonly STAT_DATA: Array<Line> = [
-        { level: 1,  data: { manal: { min: 0.5, max: 0.5 }, lifel: { min: 0.18, max: 0.26 }, elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } },
-        { level: 2,  data: { manal: { min: 0.5, max: 0.5 }, lifel: { min: 0.18, max: 0.26 }, elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } },
-        { level: 3,  data: { manal: { min: 0.5, max: 0.5 }, lifel: { min: 0.18, max: 0.26 }, elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } },
-        { level: 4,  data: { manal: { min: 0.5, max: 0.5 }, lifel: { min: 0.18, max: 0.26 }, elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } },
-        { level: 5,  data: { manal: { min: 0.5, max: 0.5 }, lifel: { min: 0.18, max: 0.26 }, elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } },
-        { level: 6,  data: { manal: { min: 0.5, max: 0.5 }, lifel: { min: 0.18, max: 0.26 }, elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } },
-        { level: 7,  data: { manal: { min: 0.5, max: 0.5 }, lifel: { min: 0.18, max: 0.26 }, elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } },
-        { level: 8,  data: { manal: { min: 0.5, max: 0.5 }, lifel: { min: 0.18, max: 0.26 }, elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } },
-        { level: 9,  data: { manal: { min: 0.5, max: 0.5 }, lifel: { min: 0.18, max: 0.26 }, elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } },
-        { level: 10, data: { manal: { min: 0.5, max: 0.5 }, lifel: { min: 0.18, max: 0.26 }, elemp: { min: 1.5, max: 2 }, gold: { min: 2, max: 3 }, reta: { min: 8.5, max: 12 } } }
-    ];*/
 
     public reinforcment = 0;
 
     public minFormula = 'base * (1.0 + ((level) * 0.30)) * 0.65';
     public maxFormula = 'base * (1.0 + ((level) * 0.30)) * 0.65';
 
-    public maxPercentFormula = '(1 + Math.floor(level / 20)) * base * 20';
+    public maxPercentFormula = '(1 + Math.floor(level / 10)) * base * 10';
 
-    public maxLowPercentFormula = '(1 + Math.floor(level / 20)) * base * 20';
+    public maxLowPercentFormula = '(1 + Math.floor(level / 10)) * base * 10';
     
     public COMPUTED_STAT_DATA: Array<Line> = [];
 
@@ -106,6 +124,11 @@ export class StatDataComponent {
         }
     }
 
+    public getBaseValue(key: string): number {
+        const stat = GAME_DATA.STAT.find(stat => stat.REF === key)
+        return stat ? stat.SCORE : 0;
+    }
+
     private computePercent(level: number, base: number): MinMax {
         let max;
 
@@ -115,45 +138,45 @@ export class StatDataComponent {
             max = eval(this.maxPercentFormula) * ( 1 + 0.15 * this.reinforcment);
         }
 
-        return { min: this.roundPercent(0.7 * max, base), max: this.roundPercent(max, base) };
+        return { min: this.roundPercent(0.45 * max, base), max: this.roundPercent(0.65 * max, base) };
     }
 
-    private getMinMax(level: number, stat: string): MinMax {
-         return this.getLine(level).data[stat];
+    private getMinMax(level: number, stat: string, rarity: string): MinMax {
+         return this.getLine(level).data[stat][rarity];
     }
 
-    private getComputedMinMax(level: number, stat: string): MinMax {
-         return this.getComputedLine(level).data[stat];
+    private getComputedMinMax(level: number, stat: string, rarity: string): MinMax {
+         return this.getComputedLine(level).data[stat][rarity];
     }
 
     public hasDiff(level: number) {
         return this.LEVELS.indexOf(level - 1) !== -1;
     }
 
-    public getDiff(level: number, stat: string, v: string): number {
-        const now = <number>(<any>this.getMinMax(level, stat))[v];
-        const before = <number>(<any>this.getMinMax(level - 1, stat))[v];
+    public getDiff(level: number, stat: string, rarity: string, v: string): number {
+        const now = <number>(<any>this.getMinMax(level, stat, rarity))[v];
+        const before = <number>(<any>this.getMinMax(level - 1, stat, rarity))[v];
 
         return now - before;
     }
 
-    public getPercentDiff(level: number, stat: string, v: string): number {
-        const now = <number>(<any>this.getMinMax(level, stat))[v];
-        const before = <number>(<any>this.getMinMax(level - 1, stat))[v];
+    public getPercentDiff(level: number, stat: string, rarity: string, v: string): number {
+        const now = <number>(<any>this.getMinMax(level, stat, rarity))[v];
+        const before = <number>(<any>this.getMinMax(level - 1, stat, rarity))[v];
 
         return Math.round((now - before) * 100) / 100;
     }
 
-    public getComputedDiff(level: number, stat: string, v: string): number {
-        const now = <number>(<any>this.getComputedMinMax(level, stat))[v];
-        const before = <number>(<any>this.getComputedMinMax(level - 1, stat))[v];
+    public getComputedDiff(level: number, stat: string, rarity: string, v: string): number {
+        const now = <number>(<any>this.getComputedMinMax(level, stat, rarity))[v];
+        const before = <number>(<any>this.getComputedMinMax(level - 1, stat, rarity))[v];
 
         return now - before;
     }
 
-    public getPercentComputedDiff(level: number, stat: string, v: string): number {
-        const now = <number>(<any>this.getComputedMinMax(level, stat))[v];
-        const before = <number>(<any>this.getComputedMinMax(level - 1, stat))[v];
+    public getPercentComputedDiff(level: number, stat: string, rarity: string, v: string): number {
+        const now = <number>(<any>this.getComputedMinMax(level, stat, rarity))[v];
+        const before = <number>(<any>this.getComputedMinMax(level - 1, stat, rarity))[v];
 
         return Math.round((now - before) * 100) / 100;
     }
@@ -162,18 +185,39 @@ export class StatDataComponent {
         console.log('computing ...');
         try {
             this.COMPUTED_STAT_DATA = this.LEVELS
-                .map(level => ({ level, data: {
-                    //life: this.compute(level, this.LIFE_BASE),
-                    raw: this.compute(level, this.RAW_BASE),
-                    // elemp: this.computePercent(level, this.ELEMM_DAMAGE_PERCENT_BASE),
-                    // gold: this.computePercent(level, this.GOLDUS_PERCENT_BASE),
-                    // reta: this.computePercent(level, this.RETALIATE_PERCENT_BASE),
-                    // manal: this.computePercent(level, this.MANA_LEECH_BASE),
-                    // lifel: this.computePercent(level, this.LIFE_LEECH_BASE)
-                }}));
+                .map(level => ({ 
+                        level,
+                        data: this.STATS.reduce((data, stat) => {
+                            data[stat] = this.RARITIES.reduce((data, rarity) => {
+                                data[rarity] = this.computePercent(level, this.getBaseValue(stat));
+                                return data;
+                            }, <{ [key: string]: MinMax; }>{});
+                            return data;
+                        }, <{ [key: string]: { [key: string]: MinMax; } }>{})
+                    }));
             console.log('computing OK', this.COMPUTED_STAT_DATA);
         } catch (e) {
             console.error(e);
         }
+    }
+
+    public hide(level: number, stat: string, rarity: string): boolean {
+        const minMax = this.getMinMax(level, stat, rarity);
+        return !this.hasData(level, stat, rarity)  || minMax.min === 0 && minMax.max === 0;
+    }
+
+    public hasData(level: number, stat: string, rarity: string): boolean {
+        let result = false;
+        const line = this.STAT_DATA.find(l => l.level === level);
+
+        if (line) {
+            const lineStat = line.data[stat];
+
+            if (lineStat) {
+                result = lineStat[rarity] !== undefined;
+            }
+        }
+
+        return result;
     }
 }

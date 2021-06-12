@@ -28,10 +28,23 @@ input {
         flex-direction: column;
         align-items: stretch;
         justify-content: space-between;
+        flex-grow: 1;
 
         .cell {
             text-align: center;
             height: 20px;
+            border-top: 1px solid #525252;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &.name {
+                text-transform: uppercase;
+
+                &.M {
+                    color: rgb(133, 133, 255);
+                }
+            }
 
             .same {
                 color: rgb(190, 165, 18);
@@ -39,6 +52,10 @@ input {
 
             .change {
                 color: rgb(14, 126, 14)
+            }
+
+            &.hide {
+                color: #333;
             }
         }
     }
