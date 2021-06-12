@@ -97,7 +97,7 @@ export class SlormancerItemService {
         let result = stat.SCORE;
 
         if (stat.PERCENT === '%') {
-            result = (1 + Math.floor(item.level / 20)) * stat.SCORE * 20;
+            result = Math.max(1, Math.floor((item.level + 10) / 15)) * stat.SCORE * 20;
         } else if (stat.PERCENT === '') {
             result = stat.SCORE * (100 + (item.level * 30)) / 100;
         }
@@ -115,7 +115,7 @@ export class SlormancerItemService {
         return result;
     }
 
-    private round(value: number): number {
+    private bankerRound(value: number): number {
         var r = Math.round(value);
         return (((((value>0)?value:(-value))%1)===0.5)?(((0===(r%2)))?r:(r-1)):r);
     }
@@ -126,15 +126,15 @@ export class SlormancerItemService {
 
         if (stat.PERCENT === '%') {
             if (stat.SCORE < 5) {
-                result = this.round(value) / 100;
+                result = this.bankerRound(value * 10) / 1000;
             } else {
                 result = Math.round(value / 50) / 2;
             }
         } else if (stat.PERCENT === '') {
             if (value.toString().endsWith('.5')) {
-                console.log('Found .5 value : ', value, ' - closest : ' + Math.max(1, this.round(value)));
+                console.log('Found .5 value : ', value, ' - closest : ' + Math.max(1, this.bankerRound(value)));
             }
-            result = Math.max(1, this.round(value));
+            result = Math.max(1, this.bankerRound(value));
         }
 
         return result;
@@ -142,13 +142,6 @@ export class SlormancerItemService {
 
     private getRarityRatio(affixe: Affixe): MinMax {     
         return this.RARITY_RATIO[affixe.rarity];
-    }
-
-    private applyReinforcment(values: MinMax, reinforcment: number): MinMax {
-        return values; /*{
-            min: Math.round(values.min * ((100 + reinforcment * 15 / 100))),
-            max: Math.round(values.max * ((100 + reinforcment * 15 / 100)))
-        };*/
     }
 
     public computeAffixeValueRange(item: EquippableItem, affixe: Affixe): MinMax {
@@ -162,6 +155,6 @@ export class SlormancerItemService {
             max: this.roundValue(value * ratio.max / 100 * reinforcment / 100, affixe)
         };
 
-        return this.applyReinforcment(values, item.reinforcment);
+        return values;
     }
 }

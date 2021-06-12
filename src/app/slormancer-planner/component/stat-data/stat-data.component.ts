@@ -19,22 +19,7 @@ interface Line {
 })
 export class StatDataComponent {
 
-    public readonly LEVELS = [10, 20, 40];
-    public readonly RARITIES = ['M'];
-    public readonly STATS = [
-        // Normal
-        'cooldown_reduction_global_mult',
-        'crit_chance_percent',
-        'brut_chance_percent',
-        'res_phy_percent',
-        'res_mag_percent',
-        'dodge_percent',
-        'brut_damage_percent',
-        'crit_damage_percent',
-        'aoe_increased_size_percent',
-        'retaliate_percent',
-        // Magic
-    ];
+    public readonly RARITIES = ['N'];
     
     public readonly STAT_DATA: Array<Line> = [
         { level: 10, data: { 
@@ -53,20 +38,71 @@ export class StatDataComponent {
             basic_damage_percent: {                                             M: { min: 1, max: 1.5 } },
             mana_leech_percent: {                                               M: { min: 0.5, max: 0.5 } },
         } },
-        { level: 20, data: {
-            cooldown_reduction_global_mult: { N: { min: 4, max: 6 },            M: { min: 2.5, max: 4 } },
-            crit_chance_percent: { N: { min: 3, max: 4 } },
-            brut_chance_percent: { N: { min: 3, max: 4 },                       M: { min: 2, max: 2.5 } },
-            res_phy_percent: { N: { min: 4, max: 6 } },
-            res_mag_percent: { N: { min: 4, max: 6 } },
-            dodge_percent: { N: { min: 3, max: 4 } },
+        { level: 19, data: { 
+            cooldown_reduction_global_mult: { N: { min: 2, max: 3 },            M: { min: 1.5, max: 2 } },
+            crit_chance_percent: { N: { min: 1.5, max: 2 } },
+            brut_chance_percent: { N: { min: 1.5, max: 2 } },
+            res_phy_percent: { N: { min: 0, max: 0 } },
+            res_mag_percent: { N: { min: 0, max: 0 } },
+            dodge_percent: { N: { min: 1.5, max: 2 } },
             brut_damage_percent: { N: { min: 0, max: 0 } },
-            crit_damage_percent: { N: { min: 8.5, max: 12 },                    M: { min: 5.5, max: 8 } },
+            crit_damage_percent: { N: { min: 4, max: 6 },                       M: { min: 2.5, max: 4 } },
             aoe_increased_size_percent: { N: { min: 0, max: 0 } },
-            retaliate_percent: { N: { min: 17, max: 24 } },
+            retaliate_percent: { N: { min: 8.5, max: 12 } },
+            increased_proj_speed_percent: {                                     M: { min: 0, max: 0 } },
+            increased_damage_on_elite_percent: {                                M: { min: 0, max: 0 } },
+            basic_damage_percent: {                                             M: { min: 1, max: 1.5 } },
+            mana_leech_percent: {                                               M: { min: 0.5, max: 0.5 } },
+        } },
+        { level: 20, data: {
+            cooldown_reduction_global_mult: {       N: { min: 4, max: 6 },            M: { min: 2.5, max: 4 } },
+            crit_chance_percent: {                  N: { min: 3, max: 4 } },
+            brut_chance_percent: {                  N: { min: 3, max: 4 },                       M: { min: 2, max: 2.5 } },
+            res_phy_percent: {                      N: { min: 4, max: 6 } },
+            res_mag_percent: {                      N: { min: 4, max: 6 } },
+            dodge_percent: {                        N: { min: 3, max: 4 } },
+            brut_damage_percent: {                  N: { min: 0, max: 0 } },
+            crit_damage_percent: {                  N: { min: 8.5, max: 12 },                    M: { min: 5.5, max: 8 } },
+            aoe_increased_size_percent: {           N: { min: 0, max: 0 } },
+            retaliate_percent: {                    N: { min: 17, max: 24 } },
             increased_proj_speed_percent: {                                     M: { min: 0, max: 0 } },
             increased_damage_on_elite_percent: {                                M: { min: 4.5, max: 6.5 } },
             mana_leech_percent: {                                               M: { min: 1, max: 1.5 } },
+            dot_increased_damage_percent  : {       N: { min: 5.5, max: 8 } }
+        } },
+        { level: 34, data: {
+            cooldown_reduction_global_mult: {       N: { min: 4, max: 6 },            M: { min: 2.5, max: 4 } },
+            crit_chance_percent: {                  N: { min: 3, max: 4 } },
+            brut_chance_percent: {                  N: { min: 3, max: 4 },                       M: { min: 2, max: 2.5 } },
+            res_phy_percent: {                      N: { min: 4, max: 6 } },
+            res_mag_percent: {                      N: { min: 4, max: 6 } },
+            dodge_percent: {                        N: { min: 3, max: 4 } },
+            brut_damage_percent: {                  N: { min: 0, max: 0 } },
+            crit_damage_percent: {                  N: { min: 8.5, max: 12 },                    M: { min: 5.5, max: 8 } },
+            aoe_increased_size_percent: {           N: { min: 0, max: 0 } },
+            retaliate_percent: {                    N: { min: 17, max: 24 } },
+            increased_proj_speed_percent: {                                     M: { min: 0, max: 0 } },
+            increased_damage_on_elite_percent: {                                M: { min: 4.5, max: 6.5 } },
+            mana_leech_percent: {                                               M: { min: 1, max: 1.5 } },
+            dot_increased_damage_percent  : {       N: { min: 5.5, max: 8 } }
+        } },
+        { level: 35, data: {
+            cooldown_reduction_global_mult: {   N: { min: 6.5, max: 9 } },
+            crit_chance_percent: {              N: { min: 4, max: 6 } },
+            brut_chance_percent: {              N: { min: 4, max: 6 },          M: { min: 2.5, max: 4 } },
+            res_phy_percent: {                  N: { min: 6.5, max: 9 } },
+            res_mag_percent: {                  N: { min: 6.5, max: 9 } },
+            dodge_percent: {                    N: { min: 4, max: 6 } },
+            brut_damage_percent: {              N: { min: 21, max: 30 },        M: { min: 13.5, max: 19.5 } },
+            crit_damage_percent: {              N: { min: 12.5, max: 18 },      M: { min: 8, max: 11.5 } },
+            aoe_increased_size_percent: {       N: { min: 8.5, max: 12 } },
+            retaliate_percent: {                N: { min: 25, max: 36 } },
+            increased_proj_speed_percent: {                                     M: { min: 7, max: 10 } },
+            mana_leech_percent: {                                               M: { min: 1.5, max: 2 } },
+            basic_damage_percent: {                                             M: { min: 2.5, max: 4 } },
+            chance_to_pierce_percent: {                                         M: { min: 5.5, max: 8 } },
+            recast_chance_percent: {                                            M: { min: 4, max: 6 } },
+            increased_damage_on_elite_percent: {                                M: { min: 0, max: 0 } },
         } },
         { level: 40, data: {
             cooldown_reduction_global_mult: {   N: { min: 6.5, max: 9 } },
@@ -93,9 +129,11 @@ export class StatDataComponent {
     public minFormula = 'base * (1.0 + ((level) * 0.30)) * 0.65';
     public maxFormula = 'base * (1.0 + ((level) * 0.30)) * 0.65';
 
-    public maxPercentFormula = '(1 + Math.floor(level / 10)) * base * 10';
+    public maxPercentFormula = 'Math.max(1, Math.floor((level + 10) / 15)) * base * 20';
 
-    public maxLowPercentFormula = '(1 + Math.floor(level / 10)) * base * 10';
+    public maxLowPercentFormula = 'Math.max(1, Math.floor((level + 10) / 15)) * base * 10';
+
+    public levelRatioFormula = 'Math.max(1, (level + 10) / 15))';
     
     public COMPUTED_STAT_DATA: Array<Line> = [];
 
@@ -138,19 +176,20 @@ export class StatDataComponent {
             max = eval(this.maxPercentFormula) * ( 1 + 0.15 * this.reinforcment);
         }
 
-        return { min: this.roundPercent(0.45 * max, base), max: this.roundPercent(0.65 * max, base) };
+        return { min: this.roundPercent(0.7 * max, base), max: this.roundPercent(1 * max, base) };
     }
 
-    private getMinMax(level: number, stat: string, rarity: string): MinMax {
-         return this.getLine(level).data[stat][rarity];
+    public getMinMax(level: number, stat: string, rarity: string): MinMax {
+        const line = this.getLine(level);
+        return this.getLine(level).data[stat][rarity];
     }
 
-    private getComputedMinMax(level: number, stat: string, rarity: string): MinMax {
+    public getComputedMinMax(level: number, stat: string, rarity: string): MinMax {
          return this.getComputedLine(level).data[stat][rarity];
     }
 
     public hasDiff(level: number) {
-        return this.LEVELS.indexOf(level - 1) !== -1;
+        return this.getLevels().indexOf(level - 1) !== -1;
     }
 
     public getDiff(level: number, stat: string, rarity: string, v: string): number {
@@ -184,10 +223,10 @@ export class StatDataComponent {
     public computeStats() {
         console.log('computing ...');
         try {
-            this.COMPUTED_STAT_DATA = this.LEVELS
+            this.COMPUTED_STAT_DATA = this.getLevels()
                 .map(level => ({ 
                         level,
-                        data: this.STATS.reduce((data, stat) => {
+                        data: this.getStats().reduce((data, stat) => {
                             data[stat] = this.RARITIES.reduce((data, rarity) => {
                                 data[rarity] = this.computePercent(level, this.getBaseValue(stat));
                                 return data;
@@ -202,22 +241,67 @@ export class StatDataComponent {
     }
 
     public hide(level: number, stat: string, rarity: string): boolean {
-        const minMax = this.getMinMax(level, stat, rarity);
-        return !this.hasData(level, stat, rarity)  || minMax.min === 0 && minMax.max === 0;
+        let hide = true; 
+
+        if (this.hasData(level, stat, rarity)) {
+            const minMax = this.getMinMax(level, stat, rarity);
+            hide = minMax.min === 0 && minMax.max === 0;
+        }
+        return hide;
     }
 
     public hasData(level: number, stat: string, rarity: string): boolean {
-        let result = false;
         const line = this.STAT_DATA.find(l => l.level === level);
+        const cLine = this.COMPUTED_STAT_DATA.find(l => l.level === level);
 
-        if (line) {
-            const lineStat = line.data[stat];
+        return line !== undefined && line.data[stat] !== undefined && line.data[stat][rarity] !== undefined
+            && cLine !== undefined && cLine.data[stat] !== undefined && cLine.data[stat][rarity] !== undefined;
+    }
 
-            if (lineStat) {
-                result = lineStat[rarity] !== undefined;
-            }
+    public getStats(): Array<string> {
+        const stats = this.STAT_DATA
+            .map(line => Object.keys(line.data))
+            .reduce((set, lineStats) => { lineStats.forEach(lineStat => set.add(lineStat)); return set; }, new Set<string>());
+        return Array.from(stats);   
+    }
+
+    public getLevels(): Array<number> {
+        return this.STAT_DATA.map(line => line.level);
+    }
+
+    public getRatio(level: number): number {
+        let ratio = 0
+        try {
+            const pow = Math.pow;
+            const sqrt = Math.sqrt;
+            const max = Math.max;
+            ratio = eval(this.levelRatioFormula);
+        }
+        catch(e) { }
+        return ratio;
+    }
+
+    public getCeil(level: number): number {
+        return Math.ceil(this.getRatio(level));
+    }
+
+    public getFloor(level: number): number {
+        return Math.floor(this.getRatio(level));
+    }
+
+    public getRound(level: number): number {
+        return Math.round(this.getRatio(level));
+    }
+
+    public getExpected(level: number): number {
+        let expected = 1;
+
+        if (level >= 20 && level < 35) {
+            expected = 2;
+        } else if (level >= 35) {
+            expected = 3;
         }
 
-        return result;
+        return expected;
     }
 }
