@@ -12,6 +12,7 @@ interface MinMax {
 
 @Injectable()
 export class SlormancerItemService {
+    // Optimise un truc pour recharger en masse (réutilise le file input)
 
     private readonly RARITY_RATIO = {
         'N': { min: 70, max: 100 },
@@ -60,12 +61,16 @@ export class SlormancerItemService {
         return stat;
     }
 
+    private getLevelPercentScore(item: EquippableItem): number {
+        return Math.max(1, Math.floor((item.level + 10) / 15));
+    }
+
     private getComputedBaseValue(item: EquippableItem, affixe: Affixe): number {
         const stat = this.getAffixeGameData(affixe);
         let result = stat.SCORE;
 
         if (stat.PERCENT === '%') {
-            result = Math.max(1, Math.floor((item.level + 10) / 15)) * stat.SCORE * 20;
+            result = this.getLevelPercentScore(item) * stat.SCORE * 20;
         } else if (stat.PERCENT === '') {
             result = stat.SCORE * (100 + (item.level * 30)) / 100;
         }
@@ -94,15 +99,34 @@ export class SlormancerItemService {
         return this.RARITY_RATIO[affixe.rarity];
     }
 
+    private getValueRatio(item: EquippableItem, affixe: Affixe): number {
+        const stat = this.getAffixeGameData(affixe);
+        const levelScore = this.getLevelPercentScore(item);
+        let ratio = affixe.value;
+
+        if (stat.PERCENT === '%') {
+            ratio = ratio * 5 / levelScore;
+        }
+
+        return ratio;
+    }
+
     public computeAffixeValueRange(item: EquippableItem, affixe: Affixe): MinMax {
         const value = this.getComputedBaseValue(item, affixe);
         const ratio = this.getRarityRatio(affixe);
-
-        const reinforcment = 100 + (15 * item.reinforcment)
+        const reinforcment = 100 + (15 * item.reinforcment);
 
         return {
-            min: this.roundValue(value * ratio.min / 100 * reinforcment / 100, affixe),
-            max: this.roundValue(value * ratio.max / 100 * reinforcment / 100, affixe)
+            min: this.roundValue(value * reinforcment * ratio.min / (100 * 100), affixe),
+            max: this.roundValue(value * reinforcment * ratio.max / (100 * 100), affixe)
         };
+    }
+
+    public computeAffixeValue(item: EquippableItem, affixe: Affixe): number {
+        const value = this.getComputedBaseValue(item, affixe);
+        const reinforcment = 100 + (15 * item.reinforcment);
+        const ratio = this.getValueRatio(item, affixe);
+
+        return this.roundValue(value * reinforcment * ratio / (100 * 100), affixe);
     }
 }

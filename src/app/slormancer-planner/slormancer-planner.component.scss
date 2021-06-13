@@ -30,9 +30,15 @@
             justify-content: space-between;
             align-items: stretch;
 
+            .json {
+                flex-grow: 1;
+                max-width: 33%;
+            }
+            .parsed {
+                flex-grow: 2;
+            }
             .json, .parsed {
                 flex-basis: 0;
-                flex-grow: 1;
                 padding: 10px;
         
                 app-json {

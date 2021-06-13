@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { GAME_DATA, SlormancerSaveService, SlormSave } from '../slormancer';
 import { HeroClass } from '../slormancer/model/hero-class';
 import { Affixe, EquippableItem } from '../slormancer/model/item';
-import { SlormancerItemService } from '../slormancer/services/slormancer-item';
+import { SlormancerItemService } from '../slormancer/services/slormancer-item.service';
 import { SAVE } from './save';
 
 @Component({
@@ -23,7 +23,7 @@ export class SlormancerPlannerComponent {
 
     public selectedClass: HeroClass = HeroClass.Huntress;
 
-    public selectedItem: number | null = null;
+    public selectedItem: number | null = 0;
 
     constructor(private slormancerSaveService: SlormancerSaveService, private slormancerItemService: SlormancerItemService) {
         this.loadSave(SAVE);
@@ -91,7 +91,7 @@ export class SlormancerPlannerComponent {
 
     public affixeToStat(affixe: Affixe): string | null {
         const stat = GAME_DATA.STAT.find(stat => stat.REF_NB === affixe.type);
-        return stat ? stat.REF : null;
+        return stat ? stat.REF + ' (' +affixe.type+ ')' : null;
     }
 
     public getItemOptions(): Array<{ label: string, value: EquippableItem }> {
@@ -152,6 +152,19 @@ export class SlormancerPlannerComponent {
         let type = this.slormancerItemService.getAffixeGameData(affixe).PERCENT === '%' ? '%' : '';
 
         return result === null ? '?' : result.min + type + ' - ' + result.max + type;
+    }
+
+    public getValue(affixe: Affixe): string {
+        let result: number | null = null;
+        const item = this.getSelectedItem();
+
+        if (item !== null) {
+            result = this.slormancerItemService.computeAffixeValue(item, affixe);
+        }
+
+        let type = this.slormancerItemService.getAffixeGameData(affixe).PERCENT === '%' ? '%' : '';
+
+        return result === null ? '?' : result + type;
     }
 
     public getEquipableItemSlot(item: EquippableItem | null): string {

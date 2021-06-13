@@ -22,7 +22,7 @@
                 <div class="affixes">
                     <div class="affixe" *ngFor="let affixe of getItemAffixes()">
                         <div class="rarity">{{affixe.rarity}}</div>
-                        <div class="value">{{affixe.value}}</div>
+                        <div class="value">{{getValue(affixe)}}</div>
                         <div class="range">{{getRange(affixe)}}</div>
                         <div class="name">{{affixeToStat(affixe)}}</div>
                     </div>
