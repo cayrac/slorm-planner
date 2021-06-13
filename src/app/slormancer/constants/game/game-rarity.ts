@@ -1,0 +1,1 @@
+export declare type GameRarity = 'N' | 'M' | 'R' | 'E' | 'L';

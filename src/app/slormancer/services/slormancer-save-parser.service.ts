@@ -32,28 +32,28 @@ import {
     WEAPON_EQUIP,
     WRATH,
     XP,
-} from '../constants/save-attributes';
-import { Bytes } from '../model/bytes';
+} from '../constants/game/save-attributes';
+import { Bytes } from '../model/game/bytes';
 import {
-    Auras,
-    ElementRank,
-    EquipmentList,
-    HeroesData,
-    HeroInventory,
-    Influence,
-    Inventory,
-    Missions,
-    Profile,
-    SharedInventory,
-    SkillEquip,
-    SkillRank,
-    SlormSave,
-    StatsFetched,
-    Traits,
-    Tutorials,
-    WeaponData,
-    Xp,
-} from '../model/slormsave';
+    GameAuras,
+    GameElementRank,
+    GameEquipmentList,
+    GameHeroesData,
+    GameHeroInventory,
+    GameInfluence,
+    GameInventory,
+    GameMissions,
+    GameProfile,
+    GameSave,
+    GameSharedInventory,
+    GameSkillEquip,
+    GameSkillRank,
+    GameStatsFetched,
+    GameTraits,
+    GameTutorials,
+    GameWeaponData,
+    GameXp,
+} from '../model/game/game-save';
 import { bytesToString, takeUntil, toBytes } from '../util/bytes.util';
 import {
     mapHeroesArray,
@@ -75,12 +75,12 @@ export class SlormancerSaveParserService {
         return bytesToString(bytes);
     }
 
-    private parseWeaponEquip(bytes: Bytes): HeroesData<number> {
+    private parseWeaponEquip(bytes: Bytes): GameHeroesData<number> {
         const data = bytesToString(bytes)
         return toHeroes(mapHeroesArray(splitHeroesData(data), v => strictParseInt(v)));
     }
 
-    private parseStatsFetched(bytes: Bytes): StatsFetched {
+    private parseStatsFetched(bytes: Bytes): GameStatsFetched {
         const data = bytesToString(bytes);
 
         return toHeroes(mapHeroesArray(splitHeroesData(data), v => toNumberArray(v)));
@@ -94,7 +94,7 @@ export class SlormancerSaveParserService {
         return bytesToString(bytes);
     }
 
-    private parseSharedInventory(bytes: Bytes): SharedInventory {
+    private parseSharedInventory(bytes: Bytes): GameSharedInventory {
         const data = bytesToString(bytes);
         return  data.split(';').map(item => this.slormancerItemService.parseItem(item));
     }
@@ -103,19 +103,19 @@ export class SlormancerSaveParserService {
         return bytesToString(data);
     }
 
-    private parseWeaponData(bytes: Bytes): WeaponData {
+    private parseWeaponData(bytes: Bytes): GameWeaponData {
         const data = bytesToString(bytes);
 
         return toHeroes(mapHeroesArray(splitHeroesData(data), v => v.split(',').map(toWeapon)));
     }
 
-    private parseGameMode(bytes: Bytes): HeroesData<number> {
+    private parseGameMode(bytes: Bytes): GameHeroesData<number> {
         const data = bytesToString(bytes);
 
         return toHeroes(mapHeroesArray(splitHeroesData(data), strictParseInt));
     }
 
-    private parseSkillEquip(bytes: Bytes): SkillEquip {
+    private parseSkillEquip(bytes: Bytes): GameSkillEquip {
         const data = bytesToString(bytes);
 
         return toHeroes(mapHeroesArray(splitHeroesData(data), toNumberArray));
@@ -125,7 +125,7 @@ export class SlormancerSaveParserService {
         return bytesToString(bytes);
     }
 
-    private parseMissions(bytes: Bytes): Missions {
+    private parseMissions(bytes: Bytes): GameMissions {
         const data = bytesToString(bytes);
 
         return toHeroes(mapHeroesArray(splitHeroesData(data), toNumberArray));
@@ -135,7 +135,7 @@ export class SlormancerSaveParserService {
         return bytesToString(bytes);
     }
 
-    private parseTraits(bytes: Bytes): Traits {
+    private parseTraits(bytes: Bytes): GameTraits {
         const data = bytesToString(bytes);
 
         return toHeroes(mapHeroesArray(splitHeroesData(data), toNumberArray));
@@ -145,19 +145,19 @@ export class SlormancerSaveParserService {
         return bytesToString(bytes);
     }
 
-    private parseWrath(bytes: Bytes): HeroesData<number> {
+    private parseWrath(bytes: Bytes): GameHeroesData<number> {
         const data = bytesToString(bytes);
 
         return toHeroes(mapHeroesArray(splitHeroesData(data), strictParseInt));
     }
 
-    private parseSkillRank(bytes: Bytes): SkillRank {
+    private parseSkillRank(bytes: Bytes): GameSkillRank {
         const data = bytesToString(bytes);
 
         return toHeroes(mapHeroesArray(splitHeroesData(data), toNumberArray));
     }
 
-    private parseReaperPity(bytes: Bytes): HeroesData<number> {
+    private parseReaperPity(bytes: Bytes): GameHeroesData<number> {
         const data = bytesToString(bytes);
 
         return toHeroes(mapHeroesArray(splitHeroesData(data), strictParseInt));
@@ -167,13 +167,13 @@ export class SlormancerSaveParserService {
         return bytesToString(data);
     }
 
-    private parseXp(bytes: Bytes): Xp {
+    private parseXp(bytes: Bytes): GameXp {
         const data = bytesToString(bytes);
 
         return toHeroes(mapHeroesArray(splitHeroesData(data), strictParseInt))
     }
 
-    private parseHeroInventory(items: Array<string>): HeroInventory {
+    private parseHeroInventory(items: Array<string>): GameHeroInventory {
         const parsedItems = items.map(item => this.slormancerItemService.parseItem(item));
 
         const equipment = parsedItems.splice(0, 11);
@@ -194,73 +194,73 @@ export class SlormancerSaveParserService {
         }
     }
 
-    private parseInventory(bytes: Bytes): Inventory {
+    private parseInventory(bytes: Bytes): GameInventory {
         const data = bytesToString(bytes);
 
         return toHeroes(mapHeroesArray(splitHeroesData(data), v => this.parseHeroInventory(v.split(';'))));
     }
 
-    private parseSlorm(bytes: Bytes): HeroesData<number> {
+    private parseSlorm(bytes: Bytes): GameHeroesData<number> {
         const data = bytesToString(bytes);
 
         return toHeroes(mapHeroesArray(splitHeroesData(data), strictParseInt));
     }
 
-    private parseInfluence(bytes: Bytes): Influence {
+    private parseInfluence(bytes: Bytes): GameInfluence {
         const data = bytesToString(bytes);
 
         return data.split('|').map(strictParseFloat);
     }
 
-    private parseElementEquip(bytes: Bytes): HeroesData<Array<number>> {
+    private parseElementEquip(bytes: Bytes): GameHeroesData<Array<number>> {
         const data = bytesToString(bytes);
 
         return toHeroes(mapHeroesArray(splitHeroesData(data), toNumberArray));
     }
 
-    private parseTutorials(bytes: Bytes): Tutorials {
+    private parseTutorials(bytes: Bytes): GameTutorials {
         const data = bytesToString(bytes);
 
         return data.split('|').map(strictParseInt);
     }
 
-    private parseEquipmentList(bytes: Bytes): EquipmentList {
+    private parseEquipmentList(bytes: Bytes): GameEquipmentList {
         const data = bytesToString(bytes);
 
         return toHeroes(mapHeroesArray(splitHeroesData(data), v => v.split(';')));
     }
 
-    private parseElementRank(bytes: Bytes): ElementRank {
+    private parseElementRank(bytes: Bytes): GameElementRank {
         const data = bytesToString(bytes);
 
         return toHeroes(mapHeroesArray(splitHeroesData(data), toNumberArray));
     }
 
-    private parseEnemyMatch(bytes: Bytes): HeroesData<number> {
+    private parseEnemyMatch(bytes: Bytes): GameHeroesData<number> {
         const data = bytesToString(bytes);
 
         return toHeroes(mapHeroesArray(splitHeroesData(data), strictParseInt));
     }
 
-    private parseAuras(bytes: Bytes): Auras {
+    private parseAuras(bytes: Bytes): GameAuras {
         const data = bytesToString(bytes);
 
         return toHeroes(mapHeroesArray(splitHeroesData(data), toNumberArray));
     }
 
-    private parseProfile(bytes: Bytes): Profile {
+    private parseProfile(bytes: Bytes): GameProfile {
         const data = bytesToString(bytes);
 
         return toHeroes(mapHeroesArray(splitHeroesData(data), toNumberArray));
     }
 
-    private parseEnemyLevel(bytes: Bytes): HeroesData<number> {
+    private parseEnemyLevel(bytes: Bytes): GameHeroesData<number> {
         const data = bytesToString(bytes);
         
         return toHeroes(mapHeroesArray(splitHeroesData(data), strictParseInt));
     }
 
-    public parseSaveFile(content: string): SlormSave {
+    public parseSaveFile(content: string): GameSave {
         const [data, hash] = content.split('#', 2);
 
         const bytes = toBytes(data);

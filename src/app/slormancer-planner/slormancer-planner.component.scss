@@ -57,23 +57,43 @@
                     display: flex;
                     flex-direction: row;
                     align-items: center;
+                    padding: 5px;
+                    margin: 5px 0;
 
-                    .rarity, .name, .value, .range {
+                    &.normal {
+                        background-color: rgb(211, 210, 210);
+                    }
+                    &.magic {
+                        background-color: rgb(181, 252, 159);
+                    }
+                    &.rare {
+                        background-color: rgb(158, 175, 223);
+                    }
+                    &.epic {
+                        background-color: rgb(252, 250, 159);
+                    }
+                    &.legendary {
+                        background-color: rgb(243, 198, 129);
+                    }
+
+                    .rarity, .name, .value, .range, .range-values {
                         flex-basis: 0;
                     }
 
-                    .rarity {
-                        flex-grow: 1;
-                    }
                     .name {
-                        flex-grow: 4;
+                        flex-grow: 3;
+                        text-align: right;
                     }
                     .value {
                         flex-grow: 1;
                     }
-                    .range {
+                    .range-values {
                         text-align: center;
                         flex-grow: 2;
+                    }
+                    .range {
+                        text-align: center;
+                        flex-grow: 3;
                     }
 
                 }

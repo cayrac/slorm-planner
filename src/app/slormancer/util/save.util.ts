@@ -1,4 +1,4 @@
-import { HeroesData, Weapon } from '../model/slormsave';
+import { GameHeroesData, GameWeapon } from '../model/game/game-save';
 
 export function splitHeroesData(data: string): [string, string, string]  {
     const result = data.split('|');
@@ -16,7 +16,7 @@ export function mapHeroesArray<T, U>(data: [T, T, T], map: (value: T) => U): [U,
     ]
 }
 
-export function toHeroes<T>(data: [T, T, T]): HeroesData<T> {
+export function toHeroes<T>(data: [T, T, T]): GameHeroesData<T> {
     return {
         warrior: data[0],
         huntress: data[1],
@@ -24,7 +24,7 @@ export function toHeroes<T>(data: [T, T, T]): HeroesData<T> {
     }
 }
 
-export function toWeapon(data: string): Weapon {
+export function toWeapon(data: string): GameWeapon {
     const [basic, primordial] = data.split('/', 2);
     return {
         basic: basic.split(':').map(strictParseInt),

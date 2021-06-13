@@ -12,7 +12,7 @@
         </div>
         <div class="item" *ngIf="getSelectedItem() !== null">
             <div class="json">
-                <app-json [data]="getSelectedItem()"></app-json>
+                <app-json [data]="getItemAffixes()"></app-json>
             </div>
             <div class="parsed">
                 <p>Slot : {{getEquipableItemSlot(getSelectedItem())}}</p>
@@ -20,11 +20,11 @@
                 <p>Reinforcment : {{getReinforcmentLevel(getSelectedItem())}}</p>
 
                 <div class="affixes">
-                    <div class="affixe" *ngFor="let affixe of getItemAffixes()">
-                        <div class="rarity">{{affixe.rarity}}</div>
-                        <div class="value">{{getValue(affixe)}}</div>
-                        <div class="range">{{getRange(affixe)}}</div>
-                        <div class="name">{{affixeToStat(affixe)}}</div>
+                    <div class="affixe {{affixe.rarity}}" *ngFor="let affixe of getItemAffixes()">
+                        <div class="value">{{affixe.values[affixe.value]}}<span *ngIf="affixe.percent">%</span> ({{affixe.value}})</div>
+                        <div class="range">{{affixe.values[affixe.min]}}<span *ngIf="affixe.percent">%</span> - {{affixe.values[affixe.max]}}<span *ngIf="affixe.percent">%</span></div>
+                        <div class="range-values">{{affixe.min}} - {{affixe.max}}</div>
+                        <div class="name">{{affixe.name}}</div>
                     </div>
                 </div>
             </div>

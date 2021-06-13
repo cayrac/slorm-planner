@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { GAME_DATA, SlormancerSaveService, SlormSave } from '../slormancer';
-import { HeroClass } from '../slormancer/model/hero-class';
-import { Affixe, EquippableItem } from '../slormancer/model/item';
+import { GAME_DATA, GameSave, SlormancerSaveService } from '../slormancer';
+import { AFFIX_TEXT } from '../slormancer/constants/affix-text';
+import { HeroClass } from '../slormancer/constants/hero-class';
+import { AffixData } from '../slormancer/model/affix-data';
+import { GameAffixe, GameEquippableItem } from '../slormancer/model/game/game-item';
+import { SlormancerGameDataService } from '../slormancer/services/slormancer-game-data.service';
+import { SlormancerItemValueService } from '../slormancer/services/slormancer-item-value.service';
 import { SlormancerItemService } from '../slormancer/services/slormancer-item.service';
 import { SAVE } from './save';
 
@@ -11,7 +15,7 @@ import { SAVE } from './save';
   templateUrl: './slormancer-planner.component.html',
   styleUrls: ['./slormancer-planner.component.scss']
 })
-export class SlormancerPlannerComponent {
+export class SlormancerPlannerComponent implements OnInit {
 
     public readonly CLASS_OPTIONS = [
         { value: HeroClass.Huntress, label: HeroClass.Huntress.toString() },
@@ -19,21 +23,31 @@ export class SlormancerPlannerComponent {
         { value: HeroClass.Warrior, label: HeroClass.Warrior.toString() },
     ];
     
-    private save: SlormSave | null = null;
+    private save: GameSave | null = null;
 
     public selectedClass: HeroClass = HeroClass.Huntress;
 
-    public selectedItem: number | null = 0;
+    public selectedItem: number | null = 32;
 
-    constructor(private slormancerSaveService: SlormancerSaveService, private slormancerItemService: SlormancerItemService) {
+    constructor(private slormancerSaveService: SlormancerSaveService,   
+                private slormancerGameDataService: SlormancerGameDataService,
+                private slormancerItemService: SlormancerItemService,
+                private slormancerItemValueService: SlormancerItemValueService) {
+        
+        console.log(GAME_DATA.STAT.filter(stat => stat.PERCENT !== 'X').map(stat => stat.REF).filter(ref => Object.keys(AFFIX_TEXT).indexOf(ref) === -1));
+
+        console.log(Object.keys(AFFIX_TEXT).length + ' sur ' + GAME_DATA.STAT.length);
+    }
+
+    public ngOnInit() {
         this.loadSave(SAVE);
     }
     
-    public getSave(): SlormSave | null {
+    public getSave(): GameSave | null {
         return this.save;
     }
     
-    public getSelectedItem(): EquippableItem | null {
+    public getSelectedItem(): GameEquippableItem | null {
         return this.selectedItem === null || this.getItemOptions()[this.selectedItem] === undefined ? null : this.getItemOptions()[this.selectedItem].value;
     }
 
@@ -75,27 +89,27 @@ export class SlormancerPlannerComponent {
 		reader.readAsText(file);
     }
 
-    public getLevel(item: EquippableItem | null): number | null {
+    public getLevel(item: GameEquippableItem | null): number | null {
         return item !== null ? item.level : null;
     }
 
-    public getReinforcmentLevel(item: EquippableItem | null): number | null {
+    public getReinforcmentLevel(item: GameEquippableItem | null): number | null {
         return item !== null ? item.reinforcment : null;
     }
 
-    public getItemAffixes(): Array<Affixe> {
+    public getItemAffixes(): Array<AffixData> {
         const item = this.getSelectedItem();
         
-        return item === null ? [] : item.affixes;
+        return item === null ? [] : item.affixes.map(affixe => this.slormancerItemService.getAffixedata(item, affixe));
     }
 
-    public affixeToStat(affixe: Affixe): string | null {
+    public affixeToStat(affixe: GameAffixe): string | null {
         const stat = GAME_DATA.STAT.find(stat => stat.REF_NB === affixe.type);
         return stat ? stat.REF + ' (' +affixe.type+ ')' : null;
     }
 
-    public getItemOptions(): Array<{ label: string, value: EquippableItem }> {
-        const options: Array<{ label: string, value: EquippableItem }> = [];
+    public getItemOptions(): Array<{ label: string, value: GameEquippableItem }> {
+        const options: Array<{ label: string, value: GameEquippableItem }> = [];
 
         if (this.save !== null) {
             const inventory = this.save.inventory[this.selectedClass];
@@ -142,32 +156,15 @@ export class SlormancerPlannerComponent {
         return options;
     }
 
-    public getRange(affixe: Affixe): string {
-        let result: { min: number, max: number } | null = null;
-        const item = this.getSelectedItem();
-        if (item !== null) {
-            result = this.slormancerItemService.computeAffixeValueRange(item, affixe);
-        }
-
-        let type = this.slormancerItemService.getAffixeGameData(affixe).PERCENT === '%' ? '%' : '';
-
-        return result === null ? '?' : result.min + type + ' - ' + result.max + type;
-    }
-
-    public getValue(affixe: Affixe): string {
-        let result: number | null = null;
-        const item = this.getSelectedItem();
-
-        if (item !== null) {
-            result = this.slormancerItemService.computeAffixeValue(item, affixe);
-        }
-
-        let type = this.slormancerItemService.getAffixeGameData(affixe).PERCENT === '%' ? '%' : '';
-
-        return result === null ? '?' : result + type;
-    }
-
-    public getEquipableItemSlot(item: EquippableItem | null): string {
+    public getEquipableItemSlot(item: GameEquippableItem | null): string {
         return item === null ? '' : this.slormancerItemService.getEquipableItemSlot(item);
+    }
+
+    public getMinMaxbaseValues(affixe: AffixData): string {
+        const values = Object.keys(affixe.values).map(v => parseInt(v));
+        const min = values.filter(k => affixe.values[k] === affixe.values[affixe.min]).join(',');
+        const max = values.filter(k => affixe.values[k] === affixe.values[affixe.max]).join(',');
+
+        return min + ' - ' + max;
     }
 }

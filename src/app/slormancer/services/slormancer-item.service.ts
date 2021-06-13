@@ -1,28 +1,20 @@
 import { Injectable } from '@angular/core';
 
-import { GAME_DATA } from '../constants/game-data';
-import { GameDataStat } from '../model/game/stat';
-import { Affixe, EquippableItem, Item, RessourceItem } from '../model/item';
-import { bankerRound } from '../util/math.util';
-
-interface MinMax {
-    min: number;
-    max: number;
-}
+import { AFFIX_TEXT, AffixText } from '../constants/affix-text';
+import { GameRarity } from '../constants/game/game-rarity';
+import { ItemRarity as Rarity } from '../constants/item-rarity';
+import { AffixData } from '../model/affix-data';
+import { GameAffixe, GameEquippableItem, GameItem, GameRessourceItem } from '../model/game/game-item';
+import { SlormancerGameDataService } from './slormancer-game-data.service';
+import { SlormancerItemValueService } from './slormancer-item-value.service';
 
 @Injectable()
 export class SlormancerItemService {
-    // Optimise un truc pour recharger en masse (réutilise le file input)
 
-    private readonly RARITY_RATIO = {
-        'N': { min: 70, max: 100 },
-        'M': { min: 45, max: 65 },
-        'R': { min: 45, max: 65 },
-        'E': { min: 20, max: 40 },
-        'L': { min: 100, max: 100 }
-    }
+    constructor(private slormancerItemValueService : SlormancerItemValueService,
+                private slormancerGameDataService: SlormancerGameDataService) { }
 
-    public getEquipableItemSlot(item: EquippableItem): string {
+    public getEquipableItemSlot(item: GameEquippableItem): string {
         let slot = 'unknown';
 
         if (item !== null) {
@@ -43,90 +35,53 @@ export class SlormancerItemService {
         return slot;
     }
 
-    public isEquipableItem(item: Item | null): item is EquippableItem {
+    private getRarity(rarity: GameRarity): Rarity {
+        let result: Rarity;
+
+        if (rarity === 'N') {
+            result = Rarity.Normal;
+        } else if (rarity === 'M') {
+            result = Rarity.Magic;
+        } else if (rarity === 'R') {
+            result = Rarity.Rare;
+        } else if (rarity === 'E') {
+            result = Rarity.Epic;
+        } else {
+            result = Rarity.Legendary;
+        }
+
+        return result;
+    }
+
+    public isEquipableItem(item: GameItem | null): item is GameEquippableItem {
         return item !== null && item.hasOwnProperty('slot');
     }
 
-    public isRessourceItem(item: Item | null): item is RessourceItem {
+    public isRessourceItem(item: GameItem | null): item is GameRessourceItem {
         return item !== null && item.hasOwnProperty('quantity');
     }
 
-    public getAffixeGameData(affixe: Affixe): GameDataStat {
-        const stat = GAME_DATA.STAT.find(stat => stat.REF_NB === affixe.type);
+    public getAffixedata(item: GameEquippableItem, affix: GameAffixe): AffixData {
+        const stat = this.slormancerGameDataService.getGameDataStat(affix);
+        const values = this.slormancerItemValueService.getAffixValues(item, affix);
+        const text: AffixText = AFFIX_TEXT[stat.REF];
 
-        if (stat === undefined) {
-            throw new Error('No affixe found for affixe type ' + affixe.type);
+        const keys = Object.keys(values).map(k => parseInt(k));
+
+        if (text === undefined) {
+            console.error('No affix text data found for ', stat.REF)
         }
-
-        return stat;
-    }
-
-    private getLevelPercentScore(item: EquippableItem): number {
-        return Math.max(1, Math.floor((item.level + 10) / 15));
-    }
-
-    private getComputedBaseValue(item: EquippableItem, affixe: Affixe): number {
-        const stat = this.getAffixeGameData(affixe);
-        let result = stat.SCORE;
-
-        if (stat.PERCENT === '%') {
-            result = this.getLevelPercentScore(item) * stat.SCORE * 20;
-        } else if (stat.PERCENT === '') {
-            result = stat.SCORE * (100 + (item.level * 30)) / 100;
-        }
-
-        return result;
-    }
-
-    private roundValue(value: number, affixe: Affixe): number {
-        const stat = this.getAffixeGameData(affixe);
-        let result = value;
-
-        if (stat.PERCENT === '%') {
-            if (stat.SCORE < 5) {
-                result = bankerRound(value * 10) / 1000;
-            } else {
-                result = bankerRound(value / 50) / 2;
-            }
-        } else if (stat.PERCENT === '') {
-            result = Math.max(1, bankerRound(value));
-        }
-
-        return result;
-    }
-
-    private getRarityRatio(affixe: Affixe): MinMax {     
-        return this.RARITY_RATIO[affixe.rarity];
-    }
-
-    private getValueRatio(item: EquippableItem, affixe: Affixe): number {
-        const stat = this.getAffixeGameData(affixe);
-        const levelScore = this.getLevelPercentScore(item);
-        let ratio = affixe.value;
-
-        if (stat.PERCENT === '%') {
-            ratio = ratio * 5 / levelScore;
-        }
-
-        return ratio;
-    }
-
-    public computeAffixeValueRange(item: EquippableItem, affixe: Affixe): MinMax {
-        const value = this.getComputedBaseValue(item, affixe);
-        const ratio = this.getRarityRatio(affixe);
-        const reinforcment = 100 + (15 * item.reinforcment);
 
         return {
-            min: this.roundValue(value * reinforcment * ratio.min / (100 * 100), affixe),
-            max: this.roundValue(value * reinforcment * ratio.max / (100 * 100), affixe)
-        };
-    }
-
-    public computeAffixeValue(item: EquippableItem, affixe: Affixe): number {
-        const value = this.getComputedBaseValue(item, affixe);
-        const reinforcment = 100 + (15 * item.reinforcment);
-        const ratio = this.getValueRatio(item, affixe);
-
-        return this.roundValue(value * reinforcment * ratio / (100 * 100), affixe);
+            rarity: this.getRarity(affix.rarity),
+            name: text ? text.name : stat.REF,
+            values,
+            min: keys[0],
+            value: affix.value,
+            max: keys[keys.length - 1],
+            percent: stat.PERCENT === '%',
+            prefix: text ? text.prefix : 'prefix',
+            suffix: text ? text.suffix : 'suffix'
+        }
     }
 }

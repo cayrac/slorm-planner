@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 
-import { Affixe, AffixeRarity, Enchantment, EnchantmentTarget, EquippableItem, Item, RessourceItem } from '../model/item';
+import { GameEnchantmentTarget } from '../constants/game/game-enchantment-target';
+import { GameRarity } from '../constants/game/game-rarity';
+import { GameAffixe, GameEnchantment, GameEquippableItem, GameItem, GameRessourceItem } from '../model/game/game-item';
 import { strictParseFloat, strictParseInt, strictSplit, toNumberArray } from '../util/save.util';
 
 @Injectable()
 export class SlormancerItemParserService {
 
-    public AFFIXE_RARITIES = ['N', 'M', 'R', 'E', 'L'];
-    public ENCHANTMENT_TARGETS = ['MA', 'AT', 'RP'];
+    private AFFIXE_RARITIES = ['N', 'M', 'R', 'E', 'L'];
+    private ENCHANTMENT_TARGETS = ['MA', 'AT', 'RP'];
 
     private isRessource(value: string): boolean {
         return value.startsWith('0') && value.length > 1;
@@ -25,7 +27,7 @@ export class SlormancerItemParserService {
         return value.split('.').length === 3;
     }
 
-    private parseAffixe(affixe: string): Affixe {
+    private parseAffixe(affixe: string): GameAffixe {
         const [rarity, type, value, locked] = strictSplit(affixe, '.', 4);
 
         if (this.AFFIXE_RARITIES.indexOf(rarity) === -1) {
@@ -33,14 +35,14 @@ export class SlormancerItemParserService {
         }
 
         return {
-            rarity: <AffixeRarity>rarity,
+            rarity: <GameRarity>rarity,
             type: strictParseInt(type),
             value: strictParseInt(value),
             locked: locked === '1'
         }
     }
 
-    private parseEnchantment(affixe: string): Enchantment {
+    private parseEnchantment(affixe: string): GameEnchantment {
         const [target, type, value] = strictSplit(affixe, '.', 3);
 
         if (this.ENCHANTMENT_TARGETS.indexOf(target) === -1) {
@@ -48,13 +50,13 @@ export class SlormancerItemParserService {
         }
 
         return {
-            target: <EnchantmentTarget>target,
+            target: <GameEnchantmentTarget>target,
             type: strictParseInt(type),
             value: strictParseInt(value)
         }
     }
 
-    private parseEquipable(source: string): EquippableItem {
+    private parseEquipable(source: string): GameEquippableItem {
         const [base, ...bonuses] = source.split(':');
 
         const [generic, xp] = base.split('-');
@@ -65,7 +67,7 @@ export class SlormancerItemParserService {
             potential = [ potential[0] + '.' + potential[1], potential[2], potential[3] ];
         }
 
-        const item: Item = {
+        const item: GameItem = {
             generic_1,
             slot,
             level,
@@ -81,7 +83,7 @@ export class SlormancerItemParserService {
         return item;
     }
 
-    private parseRessource(source: string): RessourceItem {
+    private parseRessource(source: string): GameRessourceItem {
         const [a, typea, quality, typeb, quantity, e, f, g] = toNumberArray(source, '.', 8);
 
         return {
@@ -91,8 +93,8 @@ export class SlormancerItemParserService {
         }
     }
 
-    public parseItem(value: string): Item | null {
-        let item: Item | null = null;
+    public parseItem(value: string): GameItem | null {
+        let item: GameItem | null = null;
 
         if (this.isRessource(value)) {
             item = this.parseRessource(value);

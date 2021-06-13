@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { GAME_DATA } from '../../../slormancer/constants/game-data';
+import { GAME_DATA } from '../../../slormancer/constants/game/game-data';
 
 interface MinMax {
   min: number;

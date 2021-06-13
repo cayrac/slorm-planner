@@ -1,4 +1,4 @@
-import { Bytes } from '../model/bytes';
+import { Bytes } from '../../model/game/bytes';
 
 export const QUEST_LIST: Bytes = ['71', '75', '65', '73', '74', '5F', '6C', '69', '73', '74'];
 export const WEAPON_EQUIP: Bytes = ['77', '65', '61', '70', '6F', '6E', '5F', '65', '71', '75', '69', '70'];

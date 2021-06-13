@@ -1,4 +1,4 @@
-import { Bytes } from '../model/bytes';
+import { Bytes } from '../model/game/bytes';
 
 export function toBytes(content: string): Bytes {
     return <Bytes>content.match(/.{2}/g);
