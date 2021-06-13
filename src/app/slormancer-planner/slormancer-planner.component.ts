@@ -34,7 +34,7 @@ export class SlormancerPlannerComponent {
     }
     
     public getSelectedItem(): EquippableItem | null {
-        return this.selectedItem === null ? null : this.getItemOptions()[this.selectedItem].value;
+        return this.selectedItem === null || this.getItemOptions()[this.selectedItem] === undefined ? null : this.getItemOptions()[this.selectedItem].value;
     }
 
     public hasSave(): boolean {
