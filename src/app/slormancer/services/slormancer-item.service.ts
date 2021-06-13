@@ -86,7 +86,7 @@ export class SlormancerItemService {
             if (stat.SCORE < 5) {
                 result = bankerRound(value * 10) / 1000;
             } else {
-                result = Math.round(value / 50) / 2;
+                result = bankerRound(value / 50) / 2;
             }
         } else if (stat.PERCENT === '') {
             result = Math.max(1, bankerRound(value));
