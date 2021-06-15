@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SlormancerModule } from './slormancer';
 import { JsonComponent } from './slormancer-planner/component/json/json.component';
-import { StatDataComponent } from './slormancer-planner/component/stat-data/stat-data.component';
 import { SlormancerPlannerComponent } from './slormancer-planner/slormancer-planner.component';
 
 @NgModule({
@@ -14,7 +13,6 @@ import { SlormancerPlannerComponent } from './slormancer-planner/slormancer-plan
     AppComponent,
     JsonComponent,
     SlormancerPlannerComponent,
-    StatDataComponent
   ],
   imports: [
     BrowserModule,

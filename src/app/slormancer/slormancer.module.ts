@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { SlormancerGameDataService } from './services/slormancer-game-data.service';
+import { SlormancerGameDataService } from './services/slormancer-data.service';
 import { SlormancerItemParserService } from './services/slormancer-item-parser.service';
 import { SlormancerItemValueService } from './services/slormancer-item-value.service';
 import { SlormancerItemService } from './services/slormancer-item.service';

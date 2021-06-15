@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { GameAffixe as GameAffix, GameEquippableItem } from '../model/game/game-item';
+import { GameRarity } from '../constants/game/game-rarity';
+import { GameAffix as GameAffix, GameEquippableItem } from '../model/game/game-item';
 import { bankerRound, list } from '../util/math.util';
-import { SlormancerGameDataService } from './slormancer-game-data.service';
+import { SlormancerGameDataService } from './slormancer-data.service';
 
 interface MinMax {
     min: number;
@@ -90,30 +91,34 @@ export class SlormancerItemValueService {
     }
 
     private getComputedBaseValue(item: GameEquippableItem, affix: GameAffix): number {
-        const stat = this.slormancerGameDataService.getGameDataStat(affix);
-        let result = stat.SCORE;
+        const stat = this.slormancerGameDataService.getGameStatData(affix);
+        let result = affix.value;
 
-        if (stat.PERCENT === '%') {
-            result = this.getLevelPercentScore(item) * stat.SCORE * 20;
-        } else if (stat.PERCENT === '') {
-            result = stat.SCORE * (100 + (item.level * 30)) / 100;
+        if (stat !== null) {
+            if (stat.PERCENT === '%') {
+                result = this.getLevelPercentScore(item) * stat.SCORE * 20;
+            } else if (stat.PERCENT === '') {
+                result = stat.SCORE * (100 + (item.level * 30)) / 100;
+            }
         }
 
         return result;
     }
 
     private roundValue(value: number, affix: GameAffix): number {
-        const stat = this.slormancerGameDataService.getGameDataStat(affix);
+        const stat = this.slormancerGameDataService.getGameStatData(affix);
         let result = value;
 
-        if (stat.PERCENT === '%') {
-            if (stat.SCORE < 5) {
-                result = bankerRound(value * 10) / 1000;
-            } else {
-                result = bankerRound(value / 50) / 2;
+        if (stat !== null) {
+            if (stat.PERCENT === '%') {
+                if (stat.SCORE < 5) {
+                    result = bankerRound(value * 10) / 1000;
+                } else {
+                    result = bankerRound(value / 50) / 2;
+                }
+            } else if (stat.PERCENT === '') {
+                result = Math.max(1, bankerRound(value));
             }
-        } else if (stat.PERCENT === '') {
-            result = Math.max(1, bankerRound(value));
         }
 
         return result;
@@ -124,11 +129,11 @@ export class SlormancerItemValueService {
     }
 
     private getValueRatio(item: GameEquippableItem, affix: GameAffix): number {
-        const stat = this.slormancerGameDataService.getGameDataStat(affix);
+        const stat = this.slormancerGameDataService.getGameStatData(affix);
         const levelScore = this.getLevelPercentScore(item);
         let ratio = affix.value;
 
-        if (stat.PERCENT === '%') {
+        if (stat !== null && stat.PERCENT === '%') {
             ratio = ratio * 5 / levelScore;
         }
 
@@ -154,35 +159,58 @@ export class SlormancerItemValueService {
         return this.roundValue(value * reinforcment * ratio / (100 * 100), affix);
     }
 
+    private getAffixMinMax(rarity: GameRarity, percent: string, levelScore: number): MinMax | null {
+        let minMax: MinMax | null = null;
+        
+        console.log(rarity, percent, levelScore, )
+
+        const rarityMinmax = this.AFFIX_MIN_MAX[rarity];
+        if (rarityMinmax) {
+            const percentMinMax = rarityMinmax[percent];
+            if (percentMinMax) {
+                const levelMinMax = percentMinMax[levelScore];
+                minMax = levelMinMax ? levelMinMax : null;
+            }
+        }
+
+        return minMax;
+    }
+
     public getAffixValues(item: GameEquippableItem, affix: GameAffix): { [ key: number]: number } {
-        const stat = this.slormancerGameDataService.getGameDataStat(affix);
-        let values: { [key: number]: number } = {};
+        const stat = this.slormancerGameDataService.getGameStatData(affix);
+        let values: { [key: number]: number } = { [affix.value] : 0 };
         const minMax = this.computeAffixValueRange(item, affix);
         const levelScore = this.getLevelPercentScore(item);
 
-        for (let i = 1 ; i <= 100 ; i++) {
-            const tmpAffixe = { ...affix, value: i };
-            const tmpValue = this.computeAffixValue(item, tmpAffixe);
-
-            if (tmpValue >= minMax.min && tmpValue <= minMax.max) {
-                values[i] = tmpValue;
+        if (stat !== null) {
+            for (let i = 1 ; i <= 100 ; i++) {
+                const tmpAffixe = { ...affix, value: i };
+                const tmpValue = this.computeAffixValue(item, tmpAffixe);
+    
+                if (tmpValue >= minMax.min && tmpValue <= minMax.max) {
+                    values[i] = tmpValue;
+                }
             }
-        }
-        const keys = Object.keys(values).map(k => parseInt(k));
-        const minValues = keys.filter(k => values[k] === values[keys[0]]);
-        const maxValues = keys.filter(k => values[k] === values[keys[keys.length - 1]]);
-
-        const range = this.AFFIX_MIN_MAX[affix.rarity][stat.PERCENT][levelScore];
-
-        if (minValues.indexOf(range.min) === -1 || maxValues.indexOf(range.max) === -1) {
-            console.error('Invalid range values for ', affix.rarity, '-', stat.PERCENT, '-', levelScore, ' : ', range.min, ' - ', range.max);
-            console.log('Possible min-max : ', minValues.join(','), ' - ', maxValues.join(','));
-            console.log('Computed values : ', values);
-        } else {
-            values = {};
-            for (let value of list(range.min, range.max)) {
-                const tmpAffixe = { ...affix, value };
-                values[value] = this.computeAffixValue(item, tmpAffixe);
+            const keys = Object.keys(values).map(k => parseInt(k));
+            const min = keys[0];
+            const max = keys[keys.length - 1];
+            const minValues = keys.filter(k => min && values[k] === values[min]);
+            const maxValues = keys.filter(k => max && values[k] === values[max]);
+    
+            const range = this.getAffixMinMax(affix.rarity, stat.PERCENT, levelScore);
+            
+            if (range !== null) {
+                if (minValues.indexOf(range.min) === -1 || maxValues.indexOf(range.max) === -1) {
+                    console.error('Invalid range values for ', affix.rarity, '-', stat.PERCENT, '-', levelScore, ' : ', range.min, ' - ', range.max);
+                    console.log('Possible min-max : ', minValues.join(','), ' - ', maxValues.join(','));
+                    console.log('Computed values : ', values);
+                } else {
+                    values = {};
+                    for (let value of list(range.min, range.max)) {
+                        const tmpAffixe = { ...affix, value };
+                        values[value] = this.computeAffixValue(item, tmpAffixe);
+                    }
+                }
             }
         }
 

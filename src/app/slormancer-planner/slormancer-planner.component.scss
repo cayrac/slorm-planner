@@ -30,6 +30,45 @@
             justify-content: space-between;
             align-items: stretch;
 
+            .icon {
+                width: 56px;
+                height: 56px;
+                border: 4px solid black;
+                position: relative;
+                
+                &.normal::after {
+                    background-image: url(/assets/img/background/bg-normal.png);
+                }
+                &.magic::after {
+                    background-image: url(/assets/img/background/bg-magic.png);
+                }
+                &.rare::after {
+                    background-image: url(/assets/img/background/bg-rare.png);
+                }
+                &.epic::after {
+                    background-image: url(/assets/img/background/bg-epic.png);
+                }
+                &.legendary::after {
+                    background-image: url(/assets/img/background/bg-legendary.png);
+                }
+                
+                &::after {
+                    content: "";
+                    opacity: 0.8;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                    position: absolute;
+                    z-index: -1;   
+                  }
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
             .json {
                 flex-grow: 1;
                 max-width: 33%;

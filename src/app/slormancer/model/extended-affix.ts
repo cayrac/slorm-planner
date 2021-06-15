@@ -1,6 +1,6 @@
 import { ItemRarity } from '../constants/item-rarity';
 
-export interface AffixData {
+export interface ExtendedAffix {
     rarity: ItemRarity;
     name: string;
     values: { [key: number]: number },
@@ -8,6 +8,5 @@ export interface AffixData {
     value: number;
     max: number;
     percent: boolean;
-    prefix: string;
     suffix: string
 }

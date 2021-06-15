@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { GameEnchantmentTarget } from '../constants/game/game-enchantment-target';
 import { GameRarity } from '../constants/game/game-rarity';
-import { GameAffixe, GameEnchantment, GameEquippableItem, GameItem, GameRessourceItem } from '../model/game/game-item';
+import { GameAffix, GameEnchantment, GameEquippableItem, GameItem, GameRessourceItem } from '../model/game/game-item';
 import { strictParseFloat, strictParseInt, strictSplit, toNumberArray } from '../util/save.util';
 
 @Injectable()
@@ -27,17 +27,17 @@ export class SlormancerItemParserService {
         return value.split('.').length === 3;
     }
 
-    private parseAffixe(affixe: string): GameAffixe {
+    private parseAffixe(affixe: string): GameAffix {
         const [rarity, type, value, locked] = strictSplit(affixe, '.', 4);
 
-        if (this.AFFIXE_RARITIES.indexOf(rarity) === -1) {
+        if (this.AFFIXE_RARITIES.indexOf(<string>rarity) === -1) {
             throw new Error('parse affixe error : Unknown rarity "' + rarity + '"');
         }
 
         return {
             rarity: <GameRarity>rarity,
-            type: strictParseInt(type),
-            value: strictParseInt(value),
+            type: strictParseInt(<string>type),
+            value: strictParseInt(<string>value),
             locked: locked === '1'
         }
     }
@@ -45,37 +45,36 @@ export class SlormancerItemParserService {
     private parseEnchantment(affixe: string): GameEnchantment {
         const [target, type, value] = strictSplit(affixe, '.', 3);
 
-        if (this.ENCHANTMENT_TARGETS.indexOf(target) === -1) {
+        if (this.ENCHANTMENT_TARGETS.indexOf(<string>target) === -1) {
             throw new Error('parse enchantment error : Unknown target "' + target + '"');
         }
 
         return {
             target: <GameEnchantmentTarget>target,
-            type: strictParseInt(type),
-            value: strictParseInt(value)
+            type: strictParseInt(<string>type),
+            value: strictParseInt(<string>value)
         }
     }
 
     private parseEquipable(source: string): GameEquippableItem {
         const [base, ...bonuses] = source.split(':');
+        const [generic, xp] = (<string>base).split('-');
+        const data = toNumberArray(<string>generic, '.', 6);
+        let potentialData = (<string>xp).split('.');
 
-        const [generic, xp] = base.split('-');
-        const [ generic_1, slot, level, generic_4, q, reinforcment ] = toNumberArray(generic, '.', 6);
-        let potential = xp.split('.');
-
-        if (potential.length === 4) {
-            potential = [ potential[0] + '.' + potential[1], potential[2], potential[3] ];
-        }
+        let generic_5 = potentialData[potentialData.length - 1];
+        let rarity = potentialData[potentialData.length - 2];
+        let potential =  potentialData.length === 4 ? potentialData[0] + '.' + potentialData[1] : potentialData[0];
 
         const item: GameItem = {
-            generic_1,
-            slot,
-            level,
-            reinforcment,
-            potential: strictParseFloat(potential[0]),
-            rarity: strictParseInt(potential[2]),
-            generic_4,
-            generic_5: strictParseInt(potential[1]),
+            generic_1: <number>data[0],
+            slot: <number>data[1],
+            level: <number>data[2],
+            reinforcment: <number>data[5],
+            potential: strictParseFloat(<string>potential),
+            rarity: strictParseInt(<string>rarity),
+            generic_4: <number>data[3],
+            generic_5: strictParseInt(<string>generic_5),
             affixes: bonuses.filter(a => this.isAffixe(a)).map(a => this.parseAffixe(a)),
             enchantments: bonuses.filter(a => this.isEnchantment(a)).map(a => this.parseEnchantment(a))
         }
@@ -84,12 +83,12 @@ export class SlormancerItemParserService {
     }
 
     private parseRessource(source: string): GameRessourceItem {
-        const [a, typea, quality, typeb, quantity, e, f, g] = toNumberArray(source, '.', 8);
+        const data = toNumberArray(source, '.', 8);
 
         return {
-            quantity,
-            quality,
-            type: typea + '.' + typeb
+            quantity: <number>data[4],
+            quality: <number>data[2],
+            type: data[1] + '.' + data[3]
         }
     }
 

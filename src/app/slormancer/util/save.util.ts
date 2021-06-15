@@ -25,10 +25,10 @@ export function toHeroes<T>(data: [T, T, T]): GameHeroesData<T> {
 }
 
 export function toWeapon(data: string): GameWeapon {
-    const [basic, primordial] = data.split('/', 2);
+    const [basic, primordial] = strictSplit(data, '/', 2);
     return {
-        basic: basic.split(':').map(strictParseInt),
-        primordial: primordial.split(':').map(strictParseInt)
+        basic: toNumberArray(<string>basic, ':', 4),
+        primordial: toNumberArray(<string>primordial, ':', 4)
     }
 }
 

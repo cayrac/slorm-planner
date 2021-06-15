@@ -18,11 +18,11 @@ export interface GameEquippableItem {
     generic_4: number;
     generic_5: number;
     potential: number;
-    affixes: Array<GameAffixe>;
+    affixes: Array<GameAffix>;
     enchantments: Array<GameEnchantment>;
 }
 
-export interface GameAffixe {
+export interface GameAffix {
     rarity: GameRarity;
     type: number;
     value: number;

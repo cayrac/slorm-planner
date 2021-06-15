@@ -34,6 +34,7 @@ import {
     XP,
 } from '../constants/game/save-attributes';
 import { Bytes } from '../model/game/bytes';
+import { GameItem } from '../model/game/game-item';
 import {
     GameAuras,
     GameElementRank,
@@ -179,17 +180,17 @@ export class SlormancerSaveParserService {
         const equipment = parsedItems.splice(0, 11);
 
         return {
-            hemlet: equipment[0],
-            chest: equipment[1],
-            spaulder: equipment[2],
-            bracers: equipment[3],
-            gloves: equipment[4],
-            boots: equipment[5],
-            ring_l: equipment[6],
-            ring_r: equipment[7],
-            amulet: equipment[8],
-            belt: equipment[9],
-            cape: equipment[10],
+            hemlet: <GameItem | null>equipment[0],
+            chest: <GameItem | null>equipment[1],
+            spaulder: <GameItem | null>equipment[2],
+            bracers: <GameItem | null>equipment[3],
+            gloves: <GameItem | null>equipment[4],
+            boots: <GameItem | null>equipment[5],
+            ring_l: <GameItem | null>equipment[6],
+            ring_r: <GameItem | null>equipment[7],
+            amulet: <GameItem | null>equipment[8],
+            belt: <GameItem | null>equipment[9],
+            cape: <GameItem | null>equipment[10],
             bag: parsedItems
         }
     }
@@ -261,9 +262,9 @@ export class SlormancerSaveParserService {
     }
 
     public parseSaveFile(content: string): GameSave {
-        const [data, hash] = content.split('#', 2);
+        const [data, hash] = content.split('#', 2)
 
-        const bytes = toBytes(data);
+        const bytes = toBytes(<string>data);
 
         takeUntil(bytes, QUEST_LIST);
 
@@ -299,7 +300,7 @@ export class SlormancerSaveParserService {
             auras: this.parseAuras(takeUntil(bytes, PROFILE)),
             profile: this.parseProfile(takeUntil(bytes, ENEMY_LEVEL)),
             enemy_level: this.parseEnemyLevel(takeUntil(bytes, null)),
-            hash
+            hash: <string>hash
         };
     }
 }

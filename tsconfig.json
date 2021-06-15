@@ -19,20 +19,35 @@
       "es2018",
       "dom"
     ],
+    // "fullTemplateTypeCheck": true,
+    // "strictTemplates": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true, 
+    "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "alwaysStrict": true,
+    "noImplicitThis": true,
+    // "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "removeComments": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictTemplates": true,
-    "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true, 
+    "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "alwaysStrict": true,
+    "noImplicitThis": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "removeComments": true
   },
   "exclude": [ "node_modules" ]
 }

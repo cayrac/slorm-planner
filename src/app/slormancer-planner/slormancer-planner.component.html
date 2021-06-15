@@ -8,27 +8,31 @@
         </div>
         <div class="navigation">
             <p>Class : <select [(ngModel)]="selectedClass"><option [value]="option.value" *ngFor="let option of CLASS_OPTIONS">{{option.label}}</option></select></p>
-            <p>Item : <select [(ngModel)]="selectedItem"><option [value]="i" *ngFor="let option of getItemOptions(); let i = index">{{option.label}}</option></select></p>
+            <p>Item : <select (change)="itemChanged()" [(ngModel)]="selectedItem"><option [value]="i" *ngFor="let option of getItemOptions(); let i = index">{{option.label}}</option></select></p>
         </div>
-        <div class="item" *ngIf="getSelectedItem() !== null">
+        
+        <div class="item" *ngIf="selectedExtendedItem !== null">
             <div class="json">
-                <app-json [data]="getItemAffixes()"></app-json>
+                <app-json [data]="selectedExtendedItem"></app-json>
             </div>
             <div class="parsed">
-                <p>Slot : {{getEquipableItemSlot(getSelectedItem())}}</p>
-                <p>Level : {{getLevel(getSelectedItem())}}</p>
-                <p>Reinforcment : {{getReinforcmentLevel(getSelectedItem())}}</p>
+                <div class="icon {{selectedExtendedItem.rarity}}">
+                    <img src="assets/img/{{selectedExtendedItem.type}}/{{selectedExtendedItem.base}}.png" />
+                </div>
+                <p>Name : {{selectedExtendedItem.name}}</p>
+                <p>Slot : {{selectedExtendedItem.type}}</p>
+                <p>Level : {{selectedExtendedItem.level}}</p>
+                <p>Reinforcment : {{selectedExtendedItem?.reinforcment}}</p>
 
                 <div class="affixes">
-                    <div class="affixe {{affixe.rarity}}" *ngFor="let affixe of getItemAffixes()">
-                        <div class="value">{{affixe.values[affixe.value]}}<span *ngIf="affixe.percent">%</span> ({{affixe.value}})</div>
-                        <div class="range">{{affixe.values[affixe.min]}}<span *ngIf="affixe.percent">%</span> - {{affixe.values[affixe.max]}}<span *ngIf="affixe.percent">%</span></div>
-                        <div class="range-values">{{affixe.min}} - {{affixe.max}}</div>
-                        <div class="name">{{affixe.name}}</div>
+                    <div class="affixe {{affix.rarity}}" *ngFor="let affix of selectedExtendedItem.affixes">
+                        <div class="value">{{affix.values[affix.value]}}<span *ngIf="affix.percent">%</span></div>
+                        <div class="range">{{affix.values[affix.min]}}<span *ngIf="affix.percent">%</span> - {{affix.values[affix.max]}}<span *ngIf="affix.percent">%</span></div>
+                        <div class="range-values">{{affix.min}} - {{affix.max}}</div>
+                        <div class="name">{{affix.name}}</div>
                     </div>
                 </div>
             </div>
         </div>
-        <!--<app-stat-data></app-stat-data>-->
     </div>
 </div>
