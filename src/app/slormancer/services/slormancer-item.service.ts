@@ -24,10 +24,10 @@ export class SlormancerItemService {
             switch (item.slot) {
                 case 0: slot = EquipableItemType.Helm; break;
                 case 1: slot = EquipableItemType.Armor; break;
-                case 2: slot = EquipableItemType.Shoulder; break;
-                case 3: slot = EquipableItemType.Bracer; break;
-                case 4: slot = EquipableItemType.Glove; break;
-                case 5: slot = EquipableItemType.Boot; break;
+                case 2: slot = EquipableItemType.Shoulders; break;
+                case 3: slot = EquipableItemType.Bracers; break;
+                case 4: slot = EquipableItemType.Gloves; break;
+                case 5: slot = EquipableItemType.Boots; break;
                 case 6: slot = EquipableItemType.Ring; break;
                 case 7: slot = EquipableItemType.Amulet; break;
                 case 8: slot = EquipableItemType.Belt; break;
