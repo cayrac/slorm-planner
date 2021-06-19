@@ -156,12 +156,12 @@ export class SlormancerItemValueService {
         return values;
     }
 
-    public getLegendaryAffixValues(score: number): { [ key: number]: number } {
+    public getLegendaryAffixValues(score: number, upgrade: number): { [ key: number]: number } {
         let values: { [key: number]: number } = { };
 
         values = {};
         for (let value of list(75, 100)) {
-            values[value] = this.roundValue(score * value / 100, false, false);
+            values[value] = this.roundValue(score * value / 100 + upgrade, false, false);
         }
 
         return values;

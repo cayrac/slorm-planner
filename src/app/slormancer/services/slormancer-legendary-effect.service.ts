@@ -46,11 +46,12 @@ export class SlormancerLegendaryEffectService {
             const type = types[i] ? <string>types[i] : null;
             const upgrade = upgradables[i] ? <number>upgradables[i] : 0;
             const value = values[i] ? <number>values[i] : 0;
+            const totalUpgrade = reinforcment * upgrade;
 
-            const computedValue = value + reinforcment * upgrade;
+            const computedValue = value;
 
             effectValues.push({
-                values: range === 1 ? this.slormanderItemValueService.getLegendaryAffixValues(computedValue) : null,
+                values: range === 1 ? this.slormanderItemValueService.getLegendaryAffixValues(computedValue, totalUpgrade) : null,
                 constant: range === 0 ? computedValue : null,
                 synergyValue: type !== null && type !== '%' ? 0 : null,
                 type,
