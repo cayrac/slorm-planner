@@ -112,7 +112,7 @@ export class SlormancerPlannerComponent implements OnInit {
 
     public selectedClass: HeroClass = HeroClass.Huntress;
 
-    public selectedItem: number | null = 10;
+    public selectedItem: number | null = 14;
 
     public selectedExtendedItem: ExtendedEquipableItem | null = null;
 
@@ -153,6 +153,7 @@ export class SlormancerPlannerComponent implements OnInit {
     public getLegendariesData(): Array<{ game: GameDataLegendary, expected: Array<{ min: number, max: number, percent: boolean, range: boolean }>, effect: ExtendedLegendaryEffect }> {
         return GAME_DATA.LEGENDARY
             .filter(legendary => legendary.LOOTABLE)
+            .filter(legendary => legendary.SKILL !== null && legendary.SKILL.length > 0 && legendary.SKILL === '6')
             .map(legendary => ({ game: legendary, expected: <Array<{ min: number, max: number, percent: boolean, range: boolean }>>this.LEGENDARY_EXPECTED_DATA[legendary.REF], effect: this.getLegendaryEffect(legendary) }));
     }
 

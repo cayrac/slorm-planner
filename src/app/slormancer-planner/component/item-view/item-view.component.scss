@@ -87,19 +87,19 @@ $item-range-color      : $item-gray;
     background-size: 100% 100%;
     
     &.normal {
-        background-image: url(/assets/img/background/bg-normal.png);
+        background-image: url(/assets/img/item/background/bg-normal.png);
     }
     &.magic {
-        background-image: url(/assets/img/background/bg-magic.png);
+        background-image: url(/assets/img/item/background/bg-magic.png);
     }
     &.rare {
-        background-image: url(/assets/img/background/bg-rare.png);
+        background-image: url(/assets/img/item/background/bg-rare.png);
     }
     &.epic {
-        background-image: url(/assets/img/background/bg-epic.png);
+        background-image: url(/assets/img/item/background/bg-epic.png);
     }
     &.legendary {
-        background-image: url(/assets/img/background/bg-legendary.png);
+        background-image: url(/assets/img/item/background/bg-legendary.png);
     }
 
     img {
