@@ -64,7 +64,7 @@ import {
     toHeroes,
     toNumberArray,
     toWeapon,
-} from '../util/save.util';
+} from '../util/parse.util';
 import { SlormancerItemParserService } from './slormancer-item-parser.service';
 
 @Injectable()

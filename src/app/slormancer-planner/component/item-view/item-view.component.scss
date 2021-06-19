@@ -1,0 +1,236 @@
+$normal-color-text     : rgb(137, 137, 137);
+$normal-color-bg       : rgb(89, 81, 60);
+$magic-color-text      : rgb(46, 135, 38);
+$magic-color-bg        : rgb(97, 70, 45);
+$rare-color-text       : rgb(23, 106, 177);
+$rare-color-bg         : rgb(119, 145, 161);
+$epic-color-text       : rgb(198, 141, 32);
+$epic-color-bg         : rgb(239, 198, 92);
+$legendary-color-text  : rgb(206, 70, 7);
+$legendary-color-bg    : rgb(245, 178, 80);
+$item-bg               : rgb(21,20,18);
+$item-gray             : rgb(104, 104, 104);
+$item-value-color      : white;
+$item-range-color      : $item-gray;
+
+.equipped, .rarity, .split, .type, .head, .legendary-effect .description {
+    .item.normal & {
+        color: $normal-color-text;
+    }
+    .item.magic & {
+        color: $magic-color-text;
+    }
+    .item.rare & {
+        color: $rare-color-text;
+    }
+    .item.epic & {
+        color: $epic-color-text;
+    }
+    .item.legendary & {
+        color: $legendary-color-text;
+    }
+}
+
+.head, .content {
+    .item.normal & {
+        border-color: $normal-color-bg;
+    }
+    .item.magic & {
+        border-color: $magic-color-bg;
+    }
+    .item.rare & {
+        border-color: $rare-color-bg;
+    }
+    .item.epic & {
+        border-color: $epic-color-bg;
+    }
+    .item.legendary & {
+        border-color: $legendary-color-bg;
+    }
+}
+    
+.bullet {
+    min-width: 8px;
+    div {
+        display: inline-block;
+        height: 6px;
+        width: 6px;
+        border: 1px solid black;
+        border-radius: 6px;
+        margin: auto;
+        &.normal {
+            background-color: $normal-color-text;
+        }
+        &.magic {
+            background-color: $magic-color-text;
+        }
+        &.rare {
+            background-color: $rare-color-text;
+        }
+        &.epic {
+            background-color: $epic-color-text;
+        }
+        &.legendary {
+            background-color: $legendary-color-text;
+        }
+    }
+}
+
+.icon {
+    min-width: 56px;
+    min-height: 56px;
+    width: 56px;
+    height: 56px;
+    border: 4px solid black;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    
+    &.normal {
+        background-image: url(/assets/img/background/bg-normal.png);
+    }
+    &.magic {
+        background-image: url(/assets/img/background/bg-magic.png);
+    }
+    &.rare {
+        background-image: url(/assets/img/background/bg-rare.png);
+    }
+    &.epic {
+        background-image: url(/assets/img/background/bg-epic.png);
+    }
+    &.legendary {
+        background-image: url(/assets/img/background/bg-legendary.png);
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.item {
+    background-color: $item-bg;
+    color: white;
+    border: 2px solid black;
+    width: 350px;
+
+    ::ng-deep {
+        .value {
+            color: $item-value-color;
+            word-break: keep-all;
+            white-space: nowrap;
+        }
+        .range {
+            color: $item-range-color;
+            word-break: keep-all;
+            white-space: nowrap;
+        }
+    }
+    
+    .head, .content {
+        border: 2px solid;
+    }
+
+    .head {
+        margin-bottom: 2px;
+        text-align: center;
+        padding: 10px 50px;
+        text-transform: uppercase;
+        font-size: 17px;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding: 15px 10px;
+        gap: 15px;
+    
+        .equipped {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            text-transform: capitalize;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+    
+            .info {
+                min-width: 80px;
+                width: 80px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+    
+                .icon {
+                    margin-bottom: 10px;
+                }
+    
+                .rarity, .type, .level {
+                    text-transform: capitalize;
+                }
+    
+            }
+    
+            .separator {
+                background-color: $item-gray;
+                min-width: 2px;
+            }
+    
+            .stats {
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+    
+                .affixes {
+                    .title {
+                        color: $item-gray;
+                    }
+                    ul {
+                        margin: 0;
+                        padding-left: 5px;
+                        list-style: disc inside;
+    
+                        li {
+                            list-style: none;
+                            display: flex;
+                            flex-direction: row;
+                            gap: 5px;
+    
+                            .name {
+                                flex-grow: 1;
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }
+
+        .legendary-effect {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid $item-gray;
+            padding: 10px 30px;
+            gap: 5px;
+
+            .title {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 5px;
+                color: $item-gray;
+            }
+
+            .description {
+                text-align: center;
+            }
+        }
+
+    }
+}

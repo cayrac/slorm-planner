@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { GameRarity } from '../constants/game/game-rarity';
-import { GameAffix as GameAffix, GameEquippableItem } from '../model/game/game-item';
 import { bankerRound, list } from '../util/math.util';
-import { SlormancerGameDataService } from './slormancer-data.service';
 
 interface MinMax {
     min: number;
@@ -69,14 +67,14 @@ export class SlormancerItemValueService {
                 3: { min: 70, max: 100 }
             },
             '%': {
-                1: { min: 70, max: 100 },
-                2: { min: 28, max: 40 },
-                3: { min: 42, max: 60 }
+                1: { min: 75, max: 100 },
+                2: { min: 75, max: 100 },
+                3: { min: 75, max: 100 },
             }
         }
     }
 
-    constructor(private slormancerGameDataService : SlormancerGameDataService) { }
+    constructor() { }
 
     private getLevelPercentScore(level: number): number {
         return Math.max(1, Math.floor((level + 10) / 15));
@@ -88,11 +86,11 @@ export class SlormancerItemValueService {
             : score * (100 + (level * 30)) / 100;
     }
 
-    private roundValue(value: number, score: number, percent: boolean): number {
+    private roundValue(value: number, precisionValue: boolean, percent: boolean): number {
         let result = value;
 
         if (percent) {
-            if (score < 5) {
+            if (precisionValue) {
                 result = bankerRound(value * 10) / 1000;
             } else {
                 result = bankerRound(value / 50) / 2;
@@ -124,15 +122,15 @@ export class SlormancerItemValueService {
         const reinforcmentRatio = this.getReinforcmentratio(reinforcment);
         const valueRatio = this.getValueRatio(level, value, percent);
 
-        return this.roundValue(baseValue * reinforcmentRatio * valueRatio / (100 * 100), score, percent);
+        return this.roundValue(baseValue * reinforcmentRatio * valueRatio / (100 * 100), score < 5, percent);
     }
 
-    private getAffixMinMax(rarity: GameRarity, percent: string, levelScore: number): MinMax | null {
+    private getAffixMinMax(rarity: GameRarity, percent: boolean, levelScore: number): MinMax | null {
         let minMax: MinMax | null = null;
         
         const rarityMinmax = this.AFFIX_MIN_MAX[rarity];
         if (rarityMinmax) {
-            const percentMinMax = rarityMinmax[percent];
+            const percentMinMax = rarityMinmax[percent ? '%' : ''];
             if (percentMinMax) {
                 const levelMinMax = percentMinMax[levelScore];
                 minMax = levelMinMax ? levelMinMax : null;
@@ -142,20 +140,28 @@ export class SlormancerItemValueService {
         return minMax;
     }
 
-    public getAffixValues(item: GameEquippableItem, affix: GameAffix): { [ key: number]: number } {
-        const stat = this.slormancerGameDataService.getGameStatData(affix);
-        let values: { [key: number]: number } = { [affix.value] : 0 };
-        const levelScore = this.getLevelPercentScore(item.level);
+    public getAffixValues(level: number, reinforcment: number, score: number, percent: boolean, rarity: GameRarity): { [ key: number]: number } {
+        let values: { [key: number]: number } = { };
+        const levelScore = this.getLevelPercentScore(level);
 
-        if (stat !== null) {
-            const range = this.getAffixMinMax(affix.rarity, stat.PERCENT, levelScore);
+        const range = this.getAffixMinMax(rarity, percent, levelScore);
 
-            if (range !== null) {
-                values = {};
-                for (let value of list(range.min, range.max)) {
-                    values[value] = this.computeAffixValue(item.level, item.reinforcment, stat.SCORE, value, stat.PERCENT === '%');
-                }
+        if (range !== null) {
+            values = {};
+            for (let value of list(range.min, range.max)) {
+                values[value] = this.computeAffixValue(level, reinforcment, score, value, percent);
             }
+        }
+
+        return values;
+    }
+
+    public getLegendaryAffixValues(score: number): { [ key: number]: number } {
+        let values: { [key: number]: number } = { };
+
+        values = {};
+        for (let value of list(75, 100)) {
+            values[value] = this.roundValue(score * value / 100, false, false);
         }
 
         return values;

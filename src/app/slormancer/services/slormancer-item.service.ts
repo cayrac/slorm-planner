@@ -10,11 +10,13 @@ import { GameAffix, GameEquippableItem, GameItem, GameRessourceItem } from '../m
 import { compare, compareRarities, isNotNullOrUndefined } from '../util/utils';
 import { SlormancerGameDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
+import { SlormancerLegendaryEffectService } from './slormancer-legendary-effect.service';
 
 @Injectable()
 export class SlormancerItemService {
 
     constructor(private slormancerItemValueService : SlormancerItemValueService,
+                private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
                 private slormancerDataService: SlormancerGameDataService) { }
 
     public getEquipableItemType(item: GameEquippableItem): EquipableItemType {
@@ -68,25 +70,31 @@ export class SlormancerItemService {
 
     public getExtendedAffix(item: GameEquippableItem, affix: GameAffix): ExtendedAffix | null {
         const stat = this.slormancerDataService.getGameStatData(affix);
-        const values = this.slormancerItemValueService.getAffixValues(item, affix);
-        const keys = Object.keys(values).map(k => parseInt(k));
-        const minValue = keys[0];
-        const maxValue = keys[keys.length - 1];
+
         const result: ExtendedAffix | null = {
             rarity: this.getRarity(affix.rarity),
             name: '??',
-            values,
-            min: minValue ? minValue : 0,
+            values: { [affix.value] : 0 },
+            min: affix.value,
             value: affix.value,
-            max: maxValue ? maxValue : 0,
+            max: affix.value,
             percent: false,
-            suffix: '??'
+            suffix: '??',
+            locked: affix.locked
         };
 
         if (stat !== null) {
             const affixData = this.slormancerDataService.getAffixData(affix);
 
+            result.values = this.slormancerItemValueService.getAffixValues(item.level, item.reinforcment, stat?.SCORE, stat?.PERCENT === '%', affix.rarity);
             result.percent = stat.PERCENT === '%';
+            
+            const keys = Object.keys(result.values).map(k => parseInt(k));
+            const minValue = keys[0];
+            const maxValue = keys[keys.length - 1];
+
+            result.min = minValue ? minValue : affix.value;
+            result.max = maxValue ? maxValue : affix.value;
 
             if (affixData) {
                 result.name = affixData.name;
@@ -101,43 +109,59 @@ export class SlormancerItemService {
     }
 
     private getItemName(type: EquipableItemType, base: string, rarity: Rarity, item: GameEquippableItem): string {
-        let baseName = base;
-        let rarityPrefix: string | null = null;
-        let suffix: string | null = null;
-        let reinforcment: string | null = item.reinforcment > 0 ? '+' + item.reinforcment : null;
-        let data: EquipableItemTypeData | null = null;
+        let name = '??';
+        const legendaryAffix = item.affixes.find(affix => affix.rarity === 'L');
+        const reinforcment: string | null = item.reinforcment > 0 ? '+' + item.reinforcment : null;
 
-        if (rarity === Rarity.Epic) {
-            rarityPrefix = 'epic';
-        } else if (rarity === Rarity.Legendary) {
-            rarityPrefix = 'legendary';
-        }
+        if (legendaryAffix !== undefined) {
+            const legendaryData = this.slormancerDataService.getGameLegendaryData(legendaryAffix.type);
+            name = legendaryData === null ? 'unknown legendary' : legendaryData.EN_NAME;
+        } else {
+            let baseName = base;
+            let rarityPrefix: string | null = null;
+            let suffix: string | null = null;
+            let prefix: string | null = null;
+            let data: EquipableItemTypeData | null = null;
 
-        data = this.slormancerDataService.getEquipableItemData(type, base);
-
-        if (data !== null) {
-            baseName = data.name;
-        }
-
-        const magicAffixes = item.affixes.filter(affix => affix.rarity === 'M');
-        if (magicAffixes[0]) {
-            const affixData = this.slormancerDataService.getAffixData(magicAffixes[0]);
-            
-            if (affixData !== null) {
-                suffix = affixData.suffix;
+            if (rarity === Rarity.Epic) {
+                rarityPrefix = 'epic';
             }
+         
+            data = this.slormancerDataService.getEquipableItemData(type, base);
+    
+            if (data !== null) {
+                baseName = data.name;
+            }
+    
+            const magicAffixes = item.affixes.filter(affix => affix.rarity === 'M');
+            if (magicAffixes[0]) {
+                const affixData = this.slormancerDataService.getAffixData(magicAffixes[0]);
+                
+                if (affixData !== null) {
+                    suffix = affixData.suffix;
+                }
+            }
+    
+            const rareAffixes = item.affixes.filter(affix => affix.rarity === 'R');
+            if (rareAffixes[0]) {
+                const affixData = this.slormancerDataService.getAffixData(rareAffixes[0]);
+                
+                if (affixData !== null) {
+                    prefix = affixData.prefix;
+                }
+            }
+    
+            name = [rarityPrefix, prefix, baseName, suffix, reinforcment].filter(isNotNullOrUndefined).join(' ');
         }
 
-        return [rarityPrefix, baseName, suffix, reinforcment].filter(isNotNullOrUndefined).join(' ');
+        return [name, reinforcment].filter(isNotNullOrUndefined).join(' ');
     }
 
     private getItemRarity(item: GameEquippableItem): Rarity {
         const rarities = item.affixes.map(affix => affix.rarity);
         let rarity = Rarity.Normal;
 
-        if (rarities.indexOf('L') !== -1) {
-            rarity = Rarity.Legendary;
-        } else if (rarities.indexOf('E') !== -1) {
+        if (rarities.indexOf('E') !== -1) {
             rarity = Rarity.Epic;
         } else if (rarities.indexOf('R') !== -1) {
             rarity = Rarity.Rare;
@@ -163,12 +187,16 @@ export class SlormancerItemService {
         const base = this.getItembase(item);
         const rarity = this.getItemRarity(item);
         const name = this.getItemName(type, base, rarity, item);
-        const affixes = item.affixes.map(affix => this.getExtendedAffix(item, affix))
+        const affixes = item.affixes
+            .filter(affix => affix.rarity !== 'L')
+            .map(affix => this.getExtendedAffix(item, affix))
             .filter(isNotNullOrUndefined)
             .sort((a, b) => {
                 const rarity = compareRarities(a.rarity, b.rarity);
                 return rarity === 0 ? compare(a.name, b.name) : rarity;
             });
+        const legendaryAffix = item.affixes.find(affix => affix.rarity === 'L');
+        
 
         return {
             type,
@@ -176,6 +204,7 @@ export class SlormancerItemService {
             base,
             rarity,
             affixes,
+            legendaryEffect: legendaryAffix === undefined ? null : this.slormancerLegendaryEffectService.getExtendedLegendaryEffect(legendaryAffix, item.reinforcment),
             level: item.level,
             reinforcment: item.reinforcment
         };

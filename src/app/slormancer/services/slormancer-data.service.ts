@@ -4,7 +4,10 @@ import { AFFIX_DATA, AffixData } from '../constants/affix-data';
 import { EQUIPABLE_ITEM_DATA } from '../constants/equipable-item-data';
 import { EquipableItemType } from '../constants/equipable-item-type';
 import { GAME_DATA } from '../constants/game/game-data';
+import { LEGENDARY_DATA } from '../constants/legendary-data';
 import { EquipableItemTypeData } from '../model/equipable-item-type-data';
+import { ExtendedLegendaryData } from '../model/extended-legendary-data';
+import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameDataStat } from '../model/game/data/game-data-stat';
 import { GameAffix } from '../model/game/game-item';
 
@@ -35,13 +38,24 @@ export class SlormancerGameDataService {
         let result: AffixData | null = null;
 
         if (stat !== null) {
-            const affixData = AFFIX_DATA[stat.REF];
-
-            if (affixData) {
-                result = affixData;
-            }
+            result = this.getAffixDataByRef(stat.REF);
         }
 
         return result;
+    }
+
+    public getAffixDataByRef(ref: string): AffixData | null {
+        const stat = AFFIX_DATA[ref];
+        return stat ? stat : null;
+    }
+
+    public getGameLegendaryData(id: number): GameDataLegendary | null {
+        const legendary = GAME_DATA.LEGENDARY.find(leg => leg.REF === id);
+        return legendary ? legendary : null;
+    }
+
+    public getLegendaryData(id: number): ExtendedLegendaryData | null {
+        const legendary = LEGENDARY_DATA[id];
+        return legendary ? legendary : null;
     }
 }

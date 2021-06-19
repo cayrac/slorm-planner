@@ -45,9 +45,12 @@ export function strictSplit(data: string, separator = ',', expected: number | nu
 export function toNumberArray(data: string, separator = ',', expected: number | null = null): Array<number> {
     return strictSplit(data, separator, expected).map(strictParseInt);
 }
+export function toFloatArray(data: string, separator = ',', expected: number | null = null): Array<number> {
+    return strictSplit(data, separator, expected).map(strictParseFloat);
+}
 
 export function strictParseInt(data: string): number {
-    data = data.replace(/^0*(.+?)$/, '$1');
+    data = data.replace(/^0*([0-9]+.+?)$/, '$1');
     const value = parseInt(data, 10);
     if (data !== value.toString()) {
         throw new Error('Int parse error : expected "' + data + '" but got "' + value + '"');
@@ -55,15 +58,16 @@ export function strictParseInt(data: string): number {
     return value;
 }
 
-export function strictParseFloat(data: string): number {
-    data = data.replace(/^0*(.+?)0*$/, '$1');
-    const value = parseFloat(data);
-    if (data !== value.toString()) {
-        throw new Error('Int parse error : expected "' + data + '" but got "' + value + '"');
-    }
-    return value;
+export function parseIntOrdefault<T>(data: string, defaultValue: T): number | T {
+    const result = parseInt(data);
+    return isNaN(result) ? defaultValue : result;
 }
 
-export function valueOrNull<T>(value: T | null | undefined): T | null {
-    return value === null || value === undefined ? null : value;
+export function strictParseFloat(data: string): number {
+    data = data.replace(/^0*([0-9]+.+?)0*$/, '$1');
+    const value = parseFloat(data);
+    if (data !== value.toString()) {
+        throw new Error('Float parse error : expected "' + data + '" but got "' + value + '"');
+    }
+    return value;
 }

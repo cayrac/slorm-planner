@@ -1,0 +1,74 @@
+<div *ngIf="item !== null" class="item {{getItemRarityColor()}}">
+    <div class="head">{{item.name}}</div>
+    <div class="content">
+        <div *ngIf="equipped" class="equipped">Equipped</div>
+        <div class="main">
+            <div class="info">
+                <div class="icon {{getItemRarityColor()}}">
+                    <img src="assets/img/{{item.type}}/{{item.base}}.png" />
+                </div>
+                <div class="rarity">{{item.rarity}}</div>
+                <div class="rarity" *ngIf="item.legendaryEffect !== null">Legendary</div>
+                <div class="split">-</div>
+                <div class="type">{{item.type}}</div>
+                <div>Lvl. {{item.level}}</div>
+            </div>
+            <div class="separator"></div>
+            <div class="stats">
+                
+                <div class="affixes" *ngIf="getNormalAffixes().length > 0">
+                    <div class="title">Base Stats:</div>
+                    <ul>
+                        <li *ngFor="let affix of getNormalAffixes()">
+                            <div class="bullet"><div class="{{affix.rarity}}"></div></div>
+                            <div class="value">+{{affix.values[affix.value]}}{{affix.percent ? '%' : ''}}</div>
+                            <div class="range">({{getMinValue(affix.values)}}{{affix.percent ? '%' : ''}} - {{getMaxValue(affix.values)}}{{affix.percent ? '%' : ''}})</div>
+                            <div class="name">{{affix.name}}</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="affixes" *ngIf="getMagicAffixes().length > 0">
+                    <div class="title">Magic Stats:</div>
+                    <ul>
+                        <li *ngFor="let affix of getMagicAffixes()">
+                            <div class="bullet"><div class="{{affix.rarity}}"></div></div>
+                            <div class="value">+{{affix.values[affix.value]}}{{affix.percent ? '%' : ''}}</div>
+                            <div class="range">({{getMinValue(affix.values)}}{{affix.percent ? '%' : ''}} - {{getMaxValue(affix.values)}}{{affix.percent ? '%' : ''}})</div>
+                            <div class="name">{{affix.name}}</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="affixes" *ngIf="getRareAffixes().length > 0">
+                    <div class="title">Rare Stats:</div>
+                    <ul>
+                        <li *ngFor="let affix of getRareAffixes()">
+                            <div class="bullet"><div class="{{affix.rarity}}"></div></div>
+                            <div class="value">+{{affix.values[affix.value]}}{{affix.percent ? '%' : ''}}</div>
+                            <div class="range">({{getMinValue(affix.values)}}{{affix.percent ? '%' : ''}} - {{getMaxValue(affix.values)}}{{affix.percent ? '%' : ''}})</div>
+                            <div class="name">{{affix.name}}</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="affixes" *ngIf="getEpicAffixes().length > 0">
+                    <div class="title">Epic Stats:</div>
+                    <ul>
+                        <li *ngFor="let affix of getEpicAffixes()">
+                            <div class="bullet"><div class="{{affix.rarity}}"></div></div>
+                            <div class="value">+{{affix.values[affix.value]}}{{affix.percent ? '%' : ''}}</div>
+                            <div class="range">({{getMinValue(affix.values)}}{{affix.percent ? '%' : ''}} - {{getMaxValue(affix.values)}}{{affix.percent ? '%' : ''}})</div>
+                            <div class="name">{{affix.name}}</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="legendary-effect" *ngIf="item.legendaryEffect !== null">
+            <div class="title">
+                <div class="bullet"><div class="legendary"></div></div>
+                Legendary Effect
+                <div class="bullet"><div class="legendary"></div></div>
+            </div>
+            <div class="description" [innerHTML]="getLegendaryDescription()"></div>
+        </div>
+    </div>
+</div>

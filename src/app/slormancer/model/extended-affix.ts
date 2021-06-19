@@ -8,5 +8,6 @@ export interface ExtendedAffix {
     value: number;
     max: number;
     percent: boolean;
-    suffix: string
+    suffix: string;
+    locked: boolean;
 }

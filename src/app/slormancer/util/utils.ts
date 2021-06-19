@@ -30,3 +30,52 @@ export function compareRarities(a: ItemRarity, b: ItemRarity): number {
 
     return numA < numB ? -1 : numA > numB ? 1 : 0;
 }
+
+export function valueOrNull<T>(value: T | null | undefined): T | null {
+    return isNotNullOrUndefined(value) ? value : null;
+}
+
+export function findFirst(text: string, values: Array<string>): string | null {
+    let closest: string | null = null
+    let closestPos: number = text.length + 1;
+
+    for (let value of values) {
+        const pos = text.indexOf(value);
+        if (pos !== -1 && pos < closestPos) {
+            closest = value;
+            closestPos = pos;
+        }
+    }
+
+    return closest;
+}
+
+export function firstvalue(values: { [key: number]: number }): number | null {
+    let value: number | null = null;
+
+    if (values !== null) {
+        const keys = Object.keys(values);
+        const index = keys[0];
+
+        if (index) {
+            value = index ? valueOrNull(values[parseInt(index)]) : null;
+        }
+    }
+
+    return value;
+}
+
+export function lastvalue(values: { [key: number]: number }): number | null {
+    let value: number | null = null;
+
+    if (values !== null) {
+        const keys = Object.keys(values);
+        const index = keys[keys.length - 1];
+
+        if (index) {
+            value = index ? valueOrNull(values[parseInt(index)]) : null;
+        }
+    }
+
+    return value;
+}

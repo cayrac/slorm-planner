@@ -12,26 +12,15 @@
         </div>
         
         <div class="item" *ngIf="selectedExtendedItem !== null">
-            <div class="json">
-                <app-json [data]="selectedExtendedItem"></app-json>
-            </div>
-            <div class="parsed">
-                <div class="icon {{selectedExtendedItem.rarity}}">
-                    <img src="assets/img/{{selectedExtendedItem.type}}/{{selectedExtendedItem.base}}.png" />
-                </div>
-                <p>Name : {{selectedExtendedItem.name}}</p>
-                <p>Slot : {{selectedExtendedItem.type}}</p>
-                <p>Level : {{selectedExtendedItem.level}}</p>
-                <p>Reinforcment : {{selectedExtendedItem?.reinforcment}}</p>
+            <!--<div class="json">
+                <app-json [data]="getBaseItem()"></app-json>
+            </div>-->
 
-                <div class="affixes">
-                    <div class="affixe {{affix.rarity}}" *ngFor="let affix of selectedExtendedItem.affixes">
-                        <div class="value">{{affix.values[affix.value]}}<span *ngIf="affix.percent">%</span></div>
-                        <div class="range">{{affix.values[affix.min]}}<span *ngIf="affix.percent">%</span> - {{affix.values[affix.max]}}<span *ngIf="affix.percent">%</span></div>
-                        <div class="range-values">{{affix.min}} - {{affix.max}}</div>
-                        <div class="name">{{affix.name}}</div>
-                    </div>
-                </div>
+            <div class="parsed">
+                <ng-container *ngFor="let data of getLegendariesData()">
+                    <app-item-view (click)="showData(data)" [item]="getLegendaryItem(data.game)"></app-item-view>
+                </ng-container>
+                <app-item-view [item]="selectedExtendedItem"></app-item-view>
             </div>
         </div>
     </div>

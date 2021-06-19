@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { GameEnchantmentTarget } from '../constants/game/game-enchantment-target';
 import { GameRarity } from '../constants/game/game-rarity';
 import { GameAffix, GameEnchantment, GameEquippableItem, GameItem, GameRessourceItem } from '../model/game/game-item';
-import { strictParseFloat, strictParseInt, strictSplit, toNumberArray } from '../util/save.util';
+import { strictParseFloat, strictParseInt, strictSplit, toNumberArray } from '../util/parse.util';
 
 @Injectable()
 export class SlormancerItemParserService {
@@ -66,7 +66,7 @@ export class SlormancerItemParserService {
         let rarity = potentialData[potentialData.length - 2];
         let potential =  potentialData.length === 4 ? potentialData[0] + '.' + potentialData[1] : potentialData[0];
 
-        const item: GameItem = {
+        const item: GameEquippableItem = {
             generic_1: <number>data[0],
             slot: <number>data[1],
             level: <number>data[2],
