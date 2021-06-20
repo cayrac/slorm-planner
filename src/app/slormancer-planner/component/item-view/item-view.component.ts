@@ -89,4 +89,14 @@ export class ItemViewComponent {
 
         return description;
     }
+
+    public getActivableDescription(): string | null {
+        let description: string | null = null;
+
+        if (this.item !== null && this.item.legendaryEffect !== null && this.item.legendaryEffect.activable !== null) {
+            description = this.slormancerTemplateService.formatSkillDescription(this.item.legendaryEffect.activable);
+        }
+
+        return description;
+    }
 }

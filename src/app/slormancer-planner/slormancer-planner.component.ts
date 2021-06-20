@@ -4,9 +4,11 @@ import { GameSave } from '../slormancer';
 import { GAME_DATA } from '../slormancer/constants/game/game-data';
 import { HeroClass } from '../slormancer/model/enum/hero-class';
 import { EquipableItem } from '../slormancer/model/equipable-item';
+import { GameDataActivable } from '../slormancer/model/game/data/game-data-activable';
 import { GameDataLegendary } from '../slormancer/model/game/data/game-data-legendary';
 import { GameAffix, GameEquippableItem } from '../slormancer/model/game/game-item';
 import { LegendaryEffect } from '../slormancer/model/legendary-effect';
+import { SlormancerDataService } from '../slormancer/services/slormancer-data.service';
 import { SlormancerItemService } from '../slormancer/services/slormancer-item.service';
 import { SlormancerLegendaryEffectService } from '../slormancer/services/slormancer-legendary-effect.service';
 import { SlormancerSaveParserService } from '../slormancer/services/slormancer-save-parser.service';
@@ -24,90 +26,6 @@ export class SlormancerPlannerComponent implements OnInit {
         { value: HeroClass.Mage, label: HeroClass.Mage.toString() },
         { value: HeroClass.Warrior, label: HeroClass.Warrior.toString() },
     ];
-
-    public readonly LEGENDARY_EXPECTED_DATA: { [key: number]: Array<{ min: number, max: number, percent: boolean, range: boolean }>} = {
-        25: [{ min: 22, max: 30, percent: true, range: true}],
-        12: [{ min: 1, max: 1, percent: false, range: false}],
-        20: [{ min: 8, max: 10, percent: true, range: true}],
-        9: [{ min: 15, max: 20, percent: true, range: true}],
-        56: [{ min: 1, max: 1, percent: false, range: false}],
-        47: [],
-        80: [{ min: 2, max: 3, percent: true, range: true}],
-        29: [{ min: 14, max: 18, percent: true, range: true}, { min: 9, max: 12, percent: true, range: true}, { min: 10, max: 10, percent: false, range: false}],
-        17: [{ min: 11, max: 15, percent: true, range: true}, { min: 5, max: 5, percent: false, range: false}],
-        36: [],
-        51: [{ min: 24, max: 32, percent: false, range: true}],
-        64: [{ min: 2, max: 2, percent: false, range: true}],
-        79: [],
-        13: [{ min: 5, max: 5, percent: false, range: false}, { min: 5, max: 5, percent: true, range: false}],
-        28: [{ min: 6, max: 8, percent: true, range: false}, { min: 10, max: 10, percent: false, range: false}],
-        27: [],
-        62: [{ min: 5, max: 5, percent: false, range: false}],
-        42: [{ min: 22, max: 30, percent: true, range: true}],
-        73: [{ min: 22, max: 30, percent: true, range: true}],
-        76: [{ min: 1, max: 1, percent: false, range: false}, { min: 2, max: 2, percent: false, range: false}, { min: 1, max: 1, percent: false, range: false}],
-        16: [{ min: 4, max: 5, percent: false, range: true}, { min: 2, max: 2, percent: true, range: false}],
-        40: [],
-        41: [{ min: 2, max: 2, percent: false, range: false}, { min: 11, max: 15, percent: true, range: true},{ min: 15, max: 20, percent: true, range: true}],
-        24: [{ min: 38, max: 50, percent: true, range: true}, { min: 90, max: 90, percent: true, range: false}],
-        74: [{ min: 2, max: 3, percent: true, range: true}, { min: 11, max: 15, percent: true, range: true}, { min: 6, max: 6, percent: false, range: false}],
-        60: [],
-        33: [{ min: 100, max: 100, percent: true, range: false }],
-        55: [{ min: 2, max: 2, percent: true, range: false }],
-        10: [{ min: 38, max: 50, percent: true, range: true }],
-        30: [{ min: 1, max: 1, percent: true, range: false }],
-        14: [{ min: 4, max: 5, percent: true, range: true }],
-        43: [{ min: 4, max: 5, percent: true, range: true }],
-        57: [{ min: 4, max: 4, percent: false, range: false }, { min: 2, max: 2, percent: false, range: false }],
-        77: [],
-        4: [{ min: 22, max: 30, percent: true, range: true }],
-        5: [{ min: 20, max: 27, percent: true, range: true }],
-        23: [{ min: 15, max: 20, percent: true, range: true }, { min: 100, max: 100, percent: true, range: false }, { min: 50, max: 50, percent: true, range: false }, { min: 4, max: 4, percent: false, range: false }],
-        75: [{ min: 225, max: 300, percent: false, range: true }, { min: 1, max: 1, percent: false, range: false }],
-        19: [{ min: 11, max: 15, percent: true, range: true }, { min: 8, max: 8, percent: false, range: false }],
-        3: [{ min: 19, max: 25, percent: true, range: true }],
-        18: [{ min: 8, max: 10, percent: true, range: true }],
-        32: [{ min: 38, max: 50, percent: true, range: true }],
-        11: [{ min: 27, max: 36, percent: true, range: true }],
-        61: [{ min: 75, max: 100, percent: true, range: true }],
-        54: [{ min: 15, max: 20, percent: true, range: true }, { min: 5, max: 5, percent: false, range: false }],
-        38: [{ min: 15, max: 20, percent: true, range: true }, { min: 75, max: 100, percent: true, range: true }],
-        15: [{ min: 7, max: 7, percent: false, range: false }, { min: 5, max: 5, percent: true, range: false }],
-        6: [{ min: 1, max: 1, percent: true, range: false }],
-        59: [],
-        35: [{ min: 75, max: 100, percent: true, range: true }],
-        31: [{ min: 2, max: 2, percent: false, range: false }],
-        7: [{ min: 19, max: 25, percent: true, range: true }],
-        34: [{ min: 38, max: 50, percent: true, range: true }, { min: 3, max: 3, percent: false, range: false }],
-        37: [{ min: 2, max: 2, percent: false, range: false }],
-        8: [{ min: 14, max: 18, percent: true, range: true }],
-        22: [],
-        78: [{ min: 1, max: 1, percent: false, range: false }],
-        58: [{ min: 5, max: 5, percent: true, range: false }],
-        2: [{ min: 3, max: 3, percent: false, range: false }, { min: 16, max: 21, percent: true, range: true }, { min: 16, max: 21, percent: true, range: true }],
-        1: [{ min: 10, max: 10, percent: false, range: false }, { min: 20, max: 26, percent: true, range: true }, { min: 20, max: 26, percent: true, range: true }],
-        26: [{ min: 1, max: 1, percent: false, range: false }, { min: 5, max: 5, percent: false, range: false }, { min: 4, max: 5, percent: false, range: true }],
-        53: [],
-        21: [],
-        45: [{ min: 3, max: 3, percent: false, range: false }, { min: 60, max: 80, percent: true, range: true }],
-        50: [{ min: 0.1, max: 0.1, percent: false, range: false }],
-        52: [{ min: 5, max: 5, percent: true, range: false }, { min: 5, max: 5, percent: true, range: false }, { min: 5, max: 5, percent: false, range: false }],
-        39: [{ min: 75, max: 100, percent: true, range: true }],
-        48: [],
-        46: [{ min: 8, max: 10, percent: true, range: true }],
-        44: [{ min: 38, max: 50, percent: true, range: true }],
-        49: [{ min: 38, max: 50, percent: true, range: true }],
-        72: [{ min: 1, max: 1, percent: false, range: false }],
-        71: [],
-        69: [{ min: 8, max: 10, percent: true, range: true }, { min: 2.60, max: 2.60, percent: false, range: false }],
-        67: [],
-        65: [{ min: 15, max: 20, percent: true, range: true }, { min: 3, max: 3, percent: false, range: false }],
-        70: [{ min: 50, max: 50, percent: true, range: false }, { min: 60, max: 80, percent: true, range: true }],
-        68: [],
-        66: [{ min: 9, max: 12, percent: true, range: true }],
-        63: [{ min: 11, max: 15, percent: true, range: true }, { min: 5, max: 5, percent: true, range: false }, { min: 8, max: 8, percent: false, range: false }, { min: 12, max: 12, percent: false, range: false }],
-
-    };
     
     private save: GameSave | null = null;
 
@@ -119,11 +37,12 @@ export class SlormancerPlannerComponent implements OnInit {
 
     constructor(private slormancerSaveParserService: SlormancerSaveParserService,
                 private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
+                private slormancerDataService: SlormancerDataService,
                 private slormancerItemService: SlormancerItemService) {
-        GAME_DATA.LEGENDARY
+        /*GAME_DATA.LEGENDARY
             .filter(legendary => legendary.LOOTABLE)
             .filter(legendary => legendary.SKILL !== null && legendary.SKILL.length > 0 && legendary.HERO === 2)
-            .forEach(legendary => console.log(legendary.ITEM + ' - ' + legendary.EN_NAME + ' : ' + legendary.HERO + ' - ' + legendary.SKILL));
+            .forEach(legendary => console.log(legendary.ITEM + ' - ' + legendary.EN_NAME + ' : ' + legendary.HERO + ' - ' + legendary.SKILL));*/
     }
 
     public ngOnInit() {
@@ -155,9 +74,10 @@ export class SlormancerPlannerComponent implements OnInit {
         return this.selectedItem !== null ? this.getItemOptions()[this.selectedItem]?.value : null;
     }
 
-    public getLegendariesData(): Array<{ game: GameDataLegendary, expected: Array<{ min: number, max: number, percent: boolean, range: boolean }>, effect: LegendaryEffect }> {
+    public getLegendariesData(): Array<{ game: GameDataLegendary, activable: GameDataActivable | null, effect: LegendaryEffect }> {
         return GAME_DATA.LEGENDARY
-            .map(legendary => ({ game: legendary, expected: <Array<{ min: number, max: number, percent: boolean, range: boolean }>>this.LEGENDARY_EXPECTED_DATA[legendary.REF], effect: this.getLegendaryEffect(legendary) }));
+            .map(legendary => ({ game: legendary, activable: this.slormancerDataService.getlegendaryGameDataActivableBasedOn(legendary.REF), effect: this.getLegendaryEffect(legendary) }))
+            .filter(data => data.effect.activable !== null);
     }
 
     public getLegendaryItem(data: GameDataLegendary): EquipableItem | null {
@@ -191,10 +111,6 @@ export class SlormancerPlannerComponent implements OnInit {
             locked: false,
         }
         return <LegendaryEffect>this.slormancerLegendaryEffectService.getExtendedLegendaryEffect(affix, 0);
-    }
-
-    public formatForHTML(desc: string): string {
-        return desc.replace(/#/g, '<br/>');
     }
 
     public showData(data: any) {

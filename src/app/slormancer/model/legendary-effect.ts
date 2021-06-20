@@ -1,8 +1,9 @@
 import { LegendaryEffectValue } from './legendary-effect-value';
+import { Skill } from './skill';
 
 export interface LegendaryEffect {
     description: string;
-    activable: number | null;
+    activable: Skill | null;
     icon: string | null;
     value: number;
     onlyStat: boolean;

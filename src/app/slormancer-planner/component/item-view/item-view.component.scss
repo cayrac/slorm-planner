@@ -13,6 +13,7 @@ $item-gray             : rgb(104, 104, 104);
 $item-value-color      : white;
 $item-range-color      : $item-gray;
 $legendary-border-gray : rgb(46, 44, 37);
+$skill-gold-border     : rgb(190, 135, 31);
 
 .equipped, .rarity, .split, .type, .head, .legendary-effect .description {
     .item.normal & {
@@ -32,7 +33,7 @@ $legendary-border-gray : rgb(46, 44, 37);
     }
 }
 
-.head, .content {
+> .head, > .content {
     .item.normal & {
         border-color: $normal-color-bg;
     }
@@ -90,7 +91,7 @@ $legendary-border-gray : rgb(46, 44, 37);
             white-space: nowrap;
         }
 
-        .range {
+        .range, .details {
             color: $item-range-color;
             word-break: keep-all;
             white-space: nowrap;
@@ -105,11 +106,11 @@ $legendary-border-gray : rgb(46, 44, 37);
         }
     }
     
-    .head, .content {
+    > .head, > .content {
         border: 2px solid;
     }
 
-    .head {
+    > .head {
         margin-bottom: 2px;
         text-align: center;
         padding: 10px 50px;
@@ -117,7 +118,7 @@ $legendary-border-gray : rgb(46, 44, 37);
         font-size: 17px;
     }
 
-    .content {
+    > .content {
         display: flex;
         flex-direction: column;
         position: relative;
@@ -259,6 +260,53 @@ $legendary-border-gray : rgb(46, 44, 37);
                 img {
                     width: 100%;
                     height: 100%;
+                }
+            }
+        }
+
+        .activable {
+            border: 3px solid black;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            
+            &::ng-deep {
+                .value {
+                    color: $legendary-color-text;
+                }
+            }
+
+            .head {
+                display: flex;
+                flex-direction: row;
+                gap: 5px;
+
+                .icon {
+
+                    img { 
+                        border: 4px solid $skill-gold-border;
+                        min-width: 36px;
+                        min-height: 36px;
+                        width: 36px;
+                        height: 36px;
+                    }
+
+                }
+
+                .info {
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1;
+
+                    .name {
+                        color: $legendary-color-text;
+                    }
+                }
+
+                .description {
+                    flex-grow: 1;
+                    
                 }
             }
         }

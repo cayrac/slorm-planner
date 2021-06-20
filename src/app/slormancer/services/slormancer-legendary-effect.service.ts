@@ -7,21 +7,23 @@ import { LegendaryEffectValue } from '../model/legendary-effect-value';
 import { list } from '../util/math.util';
 import { strictParseFloat, toFloatArray } from '../util/parse.util';
 import { valueOrNull } from '../util/utils';
-import { SlormancerGameDataService } from './slormancer-data.service';
+import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
+import { SlormancerSkillService } from './slormancer-skill.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 
 
 @Injectable()
 export class SlormancerLegendaryEffectService {
 
-    constructor(private slormancerDataService: SlormancerGameDataService,
+    constructor(private slormancerDataService: SlormancerDataService,
                 private slormanderItemValueService: SlormancerItemValueService,
+                private slormanderSkillService: SlormancerSkillService,
                 private slormancerTemplateService: SlormancerTemplateService
                 ) { }
 
     private applyEffectOverride(effect: LegendaryEffect, legendaryId: number): LegendaryEffect {
-        const data = this.slormancerDataService.getLegendaryData(legendaryId);
+        const data = this.slormancerDataService.getDataLegendary(legendaryId);
 
         if (data !== null) {
             effect.values = effect.values.map((value, index) => ({ ...value, ...data.statsOverride[index] }));
@@ -87,7 +89,7 @@ export class SlormancerLegendaryEffectService {
         let legendaryEffect: LegendaryEffect | null = null;
 
         if (gameData !== null) {
-            const activable = this.slormancerDataService.getlegendaryActivableDataBasedOn(gameData.REF);
+            const activable = this.slormancerDataService.getlegendaryGameDataActivableBasedOn(gameData.REF);
             const values = this.getValues(gameData, reinforcment);
             
             legendaryEffect = {
@@ -95,7 +97,7 @@ export class SlormancerLegendaryEffectService {
                 value: affix.value,
                 constants: [],
                 values,
-                activable: activable !== null ? activable.REF : null,
+                activable: activable !== null ? this.slormanderSkillService.getActivable(activable, reinforcment) : null,
                 onlyStat: gameData.STAT_ONLY === true,
                 icon: this.getIcon(gameData.HERO, gameData.SKILL),
             }

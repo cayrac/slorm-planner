@@ -31,6 +31,10 @@ export function compareRarities(a: Rarity, b: Rarity): number {
     return numA < numB ? -1 : numA > numB ? 1 : 0;
 }
 
+export function valueOrDefault<T>(value: T | null | undefined, defaultvalue: T): T {
+    return isNotNullOrUndefined(value) ? value : defaultvalue;
+}
+
 export function valueOrNull<T>(value: T | null | undefined): T | null {
     return isNotNullOrUndefined(value) ? value : null;
 }
@@ -78,4 +82,12 @@ export function lastvalue(values: { [key: number]: number }): number | null {
     }
 
     return value;
+}
+
+export function splitData(data: string, separator: string = '|'): Array<string> {
+    return data.length > 0 ? data.split(separator) : [];
+}
+
+export function splitNumberData(data: string, separator: string = '|'): Array<number | null> {
+    return splitData(data, separator).map(v => parseInt(v)).map(v => isNaN(v) ? null : v);
 }

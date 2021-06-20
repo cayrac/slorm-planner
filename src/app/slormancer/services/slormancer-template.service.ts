@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 
+import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { LegendaryEffect } from '../model/legendary-effect';
-import { findFirst, firstvalue, lastvalue } from '../util/utils';
-import { SlormancerGameDataService } from './slormancer-data.service';
+import { Skill } from '../model/skill';
+import { findFirst, firstvalue, isNotNullOrUndefined, lastvalue, splitData, valueOrNull } from '../util/utils';
+import { SlormancerDataService } from './slormancer-data.service';
 
 @Injectable()
 export class SlormancerTemplateService {
@@ -17,7 +19,7 @@ export class SlormancerTemplateService {
     public readonly DAMAGE_PREFIX = 'damage:';
     public readonly RETURN_REGEXP = /#/g;
 
-    constructor(private slormancerDataService: SlormancerGameDataService) { }
+    constructor(private slormancerDataService: SlormancerDataService) { }
 
     private asSpan(content: string, className: string): string {
         return '<span class="' + className + '">' + content + '</span>';
@@ -28,7 +30,7 @@ export class SlormancerTemplateService {
     }
 
     public formatLegendaryDescription(effect: LegendaryEffect) {
-        let template = effect.description.replace(this.RETURN_REGEXP, '</br>');
+        let template = effect.description;
 
         for (let value of effect.values) {
             const percent = value.type !== null;
@@ -76,32 +78,89 @@ export class SlormancerTemplateService {
         return template;
     }
 
+    public formatSkillDescription(skill: Skill): string {
+        let template = skill.description;
+
+        for (let value of skill.values) {
+            if (value.computedValue !== null) {
+                let replace: string = '';
+                let range: string | null = null;
+
+                const percentValue = value.type === '%' ? '%' : '';
+                if (typeof value.computedValue === 'number') {
+                    replace = value.computedValue + percentValue;
+                } else if (value.computedValue !== null) {
+                    console.log('minmax : ', value);
+                    replace = value.computedValue.min + percentValue + ' - ' + value.computedValue.max + percentValue;
+                    const synergyType = value.valueReal === null ? null : this.getSynergyType(value.valueReal);
+                    if (synergyType !== null) {
+                        console.log('with range : ');
+                        range = '(' + value.baseValue + '% of ' + this.keyToString(synergyType) + ')';
+                    }
+                }
+
+                let result = this.asSpan(replace, 'value');
+                if (range !== null) {
+                    result = result + ' ' + this.asSpan(range, 'details');
+                }
+                
+                template = this.replaceAnchor(template, result, this.VALUE_ANCHOR);
+
+                if (value.baseValue !== null && value.valueReal !== null) {
+                
+                    template = this.replaceAnchor(template, this.asSpan(value.baseValue + '%', 'value'), this.SYNERGY_ANCHOR);
+                }
+            }
+        }
+
+        for (let constant of skill.constants) {
+            const anchor = findFirst(template, this.CONSTANT_ANCHORS);
+            if (anchor !== null) {
+                const constValue = this.asSpan(constant.toString(), 'value');
+                template = this.replaceAnchor(template, constValue, anchor);
+            }
+        }
+
+        return template;
+    }
+
     public getLegendaryDescriptionTemplate(data: GameDataLegendary): string {
-        const stats = data.STAT.split('|');
-        const types = data.TYPE.split('|')
-            .filter(synergy => synergy.startsWith(this.SYNERGY_PREFIX) || synergy.startsWith(this.DAMAGE_PREFIX))
-            .map(synergy => synergy.replace(this.SYNERGY_PREFIX, ''))
-            .map(synergy => synergy.replace(this.DAMAGE_PREFIX, ''));
+        const stats = splitData(data.STAT);
+        const types = splitData(data.TYPE)
 
         return this.parseTemplate(data.EN_DESC, stats, types)
     }
 
-    private parseTemplate(template: string, stats: Array<string>, types: Array<string>) {
+    public getSkillDescriptionTemplate(data: GameDataActivable): string {
+        const stats = splitData(data.DESC_VALUE)
+        const types = splitData(data.DESC_VALUE_REAL)
+        
+        return this.parseTemplate(data.EN_DESCRIPTION, stats, types);
+    }
+
+    private getSynergyType(synergy: string): string | null {
+        return valueOrNull(splitData(synergy, ':')[1]);
+    }
+
+    private parseTemplate(template: string, stats: Array<string> = [], types: Array<string> = []) {
         
         template = stats.map(stat => this.keyToString(stat))
             .reduce((desc, stat) => desc.replace(this.STAT_ANCHOR, stat), template);
 
-        template = types.map(synergy => this.keyToString(synergy))
+        template = types
+            .map(synergy => this.getSynergyType(synergy))
+            .filter(isNotNullOrUndefined)
+            .map(synergy => this.keyToString(synergy))
             .reduce((desc, synergy) => desc.replace(this.TYPE_ANCHOR, synergy), template);
         
-            template = template.replace(/<|>/g, '');
+        template = template.replace(/<|>/g, '');
+        template = template.replace(this.RETURN_REGEXP, '</br>');
 
-        // £
         return template;
     }
 
     private keyToString(key: string): string {
-        const data = this.slormancerDataService.getAffixDataByRef(key);
+        const data = this.slormancerDataService.getDataAffixByRef(key);
         let result = key;
 
         if (data !== null) {
@@ -111,15 +170,13 @@ export class SlormancerTemplateService {
         } else if (key === 'increased_damage') {
             result = 'Increased Damage';
         } else if (key === 'physical_damage') {
-            result = 'Physical Damage';
+            result = 'Skill Damage';
         } else if (key === 'thorns_damage') {
             result = 'Thorns Damage';
         } else if (key === 'retaliate') {
             result = 'Retaliation';
         } else if (key === 'elemental_damage') {
             result = 'Elemental Damage';
-        } else if (key === 'physical_damage') {
-            result = 'Physical Damage';
         } else if (key === 'elemental_damage') {
             result = 'Elemental Damage';
         } else if (key === 'additional_damage') {
@@ -130,6 +187,14 @@ export class SlormancerTemplateService {
             result = 'Critical Strike Damage';
         } else if (key === 'crit_chance') {
             result = 'Critical Strike Chance';
+        } else if (key === 'skill_elem_damage') {
+            result = 'Skill and Elemental Damages';
+        } else if (key === 'life') {
+            result = 'Life';
+        } else if (key === 'mana') {
+            result = 'Mana';
+        } else if (key === 'reduced_damage') {
+            result = 'Reduced Damage';
         }
 
         return result;

@@ -70,12 +70,26 @@
                         Legendary Effect
                         <div class="bullet"><div class="legendary"></div></div>
                     </div>
-                    <div class="description" [innerHTML]="getLegendaryDescription()"></div>
+                    <div class="description">
+                        <span [innerHTML]="getLegendaryDescription()"></span>
+                        <span class="value" *ngIf="item.legendaryEffect.activable !== null"> {{item.legendaryEffect.activable.name}}</span>
+                    </div>
                     <div class="icon" *ngIf="item.legendaryEffect.icon !== null">
                         <img src="assets/img/icon/{{item.legendaryEffect.icon}}.png" />
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="activable" *ngIf="item.legendaryEffect !== null && item.legendaryEffect.activable !== null">
+            <div class="head">
+                <div class="icon">
+                    <img src="assets/img/icon/{{item.legendaryEffect.activable.icon}}.png" />
+                </div>
+                <div class="info">
+                    <div class="name">{{item.legendaryEffect.activable.name}}</div>
+                </div>
+            </div>
+            <div class="description" [innerHTML]="getActivableDescription()"></div>
         </div>
     </div>
 </div>

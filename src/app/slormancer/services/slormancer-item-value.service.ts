@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import { GameRarity } from '../model/game/game-rarity';
+import { MinMax } from '../model/minmax';
 import { bankerRound, list } from '../util/math.util';
-
-interface MinMax {
-    min: number;
-    max: number;
-}
 
 @Injectable()
 export class SlormancerItemValueService {
