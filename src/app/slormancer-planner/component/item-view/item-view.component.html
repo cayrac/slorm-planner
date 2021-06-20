@@ -1,4 +1,4 @@
-<div *ngIf="item !== null" class="item {{getItemRarityColor()}}">
+<div *ngIf="item !== null" class="item {{getItemRarityColor()}}" [class.norange]="!range">
     <div class="head">{{item.name}}</div>
     <div class="content">
         <div *ngIf="equipped" class="equipped">Equipped</div>
@@ -62,13 +62,20 @@
                 </div>
             </div>
         </div>
-        <div class="legendary-effect" *ngIf="item.legendaryEffect !== null">
-            <div class="title">
-                <div class="bullet"><div class="legendary"></div></div>
-                Legendary Effect
-                <div class="bullet"><div class="legendary"></div></div>
+        <div class="legendary-effect outer-border" *ngIf="item.legendaryEffect !== null">
+            <div class="border">
+                <div class="inner-border legendary-description">
+                    <div class="title">
+                        <div class="bullet"><div class="legendary"></div></div>
+                        Legendary Effect
+                        <div class="bullet"><div class="legendary"></div></div>
+                    </div>
+                    <div class="description" [innerHTML]="getLegendaryDescription()"></div>
+                    <div class="icon" *ngIf="item.legendaryEffect.icon !== null">
+                        <img src="assets/img/icon/{{item.legendaryEffect.icon}}.png" />
+                    </div>
+                </div>
             </div>
-            <div class="description" [innerHTML]="getLegendaryDescription()"></div>
         </div>
     </div>
 </div>

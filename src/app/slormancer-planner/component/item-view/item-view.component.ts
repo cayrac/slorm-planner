@@ -17,7 +17,10 @@ export class ItemViewComponent {
     public readonly item: ExtendedEquipableItem | null = null;
     
     @Input()
-    public readonly equipped: boolean = true;
+    public readonly equipped: boolean = false;
+
+    @Input()
+    public readonly range: boolean = false;
 
     constructor(private slormancerTemplateService: SlormancerTemplateService) { }
 

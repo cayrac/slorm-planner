@@ -474,5 +474,15 @@ export const AFFIX_DATA: { [key: string]: AffixData} = {
         name: 'Inner Fire Max. Charges',
         prefix: '%%',
         suffix: '%%'
+    },
+    skill_mastery_gain_percent: {
+        name: 'Skill Mastery Gain',
+        prefix: '%%',
+        suffix: '%%'
+    },
+    slormite_find_percent: {
+        name: 'Slormites Find',
+        prefix: '%%',
+        suffix: '%%'
     }
 };

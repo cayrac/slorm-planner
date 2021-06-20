@@ -5,7 +5,8 @@ import { ExtendedLegendaryEffectValue } from '../model/extended-legendary-effect
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameAffix } from '../model/game/game-item';
 import { list } from '../util/math.util';
-import { parseIntOrdefault, strictParseFloat, toFloatArray } from '../util/parse.util';
+import { strictParseFloat, toFloatArray } from '../util/parse.util';
+import { valueOrNull } from '../util/utils';
 import { SlormancerGameDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
@@ -62,6 +63,26 @@ export class SlormancerLegendaryEffectService {
         return effectValues;
     }
 
+    private getIcon(hero: number, skill: string): string | null {
+        let heroValue: string | null = null;
+
+        if (hero === 0) {
+            heroValue = 'knight';
+        } else if (hero === 1) {
+            heroValue = 'huntress';
+        } else if (hero === 2) {
+            heroValue = 'mage';
+        } else if (hero === 99) {
+            heroValue = 'ancestral';
+        }
+
+        const skills = skill.length > 0 ? valueOrNull(skill.split('|')) : null;
+        const skillValue = skills !== null ? valueOrNull(skills[skills.length - 1]) : null;
+
+        return (heroValue !== null && skillValue !== null) ? heroValue + '_' + skillValue : null;
+
+    }
+
     public getExtendedLegendaryEffect(affix: GameAffix, reinforcment: number): ExtendedLegendaryEffect | null {
         const gameData = this.slormancerDataService.getGameLegendaryData(affix.type);
         let legendaryEffect: ExtendedLegendaryEffect | null = null;
@@ -77,7 +98,7 @@ export class SlormancerLegendaryEffectService {
                 values,
                 skill: null,
                 onlyStat: gameData.STAT_ONLY === true,
-                icon: parseIntOrdefault(gameData.SKILL, null),
+                icon: this.getIcon(gameData.HERO, gameData.SKILL),
             }
 
             legendaryEffect = this.applyEffectOverride(legendaryEffect, gameData.REF)

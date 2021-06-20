@@ -12,6 +12,7 @@ $item-bg               : rgb(21,20,18);
 $item-gray             : rgb(104, 104, 104);
 $item-value-color      : white;
 $item-range-color      : $item-gray;
+$legendary-border-gray : rgb(46, 44, 37);
 
 .equipped, .rarity, .split, .type, .head, .legendary-effect .description {
     .item.normal & {
@@ -76,54 +77,31 @@ $item-range-color      : $item-gray;
     }
 }
 
-.icon {
-    min-width: 56px;
-    min-height: 56px;
-    width: 56px;
-    height: 56px;
-    border: 4px solid black;
-    position: relative;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    
-    &.normal {
-        background-image: url(/assets/img/item/background/bg-normal.png);
-    }
-    &.magic {
-        background-image: url(/assets/img/item/background/bg-magic.png);
-    }
-    &.rare {
-        background-image: url(/assets/img/item/background/bg-rare.png);
-    }
-    &.epic {
-        background-image: url(/assets/img/item/background/bg-epic.png);
-    }
-    &.legendary {
-        background-image: url(/assets/img/item/background/bg-legendary.png);
-    }
-
-    img {
-        width: 100%;
-        height: 100%;
-    }
-}
-
 .item {
     background-color: $item-bg;
     color: white;
     border: 2px solid black;
     width: 350px;
 
-    ::ng-deep {
+    &::ng-deep {
         .value {
             color: $item-value-color;
             word-break: keep-all;
             white-space: nowrap;
         }
+
         .range {
             color: $item-range-color;
             word-break: keep-all;
             white-space: nowrap;
+        }
+
+    }
+    &.norange {
+        ::ng-deep {
+            .range {
+                display: none;
+            }
         }
     }
     
@@ -164,13 +142,41 @@ $item-range-color      : $item-gray;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-    
-                .icon {
-                    margin-bottom: 10px;
-                }
-    
+        
                 .rarity, .type, .level {
                     text-transform: capitalize;
+                }
+
+                .icon {
+                    min-width: 56px;
+                    min-height: 56px;
+                    width: 56px;
+                    height: 56px;
+                    border: 4px solid black;
+                    margin-bottom: 10px;
+                    background-repeat: no-repeat;
+                    background-size: 100% 100%;
+                    
+                    &.normal {
+                        background-image: url(/assets/img/item/background/bg-normal.png);
+                    }
+                    &.magic {
+                        background-image: url(/assets/img/item/background/bg-magic.png);
+                    }
+                    &.rare {
+                        background-image: url(/assets/img/item/background/bg-rare.png);
+                    }
+                    &.epic {
+                        background-image: url(/assets/img/item/background/bg-epic.png);
+                    }
+                    &.legendary {
+                        background-image: url(/assets/img/item/background/bg-legendary.png);
+                    }
+                
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
                 }
     
             }
@@ -211,10 +217,19 @@ $item-range-color      : $item-gray;
             }
         }
 
-        .legendary-effect {
+        .legendary-effect.outer-border {
+            border: 3px solid black;
+            .border {
+                border: 2px solid $legendary-border-gray;
+                .inner-border {
+                    border: 3px solid black;
+                }
+            }
+        }
+        .legendary-description {
             display: flex;
             flex-direction: column;
-            border: 1px solid $item-gray;
+            align-items: center;
             padding: 10px 30px;
             gap: 5px;
 
@@ -229,6 +244,22 @@ $item-range-color      : $item-gray;
 
             .description {
                 text-align: center;
+            }
+
+            .icon {
+                margin-top: 5px;
+                min-width: 36px;
+                min-height: 36px;
+                width: 36px;
+                height: 36px;
+                border: 3px solid black;
+                padding: 2px;
+                background-color: $legendary-border-gray;
+            
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
             }
         }
 

@@ -119,6 +119,10 @@ export class SlormancerPlannerComponent implements OnInit {
     constructor(private slormancerSaveService: SlormancerSaveService,
                 private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
                 private slormancerItemService: SlormancerItemService) {
+        GAME_DATA.LEGENDARY
+            .filter(legendary => legendary.LOOTABLE)
+            .filter(legendary => legendary.SKILL !== null && legendary.SKILL.length > 0 && legendary.HERO === 2)
+            .forEach(legendary => console.log(legendary.ITEM + ' - ' + legendary.EN_NAME + ' : ' + legendary.HERO + ' - ' + legendary.SKILL));
     }
 
     public ngOnInit() {
@@ -152,8 +156,7 @@ export class SlormancerPlannerComponent implements OnInit {
 
     public getLegendariesData(): Array<{ game: GameDataLegendary, expected: Array<{ min: number, max: number, percent: boolean, range: boolean }>, effect: ExtendedLegendaryEffect }> {
         return GAME_DATA.LEGENDARY
-            .filter(legendary => legendary.LOOTABLE)
-            .filter(legendary => legendary.SKILL !== null && legendary.SKILL.length > 0 && legendary.SKILL === '6')
+            .filter(legendary => !legendary.LOOTABLE)
             .map(legendary => ({ game: legendary, expected: <Array<{ min: number, max: number, percent: boolean, range: boolean }>>this.LEGENDARY_EXPECTED_DATA[legendary.REF], effect: this.getLegendaryEffect(legendary) }));
     }
 
