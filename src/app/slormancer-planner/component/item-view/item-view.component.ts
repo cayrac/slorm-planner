@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 
-import { ItemRarity } from '../../../slormancer/constants/item-rarity';
-import { ExtendedAffix } from '../../../slormancer/model/extended-affix';
-import { ExtendedEquipableItem } from '../../../slormancer/model/extended-equipable-item';
+import { Affix } from '../../../slormancer/model/affix';
+import { Rarity } from '../../../slormancer/model/enum/rarity';
+import { EquipableItem } from '../../../slormancer/model/equipable-item';
 import { SlormancerTemplateService } from '../../../slormancer/services/slormancer-template.service';
 import { valueOrNull } from '../../../slormancer/util/utils';
 
@@ -14,7 +14,7 @@ import { valueOrNull } from '../../../slormancer/util/utils';
 export class ItemViewComponent {
 
     @Input()
-    public readonly item: ExtendedEquipableItem | null = null;
+    public readonly item: EquipableItem | null = null;
     
     @Input()
     public readonly equipped: boolean = false;
@@ -24,27 +24,27 @@ export class ItemViewComponent {
 
     constructor(private slormancerTemplateService: SlormancerTemplateService) { }
 
-    public getNormalAffixes(): Array<ExtendedAffix> {
-        return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === ItemRarity.Normal);
+    public getNormalAffixes(): Array<Affix> {
+        return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === Rarity.Normal);
     }
 
-    public getMagicAffixes(): Array<ExtendedAffix> {
-        return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === ItemRarity.Magic);
+    public getMagicAffixes(): Array<Affix> {
+        return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === Rarity.Magic);
     }
 
-    public getRareAffixes(): Array<ExtendedAffix> {
-        return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === ItemRarity.Rare);
+    public getRareAffixes(): Array<Affix> {
+        return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === Rarity.Rare);
     }
 
-    public getEpicAffixes(): Array<ExtendedAffix> {
-        return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === ItemRarity.Epic);
+    public getEpicAffixes(): Array<Affix> {
+        return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === Rarity.Epic);
     }
 
-    public getItemRarityColor(): ItemRarity {
-        let rarity = ItemRarity.Normal;
+    public getItemRarityColor(): Rarity {
+        let rarity = Rarity.Normal;
 
         if (this.item !== null) {
-            rarity = this.item.legendaryEffect !== null ? ItemRarity.Legendary : this.item.rarity;
+            rarity = this.item.legendaryEffect !== null ? Rarity.Legendary : this.item.rarity;
         }
 
         return rarity

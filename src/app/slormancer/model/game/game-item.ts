@@ -1,5 +1,5 @@
-import { GameEnchantmentTarget } from '../../constants/game/game-enchantment-target';
-import { GameRarity } from '../../constants/game/game-rarity';
+import { GameRarity } from '../../model/game/game-rarity';
+import { GameEnchantmentTarget } from './game-enchantment-target';
 
 export declare type GameItem = GameRessourceItem | GameEquippableItem;
 

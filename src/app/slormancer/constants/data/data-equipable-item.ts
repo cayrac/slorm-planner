@@ -1,6 +1,6 @@
-import { EquipableItemTypeData } from '../model/equipable-item-type-data';
+import { DataEquipableItemType } from '../../model/data/data-equipable-item-type';
 
-export const EQUIPABLE_ITEM_DATA: { [key: string]: { [key: string]: EquipableItemTypeData } } = {
+export const DATA_EQUIPABLE_ITEM: { [key: string]: { [key: string]: DataEquipableItemType } } = {
     armor: {
         "atk_mag-atk_phy": { name: 'chainmail vest' },
         "atk_phy-def_phy": { name: 'chainmail plated armor' },

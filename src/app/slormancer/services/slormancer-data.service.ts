@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 
-import { AFFIX_DATA, AffixData } from '../constants/affix-data';
-import { EQUIPABLE_ITEM_DATA } from '../constants/equipable-item-data';
-import { EquipableItemType } from '../constants/equipable-item-type';
+import { DATA_AFFIX } from '../constants/data/data-affix';
+import { DATA_EQUIPABLE_ITEM } from '../constants/data/data-equipable-item';
+import { DATA_LEGENDARY } from '../constants/data/data-legendary';
 import { GAME_DATA } from '../constants/game/game-data';
-import { LEGENDARY_DATA } from '../constants/legendary-data';
-import { EquipableItemTypeData } from '../model/equipable-item-type-data';
-import { ExtendedLegendaryData } from '../model/extended-legendary-data';
+import { DataAffix } from '../model/data/data-affix';
+import { DataEquipableItemType } from '../model/data/data-equipable-item-type';
+import { DataLegendary } from '../model/data/data-legendary';
+import { EquipableItemType } from '../model/enum/equipable-item-type';
+import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameDataStat } from '../model/game/data/game-data-stat';
 import { GameAffix } from '../model/game/game-item';
@@ -19,10 +21,10 @@ export class SlormancerGameDataService {
         return stat ? stat : null;
     }
 
-    public getEquipableItemData(type: EquipableItemType, base: string): EquipableItemTypeData | null {
-        let result: EquipableItemTypeData | null = null;
+    public getEquipableItemData(type: EquipableItemType, base: string): DataEquipableItemType | null {
+        let result: DataEquipableItemType | null = null;
 
-        const typeData = EQUIPABLE_ITEM_DATA[type];
+        const typeData = DATA_EQUIPABLE_ITEM[type];
         if (typeData !== undefined) {
             const data = typeData[base];
             if (data !== undefined) {
@@ -33,9 +35,9 @@ export class SlormancerGameDataService {
         return result;
     }
 
-    public getAffixData(affix: GameAffix): AffixData | null {
+    public getAffixData(affix: GameAffix): DataAffix | null {
         const stat = this.getGameStatData(affix);
-        let result: AffixData | null = null;
+        let result: DataAffix | null = null;
 
         if (stat !== null) {
             result = this.getAffixDataByRef(stat.REF);
@@ -44,8 +46,8 @@ export class SlormancerGameDataService {
         return result;
     }
 
-    public getAffixDataByRef(ref: string): AffixData | null {
-        const stat = AFFIX_DATA[ref];
+    public getAffixDataByRef(ref: string): DataAffix | null {
+        const stat = DATA_AFFIX[ref];
         return stat ? stat : null;
     }
 
@@ -54,8 +56,15 @@ export class SlormancerGameDataService {
         return legendary ? legendary : null;
     }
 
-    public getLegendaryData(id: number): ExtendedLegendaryData | null {
-        const legendary = LEGENDARY_DATA[id];
+    public getLegendaryData(id: number): DataLegendary | null {
+        const legendary = DATA_LEGENDARY[id];
         return legendary ? legendary : null;
+    }
+
+    public getlegendaryActivableDataBasedOn(id: number): GameDataActivable | null {
+        const activable = GAME_DATA.ACTIVABLE
+            .filter(activable => activable.BASED_ON === 'legendary')
+            .find(activable => activable.ID_BASED_ON=== id);
+        return activable ? activable : null;
     }
 }

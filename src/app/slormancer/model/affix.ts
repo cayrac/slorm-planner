@@ -1,7 +1,7 @@
-import { ItemRarity } from '../constants/item-rarity';
+import { Rarity } from './enum/rarity';
 
-export interface ExtendedAffix {
-    rarity: ItemRarity;
+export interface Affix {
+    rarity: Rarity;
     name: string;
     values: { [key: number]: number },
     min: number;

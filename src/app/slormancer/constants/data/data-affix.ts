@@ -1,10 +1,6 @@
-export interface AffixData {
-    name: string;
-    prefix: string;
-    suffix: string;
-}
+import { DataAffix } from '../../model/data/data-affix';
 
-export const AFFIX_DATA: { [key: string]: AffixData} = {
+export const DATA_AFFIX: { [key: string]: DataAffix} = {
     retaliate_percent: {
         name: 'Retaliation',
         prefix: 'razor-sharp',

@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
-import { GameSave, SlormancerSaveService } from '../slormancer';
+import { GameSave } from '../slormancer';
 import { GAME_DATA } from '../slormancer/constants/game/game-data';
-import { HeroClass } from '../slormancer/constants/hero-class';
-import { ExtendedEquipableItem } from '../slormancer/model/extended-equipable-item';
-import { ExtendedLegendaryEffect } from '../slormancer/model/extended-legendary-effect';
+import { HeroClass } from '../slormancer/model/enum/hero-class';
+import { EquipableItem } from '../slormancer/model/equipable-item';
 import { GameDataLegendary } from '../slormancer/model/game/data/game-data-legendary';
 import { GameAffix, GameEquippableItem } from '../slormancer/model/game/game-item';
+import { LegendaryEffect } from '../slormancer/model/legendary-effect';
 import { SlormancerItemService } from '../slormancer/services/slormancer-item.service';
 import { SlormancerLegendaryEffectService } from '../slormancer/services/slormancer-legendary-effect.service';
+import { SlormancerSaveParserService } from '../slormancer/services/slormancer-save-parser.service';
 import { SAVE } from './save';
 
 @Component({
@@ -114,9 +115,9 @@ export class SlormancerPlannerComponent implements OnInit {
 
     public selectedItem: number | null = 14;
 
-    public selectedExtendedItem: ExtendedEquipableItem | null = null;
+    public selectedExtendedItem: EquipableItem | null = null;
 
-    constructor(private slormancerSaveService: SlormancerSaveService,
+    constructor(private slormancerSaveParserService: SlormancerSaveParserService,
                 private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
                 private slormancerItemService: SlormancerItemService) {
         GAME_DATA.LEGENDARY
@@ -154,14 +155,13 @@ export class SlormancerPlannerComponent implements OnInit {
         return this.selectedItem !== null ? this.getItemOptions()[this.selectedItem]?.value : null;
     }
 
-    public getLegendariesData(): Array<{ game: GameDataLegendary, expected: Array<{ min: number, max: number, percent: boolean, range: boolean }>, effect: ExtendedLegendaryEffect }> {
+    public getLegendariesData(): Array<{ game: GameDataLegendary, expected: Array<{ min: number, max: number, percent: boolean, range: boolean }>, effect: LegendaryEffect }> {
         return GAME_DATA.LEGENDARY
-            .filter(legendary => !legendary.LOOTABLE)
             .map(legendary => ({ game: legendary, expected: <Array<{ min: number, max: number, percent: boolean, range: boolean }>>this.LEGENDARY_EXPECTED_DATA[legendary.REF], effect: this.getLegendaryEffect(legendary) }));
     }
 
-    public getLegendaryItem(data: GameDataLegendary): ExtendedEquipableItem | null {
-        let legendary: ExtendedEquipableItem | null = null;
+    public getLegendaryItem(data: GameDataLegendary): EquipableItem | null {
+        let legendary: EquipableItem | null = null;
 
         if (this.selectedItem !== null) {
             const option = this.getItemOptions()[this.selectedItem];
@@ -183,14 +183,14 @@ export class SlormancerPlannerComponent implements OnInit {
         return legendary;
     }
 
-    private getLegendaryEffect(data: GameDataLegendary): ExtendedLegendaryEffect {
+    private getLegendaryEffect(data: GameDataLegendary): LegendaryEffect {
         const affix: GameAffix = {
             rarity: 'L',
             type: data.REF,
             value: 100,
             locked: false,
         }
-        return <ExtendedLegendaryEffect>this.slormancerLegendaryEffectService.getExtendedLegendaryEffect(affix, 0);
+        return <LegendaryEffect>this.slormancerLegendaryEffectService.getExtendedLegendaryEffect(affix, 0);
     }
 
     public formatForHTML(desc: string): string {
@@ -210,7 +210,7 @@ export class SlormancerPlannerComponent implements OnInit {
     }
 
     public loadSave(file: string) {
-        this.save = this.slormancerSaveService.parseSaveFile(file);
+        this.save = this.slormancerSaveParserService.parseSaveFile(file);
     }
 
     public uploadSave(file: Event) {

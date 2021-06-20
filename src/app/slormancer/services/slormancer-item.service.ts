@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
-import { EquipableItemType } from '../constants/equipable-item-type';
-import { GameRarity } from '../constants/game/game-rarity';
-import { ItemRarity as Rarity } from '../constants/item-rarity';
-import { EquipableItemTypeData } from '../model/equipable-item-type-data';
-import { ExtendedAffix } from '../model/extended-affix';
-import { ExtendedEquipableItem } from '../model/extended-equipable-item';
+import { Affix } from '../model/affix';
+import { DataEquipableItemType } from '../model/data/data-equipable-item-type';
+import { EquipableItemType } from '../model/enum/equipable-item-type';
+import { Rarity } from '../model/enum/rarity';
+import { EquipableItem } from '../model/equipable-item';
 import { GameAffix, GameEquippableItem, GameItem, GameRessourceItem } from '../model/game/game-item';
+import { GameRarity } from '../model/game/game-rarity';
 import { compare, compareRarities, isNotNullOrUndefined } from '../util/utils';
 import { SlormancerGameDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
@@ -68,10 +68,10 @@ export class SlormancerItemService {
         return item !== null && item.hasOwnProperty('quantity');
     }
 
-    public getExtendedAffix(item: GameEquippableItem, affix: GameAffix): ExtendedAffix | null {
+    public getExtendedAffix(item: GameEquippableItem, affix: GameAffix): Affix | null {
         const stat = this.slormancerDataService.getGameStatData(affix);
 
-        const result: ExtendedAffix | null = {
+        const result: Affix | null = {
             rarity: this.getRarity(affix.rarity),
             name: '??',
             values: { [affix.value] : 0 },
@@ -121,7 +121,7 @@ export class SlormancerItemService {
             let rarityPrefix: string | null = null;
             let suffix: string | null = null;
             let prefix: string | null = null;
-            let data: EquipableItemTypeData | null = null;
+            let data: DataEquipableItemType | null = null;
 
             if (rarity === Rarity.Epic) {
                 rarityPrefix = 'epic';
@@ -182,7 +182,7 @@ export class SlormancerItemService {
             .join('-')
     }
 
-    public getExtendedEquipableItem(item: GameEquippableItem): ExtendedEquipableItem {
+    public getExtendedEquipableItem(item: GameEquippableItem): EquipableItem {
         const type = this.getEquipableItemType(item);
         const base = this.getItembase(item);
         const rarity = this.getItemRarity(item);

@@ -1,6 +1,6 @@
-import { ExtendedLegendaryData } from '../model/extended-legendary-data';
+import { DataLegendary } from '../../model/data/data-legendary';
 
-export const LEGENDARY_DATA: { [key: number]: ExtendedLegendaryData } = {
+export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     28: {
         statsOverride: [],
         constants: [10]

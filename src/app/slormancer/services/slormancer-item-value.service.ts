@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { GameRarity } from '../constants/game/game-rarity';
+import { GameRarity } from '../model/game/game-rarity';
 import { bankerRound, list } from '../util/math.util';
 
 interface MinMax {
@@ -62,9 +62,9 @@ export class SlormancerItemValueService {
         },
         'L': {
             '': {
-                1: { min: 70, max: 100 },
-                2: { min: 70, max: 100 },
-                3: { min: 70, max: 100 }
+                1: { min: 75, max: 100 },
+                2: { min: 75, max: 100 },
+                3: { min: 75, max: 100 },
             },
             '%': {
                 1: { min: 75, max: 100 },

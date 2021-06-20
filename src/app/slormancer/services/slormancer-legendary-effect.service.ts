@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { ExtendedLegendaryEffect } from '../model/extended-legendary-effect';
-import { ExtendedLegendaryEffectValue } from '../model/extended-legendary-effect-value';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameAffix } from '../model/game/game-item';
+import { LegendaryEffect } from '../model/legendary-effect';
+import { LegendaryEffectValue } from '../model/legendary-effect-value';
 import { list } from '../util/math.util';
 import { strictParseFloat, toFloatArray } from '../util/parse.util';
 import { valueOrNull } from '../util/utils';
@@ -20,7 +20,7 @@ export class SlormancerLegendaryEffectService {
                 private slormancerTemplateService: SlormancerTemplateService
                 ) { }
 
-    private applyEffectOverride(effect: ExtendedLegendaryEffect, legendaryId: number): ExtendedLegendaryEffect {
+    private applyEffectOverride(effect: LegendaryEffect, legendaryId: number): LegendaryEffect {
         const data = this.slormancerDataService.getLegendaryData(legendaryId);
 
         if (data !== null) {
@@ -31,7 +31,7 @@ export class SlormancerLegendaryEffectService {
         return effect;
     }
 
-    private getValues(gameData: GameDataLegendary, reinforcment: number): Array<ExtendedLegendaryEffectValue> {
+    private getValues(gameData: GameDataLegendary, reinforcment: number): Array<LegendaryEffectValue> {
         const ranges = gameData.RANGE.length === 0 ? [] : gameData.RANGE.split('|').map(v => v.length === 0 ? '0' : v ).map(strictParseFloat);
         const stats = gameData.STAT.length === 0 ? [] : gameData.STAT.split('|').map(stat => stat === 'chance' ? '' : stat);
         const types = gameData.TYPE.length === 0 ? [] : gameData.TYPE.split('|');
@@ -40,7 +40,7 @@ export class SlormancerLegendaryEffectService {
 
         const nb = Math.max(stats.length, types.length, values.length);
 
-        const effectValues: Array<ExtendedLegendaryEffectValue> = [];
+        const effectValues: Array<LegendaryEffectValue> = [];
         for (let i of list(0, nb - 1)) {
             const range = ranges[i] ? <number>ranges[i] : 0;
             const stat = gameData.STAT_ONLY === true && stats[i] ? <string>stats[i] : null;
@@ -80,15 +80,14 @@ export class SlormancerLegendaryEffectService {
         const skillValue = skills !== null ? valueOrNull(skills[skills.length - 1]) : null;
 
         return (heroValue !== null && skillValue !== null) ? heroValue + '_' + skillValue : null;
-
     }
 
-    public getExtendedLegendaryEffect(affix: GameAffix, reinforcment: number): ExtendedLegendaryEffect | null {
+    public getExtendedLegendaryEffect(affix: GameAffix, reinforcment: number): LegendaryEffect | null {
         const gameData = this.slormancerDataService.getGameLegendaryData(affix.type);
-        let legendaryEffect: ExtendedLegendaryEffect | null = null;
+        let legendaryEffect: LegendaryEffect | null = null;
 
         if (gameData !== null) {
-
+            const activable = this.slormancerDataService.getlegendaryActivableDataBasedOn(gameData.REF);
             const values = this.getValues(gameData, reinforcment);
             
             legendaryEffect = {
@@ -96,7 +95,7 @@ export class SlormancerLegendaryEffectService {
                 value: affix.value,
                 constants: [],
                 values,
-                skill: null,
+                activable: activable !== null ? activable.REF : null,
                 onlyStat: gameData.STAT_ONLY === true,
                 icon: this.getIcon(gameData.HERO, gameData.SKILL),
             }

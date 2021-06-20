@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { GameEnchantmentTarget } from '../constants/game/game-enchantment-target';
-import { GameRarity } from '../constants/game/game-rarity';
+import { GameEnchantmentTarget } from '../model/game/game-enchantment-target';
 import { GameAffix, GameEnchantment, GameEquippableItem, GameItem, GameRessourceItem } from '../model/game/game-item';
+import { GameRarity } from '../model/game/game-rarity';
 import { strictParseFloat, strictParseInt, strictSplit, toNumberArray } from '../util/parse.util';
 
 @Injectable()

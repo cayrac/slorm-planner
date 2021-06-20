@@ -1,4 +1,4 @@
-export interface ExtendedLegendaryEffectValue {
+export interface LegendaryEffectValue {
     values: { [key: number]: number } | null;
     type: string | null;
     stat: string | null;

@@ -32,7 +32,6 @@ export interface GameSave {
     auras: GameAuras,
     profile: GameProfile,
     enemy_level: GameHeroesData<number>,
-
     hash: string;
 }
 

@@ -1,4 +1,4 @@
-export enum ItemRarity {
+export enum Rarity {
     Normal ='normal',
     Magic ='magic',
     Rare ='rare',

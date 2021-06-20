@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { ExtendedLegendaryEffect } from '../model/extended-legendary-effect';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
+import { LegendaryEffect } from '../model/legendary-effect';
 import { findFirst, firstvalue, lastvalue } from '../util/utils';
 import { SlormancerGameDataService } from './slormancer-data.service';
 
@@ -27,7 +27,7 @@ export class SlormancerTemplateService {
         return template.replace(anchor, value)
     }
 
-    public formatLegendaryDescription(effect: ExtendedLegendaryEffect) {
+    public formatLegendaryDescription(effect: LegendaryEffect) {
         let template = effect.description.replace(this.RETURN_REGEXP, '</br>');
 
         for (let value of effect.values) {
