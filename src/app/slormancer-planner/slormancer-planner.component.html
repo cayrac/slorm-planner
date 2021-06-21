@@ -19,7 +19,10 @@
             <div class="parsed">
                 <!--<app-item-view [item]="selectedExtendedItem"></app-item-view>-->
                 <ng-container *ngFor="let data of getLegendariesData()">
-                    <app-item-view (click)="showData(data)" [item]="getLegendaryItem(data.game)"></app-item-view>
+                    <div class="legendary-data">
+                        <app-item-view (click)="showData(data)" [item]="getLegendaryItem(data.game)"></app-item-view>
+                        <app-json *ngIf="data.effect.activable !== null" [data]="data.effect.activable.values"></app-json>
+                    </div>
                 </ng-container>
             </div>
         </div>

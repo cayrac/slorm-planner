@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
 
+import {
+    AbstractEffectValue,
+    EffectValueConstant,
+    EffectValueRange,
+    EffectValueSynergy,
+    EffectValueSynergyMinMax,
+    EffectValueVariable,
+} from '../model/effect-value';
+import { EffectValueType } from '../model/enum/effect-value-type';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameAffix } from '../model/game/game-item';
 import { LegendaryEffect } from '../model/legendary-effect';
-import { LegendaryEffectValue } from '../model/legendary-effect-value';
 import { list } from '../util/math.util';
-import { strictParseFloat, toFloatArray } from '../util/parse.util';
-import { valueOrNull } from '../util/utils';
+import { emptyStringToNull, splitData, splitFloatData, valueOrDefault, valueOrNull } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
-import { SlormancerItemValueService } from './slormancer-item-value.service';
 import { SlormancerSkillService } from './slormancer-skill.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 
@@ -17,7 +23,6 @@ import { SlormancerTemplateService } from './slormancer-template.service';
 export class SlormancerLegendaryEffectService {
 
     constructor(private slormancerDataService: SlormancerDataService,
-                private slormanderItemValueService: SlormancerItemValueService,
                 private slormanderSkillService: SlormancerSkillService,
                 private slormancerTemplateService: SlormancerTemplateService
                 ) { }
@@ -26,43 +31,70 @@ export class SlormancerLegendaryEffectService {
         const data = this.slormancerDataService.getDataLegendary(legendaryId);
 
         if (data !== null) {
-            effect.values = effect.values.map((value, index) => ({ ...value, ...data.statsOverride[index] }));
-            effect.constants = data.constants;
+            for (const constant of data.constants) {
+                effect.values.push({
+                    type: EffectValueType.Constant,
+                    value: constant
+                } as EffectValueConstant)
+            }
         }
 
         return effect;
     }
 
-    private getValues(gameData: GameDataLegendary, reinforcment: number): Array<LegendaryEffectValue> {
-        const ranges = gameData.RANGE.length === 0 ? [] : gameData.RANGE.split('|').map(v => v.length === 0 ? '0' : v ).map(strictParseFloat);
-        const stats = gameData.STAT.length === 0 ? [] : gameData.STAT.split('|').map(stat => stat === 'chance' ? '' : stat);
-        const types = gameData.TYPE.length === 0 ? [] : gameData.TYPE.split('|');
-        const upgradables = gameData.UPGRADABLE.length === 0 ? [] : gameData.UPGRADABLE.split('|').map(v => v.length === 0 ? '0' : v ).map(strictParseFloat);
-        const values = gameData.VALUE.length === 0 ? [] : toFloatArray(gameData.VALUE, '|');
+    private getEffectValues(gameData: GameDataLegendary): Array<AbstractEffectValue> {
+        const ranges = splitFloatData(gameData.RANGE);
+        const types = emptyStringToNull(splitData(gameData.TYPE));
+        const upgrades = splitFloatData(gameData.UPGRADABLE);
+        const values = splitFloatData(gameData.VALUE);
 
-        const nb = Math.max(stats.length, types.length, values.length);
+        const nb = Math.max(types.length, values.length);
 
-        const effectValues: Array<LegendaryEffectValue> = [];
-        for (let i of list(0, nb - 1)) {
-            const range = ranges[i] ? <number>ranges[i] : 0;
-            const stat = gameData.STAT_ONLY === true && stats[i] ? <string>stats[i] : null;
-            const type = types[i] ? <string>types[i] : null;
-            const upgrade = upgradables[i] ? <number>upgradables[i] : 0;
-            const value = values[i] ? <number>values[i] : 0;
-            const totalUpgrade = reinforcment * upgrade;
+        const result: Array<AbstractEffectValue> = [];
+        for (let i of list(nb)) {
+            const type = valueOrNull(types[i]);
+            const value = valueOrDefault(values[i], 0);
+            const upgrade = valueOrDefault(upgrades[i], 0);
+            const range = valueOrNull(ranges[i]);
+            const isSynergy = type !== null && type !== '%';
 
-            const computedValue = value;
+            if (range === 1) {
+                result.push({
+                    type: EffectValueType.Range,
+                    value,
+                    upgrade: upgrade === null ? 0 : upgrade,
+                    percent: type === '%'
+                } as EffectValueRange);
+            } else if (!isSynergy) {
+                result.push({
+                    type: EffectValueType.Variable,
+                    value,
+                    upgrade: upgrade === null ? 0 : upgrade,
+                    percent: type === '%'
+                } as EffectValueVariable);
+            } else if (type !== null) {
+                const typeValues = splitData(type, ':');
+                const source = valueOrNull(typeValues[1]);
 
-            effectValues.push({
-                values: range === 1 ? this.slormanderItemValueService.getLegendaryAffixValues(computedValue, totalUpgrade) : null,
-                constant: range === 0 ? computedValue : null,
-                synergyValue: type !== null && type !== '%' ? 0 : null,
-                type,
-                stat,
-            });
+                if (source === 'physical_damage') {
+                    result.push({
+                        type: EffectValueType.SynergyMinMax,
+                        ratio: value,
+                        upgrade,
+                        source
+                    } as EffectValueSynergyMinMax);
+                } else {
+                    result.push({
+                        type: EffectValueType.Synergy,
+                        ratio: value,
+                        upgrade,
+                        source
+                    } as EffectValueSynergy);
+                }
+            }
         }
-
-        return effectValues;
+        
+        return result;
     }
 
     private getIcon(hero: number, skill: string): string | null {
@@ -90,16 +122,14 @@ export class SlormancerLegendaryEffectService {
 
         if (gameData !== null) {
             const activable = this.slormancerDataService.getlegendaryGameDataActivableBasedOn(gameData.REF);
-            const values = this.getValues(gameData, reinforcment);
             
             legendaryEffect = {
                 description: this.slormancerTemplateService.getLegendaryDescriptionTemplate(gameData),
                 value: affix.value,
-                constants: [],
-                values,
                 activable: activable !== null ? this.slormanderSkillService.getActivable(activable, reinforcment) : null,
                 onlyStat: gameData.STAT_ONLY === true,
                 icon: this.getIcon(gameData.HERO, gameData.SKILL),
+                values: this.getEffectValues(gameData)
             }
 
             legendaryEffect = this.applyEffectOverride(legendaryEffect, gameData.REF)

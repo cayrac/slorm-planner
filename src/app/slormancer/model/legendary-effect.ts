@@ -1,4 +1,4 @@
-import { LegendaryEffectValue } from './legendary-effect-value';
+import { AbstractEffectValue } from './effect-value';
 import { Skill } from './skill';
 
 export interface LegendaryEffect {
@@ -7,6 +7,5 @@ export interface LegendaryEffect {
     icon: string | null;
     value: number;
     onlyStat: boolean;
-    values: Array<LegendaryEffectValue>;
-    constants: Array<number>;
+    values: Array<AbstractEffectValue>;
 }

@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 
+import {
+    AbstractEffectValue,
+    EffectValueConstant,
+    EffectValueSynergy,
+    EffectValueSynergyMinMax,
+    EffectValueVariable,
+} from '../model/effect-value';
+import { EffectValueType } from '../model/enum/effect-value-type';
 import { SkillCostType } from '../model/enum/skill-cost-type';
 import { SkillGenre } from '../model/enum/skill-genre';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
-import { MinMax } from '../model/minmax';
 import { Skill } from '../model/skill';
-import { SkillValue } from '../model/skill-value';
 import { list } from '../util/math.util';
-import { splitData, splitNumberData, valueOrDefault, valueOrNull } from '../util/utils';
+import { emptyStringToNull, splitData, splitNumberData, valueOrDefault, valueOrNull } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 
@@ -37,27 +43,51 @@ export class SlormancerSkillService {
         return result;
     }
 
-    private parseSkillValues(data: GameDataActivable, level: number): Array<SkillValue> {
+    private parseEffectValues(data: GameDataActivable): Array<AbstractEffectValue> {
         const valueBases = splitNumberData(data.DESC_VALUE_BASE);
         const valuePerLevels = splitNumberData(data.DESC_VALUE_LEVEL);
-        const valueTypes = splitData(data.DESC_VALUE_TYPE);
-        const valueReals = splitData(data.DESC_VALUE_REAL);
+        const valueTypes = emptyStringToNull(splitData(data.DESC_VALUE_TYPE));
+        const valueReals = emptyStringToNull(splitData(data.DESC_VALUE_REAL));
 
-        const max = Math.max(valueBases.length, valuePerLevels.length, valueTypes.length, valueReals.length);
+        const max = Math.max(valueBases.length, valuePerLevels.length, valueTypes.length);
 
-        return list(max).map(index => {
-            const valueReal = valueOrNull(valueReals[index]);
-            const type = valueOrNull(valueTypes[index]);
-            const baseValue = valueBases[index] ? valueOrDefault(valueBases[index], 0) + level * valueOrDefault(valuePerLevels[index], 0) : null;
-            let computedValue: null | number | MinMax = valueReal === null || valueReal.length === 0 ? baseValue : 0;
+        let result: Array<AbstractEffectValue> = [];
+        for (let i of list(max)) {
+            const type = valueOrNull(valueReals[i]);
+            const percent = valueOrNull(valueTypes[i]) === '%';
+            const value = valueOrDefault(valueBases[i], 0);
+            const upgrade = valueOrDefault(valuePerLevels[i], 0);
 
-            if (valueReal !== null && valueOrNull(splitData(valueReal, ':')[1]) === 'physical_damage') {
-                computedValue = { min: 0, max: 0 };
+            if (type === null) {
+                result.push({
+                    type: EffectValueType.Variable,
+                    value,
+                    upgrade,
+                    percent
+                } as EffectValueVariable);
+            } else {
+                const typeValues = splitData(type, ':');
+                const source = valueOrNull(typeValues[1]);
+
+                if (source === 'physical_damage') {
+                    result.push({
+                        type: EffectValueType.SynergyMinMax,
+                        ratio: value,
+                        upgrade,
+                        source
+                    } as EffectValueSynergyMinMax);
+                } else {
+                    result.push({
+                        type: EffectValueType.Synergy,
+                        ratio: value,
+                        upgrade,
+                        source
+                    } as EffectValueSynergy);
+                }
             }
-
-            return { baseValue, type, valueReal, computedValue };
-        });
-            
+        }
+        
+        return result;
     }
 
     private isGenre(genre: string): genre is SkillGenre {
@@ -71,17 +101,21 @@ export class SlormancerSkillService {
             || genre === SkillGenre.Minion;
     }
 
-    public getActivable(gameData: GameDataActivable, level: number): Skill {
-        const data = this.slormancerDataService.getDataActivable(gameData.REF);
+    private applyActivableOverride(activable: Skill, ref: number) {
+        const data = this.slormancerDataService.getDataActivable(ref);
 
         if (data !== null) {
-            gameData = { ...gameData }
-            if (data.description !== null) {
-                gameData.EN_DESCRIPTION = data.description;
+            for (const constant of data.constants) {
+                activable.values.push({
+                    type: EffectValueType.Constant,
+                    value: constant
+                } as EffectValueConstant);
             }
         }
+    }
 
-        return {
+    public getActivable(gameData: GameDataActivable, level: number): Skill {
+        const activable = {
             name: gameData.EN_NAME,
             icon: 'activable_' + gameData.REF,
             description: this.slormancerTemplateService.getSkillDescriptionTemplate(gameData),
@@ -92,8 +126,11 @@ export class SlormancerSkillService {
             costType: this.parseCostType(gameData.COST_TYPE),
             damageTypes: splitData(gameData.DMG_TYPE, ','),
             genres: splitData(gameData.GENRE, ',').filter(this.isGenre),
-            values: this.parseSkillValues(gameData, level),
-            constants: data !== null ? data.constants : []
+            values: this.parseEffectValues(gameData),
         };
+
+        this.applyActivableOverride(activable, gameData.REF);
+
+        return activable;
     }
 }

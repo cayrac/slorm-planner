@@ -23,7 +23,7 @@ export class ItemViewComponent {
     public readonly equipped: boolean = false;
 
     @Input()
-    public readonly range: boolean = false;
+    public readonly details: boolean = true;
 
     constructor(private slormancerTemplateService: SlormancerTemplateService) { }
 
@@ -87,7 +87,7 @@ export class ItemViewComponent {
         let description: string | null = null;
 
         if (this.item !== null && this.item.legendaryEffect !== null) {
-            description = this.slormancerTemplateService.formatLegendaryDescription(this.item.legendaryEffect);
+            description = this.slormancerTemplateService.formatLegendaryDescription(this.item.legendaryEffect, this.item.reinforcment);
         }
 
         return description;
@@ -97,13 +97,13 @@ export class ItemViewComponent {
         let description: string | null = null;
 
         if (this.item !== null && this.item.legendaryEffect !== null && this.item.legendaryEffect.activable !== null) {
-            description = this.slormancerTemplateService.formatSkillDescription(this.item.legendaryEffect.activable);
+            description = this.slormancerTemplateService.formatSkillDescription(this.item.legendaryEffect.activable, this.item.reinforcment);
         }
 
         return description;
     }
 
-    public activableHascost(activable: Skill): boolean {
+    public activableHasCost(activable: Skill): boolean {
         return activable.costType !== SkillCostType.None;
     }
 

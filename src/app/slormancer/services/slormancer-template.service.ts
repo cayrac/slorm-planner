@@ -1,11 +1,32 @@
 import { Injectable } from '@angular/core';
 
+import {
+    EffectValueConstant,
+    EffectValueRange,
+    EffectValueSynergy,
+    EffectValueSynergyMinMax,
+    EffectValueVariable,
+} from '../model/effect-value';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { LegendaryEffect } from '../model/legendary-effect';
 import { Skill } from '../model/skill';
-import { findFirst, firstvalue, isNotNullOrUndefined, lastvalue, splitData, valueOrNull } from '../util/utils';
+import {
+    findFirst,
+    firstvalue,
+    isEffectValueConstant,
+    isEffectValueRange,
+    isEffectValueSynergy,
+    isEffectValueSynergyMinMax,
+    isEffectValueVariable,
+    isNotNullOrUndefined,
+    lastvalue,
+    splitData,
+    valueOrDefault,
+    valueOrNull,
+} from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
+import { SlormancerItemValueService } from './slormancer-item-value.service';
 
 @Injectable()
 export class SlormancerTemplateService {
@@ -15,11 +36,13 @@ export class SlormancerTemplateService {
     public readonly VALUE_ANCHOR = '@';
     public readonly CONSTANT_ANCHORS = ['¤', '~'];
     public readonly SYNERGY_ANCHOR = '_';
+    public readonly MINMAX_ANCHOR = '_';
     public readonly SYNERGY_PREFIX = 'synergy:';
     public readonly DAMAGE_PREFIX = 'damage:';
     public readonly RETURN_REGEXP = /#/g;
 
-    constructor(private slormancerDataService: SlormancerDataService) { }
+    constructor(private slormancerDataService: SlormancerDataService,
+                private slormancerItemValueService: SlormancerItemValueService) { }
 
     private asSpan(content: string, className: string): string {
         return '<span class="' + className + '">' + content + '</span>';
@@ -29,94 +52,108 @@ export class SlormancerTemplateService {
         return template.replace(anchor, value)
     }
 
-    public formatLegendaryDescription(effect: LegendaryEffect) {
+    private applyEffectValueVariable(template: string, value: EffectValueVariable, reinforcment: number, anchor: string): string {
+        const computed = this.slormancerItemValueService.computeEffectValueVariable(value, reinforcment);
+        const percent = value.percent ? '%' : '';
+
+        let text = this.asSpan(computed + percent, 'value');
+        if (value.upgrade > 0) {
+            text = text + this.asSpan(' (' + value.value + percent + ' + ' + value.upgrade + percent + ' per upgrade)', 'formula');
+        }
+
+        return this.replaceAnchor(template, text, anchor);
+    }
+
+    private applyEffectValueConstant(template: string, value: EffectValueConstant, anchor: string): string {
+        return this.replaceAnchor(template, this.asSpan(value.value.toString(), 'value'), anchor);
+    }
+
+    private applyEffectValueRange(template: string, value: EffectValueRange, rangeValue: number, reinforcment: number, anchor: string): string {
+        const range = this.slormancerItemValueService.computeEffectValueRange(value, reinforcment);
+        const baseRange = this.slormancerItemValueService.computeEffectValueRange(value, 0);
+        const percent = value.percent ? '%' : '';
+        const currentValue = valueOrDefault(range[rangeValue], 0);
+
+        let text = this.asSpan(currentValue + percent, 'value');
+        let formula = firstvalue(baseRange) + percent + ' - ' + lastvalue(baseRange) + percent
+        if (value.upgrade > 0) {
+            formula = formula + ' + ' + value.upgrade + percent + ' per upgrade';
+        }
+        text = text + this.asSpan(' (' + formula + ')', 'formula');
+
+        return this.replaceAnchor(template, text, anchor);
+    }
+
+    private applyEffectValueSynergy(template: string, value: EffectValueSynergy, reinforcment: number, synergyAnchor: string, valueAnchor: string): string {
+        const computedValue = this.slormancerItemValueService.computeEffectValueSynergy(value, reinforcment);
+        const ratio = this.slormancerItemValueService.computeEffectValueSynergyRatio(value, reinforcment);
+
+        const textValue = this.asSpan(computedValue.toString(), 'value');
+
+        let textRatio = this.asSpan(ratio.toString() + '%', 'value');
+        if (value.upgrade > 0) {
+            textRatio = textRatio + this.asSpan(' (' + value.ratio + '% + ' + value.upgrade + '% per upgrade)', 'formula');
+        }
+
+        template = this.replaceAnchor(template, textValue, synergyAnchor);
+        template = this.replaceAnchor(template, textRatio, valueAnchor);
+
+        return template;
+    }
+
+    private applyEffectValueSynergyMinMax(template: string, value: EffectValueSynergyMinMax, reinforcment: number, anchor: string): string {
+        const computedValue = this.slormancerItemValueService.computeEffectValueSynergyMinMax(value, reinforcment);
+        const ratio = this.slormancerItemValueService.computeEffectValueSynergyRatio(value, reinforcment);
+
+        let textValue = this.asSpan(computedValue.min + ' - ' + computedValue.max, 'value');
+
+        let textRatio = this.asSpan(' (' + ratio + '% ' + (value.upgrade > 0 ? ' : ' + value.ratio + '%' + ' + ' + value.upgrade + '% per upgrade' : '') + ')', 'formula');
+
+        template = this.replaceAnchor(template, textValue + textRatio, anchor);
+
+        return template;
+    }
+
+    public formatLegendaryDescription(effect: LegendaryEffect, reinforcment: number) {
         let template = effect.description;
 
         for (let value of effect.values) {
-            const percent = value.type !== null;
-            let computedValue = effect.value;
-            let min: number | null = null;
-            let max: number | null = null;
-
-            if (value.constant !== null) {
-                computedValue = value.constant
-            } else if (value.values !== null) {
-                const rangedValue = value.values[effect.value];
-                if (rangedValue) {
-                    computedValue = rangedValue;
+            if (isEffectValueVariable(value)) {
+                template = this.applyEffectValueVariable(template, value, reinforcment, this.VALUE_ANCHOR);
+            } else if (isEffectValueRange(value)) {
+                template = this.applyEffectValueRange(template, value, effect.value, reinforcment, this.VALUE_ANCHOR);
+            } else if (isEffectValueConstant(value)) {
+                const anchor = findFirst(template, this.CONSTANT_ANCHORS);
+                if (anchor !== null) {
+                    template = this.applyEffectValueConstant(template, value, anchor);
                 }
-            }
-
-            if (value.values !== null) {
-                min = firstvalue(value.values);
-                max = lastvalue(value.values);
-            }
-
-            const percentValue = percent ? '%' : '';
-            let replace = this.asSpan(computedValue.toString() + percentValue, 'value');
-    
-            if (min !== null && max !== null) {
-                replace += ' ' + this.asSpan('(' + min + percentValue + ' - ' + max + percentValue + ')', 'range');
-            }
-            
-            template = this.replaceAnchor(template, replace, this.VALUE_ANCHOR);
-
-            if (value.synergyValue !== null) {
-                const synergyValue = this.asSpan(value.synergyValue.toString(), 'value');
-                template = this.replaceAnchor(template, synergyValue, this.SYNERGY_ANCHOR);
-            }
-        }
-
-        for (let constant of effect.constants) {
-            const anchor = findFirst(template, this.CONSTANT_ANCHORS);
-            if (anchor !== null) {
-                const constValue = this.asSpan(constant.toString(), 'value');
-                template = this.replaceAnchor(template, constValue, anchor);
+            } else if (isEffectValueSynergy(value)) {
+                template = this.applyEffectValueSynergy(template, value, reinforcment, this.SYNERGY_ANCHOR, this.VALUE_ANCHOR);
+            } else if (isEffectValueSynergyMinMax(value)) {
+                template = this.applyEffectValueSynergyMinMax(template, value, reinforcment, this.MINMAX_ANCHOR);
             }
         }
 
         return template;
     }
 
-    public formatSkillDescription(skill: Skill): string {
+    public formatSkillDescription(skill: Skill, level: number): string {
         let template = skill.description;
 
         for (let value of skill.values) {
-            if (value.computedValue !== null) {
-                let replace: string = '';
-                let range: string | null = null;
-
-                const percentValue = value.type === '%' ? '%' : '';
-                if (typeof value.computedValue === 'number') {
-                    replace = value.computedValue + percentValue;
-                } else if (value.computedValue !== null) {
-                    replace = value.computedValue.min + percentValue + ' - ' + value.computedValue.max + percentValue;
-                    const synergyType = value.valueReal === null ? null : this.getSynergyType(value.valueReal);
-                    if (synergyType !== null) {
-                        range = '(' + value.baseValue + '% of ' + this.keyToString(synergyType) + ')';
-                    }
+            if (isEffectValueVariable(value)) {
+                template = this.applyEffectValueVariable(template, value, level, this.VALUE_ANCHOR);
+            } else if (isEffectValueConstant(value)) {
+                const anchor = findFirst(template, this.CONSTANT_ANCHORS);
+                if (anchor !== null) {
+                    template = this.applyEffectValueConstant(template, value, anchor);
                 }
-
-                let result = this.asSpan(replace, 'value');
-                if (range !== null) {
-                    result = result + ' ' + this.asSpan(range, 'details');
-                }
-                
-                template = this.replaceAnchor(template, result, this.VALUE_ANCHOR);
-
-                if (value.baseValue !== null && value.valueReal !== null) {
-                
-                    template = this.replaceAnchor(template, this.asSpan(value.baseValue + '%', 'value'), this.SYNERGY_ANCHOR);
-                }
+            } else if (isEffectValueSynergy(value)) {
+                template = this.applyEffectValueSynergy(template, value, level, this.SYNERGY_ANCHOR, this.VALUE_ANCHOR);
+            } else if (isEffectValueSynergyMinMax(value)) {
+                template = this.applyEffectValueSynergyMinMax(template, value, level, this.MINMAX_ANCHOR);
             }
-        }
-
-        for (let constant of skill.constants) {
-            const anchor = findFirst(template, this.CONSTANT_ANCHORS);
-            if (anchor !== null) {
-                const constValue = this.asSpan(constant.toString(), 'value');
-                template = this.replaceAnchor(template, constValue, anchor);
-            }
+            
         }
 
         return template;
@@ -141,7 +178,6 @@ export class SlormancerTemplateService {
     }
 
     private parseTemplate(template: string, stats: Array<string> = [], types: Array<string> = []) {
-        
         template = stats.map(stat => this.keyToString(stat))
             .reduce((desc, stat) => desc.replace(this.STAT_ANCHOR, stat), template);
 
@@ -159,40 +195,13 @@ export class SlormancerTemplateService {
 
     private keyToString(key: string): string {
         const data = this.slormancerDataService.getDataAffixByRef(key);
+        const keyword = this.slormancerDataService.getKeywordName(key);
         let result = key;
 
         if (data !== null) {
             result = data.name;
-        } else if (key === 'chance') {
-            result = 'Chance';
-        } else if (key === 'increased_damage') {
-            result = 'Increased Damage';
-        } else if (key === 'physical_damage') {
-            result = 'Skill Damage';
-        } else if (key === 'thorns_damage') {
-            result = 'Thorns Damage';
-        } else if (key === 'retaliate') {
-            result = 'Retaliation';
-        } else if (key === 'elemental_damage') {
-            result = 'Elemental Damage';
-        } else if (key === 'elemental_damage') {
-            result = 'Elemental Damage';
-        } else if (key === 'additional_damage') {
-            result = 'Additional Damage';
-        } else if (key === 'weapon_damage') {
-            result = 'Reaper Damage';
-        } else if (key === 'critical_damage') {
-            result = 'Critical Strike Damage';
-        } else if (key === 'crit_chance') {
-            result = 'Critical Strike Chance';
-        } else if (key === 'skill_elem_damage') {
-            result = 'Skill and Elemental Damages';
-        } else if (key === 'life') {
-            result = 'Life';
-        } else if (key === 'mana') {
-            result = 'Mana';
-        } else if (key === 'reduced_damage') {
-            result = 'Reduced Damage';
+        } else if (keyword !== null) {
+            result = keyword;
         }
 
         return result;

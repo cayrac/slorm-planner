@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { EffectValueRange, EffectValueSynergy, EffectValueSynergyMinMax, EffectValueVariable } from '../model/effect-value';
 import { GameRarity } from '../model/game/game-rarity';
 import { MinMax } from '../model/minmax';
 import { bankerRound, list } from '../util/math.util';
@@ -152,14 +153,30 @@ export class SlormancerItemValueService {
         return values;
     }
 
-    public getLegendaryAffixValues(score: number, upgrade: number): { [ key: number]: number } {
+    public computeEffectValueRange(effect: EffectValueRange, reinforcment: number): { [ key: number]: number } {
         let values: { [key: number]: number } = { };
 
         values = {};
-        for (let value of list(75, 100)) {
-            values[value] = this.roundValue(score * value / 100 + upgrade, false, false);
+        for (let ratio of list(75, 100)) {
+            values[ratio] = this.roundValue(effect.value * ratio / 100 + effect.upgrade * reinforcment, false, false);
         }
 
         return values;
+    }
+
+    public computeEffectValueVariable(effect: EffectValueVariable, reinforcment: number): number {
+        return effect.value + reinforcment * effect.upgrade
+    }
+
+    public computeEffectValueSynergyRatio(effect: EffectValueSynergy | EffectValueSynergyMinMax, reinforcment: number): number {
+        return effect.ratio + effect.upgrade * reinforcment;
+    }
+
+    public computeEffectValueSynergy(effect: EffectValueSynergy, reinforcment: number): number {
+        return 0
+    }
+
+    public computeEffectValueSynergyMinMax(effect: EffectValueSynergyMinMax, reinforcment: number): MinMax {
+        return { min: 0, max: 0 };
     }
 }

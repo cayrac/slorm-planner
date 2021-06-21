@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { DATA_ACTIVABLE } from '../constants/data/data-activable';
 import { DATA_AFFIX } from '../constants/data/data-affix';
 import { DATA_EQUIPABLE_ITEM } from '../constants/data/data-equipable-item';
+import { DATA_KEYWORD_NAME } from '../constants/data/data-keyword-name';
 import { DATA_LEGENDARY } from '../constants/data/data-legendary';
 import { DATA_LEGENDARY_BASE } from '../constants/data/data-legendary-base';
 import { GAME_DATA } from '../constants/game/game-data';
@@ -74,5 +75,9 @@ export class SlormancerDataService {
 
     public getBaseFromLegendaryId(id: number): string | null {
         return valueOrNull(DATA_LEGENDARY_BASE[id]);
+    }
+
+    public getKeywordName(keyword: string): string | null {
+        return valueOrNull(DATA_KEYWORD_NAME[keyword]);
     }
 }

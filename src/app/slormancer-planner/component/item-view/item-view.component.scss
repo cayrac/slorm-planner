@@ -94,7 +94,7 @@ $life-color            : rgb(37, 117, 57);
             white-space: nowrap;
         }
 
-        .range, .details {
+        .range, .details, .formula {
             color: $item-range-color;
             word-break: keep-all;
             white-space: nowrap;
@@ -109,9 +109,9 @@ $life-color            : rgb(37, 117, 57);
         }
 
     }
-    &.norange {
+    &.nodetails {
         ::ng-deep {
-            .range {
+            .range, .formula {
                 display: none;
             }
         }

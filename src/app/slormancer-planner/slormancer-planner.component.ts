@@ -76,7 +76,9 @@ export class SlormancerPlannerComponent implements OnInit {
 
     public getLegendariesData(): Array<{ game: GameDataLegendary, activable: GameDataActivable | null, effect: LegendaryEffect }> {
         return GAME_DATA.LEGENDARY
-            .map(legendary => ({ game: legendary, activable: this.slormancerDataService.getlegendaryGameDataActivableBasedOn(legendary.REF), effect: this.getLegendaryEffect(legendary) }));
+            .map(legendary => ({ game: legendary, activable: this.slormancerDataService.getlegendaryGameDataActivableBasedOn(legendary.REF), effect: this.getLegendaryEffect(legendary) }))
+            .filter(data => data.activable !== null)
+            ;
     }
 
     public getLegendaryItem(data: GameDataLegendary): EquipableItem | null {

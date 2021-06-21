@@ -1,6 +1,6 @@
+import { AbstractEffectValue } from './effect-value';
 import { SkillCostType } from './enum/skill-cost-type';
 import { SkillGenre } from './enum/skill-genre';
-import { SkillValue } from './skill-value';
 
 export interface Skill {
     name: string;
@@ -13,6 +13,5 @@ export interface Skill {
     costType: SkillCostType;
     damageTypes: Array<string>;
     genres: Array<SkillGenre>;
-    values: Array<SkillValue>;
-    constants: Array<number>;
+    values: Array<AbstractEffectValue>
 }

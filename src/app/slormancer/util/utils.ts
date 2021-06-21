@@ -1,3 +1,12 @@
+import {
+    AbstractEffectValue,
+    EffectValueConstant,
+    EffectValueRange,
+    EffectValueSynergy,
+    EffectValueSynergyMinMax,
+    EffectValueVariable,
+} from '../model/effect-value';
+import { EffectValueType } from '../model/enum/effect-value-type';
 import { Rarity } from '../model/enum/rarity';
 
 export function isNotNullOrUndefined<T>(value: T | null | undefined): value is T {
@@ -90,4 +99,32 @@ export function splitData(data: string, separator: string = '|'): Array<string> 
 
 export function splitNumberData(data: string, separator: string = '|'): Array<number | null> {
     return splitData(data, separator).map(v => parseInt(v)).map(v => isNaN(v) ? null : v);
+}
+
+export function splitFloatData(data: string, separator: string = '|'): Array<number | null> {
+    return splitData(data, separator).map(v => parseFloat(v)).map(v => isNaN(v) ? null : v);
+}
+
+export function emptyStringToNull<T>(data: Array<T>): Array<T | null> {
+    return data.map(s => typeof s === 'string' && s.length === 0 ? null : s);
+}
+
+export function isEffectValueVariable(value: AbstractEffectValue): value is EffectValueVariable {
+    return value.type === EffectValueType.Variable;    
+} 
+
+export function isEffectValueConstant(value: AbstractEffectValue): value is EffectValueConstant {
+    return value.type === EffectValueType.Constant;    
+}
+
+export function isEffectValueRange(value: AbstractEffectValue): value is EffectValueRange {
+    return value.type === EffectValueType.Range;    
+}
+
+export function isEffectValueSynergy(value: AbstractEffectValue): value is EffectValueSynergy {
+    return value.type === EffectValueType.Synergy;    
+}
+
+export function isEffectValueSynergyMinMax(value: AbstractEffectValue): value is EffectValueSynergyMinMax {
+    return value.type === EffectValueType.SynergyMinMax;    
 }
