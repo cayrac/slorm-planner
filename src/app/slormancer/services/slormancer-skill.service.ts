@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { SkillCostType } from '../model/enum/skill-cost-type';
+import { SkillGenre } from '../model/enum/skill-genre';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { MinMax } from '../model/minmax';
 import { Skill } from '../model/skill';
@@ -59,6 +60,17 @@ export class SlormancerSkillService {
             
     }
 
+    private isGenre(genre: string): genre is SkillGenre {
+        return genre === SkillGenre.Aoe
+            || genre === SkillGenre.Aura
+            || genre === SkillGenre.Totem
+            || genre === SkillGenre.Movement
+            || genre === SkillGenre.Melee
+            || genre === SkillGenre.Projectile
+            || genre === SkillGenre.Special
+            || genre === SkillGenre.Minion;
+    }
+
     public getActivable(gameData: GameDataActivable, level: number): Skill {
         const data = this.slormancerDataService.getDataActivable(gameData.REF);
 
@@ -78,8 +90,8 @@ export class SlormancerSkillService {
             baseCost: gameData.COST,
             cost: gameData.COST,
             costType: this.parseCostType(gameData.COST_TYPE),
-            damageTypes: gameData.DMG_TYPE.length > 0 ? gameData.DMG_TYPE.split(',') : [],
-            genres: gameData.GENRE.length > 0 ? gameData.GENRE.split(',') : [],
+            damageTypes: splitData(gameData.DMG_TYPE, ','),
+            genres: splitData(gameData.GENRE, ',').filter(this.isGenre),
             values: this.parseSkillValues(gameData, level),
             constants: data !== null ? data.constants : []
         };

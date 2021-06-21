@@ -1,4 +1,5 @@
 import { SkillCostType } from './enum/skill-cost-type';
+import { SkillGenre } from './enum/skill-genre';
 import { SkillValue } from './skill-value';
 
 export interface Skill {
@@ -11,7 +12,7 @@ export interface Skill {
     cost: number;
     costType: SkillCostType;
     damageTypes: Array<string>;
-    genres: Array<string>;
+    genres: Array<SkillGenre>;
     values: Array<SkillValue>;
     constants: Array<number>;
 }

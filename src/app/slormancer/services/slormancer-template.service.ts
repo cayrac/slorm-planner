@@ -90,11 +90,9 @@ export class SlormancerTemplateService {
                 if (typeof value.computedValue === 'number') {
                     replace = value.computedValue + percentValue;
                 } else if (value.computedValue !== null) {
-                    console.log('minmax : ', value);
                     replace = value.computedValue.min + percentValue + ' - ' + value.computedValue.max + percentValue;
                     const synergyType = value.valueReal === null ? null : this.getSynergyType(value.valueReal);
                     if (synergyType !== null) {
-                        console.log('with range : ');
                         range = '(' + value.baseValue + '% of ' + this.keyToString(synergyType) + ')';
                     }
                 }

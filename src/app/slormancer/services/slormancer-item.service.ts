@@ -114,7 +114,7 @@ export class SlormancerItemService {
         const reinforcment: string | null = item.reinforcment > 0 ? '+' + item.reinforcment : null;
 
         if (legendaryAffix !== undefined) {
-            const legendaryData = this.slormancerDataService.getGameLegendaryData(legendaryAffix.type);
+            const legendaryData = this.slormancerDataService.getGameDataLegendary(legendaryAffix.type);
             name = legendaryData === null ? 'unknown legendary' : legendaryData.EN_NAME;
         } else {
             let baseName = base;
@@ -173,19 +173,36 @@ export class SlormancerItemService {
     }
 
     private getItembase(item: GameEquippableItem): string {
-        return item.affixes
+        let base: string | null = null;
+        const normalAffixes = item.affixes
             .filter(affix => affix.rarity === 'N')
             .map(affix => this.slormancerDataService.getGameDataStat(affix))
             .filter(isNotNullOrUndefined)
-            .map(stat => stat.PRIMARY_NAME_TYPE)
-            .sort()
-            .join('-')
+            .map(stat => stat.PRIMARY_NAME_TYPE);
+        const legendaryAffix = item.affixes.find(affix => affix.rarity === 'L');
+
+        if (legendaryAffix) {
+            const gameData = this.slormancerDataService.getGameDataLegendary(legendaryAffix.type);
+            if (gameData !== null) {
+                base = this.slormancerDataService.getBaseFromLegendaryId(gameData.REF);
+
+                if (base === null) {
+                    base = '' + gameData.SPRITE;
+                }
+            }
+        }
+        
+        if (base === null) {
+            base = normalAffixes.sort().join('-');
+        }
+
+        return base;
     }
 
     public getExtendedEquipableItem(item: GameEquippableItem): EquipableItem {
         const type = this.getEquipableItemType(item);
-        const base = this.getItembase(item);
         const rarity = this.getItemRarity(item);
+        const base = this.getItembase(item);
         const name = this.getItemName(type, base, rarity, item);
         const affixes = item.affixes
             .filter(affix => affix.rarity !== 'L')

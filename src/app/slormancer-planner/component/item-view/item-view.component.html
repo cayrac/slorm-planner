@@ -15,7 +15,6 @@
             </div>
             <div class="separator"></div>
             <div class="stats">
-                
                 <div class="affixes" *ngIf="getNormalAffixes().length > 0">
                     <div class="title">Base Stats:</div>
                     <ul>
@@ -81,12 +80,18 @@
             </div>
         </div>
         <div class="activable" *ngIf="item.legendaryEffect !== null && item.legendaryEffect.activable !== null">
-            <div class="head">
+            <div class="activable-head">
                 <div class="icon">
                     <img src="assets/img/icon/{{item.legendaryEffect.activable.icon}}.png" />
                 </div>
                 <div class="info">
                     <div class="name">{{item.legendaryEffect.activable.name}}</div>
+                    <div class="genre" *ngIf="item.legendaryEffect.activable.genres.length > 0">{{getGenresLabel(item.legendaryEffect.activable.genres)}}</div>
+                    <div class="cooldown" *ngIf="item.legendaryEffect.activable.cooldown > 0">Cooldown : <span class="value">{{item.legendaryEffect.activable.cooldown}}</span> seconds</div>
+                    <div class="cost" *ngIf="activableHascost(item.legendaryEffect.activable)">Cost :
+                        <span [class.life]="activableHasLifeCost(item.legendaryEffect.activable)" [class.mana]="activableHasManaCost(item.legendaryEffect.activable)">{{item.legendaryEffect.activable.cooldown}}</span>
+                        <span> {{getCostLabel(item.legendaryEffect.activable.costType)}}</span>
+                    </div>
                 </div>
             </div>
             <div class="description" [innerHTML]="getActivableDescription()"></div>

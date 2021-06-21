@@ -4,6 +4,7 @@ import { DATA_ACTIVABLE } from '../constants/data/data-activable';
 import { DATA_AFFIX } from '../constants/data/data-affix';
 import { DATA_EQUIPABLE_ITEM } from '../constants/data/data-equipable-item';
 import { DATA_LEGENDARY } from '../constants/data/data-legendary';
+import { DATA_LEGENDARY_BASE } from '../constants/data/data-legendary-base';
 import { GAME_DATA } from '../constants/game/game-data';
 import { DataActivable } from '../model/data/data-activable';
 import { DataAffix } from '../model/data/data-affix';
@@ -14,13 +15,13 @@ import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameDataStat } from '../model/game/data/game-data-stat';
 import { GameAffix } from '../model/game/game-item';
+import { valueOrNull } from '../util/utils';
 
 @Injectable()
 export class SlormancerDataService {
 
     public getGameDataStat(affix: GameAffix): GameDataStat | null {
-        const stat = GAME_DATA.STAT.find(stat => stat.REF_NB === affix.type);
-        return stat ? stat : null;
+        return valueOrNull(GAME_DATA.STAT.find(stat => stat.REF_NB === affix.type));
     }
 
     public getDataEquipableItem(type: EquipableItemType, base: string): DataEquipableItemType | null {
@@ -49,29 +50,29 @@ export class SlormancerDataService {
     }
 
     public getDataAffixByRef(ref: string): DataAffix | null {
-        const stat = DATA_AFFIX[ref];
-        return stat ? stat : null;
+        return valueOrNull(DATA_AFFIX[ref]);
     }
 
-    public getGameLegendaryData(id: number): GameDataLegendary | null {
-        const legendary = GAME_DATA.LEGENDARY.find(leg => leg.REF === id);
-        return legendary ? legendary : null;
+    public getGameDataLegendary(id: number): GameDataLegendary | null {
+        return valueOrNull(GAME_DATA.LEGENDARY.find(leg => leg.REF === id));
     }
 
     public getDataLegendary(id: number): DataLegendary | null {
-        const legendary = DATA_LEGENDARY[id];
-        return legendary ? legendary : null;
+        return valueOrNull(DATA_LEGENDARY[id]);
     }
 
     public getlegendaryGameDataActivableBasedOn(id: number): GameDataActivable | null {
         const activable = GAME_DATA.ACTIVABLE
             .filter(activable => activable.BASED_ON === 'legendary')
             .find(activable => activable.ID_BASED_ON=== id);
-        return activable ? activable : null;
+        return valueOrNull(activable);
     }
 
     public getDataActivable(id: number): DataActivable | null {
-        const activable = DATA_ACTIVABLE[id];
-        return activable ? activable : null;
+        return valueOrNull(DATA_ACTIVABLE[id]);
+    }
+
+    public getBaseFromLegendaryId(id: number): string | null {
+        return valueOrNull(DATA_LEGENDARY_BASE[id]);
     }
 }

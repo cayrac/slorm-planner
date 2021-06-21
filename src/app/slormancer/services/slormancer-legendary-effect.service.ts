@@ -85,7 +85,7 @@ export class SlormancerLegendaryEffectService {
     }
 
     public getExtendedLegendaryEffect(affix: GameAffix, reinforcment: number): LegendaryEffect | null {
-        const gameData = this.slormancerDataService.getGameLegendaryData(affix.type);
+        const gameData = this.slormancerDataService.getGameDataLegendary(affix.type);
         let legendaryEffect: LegendaryEffect | null = null;
 
         if (gameData !== null) {

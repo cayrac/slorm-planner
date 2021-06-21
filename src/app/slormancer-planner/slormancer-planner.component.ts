@@ -76,8 +76,7 @@ export class SlormancerPlannerComponent implements OnInit {
 
     public getLegendariesData(): Array<{ game: GameDataLegendary, activable: GameDataActivable | null, effect: LegendaryEffect }> {
         return GAME_DATA.LEGENDARY
-            .map(legendary => ({ game: legendary, activable: this.slormancerDataService.getlegendaryGameDataActivableBasedOn(legendary.REF), effect: this.getLegendaryEffect(legendary) }))
-            .filter(data => data.effect.activable !== null);
+            .map(legendary => ({ game: legendary, activable: this.slormancerDataService.getlegendaryGameDataActivableBasedOn(legendary.REF), effect: this.getLegendaryEffect(legendary) }));
     }
 
     public getLegendaryItem(data: GameDataLegendary): EquipableItem | null {
@@ -88,6 +87,22 @@ export class SlormancerPlannerComponent implements OnInit {
 
             if (option) {
                 const item: GameEquippableItem = { ...option.value };
+                switch (data.ITEM) {
+                    case 'helm': item.slot = 0; break;
+                    case 'body': item.slot = 1; break;
+                    case 'shoulder': item.slot = 2; break;
+                    case 'bracer': item.slot = 3; break;
+                    case 'glove': item.slot = 4; break;
+                    case 'boot': item.slot = 5; break;
+                    case 'ring': item.slot = 6; break;
+                    case 'amulet': item.slot = 7; break;
+                    case 'belt': item.slot = 8; break;
+                    case 'cape': item.slot = 9; break;
+                    default: 
+                        console.error('Unexpected item slot ' + item.slot);
+                        break;
+                }
+
                 item.reinforcment = 0;
                 item.affixes = item.affixes.filter(affix => affix.rarity !== 'L');
                 item.affixes.push({
@@ -113,7 +128,8 @@ export class SlormancerPlannerComponent implements OnInit {
         return <LegendaryEffect>this.slormancerLegendaryEffectService.getExtendedLegendaryEffect(affix, 0);
     }
 
-    public showData(data: any) {
+    public showData(data: { game: GameDataLegendary, activable: GameDataActivable | null, effect: LegendaryEffect }) {
+        console.log(data.game.REF);
         console.log(data);
     }
 

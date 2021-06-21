@@ -13,7 +13,10 @@ $item-gray             : rgb(104, 104, 104);
 $item-value-color      : white;
 $item-range-color      : $item-gray;
 $legendary-border-gray : rgb(46, 44, 37);
-$skill-gold-border     : rgb(190, 135, 31);
+$activable-gold-border : rgb(190, 135, 31);
+$mana-color            : rgb(51, 151, 221);
+$genre-color           : rgb(49, 85, 188);
+$life-color            : rgb(37, 117, 57);
 
 .equipped, .rarity, .split, .type, .head, .legendary-effect .description {
     .item.normal & {
@@ -33,7 +36,7 @@ $skill-gold-border     : rgb(190, 135, 31);
     }
 }
 
-> .head, > .content {
+.head, .content {
     .item.normal & {
         border-color: $normal-color-bg;
     }
@@ -95,6 +98,14 @@ $skill-gold-border     : rgb(190, 135, 31);
             color: $item-range-color;
             word-break: keep-all;
             white-space: nowrap;
+        }
+
+        .life {
+            color: $life-color;
+        }
+
+        .mana {
+            color: $mana-color;
         }
 
     }
@@ -277,15 +288,17 @@ $skill-gold-border     : rgb(190, 135, 31);
                 }
             }
 
-            .head {
+            .activable-head {
                 display: flex;
                 flex-direction: row;
                 gap: 5px;
 
                 .icon {
+                    display: flex;
+                    align-items: center;
 
                     img { 
-                        border: 4px solid $skill-gold-border;
+                        border: 4px solid $activable-gold-border;
                         min-width: 36px;
                         min-height: 36px;
                         width: 36px;
@@ -300,14 +313,18 @@ $skill-gold-border     : rgb(190, 135, 31);
                     flex-grow: 1;
 
                     .name {
+                        font-size: 19px;
                         color: $legendary-color-text;
                     }
-                }
 
-                .description {
-                    flex-grow: 1;
-                    
+                    .genre {
+                        color: $genre-color;
+                    }
                 }
+            }
+
+            .description {
+                flex-grow: 1;
             }
         }
 
