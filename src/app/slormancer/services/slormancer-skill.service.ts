@@ -13,7 +13,7 @@ import { SkillGenre } from '../model/enum/skill-genre';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { Skill } from '../model/skill';
 import { list } from '../util/math.util';
-import { emptyStringToNull, splitData, splitNumberData, valueOrDefault, valueOrNull } from '../util/utils';
+import { emptyStringToNull, splitData, splitFloatData, valueOrDefault, valueOrNull } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 
@@ -44,8 +44,8 @@ export class SlormancerSkillService {
     }
 
     private parseEffectValues(data: GameDataActivable): Array<AbstractEffectValue> {
-        const valueBases = splitNumberData(data.DESC_VALUE_BASE);
-        const valuePerLevels = splitNumberData(data.DESC_VALUE_LEVEL);
+        const valueBases = splitFloatData(data.DESC_VALUE_BASE);
+        const valuePerLevels = splitFloatData(data.DESC_VALUE_LEVEL);
         const valueTypes = emptyStringToNull(splitData(data.DESC_VALUE_TYPE));
         const valueReals = emptyStringToNull(splitData(data.DESC_VALUE_REAL));
 

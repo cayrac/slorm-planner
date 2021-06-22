@@ -111,7 +111,7 @@ export class SlormancerItemValueService {
     }
 
     private getReinforcmentratio(reinforcment: number): number {
-        return 100 + (15 * reinforcment);
+        return 100 + Array.from(new Array(reinforcment).keys()).map(i => Math.max(1, 15 - i)).reduce((current, sum) => current + sum, 0);
     }
 
     private computeAffixValue(level: number, reinforcment: number, score: number, value: number, percent: boolean): number {
