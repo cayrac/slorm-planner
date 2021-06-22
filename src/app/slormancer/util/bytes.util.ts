@@ -65,5 +65,7 @@ export function takeUntil(data: Bytes, end: Bytes | null = null): Bytes {
         }
     }
 
+    console.log('take until : ', bytesToString(result));
+
     return result;
 }

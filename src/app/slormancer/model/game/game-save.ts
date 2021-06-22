@@ -1,8 +1,6 @@
 import { GameItem } from './game-item';
 
 export interface GameSave {
-    quest_list: string,
-    weapon_equip: GameHeroesData<number>,
     stats_fetched: GameStatsFetched,
     version: string,
     slormite_list: string,
