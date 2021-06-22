@@ -14,6 +14,7 @@ import { DataLegendary } from '../model/data/data-legendary';
 import { EquipableItemType } from '../model/enum/equipable-item-type';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
+import { GameDataReaper } from '../model/game/data/game-data-reaper';
 import { GameDataStat } from '../model/game/data/game-data-stat';
 import { GameAffix } from '../model/game/game-item';
 import { valueOrNull } from '../util/utils';
@@ -56,6 +57,10 @@ export class SlormancerDataService {
 
     public getGameDataLegendary(id: number): GameDataLegendary | null {
         return valueOrNull(GAME_DATA.LEGENDARY.find(leg => leg.REF === id));
+    }
+
+    public getGameDataReaper(id: number): GameDataReaper | null {
+        return valueOrNull(GAME_DATA.REAPER.find(reaper => reaper.REF === id));
     }
 
     public getDataLegendary(id: number): DataLegendary | null {

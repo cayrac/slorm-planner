@@ -31,7 +31,7 @@ export class SlormancerPlannerComponent implements OnInit {
 
     public selectedClass: HeroClass = HeroClass.Huntress;
 
-    public selectedItem: number | null = 14;
+    public selectedItem: number | null = 0;
 
     public selectedExtendedItem: EquipableItem | null = null;
 

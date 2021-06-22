@@ -17,7 +17,7 @@
             </div>-->
 
             <div class="parsed">
-                <!--<app-item-view [item]="selectedExtendedItem"></app-item-view>-->
+                <app-item-view [item]="selectedExtendedItem"></app-item-view>
                 <ng-container *ngFor="let data of getLegendariesData()">
                     <div class="legendary-data">
                         <app-item-view (click)="showData(data)" [item]="getLegendaryItem(data.game)"></app-item-view>

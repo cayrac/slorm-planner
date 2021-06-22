@@ -96,5 +96,8 @@
             </div>
             <div class="description" [innerHTML]="getActivableDescription()"></div>
         </div>
+        <div class="buff reaper" *ngIf="item.reaperEnchantment !== null">
+            {{item.reaperEnchantment | json}}
+        </div>
     </div>
 </div>

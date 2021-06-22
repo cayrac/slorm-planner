@@ -2,6 +2,7 @@ import { Affix } from './affix';
 import { EquipableItemType } from './enum/equipable-item-type';
 import { Rarity } from './enum/rarity';
 import { LegendaryEffect } from './legendary-effect';
+import { ReaperEnchantment } from './reaper-enchantment';
 
 export interface EquipableItem {
     type: EquipableItemType;
@@ -10,6 +11,7 @@ export interface EquipableItem {
     base: string;
     level: number;
     reinforcment: number;
-    affixes: Array<Affix>
-    legendaryEffect: LegendaryEffect | null
+    affixes: Array<Affix>;
+    legendaryEffect: LegendaryEffect | null;
+    reaperEnchantment: ReaperEnchantment | null;
 }

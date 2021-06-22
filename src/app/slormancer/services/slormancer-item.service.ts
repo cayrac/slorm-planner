@@ -5,8 +5,9 @@ import { DataEquipableItemType } from '../model/data/data-equipable-item-type';
 import { EquipableItemType } from '../model/enum/equipable-item-type';
 import { Rarity } from '../model/enum/rarity';
 import { EquipableItem } from '../model/equipable-item';
-import { GameAffix, GameEquippableItem, GameItem, GameRessourceItem } from '../model/game/game-item';
+import { GameAffix, GameEnchantment, GameEquippableItem, GameItem, GameRessourceItem } from '../model/game/game-item';
 import { GameRarity } from '../model/game/game-rarity';
+import { ReaperEnchantment } from '../model/reaper-enchantment';
 import { compare, compareRarities, isNotNullOrUndefined } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
@@ -199,6 +200,16 @@ export class SlormancerItemService {
         return base;
     }
 
+    private getReaperEnchantment(gameEnchantment: GameEnchantment): ReaperEnchantment | null {
+        const gameData = this.slormancerDataService.getGameDataReaper(gameEnchantment.type);
+        return gameData === null ? null : {
+            type: gameData.REF,
+            bonus: gameEnchantment.value,
+            name: gameData.EN_NAME,
+            icon: 'TODO trouver les familles de reapers'
+        }
+    }
+
     public getExtendedEquipableItem(item: GameEquippableItem): EquipableItem {
         const type = this.getEquipableItemType(item);
         const rarity = this.getItemRarity(item);
@@ -212,8 +223,8 @@ export class SlormancerItemService {
                 const rarity = compareRarities(a.rarity, b.rarity);
                 return rarity === 0 ? compare(a.name, b.name) : rarity;
             });
-        const legendaryAffix = item.affixes.find(affix => affix.rarity === 'L');
-        
+        const legendaryAffix = item.affixes.find(affix => affix.rarity === 'L');        
+        const reaperEnchantment = item.enchantments.find(c => c.target === 'RP');
 
         return {
             type,
@@ -223,7 +234,8 @@ export class SlormancerItemService {
             affixes,
             legendaryEffect: legendaryAffix === undefined ? null : this.slormancerLegendaryEffectService.getExtendedLegendaryEffect(legendaryAffix, item.reinforcment),
             level: item.level,
-            reinforcment: item.reinforcment
+            reinforcment: item.reinforcment,
+            reaperEnchantment: reaperEnchantment ? this.getReaperEnchantment(reaperEnchantment) : null
         };
     }
 }
