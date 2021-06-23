@@ -1,28 +1,23 @@
 import { Injectable } from '@angular/core';
 
-import {
-    EffectValueConstant,
-    EffectValueRange,
-    EffectValueSynergy,
-    EffectValueSynergyMinMax,
-    EffectValueVariable,
-} from '../model/effect-value';
+import { ComputedEffectValue } from '../model/computed-effect-value';
+import { EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
+import { HeroClass } from '../model/enum/hero-class';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { LegendaryEffect } from '../model/legendary-effect';
+import { ReaperEnchantment } from '../model/reaper-enchantment';
 import { Skill } from '../model/skill';
+import { SkillEnchantment } from '../model/skill-enchantment';
 import {
     findFirst,
-    firstvalue,
+    firstValue,
     isEffectValueConstant,
-    isEffectValueRange,
     isEffectValueSynergy,
-    isEffectValueSynergyMinMax,
     isEffectValueVariable,
     isNotNullOrUndefined,
-    lastvalue,
+    lastValue,
     splitData,
-    valueOrDefault,
     valueOrNull,
 } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
@@ -30,6 +25,9 @@ import { SlormancerItemValueService } from './slormancer-item-value.service';
 
 @Injectable()
 export class SlormancerTemplateService {
+
+    private readonly REAPER_BUILDER_TEMPLATE = '+@ Level on $\'s £';
+    private readonly SKILL_BUILDER_TEMPLATE = '+@ $ Mastery';
 
     public readonly STAT_ANCHOR = '£';
     public readonly TYPE_ANCHOR = '$';
@@ -48,68 +46,82 @@ export class SlormancerTemplateService {
         return '<span class="' + className + '">' + content + '</span>';
     }
 
-    private replaceAnchor(template: string, value: string, anchor: string): string {
+    public replaceAnchor(template: string, value: string, anchor: string): string {
         return template.replace(anchor, value)
     }
 
-    private applyEffectValueVariable(template: string, value: EffectValueVariable, reinforcment: number, anchor: string): string {
-        const computed = this.slormancerItemValueService.computeEffectValueVariable(value, reinforcment);
-        const percent = value.percent ? '%' : '';
+    private computedValueToFormula(computed: ComputedEffectValue): string {
+        let formula: string | null = null;
+        const percent = computed.percent ? '%' : '';
 
-        let text = this.asSpan(computed + percent, 'value');
-        if (value.upgrade > 0) {
-            text = text + this.asSpan(' (' + value.value + percent + ' + ' + value.upgrade + percent + ' per upgrade)', 'formula');
+        if (computed.range !== null || computed.upgrade > 0) {
+            formula = '';
+            if (computed.range !== null) {
+                formula += firstValue(computed.range) + percent + ' - ' + lastValue(computed.range) + percent;
+            }
+            
+            if (computed.upgrade > 0) {
+                if (computed.baseRange === null) {
+                    formula += computed.baseValue + percent;
+                }
+
+                formula += ' + ' + computed.upgrade + percent + ' per upgrade';
+            }
         }
 
-        return this.replaceAnchor(template, text, anchor);
+        return formula === null ? '' : this.asSpan(' (' + formula + ')', 'formula');
+    }
+
+    private applyEffectValueVariable(template: string, baseValue: number, effectValue: EffectValueVariable, reinforcment: number, anchor: string): string {
+        const computed = this.slormancerItemValueService.computeEffectVariableDetails(effectValue, baseValue, reinforcment);
+        const percent = computed.percent ? '%' : '';
+
+        const value = this.asSpan(computed.value + percent, 'value')
+        const formula = this.computedValueToFormula(computed);
+
+        return this.replaceAnchor(template, value + formula, anchor);
     }
 
     private applyEffectValueConstant(template: string, value: EffectValueConstant, anchor: string): string {
         return this.replaceAnchor(template, this.asSpan(value.value.toString(), 'value'), anchor);
     }
 
-    private applyEffectValueRange(template: string, value: EffectValueRange, rangeValue: number, reinforcment: number, anchor: string): string {
-        const range = this.slormancerItemValueService.computeEffectValueRange(value, reinforcment);
-        const baseRange = this.slormancerItemValueService.computeEffectValueRange(value, 0);
-        const percent = value.percent ? '%' : '';
-        const currentValue = valueOrDefault(range[rangeValue], 0);
+    private applyEffectValueSynergy(template: string, baseValue: number, effectValue: EffectValueSynergy, reinforcment: number, synergyAnchor: string, valueAnchor: string): string {
+        const computed = this.slormancerItemValueService.computeEffectSynergyDetails(effectValue, baseValue, reinforcment);
+        
+        const value = this.asSpan(computed.value + '%', 'value');
+        const formula = this.computedValueToFormula(computed);
 
-        let text = this.asSpan(currentValue + percent, 'value');
-        let formula = firstvalue(baseRange) + percent + ' - ' + lastvalue(baseRange) + percent
-        if (value.upgrade > 0) {
-            formula = formula + ' + ' + value.upgrade + percent + ' per upgrade';
+        template = this.replaceAnchor(template, value + formula, valueAnchor);
+
+        if (computed.synergy !== null) {
+            let synergy: string | null = null;
+            if (typeof computed.synergy === 'number') {
+                synergy = this.asSpan(computed.synergy.toString(), 'value');
+            } else {
+                synergy = this.asSpan(computed.synergy.min + ' - ' + computed.synergy.max, 'value');
+            }
+
+            template = this.replaceAnchor(template, synergy, synergyAnchor);
         }
-        text = text + this.asSpan(' (' + formula + ')', 'formula');
-
-        return this.replaceAnchor(template, text, anchor);
-    }
-
-    private applyEffectValueSynergy(template: string, value: EffectValueSynergy, reinforcment: number, synergyAnchor: string, valueAnchor: string): string {
-        const computedValue = this.slormancerItemValueService.computeEffectValueSynergy(value, reinforcment);
-        const ratio = this.slormancerItemValueService.computeEffectValueSynergyRatio(value, reinforcment);
-
-        const textValue = this.asSpan(computedValue.toString(), 'value');
-
-        let textRatio = this.asSpan(ratio.toString() + '%', 'value');
-        if (value.upgrade > 0) {
-            textRatio = textRatio + this.asSpan(' (' + value.ratio + '% + ' + value.upgrade + '% per upgrade)', 'formula');
-        }
-
-        template = this.replaceAnchor(template, textValue, synergyAnchor);
-        template = this.replaceAnchor(template, textRatio, valueAnchor);
 
         return template;
     }
 
-    private applyEffectValueSynergyMinMax(template: string, value: EffectValueSynergyMinMax, reinforcment: number, anchor: string): string {
-        const computedValue = this.slormancerItemValueService.computeEffectValueSynergyMinMax(value, reinforcment);
-        const ratio = this.slormancerItemValueService.computeEffectValueSynergyRatio(value, reinforcment);
+    private applyEffectValueSynergyForActivable(template: string, baseValue: number, effectValue: EffectValueSynergy, reinforcment: number, synergyAnchor: string): string {
+        const computed = this.slormancerItemValueService.computeEffectSynergyDetails(effectValue, baseValue, reinforcment);
+        const formula = this.computedValueToFormula(computed);
 
-        let textValue = this.asSpan(computedValue.min + ' - ' + computedValue.max, 'value');
+        if (computed.synergy !== null) {
+            let synergy: string | null = null;
+            if (typeof computed.synergy === 'number') {
+                synergy = this.asSpan(computed.synergy.toString(), 'value');
+            } else {
+                synergy = this.asSpan(computed.synergy.min + ' - ' + computed.synergy.max, 'value');
+            }
 
-        let textRatio = this.asSpan(' (' + ratio + '% ' + (value.upgrade > 0 ? ' : ' + value.ratio + '%' + ' + ' + value.upgrade + '% per upgrade' : '') + ')', 'formula');
-
-        template = this.replaceAnchor(template, textValue + textRatio, anchor);
+            template = this.replaceAnchor(template, synergy + formula, synergyAnchor);
+        }
 
         return template;
     }
@@ -117,20 +129,16 @@ export class SlormancerTemplateService {
     public formatLegendaryDescription(effect: LegendaryEffect, reinforcment: number) {
         let template = effect.description;
 
-        for (let value of effect.values) {
-            if (isEffectValueVariable(value)) {
-                template = this.applyEffectValueVariable(template, value, reinforcment, this.VALUE_ANCHOR);
-            } else if (isEffectValueRange(value)) {
-                template = this.applyEffectValueRange(template, value, effect.value, reinforcment, this.VALUE_ANCHOR);
-            } else if (isEffectValueConstant(value)) {
+        for (let effectValue of effect.values) {
+            if (isEffectValueVariable(effectValue)) {
+                template = this.applyEffectValueVariable(template, effect.value, effectValue, reinforcment, this.VALUE_ANCHOR);
+            } else if (isEffectValueConstant(effectValue)) {
                 const anchor = findFirst(template, this.CONSTANT_ANCHORS);
                 if (anchor !== null) {
-                    template = this.applyEffectValueConstant(template, value, anchor);
+                    template = this.applyEffectValueConstant(template, effectValue, anchor);
                 }
-            } else if (isEffectValueSynergy(value)) {
-                template = this.applyEffectValueSynergy(template, value, reinforcment, this.SYNERGY_ANCHOR, this.VALUE_ANCHOR);
-            } else if (isEffectValueSynergyMinMax(value)) {
-                template = this.applyEffectValueSynergyMinMax(template, value, reinforcment, this.MINMAX_ANCHOR);
+            } else if (isEffectValueSynergy(effectValue)) {
+                template = this.applyEffectValueSynergy(template, effect.value, effectValue, reinforcment, this.SYNERGY_ANCHOR, this.VALUE_ANCHOR);
             }
         }
 
@@ -140,18 +148,16 @@ export class SlormancerTemplateService {
     public formatSkillDescription(skill: Skill, level: number): string {
         let template = skill.description;
 
-        for (let value of skill.values) {
-            if (isEffectValueVariable(value)) {
-                template = this.applyEffectValueVariable(template, value, level, this.VALUE_ANCHOR);
-            } else if (isEffectValueConstant(value)) {
+        for (let effectValue of skill.values) {
+            if (isEffectValueVariable(effectValue)) {
+                template = this.applyEffectValueVariable(template, 0, effectValue, level, this.VALUE_ANCHOR);
+            } else if (isEffectValueConstant(effectValue)) {
                 const anchor = findFirst(template, this.CONSTANT_ANCHORS);
                 if (anchor !== null) {
-                    template = this.applyEffectValueConstant(template, value, anchor);
+                    template = this.applyEffectValueConstant(template, effectValue, anchor);
                 }
-            } else if (isEffectValueSynergy(value)) {
-                template = this.applyEffectValueSynergy(template, value, level, this.SYNERGY_ANCHOR, this.VALUE_ANCHOR);
-            } else if (isEffectValueSynergyMinMax(value)) {
-                template = this.applyEffectValueSynergyMinMax(template, value, level, this.MINMAX_ANCHOR);
+            } else if (isEffectValueSynergy(effectValue)) {
+                template = this.applyEffectValueSynergyForActivable(template, 0, effectValue, level, this.SYNERGY_ANCHOR);
             }
             
         }
@@ -188,6 +194,8 @@ export class SlormancerTemplateService {
             .reduce((desc, synergy) => desc.replace(this.TYPE_ANCHOR, synergy), template);
         
         template = template.replace(/<|>/g, '');
+        template = template.replace(/\(/g, '<span class="formula">(');
+        template = template.replace(/\)/g, ')</span>');
         template = template.replace(this.RETURN_REGEXP, '</br>');
 
         return template;
@@ -207,5 +215,29 @@ export class SlormancerTemplateService {
         return result;
     }
 
-    
+    public getReaperEnchantmentLabel(enchantment: ReaperEnchantment): string {
+        let template = this.REAPER_BUILDER_TEMPLATE;
+
+        const value = this.asSpan(enchantment.value.toString(), 'value')
+            +  this.asSpan(' (' + firstValue(enchantment.values) + ' - ' + lastValue(enchantment.values) + ')', 'range');
+        template = this.replaceAnchor(template, value, this.VALUE_ANCHOR);
+        template = this.replaceAnchor(template, this.asSpan(enchantment.value.toString(), 'value'), this.VALUE_ANCHOR);
+        template = this.replaceAnchor(template, enchantment.name, this.TYPE_ANCHOR);
+        template = this.replaceAnchor(template, this.keyToString('slorm_reapers'), this.STAT_ANCHOR);
+
+        return template;
+    }
+
+    public getSkillEnchantmentLabel(enchantment: SkillEnchantment, heroClass: HeroClass): string {
+        const gameData = this.slormancerDataService.getGameDataSkill(heroClass, enchantment.type);
+        let template = this.SKILL_BUILDER_TEMPLATE;
+
+        const value = this.asSpan(enchantment.value.toString(), 'value')
+            +  this.asSpan(' (' + firstValue(enchantment.values) + ' - ' + lastValue(enchantment.values) + ')', 'range');
+        template = this.replaceAnchor(template, value, this.VALUE_ANCHOR);
+        template = this.replaceAnchor(template, this.asSpan(enchantment.value.toString(), 'value'), this.VALUE_ANCHOR);
+        template = this.replaceAnchor(template, gameData !== null ? gameData.EN_NAME : '??', this.TYPE_ANCHOR);
+
+        return template;
+    }
 }

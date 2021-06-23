@@ -1,7 +1,6 @@
-export interface ReaperEnchantment {
+export interface SkillEnchantment {
     type: number;
     values: { [key: number] : number },
     value: number;
-    name: string;
     icon: string;
 }

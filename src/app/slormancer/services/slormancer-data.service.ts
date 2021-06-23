@@ -6,15 +6,18 @@ import { DATA_EQUIPABLE_ITEM } from '../constants/data/data-equipable-item';
 import { DATA_KEYWORD_NAME } from '../constants/data/data-keyword-name';
 import { DATA_LEGENDARY } from '../constants/data/data-legendary';
 import { DATA_LEGENDARY_BASE } from '../constants/data/data-legendary-base';
+import { DATA_REAPER_BUILDER } from '../constants/data/data-reaper-builder';
 import { GAME_DATA } from '../constants/game/game-data';
 import { DataActivable } from '../model/data/data-activable';
 import { DataAffix } from '../model/data/data-affix';
 import { DataEquipableItemType } from '../model/data/data-equipable-item-type';
 import { DataLegendary } from '../model/data/data-legendary';
+import { DataReaperBuilder } from '../model/data/data-reaper-builder';
 import { EquipableItemType } from '../model/enum/equipable-item-type';
+import { HeroClass } from '../model/enum/hero-class';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
-import { GameDataReaper } from '../model/game/data/game-data-reaper';
+import { GameDataSkill } from '../model/game/data/game-data-skill';
 import { GameDataStat } from '../model/game/data/game-data-stat';
 import { GameAffix } from '../model/game/game-item';
 import { valueOrNull } from '../util/utils';
@@ -24,6 +27,11 @@ export class SlormancerDataService {
 
     public getGameDataStat(affix: GameAffix): GameDataStat | null {
         return valueOrNull(GAME_DATA.STAT.find(stat => stat.REF_NB === affix.type));
+    }    
+    
+    public getGameDataSkill(heroClass: HeroClass, id: number): GameDataSkill | null {
+        console.log(GAME_DATA.SKILL, heroClass);
+        return valueOrNull(GAME_DATA.SKILL[heroClass].find(skill => skill.REF === id));
     }
 
     public getDataEquipableItem(type: EquipableItemType, base: string): DataEquipableItemType | null {
@@ -59,8 +67,8 @@ export class SlormancerDataService {
         return valueOrNull(GAME_DATA.LEGENDARY.find(leg => leg.REF === id));
     }
 
-    public getGameDataReaper(id: number): GameDataReaper | null {
-        return valueOrNull(GAME_DATA.REAPER.find(reaper => reaper.REF === id));
+    public getDataReaperBuilder(type: number): DataReaperBuilder | null {
+        return valueOrNull(DATA_REAPER_BUILDER.find(builder => builder.type === type));
     }
 
     public getDataLegendary(id: number): DataLegendary | null {

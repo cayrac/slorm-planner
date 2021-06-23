@@ -1,12 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import {
-    AbstractEffectValue,
-    EffectValueConstant,
-    EffectValueSynergy,
-    EffectValueSynergyMinMax,
-    EffectValueVariable,
-} from '../model/effect-value';
+import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
 import { EffectValueType } from '../model/enum/effect-value-type';
 import { SkillCostType } from '../model/enum/skill-cost-type';
 import { SkillGenre } from '../model/enum/skill-genre';
@@ -63,27 +57,20 @@ export class SlormancerSkillService {
                     type: EffectValueType.Variable,
                     value,
                     upgrade,
-                    percent
+                    percent,
+                    range: false
                 } as EffectValueVariable);
             } else {
                 const typeValues = splitData(type, ':');
                 const source = valueOrNull(typeValues[1]);
 
-                if (source === 'physical_damage') {
-                    result.push({
-                        type: EffectValueType.SynergyMinMax,
-                        ratio: value,
-                        upgrade,
-                        source
-                    } as EffectValueSynergyMinMax);
-                } else {
-                    result.push({
-                        type: EffectValueType.Synergy,
-                        ratio: value,
-                        upgrade,
-                        source
-                    } as EffectValueSynergy);
-                }
+                result.push({
+                    type: EffectValueType.Synergy,
+                    ratio: value,
+                    upgrade,
+                    source,
+                    range: false
+                } as EffectValueSynergy);
             }
         }
         
@@ -114,7 +101,7 @@ export class SlormancerSkillService {
         }
     }
 
-    public getActivable(gameData: GameDataActivable, level: number): Skill {
+    public getActivable(gameData: GameDataActivable): Skill {
         const activable = {
             name: gameData.EN_NAME,
             icon: 'activable_' + gameData.REF,

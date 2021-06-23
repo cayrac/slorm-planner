@@ -1,11 +1,4 @@
-import {
-    AbstractEffectValue,
-    EffectValueConstant,
-    EffectValueRange,
-    EffectValueSynergy,
-    EffectValueSynergyMinMax,
-    EffectValueVariable,
-} from '../model/effect-value';
+import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
 import { EffectValueType } from '../model/enum/effect-value-type';
 import { Rarity } from '../model/enum/rarity';
 
@@ -63,7 +56,7 @@ export function findFirst(text: string, values: Array<string>): string | null {
     return closest;
 }
 
-export function firstvalue(values: { [key: number]: number }): number | null {
+export function firstValue(values: { [key: number]: number }): number | null {
     let value: number | null = null;
 
     if (values !== null) {
@@ -78,7 +71,7 @@ export function firstvalue(values: { [key: number]: number }): number | null {
     return value;
 }
 
-export function lastvalue(values: { [key: number]: number }): number | null {
+export function lastValue(values: { [key: number]: number }): number | null {
     let value: number | null = null;
 
     if (values !== null) {
@@ -117,14 +110,6 @@ export function isEffectValueConstant(value: AbstractEffectValue): value is Effe
     return value.type === EffectValueType.Constant;    
 }
 
-export function isEffectValueRange(value: AbstractEffectValue): value is EffectValueRange {
-    return value.type === EffectValueType.Range;    
-}
-
 export function isEffectValueSynergy(value: AbstractEffectValue): value is EffectValueSynergy {
     return value.type === EffectValueType.Synergy;    
-}
-
-export function isEffectValueSynergyMinMax(value: AbstractEffectValue): value is EffectValueSynergyMinMax {
-    return value.type === EffectValueType.SynergyMinMax;    
 }

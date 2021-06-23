@@ -1,13 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import {
-    AbstractEffectValue,
-    EffectValueConstant,
-    EffectValueRange,
-    EffectValueSynergy,
-    EffectValueSynergyMinMax,
-    EffectValueVariable,
-} from '../model/effect-value';
+import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
 import { EffectValueType } from '../model/enum/effect-value-type';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameAffix } from '../model/game/game-item';
@@ -55,42 +48,27 @@ export class SlormancerLegendaryEffectService {
             const type = valueOrNull(types[i]);
             const value = valueOrDefault(values[i], 0);
             const upgrade = valueOrDefault(upgrades[i], 0);
-            const range = valueOrNull(ranges[i]);
-            const isSynergy = type !== null && type !== '%';
+            const range = ranges[i] === 1;
 
-            if (range === 1) {
-                result.push({
-                    type: EffectValueType.Range,
-                    value,
-                    upgrade: upgrade === null ? 0 : upgrade,
-                    percent: type === '%'
-                } as EffectValueRange);
-            } else if (!isSynergy) {
+            if (type === null || type === '%') {
                 result.push({
                     type: EffectValueType.Variable,
                     value,
                     upgrade: upgrade === null ? 0 : upgrade,
-                    percent: type === '%'
+                    percent: type === '%',
+                    range
                 } as EffectValueVariable);
-            } else if (type !== null) {
+            } else {
                 const typeValues = splitData(type, ':');
                 const source = valueOrNull(typeValues[1]);
 
-                if (source === 'physical_damage') {
-                    result.push({
-                        type: EffectValueType.SynergyMinMax,
-                        ratio: value,
-                        upgrade,
-                        source
-                    } as EffectValueSynergyMinMax);
-                } else {
-                    result.push({
-                        type: EffectValueType.Synergy,
-                        ratio: value,
-                        upgrade,
-                        source
-                    } as EffectValueSynergy);
-                }
+                result.push({
+                    type: EffectValueType.Synergy,
+                    ratio: value,
+                    upgrade,
+                    source,
+                    range
+                } as EffectValueSynergy);
             }
         }
         
@@ -101,7 +79,7 @@ export class SlormancerLegendaryEffectService {
         let heroValue: string | null = null;
 
         if (hero === 0) {
-            heroValue = 'knight';
+            heroValue = 'warrior';
         } else if (hero === 1) {
             heroValue = 'huntress';
         } else if (hero === 2) {
@@ -116,7 +94,7 @@ export class SlormancerLegendaryEffectService {
         return (heroValue !== null && skillValue !== null) ? heroValue + '_' + skillValue : null;
     }
 
-    public getExtendedLegendaryEffect(affix: GameAffix, reinforcment: number): LegendaryEffect | null {
+    public getExtendedLegendaryEffect(affix: GameAffix): LegendaryEffect | null {
         const gameData = this.slormancerDataService.getGameDataLegendary(affix.type);
         let legendaryEffect: LegendaryEffect | null = null;
 
@@ -126,7 +104,7 @@ export class SlormancerLegendaryEffectService {
             legendaryEffect = {
                 description: this.slormancerTemplateService.getLegendaryDescriptionTemplate(gameData),
                 value: affix.value,
-                activable: activable !== null ? this.slormanderSkillService.getActivable(activable, reinforcment) : null,
+                activable: activable !== null ? this.slormanderSkillService.getActivable(activable) : null,
                 onlyStat: gameData.STAT_ONLY === true,
                 icon: this.getIcon(gameData.HERO, gameData.SKILL),
                 values: this.getEffectValues(gameData)

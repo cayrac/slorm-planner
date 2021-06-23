@@ -77,7 +77,7 @@ export class SlormancerPlannerComponent implements OnInit {
     public getLegendariesData(): Array<{ game: GameDataLegendary, activable: GameDataActivable | null, effect: LegendaryEffect }> {
         return GAME_DATA.LEGENDARY
             .map(legendary => ({ game: legendary, activable: this.slormancerDataService.getlegendaryGameDataActivableBasedOn(legendary.REF), effect: this.getLegendaryEffect(legendary) }))
-            .filter(data => data.activable !== null)
+            // .filter(data => data.activable !== null)
             ;
     }
 
@@ -127,11 +127,10 @@ export class SlormancerPlannerComponent implements OnInit {
             value: 100,
             locked: false,
         }
-        return <LegendaryEffect>this.slormancerLegendaryEffectService.getExtendedLegendaryEffect(affix, 0);
+        return <LegendaryEffect>this.slormancerLegendaryEffectService.getExtendedLegendaryEffect(affix);
     }
 
-    public showData(data: { game: GameDataLegendary, activable: GameDataActivable | null, effect: LegendaryEffect }) {
-        console.log(data.game.REF);
+    public showData(data: any) {
         console.log(data);
     }
 

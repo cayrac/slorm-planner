@@ -9,13 +9,7 @@ export interface EffectValueVariable extends AbstractEffectValue {
     value: number;
     upgrade: number;
     percent: boolean;
-}
-
-export interface EffectValueRange extends AbstractEffectValue {
-    type: EffectValueType.Range;
-    value: number;
-    upgrade: number;
-    percent: boolean;
+    range: boolean;
 }
 
 export interface EffectValueConstant extends AbstractEffectValue {
@@ -28,11 +22,5 @@ export interface EffectValueSynergy extends AbstractEffectValue {
     ratio: number;
     upgrade: number;
     source: string;
-}
-
-export interface EffectValueSynergyMinMax extends AbstractEffectValue {
-    type: EffectValueType.SynergyMinMax;
-    ratio: number;
-    upgrade: number;
-    source: string;
+    range: boolean;
 }

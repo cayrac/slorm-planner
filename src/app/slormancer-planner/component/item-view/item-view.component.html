@@ -97,7 +97,12 @@
             <div class="description" [innerHTML]="getActivableDescription()"></div>
         </div>
         <div class="buff reaper" *ngIf="item.reaperEnchantment !== null">
-            {{item.reaperEnchantment | json}}
+            <img src="assets/img/icon/{{item.reaperEnchantment.icon}}.png"/>
+            <div class="info" [innerHTML]="getReaperEnchantmentLabel(item.reaperEnchantment)"></div>
+        </div>
+        <div class="buff skill" *ngIf="item.skillEnchantment !== null">
+            <img src="assets/img/icon/{{class + '_' + item.skillEnchantment.icon}}.png"/>
+            <div class="info" [innerHTML]="getSkillEnchantmentLabel(item.skillEnchantment)"></div>
         </div>
     </div>
 </div>

@@ -1,11 +1,14 @@
 import { Component, Input } from '@angular/core';
 
 import { Affix } from '../../../slormancer/model/affix';
+import { HeroClass } from '../../../slormancer/model/enum/hero-class';
 import { Rarity } from '../../../slormancer/model/enum/rarity';
 import { SkillCostType } from '../../../slormancer/model/enum/skill-cost-type';
 import { SkillGenre } from '../../../slormancer/model/enum/skill-genre';
 import { EquipableItem } from '../../../slormancer/model/equipable-item';
+import { ReaperEnchantment } from '../../../slormancer/model/reaper-enchantment';
 import { Skill } from '../../../slormancer/model/skill';
+import { SkillEnchantment } from '../../../slormancer/model/skill-enchantment';
 import { SlormancerTemplateService } from '../../../slormancer/services/slormancer-template.service';
 import { valueOrNull } from '../../../slormancer/util/utils';
 
@@ -24,6 +27,9 @@ export class ItemViewComponent {
 
     @Input()
     public readonly details: boolean = true;
+
+    @Input()
+    public readonly class: HeroClass = HeroClass.Huntress;
 
     constructor(private slormancerTemplateService: SlormancerTemplateService) { }
 
@@ -159,5 +165,13 @@ export class ItemViewComponent {
 
             return result;
         }).join(', ');
+    }
+
+    public getReaperEnchantmentLabel(enchantment: ReaperEnchantment): string {
+        return this.slormancerTemplateService.getReaperEnchantmentLabel(enchantment);
+    }
+
+    public getSkillEnchantmentLabel(enchantment: SkillEnchantment): string {
+        return this.slormancerTemplateService.getSkillEnchantmentLabel(enchantment, this.class);
     }
 }

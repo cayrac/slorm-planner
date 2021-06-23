@@ -12,5 +12,6 @@ export const DATA_KEYWORD_NAME: { [key: string]: string } = {
     skill_elem_damage: 'Skill and Elemental Damages',
     life: 'Life',
     mana: 'Mana',
-    reduced_damage: 'Reduced Damage'
+    reduced_damage: 'Reduced Damage',
+    slorm_reapers: 'Slorm Reapers'
 }

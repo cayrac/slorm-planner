@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import { EffectValueRange, EffectValueSynergy, EffectValueSynergyMinMax, EffectValueVariable } from '../model/effect-value';
+import { ComputedEffectValue } from '../model/computed-effect-value';
+import { EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
 import { GameRarity } from '../model/game/game-rarity';
 import { MinMax } from '../model/minmax';
 import { bankerRound, list } from '../util/math.util';
+import { valueOrDefault } from '../util/utils';
 
 @Injectable()
 export class SlormancerItemValueService {
@@ -153,30 +155,77 @@ export class SlormancerItemValueService {
         return values;
     }
 
-    public computeEffectValueRange(effect: EffectValueRange, reinforcment: number): { [ key: number]: number } {
-        let values: { [key: number]: number } = { };
-
-        values = {};
+    private computeEffectRange(value: number, upgrade: number): { [ key: number]: number } {
+        const values: { [ key: number]: number } = {};
         for (let ratio of list(75, 100)) {
-            values[ratio] = this.roundValue(effect.value * ratio / 100 + effect.upgrade * reinforcment, false, false);
+            values[ratio] = this.roundValue(value * ratio / 100 + upgrade, false, false);
         }
 
         return values;
     }
 
-    public computeEffectValueVariable(effect: EffectValueVariable, reinforcment: number): number {
-        return effect.value + reinforcment * effect.upgrade
+    public computeEffectVariableDetails(effect: EffectValueVariable, itemValue: number, reinforcment: number): ComputedEffectValue {
+        const result: ComputedEffectValue = {
+            value: 0,
+            baseValue: effect.value,
+            range: effect.range ? this.computeEffectRange(effect.value, effect.upgrade * reinforcment) : null,
+            baseRange: effect.range ? this.computeEffectRange(effect.value, 0) : null,
+            upgrade: effect.upgrade,
+            percent: effect.percent,
+            synergy: null,
+        }
+
+        result.value = result.range ? valueOrDefault(result.range[itemValue], 0) : effect.value + effect.upgrade * reinforcment;
+
+        return result;
     }
 
-    public computeEffectValueSynergyRatio(effect: EffectValueSynergy | EffectValueSynergyMinMax, reinforcment: number): number {
-        return effect.ratio + effect.upgrade * reinforcment;
+    public computeEffectSynergyDetails(effect: EffectValueSynergy, itemValue: number, reinforcment: number): ComputedEffectValue {
+        const result: ComputedEffectValue = {
+            value: 0,
+            baseValue: effect.ratio,
+            range: effect.range ? this.computeEffectRange(effect.ratio, effect.upgrade * reinforcment) : null,
+            baseRange: effect.range ? this.computeEffectRange(effect.ratio, 0) : null,
+            upgrade: effect.upgrade,
+            percent: true,
+            synergy: null,
+        }
+
+        result.value = result.range ? valueOrDefault(result.range[itemValue], 0) : effect.ratio + effect.upgrade * reinforcment;
+
+        result.synergy = effect.source === 'physical_damage' || effect.source === 'weapon_damage' ? {min: 0, max: 0} : 0;
+
+        return result;
     }
 
-    public computeEffectValueSynergy(effect: EffectValueSynergy, reinforcment: number): number {
-        return 0
+    public computeReaperEnchantmentValues(): { [key: number]: number } {
+        const values: { [ key: number]: number } = {};
+
+        for (let value of list(1, 5)) {
+            values[value] = value;
+        }
+        
+        return values;
     }
 
-    public computeEffectValueSynergyMinMax(effect: EffectValueSynergyMinMax, reinforcment: number): MinMax {
-        return { min: 0, max: 0 };
+    public computeSkillEnchantmentValues(): { [key: number]: number } {
+        const values: { [ key: number]: number } = {};
+
+        for (let value of list(1, 2)) {
+            values[value] = value;
+        }
+        
+        return values;
+    }
+
+    public computeAttributeEnchantmentValues(): { [key: number]: number } {
+        const values: { [ key: number]: number } = {};
+
+        // TODO VERIFIER RANGE STATS
+        for (let value of list(1, 5)) {
+            values[value] = value;
+        }
+        
+        return values;
     }
 }

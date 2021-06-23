@@ -17,6 +17,9 @@ $activable-gold-border : rgb(190, 135, 31);
 $mana-color            : rgb(51, 151, 221);
 $genre-color           : rgb(49, 85, 188);
 $life-color            : rgb(37, 117, 57);
+$buff-border-color     : rgb(59, 56, 49); 
+$reaper-buff-color     : rgb(20, 142, 137); 
+$skill-buff-color      : rgb(206, 70, 7); 
 
 .equipped, .rarity, .split, .type, .head, .legendary-effect .description {
     .item.normal & {
@@ -90,12 +93,15 @@ $life-color            : rgb(37, 117, 57);
     &::ng-deep {
         .value {
             color: $item-value-color;
-            word-break: keep-all;
-            white-space: nowrap;
         }
 
         .range, .details, .formula {
-            color: $item-range-color;
+            &, & .value {
+                color: $item-range-color;
+            }
+        }
+
+        .affixes .range, .affixes .value {
             word-break: keep-all;
             white-space: nowrap;
         }
@@ -328,5 +334,26 @@ $life-color            : rgb(37, 117, 57);
             }
         }
 
+        .buff {
+            border: 3px solid $buff-border-color;
+            padding: 5px 36px;
+            text-align: center;
+            position: relative;
+
+            img {
+                position: absolute;
+                left: -6px;
+                top: 50%;
+                margin-top: -22px;
+            }
+
+            &.reaper {
+                color: $reaper-buff-color;
+            }
+
+            &.skill {
+                color: $skill-buff-color;
+            }
+        }
     }
 }
