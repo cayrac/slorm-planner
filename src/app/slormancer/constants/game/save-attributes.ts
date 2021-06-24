@@ -34,3 +34,5 @@ export const ENEMY_MATCH: Bytes = ['65', '6E', '65', '6D', '79', '5F', '6D', '61
 export const AURAS: Bytes = ['61', '75', '72', '61', '73'];
 export const PROFILE: Bytes = ['70', '72', '6F', '66', '69', '6C', '65'];
 export const ENEMY_LEVEL: Bytes = ['65', '6E', '65', '6D', '79', '5F', '6C', '65', '76', '65', '6C'];
+export const PURE_SLORM: Bytes = ['70', '75', '72', '65', '5F', '73', '6C', '6F', '72', '6D'];
+export const CORRUPTED_SLORM: Bytes = ['63', '6F', '72', '72', '75', '70', '74', '65', '64', '5F', '73', '6C', '6F', '72', '6D'];

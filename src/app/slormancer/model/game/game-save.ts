@@ -27,6 +27,7 @@ export interface GameSave {
     equipment_list: GameEquipmentList,
     element_rank: GameElementRank,
     enemy_match: GameHeroesData<number>,
+    weapon_equip: GameWeaponEquipped,
     auras: GameAuras,
     profile: GameProfile,
     enemy_level: GameHeroesData<number>,
@@ -48,6 +49,7 @@ export declare type GameTraits = GameHeroesData<Array<number>>;
 export declare type GameTutorials = Array<number>;
 export declare type GameWeaponData = GameHeroesData<Array<GameWeapon>>;
 export declare type GameXp = GameHeroesData<number>;
+export declare type GameWeaponEquipped = GameHeroesData<number>;
 
 export interface GameHeroesData<T> {
     mage: T,

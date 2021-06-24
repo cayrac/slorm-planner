@@ -1,5 +1,40 @@
 import { Injectable } from '@angular/core';
 
+import {
+    AURAS,
+    CORRUPTED_SLORM,
+    ELEMENT_EQUIP,
+    ELEMENT_RANK,
+    ENEMY_LEVEL,
+    ENEMY_MATCH,
+    EQUIPMENT_LIST,
+    FIRST_HERO,
+    GAMEMODE,
+    GOLD,
+    HERO,
+    INFLUENCE,
+    INVENTORY,
+    MISSIONS,
+    PROFILE,
+    PURE_SLORM,
+    QUEST_LIST,
+    REAPER_PITY,
+    REPUTATION,
+    SHARED_INVENTORY,
+    SKILL_EQUIP,
+    SKILL_RANK,
+    SLORM,
+    SLORMITE_LIST,
+    STATS_FETCHED,
+    STORE_REFRESH_LIST,
+    TRAITS,
+    TUTORIALS,
+    VERSION,
+    WEAPON_DATA,
+    WEAPON_EQUIP,
+    WRATH,
+    XP,
+} from '../constants/game/save-attributes';
 import { Bytes } from '../model/game/bytes';
 import { GameItem } from '../model/game/game-item';
 import {
@@ -20,9 +55,10 @@ import {
     GameTraits,
     GameTutorials,
     GameWeaponData,
+    GameWeaponEquipped,
     GameXp,
 } from '../model/game/game-save';
-import { bytesToString, removeUnwantedChar, toBytes } from '../util/bytes.util';
+import { bytesFindPositions, bytesToString, slice, toBytes } from '../util/bytes.util';
 import {
     mapHeroesArray,
     splitHeroesData,
@@ -32,46 +68,49 @@ import {
     toNumberArray,
     toWeapon,
 } from '../util/parse.util';
-import { findFirst } from '../util/utils';
+import { valueOrNull } from '../util/utils';
 import { SlormancerItemParserService } from './slormancer-item-parser.service';
 
 @Injectable()
 export class SlormancerSaveParserService {
 
     private readonly KEYWORDS = [
-        'quest_list',
-        'weapon_equi',
-        'stats_fetched',
-        'version',
-        'slormite_list',
-        'shared_inventory',
-        'first_hero',
-        'weapon_data',
-        'gamemode',
-        'skill_equip',
-        'hero',
-        'missions',
-        'store_refresh_list',
-        'traits',
-        'reputation',
-        'wrath',
-        'skill_rank',
-        'reaper_pity',
-        'gold',
-        'xp',
-        'inventory',
-        'slorm',
-        'influence',
-        'element_equip',
-        'tutorials',
-        'equipment_list',
-        'element_rank',
-        'enemy_match',
-        'auras',
-        'profile',
-        'enemy_level',
-        'hash',
-        'pure_slorm'
+        QUEST_LIST,
+        WEAPON_EQUIP,
+        STATS_FETCHED,
+        VERSION,
+        SLORMITE_LIST,
+        SHARED_INVENTORY,
+        CORRUPTED_SLORM,
+        
+        FIRST_HERO,
+        WEAPON_DATA,
+        GAMEMODE,
+        SKILL_EQUIP,
+        HERO,
+        MISSIONS,
+        STORE_REFRESH_LIST,
+        TRAITS,
+        
+        REPUTATION,
+        WRATH,
+        
+        SKILL_RANK,
+        REAPER_PITY,
+        GOLD,
+        XP,
+        INVENTORY,
+        SLORM,
+        INFLUENCE,
+        ELEMENT_EQUIP,
+        TUTORIALS,
+        EQUIPMENT_LIST,
+        ELEMENT_RANK,
+        ENEMY_MATCH,
+        AURAS,
+        PROFILE,
+        ENEMY_LEVEL,
+        PURE_SLORM,
     ];
 
     constructor(private slormancerItemService: SlormancerItemParserService) { }
@@ -212,25 +251,26 @@ export class SlormancerSaveParserService {
         return toHeroes(mapHeroesArray(splitHeroesData(data), strictParseInt));
     }
 
-    private newParsing(bytes: Bytes): { [key: string]: string } {
-        let content = bytesToString(bytes);
+    private parseWeaponEquipped(data: string): GameWeaponEquipped {        
+        return toHeroes(mapHeroesArray(splitHeroesData(data), strictParseInt));
+    }
+
+    private parseKeys(bytes: Bytes): { [key: string]: string } {
         let data: { [key: string]: string } = {};
 
-        let nextKey = findFirst(content, this.KEYWORDS);
-        if (nextKey !== null) {
-            const maxIndex = nextKey !== null ? content.indexOf(nextKey) : content.length;
-            content = content.substr(maxIndex + nextKey.length);
-        }
+        let keys = bytesFindPositions(bytes, this.KEYWORDS).map((pos, i) => ({ key: <Bytes>this.KEYWORDS[i], pos }))
+            .filter(v => v.pos !== -1)
+            .sort((a, b) => a.pos > b.pos ? 1 : (a.pos < b.pos ? -1 : 0));
 
-        while (nextKey !== null) {
-            let key: string | null = nextKey;
-            nextKey = findFirst(content, this.KEYWORDS);
-            const maxIndex = nextKey !== null ? content.indexOf(nextKey) : content.length;
-            
-            data[key] = removeUnwantedChar(content.substr(0, maxIndex));
+        keys.forEach((key, index) => {
+            const next = valueOrNull(keys[index + 1]);
 
-            content = content.substr(maxIndex + (nextKey !== null ? nextKey.length : 0));
-        }
+            let value = null;
+            const min = key.pos + key.key.length;
+            value = slice(bytes, min, next === null ? bytes.length - min : next.pos - min);
+
+            data[bytesToString(key.key)] = bytesToString(value);
+        });
 
         return data;
     }
@@ -247,20 +287,10 @@ export class SlormancerSaveParserService {
 
     public parseSaveFile(content: string): GameSave {
         const [data, hash] = content.split('#', 2);
-
+        
         const bytes = toBytes(<string>data);
 
-        console.log('checking hexas : ');
-        for (let i = 0 ; i < bytes.length; i++) {
-            const byte = bytes[i];
-            if (byte && parseInt(byte, 16) === 75) {
-                console.log('value found at index : ', i);
-            }
-        }
-
-        const parsedData = this.newParsing(bytes);
-
-        console.log(parsedData);
+        const parsedData = this.parseKeys(bytes);
 
         return {
             stats_fetched: this.parseStatsFetched(this.getOrFail(parsedData, 'stats_fetched')),
@@ -292,6 +322,7 @@ export class SlormancerSaveParserService {
             auras: this.parseAuras(this.getOrFail(parsedData, 'auras')),
             profile: this.parseProfile(this.getOrFail(parsedData, 'profile')),
             enemy_level: this.parseEnemyLevel(this.getOrFail(parsedData, 'enemy_level')),
+            weapon_equip: this.parseWeaponEquipped(this.getOrFail(parsedData, 'weapon_equip')),
             hash: <string>hash
         };
     }
