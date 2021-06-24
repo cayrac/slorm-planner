@@ -27,7 +27,7 @@ export class SlormancerPlannerComponent implements OnInit {
         { value: HeroClass.Warrior, label: HeroClass.Warrior.toString() },
     ];
     
-    private save: GameSave | null = null;
+    public save: GameSave | null = null;
 
     public selectedClass: HeroClass = HeroClass.Huntress;
 
@@ -50,10 +50,6 @@ export class SlormancerPlannerComponent implements OnInit {
     public ngOnInit() {
         this.loadSave(SAVE);
         this.updateExtendedItem();
-    }
-    
-    public getSave(): GameSave | null {
-        return this.save;
     }
 
     public itemChanged() {
@@ -134,10 +130,6 @@ export class SlormancerPlannerComponent implements OnInit {
 
     public showData(data: any) {
         console.log(data);
-    }
-
-    public hasSave(): boolean {
-        return this.save !== null;
     }
 
     public clearSave() {

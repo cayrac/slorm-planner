@@ -114,8 +114,6 @@ export class SlormancerTemplateService {
         const computed = this.slormancerItemValueService.computeEffectSynergyDetails(effectValue, baseValue, reinforcment);
         const formula = this.computedValueToFormula(computed);
 
-        console.log(template);
-
         if (computed.synergy !== null) {
             let synergy: string | null = null;
 

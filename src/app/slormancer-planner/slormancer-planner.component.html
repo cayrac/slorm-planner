@@ -1,8 +1,8 @@
 <div class="content">
-    <div class="upload" *ngIf="!hasSave()">
+    <div class="upload">
         <input (change)="uploadSave($event)" type="file">
     </div>
-    <div class="save" *ngIf="hasSave()">
+    <div class="save" *ngIf="save !== null">
         <div class="header">
             <button (click)="clearSave()">Clear</button>
         </div>
@@ -13,21 +13,21 @@
         </div>
         
         <div class="item" *ngIf="selectedExtendedItem !== null">
-            <!--<div class="json">
-                <app-json [data]="getBaseItem()"></app-json>
-            </div>-->
+            <div class="json">
+                <app-json [data]="save"></app-json>
+            </div>
 
             <div class="parsed">
-                <!--<app-item-view (click)="showData(selectedExtendedItem)"
+                <app-item-view (click)="showData(selectedExtendedItem)"
                     [item]="selectedExtendedItem"
                     [details]="details"
-                    [class]="selectedClass"></app-item-view>-->
-                <ng-container *ngFor="let data of getLegendariesData()">
+                    [class]="selectedClass"></app-item-view>
+                <!--<ng-container *ngFor="let data of getLegendariesData()">
                     <div class="legendary-data">
-                        <app-item-view (click)="showData(data)" [item]="getLegendaryItem(data.game)"></app-item-view>
+                        <app-item-view (click)="showData(data)" [details]="details" [class]="selectedClass" [item]="getLegendaryItem(data.game)"></app-item-view>
                         <app-json [data]="[data.effect.values, (data.effect.activable === null ? null : data.effect.activable.values)]"></app-json>
                     </div>
-                </ng-container>
+                </ng-container>-->
             </div>
         </div>
     </div>

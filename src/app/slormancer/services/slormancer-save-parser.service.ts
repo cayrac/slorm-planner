@@ -40,7 +40,7 @@ export class SlormancerSaveParserService {
 
     private readonly KEYWORDS = [
         'quest_list',
-        'weapon_equip',
+        'weapon_equi',
         'stats_fetched',
         'version',
         'slormite_list',
@@ -250,7 +250,17 @@ export class SlormancerSaveParserService {
 
         const bytes = toBytes(<string>data);
 
+        console.log('checking hexas : ');
+        for (let i = 0 ; i < bytes.length; i++) {
+            const byte = bytes[i];
+            if (byte && parseInt(byte, 16) === 75) {
+                console.log('value found at index : ', i);
+            }
+        }
+
         const parsedData = this.newParsing(bytes);
+
+        console.log(parsedData);
 
         return {
             stats_fetched: this.parseStatsFetched(this.getOrFail(parsedData, 'stats_fetched')),
