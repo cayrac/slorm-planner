@@ -9,7 +9,7 @@
         <div class="navigation">
             <p>Class : <select [(ngModel)]="selectedClass"><option [value]="option.value" *ngFor="let option of CLASS_OPTIONS">{{option.label}}</option></select></p>
             <p>Item : <select (change)="itemChanged()" [(ngModel)]="selectedItem"><option [value]="i" *ngFor="let option of getItemOptions(); let i = index">{{option.label}}</option></select></p>
-            <p>Details : <input type="checkbox" #details></p>
+            <p>Details : <input type="checkbox" [(ngModel)]="details"></p>
         </div>
         
         <div class="item" *ngIf="selectedExtendedItem !== null">
@@ -18,16 +18,16 @@
             </div>-->
 
             <div class="parsed">
-                <app-item-view (click)="showData(selectedExtendedItem)"
+                <!--<app-item-view (click)="showData(selectedExtendedItem)"
                     [item]="selectedExtendedItem"
-                    [details]="details.checked"
-                    [class]="selectedClass"></app-item-view>
-                <!--<ng-container *ngFor="let data of getLegendariesData()">
+                    [details]="details"
+                    [class]="selectedClass"></app-item-view>-->
+                <ng-container *ngFor="let data of getLegendariesData()">
                     <div class="legendary-data">
                         <app-item-view (click)="showData(data)" [item]="getLegendaryItem(data.game)"></app-item-view>
                         <app-json [data]="[data.effect.values, (data.effect.activable === null ? null : data.effect.activable.values)]"></app-json>
                     </div>
-                </ng-container>-->
+                </ng-container>
             </div>
         </div>
     </div>

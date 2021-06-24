@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Affix } from '../../../slormancer/model/affix';
+import { AttributeEnchantment } from '../../../slormancer/model/attribute-enchantment';
 import { HeroClass } from '../../../slormancer/model/enum/hero-class';
 import { Rarity } from '../../../slormancer/model/enum/rarity';
 import { SkillCostType } from '../../../slormancer/model/enum/skill-cost-type';
@@ -173,5 +174,9 @@ export class ItemViewComponent {
 
     public getSkillEnchantmentLabel(enchantment: SkillEnchantment): string {
         return this.slormancerTemplateService.getSkillEnchantmentLabel(enchantment, this.class);
+    }
+
+    public getAttributeEnchantmentLabel(enchantment: AttributeEnchantment): string {
+        return this.slormancerTemplateService.getAttributeEnchantmentLabel(enchantment);
     }
 }

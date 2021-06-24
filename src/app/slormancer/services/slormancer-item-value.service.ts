@@ -221,8 +221,7 @@ export class SlormancerItemValueService {
     public computeAttributeEnchantmentValues(): { [key: number]: number } {
         const values: { [ key: number]: number } = {};
 
-        // TODO VERIFIER RANGE STATS
-        for (let value of list(1, 5)) {
+        for (let value of list(1, 3)) {
             values[value] = value;
         }
         

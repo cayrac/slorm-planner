@@ -35,6 +35,8 @@ export class SlormancerPlannerComponent implements OnInit {
 
     public selectedExtendedItem: EquipableItem | null = null;
 
+    public details: boolean = false;
+
     constructor(private slormancerSaveParserService: SlormancerSaveParserService,
                 private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
                 private slormancerDataService: SlormancerDataService,

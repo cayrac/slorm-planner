@@ -1,6 +1,9 @@
+import { Attribute } from './enum/attribute';
+
 export interface AttributeEnchantment {
-    type: number;
+    type: Attribute;
     values: { [key: number] : number },
     value: number;
+    name: string;
     icon: string;
 }

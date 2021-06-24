@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { AttributeEnchantment } from '../model/attribute-enchantment';
 import { ComputedEffectValue } from '../model/computed-effect-value';
 import { EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
 import { HeroClass } from '../model/enum/hero-class';
@@ -26,8 +27,9 @@ import { SlormancerItemValueService } from './slormancer-item-value.service';
 @Injectable()
 export class SlormancerTemplateService {
 
-    private readonly REAPER_BUILDER_TEMPLATE = '+@ Level on $\'s £';
-    private readonly SKILL_BUILDER_TEMPLATE = '+@ $ Mastery';
+    private readonly REAPER_ENCHANTMENT_TEMPLATE = '+@ Level on $\'s £';
+    private readonly SKILL_ENCHANTMENT_TEMPLATE = '+@ $ Mastery';
+    private readonly ATTRIBUTE_ENCHANTMENT_TEMPLATE = '+@ $';
 
     public readonly STAT_ANCHOR = '£';
     public readonly TYPE_ANCHOR = '$';
@@ -184,13 +186,13 @@ export class SlormancerTemplateService {
     }
 
     private parseTemplate(template: string, stats: Array<string> = [], types: Array<string> = []) {
-        template = stats.map(stat => this.keyToString(stat))
+        template = stats.map(stat => this.translate(stat))
             .reduce((desc, stat) => desc.replace(this.STAT_ANCHOR, stat), template);
 
         template = types
             .map(synergy => this.getSynergyType(synergy))
             .filter(isNotNullOrUndefined)
-            .map(synergy => this.keyToString(synergy))
+            .map(synergy => this.translate(synergy))
             .reduce((desc, synergy) => desc.replace(this.TYPE_ANCHOR, synergy), template);
         
         template = template.replace(/<|>/g, '');
@@ -201,14 +203,19 @@ export class SlormancerTemplateService {
         return template;
     }
 
-    private keyToString(key: string): string {
+    private translate(key: string): string {
+        const gameData = this.slormancerDataService.getTranslation(key);
         const data = this.slormancerDataService.getDataAffixByRef(key);
         const keyword = this.slormancerDataService.getKeywordName(key);
         let result = key;
 
-        if (data !== null) {
+        if (gameData !== null) {
+            result = gameData.EN;
+        } else if (data !== null) {
+            console.warn('affix by ref used : ', key);
             result = data.name;
         } else if (keyword !== null) {
+            console.warn('keyword used : ', key);
             result = keyword;
         }
 
@@ -216,27 +223,36 @@ export class SlormancerTemplateService {
     }
 
     public getReaperEnchantmentLabel(enchantment: ReaperEnchantment): string {
-        let template = this.REAPER_BUILDER_TEMPLATE;
+        let template = this.REAPER_ENCHANTMENT_TEMPLATE;
 
         const value = this.asSpan(enchantment.value.toString(), 'value')
             +  this.asSpan(' (' + firstValue(enchantment.values) + ' - ' + lastValue(enchantment.values) + ')', 'range');
         template = this.replaceAnchor(template, value, this.VALUE_ANCHOR);
-        template = this.replaceAnchor(template, this.asSpan(enchantment.value.toString(), 'value'), this.VALUE_ANCHOR);
-        template = this.replaceAnchor(template, enchantment.name, this.TYPE_ANCHOR);
-        template = this.replaceAnchor(template, this.keyToString('slorm_reapers'), this.STAT_ANCHOR);
+        template = this.replaceAnchor(template, this.translate(enchantment.name), this.TYPE_ANCHOR);
+        template = this.replaceAnchor(template, this.translate('tooltip_reapers'), this.STAT_ANCHOR);
 
         return template;
     }
 
     public getSkillEnchantmentLabel(enchantment: SkillEnchantment, heroClass: HeroClass): string {
         const gameData = this.slormancerDataService.getGameDataSkill(heroClass, enchantment.type);
-        let template = this.SKILL_BUILDER_TEMPLATE;
+        let template = this.SKILL_ENCHANTMENT_TEMPLATE;
 
         const value = this.asSpan(enchantment.value.toString(), 'value')
             +  this.asSpan(' (' + firstValue(enchantment.values) + ' - ' + lastValue(enchantment.values) + ')', 'range');
         template = this.replaceAnchor(template, value, this.VALUE_ANCHOR);
-        template = this.replaceAnchor(template, this.asSpan(enchantment.value.toString(), 'value'), this.VALUE_ANCHOR);
         template = this.replaceAnchor(template, gameData !== null ? gameData.EN_NAME : '??', this.TYPE_ANCHOR);
+
+        return template;
+    }
+
+    public getAttributeEnchantmentLabel(enchantment: AttributeEnchantment): string {
+        let template = this.ATTRIBUTE_ENCHANTMENT_TEMPLATE;
+
+        const value = this.asSpan(enchantment.value.toString(), 'value')
+            +  this.asSpan(' (' + firstValue(enchantment.values) + ' - ' + lastValue(enchantment.values) + ')', 'range');
+        template = this.replaceAnchor(template, value, this.VALUE_ANCHOR);
+        template = this.replaceAnchor(template, this.translate(enchantment.name), this.TYPE_ANCHOR);
 
         return template;
     }

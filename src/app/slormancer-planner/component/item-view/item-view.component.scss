@@ -20,6 +20,14 @@ $life-color            : rgb(37, 117, 57);
 $buff-border-color     : rgb(59, 56, 49); 
 $reaper-buff-color     : rgb(20, 142, 137); 
 $skill-buff-color      : rgb(206, 70, 7); 
+$toughness-color       : rgb(47, 89, 150); 
+$savagery-color        : rgb(168, 48, 7); 
+$fury-color            : rgb(121, 181, 73); 
+$determination-color   : rgb(208, 181, 69); 
+$zeal-color            : rgb(75, 193, 178); 
+$willpower-color       : rgb(117, 48, 152); 
+$dexterity-color       : rgb(205, 112, 40); 
+$bravery-color         : rgb(191, 60, 89); 
 
 .equipped, .rarity, .split, .type, .head, .legendary-effect .description {
     .item.normal & {
@@ -353,6 +361,33 @@ $skill-buff-color      : rgb(206, 70, 7);
 
             &.skill {
                 color: $skill-buff-color;
+            }
+
+            &.attribute {
+                &.atr-0 {
+                    color: $toughness-color;
+                }
+                &.atr-1 {
+                    color: $savagery-color;
+                }
+                &.atr-2 {
+                    color: $fury-color;
+                }
+                &.atr-3 {
+                    color: $determination-color;
+                }
+                &.atr-4 {
+                    color: $zeal-color;
+                }
+                &.atr-5 {
+                    color: $willpower-color;
+                }
+                &.atr-6 {
+                    color: $dexterity-color;
+                }
+                &.atr-7 {
+                    color: $bravery-color;
+                }
             }
         }
     }

@@ -1,4 +1,5 @@
 import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
+import { Attribute } from '../model/enum/attribute';
 import { EffectValueType } from '../model/enum/effect-value-type';
 import { Rarity } from '../model/enum/rarity';
 
@@ -112,4 +113,15 @@ export function isEffectValueConstant(value: AbstractEffectValue): value is Effe
 
 export function isEffectValueSynergy(value: AbstractEffectValue): value is EffectValueSynergy {
     return value.type === EffectValueType.Synergy;    
+}
+
+export function isAttribute(attribute: number): attribute is Attribute {
+    return attribute === Attribute.Toughness
+        || attribute === Attribute.Determination
+        || attribute === Attribute.Dexterity
+        || attribute === Attribute.Fury
+        || attribute === Attribute.Savagery
+        || attribute === Attribute.Toughness
+        || attribute === Attribute.Willpower
+        || attribute === Attribute.Zeal;
 }

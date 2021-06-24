@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 import { Affix } from '../model/affix';
 import { AttributeEnchantment } from '../model/attribute-enchantment';
 import { DataEquipableItemType } from '../model/data/data-equipable-item-type';
+import { Attribute } from '../model/enum/attribute';
 import { EquipableItemType } from '../model/enum/equipable-item-type';
 import { Rarity } from '../model/enum/rarity';
+import { ReaperSmith } from '../model/enum/reaper-smith';
 import { EquipableItem } from '../model/equipable-item';
 import { GameAffix, GameEnchantment, GameEquippableItem, GameItem, GameRessourceItem } from '../model/game/game-item';
 import { GameRarity } from '../model/game/game-rarity';
@@ -203,12 +205,11 @@ export class SlormancerItemService {
     }
 
     private getReaperEnchantment(gameEnchantment: GameEnchantment): ReaperEnchantment | null {
-        const data = this.slormancerDataService.getDataReaperBuilder(gameEnchantment.type);
-        return data === null ? null : {
-            type: data.type,
+        return {
+            type: gameEnchantment.type as ReaperSmith,
             values: this.slormancerItemValueService.computeReaperEnchantmentValues(),
             value: gameEnchantment.value,
-            name: data.name,
+            name: 'weapon_reapersmith_' + gameEnchantment.type,
             icon: 'reaper_enchantment'
         }
     }
@@ -224,11 +225,11 @@ export class SlormancerItemService {
 
     private getAttributeEnchantment(gameEnchantment: GameEnchantment): AttributeEnchantment | null {
         return {
-            type: gameEnchantment.type,
-            // TODO NOUBLIE PAS computeAttributeEnchantmentValues
+            type: gameEnchantment.type as Attribute,
             values: this.slormancerItemValueService.computeAttributeEnchantmentValues(),
             value: gameEnchantment.value,
-            icon: 'attribute_' + gameEnchantment.type
+            name: 'character_trait_' + gameEnchantment.type,
+            icon: 'attribute_enchantment_' + gameEnchantment.type
         };
     }
 
