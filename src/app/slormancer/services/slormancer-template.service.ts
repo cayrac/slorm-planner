@@ -110,19 +110,24 @@ export class SlormancerTemplateService {
         return template;
     }
 
-    private applyEffectValueSynergyForActivable(template: string, baseValue: number, effectValue: EffectValueSynergy, reinforcment: number, synergyAnchor: string): string {
+    private applyEffectValueSynergyForActivable(template: string, baseValue: number, effectValue: EffectValueSynergy, reinforcment: number, valueAnchor: string,  synergyAnchor: string): string {
         const computed = this.slormancerItemValueService.computeEffectSynergyDetails(effectValue, baseValue, reinforcment);
         const formula = this.computedValueToFormula(computed);
 
+        console.log(template);
+
         if (computed.synergy !== null) {
             let synergy: string | null = null;
+
             if (typeof computed.synergy === 'number') {
                 synergy = this.asSpan(computed.synergy.toString(), 'value');
+                template = this.replaceAnchor(template, synergy, valueAnchor);
+                template = this.replaceAnchor(template, this.asSpan(computed.value + '%', 'value') + formula, synergyAnchor);
             } else {
                 synergy = this.asSpan(computed.synergy.min + ' - ' + computed.synergy.max, 'value');
+                template = this.replaceAnchor(template, synergy + formula, synergyAnchor);
             }
 
-            template = this.replaceAnchor(template, synergy + formula, synergyAnchor);
         }
 
         return template;
@@ -159,7 +164,7 @@ export class SlormancerTemplateService {
                     template = this.applyEffectValueConstant(template, effectValue, anchor);
                 }
             } else if (isEffectValueSynergy(effectValue)) {
-                template = this.applyEffectValueSynergyForActivable(template, 0, effectValue, level, this.SYNERGY_ANCHOR);
+                template = this.applyEffectValueSynergyForActivable(template, 0, effectValue, level, this.VALUE_ANCHOR, this.SYNERGY_ANCHOR);
             }
             
         }
