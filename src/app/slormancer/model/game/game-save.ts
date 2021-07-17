@@ -52,9 +52,9 @@ export declare type GameXp = GameHeroesData<number>;
 export declare type GameWeaponEquipped = GameHeroesData<number>;
 
 export interface GameHeroesData<T> {
-    mage: T,
-    warrior: T,
-    huntress: T
+    0: T,
+    1: T
+    2: T,
 }
 
 export interface GameHeroInventory {
@@ -73,6 +73,7 @@ export interface GameHeroInventory {
 };
 
 export interface GameWeapon {
-    basic: Array<number>;
-    primordial: Array<number>;
+    id: number,
+    basic: { obtained: boolean, experience: number, kills: number, generic4: number },
+    primordial: { obtained: boolean, experience: number, kills: number, generic4: number }
 };

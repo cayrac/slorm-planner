@@ -15,6 +15,7 @@ import { EquipableItemType } from '../model/enum/equipable-item-type';
 import { HeroClass } from '../model/enum/hero-class';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
+import { GameDataReaper } from '../model/game/data/game-data-reaper';
 import { GameDataSkill } from '../model/game/data/game-data-skill';
 import { GameDataStat } from '../model/game/data/game-data-stat';
 import { GameDataTranslation } from '../model/game/data/game-data-translation';
@@ -26,6 +27,10 @@ export class SlormancerDataService {
 
     public getGameDataStat(affix: GameAffix): GameDataStat | null {
         return valueOrNull(GAME_DATA.STAT.find(stat => stat.REF_NB === affix.type));
+    } 
+
+    public getGameDataReaper(id: number): GameDataReaper | null {
+        return valueOrNull(GAME_DATA.REAPER.find(stat => stat.EN_NAME !== '' && stat.REF === id));
     }    
     
     public getGameDataSkill(heroClass: HeroClass, id: number): GameDataSkill | null {

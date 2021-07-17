@@ -64,6 +64,7 @@ import {
     splitHeroesData,
     strictParseFloat,
     strictParseInt,
+    toFloatArray,
     toHeroes,
     toNumberArray,
     toWeapon,
@@ -135,7 +136,7 @@ export class SlormancerSaveParserService {
     }
 
     private parseWeaponData(data: string): GameWeaponData {
-        return toHeroes(mapHeroesArray(splitHeroesData(data), v => v.split(',').map(toWeapon)));
+        return toHeroes(mapHeroesArray(splitHeroesData(data), v => v.split(',').map((data, index) => toWeapon(data, index))));
     }
 
     private parseGameMode(data: string): GameHeroesData<number> {
@@ -171,7 +172,7 @@ export class SlormancerSaveParserService {
     }
 
     private parseSkillRank(data: string): GameSkillRank {
-        return toHeroes(mapHeroesArray(splitHeroesData(data), toNumberArray));
+        return toHeroes(mapHeroesArray(splitHeroesData(data), toFloatArray));
     }
 
     private parseReaperPity(data: string): GameHeroesData<number> {
@@ -291,6 +292,8 @@ export class SlormancerSaveParserService {
         const bytes = toBytes(<string>data);
 
         const parsedData = this.parseKeys(bytes);
+
+        console.log('parsedData : ', parsedData);
 
         return {
             stats_fetched: this.parseStatsFetched(this.getOrFail(parsedData, 'stats_fetched')),

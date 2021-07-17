@@ -8,21 +8,48 @@
         </div>
         <div class="navigation">
             <p>Class : <select [(ngModel)]="selectedClass"><option [value]="option.value" *ngFor="let option of CLASS_OPTIONS">{{option.label}}</option></select></p>
-            <p>Item : <select (change)="itemChanged()" [(ngModel)]="selectedItem"><option [value]="i" *ngFor="let option of getItemOptions(); let i = index">{{option.label}}</option></select></p>
+            <p>Item : <select (change)="updateData()" [(ngModel)]="selectedItem"><option [value]="i" *ngFor="let option of getItemOptions(); let i = index">{{option.label}}</option></select></p>
+            <p>Reaper : <select (change)="updateData()" [(ngModel)]="selectedReaperIndex"><option [value]="i" *ngFor="let option of getReaperOptions(); let i = index">{{option.label}}</option></select></p>
             <p>Details : <input type="checkbox" [(ngModel)]="details"></p>
+            <p>Data : <select (change)="selectData()" [(ngModel)]="selectedDataIndex"><option [value]="data.value" *ngFor="let data of DATA_OPTIONS">{{data.label}}</option></select></p>
         </div>
-        
+
+        <div class="test" *ngIf="selectedData !== null">
+            <div class="row">{{selectedData.name}}</div>
+            <input type="text"  [(ngModel)]="formula">
+            <div class="row">
+                {{showData(selectedData)}}
+                base : {{selectedData.base.min}}-{{selectedData.base.max}} , par level : {{selectedData.perLevel.min}}-{{selectedData.perLevel.max}} , mult : {{selectedData.multiplier}}
+            </div>
+            <div class="row">
+                <div>Level</div>
+                <div>mins</div>
+                <div>minsc</div>
+                <div>ming</div>
+                <div>mingc</div>
+            </div>
+            <div class="row" *ngFor="let row of values(selectedData)">
+                <div>{{row.level}}</div>
+                <div>{{row.mins}}</div>
+                <div class="notsame" [class.same]="row.mins === row.minsc">{{row.minsc}}</div>
+                <div>{{row.ming}}</div>
+                <div class="notsame" [class.same]="row.ming === row.mingc">{{row.mingc}}</div>
+            </div>
+        </div>
+
+
         <div class="item" *ngIf="selectedExtendedItem !== null">
             <div class="json">
-                <app-json [data]="save"></app-json>
+                <app-json [data]="selectedReaper"></app-json>
             </div>
-
             <div class="parsed">
-                <app-item-view (click)="showData(selectedExtendedItem)"
+                <app-reaper-view (click)="showData(selectedReaper)" [reaper]="selectedReaper"></app-reaper-view>
+
+                <!--<app-item-view (click)="showData(selectedExtendedItem)"
                     [item]="selectedExtendedItem"
                     [details]="details"
                     [class]="selectedClass"></app-item-view>
-                <!--<ng-container *ngFor="let data of getLegendariesData()">
+                <ng-container *ngFor="let data of getLegendariesData()">
                     <div class="legendary-data">
                         <app-item-view (click)="showData(data)" [details]="details" [class]="selectedClass" [item]="getLegendaryItem(data.game)"></app-item-view>
                         <app-json [data]="[data.effect.values, (data.effect.activable === null ? null : data.effect.activable.values)]"></app-json>

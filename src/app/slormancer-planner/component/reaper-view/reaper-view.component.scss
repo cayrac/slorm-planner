@@ -1,0 +1,98 @@
+$border-color                   : rgb(121, 183, 164);
+$reaper-bg-color                : rgb(9,9,9);
+$reaper-icon-outer-border-color : rgb(59, 56, 49);
+$reaper-icon-inner-border-color : rgb(18, 16, 14);
+$reaper-icon-bg-color           : rgb(34, 32, 28);
+$reaper-max-damages-color       : rgb(93, 93, 93);
+
+.reaper {
+    background-color: $reaper-bg-color;
+    color: white;
+    border: 2px solid black;
+    width: 350px;
+    
+    > .head, > .content {
+        border: 2px solid $border-color;
+    }
+
+    > .head {
+        margin-bottom: 2px;
+        text-align: center;
+        padding: 10px 50px;
+        text-transform: uppercase;
+        font-size: 17px;
+    }
+
+    > .content {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding: 15px 10px;
+        gap: 15px;
+
+        .info {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+
+            .icon {
+                width: 130px;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: stretch;
+
+                .background-outer {
+                    border: 3px solid $reaper-icon-outer-border-color;
+                    flex-grow: 1;
+                    display: flex;
+                    flex-direction: column;
+                    .background {
+                        border: 3px solid $reaper-icon-inner-border-color;
+                        background-color: $reaper-icon-bg-color;
+                        flex-grow: 1;
+
+                        height: 150px;
+                        width: 85px;
+                    }
+                }
+
+                img {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    margin-top: -50%;
+                    margin-left: -50%;
+
+                    &.primordial {
+                        -webkit-filter: drop-shadow(0 0 7px rgba(0, 255, 0, 0.5));
+                        filter: drop-shadow(0 0 7px rgba(0, 255, 0, 0.5));
+                    }
+                }
+            }
+
+            .summary {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                text-align: left;
+                gap: 15px;
+
+                .base .type {
+                    text-transform: uppercase;
+                }
+
+                .current-damage {
+                    font-size: 25px;
+                }
+
+                .max-damage {
+                    color: $reaper-max-damages-color;
+                }
+            }
+        }
+    }
+    
+}

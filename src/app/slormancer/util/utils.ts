@@ -87,8 +87,8 @@ export function lastValue(values: { [key: number]: number }): number | null {
     return value;
 }
 
-export function splitData(data: string, separator: string = '|'): Array<string> {
-    return data.length > 0 ? data.split(separator) : [];
+export function splitData(data: string | null | undefined, separator: string = '|'): Array<string> {
+    return isNotNullOrUndefined(data) && data.length > 0 ? data.split(separator) : [];
 }
 
 export function splitNumberData(data: string, separator: string = '|'): Array<number | null> {

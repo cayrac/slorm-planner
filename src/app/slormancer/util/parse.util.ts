@@ -18,17 +18,20 @@ export function mapHeroesArray<T, U>(data: [T, T, T], map: (value: T) => U): [U,
 
 export function toHeroes<T>(data: [T, T, T]): GameHeroesData<T> {
     return {
-        warrior: data[0],
-        huntress: data[1],
-        mage: data[2]
+        0: data[0],
+        1: data[1],
+        2: data[2]
     }
 }
 
-export function toWeapon(data: string): GameWeapon {
+export function toWeapon(data: string, id: number): GameWeapon {
     const [basic, primordial] = strictSplit(data, '/', 2);
+    const basicData = toNumberArray(<string>basic, ':', 4);
+    const primordialData = toNumberArray(<string>primordial, ':', 4);
     return {
-        basic: toNumberArray(<string>basic, ':', 4),
-        primordial: toNumberArray(<string>primordial, ':', 4)
+        id,
+        basic: { obtained: basicData[0] === 1, experience: <number>basicData[1], kills: <number>basicData[2], generic4: <number>basicData[3] },
+        primordial: { obtained: primordialData[0] === 1, experience: <number>primordialData[1], kills: <number>primordialData[2], generic4: <number>primordialData[3] }
     }
 }
 

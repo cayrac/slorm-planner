@@ -20,9 +20,9 @@ export const GAME_DATA = {
     LEGENDARY: <Array<GameDataLegendary>> Array.from(LEGENDARY),
     ACTIVABLE: <Array<GameDataActivable>> Array.from(ACTIVABLE),
     SKILL: <GameHeroesData<Array<GameDataSkill>>> {
-        warrior:    <Array<GameDataSkill>>Array.from(WARRIOR_SKILL),
-        huntress:   <Array<GameDataSkill>>Array.from(HUNTRESS_SKILL),
-        mage:       <Array<GameDataSkill>>Array.from(MAGE_SKILL)
+        0:    <Array<GameDataSkill>>Array.from(WARRIOR_SKILL),
+        1:   <Array<GameDataSkill>>Array.from(HUNTRESS_SKILL),
+        2:       <Array<GameDataSkill>>Array.from(MAGE_SKILL)
     },
     TRANSLATION: <Array<GameDataTranslation>>Array.from(TRANSLATION)
 };

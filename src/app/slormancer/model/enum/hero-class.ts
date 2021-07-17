@@ -1,5 +1,5 @@
 export enum HeroClass {
-    Huntress ='huntress',
-    Warrior = 'warrior',
-    Mage = 'mage'
+    Warrior = 0,
+    Huntress = 1,
+    Mage = 2
 }

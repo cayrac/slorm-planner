@@ -6,6 +6,7 @@ import { EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '..
 import { HeroClass } from '../model/enum/hero-class';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
+import { GameDataReaper } from '../model/game/data/game-data-reaper';
 import { LegendaryEffect } from '../model/legendary-effect';
 import { ReaperEnchantment } from '../model/reaper-enchantment';
 import { Skill } from '../model/skill';
@@ -206,7 +207,7 @@ export class SlormancerTemplateService {
         return template;
     }
 
-    private translate(key: string): string {
+    public translate(key: string): string {
         const gameData = this.slormancerDataService.getTranslation(key);
         const data = this.slormancerDataService.getDataAffixByRef(key);
         const keyword = this.slormancerDataService.getKeywordName(key);
@@ -258,5 +259,51 @@ export class SlormancerTemplateService {
         template = this.replaceAnchor(template, this.translate(enchantment.name), this.TYPE_ANCHOR);
 
         return template;
+    }
+    
+    public getReaperType(reaperClass: HeroClass): string {
+        return this.translate('weapon_' + reaperClass);
+    }
+
+    public getReaperName(name: string, reaperClass: HeroClass, primordial: boolean): string {
+        let type = this.getReaperType(reaperClass);
+        
+        if (primordial) {
+            type = this.replaceAnchor(this.translate('tt_reaper_corrupted'), type , this.VALUE_ANCHOR)
+        }
+
+        return this.replaceAnchor(name, type, this.TYPE_ANCHOR);
+    }
+
+    public getReaperBuilderName(id: number): string {
+        return this.translate('weapon_reapersmith_' + id);
+    }
+
+    public getReaperDescription(data: GameDataReaper): { base: string | null, benediction: string | null, malediction: string | null } {
+        const [baseStat, benedictionStat, maledictionStat] = splitData(data.VALUE_STAT, '\n');
+        const [baseReal, benedictionReal, maledictionReal] = splitData(data.VALUE_REAL, '\n');
+        const [baseTemplate, benedictionTemplate, maledictionTemplate] = splitData(data.EN_DESC, '/\n');
+        
+        let base: string | null = null;
+        let benediction: string | null = null;
+        let malediction: string | null = null;
+        
+        if (baseTemplate) {
+            const stats = splitData(baseStat);
+            const reals = splitData(baseReal);
+            base = this.parseTemplate(baseTemplate, stats, reals);
+        }
+        if (benedictionTemplate) {
+            const stats = splitData(benedictionStat);
+            const reals = splitData(benedictionReal);
+            benediction = this.parseTemplate(benedictionTemplate, stats, reals);
+        }
+        if (maledictionTemplate) {
+            const stats = splitData(maledictionStat);
+            const reals = splitData(maledictionReal);
+            malediction = this.parseTemplate(maledictionTemplate, stats, reals);
+        }
+
+        return { base, benediction, malediction };
     }
 }
