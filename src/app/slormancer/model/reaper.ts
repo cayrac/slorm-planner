@@ -9,17 +9,12 @@ export interface Reaper {
     level: number;
     bonusLevel: number;
     kills: number;
-    experience: number;
     name: string;
     base: ReaperEffect | null;
     benediction: ReaperEffect | null;
     malediction: ReaperEffect | null;
     builder: ReaperBuilder;
-    baseDamages: MinMax;
-    damagePerLevel: MinMax;
-    damages: MinMax;
-    level100Damages: MinMax;
+    damages: { [key: number]: MinMax };
     damageType: string;
-    multiplier: number;
     maxLevel: number;
 }

@@ -6,6 +6,7 @@ import { GameWeapon } from '../model/game/game-save';
 import { MinMax } from '../model/minmax';
 import { Reaper } from '../model/reaper';
 import { ReaperBuilder } from '../model/reaper-builder';
+import { valueOrNull } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 
@@ -15,7 +16,7 @@ export class SlormancerReaperService {
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormancerTemplateService: SlormancerTemplateService) { }
 
-    private getReaperLevel(xp: number, maxLevel: number): number {
+    private getReaperLevel(xp: number): number {
         let level = 1;
 
         for (let data of DATA_REAPER_LEVEL) {
@@ -25,7 +26,7 @@ export class SlormancerReaperService {
                 xp -= data.next;
             }
             
-            if (data.next === null || xp < 0 || level >= maxLevel) {
+            if (data.next === null || xp < 0) {
                 break;
             }
         }
@@ -40,39 +41,49 @@ export class SlormancerReaperService {
         }
     }
 
-    private getDamages(base: MinMax, perLevel: MinMax, level: number, multiplier: number): MinMax {
-        const levelMultiplier = Math.max(0, level - 1);
-        return {
-            min: base.min + perLevel.min * levelMultiplier * multiplier,
-            max: base.max + perLevel.max * levelMultiplier * multiplier,
+    public getReaperDamages(reaper: Reaper, level: number): MinMax {
+        let result: MinMax | null = valueOrNull(reaper.damages[level]);
+
+
+        if (result === null) {
+            const keys = Array.from(Object.keys(reaper.damages)).map(parseInt);
+            
+            let closest = <number>keys[0];
+
+            for (const key of keys) {
+                if (key > closest && key <= level) {
+                    closest = key;
+                }
+            }
+
+            result = <MinMax>reaper.damages[closest];
         }
-    }
 
-    private updateReaperLevel(reaper: Reaper, level: number, bonusLevel: number) {
-        reaper.level = level;
-        reaper.bonusLevel = bonusLevel;
-
-        reaper.damages = this.getDamages(reaper.baseDamages, reaper.damagePerLevel, level + bonusLevel, reaper.multiplier);
+        return result;
     }
 
     public getReaper(reaper: GameWeapon, weaponClass: HeroClass, primordial: boolean, bonusLevel: number = 0): Reaper | null {
-        const gameData = this.slormancerDataService.getGameDataReaper(reaper.id);
         const data = primordial ? reaper.primordial : reaper.basic;
+        const level = this.getReaperLevel(data.experience);
+        return this.getReaperById(reaper.id, weaponClass, primordial, level, data.kills, bonusLevel);
+    }
+
+    public getReaperById(id: number, weaponClass: HeroClass, primordial: boolean, level: number, kills: number, bonusLevel: number = 0): Reaper | null {
+        const gameData = this.slormancerDataService.getGameDataReaper(id);
+        const damages = this.slormancerDataService.getDataReaperDamages(id);
         let result: Reaper | null = null;
 
-        if (gameData !== null) {
+        console.log(id, gameData, damages);
+
+        if (gameData !== null && damages !== null) {
             const templates = this.slormancerTemplateService.getReaperDescription(gameData);
-            const baseDamages = { min: gameData.BASE_DMG_MIN, max: gameData.BASE_DMG_MAX };
-            const damagePerLevel = { min: gameData.MIN_DMG_LVL, max: gameData.MAX_DMG_LVL };
-            const level = this.getReaperLevel(data.experience, gameData.MAX_LVL);
             result = {
                 type: this.slormancerTemplateService.getReaperType(weaponClass),
-                icon: 'reaper_' + weaponClass + '_' + reaper.id + (primordial ? '_p' : ''),
+                icon: 'reaper_' + weaponClass + '_' + id + (primordial ? '_p' : ''),
                 primordial,
-                level,
+                level: Math.min(level, gameData.MAX_LVL),
                 bonusLevel,
-                kills: data.kills,
-                experience: data.experience,
+                kills: kills,
                 name: this.slormancerTemplateService.getReaperName(gameData.EN_NAME, weaponClass, primordial),
                 base: templates.base === null ? null : {
                     template: templates.base,
@@ -87,16 +98,10 @@ export class SlormancerReaperService {
                     effects: []
                 },
                 builder: this.getReaperBuilder(gameData.BLACKSMITH),
-                baseDamages,
-                damagePerLevel,
-                damages: { min: 0, max: 0 },
-                level100Damages: this.getDamages(baseDamages, damagePerLevel, 100, gameData.DMG_MULTIPLIER),
+                damages,
                 damageType: 'weapon_damage',
-                multiplier: gameData.DMG_MULTIPLIER,
                 maxLevel: gameData.MAX_LVL,
             }
-
-            this.updateReaperLevel(result, result.level, result.bonusLevel);
         }
 
         return result

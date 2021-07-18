@@ -6,6 +6,7 @@ import { DATA_EQUIPABLE_ITEM } from '../constants/data/data-equipable-item';
 import { DATA_KEYWORD_NAME } from '../constants/data/data-keyword-name';
 import { DATA_LEGENDARY } from '../constants/data/data-legendary';
 import { DATA_LEGENDARY_BASE } from '../constants/data/data-legendary-base';
+import { DATA_REAPER_DAMAGES } from '../constants/data/data-reaper-damages';
 import { GAME_DATA } from '../constants/game/game-data';
 import { DataActivable } from '../model/data/data-activable';
 import { DataAffix } from '../model/data/data-affix';
@@ -20,6 +21,7 @@ import { GameDataSkill } from '../model/game/data/game-data-skill';
 import { GameDataStat } from '../model/game/data/game-data-stat';
 import { GameDataTranslation } from '../model/game/data/game-data-translation';
 import { GameAffix } from '../model/game/game-item';
+import { MinMax } from '../model/minmax';
 import { valueOrNull } from '../util/utils';
 
 @Injectable()
@@ -30,7 +32,13 @@ export class SlormancerDataService {
     } 
 
     public getGameDataReaper(id: number): GameDataReaper | null {
+        console.log('getGameDataReaper : ', id, typeof id, GAME_DATA.REAPER, valueOrNull(GAME_DATA.REAPER.find(stat => stat.EN_NAME !== '' && stat.REF === id)));
         return valueOrNull(GAME_DATA.REAPER.find(stat => stat.EN_NAME !== '' && stat.REF === id));
+    }  
+
+    public getDataReaperDamages(id: number): { [key: number]: MinMax } | null {
+        const data = DATA_REAPER_DAMAGES[id];
+        return data ? data.damages : null;
     }    
     
     public getGameDataSkill(heroClass: HeroClass, id: number): GameDataSkill | null {

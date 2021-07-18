@@ -10,8 +10,6 @@ export interface DataReaperDamages {
     }
 }
 
-const XXXXX = 0;
-
 export const DATA_REAPER_DAMAGES: { [key: number]: DataReaperDamages } = {
     117: {
         name: 'Kah Veer, The Crackling Thunder-$',

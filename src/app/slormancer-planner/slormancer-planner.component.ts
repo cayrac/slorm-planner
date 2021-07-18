@@ -68,13 +68,18 @@ export class SlormancerPlannerComponent implements OnInit {
     public selectedReaperIndex: number | null = 17;
 
     public details: boolean = false;
+    public reaperBase: number = 1;
+    public primordial: boolean = false;
+    public level: number = 1;
+    public bonusLevel: number = 0;
+    public customReaper: Reaper | null = null;
 
     constructor(private slormancerSaveParserService: SlormancerSaveParserService,
                 private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
                 private slormancerDataService: SlormancerDataService,
                 private slormancerItemService: SlormancerItemService,
                 private slormancerReaperService: SlormancerReaperService) {
-                    console.log(DATA_REAPER_DAMAGES);
+        console.log(DATA_REAPER_DAMAGES);
         this.selectData();
     }
 
@@ -157,6 +162,8 @@ export class SlormancerPlannerComponent implements OnInit {
                 this.selectedReaper = option.value;
             }
         }
+
+        this.customReaper = this.slormancerReaperService.getReaperById(this.reaperBase, this.selectedClass, this.primordial, this.level, 12345, this.bonusLevel);
     }
 
     public getBaseItem(): any {
@@ -308,7 +315,7 @@ export class SlormancerPlannerComponent implements OnInit {
     public getReaperOptions(): Array<{ label: string, value: Reaper }> {
         let options: Array<{ label: string, value: Reaper }> = [];
 
-        if (this.save !== null) {
+        /*if (this.save !== null) {
             for (let data of this.save.weapon_data[this.selectedClass]) {
 
                 if (data.basic.obtained) {
@@ -324,8 +331,13 @@ export class SlormancerPlannerComponent implements OnInit {
                     }
                 }
             }
-        }
+        }*/
 
         return options;
+    }
+
+    public getReaperBaseOptions(): Array<{ label: string, value: number }> {
+        return GAME_DATA.REAPER.map(reaper => ({ label: reaper.EN_NAME, value: reaper.REF }))
+            .filter(option => option.label !== null && option.label.length > 0);
     }
 }

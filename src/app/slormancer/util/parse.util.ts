@@ -26,8 +26,8 @@ export function toHeroes<T>(data: [T, T, T]): GameHeroesData<T> {
 
 export function toWeapon(data: string, id: number): GameWeapon {
     const [basic, primordial] = strictSplit(data, '/', 2);
-    const basicData = toNumberArray(<string>basic, ':', 4);
-    const primordialData = toNumberArray(<string>primordial, ':', 4);
+    const basicData = toFloatArray(<string>basic, ':', 4);
+    const primordialData = toFloatArray(<string>primordial, ':', 4);
     return {
         id,
         basic: { obtained: basicData[0] === 1, experience: <number>basicData[1], kills: <number>basicData[2], generic4: <number>basicData[3] },
