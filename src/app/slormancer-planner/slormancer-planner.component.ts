@@ -18,8 +18,6 @@ import { SlormancerSaveParserService } from '../slormancer/services/slormancer-s
 import { valueOrNull } from '../slormancer/util/utils';
 import { SAVE } from './save';
 
-console.log(DATA_REAPER_DAMAGES);
-
 interface Data {
     level: number | string;
     mins: number | string;
@@ -69,9 +67,9 @@ export class SlormancerPlannerComponent implements OnInit {
 
     public details: boolean = false;
     public reaperBase: number = 1;
-    public primordial: boolean = false;
-    public level: number = 1;
-    public bonusLevel: number = 0;
+    public primordial: boolean = true;
+    public level: number = 10;
+    public bonusLevel: number = 5;
     public customReaper: Reaper | null = null;
 
     constructor(private slormancerSaveParserService: SlormancerSaveParserService,
@@ -79,7 +77,6 @@ export class SlormancerPlannerComponent implements OnInit {
                 private slormancerDataService: SlormancerDataService,
                 private slormancerItemService: SlormancerItemService,
                 private slormancerReaperService: SlormancerReaperService) {
-        console.log(DATA_REAPER_DAMAGES);
         this.selectData();
     }
 

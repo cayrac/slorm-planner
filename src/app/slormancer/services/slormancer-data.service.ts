@@ -32,7 +32,6 @@ export class SlormancerDataService {
     } 
 
     public getGameDataReaper(id: number): GameDataReaper | null {
-        console.log('getGameDataReaper : ', id, typeof id, GAME_DATA.REAPER, valueOrNull(GAME_DATA.REAPER.find(stat => stat.EN_NAME !== '' && stat.REF === id)));
         return valueOrNull(GAME_DATA.REAPER.find(stat => stat.EN_NAME !== '' && stat.REF === id));
     }  
 

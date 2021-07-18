@@ -14,11 +14,15 @@
                 <div class="damages">
                     <div class="current-damage">{{getDamages(reaper, reaper.level)}}</div>
                     <div class="type">{{getDamageType(reaper.damageType)}}</div>
-                    <div class="max-damage">{{getDamages(reaper, reaper.maxLevel)}} at level {{reaper.maxLevel}}</div>
+                    <div class="max-damage">{{getDamages(reaper, reaper.maxLevel + MAX_BONUS)}} at level {{reaper.maxLevel + MAX_BONUS}}</div>
                 </div>
                 <div class="stats">
                     <div class="victim">{{reaper.kills}} {{getVictimsLabel()}}</div>
-                    <div class="level">{{getLevelLabel()}} : {{reaper.level}}</div>
+                    <div class="level">{{getLevelLabel()}} :
+                        <ng-container *ngIf="reaper.maxLevel !== reaper.level">{{reaper.level}}</ng-container>
+                        <ng-container *ngIf="reaper.maxLevel === reaper.level">Max({{reaper.level}})</ng-container>
+                        <span class="bonus-level" *ngIf="reaper.bonusLevel > 0">+{{reaper.bonusLevel}}</span>
+                    </div>
                 </div>
             </div>
         </div>

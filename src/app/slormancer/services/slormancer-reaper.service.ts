@@ -73,8 +73,6 @@ export class SlormancerReaperService {
         const damages = this.slormancerDataService.getDataReaperDamages(id);
         let result: Reaper | null = null;
 
-        console.log(id, gameData, damages);
-
         if (gameData !== null && damages !== null) {
             const templates = this.slormancerTemplateService.getReaperDescription(gameData);
             result = {

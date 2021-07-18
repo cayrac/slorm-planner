@@ -11,6 +11,8 @@ import { SlormancerTemplateService } from '../../../slormancer/services/slormanc
 })
 export class ReaperViewComponent {
 
+    public readonly MAX_BONUS = 55;
+
     @Input()
     public readonly reaper: Reaper | null = null;
 
