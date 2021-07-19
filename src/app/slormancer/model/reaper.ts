@@ -11,8 +11,8 @@ export interface Reaper {
     kills: number;
     name: string;
     base: Array<ReaperEffect>;
-    benediction: ReaperEffect | null;
-    malediction: ReaperEffect | null;
+    benediction: Array<ReaperEffect>;
+    malediction: Array<ReaperEffect>;
     builder: ReaperBuilder;
     damages: { [key: number]: MinMax };
     damageType: string;

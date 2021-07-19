@@ -28,9 +28,7 @@
             </div>
         </div>
         <div class="effects">
-            <ng-container *ngFor="let base of reaper.base">
-                <div class="base" *ngFor="let template of base.templates" [innerHTML]="template"></div>
-            </ng-container>
+            <div class="base" *ngIf="reaper.base !== null" [innerHTML]="reaper.base.template"></div>
         </div>
     </div>
 </div>

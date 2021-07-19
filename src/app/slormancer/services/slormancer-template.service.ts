@@ -6,7 +6,6 @@ import { EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '..
 import { HeroClass } from '../model/enum/hero-class';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
-import { GameDataReaper } from '../model/game/data/game-data-reaper';
 import { LegendaryEffect } from '../model/legendary-effect';
 import { ReaperEnchantment } from '../model/reaper-enchantment';
 import { Skill } from '../model/skill';
@@ -50,7 +49,7 @@ export class SlormancerTemplateService {
     }
 
     public replaceAnchor(template: string, value: string, anchor: string): string {
-        return template.replace(anchor, value)
+        return template.replace(anchor, value);
     }
 
     private computedValueToFormula(computed: ComputedEffectValue): string {
@@ -185,6 +184,19 @@ export class SlormancerTemplateService {
         return this.parseTemplate(data.EN_DESCRIPTION, stats, types);
     }
 
+    public getReaperDescriptionTemplate(template: string, stats: Array<string>, types: Array<string>): string {
+        template = this.parseTemplate(template, stats, types);
+
+        if (template.startsWith('*')) {
+            template = template.substr(1);
+        }
+
+        template = template.replace(/\.\*/g, '.<br/><br/>');
+        template = template.replace(/\*/g, '<br/>');
+
+        return template;
+    }
+
     private getSynergyType(synergy: string): string | null {
         return valueOrNull(splitData(synergy, ':')[1]);
     }
@@ -277,39 +289,5 @@ export class SlormancerTemplateService {
 
     public getReaperBuilderName(id: number): string {
         return this.translate('weapon_reapersmith_' + id);
-    }
-
-    private formatReaperTemplate(template: string): Array<string> {
-        return template.split('|*')
-            .map(t => t.split('*').filter(t => t.length > 0).join('<br/>'))
-            .filter(t => t.length > 0);
-    }
-
-    public getReaperDescription(data: GameDataReaper): { base: Array<string>, benediction: Array<string>, malediction: Array<string> } {
-        const [baseStat, benedictionStat, maledictionStat] = splitData(data.VALUE_STAT, '\n');
-        const [baseReal, benedictionReal, maledictionReal] = splitData(data.VALUE_REAL, '\n');
-        const [baseTemplate, benedictionTemplate, maledictionTemplate] = splitData(data.EN_DESC, '/\n');
-        
-        let base: Array<string> = [];
-        let benediction: Array<string> = [];
-        let malediction: Array<string> = [];
-        
-        if (baseTemplate) {
-            const stats = splitData(baseStat);
-            const reals = splitData(baseReal);
-            base = this.formatReaperTemplate(this.parseTemplate(baseTemplate, stats, reals));
-        }
-        if (benedictionTemplate) {
-            const stats = splitData(benedictionStat);
-            const reals = splitData(benedictionReal);
-            benediction = this.formatReaperTemplate(this.parseTemplate(benedictionTemplate, stats, reals));
-        }
-        if (maledictionTemplate) {
-            const stats = splitData(maledictionStat);
-            const reals = splitData(maledictionReal);
-            malediction = this.formatReaperTemplate(this.parseTemplate(maledictionTemplate, stats, reals));
-        }
-
-        return { base, benediction, malediction };
     }
 }

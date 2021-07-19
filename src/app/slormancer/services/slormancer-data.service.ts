@@ -35,8 +35,8 @@ export class SlormancerDataService {
         return valueOrNull(GAME_DATA.REAPER.find(stat => stat.EN_NAME !== '' && stat.REF === id));
     }
 
-    public getParentGameDataReaper(id: number): GameDataReaper | null {
-        return valueOrNull(GAME_DATA.REAPER.find(stat => stat.EN_NAME !== '' && stat.EVOLVE_IN === id));
+    public getParentsGameDataReaper(id: number): Array<GameDataReaper> {
+        return GAME_DATA.REAPER.filter(stat => stat.EN_NAME !== '' && stat.EVOLVE_IN === id)
     }
 
     public getDataReaperDamages(id: number): { [key: number]: MinMax } | null {

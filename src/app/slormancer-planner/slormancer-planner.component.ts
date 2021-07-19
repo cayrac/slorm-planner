@@ -56,7 +56,7 @@ export class SlormancerPlannerComponent implements OnInit {
     
     public save: GameSave | null = null;
 
-    public selectedClass: HeroClass = HeroClass.Warrior;
+    public selectedClass: HeroClass = HeroClass.Huntress;
 
     public selectedItem: number | null = 0;
 
@@ -66,7 +66,7 @@ export class SlormancerPlannerComponent implements OnInit {
     public selectedReaperIndex: number | null = 17;
 
     public details: boolean = false;
-    public reaperBase: number = 2;
+    public reaperBase: number = 118;
     public primordial: boolean = false;
     public level: number = 10;
     public bonusLevel: number = 5;

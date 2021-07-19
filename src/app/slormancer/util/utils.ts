@@ -91,6 +91,10 @@ export function splitData(data: string | null | undefined, separator: string = '
     return isNotNullOrUndefined(data) && data.length > 0 ? data.split(separator) : [];
 }
 
+export function removeEmptyValues(data: Array<string | undefined | null>): Array<string> {
+    return data.filter(isNotNullOrUndefined).filter(v => v.length > 0);
+}
+
 export function splitNumberData(data: string, separator: string = '|'): Array<number | null> {
     return splitData(data, separator).map(v => parseInt(v)).map(v => isNaN(v) ? null : v);
 }
