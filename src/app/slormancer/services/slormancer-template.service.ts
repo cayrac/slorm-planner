@@ -279,29 +279,35 @@ export class SlormancerTemplateService {
         return this.translate('weapon_reapersmith_' + id);
     }
 
-    public getReaperDescription(data: GameDataReaper): { base: string | null, benediction: string | null, malediction: string | null } {
+    private formatReaperTemplate(template: string): Array<string> {
+        return template.split('|*')
+            .map(t => t.split('*').filter(t => t.length > 0).join('<br/>'))
+            .filter(t => t.length > 0);
+    }
+
+    public getReaperDescription(data: GameDataReaper): { base: Array<string>, benediction: Array<string>, malediction: Array<string> } {
         const [baseStat, benedictionStat, maledictionStat] = splitData(data.VALUE_STAT, '\n');
         const [baseReal, benedictionReal, maledictionReal] = splitData(data.VALUE_REAL, '\n');
         const [baseTemplate, benedictionTemplate, maledictionTemplate] = splitData(data.EN_DESC, '/\n');
         
-        let base: string | null = null;
-        let benediction: string | null = null;
-        let malediction: string | null = null;
+        let base: Array<string> = [];
+        let benediction: Array<string> = [];
+        let malediction: Array<string> = [];
         
         if (baseTemplate) {
             const stats = splitData(baseStat);
             const reals = splitData(baseReal);
-            base = this.parseTemplate(baseTemplate, stats, reals);
+            base = this.formatReaperTemplate(this.parseTemplate(baseTemplate, stats, reals));
         }
         if (benedictionTemplate) {
             const stats = splitData(benedictionStat);
             const reals = splitData(benedictionReal);
-            benediction = this.parseTemplate(benedictionTemplate, stats, reals);
+            benediction = this.formatReaperTemplate(this.parseTemplate(benedictionTemplate, stats, reals));
         }
         if (maledictionTemplate) {
             const stats = splitData(maledictionStat);
             const reals = splitData(maledictionReal);
-            malediction = this.parseTemplate(maledictionTemplate, stats, reals);
+            malediction = this.formatReaperTemplate(this.parseTemplate(maledictionTemplate, stats, reals));
         }
 
         return { base, benediction, malediction };

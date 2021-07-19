@@ -29,11 +29,15 @@ export class SlormancerDataService {
 
     public getGameDataStat(affix: GameAffix): GameDataStat | null {
         return valueOrNull(GAME_DATA.STAT.find(stat => stat.REF_NB === affix.type));
-    } 
+    }
 
     public getGameDataReaper(id: number): GameDataReaper | null {
         return valueOrNull(GAME_DATA.REAPER.find(stat => stat.EN_NAME !== '' && stat.REF === id));
-    }  
+    }
+
+    public getParentGameDataReaper(id: number): GameDataReaper | null {
+        return valueOrNull(GAME_DATA.REAPER.find(stat => stat.EN_NAME !== '' && stat.EVOLVE_IN === id));
+    }
 
     public getDataReaperDamages(id: number): { [key: number]: MinMax } | null {
         const data = DATA_REAPER_DAMAGES[id];

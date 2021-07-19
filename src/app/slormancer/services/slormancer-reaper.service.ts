@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 
 import { DATA_REAPER_LEVEL } from '../constants/data/data-reaper-level';
 import { HeroClass } from '../model/enum/hero-class';
+import { GameDataReaper } from '../model/game/data/game-data-reaper';
 import { GameWeapon } from '../model/game/game-save';
 import { MinMax } from '../model/minmax';
 import { Reaper } from '../model/reaper';
 import { ReaperBuilder } from '../model/reaper-builder';
-import { valueOrNull } from '../util/utils';
+import { ReaperEffect } from '../model/reaper-effect';
+import { isNotNullOrUndefined, valueOrNull } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 
@@ -39,6 +41,26 @@ export class SlormancerReaperService {
             id,
             name: this.slormancerTemplateService.getReaperBuilderName(id)
         }
+    }
+
+    private getParentReaperEffects(gameData: GameDataReaper): Array<ReaperEffect> {
+        const templates: Array<ReaperEffect> = [];
+        let data: GameDataReaper | null = gameData;
+
+        do {
+            data = this.slormancerDataService.getParentGameDataReaper(data.REF);
+            if (data !== null) {
+                const template = this.slormancerTemplateService.getReaperDescription(data);
+                if (template.base !== null) {
+                    templates.push({
+                        templates: template.base,
+                        effects: []
+                    });
+                }
+            }
+        } while (data !== null);
+
+        return templates.reverse();
     }
 
     public getReaperDamages(reaper: Reaper, level: number): MinMax {
@@ -74,7 +96,13 @@ export class SlormancerReaperService {
         let result: Reaper | null = null;
 
         if (gameData !== null && damages !== null) {
+            const parentEffects = this.getParentReaperEffects(gameData);
             const templates = this.slormancerTemplateService.getReaperDescription(gameData);
+            const baseEffect = templates.base === null ? null : {
+                templates: templates.base,
+                effects: []
+            };
+
             result = {
                 type: this.slormancerTemplateService.getReaperType(weaponClass),
                 icon: 'reaper_' + weaponClass + '_' + id + (primordial ? '_p' : ''),
@@ -83,16 +111,13 @@ export class SlormancerReaperService {
                 bonusLevel,
                 kills: kills,
                 name: this.slormancerTemplateService.getReaperName(gameData.EN_NAME, weaponClass, primordial),
-                base: templates.base === null ? null : {
-                    template: templates.base,
-                    effects: []
-                },
+                base: [...parentEffects, baseEffect].filter(isNotNullOrUndefined),
                 benediction: templates.benediction === null ? null : {
-                    template: templates.benediction,
+                    templates: templates.benediction,
                     effects: []
                 },
                 malediction: templates.malediction === null ? null : {
-                    template: templates.malediction,
+                    templates: templates.malediction,
                     effects: []
                 },
                 builder: this.getReaperBuilder(gameData.BLACKSMITH),

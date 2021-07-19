@@ -10,7 +10,7 @@ export interface Reaper {
     bonusLevel: number;
     kills: number;
     name: string;
-    base: ReaperEffect | null;
+    base: Array<ReaperEffect>;
     benediction: ReaperEffect | null;
     malediction: ReaperEffect | null;
     builder: ReaperBuilder;

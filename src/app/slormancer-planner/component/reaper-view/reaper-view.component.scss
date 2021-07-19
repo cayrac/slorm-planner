@@ -85,14 +85,15 @@ $reaper-bonus-level-color       : rgb(20, 143, 138);
                 flex-direction: column;
                 flex-grow: 1;
                 text-align: left;
-                gap: 15px;
+                gap: 10px;
+                font-size: 16px;
 
                 .base .type {
                     text-transform: uppercase;
                 }
 
                 .current-damage {
-                    font-size: 25px;
+                    font-size: 30px;
                 }
                 .level {
                     font-size: 20px;
@@ -106,6 +107,13 @@ $reaper-bonus-level-color       : rgb(20, 143, 138);
                     color: $reaper-max-damages-color;
                 }
             }
+        }
+
+        .effects {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            gap: 15px;
         }
     }
     
