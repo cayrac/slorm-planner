@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { AttributeEnchantment } from '../model/attribute-enchantment';
 import { ComputedEffectValue } from '../model/computed-effect-value';
-import { EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
+import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
 import { HeroClass } from '../model/enum/hero-class';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
@@ -23,6 +23,7 @@ import {
 } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
+import { SlormancerReaperValueService } from './slormancer-reaper-value.service';
 
 @Injectable()
 export class SlormancerTemplateService {
@@ -42,7 +43,8 @@ export class SlormancerTemplateService {
     public readonly RETURN_REGEXP = /#/g;
 
     constructor(private slormancerDataService: SlormancerDataService,
-                private slormancerItemValueService: SlormancerItemValueService) { }
+                private slormancerItemValueService: SlormancerItemValueService,
+                private slormancerReaperValueService: SlormancerReaperValueService) { }
 
     private asSpan(content: string, className: string): string {
         return '<span class="' + className + '">' + content + '</span>';
@@ -52,7 +54,7 @@ export class SlormancerTemplateService {
         return template.replace(anchor, value);
     }
 
-    private computedValueToFormula(computed: ComputedEffectValue): string {
+    private computedItemValueToFormula(computed: ComputedEffectValue): string {
         let formula: string | null = null;
         const percent = computed.percent ? '%' : '';
 
@@ -74,25 +76,47 @@ export class SlormancerTemplateService {
         return formula === null ? '' : this.asSpan(' (' + formula + ')', 'formula');
     }
 
-    private applyEffectValueVariable(template: string, baseValue: number, effectValue: EffectValueVariable, reinforcment: number, anchor: string): string {
+    private applyItemEffectValueVariable(template: string, baseValue: number, effectValue: EffectValueVariable, reinforcment: number, anchor: string): string {
         const computed = this.slormancerItemValueService.computeEffectVariableDetails(effectValue, baseValue, reinforcment);
         const percent = computed.percent ? '%' : '';
 
         const value = this.asSpan(computed.value + percent, 'value')
-        const formula = this.computedValueToFormula(computed);
+        const formula = this.computedItemValueToFormula(computed);
 
         return this.replaceAnchor(template, value + formula, anchor);
     }
 
+    private computedReaperVariableToFormula(effect: EffectValueVariable): string {
+        const formula = (effect.upgrade > 0 ? '+' : '') + effect.upgrade + ' per ' + this.translate('level');
+        return formula === null ? '' : this.asSpan(' (' + formula + ')', 'details');
+    }
+
+    private applyReaperEffectValueVariable(template: string, effectValue: EffectValueVariable, level: number, nonPrimordialLevel: number, anchor: string): string {
+        const computed = this.slormancerReaperValueService.computeEffectVariableValue(effectValue, level, nonPrimordialLevel);
+        const percent = effectValue.percent ? '%' : '';
+
+        const value = this.asSpan(computed.toString(), 'value') + percent
+        const formula = this.computedReaperVariableToFormula(effectValue);
+
+        return this.replaceAnchor(template, value + formula, anchor);
+    }
+
+    private applyReaperEffectValueSynergy(template: string, effectValue: EffectValueSynergy, anchor: string) {
+        const computed = this.slormancerReaperValueService.computeEffectSynergyValue(effectValue);
+        const value = this.asSpan(computed.toString(), 'value')
+        return this.replaceAnchor(template, value, anchor);
+    }
+
     private applyEffectValueConstant(template: string, value: EffectValueConstant, anchor: string): string {
-        return this.replaceAnchor(template, this.asSpan(value.value.toString(), 'value'), anchor);
+        const percent = value.percent ? '%' : '';
+        return this.replaceAnchor(template, this.asSpan(value.value.toString(), 'value') + percent, anchor);
     }
 
     private applyEffectValueSynergy(template: string, baseValue: number, effectValue: EffectValueSynergy, reinforcment: number, synergyAnchor: string, valueAnchor: string): string {
         const computed = this.slormancerItemValueService.computeEffectSynergyDetails(effectValue, baseValue, reinforcment);
         
         const value = this.asSpan(computed.value + '%', 'value');
-        const formula = this.computedValueToFormula(computed);
+        const formula = this.computedItemValueToFormula(computed);
 
         template = this.replaceAnchor(template, value + formula, valueAnchor);
 
@@ -112,7 +136,7 @@ export class SlormancerTemplateService {
 
     private applyEffectValueSynergyForActivable(template: string, baseValue: number, effectValue: EffectValueSynergy, reinforcment: number, valueAnchor: string,  synergyAnchor: string): string {
         const computed = this.slormancerItemValueService.computeEffectSynergyDetails(effectValue, baseValue, reinforcment);
-        const formula = this.computedValueToFormula(computed);
+        const formula = this.computedItemValueToFormula(computed);
 
         if (computed.synergy !== null) {
             let synergy: string | null = null;
@@ -136,7 +160,7 @@ export class SlormancerTemplateService {
 
         for (let effectValue of effect.values) {
             if (isEffectValueVariable(effectValue)) {
-                template = this.applyEffectValueVariable(template, effect.value, effectValue, reinforcment, this.VALUE_ANCHOR);
+                template = this.applyItemEffectValueVariable(template, effect.value, effectValue, reinforcment, this.VALUE_ANCHOR);
             } else if (isEffectValueConstant(effectValue)) {
                 const anchor = findFirst(template, this.CONSTANT_ANCHORS);
                 if (anchor !== null) {
@@ -155,7 +179,7 @@ export class SlormancerTemplateService {
 
         for (let effectValue of skill.values) {
             if (isEffectValueVariable(effectValue)) {
-                template = this.applyEffectValueVariable(template, 0, effectValue, level, this.VALUE_ANCHOR);
+                template = this.applyItemEffectValueVariable(template, 0, effectValue, level, this.VALUE_ANCHOR);
             } else if (isEffectValueConstant(effectValue)) {
                 const anchor = findFirst(template, this.CONSTANT_ANCHORS);
                 if (anchor !== null) {
@@ -165,6 +189,21 @@ export class SlormancerTemplateService {
                 template = this.applyEffectValueSynergyForActivable(template, 0, effectValue, level, this.VALUE_ANCHOR, this.SYNERGY_ANCHOR);
             }
             
+        }
+
+        return template;
+    }
+
+    public formatReaperTemplate(template: string, values: Array<AbstractEffectValue>, level: number, nonPrimordialLevel: number): string {
+
+        for (let value of values) {
+            if (isEffectValueConstant(value)) {
+                template = this.applyEffectValueConstant(template, value, this.VALUE_ANCHOR);
+            } else if (isEffectValueVariable(value)) {
+                template = this.applyReaperEffectValueVariable(template, value, level, nonPrimordialLevel, this.VALUE_ANCHOR);
+            } else if (isEffectValueSynergy(value)) {
+                template = this.applyReaperEffectValueSynergy(template, value, this.SYNERGY_ANCHOR);
+            }
         }
 
         return template;
@@ -184,8 +223,9 @@ export class SlormancerTemplateService {
         return this.parseTemplate(data.EN_DESCRIPTION, stats, types);
     }
 
-    public getReaperDescriptionTemplate(template: string, stats: Array<string>, types: Array<string>): string {
-        template = this.parseTemplate(template, stats, types);
+    public getReaperDescriptionTemplate(template: string, stats: Array<string>): string {
+        console.log('getReaperDescriptionTemplate ', template, stats);
+        template = this.parseTemplate(template, stats);
 
         if (template.startsWith('*')) {
             template = template.substr(1);

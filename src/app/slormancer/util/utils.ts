@@ -46,6 +46,10 @@ export function valueOrNull<T>(value: T | null | undefined): T | null {
     return isNotNullOrUndefined(value) ? value : null;
 }
 
+export function notEmptyOrNull(value: string | null | undefined): string | null {
+    return isNotNullOrUndefined(value) && value.length > 0 ? value : null;
+}
+
 export function findFirst(text: string, values: Array<string>): string | null {
     let closest: string | null = null
     let closestPos: number = text.length + 1;

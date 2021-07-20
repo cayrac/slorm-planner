@@ -29,7 +29,8 @@ export class SlormancerLegendaryEffectService {
             for (const constant of data.constants) {
                 effect.values.push({
                     type: EffectValueType.Constant,
-                    value: constant
+                    value: constant,
+                    percent: false
                 } as EffectValueConstant)
             }
         }

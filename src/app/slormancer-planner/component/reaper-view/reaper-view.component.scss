@@ -3,8 +3,9 @@ $reaper-bg-color                : rgb(9,9,9);
 $reaper-icon-outer-border-color : rgb(59, 56, 49);
 $reaper-icon-inner-border-color : rgb(18, 16, 14);
 $reaper-icon-bg-color           : rgb(34, 32, 28);
-$reaper-max-damages-color       : rgb(93, 93, 93);
+$reaper-max-damages-color       : rgb(104, 104, 104);
 $reaper-bonus-level-color       : rgb(20, 143, 138);
+$reaper-desc-details            : rgb(104, 104, 104);
 
 .reaper {
     background-color: $reaper-bg-color;
@@ -111,6 +112,15 @@ $reaper-bonus-level-color       : rgb(20, 143, 138);
 
         .description {
             text-align: center;
+
+            ::ng-deep {
+                .value {
+                    color: $reaper-bonus-level-color;
+                }
+                .details {
+                    color: $reaper-desc-details;
+                }
+            }
         }
     }
     

@@ -6,6 +6,7 @@ import { SlormancerItemParserService } from './services/slormancer-item-parser.s
 import { SlormancerItemValueService } from './services/slormancer-item-value.service';
 import { SlormancerItemService } from './services/slormancer-item.service';
 import { SlormancerLegendaryEffectService } from './services/slormancer-legendary-effect.service';
+import { SlormancerReaperValueService } from './services/slormancer-reaper-value.service';
 import { SlormancerReaperService } from './services/slormancer-reaper.service';
 import { SlormancerSaveParserService } from './services/slormancer-save-parser.service';
 import { SlormancerSkillService } from './services/slormancer-skill.service';
@@ -25,6 +26,7 @@ import { SlormancerTemplateService } from './services/slormancer-template.servic
     SlormancerSkillService,
     SlormancerReaperService,
     SlormancerEffectValueService,
+    SlormancerReaperValueService,
   ],
   bootstrap: []
 })

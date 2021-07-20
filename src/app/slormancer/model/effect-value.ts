@@ -17,6 +17,7 @@ export interface EffectValueVariable extends AbstractEffectValue {
 export interface EffectValueConstant extends AbstractEffectValue {
     type: EffectValueType.Constant;
     value: number;
+    percent: boolean;
 }
 
 export interface EffectValueSynergy extends AbstractEffectValue {

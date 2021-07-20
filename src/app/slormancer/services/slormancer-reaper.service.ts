@@ -11,7 +11,7 @@ import { ReaperBuilder } from '../model/reaper-builder';
 import { ReaperEffect } from '../model/reaper-effect';
 import { list } from '../util/math.util';
 import { strictParseFloat } from '../util/parse.util';
-import { compare, isNotNullOrUndefined, removeEmptyValues, splitData, valueOrNull } from '../util/utils';
+import { compare, isNotNullOrUndefined, notEmptyOrNull, removeEmptyValues, splitData, valueOrNull } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerEffectValueService } from './slormancer-effect-value.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
@@ -136,18 +136,23 @@ export class SlormancerReaperService {
     }
 
     private getReaperValues(bases: Array<string>, types: Array<string>, levels: Array<string>, reals: Array<string>): Array<AbstractEffectValue> {
-        const nb = Math.max(types.length, bases.length, levels.length, reals.length);
-
         const result: Array<AbstractEffectValue> = [];
+        
+        const nb = Math.max(types.length, bases.length, levels.length);
         for (let i of list(nb)) {
-            const base = valueOrNull(bases[i]);
-            const level = valueOrNull(levels[i]);
-            const real = valueOrNull(reals[i]);
-            const type = valueOrNull(types[i]);
+            const base = notEmptyOrNull(bases[i]);
+            const level = notEmptyOrNull(levels[i]);
+            const type = notEmptyOrNull(types[i]);
 
-            const parsedBase = base === null || base.length === 0 ? null : strictParseFloat(base);
+            const parsedBase = base === null ? null : strictParseFloat(base);
 
-            result.push(this.slormancerEffectValueService.parseReaperEffectValue(parsedBase, level, real, type));
+            if (parsedBase !== null) {
+                result.push(this.slormancerEffectValueService.parseReaperEffectVariableValue(parsedBase, level, type));
+            }
+        }
+
+        for (let real of reals) {
+            result.push(this.slormancerEffectValueService.parseReaperEffectSynergyValue(real));
         }
         
         return result;
@@ -157,14 +162,15 @@ export class SlormancerReaperService {
         let result: ReaperEffect | null = null;
 
         if (template !== null) {
-            const parsedBase = stat === null ? [] : splitData(base, '|');
-            const parsedType = real === null ? [] : splitData(type, '|');
-            const parsedLevel = real === null ? [] : splitData(level, '|');
-            const parsedStat = real === null ? [] : splitData(stat, '|');
-            const parsedReal = real === null ? [] : splitData(real, '|');
+            const parsedBase = base === null ? [] : splitData(base, '|');
+            const parsedType = type === null ? [] : splitData(type, '|');
+            const parsedLevel = level === null ? [] : splitData(level, '|');
+            const parsedStat = stat === null ? [] : splitData(stat, '|');
+            const parsedReal = removeEmptyValues(real === null ? [] : splitData(real, '|'));
     
+            console.log('getReaperEffect', stat, parsedStat, removeEmptyValues(parsedStat));
             result = {
-                template: this.slormancerTemplateService.getReaperDescriptionTemplate(template, removeEmptyValues(parsedStat), removeEmptyValues(parsedReal)),
+                template: this.slormancerTemplateService.getReaperDescriptionTemplate(template, removeEmptyValues(parsedStat)),
                 values: this.getReaperValues(parsedBase, parsedType, parsedLevel, parsedReal)
             }
         }
@@ -214,7 +220,7 @@ export class SlormancerReaperService {
         let stats: Array<string> = [];
         let effects: Array<string> = [];
         for (let base of reaper.templates.base) {
-            const template = base.template;
+            const template = this.slormancerTemplateService.formatReaperTemplate(base.template, base.values, reaper.level + reaper.bonusLevel, reaper.baseInfo.level);
             const [stat, effect] = splitData(template);
             stats.push(<string>stat);
             effects.push(<string>effect);
