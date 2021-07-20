@@ -8,7 +8,7 @@ import { MinMax } from '../model/minmax';
 import { Reaper } from '../model/reaper';
 import { ReaperBuilder } from '../model/reaper-builder';
 import { ReaperEffect } from '../model/reaper-effect';
-import { removeEmptyValues, splitData, valueOrNull } from '../util/utils';
+import { compare, isNotNullOrUndefined, removeEmptyValues, splitData, valueOrNull } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 
@@ -43,16 +43,21 @@ export class SlormancerReaperService {
         }
     }
 
-    private getParentReaperEffects(gameData: GameDataReaper): Array<GameDataReaper> {
-        let result: Array<GameDataReaper> = [gameData];
-        let parents = [];
-        
-        while (result.length !== parents.length) {
-            parents = result.map(data => this.slormancerDataService.getParentsGameDataReaper(data.REF))
+    private getReaperParents(gameData: GameDataReaper): Array<GameDataReaper> {
+        let result: Array<GameDataReaper> = [];
+        let current: Array<GameDataReaper> = [gameData];
+        let i = 0;
+
+        while (result.length !== current.length && i <= 5) {
+            result = current;
+            const parents = result.map(data => this.slormancerDataService.getParentsGameDataReaper(data.REF))
                 .reduce((a, b) => a.concat(b), []);
+
+                i++;
+            current = Array.from(new Set([...result, ...parents]));
         }
 
-        return result.reverse();
+        return result.sort((a, b) => compare(a.REF, b.REF));
     }
 
     public getReaperDamages(reaper: Reaper, level: number): MinMax {
@@ -85,9 +90,9 @@ export class SlormancerReaperService {
     private getReaperEffect(template: string | null, stat: string | null, real: string | null): ReaperEffect | null {
         let result: ReaperEffect | null = null;
 
-        if (template) {
-            const parsedStat = removeEmptyValues(splitData(stat, '|'));
-            const parsedReal = removeEmptyValues(splitData(real, '|'));
+        if (template !== null) {
+            const parsedStat = stat === null ? [] : removeEmptyValues(splitData(stat, '|'));
+            const parsedReal = real === null ? [] : removeEmptyValues(splitData(real, '|'));
     
             this.slormancerTemplateService.getReaperDescriptionTemplate(template, parsedStat, parsedReal)
 
@@ -101,18 +106,26 @@ export class SlormancerReaperService {
     }
 
     private getReaperEffects(gameData: GameDataReaper): { base: Array<ReaperEffect>, benediction: Array<ReaperEffect>, malediction: Array<ReaperEffect> } {
-        const data = this.getParentReaperEffects(gameData);
+        const gameDatas = this.getReaperParents(gameData);
 
-        // TODO regrouper toutes les infos des reapers
+        const base: Array<ReaperEffect | null> = [];
+        const benediction: Array<ReaperEffect | null> = [];
+        const malediction: Array<ReaperEffect | null> = [];
 
-        const [baseStat, benedictionStat, maledictionStat] = removeEmptyValues(splitData(gameData.VALUE_STAT, '\n'));
-        const [baseReal, benedictionReal, maledictionReal] = removeEmptyValues(splitData(gameData.VALUE_REAL, '\n'));
-        const [baseTemplate, benedictionTemplate, maledictionTemplate] = removeEmptyValues(splitData(gameData.EN_DESC, '/\n'));
+        for (const data of gameDatas) {
+            const [baseStat, benedictionStat, maledictionStat] = splitData(data.VALUE_STAT, '\n');
+            const [baseReal, benedictionReal, maledictionReal] = splitData(data.VALUE_REAL, '\n');
+            const [baseTemplate, benedictionTemplate, maledictionTemplate] = splitData(data.EN_DESC, '/\n');
+
+            base.push(this.getReaperEffect(valueOrNull(baseTemplate), valueOrNull(baseStat), valueOrNull(baseReal)));
+            benediction.push(this.getReaperEffect(valueOrNull(benedictionTemplate), valueOrNull(benedictionStat), valueOrNull(benedictionReal)));
+            malediction.push(this.getReaperEffect(valueOrNull(maledictionTemplate), valueOrNull(maledictionStat), valueOrNull(maledictionReal)));
+        }
 
         return {
-            base: this.getReaperEffect(valueOrNull(baseTemplate), valueOrNull(baseStat), valueOrNull(baseReal)),
-            benediction: this.getReaperEffect(valueOrNull(benedictionTemplate), valueOrNull(benedictionStat), valueOrNull(benedictionReal)),
-            malediction: this.getReaperEffect(valueOrNull(maledictionTemplate), valueOrNull(maledictionStat), valueOrNull(maledictionReal))
+            base: base.filter(isNotNullOrUndefined),
+            benediction: benediction.filter(isNotNullOrUndefined),
+            malediction: malediction.filter(isNotNullOrUndefined),
         }
     }
 
@@ -129,17 +142,44 @@ export class SlormancerReaperService {
                 primordial,
                 level: Math.min(level, gameData.MAX_LVL),
                 bonusLevel,
-                kills: kills,
+                kills,
                 name: this.slormancerTemplateService.getReaperName(gameData.EN_NAME, weaponClass, primordial),
-                ...templates,
+                description: '',
+                templates,
                 builder: this.getReaperBuilder(gameData.BLACKSMITH),
                 damages,
                 damageType: 'weapon_damage',
                 maxLevel: gameData.MAX_LVL,
             }
+
+            this.updateReaperTemplates(result);
         }
 
         return result
+    }
+
+    public updateReaperTemplates(reaper: Reaper) {
+        let contents: Array<string> = [];
+
+        let stats: Array<string> = [];
+        let effects: Array<string> = [];
+        for (let base of reaper.templates.base) {
+            const template = base.template;
+            const [stat, effect] = splitData(template);
+            stats.push(<string>stat);
+            effects.push(<string>effect);
+        }
+        contents.push(removeEmptyValues(stats).join('<br/>'));
+        contents.push(removeEmptyValues(effects).join('<br/><br/>'));
+
+
+
+
+
+
+        reaper.description = removeEmptyValues(contents).join('<br/><br/>');
+
+        console.log(reaper.description);
     }
 
 }

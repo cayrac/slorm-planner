@@ -191,6 +191,7 @@ export class SlormancerTemplateService {
             template = template.substr(1);
         }
 
+        template = template.replace(/\|\*/g, '|');
         template = template.replace(/\.\*/g, '.<br/><br/>');
         template = template.replace(/\*/g, '<br/>');
 

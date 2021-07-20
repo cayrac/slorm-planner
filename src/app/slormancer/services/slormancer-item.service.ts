@@ -12,7 +12,7 @@ import { GameAffix, GameEnchantment, GameEquippableItem, GameItem, GameRessource
 import { GameRarity } from '../model/game/game-rarity';
 import { ReaperEnchantment } from '../model/reaper-enchantment';
 import { SkillEnchantment } from '../model/skill-enchantment';
-import { compare, compareRarities, isNotNullOrUndefined } from '../util/utils';
+import { compareRarities, compareString, isNotNullOrUndefined } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
 import { SlormancerLegendaryEffectService } from './slormancer-legendary-effect.service';
@@ -244,7 +244,7 @@ export class SlormancerItemService {
             .filter(isNotNullOrUndefined)
             .sort((a, b) => {
                 const rarity = compareRarities(a.rarity, b.rarity);
-                return rarity === 0 ? compare(a.name, b.name) : rarity;
+                return rarity === 0 ? compareString(a.name, b.name) : rarity;
             });
         const legendaryAffix = item.affixes.find(affix => affix.rarity === 'L');        
         const reaperEnchantment = item.enchantments.find(c => c.target === 'RP');

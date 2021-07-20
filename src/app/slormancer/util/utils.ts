@@ -7,7 +7,7 @@ export function isNotNullOrUndefined<T>(value: T | null | undefined): value is T
     return value !== null && value !== undefined;
 }
 
-export function compare(a: string | null, b: string | null): number {
+export function compareString(a: string | null, b: string | null): number {
     if (a === null) {
         a = '';
     }    
@@ -32,6 +32,10 @@ export function compareRarities(a: Rarity, b: Rarity): number {
     if (b === Rarity.Magic) numB = 2;
 
     return numA < numB ? -1 : numA > numB ? 1 : 0;
+}
+
+export function compare(a: number, b: number): number {
+    return a < b ? -1 : (a > b ? 1 : 0);
 }
 
 export function valueOrDefault<T>(value: T | null | undefined, defaultvalue: T): T {

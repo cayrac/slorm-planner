@@ -10,9 +10,12 @@ export interface Reaper {
     bonusLevel: number;
     kills: number;
     name: string;
-    base: Array<ReaperEffect>;
-    benediction: Array<ReaperEffect>;
-    malediction: Array<ReaperEffect>;
+    description: string;
+    templates: {
+        base: Array<ReaperEffect>;
+        benediction: Array<ReaperEffect>;
+        malediction: Array<ReaperEffect>;
+    }
     builder: ReaperBuilder;
     damages: { [key: number]: MinMax };
     damageType: string;

@@ -1,5 +1,4 @@
 <div *ngIf="reaper !== null" class="reaper">
-    <textarea>{{reaper.base | json}}</textarea>
     <div class="head">{{reaper.name}}</div>
     <div class="content">
         <div class="info">
@@ -27,8 +26,7 @@
                 </div>
             </div>
         </div>
-        <div class="effects">
-            <div class="base" *ngIf="reaper.base !== null" [innerHTML]="reaper.base.template"></div>
+        <div class="description" [innerHTML]="reaper.description">
         </div>
     </div>
 </div>
