@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AbstractEffectValue, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
+import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
 import { EffectValueType } from '../model/enum/effect-value-type';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
 import { splitData, valueOrNull } from '../util/utils';
@@ -37,8 +37,17 @@ export class SlormancerEffectValueService {
         return result;
     }
 
-    public parseReaperEffectValue() {
+    public parseReaperEffectValue(base: number | null, level: string, real: string, type: string): AbstractEffectValue {
+        let result: AbstractEffectValue;
+
+        console.log('parseReaperEffectValue : ', base, level, real, type);
+
         
+        result = {
+            type: EffectValueType.Constant,
+            value: 0,
+        } as EffectValueConstant;
+
+        return result;        
     }
-    // TODO reaper doit avoir info level et level primordial, il faut donc regrouper les 2
 }

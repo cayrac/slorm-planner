@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { DATA_REAPER_LEVEL } from '../constants/data/data-reaper-level';
+import { AbstractEffectValue } from '../model/effect-value';
 import { HeroClass } from '../model/enum/hero-class';
 import { GameDataReaper } from '../model/game/data/game-data-reaper';
 import { GameWeapon } from '../model/game/game-save';
@@ -8,8 +9,11 @@ import { MinMax } from '../model/minmax';
 import { Reaper, ReaperTemplates } from '../model/reaper';
 import { ReaperBuilder } from '../model/reaper-builder';
 import { ReaperEffect } from '../model/reaper-effect';
+import { list } from '../util/math.util';
+import { strictParseFloat } from '../util/parse.util';
 import { compare, isNotNullOrUndefined, removeEmptyValues, splitData, valueOrNull } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
+import { SlormancerEffectValueService } from './slormancer-effect-value.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 
 @Injectable()
@@ -18,7 +22,8 @@ export class SlormancerReaperService {
     public readonly MAX_REAPER_BONUS = 55;
 
     constructor(private slormancerDataService: SlormancerDataService,
-                private slormancerTemplateService: SlormancerTemplateService) { }
+                private slormancerTemplateService: SlormancerTemplateService,
+                private slormancerEffectValueService: SlormancerEffectValueService) { }
 
     public getReaper(reaper: GameWeapon, weaponClass: HeroClass, primordial: boolean, bonusLevel: number = 0): Reaper | null {
         const level = this.getReaperLevel(reaper.basic.experience);
@@ -130,18 +135,37 @@ export class SlormancerReaperService {
         return result.sort((a, b) => compare(a.REF, b.REF));
     }
 
-    private getReaperEffect(template: string | null, stat: string | null, real: string | null): ReaperEffect | null {
+    private getReaperValues(bases: Array<string>, types: Array<string>, levels: Array<string>, reals: Array<string>): Array<AbstractEffectValue> {
+        const nb = Math.max(types.length, bases.length, levels.length, reals.length);
+
+        const result: Array<AbstractEffectValue> = [];
+        for (let i of list(nb)) {
+            const base = valueOrNull(bases[i]);
+            const level = valueOrNull(levels[i]);
+            const real = valueOrNull(reals[i]);
+            const type = valueOrNull(types[i]);
+
+            const parsedBase = base === null || base.length === 0 ? null : strictParseFloat(base);
+
+            result.push(this.slormancerEffectValueService.parseReaperEffectValue(parsedBase, level, real, type));
+        }
+        
+        return result;
+    }
+
+    private getReaperEffect(template: string | null, base: string | null, type: string | null, level: string | null, stat: string | null, real: string | null): ReaperEffect | null {
         let result: ReaperEffect | null = null;
 
         if (template !== null) {
-            const parsedStat = stat === null ? [] : removeEmptyValues(splitData(stat, '|'));
-            const parsedReal = real === null ? [] : removeEmptyValues(splitData(real, '|'));
+            const parsedBase = stat === null ? [] : splitData(base, '|');
+            const parsedType = real === null ? [] : splitData(type, '|');
+            const parsedLevel = real === null ? [] : splitData(level, '|');
+            const parsedStat = real === null ? [] : splitData(stat, '|');
+            const parsedReal = real === null ? [] : splitData(real, '|');
     
-            this.slormancerTemplateService.getReaperDescriptionTemplate(template, parsedStat, parsedReal)
-
             result = {
-                template: this.slormancerTemplateService.getReaperDescriptionTemplate(template, parsedStat, parsedReal),
-                values: []
+                template: this.slormancerTemplateService.getReaperDescriptionTemplate(template, removeEmptyValues(parsedStat), removeEmptyValues(parsedReal)),
+                values: this.getReaperValues(parsedBase, parsedType, parsedLevel, parsedReal)
             }
         }
 
@@ -156,13 +180,17 @@ export class SlormancerReaperService {
         const malediction: Array<ReaperEffect | null> = [];
 
         for (const data of gameDatas) {
-            const [baseStat, benedictionStat, maledictionStat] = splitData(data.VALUE_STAT, '\n');
-            const [baseReal, benedictionReal, maledictionReal] = splitData(data.VALUE_REAL, '\n');
+            const [descBase, benedictionBase, maledictionBase] = splitData(data.VALUE_BASE, '\n');
+            const [descType, benedictionType, maledictionType] = splitData(data.VALUE_TYPE, '\n');
+            const [descLevel, benedictionLevel, maledictionLevel] = splitData(data.VALUE_LEVEL, '\n');
+            const [descStat, benedictionStat, maledictionStat] = splitData(data.VALUE_STAT, '\n');
+            const [descReal, benedictionReal, maledictionReal] = splitData(data.VALUE_REAL, '\n');
+
             const [baseTemplate, benedictionTemplate, maledictionTemplate] = splitData(data.EN_DESC, '/\n');
 
-            base.push(this.getReaperEffect(valueOrNull(baseTemplate), valueOrNull(baseStat), valueOrNull(baseReal)));
-            benediction.push(this.getReaperEffect(valueOrNull(benedictionTemplate), valueOrNull(benedictionStat), valueOrNull(benedictionReal)));
-            malediction.push(this.getReaperEffect(valueOrNull(maledictionTemplate), valueOrNull(maledictionStat), valueOrNull(maledictionReal)));
+            base.push(this.getReaperEffect(valueOrNull(baseTemplate),  valueOrNull(descBase),  valueOrNull(descType),  valueOrNull(descLevel), valueOrNull(descStat), valueOrNull(descReal)));
+            benediction.push(this.getReaperEffect(valueOrNull(benedictionTemplate),  valueOrNull(benedictionBase),  valueOrNull(benedictionType),  valueOrNull(benedictionLevel), valueOrNull(benedictionStat), valueOrNull(benedictionReal)));
+            malediction.push(this.getReaperEffect(valueOrNull(maledictionTemplate),  valueOrNull(maledictionBase),  valueOrNull(maledictionType),  valueOrNull(maledictionLevel), valueOrNull(maledictionStat), valueOrNull(maledictionReal)));
         }
 
         return {
