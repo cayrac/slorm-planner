@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
+import { AbstractEffectValue, EffectValueConstant } from '../model/effect-value';
 import { EffectValueType } from '../model/enum/effect-value-type';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameAffix } from '../model/game/game-item';
@@ -8,6 +8,7 @@ import { LegendaryEffect } from '../model/legendary-effect';
 import { list } from '../util/math.util';
 import { emptyStringToNull, splitData, splitFloatData, valueOrDefault, valueOrNull } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
+import { SlormancerEffectValueService } from './slormancer-effect-value.service';
 import { SlormancerSkillService } from './slormancer-skill.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 
@@ -17,7 +18,8 @@ export class SlormancerLegendaryEffectService {
 
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormanderSkillService: SlormancerSkillService,
-                private slormancerTemplateService: SlormancerTemplateService
+                private slormancerTemplateService: SlormancerTemplateService,
+                private slormancerEffectValueService: SlormancerEffectValueService
                 ) { }
 
     private applyEffectOverride(effect: LegendaryEffect, legendaryId: number): LegendaryEffect {
@@ -49,27 +51,7 @@ export class SlormancerLegendaryEffectService {
             const value = valueOrDefault(values[i], 0);
             const upgrade = valueOrDefault(upgrades[i], 0);
             const range = ranges[i] === 1;
-
-            if (type === null || type === '%') {
-                result.push({
-                    type: EffectValueType.Variable,
-                    value,
-                    upgrade: upgrade === null ? 0 : upgrade,
-                    percent: type === '%',
-                    range
-                } as EffectValueVariable);
-            } else {
-                const typeValues = splitData(type, ':');
-                const source = valueOrNull(typeValues[1]);
-
-                result.push({
-                    type: EffectValueType.Synergy,
-                    ratio: value,
-                    upgrade,
-                    source,
-                    range
-                } as EffectValueSynergy);
-            }
+            result.push(this.slormancerEffectValueService.parseLegendaryEffectValue(type, value, upgrade, range));
         }
         
         return result;

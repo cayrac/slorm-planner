@@ -5,7 +5,7 @@ import { HeroClass } from '../model/enum/hero-class';
 import { GameDataReaper } from '../model/game/data/game-data-reaper';
 import { GameWeapon } from '../model/game/game-save';
 import { MinMax } from '../model/minmax';
-import { Reaper } from '../model/reaper';
+import { Reaper, ReaperTemplates } from '../model/reaper';
 import { ReaperBuilder } from '../model/reaper-builder';
 import { ReaperEffect } from '../model/reaper-effect';
 import { compare, isNotNullOrUndefined, removeEmptyValues, splitData, valueOrNull } from '../util/utils';
@@ -15,8 +15,78 @@ import { SlormancerTemplateService } from './slormancer-template.service';
 @Injectable()
 export class SlormancerReaperService {
 
+    public readonly MAX_REAPER_BONUS = 55;
+
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormancerTemplateService: SlormancerTemplateService) { }
+
+    public getReaper(reaper: GameWeapon, weaponClass: HeroClass, primordial: boolean, bonusLevel: number = 0): Reaper | null {
+        const level = this.getReaperLevel(reaper.basic.experience);
+        const levelPrimordial = this.getReaperLevel(reaper.primordial.experience);
+        return this.getReaperById(reaper.id, weaponClass, primordial, level, levelPrimordial, reaper.basic.kills, reaper.primordial.kills, bonusLevel);
+    }
+
+    public getReaperById(id: number, weaponClass: HeroClass, primordial: boolean, level: number, levelPrimordial: number, kills: number, killsPrimordial: number, bonusLevel: number = 0): Reaper | null {
+        const gameData = this.slormancerDataService.getGameDataReaper(id);
+        const damagesRange = this.slormancerDataService.getDataReaperDamages(id);
+        let result: Reaper | null = null;
+
+        if (gameData !== null && damagesRange !== null) {
+            const templates = this.getReaperTemplates(gameData);
+            result = {
+                id,
+                weaponClass,
+                type: this.slormancerTemplateService.getReaperType(weaponClass),
+                icon: '',
+                primordial,
+                level: 0,
+                bonusLevel,
+                kills,
+                name: '',
+                description: '',
+                templates,
+                builder: this.getReaperBuilder(gameData.BLACKSMITH),
+                damagesRange,
+                damageType: 'weapon_damage',
+                maxLevel: gameData.MAX_LVL,
+                maxLevelWithBonuses: gameData.MAX_LVL + this.MAX_REAPER_BONUS,
+                damages: { min: 0, max: 0 },
+                maxDamagesWithBonuses: { min: 0, max: 0 },
+                baseInfo: {
+                    kills: kills,
+                    level: Math.min(level, gameData.MAX_LVL)
+                },
+                primordialInfo: {
+                    kills: killsPrimordial,
+                    level: Math.min(levelPrimordial, gameData.MAX_LVL)
+                }
+            }
+
+            this.updateReaper(result);
+        }
+
+        return result
+    }
+
+    private getReaperDamages(reaper: Reaper, level: number): MinMax {
+        let result: MinMax | null = valueOrNull(reaper.damagesRange[level]);
+
+        if (result === null) {
+            const keys = Array.from(Object.keys(reaper.damagesRange)).map(parseInt);
+            
+            let closest = <number>keys[0];
+
+            for (const key of keys) {
+                if (key > closest && key <= level) {
+                    closest = key;
+                }
+            }
+
+            result = <MinMax>reaper.damagesRange[closest];
+        }
+
+        return result;
+    }
 
     private getReaperLevel(xp: number): number {
         let level = 1;
@@ -60,33 +130,6 @@ export class SlormancerReaperService {
         return result.sort((a, b) => compare(a.REF, b.REF));
     }
 
-    public getReaperDamages(reaper: Reaper, level: number): MinMax {
-        let result: MinMax | null = valueOrNull(reaper.damages[level]);
-
-
-        if (result === null) {
-            const keys = Array.from(Object.keys(reaper.damages)).map(parseInt);
-            
-            let closest = <number>keys[0];
-
-            for (const key of keys) {
-                if (key > closest && key <= level) {
-                    closest = key;
-                }
-            }
-
-            result = <MinMax>reaper.damages[closest];
-        }
-
-        return result;
-    }
-
-    public getReaper(reaper: GameWeapon, weaponClass: HeroClass, primordial: boolean, bonusLevel: number = 0): Reaper | null {
-        const data = primordial ? reaper.primordial : reaper.basic;
-        const level = this.getReaperLevel(data.experience);
-        return this.getReaperById(reaper.id, weaponClass, primordial, level, data.kills, bonusLevel);
-    }
-
     private getReaperEffect(template: string | null, stat: string | null, real: string | null): ReaperEffect | null {
         let result: ReaperEffect | null = null;
 
@@ -105,7 +148,7 @@ export class SlormancerReaperService {
         return result;
     }
 
-    private getReaperEffects(gameData: GameDataReaper): { base: Array<ReaperEffect>, benediction: Array<ReaperEffect>, malediction: Array<ReaperEffect> } {
+    private getReaperTemplates(gameData: GameDataReaper): ReaperTemplates {
         const gameDatas = this.getReaperParents(gameData);
 
         const base: Array<ReaperEffect | null> = [];
@@ -123,43 +166,22 @@ export class SlormancerReaperService {
         }
 
         return {
+            name: gameData.EN_NAME,
             base: base.filter(isNotNullOrUndefined),
             benediction: benediction.filter(isNotNullOrUndefined),
             malediction: malediction.filter(isNotNullOrUndefined),
         }
     }
 
-    public getReaperById(id: number, weaponClass: HeroClass, primordial: boolean, level: number, kills: number, bonusLevel: number = 0): Reaper | null {
-        const gameData = this.slormancerDataService.getGameDataReaper(id);
-        const damages = this.slormancerDataService.getDataReaperDamages(id);
-        let result: Reaper | null = null;
-
-        if (gameData !== null && damages !== null) {
-            const templates = this.getReaperEffects(gameData);
-            result = {
-                type: this.slormancerTemplateService.getReaperType(weaponClass),
-                icon: 'reaper_' + weaponClass + '_' + id + (primordial ? '_p' : ''),
-                primordial,
-                level: Math.min(level, gameData.MAX_LVL),
-                bonusLevel,
-                kills,
-                name: this.slormancerTemplateService.getReaperName(gameData.EN_NAME, weaponClass, primordial),
-                description: '',
-                templates,
-                builder: this.getReaperBuilder(gameData.BLACKSMITH),
-                damages,
-                damageType: 'weapon_damage',
-                maxLevel: gameData.MAX_LVL,
-            }
-
-            this.updateReaperTemplates(result);
-        }
-
-        return result
-    }
-
-    public updateReaperTemplates(reaper: Reaper) {
+    public updateReaper(reaper: Reaper) {
         let contents: Array<string> = [];
+        const info = reaper.primordial ? reaper.primordialInfo : reaper.baseInfo;
+        
+        reaper.icon = 'reaper_' + reaper.weaponClass + '_' + reaper.id + (reaper.primordial ? '_p' : '');
+        reaper.kills = info.kills;
+        reaper.level = info.level;
+        reaper.damages = this.getReaperDamages(reaper, reaper.level + reaper.bonusLevel);
+        reaper.maxDamagesWithBonuses = this.getReaperDamages(reaper, reaper.maxLevelWithBonuses);
 
         let stats: Array<string> = [];
         let effects: Array<string> = [];
@@ -172,14 +194,8 @@ export class SlormancerReaperService {
         contents.push(removeEmptyValues(stats).join('<br/>'));
         contents.push(removeEmptyValues(effects).join('<br/><br/>'));
 
-
-
-
-
-
+        reaper.name = this.slormancerTemplateService.getReaperName(reaper.templates.name, reaper.weaponClass, reaper.primordial)
         reaper.description = removeEmptyValues(contents).join('<br/><br/>');
-
-        console.log(reaper.description);
     }
 
 }

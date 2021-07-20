@@ -12,9 +12,9 @@
                     <div class="builder">By {{reaper.builder.name}}</div>
                 </div>
                 <div class="damages">
-                    <div class="current-damage">{{getDamages(reaper, reaper.level)}}</div>
+                    <div class="current-damage">{{reaper.damages.min}}-{{reaper.damages.max}}</div>
                     <div class="type">{{getDamageType(reaper.damageType)}}</div>
-                    <div class="max-damage">{{getDamages(reaper, reaper.maxLevel + MAX_BONUS)}} at level {{reaper.maxLevel + MAX_BONUS}}</div>
+                    <div class="max-damage">{{reaper.maxDamagesWithBonuses.min}}-{{reaper.maxDamagesWithBonuses.max}} at level {{reaper.maxLevelWithBonuses}}</div>
                 </div>
                 <div class="stats">
                     <div class="victim">{{reaper.kills}} {{getVictimsLabel()}}</div>

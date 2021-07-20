@@ -160,7 +160,7 @@ export class SlormancerPlannerComponent implements OnInit {
             }
         }
 
-        this.customReaper = this.slormancerReaperService.getReaperById(this.reaperBase, this.selectedClass, this.primordial, this.level, 12345, this.bonusLevel);
+        this.customReaper = this.slormancerReaperService.getReaperById(this.reaperBase, this.selectedClass, this.primordial, this.level, this.level, 12345, 12345, this.bonusLevel);
     }
 
     public getBaseItem(): any {
