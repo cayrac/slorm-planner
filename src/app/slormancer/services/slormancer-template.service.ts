@@ -95,10 +95,12 @@ export class SlormancerTemplateService {
         const computed = this.slormancerReaperValueService.computeEffectVariableValue(effectValue, level, nonPrimordialLevel);
         const percent = effectValue.percent ? '%' : '';
 
-        const value = this.asSpan(computed.toString(), 'value') + percent
-        const formula = this.computedReaperVariableToFormula(effectValue);
+        let value = this.asSpan(computed.toString(), 'value') + percent;
+        if (effectValue.upgrade !== 0) {
+            value += this.computedReaperVariableToFormula(effectValue);
+        }
 
-        return this.replaceAnchor(template, value + formula, anchor);
+        return this.replaceAnchor(template, value, anchor);
     }
 
     private applyReaperEffectValueSynergy(template: string, effectValue: EffectValueSynergy, anchor: string) {
@@ -196,13 +198,18 @@ export class SlormancerTemplateService {
 
     public formatReaperTemplate(template: string, values: Array<AbstractEffectValue>, level: number, nonPrimordialLevel: number): string {
 
+        console.log('formatReaperTemplate : ', template, values);
         for (let value of values) {
             if (isEffectValueConstant(value)) {
-                template = this.applyEffectValueConstant(template, value, this.VALUE_ANCHOR);
+                const anchor = findFirst(template, this.CONSTANT_ANCHORS);
+                if (anchor !== null) {
+                    template = this.applyEffectValueConstant(template, value, anchor);
+                }
             } else if (isEffectValueVariable(value)) {
                 template = this.applyReaperEffectValueVariable(template, value, level, nonPrimordialLevel, this.VALUE_ANCHOR);
             } else if (isEffectValueSynergy(value)) {
                 template = this.applyReaperEffectValueSynergy(template, value, this.SYNERGY_ANCHOR);
+            } else if (isEffectValueConstant(value)) {
             }
         }
 
@@ -223,9 +230,8 @@ export class SlormancerTemplateService {
         return this.parseTemplate(data.EN_DESCRIPTION, stats, types);
     }
 
-    public getReaperDescriptionTemplate(template: string, stats: Array<string>): string {
-        console.log('getReaperDescriptionTemplate ', template, stats);
-        template = this.parseTemplate(template, stats);
+    public getReaperDescriptionTemplate(template: string, stats: Array<string>, reals: Array<string>): string {
+        template = this.parseTemplate(template, stats, reals);
 
         if (template.startsWith('*')) {
             template = template.substr(1);

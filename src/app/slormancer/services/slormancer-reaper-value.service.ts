@@ -6,7 +6,7 @@ import { EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
 export class SlormancerReaperValueService {
 
     public computeEffectVariableValue(effectValue: EffectValueVariable, level: number, nonPrimordialLevel: number): number {
-        return effectValue.upgrade * level;
+        return effectValue.value + effectValue.upgrade * level;
     }
     public computeEffectSynergyValue(effectValue: EffectValueSynergy): number {
         return 0;

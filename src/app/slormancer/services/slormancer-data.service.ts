@@ -6,12 +6,14 @@ import { DATA_EQUIPABLE_ITEM } from '../constants/data/data-equipable-item';
 import { DATA_KEYWORD_NAME } from '../constants/data/data-keyword-name';
 import { DATA_LEGENDARY } from '../constants/data/data-legendary';
 import { DATA_LEGENDARY_BASE } from '../constants/data/data-legendary-base';
+import { DATA_REAPER } from '../constants/data/data-reaper';
 import { DATA_REAPER_DAMAGES } from '../constants/data/data-reaper-damages';
 import { GAME_DATA } from '../constants/game/game-data';
 import { DataActivable } from '../model/data/data-activable';
 import { DataAffix } from '../model/data/data-affix';
 import { DataEquipableItemType } from '../model/data/data-equipable-item-type';
 import { DataLegendary } from '../model/data/data-legendary';
+import { DataReaper } from '../model/data/data-reaper';
 import { EquipableItemType } from '../model/enum/equipable-item-type';
 import { HeroClass } from '../model/enum/hero-class';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
@@ -87,6 +89,10 @@ export class SlormancerDataService {
 
     public getDataLegendary(id: number): DataLegendary | null {
         return valueOrNull(DATA_LEGENDARY[id]);
+    }
+
+    public getDataReaper(id: number): DataReaper | null {
+        return valueOrNull(DATA_REAPER[id]);
     }
 
     public getlegendaryGameDataActivableBasedOn(id: number): GameDataActivable | null {

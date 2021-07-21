@@ -55,14 +55,17 @@ export class SlormancerEffectValueService {
 
         if (level === null) {
             result = {
-                type: EffectValueType.Constant,
+                type: EffectValueType.Variable,
                 value: base,
+                upgrade: 0,
+                upgradeType: EffectValueUpgradeType.Reinforcment,
+                range: false,
                 percent: type === '%'
-            } as EffectValueConstant;
+            } as EffectValueVariable;
         } else {
             result = {
                 type: EffectValueType.Variable,
-                value: base,
+                value: 0,
                 upgrade: base,
                 upgradeType: this.parseUpgradeType(level),
                 range: false,
@@ -78,18 +81,27 @@ export class SlormancerEffectValueService {
 
         const typeValues = splitData(real, ':');
         const source = <string>typeValues[1];
-        const value = strictParseFloat(<string>typeValues[2]);
+        const brutValue = <string>typeValues[2];
+        const isVariable = brutValue.indexOf('*') !== -1;
+        const [upgrade, upgradeType] = splitData(brutValue, '*');
 
         result = {
             type: EffectValueType.Synergy,
-            ratio: value,
-            value,
-            upgrade: 0,
-            upgradeType: EffectValueUpgradeType.Reinforcment,
+            ratio: isVariable ? 0 : strictParseFloat(brutValue),
+            upgrade: isVariable ? strictParseFloat(<string>upgrade) : 0,
+            upgradeType: this.parseUpgradeType(valueOrNull(upgradeType)),
             source,
             range: false
         } as EffectValueSynergy;
         
         return result;   
+    }
+
+    public parseReaperEffectConstantValue(constant: number): AbstractEffectValue {
+        return {
+            type: EffectValueType.Constant,
+            value: constant,
+            percent: false
+        } as EffectValueConstant;
     }
 }
