@@ -135,7 +135,7 @@ export class SlormancerReaperService {
         return result.sort((a, b) => compare(a.REF, b.REF));
     }
 
-    private getReaperValues(bases: Array<string>, types: Array<string>, levels: Array<string>, reals: Array<string>, constants: Array<number>): Array<AbstractEffectValue> {
+    private getReaperValues(bases: Array<string>, types: Array<string>, levels: Array<string>, reals: Array<string>): Array<AbstractEffectValue> {
         const result: Array<AbstractEffectValue> = [];
         
         const nb = Math.max(types.length, bases.length, levels.length);
@@ -154,15 +154,11 @@ export class SlormancerReaperService {
         for (let real of reals) {
             result.push(this.slormancerEffectValueService.parseReaperEffectSynergyValue(real));
         }
-
-        for (let constant of constants) {
-            result.push(this.slormancerEffectValueService.parseReaperEffectConstantValue(constant));
-        }
         
         return result;
     }
 
-    private getReaperEffect(template: string | null, base: string | null, type: string | null, level: string | null, stat: string | null, real: string | null, constants: Array<number>): ReaperEffect | null {
+    private getReaperEffect(template: string | null, base: string | null, type: string | null, level: string | null, stat: string | null, real: string | null): ReaperEffect | null {
         let result: ReaperEffect | null = null;
 
         if (template !== null) {
@@ -175,7 +171,7 @@ export class SlormancerReaperService {
             console.log('getReaperEffect', stat, parsedStat, removeEmptyValues(parsedStat));
             result = {
                 template: this.slormancerTemplateService.getReaperDescriptionTemplate(template, removeEmptyValues(parsedStat), parsedReal),
-                values: this.getReaperValues(parsedBase, parsedType, parsedLevel, parsedReal, constants)
+                values: this.getReaperValues(parsedBase, parsedType, parsedLevel, parsedReal)
             }
         }
 
@@ -198,31 +194,32 @@ export class SlormancerReaperService {
             const [descReal, benedictionReal, maledictionReal] = splitData(data.VALUE_REAL, '\n');
             const reaperData = this.slormancerDataService.getDataReaper(data.REF);
 
-
-            base.push(this.getReaperEffect(valueOrNull(baseTemplate),
+            const baseEffect = this.getReaperEffect(valueOrNull(baseTemplate),
                             valueOrNull(descBase),
                             valueOrNull(descType),
                             valueOrNull(descLevel),
                             valueOrNull(descStat),
-                            valueOrNull(descReal),
-                            reaperData === null ? [] : reaperData.constants.base
-            ));
-            benediction.push(this.getReaperEffect(valueOrNull(benedictionTemplate),
+                            valueOrNull(descReal));
+            const benedictionEffect = this.getReaperEffect(valueOrNull(benedictionTemplate),
                             valueOrNull(benedictionBase),
                             valueOrNull(benedictionType),
                             valueOrNull(benedictionLevel),
                             valueOrNull(benedictionStat),
-                            valueOrNull(benedictionReal),
-                            reaperData === null ? [] : reaperData.constants.benediction
-            ));
-            malediction.push(this.getReaperEffect(valueOrNull(maledictionTemplate),
+                            valueOrNull(benedictionReal));
+            const maledictionEffect = this.getReaperEffect(valueOrNull(maledictionTemplate),
                             valueOrNull(maledictionBase),
                             valueOrNull(maledictionType),
                             valueOrNull(maledictionLevel),
                             valueOrNull(maledictionStat),
-                            valueOrNull(maledictionReal),
-                            reaperData === null ? [] : reaperData.constants.malediction
-            ));
+                            valueOrNull(maledictionReal))   
+
+            if (reaperData !== null) {
+                reaperData.override(baseEffect, benedictionEffect, maledictionEffect);
+            }
+
+            base.push(baseEffect);
+            benediction.push(benedictionEffect);
+            malediction.push(maledictionEffect);
         }
 
         return {

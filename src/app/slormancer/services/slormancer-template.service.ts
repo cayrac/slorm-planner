@@ -91,6 +91,11 @@ export class SlormancerTemplateService {
         return formula === null ? '' : this.asSpan(' (' + formula + ')', 'details');
     }
 
+    private computedReaperSynergyToFormula(effect: EffectValueSynergy): string {
+        const formula = (effect.upgrade > 0 ? '+' : '') + effect.upgrade + '% ' + this.translate(effect.source) + ' per ' + this.translate('level');
+        return formula === null ? '' : this.asSpan(' (' + formula + ')', 'details');
+    }
+
     private applyReaperEffectValueVariable(template: string, effectValue: EffectValueVariable, level: number, nonPrimordialLevel: number, anchor: string): string {
         const computed = this.slormancerReaperValueService.computeEffectVariableValue(effectValue, level, nonPrimordialLevel);
         const percent = effectValue.percent ? '%' : '';
@@ -105,7 +110,12 @@ export class SlormancerTemplateService {
 
     private applyReaperEffectValueSynergy(template: string, effectValue: EffectValueSynergy, anchor: string) {
         const computed = this.slormancerReaperValueService.computeEffectSynergyValue(effectValue);
-        const value = this.asSpan(computed.toString(), 'value')
+        
+        let value = this.asSpan(typeof computed === 'number' ? computed.toString() : computed.min + ' - ' + computed.max, 'value');
+        if (effectValue.upgrade !== 0) {
+            value += this.computedReaperSynergyToFormula(effectValue);
+        }
+        
         return this.replaceAnchor(template, value, anchor);
     }
 

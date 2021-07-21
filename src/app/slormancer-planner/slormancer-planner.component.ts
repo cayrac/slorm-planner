@@ -66,7 +66,7 @@ export class SlormancerPlannerComponent implements OnInit {
     public selectedReaperIndex: number | null = 17;
 
     public details: boolean = false;
-    public reaperBase: number = 0;
+    public reaperBase: number = 6;
     public primordial: boolean = false;
     public level: number = 10;
     public bonusLevel: number = 5;
@@ -224,7 +224,11 @@ export class SlormancerPlannerComponent implements OnInit {
     }
 
     public showData(data: any) {
+        const id: number = data.id
         console.log(data);
+        if (id) {
+            console.log(this.slormancerDataService.getGameDataReaper(id));
+        }
     }
 
     public clearSave() {

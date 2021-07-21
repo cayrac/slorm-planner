@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
 import { EffectValueType } from '../model/enum/effect-value-type';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
+import { EffectValueValueType } from '../model/enum/effect-value-value-type';
 import { strictParseFloat } from '../util/parse.util';
 import { splitData, valueOrNull } from '../util/utils';
 
@@ -19,7 +20,9 @@ export class SlormancerEffectValueService {
                 upgrade: upgrade === null ? 0 : upgrade,
                 upgradeType: EffectValueUpgradeType.Reinforcment,
                 percent: type === '%',
-                range
+                range,
+                valueType: EffectValueValueType.Unknown,
+                stat: null
             } as EffectValueVariable;
         } else {
             const typeValues = splitData(type, ':');
@@ -31,7 +34,9 @@ export class SlormancerEffectValueService {
                 upgrade,
                 upgradeType: EffectValueUpgradeType.Reinforcment,
                 source,
-                range
+                range,
+                valueType: EffectValueValueType.Unknown,
+                stat: null
             } as EffectValueSynergy;
         }
 
@@ -60,7 +65,9 @@ export class SlormancerEffectValueService {
                 upgrade: 0,
                 upgradeType: EffectValueUpgradeType.Reinforcment,
                 range: false,
-                percent: type === '%'
+                percent: type === '%',
+                valueType: EffectValueValueType.Unknown,
+                stat: null
             } as EffectValueVariable;
         } else {
             result = {
@@ -69,7 +76,9 @@ export class SlormancerEffectValueService {
                 upgrade: base,
                 upgradeType: this.parseUpgradeType(level),
                 range: false,
-                percent: type === '%'
+                percent: type === '%',
+                valueType: EffectValueValueType.Unknown,
+                stat: null
             } as EffectValueVariable;
         }
 
@@ -91,7 +100,9 @@ export class SlormancerEffectValueService {
             upgrade: isVariable ? strictParseFloat(<string>upgrade) : 0,
             upgradeType: this.parseUpgradeType(valueOrNull(upgradeType)),
             source,
-            range: false
+            range: false,
+            valueType: EffectValueValueType.Unknown,
+            stat: null
         } as EffectValueSynergy;
         
         return result;   
@@ -101,7 +112,9 @@ export class SlormancerEffectValueService {
         return {
             type: EffectValueType.Constant,
             value: constant,
-            percent: false
+            percent: false,
+            valueType: EffectValueValueType.Unknown,
+            stat: null
         } as EffectValueConstant;
     }
 }

@@ -1,8 +1,6 @@
+import { ReaperEffect } from '../reaper-effect';
+
 export interface DataReaper {
-    constants: {
-        base: Array<number>;
-        benediction: Array<number>;
-        malediction: Array<number>;
-    }
-}
+    override: (base: ReaperEffect | null, benediction: ReaperEffect | null, malediction: ReaperEffect | null) => void
+};
 

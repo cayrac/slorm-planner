@@ -1,8 +1,11 @@
 import { EffectValueType } from './enum/effect-value-type';
 import { EffectValueUpgradeType } from './enum/effect-value-upgrade-type';
+import { EffectValueValueType } from './enum/effect-value-value-type';
 
 export interface AbstractEffectValue {
     type: EffectValueType;
+    valueType: EffectValueValueType;
+    stat: string | null;
 };
 
 export interface EffectValueVariable extends AbstractEffectValue {
