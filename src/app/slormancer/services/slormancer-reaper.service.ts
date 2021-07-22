@@ -161,14 +161,14 @@ export class SlormancerReaperService {
     private getReaperEffect(template: string | null, base: string | null, type: string | null, level: string | null, stat: string | null, real: string | null): ReaperEffect | null {
         let result: ReaperEffect | null = null;
 
-        if (template !== null) {
+        if (template !== null && template !== '|') {
             const parsedBase = base === null ? [] : splitData(base, '|');
             const parsedType = type === null ? [] : splitData(type, '|');
             const parsedLevel = level === null ? [] : splitData(level, '|');
             const parsedStat = stat === null ? [] : splitData(stat, '|');
             const parsedReal = removeEmptyValues(real === null ? [] : splitData(real, '|'));
     
-            console.log('getReaperEffect', stat, parsedStat, removeEmptyValues(parsedStat));
+            console.log('getReaperEffect', template, stat, parsedStat, removeEmptyValues(parsedStat));
             result = {
                 template: this.slormancerTemplateService.getReaperDescriptionTemplate(template, removeEmptyValues(parsedStat), parsedReal),
                 values: this.getReaperValues(parsedBase, parsedType, parsedLevel, parsedReal)
@@ -214,7 +214,7 @@ export class SlormancerReaperService {
                             valueOrNull(maledictionReal))   
 
             if (reaperData !== null) {
-                reaperData.override(baseEffect, benedictionEffect, maledictionEffect);
+                reaperData.override(baseEffect, benedictionEffect, maledictionEffect, gameData.REF);
             }
 
             base.push(baseEffect);

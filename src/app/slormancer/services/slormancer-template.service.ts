@@ -92,7 +92,12 @@ export class SlormancerTemplateService {
     }
 
     private computedReaperSynergyToFormula(effect: EffectValueSynergy): string {
-        const formula = (effect.upgrade > 0 ? '+' : '') + effect.upgrade + '% ' + this.translate(effect.source) + ' per ' + this.translate('level');
+        let formula = '';
+        if (effect.upgrade !== 0) {
+            formula = (effect.upgrade >= 0 ? '+' : '') + effect.upgrade + '% ' + this.translate(effect.source) + ' per ' + this.translate('level');
+        } else {
+            formula = effect.ratio + '% ' + this.translate(effect.source);
+        }
         return formula === null ? '' : this.asSpan(' (' + formula + ')', 'details');
     }
 
@@ -112,7 +117,7 @@ export class SlormancerTemplateService {
         const computed = this.slormancerReaperValueService.computeEffectSynergyValue(effectValue);
         
         let value = this.asSpan(typeof computed === 'number' ? computed.toString() : computed.min + ' - ' + computed.max, 'value');
-        if (effectValue.upgrade !== 0) {
+        if (effectValue.upgrade !== 0 || typeof computed !== 'number') {
             value += this.computedReaperSynergyToFormula(effectValue);
         }
         

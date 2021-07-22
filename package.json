@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host=0.0.0.0 --disable-host-check",
+    "start": "ng serve --host=0.0.0.0 --disable-host-check --configuration=development",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -21,7 +21,7 @@
     "@angular/router": "12.0.3",
     "@swimlane/ngx-charts": "18.0.1",
     "core-js": "3.14.0",
-    "node-sass": "6.0.0",
+    "sass": "1.35.2",
     "rxjs": "6.5.5",
     "tslib": "2.2.0",
     "zone.js": "0.11.4"

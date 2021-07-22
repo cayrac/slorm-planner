@@ -37,7 +37,7 @@ export class SlormancerPlannerComponent implements OnInit {
     public readonly DATA_OPTIONS = Array.from(Object.keys(DATA_REAPER_DAMAGES)).map(v => parseInt(v)).map(key => ({ value: key, label: (DATA_REAPER_DAMAGES[key] as DataReaperDamages).name }));
 
     public selectedData: DataReaperDamages | null = null;
-    public selectedDataIndex: number = 111;
+    public selectedDataIndex: number = 118;
 
     public formula = 'base + perLevel * max(level - 1 , 0) * ';
 
@@ -66,7 +66,7 @@ export class SlormancerPlannerComponent implements OnInit {
     public selectedReaperIndex: number | null = 17;
 
     public details: boolean = false;
-    public reaperBase: number = 6;
+    public reaperBase: number = 118;
     public primordial: boolean = false;
     public level: number = 10;
     public bonusLevel: number = 5;

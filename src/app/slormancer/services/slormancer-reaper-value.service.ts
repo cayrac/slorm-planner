@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
+import { EffectValueValueType } from '../model/enum/effect-value-value-type';
 import { MinMax } from '../model/minmax';
 
 @Injectable()
@@ -10,6 +11,7 @@ export class SlormancerReaperValueService {
         return effectValue.value + effectValue.upgrade * level;
     }
     public computeEffectSynergyValue(effectValue: EffectValueSynergy): number | MinMax {
-        return effectValue.source === 'elemental_damage' || effectValue.source === 'physical_damage' || effectValue.source === 'weapon_damage' ? {min: 0, max: 0} : 0;
+        const sourceIsDamages = effectValue.source === 'elemental_damage' || effectValue.source === 'physical_damage' || effectValue.source === 'weapon_damage';
+        return sourceIsDamages && effectValue.valueType === EffectValueValueType.Damage ? {min: 0, max: 0} : 0;
     }
 }
