@@ -27,10 +27,10 @@
             <div class="parsed">
                 <app-reaper-view (click)="showData(customReaper)" [reaper]="customReaper"></app-reaper-view>
 
-                <!--<app-item-view (click)="showData(selectedExtendedItem)"
+                <app-item-view (click)="showData(selectedExtendedItem)"
                     [item]="selectedExtendedItem"
                     [details]="details"
-                    [class]="selectedClass"></app-item-view>
+                    [class]="selectedClass"></app-item-view><!--
                 <ng-container *ngFor="let data of getLegendariesData()">
                     <div class="legendary-data">
                         <app-item-view (click)="showData(data)" [details]="details" [class]="selectedClass" [item]="getLegendaryItem(data.game)"></app-item-view>

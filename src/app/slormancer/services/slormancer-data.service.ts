@@ -95,7 +95,7 @@ export class SlormancerDataService {
         return valueOrNull(DATA_REAPER[id]);
     }
 
-    public getlegendaryGameDataActivableBasedOn(id: number): GameDataActivable | null {
+    public getGameDataActivableBasedOn(id: number): GameDataActivable | null {
         const activable = GAME_DATA.ACTIVABLE
             .filter(activable => activable.BASED_ON === 'legendary')
             .find(activable => activable.ID_BASED_ON=== id);

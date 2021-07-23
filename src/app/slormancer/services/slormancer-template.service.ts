@@ -259,7 +259,7 @@ export class SlormancerTemplateService {
             
         return <[string, string, string]>splitData(template, '/')
                 .map(t => this.normalizeTemplate(t))
-                .map(t => t.replace(/\.\*/g, '.<br/><br/>').replace(/\*/g, '<br/>'));
+                .map(t => t.replace(/\.\*(.+)/g, '.<br/><br/>$1').replace(/\*(.+)/g, '<br/>$1').replace(/\*/, ''));
     }
 
     public getReaperLoreTemplate(template: string): string {

@@ -58,7 +58,7 @@ export class SlormancerPlannerComponent implements OnInit {
 
     public selectedClass: HeroClass = HeroClass.Huntress;
 
-    public selectedItem: number | null = 0;
+    public selectedItem: number | null = 8;
 
     public selectedExtendedItem: EquipableItem | null = null;
 
@@ -66,7 +66,7 @@ export class SlormancerPlannerComponent implements OnInit {
     public selectedReaperIndex: number | null = 17;
 
     public details: boolean = false;
-    public reaperBase: number = 118;
+    public reaperBase: number = 61;
     public primordial: boolean = true;
     public level: number = 10;
     public bonusLevel: number = 5;
@@ -169,7 +169,7 @@ export class SlormancerPlannerComponent implements OnInit {
 
     public getLegendariesData(): Array<{ game: GameDataLegendary, activable: GameDataActivable | null, effect: LegendaryEffect }> {
         return GAME_DATA.LEGENDARY
-            .map(legendary => ({ game: legendary, activable: this.slormancerDataService.getlegendaryGameDataActivableBasedOn(legendary.REF), effect: this.getLegendaryEffect(legendary) }))
+            .map(legendary => ({ game: legendary, activable: this.slormancerDataService.getGameDataActivableBasedOn(legendary.REF), effect: this.getLegendaryEffect(legendary) }))
             .filter(data => data.activable !== null)
             ;
     }

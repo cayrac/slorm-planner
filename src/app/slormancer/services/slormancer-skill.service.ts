@@ -102,6 +102,11 @@ export class SlormancerSkillService {
         }
     }
 
+    public getActivableById(id: number): Skill | null {
+        const data = this.slormancerDataService.getGameDataActivableBasedOn(id);
+        return data !== null ? this.getActivable(data) : null;
+    }
+
     public getActivable(gameData: GameDataActivable): Skill {
         const activable = {
             name: gameData.EN_NAME,

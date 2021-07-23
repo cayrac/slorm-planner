@@ -1,0 +1,17 @@
+<div class="activable" *ngIf="activable !== null">
+    <div class="activable-head">
+        <div class="icon">
+            <img src="assets/img/icon/{{activable.icon}}.png" />
+        </div>
+        <div class="info">
+            <div class="name">{{activable.name}}</div>
+            <div class="genre" *ngIf="activable.genres.length > 0">{{getGenresLabel(activable.genres)}}</div>
+            <div class="cooldown" *ngIf="activable.cooldown > 0">Cooldown : <span class="value">{{activable.cooldown}}</span> seconds</div>
+            <div class="cost" *ngIf="activableHasCost(activable)">Cost :
+                <span [class.life]="activableHasLifeCost(activable)" [class.mana]="activableHasManaCost(activable)">{{activable.cost}}</span>
+                <span> {{getCostLabel(activable.costType)}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="description" [innerHTML]="getActivableDescription()"></div>
+</div>

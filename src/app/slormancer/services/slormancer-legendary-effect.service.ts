@@ -82,7 +82,7 @@ export class SlormancerLegendaryEffectService {
         let legendaryEffect: LegendaryEffect | null = null;
 
         if (gameData !== null) {
-            const activable = this.slormancerDataService.getlegendaryGameDataActivableBasedOn(gameData.REF);
+            const activable = this.slormancerDataService.getGameDataActivableBasedOn(gameData.REF);
             
             legendaryEffect = {
                 description: this.slormancerTemplateService.getLegendaryDescriptionTemplate(gameData),
