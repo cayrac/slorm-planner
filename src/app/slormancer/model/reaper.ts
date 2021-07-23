@@ -25,6 +25,9 @@ export interface Reaper {
     kills: number;
     name: string;
     description: string;
+    benediction: string | null;
+    malediction: string | null;
+    lore: string;
     damages: MinMax;
     maxDamagesWithBonuses: MinMax;
     maxLevelWithBonuses: number;

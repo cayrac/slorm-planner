@@ -8,7 +8,7 @@ import { MinMax } from '../model/minmax';
 export class SlormancerReaperValueService {
 
     public computeEffectVariableValue(effectValue: EffectValueVariable, level: number, nonPrimordialLevel: number): number {
-        return effectValue.value + effectValue.upgrade * level;
+        return Math.round((effectValue.value + effectValue.upgrade * level) * 1000) / 1000;
     }
     public computeEffectSynergyValue(effectValue: EffectValueSynergy): number | MinMax {
         const sourceIsDamages = effectValue.source === 'elemental_damage' || effectValue.source === 'physical_damage' || effectValue.source === 'weapon_damage';

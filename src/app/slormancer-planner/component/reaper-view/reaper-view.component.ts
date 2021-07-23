@@ -10,6 +10,11 @@ import { SlormancerTemplateService } from '../../../slormancer/services/slormanc
 })
 export class ReaperViewComponent {
 
+    public readonly BENEDICTION_LABEL = 'tt_ancient_bonus';
+    public readonly MALEDICTION_LABEL = 'tt_ancient_malus';
+    public readonly VICTIMS_LABEL = 'tt_victims';
+    public readonly LEVEL_LABEL = 'level';
+    
     public readonly MAX_BONUS = 55;
 
     @Input()
@@ -17,15 +22,7 @@ export class ReaperViewComponent {
 
     constructor(private slormancerTemplateService: SlormancerTemplateService) { }
 
-    public getDamageType(type: string): string {
-        return this.slormancerTemplateService.translate(type);
-    }
-
-    public getVictimsLabel(): string {
-        return this.slormancerTemplateService.translate('tt_victims');
-    }
-
-    public getLevelLabel(): string {
-         return this.slormancerTemplateService.translate('level');
+    public translate(value: string): string {
+        return this.slormancerTemplateService.translate(value);
     }
 }

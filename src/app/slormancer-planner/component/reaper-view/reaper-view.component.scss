@@ -4,7 +4,12 @@ $reaper-icon-outer-border-color : rgb(59, 56, 49);
 $reaper-icon-inner-border-color : rgb(18, 16, 14);
 $reaper-icon-bg-color           : rgb(34, 32, 28);
 $reaper-max-damages-color       : rgb(104, 104, 104);
+$reaper-lore-separator-color    : rgb(59, 56, 49);
+$reaper-lore-color              : rgb(184, 184, 184);
 $reaper-bonus-level-color       : rgb(20, 143, 138);
+$reaper-malus-level-color       : rgb(293, 71, 34);
+$reaper-bonus-bullet-color      : rgb(97, 247, 183);
+$reaper-malus-bullet-color      : rgb(209, 48, 1);
 $reaper-desc-details            : rgb(104, 104, 104);
 
 .reaper {
@@ -110,6 +115,18 @@ $reaper-desc-details            : rgb(104, 104, 104);
             }
         }
 
+        .bullet {
+            min-width: 8px;
+            div {
+                display: inline-block;
+                height: 6px;
+                width: 6px;
+                border: 1px solid black;
+                border-radius: 6px;
+                margin: auto;
+            }
+        }
+
         .description {
             text-align: center;
 
@@ -121,6 +138,50 @@ $reaper-desc-details            : rgb(104, 104, 104);
                     color: $reaper-desc-details;
                 }
             }
+        }
+
+        .benediction {
+            color: $reaper-bonus-level-color;
+
+            .bullet div {
+                background-color: $reaper-bonus-bullet-color;
+            }
+        }
+
+        .malediction {
+            color: $reaper-malus-level-color;
+
+            .bullet div {
+                background-color: $reaper-malus-bullet-color;
+            }
+        }
+
+        .malediction, .benediction {
+
+            .title {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
+
+            ::ng-deep {
+                .value {
+                    color: white;
+                }
+            }
+        }
+            
+        .separator {
+            background-color: $reaper-lore-separator-color;
+            margin: 0 30px;
+            height: 4px;
+        }
+
+        .lore {
+            color: $reaper-lore-color;
+            text-align: center;
         }
     }
     

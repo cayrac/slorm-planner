@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AttributeEnchantment } from '../model/attribute-enchantment';
 import { ComputedEffectValue } from '../model/computed-effect-value';
 import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
+import { EffectValueValueType } from '../model/enum/effect-value-value-type';
 import { HeroClass } from '../model/enum/hero-class';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
@@ -117,7 +118,7 @@ export class SlormancerTemplateService {
         const computed = this.slormancerReaperValueService.computeEffectSynergyValue(effectValue);
         
         let value = this.asSpan(typeof computed === 'number' ? computed.toString() : computed.min + ' - ' + computed.max, 'value');
-        if (effectValue.upgrade !== 0 || typeof computed !== 'number') {
+        if (effectValue.valueType === EffectValueValueType.Damage && typeof computed !== 'number') {
             value += this.computedReaperSynergyToFormula(effectValue);
         }
         
@@ -212,8 +213,6 @@ export class SlormancerTemplateService {
     }
 
     public formatReaperTemplate(template: string, values: Array<AbstractEffectValue>, level: number, nonPrimordialLevel: number): string {
-
-        console.log('formatReaperTemplate : ', template, values);
         for (let value of values) {
             if (isEffectValueConstant(value)) {
                 const anchor = findFirst(template, this.CONSTANT_ANCHORS);
@@ -224,6 +223,7 @@ export class SlormancerTemplateService {
                 template = this.applyReaperEffectValueVariable(template, value, level, nonPrimordialLevel, this.VALUE_ANCHOR);
             } else if (isEffectValueSynergy(value)) {
                 template = this.applyReaperEffectValueSynergy(template, value, this.SYNERGY_ANCHOR);
+                template = template.replace(this.TYPE_ANCHOR, this.translate(value.source));
             } else if (isEffectValueConstant(value)) {
             }
         }
@@ -245,38 +245,57 @@ export class SlormancerTemplateService {
         return this.parseTemplate(data.EN_DESCRIPTION, stats, types);
     }
 
-    public getReaperDescriptionTemplate(template: string, stats: Array<string>, reals: Array<string>): string {
-        template = this.parseTemplate(template, stats, reals);
+    public getReaperDescriptionTemplate(template: string, stats: Array<string> = []): [string, string, string] {
+        template = this.injectStatsToTemplates(template, stats);
 
         if (template.startsWith('*')) {
             template = template.substr(1);
         }
 
-        template = template.replace(/\|\*/g, '|');
-        template = template.replace(/\.\*/g, '.<br/><br/>');
-        template = template.replace(/\*/g, '<br/>');
+        template = template
+            .replace(/\/\n/g, '/')
+            .replace(/\/\*/g, '/')
+            .replace(/\|\*/g, '|');
+            
+        return <[string, string, string]>splitData(template, '/')
+                .map(t => this.normalizeTemplate(t))
+                .map(t => t.replace(/\.\*/g, '.<br/><br/>').replace(/\*/g, '<br/>'));
+    }
 
-        return template;
+    public getReaperLoreTemplate(template: string): string {
+        return this.normalizeTemplate(template)
     }
 
     private getSynergyType(synergy: string): string | null {
         return valueOrNull(splitData(synergy, ':')[1]);
     }
 
-    private parseTemplate(template: string, stats: Array<string> = [], types: Array<string> = []) {
-        template = stats.map(stat => this.translate(stat))
-            .reduce((desc, stat) => desc.replace(this.STAT_ANCHOR, stat), template);
+    private injectStatsToTemplates(template: string, stats: Array<string> = []): string {
+        return stats.map(stat => this.translate(stat))
+        .reduce((desc, stat) => desc.replace(this.STAT_ANCHOR, stat), template);
+    }
 
-        template = types
+    private injectTypesToTemplates(template: string, types: Array<string> = []): string {
+        return types
             .map(synergy => this.getSynergyType(synergy))
             .filter(isNotNullOrUndefined)
             .map(synergy => this.translate(synergy))
             .reduce((desc, synergy) => desc.replace(this.TYPE_ANCHOR, synergy), template);
+    }
+
+    private normalizeTemplate(template: string): string {
+        return template
+            .replace(/<|>/g, '')
+            .replace(/\(/g, '<span class="formula">(')
+            .replace(/\)/g, ')</span>')
+            .replace(this.RETURN_REGEXP, '</br>');
         
-        template = template.replace(/<|>/g, '');
-        template = template.replace(/\(/g, '<span class="formula">(');
-        template = template.replace(/\)/g, ')</span>');
-        template = template.replace(this.RETURN_REGEXP, '</br>');
+    }
+
+    private parseTemplate(template: string, stats: Array<string> = [], types: Array<string> = []): string {
+        template = this.injectStatsToTemplates(template, stats)
+        template = this.injectTypesToTemplates(template, types);
+        template = this.normalizeTemplate(template);
 
         return template;
     }

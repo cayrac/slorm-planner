@@ -13,12 +13,12 @@
                 </div>
                 <div class="damages">
                     <div class="current-damage">{{reaper.damages.min}}-{{reaper.damages.max}}</div>
-                    <div class="type">{{getDamageType(reaper.damageType)}}</div>
+                    <div class="type">{{translate(reaper.damageType)}}</div>
                     <div class="max-damage">{{reaper.maxDamagesWithBonuses.min}}-{{reaper.maxDamagesWithBonuses.max}} at level {{reaper.maxLevelWithBonuses}}</div>
                 </div>
                 <div class="stats">
-                    <div class="victim">{{reaper.kills}} {{getVictimsLabel()}}</div>
-                    <div class="level">{{getLevelLabel()}} :
+                    <div class="victim">{{reaper.kills}} {{translate(VICTIMS_LABEL)}}</div>
+                    <div class="level">{{translate(LEVEL_LABEL)}} :
                         <ng-container *ngIf="reaper.maxLevel !== reaper.level">{{reaper.level}}</ng-container>
                         <ng-container *ngIf="reaper.maxLevel === reaper.level">Max({{reaper.level}})</ng-container>
                         <span class="bonus-level" *ngIf="reaper.bonusLevel > 0">+{{reaper.bonusLevel}}</span>
@@ -27,6 +27,17 @@
             </div>
         </div>
         <div class="description" [innerHTML]="reaper.description">
+        </div>
+        <div class="benediction" *ngIf="reaper.benediction !== null">
+            <div class="title"><div class="bullet"><div></div></div>{{translate(BENEDICTION_LABEL)}}<div class="bullet"><div></div></div></div>
+            <div class="description" [innerHTML]="reaper.benediction"></div>
+        </div>
+        <div class="malediction" *ngIf="reaper.malediction !== null">
+            <div class="title"><div class="bullet"><div></div></div>{{translate(MALEDICTION_LABEL)}}<div class="bullet"><div></div></div></div>
+            <div class="description" [innerHTML]="reaper.malediction"></div>
+        </div>
+        <div class="separator"></div>
+        <div class="lore" [innerHTML]="reaper.lore">
         </div>
     </div>
 </div>
