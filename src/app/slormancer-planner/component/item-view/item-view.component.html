@@ -79,23 +79,9 @@
                 </div>
             </div>
         </div>
-        <div class="activable" *ngIf="item.legendaryEffect !== null && item.legendaryEffect.activable !== null">
-            <div class="activable-head">
-                <div class="icon">
-                    <img src="assets/img/icon/{{item.legendaryEffect.activable.icon}}.png" />
-                </div>
-                <div class="info">
-                    <div class="name">{{item.legendaryEffect.activable.name}}</div>
-                    <div class="genre" *ngIf="item.legendaryEffect.activable.genres.length > 0">{{getGenresLabel(item.legendaryEffect.activable.genres)}}</div>
-                    <div class="cooldown" *ngIf="item.legendaryEffect.activable.cooldown > 0">Cooldown : <span class="value">{{item.legendaryEffect.activable.cooldown}}</span> seconds</div>
-                    <div class="cost" *ngIf="activableHasCost(item.legendaryEffect.activable)">Cost :
-                        <span [class.life]="activableHasLifeCost(item.legendaryEffect.activable)" [class.mana]="activableHasManaCost(item.legendaryEffect.activable)">{{item.legendaryEffect.activable.cost}}</span>
-                        <span> {{getCostLabel(item.legendaryEffect.activable.costType)}}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="description" [innerHTML]="getActivableDescription()"></div>
-        </div>
+        <app-activable-view *ngIf="item.legendaryEffect !== null && item.legendaryEffect.activable !== null"
+            [activable]="item.legendaryEffect.activable"
+            [reinforcment]="item.reinforcment"></app-activable-view>
         <div class="buff reaper" *ngIf="item.reaperEnchantment !== null">
             <img src="assets/img/icon/{{item.reaperEnchantment.icon}}.png"/>
             <div class="info" [innerHTML]="getReaperEnchantmentLabel(item.reaperEnchantment)"></div>

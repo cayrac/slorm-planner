@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { DATA_REAPER_LEVEL } from '../constants/data/data-reaper-level';
 import { AbstractEffectValue } from '../model/effect-value';
 import { HeroClass } from '../model/enum/hero-class';
+import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { GameDataReaper } from '../model/game/data/game-data-reaper';
 import { GameWeapon } from '../model/game/game-save';
 import { MinMax } from '../model/minmax';
@@ -10,7 +11,7 @@ import { Reaper, ReaperTemplates } from '../model/reaper';
 import { ReaperBuilder } from '../model/reaper-builder';
 import { ReaperEffect } from '../model/reaper-effect';
 import { list } from '../util/math.util';
-import { strictParseFloat, strictParseInt } from '../util/parse.util';
+import { strictParseFloat } from '../util/parse.util';
 import { compare, isNotNullOrUndefined, notEmptyOrNull, removeEmptyValues, splitData, valueOrNull } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerEffectValueService } from './slormancer-effect-value.service';
@@ -21,8 +22,6 @@ import { SlormancerTemplateService } from './slormancer-template.service';
 export class SlormancerReaperService {
 
     public readonly MAX_REAPER_BONUS = 55;
-
-    private readonly SKILL_REGEX = /act:([0-9]+)/g
 
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormancerTemplateService: SlormancerTemplateService,
@@ -165,41 +164,23 @@ export class SlormancerReaperService {
         return result;
     }
 
-    private getReaperEffect(template: string | null, base: string | null, type: string | null, level: string | null, real: string | null, skills: Array<number>): ReaperEffect | null {
-        let result: ReaperEffect | null = null;
+    private getReaperEffect(template: string | null, base: string | null, type: string | null, level: string | null, real: string | null): ReaperEffect {
+        let result: ReaperEffect = {
+            template: template !== null && template !== '|' ? template : null,
+            values: []
+        };
 
-        if (template !== null && template !== '|') {
-            const parsedBase = base === null ? [] : splitData(base, '|');
-            const parsedType = type === null ? [] : splitData(type, '|');
-            const parsedLevel = level === null ? [] : splitData(level, '|');
-            const parsedReal = removeEmptyValues(real === null ? [] : splitData(real, '|'));
-    
-            result = {
-                template,
-                values: this.getReaperValues(parsedBase, parsedType, parsedLevel, parsedReal),
-                skills: skills.map(skill => this.slormancerSkillService.getActivableById(skill)).filter(isNotNullOrUndefined)
-            }
-        }
+        const parsedBase = base === null ? [] : splitData(base, '|');
+        const parsedType = type === null ? [] : splitData(type, '|');
+        const parsedLevel = level === null ? [] : splitData(level, '|');
+        const parsedReal = removeEmptyValues(real === null ? [] : splitData(real, '|'));
+        result.values = this.getReaperValues(parsedBase, parsedType, parsedLevel, parsedReal);
 
         return result;
     }
 
-    private descriptionToSkills(desc: string | undefined): Array<number> {
-        const result = desc ? Array.from(desc.matchAll(this.SKILL_REGEX)) : [];
-        return result.map(res => strictParseInt(<string>res[1]));
-    }
-
-    private getReaperSkills(description: string): [Array<number>, Array<number>, Array<number>] {
-        const [base, bene, male] = splitData(description, '/') as [string, string, string];
-        return [this.descriptionToSkills(base), this.descriptionToSkills(bene), this.descriptionToSkills(male)];
-    }
-
-    private removeSkillsFromTemplate(desc: string, base: Array<number>, bene: Array<number>, male: Array<number>): string {
-        let result = desc;
-        for (let skill of [...base, ...bene, ...male]) {
-            result = result.replace('act:' + skill, '');
-        }
-        return result;
+    private removeSkillsFromTemplate(desc: string): string {
+        return desc.replace(/act:[0-9]+/g, '');
     }
 
     private getReaperTemplates(gameData: GameDataReaper): ReaperTemplates {
@@ -209,14 +190,15 @@ export class SlormancerReaperService {
         const benediction: Array<ReaperEffect | null> = [];
         const malediction: Array<ReaperEffect | null> = [];
 
+        let skills: Array<GameDataActivable> = [];
+        let primordialSkills: Array<GameDataActivable> = [];
+
         for (const data of gameDatas) {
             const stats = splitData(data.VALUE_STAT, '\n')
                 .map(stats => splitData(stats, '|'))
                 .reduce((stats, total) => [...stats, ...total] , []);
 
-            const [baseSkills, benedictionSkills, maledictionSkills] = this.getReaperSkills(data.EN_DESC);
-
-            const template = this.removeSkillsFromTemplate(data.EN_DESC, baseSkills, benedictionSkills, maledictionSkills)
+            const template = this.removeSkillsFromTemplate(data.EN_DESC);
 
             const [baseTemplate, benedictionTemplate, maledictionTemplate] =
                 this.slormancerTemplateService.getReaperDescriptionTemplate(template, removeEmptyValues(stats));
@@ -231,20 +213,17 @@ export class SlormancerReaperService {
                             valueOrNull(descBase),
                             valueOrNull(descType),
                             valueOrNull(descLevel),
-                            valueOrNull(descReal),
-                            baseSkills);
+                            valueOrNull(descReal));
             const benedictionEffect = this.getReaperEffect(valueOrNull(benedictionTemplate),
                             valueOrNull(benedictionBase),
                             valueOrNull(benedictionType),
                             valueOrNull(benedictionLevel),
-                            valueOrNull(benedictionReal),
-                            benedictionSkills);
+                            valueOrNull(benedictionReal));
             const maledictionEffect = this.getReaperEffect(valueOrNull(maledictionTemplate),
                             valueOrNull(maledictionBase),
                             valueOrNull(maledictionType),
                             valueOrNull(maledictionLevel),
-                            valueOrNull(maledictionReal),
-                            maledictionSkills)   
+                            valueOrNull(maledictionReal));
 
             if (reaperData !== null) {
                 reaperData.override(baseEffect, benedictionEffect, maledictionEffect, gameData.REF);
@@ -253,6 +232,11 @@ export class SlormancerReaperService {
             base.push(baseEffect);
             benediction.push(benedictionEffect);
             malediction.push(maledictionEffect);
+
+            const reaperSkills = this.slormancerDataService.getGameDataReaperActivableBasedOn(data.REF);
+
+            skills = [...skills, ...reaperSkills.filter(skill => !skill.ON_REAPER_PRIMORDIAL)];
+            primordialSkills = [...primordialSkills, ...reaperSkills.filter(skill => skill.ON_REAPER_PRIMORDIAL)];
         }
 
         return {
@@ -260,6 +244,8 @@ export class SlormancerReaperService {
             base: base.filter(isNotNullOrUndefined),
             benediction: benediction.filter(isNotNullOrUndefined),
             malediction: malediction.filter(isNotNullOrUndefined),
+            skills: skills.map(skill => this.slormancerSkillService.getActivable(skill)),
+            primordialSkills: primordialSkills.map(skill => this.slormancerSkillService.getActivable(skill))
         }
     }
 
@@ -268,10 +254,12 @@ export class SlormancerReaperService {
         let stats: Array<string> = [];
         let effects: Array<string> = [];
         for (let reaperEffect of reaperEffects) {
-            const template = this.slormancerTemplateService.formatReaperTemplate(reaperEffect.template, reaperEffect.values, reaper.level + reaper.bonusLevel, reaper.baseInfo.level);
-            const [stat, effect] = splitData(template);
-            stats.push(<string>stat);
-            effects.push(<string>effect);
+            if (reaperEffect.template !== null) {
+                const template = this.slormancerTemplateService.formatReaperTemplate(reaperEffect.template, reaperEffect.values, reaper.level + reaper.bonusLevel, reaper.baseInfo.level);
+                const [stat, effect] = splitData(template);
+                stats.push(<string>stat);
+                effects.push(<string>effect);
+            }
         }
         contents.push(removeEmptyValues(stats).join('<br/>'));
         contents.push(removeEmptyValues(effects).join('<br/><br/>'));
@@ -286,6 +274,7 @@ export class SlormancerReaperService {
         reaper.level = info.level;
         reaper.damages = this.getReaperDamages(reaper, reaper.level + reaper.bonusLevel);
         reaper.maxDamagesWithBonuses = this.getReaperDamages(reaper, reaper.maxLevelWithBonuses);
+        reaper.skills = reaper.templates.skills;
 
         reaper.name = this.slormancerTemplateService.getReaperName(reaper.templates.name, reaper.weaponClass, reaper.primordial);
 
@@ -294,6 +283,7 @@ export class SlormancerReaperService {
         if (reaper.primordial) {
             reaper.benediction = this.formatTemplate(reaper.templates.benediction, reaper);
             reaper.malediction = this.formatTemplate(reaper.templates.malediction, reaper);
+            reaper.skills = [...reaper.skills, ...reaper.templates.primordialSkills];
         } else {
             reaper.benediction = null;
             reaper.malediction = null;

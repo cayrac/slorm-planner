@@ -113,15 +113,6 @@ $bravery-color         : rgb(191, 60, 89);
             word-break: keep-all;
             white-space: nowrap;
         }
-
-        .life {
-            color: $life-color;
-        }
-
-        .mana {
-            color: $mana-color;
-        }
-
     }
     &.nodetails {
         ::ng-deep {
@@ -286,59 +277,6 @@ $bravery-color         : rgb(191, 60, 89);
                     width: 100%;
                     height: 100%;
                 }
-            }
-        }
-
-        .activable {
-            border: 3px solid black;
-            padding: 5px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            
-            &::ng-deep {
-                .value {
-                    color: $legendary-color-text;
-                }
-            }
-
-            .activable-head {
-                display: flex;
-                flex-direction: row;
-                gap: 5px;
-
-                .icon {
-                    display: flex;
-                    align-items: center;
-
-                    img { 
-                        border: 4px solid $activable-gold-border;
-                        min-width: 36px;
-                        min-height: 36px;
-                        width: 36px;
-                        height: 36px;
-                    }
-
-                }
-
-                .info {
-                    display: flex;
-                    flex-direction: column;
-                    flex-grow: 1;
-
-                    .name {
-                        font-size: 19px;
-                        color: $legendary-color-text;
-                    }
-
-                    .genre {
-                        color: $genre-color;
-                    }
-                }
-            }
-
-            .description {
-                flex-grow: 1;
             }
         }
 

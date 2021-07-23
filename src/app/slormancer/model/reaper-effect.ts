@@ -1,8 +1,6 @@
 import { AbstractEffectValue } from './effect-value';
-import { Skill } from './skill';
 
 export interface ReaperEffect {
-    template: string;
+    template: string | null;
     values: Array<AbstractEffectValue>;
-    skills: Array<Skill>;
 }

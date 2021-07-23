@@ -2,6 +2,7 @@ import { HeroClass } from './enum/hero-class';
 import { MinMax } from './minmax';
 import { ReaperBuilder } from './reaper-builder';
 import { ReaperEffect } from './reaper-effect';
+import { Skill } from './skill';
 
 export interface ReaperInfo {
     kills: number;
@@ -12,6 +13,8 @@ export interface ReaperTemplates {
     base: Array<ReaperEffect>;
     benediction: Array<ReaperEffect>;
     malediction: Array<ReaperEffect>;
+    skills: Array<Skill>;
+    primordialSkills: Array<Skill>;
 }
 
 export interface Reaper {
@@ -27,6 +30,7 @@ export interface Reaper {
     description: string;
     benediction: string | null;
     malediction: string | null;
+    skills: Array<Skill>,
     lore: string;
     damages: MinMax;
     maxDamagesWithBonuses: MinMax;

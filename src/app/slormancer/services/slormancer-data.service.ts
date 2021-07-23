@@ -95,11 +95,16 @@ export class SlormancerDataService {
         return valueOrNull(DATA_REAPER[id]);
     }
 
-    public getGameDataActivableBasedOn(id: number): GameDataActivable | null {
+    public getGameDataLegendaryActivableBasedOn(id: number): GameDataActivable | null {
         const activable = GAME_DATA.ACTIVABLE
             .filter(activable => activable.BASED_ON === 'legendary')
-            .find(activable => activable.ID_BASED_ON=== id);
+            .find(activable => activable.ID_BASED_ON === id);
         return valueOrNull(activable);
+    }
+
+    public getGameDataReaperActivableBasedOn(id: number): Array<GameDataActivable> {
+        return GAME_DATA.ACTIVABLE
+            .filter(activable => activable.BASED_ON === 'reaper' && activable.ID_BASED_ON === id);
     }
 
     public getDataActivable(id: number): DataActivable | null {
