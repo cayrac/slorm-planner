@@ -264,6 +264,7 @@ export class SlormancerReaperService {
         contents.push(removeEmptyValues(stats).join('<br/>'));
         contents.push(removeEmptyValues(effects).join('<br/><br/>'));
         return removeEmptyValues(contents).join('<br/><br/>');
+        // TODO rajouter traductions sur activable-view
     }
 
     public updateReaper(reaper: Reaper) {

@@ -66,7 +66,7 @@ export class SlormancerPlannerComponent implements OnInit {
     public selectedReaperIndex: number | null = 17;
 
     public details: boolean = false;
-    public reaperBase: number = 61;
+    public reaperBase: number = 105;
     public primordial: boolean = true;
     public level: number = 10;
     public bonusLevel: number = 5;

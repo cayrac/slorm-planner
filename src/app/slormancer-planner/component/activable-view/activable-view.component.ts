@@ -43,48 +43,10 @@ export class ActivableViewComponent { // TODO continuer ici
     }
 
     public getCostLabel(costType: SkillCostType): string {
-        let result = '??';
-
-        if (costType === SkillCostType.Life) {
-            result = 'Life';
-        } else if (costType === SkillCostType.Mana) {
-            result = 'Mana';
-        } else if (costType === SkillCostType.LifeLock) {
-            result = '% Life Locked';
-        } else if (costType === SkillCostType.ManaLock) {
-            result = '% Mana Locked';
-        } else if (costType === SkillCostType.LifeSecond) {
-            result = 'Mana per Second';
-        } else if (costType === SkillCostType.ManaSecond) {
-            result = 'Mana per Second';
-        }
-
-        return result;
+        return this.slormancerTemplateService.translate(costType);
     }
 
     public getGenresLabel(genres: Array<SkillGenre>): string {
-        return genres.map(genre => {
-            let result = null;
-
-            if (genre === SkillGenre.Aoe) {
-                result = 'Area of Effect';
-            } else if (genre === SkillGenre.Aura) {
-                result = 'Aura';
-            } else if (genre === SkillGenre.Melee) {
-                result = 'Melee';
-            } else if (genre === SkillGenre.Minion) {
-                result = 'Minion';
-            } else if (genre === SkillGenre.Movement) {
-                result = 'Movement';
-            } else if (genre === SkillGenre.Projectile) {
-                result = 'Projectile';
-            } else if (genre === SkillGenre.Special) {
-                result = 'Special';
-            } else if (genre === SkillGenre.Totem) {
-                result = 'Totem';
-            }
-
-            return result;
-        }).join(', ');
+        return genres.map(genre => this.slormancerTemplateService.translate(genre)).join(', ');
     }
 }

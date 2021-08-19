@@ -11,6 +11,7 @@ import { LegendaryEffect } from '../model/legendary-effect';
 import { ReaperEnchantment } from '../model/reaper-enchantment';
 import { Skill } from '../model/skill';
 import { SkillEnchantment } from '../model/skill-enchantment';
+import { strictParseInt } from '../util/parse.util';
 import {
     findFirst,
     firstValue,
@@ -239,8 +240,9 @@ export class SlormancerTemplateService {
     }
 
     public getSkillDescriptionTemplate(data: GameDataActivable): string {
-        const stats = splitData(data.DESC_VALUE)
-        const types = splitData(data.DESC_VALUE_REAL)
+        // TODO stats peuvent demander des infos qu'on ne peux avoir que sur la génération dynamique, à déplacer plus tard
+        const stats = splitData(data.DESC_VALUE);
+        const types = splitData(data.DESC_VALUE_REAL);
         
         return this.parseTemplate(data.EN_DESCRIPTION, stats, types);
     }
@@ -309,11 +311,14 @@ export class SlormancerTemplateService {
         if (gameData !== null) {
             result = gameData.EN;
         } else if (data !== null) {
-            console.warn('affix by ref used : ', key);
             result = data.name;
         } else if (keyword !== null) {
-            console.warn('keyword used : ', key);
             result = keyword;
+        } else if (key.startsWith('victims_reaper_')) {
+            const reaper = this.slormancerDataService.getGameDataReaper(strictParseInt(key.substr(15)));
+            if (reaper !== null) {
+                result = reaper.EN_NAME;
+            }
         }
 
         return result;
