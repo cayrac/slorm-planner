@@ -2087,7 +2087,7 @@
         "DESC_VALUE_PER_LVL": "2",
         "DESC_VALUE_TYPE": "%",
         "DESC_VALUE_REAL": "",
-        "EXTRA_NBR": "50"
+        "EXTRA_NBR": "5"
     },
     {
         "REF": 51,
@@ -2616,8 +2616,8 @@
         "COST_LEVEL": 0,
         "COST_TYPE": "none",
         "DESC_VALUE": "chance",
-        "DESC_VALUE_BASE": "20",
-        "DESC_VALUE_PER_LVL": "3",
+        "DESC_VALUE_BASE": "5",
+        "DESC_VALUE_PER_LVL": "1",
         "DESC_VALUE_TYPE": "%",
         "DESC_VALUE_REAL": "",
         "EXTRA_NBR": ""
