@@ -8,11 +8,20 @@ export function byteToNumber(byte: string): number {
     return parseInt(byte, 16);
 }
 
+export function stringToBytes(value: string): Bytes {
+    return Array.from(value).map(charToByte);
+}
+
+export function charToByte(char: string): string {
+    let code = char.charCodeAt(0).toString(16).toUpperCase();
+    return code.length === 1 ? '0' + code : code;
+}
+
 export function byteToChar(byte: string): string {
     const code = byteToNumber(byte);
     let char: string;
 
-    if (code <= 31 || code === 127) {
+    if (code <= 31 || code >= 127 && code <= 159) {
         char = ' ';
     } else {
         char = String.fromCharCode(code);

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {
     AURAS,
     CORRUPTED_SLORM,
+    DATE,
     ELEMENT_EQUIP,
     ELEMENT_RANK,
     ENEMY_LEVEL,
@@ -27,6 +28,9 @@ import {
     SLORMITE_LIST,
     STATS_FETCHED,
     STORE_REFRESH_LIST,
+    TEMPLE_BLESSING,
+    TEMPLE_DATA,
+    TEMPLE_UPGRADES,
     TRAITS,
     TUTORIALS,
     VERSION,
@@ -77,9 +81,11 @@ export class SlormancerSaveParserService {
 
     private readonly KEYWORDS = [
         QUEST_LIST,
+        TEMPLE_DATA,
         WEAPON_EQUIP,
         STATS_FETCHED,
         VERSION,
+        TEMPLE_UPGRADES,
         SLORMITE_LIST,
         SHARED_INVENTORY,
         CORRUPTED_SLORM,
@@ -90,6 +96,8 @@ export class SlormancerSaveParserService {
         SKILL_EQUIP,
         HERO,
         MISSIONS,
+        TEMPLE_BLESSING,
+        DATE,
         STORE_REFRESH_LIST,
         TRAITS,
         
@@ -290,6 +298,7 @@ export class SlormancerSaveParserService {
         const [data, hash] = content.split('#', 2);
         
         const bytes = toBytes(<string>data);
+        console.log('before parse : ', bytes.length, ' => ', bytesToString(bytes));
 
         const parsedData = this.parseKeys(bytes);
 
