@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 
+import { Activable } from '../../../slormancer/model/activable';
 import { SkillCostType } from '../../../slormancer/model/enum/skill-cost-type';
 import { SkillGenre } from '../../../slormancer/model/enum/skill-genre';
-import { Skill } from '../../../slormancer/model/skill';
 import { SlormancerTemplateService } from '../../../slormancer/services/slormancer-template.service';
 
 @Component({
@@ -10,10 +10,10 @@ import { SlormancerTemplateService } from '../../../slormancer/services/slormanc
   templateUrl: './activable-view.component.html',
   styleUrls: ['./activable-view.component.scss']
 })
-export class ActivableViewComponent { // TODO continuer ici
+export class ActivableViewComponent {
 
     @Input()
-    public readonly activable: Skill | null = null;
+    public readonly activable: Activable | null = null;
 
     @Input()
     public readonly reinforcment: number = 0;
@@ -24,21 +24,21 @@ export class ActivableViewComponent { // TODO continuer ici
         let description: string | null = null;
 
         if (this.activable !== null) {
-            description = this.slormancerTemplateService.formatSkillDescription(this.activable, this.reinforcment);
+            description = this.slormancerTemplateService.formatActivableDescription(this.activable, this.reinforcment);
         }
 
         return description;
     }
 
-    public activableHasCost(activable: Skill): boolean {
+    public activableHasCost(activable: Activable): boolean {
         return activable.costType !== SkillCostType.None;
     }
 
-    public activableHasLifeCost(activable: Skill): boolean {
+    public activableHasLifeCost(activable: Activable): boolean {
         return activable.costType === SkillCostType.LifeSecond || activable.costType === SkillCostType.LifeLock || activable.costType === SkillCostType.Life;
     }
 
-    public activableHasManaCost(activable: Skill): boolean {
+    public activableHasManaCost(activable: Activable): boolean {
         return activable.costType === SkillCostType.ManaSecond || activable.costType === SkillCostType.ManaLock || activable.costType === SkillCostType.Mana;
     }
 

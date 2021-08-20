@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { ComputedEffectValue } from '../model/computed-effect-value';
 import { EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
+import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
 import { GameRarity } from '../model/game/game-rarity';
 import { MinMax } from '../model/minmax';
 import { bankerRound, list } from '../util/math.util';
@@ -165,35 +166,43 @@ export class SlormancerItemValueService {
     }
 
     public computeEffectVariableDetails(effect: EffectValueVariable, itemValue: number, reinforcment: number): ComputedEffectValue {
+
+        const upgradeMultiplier = effect.upgradeType === EffectValueUpgradeType.Every3 ? Math.floor(reinforcment / 3) : reinforcment;
+
         const result: ComputedEffectValue = {
             value: 0,
             baseValue: effect.value,
-            range: effect.range ? this.computeEffectRange(effect.value, effect.upgrade * reinforcment) : null,
+            range: effect.range ? this.computeEffectRange(effect.value, effect.upgrade * upgradeMultiplier) : null,
             baseRange: effect.range ? this.computeEffectRange(effect.value, 0) : null,
             upgrade: effect.upgrade,
+            upgradeType: effect.upgradeType,
             percent: effect.percent,
             synergy: null,
         }
 
-        result.value = result.range ? valueOrDefault(result.range[itemValue], 0) : effect.value + effect.upgrade * reinforcment;
+        result.value = result.range ? valueOrDefault(result.range[itemValue], 0) : effect.value + effect.upgrade * upgradeMultiplier;
 
         return result;
     }
 
     public computeEffectSynergyDetails(effect: EffectValueSynergy, itemValue: number, reinforcment: number): ComputedEffectValue {
+
+        const upgradeMultiplier = effect.upgradeType === EffectValueUpgradeType.Every3 ? Math.floor(reinforcment / 3) : reinforcment;
+
         const result: ComputedEffectValue = {
             value: 0,
             baseValue: effect.ratio,
-            range: effect.range ? this.computeEffectRange(effect.ratio, effect.upgrade * reinforcment) : null,
+            range: effect.range ? this.computeEffectRange(effect.ratio, effect.upgrade * upgradeMultiplier) : null,
             baseRange: effect.range ? this.computeEffectRange(effect.ratio, 0) : null,
             upgrade: effect.upgrade,
+            upgradeType: effect.upgradeType,
             percent: true,
             synergy: null,
         }
 
-        result.value = result.range ? valueOrDefault(result.range[itemValue], 0) : effect.ratio + effect.upgrade * reinforcment;
+        result.value = result.range ? valueOrDefault(result.range[itemValue], 0) : effect.ratio + effect.upgrade * upgradeMultiplier;
 
-        result.synergy = effect.source === 'physical_damage' || effect.source === 'weapon_damage' ? {min: 0, max: 0} : 0;
+        result.synergy = effect.source === 'physical_damage' || effect.source === 'weapon_damage' || effect.source === 'elemental_damage' ? {min: 0, max: 0} : 0;
 
         return result;
     }

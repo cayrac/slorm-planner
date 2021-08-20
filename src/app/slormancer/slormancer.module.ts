@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { SlormancerActivableService } from './services/slormancer-activable.service';
 import { SlormancerDataService } from './services/slormancer-data.service';
 import { SlormancerEffectValueService } from './services/slormancer-effect-value.service';
 import { SlormancerItemParserService } from './services/slormancer-item-parser.service';
@@ -23,6 +24,7 @@ import { SlormancerTemplateService } from './services/slormancer-template.servic
     SlormancerDataService,
     SlormancerItemService,
     SlormancerTemplateService,
+    SlormancerActivableService,
     SlormancerSkillService,
     SlormancerReaperService,
     SlormancerEffectValueService,

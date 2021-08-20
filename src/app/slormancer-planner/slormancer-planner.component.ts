@@ -10,11 +10,13 @@ import { GameDataLegendary } from '../slormancer/model/game/data/game-data-legen
 import { GameAffix, GameEquippableItem } from '../slormancer/model/game/game-item';
 import { LegendaryEffect } from '../slormancer/model/legendary-effect';
 import { Reaper } from '../slormancer/model/reaper';
+import { Skill } from '../slormancer/model/skill';
 import { SlormancerDataService } from '../slormancer/services/slormancer-data.service';
 import { SlormancerItemService } from '../slormancer/services/slormancer-item.service';
 import { SlormancerLegendaryEffectService } from '../slormancer/services/slormancer-legendary-effect.service';
 import { SlormancerReaperService } from '../slormancer/services/slormancer-reaper.service';
 import { SlormancerSaveParserService } from '../slormancer/services/slormancer-save-parser.service';
+import { SlormancerSkillService } from '../slormancer/services/slormancer-skill.service';
 import { valueOrNull } from '../slormancer/util/utils';
 import { SAVE } from './save';
 
@@ -65,6 +67,9 @@ export class SlormancerPlannerComponent implements OnInit {
     public selectedReaper: Reaper | null = null;
     public selectedReaperIndex: number | null = 17;
 
+    public selectedSkill: Skill | null = null;
+    public selectedSkillIndex: number = 10;
+
     public details: boolean = false;
     public reaperBase: number = 105;
     public primordial: boolean = true;
@@ -74,6 +79,7 @@ export class SlormancerPlannerComponent implements OnInit {
 
     constructor(private slormancerSaveParserService: SlormancerSaveParserService,
                 private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
+                private slormancerSkillService: SlormancerSkillService,
                 private slormancerDataService: SlormancerDataService,
                 private slormancerItemService: SlormancerItemService,
                 private slormancerReaperService: SlormancerReaperService) {
@@ -160,6 +166,18 @@ export class SlormancerPlannerComponent implements OnInit {
             }
         }
 
+        if (this.selectedSkillIndex !== null) {
+            const skills = GAME_DATA.SKILL[this.selectedClass];
+            this.selectedSkill = null;
+
+            if (skills) {
+                const skill = skills[this.selectedSkillIndex];
+                if (skill) {
+                    this.selectedSkill = this.slormancerSkillService.getSkill(skill, this.selectedClass, this.level, this.bonusLevel);
+                }
+            }
+        }
+
         this.customReaper = this.slormancerReaperService.getReaperById(this.reaperBase, this.selectedClass, this.primordial, this.level, this.level, 12345, 12345, this.bonusLevel);
     }
 
@@ -229,6 +247,11 @@ export class SlormancerPlannerComponent implements OnInit {
         if (id) {
             console.log(this.slormancerDataService.getGameDataReaper(id));
         }
+    }
+
+    public showSkill(selectedSkill: Skill, index: number) {
+        console.log(selectedSkill);
+        console.log(GAME_DATA.SKILL[this.selectedClass][index]);
     }
 
     public clearSave() {
@@ -339,6 +362,13 @@ export class SlormancerPlannerComponent implements OnInit {
 
     public getReaperBaseOptions(): Array<{ label: string, value: number }> {
         return GAME_DATA.REAPER.map(reaper => ({ label: reaper.EN_NAME, value: reaper.REF }))
+            .filter(option => option.label !== null && option.label.length > 0);
+    }
+
+    public getSkillBaseOptions(): Array<{ label: string, value: number }> {
+        const skills = GAME_DATA.SKILL[this.selectedClass];
+
+        return skills.map(skill => ({ label: skill.EN_NAME + (skill.ACTIVE_BOX && skill.ACTIVE_BOX !== skill.REF ? ' (' + skills[skill.ACTIVE_BOX]?.EN_NAME + ')' : ''), value: skill.REF }))
             .filter(option => option.label !== null && option.label.length > 0);
     }
 }

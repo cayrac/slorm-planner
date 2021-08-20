@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 
+import { Activable } from '../../../slormancer/model/activable';
 import { Affix } from '../../../slormancer/model/affix';
 import { AttributeEnchantment } from '../../../slormancer/model/attribute-enchantment';
 import { HeroClass } from '../../../slormancer/model/enum/hero-class';
@@ -8,7 +9,6 @@ import { SkillCostType } from '../../../slormancer/model/enum/skill-cost-type';
 import { SkillGenre } from '../../../slormancer/model/enum/skill-genre';
 import { EquipableItem } from '../../../slormancer/model/equipable-item';
 import { ReaperEnchantment } from '../../../slormancer/model/reaper-enchantment';
-import { Skill } from '../../../slormancer/model/skill';
 import { SkillEnchantment } from '../../../slormancer/model/skill-enchantment';
 import { SlormancerTemplateService } from '../../../slormancer/services/slormancer-template.service';
 import { valueOrNull } from '../../../slormancer/util/utils';
@@ -104,21 +104,21 @@ export class ItemViewComponent {
         let description: string | null = null;
 
         if (this.item !== null && this.item.legendaryEffect !== null && this.item.legendaryEffect.activable !== null) {
-            description = this.slormancerTemplateService.formatSkillDescription(this.item.legendaryEffect.activable, this.item.reinforcment);
+            description = this.slormancerTemplateService.formatActivableDescription(this.item.legendaryEffect.activable, this.item.reinforcment);
         }
 
         return description;
     }
 
-    public activableHasCost(activable: Skill): boolean {
+    public activableHasCost(activable: Activable): boolean {
         return activable.costType !== SkillCostType.None;
     }
 
-    public activableHasLifeCost(activable: Skill): boolean {
+    public activableHasLifeCost(activable: Activable): boolean {
         return activable.costType === SkillCostType.LifeSecond || activable.costType === SkillCostType.LifeLock || activable.costType === SkillCostType.Life;
     }
 
-    public activableHasManaCost(activable: Skill): boolean {
+    public activableHasManaCost(activable: Activable): boolean {
         return activable.costType === SkillCostType.ManaSecond || activable.costType === SkillCostType.ManaLock || activable.costType === SkillCostType.Mana;
     }
 

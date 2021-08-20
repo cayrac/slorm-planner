@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 
+import { Activable } from '../model/activable';
 import { AttributeEnchantment } from '../model/attribute-enchantment';
 import { ComputedEffectValue } from '../model/computed-effect-value';
 import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
+import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
 import { EffectValueValueType } from '../model/enum/effect-value-value-type';
 import { HeroClass } from '../model/enum/hero-class';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
+import { GameDataSkill } from '../model/game/data/game-data-skill';
 import { LegendaryEffect } from '../model/legendary-effect';
 import { ReaperEnchantment } from '../model/reaper-enchantment';
-import { Skill } from '../model/skill';
 import { SkillEnchantment } from '../model/skill-enchantment';
 import { strictParseInt } from '../util/parse.util';
 import {
@@ -37,7 +39,7 @@ export class SlormancerTemplateService {
     public readonly STAT_ANCHOR = '£';
     public readonly TYPE_ANCHOR = '$';
     public readonly VALUE_ANCHOR = '@';
-    public readonly CONSTANT_ANCHORS = ['¤', '~'];
+    public readonly CONSTANT_ANCHORS = ['¤', '~', '§', '¥'];
     public readonly SYNERGY_ANCHOR = '_';
     public readonly MINMAX_ANCHOR = '_';
     public readonly SYNERGY_PREFIX = 'synergy:';
@@ -56,7 +58,7 @@ export class SlormancerTemplateService {
         return template.replace(anchor, value);
     }
 
-    private computedItemValueToFormula(computed: ComputedEffectValue): string {
+    private computedItemValueToFormula(computed: ComputedEffectValue, upgradeName: string = 'upgrade'): string {
         let formula: string | null = null;
         const percent = computed.percent ? '%' : '';
 
@@ -71,7 +73,7 @@ export class SlormancerTemplateService {
                     formula += computed.baseValue + percent;
                 }
 
-                formula += ' + ' + computed.upgrade + percent + ' per upgrade';
+                formula += ' + ' + computed.upgrade + percent + (computed.upgradeType === EffectValueUpgradeType.Every3  ? ' every third ' + upgradeName + ' level' : ' per ' + upgradeName);
             }
         }
 
@@ -84,6 +86,16 @@ export class SlormancerTemplateService {
 
         const value = this.asSpan(computed.value + percent, 'value')
         const formula = this.computedItemValueToFormula(computed);
+
+        return this.replaceAnchor(template, value + formula, anchor);
+    }
+
+    private applySkillEffectValueVariable(template: string, baseValue: number, effectValue: EffectValueVariable, reinforcment: number, anchor: string): string {
+        const computed = this.slormancerItemValueService.computeEffectVariableDetails(effectValue, baseValue, reinforcment);
+        const percent = computed.percent ? '%' : '';
+
+        const value = this.asSpan(computed.value + percent, 'value')
+        const formula = this.computedItemValueToFormula(computed, 'mastery');
 
         return this.replaceAnchor(template, value + formula, anchor);
     }
@@ -168,7 +180,26 @@ export class SlormancerTemplateService {
                 synergy = this.asSpan(computed.synergy.min + ' - ' + computed.synergy.max, 'value');
                 template = this.replaceAnchor(template, synergy + formula, synergyAnchor);
             }
+        }
 
+        return template;
+    }
+
+    private applyEffectValueSynergyForSkill(template: string, baseValue: number, effectValue: EffectValueSynergy, reinforcment: number, valueAnchor: string,  synergyAnchor: string): string {
+        const computed = this.slormancerItemValueService.computeEffectSynergyDetails(effectValue, baseValue, reinforcment);
+        const formula = this.computedItemValueToFormula(computed, 'mastery');
+
+        if (computed.synergy !== null) {
+            let synergy: string | null = null;
+
+            if (typeof computed.synergy === 'number') {
+                synergy = this.asSpan(computed.synergy.toString(), 'value');
+                template = this.replaceAnchor(template, synergy, valueAnchor);
+                template = this.replaceAnchor(template, this.asSpan(computed.value + '%', 'value') + formula, synergyAnchor);
+            } else {
+                synergy = this.asSpan(computed.synergy.min + ' - ' + computed.synergy.max, 'value');
+                template = this.replaceAnchor(template, synergy + formula, synergyAnchor);
+            }
         }
 
         return template;
@@ -193,7 +224,7 @@ export class SlormancerTemplateService {
         return template;
     }
 
-    public formatSkillDescription(skill: Skill, level: number): string {
+    public formatActivableDescription(skill: Activable, level: number): string {
         let template = skill.description;
 
         for (let effectValue of skill.values) {
@@ -211,6 +242,26 @@ export class SlormancerTemplateService {
         }
 
         return template;
+    }
+
+    public formatSkillDescription(template: string, values: Array<AbstractEffectValue>, level: number): string {
+        let description = template;
+
+        for (let effectValue of values) {
+            if (isEffectValueVariable(effectValue)) {
+                description = this.applySkillEffectValueVariable(description, 0, effectValue, level, this.VALUE_ANCHOR);
+            } else if (isEffectValueConstant(effectValue)) {
+                const anchor = findFirst(description, this.CONSTANT_ANCHORS);
+                if (anchor !== null) {
+                    description = this.applyEffectValueConstant(description, effectValue, anchor);
+                }
+            } else if (isEffectValueSynergy(effectValue)) {
+                description = this.applyEffectValueSynergyForSkill(description, 0, effectValue, level, this.VALUE_ANCHOR, this.VALUE_ANCHOR);
+            }
+            
+        }
+
+        return description;
     }
 
     public formatReaperTemplate(template: string, values: Array<AbstractEffectValue>, level: number, nonPrimordialLevel: number): string {
@@ -239,12 +290,21 @@ export class SlormancerTemplateService {
         return this.parseTemplate(data.EN_DESC, stats, types)
     }
 
-    public getSkillDescriptionTemplate(data: GameDataActivable): string {
+    public getActivableDescriptionTemplate(data: GameDataActivable): string {
         // TODO stats peuvent demander des infos qu'on ne peux avoir que sur la génération dynamique, à déplacer plus tard
         const stats = splitData(data.DESC_VALUE);
         const types = splitData(data.DESC_VALUE_REAL);
         
         return this.parseTemplate(data.EN_DESCRIPTION, stats, types);
+    }
+
+    public getSkillDescriptionTemplate(data: GameDataSkill): string {
+        // TODO stats peuvent demander des infos qu'on ne peux avoir que sur la génération dynamique, à déplacer plus tard
+        const stats = splitData(data.DESC_VALUE);
+        const types = splitData(data.DESC_VALUE_REAL);
+        
+        const template = data.EN_DESCRIPTION.replace(/ \(.*?\)/g, '');
+        return this.parseTemplate(template, stats, types);
     }
 
     public getReaperDescriptionTemplate(template: string, stats: Array<string> = []): [string, string, string] {
@@ -306,6 +366,7 @@ export class SlormancerTemplateService {
         const gameData = this.slormancerDataService.getTranslation(key);
         const data = this.slormancerDataService.getDataAffixByRef(key);
         const keyword = this.slormancerDataService.getKeywordName(key);
+        const dataTranslate = this.slormancerDataService.getDataTranslate(key);
         let result = key;
 
         if (gameData !== null) {
@@ -314,6 +375,8 @@ export class SlormancerTemplateService {
             result = data.name;
         } else if (keyword !== null) {
             result = keyword;
+        } else if (dataTranslate !== null) {
+            result = dataTranslate;
         } else if (key.startsWith('victims_reaper_')) {
             const reaper = this.slormancerDataService.getGameDataReaper(strictParseInt(key.substr(15)));
             if (reaper !== null) {

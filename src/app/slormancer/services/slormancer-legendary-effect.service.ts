@@ -7,9 +7,9 @@ import { GameAffix } from '../model/game/game-item';
 import { LegendaryEffect } from '../model/legendary-effect';
 import { list } from '../util/math.util';
 import { emptyStringToNull, splitData, splitFloatData, valueOrDefault, valueOrNull } from '../util/utils';
+import { SlormancerActivableService } from './slormancer-activable.service';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerEffectValueService } from './slormancer-effect-value.service';
-import { SlormancerSkillService } from './slormancer-skill.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 
 
@@ -17,7 +17,7 @@ import { SlormancerTemplateService } from './slormancer-template.service';
 export class SlormancerLegendaryEffectService {
 
     constructor(private slormancerDataService: SlormancerDataService,
-                private slormanderSkillService: SlormancerSkillService,
+                private slormanderSkillService: SlormancerActivableService,
                 private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerEffectValueService: SlormancerEffectValueService
                 ) { }

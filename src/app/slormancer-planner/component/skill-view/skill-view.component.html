@@ -1,0 +1,27 @@
+<div class="skill" *ngIf="skill !== null">
+    <div class="head">{{skill.name}}</div>
+    <div class="content">
+        <div class="info">
+            <div class="icon">
+                <div class="icon-border"></div>
+                <img src="assets/img/icon/{{skill.icon}}.png" />
+            </div>
+            <div class="data">
+                <div class="genre" *ngIf="skill.genres.length > 0">{{getGenresLabel(skill.genres)}}</div>
+                <div class="cooldown" *ngIf="skill.cooldown > 0">Cooldown : <span class="value">{{skill.cooldown}}</span> seconds</div>
+                <div class="cost" *ngIf="!skill.hasNoCost">Total Cost :
+                    <span [class.life]="skill.hasLifeCost" [class.mana]="skill.hasManaCost">{{skill.cost}}</span>
+                    <span> {{getCostLabel(skill.costType)}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="separator"></div>
+        <div class="description" [innerHTML]="skill.description"></div>
+        <div class="level">
+            <div class="total">
+                <span class="base" [class.max]="skill.baseLevel === skill.maxLevel">{{skill.baseLevel}}</span>
+                <span class="bonus" *ngIf="skill.bonusLevel > 0"> + {{skill.bonusLevel}}</span>
+            </div>
+        </div>
+    </div>
+</div>

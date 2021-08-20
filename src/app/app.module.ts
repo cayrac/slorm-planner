@@ -10,6 +10,7 @@ import { ActivableViewComponent } from './slormancer-planner/component/activable
 import { ItemViewComponent } from './slormancer-planner/component/item-view/item-view.component';
 import { JsonComponent } from './slormancer-planner/component/json/json.component';
 import { ReaperViewComponent } from './slormancer-planner/component/reaper-view/reaper-view.component';
+import { SkillViewComponent } from './slormancer-planner/component/skill-view/skill-view.component';
 import { SlormancerPlannerComponent } from './slormancer-planner/slormancer-planner.component';
 
 @NgModule({
@@ -20,6 +21,7 @@ import { SlormancerPlannerComponent } from './slormancer-planner/slormancer-plan
     ItemViewComponent,
     ReaperViewComponent,
     ActivableViewComponent,
+    SkillViewComponent,
   ],
   imports: [
     BrowserModule,

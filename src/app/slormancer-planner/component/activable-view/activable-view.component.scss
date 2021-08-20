@@ -30,10 +30,12 @@ $zeal-color            : rgb(75, 193, 178);
 $willpower-color       : rgb(117, 48, 152); 
 $dexterity-color       : rgb(205, 112, 40); 
 $bravery-color         : rgb(191, 60, 89); 
+$item-text-color       : white;
 
 .activable {
     background-color: $activable-bg;
     border: 3px solid black;
+    color: $item-text-color;
     padding: 5px;
     display: flex;
     flex-direction: column;

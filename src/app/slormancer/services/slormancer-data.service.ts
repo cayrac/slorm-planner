@@ -8,12 +8,15 @@ import { DATA_LEGENDARY } from '../constants/data/data-legendary';
 import { DATA_LEGENDARY_BASE } from '../constants/data/data-legendary-base';
 import { DATA_REAPER } from '../constants/data/data-reaper';
 import { DATA_REAPER_DAMAGES } from '../constants/data/data-reaper-damages';
+import { DATA_SKILL } from '../constants/data/data-skill';
+import { DATA_TRANSLATE } from '../constants/data/data-translate';
 import { GAME_DATA } from '../constants/game/game-data';
 import { DataActivable } from '../model/data/data-activable';
 import { DataAffix } from '../model/data/data-affix';
 import { DataEquipableItemType } from '../model/data/data-equipable-item-type';
 import { DataLegendary } from '../model/data/data-legendary';
 import { DataReaper } from '../model/data/data-reaper';
+import { DataSkill } from '../model/data/data-skill';
 import { EquipableItemType } from '../model/enum/equipable-item-type';
 import { HeroClass } from '../model/enum/hero-class';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
@@ -95,6 +98,10 @@ export class SlormancerDataService {
         return valueOrNull(DATA_REAPER[id]);
     }
 
+    public getDataSkill(id: number): DataSkill | null {
+        return valueOrNull(DATA_SKILL[id]);
+    }
+
     public getGameDataLegendaryActivableBasedOn(id: number): GameDataActivable | null {
         const activable = GAME_DATA.ACTIVABLE
             .filter(activable => activable.BASED_ON === 'legendary')
@@ -117,5 +124,9 @@ export class SlormancerDataService {
 
     public getKeywordName(keyword: string): string | null {
         return valueOrNull(DATA_KEYWORD_NAME[keyword]);
+    }
+
+    public getDataTranslate(key: string): string | null {
+        return valueOrNull(DATA_TRANSLATE[key]);
     }
 }

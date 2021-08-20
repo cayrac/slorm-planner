@@ -13,9 +13,9 @@ import { ReaperEffect } from '../model/reaper-effect';
 import { list } from '../util/math.util';
 import { strictParseFloat } from '../util/parse.util';
 import { compare, isNotNullOrUndefined, notEmptyOrNull, removeEmptyValues, splitData, valueOrNull } from '../util/utils';
+import { SlormancerActivableService } from './slormancer-activable.service';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerEffectValueService } from './slormancer-effect-value.service';
-import { SlormancerSkillService } from './slormancer-skill.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 
 @Injectable()
@@ -26,7 +26,7 @@ export class SlormancerReaperService {
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerEffectValueService: SlormancerEffectValueService,
-                private slormancerSkillService: SlormancerSkillService) { }
+                private slormancerSkillService: SlormancerActivableService) { }
 
     public getReaper(reaper: GameWeapon, weaponClass: HeroClass, primordial: boolean, bonusLevel: number = 0): Reaper | null {
         const level = this.getReaperLevel(reaper.basic.experience);
