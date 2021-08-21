@@ -148,30 +148,6 @@ $bravery-color         : rgb(191, 60, 89);
             .description {
                 flex-grow: 1;
             }
-
-            .level {
-                display: flex;
-                flex-direction: row;
-                justify-content: space-around;
-                .total {
-                    padding: 0 5px;
-                    background-color: $skill-level-bg-color;
-                    border: 4px solid $skill-level-border;
-
-                    .base {
-                        font-size: 25px;
-
-                        &.max {
-                            color: $skill-level-max-color;
-                        }
-                    }
-
-                    .bonus {
-                        font-size: 20px;
-                        color: $skill-level-bonus-color;
-                    }
-                }
-            }
         }
     }
 }

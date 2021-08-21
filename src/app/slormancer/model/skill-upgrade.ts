@@ -3,19 +3,17 @@ import { SkillCostType } from './enum/skill-cost-type';
 import { SkillGenre } from './enum/skill-genre';
 import { SkillType } from './skill-type';
 
-export interface Skill {
+export interface SkillUpgrade {
     id: number;
-    type: SkillType.Active | SkillType.Support;
-    unlockLevel: number | null;
-    level: number;
-    maxLevel: number;
-    baseLevel: number;
-    bonusLevel: number;
+    skillId: number;
+    type: SkillType.Passive | SkillType.Upgrade;
+    upgradeLevel: number | null;
+    rank: number;
+    maxRank: number;
+    baseRank: number;
     name: string;
     icon: string;
     description: string;
-    baseCooldown: number;
-    cooldown: number;
     baseCost: number;
     perLevelCost: number;
     cost: number;

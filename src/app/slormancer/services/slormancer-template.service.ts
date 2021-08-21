@@ -70,7 +70,7 @@ export class SlormancerTemplateService {
             
             if (computed.upgrade > 0) {
                 if (computed.baseRange === null) {
-                    formula += computed.baseValue + percent;
+                    formula += computed.baseFormulaUpgrade + percent;
                 }
 
                 formula += ' + ' + computed.upgrade + percent + (computed.upgradeType === EffectValueUpgradeType.Every3  ? ' every third ' + upgradeName + ' level' : ' per ' + upgradeName);
@@ -198,7 +198,7 @@ export class SlormancerTemplateService {
                 template = this.replaceAnchor(template, this.asSpan(computed.value + '%', 'value') + formula, synergyAnchor);
             } else {
                 synergy = this.asSpan(computed.synergy.min + ' - ' + computed.synergy.max, 'value');
-                template = this.replaceAnchor(template, synergy + formula, synergyAnchor);
+                template = this.replaceAnchor(template, synergy + formula, effectValue.valueType === EffectValueValueType.Damage ? valueAnchor : synergyAnchor);
             }
         }
 
@@ -256,7 +256,7 @@ export class SlormancerTemplateService {
                     description = this.applyEffectValueConstant(description, effectValue, anchor);
                 }
             } else if (isEffectValueSynergy(effectValue)) {
-                description = this.applyEffectValueSynergyForSkill(description, 0, effectValue, level, this.VALUE_ANCHOR, this.VALUE_ANCHOR);
+                description = this.applyEffectValueSynergyForSkill(description, 0, effectValue, level, this.VALUE_ANCHOR, this.SYNERGY_ANCHOR);
             }
             
         }
@@ -303,7 +303,7 @@ export class SlormancerTemplateService {
         const stats = splitData(data.DESC_VALUE);
         const types = splitData(data.DESC_VALUE_REAL);
         
-        const template = data.EN_DESCRIPTION.replace(/ \(.*?\)/g, '');
+        const template = data.EN_DESCRIPTION.replace(/ \(.*?(%|\+).*?\)/g, '');
         return this.parseTemplate(template, stats, types);
     }
 

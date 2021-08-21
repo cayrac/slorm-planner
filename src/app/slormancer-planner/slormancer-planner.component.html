@@ -20,6 +20,11 @@
                     <option [ngValue]="option.value" *ngFor="let option of getSkillBaseOptions()">{{option.label}}</option>
                 </select>
             </p>
+            <p>Upgrades :
+                <select (change)="updateData()" [(ngModel)]="selectedUpgradeIndex">
+                    <option [ngValue]="option.value" *ngFor="let option of getUpgradeBaseOptions()">{{option.label}}</option>
+                </select>
+            </p>
             <p>Primordial : <input (change)="updateData()" type="checkbox" [(ngModel)]="primordial"></p>
             <p>Level : <input (change)="updateData()" type="number" [(ngModel)]="level"></p>
             <p>Bonus : <input (change)="updateData()" type="number" [(ngModel)]="bonusLevel"></p>
@@ -28,6 +33,7 @@
         <div class="item" *ngIf="selectedExtendedItem !== null">
             <!--<app-json [data]="save.skill_rank[1]" (click)="showData(save.skill_rank[1])"></app-json>-->
 
+            <app-skill-upgrade-view [upgrade]="selectedUpgrade" *ngIf="selectedUpgrade !== null" (click)="showUpgrade(selectedUpgrade, selectedUpgradeIndex)"></app-skill-upgrade-view>
             <app-skill-view [skill]="selectedSkill" *ngIf="selectedSkill !== null" (click)="showSkill(selectedSkill, selectedSkillIndex)"></app-skill-view>
             <div class="parsed">
                 <!--<app-reaper-view (click)="showData(customReaper)" [reaper]="customReaper"></app-reaper-view>

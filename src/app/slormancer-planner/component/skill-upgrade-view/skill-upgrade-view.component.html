@@ -1,0 +1,22 @@
+<div class="skill" *ngIf="upgrade !== null">
+    <div class="head">{{upgrade.name}}</div>
+    <div class="content">
+        <div class="info">
+            <div class="visual">
+                <div class="icon">
+                    <div class="icon-border"></div>
+                    <img src="assets/img/icon/{{upgrade.icon}}.png" />
+                </div>
+            </div>
+            <div class="data">
+                <div class="genre" *ngIf="upgrade.genres.length > 0">{{getGenresLabel(upgrade.genres)}}</div>
+                <div class="cost" *ngIf="!upgrade.hasNoCost">Total Cost :
+                    <span [class.life]="upgrade.hasLifeCost" [class.mana]="upgrade.hasManaCost">{{upgrade.cost}}</span>
+                    <span> {{getCostLabel(upgrade.costType)}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="separator"></div>
+        <div class="description" [innerHTML]="upgrade.description"></div>
+    </div>
+</div>

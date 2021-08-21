@@ -175,12 +175,14 @@ export class SlormancerItemValueService {
             range: effect.range ? this.computeEffectRange(effect.value, effect.upgrade * upgradeMultiplier) : null,
             baseRange: effect.range ? this.computeEffectRange(effect.value, 0) : null,
             upgrade: effect.upgrade,
+            baseFormulaUpgrade: 0,
             upgradeType: effect.upgradeType,
             percent: effect.percent,
             synergy: null,
         }
 
         result.value = result.range ? valueOrDefault(result.range[itemValue], 0) : effect.value + effect.upgrade * upgradeMultiplier;
+        result.baseFormulaUpgrade = result.range ? valueOrDefault(result.range[itemValue], 0) : effect.value + effect.upgrade;
 
         return result;
     }
@@ -195,12 +197,14 @@ export class SlormancerItemValueService {
             range: effect.range ? this.computeEffectRange(effect.ratio, effect.upgrade * upgradeMultiplier) : null,
             baseRange: effect.range ? this.computeEffectRange(effect.ratio, 0) : null,
             upgrade: effect.upgrade,
+            baseFormulaUpgrade: 0,
             upgradeType: effect.upgradeType,
             percent: true,
             synergy: null,
         }
 
         result.value = result.range ? valueOrDefault(result.range[itemValue], 0) : effect.ratio + effect.upgrade * upgradeMultiplier;
+        result.baseFormulaUpgrade = result.range ? valueOrDefault(result.range[itemValue], 0) : effect.ratio + effect.upgrade;
 
         result.synergy = effect.source === 'physical_damage' || effect.source === 'weapon_damage' || effect.source === 'elemental_damage' ? {min: 0, max: 0} : 0;
 

@@ -9,6 +9,8 @@ import { SkillCostType } from '../model/enum/skill-cost-type';
 import { SkillGenre } from '../model/enum/skill-genre';
 import { GameDataSkill } from '../model/game/data/game-data-skill';
 import { Skill } from '../model/skill';
+import { SkillType } from '../model/skill-type';
+import { SkillUpgrade } from '../model/skill-upgrade';
 import { list, round } from '../util/math.util';
 import { emptyStringToNull, removeEmptyValues, splitData, splitFloatData, valueOrDefault, valueOrNull } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
@@ -31,8 +33,6 @@ export class SlormancerSkillService {
         const valueReals = emptyStringToNull(splitData(data.DESC_VALUE_REAL));
         const stats = emptyStringToNull(splitData(data.DESC_VALUE));
         const damageTypes = removeEmptyValues(splitData(data.DMG_TYPE));
-
-        console.log('DMG_TYPE')
 
         const max = Math.max(valueBases.length, valuePerLevels.length, valueTypes.length);
 
@@ -95,38 +95,44 @@ export class SlormancerSkillService {
         return result;
     }
 
-    public getSkill(gameData: GameDataSkill, heroClass: HeroClass, baseLevel: number, bonusLevel: number = 0): Skill {
-        const dataSkill = this.slormancerDataService.getDataSkill(gameData.REF);
-        const skill: Skill = {
-            id: gameData.REF,
-            level: 0,
-            maxLevel: gameData.UPGRADE_NUMBER,
-            baseLevel: Math.min(gameData.UPGRADE_NUMBER, baseLevel),
-            bonusLevel,
-            name: gameData.EN_NAME,
-            icon: 'skill/' + heroClass + '/' + gameData.REF,
-            description: '',
-            baseCooldown: gameData.COOLDOWN,
-            cooldown: 0,
-            baseCost: gameData.COST,
-            perLevelCost: gameData.COST_LEVEL,
-            cost: 0,
-            costType: <SkillCostType>gameData.COST_TYPE,
-            hasLifeCost: false,
-            hasManaCost: false,
-            hasNoCost: false,
-            damageTypes: splitData(gameData.DMG_TYPE, ','),
-            genres: <Array<SkillGenre>>splitData(gameData.GENRE, ','),
-        
-            template: this.slormancerTemplateService.getSkillDescriptionTemplate(gameData),
-            values: this.parseEffectValues(gameData)
-        };
+    public getSkill(skillId: number, heroClass: HeroClass, baseLevel: number, bonusLevel: number = 0): Skill | null {
+        const gameDataSkill = this.slormancerDataService.getGameDataSkill(heroClass, skillId);
+        const dataSkill = this.slormancerDataService.getDataSkill(heroClass, skillId);
+        let skill: Skill | null = null;
 
-        if (dataSkill !== null) {
-            dataSkill.override(skill.values);
+        if (gameDataSkill !== null && (gameDataSkill.TYPE == SkillType.Support || gameDataSkill.TYPE === SkillType.Active)) {
+            skill = {
+                id: gameDataSkill.REF,
+                type: gameDataSkill.TYPE,
+                level: 0,
+                unlockLevel: gameDataSkill.UNLOCK_LEVEL,
+                maxLevel: gameDataSkill.UPGRADE_NUMBER,
+                baseLevel: Math.min(gameDataSkill.UPGRADE_NUMBER, baseLevel),
+                bonusLevel,
+                name: gameDataSkill.EN_NAME,
+                icon: 'skill/' + heroClass + '/' + gameDataSkill.REF,
+                description: '',
+                baseCooldown: gameDataSkill.COOLDOWN,
+                cooldown: 0,
+                baseCost: gameDataSkill.COST,
+                perLevelCost: gameDataSkill.COST_LEVEL,
+                cost: 0,
+                costType: <SkillCostType>gameDataSkill.COST_TYPE,
+                hasLifeCost: false,
+                hasManaCost: false,
+                hasNoCost: false,
+                genres: <Array<SkillGenre>>splitData(gameDataSkill.GENRE, ','),
+            
+                template: this.slormancerTemplateService.getSkillDescriptionTemplate(gameDataSkill),
+                values: this.parseEffectValues(gameDataSkill)
+            };
+    
+            if (dataSkill !== null) {
+                dataSkill.override(skill.values);
+            }
+    
+            this.updateSkill(skill);
         }
-
-        this.updateSkill(skill);
 
         return skill;
     }
@@ -139,6 +145,56 @@ export class SlormancerSkillService {
 
         skill.hasLifeCost = skill.costType === SkillCostType.LifeSecond || skill.costType === SkillCostType.LifeLock || skill.costType === SkillCostType.Life;
         skill.hasManaCost = skill.costType === SkillCostType.ManaSecond || skill.costType === SkillCostType.ManaLock || skill.costType === SkillCostType.Mana;
-        skill.hasNoCost = skill.costType === SkillCostType.None;
+        skill.hasNoCost = skill.costType === SkillCostType.None || skill.cost === 0;
+    }
+
+    public updateUpgrade(upgrade: SkillUpgrade) {
+        upgrade.rank = Math.min(upgrade.maxRank, upgrade.baseRank);
+        upgrade.description = this.slormancerTemplateService.formatSkillDescription(upgrade.template, upgrade.values, upgrade.rank);
+        upgrade.cost = upgrade.baseCost + upgrade.perLevelCost * upgrade.rank;
+
+        upgrade.hasLifeCost = upgrade.costType === SkillCostType.LifeSecond || upgrade.costType === SkillCostType.LifeLock || upgrade.costType === SkillCostType.Life;
+        upgrade.hasManaCost = upgrade.costType === SkillCostType.ManaSecond || upgrade.costType === SkillCostType.ManaLock || upgrade.costType === SkillCostType.Mana;
+        upgrade.hasNoCost = upgrade.costType === SkillCostType.None || upgrade.cost === 0;
+    }
+
+    public getUpgrade(upgradeId: number, heroClass: HeroClass, baseRank: number): SkillUpgrade | null {
+        const gameDataSkill = this.slormancerDataService.getGameDataSkill(heroClass, upgradeId);
+        const dataSkill = this.slormancerDataService.getDataSkill(heroClass, upgradeId);
+        let upgrade: SkillUpgrade | null = null;
+
+        if (gameDataSkill !== null && (gameDataSkill.TYPE == SkillType.Passive || gameDataSkill.TYPE === SkillType.Upgrade)) {
+            upgrade = {
+                id: gameDataSkill.REF,
+                skillId: gameDataSkill.ACTIVE_BOX,
+                type: gameDataSkill.TYPE,
+                rank: 0,
+                upgradeLevel: gameDataSkill.UNLOCK_LEVEL,
+                maxRank: gameDataSkill.UPGRADE_NUMBER,
+                baseRank: Math.min(gameDataSkill.UPGRADE_NUMBER, baseRank),
+                name: gameDataSkill.EN_NAME,
+                icon: 'skill/' + heroClass + '/' + gameDataSkill.REF,
+                description: '',
+                baseCost: gameDataSkill.COST,
+                perLevelCost: gameDataSkill.COST_LEVEL,
+                cost: 0,
+                costType: <SkillCostType>gameDataSkill.COST_TYPE,
+                hasLifeCost: false,
+                hasManaCost: false,
+                hasNoCost: false,
+                genres: <Array<SkillGenre>>splitData(gameDataSkill.GENRE, ','),
+            
+                template: this.slormancerTemplateService.getSkillDescriptionTemplate(gameDataSkill),
+                values: this.parseEffectValues(gameDataSkill)
+            };
+    
+            if (dataSkill !== null) {
+                dataSkill.override(upgrade.values);
+            }
+    
+            this.updateUpgrade(upgrade);
+        }
+
+        return upgrade;
     }
 }

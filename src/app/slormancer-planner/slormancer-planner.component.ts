@@ -7,10 +7,12 @@ import { HeroClass } from '../slormancer/model/enum/hero-class';
 import { EquipableItem } from '../slormancer/model/equipable-item';
 import { GameDataActivable } from '../slormancer/model/game/data/game-data-activable';
 import { GameDataLegendary } from '../slormancer/model/game/data/game-data-legendary';
+import { GameDataSkill } from '../slormancer/model/game/data/game-data-skill';
 import { GameAffix, GameEquippableItem } from '../slormancer/model/game/game-item';
 import { LegendaryEffect } from '../slormancer/model/legendary-effect';
 import { Reaper } from '../slormancer/model/reaper';
 import { Skill } from '../slormancer/model/skill';
+import { SkillUpgrade } from '../slormancer/model/skill-upgrade';
 import { SlormancerDataService } from '../slormancer/services/slormancer-data.service';
 import { SlormancerItemService } from '../slormancer/services/slormancer-item.service';
 import { SlormancerLegendaryEffectService } from '../slormancer/services/slormancer-legendary-effect.service';
@@ -58,7 +60,7 @@ export class SlormancerPlannerComponent implements OnInit {
     
     public save: GameSave | null = null;
 
-    public selectedClass: HeroClass = HeroClass.Huntress;
+    public selectedClass: HeroClass = HeroClass.Warrior;
 
     public selectedItem: number | null = 8;
 
@@ -68,7 +70,10 @@ export class SlormancerPlannerComponent implements OnInit {
     public selectedReaperIndex: number | null = 17;
 
     public selectedSkill: Skill | null = null;
-    public selectedSkillIndex: number = 10;
+    public selectedSkillIndex: number = 0;
+    
+    public selectedUpgrade: SkillUpgrade | null = null;
+    public selectedUpgradeIndex: number = 0;
 
     public details: boolean = false;
     public reaperBase: number = 105;
@@ -167,13 +172,25 @@ export class SlormancerPlannerComponent implements OnInit {
         }
 
         if (this.selectedSkillIndex !== null) {
-            const skills = GAME_DATA.SKILL[this.selectedClass];
+            const skills = this.getSkillsForClass(this.selectedClass);
             this.selectedSkill = null;
 
             if (skills) {
                 const skill = skills[this.selectedSkillIndex];
                 if (skill) {
-                    this.selectedSkill = this.slormancerSkillService.getSkill(skill, this.selectedClass, this.level, this.bonusLevel);
+                    this.selectedSkill = this.slormancerSkillService.getSkill(skill.REF, this.selectedClass, this.level, this.bonusLevel);
+                }
+            }
+        }
+
+        if (this.selectedUpgradeIndex !== null && this.selectedSkill !== null) {
+            const upgrades = this.getUpgradesForClassAndSkill(this.selectedClass, this.selectedSkill.id);
+            this.selectedUpgrade = null;
+
+            if (upgrades) {
+                const upgrade = upgrades[this.selectedUpgradeIndex];
+                if (upgrade) {
+                    this.selectedUpgrade = this.slormancerSkillService.getUpgrade(upgrade.REF, this.selectedClass, this.level);
                 }
             }
         }
@@ -249,9 +266,16 @@ export class SlormancerPlannerComponent implements OnInit {
         }
     }
 
+    public showUpgrade(selectedUpgrade: SkillUpgrade, index: number) {
+        if (this.selectedSkill !== null) {
+            console.log(selectedUpgrade);
+            console.log(this.getUpgradesForClassAndSkill(this.selectedClass, this.selectedSkill.id)[index]);
+        }
+    }
+
     public showSkill(selectedSkill: Skill, index: number) {
         console.log(selectedSkill);
-        console.log(GAME_DATA.SKILL[this.selectedClass][index]);
+        console.log(this.getSkillsForClass(this.selectedClass)[index]);
     }
 
     public clearSave() {
@@ -365,10 +389,32 @@ export class SlormancerPlannerComponent implements OnInit {
             .filter(option => option.label !== null && option.label.length > 0);
     }
 
-    public getSkillBaseOptions(): Array<{ label: string, value: number }> {
-        const skills = GAME_DATA.SKILL[this.selectedClass];
+    public getSkillsForClass(heroClass: HeroClass): Array<GameDataSkill> {
+        return GAME_DATA.SKILL[this.selectedClass]
+            .filter(skill => skill.TYPE === 'support' || skill.TYPE === 'active');
+    }
 
-        return skills.map(skill => ({ label: skill.EN_NAME + (skill.ACTIVE_BOX && skill.ACTIVE_BOX !== skill.REF ? ' (' + skills[skill.ACTIVE_BOX]?.EN_NAME + ')' : ''), value: skill.REF }))
-            .filter(option => option.label !== null && option.label.length > 0);
+    public getUpgradesForClassAndSkill(heroClass: HeroClass, skillId: number): Array<GameDataSkill> {
+        return GAME_DATA.SKILL[this.selectedClass]
+            .filter(skill => skill.TYPE === 'upgrade' || skill.TYPE === 'passive')
+            .filter(skill => skill.ACTIVE_BOX === skillId);
+    }
+
+    public getSkillBaseOptions(): Array<{ label: string, value: number }> {
+        const skills = this.getSkillsForClass(this.selectedClass);
+
+        return skills.map(skill => ({ label: skill.EN_NAME, value: skill.REF }));
+    }
+
+    public getUpgradeBaseOptions(): Array<{ label: string, value: number }> {
+        let options: Array<{ label: string, value: number }> = [];
+
+        if (this.selectedSkill !== null) {
+            const upgrades = this.getUpgradesForClassAndSkill(this.selectedClass, this.selectedSkill.id);
+
+            options = upgrades.map(upgrade => ({ label: upgrade.EN_NAME + ' (' + (upgrade.UNLOCK_LEVEL !== null ? upgrade.UNLOCK_LEVEL + 1 : 0) + ')', value: upgrade.REF }));
+        }
+
+        return options;
     }
 }

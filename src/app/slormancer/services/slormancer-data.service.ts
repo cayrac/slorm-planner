@@ -98,8 +98,8 @@ export class SlormancerDataService {
         return valueOrNull(DATA_REAPER[id]);
     }
 
-    public getDataSkill(id: number): DataSkill | null {
-        return valueOrNull(DATA_SKILL[id]);
+    public getDataSkill(heroClass: HeroClass, id: number): DataSkill | null {
+        return valueOrNull(DATA_SKILL[heroClass][id]);
     }
 
     public getGameDataLegendaryActivableBasedOn(id: number): GameDataActivable | null {

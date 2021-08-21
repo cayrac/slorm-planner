@@ -7,6 +7,7 @@ export interface ComputedEffectValue {
     range: { [ key: number]: number } | null;
     baseRange: { [ key: number]: number } | null;
     upgrade: number;
+    baseFormulaUpgrade: number;
     upgradeType: EffectValueUpgradeType;
     percent: boolean;
     synergy: number | MinMax | null; 
