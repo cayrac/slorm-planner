@@ -12,7 +12,7 @@
                 <div class="mastery">{{translate(MASTERY_LABEL)}} {{upgrade.masteryRequired}}</div>
                 <div class="type">{{getTypeLabel(upgrade.type)}}</div>
                 <div class="rank">{{translate(RANK_LABEL)}}: <span class="current">{{upgrade.rank}}</span>/{{upgrade.maxRank}}</div>
-                <div class="cost" *ngIf="!upgrade.hasNoCost">Total Cost :
+                <div class="cost" *ngIf="!upgrade.hasNoCost">Cost :
                     <span [class.life]="upgrade.hasLifeCost" [class.mana]="upgrade.hasManaCost">{{upgrade.cost}}</span>
                     <span> {{getCostLabel(upgrade.costType)}}</span>
                 </div>
@@ -35,14 +35,14 @@
                 </div>
             </div>
         </ng-container>
-        <div class="mechanics" *ngIf="upgrade.relatedClassMechanics.length > 0 || upgrade.relatedAttributeMechanics.length > 0 || upgrade.relatedBuffs.length > 0">
+        <div class="mechanics" *ngIf="upgrade.relatedClassMechanics.length > 0 || upgrade.relatedMechanics.length > 0 || upgrade.relatedBuffs.length > 0">
             <div class="mechanic" *ngFor="let mechanic of upgrade.relatedClassMechanics">
                 <div class="mechanic-icon">
                     <img src="assets/img/icon/{{mechanic.icon}}.png"/>
                 </div>
                 <div class="mechanic-name">{{mechanic.name}}</div>
             </div>
-            <div class="mechanic" *ngFor="let mechanic of upgrade.relatedAttributeMechanics">
+            <div class="mechanic" *ngFor="let mechanic of upgrade.relatedMechanics">
                 <div class="mechanic-icon">
                     <img src="assets/img/icon/{{mechanic.icon}}.png"/>
                 </div>

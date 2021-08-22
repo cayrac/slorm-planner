@@ -1,3 +1,5 @@
 export enum MechanicType {
-    InnerFire = 'inner_fire'
+    InnerFire = 'inner_fire',
+    Overdrive = 'overdrive',
+    lucky = 'lucky'
 }

@@ -6,6 +6,7 @@ import { EffectValueType } from '../model/enum/effect-value-type';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
 import { EffectValueValueType } from '../model/enum/effect-value-value-type';
 import { HeroClass } from '../model/enum/hero-class';
+import { MechanicType } from '../model/enum/mechanic-type';
 import { SkillCostType } from '../model/enum/skill-cost-type';
 import { SkillGenre } from '../model/enum/skill-genre';
 import { GameDataSkill } from '../model/game/data/game-data-skill';
@@ -197,7 +198,7 @@ export class SlormancerSkillService {
                 maxRankDescription: [],
                 // prévoir de déplacer ça dans upgrade quand je ferais refonte templates
                 relatedClassMechanics: this.extractSkillMechanics(gameDataSkill.EN_DESCRIPTION, heroClass, dataSkill === null ? [] : dataSkill.additionalClassMechanics),
-                relatedAttributeMechanics: this.extractAttributeMechanics(values),
+                relatedMechanics: [],
                 relatedBuffs: this.extractBuffs(gameDataSkill.EN_DESCRIPTION),
             
                 template: this.slormancerTemplateService.getSkillDescriptionTemplate(gameDataSkill),
@@ -207,6 +208,8 @@ export class SlormancerSkillService {
             if (dataSkill !== null) {
                 dataSkill.override(upgrade.values);
             }
+
+            upgrade.relatedMechanics = this.extractMechanics(gameDataSkill.EN_DESCRIPTION, values, dataSkill !== null && dataSkill.additionalMechanics ? dataSkill.additionalMechanics : []);
     
             this.updateUpgrade(upgrade);
         }
@@ -250,14 +253,22 @@ export class SlormancerSkillService {
             .filter(isNotNullOrUndefined);
     }
 
-    private extractAttributeMechanics(values: Array<AbstractEffectValue>): Array<Mechanic> {
-        console.log(values.map(value => value.stat));
-        return values.map(value => value.stat)
+    private extractMechanics(template: string, values: Array<AbstractEffectValue>, additional: Array<MechanicType>): Array<Mechanic> {
+        const templateMechanics = valueOrDefault(template.match(/<(.*?)>/g), [])
+            .map(m => this.slormancerDataService.getDataTemplateMechanic(m))
+            .filter(isNotNullOrUndefined)
+            .map(mechanic => this.slormancerMechanicService.getMechanic(mechanic));
+        const attributeMechanics = values.map(value => value.stat)
             .filter(isNotNullOrUndefined)
             .map(stat => this.slormancerDataService.getDataAttributeMechanic(stat))
             .filter(isNotNullOrUndefined)
             .filter(isFirst)
             .map(mechanic => this.slormancerMechanicService.getMechanic(mechanic));
+            console.log('extractMechanics : ', valueOrDefault(template.match(/<(.*?)>/g), []), templateMechanics, [ ...templateMechanics, ...attributeMechanics ]);
+        const additionalMechanics = additional
+            .map(m => this.slormancerMechanicService.getMechanic(m));
+
+            return [ ...attributeMechanics, ...templateMechanics, ...additionalMechanics ];
     }
 
     public updateUpgrade(upgrade: SkillUpgrade) {

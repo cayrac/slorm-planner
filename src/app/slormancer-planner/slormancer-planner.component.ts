@@ -70,10 +70,10 @@ export class SlormancerPlannerComponent implements OnInit {
     public selectedReaperIndex: number | null = 17;
 
     public selectedSkill: Skill | null = null;
-    public selectedSkillIndex: number = 0;
+    public selectedSkillIndex: number = 1;
     
     public selectedUpgrade: SkillUpgrade | null = null;
-    public selectedUpgradeIndex: number = 161;
+    public selectedUpgradeIndex: number = 186;
 
     public details: boolean = false;
     public reaperBase: number = 105;

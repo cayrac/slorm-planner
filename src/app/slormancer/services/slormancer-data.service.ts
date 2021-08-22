@@ -12,6 +12,7 @@ import { DATA_REAPER_DAMAGES } from '../constants/data/data-reaper-damages';
 import { DATA_SKILL } from '../constants/data/data-skill';
 import { DATA_SKILL_BUFF } from '../constants/data/data-skill-buff';
 import { DATA_SKILL_CLASS_MECHANIC_ID } from '../constants/data/data-skill-class-mechanic-id';
+import { DATA_TEMPLATE_MECHANIC } from '../constants/data/data-template-mechanic';
 import { DATA_TRANSLATE } from '../constants/data/data-translate';
 import { GAME_DATA } from '../constants/game/game-data';
 import { DataActivable } from '../model/data/data-activable';
@@ -68,6 +69,10 @@ export class SlormancerDataService {
     
     public getDataAttributeMechanic(attributeName: string): MechanicType | null {
         return valueOrNull(DATA_ATTRIBUTE_MECHANIC[attributeName]);
+    }
+    
+    public getDataTemplateMechanic(templateName: string): MechanicType | null {
+        return valueOrNull(DATA_TEMPLATE_MECHANIC[templateName.toLowerCase()]);
     }
 
     public getDataSkillBuff(buffName: string): string | null {

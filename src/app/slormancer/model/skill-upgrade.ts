@@ -31,7 +31,7 @@ export interface SkillUpgrade {
     maxRankDescription: Array<string>;
 
     relatedClassMechanics: Array<SkillClassMechanic>;
-    relatedAttributeMechanics: Array<Mechanic>;
+    relatedMechanics: Array<Mechanic>;
     relatedBuffs: Array<Buff>;
 
     template: string;
