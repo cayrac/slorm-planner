@@ -12,7 +12,15 @@ import { Skill } from '../model/skill';
 import { SkillType } from '../model/skill-type';
 import { SkillUpgrade } from '../model/skill-upgrade';
 import { list, round } from '../util/math.util';
-import { emptyStringToNull, removeEmptyValues, splitData, splitFloatData, valueOrDefault, valueOrNull } from '../util/utils';
+import {
+    emptyStringToNull,
+    isEffectValueVariable,
+    removeEmptyValues,
+    splitData,
+    splitFloatData,
+    valueOrDefault,
+    valueOrNull,
+} from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 
@@ -148,16 +156,6 @@ export class SlormancerSkillService {
         skill.hasNoCost = skill.costType === SkillCostType.None || skill.cost === 0;
     }
 
-    public updateUpgrade(upgrade: SkillUpgrade) {
-        upgrade.rank = Math.min(upgrade.maxRank, upgrade.baseRank);
-        upgrade.description = this.slormancerTemplateService.formatSkillDescription(upgrade.template, upgrade.values, upgrade.rank);
-        upgrade.cost = upgrade.baseCost + upgrade.perLevelCost * upgrade.rank;
-
-        upgrade.hasLifeCost = upgrade.costType === SkillCostType.LifeSecond || upgrade.costType === SkillCostType.LifeLock || upgrade.costType === SkillCostType.Life;
-        upgrade.hasManaCost = upgrade.costType === SkillCostType.ManaSecond || upgrade.costType === SkillCostType.ManaLock || upgrade.costType === SkillCostType.Mana;
-        upgrade.hasNoCost = upgrade.costType === SkillCostType.None || upgrade.cost === 0;
-    }
-
     public getUpgrade(upgradeId: number, heroClass: HeroClass, baseRank: number): SkillUpgrade | null {
         const gameDataSkill = this.slormancerDataService.getGameDataSkill(heroClass, upgradeId);
         const dataSkill = this.slormancerDataService.getDataSkill(heroClass, upgradeId);
@@ -183,6 +181,9 @@ export class SlormancerSkillService {
                 hasManaCost: false,
                 hasNoCost: false,
                 genres: <Array<SkillGenre>>splitData(gameDataSkill.GENRE, ','),
+
+                nextRankDescription: [],
+                maxRankDescription: [],
             
                 template: this.slormancerTemplateService.getSkillDescriptionTemplate(gameDataSkill),
                 values: this.parseEffectValues(gameDataSkill)
@@ -196,5 +197,24 @@ export class SlormancerSkillService {
         }
 
         return upgrade;
+    }
+
+    private getNextRankUpgradeDescription(upgrade: SkillUpgrade, rank: number): Array<string> {
+        return upgrade.values
+            .filter(isEffectValueVariable)
+            .map(value => this.slormancerTemplateService.formatNextRankDescription('@ £', value, rank));
+    }
+
+    public updateUpgrade(upgrade: SkillUpgrade) {
+        upgrade.rank = Math.min(upgrade.maxRank, upgrade.baseRank);
+        upgrade.description = this.slormancerTemplateService.formatSkillDescription(upgrade.template, upgrade.values, Math.max(upgrade.rank, 1));
+        upgrade.cost = upgrade.baseCost + upgrade.perLevelCost * upgrade.rank;
+
+        upgrade.hasLifeCost = upgrade.costType === SkillCostType.LifeSecond || upgrade.costType === SkillCostType.LifeLock || upgrade.costType === SkillCostType.Life;
+        upgrade.hasManaCost = upgrade.costType === SkillCostType.ManaSecond || upgrade.costType === SkillCostType.ManaLock || upgrade.costType === SkillCostType.Mana;
+        upgrade.hasNoCost = upgrade.costType === SkillCostType.None || upgrade.cost === 0;
+
+        upgrade.nextRankDescription = this.getNextRankUpgradeDescription(upgrade, Math.min(upgrade.maxRank, upgrade.rank + 1));
+        upgrade.maxRankDescription = this.getNextRankUpgradeDescription(upgrade, upgrade.maxRank);
     }
 }

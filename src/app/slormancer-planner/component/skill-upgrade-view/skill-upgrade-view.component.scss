@@ -8,7 +8,7 @@ $skill-level-border : rgb(190, 135, 31);
 $skill-level-max-color : rgb(242, 167, 24);
 $skill-level-bonus-color : rgb(191, 65, 7);
 $skill-level-bg-color : rgb(9, 9, 9);
-
+$type-color : rgb(49, 85, 188);
 
 
 $normal-color-text     : rgb(137, 137, 137);
@@ -82,6 +82,7 @@ $bravery-color         : rgb(191, 60, 89);
             padding: 10px 50px;
             text-transform: uppercase;
             font-size: 17px;
+            color: $skill-level-bonus-color;
         }
 
         &.content {
@@ -133,8 +134,14 @@ $bravery-color         : rgb(191, 60, 89);
                     padding: 5px 0;
                     gap: 5px;
 
-                    .genre {
-                        color: $genre-color;
+                    .type {
+                        color: $type-color
+                    }
+
+                    .rank {
+                        .current {
+                            color: $skill-level-bonus-color;
+                        }
                     }
                 }
             }
@@ -147,6 +154,31 @@ $bravery-color         : rgb(191, 60, 89);
 
             .description {
                 flex-grow: 1;
+            }
+
+            .next-rank {
+                .title {
+                    color: $type-color
+                }    
+
+                .rank-value {
+                    display: flex;
+                    flex-direction: row;
+
+                    .bullet {
+                        min-width: 8px;
+                        padding-right: 8px;
+                        div {
+                            display: inline-block;
+                            background-color: $legendary-color-text;
+                            height: 6px;
+                            width: 6px;
+                            border: 1px solid black;
+                            border-radius: 6px;
+                            margin: auto;
+                        }
+                    }
+                }
             }
         }
     }

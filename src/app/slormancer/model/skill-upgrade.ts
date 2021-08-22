@@ -23,6 +23,9 @@ export interface SkillUpgrade {
     hasNoCost: boolean;
     genres: Array<SkillGenre>;
 
+    nextRankDescription: Array<string>;
+    maxRankDescription: Array<string>;
+
     template: string;
     values: Array<AbstractEffectValue>;
 }

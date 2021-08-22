@@ -307,6 +307,16 @@ export class SlormancerTemplateService {
         return this.parseTemplate(template, stats, types);
     }
 
+    public formatNextRankDescription(template: string, value: EffectValueVariable, rank: number): string {
+        const computed = this.slormancerItemValueService.computeEffectVariableDetails(value, 0, rank);    
+        const percent = computed.percent ? '%' : '';
+
+        template = this.parseTemplate(template, value.stat ? [value.stat] : []);    
+        template = this.replaceAnchor(template, this.asSpan(computed.value + percent, 'value'), this.VALUE_ANCHOR);
+
+        return template;
+    }
+
     public getReaperDescriptionTemplate(template: string, stats: Array<string> = []): [string, string, string] {
         template = this.injectStatsToTemplates(template, stats);
 
