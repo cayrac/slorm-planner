@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { DATA_ACTIVABLE } from '../constants/data/data-activable';
 import { DATA_AFFIX } from '../constants/data/data-affix';
+import { DATA_ATTRIBUTE_MECHANIC } from '../constants/data/data-attribute-mechanic';
 import { DATA_EQUIPABLE_ITEM } from '../constants/data/data-equipable-item';
 import { DATA_KEYWORD_NAME } from '../constants/data/data-keyword-name';
 import { DATA_LEGENDARY } from '../constants/data/data-legendary';
@@ -9,6 +10,8 @@ import { DATA_LEGENDARY_BASE } from '../constants/data/data-legendary-base';
 import { DATA_REAPER } from '../constants/data/data-reaper';
 import { DATA_REAPER_DAMAGES } from '../constants/data/data-reaper-damages';
 import { DATA_SKILL } from '../constants/data/data-skill';
+import { DATA_SKILL_BUFF } from '../constants/data/data-skill-buff';
+import { DATA_SKILL_CLASS_MECHANIC_ID } from '../constants/data/data-skill-class-mechanic-id';
 import { DATA_TRANSLATE } from '../constants/data/data-translate';
 import { GAME_DATA } from '../constants/game/game-data';
 import { DataActivable } from '../model/data/data-activable';
@@ -19,7 +22,9 @@ import { DataReaper } from '../model/data/data-reaper';
 import { DataSkill } from '../model/data/data-skill';
 import { EquipableItemType } from '../model/enum/equipable-item-type';
 import { HeroClass } from '../model/enum/hero-class';
+import { MechanicType } from '../model/enum/mechanic-type';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
+import { GameDataBuff } from '../model/game/data/game-data-buff';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameDataReaper } from '../model/game/data/game-data-reaper';
 import { GameDataSkill } from '../model/game/data/game-data-skill';
@@ -40,6 +45,10 @@ export class SlormancerDataService {
         return valueOrNull(GAME_DATA.REAPER.find(stat => stat.EN_NAME !== '' && stat.REF === id));
     }
 
+    public getGameDataBuff(ref: string): GameDataBuff | null {
+        return valueOrNull(GAME_DATA.BUFF.find(stat => stat.REF === ref));
+    }
+
     public getParentsGameDataReaper(id: number): Array<GameDataReaper> {
         return GAME_DATA.REAPER.filter(stat => stat.EN_NAME !== '' && stat.EVOLVE_IN === id)
     }
@@ -51,6 +60,18 @@ export class SlormancerDataService {
     
     public getGameDataSkill(heroClass: HeroClass, id: number): GameDataSkill | null {
         return valueOrNull(GAME_DATA.SKILL[heroClass].find(skill => skill.REF === id));
+    }
+    
+    public getDataSkillClassMechanicIdByName(heroClass: HeroClass, mechanicName: string): number | null {
+        return valueOrNull(DATA_SKILL_CLASS_MECHANIC_ID[heroClass][mechanicName.toLowerCase()]);
+    }
+    
+    public getDataAttributeMechanic(attributeName: string): MechanicType | null {
+        return valueOrNull(DATA_ATTRIBUTE_MECHANIC[attributeName]);
+    }
+
+    public getDataSkillBuff(buffName: string): string | null {
+        return valueOrNull(DATA_SKILL_BUFF[buffName.toLowerCase()]);
     }
 
     public getDataEquipableItem(type: EquipableItemType, base: string): DataEquipableItemType | null {

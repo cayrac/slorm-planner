@@ -73,7 +73,7 @@ export class SlormancerPlannerComponent implements OnInit {
     public selectedSkillIndex: number = 0;
     
     public selectedUpgrade: SkillUpgrade | null = null;
-    public selectedUpgradeIndex: number = 0;
+    public selectedUpgradeIndex: number = 161;
 
     public details: boolean = false;
     public reaperBase: number = 105;
@@ -172,27 +172,11 @@ export class SlormancerPlannerComponent implements OnInit {
         }
 
         if (this.selectedSkillIndex !== null) {
-            const skills = this.getSkillsForClass(this.selectedClass);
-            this.selectedSkill = null;
-
-            if (skills) {
-                const skill = skills[this.selectedSkillIndex];
-                if (skill) {
-                    this.selectedSkill = this.slormancerSkillService.getSkill(skill.REF, this.selectedClass, this.level, this.bonusLevel);
-                }
-            }
+            this.selectedSkill = this.slormancerSkillService.getSkill(this.selectedSkillIndex, this.selectedClass, this.level, this.bonusLevel);
         }
 
-        if (this.selectedUpgradeIndex !== null && this.selectedSkill !== null) {
-            const upgrades = this.getUpgradesForClassAndSkill(this.selectedClass, this.selectedSkill.id);
-            this.selectedUpgrade = null;
-
-            if (upgrades) {
-                const upgrade = upgrades[this.selectedUpgradeIndex];
-                if (upgrade) {
-                    this.selectedUpgrade = this.slormancerSkillService.getUpgrade(upgrade.REF, this.selectedClass, this.level);
-                }
-            }
+        if (this.selectedUpgradeIndex !== null) {
+            this.selectedUpgrade = this.slormancerSkillService.getUpgrade(this.selectedUpgradeIndex, this.selectedClass, this.level);
         }
 
         this.customReaper = this.slormancerReaperService.getReaperById(this.reaperBase, this.selectedClass, this.primordial, this.level, this.level, 12345, 12345, this.bonusLevel);
@@ -269,7 +253,7 @@ export class SlormancerPlannerComponent implements OnInit {
     public showUpgrade(selectedUpgrade: SkillUpgrade, index: number) {
         if (this.selectedSkill !== null) {
             console.log(selectedUpgrade);
-            console.log(this.getUpgradesForClassAndSkill(this.selectedClass, this.selectedSkill.id)[index]);
+            console.log(this.getUpgradesForClassAndSkill(this.selectedClass, this.selectedSkill.id).find(upgrade => upgrade.REF === index));
         }
     }
 
@@ -409,8 +393,8 @@ export class SlormancerPlannerComponent implements OnInit {
     public getUpgradeBaseOptions(): Array<{ label: string, value: number }> {
         let options: Array<{ label: string, value: number }> = [];
 
-        if (this.selectedSkill !== null) {
-            const upgrades = this.getUpgradesForClassAndSkill(this.selectedClass, this.selectedSkill.id);
+        if (this.selectedSkillIndex !== null) {
+            const upgrades = this.getUpgradesForClassAndSkill(this.selectedClass, this.selectedSkillIndex);
 
             options = upgrades.map(upgrade => ({ label: upgrade.EN_NAME + ' (' + (upgrade.UNLOCK_LEVEL !== null ? upgrade.UNLOCK_LEVEL + 1 : 0) + ')', value: upgrade.REF }));
         }

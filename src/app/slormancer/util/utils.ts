@@ -6,6 +6,10 @@ import { Rarity } from '../model/enum/rarity';
 export function isNotNullOrUndefined<T>(value: T | null | undefined): value is T {
     return value !== null && value !== undefined;
 }
+export function isFirst<T>(value: T, index: number, array: Array<T>, compare: (a: T, b: T) => boolean = (a, b) => a === b): boolean {
+    const found = array.find(v => compare(v, value)); 
+    return found !== undefined && array.indexOf(found) === index;
+}
 
 export function compareString(a: string | null, b: string | null): number {
     if (a === null) {

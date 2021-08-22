@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { Buff } from '../model/buff';
 import { AbstractEffectValue, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
 import { EffectValueType } from '../model/enum/effect-value-type';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
@@ -8,27 +9,35 @@ import { HeroClass } from '../model/enum/hero-class';
 import { SkillCostType } from '../model/enum/skill-cost-type';
 import { SkillGenre } from '../model/enum/skill-genre';
 import { GameDataSkill } from '../model/game/data/game-data-skill';
+import { Mechanic } from '../model/mechanic';
 import { Skill } from '../model/skill';
+import { SkillClassMechanic } from '../model/skill-class-mechanic';
 import { SkillType } from '../model/skill-type';
 import { SkillUpgrade } from '../model/skill-upgrade';
 import { list, round } from '../util/math.util';
 import {
     emptyStringToNull,
     isEffectValueVariable,
+    isFirst,
+    isNotNullOrUndefined,
     removeEmptyValues,
     splitData,
     splitFloatData,
     valueOrDefault,
     valueOrNull,
 } from '../util/utils';
+import { SlormancerBuffService } from './slormancer-buff.service';
 import { SlormancerDataService } from './slormancer-data.service';
+import { SlormancerMechanicService } from './slormancer-mechanic.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 
 @Injectable()
 export class SlormancerSkillService {
 
     constructor(private slormancerTemplateService: SlormancerTemplateService,
-                private slormancerDataService: SlormancerDataService) { }
+                private slormancerMechanicService: SlormancerMechanicService,
+                private slormancerDataService: SlormancerDataService,
+                private slormancerBuffService: SlormancerBuffService) { }
 
     private isDamageStat(stat: string): boolean {
         return stat === 'physical_damage' || stat === 'elemental_damage' || stat === 'bleed_damage';
@@ -162,9 +171,11 @@ export class SlormancerSkillService {
         let upgrade: SkillUpgrade | null = null;
 
         if (gameDataSkill !== null && (gameDataSkill.TYPE == SkillType.Passive || gameDataSkill.TYPE === SkillType.Upgrade)) {
+            const values = this.parseEffectValues(gameDataSkill);
             upgrade = {
                 id: gameDataSkill.REF,
                 skillId: gameDataSkill.ACTIVE_BOX,
+                masteryRequired: dataSkill === null ? null : dataSkill.masteryRequired,
                 type: gameDataSkill.TYPE,
                 rank: 0,
                 upgradeLevel: gameDataSkill.UNLOCK_LEVEL,
@@ -184,9 +195,13 @@ export class SlormancerSkillService {
 
                 nextRankDescription: [],
                 maxRankDescription: [],
+                // prévoir de déplacer ça dans upgrade quand je ferais refonte templates
+                relatedClassMechanics: this.extractSkillMechanics(gameDataSkill.EN_DESCRIPTION, heroClass, dataSkill === null ? [] : dataSkill.additionalClassMechanics),
+                relatedAttributeMechanics: this.extractAttributeMechanics(values),
+                relatedBuffs: this.extractBuffs(gameDataSkill.EN_DESCRIPTION),
             
                 template: this.slormancerTemplateService.getSkillDescriptionTemplate(gameDataSkill),
-                values: this.parseEffectValues(gameDataSkill)
+                values: values
             };
     
             if (dataSkill !== null) {
@@ -200,21 +215,97 @@ export class SlormancerSkillService {
     }
 
     private getNextRankUpgradeDescription(upgrade: SkillUpgrade, rank: number): Array<string> {
-        return upgrade.values
+        const skill = [];
+
+        const cost = upgrade.baseCost + upgrade.perLevelCost * rank;
+        if (cost > 0) {
+            const costClass = upgrade.hasLifeCost ? 'life' : 'mana';
+            const description = '<span class="' + costClass + '">' + cost + '</span> ' + this.slormancerTemplateService.translate(upgrade.costType);
+            skill.push(description);
+        }
+
+        const attributes = upgrade.values
             .filter(isEffectValueVariable)
             .map(value => this.slormancerTemplateService.formatNextRankDescription('@ £', value, rank));
+
+        return [ ...skill, ...attributes ]
+    }
+
+    private extractBuffs(template: string): Array<Buff> {
+        console.log('extractBuffs : ', template.match(/<(.*?)>/g));
+        return valueOrDefault(template.match(/<(.*?)>/g), [])
+            .map(m => this.slormancerDataService.getDataSkillBuff(m))
+            .filter(isNotNullOrUndefined)
+            .filter(isFirst)
+            .map(ref => this.slormancerBuffService.getBuff(ref))
+            .filter(isNotNullOrUndefined);
+    }
+    private extractSkillMechanics(template: string, heroClass: HeroClass, additionalSkillMechanics: Array<number>): Array<SkillClassMechanic> {
+        const ids = valueOrDefault(template.match(/<(.*?)>/g), [])
+            .map(m => this.slormancerDataService.getDataSkillClassMechanicIdByName(heroClass, m));
+        return [ ...ids, ...additionalSkillMechanics ]
+            .filter(isNotNullOrUndefined)
+            .filter(isFirst)
+            .map(id => this.getClassMechanic(id, heroClass))
+            .filter(isNotNullOrUndefined);
+    }
+
+    private extractAttributeMechanics(values: Array<AbstractEffectValue>): Array<Mechanic> {
+        console.log(values.map(value => value.stat));
+        return values.map(value => value.stat)
+            .filter(isNotNullOrUndefined)
+            .map(stat => this.slormancerDataService.getDataAttributeMechanic(stat))
+            .filter(isNotNullOrUndefined)
+            .filter(isFirst)
+            .map(mechanic => this.slormancerMechanicService.getMechanic(mechanic));
     }
 
     public updateUpgrade(upgrade: SkillUpgrade) {
         upgrade.rank = Math.min(upgrade.maxRank, upgrade.baseRank);
         upgrade.description = this.slormancerTemplateService.formatSkillDescription(upgrade.template, upgrade.values, Math.max(upgrade.rank, 1));
-        upgrade.cost = upgrade.baseCost + upgrade.perLevelCost * upgrade.rank;
+        upgrade.cost = upgrade.baseCost + upgrade.perLevelCost * Math.max(upgrade.rank, 1);
 
         upgrade.hasLifeCost = upgrade.costType === SkillCostType.LifeSecond || upgrade.costType === SkillCostType.LifeLock || upgrade.costType === SkillCostType.Life;
         upgrade.hasManaCost = upgrade.costType === SkillCostType.ManaSecond || upgrade.costType === SkillCostType.ManaLock || upgrade.costType === SkillCostType.Mana;
         upgrade.hasNoCost = upgrade.costType === SkillCostType.None || upgrade.cost === 0;
 
-        upgrade.nextRankDescription = this.getNextRankUpgradeDescription(upgrade, Math.min(upgrade.maxRank, upgrade.rank + 1));
-        upgrade.maxRankDescription = this.getNextRankUpgradeDescription(upgrade, upgrade.maxRank);
+        upgrade.nextRankDescription = [];
+        upgrade.maxRankDescription = [];
+
+        if (upgrade.maxRank > 1) {
+            upgrade.nextRankDescription = this.getNextRankUpgradeDescription(upgrade, Math.min(upgrade.maxRank, upgrade.rank + 1));
+            upgrade.maxRankDescription = this.getNextRankUpgradeDescription(upgrade, upgrade.maxRank);
+        }
+    }
+
+    public getClassMechanic(mechanicId: number, heroClass: HeroClass): SkillClassMechanic | null {
+        const gameDataSkill = this.slormancerDataService.getGameDataSkill(heroClass, mechanicId);
+        const dataSkill = this.slormancerDataService.getDataSkill(heroClass, mechanicId);
+        let mechanic: SkillClassMechanic | null = null;
+
+        if (gameDataSkill !== null && (gameDataSkill.TYPE == SkillType.Mechanic || gameDataSkill.TYPE === SkillType.Mechanics)) {
+            mechanic = {
+                id: gameDataSkill.REF,
+                type: gameDataSkill.TYPE,
+                name: gameDataSkill.EN_NAME,
+                icon: 'skill/' + heroClass + '/' + gameDataSkill.REF,
+                description: '',
+            
+                template: this.slormancerTemplateService.getSkillDescriptionTemplate(gameDataSkill),
+                values: this.parseEffectValues(gameDataSkill)
+            };
+    
+            if (dataSkill !== null) {
+                dataSkill.override(mechanic.values);
+            }
+    
+            this.updateClassMechanic(mechanic);
+        }
+
+        return mechanic;
+    }
+
+    public updateClassMechanic(upgrade: SkillClassMechanic) {
+        upgrade.description = this.slormancerTemplateService.formatSkillDescription(upgrade.template, upgrade.values, 0);
     }
 }

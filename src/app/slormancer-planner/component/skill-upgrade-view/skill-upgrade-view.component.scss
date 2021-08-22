@@ -1,5 +1,5 @@
 
-$skill-bg          : rgb(21,20,18);
+$upgrade-bg          : rgb(9,9,9);
 $skill-border-color: rgb(60, 57, 49);
 $skill-outer-border-color: black;
 $skill-text-color       : white;
@@ -9,6 +9,7 @@ $skill-level-max-color : rgb(242, 167, 24);
 $skill-level-bonus-color : rgb(191, 65, 7);
 $skill-level-bg-color : rgb(9, 9, 9);
 $type-color : rgb(49, 85, 188);
+$mechanic-bg-color : rgb(20, 19, 16);
 
 
 $normal-color-text     : rgb(137, 137, 137);
@@ -42,7 +43,7 @@ $dexterity-color       : rgb(205, 112, 40);
 $bravery-color         : rgb(191, 60, 89); 
 
 .skill {
-    background-color: $skill-bg;
+    background-color: $upgrade-bg;
     border: 3px solid $skill-outer-border-color;
     color: $skill-text-color;
     display: flex;
@@ -102,25 +103,17 @@ $bravery-color         : rgb(191, 60, 89);
                     align-items: center;
 
                     .icon {
-                        position: relative;
-                        min-width: 62px;
-                        min-height: 62px;
-                        width: 62px;
-                        height: 62px;
-    
-                        .icon-border {
-                            border: 5px solid $skill-icon-border;
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            right: 0;
-                            bottom: 0;
-                        }
+                        border: 5px solid $skill-icon-border;
+                        min-width: 60px;
+                        min-height: 60px;
+                        width: 60px;
+                        height: 60px;
     
                         img {
+                            border: 3px solid black;
                             image-rendering: pixelated;
-                            width: 100%;
-                            height: 100%;
+                            width: 54px;
+                            height: 54px;
                         }
                     }
                 }
@@ -177,6 +170,45 @@ $bravery-color         : rgb(191, 60, 89);
                             border-radius: 6px;
                             margin: auto;
                         }
+                    }
+                }
+            }
+
+            .mechanics {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 5px;
+
+                .mechanic {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: stretch;
+                    background-color: black;
+                    padding: 4px;
+                    gap: 4px;
+
+                    .mechanic-icon {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+
+                        img {
+                            min-width: 36px;
+                            min-height: 36px;
+                            width: 36px;
+                            height: 36px;
+                        }
+
+                    }
+
+                    .mechanic-name {
+                        background-color: $mechanic-bg-color;
+                        padding: 8px;
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        flex-grow: 1;
                     }
                 }
             }

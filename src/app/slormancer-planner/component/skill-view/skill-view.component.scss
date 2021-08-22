@@ -101,25 +101,17 @@ $bravery-color         : rgb(191, 60, 89);
                     align-items: center;
 
                     .icon {
-                        position: relative;
-                        min-width: 62px;
-                        min-height: 62px;
-                        width: 62px;
-                        height: 62px;
-    
-                        .icon-border {
-                            border: 5px solid $skill-icon-border;
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            right: 0;
-                            bottom: 0;
-                        }
+                        border: 5px solid $skill-icon-border;
+                        min-width: 60px;
+                        min-height: 60px;
+                        width: 60px;
+                        height: 60px;
     
                         img {
+                            border: 3px solid black;
                             image-rendering: pixelated;
-                            width: 100%;
-                            height: 100%;
+                            width: 54px;
+                            height: 54px;
                         }
                     }
                 }

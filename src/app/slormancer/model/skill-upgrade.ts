@@ -1,11 +1,15 @@
+import { Buff } from './buff';
 import { AbstractEffectValue } from './effect-value';
 import { SkillCostType } from './enum/skill-cost-type';
 import { SkillGenre } from './enum/skill-genre';
+import { Mechanic } from './mechanic';
+import { SkillClassMechanic } from './skill-class-mechanic';
 import { SkillType } from './skill-type';
 
 export interface SkillUpgrade {
     id: number;
     skillId: number;
+    masteryRequired: number | null;
     type: SkillType.Passive | SkillType.Upgrade;
     upgradeLevel: number | null;
     rank: number;
@@ -25,6 +29,10 @@ export interface SkillUpgrade {
 
     nextRankDescription: Array<string>;
     maxRankDescription: Array<string>;
+
+    relatedClassMechanics: Array<SkillClassMechanic>;
+    relatedAttributeMechanics: Array<Mechanic>;
+    relatedBuffs: Array<Buff>;
 
     template: string;
     values: Array<AbstractEffectValue>;

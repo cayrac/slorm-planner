@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="data">
-                <div class="mastery">{{translate(MASTERY_LABEL)}}</div>
+                <div class="mastery">{{translate(MASTERY_LABEL)}} {{upgrade.masteryRequired}}</div>
                 <div class="type">{{getTypeLabel(upgrade.type)}}</div>
                 <div class="rank">{{translate(RANK_LABEL)}}: <span class="current">{{upgrade.rank}}</span>/{{upgrade.maxRank}}</div>
                 <div class="cost" *ngIf="!upgrade.hasNoCost">Total Cost :
@@ -20,7 +20,7 @@
         </div>
         <div class="separator"></div>
         <div class="description" [innerHTML]="upgrade.description"></div>
-        <ng-container *ngIf="upgrade.rank < upgrade.maxRank">
+        <ng-container *ngIf="upgrade.rank < upgrade.maxRank && upgrade.nextRankDescription.length > 0 || upgrade.maxRankDescription.length > 0">
             <div class="separator"></div>
             <div class="next-rank">
                 <div class="title">{{translate(NEXT_RANK_LABEL)}}:</div>
@@ -35,5 +35,25 @@
                 </div>
             </div>
         </ng-container>
+        <div class="mechanics" *ngIf="upgrade.relatedClassMechanics.length > 0 || upgrade.relatedAttributeMechanics.length > 0 || upgrade.relatedBuffs.length > 0">
+            <div class="mechanic" *ngFor="let mechanic of upgrade.relatedClassMechanics">
+                <div class="mechanic-icon">
+                    <img src="assets/img/icon/{{mechanic.icon}}.png"/>
+                </div>
+                <div class="mechanic-name">{{mechanic.name}}</div>
+            </div>
+            <div class="mechanic" *ngFor="let mechanic of upgrade.relatedAttributeMechanics">
+                <div class="mechanic-icon">
+                    <img src="assets/img/icon/{{mechanic.icon}}.png"/>
+                </div>
+                <div class="mechanic-name">{{mechanic.name}}</div>
+            </div>
+            <div class="mechanic" *ngFor="let buff of upgrade.relatedBuffs">
+                <div class="mechanic-icon">
+                    <img src="assets/img/icon/{{buff.icon}}.png"/>
+                </div>
+                <div class="mechanic-name">{{buff.name}}</div>
+            </div>
+        </div>
     </div>
 </div>

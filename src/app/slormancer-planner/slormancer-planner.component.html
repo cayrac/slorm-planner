@@ -33,8 +33,9 @@
         <div class="item" *ngIf="selectedExtendedItem !== null">
             <!--<app-json [data]="save.skill_rank[1]" (click)="showData(save.skill_rank[1])"></app-json>-->
 
-            <app-skill-upgrade-view [upgrade]="selectedUpgrade" *ngIf="selectedUpgrade !== null" (click)="showUpgrade(selectedUpgrade, selectedUpgradeIndex)"></app-skill-upgrade-view>
             <app-skill-view [skill]="selectedSkill" *ngIf="selectedSkill !== null" (click)="showSkill(selectedSkill, selectedSkillIndex)"></app-skill-view>
+            <app-skill-upgrade-view [upgrade]="selectedUpgrade" *ngIf="selectedUpgrade !== null" (click)="showUpgrade(selectedUpgrade, selectedUpgradeIndex)"></app-skill-upgrade-view>
+            
             <div class="parsed">
                 <!--<app-reaper-view (click)="showData(customReaper)" [reaper]="customReaper"></app-reaper-view>
 
