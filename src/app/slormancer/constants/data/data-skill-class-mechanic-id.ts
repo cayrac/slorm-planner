@@ -8,7 +8,8 @@ export const DATA_SKILL_CLASS_MECHANIC_ID: GameHeroesData<{ [key: string]: numbe
         '<perfect>': 215,
         '<block>': 218,
         '<blocking>': 218,
-        '<astral retribution>': 217
+        '<astral retribution>': 217,
+        '<astral retributions>': 217
     },
     1: {},
     2: {}

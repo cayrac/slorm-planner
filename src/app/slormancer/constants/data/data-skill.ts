@@ -408,6 +408,93 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         override: values => { },
         additionalClassMechanics: []
     },
+    58: {
+        masteryRequired: 2,
+        override: values => { 
+            addConstant(values, 1, false, EffectValueValueType.Duration, 'skill_silence_duration');
+            addConstant(values, 100, false, EffectValueValueType.AreaOfEffect, 'skill_fortunate_silence_chance');
+        },
+        additionalClassMechanics: []
+    },
+    59: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    60: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    61: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    62: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    63: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    64: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    65: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    66: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    67: {
+        masteryRequired: 7,
+        override: values => { 
+            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_magnified_count_on_other_skill_cast');
+        },
+        additionalClassMechanics: []
+    },
+    68: {
+        masteryRequired: 8,
+        override: values => { 
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_perfect_chance_cast_whirlwing_on_cast');
+        },
+        additionalClassMechanics: []
+    },
+    69: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    70: {
+        masteryRequired: 9,
+        override: values => { 
+            addConstant(values, 5, false, EffectValueValueType.Flat, 'skill_perfect_recast_multiplier');
+        },
+        additionalClassMechanics: []
+    },
+    71: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    72: {
+        masteryRequired: 10,
+        override: values => { 
+            addConstant(values, 5, false, EffectValueValueType.Flat, 'skill_beat_stack_trigger');
+            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_beat_trigger_astral_retribution_count');
+        },
+        additionalClassMechanics: []
+    },
     138: {
         masteryRequired: 1,
         override: () => { },

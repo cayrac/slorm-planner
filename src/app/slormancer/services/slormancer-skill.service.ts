@@ -88,6 +88,16 @@ export class SlormancerSkillService {
                     range: false,
                     stat
                 } as EffectValueVariable);
+            } else if (type === 'negative') {
+                result.push({
+                    type: EffectValueType.Variable,
+                    value,
+                    upgrade: -upgrade,
+                    upgradeType: EffectValueUpgradeType.Reinforcment,
+                    percent,
+                    range: false,
+                    stat
+                } as EffectValueVariable);
             } else if (type === 'every_3') {
                 result.push({
                     type: EffectValueType.Variable,
@@ -282,7 +292,7 @@ export class SlormancerSkillService {
 
     public updateUpgrade(upgrade: SkillUpgrade) {
         upgrade.rank = Math.min(upgrade.maxRank, upgrade.baseRank);
-        upgrade.description = this.slormancerTemplateService.formatSkillDescription(upgrade.template, upgrade.values, Math.max(upgrade.rank, 1));
+        upgrade.description = this.slormancerTemplateService.formatUpgradeDescription(upgrade.template, upgrade.values, Math.max(upgrade.rank, 1));
         upgrade.cost = upgrade.baseCost + upgrade.perLevelCost * Math.max(upgrade.rank, 1);
 
         upgrade.hasLifeCost = upgrade.costType === SkillCostType.LifeSecond || upgrade.costType === SkillCostType.LifeLock || upgrade.costType === SkillCostType.Life;
