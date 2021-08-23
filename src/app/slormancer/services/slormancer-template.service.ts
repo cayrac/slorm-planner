@@ -308,12 +308,26 @@ export class SlormancerTemplateService {
         return this.parseTemplate(template, stats, types);
     }
 
-    public formatNextRankDescription(template: string, value: EffectValueVariable, rank: number): string {
-        const computed = this.slormancerItemValueService.computeEffectVariableDetails(value, 0, rank);    
-        const percent = computed.percent ? '%' : '';
+    public formatNextRankDescription(template: string, value: EffectValueVariable | EffectValueSynergy, rank: number): string {
+        const computed = isEffectValueVariable(value)
+            ? this.slormancerItemValueService.computeEffectVariableDetails(value, 0, rank) 
+            : this.slormancerItemValueService.computeEffectSynergyDetails(value, 0, rank);    
+
+        console.log('next rank description : ', computed);
+        let computedValue: string = '';
+        if (computed.synergy !== null) {
+            if (typeof computed.synergy === 'number') {
+                computedValue = computed.synergy.toString();
+            } else {
+                computedValue = computed.synergy.min + ' - ' + computed.synergy.max;
+            }
+        } else {
+            let percent = computed.percent ? '%' : '';
+            computedValue = computed.value.toString() + percent;
+        }
 
         template = this.parseTemplate(template, value.stat ? [value.stat] : []);    
-        template = this.replaceAnchor(template, this.asSpan(computed.value + percent, 'value'), this.VALUE_ANCHOR);
+        template = this.replaceAnchor(template, this.asSpan(computedValue, 'value'), this.VALUE_ANCHOR);
 
         return template;
     }

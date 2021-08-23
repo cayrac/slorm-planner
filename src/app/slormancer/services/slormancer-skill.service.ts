@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Buff } from '../model/buff';
+import { DataSkill } from '../model/data/data-skill';
 import { AbstractEffectValue, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
 import { EffectValueType } from '../model/enum/effect-value-type';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
@@ -18,6 +19,7 @@ import { SkillUpgrade } from '../model/skill-upgrade';
 import { list, round } from '../util/math.util';
 import {
     emptyStringToNull,
+    isEffectValueSynergy,
     isEffectValueVariable,
     isFirst,
     isNotNullOrUndefined,
@@ -115,6 +117,17 @@ export class SlormancerSkillService {
         return result;
     }
 
+    private applyOverride(skill: Skill | SkillUpgrade | SkillClassMechanic, overrideData: DataSkill | null) {
+    
+        if (overrideData !== null) {
+            overrideData.override(skill.values);
+
+            if (overrideData.costTypeOverride && (<Skill | SkillUpgrade>skill).costType) {
+                (<Skill | SkillUpgrade>skill).costType = overrideData.costTypeOverride;
+            }
+        }
+    } 
+
     public getSkill(skillId: number, heroClass: HeroClass, baseLevel: number, bonusLevel: number = 0): Skill | null {
         const gameDataSkill = this.slormancerDataService.getGameDataSkill(heroClass, skillId);
         const dataSkill = this.slormancerDataService.getDataSkill(heroClass, skillId);
@@ -147,9 +160,7 @@ export class SlormancerSkillService {
                 values: this.parseEffectValues(gameDataSkill)
             };
     
-            if (dataSkill !== null) {
-                dataSkill.override(skill.values);
-            }
+            this.applyOverride(skill, dataSkill);
     
             this.updateSkill(skill);
         }
@@ -207,9 +218,7 @@ export class SlormancerSkillService {
                 values: values
             };
     
-            if (dataSkill !== null) {
-                dataSkill.override(upgrade.values);
-            }
+            this.applyOverride(upgrade, dataSkill);
 
             upgrade.relatedMechanics = this.extractMechanics(gameDataSkill.EN_DESCRIPTION, values, dataSkill !== null && dataSkill.additionalMechanics ? dataSkill.additionalMechanics : []);
     
@@ -223,21 +232,20 @@ export class SlormancerSkillService {
         const skill = [];
 
         const cost = upgrade.baseCost + upgrade.perLevelCost * rank;
-        if (cost > 0) {
+        if (cost > 0 && upgrade.perLevelCost !== 0) {
             const costClass = upgrade.hasLifeCost ? 'life' : 'mana';
             const description = '<span class="' + costClass + '">' + cost + '</span> ' + this.slormancerTemplateService.translate(upgrade.costType);
             skill.push(description);
         }
 
         const attributes = upgrade.values
-            .filter(isEffectValueVariable)
-            .map(value => this.slormancerTemplateService.formatNextRankDescription('@ £', value, rank));
+            .filter(value => isEffectValueSynergy(value) || isEffectValueVariable(value))
+            .map(value => this.slormancerTemplateService.formatNextRankDescription('@ £', <EffectValueSynergy | EffectValueVariable>value, rank));
 
         return [ ...skill, ...attributes ]
     }
 
     private extractBuffs(template: string): Array<Buff> {
-        console.log('extractBuffs : ', template.match(/<(.*?)>/g));
         return valueOrDefault(template.match(/<(.*?)>/g), [])
             .map(m => this.slormancerDataService.getDataSkillBuff(m))
             .filter(isNotNullOrUndefined)
@@ -266,7 +274,6 @@ export class SlormancerSkillService {
             .filter(isNotNullOrUndefined)
             .filter(isFirst)
             .map(mechanic => this.slormancerMechanicService.getMechanic(mechanic));
-            console.log('extractMechanics : ', valueOrDefault(template.match(/<(.*?)>/g), []), templateMechanics, [ ...templateMechanics, ...attributeMechanics ]);
         const additionalMechanics = additional
             .map(m => this.slormancerMechanicService.getMechanic(m));
 
@@ -307,10 +314,8 @@ export class SlormancerSkillService {
                 template: this.slormancerTemplateService.getSkillDescriptionTemplate(gameDataSkill),
                 values: this.parseEffectValues(gameDataSkill)
             };
-    
-            if (dataSkill !== null) {
-                dataSkill.override(mechanic.values);
-            }
+
+            this.applyOverride(mechanic, dataSkill);
     
             this.updateClassMechanic(mechanic);
         }

@@ -3,6 +3,7 @@ import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectVal
 import { EffectValueType } from '../../model/enum/effect-value-type';
 import { EffectValueValueType } from '../../model/enum/effect-value-value-type';
 import { MechanicType } from '../../model/enum/mechanic-type';
+import { SkillCostType } from '../../model/enum/skill-cost-type';
 import { GameHeroesData } from '../../model/game/game-save';
 
 function setUpgrade(values: Array<AbstractEffectValue>, index: number, upgrade: number) {
@@ -114,6 +115,297 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         override: values => {
             setUpgrade(values, 1, 7);
         },
+        additionalClassMechanics: []
+    },
+    11: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    12: {
+        masteryRequired: 2,
+        override: values => { 
+            addConstant(values, 4, false, EffectValueValueType.Duration, 'skill_0_12_daze_duration');
+        },
+        additionalClassMechanics: []
+    },
+    13: {
+        masteryRequired: 2,
+        override: values => { 
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_0_13_perfect_skewer_chance');
+        },
+        additionalClassMechanics: []
+    },
+    14: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    15: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    16: {
+        masteryRequired: 4,
+        override: values => { 
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_0_16_perfect_overdrive_chance');
+        },
+        additionalClassMechanics: []
+    },
+    17: {
+        masteryRequired: 4,
+        override: values => { 
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_0_17_perfect_inner_fire_chance');
+        },
+        additionalClassMechanics: []
+    },
+    18: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    19: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    20: {
+        masteryRequired: 6,
+        override: values => { 
+            addConstant(values, 2, false, EffectValueValueType.Duration, 'skill_0_20_hold_duration');
+        },
+        additionalClassMechanics: [],
+        costTypeOverride: SkillCostType.Mana
+    },
+    21: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    22: {
+        masteryRequired: 8,
+        override: values => { 
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_0_22_perfect_recast_chance');
+        },
+        additionalClassMechanics: []
+    },
+    23: {
+        masteryRequired: 8,
+        override: values => { 
+            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_0_23_buff_attacks_speed');
+            addConstant(values, 5, false, EffectValueValueType.Duration, 'skill_0_23_buff_duration');
+            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_0_23_buff_fortunate_stack_per_hit');
+            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_0_23_buff_default_stack_per_hit');
+        },
+        additionalClassMechanics: []
+    },
+    24: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    25: {
+        masteryRequired: 10,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    26: {
+        masteryRequired: 2,
+        override: values => {
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_0_26_fortunate_pierce_chance');
+        },
+        additionalClassMechanics: []
+    },
+    27: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    28: {
+        masteryRequired: 2,
+        override: values => {
+            addConstant(values, 6, false, EffectValueValueType.Duration, 'skill_0_28_buff_duration');
+            addConstant(values, 10, false, EffectValueValueType.Duration, 'skill_0_28_buff_max_stack');
+            addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_0_28_buff_fortunate_stack_on_hit');
+            addConstant(values, 1, false, EffectValueValueType.Duration, 'skill_0_28_buff_default_stack_on_hit');
+        },
+        additionalClassMechanics: []
+    },
+    29: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    30: {
+        masteryRequired: 3,
+        override: values => { 
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_0_30_perfect_astral_retribution_chance');
+        },
+        additionalClassMechanics: []
+    },
+    31: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    32: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    33: {
+        masteryRequired: 7,
+        override: values => { 
+            addConstant(values, 0, false, EffectValueValueType.Flat, 'skill_0_33_max_mana_cost');
+        },
+        additionalClassMechanics: []
+    },
+    34: {
+        masteryRequired: 8,
+        override: values => { 
+            addConstant(values, 50, false, EffectValueValueType.Flat, 'skill_0_34_reduced_min_damage');
+        },
+        additionalClassMechanics: []
+    },
+    35: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    36: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    37: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    38: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    39: {
+        masteryRequired: 9,
+        override: values => { 
+            addConstant(values, 6, false, EffectValueValueType.Flat, 'skill_0_39_perfect_additional_projectiles');
+        },
+        additionalClassMechanics: []
+    },
+    40: {
+        masteryRequired: 9,
+        override: values => { 
+            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'skill_0_40_root_aoe');
+            addConstant(values, 2, false, EffectValueValueType.Duration, 'skill_0_40_root_duration');
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_0_40_perfect_root_chance');
+        },
+        additionalClassMechanics: []
+    },
+    41: {
+        masteryRequired: 10,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    42: {
+        masteryRequired: 2,
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_mana_cost_reduction_per_bleed');
+            addConstant(values, 7, false, EffectValueValueType.AreaOfEffect, 'skill_mana_cost_reduction_per_bleed_distance');
+        },
+        additionalClassMechanics: []
+    },
+    43: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    44: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    45: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    46: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    47: {
+        masteryRequired: 4,
+        override: values => { 
+            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_additional_cooldown_per_bleed');
+            addConstant(values, 0, false, EffectValueValueType.Flat, 'skill_cooldown_reduction_minimum');
+        },
+        additionalClassMechanics: []
+    },
+    48: {
+        masteryRequired: 5,
+        override: values => { 
+            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_additional_bleed_stack_if_full_life');
+        },
+        additionalClassMechanics: []
+    },
+    49: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    50: {
+        masteryRequired: 6,
+        override: values => { 
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_perfect_fork_chance');
+        },
+        additionalClassMechanics: []
+    },
+    51: {
+        masteryRequired: 7,
+        override: values => { 
+            addConstant(values, 4, false, EffectValueValueType.Flat, 'skill_training_dummy_duration');
+        },
+        additionalClassMechanics: []
+    },
+    52: {
+        masteryRequired: 8,
+        override: values => { 
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_perfect_overdrive_chance');
+        },
+        additionalClassMechanics: []
+    },
+    53: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    54: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    55: {
+        masteryRequired: 9,
+        override: values => { 
+            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_chance_additional_projectile_count');
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_fortunate_chance_additional_projectile');
+        },
+        additionalClassMechanics: []
+    },
+    56: {
+        masteryRequired: 10,
+        override: values => { 
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'skill_bleed_apply_aoe');
+        },
+        additionalClassMechanics: []
+    },
+    57: {
+        masteryRequired: 10,
+        override: values => { },
         additionalClassMechanics: []
     },
     138: {
