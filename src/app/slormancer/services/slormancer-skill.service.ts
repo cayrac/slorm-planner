@@ -250,6 +250,7 @@ export class SlormancerSkillService {
 
         const attributes = upgrade.values
             .filter(value => isEffectValueSynergy(value) || isEffectValueVariable(value))
+            .filter(value => (<EffectValueSynergy | EffectValueVariable>value).upgrade !== 0)
             .map(value => this.slormancerTemplateService.formatNextRankDescription('@ £', <EffectValueSynergy | EffectValueVariable>value, rank));
 
         return [ ...skill, ...attributes ]

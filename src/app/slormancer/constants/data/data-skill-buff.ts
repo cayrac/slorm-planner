@@ -3,5 +3,7 @@ export const DATA_SKILL_BUFF: { [key: string]: string } = {
     '<stun>': 'stun',
     '<dazed>': 'daze',
     '<slows>': 'slow',
-    '<silence>': 'silence'
+    '<silence>': 'silence',
+    '<elemental resistance broken>': 'elemental_broken',
+    '<blinds>': 'blind'
 }

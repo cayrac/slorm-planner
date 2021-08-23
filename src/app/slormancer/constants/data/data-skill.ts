@@ -495,6 +495,107 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         },
         additionalClassMechanics: []
     },
+    73: {
+        masteryRequired: 2,
+        override: values => { 
+            addConstant(values, 0, false, EffectValueValueType.Duration, 'skill_perfect_cast_cooldown');
+        },
+        additionalClassMechanics: []
+    },
+    74: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    75: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    76: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    77: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    78: {
+        masteryRequired: 4,
+        override: values => { 
+            addConstant(values, 4, false, EffectValueValueType.AreaOfEffect, 'skill_mass_hook_distance');
+            addConstant(values, 50, false, EffectValueValueType.Flat, 'skill_damage_reduction');
+        },
+        additionalClassMechanics: []
+    },
+    79: {
+        masteryRequired: 4,
+        override: values =>  { 
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_increased_cost_percent_per_controlled_enemy');
+        },
+        additionalClassMechanics: []
+    },
+    80: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    81: {
+        masteryRequired: 6,
+        override: values => { 
+            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_melee_defense_stack_reduction');
+            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_projectile_defense_stack_reduction');
+            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_aoe_defense_stack_reduction');
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_max_defense_stack');
+        },
+        additionalClassMechanics: []
+    },
+    82: {
+        masteryRequired: 7,
+        override: values => { 
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'skill_stun_aoe');
+            addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_stun_duration');
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_fortunate_stun_chance');
+        },
+        additionalClassMechanics: []
+    },
+    83: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    84: {
+        masteryRequired: 8,
+        override: values => { 
+            addConstant(values, 8, false, EffectValueValueType.Flat, 'skill_blind_duration');
+        },
+        additionalClassMechanics: []
+    },
+    85: {
+        masteryRequired: 8,
+        override: values => { 
+            addConstant(values, 7, false, EffectValueValueType.Duration, 'skill_vitality_stack_duration');
+            addConstant(values, 10, false, EffectValueValueType.Flat, 'skill_max_vitality_stack');
+        },
+        additionalClassMechanics: []
+    },
+    86: {
+        masteryRequired: 9,
+        override: values => { 
+            addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_earthquake_duration');
+            addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'skill_earthquake_aoe');
+        },
+        additionalClassMechanics: []
+    },
+    87: {
+        masteryRequired: 10,
+        override: values =>  { 
+            addConstant(values, 1000, false, EffectValueValueType.Flat, 'skill_increased_cost_percent_per_controlled_elite');
+        },
+        additionalClassMechanics: []
+    },
     138: {
         masteryRequired: 1,
         override: () => { },
