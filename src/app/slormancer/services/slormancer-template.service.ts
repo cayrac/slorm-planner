@@ -193,7 +193,8 @@ export class SlormancerTemplateService {
             let synergy: string | null = null;
 
             if (typeof computed.synergy === 'number') {
-                synergy = this.asSpan(computed.synergy.toString(), 'value');
+                const percent = effectValue.percent ? '%' : '';
+                synergy = this.asSpan(computed.synergy.toString() + percent, 'value');
                 template = this.replaceAnchor(template, synergy, valueAnchor);
                 template = this.replaceAnchor(template, this.asSpan(computed.value + '%', 'value') + formula, synergyAnchor);
             } else {

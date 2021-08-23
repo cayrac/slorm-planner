@@ -28,6 +28,7 @@ export interface EffectValueSynergy extends AbstractEffectValue {
     ratio: number;
     upgrade: number;
     upgradeType: EffectValueUpgradeType;
+    percent: boolean;
     source: string;
     range: boolean;
 }

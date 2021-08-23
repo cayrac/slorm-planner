@@ -70,6 +70,7 @@ export class SlormancerSkillService {
                     ratio: value,
                     upgrade,
                     upgradeType: EffectValueUpgradeType.Reinforcment,
+                    percent,
                     source: damageType === 'phy' ? 'physical_damage' : 'elemental_damage',
                     valueType: EffectValueValueType.Damage,
                     range: false,
@@ -102,6 +103,7 @@ export class SlormancerSkillService {
                 result.push({
                     type: EffectValueType.Synergy,
                     ratio: value,
+                    percent,
                     upgrade,
                     source,
                     range: false,

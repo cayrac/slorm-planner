@@ -393,8 +393,153 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     },
     186: {
         masteryRequired: 8,
-        override: values => { 
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    187: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    188: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    189: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    190: {
+        masteryRequired: 2,
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Flat, 'block_stack_per_second');
         },
+        additionalClassMechanics: []
+    },
+    191: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    192: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    193: {
+        masteryRequired: 3,
+        override: values => {
+            addConstant(values, 0, false, EffectValueValueType.Flat, 'default_block_stack_after_block');
+        },
+        additionalClassMechanics: []
+    },
+    194: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    195: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    196: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    197: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    198: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    199: {
+        masteryRequired: 4,
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_0_199_counter_per_nullified_hit');
+        },
+        additionalClassMechanics: []
+    },
+    200: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    201: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    202: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    203: {
+        masteryRequired: 5,
+        override: values => {
+            addConstant(values, 7, false, EffectValueValueType.Duration, 'skill_0_203_retaliation_duration');
+        },
+        additionalClassMechanics: []
+    },
+    204: {
+        masteryRequired: 6,
+        override: values => {
+            addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_0_204_buff_duration');
+        },
+        additionalClassMechanics: []
+    },
+    205: {
+        masteryRequired: 6,
+        override: values => {
+            addConstant(values, -35, false, EffectValueValueType.Flat, 'movement_speed');
+        },
+        additionalClassMechanics: []
+    },
+    206: {
+        masteryRequired: 7,
+        override: values => {
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'support_area_damage_reduction');
+        },
+        additionalClassMechanics: []
+    },
+    207: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    208: {
+        masteryRequired: 7,
+        override: values => {
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'block_damage_reduction');
+        },
+        additionalClassMechanics: []
+    },
+    209: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    210: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    211: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    212: {
+        masteryRequired: 8,
+        override: values => { },
         additionalClassMechanics: []
     },
 }

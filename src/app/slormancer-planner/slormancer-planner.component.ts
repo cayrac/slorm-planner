@@ -70,10 +70,10 @@ export class SlormancerPlannerComponent implements OnInit {
     public selectedReaperIndex: number | null = 17;
 
     public selectedSkill: Skill | null = null;
-    public selectedSkillIndex: number = 1;
+    public selectedSkillIndex: number = 2;
     
     public selectedUpgrade: SkillUpgrade | null = null;
-    public selectedUpgradeIndex: number = 186;
+    public selectedUpgradeIndex: number = 187;
 
     public details: boolean = false;
     public reaperBase: number = 105;
@@ -396,7 +396,7 @@ export class SlormancerPlannerComponent implements OnInit {
         if (this.selectedSkillIndex !== null) {
             const upgrades = this.getUpgradesForClassAndSkill(this.selectedClass, this.selectedSkillIndex);
 
-            options = upgrades.map(upgrade => ({ label: upgrade.EN_NAME + ' (' + (upgrade.UNLOCK_LEVEL !== null ? upgrade.UNLOCK_LEVEL + 1 : 0) + ')', value: upgrade.REF }));
+            options = upgrades.map(upgrade => ({ label: upgrade.EN_NAME + ' (' + (upgrade.UNLOCK_LEVEL !== null ? upgrade.UNLOCK_LEVEL : 0) + ')', value: upgrade.REF }));
         }
 
         return options;

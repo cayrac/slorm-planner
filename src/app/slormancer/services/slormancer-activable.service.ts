@@ -69,6 +69,7 @@ export class SlormancerActivableService {
                     type: EffectValueType.Synergy,
                     ratio: value,
                     upgrade,
+                    percent,
                     source,
                     range: false
                 } as EffectValueSynergy);
