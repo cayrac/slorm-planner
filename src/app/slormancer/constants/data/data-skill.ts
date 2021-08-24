@@ -596,6 +596,112 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         },
         additionalClassMechanics: []
     },
+    88: {
+        masteryRequired: 2,
+        override: values =>  { 
+        },
+        additionalClassMechanics: []
+    },
+    89: {
+        masteryRequired: 2,
+        override: values => { 
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_increased_cost_percent');
+        },
+        additionalClassMechanics: []
+    },
+    90: {
+        masteryRequired: 2,
+        override: values =>  { 
+        },
+        additionalClassMechanics: []
+    },
+    91: {
+        masteryRequired: 2,
+        override: values => { 
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_fortunate_broken_armor_chance');
+        },
+        additionalClassMechanics: []
+    },
+    92: {
+        masteryRequired: 3,
+        override: values => { 
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_perfect_inner_fire_chance');
+        },
+        additionalClassMechanics: []
+    },
+    93: {
+        masteryRequired: 4,
+        override: values =>  {
+            addConstant(values, 5, false, EffectValueValueType.Duration, 'skill_slow_duration');
+        },
+        additionalClassMechanics: []
+    },
+    94: {
+        masteryRequired: 4,
+        override: values =>  { 
+        },
+        additionalClassMechanics: []
+    },
+    95: {
+        masteryRequired: 5,
+        override: values =>  { 
+        },
+        additionalClassMechanics: []
+    },
+    96: {
+        masteryRequired: 5,
+        override: values => { 
+            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_block_stack_per_second');
+        },
+        additionalClassMechanics: []
+    },
+    97: {
+        masteryRequired: 6,
+        override: values => { 
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_perfect_astral_retribution_on_hit');
+        },
+        additionalClassMechanics: []
+    },
+    98: {
+        masteryRequired: 6,
+        override: values =>  { 
+        },
+        additionalClassMechanics: []
+    },
+    99: {
+        masteryRequired: 7,
+        override: values =>  { 
+        },
+        additionalClassMechanics: []
+    },
+    100: {
+        masteryRequired: 8,
+        override: values => { 
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_perfect_duplicate_chance');
+        },
+        additionalClassMechanics: []
+    },
+    101: {
+        masteryRequired: 9,
+        override: values => { 
+            addConstant(values, 4, false, EffectValueValueType.Flat, 'skill_perfect_multicast_count');
+        },
+        additionalClassMechanics: []
+    },
+    102: {
+        masteryRequired: 9,
+        override: values => { 
+            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_multicast_count');
+            addConstant(values, 40, false, EffectValueValueType.Flat, 'skill_damage_reduction');
+        },
+        additionalClassMechanics: []
+    },
+    103: {
+        masteryRequired: 10,
+        override: values =>  { 
+        },
+        additionalClassMechanics: []
+    },
     138: {
         masteryRequired: 1,
         override: () => { },

@@ -368,19 +368,24 @@ export class SlormancerTemplateService {
 
         console.log('next rank description : ', computed);
         let computedValue: string = '';
+        let formula: string = '';
+        let percent = computed.percent ? '%' : '';
         if (computed.synergy !== null) {
             if (typeof computed.synergy === 'number') {
                 computedValue = computed.synergy.toString();
             } else {
                 computedValue = computed.synergy.min + ' - ' + computed.synergy.max;
             }
+            
+            if (computed.upgrade !== 0 && isEffectValueSynergy(value)) {
+                formula = ' <span class="formula">(' + computed.value + percent + ' ' + this.translate(value.source) + ')</span>';
+            }
         } else {
-            let percent = computed.percent ? '%' : '';
             computedValue = computed.value.toString() + percent;
         }
 
         template = this.parseTemplate(template, value.stat ? [value.stat] : []);    
-        template = this.replaceAnchor(template, this.asSpan(computedValue, 'value'), this.VALUE_ANCHOR);
+        template = this.replaceAnchor(template, this.asSpan(computedValue, 'value'), this.VALUE_ANCHOR) + formula;
 
         return template;
     }
