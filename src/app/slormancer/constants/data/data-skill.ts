@@ -809,6 +809,122 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         },
         additionalClassMechanics: []
     },
+    120: {
+        masteryRequired: 2,
+        override: values => { 
+            addConstant(values, 1, false, EffectValueValueType.Duration, 'skill_training_lance_root_duration');
+        },
+        additionalClassMechanics: []
+    },
+    121: {
+        masteryRequired: 2,
+        override: values => { 
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_perfect_astral_retribution_chance');
+        },
+        additionalClassMechanics: []
+    },
+    122: {
+        masteryRequired: 2,
+        override: values => { 
+        },
+        additionalClassMechanics: []
+    },
+    123: {
+        masteryRequired: 2,
+        override: values => { 
+        },
+        additionalClassMechanics: []
+    },
+    124: {
+        masteryRequired: 3,
+        override: values => { 
+            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_cosmic_stack_astral_retribution_increased_damage');
+        },
+        additionalClassMechanics: []
+    },
+    125: {
+        masteryRequired: 4,
+        override: values => { 
+        },
+        additionalClassMechanics: []
+    },
+    126: {
+        masteryRequired: 4,
+        override: values => { 
+        },
+        additionalClassMechanics: []
+    },
+    127: {
+        masteryRequired: 5,
+        override: values => { 
+        },
+        additionalClassMechanics: []
+    },
+    128: {
+        masteryRequired: 5,
+        override: values => { 
+        },
+        additionalClassMechanics: []
+    },
+    129: {
+        masteryRequired: 6,
+        override: values => { 
+        },
+        additionalClassMechanics: []
+    },
+    130: {
+        masteryRequired: 7,
+        override: values => { 
+        },
+        additionalClassMechanics: []
+    },
+    131: {
+        masteryRequired: 7,
+        override: values => { 
+        },
+        additionalClassMechanics: []
+    },
+    132: {
+        masteryRequired: 8,
+        override: values => { 
+            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_additional_elder_lance');
+        },
+        additionalClassMechanics: []
+    },
+    133: {
+        masteryRequired: 8,
+        override: values => { 
+            addConstant(values, 1, false, EffectValueValueType.Duration, 'skill_trap_delay');
+            addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'skill_trap_aoe');
+        },
+        additionalClassMechanics: []
+    },
+    134: {
+        masteryRequired: 9,
+        override: values => { 
+        },
+        additionalClassMechanics: []
+    },
+    135: {
+        masteryRequired: 9,
+        override: values => { 
+        },
+        additionalClassMechanics: []
+    },
+    136: {
+        masteryRequired: 10,
+        override: values => { 
+            addConstant(values, 50, false, EffectValueValueType.Flat, 'skill_training_lance_additional_pierce_chance_life_treshold');
+            addConstant(values, 50, false, EffectValueValueType.Flat, 'skill_elder_lance_increased_damages_life_treshold');
+        },
+        additionalClassMechanics: []
+    },
+    137: {
+        masteryRequired: 10,
+        override: values => { 
+        },
+        additionalClassMechanics: []
+    },
     138: {
         masteryRequired: 1,
         override: () => { },
