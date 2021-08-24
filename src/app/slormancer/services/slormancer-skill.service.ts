@@ -165,6 +165,7 @@ export class SlormancerSkillService {
                 hasManaCost: false,
                 hasNoCost: false,
                 genres: <Array<SkillGenre>>splitData(gameDataSkill.GENRE, ','),
+                damageTypes: splitData(gameDataSkill.DMG_TYPE, ','),
             
                 template: this.slormancerTemplateService.getSkillDescriptionTemplate(gameDataSkill),
                 values: this.parseEffectValues(gameDataSkill)
@@ -216,6 +217,7 @@ export class SlormancerSkillService {
                 hasManaCost: false,
                 hasNoCost: false,
                 genres: <Array<SkillGenre>>splitData(gameDataSkill.GENRE, ','),
+                damageTypes: splitData(gameDataSkill.DMG_TYPE, ','),
 
                 nextRankDescription: [],
                 maxRankDescription: [],

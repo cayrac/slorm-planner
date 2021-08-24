@@ -1,4 +1,4 @@
-<div class="skill" *ngIf="skill !== null">
+<div class="skill {{skill.damageTypes.length > 0 ? skill.damageTypes[0] : ''}}" *ngIf="skill !== null">
     <div class="head">{{skill.name}}</div>
     <div class="content">
         <div class="info">

@@ -9,7 +9,8 @@ $skill-level-max-color : rgb(242, 167, 24);
 $skill-level-bonus-color : rgb(191, 65, 7);
 $skill-level-bg-color : rgb(9, 9, 9);
 
-
+$physical-color-text  : rgb(206, 70, 7);
+$magical-color-text   : rgb(187, 31, 226);
 
 $normal-color-text     : rgb(137, 137, 137);
 $normal-color-bg       : rgb(89, 81, 60);
@@ -48,10 +49,10 @@ $bravery-color         : rgb(191, 60, 89);
     display: flex;
     flex-direction: column;
     max-width: 400px;
-        
+      
     &::ng-deep {
-        .value {
-            color: $legendary-color-text;
+        .value, .rank .current {
+            color: $physical-color-text;
         }
 
         .range, .details, .formula {
@@ -73,6 +74,11 @@ $bravery-color         : rgb(191, 60, 89);
             color: $mana-color;
         }
     }
+    &.mag::ng-deep {
+        .value, .rank .current {
+            color: $magical-color-text;
+        } 
+    }   
     
     .head, .content {
         border: 3px solid $skill-border-color;

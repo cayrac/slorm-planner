@@ -26,6 +26,7 @@ export interface SkillUpgrade {
     hasManaCost: boolean;
     hasNoCost: boolean;
     genres: Array<SkillGenre>;
+    damageTypes: Array<string>;
 
     nextRankDescription: Array<string>;
     maxRankDescription: Array<string>;

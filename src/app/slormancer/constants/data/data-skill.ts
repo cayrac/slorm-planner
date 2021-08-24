@@ -702,6 +702,113 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         },
         additionalClassMechanics: []
     },
+    104: {
+        masteryRequired: 2,
+        override: values =>  { 
+        },
+        additionalClassMechanics: [],
+        additionalMechanics: [MechanicType.InnerFire]
+    },
+    105: {
+        masteryRequired: 2,
+        override: values =>  { 
+        },
+        additionalClassMechanics: []
+    },
+    106: {
+        masteryRequired: 2,
+        override: values =>  { 
+        },
+        additionalClassMechanics: []
+    },
+    107: {
+        masteryRequired: 3,
+        override: values =>  { 
+            addConstant(values, 8, false, EffectValueValueType.Flat, 'skill_hit_per_rotation_required_for_astral_retribution');
+        },
+        additionalClassMechanics: []
+    },
+    108: {
+        masteryRequired: 3,
+        override: values =>  { 
+        },
+        additionalClassMechanics: []
+    },
+    109: {
+        masteryRequired: 4,
+        override: values =>  { 
+        },
+        additionalClassMechanics: []
+    },
+    110: {
+        masteryRequired: 4,
+        override: values =>  { 
+        },
+        additionalClassMechanics: []
+    },
+    111: {
+        masteryRequired: 5,
+        override: values => { 
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_perfect_arcane_beam_per_rotation_chance');
+        },
+        additionalClassMechanics: []
+    },
+    112: {
+        masteryRequired: 6,
+        override: values =>  { 
+        },
+        additionalClassMechanics: []
+    },
+    113: {
+        masteryRequired: 7,
+        override: values => { 
+            addConstant(values, -25, false, EffectValueValueType.Flat, 'skill_elemental_reduction_percent_while_channeling');
+        },
+        additionalClassMechanics: []
+    },
+    114: {
+        masteryRequired: 7,
+        override: values => { 
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_perfect_dancing_blade_chance');
+        },
+        additionalClassMechanics: []
+    },
+    115: {
+        masteryRequired: 8,
+        override: values => { 
+            addConstant(values, 5, false, EffectValueValueType.Flat, 'skill_perfect_arcane_beam_count');
+        },
+        additionalClassMechanics: []
+    },
+    116: {
+        masteryRequired: 8,
+        override: values => { 
+            addConstant(values, 300, false, EffectValueValueType.Flat, 'skill_max_channeling_over_time_damage_bonus');
+        },
+        additionalClassMechanics: []
+    },
+    117: {
+        masteryRequired: 9,
+        override: values => { 
+            addConstant(values, 5, false, EffectValueValueType.Flat, 'skill_skewing_max_stack');
+            addConstant(values, 5, false, EffectValueValueType.Flat, 'skill_skewing_stack_conversion');
+        },
+        additionalClassMechanics: []
+    },
+    118: {
+        masteryRequired: 9,
+        override: values =>{ 
+            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'skill_attraction_aoe');
+        },
+        additionalClassMechanics: []
+    },
+    119: {
+        masteryRequired: 10,
+        override: values => { 
+            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_additional_cooldown');
+        },
+        additionalClassMechanics: []
+    },
     138: {
         masteryRequired: 1,
         override: () => { },

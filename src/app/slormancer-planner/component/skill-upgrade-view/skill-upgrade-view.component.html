@@ -1,4 +1,4 @@
-<div class="skill" *ngIf="upgrade !== null">
+<div class="skill {{upgrade.damageTypes.length > 0 ? upgrade.damageTypes[0] : ''}}" *ngIf="upgrade !== null">
     <div class="head">{{getTypeLabel(upgrade.type)}}: {{upgrade.name}}</div>
     <div class="content">
         <div class="info">

@@ -24,6 +24,7 @@ export interface Skill {
     hasManaCost: boolean;
     hasNoCost: boolean;
     genres: Array<SkillGenre>;
+    damageTypes: Array<string>;
 
     template: string;
     values: Array<AbstractEffectValue>;
