@@ -310,6 +310,7 @@ export class SlormancerTemplateService {
                     description = this.applyEffectValueConstant(description, effectValue, anchor);
                 }
             } else if (isEffectValueSynergy(effectValue)) {
+                console.log('formatUpgradeDescription : ', effectValue);
                 description = this.applyEffectValueSynergyForUpgrade(description, 0, effectValue, level, this.VALUE_ANCHOR, this.SYNERGY_ANCHOR);
             }
             
@@ -366,7 +367,6 @@ export class SlormancerTemplateService {
             ? this.slormancerItemValueService.computeEffectVariableDetails(value, 0, rank) 
             : this.slormancerItemValueService.computeEffectSynergyDetails(value, 0, rank);    
 
-        console.log('next rank description : ', computed);
         let computedValue: string = '';
         let formula: string = '';
         let percent = computed.percent ? '%' : '';

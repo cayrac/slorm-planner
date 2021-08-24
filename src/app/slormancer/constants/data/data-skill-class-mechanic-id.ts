@@ -11,6 +11,13 @@ export const DATA_SKILL_CLASS_MECHANIC_ID: GameHeroesData<{ [key: string]: numbe
         '<astral retribution>': 217,
         '<astral retributions>': 217
     },
-    1: {},
+    1: {
+        '<poison>': 211,
+        '<ravenous dagger>': 209,
+        '<ravenous daggers>': 209,
+        '<trap>': 210,
+        '<tormented>': 212,
+        '<delighted>': 213
+    },
     2: {}
 }

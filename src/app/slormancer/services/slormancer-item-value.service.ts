@@ -5,7 +5,7 @@ import { EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
 import { GameRarity } from '../model/game/game-rarity';
 import { MinMax } from '../model/minmax';
-import { bankerRound, list } from '../util/math.util';
+import { bankerRound, list, round } from '../util/math.util';
 import { valueOrDefault } from '../util/utils';
 
 @Injectable()
@@ -181,8 +181,8 @@ export class SlormancerItemValueService {
             synergy: null,
         }
 
-        result.value = result.range ? valueOrDefault(result.range[itemValue], 0) : effect.value + effect.upgrade * upgradeMultiplier;
-        result.baseFormulaUpgrade = result.range ? valueOrDefault(result.range[itemValue], 0) : effect.value + effect.upgrade;
+        result.value = result.range ? valueOrDefault(result.range[itemValue], 0) : round(effect.value + effect.upgrade * upgradeMultiplier, 2);
+        result.baseFormulaUpgrade = result.range ? valueOrDefault(result.range[itemValue], 0) : round(effect.value + effect.upgrade, 2);
 
         return result;
     }
@@ -203,10 +203,10 @@ export class SlormancerItemValueService {
             synergy: null,
         }
 
-        result.value = result.range ? valueOrDefault(result.range[itemValue], 0) : effect.ratio + effect.upgrade * upgradeMultiplier;
-        result.baseFormulaUpgrade = result.range ? valueOrDefault(result.range[itemValue], 0) : effect.ratio + effect.upgrade;
+        result.value = result.range ? valueOrDefault(result.range[itemValue], 0) : round(effect.ratio + effect.upgrade * upgradeMultiplier, 2);
+        result.baseFormulaUpgrade = result.range ? valueOrDefault(result.range[itemValue], 0) : round(effect.ratio + effect.upgrade, 2);
 
-        result.synergy = effect.source === 'physical_damage' || effect.source === 'weapon_damage' || effect.source === 'elemental_damage' ? {min: 0, max: 0} : 0;
+        result.synergy = (effect.stat !== 'res_mag_add' && (effect.source === 'physical_damage' || effect.source === 'weapon_damage' || effect.source === 'elemental_damage')) ? {min: 0, max: 0} : 0;
 
         return result;
     }

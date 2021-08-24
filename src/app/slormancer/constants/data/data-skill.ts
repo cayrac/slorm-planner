@@ -1445,6 +1445,399 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         },
         additionalClassMechanics: []
     },
+    133: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    134: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    135: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    136: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    137: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    138: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    139: {
+        masteryRequired: 3,
+        override: values => { 
+            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_deafult_serenity_drop');
+            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_serenity_drop');
+        },
+        additionalClassMechanics: []
+    },
+    140: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    141: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    142: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    143: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    144: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    145: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    146: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    147: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    148: {
+        masteryRequired: 5,
+        override: values => { 
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_light_arrow_additional_pierce_chance');
+        },
+        additionalClassMechanics: []
+    },
+    149: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    150: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    151: {
+        masteryRequired: 6,
+        override: values => { 
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'skill_ballistas_shared_projectile_modifiers_aoe');
+        },
+        additionalClassMechanics: []
+    },
+    152: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    153: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    154: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    155: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    156: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    157: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    158: {
+        masteryRequired: 1,
+        override: values => { 
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'skill_isolated_aoe');
+        },
+        additionalClassMechanics: []
+    },
+    159: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    160: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    161: {
+        masteryRequired: 2,
+        override: values => {
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'skill_close_aoe');
+        },
+        additionalClassMechanics: []
+    },
+    162: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    163: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    164: {
+        masteryRequired: 3,
+        override: values => { 
+            addConstant(values, 8, false, EffectValueValueType.Duration, 'skill_tormented_delighted_buff_disabled_duration');
+        },
+        additionalClassMechanics: []
+    },
+    165: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    166: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    167: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    168: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    169: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    170: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    171: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    172: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    173: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    174: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    175: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    176: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    177: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    178: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    179: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    180: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    181: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    182: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    183: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    184: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    185: {
+        masteryRequired: 2,
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_serenity_increase_default');
+            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_serenity_increase_total');
+        },
+        additionalClassMechanics: []
+    },
+    186: {
+        masteryRequired: 2,
+        override: values => {
+            addConstant(values, 50, false, EffectValueValueType.Flat, 'skill_idle_armor_penetration');
+        },
+        additionalClassMechanics: []
+    },
+    187: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    188: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    189: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    190: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    191: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    192: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    193: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    194: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    195: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    196: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    197: {
+        masteryRequired: 5,
+        override: values => { 
+            addConstant(values, 5, false, EffectValueValueType.AreaOfEffect, 'skill_poison_damage_per_poisoned_enemy_aoe');
+        },
+        additionalClassMechanics: []
+    },
+    198: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    199: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    200: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    201: {
+        masteryRequired: 6,
+        override: values => { 
+            addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'skill_screen_stun_aoe');
+        },
+        additionalClassMechanics: []
+    },
+    202: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: [],
+        additionalMechanics: [MechanicType.InnerFire]
+    },
+    203: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    204: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    205: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    206: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
 }
 
 export const DATA_SKILL_2: { [key: number]: DataSkill } = {
