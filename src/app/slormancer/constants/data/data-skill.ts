@@ -1445,6 +1445,83 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         },
         additionalClassMechanics: []
     },
+    11: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    12: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    13: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    14: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    15: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    16: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    17: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    18: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    19: {
+        masteryRequired: 6,
+        override: values => {
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_rebound_before_hit_increased_damage_first_hit');
+        },
+        additionalClassMechanics: []
+    },
+    20: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    21: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    22: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    23: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    24: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    25: {
+        masteryRequired: 10,
+        override: values => { },
+        additionalClassMechanics: []
+    },
     133: {
         masteryRequired: 1,
         override: values => { },
