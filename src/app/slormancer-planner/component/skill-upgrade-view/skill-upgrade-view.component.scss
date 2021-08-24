@@ -53,7 +53,7 @@ $bravery-color         : rgb(191, 60, 89);
     max-width: 400px;
         
     &::ng-deep {
-        .value, .rank .current {
+        .value, .rank .current, .head {
             color: $physical-color-text;
         }
         &.mag .value {
@@ -80,7 +80,7 @@ $bravery-color         : rgb(191, 60, 89);
         }
     }
     &.mag::ng-deep {
-        .value, .rank .current {
+        .value, .rank .current, .head {
             color: $magical-color-text;
         } 
     } 
@@ -93,7 +93,6 @@ $bravery-color         : rgb(191, 60, 89);
             padding: 10px 50px;
             text-transform: uppercase;
             font-size: 17px;
-            color: $skill-level-bonus-color;
         }
 
         &.content {

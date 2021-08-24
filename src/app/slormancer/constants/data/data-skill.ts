@@ -1522,6 +1522,93 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => { },
         additionalClassMechanics: []
     },
+    26: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    27: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    28: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    29: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    30: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    31: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    32: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    33: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    34: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    35: {
+        masteryRequired: 6,
+        override: values => { 
+            addConstant(values, -25, false, EffectValueValueType.Flat, 'skill_increased_aoe_size');
+        },
+        additionalClassMechanics: []
+    },
+    36: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    37: {
+        masteryRequired: 7,
+        override: values => {
+            addConstant(values, 5, false, EffectValueValueType.Duration, 'skill_slow_duration');
+        },
+        additionalClassMechanics: []
+    },
+    38: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    39: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    40: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    41: {
+        masteryRequired: 10,
+        override: values => { 
+            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_delightful_rain_stack_increased_attack_speed');
+            addConstant(values, 25, false, EffectValueValueType.Flat, 'skill_delightful_rain_stack_maximum');
+        },
+        additionalClassMechanics: []
+    },
     133: {
         masteryRequired: 1,
         override: values => { },
