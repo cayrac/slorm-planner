@@ -1694,6 +1694,90 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => { },
         additionalClassMechanics: []
     },
+    58: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    59: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    60: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    61: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    62: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    63: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    64: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    65: {
+        masteryRequired: 5,
+        override: values => {
+            addConstant(values, 5, false, EffectValueValueType.Flat, 'skill_ragenous_dagger_spawn_on_first_hit');
+        },
+        additionalClassMechanics: []
+    },
+    66: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    67: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    68: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    69: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    70: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    71: {
+        masteryRequired: 9,
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'skill_homing_bolt_aoe');
+        },
+        additionalClassMechanics: []
+    },
+    72: {
+        masteryRequired: 10,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    73: {
+        masteryRequired: 10,
+        override: values => { },
+        additionalClassMechanics: []
+    },
     133: {
         masteryRequired: 1,
         override: values => { },
