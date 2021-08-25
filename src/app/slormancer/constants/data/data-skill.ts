@@ -1931,6 +1931,87 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => { },
         additionalClassMechanics: []
     },
+    103: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    104: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    105: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    106: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    107: {
+        masteryRequired: 3,
+        override: values => {
+            addConstant(values, 0, false, EffectValueValueType.Flat, 'skill_tormented_cost_and_cooldown');
+        },
+        additionalClassMechanics: []
+    },
+    108: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    109: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    110: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    111: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    112: {
+        masteryRequired: 6,
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'skill_blind_aoe');
+        },
+        additionalClassMechanics: []
+    },
+    113: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    114: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    115: {
+        masteryRequired: 8,
+        override: values => {
+            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_overdrive_trigger_count')
+        },
+        additionalClassMechanics: []
+    },
+    116: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    117: {
+        masteryRequired: 10,
+        override: values => { },
+        additionalClassMechanics: []
+    },
     133: {
         masteryRequired: 1,
         override: values => { },
