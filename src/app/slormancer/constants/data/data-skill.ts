@@ -1616,7 +1616,10 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     },
     43: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            addConstant(values, 50, false, EffectValueValueType.Flat, 'skill_next_stab_buff_ancestral_strike_chance');
+            addConstant(values, 2, false, EffectValueValueType.Duration, 'skill_next_stab_buff_duration');
+        },
         additionalClassMechanics: []
     },
     44: {
@@ -1631,7 +1634,9 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     },
     46: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            addConstant(values, 4, false, EffectValueValueType.Flat, 'skill_daze_duration');
+        },
         additionalClassMechanics: []
     },
     47: {
