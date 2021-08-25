@@ -2574,7 +2574,144 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_2_10_pierce_chance');
         },
         additionalClassMechanics: []
-    }
+    },
+    141: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    142: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    143: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    144: {
+        masteryRequired: 2,
+        override: values => {
+            addConstant(values, 5, false, EffectValueValueType.Duration, 'skill_movement_speed_buff_duration');
+        },
+        additionalClassMechanics: []
+    },
+    145: {
+        masteryRequired: 2,
+        override: values => {
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'skill_arcane_bond_buff_range');
+        },
+        additionalClassMechanics: [216]
+    },
+    146: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    147: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    148: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    149: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    150: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    151: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    152: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    153: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    154: {
+        masteryRequired: 5,
+        override: values => {
+            addConstant(values, 4, false, EffectValueValueType.Duration, 'skill_elemental_damage_buff_duration');
+        },
+        additionalClassMechanics: []
+    },
+    155: {
+        masteryRequired: 5,
+        override: values => {
+            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_diffent_last_emblems_for_arcane_bond_on_hit');
+        },
+        additionalClassMechanics: []
+    },
+    156: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    157: {
+        masteryRequired: 6,
+        override: values => {
+            addConstant(values, 20, false, EffectValueValueType.Flat, 'skill_remnant_rift_nova_cast_life_treshold');
+        },
+        additionalClassMechanics: []
+    },
+    158: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    159: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    160: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    161: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    162: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: [217]
+    },
+    163: {
+        masteryRequired: 8,
+        override: values => {
+            addConstant(values, 5, false, EffectValueValueType.Flat, 'max_emblems');
+        },
+        additionalClassMechanics: [214]
+    },
+    164: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    165: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
 }
 
 export const DATA_SKILL: GameHeroesData<{ [key: number]: DataSkill }> = {
