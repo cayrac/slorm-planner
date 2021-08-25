@@ -1778,6 +1778,87 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => { },
         additionalClassMechanics: []
     },
+    74: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    75: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    76: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    77: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    78: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    79: {
+        masteryRequired: 4,
+        override: values => {
+            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_movement_speed_per_affected_ennemie');
+        },
+        additionalClassMechanics: []
+    },
+    80: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    81: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    82: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    83: {
+        masteryRequired: 6,
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'skill_explosion_aoe');
+        },
+        additionalClassMechanics: []
+    },
+    84: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    85: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    86: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    87: {
+        masteryRequired: 9,
+        override: values => {
+            addConstant(values, 30, false, EffectValueValueType.Flat, 'skill_increased_damage_per_stack');
+        },
+        additionalClassMechanics: []
+    },
+    88: {
+        masteryRequired: 10,
+        override: values => { },
+        additionalClassMechanics: []
+    },
     133: {
         masteryRequired: 1,
         override: values => { },

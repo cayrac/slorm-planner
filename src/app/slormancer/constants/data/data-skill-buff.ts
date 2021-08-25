@@ -8,6 +8,7 @@ export const DATA_SKILL_BUFF: { [key: string]: string } = {
     '<silences>': 'silence',
     '<elemental resistance broken>': 'elemental_broken',
     '<blinds>': 'blind',
+    '<blinded>': 'blind',
     '<armor broken>': 'armor_broken',
     '<rooted>': 'root',
     '<roots>': 'root'
