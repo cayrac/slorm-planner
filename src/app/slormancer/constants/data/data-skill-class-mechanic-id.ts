@@ -22,11 +22,14 @@ export const DATA_SKILL_CLASS_MECHANIC_ID: GameHeroesData<{ [key: string]: numbe
     2: {
         '<arcane bond>': 216,
         '<time-lock>': 215,
+        '<time-locked>': 215,
         '<emblems>': 214,
         '<emblem>': 214,
         '<remnant>': 217,
         '<remnants>': 217,
         '<temporal clone>': 219,
         '<temporal clones>': 219,
+        '<arcane clone>': 218,
+        '<arcane clones>': 218,
     }
 }

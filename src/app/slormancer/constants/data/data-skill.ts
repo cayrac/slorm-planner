@@ -2846,6 +2846,130 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         },
         additionalClassMechanics: []
     },
+    189: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    190: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    191: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    192: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    193: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    194: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: [],
+        additionalMechanics: [MechanicType.InnerFire]
+    },
+    195: {
+        masteryRequired: 2,
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Duration, 'skill_silence_duration');
+        },
+        additionalClassMechanics: []
+    },
+    196: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    197: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    198: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    199: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    200: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    201: {
+        masteryRequired: 5,
+        override: values => {
+            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'skill_arcane_barius_catch_radius');
+        },
+        additionalClassMechanics: []
+    },
+    202: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    203: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    204: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: [218]
+    },
+    205: {
+        masteryRequired: 6,
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Flat, 'additional_arcane_clone');
+        },
+        additionalClassMechanics: []
+    },
+    206: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    207: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    208: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    209: {
+        masteryRequired: 8,
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Flat, 'additional_arcane_clone');
+        },
+        additionalClassMechanics: []
+    },
+    210: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    211: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
 }
 
 export const DATA_SKILL: GameHeroesData<{ [key: number]: DataSkill }> = {
