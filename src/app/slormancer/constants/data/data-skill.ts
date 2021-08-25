@@ -2708,8 +2708,142 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         additionalClassMechanics: []
     },
     165: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    166: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    167: {
+        masteryRequired: 1,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    168: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    169: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    170: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    171: {
+        masteryRequired: 3,
+        override: values => {
+            addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_swap_delay');
+        },
+        additionalClassMechanics: []
+    },
+    172: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    173: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    174: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    175: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    176: {
+        masteryRequired: 4,
+        override: values => {
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'skill_mana_resonance_aoe');
+        },
+        additionalClassMechanics: []
+    },
+    177: {
+        masteryRequired: 4,
+        override: values => {
+            addConstant(values, 10, false, EffectValueValueType.Flat, 'skill_cooldown_reset_life_lost_treshold');
+        },
+        additionalClassMechanics: []
+    },
+    178: {
+        masteryRequired: 5,
+        override: values => {
+            addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_temporal_clone_delay_explosion');
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'skill_temporal_clone_explosion_aoe');
+        },
+        additionalClassMechanics: []
+    },
+    179: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    180: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: [],
+        additionalMechanics: [MechanicType.InnerFire]
+    },
+    181: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    182: {
+        masteryRequired: 3,
+        override: values => {
+            addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_recast_duration');
+            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_additional_cooldown_per_recast');
+        },
+        additionalClassMechanics: []
+    },
+    183: {
+        masteryRequired: 7,
+        override: values => {
+            addConstant(values, 4, false, EffectValueValueType.Flat, 'max_emblems');
+        },
+        additionalClassMechanics: [214]
+    },
+    184: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    185: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    186: {
         masteryRequired: 8,
         override: values => { },
+        additionalClassMechanics: []
+    },
+    187: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    188: {
+        masteryRequired: 8,
+        override: values => {
+            addConstant(values, 4, false, EffectValueValueType.Flat, 'skill_remnant_cloud_max_grow');
+            addConstant(values, 1, false, EffectValueValueType.Duration, 'skill_remnant_cloud_explosion_delay');
+            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'skill_remnant_cloud_explosion_aoe');
+        },
         additionalClassMechanics: []
     },
 }
