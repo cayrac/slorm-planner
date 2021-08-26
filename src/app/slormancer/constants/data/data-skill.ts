@@ -2825,6 +2825,94 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => { },
         additionalClassMechanics: []
     },
+    58: {
+        masteryRequired: 2,
+        override: values => {
+            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_emblem_per_cast_count');
+        },
+        additionalClassMechanics: []
+    },
+    59: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    60: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    61: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    62: {
+        masteryRequired: 4,
+        override: values => {
+            addConstant(values, 4, false, EffectValueValueType.Flat, 'skill_charge_max_time');
+        },
+        additionalClassMechanics: []
+    },
+    63: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    64: {
+        masteryRequired: 5,
+        override: values => {
+            addConstant(values, 10, false, EffectValueValueType.Duration, 'skill_high_spirit_stack_duration');
+        },
+        additionalClassMechanics: []
+    },
+    65: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    66: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    67: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    68: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    69: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    70: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    71: {
+        masteryRequired: 8,
+        override: values => {
+            addConstant(values, 2, false, EffectValueValueType.Duration, 'skill_burst_delay');
+        },
+        additionalClassMechanics: []
+    },
+    72: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    73: {
+        masteryRequired: 10,
+        override: values => { },
+        additionalClassMechanics: []
+    },
     141: {
         masteryRequired: 1,
         override: values => { },
