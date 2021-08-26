@@ -1,4 +1,5 @@
 import { GameDataActivable } from '../../model/game/data/game-data-activable';
+import { GameDataAncestralLegacy } from '../../model/game/data/game-data-ancestral-legacy';
 import { GameDataBuff } from '../../model/game/data/game-data-buff';
 import { GameDataLegendary } from '../../model/game/data/game-data-legendary';
 import { GameDataReaper } from '../../model/game/data/game-data-reaper';
@@ -11,6 +12,7 @@ import * as BUFF from './data/dat_buf.json';
 import * as WARRIOR_SKILL from './data/dat_cla_0.json';
 import * as HUNTRESS_SKILL from './data/dat_cla_1.json';
 import * as MAGE_SKILL from './data/dat_cla_2.json';
+import * as ANCESTRAL_LEGACY from './data/dat_ele.json';
 import * as LEGENDARY from './data/dat_leg.json';
 import * as REAPER from './data/dat_rea.json';
 import * as STAT from './data/dat_sta.json';
@@ -27,5 +29,6 @@ export const GAME_DATA = {
         2:       <Array<GameDataSkill>>Array.from(MAGE_SKILL)
     },
     TRANSLATION: <Array<GameDataTranslation>>Array.from(TRANSLATION),
-    BUFF: <Array<GameDataBuff>>Array.from(BUFF)
+    BUFF: <Array<GameDataBuff>>Array.from(BUFF),
+    ANCESTRAL_LEGACY: <Array<GameDataAncestralLegacy>>Array.from(ANCESTRAL_LEGACY)
 };

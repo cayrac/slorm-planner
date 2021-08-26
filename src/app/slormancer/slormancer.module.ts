@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { SlormancerActivableService } from './services/slormancer-activable.service';
+import { SlormancerAncestralLegacyService } from './services/slormancer-ancestral-legacy.service';
 import { SlormancerBuffService } from './services/slormancer-buff.service';
 import { SlormancerDataService } from './services/slormancer-data.service';
 import { SlormancerEffectValueService } from './services/slormancer-effect-value.service';
@@ -33,6 +34,7 @@ import { SlormancerTemplateService } from './services/slormancer-template.servic
     SlormancerReaperValueService,
     SlormancerMechanicService,
     SlormancerBuffService,
+    SlormancerAncestralLegacyService,
   ],
   bootstrap: []
 })
