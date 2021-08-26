@@ -2913,6 +2913,104 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => { },
         additionalClassMechanics: []
     },
+    74: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    75: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    76: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    77: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    78: {
+        masteryRequired: 3,
+        override: values => {
+            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_chrono_metamorphosis_stack_max_mana_percent');
+            addConstant(values, 5, false, EffectValueValueType.Duration, 'skill_chrono_metamorphosis_stack_duration');
+        },
+        additionalClassMechanics: []
+    },
+    79: {
+        masteryRequired: 3,
+        override: values => {
+            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_chrono_armor_stack_max_armor_percent');
+            addConstant(values, 5, false, EffectValueValueType.Duration, 'skill_chrono_armor_stack_duration');
+        },
+        additionalClassMechanics: []
+    },
+    80: {
+        masteryRequired: 4,
+        override: values => {
+            addConstant(values, 5, false, EffectValueValueType.Duration, 'skill_chrono_empower_stack_duration');
+            addConstant(values, 5, false, EffectValueValueType.Flat, 'skill_chrono_empower_stack_next_other_school_skill_increased_damage_percent');
+        },
+        additionalClassMechanics: []
+    },
+    81: {
+        masteryRequired: 4,
+        override: values => {
+            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_chrono_speed_stack_attack_speed');
+            addConstant(values, 5, false, EffectValueValueType.Duration, 'skill_chrono_speed_stack_duration');},
+        additionalClassMechanics: []
+    },
+    82: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    83: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    84: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    85: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    86: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    87: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    88: {
+        masteryRequired: 8,
+        override: values => {
+            addConstant(values, 0.5, false, EffectValueValueType.AreaOfEffect, 'skill_chrono_burst_aoe');
+        },
+        additionalClassMechanics: []
+    },
+    89: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    90: {
+        masteryRequired: 10,
+        override: values => { },
+        additionalClassMechanics: []
+    },
     141: {
         masteryRequired: 1,
         override: values => { },
@@ -3305,6 +3403,11 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     211: {
         masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    223: {
+        masteryRequired: 9,
         override: values => { },
         additionalClassMechanics: []
     },
