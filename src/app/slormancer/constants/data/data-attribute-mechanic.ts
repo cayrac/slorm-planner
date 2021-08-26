@@ -8,4 +8,5 @@ export const DATA_ATTRIBUTE_MECHANIC: { [key: string]: MechanicType } = {
     overdrive_lucky: MechanicType.Overdrive,
     overdrive_chance: MechanicType.Overdrive,
     overdrive_damage_percent: MechanicType.Overdrive,
+    'synergy:overdrive_chance': MechanicType.Overdrive,
 };

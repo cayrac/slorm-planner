@@ -2657,6 +2657,97 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => { },
         additionalClassMechanics: []
     },
+    27: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    28: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    29: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    30: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    31: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    32: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    33: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    34: {
+        masteryRequired: 4,
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Duration, 'skill_channeling_duration_before_knockback');
+        },
+        additionalClassMechanics: []
+    },
+    35: {
+        masteryRequired: 4,
+        override: values => {
+            addConstant(values, 15, false, EffectValueValueType.Flat, 'skill_slow_per_stack');
+            addConstant(values, 5, false, EffectValueValueType.Duration, 'skill_slow_duration');
+        },
+        additionalClassMechanics: []
+    },
+    36: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    37: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    38: {
+        masteryRequired: 9,
+        override: values => {
+            addConstant(values, 50, false, EffectValueValueType.Flat, 'skill_side_ray_damages_percent');
+        },
+        additionalClassMechanics: []
+    },
+    39: {
+        masteryRequired: 2,
+        override: values => {
+            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_max_grow');
+        },
+        additionalClassMechanics: []
+    },
+    40: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    41: {
+        masteryRequired: 9,
+        override: values => {
+            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_full_strength_last_emblems_count');
+        },
+        additionalClassMechanics: []
+    },
+    42: {
+        masteryRequired: 10,
+        override: values => { },
+        additionalClassMechanics: []
+    },
     141: {
         masteryRequired: 1,
         override: values => { },

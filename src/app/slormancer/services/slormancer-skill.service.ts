@@ -279,18 +279,17 @@ export class SlormancerSkillService {
     private extractMechanics(template: string, values: Array<AbstractEffectValue>, additional: Array<MechanicType>): Array<Mechanic> {
         const templateMechanics = valueOrDefault(template.match(/<(.*?)>/g), [])
             .map(m => this.slormancerDataService.getDataTemplateMechanic(m))
-            .filter(isNotNullOrUndefined)
-            .map(mechanic => this.slormancerMechanicService.getMechanic(mechanic));
         const attributeMechanics = values.map(value => value.stat)
             .filter(isNotNullOrUndefined)
             .map(stat => this.slormancerDataService.getDataAttributeMechanic(stat))
+        const synergyMechanics = values
+            .filter(isEffectValueSynergy)
+            .map(value => this.slormancerDataService.getDataAttributeMechanic(value.source))
+
+        return [ ...attributeMechanics, ...synergyMechanics, ...templateMechanics, ...additional ]
             .filter(isNotNullOrUndefined)
             .filter(isFirst)
             .map(mechanic => this.slormancerMechanicService.getMechanic(mechanic));
-        const additionalMechanics = additional
-            .map(m => this.slormancerMechanicService.getMechanic(m));
-
-            return [ ...attributeMechanics, ...templateMechanics, ...additionalMechanics ];
     }
 
     public updateUpgrade(upgrade: SkillUpgrade) {
