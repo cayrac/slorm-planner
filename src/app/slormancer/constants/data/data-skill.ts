@@ -3203,6 +3203,98 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => { },
         additionalClassMechanics: []
     },
+    125: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    126: {
+        masteryRequired: 2,
+        override: values => {
+            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_bounce_remnant_cast_count');
+        },
+        additionalClassMechanics: []
+    },
+    127: {
+        masteryRequired: 2,
+        override: values => {
+            addConstant(values, 30, false, EffectValueValueType.Flat, 'skill_decreased_damages');
+        },
+        additionalClassMechanics: []
+    },
+    128: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    129: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    130: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    131: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    132: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    133: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    134: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    135: {
+        masteryRequired: 8,
+        override: values => {
+            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'skill_temporal_explosion_aoe');
+        },
+        additionalClassMechanics: []
+    },
+    136: {
+        masteryRequired: 8,
+        override: values => {
+            addConstant(values, 50, false, EffectValueValueType.AreaOfEffect, 'skill_reduced_damages');
+        },
+        additionalClassMechanics: []
+    },
+    137: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    138: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    139: {
+        masteryRequired: 10,
+        override: values => {
+            addConstant(values, 0.5, false, EffectValueValueType.Duration, 'skill_time_between_remnants');
+        },
+        additionalClassMechanics: []
+    },
+    140: {
+        masteryRequired: 10,
+        override: values => {
+            addConstant(values, 2, false, EffectValueValueType.Duration, 'skill_increased_cooldown');
+        },
+        additionalClassMechanics: []
+    },
     141: {
         masteryRequired: 1,
         override: values => { },
