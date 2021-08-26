@@ -3011,6 +3011,100 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => { },
         additionalClassMechanics: []
     },
+    91: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    92: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    93: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    94: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    95: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    96: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    97: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    98: {
+        masteryRequired: 4,
+        override: values => {
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_increased_clone_breach_duration_on_hit');
+        },
+        additionalClassMechanics: []
+    },
+    99: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    100: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    101: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    102: {
+        masteryRequired: 8,
+        override: values => {
+            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_multicast_count_around_if_last_3_emblems_diffent');
+        },
+        additionalClassMechanics: []
+    },
+    103: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    104: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    105: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    106: {
+        masteryRequired: 10,
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Duration, 'skill_charge_duration');
+            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_fully_charged_multicast_row_count');
+        },
+        additionalClassMechanics: []
+    },
+    107: {
+        masteryRequired: 10,
+        override: values => {
+            addConstant(values, 70, false, EffectValueValueType.Flat, 'skill_size_reduction');
+        },
+        additionalClassMechanics: []
+    },
     141: {
         masteryRequired: 1,
         override: values => { },

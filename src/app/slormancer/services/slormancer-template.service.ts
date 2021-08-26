@@ -354,7 +354,7 @@ export class SlormancerTemplateService {
 
     public getSkillDescriptionTemplate(data: GameDataSkill): string {
         // TODO stats peuvent demander des infos qu'on ne peux avoir que sur la génération dynamique, à déplacer plus tard
-        const stats = splitData(data.DESC_VALUE);
+        const stats = splitData(data.DESC_VALUE).filter(value => !value.startsWith('*'));
         const types = splitData(data.DESC_VALUE_REAL);
         
         const template = data.EN_DESCRIPTION.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
@@ -445,6 +445,7 @@ export class SlormancerTemplateService {
     }
 
     public translate(key: string): string {
+        key = key.startsWith('*') ? key.substr(1) : key;
         const gameData = this.slormancerDataService.getTranslation(key);
         const data = this.slormancerDataService.getDataAffixByRef(key);
         const keyword = this.slormancerDataService.getKeywordName(key);
