@@ -2575,6 +2575,88 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         },
         additionalClassMechanics: []
     },
+    11: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    12: {
+        masteryRequired: 2,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    13: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    14: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    15: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    16: {
+        masteryRequired: 4,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    17: {
+        masteryRequired: 3,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    18: {
+        masteryRequired: 5,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    19: {
+        masteryRequired: 6,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    20: {
+        masteryRequired: 4,
+        override: values => {
+            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_remnant_count');
+        },
+        additionalClassMechanics: []
+    },
+    21: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    22: {
+        masteryRequired: 7,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    23: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    24: {
+        masteryRequired: 8,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    25: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    26: {
+        masteryRequired: 10,
+        override: values => { },
+        additionalClassMechanics: []
+    },
     141: {
         masteryRequired: 1,
         override: values => { },

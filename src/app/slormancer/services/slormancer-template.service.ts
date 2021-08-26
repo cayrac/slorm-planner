@@ -310,7 +310,6 @@ export class SlormancerTemplateService {
                     description = this.applyEffectValueConstant(description, effectValue, anchor);
                 }
             } else if (isEffectValueSynergy(effectValue)) {
-                console.log('formatUpgradeDescription : ', effectValue);
                 description = this.applyEffectValueSynergyForUpgrade(description, 0, effectValue, level, this.VALUE_ANCHOR, this.SYNERGY_ANCHOR);
             }
             
@@ -358,7 +357,7 @@ export class SlormancerTemplateService {
         const stats = splitData(data.DESC_VALUE);
         const types = splitData(data.DESC_VALUE_REAL);
         
-        const template = data.EN_DESCRIPTION.replace(/ \(.*?(%|\+|\-).*?\)/g, '');
+        const template = data.EN_DESCRIPTION.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
         return this.parseTemplate(template, stats, types);
     }
 
