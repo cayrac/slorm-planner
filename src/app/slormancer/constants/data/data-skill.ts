@@ -3105,6 +3105,104 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         },
         additionalClassMechanics: []
     },
+    108: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    109: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    110: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    111: {
+        masteryRequired: 9,
+        override: values => {
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_increased_mana_cost_per_arcanic_emblem');
+        },
+        additionalClassMechanics: []
+    },
+    112: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    113: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    114: {
+        masteryRequired: 9,
+        override: values => {
+            addConstant(values, 2, false, EffectValueValueType.Duration, 'skill_delay_spawn');
+        },
+        additionalClassMechanics: []
+    },
+    115: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    116: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    117: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    118: {
+        masteryRequired: 9,
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_arcane_flux_increased_attack_speed');
+            addConstant(values, 2, false, EffectValueValueType.Duration, 'skill_arcane_flux_duration');
+        },
+        additionalClassMechanics: []
+    },
+    119: {
+        masteryRequired: 9,
+        override: values => {
+            addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_duration');
+        },
+        additionalClassMechanics: []
+    },
+    120: {
+        masteryRequired: 9,
+        override: values => {
+            addConstant(values, 10, false, EffectValueValueType.Flat, 'skill_collision_max_stack');
+        },
+        additionalClassMechanics: []
+    },
+    121: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    122: {
+        masteryRequired: 9,
+        override: values => {
+            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'skill_arcane_explosion_aoe');
+        },
+        additionalClassMechanics: []
+    },
+    123: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
+    124: {
+        masteryRequired: 9,
+        override: values => { },
+        additionalClassMechanics: []
+    },
     141: {
         masteryRequired: 1,
         override: values => { },
