@@ -25,6 +25,7 @@ import { EquipableItemType } from '../model/enum/equipable-item-type';
 import { HeroClass } from '../model/enum/hero-class';
 import { MechanicType } from '../model/enum/mechanic-type';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
+import { GameDataAncestralLegacy } from '../model/game/data/game-data-ancestral-legacy';
 import { GameDataBuff } from '../model/game/data/game-data-buff';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameDataReaper } from '../model/game/data/game-data-reaper';
@@ -110,6 +111,10 @@ export class SlormancerDataService {
 
     public getGameDataLegendary(id: number): GameDataLegendary | null {
         return valueOrNull(GAME_DATA.LEGENDARY.find(leg => leg.REF === id));
+    }
+
+    public getGameDataAncestralLegacy(id: number): GameDataAncestralLegacy | null {
+        return valueOrNull(GAME_DATA.ANCESTRAL_LEGACY.find(ancestralLegacu => ancestralLegacu.REF === id));
     }
 
     public getTranslation(key: string): GameDataTranslation | null {

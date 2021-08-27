@@ -8,6 +8,7 @@ import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type'
 import { EffectValueValueType } from '../model/enum/effect-value-value-type';
 import { HeroClass } from '../model/enum/hero-class';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
+import { GameDataAncestralLegacy } from '../model/game/data/game-data-ancestral-legacy';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameDataSkill } from '../model/game/data/game-data-skill';
 import { LegendaryEffect } from '../model/legendary-effect';
@@ -353,6 +354,15 @@ export class SlormancerTemplateService {
     }
 
     public getSkillDescriptionTemplate(data: GameDataSkill): string {
+        // TODO stats peuvent demander des infos qu'on ne peux avoir que sur la génération dynamique, à déplacer plus tard
+        const stats = splitData(data.DESC_VALUE).filter(value => !value.startsWith('*'));
+        const types = splitData(data.DESC_VALUE_REAL);
+        
+        const template = data.EN_DESCRIPTION.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
+        return this.parseTemplate(template, stats, types);
+    }
+
+    public getAncestralLegacyDescriptionTemplate(data: GameDataAncestralLegacy): string {
         // TODO stats peuvent demander des infos qu'on ne peux avoir que sur la génération dynamique, à déplacer plus tard
         const stats = splitData(data.DESC_VALUE).filter(value => !value.startsWith('*'));
         const types = splitData(data.DESC_VALUE_REAL);
