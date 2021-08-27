@@ -80,6 +80,11 @@ $bravery-color         : rgb(191, 60, 89);
             color: $mana-color;
         }
     }
+    &.mag::ng-deep {
+        .value {
+            color: $magical-color-text;
+        } 
+    } 
     
     .head, .content {
         border: 3px solid $skill-border-color;

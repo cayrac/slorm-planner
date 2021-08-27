@@ -33,6 +33,15 @@ import { SlormancerTemplateService } from './slormancer-template.service';
 @Injectable()
 export class SlormancerAncestralLegacyService {
 
+    private readonly UNAVAILABLE_ANCESTRAL_LEGACY: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+        11, 12, 13, 14, 17, 18, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31, 33, 34, 36, 37, 38, 39,
+        40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 54, 56, 58, 59, 60, 61, 62, 63, 64, 65,
+        66, 67, 68, 69, 70, 71, 73, 74, 75, 76, 77, 78, 79, 82, 83, 84, 86, 87, 88, 89, 90, 91, 92,
+        95, 96, 102, 103, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117,
+        118, 120, 122, 123, 124, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142,
+        144, 145, 146, 147
+    ];
+
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormancerBuffService: SlormancerBuffService,
                 private slormancerTemplateService: SlormancerTemplateService,
@@ -173,11 +182,16 @@ export class SlormancerAncestralLegacyService {
             .map(mechanic => this.slormancerMechanicService.getMechanic(mechanic));
     }
 
-    public getAncestralLegacy(ref: number, level: number, bonusLevel: number = 0): AncestralLegacy | null {
+    public isAvailable(ref: number): boolean {
+        return this.UNAVAILABLE_ANCESTRAL_LEGACY.indexOf(ref) === -1;
+    }
+
+    public getAncestralLegacy(ref: number, rank: number, bonusRank: number = 0): AncestralLegacy | null {
         const gameData = this.slormancerDataService.getGameDataAncestralLegacy(ref);
         let ancestralLegacy: AncestralLegacy | null = null;
 
-        if (gameData !== null) {
+        if (gameData !== null && this.UNAVAILABLE_ANCESTRAL_LEGACY.indexOf(ref) === -1) {
+            const data = this.slormancerDataService.getDataAncestralLegacy(ref);
             const values = this.parseEffectValues(gameData);
             ancestralLegacy = {
                 id: ref,
@@ -196,14 +210,15 @@ export class SlormancerAncestralLegacyService {
                 baseCost: gameData.COST,
                 costPerRank: gameData.COST_LEVEL,
                 costType: <SkillCostType>gameData.COST_TYPE,
-                rank: 0,
-                baseRank: level,
-                bonusRank: bonusLevel,
+                totalRank: 0,
+                rank,
+                bonusRank,
                 maxRank: gameData.UPGRADE_NUMBER,
                 hasLifeCost: false,
                 hasManaCost: false,
                 hasNoCost: false,
                 realm: gameData.REALM,
+                links: data === null ? [] : data.links,
 
                 nextRankDescription: [],
                 maxRankDescription: [],
@@ -217,6 +232,10 @@ export class SlormancerAncestralLegacyService {
                 values
             }
 
+            if (data !== null && data.override) {
+                data.override(ancestralLegacy.values);
+            }
+
             this.updateAncestralLegacy(ancestralLegacy);
         }
 
@@ -224,10 +243,10 @@ export class SlormancerAncestralLegacyService {
     }
 
     public updateAncestralLegacy(ancestralLegacy: AncestralLegacy) {
-        ancestralLegacy.baseRank = Math.min(ancestralLegacy.maxRank, ancestralLegacy.baseRank)
-        ancestralLegacy.rank = ancestralLegacy.baseRank + ancestralLegacy.baseRank;
-        ancestralLegacy.description = this.slormancerTemplateService.formatUpgradeDescription(ancestralLegacy.template, ancestralLegacy.values, Math.max(ancestralLegacy.rank, 1));
-        ancestralLegacy.cost = ancestralLegacy.baseCost === null ? null : ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * ancestralLegacy.rank);
+        ancestralLegacy.rank = Math.min(ancestralLegacy.maxRank, ancestralLegacy.rank)
+        ancestralLegacy.totalRank = ancestralLegacy.bonusRank + ancestralLegacy.rank;
+        ancestralLegacy.description = this.slormancerTemplateService.formatUpgradeDescription(ancestralLegacy.template, ancestralLegacy.values, Math.max(ancestralLegacy.totalRank, 1));
+        ancestralLegacy.cost = ancestralLegacy.baseCost === null ? null : ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * ancestralLegacy.totalRank);
         ancestralLegacy.cooldown = ancestralLegacy.baseCooldown;
 
         ancestralLegacy.hasLifeCost = ancestralLegacy.costType === SkillCostType.LifePercent || ancestralLegacy.costType === SkillCostType.LifeSecond || ancestralLegacy.costType === SkillCostType.LifeLock || ancestralLegacy.costType === SkillCostType.Life;
@@ -238,8 +257,8 @@ export class SlormancerAncestralLegacyService {
         ancestralLegacy.maxRankDescription = [];
 
         if (ancestralLegacy.maxRank > 1) {
-            ancestralLegacy.nextRankDescription = this.getNextRankUpgradeDescription(ancestralLegacy, Math.min(ancestralLegacy.maxRank, ancestralLegacy.rank + 1));
-            ancestralLegacy.maxRankDescription = this.getNextRankUpgradeDescription(ancestralLegacy, ancestralLegacy.maxRank);
+            ancestralLegacy.nextRankDescription = this.getNextRankUpgradeDescription(ancestralLegacy, Math.min(ancestralLegacy.maxRank + ancestralLegacy.bonusRank, ancestralLegacy.totalRank + 1));
+            ancestralLegacy.maxRankDescription = this.getNextRankUpgradeDescription(ancestralLegacy, ancestralLegacy.maxRank + ancestralLegacy.bonusRank);
         }
     }
 }

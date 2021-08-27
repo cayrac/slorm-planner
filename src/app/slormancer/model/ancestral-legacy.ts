@@ -26,11 +26,12 @@ export interface AncestralLegacy {
     hasLifeCost: boolean;
     hasManaCost: boolean;
     hasNoCost: boolean;
+    totalRank: number;
     rank: number;
-    baseRank: number;
     bonusRank: number;
     maxRank: number;
     realm: number;
+    links: Array<number>;
 
     relatedBuffs: Array<Buff>;
     relatedMechanics: Array<Mechanic>;

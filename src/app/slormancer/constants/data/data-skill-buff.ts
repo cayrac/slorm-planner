@@ -11,5 +11,11 @@ export const DATA_SKILL_BUFF: { [key: string]: string } = {
     '<blinded>': 'blind',
     '<armor broken>': 'armor_broken',
     '<rooted>': 'root',
-    '<roots>': 'root'
+    '<roots>': 'root',
+    '<chilled>': 'ice_chill',
+    '<chills>': 'ice_chill',
+    '<frozen>': 'ice_frozen',
+    '<freezes>': 'ice_frozen',
+    '<flashing dart>': 'light_dart',
+    '<soul bound>': 'next_skill_soul_bound',
 }

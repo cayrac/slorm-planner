@@ -75,7 +75,7 @@ export class SlormancerPlannerComponent implements OnInit {
     public selectedSkillIndex: number = 10;
 
     public selectedAncestralLegacy: AncestralLegacy | null = null;
-    public selectedAncestralLegacyIndex: number = 0;
+    public selectedAncestralLegacyIndex: number = 72;
     
     public selectedUpgrade: SkillUpgrade | null = null;
     public selectedUpgradeIndex: number = 139;
@@ -419,6 +419,7 @@ export class SlormancerPlannerComponent implements OnInit {
 
     public getAncestralLegacyOptions(): Array<{ label: string, value: number }> {
         return GAME_DATA.ANCESTRAL_LEGACY
+            .filter(ancestralLegacy => this.slormancerAncestralLegacyService.isAvailable(ancestralLegacy.REF))
             .map(ancestralLegacy => ({ label: ancestralLegacy.EN_NAME, value: ancestralLegacy.REF }));
     }
 }

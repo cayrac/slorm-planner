@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { DATA_ACTIVABLE } from '../constants/data/data-activable';
 import { DATA_AFFIX } from '../constants/data/data-affix';
+import { DATA_ANCESTRAL_LEGACY } from '../constants/data/data-ancestral-legacy';
 import { DATA_ATTRIBUTE_MECHANIC } from '../constants/data/data-attribute-mechanic';
 import { DATA_EQUIPABLE_ITEM } from '../constants/data/data-equipable-item';
 import { DATA_KEYWORD_NAME } from '../constants/data/data-keyword-name';
@@ -17,6 +18,7 @@ import { DATA_TRANSLATE } from '../constants/data/data-translate';
 import { GAME_DATA } from '../constants/game/game-data';
 import { DataActivable } from '../model/data/data-activable';
 import { DataAffix } from '../model/data/data-affix';
+import { DataAncestralLegacy } from '../model/data/data-ancestral-legacy';
 import { DataEquipableItemType } from '../model/data/data-equipable-item-type';
 import { DataLegendary } from '../model/data/data-legendary';
 import { DataReaper } from '../model/data/data-reaper';
@@ -131,6 +133,10 @@ export class SlormancerDataService {
 
     public getDataSkill(heroClass: HeroClass, id: number): DataSkill | null {
         return valueOrNull(DATA_SKILL[heroClass][id]);
+    }
+
+    public getDataAncestralLegacy(ref: number): DataAncestralLegacy | null {
+        return valueOrNull(DATA_ANCESTRAL_LEGACY[ref]);
     }
 
     public getGameDataLegendaryActivableBasedOn(id: number): GameDataActivable | null {

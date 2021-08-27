@@ -1,4 +1,4 @@
-<div class="ancestral-legacy" *ngIf="ancestralLegacy !== null">
+<div class="ancestral-legacy {{ancestralLegacy.damageTypes.length > 0 ? ancestralLegacy.damageTypes[0] : ''}}" *ngIf="ancestralLegacy !== null">
     <div class="head">{{ancestralLegacy.name}}</div>
     <div class="content">
         <div class="info">
@@ -12,7 +12,7 @@
                 <div class="name">{{getElementLabel(ancestralLegacy.element)}} - {{getTypeLabels(ancestralLegacy.types)}}</div>
                 <div class="genre" *ngIf="ancestralLegacy.genres.length > 0">{{getGenresLabel(ancestralLegacy.genres)}}</div>
                 <div class="cooldown" *ngIf="ancestralLegacy.cooldown !== null && ancestralLegacy.cooldown > 0">Cooldown : <span class="value">{{ancestralLegacy.cooldown}}</span> seconds</div>
-                <div class="rank">{{translate(RANK_LABEL)}}: <span class="current">{{ancestralLegacy.rank}}</span>/{{ancestralLegacy.maxRank}}</div>
+                <div class="rank">{{translate(RANK_LABEL)}}: <span class="current">{{ancestralLegacy.totalRank}}</span>/{{ancestralLegacy.maxRank}}</div>
                 <div class="cost" *ngIf="!ancestralLegacy.hasNoCost">Cost :
                     <span [class.life]="ancestralLegacy.hasLifeCost" [class.mana]="ancestralLegacy.hasManaCost">{{ancestralLegacy.cost}}</span>
                     <span> {{getCostLabel(ancestralLegacy.costType)}}</span>
@@ -21,7 +21,7 @@
         </div>
         <div class="separator"></div>
         <div class="description" [innerHTML]="ancestralLegacy.description"></div>
-        <ng-container *ngIf="ancestralLegacy.rank < ancestralLegacy.maxRank && ancestralLegacy.nextRankDescription.length > 0 || ancestralLegacy.maxRankDescription.length > 0">
+        <ng-container *ngIf="ancestralLegacy.rank < ancestralLegacy.maxRank && (ancestralLegacy.nextRankDescription.length > 0 || ancestralLegacy.maxRankDescription.length > 0)">
             <div class="separator"></div>
             <div class="next-rank">
                 <div class="title">{{translate(NEXT_RANK_LABEL)}}:</div>
@@ -36,13 +36,7 @@
                 </div>
             </div>
         </ng-container>
-        <div class="mechanics" *ngIf="ancestralLegacy.auraBuff !== null || ancestralLegacy.relatedMechanics.length > 0 || ancestralLegacy.relatedBuffs.length > 0">
-            <div class="mechanic" *ngIf="ancestralLegacy.auraBuff !== null">
-                <div class="mechanic-icon">
-                    <img src="assets/img/icon/{{ancestralLegacy.auraBuff.icon}}.png"/>
-                </div>
-                <div class="mechanic-name">{{ancestralLegacy.auraBuff.name}}</div>
-            </div>
+        <div class="mechanics" *ngIf="ancestralLegacy.relatedMechanics.length > 0 || ancestralLegacy.relatedBuffs.length > 0">
             <div class="mechanic" *ngFor="let mechanic of ancestralLegacy.relatedMechanics">
                 <div class="mechanic-icon">
                     <img src="assets/img/icon/{{mechanic.icon}}.png"/>

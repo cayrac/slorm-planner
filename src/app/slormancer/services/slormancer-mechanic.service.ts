@@ -9,13 +9,32 @@ export class SlormancerMechanicService {
 
     constructor(private slormancerTemplateService: SlormancerTemplateService) { }
 
+    private getName(type: MechanicType): string {
+        let key = 'tt_' + type + '_name';
+        
+        if (type === MechanicType.ShieldGlove) {
+            key = 'tt_mechanic_' + type;
+        }
+
+        return this.slormancerTemplateService.translate(key);
+    }
+    private getDescription(type: MechanicType): string {
+        let key = 'tt_help_' + type + '_effect';
+
+        if (type === MechanicType.ShieldGlove) {
+            key = 'tt_mechanic_' + type + '_effect';
+        }
+
+        return this.slormancerTemplateService.translate(key);
+    }
+
     public getMechanic(type: MechanicType): Mechanic {
         const mechanic = {
-            name: this.slormancerTemplateService.translate('tt_' + type + '_name'),
+            name: this.getName(type),
             type,
             description: '',
             icon: 'mechanic/' + type,
-            template: this.slormancerTemplateService.translate('tt_help_' + type + '_effect')
+            template: this.getDescription(type)
         };
 
         this.updateMechanic(mechanic);
