@@ -1,14 +1,13 @@
-import { AbstractEffectValue } from './effect-value';
+import { AbstractEffectValue, EffectValueVariable } from './effect-value';
 import { Attribute } from './enum/attribute';
 import { TraitLevel } from './enum/trait-level';
 
 export interface Trait {
-    id: number;
     attribute: Attribute;
-    additive: number | null;
     requiredRank: number;
     traitLevel: TraitLevel;
     rank: number;
+    unlocked: boolean;
 
     attributeName: string;
     description: string;
@@ -16,6 +15,7 @@ export interface Trait {
     traitLevelLabel: string;
     unlockLabel: string | null;
     
-    template: string;
+    template: string | null;
     values: Array<AbstractEffectValue>;
+    cumulativeValues: Array<EffectValueVariable>;
 }

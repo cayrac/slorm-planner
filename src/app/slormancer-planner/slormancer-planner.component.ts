@@ -4,6 +4,7 @@ import { GameSave } from '../slormancer';
 import { DATA_REAPER_DAMAGES, DataReaperDamages } from '../slormancer/constants/data/data-reaper-damages';
 import { GAME_DATA } from '../slormancer/constants/game/game-data';
 import { AncestralLegacy } from '../slormancer/model/ancestral-legacy';
+import { AttributeTraits } from '../slormancer/model/attribut-traits';
 import { Attribute } from '../slormancer/model/enum/attribute';
 import { HeroClass } from '../slormancer/model/enum/hero-class';
 import { EquipableItem } from '../slormancer/model/equipable-item';
@@ -16,6 +17,7 @@ import { Reaper } from '../slormancer/model/reaper';
 import { Skill } from '../slormancer/model/skill';
 import { SkillUpgrade } from '../slormancer/model/skill-upgrade';
 import { SlormancerAncestralLegacyService } from '../slormancer/services/slormancer-ancestral-legacy.service';
+import { SlormancerAttributeService } from '../slormancer/services/slormancer-attribute.service';
 import { SlormancerDataService } from '../slormancer/services/slormancer-data.service';
 import { SlormancerItemService } from '../slormancer/services/slormancer-item.service';
 import { SlormancerLegendaryEffectService } from '../slormancer/services/slormancer-legendary-effect.service';
@@ -75,6 +77,7 @@ export class SlormancerPlannerComponent implements OnInit {
 
     public selectedAttribute: Attribute = Attribute.Toughness;
     public attributePoints: number = 0;
+    public selectedTrait: AttributeTraits | null = null;
 
     public selectedItem: number | null = 8;
 
@@ -106,8 +109,10 @@ export class SlormancerPlannerComponent implements OnInit {
                 private slormancerItemService: SlormancerItemService,
                 private slormancerReaperService: SlormancerReaperService,
                 private slormancerTemplateService: SlormancerTemplateService,
+                private slormancerAttributeService: SlormancerAttributeService,
                 private slormancerAncestralLegacyService: SlormancerAncestralLegacyService) {
         this.selectData();
+        console.log(this.ATTRIBUTE_OPTIONS);
     }
 
     public ngOnInit() {
@@ -202,6 +207,8 @@ export class SlormancerPlannerComponent implements OnInit {
             this.selectedAncestralLegacy = this.slormancerAncestralLegacyService.getAncestralLegacy(this.selectedAncestralLegacyIndex, this.level, this.bonusLevel);
         }
 
+        this.selectedTrait = this.slormancerAttributeService.getAttributeTraits(this.selectedAttribute, this.attributePoints, this.bonusLevel);
+
         this.customReaper = this.slormancerReaperService.getReaperById(this.reaperBase, this.selectedClass, this.primordial, this.level, this.level, 12345, 12345, this.bonusLevel);
     }
 
@@ -269,11 +276,11 @@ export class SlormancerPlannerComponent implements OnInit {
         const id: number = data.id
         console.log(data);
         if (id !== null) {
-            const gameData = this.slormancerDataService.getGameDataAncestralLegacy(id);
+            const gameData = this.slormancerDataService.getGameDataAttribute(id);
             if (gameData !== null) {
                 console.log(gameData);
                 console.log(gameData.REF);
-                console.log(gameData.EN_DESCRIPTION);
+                console.log(gameData.EN_TEXT);
             }
         }
     }

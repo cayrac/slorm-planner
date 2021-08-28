@@ -1,16 +1,15 @@
-<div class="trait" *ngIf="trait !== null">
-    <div class="activable-head">
-        <div class="info">
-            <div class="attribute">{{trait.attributeName}}</div>
-            <div class="subtitle">
-                <div class="rank">{{trait.rankLabel}}</div>
-                <div class="level">{{trait.traitLevelLabel}}</div>
-            </div>
+<div class="trait attribute-{{trait.attribute}}" *ngIf="trait !== null">
+    <div class="head">
+        <div class="attribute">{{trait.attributeName}}</div>
+        <div class="subtitle">
+            <span class="rank">{{trait.rankLabel}}</span> - <span class="level">{{trait.traitLevelLabel}}</span>
         </div>
     </div>
-    <div class="description" [innerHTML]="trait.description"></div>
-    <ng-container *ngIf>
-        <div class="separator"></div>
-        <div class="unlock" [innerHTML]="trait.unlockLabel"></div>
-    </ng-container>
+    <div class="content">
+        <div class="description" [innerHTML]="trait.description"></div>
+        <ng-container *ngIf="trait.unlockLabel !== null">
+            <div class="separator"></div>
+            <div class="unlock" [innerHTML]="trait.unlockLabel"></div>
+        </ng-container>
+    </div>
 </div>

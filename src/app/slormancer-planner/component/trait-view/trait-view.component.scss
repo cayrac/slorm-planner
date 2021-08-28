@@ -1,5 +1,6 @@
 
-$activable-bg          : rgb(21,20,18);
+$trait-bg              : rgb(21,20,18);
+$trait-border-color    : rgb(60,57,49);
 $normal-color-text     : rgb(137, 137, 137);
 $normal-color-bg       : rgb(89, 81, 60);
 $magic-color-text      : rgb(46, 135, 38);
@@ -22,6 +23,8 @@ $life-color            : rgb(37, 117, 57);
 $buff-border-color     : rgb(59, 56, 49); 
 $reaper-buff-color     : rgb(20, 142, 137); 
 $skill-buff-color      : rgb(206, 70, 7); 
+$item-text-color       : white;
+
 $toughness-color       : rgb(47, 89, 150); 
 $savagery-color        : rgb(168, 48, 7); 
 $fury-color            : rgb(121, 181, 73); 
@@ -30,22 +33,60 @@ $zeal-color            : rgb(75, 193, 178);
 $willpower-color       : rgb(117, 48, 152); 
 $dexterity-color       : rgb(205, 112, 40); 
 $bravery-color         : rgb(191, 60, 89); 
-$item-text-color       : white;
 
-.activable {
-    background-color: $activable-bg;
+.trait {
+    background-color: $trait-bg;
     border: 3px solid black;
     color: $item-text-color;
-    padding: 5px;
     display: flex;
     flex-direction: column;
     gap: 5px;
+    min-width: 250px;
     
-    &::ng-deep {
-        .value {
-            color: $legendary-color-text;
+    &.attribute {
+        &-0 {
+            .head, .unlock, ::ng-deep .value {
+                color: $toughness-color;
+            }
         }
+        &-1 {
+            .head, .unlock, ::ng-deep .value {
+                color: $savagery-color;
+            }
+        }
+        &-2 {
+            .head, .unlock, ::ng-deep .value {
+                color: $fury-color;
+            }
+        }
+        &-3 {
+            .head, .unlock, ::ng-deep .value {
+                color: $determination-color;
+            }
+        }
+        &-4 {
+            .head, .unlock, ::ng-deep .value {
+                color: $zeal-color;
+            }
+        }
+        &-5 {
+            .head, .unlock, ::ng-deep .value {
+                color: $willpower-color;
+            }
+        }
+        &-6 {
+            .head, .unlock, ::ng-deep .value {
+                color: $dexterity-color;
+            }
+        }
+        &-7 {
+            .head, .unlock, ::ng-deep .value {
+                color: $bravery-color;
+            }
+        }
+    }
 
+    &::ng-deep {
         .range, .details, .formula {
             &, & .value {
                 color: $item-range-color;
@@ -56,52 +97,43 @@ $item-text-color       : white;
             word-break: keep-all;
             white-space: nowrap;
         }
-
-        .life {
-            color: $life-color;
-        }
-
-        .mana {
-            color: $mana-color;
-        }
     }
 
-    .activable-head {
+    .head, .content {
+        border: 3px solid $trait-border-color;
+    }
+
+    .head {
         display: flex;
-        flex-direction: row;
-        gap: 5px;
+        flex-direction: column;
+        align-items: center;
+        text-transform: uppercase;
+        padding: 10px;
+        gap: 2px;
 
-        .icon {
-            display: flex;
-            align-items: center;
-
-            img { 
-                border: 4px solid $activable-gold-border;
-                min-width: 36px;
-                min-height: 36px;
-                width: 36px;
-                height: 36px;
-            }
-
+        .attribute {
+            font-size: 19px;
         }
-
-        .info {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-
-            .name {
-                font-size: 19px;
-                color: $legendary-color-text;
-            }
-
-            .genre {
-                color: $genre-color;
-            }
+        .subtitle {
+            font-size: 14px;
         }
     }
 
-    .description {
-        flex-grow: 1;
+    .content {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 10px;
+        gap: 20px;
+        text-align: center;
+
+        .separator {
+            height: 5px;
+            background-color: $trait-border-color;
+            margin: 0 45px;
+        }
+    
+        .description {
+            flex-grow: 1;
+        }
     }
 }

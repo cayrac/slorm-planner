@@ -300,6 +300,26 @@ export class SlormancerTemplateService {
         return description;
     }
 
+    public formatTraitDescription(template: string, values: Array<AbstractEffectValue>): string {
+        let description = template;
+
+        for (let effectValue of values) {
+            if (isEffectValueVariable(effectValue)) {
+                description = this.applySkillEffectValueVariable(description, 0, effectValue, 0, this.VALUE_ANCHOR);
+            } else if (isEffectValueConstant(effectValue)) {
+                const anchor = findFirst(description, this.CONSTANT_ANCHORS);
+                if (anchor !== null) {
+                    description = this.applyEffectValueConstant(description, effectValue, anchor);
+                }
+            } else if (isEffectValueSynergy(effectValue)) {
+                description = this.applyEffectValueSynergyForSkill(description, 0, effectValue, 0, this.SYNERGY_ANCHOR, this.VALUE_ANCHOR);
+            }
+            
+        }
+
+        return description;
+    }
+
     public formatUpgradeDescription(template: string, values: Array<AbstractEffectValue>, level: number): string {
         let description = template;
 
@@ -379,6 +399,13 @@ export class SlormancerTemplateService {
         
         const template = data.EN_TEXT.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
         return this.parseTemplate(template, stats, types);
+    }
+
+    public getAttributeCumulativeTraitTemplate(template: string, stat: string | null): string {
+        // TODO stats peuvent demander des infos qu'on ne peux avoir que sur la génération dynamique, à déplacer plus tard
+        
+        template = template.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
+        return this.parseTemplate(template, stat === null ? [] : [stat]);
     }
 
     public formatNextRankDescription(template: string, value: EffectValueVariable | EffectValueSynergy, rank: number): string {

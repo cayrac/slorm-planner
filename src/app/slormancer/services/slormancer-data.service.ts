@@ -23,6 +23,7 @@ import { DataEquipableItemType } from '../model/data/data-equipable-item-type';
 import { DataLegendary } from '../model/data/data-legendary';
 import { DataReaper } from '../model/data/data-reaper';
 import { DataSkill } from '../model/data/data-skill';
+import { Attribute } from '../model/enum/attribute';
 import { EquipableItemType } from '../model/enum/equipable-item-type';
 import { HeroClass } from '../model/enum/hero-class';
 import { MechanicType } from '../model/enum/mechanic-type';
@@ -56,6 +57,10 @@ export class SlormancerDataService {
 
     public getGameDataAttribute(ref: number): GameDataAttribute | null {
         return valueOrNull(GAME_DATA.ATTRIBUTES.find(attribute => attribute.REF === ref));
+    }
+
+    public getGameDataAttributes(attribute: Attribute): Array<GameDataAttribute> {
+        return GAME_DATA.ATTRIBUTES.filter(attr => attr.TRAIT === attribute);
     }
 
     public getParentsGameDataReaper(id: number): Array<GameDataReaper> {

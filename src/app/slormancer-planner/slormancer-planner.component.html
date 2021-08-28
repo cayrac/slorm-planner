@@ -8,7 +8,7 @@
         </div>
         <div class="navigation">
             <p>Class : <select (change)="updateData()" [(ngModel)]="selectedClass"><option [value]="option.value" *ngFor="let option of CLASS_OPTIONS">{{option.label}}</option></select></p>
-            <p>Attribute : <select (change)="updateData()" [(ngModel)]="selectedAttribute"><option [value]="option.attribute" *ngFor="let option of ATTRIBUTE_OPTIONS">{{option.label}}</option></select></p>
+            <p>Attribute : <select (change)="updateData()" [(ngModel)]="selectedAttribute"><option [ngValue]="option.attribute" *ngFor="let option of ATTRIBUTE_OPTIONS">{{option.label}}</option></select></p>
             <p>Attribute Points : <select (change)="updateData()" [(ngModel)]="attributePoints"><option [value]="option.value" *ngFor="let option of ATTRIBUTE_POINTS">{{option.label}}</option></select></p>
             <p>Item : <select (change)="updateData()" [(ngModel)]="selectedItem"><option [value]="i" *ngFor="let option of getItemOptions(); let i = index">{{option.label}}</option></select></p>
             <!--<p>Reaper : <select (change)="updateData()" [(ngModel)]="selectedReaperIndex"><option [value]="i" *ngFor="let option of getReaperOptions(); let i = index">{{option.label}}</option></select></p>-->
@@ -37,12 +37,14 @@
             <p>Bonus : <input (change)="updateData()" type="number" [(ngModel)]="bonusLevel"></p>
         </div>
 
-        <div class="item" *ngIf="selectedAncestralLegacy !== null">
-            <!--<app-json [data]="selectedAncestralLegacy"></app-json>-->
-            <app-ancestral-legacy-view [ancestralLegacy]="selectedAncestralLegacy" (click)="showData(selectedAncestralLegacy)"></app-ancestral-legacy-view>
+        <div class="item" *ngIf="selectedTrait !== null">
+            <!--<app-json [data]="selectedTrait"></app-json>-->
+            <!--<app-ancestral-legacy-view [ancestralLegacy]="selectedAncestralLegacy" (click)="showData(selectedAncestralLegacy)"></app-ancestral-legacy-view>-->
             <!--<app-skill-view [skill]="selectedSkill" *ngIf="selectedSkill !== null" (click)="showSkill(selectedSkill, selectedSkillIndex)"></app-skill-view>
             <app-skill-upgrade-view [upgrade]="selectedUpgrade" *ngIf="selectedUpgrade !== null" (click)="showUpgrade(selectedUpgrade, selectedUpgradeIndex)"></app-skill-upgrade-view>
             -->
+            
+            <app-trait-view *ngFor="let trait of selectedTrait.traits" [trait]="trait" (click)="showData(trait)"></app-trait-view>
 
             <div class="parsed">
                 <!--<app-reaper-view (click)="showData(customReaper)" [reaper]="customReaper"></app-reaper-view>

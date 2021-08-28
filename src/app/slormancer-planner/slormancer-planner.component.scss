@@ -51,9 +51,10 @@
 
         .item {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: stretch;
+            align-items: center;
+            gap: 10px;
 
 
             .json {

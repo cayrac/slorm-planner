@@ -34,7 +34,7 @@ export function compareRarities(a: Rarity, b: Rarity): number {
     if (b === Rarity.Rare) numB = 3;
     if (b === Rarity.Magic) numB = 2;
 
-    return numA < numB ? -1 : numA > numB ? 1 : 0;
+    return compare(numA, numB);
 }
 
 export function compare(a: number, b: number): number {
