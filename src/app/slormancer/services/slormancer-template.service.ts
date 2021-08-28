@@ -38,6 +38,8 @@ export class SlormancerTemplateService {
     private readonly SKILL_ENCHANTMENT_TEMPLATE = '+@ $ Mastery';
     private readonly ATTRIBUTE_ENCHANTMENT_TEMPLATE = '+@ $';
 
+    private readonly MAX_LABEL = this.translate('max');
+
     public readonly STAT_ANCHOR = '£';
     public readonly TYPE_ANCHOR = '$';
     public readonly VALUE_ANCHOR = '@';
@@ -52,12 +54,32 @@ export class SlormancerTemplateService {
                 private slormancerItemValueService: SlormancerItemValueService,
                 private slormancerReaperValueService: SlormancerReaperValueService) { }
 
-    private asSpan(content: string, className: string): string {
+    public asSpan(content: string, className: string): string {
         return '<span class="' + className + '">' + content + '</span>';
     }
 
     public replaceAnchor(template: string, value: number | string, anchor: string): string {
         return template.replace(anchor, value.toString());
+    }
+
+    private computeMax(value: AbstractEffectValue, percent: boolean): string {
+        let result = '';
+
+        let max: number | null = null;
+        if (value.max) {
+            max = value.max;
+        } else if (isEffectValueVariable(value) && value.maxUpgrade) {
+            max = this.slormancerItemValueService.computeEffectVariableDetails(value, 0, value.maxUpgrade).value;
+        } else if (isEffectValueSynergy(value) && value.maxUpgrade) {
+            max = this.slormancerItemValueService.computeEffectSynergyDetails(value, 0, value.maxUpgrade).value;
+        }
+
+        if (max !== null) {
+            const sign = max > 0 ? '+' : '-';
+            result = max ? this.asSpan(' (' + sign + Math.abs(max) + (percent ? '%' : '') + ' ' + this.MAX_LABEL + ')', 'max') : '';
+        }
+
+        return result;
     }
 
     private computedItemValueToFormula(computed: ComputedEffectValue, upgradeName: string = 'upgrade'): string {
@@ -77,7 +99,11 @@ export class SlormancerTemplateService {
 
                 const sign = computed.upgrade > 0 ? '+' : '-';
 
-                formula += ' ' + sign + ' ' + Math.abs(computed.upgrade) + percent + (computed.upgradeType === EffectValueUpgradeType.Every3  ? ' every third ' + upgradeName + ' level' : ' per ' + upgradeName);
+                if (computed.upgradeType === EffectValueUpgradeType.RanksAfterInThisTrait) {
+                    formula = sign + Math.abs(computed.upgrade) + percent + ' for every point after this one in this Trait';
+                } else {
+                    formula += ' ' + sign + ' ' + Math.abs(computed.upgrade) + percent + (computed.upgradeType === EffectValueUpgradeType.Every3  ? ' every third ' + upgradeName + ' level' : ' per ' + upgradeName);
+                }
             }
         }
 
@@ -100,8 +126,9 @@ export class SlormancerTemplateService {
 
         const value = this.asSpan(computed.value + percent, 'value')
         const formula = this.computedItemValueToFormula(computed, 'mastery');
+        const max = this.computeMax(effectValue, computed.percent);
 
-        return this.replaceAnchor(template, value + formula, anchor);
+        return this.replaceAnchor(template, value + max + formula, anchor);
     }
 
     private applyUpgradeEffectValueVariable(template: string, baseValue: number, effectValue: EffectValueVariable, reinforcment: number, anchor: string): string {
@@ -154,7 +181,8 @@ export class SlormancerTemplateService {
 
     private applyEffectValueConstant(template: string, value: EffectValueConstant, anchor: string): string {
         const percent = value.percent ? '%' : '';
-        return this.replaceAnchor(template, this.asSpan(value.value.toString(), 'value') + percent, anchor);
+        const max = this.computeMax(value, value.percent);
+        return this.replaceAnchor(template, this.asSpan(value.value.toString(), 'value') + percent + max, anchor);
     }
 
     private applyEffectValueSynergy(template: string, baseValue: number, effectValue: EffectValueSynergy, reinforcment: number, synergyAnchor: string, valueAnchor: string): string {
@@ -202,6 +230,7 @@ export class SlormancerTemplateService {
     private applyEffectValueSynergyForSkill(template: string, baseValue: number, effectValue: EffectValueSynergy, reinforcment: number, valueAnchor: string,  synergyAnchor: string): string {
         const computed = this.slormancerItemValueService.computeEffectSynergyDetails(effectValue, baseValue, reinforcment);
         const formula = this.computedItemValueToFormula(computed, 'mastery');
+        const max = this.computeMax(effectValue, true);
 
         if (computed.synergy !== null) {
             let synergy: string | null = null;
@@ -210,10 +239,10 @@ export class SlormancerTemplateService {
                 const percent = effectValue.percent ? '%' : '';
                 synergy = this.asSpan(computed.synergy.toString() + percent, 'value');
                 template = this.replaceAnchor(template, synergy, valueAnchor);
-                template = this.replaceAnchor(template, this.asSpan(computed.value + '%', 'value') + formula, synergyAnchor);
+                template = this.replaceAnchor(template, this.asSpan(computed.value + '%', 'value') + max + formula, synergyAnchor);
             } else {
                 synergy = this.asSpan(computed.synergy.min + ' - ' + computed.synergy.max, 'value');
-                template = this.replaceAnchor(template, synergy + formula, effectValue.valueType === EffectValueValueType.Damage ? valueAnchor : synergyAnchor);
+                template = this.replaceAnchor(template, synergy + max + formula, effectValue.valueType === EffectValueValueType.Damage ? valueAnchor : synergyAnchor);
             }
         }
 
@@ -300,19 +329,19 @@ export class SlormancerTemplateService {
         return description;
     }
 
-    public formatTraitDescription(template: string, values: Array<AbstractEffectValue>): string {
+    public formatTraitDescription(template: string, values: Array<AbstractEffectValue>, rankAfterThisOne: number): string {
         let description = template;
 
         for (let effectValue of values) {
             if (isEffectValueVariable(effectValue)) {
-                description = this.applySkillEffectValueVariable(description, 0, effectValue, 0, this.VALUE_ANCHOR);
+                description = this.applySkillEffectValueVariable(description, 0, effectValue, rankAfterThisOne, this.VALUE_ANCHOR);
             } else if (isEffectValueConstant(effectValue)) {
                 const anchor = findFirst(description, this.CONSTANT_ANCHORS);
                 if (anchor !== null) {
                     description = this.applyEffectValueConstant(description, effectValue, anchor);
                 }
             } else if (isEffectValueSynergy(effectValue)) {
-                description = this.applyEffectValueSynergyForSkill(description, 0, effectValue, 0, this.SYNERGY_ANCHOR, this.VALUE_ANCHOR);
+                description = this.applyEffectValueSynergyForSkill(description, 0, effectValue, rankAfterThisOne, this.SYNERGY_ANCHOR, this.VALUE_ANCHOR);
             }
             
         }

@@ -6,7 +6,8 @@
         </div>
     </div>
     <div class="content">
-        <div class="description" [innerHTML]="trait.description"></div>
+        <div class="description" *ngIf="trait.cumulativeStats !== null" [innerHTML]="trait.cumulativeStats"></div>
+        <div class="description" *ngIf="trait.description !== null" [innerHTML]="trait.description"></div>
         <ng-container *ngIf="trait.unlockLabel !== null">
             <div class="separator"></div>
             <div class="unlock" [innerHTML]="trait.unlockLabel"></div>

@@ -10,7 +10,8 @@ export interface Trait {
     unlocked: boolean;
 
     attributeName: string;
-    description: string;
+    cumulativeStats: string | null;
+    description: string | null;
     rankLabel: string;
     traitLevelLabel: string;
     unlockLabel: string | null;

@@ -112,7 +112,6 @@ export class SlormancerPlannerComponent implements OnInit {
                 private slormancerAttributeService: SlormancerAttributeService,
                 private slormancerAncestralLegacyService: SlormancerAncestralLegacyService) {
         this.selectData();
-        console.log(this.ATTRIBUTE_OPTIONS);
     }
 
     public ngOnInit() {

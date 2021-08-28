@@ -7,6 +7,7 @@ export interface AttributeTraits {
     bonusRank: number;
     traits: Array<Trait>;
 
+    recapLabel: string;
     attributeName: string;
     title: string;
     icon: string;
