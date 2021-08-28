@@ -8,6 +8,7 @@ import { AbstractEffectValue, EffectValueSynergy, EffectValueVariable } from '..
 import { EffectValueType } from '../model/enum/effect-value-type';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
 import { EffectValueValueType } from '../model/enum/effect-value-value-type';
+import { MechanicType } from '../model/enum/mechanic-type';
 import { SkillCostType } from '../model/enum/skill-cost-type';
 import { SkillGenre } from '../model/enum/skill-genre';
 import { GameDataAncestralLegacy } from '../model/game/data/game-data-ancestral-legacy';
@@ -166,7 +167,7 @@ export class SlormancerAncestralLegacyService {
             .filter(isNotNullOrUndefined);
     }
 
-    private extractMechanics(template: string, values: Array<AbstractEffectValue>): Array<Mechanic> {
+    private extractMechanics(template: string, values: Array<AbstractEffectValue>, additional: Array<MechanicType>): Array<Mechanic> {
         const templateMechanics = valueOrDefault(template.match(/<(.*?)>/g), [])
             .map(m => this.slormancerDataService.getDataTemplateMechanic(m))
         const attributeMechanics = values.map(value => value.stat)
@@ -176,7 +177,7 @@ export class SlormancerAncestralLegacyService {
             .filter(isEffectValueSynergy)
             .map(value => this.slormancerDataService.getDataAttributeMechanic(value.source))
 
-        return [ ...attributeMechanics, ...synergyMechanics, ...templateMechanics ]
+        return [ ...attributeMechanics, ...synergyMechanics, ...templateMechanics, ...additional ]
             .filter(isNotNullOrUndefined)
             .filter(isFirst)
             .map(mechanic => this.slormancerMechanicService.getMechanic(mechanic));
@@ -224,7 +225,7 @@ export class SlormancerAncestralLegacyService {
                 maxRankDescription: [],
 
                 relatedBuffs: this.extractBuffs(gameData.EN_DESCRIPTION),
-                relatedMechanics: this.extractMechanics(gameData.EN_DESCRIPTION, values),
+                relatedMechanics: this.extractMechanics(gameData.EN_DESCRIPTION, values, data !== null && data.additionalMechanics ? data.additionalMechanics : []),
 
                 // override constants + links
 

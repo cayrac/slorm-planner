@@ -75,7 +75,7 @@ export class SlormancerPlannerComponent implements OnInit {
     public selectedSkillIndex: number = 10;
 
     public selectedAncestralLegacy: AncestralLegacy | null = null;
-    public selectedAncestralLegacyIndex: number = 72;
+    public selectedAncestralLegacyIndex: number = 149;
     
     public selectedUpgrade: SkillUpgrade | null = null;
     public selectedUpgradeIndex: number = 139;

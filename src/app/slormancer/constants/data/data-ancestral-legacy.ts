@@ -2,6 +2,7 @@ import { DataAncestralLegacy } from '../../model/data/data-ancestral-legacy';
 import { AbstractEffectValue, EffectValueConstant } from '../../model/effect-value';
 import { EffectValueType } from '../../model/enum/effect-value-type';
 import { EffectValueValueType } from '../../model/enum/effect-value-value-type';
+import { MechanicType } from '../../model/enum/mechanic-type';
 
 function addConstant(values: Array<AbstractEffectValue>, value: number, percent: boolean, valueType: EffectValueValueType, stat: string | null = null) {
     values.push({
@@ -63,7 +64,8 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
         links: []
     },
     81: {
-        links: []
+        links: [],
+        additionalMechanics: [MechanicType.InnerFire]
     },
     85: {
         override: values => {
