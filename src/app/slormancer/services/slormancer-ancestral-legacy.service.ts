@@ -34,6 +34,8 @@ import { SlormancerTemplateService } from './slormancer-template.service';
 @Injectable()
 export class SlormancerAncestralLegacyService {
 
+    private readonly ACTIVE_PREFIX = 'active_skill_add';
+
     private readonly UNAVAILABLE_ANCESTRAL_LEGACY: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
         11, 12, 13, 14, 17, 18, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31, 33, 34, 36, 37, 38, 39,
         40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 54, 56, 58, 59, 60, 61, 62, 63, 64, 65,
@@ -47,7 +49,10 @@ export class SlormancerAncestralLegacyService {
                 private slormancerBuffService: SlormancerBuffService,
                 private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerMechanicService: SlormancerMechanicService) { }
-                
+           
+    private isActivable(types: Array<AncestralLegacyType>): boolean {
+        return types.indexOf(AncestralLegacyType.Active) !== -1;
+    }
                 
     private isDamageStat(stat: string): boolean {
         return stat === 'physical_damage' || stat === 'elemental_damage' || stat === 'bleed_damage';
@@ -246,7 +251,8 @@ export class SlormancerAncestralLegacyService {
     public updateAncestralLegacy(ancestralLegacy: AncestralLegacy) {
         ancestralLegacy.rank = Math.min(ancestralLegacy.maxRank, ancestralLegacy.rank)
         ancestralLegacy.totalRank = ancestralLegacy.bonusRank + ancestralLegacy.rank;
-        ancestralLegacy.description = this.slormancerTemplateService.formatUpgradeDescription(ancestralLegacy.template, ancestralLegacy.values, Math.max(ancestralLegacy.totalRank, 1));
+        const descriptionPrefix = this.isActivable(ancestralLegacy.types) ? this.slormancerTemplateService.translate(this.ACTIVE_PREFIX) + '<br/>' : '';
+        ancestralLegacy.description = descriptionPrefix + this.slormancerTemplateService.formatUpgradeDescription(ancestralLegacy.template, ancestralLegacy.values, Math.max(ancestralLegacy.totalRank, 1));
         ancestralLegacy.cost = ancestralLegacy.baseCost === null ? null : ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * ancestralLegacy.totalRank);
         ancestralLegacy.cooldown = ancestralLegacy.baseCooldown;
 

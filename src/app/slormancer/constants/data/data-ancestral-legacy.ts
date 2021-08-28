@@ -37,6 +37,9 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
         links: []
     },
     32: {
+        override: values => {
+            addConstant(values, 7, false, EffectValueValueType.Duration, 'seal_duration');
+        },
         links: []
     },
     35: {
