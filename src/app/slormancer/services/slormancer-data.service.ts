@@ -28,6 +28,7 @@ import { HeroClass } from '../model/enum/hero-class';
 import { MechanicType } from '../model/enum/mechanic-type';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { GameDataAncestralLegacy } from '../model/game/data/game-data-ancestral-legacy';
+import { GameDataAttribute } from '../model/game/data/game-data-attribute';
 import { GameDataBuff } from '../model/game/data/game-data-buff';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameDataReaper } from '../model/game/data/game-data-reaper';
@@ -51,6 +52,10 @@ export class SlormancerDataService {
 
     public getGameDataBuff(ref: string): GameDataBuff | null {
         return valueOrNull(GAME_DATA.BUFF.find(stat => stat.REF === ref));
+    }
+
+    public getGameDataAttribute(ref: number): GameDataAttribute | null {
+        return valueOrNull(GAME_DATA.ATTRIBUTES.find(attribute => attribute.REF === ref));
     }
 
     public getParentsGameDataReaper(id: number): Array<GameDataReaper> {

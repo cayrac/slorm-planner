@@ -9,6 +9,7 @@ import { EffectValueValueType } from '../model/enum/effect-value-value-type';
 import { HeroClass } from '../model/enum/hero-class';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { GameDataAncestralLegacy } from '../model/game/data/game-data-ancestral-legacy';
+import { GameDataAttribute } from '../model/game/data/game-data-attribute';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameDataSkill } from '../model/game/data/game-data-skill';
 import { LegendaryEffect } from '../model/legendary-effect';
@@ -55,8 +56,8 @@ export class SlormancerTemplateService {
         return '<span class="' + className + '">' + content + '</span>';
     }
 
-    public replaceAnchor(template: string, value: string, anchor: string): string {
-        return template.replace(anchor, value);
+    public replaceAnchor(template: string, value: number | string, anchor: string): string {
+        return template.replace(anchor, value.toString());
     }
 
     private computedItemValueToFormula(computed: ComputedEffectValue, upgradeName: string = 'upgrade'): string {
@@ -368,6 +369,15 @@ export class SlormancerTemplateService {
         const types = splitData(data.DESC_VALUE_REAL);
         
         const template = data.EN_DESCRIPTION.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
+        return this.parseTemplate(template, stats, types);
+    }
+
+    public getAttributeTemplate(data: GameDataAttribute): string {
+        // TODO stats peuvent demander des infos qu'on ne peux avoir que sur la génération dynamique, à déplacer plus tard
+        const stats = splitData(data.STAT).filter(value => !value.startsWith('*'));
+        const types = splitData(data.TYPE);
+        
+        const template = data.EN_TEXT.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
         return this.parseTemplate(template, stats, types);
     }
 

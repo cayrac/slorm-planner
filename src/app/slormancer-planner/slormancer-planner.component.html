@@ -8,6 +8,8 @@
         </div>
         <div class="navigation">
             <p>Class : <select (change)="updateData()" [(ngModel)]="selectedClass"><option [value]="option.value" *ngFor="let option of CLASS_OPTIONS">{{option.label}}</option></select></p>
+            <p>Attribute : <select (change)="updateData()" [(ngModel)]="selectedAttribute"><option [value]="option.attribute" *ngFor="let option of ATTRIBUTE_OPTIONS">{{option.label}}</option></select></p>
+            <p>Attribute Points : <select (change)="updateData()" [(ngModel)]="attributePoints"><option [value]="option.value" *ngFor="let option of ATTRIBUTE_POINTS">{{option.label}}</option></select></p>
             <p>Item : <select (change)="updateData()" [(ngModel)]="selectedItem"><option [value]="i" *ngFor="let option of getItemOptions(); let i = index">{{option.label}}</option></select></p>
             <!--<p>Reaper : <select (change)="updateData()" [(ngModel)]="selectedReaperIndex"><option [value]="i" *ngFor="let option of getReaperOptions(); let i = index">{{option.label}}</option></select></p>-->
             <p>ReaperBase :

@@ -15,6 +15,7 @@ import { JsonComponent } from './slormancer-planner/component/json/json.componen
 import { ReaperViewComponent } from './slormancer-planner/component/reaper-view/reaper-view.component';
 import { SkillUpgradeViewComponent } from './slormancer-planner/component/skill-upgrade-view/skill-upgrade-view.component';
 import { SkillViewComponent } from './slormancer-planner/component/skill-view/skill-view.component';
+import { TraitViewComponent } from './slormancer-planner/component/trait-view/trait-view.component';
 import { SlormancerPlannerComponent } from './slormancer-planner/slormancer-planner.component';
 
 @NgModule({
@@ -28,6 +29,7 @@ import { SlormancerPlannerComponent } from './slormancer-planner/slormancer-plan
     SkillViewComponent,
     SkillUpgradeViewComponent,
     AncestralLegacyViewComponent,
+    TraitViewComponent,
   ],
   imports: [
     BrowserModule,

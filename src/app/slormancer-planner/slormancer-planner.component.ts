@@ -4,6 +4,7 @@ import { GameSave } from '../slormancer';
 import { DATA_REAPER_DAMAGES, DataReaperDamages } from '../slormancer/constants/data/data-reaper-damages';
 import { GAME_DATA } from '../slormancer/constants/game/game-data';
 import { AncestralLegacy } from '../slormancer/model/ancestral-legacy';
+import { Attribute } from '../slormancer/model/enum/attribute';
 import { HeroClass } from '../slormancer/model/enum/hero-class';
 import { EquipableItem } from '../slormancer/model/equipable-item';
 import { GameDataActivable } from '../slormancer/model/game/data/game-data-activable';
@@ -21,7 +22,9 @@ import { SlormancerLegendaryEffectService } from '../slormancer/services/slorman
 import { SlormancerReaperService } from '../slormancer/services/slormancer-reaper.service';
 import { SlormancerSaveParserService } from '../slormancer/services/slormancer-save-parser.service';
 import { SlormancerSkillService } from '../slormancer/services/slormancer-skill.service';
-import { valueOrNull } from '../slormancer/util/utils';
+import { SlormancerTemplateService } from '../slormancer/services/slormancer-template.service';
+import { list } from '../slormancer/util/math.util';
+import { enumValues, valueOrNull } from '../slormancer/util/utils';
 import { SAVE } from './save';
 
 interface Data {
@@ -41,6 +44,12 @@ export class SlormancerPlannerComponent implements OnInit {
 
     public readonly DATA_REAPER_DAMAGES = DATA_REAPER_DAMAGES;
     public readonly DATA_OPTIONS = Array.from(Object.keys(DATA_REAPER_DAMAGES)).map(v => parseInt(v)).map(key => ({ value: key, label: (DATA_REAPER_DAMAGES[key] as DataReaperDamages).name }));
+
+    public readonly ATTRIBUTE_OPTIONS: Array<{ label: string, attribute: Attribute }> = enumValues(Attribute)
+            .map(attribute => ({ label: this.slormancerTemplateService.translate('character_trait_' + attribute), attribute: attribute }));
+
+    public readonly ATTRIBUTE_POINTS: Array<{ label: string, value: number }> = list(76)
+            .map(points => ({ label: points.toString(), value: points }));
 
     public selectedData: DataReaperDamages | null = null;
     public selectedDataIndex: number = 118;
@@ -63,6 +72,9 @@ export class SlormancerPlannerComponent implements OnInit {
     public save: GameSave | null = null;
 
     public selectedClass: HeroClass = HeroClass.Mage;
+
+    public selectedAttribute: Attribute = Attribute.Toughness;
+    public attributePoints: number = 0;
 
     public selectedItem: number | null = 8;
 
@@ -93,6 +105,7 @@ export class SlormancerPlannerComponent implements OnInit {
                 private slormancerDataService: SlormancerDataService,
                 private slormancerItemService: SlormancerItemService,
                 private slormancerReaperService: SlormancerReaperService,
+                private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerAncestralLegacyService: SlormancerAncestralLegacyService) {
         this.selectData();
     }
