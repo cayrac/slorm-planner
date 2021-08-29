@@ -147,7 +147,7 @@ export class SlormancerActivableService {
     public getActivable(gameData: GameDataActivable): Activable {
         const activable = {
             name: gameData.EN_NAME,
-            icon: 'activable_' + gameData.REF,
+            icon: 'activable/' + gameData.REF,
             description: this.slormancerTemplateService.getActivableDescriptionTemplate(gameData),
             baseCooldown: gameData.COOLDOWN,
             cooldown: gameData.COOLDOWN,

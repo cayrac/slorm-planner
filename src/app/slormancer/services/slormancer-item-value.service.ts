@@ -123,7 +123,7 @@ export class SlormancerItemValueService {
         const valueRatio = this.getValueRatio(level, value, percent);
         const pureRatio = pure === null || pure === 0 ? 100 : pure;
 
-        return this.roundValue(baseValue * reinforcmentRatio * valueRatio * pureRatio / (100 * 100 * 100), score < 5, percent);
+        return this.roundValue(baseValue * reinforcmentRatio * valueRatio * pureRatio / (100 * 100 * 100), score < 2.5, percent);
     }
 
     private getAffixMinMax(rarity: GameRarity, percent: boolean, levelScore: number): MinMax | null {

@@ -100,9 +100,9 @@ $pure-color            : rgb(70, 231, 176);
     min-width: 350px;
 
     &::ng-deep {
-        // .value {
-            // color: $item-value-color;
-        // }
+        .legendary-effect .value {
+            color: $item-value-color;
+        }
 
         .range, .details, .formula, .pure-info {
             &, & .value {

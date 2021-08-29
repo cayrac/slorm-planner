@@ -520,7 +520,26 @@ export class SlormancerTemplateService {
         return template;
     }
 
-    public translate(key: string): string {
+    private getTextGenre(textWithGenre: string, genre: string): string {
+        let result = textWithGenre;
+
+        const splitedData = splitData(textWithGenre, '/');
+        if (splitedData.length === 4) {
+            if (genre === 'MS') {
+                result = <string>splitedData[0];
+            } else if (genre === 'FS') {
+                result = <string>splitedData[1];
+            } else if (genre === 'MP') {
+                result = <string>splitedData[2];
+            } else {
+                result = <string>splitedData[3];
+            }
+        }
+
+        return result;
+    }
+
+    public translate(key: string, genre: string | null = null): string {
         key = key.startsWith('*') ? key.substr(1) : key;
         const gameData = this.slormancerDataService.getTranslation(key);
         const data = this.slormancerDataService.getDataAffixByRef(key);
@@ -541,6 +560,10 @@ export class SlormancerTemplateService {
             if (reaper !== null) {
                 result = reaper.EN_NAME;
             }
+        }
+
+        if (genre !== null) {
+            result = this.getTextGenre(result, genre);
         }
 
         return result;

@@ -1,7 +1,7 @@
 import { DataEquipableItemType } from '../../model/data/data-equipable-item-type';
 
 export const DATA_EQUIPABLE_ITEM: { [key: string]: { [key: string]: DataEquipableItemType } } = {
-    armor: {
+    body: {
         "atk_mag-atk_phy": { name: 'chainmail vest' },
         "atk_phy-def_phy": { name: 'chainmail plated armor' },
         "atk_phy-def_mag": { name: 'chainmail breastplate' },
@@ -58,7 +58,7 @@ export const DATA_EQUIPABLE_ITEM: { [key: string]: { [key: string]: DataEquipabl
         "ret": { name: 'jagged wrap' },
         "def_dodge": { name: 'light wrap' },
     },
-    boots: {
+    boot: {
         "def_phy-mana": { name: 'runic greaves' },
         "def_dodge-mana": { name: 'runic brogans' },
         "def_phy-def_mag": { name: 'splendid greaves' },
@@ -112,12 +112,12 @@ export const DATA_EQUIPABLE_ITEM: { [key: string]: { [key: string]: DataEquipabl
         "atk_mag-def_phy": { name: 'sumptuous helmet' },
         "def_dodge-mana": { name: 'runic hood' },
     },
-    gloves: {
+    glove: {
         "atk_mag-def_dodge": { name: 'sumptuous leather gloves' },
         "atk_phy-def_dodge": { name: 'chainmail leather gloves' },
         "atk_mag-crit": { name: 'great gloves' },
-        "crit-crit": { name: 'great gauntlet' },
-        "crit-def_phy": { name: 'fine plated gauntlet' },
+        "crit-crit": { name: 'great gauntlets' },
+        "crit-def_phy": { name: 'fine plated gauntlets' },
         "atk_phy-crit": { name: 'great chain gloves' },
         "crit-def_mag": { name: 'fine handguards' },
         "atk_mag-def_mag": { name: 'sumptuous handguards' },
@@ -128,17 +128,17 @@ export const DATA_EQUIPABLE_ITEM: { [key: string]: { [key: string]: DataEquipabl
         "atk_mag-atk_phy": { name: 'chainmail gloves' },
         "atk_mag-cdr": { name: 'war gloves' },
         "atk_mag-def_phy": { name: 'sumptuous plated gauntlets' },
-        "def_phy-cdr": { name: 'battle plated gauntlets' },
+        "cdr-def_phy": { name: 'battle plated gauntlets' },
         "atk_phy-def_phy": { name: 'chainmail plated gauntlets' },
         "def_dodge-def_phy": { name: 'light plated gauntlets' },
-        "def_dodge-cdr": { name: 'battle leather gloves' },
+        "cdr-def_dodge": { name: 'battle leather gloves' },
         "crit-def_dodge": { name: 'fine leather gloves' },
-        "crit-cdr": { name: 'war guantlet' },
+        "cdr-crit": { name: 'war gauntlets' },
         "atk_phy-cdr": { name: 'war chain gloves' },
     },
-    bracers: {
-        "atk_mag-def_dodge": { name: 'sumptuous wirstbands' },
-        "atk_phy-def_dodge": { name: 'chainmail wirstbands' },
+    bracer: {
+        "atk_mag-def_dodge": { name: 'sumptuous wristbands' },
+        "atk_phy-def_dodge": { name: 'chainmail wristbands' },
         "atk_mag-crit": { name: 'great bracelet' },
         "crit-crit": { name: 'great cuffs' },
         "crit-def_phy": { name: 'fine bracers' },
@@ -160,7 +160,7 @@ export const DATA_EQUIPABLE_ITEM: { [key: string]: { [key: string]: DataEquipabl
         "cdr-crit": { name: 'war cuffs' },
         "atk_phy-cdr": { name: 'war mail bands' },
     },
-    shoulders: {
+    shoulder: {
         "atk_mag-def_dodge": { name: 'sumptuous pads' },
         "atk_phy-def_dodge": { name: 'chainmail pads' },
         "atk_mag-ret": { name: 'jagged spaulders' },

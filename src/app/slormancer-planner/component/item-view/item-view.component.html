@@ -1,5 +1,5 @@
 <div *ngIf="item !== null" class="item {{getItemRarityColor()}}" [class.nodetails]="!details">
-    <div class="head">{{item.name}}</div>
+    <div class="head" [innerHTML]="item.name"></div>
     <div class="content">
         <div *ngIf="equipped" class="equipped">Equipped</div>
         <div class="main">
@@ -91,7 +91,7 @@
             <div class="info" [innerHTML]="getReaperEnchantmentLabel(item.reaperEnchantment)"></div>
         </div>
         <div class="buff skill" *ngIf="item.skillEnchantment !== null">
-            <img src="assets/img/icon/{{class + '_' + item.skillEnchantment.icon}}.png"/>
+            <img src="assets/img/icon/enchantment/skill/{{class + '/' + item.skillEnchantment.icon}}.png"/>
             <div class="info" [innerHTML]="getSkillEnchantmentLabel(item.skillEnchantment)"></div>
         </div>
         <div class="buff attribute atr-{{item.attributeEnchantment.type}}" *ngIf="item.attributeEnchantment !== null">

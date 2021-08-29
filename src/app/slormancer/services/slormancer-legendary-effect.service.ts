@@ -6,6 +6,7 @@ import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameAffix } from '../model/game/game-item';
 import { LegendaryEffect } from '../model/legendary-effect';
 import { list } from '../util/math.util';
+import { strictParseInt } from '../util/parse.util';
 import { emptyStringToNull, splitData, splitFloatData, valueOrDefault, valueOrNull } from '../util/utils';
 import { SlormancerActivableService } from './slormancer-activable.service';
 import { SlormancerDataService } from './slormancer-data.service';
@@ -59,22 +60,28 @@ export class SlormancerLegendaryEffectService {
     }
 
     private getIcon(hero: number, skill: string): string | null {
-        let heroValue: string | null = null;
+        let icon: string | null = null;
 
-        if (hero === 0) {
-            heroValue = 'warrior';
-        } else if (hero === 1) {
-            heroValue = 'huntress';
-        } else if (hero === 2) {
-            heroValue = 'mage';
-        } else if (hero === 99) {
-            heroValue = 'ancestral';
+        
+        if (hero !== -1) {
+            let skillValue: number | null = null;
+
+            const skills = skill.length > 0 ? valueOrNull(skill.split('|')) : null;
+            if (skills !== null) {
+                skillValue = strictParseInt(<string>skills[skills.length - 1]);
+            }
+    
+            if (skillValue !== null) {
+                if (hero === 99) {
+                    icon = 'legacy/' + skillValue;
+                } else {
+                    icon = 'skill/' + hero + '/' + skillValue;
+                }
+            }
         }
 
-        const skills = skill.length > 0 ? valueOrNull(skill.split('|')) : null;
-        const skillValue = skills !== null ? valueOrNull(skills[skills.length - 1]) : null;
 
-        return (heroValue !== null && skillValue !== null) ? heroValue + '_' + skillValue : null;
+        return icon;
     }
 
     public getExtendedLegendaryEffect(affix: GameAffix): LegendaryEffect | null {
