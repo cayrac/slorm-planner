@@ -10,4 +10,5 @@ export interface Affix {
     percent: boolean;
     suffix: string;
     locked: boolean;
+    pure: number | null
 }

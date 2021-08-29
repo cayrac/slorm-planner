@@ -11,7 +11,8 @@ import { EquipableItem } from '../../../slormancer/model/equipable-item';
 import { ReaperEnchantment } from '../../../slormancer/model/reaper-enchantment';
 import { SkillEnchantment } from '../../../slormancer/model/skill-enchantment';
 import { SlormancerTemplateService } from '../../../slormancer/services/slormancer-template.service';
-import { valueOrNull } from '../../../slormancer/util/utils';
+import { round } from '../../../slormancer/util/math.util';
+import { valueOrDefault, valueOrNull } from '../../../slormancer/util/utils';
 
 @Component({
   selector: 'app-item-view',
@@ -178,5 +179,15 @@ export class ItemViewComponent {
 
     public getAttributeEnchantmentLabel(enchantment: AttributeEnchantment): string {
         return this.slormancerTemplateService.getAttributeEnchantmentLabel(enchantment);
+    }
+
+    public getAffixValue(affix: Affix): number {
+        let value = valueOrDefault(affix.values[affix.value], 0);
+        
+        if (affix.pure !== null && affix.pure > 0) {
+            value = round(value * affix.pure / 100);
+        }
+
+        return value;
     }
 }

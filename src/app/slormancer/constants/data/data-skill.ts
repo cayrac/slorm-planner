@@ -1440,8 +1440,6 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
             setUpgrade(values, 0, 7);
             setValue(values, 1, 2);
             addConstant(values, 1, false, EffectValueValueType.Duration, 'skill_1_10_wait_duration');
-
-            console.log('override : ')
         },
         additionalClassMechanics: []
     },

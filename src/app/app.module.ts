@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,8 +38,7 @@ import { SlormancerPlannerComponent } from './slormancer-planner/slormancer-plan
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    SlormancerModule,
-    NgxChartsModule
+    SlormancerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

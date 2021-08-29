@@ -20,7 +20,8 @@ export class SlormancerItemParserService {
     }
 
     private isAffixe(value: string): boolean {
-        return value.split('.').length === 4;
+        const length = value.split('.').length
+        return length === 5 ||length === 4;
     }
 
     private isEnchantment(value: string): boolean {
@@ -28,17 +29,25 @@ export class SlormancerItemParserService {
     }
 
     private parseAffixe(affixe: string): GameAffix {
-        const [rarity, type, value, locked] = strictSplit(affixe, '.', 4);
+        const [rarity, type, value, locked, pure ] = strictSplit(affixe, '.', { min: 4, max: 5 });
 
         if (this.AFFIXE_RARITIES.indexOf(<string>rarity) === -1) {
             throw new Error('parse affixe error : Unknown rarity "' + rarity + '"');
         }
 
+        let parsedPureValue: number | null = null;
+        if (pure !== undefined) {
+            parsedPureValue = strictParseInt(pure);
+            console.log('pure value found : ', parsedPureValue);
+        }
+
+
         return {
             rarity: <GameRarity>rarity,
             type: strictParseInt(<string>type),
             value: strictParseInt(<string>value),
-            locked: locked === '1'
+            locked: locked === '1',
+            pure: parsedPureValue
         }
     }
 
@@ -62,6 +71,8 @@ export class SlormancerItemParserService {
         const data = toNumberArray(<string>generic, '.', 6);
         let potentialData = (<string>xp).split('.');
 
+        console.log('bonuses : ', bonuses);
+
         let generic_5 = potentialData[potentialData.length - 1];
         let rarity = potentialData[potentialData.length - 2];
         let potential =  potentialData.length === 4 ? potentialData[0] + '.' + potentialData[1] : potentialData[0];
@@ -78,6 +89,9 @@ export class SlormancerItemParserService {
             affixes: bonuses.filter(a => this.isAffixe(a)).map(a => this.parseAffixe(a)),
             enchantments: bonuses.filter(a => this.isEnchantment(a)).map(a => this.parseEnchantment(a))
         }
+
+        console.log('Parse result : ', item);
+        // throw new Error('Test');
 
         return item;
     }

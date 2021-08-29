@@ -1,4 +1,5 @@
 import { GameHeroesData, GameWeapon } from '../model/game/game-save';
+import { MinMax } from '../model/minmax';
 
 export function splitHeroesData(data: string): [string, string, string]  {
     const result = data.split('|');
@@ -35,11 +36,18 @@ export function toWeapon(data: string, id: number): GameWeapon {
     }
 }
 
-export function strictSplit(data: string, separator = ',', expected: number | null = null): Array<string> {
+export function strictSplit(data: string, separator = ',', expected: number | MinMax | null = null): Array<string> {
     const array = data.split(separator);
 
-    if (expected !== null && array.length !== expected) {
-        throw new Error('Strict split error : expected "' + data + '" splitted with "' + separator + '" to have ' + expected + ' values, but got ' + array.length);
+    if (expected !== null) {
+        if (typeof expected === "number") {
+            if (array.length !== expected) {
+                throw new Error('Strict split error : expected "' + data + '" splitted with "' + separator + '" to have ' + expected + ' values, but got ' + array.length);
+            }
+        } else if (array.length < expected.min || array.length > expected.max) {
+            throw new Error('Strict split error : expected "' + data + '" splitted with "' + separator + '" to have between ' + expected.min + ' and ' + expected.max + ' values, but got ' + array.length);
+        }
+
     }
 
     return array;

@@ -28,6 +28,7 @@ $zeal-color            : rgb(75, 193, 178);
 $willpower-color       : rgb(117, 48, 152); 
 $dexterity-color       : rgb(205, 112, 40); 
 $bravery-color         : rgb(191, 60, 89); 
+$pure-color            : rgb(70, 231, 176);
 
 .equipped, .rarity, .split, .type, .head, .legendary-effect .description {
     .item.normal & {
@@ -96,27 +97,27 @@ $bravery-color         : rgb(191, 60, 89);
     background-color: $item-bg;
     color: white;
     border: 2px solid black;
-    width: 350px;
+    min-width: 350px;
 
     &::ng-deep {
-        .value {
-            color: $item-value-color;
-        }
+        // .value {
+            // color: $item-value-color;
+        // }
 
-        .range, .details, .formula {
+        .range, .details, .formula, .pure-info {
             &, & .value {
                 color: $item-range-color;
             }
         }
 
-        .affixes .range, .affixes .value {
+        .affixes .range, .affixes .value, .pure-info {
             word-break: keep-all;
             white-space: nowrap;
         }
     }
     &.nodetails {
         ::ng-deep {
-            .range, .formula {
+            .range, .formula, .pure-info {
                 display: none;
             }
         }
@@ -215,14 +216,23 @@ $bravery-color         : rgb(191, 60, 89);
                     }
                     ul {
                         margin: 0;
-                        padding-left: 5px;
                         list-style: disc inside;
+                        padding-left: 0;
     
                         li {
                             list-style: none;
                             display: flex;
                             flex-direction: row;
+                            padding-left: 5px;
                             gap: 5px;
+
+                            &.pure {
+                                color: $pure-color;
+                                background: linear-gradient(90deg, rgba($pure-color,0.3) 0%, rgba($pure-color,0) 100%);
+                                .name:after {
+                                    content : ' !!'  
+                                }
+                            }
     
                             .name {
                                 flex-grow: 1;

@@ -27,6 +27,7 @@ export interface GameAffix {
     type: number;
     value: number;
     locked: boolean;
+    pure: number | null;
 }
 
 export interface GameEnchantment {

@@ -33,6 +33,7 @@
                 </select>
             </p>
             <p>Primordial : <input (change)="updateData()" type="checkbox" [(ngModel)]="primordial"></p>
+            <p>Details : <input (change)="updateData()" type="checkbox" [(ngModel)]="details"></p>
             <p>Level : <input (change)="updateData()" type="number" [(ngModel)]="level"></p>
             <p>Bonus : <input (change)="updateData()" type="number" [(ngModel)]="bonusLevel"></p>
         </div>
@@ -42,20 +43,20 @@
             <!--<app-ancestral-legacy-view [ancestralLegacy]="selectedAncestralLegacy" (click)="showData(selectedAncestralLegacy)"></app-ancestral-legacy-view>-->
             <!--<app-skill-view [skill]="selectedSkill" *ngIf="selectedSkill !== null" (click)="showSkill(selectedSkill, selectedSkillIndex)"></app-skill-view>
             <app-skill-upgrade-view [upgrade]="selectedUpgrade" *ngIf="selectedUpgrade !== null" (click)="showUpgrade(selectedUpgrade, selectedUpgradeIndex)"></app-skill-upgrade-view>
-            -->
+            
             
             <app-attribute-summary-view [attributeTraits]="selectedTrait" (click)="showData(selectedTrait)"></app-attribute-summary-view>
-            <app-trait-view *ngFor="let trait of selectedTrait.traits" [trait]="trait" (click)="showData(trait)"></app-trait-view>
+            <app-trait-view *ngFor="let trait of selectedTrait.traits" [trait]="trait" (click)="showData(trait)"></app-trait-view>-->
 
             <div class="parsed">
-                <!--<app-reaper-view (click)="showData(customReaper)" [reaper]="customReaper"></app-reaper-view>
+                <!--<app-reaper-view (click)="showData(customReaper)" [reaper]="customReaper"></app-reaper-view>-->
 
                 <app-item-view (click)="showData(selectedExtendedItem)"
                     [item]="selectedExtendedItem"
                     [details]="details"
                     [class]="selectedClass"></app-item-view>
                     
-                <ng-container *ngFor="let data of getLegendariesData()">
+                <!--<ng-container *ngFor="let data of getLegendariesData()">
                     <div class="legendary-data">
                         <app-item-view (click)="showData(data)" [details]="details" [class]="selectedClass" [item]="getLegendaryItem(data.game)"></app-item-view>
                         <app-json [data]="[data.effect.values, (data.effect.activable === null ? null : data.effect.activable.values)]"></app-json>

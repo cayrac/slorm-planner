@@ -18,10 +18,11 @@
                 <div class="affixes" *ngIf="getNormalAffixes().length > 0">
                     <div class="title">Base Stats:</div>
                     <ul>
-                        <li *ngFor="let affix of getNormalAffixes()">
+                        <li *ngFor="let affix of getNormalAffixes()"  [class.pure]="affix.pure !== null && affix.pure > 0">
                             <div class="bullet"><div class="{{affix.rarity}}"></div></div>
                             <div class="value">+{{affix.values[affix.value]}}{{affix.percent ? '%' : ''}}</div>
-                            <div class="range">({{getMinValue(affix.values)}}{{affix.percent ? '%' : ''}} - {{getMaxValue(affix.values)}}{{affix.percent ? '%' : ''}})</div>
+                            <div class="range" *ngIf="affix.pure === null || affix.pure === 0">({{getMinValue(affix.values)}}{{affix.percent ? '%' : ''}} - {{getMaxValue(affix.values)}}{{affix.percent ? '%' : ''}})</div>
+                            <div class="pure-info" *ngIf="affix.pure !== null && affix.pure > 0">({{affix.pure - 100}}% pure)</div>
                             <div class="name">{{affix.name}}</div>
                         </li>
                     </ul>
@@ -29,10 +30,11 @@
                 <div class="affixes" *ngIf="getMagicAffixes().length > 0">
                     <div class="title">Magic Stats:</div>
                     <ul>
-                        <li *ngFor="let affix of getMagicAffixes()">
+                        <li *ngFor="let affix of getMagicAffixes()"  [class.pure]="affix.pure !== null && affix.pure > 0">
                             <div class="bullet"><div class="{{affix.rarity}}"></div></div>
                             <div class="value">+{{affix.values[affix.value]}}{{affix.percent ? '%' : ''}}</div>
-                            <div class="range">({{getMinValue(affix.values)}}{{affix.percent ? '%' : ''}} - {{getMaxValue(affix.values)}}{{affix.percent ? '%' : ''}})</div>
+                            <div class="range" *ngIf="affix.pure === null || affix.pure === 0">({{getMinValue(affix.values)}}{{affix.percent ? '%' : ''}} - {{getMaxValue(affix.values)}}{{affix.percent ? '%' : ''}})</div>
+                            <div class="pure-info" *ngIf="affix.pure !== null && affix.pure > 0">({{affix.pure - 100}}% pure)</div>
                             <div class="name">{{affix.name}}</div>
                         </li>
                     </ul>
@@ -40,10 +42,11 @@
                 <div class="affixes" *ngIf="getRareAffixes().length > 0">
                     <div class="title">Rare Stats:</div>
                     <ul>
-                        <li *ngFor="let affix of getRareAffixes()">
+                        <li *ngFor="let affix of getRareAffixes()"  [class.pure]="affix.pure !== null && affix.pure > 0">
                             <div class="bullet"><div class="{{affix.rarity}}"></div></div>
                             <div class="value">+{{affix.values[affix.value]}}{{affix.percent ? '%' : ''}}</div>
-                            <div class="range">({{getMinValue(affix.values)}}{{affix.percent ? '%' : ''}} - {{getMaxValue(affix.values)}}{{affix.percent ? '%' : ''}})</div>
+                            <div class="range" *ngIf="affix.pure === null || affix.pure === 0">({{getMinValue(affix.values)}}{{affix.percent ? '%' : ''}} - {{getMaxValue(affix.values)}}{{affix.percent ? '%' : ''}})</div>
+                            <div class="pure-info" *ngIf="affix.pure !== null && affix.pure > 0">({{affix.pure - 100}}% pure)</div>
                             <div class="name">{{affix.name}}</div>
                         </li>
                     </ul>
@@ -51,10 +54,11 @@
                 <div class="affixes" *ngIf="getEpicAffixes().length > 0">
                     <div class="title">Epic Stats:</div>
                     <ul>
-                        <li *ngFor="let affix of getEpicAffixes()">
+                        <li *ngFor="let affix of getEpicAffixes()"  [class.pure]="affix.pure !== null && affix.pure > 0">
                             <div class="bullet"><div class="{{affix.rarity}}"></div></div>
                             <div class="value">+{{affix.values[affix.value]}}{{affix.percent ? '%' : ''}}</div>
-                            <div class="range">({{getMinValue(affix.values)}}{{affix.percent ? '%' : ''}} - {{getMaxValue(affix.values)}}{{affix.percent ? '%' : ''}})</div>
+                            <div class="range" *ngIf="affix.pure === null || affix.pure === 0">({{getMinValue(affix.values)}}{{affix.percent ? '%' : ''}} - {{getMaxValue(affix.values)}}{{affix.percent ? '%' : ''}})</div>
+                            <div class="pure-info" *ngIf="affix.pure !== null && affix.pure > 0">({{affix.pure - 100}}% pure)</div>
                             <div class="name">{{affix.name}}</div>
                         </li>
                     </ul>

@@ -298,7 +298,6 @@ export class SlormancerSaveParserService {
         const [data, hash] = content.split('#', 2);
         
         const bytes = toBytes(<string>data);
-        console.log('before parse : ', bytes.length, ' => ', bytesToString(bytes));
 
         const parsedData = this.parseKeys(bytes);
 

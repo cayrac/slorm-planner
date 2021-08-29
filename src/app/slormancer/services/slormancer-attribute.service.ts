@@ -230,7 +230,6 @@ export class SlormancerAttributeService {
                 values.forEach(value => {
                         if ((isEffectValueVariable(value) || isEffectValueSynergy(value))
                             && value.upgradeType === EffectValueUpgradeType.RanksAfterInThisTrait && trait.rank < this.MAX_RANK) {
-                                console.log('Added maxUpgrade for : ', trait.template);
                             value.maxUpgrade = ranksAfterMax;
                         }
                     });

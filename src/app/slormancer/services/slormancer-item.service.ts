@@ -76,6 +76,8 @@ export class SlormancerItemService {
     public getAffix(item: GameEquippableItem, affix: GameAffix): Affix | null {
         const stat = this.slormancerDataService.getGameDataStat(affix);
 
+        console.log('getAffix : ', affix);
+
         const result: Affix | null = {
             rarity: this.getRarity(affix.rarity),
             name: '??',
@@ -85,13 +87,14 @@ export class SlormancerItemService {
             max: affix.value,
             percent: false,
             suffix: '??',
-            locked: affix.locked
+            locked: affix.locked,
+            pure: affix.pure
         };
 
         if (stat !== null) {
             const affixData = this.slormancerDataService.getDataAffix(affix);
 
-            result.values = this.slormancerItemValueService.getAffixValues(item.level, item.reinforcment, stat?.SCORE, stat?.PERCENT === '%', affix.rarity);
+            result.values = this.slormancerItemValueService.getAffixValues(item.level, item.reinforcment, stat?.SCORE, stat?.PERCENT === '%', affix.rarity, affix.pure);
             result.percent = stat.PERCENT === '%';
             
             const keys = Object.keys(result.values).map(k => parseInt(k));
@@ -233,7 +236,7 @@ export class SlormancerItemService {
         };
     }
 
-    public getExtendedEquipableItem(item: GameEquippableItem): EquipableItem {
+    public getEquipableItem(item: GameEquippableItem): EquipableItem {
         const type = this.getEquipableItemType(item);
         const rarity = this.getItemRarity(item);
         const base = this.getItembase(item);
@@ -250,6 +253,8 @@ export class SlormancerItemService {
         const reaperEnchantment = item.enchantments.find(c => c.target === 'RP');
         const skillEnchantment = item.enchantments.find(c => c.target === 'MA');
         const attributeEnchantment = item.enchantments.find(c => c.target === 'AT');
+
+        console.log('getEquippableItem : ', item)
 
         return {
             type,

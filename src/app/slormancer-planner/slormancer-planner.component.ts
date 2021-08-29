@@ -73,13 +73,13 @@ export class SlormancerPlannerComponent implements OnInit {
     
     public save: GameSave | null = null;
 
-    public selectedClass: HeroClass = HeroClass.Mage;
+    public selectedClass: HeroClass = HeroClass.Huntress;
 
     public selectedAttribute: Attribute = Attribute.Toughness;
     public attributePoints: number = 0;
     public selectedTrait: AttributeTraits | null = null;
 
-    public selectedItem: number | null = 8;
+    public selectedItem: number | null = 13;
 
     public selectedExtendedItem: EquipableItem | null = null;
 
@@ -183,7 +183,7 @@ export class SlormancerPlannerComponent implements OnInit {
             const option = this.getItemOptions()[this.selectedItem];
 
             if (option) {
-                this.selectedExtendedItem = this.slormancerItemService.getExtendedEquipableItem(option.value);
+                this.selectedExtendedItem = this.slormancerItemService.getEquipableItem(option.value);
             }
         }
         if (this.selectedReaperIndex !== null) {
@@ -253,8 +253,9 @@ export class SlormancerPlannerComponent implements OnInit {
                     type: data.REF,
                     value: 100,
                     locked: false,
+                    pure: null
                 })
-                legendary = this.slormancerItemService.getExtendedEquipableItem(item);
+                legendary = this.slormancerItemService.getEquipableItem(item);
             }
         }
 
@@ -267,6 +268,7 @@ export class SlormancerPlannerComponent implements OnInit {
             type: data.REF,
             value: 100,
             locked: false,
+            pure: null
         }
         return <LegendaryEffect>this.slormancerLegendaryEffectService.getExtendedLegendaryEffect(affix);
     }

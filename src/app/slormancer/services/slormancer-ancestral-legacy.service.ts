@@ -159,12 +159,6 @@ export class SlormancerAncestralLegacyService {
 
     private extractBuffs(template: string): Array<Buff> {
         return valueOrDefault(template.match(/<(.*?)>/g), [])
-            .map(m => {
-                if (this.slormancerDataService.getDataSkillBuff(m) === null) {
-                    console.log('No buff for ', m);
-                }
-                return m;
-            })
             .map(m => this.slormancerDataService.getDataSkillBuff(m))
             .filter(isNotNullOrUndefined)
             .filter(isFirst)

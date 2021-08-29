@@ -117,12 +117,13 @@ export class SlormancerItemValueService {
         return 100 + Array.from(new Array(reinforcment).keys()).map(i => Math.max(1, 15 - i)).reduce((current, sum) => current + sum, 0);
     }
 
-    private computeAffixValue(level: number, reinforcment: number, score: number, value: number, percent: boolean): number {
+    private computeAffixValue(level: number, reinforcment: number, score: number, value: number, percent: boolean, pure: number | null): number {
         const baseValue = this.getComputedBaseValue(level, score, percent);
         const reinforcmentRatio = this.getReinforcmentratio(reinforcment);
         const valueRatio = this.getValueRatio(level, value, percent);
+        const pureRatio = pure === null || pure === 0 ? 100 : pure;
 
-        return this.roundValue(baseValue * reinforcmentRatio * valueRatio / (100 * 100), score < 5, percent);
+        return this.roundValue(baseValue * reinforcmentRatio * valueRatio * pureRatio / (100 * 100 * 100), score < 5, percent);
     }
 
     private getAffixMinMax(rarity: GameRarity, percent: boolean, levelScore: number): MinMax | null {
@@ -140,7 +141,7 @@ export class SlormancerItemValueService {
         return minMax;
     }
 
-    public getAffixValues(level: number, reinforcment: number, score: number, percent: boolean, rarity: GameRarity): { [ key: number]: number } {
+    public getAffixValues(level: number, reinforcment: number, score: number, percent: boolean, rarity: GameRarity, pure: number | null): { [ key: number]: number } {
         let values: { [key: number]: number } = { };
         const levelScore = this.getLevelPercentScore(level);
 
@@ -149,7 +150,7 @@ export class SlormancerItemValueService {
         if (range !== null) {
             values = {};
             for (let value of list(range.min, range.max)) {
-                values[value] = this.computeAffixValue(level, reinforcment, score, value, percent);
+                values[value] = this.computeAffixValue(level, reinforcment, score, value, percent, pure);
             }
         }
 
