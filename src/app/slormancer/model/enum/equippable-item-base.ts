@@ -1,4 +1,4 @@
-export enum EquipableItemType {
+export enum EquippableItemBase {
     Helm = 'helm',
     Armor = 'body',
     Shoulder = 'shoulder',

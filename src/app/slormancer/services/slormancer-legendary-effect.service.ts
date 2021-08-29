@@ -90,13 +90,18 @@ export class SlormancerLegendaryEffectService {
 
         if (gameData !== null) {
             const activable = this.slormancerDataService.getGameDataLegendaryActivableBasedOn(gameData.REF);
+            const base = this.slormancerDataService.getBaseFromLegendaryId(gameData.REF);
             
             legendaryEffect = {
+                id: gameData.REF,
+                name: gameData.EN_NAME,
+                itemBase: gameData.ITEM,
+                itemIcon: 'item/' + gameData.ITEM + '/' + base,
                 description: this.slormancerTemplateService.getLegendaryDescriptionTemplate(gameData),
                 value: affix.value,
                 activable: activable !== null ? this.slormanderSkillService.getActivable(activable) : null,
                 onlyStat: gameData.STAT_ONLY === true,
-                icon: this.getIcon(gameData.HERO, gameData.SKILL),
+                skillIcon: this.getIcon(gameData.HERO, gameData.SKILL),
                 values: this.getEffectValues(gameData)
             }
 

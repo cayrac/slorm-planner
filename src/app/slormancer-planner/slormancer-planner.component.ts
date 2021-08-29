@@ -183,7 +183,7 @@ export class SlormancerPlannerComponent implements OnInit {
             const option = this.getItemOptions()[this.selectedItem];
 
             if (option) {
-                this.selectedExtendedItem = this.slormancerItemService.getEquipableItem(option.value);
+                this.selectedExtendedItem = this.slormancerItemService.getEquipableItem(option.value, this.selectedClass);
             }
         }
         if (this.selectedReaperIndex !== null) {
@@ -255,7 +255,7 @@ export class SlormancerPlannerComponent implements OnInit {
                     locked: false,
                     pure: null
                 })
-                legendary = this.slormancerItemService.getEquipableItem(item);
+                legendary = this.slormancerItemService.getEquipableItem(item, this.selectedClass);
             }
         }
 
@@ -339,42 +339,42 @@ export class SlormancerPlannerComponent implements OnInit {
             const inventory = this.save.inventory[this.selectedClass];
 
             if (this.slormancerItemService.isEquipableItem(inventory.amulet)) {
-                options.push({ label: this.slormancerItemService.getEquipableItemType(inventory.amulet) + ' (E)', value: inventory.amulet });
+                options.push({ label: this.slormancerItemService.getEquipableItemBase(inventory.amulet) + ' (E)', value: inventory.amulet });
             }
             if (this.slormancerItemService.isEquipableItem(inventory.belt)) {
-                options.push({ label: this.slormancerItemService.getEquipableItemType(inventory.belt) + ' (E)', value: inventory.belt });
+                options.push({ label: this.slormancerItemService.getEquipableItemBase(inventory.belt) + ' (E)', value: inventory.belt });
             }
             if (this.slormancerItemService.isEquipableItem(inventory.boots)) {
-                options.push({ label: this.slormancerItemService.getEquipableItemType(inventory.boots) + ' (E)', value: inventory.boots });
+                options.push({ label: this.slormancerItemService.getEquipableItemBase(inventory.boots) + ' (E)', value: inventory.boots });
             }
             if (this.slormancerItemService.isEquipableItem(inventory.bracers)) {
-                options.push({ label: this.slormancerItemService.getEquipableItemType(inventory.bracers) + ' (E)', value: inventory.bracers });
+                options.push({ label: this.slormancerItemService.getEquipableItemBase(inventory.bracers) + ' (E)', value: inventory.bracers });
             }
             if (this.slormancerItemService.isEquipableItem(inventory.cape)) {
-                options.push({ label: this.slormancerItemService.getEquipableItemType(inventory.cape) + ' (E)', value: inventory.cape });
+                options.push({ label: this.slormancerItemService.getEquipableItemBase(inventory.cape) + ' (E)', value: inventory.cape });
             }
             if (this.slormancerItemService.isEquipableItem(inventory.chest)) {
-                options.push({ label: this.slormancerItemService.getEquipableItemType(inventory.chest) + ' (E)', value: inventory.chest });
+                options.push({ label: this.slormancerItemService.getEquipableItemBase(inventory.chest) + ' (E)', value: inventory.chest });
             }
             if (this.slormancerItemService.isEquipableItem(inventory.gloves)) {
-                options.push({ label: this.slormancerItemService.getEquipableItemType(inventory.gloves) + ' (E)', value: inventory.gloves });
+                options.push({ label: this.slormancerItemService.getEquipableItemBase(inventory.gloves) + ' (E)', value: inventory.gloves });
             }
             if (this.slormancerItemService.isEquipableItem(inventory.hemlet)) {
-                options.push({ label: this.slormancerItemService.getEquipableItemType(inventory.hemlet) + ' (E)', value: inventory.hemlet });
+                options.push({ label: this.slormancerItemService.getEquipableItemBase(inventory.hemlet) + ' (E)', value: inventory.hemlet });
             }
             if (this.slormancerItemService.isEquipableItem(inventory.ring_l)) {
-                options.push({ label: this.slormancerItemService.getEquipableItemType(inventory.ring_l) + ' (E)', value: inventory.ring_l });
+                options.push({ label: this.slormancerItemService.getEquipableItemBase(inventory.ring_l) + ' (E)', value: inventory.ring_l });
             }
             if (this.slormancerItemService.isEquipableItem(inventory.ring_r)) {
-                options.push({ label: this.slormancerItemService.getEquipableItemType(inventory.ring_r) + ' (E)', value: inventory.ring_r });
+                options.push({ label: this.slormancerItemService.getEquipableItemBase(inventory.ring_r) + ' (E)', value: inventory.ring_r });
             }
             if (this.slormancerItemService.isEquipableItem(inventory.spaulder)) {
-                options.push({ label: this.slormancerItemService.getEquipableItemType(inventory.spaulder) + ' (E)', value: inventory.spaulder });
+                options.push({ label: this.slormancerItemService.getEquipableItemBase(inventory.spaulder) + ' (E)', value: inventory.spaulder });
             }
 
             options.push(...inventory.bag
                 .filter(this.slormancerItemService.isEquipableItem)
-                .map((item, i) => ({ label: this.slormancerItemService.getEquipableItemType(item) + '(' + i + ')', value: item })));
+                .map((item, i) => ({ label: this.slormancerItemService.getEquipableItemBase(item) + '(' + i + ')', value: item })));
         }
 
         return options;

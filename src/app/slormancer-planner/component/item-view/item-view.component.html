@@ -4,62 +4,54 @@
         <div *ngIf="equipped" class="equipped">Equipped</div>
         <div class="main">
             <div class="info">
-                <div class="icon {{getItemRarityColor()}}">
-                    <img src="assets/img/item/{{item.type}}/{{item.base}}.png" />
+                <div class="icon">
+                    <img class="background" src="assets/img/{{item.itemIconBackground}}.png" />
+                    <img src="assets/img/icon/{{item.icon}}.png" />
                 </div>
-                <div class="rarity">{{item.rarity}}</div>
-                <div class="rarity" *ngIf="item.legendaryEffect !== null">Legendary</div>
+                <div class="rarity">{{item.rarityLabel}}</div>
                 <div class="split">-</div>
-                <div class="type">{{item.type}}</div>
-                <div>Lvl. {{item.level}}</div>
+                <div class="base">{{item.baseLabel}}</div>
+                <div>{{item.levelLabel}}</div>
             </div>
             <div class="separator"></div>
             <div class="stats">
                 <div class="affixes" *ngIf="getNormalAffixes().length > 0">
                     <div class="title">Base Stats:</div>
                     <ul>
-                        <li *ngFor="let affix of getNormalAffixes()"  [class.pure]="affix.pure !== null && affix.pure > 0">
+                        <li *ngFor="let affix of getNormalAffixes()"  [class.pure]="affix.isPure">
                             <div class="bullet"><div class="{{affix.rarity}}"></div></div>
-                            <div class="value">+{{affix.values[affix.value]}}{{affix.percent ? '%' : ''}}</div>
-                            <div class="range" *ngIf="affix.pure === null || affix.pure === 0">({{getMinValue(affix.values)}}{{affix.percent ? '%' : ''}} - {{getMaxValue(affix.values)}}{{affix.percent ? '%' : ''}})</div>
-                            <div class="pure-info" *ngIf="affix.pure !== null && affix.pure > 0">({{affix.pure - 100}}% pure)</div>
-                            <div class="name">{{affix.name}}</div>
+                            <div class="value" [innerHTML]="affix.valueLabel"></div>
+                            <div class="name" [innerHTML]="affix.statLabel"></div>
                         </li>
                     </ul>
                 </div>
                 <div class="affixes" *ngIf="getMagicAffixes().length > 0">
                     <div class="title">Magic Stats:</div>
                     <ul>
-                        <li *ngFor="let affix of getMagicAffixes()"  [class.pure]="affix.pure !== null && affix.pure > 0">
+                        <li *ngFor="let affix of getMagicAffixes()"  [class.pure]="affix.isPure">
                             <div class="bullet"><div class="{{affix.rarity}}"></div></div>
-                            <div class="value">+{{affix.values[affix.value]}}{{affix.percent ? '%' : ''}}</div>
-                            <div class="range" *ngIf="affix.pure === null || affix.pure === 0">({{getMinValue(affix.values)}}{{affix.percent ? '%' : ''}} - {{getMaxValue(affix.values)}}{{affix.percent ? '%' : ''}})</div>
-                            <div class="pure-info" *ngIf="affix.pure !== null && affix.pure > 0">({{affix.pure - 100}}% pure)</div>
-                            <div class="name">{{affix.name}}</div>
+                            <div class="value" [innerHTML]="affix.valueLabel"></div>
+                            <div class="name" [innerHTML]="affix.statLabel"></div>
                         </li>
                     </ul>
                 </div>
                 <div class="affixes" *ngIf="getRareAffixes().length > 0">
                     <div class="title">Rare Stats:</div>
                     <ul>
-                        <li *ngFor="let affix of getRareAffixes()"  [class.pure]="affix.pure !== null && affix.pure > 0">
+                        <li *ngFor="let affix of getRareAffixes()"  [class.pure]="affix.isPure">
                             <div class="bullet"><div class="{{affix.rarity}}"></div></div>
-                            <div class="value">+{{affix.values[affix.value]}}{{affix.percent ? '%' : ''}}</div>
-                            <div class="range" *ngIf="affix.pure === null || affix.pure === 0">({{getMinValue(affix.values)}}{{affix.percent ? '%' : ''}} - {{getMaxValue(affix.values)}}{{affix.percent ? '%' : ''}})</div>
-                            <div class="pure-info" *ngIf="affix.pure !== null && affix.pure > 0">({{affix.pure - 100}}% pure)</div>
-                            <div class="name">{{affix.name}}</div>
+                            <div class="value" [innerHTML]="affix.valueLabel"></div>
+                            <div class="name" [innerHTML]="affix.statLabel"></div>
                         </li>
                     </ul>
                 </div>
                 <div class="affixes" *ngIf="getEpicAffixes().length > 0">
                     <div class="title">Epic Stats:</div>
                     <ul>
-                        <li *ngFor="let affix of getEpicAffixes()"  [class.pure]="affix.pure !== null && affix.pure > 0">
+                        <li *ngFor="let affix of getEpicAffixes()"  [class.pure]="affix.isPure">
                             <div class="bullet"><div class="{{affix.rarity}}"></div></div>
-                            <div class="value">+{{affix.values[affix.value]}}{{affix.percent ? '%' : ''}}</div>
-                            <div class="range" *ngIf="affix.pure === null || affix.pure === 0">({{getMinValue(affix.values)}}{{affix.percent ? '%' : ''}} - {{getMaxValue(affix.values)}}{{affix.percent ? '%' : ''}})</div>
-                            <div class="pure-info" *ngIf="affix.pure !== null && affix.pure > 0">({{affix.pure - 100}}% pure)</div>
-                            <div class="name">{{affix.name}}</div>
+                            <div class="value" [innerHTML]="affix.valueLabel"></div>
+                            <div class="name" [innerHTML]="affix.statLabel"></div>
                         </li>
                     </ul>
                 </div>
@@ -77,8 +69,8 @@
                         <span [innerHTML]="getLegendaryDescription()"></span>
                         <span class="value" *ngIf="item.legendaryEffect.activable !== null"> {{item.legendaryEffect.activable.name}}</span>
                     </div>
-                    <div class="icon" *ngIf="item.legendaryEffect.icon !== null">
-                        <img src="assets/img/icon/{{item.legendaryEffect.icon}}.png" />
+                    <div class="icon" *ngIf="item.legendaryEffect.skillIcon !== null">
+                        <img src="assets/img/icon/{{item.legendaryEffect.skillIcon}}.png" />
                     </div>
                 </div>
             </div>
@@ -91,7 +83,7 @@
             <div class="info" [innerHTML]="getReaperEnchantmentLabel(item.reaperEnchantment)"></div>
         </div>
         <div class="buff skill" *ngIf="item.skillEnchantment !== null">
-            <img src="assets/img/icon/enchantment/skill/{{class + '/' + item.skillEnchantment.icon}}.png"/>
+            <img src="assets/img/icon/{{item.skillEnchantment.icon}}.png"/>
             <div class="info" [innerHTML]="getSkillEnchantmentLabel(item.skillEnchantment)"></div>
         </div>
         <div class="buff attribute atr-{{item.attributeEnchantment.type}}" *ngIf="item.attributeEnchantment !== null">

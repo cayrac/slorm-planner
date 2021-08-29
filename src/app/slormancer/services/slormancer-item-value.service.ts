@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ComputedEffectValue } from '../model/computed-effect-value';
 import { EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
-import { GameRarity } from '../model/game/game-rarity';
+import { Rarity } from '../model/enum/rarity';
 import { MinMax } from '../model/minmax';
 import { bankerRound, list, round } from '../util/math.util';
 import { valueOrDefault } from '../util/utils';
@@ -12,7 +12,7 @@ import { valueOrDefault } from '../util/utils';
 export class SlormancerItemValueService {
 
     private readonly AFFIX_MIN_MAX: { [key: string]: { [key: string]: { [key: number]: MinMax }}} = {
-        'N': {
+        'normal': {
             '': {
                 1: { min: 70, max: 100 },
                 2: { min: 70, max: 100 },
@@ -24,7 +24,7 @@ export class SlormancerItemValueService {
                 3: { min: 42, max: 60 }
             }
         },
-        'M': {
+        'magic': {
             '': {
                 1: { min: 45, max: 65 },
                 2: { min: 45, max: 65 },
@@ -36,7 +36,7 @@ export class SlormancerItemValueService {
                 3: { min: 27, max: 39 }
             }
         },
-        'R': {
+        'rare': {
             '': {
                 1: { min: 45, max: 65 },
                 2: { min: 45, max: 65 },
@@ -48,7 +48,7 @@ export class SlormancerItemValueService {
                 3: { min: 27, max: 39 }
             }
         },
-        'E': {
+        'epic': {
             '': {
                 1: { min: 20, max: 40 },
                 2: { min: 20, max: 40 },
@@ -60,7 +60,7 @@ export class SlormancerItemValueService {
                 3: { min: 12, max: 24 }
             }
         },
-        'L': {
+        'legendary': {
             '': {
                 1: { min: 75, max: 100 },
                 2: { min: 75, max: 100 },
@@ -126,7 +126,7 @@ export class SlormancerItemValueService {
         return this.roundValue(baseValue * reinforcmentRatio * valueRatio * pureRatio / (100 * 100 * 100), score < 2.5, percent);
     }
 
-    private getAffixMinMax(rarity: GameRarity, percent: boolean, levelScore: number): MinMax | null {
+    private getAffixMinMax(rarity: Rarity, percent: boolean, levelScore: number): MinMax | null {
         let minMax: MinMax | null = null;
         
         const rarityMinmax = this.AFFIX_MIN_MAX[rarity];
@@ -141,7 +141,7 @@ export class SlormancerItemValueService {
         return minMax;
     }
 
-    public getAffixValues(level: number, reinforcment: number, score: number, percent: boolean, rarity: GameRarity, pure: number | null): { [ key: number]: number } {
+    public getAffixValues(level: number, reinforcment: number, score: number, percent: boolean, rarity: Rarity, pure: number | null): { [ key: number]: number } {
         let values: { [key: number]: number } = { };
         const levelScore = this.getLevelPercentScore(level);
 

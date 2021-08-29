@@ -30,7 +30,7 @@ $dexterity-color       : rgb(205, 112, 40);
 $bravery-color         : rgb(191, 60, 89); 
 $pure-color            : rgb(70, 231, 176);
 
-.equipped, .rarity, .split, .type, .head, .legendary-effect .description {
+.equipped, .rarity, .split, .base, .head, .legendary-effect .description {
     .item.normal & {
         color: $normal-color-text;
     }
@@ -100,7 +100,7 @@ $pure-color            : rgb(70, 231, 176);
     min-width: 350px;
 
     &::ng-deep {
-        .legendary-effect .value {
+        .legendary-effect .value, .buff .value {
             color: $item-value-color;
         }
 
@@ -117,7 +117,7 @@ $pure-color            : rgb(70, 231, 176);
     }
     &.nodetails {
         ::ng-deep {
-            .range, .formula, .pure-info {
+            .details, .formula {
                 display: none;
             }
         }
@@ -161,7 +161,7 @@ $pure-color            : rgb(70, 231, 176);
                 flex-direction: column;
                 align-items: center;
         
-                .rarity, .type, .level {
+                .rarity, .base, .level {
                     text-transform: capitalize;
                 }
 
@@ -172,26 +172,10 @@ $pure-color            : rgb(70, 231, 176);
                     height: 56px;
                     border: 4px solid black;
                     margin-bottom: 10px;
-                    background-repeat: no-repeat;
-                    background-size: 100% 100%;
-                    
-                    &.normal {
-                        background-image: url(/assets/img/item/background/bg-normal.png);
-                    }
-                    &.magic {
-                        background-image: url(/assets/img/item/background/bg-magic.png);
-                    }
-                    &.rare {
-                        background-image: url(/assets/img/item/background/bg-rare.png);
-                    }
-                    &.epic {
-                        background-image: url(/assets/img/item/background/bg-epic.png);
-                    }
-                    &.legendary {
-                        background-image: url(/assets/img/item/background/bg-legendary.png);
-                    }
+                    position: relative;
                 
                     img {
+                        position: absolute;
                         width: 100%;
                         height: 100%;
                     }

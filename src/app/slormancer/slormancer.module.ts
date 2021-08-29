@@ -6,6 +6,7 @@ import { SlormancerAttributeService } from './services/slormancer-attribute.serv
 import { SlormancerBuffService } from './services/slormancer-buff.service';
 import { SlormancerDataService } from './services/slormancer-data.service';
 import { SlormancerEffectValueService } from './services/slormancer-effect-value.service';
+import { SlormancerItemAffixService } from './services/slormancer-item-affix.service';
 import { SlormancerItemParserService } from './services/slormancer-item-parser.service';
 import { SlormancerItemValueService } from './services/slormancer-item-value.service';
 import { SlormancerItemService } from './services/slormancer-item.service';
@@ -37,6 +38,7 @@ import { SlormancerTemplateService } from './services/slormancer-template.servic
     SlormancerBuffService,
     SlormancerAncestralLegacyService,
     SlormancerAttributeService,
+    SlormancerItemAffixService,
   ],
   bootstrap: []
 })

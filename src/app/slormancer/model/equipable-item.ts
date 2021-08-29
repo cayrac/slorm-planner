@@ -1,21 +1,28 @@
-import { Affix } from './affix';
+import { ItemAffix } from './affix';
 import { AttributeEnchantment } from './attribute-enchantment';
-import { EquipableItemType } from './enum/equipable-item-type';
+import { EquippableItemBase } from './enum/equippable-item-base';
+import { HeroClass } from './enum/hero-class';
 import { Rarity } from './enum/rarity';
 import { LegendaryEffect } from './legendary-effect';
 import { ReaperEnchantment } from './reaper-enchantment';
 import { SkillEnchantment } from './skill-enchantment';
 
 export interface EquipableItem {
-    type: EquipableItemType;
-    name: string;
+    base: EquippableItemBase;
     rarity: Rarity;
-    base: string;
     level: number;
     reinforcment: number;
-    affixes: Array<Affix>;
+    affixes: Array<ItemAffix>;
     legendaryEffect: LegendaryEffect | null;
     reaperEnchantment: ReaperEnchantment | null;
     skillEnchantment: SkillEnchantment | null;
     attributeEnchantment: AttributeEnchantment | null;
+    heroClass: HeroClass;
+
+    name: string;
+    baseLabel: string;
+    rarityLabel: string;
+    levelLabel: string;
+    icon: string;
+    itemIconBackground: string
 }

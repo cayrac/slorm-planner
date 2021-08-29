@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Activable } from '../model/activable';
+import { ItemAffix } from '../model/affix';
 import { AttributeEnchantment } from '../model/attribute-enchantment';
 import { ComputedEffectValue } from '../model/computed-effect-value';
 import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
@@ -620,5 +621,18 @@ export class SlormancerTemplateService {
 
     public getReaperBuilderName(id: number): string {
         return this.translate('weapon_reapersmith_' + id);
+    }
+
+    public formatItemAffixValue(itemAffix: ItemAffix): string {
+        let result = this.applyEffectValueConstant('+' + this.VALUE_ANCHOR, itemAffix.effect, this.VALUE_ANCHOR);
+
+        if (itemAffix.pure !== null) {
+            result += this.asSpan(' (' + (itemAffix.pure - 100) + '% pure)', 'details pure');
+        } else {
+            const percent = itemAffix.effect.percent ? '%' : '';
+            result += this.asSpan(' (' + itemAffix.possibleCraftedValues[itemAffix.minPossibleCraftedValue] + percent
+                + '-' + itemAffix.possibleCraftedValues[itemAffix.maxPossibleCraftedValue] + percent + ')', 'details range');
+        }
+        return result;
     }
 }

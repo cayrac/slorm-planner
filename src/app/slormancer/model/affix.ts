@@ -1,14 +1,22 @@
+import { EffectValueConstant } from './effect-value';
 import { Rarity } from './enum/rarity';
 
-export interface Affix {
+export interface ItemAffix {
+    primaryNameType: string;
     rarity: Rarity;
-    name: string;
-    values: { [key: number]: number },
-    min: number;
-    value: number;
-    max: number;
-    percent: boolean;
-    suffix: string;
+    craftedValue: number;
+    possibleCraftedValues: { [key: number]: number },
+    minPossibleCraftedValue: number;
+    maxPossibleCraftedValue: number;
+    pure: number | null;
+    itemLevel: number;
+    reinforcment: number;
+    score: number;
     locked: boolean;
-    pure: number | null
+
+    effect: EffectValueConstant;
+
+    isPure: boolean;
+    valueLabel: string;
+    statLabel: string;
 }

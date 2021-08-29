@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Activable } from '../../../slormancer/model/activable';
-import { Affix } from '../../../slormancer/model/affix';
+import { ItemAffix } from '../../../slormancer/model/affix';
 import { AttributeEnchantment } from '../../../slormancer/model/attribute-enchantment';
 import { HeroClass } from '../../../slormancer/model/enum/hero-class';
 import { Rarity } from '../../../slormancer/model/enum/rarity';
@@ -35,19 +35,19 @@ export class ItemViewComponent {
 
     constructor(private slormancerTemplateService: SlormancerTemplateService) { }
 
-    public getNormalAffixes(): Array<Affix> {
+    public getNormalAffixes(): Array<ItemAffix> {
         return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === Rarity.Normal);
     }
 
-    public getMagicAffixes(): Array<Affix> {
+    public getMagicAffixes(): Array<ItemAffix> {
         return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === Rarity.Magic);
     }
 
-    public getRareAffixes(): Array<Affix> {
+    public getRareAffixes(): Array<ItemAffix> {
         return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === Rarity.Rare);
     }
 
-    public getEpicAffixes(): Array<Affix> {
+    public getEpicAffixes(): Array<ItemAffix> {
         return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === Rarity.Epic);
     }
 
@@ -181,8 +181,8 @@ export class ItemViewComponent {
         return this.slormancerTemplateService.getAttributeEnchantmentLabel(enchantment);
     }
 
-    public getAffixValue(affix: Affix): number {
-        let value = valueOrDefault(affix.values[affix.value], 0);
+    public getAffixValue(affix: ItemAffix): number {
+        let value = valueOrDefault(affix.possibleCraftedValues[affix.craftedValue], 0);
         
         if (affix.pure !== null && affix.pure > 0) {
             value = round(value * affix.pure / 100);
