@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { Affix } from '../model/affix';
 import { AttributeEnchantment } from '../model/attribute-enchantment';
-import { DataEquipableItemType } from '../model/data/data-equipable-item-type';
 import { Attribute } from '../model/enum/attribute';
 import { EquipableItemType } from '../model/enum/equipable-item-type';
 import { Rarity } from '../model/enum/rarity';
@@ -13,7 +12,7 @@ import { GameAffix, GameEnchantment, GameEquippableItem, GameItem, GameRessource
 import { GameRarity } from '../model/game/game-rarity';
 import { ReaperEnchantment } from '../model/reaper-enchantment';
 import { SkillEnchantment } from '../model/skill-enchantment';
-import { compare, compareRarities, compareString, isNotNullOrUndefined, valueOrNull } from '../util/utils';
+import { compare, compareRarities, compareString, isNotNullOrUndefined, valueOrDefault, valueOrNull } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
 import { SlormancerLegendaryEffectService } from './slormancer-legendary-effect.service';
@@ -23,6 +22,8 @@ import { SlormancerTemplateService } from './slormancer-template.service';
 export class SlormancerItemService {
 
     private readonly AFFIX_ORDER = ['life', 'mana', 'ret', 'cdr', 'crit', 'minion', 'atk_phy', 'atk_mag', 'def_dodge', 'def_mag', 'def_phy', 'adventure'];
+
+    private readonly AFFIX_DEF_POSSIBLE = ['crit', 'ret', 'mana', 'cdr', 'life'];
 
     private readonly RARE_PREFIX = this.slormancerTemplateService.translate('RAR_loot_epic');
 
@@ -127,167 +128,77 @@ export class SlormancerItemService {
         const keyOnDef = key + (onDef ? '_ON_DEF' : '');
         result = this.slormancerTemplateService.translate(keyOnDef, genre);
 
-        if (result === keyOnDef) {
-            // console.log('rollback def');
+        if (onDef && result === keyOnDef) {
+            console.log('DEF not found for ' + key);
             result = this.slormancerTemplateService.translate(key, genre);
+        } else if (onDef) {
+            console.log('DEF found for ' + key);
         }
 
         return result;
     }
 
     private getItemName(type: EquipableItemType, base: string, rarity: Rarity, item: GameEquippableItem): string {
-        let name = '??';
-        let newName = '??';
-        let otherNewName = '??';
+        const resultFragments: Array<string> = [];
+
         const legendaryAffix = valueOrNull(item.affixes.find(affix => affix.rarity === 'L'));
-        const reinforcment: string | null = item.reinforcment > 0 ? '+' + item.reinforcment : null;
-        let add = '';
-
-        let baseAffixes: [GameDataStat, GameDataStat] | null = null;
-
         if (legendaryAffix !== null) {
             const legendaryData = this.slormancerDataService.getGameDataLegendary(legendaryAffix.type);
-            name = legendaryData === null ? 'legandary_' + legendaryAffix.type : legendaryData.EN_NAME;
-            newName = name;
-            otherNewName = name;
-        } else {
-            let baseName = base;
-            let rarityPrefix: string | null = null;
-            let suffix: string | null = null;
-            let prefix: string | null = null;
-            let data: DataEquipableItemType | null = null;
-            const nameSegments = [];
-            const reverseNameSegments = [];
-
-            data = this.slormancerDataService.getDataEquipableItem(type, base);
-    
-            if (data !== null) {
-                baseName = data.name;
+            if (legendaryData !== null) {
+                resultFragments.push(legendaryData.EN_NAME);
             }
-
+        } else {
             let genre = 'MS';
 
             const normalAffixes = item.affixes.filter(affix => affix.rarity === 'N');
             if (normalAffixes.length > 0) {
-                baseAffixes = <[GameDataStat, GameDataStat]>(<[GameAffix, GameAffix]>[
+                const baseAffixes = <[string, string]>(<[GameAffix, GameAffix]>[
                     normalAffixes[0],
-                    normalAffixes[1] ? normalAffixes[1] : normalAffixes[0]
-                ]).map(affix => this.slormancerDataService.getGameDataStat(affix))
-                  .sort((a, b) => compare(a ? this.AFFIX_ORDER.indexOf(a.PRIMARY_NAME_TYPE) : 0, b ? this.AFFIX_ORDER.indexOf(b.PRIMARY_NAME_TYPE) : 0));
+                    valueOrDefault(normalAffixes[1], normalAffixes[0])
+                ])
+                    .map(affix => <GameDataStat>this.slormancerDataService.getGameDataStat(affix))
+                    .map(data => data.PRIMARY_NAME_TYPE)
+                    .sort((a, b) => compare(this.AFFIX_ORDER.indexOf(a), this.AFFIX_ORDER.indexOf(b)));
               
-                const onDef = baseAffixes[1].PRIMARY_NAME_TYPE.startsWith('def');
+                const onDef = baseAffixes[1].startsWith('def') && this.AFFIX_DEF_POSSIBLE.indexOf(baseAffixes[0]) !== -1;
 
-                const baseName = this.getItemNameFragment('PIECE_loot_' + type.toUpperCase() + '_' + baseAffixes[1].PRIMARY_NAME_TYPE);
-                nameSegments.push(baseName.replace(/(.*)\(.*\)/g, '$1'));
+                const baseName = this.getItemNameFragment('PIECE_loot_' + type.toUpperCase() + '_' + baseAffixes[1]);
+                resultFragments.push(baseName.replace(/(.*)\(.*\)/g, '$1'));
                 genre = baseName.replace(/.*\((.*)\)/g, '$1');
                 
-                const baseAdj = this.getItemNameFragment('NAME_loot_adj_' + baseAffixes[0].PRIMARY_NAME_TYPE, onDef, genre);
-                nameSegments.unshift(baseAdj);
-
-              
-                const revonDef = baseAffixes[0].PRIMARY_NAME_TYPE.startsWith('def');
-
-                const revbaseName = this.getItemNameFragment('PIECE_loot_' + type.toUpperCase() + '_' + baseAffixes[0].PRIMARY_NAME_TYPE);
-                reverseNameSegments.push(revbaseName.replace(/(.*)\(.*\)/g, '$1'));
-                genre = baseName.replace(/.*\((.*)\)/g, '$1');
-                
-                const revbaseAdj = this.getItemNameFragment('NAME_loot_adj_' + baseAffixes[1].PRIMARY_NAME_TYPE, revonDef, genre);
-                reverseNameSegments.unshift(revbaseAdj);
-
-
-                
-                add = baseAffixes.map(a => a.PRIMARY_NAME_TYPE).join(' ') + ' ' + (onDef ? 'DEF' : 'NODEF');
+                const baseAdj = this.getItemNameFragment('NAME_loot_adj_' + baseAffixes[0], onDef, genre);
+                resultFragments.unshift(baseAdj);
             }
     
             const magicAffixes = item.affixes.filter(affix => affix.rarity === 'M');
             if (magicAffixes[0]) {
                 const gameDataSuffix = this.slormancerDataService.getGameDataStat(magicAffixes[0]);
-                const affixData = this.slormancerDataService.getDataAffix(magicAffixes[0]);
-                
-                if (affixData !== null) {
-                    suffix = affixData.suffix;
-                }
 
                 if (gameDataSuffix !== null) {
-                    nameSegments.push(this.slormancerTemplateService.translate('SUF_loot_suf_' + gameDataSuffix.REF))
-                    reverseNameSegments.push(this.slormancerTemplateService.translate('SUF_loot_suf_' + gameDataSuffix.REF))
+                    resultFragments.push(this.slormancerTemplateService.translate('SUF_loot_suf_' + gameDataSuffix.REF))
                 }
             }
     
             const rareAffixes = item.affixes.filter(affix => affix.rarity === 'R');
             if (rareAffixes[0]) {
                 const gameDataPrefix = this.slormancerDataService.getGameDataStat(rareAffixes[0]);
-                const affixData = this.slormancerDataService.getDataAffix(rareAffixes[0]);
                 
-                if (affixData !== null) {
-                    prefix = affixData.prefix;
-                }
-
                 if (gameDataPrefix !== null) {
-                    nameSegments.unshift(this.slormancerTemplateService.translate('PRE_loot_pre_' + gameDataPrefix.REF))
-                    reverseNameSegments.unshift(this.slormancerTemplateService.translate('PRE_loot_pre_' + gameDataPrefix.REF))
+                    resultFragments.unshift(this.slormancerTemplateService.translate('PRE_loot_pre_' + gameDataPrefix.REF))
                 }
-                
             }
-
 
             if (rarity === Rarity.Epic) {
-                rarityPrefix = this.RARE_PREFIX;
-                nameSegments.unshift(this.RARE_PREFIX);
-                reverseNameSegments.unshift(this.RARE_PREFIX);
+                resultFragments.unshift(this.RARE_PREFIX);
             }
     
-            name = [rarityPrefix, prefix, baseName, suffix, reinforcment].filter(isNotNullOrUndefined).join(' ');
-            newName = nameSegments.filter(isNotNullOrUndefined).join(' ')
-            otherNewName = reverseNameSegments.filter(isNotNullOrUndefined).join(' ')
         }
 
-        if (baseAffixes !== null && name.toLowerCase() !== newName.toLowerCase()) {
-            console.log('Comparaisons : ', baseAffixes);
-
-            /*
-                "REF_NB": 90,
-                "CATEGORY": "defense",
-                "PRIMARY_NAME_TYPE": "def_alt",
-                "REF": "reduced_damage_from_all_percent",
-            */
-            const sortByRefNb = [...baseAffixes].sort((a, b) => compare(a.REF_NB, b.REF_NB));
-            const sortByCategory = [...baseAffixes].sort((a, b) => compareString(a.CATEGORY, b.CATEGORY));
-            const sortByPrimary = [...baseAffixes].sort((a, b) => compareString(a.PRIMARY_NAME_TYPE, b.PRIMARY_NAME_TYPE));
-            const sortByRef = [...baseAffixes].sort((a, b) => compareString(a.REF, b.REF));
-            const newIsGood = name.toLowerCase() === newName.toLowerCase();
-
-            console.log(baseAffixes.map(a => a.PRIMARY_NAME_TYPE).join('-'));
-
-            if (newIsGood === (sortByRefNb[0] === baseAffixes[0])) {
-                console.log('REF_NB ASC    : ', baseAffixes[0].REF_NB, '-', baseAffixes[1].REF_NB);
-            } else {
-                console.log('REF_NB DESC   : ', baseAffixes[1].REF_NB, '-', baseAffixes[0].REF_NB);
-            }
-
-            if (newIsGood === (sortByCategory[0] === baseAffixes[0])) {
-                console.log('CATEGORY ASC  : ', baseAffixes[0].CATEGORY, '-', baseAffixes[1].CATEGORY);
-            } else {
-                console.log('CATEGORY DESC : ', baseAffixes[1].CATEGORY, '-', baseAffixes[0].CATEGORY);
-            }
-
-            if (newIsGood === (sortByPrimary[0] === baseAffixes[0])) {
-                console.log('PRIMARY ASC   : ', baseAffixes[0].PRIMARY_NAME_TYPE, '-', baseAffixes[1].PRIMARY_NAME_TYPE);
-            } else {
-                console.log('PRIMARY DESC  : ', baseAffixes[1].PRIMARY_NAME_TYPE, '-', baseAffixes[0].PRIMARY_NAME_TYPE);
-            }
-
-            if (newIsGood === (sortByRef[0] === baseAffixes[0])) {
-                console.log('REF ASC       : ', baseAffixes[0].REF, '-', baseAffixes[1].REF);
-            } else {
-                console.log('REF DESC      : ', baseAffixes[1].REF, '-', baseAffixes[0].REF);
-            }
+        if (item.reinforcment > 0) {
+            resultFragments.push('+' + item.reinforcment);
         }
 
-
-        return [name, reinforcment].filter(isNotNullOrUndefined).join(' ') + '<br/>'
-             + [newName, reinforcment].filter(isNotNullOrUndefined).join(' ') + '<br/>'
-             + [otherNewName, reinforcment].filter(isNotNullOrUndefined).join(' ') + '<br/>' + add;
+        return resultFragments.join(' ');
     }
 
     private getItemRarity(item: GameEquippableItem): Rarity {
