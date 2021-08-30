@@ -252,7 +252,10 @@ export class SlormancerTemplateService {
             result.push(min + percent + '-' + max + percent);
         }
         if ((isEffectValueSynergy(craftedEffect.effect) || isEffectValueVariable(craftedEffect.effect)) && craftedEffect.effect.upgrade > 0) {
-            result.push('+' + craftedEffect.effect.upgrade + percent + ' per reinforcment');
+            if (result.length === 0) {
+                result.push(craftedEffect.effect.value + percent);
+            }
+            result.push('+ ' + craftedEffect.effect.upgrade + percent + ' per reinforcment');
         }
 
         return result.length === 0 ? '' : this.asSpan(' (' + result.join(' ') + ')', 'details');
