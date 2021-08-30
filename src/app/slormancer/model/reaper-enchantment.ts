@@ -1,9 +1,13 @@
+import { EffectValueVariable } from './effect-value';
 import { ReaperSmith } from './enum/reaper-smith';
 
 export interface ReaperEnchantment {
-    type: ReaperSmith;
-    values: { [key: number] : number },
-    value: number;
-    name: string;
+    craftedReaperSmith: ReaperSmith;
+    craftableValues: { [key: number] : number },
+    craftedValue: number;
+
+    effect: EffectValueVariable;
+
+    label: string;
     icon: string;
 }

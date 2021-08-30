@@ -17,6 +17,8 @@ import { SlormancerTemplateService } from './slormancer-template.service';
 @Injectable()
 export class SlormancerLegendaryEffectService {
 
+    private readonly LEGENDARY_TITLE = this.slormancerTemplateService.translate('tt_l_roll');
+
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormanderSkillService: SlormancerActivableService,
                 private slormancerTemplateService: SlormancerTemplateService,
@@ -32,7 +34,7 @@ export class SlormancerLegendaryEffectService {
                     type: EffectValueType.Constant,
                     value: constant,
                     percent: false
-                } as EffectValueConstant)
+                } as EffectValueConstant);
             }
         }
 
@@ -84,7 +86,7 @@ export class SlormancerLegendaryEffectService {
         return icon;
     }
 
-    public getExtendedLegendaryEffect(affix: GameAffix): LegendaryEffect | null {
+    public getExtendedLegendaryEffect(affix: GameAffix, reinforcment: number): LegendaryEffect | null {
         const gameData = this.slormancerDataService.getGameDataLegendary(affix.type);
         let legendaryEffect: LegendaryEffect | null = null;
 
@@ -95,19 +97,30 @@ export class SlormancerLegendaryEffectService {
             legendaryEffect = {
                 id: gameData.REF,
                 name: gameData.EN_NAME,
-                itemBase: gameData.ITEM,
+                reinforcment,
                 itemIcon: 'item/' + gameData.ITEM + '/' + base,
-                description: this.slormancerTemplateService.getLegendaryDescriptionTemplate(gameData),
                 value: affix.value,
                 activable: activable !== null ? this.slormanderSkillService.getActivable(activable) : null,
                 onlyStat: gameData.STAT_ONLY === true,
                 skillIcon: this.getIcon(gameData.HERO, gameData.SKILL),
-                values: this.getEffectValues(gameData)
+                values: this.getEffectValues(gameData),
+                
+                title: this.LEGENDARY_TITLE,
+                description: '',
+                template: this.slormancerTemplateService.getLegendaryDescriptionTemplate(gameData),
             }
 
-            legendaryEffect = this.applyEffectOverride(legendaryEffect, gameData.REF)
+            legendaryEffect = this.applyEffectOverride(legendaryEffect, gameData.REF);
+
+            this.updateLegendaryEffect(legendaryEffect);
         }
 
         return legendaryEffect;
+    }
+
+    public updateLegendaryEffect(legendaryEffect: LegendaryEffect) {
+        legendaryEffect.description = this.slormancerTemplateService.formatLegendaryDescription(legendaryEffect);
+        console.log('updateLegendaryEffect : ');
+        console.log(legendaryEffect);
     }
 }

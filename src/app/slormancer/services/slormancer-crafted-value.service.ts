@@ -104,19 +104,18 @@ export class SlormancerCraftedValueService {
     }
 
     public updateCraftedValue(itemAffix: CraftedValue) {
+        itemAffix.isPure = itemAffix.pure > 100;
         itemAffix.possibleCraftedValues = this.slormancerItemValueService.getAffixValues(itemAffix.itemLevel, itemAffix.reinforcment, itemAffix.score, itemAffix.effect.percent, itemAffix.rarity, itemAffix.pure);
+       
         const keys = Object.keys(itemAffix.possibleCraftedValues).map(k => parseInt(k));
         const minValue = keys[0];
         const maxValue = keys[keys.length - 1];
-
         itemAffix.minPossibleCraftedValue = minValue ? minValue : itemAffix.craftedValue;
         itemAffix.maxPossibleCraftedValue = maxValue ? maxValue : itemAffix.craftedValue;
         itemAffix.effect.value = valueOrDefault(itemAffix.possibleCraftedValues[itemAffix.craftedValue], 0);
 
         itemAffix.valueLabel = this.slormancerTemplateService.formatItemAffixValue(itemAffix);
         itemAffix.statLabel = itemAffix.effect.stat === null ? '' : this.slormancerTemplateService.translate(itemAffix.effect.stat);
-
-        itemAffix.isPure = itemAffix.pure > 100;
     }
 
 }

@@ -270,7 +270,7 @@ export class SlormancerPlannerComponent implements OnInit {
             locked: false,
             pure: null
         }
-        return <LegendaryEffect>this.slormancerLegendaryEffectService.getExtendedLegendaryEffect(affix);
+        return <LegendaryEffect>this.slormancerLegendaryEffectService.getExtendedLegendaryEffect(affix, this.level);
     }
 
     public showData(data: any) {

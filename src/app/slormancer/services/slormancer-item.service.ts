@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { AttributeEnchantment } from '../model/attribute-enchantment';
 import { CraftedValue } from '../model/crafted-value';
 import { Attribute } from '../model/enum/attribute';
+import { EffectValueType } from '../model/enum/effect-value-type';
+import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
+import { EffectValueValueType } from '../model/enum/effect-value-value-type';
 import { EquippableItemBase } from '../model/enum/equippable-item-base';
 import { HeroClass } from '../model/enum/hero-class';
 import { Rarity } from '../model/enum/rarity';
@@ -11,8 +14,17 @@ import { EquipableItem as EquippableItem } from '../model/equipable-item';
 import { GameEnchantment, GameEquippableItem, GameItem, GameRessourceItem } from '../model/game/game-item';
 import { ReaperEnchantment } from '../model/reaper-enchantment';
 import { SkillEnchantment } from '../model/skill-enchantment';
-import { compare, compareRarities, compareString, isNotNullOrUndefined, valueOrDefault } from '../util/utils';
+import {
+    compare,
+    compareRarities,
+    compareString,
+    firstValue,
+    isNotNullOrUndefined,
+    lastValue,
+    valueOrDefault,
+} from '../util/utils';
 import { SlormancerCraftedValueService } from './slormancer-crafted-value.service';
+import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
 import { SlormancerLegendaryEffectService } from './slormancer-legendary-effect.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
@@ -20,11 +32,13 @@ import { SlormancerTemplateService } from './slormancer-template.service';
 @Injectable()
 export class SlormancerItemService {
 
+    private readonly REAPER_ENCHANTMENT_LABEL = this.slormancerTemplateService.translate('tt_RP_roll_item');
+    private readonly SKILL_ENCHANTMENT_LABEL = this.slormancerTemplateService.translate('tt_MA_roll_item');
+    private readonly RARE_PREFIX = this.slormancerTemplateService.translate('RAR_loot_epic');
+
     private readonly AFFIX_ORDER = ['life', 'mana', 'ret', 'cdr', 'crit', 'minion', 'atk_phy', 'atk_mag', 'def_dodge', 'def_mag', 'def_phy', 'adventure'];
 
     private readonly AFFIX_DEF_POSSIBLE = ['crit', 'ret', 'mana', 'cdr', 'life'];
-
-    private readonly RARE_PREFIX = this.slormancerTemplateService.translate('RAR_loot_epic');
 
     private readonly REGEXP_REMOVE_GENRE = /(.*)\(.*\)/g;
     private readonly REGEXP_KEEP_GENRE = /.*\((.*)\)/g;
@@ -32,7 +46,8 @@ export class SlormancerItemService {
     constructor(private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerItemValueService : SlormancerItemValueService,
                 private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
-                private slormancerItemAffixService: SlormancerCraftedValueService) { }
+                private slormancerItemAffixService: SlormancerCraftedValueService,
+                private slormancerDataService: SlormancerDataService) { }
 
     public getEquipableItemBase(item: GameEquippableItem): EquippableItemBase {
         let slot: EquippableItemBase = EquippableItemBase.Helm;
@@ -150,30 +165,67 @@ export class SlormancerItemService {
 
     private getReaperEnchantment(gameEnchantment: GameEnchantment): ReaperEnchantment | null {
         return {
-            type: gameEnchantment.type as ReaperSmith,
-            values: this.slormancerItemValueService.computeReaperEnchantmentValues(),
-            value: gameEnchantment.value,
-            name: 'weapon_reapersmith_' + gameEnchantment.type,
+            craftedReaperSmith: gameEnchantment.type as ReaperSmith,
+            craftableValues: this.slormancerItemValueService.computeReaperEnchantmentValues(),
+            craftedValue: gameEnchantment.value,
+            
+            effect: {
+                type:EffectValueType.Variable,
+                percent: false,
+                range: true,
+                value: 0,
+                stat: '',
+                valueType: EffectValueValueType.Stat,
+                upgradeType: EffectValueUpgradeType.Reinforcment,
+                upgrade: 0,
+            },
+
+            label: '',
             icon: 'enchantment/reaper'
         }
     }
 
-    private getSkillEnchantment(gameEnchantment: GameEnchantment, heroClass: HeroClass): SkillEnchantment | null {
+    private getSkillEnchantment(gameEnchantment: GameEnchantment): SkillEnchantment | null {
         return {
-            type: gameEnchantment.type,
-            values: this.slormancerItemValueService.computeSkillEnchantmentValues(),
-            value: gameEnchantment.value,
-            icon: 'enchantment/skill/' + heroClass + '/' + gameEnchantment.type
+            craftedSkill: gameEnchantment.type,
+            craftableValues: this.slormancerItemValueService.computeSkillEnchantmentValues(),
+            craftedValue: gameEnchantment.value,
+            
+            effect: {
+                type:EffectValueType.Variable,
+                percent: false,
+                range: true,
+                value: 0,
+                stat: '',
+                valueType: EffectValueValueType.Stat,
+                upgradeType: EffectValueUpgradeType.Reinforcment,
+                upgrade: 0,
+            },
+
+            label: '',
+            icon: ''
         };
     }
 
     private getAttributeEnchantment(gameEnchantment: GameEnchantment): AttributeEnchantment | null {
         return {
-            type: gameEnchantment.type as Attribute,
-            values: this.slormancerItemValueService.computeAttributeEnchantmentValues(),
-            value: gameEnchantment.value,
-            name: 'character_trait_' + gameEnchantment.type,
-            icon: 'enchantment/attribute/' + gameEnchantment.type
+            craftedAttribute: gameEnchantment.type as Attribute,
+            craftableValues: this.slormancerItemValueService.computeAttributeEnchantmentValues(),
+            craftedValue: gameEnchantment.value,
+            
+            effect: {
+                type:EffectValueType.Variable,
+                percent: false,
+                range: true,
+                value: 0,
+                stat: '',
+                valueType: EffectValueValueType.Stat,
+                upgradeType: EffectValueUpgradeType.Reinforcment,
+                upgrade: 0,
+            },
+
+            label: '',
+            icon: ''
         };
     }
 
@@ -195,11 +247,11 @@ export class SlormancerItemService {
         const result = {
             base,
             affixes,
-            legendaryEffect: legendaryAffix === undefined ? null : this.slormancerLegendaryEffectService.getExtendedLegendaryEffect(legendaryAffix),
+            legendaryEffect: legendaryAffix === undefined ? null : this.slormancerLegendaryEffectService.getExtendedLegendaryEffect(legendaryAffix, item.reinforcment),
             level: item.level,
             reinforcment: item.reinforcment,
             reaperEnchantment: reaperEnchantment ? this.getReaperEnchantment(reaperEnchantment) : null,
-            skillEnchantment: skillEnchantment ? this.getSkillEnchantment(skillEnchantment, heroClass) : null,
+            skillEnchantment: skillEnchantment ? this.getSkillEnchantment(skillEnchantment) : null,
             attributeEnchantment: attributeEnchantment ? this.getAttributeEnchantment(attributeEnchantment) : null,
             heroClass,
 
@@ -218,8 +270,6 @@ export class SlormancerItemService {
     }
 
     public updateEquippableItem(item: EquippableItem) {
-
-
         item.rarity = this.getItemRarity(item);
         item.name = this.getItemName(item);
         item.baseLabel = this.slormancerTemplateService.translate('PIECE_' + item.base).replace(this.REGEXP_REMOVE_GENRE, '$1');
@@ -233,6 +283,49 @@ export class SlormancerItemService {
             affix.reinforcment = item.reinforcment;
 
             this.slormancerItemAffixService.updateCraftedValue(affix);
+        }
+
+        if (item.legendaryEffect !== null) {
+            item.legendaryEffect.reinforcment = item.reinforcment;
+            this.slormancerLegendaryEffectService.updateLegendaryEffect(item.legendaryEffect);
+        }
+
+        if (item.reaperEnchantment !== null) {
+            const value = valueOrDefault(item.reaperEnchantment.craftableValues[item.reaperEnchantment.craftedValue], 0);
+
+            item.reaperEnchantment.effect.value = value
+            item.reaperEnchantment.effect.stat = 'increased_reapersmith_' + item.reaperEnchantment.craftedReaperSmith + '_level';
+
+            const smith = this.slormancerTemplateService.translate('weapon_reapersmith_' + item.reaperEnchantment.craftedReaperSmith);
+            const min = valueOrDefault(firstValue(item.reaperEnchantment.craftableValues), 0);
+            const max = valueOrDefault(lastValue(item.reaperEnchantment.craftableValues), 0);
+            item.reaperEnchantment.label = this.slormancerTemplateService.getReaperEnchantmentLabel(this.REAPER_ENCHANTMENT_LABEL, value, min, max, smith);
+        }
+
+        if (item.skillEnchantment !== null) {
+            const value = valueOrDefault(item.skillEnchantment.craftableValues[item.skillEnchantment.craftedValue], 0);
+
+            item.skillEnchantment.effect.value = value;
+            item.skillEnchantment.effect.stat = 'increased_skill_' + item.skillEnchantment.craftedSkill + '_level';
+
+            const skill = this.slormancerDataService.getGameDataSkill(item.heroClass, item.skillEnchantment.craftedSkill);
+            const min = valueOrDefault(firstValue(item.skillEnchantment.craftableValues), 0);
+            const max = valueOrDefault(lastValue(item.skillEnchantment.craftableValues), 0);
+            item.skillEnchantment.label = this.slormancerTemplateService.getReaperEnchantmentLabel(this.SKILL_ENCHANTMENT_LABEL, value, min, max, skill === null ? '??' : skill.EN_NAME);
+            item.skillEnchantment.icon = 'enchantment/skill/' + item.heroClass + '/' + item.skillEnchantment.craftedSkill;
+        }
+
+        if (item.attributeEnchantment !== null) {
+            const value = valueOrDefault(item.attributeEnchantment.craftableValues[item.attributeEnchantment.craftedValue], 0);
+
+            item.attributeEnchantment.effect.value = value;
+            item.attributeEnchantment.effect.stat = 'increased_attribute_' + item.attributeEnchantment.craftedAttribute + '_level';
+
+            const attributeName = this.slormancerTemplateService.translate('character_trait_' + item.attributeEnchantment.craftedAttribute);
+            const min = valueOrDefault(firstValue(item.attributeEnchantment.craftableValues), 0);
+            const max = valueOrDefault(lastValue(item.attributeEnchantment.craftableValues), 0);
+            item.attributeEnchantment.label = this.slormancerTemplateService.getReaperEnchantmentLabel(this.SKILL_ENCHANTMENT_LABEL, value, min, max, attributeName);
+            item.attributeEnchantment.icon = 'enchantment/attribute/' + item.attributeEnchantment.craftedAttribute;
         }
     }
 }

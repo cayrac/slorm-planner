@@ -1,6 +1,12 @@
+import { EffectValueVariable } from './effect-value';
+
 export interface SkillEnchantment {
-    type: number;
-    values: { [key: number] : number },
-    value: number;
+    craftedSkill: number;
+    craftableValues: { [key: number] : number },
+    craftedValue: number;
+
+    effect: EffectValueVariable;
+
+    label: string;
     icon: string;
 }
