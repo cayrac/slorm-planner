@@ -157,10 +157,10 @@ export class SlormancerItemValueService {
         return values;
     }
 
-    private computeEffectRange(value: number, upgrade: number): { [ key: number]: number } {
+    public computeEffectRange(value: number, min: number, max: number, upgrade: number): { [ key: number]: number } {
         const values: { [ key: number]: number } = {};
         for (let ratio of list(75, 100)) {
-            values[ratio] = this.roundValue(value * ratio / 100 + upgrade, false, false);
+            values[ratio] = this.roundValue(value * ratio / 100, false, false) + upgrade;
         }
 
         return values;
@@ -173,8 +173,8 @@ export class SlormancerItemValueService {
         const result: ComputedEffectValue = {
             value: 0,
             baseValue: effect.value,
-            range: effect.range ? this.computeEffectRange(effect.value, effect.upgrade * upgradeMultiplier) : null,
-            baseRange: effect.range ? this.computeEffectRange(effect.value, 0) : null,
+            range: effect.range ? this.computeEffectRange(effect.value, 75, 100, effect.upgrade * upgradeMultiplier) : null,
+            baseRange: effect.range ? this.computeEffectRange(effect.value, 75, 100, 0) : null,
             upgrade: effect.upgrade,
             baseFormulaUpgrade: 0,
             upgradeType: effect.upgradeType,
@@ -194,9 +194,9 @@ export class SlormancerItemValueService {
 
         const result: ComputedEffectValue = {
             value: 0,
-            baseValue: effect.ratio,
-            range: effect.range ? this.computeEffectRange(effect.ratio, effect.upgrade * upgradeMultiplier) : null,
-            baseRange: effect.range ? this.computeEffectRange(effect.ratio, 0) : null,
+            baseValue: effect.value,
+            range: effect.range ? this.computeEffectRange(effect.value, 75, 100, effect.upgrade * upgradeMultiplier) : null,
+            baseRange: effect.range ? this.computeEffectRange(effect.value, 75, 100, 0) : null,
             upgrade: effect.upgrade,
             baseFormulaUpgrade: 0,
             upgradeType: effect.upgradeType,
@@ -204,8 +204,8 @@ export class SlormancerItemValueService {
             synergy: null,
         }
 
-        result.value = result.range ? valueOrDefault(result.range[itemValue], 0) : round(effect.ratio + effect.upgrade * upgradeMultiplier, 2);
-        result.baseFormulaUpgrade = result.range ? valueOrDefault(result.range[itemValue], 0) : round(effect.ratio + effect.upgrade, 2);
+        result.value = result.range ? valueOrDefault(result.range[itemValue], 0) : round(effect.value + effect.upgrade * upgradeMultiplier, 2);
+        result.baseFormulaUpgrade = result.range ? valueOrDefault(result.range[itemValue], 0) : round(effect.value + effect.upgrade, 2);
 
         result.synergy = (effect.stat !== 'res_mag_add' && (effect.source === 'physical_damage' || effect.source === 'weapon_damage' || effect.source === 'elemental_damage')) ? {min: 0, max: 0} : 0;
 

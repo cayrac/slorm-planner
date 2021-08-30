@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 
 import { SlormancerActivableService } from './services/slormancer-activable.service';
+import { SlormancerCraftedValueService } from './services/slormancer-affix.service';
 import { SlormancerAncestralLegacyService } from './services/slormancer-ancestral-legacy.service';
 import { SlormancerAttributeService } from './services/slormancer-attribute.service';
 import { SlormancerBuffService } from './services/slormancer-buff.service';
-import { SlormancerCraftedValueService } from './services/slormancer-crafted-value.service';
 import { SlormancerDataService } from './services/slormancer-data.service';
 import { SlormancerEffectValueService } from './services/slormancer-effect-value.service';
 import { SlormancerItemParserService } from './services/slormancer-item-parser.service';

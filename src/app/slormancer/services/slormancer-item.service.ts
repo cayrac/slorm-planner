@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { Affix } from '../model/affix';
 import { AttributeEnchantment } from '../model/attribute-enchantment';
-import { CraftedValue } from '../model/crafted-value';
 import { Attribute } from '../model/enum/attribute';
 import { EffectValueType } from '../model/enum/effect-value-type';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
@@ -23,7 +23,7 @@ import {
     lastValue,
     valueOrDefault,
 } from '../util/utils';
-import { SlormancerCraftedValueService } from './slormancer-crafted-value.service';
+import { SlormancerCraftedValueService } from './slormancer-affix.service';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
 import { SlormancerLegendaryEffectService } from './slormancer-legendary-effect.service';
@@ -90,7 +90,7 @@ export class SlormancerItemService {
 
             const normalAffixes = item.affixes.filter(affix => affix.rarity === Rarity.Normal);
             if (normalAffixes.length > 0) {
-                const baseAffixes = <[string, string]>(<[CraftedValue, CraftedValue]>[
+                const baseAffixes = <[string, string]>(<[Affix, Affix]>[
                     normalAffixes[0],
                     valueOrDefault(normalAffixes[1], normalAffixes[0])
                 ])
@@ -109,12 +109,12 @@ export class SlormancerItemService {
     
             const magicAffixes = item.affixes.filter(affix => affix.rarity === Rarity.Magic);
             if (magicAffixes[0]) {
-                resultFragments.push(this.slormancerTemplateService.translate('SUF_loot_suf_' + magicAffixes[0].effect.stat));
+                resultFragments.push(this.slormancerTemplateService.translate('SUF_loot_suf_' + magicAffixes[0].craftedEffect.effect.stat));
             }
     
             const rareAffixes = item.affixes.filter(affix => affix.rarity === Rarity.Rare);
             if (rareAffixes[0]) {
-                resultFragments.unshift(this.slormancerTemplateService.translate('PRE_loot_pre_' + rareAffixes[0].effect.stat));
+                resultFragments.unshift(this.slormancerTemplateService.translate('PRE_loot_pre_' + rareAffixes[0].craftedEffect.effect.stat));
             }
 
             if (item.rarity === Rarity.Epic) {
@@ -233,7 +233,7 @@ export class SlormancerItemService {
         const base = this.getEquipableItemBase(item);
         const affixes = item.affixes
             .filter(affix => affix.rarity !== 'L')
-            .map(affix => this.slormancerItemAffixService.getCraftedValue(affix, item.level, item.reinforcment))
+            .map(affix => this.slormancerItemAffixService.getAffix(affix, item.level, item.reinforcment))
             .filter(isNotNullOrUndefined)
             .sort((a, b) => {
                 const rarity = compareRarities(a.rarity, b.rarity);
@@ -282,7 +282,7 @@ export class SlormancerItemService {
             affix.itemLevel = item.level;
             affix.reinforcment = item.reinforcment;
 
-            this.slormancerItemAffixService.updateCraftedValue(affix);
+            this.slormancerItemAffixService.updateAffix(affix);
         }
 
         if (item.legendaryEffect !== null) {

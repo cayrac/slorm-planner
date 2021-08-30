@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { CraftedValue } from '../../../slormancer/model/crafted-value';
+import { Affix } from '../../../slormancer/model/affix';
 import { Rarity } from '../../../slormancer/model/enum/rarity';
 import { EquipableItem } from '../../../slormancer/model/equipable-item';
 
@@ -22,19 +22,19 @@ export class ItemViewComponent {
 
     constructor() { }
 
-    public getNormalAffixes(): Array<CraftedValue> {
+    public getNormalAffixes(): Array<Affix> {
         return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === Rarity.Normal);
     }
 
-    public getMagicAffixes(): Array<CraftedValue> {
+    public getMagicAffixes(): Array<Affix> {
         return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === Rarity.Magic);
     }
 
-    public getRareAffixes(): Array<CraftedValue> {
+    public getRareAffixes(): Array<Affix> {
         return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === Rarity.Rare);
     }
 
-    public getEpicAffixes(): Array<CraftedValue> {
+    public getEpicAffixes(): Array<Affix> {
         return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === Rarity.Epic);
     }
 }

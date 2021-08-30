@@ -81,7 +81,7 @@ export class SlormancerAncestralLegacyService {
 
                 result.push({
                     type: EffectValueType.Synergy,
-                    ratio: value,
+                    value: value,
                     upgrade,
                     upgradeType: EffectValueUpgradeType.Reinforcment,
                     percent,
@@ -126,7 +126,7 @@ export class SlormancerAncestralLegacyService {
 
                 result.push({
                     type: EffectValueType.Synergy,
-                    ratio: value,
+                    value: value,
                     percent,
                     upgrade,
                     source,

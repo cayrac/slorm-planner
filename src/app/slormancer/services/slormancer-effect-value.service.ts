@@ -10,39 +10,7 @@ import { splitData, valueOrNull } from '../util/utils';
 @Injectable()
 export class SlormancerEffectValueService {
 
-    public parseLegendaryEffectValue(type: string | null, value: number, upgrade: number, range: boolean): AbstractEffectValue {
-        let result: AbstractEffectValue;
-        
-        if (type === null || type === '%') {
-            result = {
-                type: EffectValueType.Variable,
-                value,
-                upgrade: upgrade === null ? 0 : upgrade,
-                upgradeType: EffectValueUpgradeType.Reinforcment,
-                percent: type === '%',
-                range,
-                valueType: EffectValueValueType.Unknown,
-                stat: null
-            } as EffectValueVariable;
-        } else {
-            const typeValues = splitData(type, ':');
-            const source = valueOrNull(typeValues[1]);
-
-            result = {
-                type: EffectValueType.Synergy,
-                ratio: value,
-                upgrade,
-                upgradeType: EffectValueUpgradeType.Reinforcment,
-                percent: false,
-                source,
-                range,
-                valueType: EffectValueValueType.Unknown,
-                stat: null
-            } as EffectValueSynergy;
-        }
-
-        return result;
-    }
+    constructor() { }
 
     private parseUpgradeType(upgradeType: string | null): EffectValueUpgradeType {
         let result: EffectValueUpgradeType = EffectValueUpgradeType.Reinforcment;
@@ -97,7 +65,7 @@ export class SlormancerEffectValueService {
 
         result = {
             type: EffectValueType.Synergy,
-            ratio: isVariable ? 0 : strictParseFloat(brutValue),
+            value: isVariable ? 0 : strictParseFloat(brutValue),
             upgrade: isVariable ? strictParseFloat(<string>upgrade) : 0,
             upgradeType: this.parseUpgradeType(valueOrNull(upgradeType)),
             percent: false,

@@ -1,20 +1,16 @@
+import { CraftableEffect } from './craftable-effect';
 import { EffectValueConstant } from './effect-value';
 import { Rarity } from './enum/rarity';
 
-export interface CraftedValue {
+export interface Affix {
     primaryNameType: string;
     rarity: Rarity;
-    craftedValue: number;
-    possibleCraftedValues: { [key: number]: number },
-    minPossibleCraftedValue: number;
-    maxPossibleCraftedValue: number;
     pure: number;
     itemLevel: number;
     reinforcment: number;
-    score: number;
     locked: boolean;
 
-    effect: EffectValueConstant;
+    craftedEffect: CraftableEffect<EffectValueConstant>;
 
     isPure: boolean;
     valueLabel: string;

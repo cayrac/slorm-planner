@@ -67,7 +67,7 @@ export class SlormancerActivableService {
 
                 result.push({
                     type: EffectValueType.Synergy,
-                    ratio: value,
+                    value: value,
                     upgrade,
                     percent,
                     source,
@@ -108,7 +108,7 @@ export class SlormancerActivableService {
 
                 result.push({
                     type: EffectValueType.Synergy,
-                    ratio: value,
+                    value: value,
                     upgrade,
                     source,
                     range: false

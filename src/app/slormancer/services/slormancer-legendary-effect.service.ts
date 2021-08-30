@@ -1,16 +1,27 @@
 import { Injectable } from '@angular/core';
 
-import { AbstractEffectValue, EffectValueConstant } from '../model/effect-value';
+import { CraftableEffect } from '../model/craftable-effect';
+import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
 import { EffectValueType } from '../model/enum/effect-value-type';
+import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
+import { EffectValueValueType } from '../model/enum/effect-value-value-type';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameAffix } from '../model/game/game-item';
 import { LegendaryEffect } from '../model/legendary-effect';
 import { list } from '../util/math.util';
 import { strictParseInt } from '../util/parse.util';
-import { emptyStringToNull, splitData, splitFloatData, valueOrDefault, valueOrNull } from '../util/utils';
+import {
+    emptyStringToNull,
+    isEffectValueSynergy,
+    isEffectValueVariable,
+    splitData,
+    splitFloatData,
+    valueOrDefault,
+    valueOrNull,
+} from '../util/utils';
 import { SlormancerActivableService } from './slormancer-activable.service';
 import { SlormancerDataService } from './slormancer-data.service';
-import { SlormancerEffectValueService } from './slormancer-effect-value.service';
+import { SlormancerItemValueService } from './slormancer-item-value.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 
 
@@ -22,26 +33,75 @@ export class SlormancerLegendaryEffectService {
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormanderSkillService: SlormancerActivableService,
                 private slormancerTemplateService: SlormancerTemplateService,
-                private slormancerEffectValueService: SlormancerEffectValueService
+                private slormancerItemValueService: SlormancerItemValueService
                 ) { }
+
+    public parseLegendaryEffectValue(type: string | null, score: number, upgrade: number, range: boolean, craftedValue: number): CraftableEffect {
+        let effect: AbstractEffectValue;
+        
+        if (type === null || type === '%') {
+            effect = {
+                type: EffectValueType.Variable,
+                value: 0,
+                upgrade,
+                upgradeType: EffectValueUpgradeType.Reinforcment,
+                percent: type === '%',
+                range: false,
+                valueType: EffectValueValueType.Unknown,
+                stat: null
+            } as EffectValueVariable;
+        } else {
+            const typeValues = splitData(type, ':');
+            const source = valueOrNull(typeValues[1]);
+
+            effect = {
+                type: EffectValueType.Synergy,
+                value: 0,
+                synergy: 0,
+                upgrade,
+                upgradeType: EffectValueUpgradeType.Reinforcment,
+                percent: type === '%',
+                source,
+                range: false,
+                valueType: EffectValueValueType.Unknown,
+                stat: null
+            } as EffectValueSynergy;
+        }
+
+        return {
+            score,
+            craftedValue: range ? craftedValue : 100,
+            possibleCraftedValues: {},
+            maxPossibleCraftedValue: 100,
+            minPossibleCraftedValue: range ? 75 : 100,
+            effect,
+        };
+    }
 
     private applyEffectOverride(effect: LegendaryEffect, legendaryId: number): LegendaryEffect {
         const data = this.slormancerDataService.getDataLegendary(legendaryId);
 
         if (data !== null) {
             for (const constant of data.constants) {
-                effect.values.push({
-                    type: EffectValueType.Constant,
-                    value: constant,
-                    percent: false
-                } as EffectValueConstant);
+                effect.effects.push({
+                    score: constant,
+                    craftedValue: 0,
+                    possibleCraftedValues: { 0: constant },
+                    maxPossibleCraftedValue: 0,
+                    minPossibleCraftedValue: 0,
+                    effect: {
+                        type: EffectValueType.Constant,
+                        value: constant,
+                        percent: false
+                    } as EffectValueConstant
+             });
             }
         }
 
         return effect;
     }
 
-    private getEffectValues(gameData: GameDataLegendary): Array<AbstractEffectValue> {
+    private getEffectValues(gameData: GameDataLegendary, craftedValue: number): Array<CraftableEffect> {
         const ranges = splitFloatData(gameData.RANGE);
         const types = emptyStringToNull(splitData(gameData.TYPE));
         const upgrades = splitFloatData(gameData.UPGRADABLE);
@@ -49,13 +109,13 @@ export class SlormancerLegendaryEffectService {
 
         const nb = Math.max(types.length, values.length);
 
-        const result: Array<AbstractEffectValue> = [];
+        const result: Array<CraftableEffect> = [];
         for (let i of list(nb)) {
             const type = valueOrNull(types[i]);
-            const value = valueOrDefault(values[i], 0);
+            const maxValue = valueOrDefault(values[i], 0);
             const upgrade = valueOrDefault(upgrades[i], 0);
             const range = ranges[i] === 1;
-            result.push(this.slormancerEffectValueService.parseLegendaryEffectValue(type, value, upgrade, range));
+            result.push(this.parseLegendaryEffectValue(type, maxValue, upgrade, range, craftedValue));
         }
         
         return result;
@@ -103,7 +163,7 @@ export class SlormancerLegendaryEffectService {
                 activable: activable !== null ? this.slormanderSkillService.getActivable(activable) : null,
                 onlyStat: gameData.STAT_ONLY === true,
                 skillIcon: this.getIcon(gameData.HERO, gameData.SKILL),
-                values: this.getEffectValues(gameData),
+                effects: this.getEffectValues(gameData, affix.value),
                 
                 title: this.LEGENDARY_TITLE,
                 description: '',
@@ -119,8 +179,18 @@ export class SlormancerLegendaryEffectService {
     }
 
     public updateLegendaryEffect(legendaryEffect: LegendaryEffect) {
-        legendaryEffect.description = this.slormancerTemplateService.formatLegendaryDescription(legendaryEffect);
-        console.log('updateLegendaryEffect : ');
-        console.log(legendaryEffect);
+        for (const craftedEffect of legendaryEffect.effects) {
+            if (isEffectValueVariable(craftedEffect.effect) || isEffectValueSynergy(craftedEffect.effect)) {
+                const upgrade = 100 * craftedEffect.effect.upgrade * legendaryEffect.reinforcment / 100;
+                craftedEffect.possibleCraftedValues = this.slormancerItemValueService.computeEffectRange(
+                    craftedEffect.score,
+                    craftedEffect.minPossibleCraftedValue,
+                    craftedEffect.maxPossibleCraftedValue,
+                    upgrade);
+                craftedEffect.effect.value = valueOrDefault(craftedEffect.possibleCraftedValues[craftedEffect.craftedValue], 0);
+            }
+        }
+
+        legendaryEffect.description = this.slormancerTemplateService.formatLegendaryDescription(legendaryEffect.template, legendaryEffect.effects);
     }
 }

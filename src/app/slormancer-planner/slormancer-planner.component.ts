@@ -79,7 +79,7 @@ export class SlormancerPlannerComponent implements OnInit {
     public attributePoints: number = 0;
     public selectedTrait: AttributeTraits | null = null;
 
-    public selectedItem: number | null = 13;
+    public selectedItem: number | null = 10;
 
     public selectedExtendedItem: EquipableItem | null = null;
 
@@ -95,7 +95,7 @@ export class SlormancerPlannerComponent implements OnInit {
     public selectedUpgrade: SkillUpgrade | null = null;
     public selectedUpgradeIndex: number = 139;
 
-    public details: boolean = false;
+    public details: boolean = true;
     public reaperBase: number = 105;
     public primordial: boolean = true;
     public level: number = 0;
@@ -246,7 +246,7 @@ export class SlormancerPlannerComponent implements OnInit {
                         break;
                 }
 
-                item.reinforcment = 0;
+                item.reinforcment = this.selectedExtendedItem === null ? 0 : this.selectedExtendedItem.reinforcment;
                 item.affixes = item.affixes.filter(affix => affix.rarity !== 'L');
                 item.affixes.push({
                     rarity: 'L',

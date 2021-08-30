@@ -6,32 +6,29 @@ export interface AbstractEffectValue {
     type: EffectValueType;
     valueType: EffectValueValueType;
     stat: string | null;
+    percent: boolean;
+    value: number;
     max?: number;
 };
 
 export interface EffectValueVariable extends AbstractEffectValue {
     type: EffectValueType.Variable;
-    value: number;
     upgrade: number;
     maxUpgrade?: number;
     upgradeType: EffectValueUpgradeType;
-    percent: boolean;
     range: boolean;
 }
 
 export interface EffectValueConstant extends AbstractEffectValue {
     type: EffectValueType.Constant;
-    value: number;
-    percent: boolean;
 }
 
 export interface EffectValueSynergy extends AbstractEffectValue {
     type: EffectValueType.Synergy;
-    ratio: number;
     upgrade: number;
     maxUpgrade?: number;
     upgradeType: EffectValueUpgradeType;
-    percent: boolean;
     source: string;
     range: boolean;
+    synergy: number;
 }

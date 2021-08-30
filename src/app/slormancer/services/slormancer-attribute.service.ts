@@ -59,7 +59,7 @@ export class SlormancerAttributeService {
             if (stat !== null && type !== null && type.startsWith('synergy:')) {
                 result.push({
                     type: EffectValueType.Synergy,
-                    ratio: value,
+                    value: value,
                     upgrade: i === 0 && firstIsUpgradable ? value : 0,
                     upgradeType: i === 0 && firstIsUpgradable ? EffectValueUpgradeType.RanksAfterInThisTrait : EffectValueUpgradeType.Reinforcment,
                     percent,
@@ -199,7 +199,7 @@ export class SlormancerAttributeService {
                 } else if (isEffectValueConstant(value) && isEffectValueConstant(found)) {
                     found.value += value.value;
                 } else if (isEffectValueSynergy(value) && isEffectValueSynergy(found)) {
-                    found.ratio += value.ratio;
+                    found.value += value.value;
                 }
             } else {
                 result.push({ ...value });

@@ -57,9 +57,9 @@
                     
                 <!--<ng-container *ngFor="let data of getLegendariesData()">
                     <div class="legendary-data">
-                        <app-item-view (click)="showData(data)" [details]="details" [class]="selectedClass" [item]="getLegendaryItem(data.game)"></app-item-view>
+                        <app-item-view (click)="showData(getLegendaryItem(data.game))" [details]="details"  [item]="getLegendaryItem(data.game)"></app-item-view>
                     </div>
-                </ng-container>-->
+                </ng-container><!---->
             </div>
         </div>
     </div>

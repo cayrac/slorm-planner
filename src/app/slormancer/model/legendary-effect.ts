@@ -1,5 +1,5 @@
 import { Activable } from './activable';
-import { AbstractEffectValue } from './effect-value';
+import { CraftableEffect } from './craftable-effect';
 
 export interface LegendaryEffect {
     id: number;
@@ -10,7 +10,7 @@ export interface LegendaryEffect {
     skillIcon: string | null;
     value: number;
     onlyStat: boolean;
-    values: Array<AbstractEffectValue>;
+    effects: Array<CraftableEffect>;
 
     title: string;
     description: string;

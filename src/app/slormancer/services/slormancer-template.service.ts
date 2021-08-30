@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 
 import { Activable } from '../model/activable';
+import { Affix } from '../model/affix';
 import { ComputedEffectValue } from '../model/computed-effect-value';
-import { CraftedValue } from '../model/crafted-value';
+import { CraftableEffect } from '../model/craftable-effect';
 import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
 import { EffectValueValueType } from '../model/enum/effect-value-value-type';
@@ -12,7 +13,6 @@ import { GameDataAncestralLegacy } from '../model/game/data/game-data-ancestral-
 import { GameDataAttribute } from '../model/game/data/game-data-attribute';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameDataSkill } from '../model/game/data/game-data-skill';
-import { LegendaryEffect } from '../model/legendary-effect';
 import { strictParseInt } from '../util/parse.util';
 import {
     findFirst,
@@ -145,7 +145,7 @@ export class SlormancerTemplateService {
         if (effect.upgrade !== 0) {
             formula = (effect.upgrade >= 0 ? '+' : '') + effect.upgrade + '% ' + this.translate(effect.source) + ' per ' + this.translate('level');
         } else {
-            formula = effect.ratio + '% ' + this.translate(effect.source);
+            formula = effect.value + '% ' + this.translate(effect.source);
         }
         return formula === null ? '' : this.asSpan(' (' + formula + ')', 'details');
     }
@@ -177,28 +177,6 @@ export class SlormancerTemplateService {
         const percent = value.percent ? '%' : '';
         const max = this.computeMax(value, value.percent);
         return this.replaceAnchor(template, this.asSpan(value.value.toString(), 'value') + percent + max, anchor);
-    }
-
-    private applyEffectValueSynergy(template: string, baseValue: number, effectValue: EffectValueSynergy, reinforcment: number, synergyAnchor: string, valueAnchor: string): string {
-        const computed = this.slormancerItemValueService.computeEffectSynergyDetails(effectValue, baseValue, reinforcment);
-        
-        const value = this.asSpan(computed.value + '%', 'value');
-        const formula = this.computedItemValueToFormula(computed);
-
-        template = this.replaceAnchor(template, value + formula, valueAnchor);
-
-        if (computed.synergy !== null) {
-            let synergy: string | null = null;
-            if (typeof computed.synergy === 'number') {
-                synergy = this.asSpan(computed.synergy.toString(), 'value');
-            } else {
-                synergy = this.asSpan(computed.synergy.min + ' - ' + computed.synergy.max, 'value');
-            }
-
-            template = this.replaceAnchor(template, synergy, synergyAnchor);
-        }
-
-        return template;
     }
 
     private applyEffectValueSynergyForActivable(template: string, baseValue: number, effectValue: EffectValueSynergy, reinforcment: number, valueAnchor: string,  synergyAnchor: string): string {
@@ -264,19 +242,42 @@ export class SlormancerTemplateService {
         return template;
     }
 
-    public formatLegendaryDescription(effect: LegendaryEffect) {
-        let template = effect.template;
+    private getCraftedEffectDetails(craftedEffect: CraftableEffect, forcePercent: boolean = false): string | null {
+        const percent = craftedEffect.effect.percent || forcePercent ? '%' : '';
+        let result : Array<string> = [];
 
-        for (let effectValue of effect.values) {
-            if (isEffectValueVariable(effectValue)) {
-                template = this.applyItemEffectValueVariable(template, effect.value, effectValue, effect.reinforcment, this.VALUE_ANCHOR);
-            } else if (isEffectValueConstant(effectValue)) {
+        if (craftedEffect.minPossibleCraftedValue < craftedEffect.maxPossibleCraftedValue) {
+            const min = craftedEffect.possibleCraftedValues[craftedEffect.minPossibleCraftedValue];
+            const max = craftedEffect.possibleCraftedValues[craftedEffect.maxPossibleCraftedValue];
+            result.push(min + percent + '-' + max + percent);
+        }
+        if ((isEffectValueSynergy(craftedEffect.effect) || isEffectValueVariable(craftedEffect.effect)) && craftedEffect.effect.upgrade > 0) {
+            result.push('+' + craftedEffect.effect.upgrade + percent + ' per reinforcment');
+        }
+
+        return result.length === 0 ? '' : this.asSpan(' (' + result.join(' ') + ')', 'details');
+    }
+
+    public formatLegendaryDescription(template: string, craftedEffects: Array<CraftableEffect>): string {
+        for (let craftedEffect of craftedEffects) {
+            const percent = craftedEffect.effect.percent ? '%' : '';
+
+            if (isEffectValueVariable(craftedEffect.effect)) {
+                const value = this.asSpan(craftedEffect.effect.value.toString() + percent, 'value');
+                const details = this.getCraftedEffectDetails(craftedEffect);
+                template = this.replaceAnchor(template, value + details, this.VALUE_ANCHOR);
+            } else if (isEffectValueConstant(craftedEffect.effect)) {
                 const anchor = findFirst(template, this.CONSTANT_ANCHORS);
                 if (anchor !== null) {
-                    template = this.applyEffectValueConstant(template, effectValue, anchor);
+                    const value = this.asSpan(craftedEffect.effect.value.toString() + percent, 'value');
+                    template = this.replaceAnchor(template, value, anchor);
                 }
-            } else if (isEffectValueSynergy(effectValue)) {
-                template = this.applyEffectValueSynergy(template, effect.value, effectValue, effect.reinforcment, this.SYNERGY_ANCHOR, this.VALUE_ANCHOR);
+            } else if (isEffectValueSynergy(craftedEffect.effect)) {
+                const value = this.asSpan(craftedEffect.effect.value.toString() + '%', 'value');
+                const details = this.getCraftedEffectDetails(craftedEffect, true);
+                const synergy = this.asSpan(craftedEffect.effect.synergy.toString() + percent, 'value');
+                template = this.replaceAnchor(template, value + details, this.VALUE_ANCHOR);
+                template = this.replaceAnchor(template, synergy, this.SYNERGY_ANCHOR);
             }
         }
 
@@ -608,15 +609,15 @@ export class SlormancerTemplateService {
         return this.translate('weapon_reapersmith_' + id);
     }
 
-    public formatItemAffixValue(itemAffix: CraftedValue): string {
-        let result = this.applyEffectValueConstant('+' + this.VALUE_ANCHOR, itemAffix.effect, this.VALUE_ANCHOR);
+    public formatItemAffixValue(itemAffix: Affix): string {
+        let result = this.applyEffectValueConstant('+' + this.VALUE_ANCHOR, itemAffix.craftedEffect.effect, this.VALUE_ANCHOR);
 
         if (itemAffix.isPure) {
             result += this.asSpan(' (' + (itemAffix.pure - 100) + '% pure)', 'details pure');
         } else {
-            const percent = itemAffix.effect.percent ? '%' : '';
-            result += this.asSpan(' (' + itemAffix.possibleCraftedValues[itemAffix.minPossibleCraftedValue] + percent
-                + '-' + itemAffix.possibleCraftedValues[itemAffix.maxPossibleCraftedValue] + percent + ')', 'details range');
+            const percent = itemAffix.craftedEffect.effect.percent ? '%' : '';
+            result += this.asSpan(' (' + itemAffix.craftedEffect.possibleCraftedValues[itemAffix.craftedEffect.minPossibleCraftedValue] + percent
+                + '-' + itemAffix.craftedEffect.possibleCraftedValues[itemAffix.craftedEffect.maxPossibleCraftedValue] + percent + ')', 'details range');
         }
         return result;
     }
