@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { ItemAffix } from '../model/affix';
 import { AttributeEnchantment } from '../model/attribute-enchantment';
+import { CraftedValue } from '../model/crafted-value';
 import { Attribute } from '../model/enum/attribute';
 import { EquippableItemBase } from '../model/enum/equippable-item-base';
 import { HeroClass } from '../model/enum/hero-class';
@@ -12,7 +12,7 @@ import { GameEnchantment, GameEquippableItem, GameItem, GameRessourceItem } from
 import { ReaperEnchantment } from '../model/reaper-enchantment';
 import { SkillEnchantment } from '../model/skill-enchantment';
 import { compare, compareRarities, compareString, isNotNullOrUndefined, valueOrDefault } from '../util/utils';
-import { SlormancerItemAffixService } from './slormancer-item-affix.service';
+import { SlormancerCraftedValueService } from './slormancer-crafted-value.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
 import { SlormancerLegendaryEffectService } from './slormancer-legendary-effect.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
@@ -32,7 +32,7 @@ export class SlormancerItemService {
     constructor(private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerItemValueService : SlormancerItemValueService,
                 private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
-                private slormancerItemAffixService: SlormancerItemAffixService) { }
+                private slormancerItemAffixService: SlormancerCraftedValueService) { }
 
     public getEquipableItemBase(item: GameEquippableItem): EquippableItemBase {
         let slot: EquippableItemBase = EquippableItemBase.Helm;
@@ -75,7 +75,7 @@ export class SlormancerItemService {
 
             const normalAffixes = item.affixes.filter(affix => affix.rarity === Rarity.Normal);
             if (normalAffixes.length > 0) {
-                const baseAffixes = <[string, string]>(<[ItemAffix, ItemAffix]>[
+                const baseAffixes = <[string, string]>(<[CraftedValue, CraftedValue]>[
                     normalAffixes[0],
                     valueOrDefault(normalAffixes[1], normalAffixes[0])
                 ])
@@ -181,7 +181,7 @@ export class SlormancerItemService {
         const base = this.getEquipableItemBase(item);
         const affixes = item.affixes
             .filter(affix => affix.rarity !== 'L')
-            .map(affix => this.slormancerItemAffixService.getItemAffix(affix, item.level, item.reinforcment))
+            .map(affix => this.slormancerItemAffixService.getCraftedValue(affix, item.level, item.reinforcment))
             .filter(isNotNullOrUndefined)
             .sort((a, b) => {
                 const rarity = compareRarities(a.rarity, b.rarity);
@@ -232,7 +232,7 @@ export class SlormancerItemService {
             affix.itemLevel = item.level;
             affix.reinforcment = item.reinforcment;
 
-            this.slormancerItemAffixService.updateItemAffix(affix);
+            this.slormancerItemAffixService.updateCraftedValue(affix);
         }
     }
 }

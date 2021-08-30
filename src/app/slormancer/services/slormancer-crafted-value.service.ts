@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { ItemAffix } from '../model/affix';
+import { CraftedValue } from '../model/crafted-value';
 import { EffectValueType } from '../model/enum/effect-value-type';
 import { EffectValueValueType } from '../model/enum/effect-value-value-type';
 import { EquippableItemBase } from '../model/enum/equippable-item-base';
@@ -13,7 +13,7 @@ import { SlormancerItemValueService } from './slormancer-item-value.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 
 @Injectable()
-export class SlormancerItemAffixService {
+export class SlormancerCraftedValueService {
 
     constructor(private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerItemValueService : SlormancerItemValueService,
@@ -68,8 +68,8 @@ export class SlormancerItemAffixService {
         return item !== null && item.hasOwnProperty('quantity');
     }
 
-    public getItemAffix(affix: GameAffix, itemLevel: number, reinforcment: number): ItemAffix | null {
-        let result: ItemAffix | null = null;
+    public getCraftedValue(affix: GameAffix, itemLevel: number, reinforcment: number): CraftedValue | null {
+        let result: CraftedValue | null = null;
 
         const stat = this.slormancerDataService.getGameDataStat(affix);
         if (stat !== null) {
@@ -84,7 +84,7 @@ export class SlormancerItemAffixService {
                 reinforcment,
                 locked: affix.locked,
                 score: stat.SCORE,
-                pure: affix.pure,
+                pure: affix.pure === null || affix.pure === 0 ? 100 : affix.pure,
                 isPure: false,
 
                 effect: {
@@ -103,7 +103,7 @@ export class SlormancerItemAffixService {
         return result;
     }
 
-    public updateItemAffix(itemAffix: ItemAffix) {
+    public updateCraftedValue(itemAffix: CraftedValue) {
         itemAffix.possibleCraftedValues = this.slormancerItemValueService.getAffixValues(itemAffix.itemLevel, itemAffix.reinforcment, itemAffix.score, itemAffix.effect.percent, itemAffix.rarity, itemAffix.pure);
         const keys = Object.keys(itemAffix.possibleCraftedValues).map(k => parseInt(k));
         const minValue = keys[0];
@@ -116,7 +116,7 @@ export class SlormancerItemAffixService {
         itemAffix.valueLabel = this.slormancerTemplateService.formatItemAffixValue(itemAffix);
         itemAffix.statLabel = itemAffix.effect.stat === null ? '' : this.slormancerTemplateService.translate(itemAffix.effect.stat);
 
-        itemAffix.isPure = itemAffix.pure !== null && itemAffix.pure > 0;
+        itemAffix.isPure = itemAffix.pure > 100;
     }
 
 }

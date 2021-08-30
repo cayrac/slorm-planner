@@ -1,4 +1,4 @@
-<div *ngIf="item !== null" class="item {{getItemRarityColor()}}" [class.nodetails]="!details">
+<div *ngIf="item !== null" class="item {{item.rarity}}" [class.nodetails]="!details">
     <div class="head" [innerHTML]="item.name"></div>
     <div class="content">
         <div *ngIf="equipped" class="equipped">Equipped</div>

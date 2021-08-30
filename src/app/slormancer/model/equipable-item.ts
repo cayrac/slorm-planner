@@ -1,5 +1,5 @@
-import { ItemAffix } from './affix';
 import { AttributeEnchantment } from './attribute-enchantment';
+import { CraftedValue } from './crafted-value';
 import { EquippableItemBase } from './enum/equippable-item-base';
 import { HeroClass } from './enum/hero-class';
 import { Rarity } from './enum/rarity';
@@ -12,7 +12,7 @@ export interface EquipableItem {
     rarity: Rarity;
     level: number;
     reinforcment: number;
-    affixes: Array<ItemAffix>;
+    affixes: Array<CraftedValue>;
     legendaryEffect: LegendaryEffect | null;
     reaperEnchantment: ReaperEnchantment | null;
     skillEnchantment: SkillEnchantment | null;
