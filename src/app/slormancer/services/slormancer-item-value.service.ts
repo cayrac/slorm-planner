@@ -173,8 +173,8 @@ export class SlormancerItemValueService {
         const result: ComputedEffectValue = {
             value: 0,
             baseValue: effect.value,
-            range: effect.range ? this.computeEffectRange(effect.value, 75, 100, effect.upgrade * upgradeMultiplier) : null,
-            baseRange: effect.range ? this.computeEffectRange(effect.value, 75, 100, 0) : null,
+            range: null,
+            baseRange: null,
             upgrade: effect.upgrade,
             baseFormulaUpgrade: 0,
             upgradeType: effect.upgradeType,
@@ -195,8 +195,8 @@ export class SlormancerItemValueService {
         const result: ComputedEffectValue = {
             value: 0,
             baseValue: effect.value,
-            range: effect.range ? this.computeEffectRange(effect.value, 75, 100, effect.upgrade * upgradeMultiplier) : null,
-            baseRange: effect.range ? this.computeEffectRange(effect.value, 75, 100, 0) : null,
+            range: null,
+            baseRange: null,
             upgrade: effect.upgrade,
             baseFormulaUpgrade: 0,
             upgradeType: effect.upgradeType,

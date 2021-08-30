@@ -87,7 +87,6 @@ export class SlormancerAncestralLegacyService {
                     percent,
                     source: damageType === 'phy' ? 'physical_damage' : 'elemental_damage',
                     valueType: EffectValueValueType.Damage,
-                    range: false,
                     stat
                 } as EffectValueSynergy);
 
@@ -97,7 +96,6 @@ export class SlormancerAncestralLegacyService {
                     value,
                     upgrade,
                     percent,
-                    range: false,
                     stat
                 } as EffectValueVariable);
             } else if (type === 'negative') {
@@ -107,7 +105,6 @@ export class SlormancerAncestralLegacyService {
                     upgrade: -upgrade,
                     upgradeType: EffectValueUpgradeType.Reinforcment,
                     percent,
-                    range: false,
                     stat
                 } as EffectValueVariable);
             } else if (type === 'every_3') {
@@ -117,7 +114,6 @@ export class SlormancerAncestralLegacyService {
                     upgrade,
                     upgradeType: EffectValueUpgradeType.Every3,
                     percent,
-                    range: false,
                     stat
                 } as EffectValueVariable);
             } else {
@@ -130,7 +126,6 @@ export class SlormancerAncestralLegacyService {
                     percent,
                     upgrade,
                     source,
-                    range: false,
                     stat
                 } as EffectValueSynergy);
             }

@@ -16,7 +16,6 @@ export interface EffectValueVariable extends AbstractEffectValue {
     upgrade: number;
     maxUpgrade?: number;
     upgradeType: EffectValueUpgradeType;
-    range: boolean;
 }
 
 export interface EffectValueConstant extends AbstractEffectValue {
@@ -29,6 +28,5 @@ export interface EffectValueSynergy extends AbstractEffectValue {
     maxUpgrade?: number;
     upgradeType: EffectValueUpgradeType;
     source: string;
-    range: boolean;
     synergy: number;
 }

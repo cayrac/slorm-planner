@@ -70,7 +70,6 @@ export class SlormancerEffectValueService {
             upgradeType: this.parseUpgradeType(valueOrNull(upgradeType)),
             percent: false,
             source,
-            range: false,
             valueType: EffectValueValueType.Unknown,
             stat: null
         } as EffectValueSynergy;

@@ -65,7 +65,6 @@ export class SlormancerAttributeService {
                     percent,
                     source: type.substring(8),
                     valueType: this.isDamageStat(stat) ? EffectValueValueType.Damage : EffectValueValueType.Stat,
-                    range: false,
                     stat
                 } as EffectValueSynergy);
 
@@ -76,7 +75,6 @@ export class SlormancerAttributeService {
                     upgrade: i === 0 && firstIsUpgradable ? value : 0,
                     upgradeType: i === 0 && firstIsUpgradable ? EffectValueUpgradeType.RanksAfterInThisTrait : EffectValueUpgradeType.Reinforcment,
                     percent,
-                    range: false,
                     valueType: EffectValueValueType.Stat,
                     stat
                 } as EffectValueVariable);

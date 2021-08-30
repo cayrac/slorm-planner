@@ -59,7 +59,6 @@ export class SlormancerActivableService {
                     value,
                     upgrade,
                     percent,
-                    range: false
                 } as EffectValueVariable);
             } else {
                 const typeValues = splitData(type, ':');
@@ -71,7 +70,6 @@ export class SlormancerActivableService {
                     upgrade,
                     percent,
                     source,
-                    range: false
                 } as EffectValueSynergy);
             }
         }
@@ -100,7 +98,6 @@ export class SlormancerActivableService {
                     value,
                     upgrade,
                     percent,
-                    range: false
                 } as EffectValueVariable);
             } else {
                 const typeValues = splitData(type, ':');
@@ -111,7 +108,6 @@ export class SlormancerActivableService {
                     value: value,
                     upgrade,
                     source,
-                    range: false
                 } as EffectValueSynergy);
             }
         }

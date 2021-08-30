@@ -172,7 +172,6 @@ export class SlormancerItemService {
             effect: {
                 type:EffectValueType.Variable,
                 percent: false,
-                range: true,
                 value: 0,
                 stat: '',
                 valueType: EffectValueValueType.Stat,
@@ -194,7 +193,6 @@ export class SlormancerItemService {
             effect: {
                 type:EffectValueType.Variable,
                 percent: false,
-                range: true,
                 value: 0,
                 stat: '',
                 valueType: EffectValueValueType.Stat,
@@ -216,7 +214,6 @@ export class SlormancerItemService {
             effect: {
                 type:EffectValueType.Variable,
                 percent: false,
-                range: true,
                 value: 0,
                 stat: '',
                 valueType: EffectValueValueType.Stat,
