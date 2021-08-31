@@ -8,12 +8,9 @@
                 </div>
             </div>
             <div class="data">
-                <div class="genre" *ngIf="skill.genres.length > 0">{{getGenresLabel(skill.genres)}}</div>
-                <div class="cooldown" *ngIf="skill.cooldown > 0">Cooldown : <span class="value">{{skill.cooldown}}</span> seconds</div>
-                <div class="cost" *ngIf="!skill.hasNoCost">Total Cost :
-                    <span [class.life]="skill.hasLifeCost" [class.mana]="skill.hasManaCost">{{skill.cost}}</span>
-                    <span> {{getCostLabel(skill.costType)}}</span>
-                </div>
+                <div class="genre" *ngIf="skill.genresLabel !== null" [innerHTML]="skill.genresLabel"></div>
+                <div class="cooldown" *ngIf="skill.cooldownLabel !== null" [innerHTML]="skill.cooldownLabel"></div>
+                <div class="cost" *ngIf="skill.costLabel !== null" [innerHTML]="skill.costLabel"></div>
             </div>
         </div>
         <div class="separator"></div>

@@ -88,7 +88,7 @@ export class SlormancerActivableService {
 
             genresLabel: null,
             costLabel: null,
-            cooldownLabel: '',
+            cooldownLabel: null,
         
             template: this.slormancerTemplateService.getActivableDescriptionTemplate(data),
             values: this.parseEffectValues(data)
@@ -125,7 +125,6 @@ export class SlormancerActivableService {
         activable.hasManaCost = activable.costType === SkillCostType.ManaSecond || activable.costType === SkillCostType.ManaLock || activable.costType === SkillCostType.Mana;
         activable.hasNoCost = activable.costType === SkillCostType.None;
 
-        
         activable.genresLabel =  null;
         if (activable.genres.length > 0) {
             activable.genresLabel = activable.genres

@@ -35,6 +35,11 @@ export interface SkillUpgrade {
     relatedMechanics: Array<Mechanic>;
     relatedBuffs: Array<Buff>;
 
+    masteryLabel: string | null;
+    rankLabel: string | null;
+    genresLabel: string | null;
+    costLabel: string | null;
+
     template: string;
     values: Array<AbstractEffectValue>;
 }

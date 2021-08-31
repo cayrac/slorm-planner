@@ -11,12 +11,9 @@
             <div class="data">
                 <div class="mastery">{{translate(MASTERY_LABEL)}} {{upgrade.masteryRequired}}</div>
                 <div class="type">{{getTypeLabel(upgrade.type)}}</div>
-                <div class="genre" *ngIf="upgrade.genres.length > 0">{{getGenresLabel(upgrade.genres)}}</div>
+                <div class="genre" *ngIf="upgrade.genresLabel !== null" [innerHTML]="upgrade.genresLabel"></div>
                 <div class="rank">{{translate(RANK_LABEL)}}: <span class="current">{{upgrade.rank}}</span>/{{upgrade.maxRank}}</div>
-                <div class="cost" *ngIf="!upgrade.hasNoCost">Cost :
-                    <span [class.life]="upgrade.hasLifeCost" [class.mana]="upgrade.hasManaCost">{{upgrade.cost}}</span>
-                    <span> {{getCostLabel(upgrade.costType)}}</span>
-                </div>
+                <div class="cost" *ngIf="upgrade.costLabel !== null" [innerHTML]="upgrade.costLabel"></div>
             </div>
         </div>
         <div class="separator"></div>

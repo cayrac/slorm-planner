@@ -37,6 +37,12 @@ import { SlormancerTemplateService } from './slormancer-template.service';
 @Injectable()
 export class SlormancerSkillService {
 
+    private readonly RANK_LABEL = this.slormancerTemplateService.translate('tt_rank');
+    private readonly MASTERY_LABEL = this.slormancerTemplateService.translate('tt_mastery');
+    private readonly COST_LABEL = this.slormancerTemplateService.translate('tt_cost');
+    private readonly COOLDOWN_LABEL = this.slormancerTemplateService.translate('tt_cooldown');
+    private readonly SECONDS_LABEL = this.slormancerTemplateService.translate('tt_seconds');
+
     constructor(private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerMechanicService: SlormancerMechanicService,
                 private slormancerDataService: SlormancerDataService,
@@ -161,6 +167,10 @@ export class SlormancerSkillService {
                 hasNoCost: false,
                 genres: <Array<SkillGenre>>splitData(gameDataSkill.GENRE, ','),
                 damageTypes: splitData(gameDataSkill.DMG_TYPE, ','),
+
+                genresLabel: null,
+                costLabel: null,
+                cooldownLabel: null,
             
                 template: this.slormancerTemplateService.getSkillDescriptionTemplate(gameDataSkill),
                 values: this.parseEffectValues(gameDataSkill)
@@ -183,6 +193,27 @@ export class SlormancerSkillService {
         skill.hasLifeCost = skill.costType === SkillCostType.LifeSecond || skill.costType === SkillCostType.LifeLock || skill.costType === SkillCostType.Life;
         skill.hasManaCost = skill.costType === SkillCostType.ManaSecond || skill.costType === SkillCostType.ManaLock || skill.costType === SkillCostType.Mana;
         skill.hasNoCost = skill.costType === SkillCostType.None || skill.cost === 0;
+        
+        skill.genresLabel =  null;
+        if (skill.genres.length > 0) {
+            skill.genresLabel = skill.genres
+                .map(genre => this.slormancerTemplateService.translate(genre))
+                .join(' ');
+        }
+        
+        skill.costLabel = null;
+        if (!skill.hasNoCost) {
+            skill.costLabel = this.COST_LABEL
+                + ': ' + this.slormancerTemplateService.asSpan(skill.cost.toString(), skill.hasManaCost ? 'value mana' : 'value life')
+                + ' ' + this.slormancerTemplateService.translate(skill.costType);
+        }
+
+        skill.cooldownLabel = null;
+        if (skill.cooldown > 0) {
+            skill.cooldownLabel = this.COOLDOWN_LABEL
+                + ': ' + this.slormancerTemplateService.asSpan(skill.cooldown.toString(), 'value')
+                + ' ' + this.SECONDS_LABEL;
+        }
     }
 
     public getUpgrade(upgradeId: number, heroClass: HeroClass, baseRank: number): SkillUpgrade | null {
@@ -213,6 +244,11 @@ export class SlormancerSkillService {
                 hasNoCost: false,
                 genres: <Array<SkillGenre>>splitData(gameDataSkill.GENRE, ','),
                 damageTypes: splitData(gameDataSkill.DMG_TYPE, ','),
+
+                masteryLabel: null,
+                rankLabel: null,
+                genresLabel: null,
+                costLabel: null,
 
                 nextRankDescription: [],
                 maxRankDescription: [],
@@ -302,6 +338,30 @@ export class SlormancerSkillService {
         if (upgrade.maxRank > 1) {
             upgrade.nextRankDescription = this.getNextRankUpgradeDescription(upgrade, Math.min(upgrade.maxRank, upgrade.rank + 1));
             upgrade.maxRankDescription = this.getNextRankUpgradeDescription(upgrade, upgrade.maxRank);
+        }
+        
+        upgrade.masteryLabel =  this.MASTERY_LABEL + ' ' + upgrade.masteryRequired;
+        upgrade.rankLabel =  this.RANK_LABEL + ': ' + this.slormancerTemplateService.asSpan(upgrade.rank.toString(), 'current') + '/' + upgrade.maxRank;
+        
+        upgrade.genresLabel =  null;
+        if (upgrade.genres.length > 0) {
+            upgrade.genresLabel = upgrade.genres
+                .map(genre => this.slormancerTemplateService.translate(genre))
+                .join(' ');
+        }
+        
+        upgrade.genresLabel =  null;
+        if (upgrade.genres.length > 0) {
+            upgrade.genresLabel = upgrade.genres
+                .map(genre => this.slormancerTemplateService.translate(genre))
+                .join(' ');
+        }
+        
+        upgrade.costLabel = null;
+        if (!upgrade.hasNoCost) {
+            upgrade.costLabel = this.COST_LABEL
+                + ': ' + this.slormancerTemplateService.asSpan(upgrade.cost.toString(), upgrade.hasManaCost ? 'value mana' : 'value life')
+                + ' ' + this.slormancerTemplateService.translate(upgrade.costType);
         }
     }
 
