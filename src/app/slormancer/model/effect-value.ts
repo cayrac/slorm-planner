@@ -1,6 +1,7 @@
 import { EffectValueType } from './enum/effect-value-type';
 import { EffectValueUpgradeType } from './enum/effect-value-upgrade-type';
 import { EffectValueValueType } from './enum/effect-value-value-type';
+import { MinMax } from './minmax';
 
 export interface AbstractEffectValue {
     type: EffectValueType;
@@ -13,6 +14,7 @@ export interface AbstractEffectValue {
 
 export interface EffectValueVariable extends AbstractEffectValue {
     type: EffectValueType.Variable;
+    baseValue: number;
     upgrade: number;
     maxUpgrade?: number;
     upgradeType: EffectValueUpgradeType;
@@ -24,9 +26,10 @@ export interface EffectValueConstant extends AbstractEffectValue {
 
 export interface EffectValueSynergy extends AbstractEffectValue {
     type: EffectValueType.Synergy;
+    baseValue: number;
     upgrade: number;
     maxUpgrade?: number;
     upgradeType: EffectValueUpgradeType;
     source: string;
-    synergy: number;
+    synergy: number | MinMax;
 }

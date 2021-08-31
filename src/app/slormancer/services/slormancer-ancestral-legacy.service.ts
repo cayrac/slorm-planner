@@ -147,7 +147,7 @@ export class SlormancerAncestralLegacyService {
         const attributes = ancestralLegacy.values
             .filter(value => isEffectValueSynergy(value) || isEffectValueVariable(value))
             .filter(value => (<EffectValueSynergy | EffectValueVariable>value).upgrade !== 0)
-            .map(value => this.slormancerTemplateService.formatNextRankDescription('@ £', <EffectValueSynergy | EffectValueVariable>value, rank));
+            .map(value => this.slormancerTemplateService.formatNextRankDescription('@ £', <EffectValueSynergy | EffectValueVariable>value)); // TODO fix le calcul
 
         return [ ...skill, ...attributes ]
     }
@@ -241,7 +241,7 @@ export class SlormancerAncestralLegacyService {
         ancestralLegacy.rank = Math.min(ancestralLegacy.maxRank, ancestralLegacy.rank)
         ancestralLegacy.totalRank = ancestralLegacy.bonusRank + ancestralLegacy.rank;
         const descriptionPrefix = this.isActivable(ancestralLegacy.types) ? this.slormancerTemplateService.translate(this.ACTIVE_PREFIX) + '<br/>' : '';
-        ancestralLegacy.description = descriptionPrefix + this.slormancerTemplateService.formatUpgradeDescription(ancestralLegacy.template, ancestralLegacy.values, Math.max(ancestralLegacy.totalRank, 1));
+        ancestralLegacy.description = descriptionPrefix + this.slormancerTemplateService.formatUpgradeDescription(ancestralLegacy.template, ancestralLegacy.values); // TODO fixer upgrade
         ancestralLegacy.cost = ancestralLegacy.baseCost === null ? null : ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * ancestralLegacy.totalRank);
         ancestralLegacy.cooldown = ancestralLegacy.baseCooldown;
 

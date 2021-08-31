@@ -73,7 +73,7 @@ export class SlormancerPlannerComponent implements OnInit {
     
     public save: GameSave | null = null;
 
-    public selectedClass: HeroClass = HeroClass.Huntress;
+    public selectedClass: HeroClass = HeroClass.Warrior;
 
     public selectedAttribute: Attribute = Attribute.Toughness;
     public attributePoints: number = 0;
@@ -87,13 +87,13 @@ export class SlormancerPlannerComponent implements OnInit {
     public selectedReaperIndex: number | null = 17;
 
     public selectedSkill: Skill | null = null;
-    public selectedSkillIndex: number = 10;
+    public selectedSkillIndex: number = 0;
 
     public selectedAncestralLegacy: AncestralLegacy | null = null;
     public selectedAncestralLegacyIndex: number = 149;
     
     public selectedUpgrade: SkillUpgrade | null = null;
-    public selectedUpgradeIndex: number = 139;
+    public selectedUpgradeIndex: number = 140;
 
     public details: boolean = true;
     public reaperBase: number = 105;

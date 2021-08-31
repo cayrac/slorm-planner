@@ -43,6 +43,7 @@ export class SlormancerLegendaryEffectService {
             effect = {
                 type: EffectValueType.Variable,
                 value: 0,
+                baseValue: 0,
                 upgrade,
                 upgradeType: EffectValueUpgradeType.Reinforcment,
                 percent: type === '%',
@@ -57,6 +58,7 @@ export class SlormancerLegendaryEffectService {
             effect = {
                 type: EffectValueType.Synergy,
                 value: 0,
+                baseValue: 0,
                 synergy: 0,
                 upgrade,
                 upgradeType: EffectValueUpgradeType.Reinforcment,

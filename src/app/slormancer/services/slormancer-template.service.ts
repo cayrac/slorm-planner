@@ -12,6 +12,7 @@ import { GameDataAncestralLegacy } from '../model/game/data/game-data-ancestral-
 import { GameDataAttribute } from '../model/game/data/game-data-attribute';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameDataSkill } from '../model/game/data/game-data-skill';
+import { MinMax } from '../model/minmax';
 import { strictParseInt } from '../util/parse.util';
 import {
     findFirst,
@@ -124,16 +125,6 @@ export class SlormancerTemplateService {
         return this.replaceAnchor(template, value + max + formula, anchor);
     }
 
-    private applyUpgradeEffectValueVariable(template: string, baseValue: number, effectValue: EffectValueVariable, reinforcment: number, anchor: string): string {
-        const computed = this.slormancerItemValueService.computeEffectVariableDetails(effectValue, baseValue, reinforcment);
-        const percent = computed.percent ? '%' : '';
-
-        const value = this.asSpan(computed.value + percent, 'value')
-        const formula = this.computedItemValueToFormula(computed, 'rank');
-
-        return this.replaceAnchor(template, value + formula, anchor);
-    }
-
     private computedReaperVariableToFormula(effect: EffectValueVariable): string {
         const formula = (effect.upgrade > 0 ? '+' : '') + effect.upgrade + ' per ' + this.translate('level');
         return formula === null ? '' : this.asSpan(' (' + formula + ')', 'details');
@@ -220,27 +211,6 @@ export class SlormancerTemplateService {
         return template;
     }
 
-    private applyEffectValueSynergyForUpgrade(template: string, baseValue: number, effectValue: EffectValueSynergy, reinforcment: number, valueAnchor: string,  synergyAnchor: string): string {
-        const computed = this.slormancerItemValueService.computeEffectSynergyDetails(effectValue, baseValue, reinforcment);
-        const formula = this.computedItemValueToFormula(computed, 'rank');
-
-        if (computed.synergy !== null) {
-            let synergy: string | null = null;
-
-            if (typeof computed.synergy === 'number') {
-                const percent = effectValue.percent ? '%' : '';
-                synergy = this.asSpan(computed.synergy.toString() + percent, 'value');
-                template = this.replaceAnchor(template, synergy, valueAnchor);
-                template = this.replaceAnchor(template, this.asSpan(computed.value + '%', 'value') + formula, synergyAnchor);
-            } else {
-                synergy = this.asSpan(computed.synergy.min + ' - ' + computed.synergy.max, 'value');
-                template = this.replaceAnchor(template, synergy + formula, effectValue.valueType === EffectValueValueType.Damage ? valueAnchor : synergyAnchor);
-            }
-        }
-
-        return template;
-    }
-
     private getCraftedEffectDetails(craftedEffect: CraftableEffect, forcePercent: boolean = false): string | null {
         const percent = craftedEffect.effect.percent || forcePercent ? '%' : '';
         let result : Array<string> = [];
@@ -304,24 +274,55 @@ export class SlormancerTemplateService {
         return template;
     }
 
-    public formatSkillDescription(template: string, values: Array<AbstractEffectValue>, level: number): string {
-        let description = template;
+    private getEffectValueDetails(effectValue: EffectValueVariable | EffectValueSynergy): string {
+        let result = '';
+        const percent = (effectValue.percent || isEffectValueSynergy(effectValue)) ? '%' : '';
 
-        for (let effectValue of values) {
-            if (isEffectValueVariable(effectValue)) {
-                description = this.applySkillEffectValueVariable(description, 0, effectValue, level, this.VALUE_ANCHOR);
-            } else if (isEffectValueConstant(effectValue)) {
-                const anchor = findFirst(description, this.CONSTANT_ANCHORS);
-                if (anchor !== null) {
-                    description = this.applyEffectValueConstant(description, effectValue, anchor);
-                }
-            } else if (isEffectValueSynergy(effectValue)) {
-                description = this.applyEffectValueSynergyForSkill(description, 0, effectValue, level, this.VALUE_ANCHOR, this.SYNERGY_ANCHOR);
+        if (effectValue.upgrade > 0) {
+            const sign = effectValue.upgrade < 0 ? '-' : '+';
+            const base = (effectValue.baseValue + effectValue.upgrade) + percent;
+            const upgrade = sign + ' ' + Math.abs(effectValue.upgrade) + percent;
+
+            if (effectValue.upgradeType === EffectValueUpgradeType.Mastery) {
+                result = base + ' ' + upgrade + ' per mastery level';
+            } else if (effectValue.upgradeType === EffectValueUpgradeType.Every3) {
+                result = base + ' ' + upgrade + ' every third mastery level';
+            } else {
+                result = base + ' ' + upgrade + ' every ' + effectValue.upgradeType;
             }
-            
+
+            result = this.asSpan('(' + result + ')', 'details');
         }
 
-        return description;
+        return result;
+    }
+
+    private formatValue(value: number | MinMax, percent: boolean): string {
+        return typeof value === 'number' ? value.toString() + (percent ? '%' : '') : (value.min + ' - ' + value.max);
+    }
+
+    public formatSkillDescription(template: string, effectValues: Array<AbstractEffectValue>, level: number): string {
+        for (let effectValue of effectValues) {
+            const percent = effectValue.percent ? '%' : '';
+
+            if (isEffectValueVariable(effectValue)) {
+                const value = this.asSpan(effectValue.value.toString() + percent, 'value');
+                const details = this.getEffectValueDetails(effectValue);
+                template = this.replaceAnchor(template, value + ' ' + details, this.VALUE_ANCHOR);
+            } else if (isEffectValueConstant(effectValue)) {
+                const anchor = findFirst(template, this.CONSTANT_ANCHORS);
+                if (anchor !== null) {
+                    const value = this.asSpan(effectValue.value.toString() + percent, 'value');
+                    template = this.replaceAnchor(template, value, anchor);
+                }
+            } else if (isEffectValueSynergy(effectValue)) {
+                const details = typeof effectValue.synergy === 'number' ? '' :  (' ' + this.getEffectValueDetails(effectValue));
+                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent), 'value');
+                template = this.replaceAnchor(template, synergy + details, this.VALUE_ANCHOR);
+            }
+        }
+
+        return template;
     }
 
     public formatTraitDescription(template: string, values: Array<AbstractEffectValue>, rankAfterThisOne: number): string {
@@ -344,24 +345,29 @@ export class SlormancerTemplateService {
         return description;
     }
 
-    public formatUpgradeDescription(template: string, values: Array<AbstractEffectValue>, level: number): string {
-        let description = template;
+    public formatUpgradeDescription(template: string, effectValues: Array<AbstractEffectValue>): string {
+        for (let effectValue of effectValues) {
+            const percent = effectValue.percent ? '%' : '';
 
-        for (let effectValue of values) {
+
             if (isEffectValueVariable(effectValue)) {
-                description = this.applyUpgradeEffectValueVariable(description, 0, effectValue, level, this.VALUE_ANCHOR);
+                const value = this.asSpan(effectValue.value.toString() + percent, 'value');
+                const details = this.getEffectValueDetails(effectValue);
+                template = this.replaceAnchor(template, value + ' ' + details, this.VALUE_ANCHOR);
             } else if (isEffectValueConstant(effectValue)) {
-                const anchor = findFirst(description, this.CONSTANT_ANCHORS);
+                const anchor = findFirst(template, this.CONSTANT_ANCHORS);
                 if (anchor !== null) {
-                    description = this.applyEffectValueConstant(description, effectValue, anchor);
+                    const value = this.asSpan(effectValue.value.toString() + percent, 'value');
+                    template = this.replaceAnchor(template, value, anchor);
                 }
             } else if (isEffectValueSynergy(effectValue)) {
-                description = this.applyEffectValueSynergyForUpgrade(description, 0, effectValue, level, this.VALUE_ANCHOR, this.SYNERGY_ANCHOR);
+                const details = typeof effectValue.synergy === 'number' ? '' :  (' ' + this.getEffectValueDetails(effectValue));
+                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent), 'value');
+                template = this.replaceAnchor(template, synergy + ' ' + details, this.VALUE_ANCHOR);
             }
-            
         }
 
-        return description;
+        return template;
     }
 
     public formatReaperTemplate(template: string, values: Array<AbstractEffectValue>, level: number, nonPrimordialLevel: number): string {
@@ -391,7 +397,6 @@ export class SlormancerTemplateService {
     }
 
     public getActivableDescriptionTemplate(data: GameDataActivable): string {
-        // TODO stats peuvent demander des infos qu'on ne peux avoir que sur la génération dynamique, à déplacer plus tard
         const stats = splitData(data.DESC_VALUE);
         const types = splitData(data.DESC_VALUE_REAL);
         
@@ -399,7 +404,6 @@ export class SlormancerTemplateService {
     }
 
     public getSkillDescriptionTemplate(data: GameDataSkill): string {
-        // TODO stats peuvent demander des infos qu'on ne peux avoir que sur la génération dynamique, à déplacer plus tard
         const stats = splitData(data.DESC_VALUE).filter(value => !value.startsWith('*'));
         const types = splitData(data.DESC_VALUE_REAL);
         
@@ -408,7 +412,6 @@ export class SlormancerTemplateService {
     }
 
     public getAncestralLegacyDescriptionTemplate(data: GameDataAncestralLegacy): string {
-        // TODO stats peuvent demander des infos qu'on ne peux avoir que sur la génération dynamique, à déplacer plus tard
         const stats = splitData(data.DESC_VALUE).filter(value => !value.startsWith('*'));
         const types = splitData(data.DESC_VALUE_REAL);
         
@@ -417,7 +420,6 @@ export class SlormancerTemplateService {
     }
 
     public getAttributeTemplate(data: GameDataAttribute): string {
-        // TODO stats peuvent demander des infos qu'on ne peux avoir que sur la génération dynamique, à déplacer plus tard
         const stats = splitData(data.STAT).filter(value => !value.startsWith('*'));
         const types = splitData(data.TYPE);
         
@@ -426,36 +428,27 @@ export class SlormancerTemplateService {
     }
 
     public getAttributeCumulativeTraitTemplate(template: string, stat: string | null): string {
-        // TODO stats peuvent demander des infos qu'on ne peux avoir que sur la génération dynamique, à déplacer plus tard
-        
         template = template.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
         return this.parseTemplate(template, stat === null ? [] : [stat]);
     }
 
-    public formatNextRankDescription(template: string, value: EffectValueVariable | EffectValueSynergy, rank: number): string {
-        const computed = isEffectValueVariable(value)
-            ? this.slormancerItemValueService.computeEffectVariableDetails(value, 0, rank) 
-            : this.slormancerItemValueService.computeEffectSynergyDetails(value, 0, rank);    
+    public formatNextRankDescription(template: string, effectValue: AbstractEffectValue): string { 
 
-        let computedValue: string = '';
-        let formula: string = '';
-        let percent = computed.percent ? '%' : '';
-        if (computed.synergy !== null) {
-            if (typeof computed.synergy === 'number') {
-                computedValue = computed.synergy.toString();
-            } else {
-                computedValue = computed.synergy.min + ' - ' + computed.synergy.max;
-            }
+        let value: string = '';
+        let details: string = '';
+        let percent = effectValue.percent ? '%' : '';
+        if (isEffectValueSynergy(effectValue)) {
+
+            value = effectValue.synergy + percent;
             
-            if (computed.upgrade !== 0 && isEffectValueSynergy(value)) {
-                formula = ' <span class="formula">(' + computed.value + percent + ' ' + this.translate(value.source) + ')</span>';
-            }
+            details = this.asSpan(' (' + value + '% ' + this.translate(effectValue.source) + ')', 'details');
         } else {
-            computedValue = computed.value.toString() + percent;
+            value = effectValue.value + percent;
         }
 
-        template = this.parseTemplate(template, value.stat ? [value.stat] : []);    
-        template = this.replaceAnchor(template, this.asSpan(computedValue, 'value'), this.VALUE_ANCHOR) + formula;
+
+        template = this.parseTemplate(template, effectValue.stat ? [effectValue.stat] : []);    
+        template = this.replaceAnchor(template, this.asSpan(value, 'value') + details, this.VALUE_ANCHOR);
 
         return template;
     }
@@ -603,10 +596,6 @@ export class SlormancerTemplateService {
         }
 
         return this.replaceAnchor(name, type, this.TYPE_ANCHOR);
-    }
-
-    public getReaperBuilderName(id: number): string {
-        return this.translate('weapon_reapersmith_' + id);
     }
 
     public formatItemAffixValue(itemAffix: Affix): string {

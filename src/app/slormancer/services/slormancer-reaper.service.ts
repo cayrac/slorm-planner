@@ -299,7 +299,7 @@ export class SlormancerReaperService {
         }
 
 
-        reaper.smith.name = this.slormancerTemplateService.getReaperBuilderName(reaper.smith.id);
+        reaper.smith.name = this.slormancerTemplateService.translate('weapon_reapersmith_' + reaper.smith.id);
         reaper.smithLabel = this.slormancerTemplateService.replaceAnchor(this.REAPERSMITH_LABEL, reaper.smith.name, this.slormancerTemplateService.TYPE_ANCHOR);
         reaper.victimsLabel = reaper.kills + ' ' + this.VICTIMS_LABEL;
         reaper.levelLabel = this.LEVEL_LABEL + ' : '

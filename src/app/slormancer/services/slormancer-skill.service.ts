@@ -31,6 +31,7 @@ import {
 } from '../util/utils';
 import { SlormancerBuffService } from './slormancer-buff.service';
 import { SlormancerDataService } from './slormancer-data.service';
+import { SlormancerEffectValueService } from './slormancer-effect-value.service';
 import { SlormancerMechanicService } from './slormancer-mechanic.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 
@@ -46,7 +47,8 @@ export class SlormancerSkillService {
     constructor(private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerMechanicService: SlormancerMechanicService,
                 private slormancerDataService: SlormancerDataService,
-                private slormancerBuffService: SlormancerBuffService) { }
+                private slormancerBuffService: SlormancerBuffService,
+                private slormancerEffectValueService: SlormancerEffectValueService) { }
 
     private isDamageStat(stat: string): boolean {
         return stat === 'physical_damage' || stat === 'elemental_damage' || stat === 'bleed_damage';
@@ -75,10 +77,12 @@ export class SlormancerSkillService {
 
                 result.push({
                     type: EffectValueType.Synergy,
-                    value: value,
+                    value: 0,
+                    baseValue: value,
+                    synergy: 0,
                     upgrade,
-                    upgradeType: EffectValueUpgradeType.Reinforcment,
-                    percent,
+                    upgradeType: EffectValueUpgradeType.Mastery,
+                    percent: false,
                     source: damageType === 'phy' ? 'physical_damage' : 'elemental_damage',
                     valueType: EffectValueValueType.Damage,
                     stat
@@ -87,24 +91,29 @@ export class SlormancerSkillService {
             } else if (type === null) {
                 result.push({
                     type: EffectValueType.Variable,
-                    value,
+                    value: 0,
+                    baseValue: value,
+                    valueType: EffectValueValueType.Stat,
                     upgrade,
+                    upgradeType: EffectValueUpgradeType.Mastery,
                     percent,
                     stat
                 } as EffectValueVariable);
             } else if (type === 'negative') {
                 result.push({
                     type: EffectValueType.Variable,
-                    value,
+                    value: 0,
+                    baseValue: value,
                     upgrade: -upgrade,
-                    upgradeType: EffectValueUpgradeType.Reinforcment,
+                    upgradeType: EffectValueUpgradeType.Mastery,
                     percent,
                     stat
                 } as EffectValueVariable);
             } else if (type === 'every_3') {
                 result.push({
                     type: EffectValueType.Variable,
-                    value,
+                    value: 0,
+                    baseValue: value,
                     upgrade,
                     upgradeType: EffectValueUpgradeType.Every3,
                     percent,
@@ -116,9 +125,12 @@ export class SlormancerSkillService {
 
                 result.push({
                     type: EffectValueType.Synergy,
-                    value: value,
+                    value: 0,
+                    synergy: 0,
+                    baseValue: value,
                     percent,
                     upgrade,
+                    upgradeType: EffectValueUpgradeType.Mastery,
                     source,
                     stat
                 } as EffectValueSynergy);
@@ -185,8 +197,8 @@ export class SlormancerSkillService {
     }
 
     public updateSkill(skill: Skill) {
+        console.log('update skill : ', skill);
         skill.level = Math.min(skill.maxLevel, skill.baseLevel) + skill.bonusLevel;
-        skill.description = this.slormancerTemplateService.formatSkillDescription(skill.template, skill.values, skill.level);
         skill.cooldown = round(skill.baseCooldown / 60, 2);
         skill.cost = skill.baseCost + skill.perLevelCost * skill.level;
 
@@ -194,6 +206,10 @@ export class SlormancerSkillService {
         skill.hasManaCost = skill.costType === SkillCostType.ManaSecond || skill.costType === SkillCostType.ManaLock || skill.costType === SkillCostType.Mana;
         skill.hasNoCost = skill.costType === SkillCostType.None || skill.cost === 0;
         
+        for (const effectValue of skill.values) {
+            this.slormancerEffectValueService.updateEffectValue(effectValue, skill.level);
+        }
+
         skill.genresLabel =  null;
         if (skill.genres.length > 0) {
             skill.genresLabel = skill.genres
@@ -214,6 +230,8 @@ export class SlormancerSkillService {
                 + ': ' + this.slormancerTemplateService.asSpan(skill.cooldown.toString(), 'value')
                 + ' ' + this.SECONDS_LABEL;
         }
+        
+        skill.description = this.slormancerTemplateService.formatSkillDescription(skill.template, skill.values, skill.level);
     }
 
     public getUpgrade(upgradeId: number, heroClass: HeroClass, baseRank: number): SkillUpgrade | null {
@@ -284,7 +302,8 @@ export class SlormancerSkillService {
         const attributes = upgrade.values
             .filter(value => isEffectValueSynergy(value) || isEffectValueVariable(value))
             .filter(value => (<EffectValueSynergy | EffectValueVariable>value).upgrade !== 0)
-            .map(value => this.slormancerTemplateService.formatNextRankDescription('@ £', <EffectValueSynergy | EffectValueVariable>value, rank));
+            .map(value => this.slormancerEffectValueService.updateEffectValue({ ...value }, rank))
+            .map(value => this.slormancerTemplateService.formatNextRankDescription('@ £', value));
 
         return [ ...skill, ...attributes ]
     }
@@ -325,7 +344,6 @@ export class SlormancerSkillService {
 
     public updateUpgrade(upgrade: SkillUpgrade) {
         upgrade.rank = Math.min(upgrade.maxRank, upgrade.baseRank);
-        upgrade.description = this.slormancerTemplateService.formatUpgradeDescription(upgrade.template, upgrade.values, Math.max(upgrade.rank, 1));
         upgrade.cost = upgrade.baseCost + upgrade.perLevelCost * Math.max(upgrade.rank, 1);
 
         upgrade.hasLifeCost = upgrade.costType === SkillCostType.LifeSecond || upgrade.costType === SkillCostType.LifeLock || upgrade.costType === SkillCostType.Life;
@@ -334,6 +352,10 @@ export class SlormancerSkillService {
 
         upgrade.nextRankDescription = [];
         upgrade.maxRankDescription = [];
+
+        for (const effectValue of upgrade.values) {
+            this.slormancerEffectValueService.updateEffectValue(effectValue, upgrade.rank);
+        }
 
         if (upgrade.maxRank > 1) {
             upgrade.nextRankDescription = this.getNextRankUpgradeDescription(upgrade, Math.min(upgrade.maxRank, upgrade.rank + 1));
@@ -363,6 +385,8 @@ export class SlormancerSkillService {
                 + ': ' + this.slormancerTemplateService.asSpan(upgrade.cost.toString(), upgrade.hasManaCost ? 'value mana' : 'value life')
                 + ' ' + this.slormancerTemplateService.translate(upgrade.costType);
         }
+        
+        upgrade.description = this.slormancerTemplateService.formatUpgradeDescription(upgrade.template, upgrade.values);
     }
 
     public getClassMechanic(mechanicId: number, heroClass: HeroClass): SkillClassMechanic | null {
