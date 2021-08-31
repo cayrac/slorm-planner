@@ -5,13 +5,10 @@
         </div>
         <div class="info">
             <div class="name">{{activable.name}}</div>
-            <div class="genre" *ngIf="activable.genres.length > 0">{{getGenresLabel(activable.genres)}}</div>
-            <div class="cooldown" *ngIf="activable.cooldown > 0">Cooldown : <span class="value">{{activable.cooldown}}</span> seconds</div>
-            <div class="cost" *ngIf="activableHasCost(activable)">Cost :
-                <span [class.life]="activableHasLifeCost(activable)" [class.mana]="activableHasManaCost(activable)">{{activable.cost}}</span>
-                <span> {{getCostLabel(activable.costType)}}</span>
-            </div>
+            <div class="genre" *ngIf="activable.genresLabel !== null" [innerHTML]="activable.genresLabel"></div>
+            <div class="cooldown" *ngIf="activable.cooldownLabel !== null" [innerHTML]="activable.cooldownLabel"></div>
+            <div class="cost" *ngIf="!activable.costLabel !== null" [innerHTML]="activable.costLabel"></div>
         </div>
     </div>
-    <div class="description" [innerHTML]="getActivableDescription()"></div>
+    <div class="description" [innerHTML]="activable.description"></div>
 </div>

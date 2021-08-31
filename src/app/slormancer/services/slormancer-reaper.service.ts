@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
 import { DATA_REAPER_LEVEL } from '../constants/data/data-reaper-level';
+import { Activable } from '../model/activable';
 import { AbstractEffectValue } from '../model/effect-value';
 import { HeroClass } from '../model/enum/hero-class';
-import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { GameDataReaper } from '../model/game/data/game-data-reaper';
 import { GameWeapon } from '../model/game/game-save';
 import { MinMax } from '../model/minmax';
@@ -26,7 +26,7 @@ export class SlormancerReaperService {
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerEffectValueService: SlormancerEffectValueService,
-                private slormancerSkillService: SlormancerActivableService) { }
+                private slormancerActivableService: SlormancerActivableService) { }
 
     public getReaper(reaper: GameWeapon, weaponClass: HeroClass, primordial: boolean, bonusLevel: number = 0): Reaper | null {
         const level = this.getReaperLevel(reaper.basic.experience);
@@ -190,8 +190,8 @@ export class SlormancerReaperService {
         const benediction: Array<ReaperEffect | null> = [];
         const malediction: Array<ReaperEffect | null> = [];
 
-        let skills: Array<GameDataActivable> = [];
-        let primordialSkills: Array<GameDataActivable> = [];
+        let skills: Array<Activable> = [];
+        let primordialSkills: Array<Activable> = [];
 
         for (const data of gameDatas) {
             const stats = splitData(data.VALUE_STAT, '\n')
@@ -233,10 +233,8 @@ export class SlormancerReaperService {
             benediction.push(benedictionEffect);
             malediction.push(maledictionEffect);
 
-            const reaperSkills = this.slormancerDataService.getGameDataReaperActivableBasedOn(data.REF);
-
-            skills = [...skills, ...reaperSkills.filter(skill => !skill.ON_REAPER_PRIMORDIAL)];
-            primordialSkills = [...primordialSkills, ...reaperSkills.filter(skill => skill.ON_REAPER_PRIMORDIAL)];
+            skills = [...skills, ...this.slormancerActivableService.getReaperActivable(data.REF)];
+            primordialSkills = [...primordialSkills, ...this.slormancerActivableService.getPrimordialReaperActivable(data.REF)];
         }
 
         return {
@@ -244,8 +242,8 @@ export class SlormancerReaperService {
             base: base.filter(isNotNullOrUndefined),
             benediction: benediction.filter(isNotNullOrUndefined),
             malediction: malediction.filter(isNotNullOrUndefined),
-            skills: skills.map(skill => this.slormancerSkillService.getActivable(skill)),
-            primordialSkills: primordialSkills.map(skill => this.slormancerSkillService.getActivable(skill))
+            skills,
+            primordialSkills
         }
     }
 
@@ -288,6 +286,10 @@ export class SlormancerReaperService {
         } else {
             reaper.benediction = null;
             reaper.malediction = null;
+        }
+
+        for (const skill of reaper.skills) {
+            this.slormancerActivableService.updateActivable(skill);
         }
     }
 

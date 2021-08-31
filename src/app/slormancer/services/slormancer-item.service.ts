@@ -244,7 +244,7 @@ export class SlormancerItemService {
         const result = {
             base,
             affixes,
-            legendaryEffect: legendaryAffix === undefined ? null : this.slormancerLegendaryEffectService.getExtendedLegendaryEffect(legendaryAffix, item.reinforcment),
+            legendaryEffect: legendaryAffix === undefined ? null : this.slormancerLegendaryEffectService.getLegendaryEffect(legendaryAffix, item.reinforcment),
             level: item.level,
             reinforcment: item.reinforcment,
             reaperEnchantment: reaperEnchantment ? this.getReaperEnchantment(reaperEnchantment) : null,

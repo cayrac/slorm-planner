@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { Activable } from '../model/activable';
 import { Affix } from '../model/affix';
 import { ComputedEffectValue } from '../model/computed-effect-value';
 import { CraftableEffect } from '../model/craftable-effect';
@@ -287,19 +286,17 @@ export class SlormancerTemplateService {
         return template;
     }
 
-    public formatActivableDescription(skill: Activable, level: number): string {
-        let template = skill.description;
-
-        for (let effectValue of skill.values) {
+    public formatActivableDescription(template: string, values: Array<AbstractEffectValue>): string {
+        for (let effectValue of values) {
             if (isEffectValueVariable(effectValue)) {
-                template = this.applyItemEffectValueVariable(template, 0, effectValue, level, this.VALUE_ANCHOR);
+                template = this.applyItemEffectValueVariable(template, 0, effectValue, 0, this.VALUE_ANCHOR);
             } else if (isEffectValueConstant(effectValue)) {
                 const anchor = findFirst(template, this.CONSTANT_ANCHORS);
                 if (anchor !== null) {
                     template = this.applyEffectValueConstant(template, effectValue, anchor);
                 }
             } else if (isEffectValueSynergy(effectValue)) {
-                template = this.applyEffectValueSynergyForActivable(template, 0, effectValue, level, this.VALUE_ANCHOR, this.SYNERGY_ANCHOR);
+                template = this.applyEffectValueSynergyForActivable(template, 0, effectValue, 0, this.VALUE_ANCHOR, this.SYNERGY_ANCHOR);
             }
             
         }

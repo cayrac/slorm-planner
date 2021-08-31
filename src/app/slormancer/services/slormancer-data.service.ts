@@ -156,9 +156,9 @@ export class SlormancerDataService {
         return valueOrNull(activable);
     }
 
-    public getGameDataReaperActivableBasedOn(id: number): Array<GameDataActivable> {
+    public getGameDataReaperActivableBasedOn(id: number, primordial: boolean): Array<GameDataActivable> {
         return GAME_DATA.ACTIVABLE
-            .filter(activable => activable.BASED_ON === 'reaper' && activable.ID_BASED_ON === id);
+            .filter(activable => activable.BASED_ON === 'reaper' && activable.ID_BASED_ON === id && activable.ON_REAPER_PRIMORDIAL === primordial);
     }
 
     public getDataActivable(id: number): DataActivable | null {

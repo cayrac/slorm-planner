@@ -31,7 +31,7 @@ export class SlormancerLegendaryEffectService {
     private readonly LEGENDARY_TITLE = this.slormancerTemplateService.translate('tt_l_roll');
 
     constructor(private slormancerDataService: SlormancerDataService,
-                private slormanderSkillService: SlormancerActivableService,
+                private slormanderActivableService: SlormancerActivableService,
                 private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerItemValueService: SlormancerItemValueService
                 ) { }
@@ -146,12 +146,11 @@ export class SlormancerLegendaryEffectService {
         return icon;
     }
 
-    public getExtendedLegendaryEffect(affix: GameAffix, reinforcment: number): LegendaryEffect | null {
+    public getLegendaryEffect(affix: GameAffix, reinforcment: number): LegendaryEffect | null {
         const gameData = this.slormancerDataService.getGameDataLegendary(affix.type);
         let legendaryEffect: LegendaryEffect | null = null;
 
         if (gameData !== null) {
-            const activable = this.slormancerDataService.getGameDataLegendaryActivableBasedOn(gameData.REF);
             const base = this.slormancerDataService.getBaseFromLegendaryId(gameData.REF);
             
             legendaryEffect = {
@@ -160,7 +159,7 @@ export class SlormancerLegendaryEffectService {
                 reinforcment,
                 itemIcon: 'item/' + gameData.ITEM + '/' + base,
                 value: affix.value,
-                activable: activable !== null ? this.slormanderSkillService.getActivable(activable) : null,
+                activable: this.slormanderActivableService.getLegendaryActivable(gameData.REF),
                 onlyStat: gameData.STAT_ONLY === true,
                 skillIcon: this.getIcon(gameData.HERO, gameData.SKILL),
                 effects: this.getEffectValues(gameData, affix.value),
@@ -192,5 +191,9 @@ export class SlormancerLegendaryEffectService {
         }
 
         legendaryEffect.description = this.slormancerTemplateService.formatLegendaryDescription(legendaryEffect.template, legendaryEffect.effects);
+
+        if (legendaryEffect.activable !== null) {
+            this.slormanderActivableService.updateActivable(legendaryEffect.activable);
+        }
     }
 }

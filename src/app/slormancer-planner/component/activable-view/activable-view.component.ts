@@ -20,28 +20,6 @@ export class ActivableViewComponent {
 
     constructor(private slormancerTemplateService: SlormancerTemplateService) { }
 
-    public getActivableDescription(): string | null {
-        let description: string | null = null;
-
-        if (this.activable !== null) {
-            description = this.slormancerTemplateService.formatActivableDescription(this.activable, this.reinforcment);
-        }
-
-        return description;
-    }
-
-    public activableHasCost(activable: Activable): boolean {
-        return activable.costType !== SkillCostType.None;
-    }
-
-    public activableHasLifeCost(activable: Activable): boolean {
-        return activable.costType === SkillCostType.LifeSecond || activable.costType === SkillCostType.LifeLock || activable.costType === SkillCostType.Life;
-    }
-
-    public activableHasManaCost(activable: Activable): boolean {
-        return activable.costType === SkillCostType.ManaSecond || activable.costType === SkillCostType.ManaLock || activable.costType === SkillCostType.Mana;
-    }
-
     public getCostLabel(costType: SkillCostType): string {
         return this.slormancerTemplateService.translate(costType);
     }

@@ -195,7 +195,7 @@ export class SlormancerPlannerComponent implements OnInit {
         }
 
         if (this.selectedSkillIndex !== null) {
-            this.selectedSkill = this.slormancerSkillService.getSkill(this.selectedSkillIndex, this.selectedClass, this.level, this.bonusLevel);
+            this.selectedSkill = this.slormancerSkillService.getHeroSkill(this.selectedSkillIndex, this.selectedClass, this.level, this.bonusLevel);
         }
 
         if (this.selectedUpgradeIndex !== null) {
@@ -270,7 +270,7 @@ export class SlormancerPlannerComponent implements OnInit {
             locked: false,
             pure: null
         }
-        return <LegendaryEffect>this.slormancerLegendaryEffectService.getExtendedLegendaryEffect(affix, this.level);
+        return <LegendaryEffect>this.slormancerLegendaryEffectService.getLegendaryEffect(affix, this.level);
     }
 
     public showData(data: any) {

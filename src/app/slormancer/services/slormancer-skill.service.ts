@@ -133,7 +133,7 @@ export class SlormancerSkillService {
         }
     } 
 
-    public getSkill(skillId: number, heroClass: HeroClass, baseLevel: number, bonusLevel: number = 0): Skill | null {
+    public getHeroSkill(skillId: number, heroClass: HeroClass, baseLevel: number, bonusLevel: number = 0): Skill | null {
         const gameDataSkill = this.slormancerDataService.getGameDataSkill(heroClass, skillId);
         const dataSkill = this.slormancerDataService.getDataSkill(heroClass, skillId);
         let skill: Skill | null = null;

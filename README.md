@@ -4,6 +4,9 @@ for file in *.png; do convert "$file" -transparent white "../../../src/assets/im
 `
 
 TODO
- - optimisation legendary effect => ajouter EffectValueCraftable ?
+
  - passer activable / reaper en get / upgrade
+ - nettoyage template service
+
+
  - commencer génération profil (XP skills)

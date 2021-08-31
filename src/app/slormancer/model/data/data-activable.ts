@@ -1,4 +1,5 @@
+import { AbstractEffectValue } from '../effect-value';
+
 export interface DataActivable {
-    description: string | null;
-    constants: Array<number>;
+    override: (values: Array<AbstractEffectValue>) => void;
 }
