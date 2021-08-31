@@ -9,31 +9,27 @@
             <div class="summary">
                 <div class="base">
                     <div class="type">{{reaper.type}}</div>
-                    <div class="builder">By {{reaper.builder.name}}</div>
+                    <div class="builder" [innerHTML]="reaper.smithLabel"></div>
                 </div>
                 <div class="damages">
                     <div class="current-damage">{{reaper.damages.min}}-{{reaper.damages.max}}</div>
-                    <div class="type">{{translate(reaper.damageType)}}</div>
+                    <div class="type" [innerHTML]="reaper.damageTypeLabel"></div>
                     <div class="max-damage">{{reaper.maxDamagesWithBonuses.min}}-{{reaper.maxDamagesWithBonuses.max}} at level {{reaper.maxLevelWithBonuses}}</div>
                 </div>
                 <div class="stats">
-                    <div class="victim">{{reaper.kills}} {{translate(VICTIMS_LABEL)}}</div>
-                    <div class="level">{{translate(LEVEL_LABEL)}} :
-                        <ng-container *ngIf="reaper.maxLevel !== reaper.level">{{reaper.level}}</ng-container>
-                        <ng-container *ngIf="reaper.maxLevel === reaper.level">Max({{reaper.level}})</ng-container>
-                        <span class="bonus-level" *ngIf="reaper.bonusLevel > 0">+{{reaper.bonusLevel}}</span>
-                    </div>
+                    <div class="victim" [innerHTML]="reaper.victimsLabel"></div>
+                    <div class="level" [innerHTML]="reaper.levelLabel"></div>
                 </div>
             </div>
         </div>
         <div class="description" [innerHTML]="reaper.description">
         </div>
         <div class="benediction" *ngIf="reaper.benediction !== null">
-            <div class="title"><div class="bullet"><div></div></div>{{translate(BENEDICTION_LABEL)}}<div class="bullet"><div></div></div></div>
+            <div class="title"><div class="bullet"><div></div></div>{{reaper.benedictionTitleLabel}}<div class="bullet"><div></div></div></div>
             <div class="description" [innerHTML]="reaper.benediction"></div>
         </div>
         <div class="malediction" *ngIf="reaper.malediction !== null">
-            <div class="title"><div class="bullet"><div></div></div>{{translate(MALEDICTION_LABEL)}}<div class="bullet"><div></div></div></div>
+            <div class="title"><div class="bullet"><div></div></div>{{reaper.maledictionTitleLabel}}<div class="bullet"><div></div></div></div>
             <div class="description" [innerHTML]="reaper.malediction"></div>
         </div>
         <app-activable-view [activable]="skill" *ngFor="let skill of reaper.skills"></app-activable-view>

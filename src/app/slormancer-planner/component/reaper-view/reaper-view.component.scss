@@ -104,7 +104,7 @@ $reaper-desc-details            : rgb(104, 104, 104);
                 .level {
                     font-size: 20px;
 
-                    .bonus-level {
+                    ::ng-deep .bonus-level {
                         color: $reaper-bonus-level-color;
                     }
                 }

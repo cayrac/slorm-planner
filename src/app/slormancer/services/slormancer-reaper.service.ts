@@ -21,6 +21,12 @@ import { SlormancerTemplateService } from './slormancer-template.service';
 @Injectable()
 export class SlormancerReaperService {
 
+    public readonly BENEDICTION_LABEL = this.slormancerTemplateService.translate('tt_ancient_bonus');
+    public readonly MALEDICTION_LABEL = this.slormancerTemplateService.translate('tt_ancient_malus');
+    public readonly VICTIMS_LABEL = this.slormancerTemplateService.translate('tt_victims');
+    public readonly LEVEL_LABEL = this.slormancerTemplateService.translate('level');
+    public readonly REAPERSMITH_LABEL = this.slormancerTemplateService.translate('weapon_reapersmith_light');
+
     public readonly MAX_REAPER_BONUS = 55;
 
     constructor(private slormancerDataService: SlormancerDataService,
@@ -56,7 +62,7 @@ export class SlormancerReaperService {
                 malediction: null,
                 lore: this.slormancerTemplateService.getReaperLoreTemplate(gameData.EN_LORE),
                 templates,
-                builder: this.getReaperBuilder(gameData.BLACKSMITH),
+                smith: this.getReaperSmith(gameData.BLACKSMITH),
                 damagesRange,
                 damageType: 'weapon_damage',
                 maxLevel: gameData.MAX_LVL,
@@ -117,10 +123,10 @@ export class SlormancerReaperService {
         return level;
     }
 
-    private getReaperBuilder(id: number): ReaperBuilder {
+    private getReaperSmith(id: number): ReaperBuilder {
         return {
             id,
-            name: this.slormancerTemplateService.getReaperBuilderName(id)
+            name: ''
         }
     }
 
@@ -291,6 +297,17 @@ export class SlormancerReaperService {
         for (const skill of reaper.skills) {
             this.slormancerActivableService.updateActivable(skill);
         }
+
+
+        reaper.smith.name = this.slormancerTemplateService.getReaperBuilderName(reaper.smith.id);
+        reaper.smithLabel = this.slormancerTemplateService.replaceAnchor(this.REAPERSMITH_LABEL, reaper.smith.name, this.slormancerTemplateService.TYPE_ANCHOR);
+        reaper.victimsLabel = reaper.kills + ' ' + this.VICTIMS_LABEL;
+        reaper.levelLabel = this.LEVEL_LABEL + ' : '
+            + (reaper.maxLevel === reaper.level ? 'Max(' + reaper.level + ')' : reaper.level)
+            + (reaper.bonusLevel > 0 ? this.slormancerTemplateService.asSpan('+' + reaper.bonusLevel, 'bonus-level') : '');
+        reaper.damageTypeLabel = this.slormancerTemplateService.translate(reaper.damageType);
+        reaper.benedictionTitleLabel = this.BENEDICTION_LABEL;
+        reaper.maledictionTitleLabel = this.MALEDICTION_LABEL;
     }
 
 }
