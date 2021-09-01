@@ -1,4 +1,5 @@
 import { AbstractEffectValue } from './effect-value';
+import { HeroClass } from './enum/hero-class';
 import { SkillCostType } from './enum/skill-cost-type';
 import { SkillGenre } from './enum/skill-genre';
 
@@ -17,6 +18,7 @@ export interface Activable {
     genres: Array<SkillGenre>;
     damageTypes: Array<string>;
     level: number;
+    heroClass: HeroClass;
 
     description: string;
     genresLabel: string | null;

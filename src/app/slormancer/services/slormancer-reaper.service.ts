@@ -203,7 +203,7 @@ export class SlormancerReaperService {
         return result;
     }
 
-    private getReaperTemplates(gameData: GameDataReaper): ReaperTemplates {
+    private getReaperTemplates(gameData: GameDataReaper, heroClass: HeroClass): ReaperTemplates {
         const gameDatas = this.getReaperParents(gameData);
 
         const base: Array<ReaperEffect | null> = [];
@@ -254,8 +254,8 @@ export class SlormancerReaperService {
             benediction.push(benedictionEffect);
             malediction.push(maledictionEffect);
 
-            skills = [...skills, ...this.slormancerActivableService.getReaperActivable(data.REF, 0)];
-            primordialSkills = [...primordialSkills, ...this.slormancerActivableService.getPrimordialReaperActivable(data.REF, 0)];
+            skills = [...skills, ...this.slormancerActivableService.getReaperActivable(data.REF, 0, heroClass)];
+            primordialSkills = [...primordialSkills, ...this.slormancerActivableService.getPrimordialReaperActivable(data.REF, 0, heroClass)];
         }
 
         return {
@@ -309,7 +309,7 @@ export class SlormancerReaperService {
                 benediction: null,
                 malediction: null,
                 lore: this.slormancerTemplateService.getReaperLoreTemplate(gameData.EN_LORE),
-                templates: this.getReaperTemplates(gameData),
+                templates: this.getReaperTemplates(gameData, weaponClass),
                 smith: { id: gameData.BLACKSMITH, name: '' },
                 damagesRange,
                 damageType: 'weapon_damage',
@@ -379,7 +379,6 @@ export class SlormancerReaperService {
         for (const activable of reaper.activables) {
             activable.level = reaper.level;
             this.slormancerActivableService.updateActivable(activable);
-            activable.description = activable.description.replace('{weaponClass}', reaper.type)
         }
 
 

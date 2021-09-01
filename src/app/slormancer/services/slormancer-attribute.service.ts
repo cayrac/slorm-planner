@@ -22,6 +22,7 @@ import {
     valueOrNull,
 } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
+import { SlormancerEffectValueService } from './slormancer-effect-value.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 import { SlormancerTranslateService } from './slormancer-translate.service';
 
@@ -38,6 +39,7 @@ export class SlormancerAttributeService {
 
     constructor(private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerTranslateService: SlormancerTranslateService,
+                private slormancerEffectValueService: SlormancerEffectValueService,
                 private slormancerDataService: SlormancerDataService) { }
      
     private isDamageStat(stat: string): boolean {
@@ -61,9 +63,10 @@ export class SlormancerAttributeService {
             if (stat !== null && type !== null && type.startsWith('synergy:')) {
                 result.push({
                     type: EffectValueType.Synergy,
-                    value: value,
+                    value,
+                    baseValue: value,
                     upgrade: i === 0 && firstIsUpgradable ? value : 0,
-                    upgradeType: i === 0 && firstIsUpgradable ? EffectValueUpgradeType.RanksAfterInThisTrait : EffectValueUpgradeType.Reinforcment,
+                    upgradeType: EffectValueUpgradeType.RanksAfterInThisTrait,
                     percent,
                     source: type.substring(8),
                     valueType: this.isDamageStat(stat) ? EffectValueValueType.Damage : EffectValueValueType.Stat,
@@ -74,8 +77,9 @@ export class SlormancerAttributeService {
                 result.push({
                     type: EffectValueType.Variable,
                     value,
+                    baseValue: value,
                     upgrade: i === 0 && firstIsUpgradable ? value : 0,
-                    upgradeType: i === 0 && firstIsUpgradable ? EffectValueUpgradeType.RanksAfterInThisTrait : EffectValueUpgradeType.Reinforcment,
+                    upgradeType: EffectValueUpgradeType.RanksAfterInThisTrait,
                     percent,
                     valueType: EffectValueValueType.Stat,
                     stat
@@ -108,25 +112,29 @@ export class SlormancerAttributeService {
     }
 
     private getDefaultVariableDescription(value: EffectValueVariable): string {
-        const template = this.slormancerTemplateService.getAttributeCumulativeTraitTemplate(this.TRAIT_DEFAULT_LABEL, value.stat)
-        return this.slormancerTemplateService.formatTraitDescription(template, [value], 0)
+        const template = this.slormancerTemplateService.prepareAttributeCumulativeTraitTemplate(this.TRAIT_DEFAULT_LABEL, value.stat)
+        return this.slormancerTemplateService.formatTraitDescription(template, [value])
     }
 
     private updateTrait(trait: Trait) {
+        const ranksAfterThisOne = this.ranksAfter(trait, trait.rank);
         trait.attributeName = this.slormancerTranslateService.translate('character_trait_' + trait.attribute);
         trait.rankLabel = this.slormancerTemplateService.replaceAnchor(this.TRAIT_LEVEL_LABEL, trait.requiredRank, this.slormancerTemplateService.VALUE_ANCHOR);
         trait.traitLevelLabel = this.slormancerTranslateService.translate(trait.traitLevel);
         trait.unlocked = trait.requiredRank <= trait.rank;
         trait.unlockLabel = trait.unlocked ? null : this.slormancerTemplateService.replaceAnchor(this.TRAIT_LOCKED_LABEL, trait.requiredRank - trait.rank, this.slormancerTemplateService.VALUE_ANCHOR);
         
+        for (const effectValue of trait.values) {
+            this.slormancerEffectValueService.updateEffectValue(effectValue, ranksAfterThisOne);
+        }
+
         const cumulativeStats: Array<string> = [];
         if (trait.cumulativeValues.length > 0) {
             cumulativeStats.push(...trait.cumulativeValues
                 .map(value => this.getDefaultVariableDescription(value)));
         }
         if (trait.template !== null) {
-            const ranksAfterThisOne = this.ranksAfter(trait, trait.rank);
-            trait.description = this.slormancerTemplateService.formatTraitDescription(trait.template, trait.values, ranksAfterThisOne);
+            trait.description = this.slormancerTemplateService.formatTraitDescription(trait.template, trait.values);
         } else if (trait.values.length > 0) {
             cumulativeStats.push(...trait.values
                 .filter(isEffectValueVariable)
@@ -224,7 +232,6 @@ export class SlormancerAttributeService {
             this.updateTrait(trait);
 
             if (trait.template !== null) {
-                const ranksAfterThisOne = this.ranksAfter(trait, trait.rank);
                 const ranksAfterMax = this.ranksAfter(trait, this.MAX_RANK);
                 const values = trait.values.map(value => ({ ...value }));
                 values.forEach(value => {
@@ -233,7 +240,7 @@ export class SlormancerAttributeService {
                             value.maxUpgrade = ranksAfterMax;
                         }
                     });
-                const description = this.slormancerTemplateService.formatTraitDescription(trait.template, values, ranksAfterThisOne)
+                const description = this.slormancerTemplateService.formatTraitDescription(trait.template, values)
                 allDescriptions.push(this.slormancerTemplateService.asSpan(description, trait.unlocked ? 'unlocked' : 'locked'));
             } else {
                 const variables = trait.values.filter(isEffectValueVariable);

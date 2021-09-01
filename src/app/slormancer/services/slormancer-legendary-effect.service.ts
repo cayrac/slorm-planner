@@ -5,6 +5,7 @@ import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectVal
 import { EffectValueType } from '../model/enum/effect-value-type';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
 import { EffectValueValueType } from '../model/enum/effect-value-value-type';
+import { HeroClass } from '../model/enum/hero-class';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameAffix } from '../model/game/game-item';
 import { LegendaryEffect } from '../model/legendary-effect';
@@ -150,7 +151,7 @@ export class SlormancerLegendaryEffectService {
         return icon;
     }
 
-    public getLegendaryEffect(affix: GameAffix, reinforcment: number): LegendaryEffect | null {
+    public getLegendaryEffect(affix: GameAffix, reinforcment: number, heroClass: HeroClass): LegendaryEffect | null {
         const gameData = this.slormancerDataService.getGameDataLegendary(affix.type);
         let legendaryEffect: LegendaryEffect | null = null;
 
@@ -163,7 +164,7 @@ export class SlormancerLegendaryEffectService {
                 reinforcment,
                 itemIcon: 'item/' + gameData.ITEM + '/' + base,
                 value: affix.value,
-                activable: this.slormanderActivableService.getLegendaryActivable(gameData.REF),
+                activable: this.slormanderActivableService.getLegendaryActivable(gameData.REF, heroClass),
                 onlyStat: gameData.STAT_ONLY === true,
                 skillIcon: this.getIcon(gameData.HERO, gameData.SKILL),
                 effects: this.getEffectValues(gameData, affix.value),

@@ -5,6 +5,7 @@ import { DataActivable } from '../model/data/data-activable';
 import { AbstractEffectValue, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
 import { EffectValueType } from '../model/enum/effect-value-type';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
+import { HeroClass } from '../model/enum/hero-class';
 import { SkillCostType } from '../model/enum/skill-cost-type';
 import { SkillGenre } from '../model/enum/skill-genre';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
@@ -77,7 +78,7 @@ export class SlormancerActivableService {
         }
     }
 
-    private buildActivable(data: GameDataActivable, upgradeType: EffectValueUpgradeType, level: number): Activable {
+    private buildActivable(data: GameDataActivable, upgradeType: EffectValueUpgradeType, level: number, heroClass: HeroClass): Activable {
         const dataActivable = this.slormancerDataService.getDataActivable(data.REF);
         const activable = {
             id: data.REF,
@@ -95,6 +96,7 @@ export class SlormancerActivableService {
             genres: <Array<SkillGenre>>splitData(data.GENRE, ','),
             damageTypes: splitData(data.DMG_TYPE, ','),
             level,
+            heroClass,
 
             genresLabel: null,
             costLabel: null,
@@ -111,19 +113,19 @@ export class SlormancerActivableService {
         return activable;
     }
 
-    public getReaperActivable(reaperId: number, level: number): Array<Activable> {
+    public getReaperActivable(reaperId: number, level: number, heroClass: HeroClass): Array<Activable> {
         const gameDataActivables = this.slormancerDataService.getGameDataReaperActivableBasedOn(reaperId, false);
-        return gameDataActivables.map(data => this.buildActivable(data, EffectValueUpgradeType.ReaperLevel, level));
+        return gameDataActivables.map(data => this.buildActivable(data, EffectValueUpgradeType.ReaperLevel, level, heroClass));
     }
 
-    public getPrimordialReaperActivable(reaperId: number, level: number): Array<Activable> {
+    public getPrimordialReaperActivable(reaperId: number, level: number, heroClass: HeroClass): Array<Activable> {
         const gameDataActivables = this.slormancerDataService.getGameDataReaperActivableBasedOn(reaperId, true);
-        return gameDataActivables.map(data => this.buildActivable(data, EffectValueUpgradeType.ReaperLevel, level));
+        return gameDataActivables.map(data => this.buildActivable(data, EffectValueUpgradeType.ReaperLevel, level, heroClass));
     }
 
-    public getLegendaryActivable(legendaryId: number): Activable | null {
+    public getLegendaryActivable(legendaryId: number, heroClass: HeroClass): Activable | null {
         const gameDataActivable = this.slormancerDataService.getGameDataLegendaryActivableBasedOn(legendaryId);
-        return gameDataActivable === null ? null : this.buildActivable(gameDataActivable, EffectValueUpgradeType.Reinforcment, 0);
+        return gameDataActivable === null ? null : this.buildActivable(gameDataActivable, EffectValueUpgradeType.Reinforcment, 0, heroClass);
     }
 
     public updateActivable(activable: Activable) {
@@ -160,5 +162,6 @@ export class SlormancerActivableService {
         }
 
         activable.description = this.slormancerTemplateService.formatActivableDescription(activable.template, activable.values);
+        activable.description = activable.description.replace(/\{weaponClass\}/g, this.slormancerTranslateService.translate('weapon_' + activable.heroClass));
     }
 }

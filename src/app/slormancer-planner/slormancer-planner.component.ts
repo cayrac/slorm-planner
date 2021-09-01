@@ -75,8 +75,8 @@ export class SlormancerPlannerComponent implements OnInit {
 
     public selectedClass: HeroClass = HeroClass.Warrior;
 
-    public selectedAttribute: Attribute = Attribute.Toughness;
-    public attributePoints: number = 0;
+    public selectedAttribute: Attribute = Attribute.Determination;
+    public attributePoints: number = 20;
     public selectedTrait: AttributeTraits | null = null;
 
     public selectedItem: number | null = 10;
@@ -276,7 +276,7 @@ export class SlormancerPlannerComponent implements OnInit {
             locked: false,
             pure: null
         }
-        return <LegendaryEffect>this.slormancerLegendaryEffectService.getLegendaryEffect(affix, this.level);
+        return <LegendaryEffect>this.slormancerLegendaryEffectService.getLegendaryEffect(affix, this.level, this.selectedClass);
     }
 
     public showData(data: any) {
