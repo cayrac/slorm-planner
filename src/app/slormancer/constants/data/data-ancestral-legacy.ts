@@ -1,17 +1,11 @@
 import { DataAncestralLegacy } from '../../model/data/data-ancestral-legacy';
-import { AbstractEffectValue, EffectValueConstant } from '../../model/effect-value';
-import { EffectValueType } from '../../model/enum/effect-value-type';
+import { AbstractEffectValue } from '../../model/effect-value';
 import { EffectValueValueType } from '../../model/enum/effect-value-value-type';
 import { MechanicType } from '../../model/enum/mechanic-type';
+import { effectValueConstant } from '../../util/effect-value.util';
 
 function addConstant(values: Array<AbstractEffectValue>, value: number, percent: boolean, valueType: EffectValueValueType, stat: string | null = null) {
-    values.push({
-        type: EffectValueType.Constant,
-        value,
-        percent,
-        valueType,
-        stat
-    } as EffectValueConstant)
+    values.push(effectValueConstant(value, percent, stat, valueType))
 }
 
 export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {    

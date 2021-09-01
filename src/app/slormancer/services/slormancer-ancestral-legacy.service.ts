@@ -4,8 +4,7 @@ import { AncestralLegacy } from '../model/ancestral-legacy';
 import { AncestralLegacyElement } from '../model/ancestral-legacy-element';
 import { AncestralLegacyType } from '../model/ancestral-legacy-type';
 import { Buff } from '../model/buff';
-import { AbstractEffectValue, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
-import { EffectValueType } from '../model/enum/effect-value-type';
+import { AbstractEffectValue } from '../model/effect-value';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
 import { EffectValueValueType } from '../model/enum/effect-value-value-type';
 import { MechanicType } from '../model/enum/mechanic-type';
@@ -13,6 +12,7 @@ import { SkillCostType } from '../model/enum/skill-cost-type';
 import { SkillGenre } from '../model/enum/skill-genre';
 import { GameDataAncestralLegacy } from '../model/game/data/game-data-ancestral-legacy';
 import { Mechanic } from '../model/mechanic';
+import { effectValueSynergy, effectValueVariable } from '../util/effect-value.util';
 import { list } from '../util/math.util';
 import {
     emptyStringToNull,
@@ -28,6 +28,7 @@ import {
 } from '../util/utils';
 import { SlormancerBuffService } from './slormancer-buff.service';
 import { SlormancerDataService } from './slormancer-data.service';
+import { SlormancerEffectValueService } from './slormancer-effect-value.service';
 import { SlormancerMechanicService } from './slormancer-mechanic.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 import { SlormancerTranslateService } from './slormancer-translate.service';
@@ -36,6 +37,10 @@ import { SlormancerTranslateService } from './slormancer-translate.service';
 export class SlormancerAncestralLegacyService {
 
     private readonly ACTIVE_PREFIX = 'active_skill_add';
+    private readonly COST_LABEL = this.slormancerTranslateService.translate('tt_cost');
+    private readonly COOLDOWN_LABEL = this.slormancerTranslateService.translate('tt_cooldown');
+    private readonly SECONDS_LABEL = this.slormancerTranslateService.translate('tt_seconds');
+    private readonly RANK_LABEL = this.slormancerTranslateService.translate('tt_rank');
 
     private readonly UNAVAILABLE_ANCESTRAL_LEGACY: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
         11, 12, 13, 14, 17, 18, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31, 33, 34, 36, 37, 38, 39,
@@ -48,6 +53,7 @@ export class SlormancerAncestralLegacyService {
 
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormancerBuffService: SlormancerBuffService,
+                private slormancerEffectValueService: SlormancerEffectValueService,
                 private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerMechanicService: SlormancerMechanicService) { }
@@ -74,62 +80,22 @@ export class SlormancerAncestralLegacyService {
         for (let i of list(max)) {
             const type = valueOrNull(valueReals[i]);
             const percent = valueOrNull(valueTypes[i]) === '%';
-            const value = valueOrDefault(valueBases[i], 0);
+            const baseValue = valueOrDefault(valueBases[i], 0);
             const upgrade = valueOrDefault(valuePerLevels[i], 0);
             const stat = valueOrDefault(stats[i], null);
 
             if (stat !== null && this.isDamageStat(stat)) {
                 const damageType = valueOrDefault(damageTypes.splice(0, 1)[0], 'phy');
-
-                result.push({
-                    type: EffectValueType.Synergy,
-                    value: value,
-                    upgrade,
-                    upgradeType: EffectValueUpgradeType.Reinforcment,
-                    percent,
-                    source: damageType === 'phy' ? 'physical_damage' : 'elemental_damage',
-                    valueType: EffectValueValueType.Damage,
-                    stat
-                } as EffectValueSynergy);
-
+                const source = damageType === 'phy' ? 'physical_damage' : 'elemental_damage';
+                result.push(effectValueSynergy(baseValue, upgrade, EffectValueUpgradeType.AncestralRank, percent, source, EffectValueValueType.Damage));
             } else if (type === null) {
-                result.push({
-                    type: EffectValueType.Variable,
-                    value,
-                    upgrade,
-                    percent,
-                    stat
-                } as EffectValueVariable);
+                result.push(effectValueVariable(baseValue, upgrade, EffectValueUpgradeType.AncestralRank, percent, stat));
             } else if (type === 'negative') {
-                result.push({
-                    type: EffectValueType.Variable,
-                    value,
-                    upgrade: -upgrade,
-                    upgradeType: EffectValueUpgradeType.Reinforcment,
-                    percent,
-                    stat
-                } as EffectValueVariable);
-            } else if (type === 'every_3') {
-                result.push({
-                    type: EffectValueType.Variable,
-                    value,
-                    upgrade,
-                    upgradeType: EffectValueUpgradeType.Every3,
-                    percent,
-                    stat
-                } as EffectValueVariable);
+                result.push(effectValueVariable(baseValue, -upgrade, EffectValueUpgradeType.AncestralRank, percent, stat));
             } else {
                 const typeValues = splitData(type, ':');
-                const source = valueOrNull(typeValues[1]);
-
-                result.push({
-                    type: EffectValueType.Synergy,
-                    value: value,
-                    percent,
-                    upgrade,
-                    source,
-                    stat
-                } as EffectValueSynergy);
+                const source = <string>typeValues[1];
+                result.push(effectValueSynergy(baseValue, upgrade, EffectValueUpgradeType.AncestralRank, percent, source));
             }
         }
         
@@ -137,21 +103,21 @@ export class SlormancerAncestralLegacyService {
     }    
     
     private getNextRankUpgradeDescription(ancestralLegacy: AncestralLegacy, rank: number): Array<string> {
-        const skill = [];
+        const skills = [];
 
         const cost = ancestralLegacy.baseCost === null ? null : ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * rank);
         if (cost !== null && cost > 0 && ancestralLegacy.costPerRank !== null && ancestralLegacy.costPerRank !== 0) {
             const costClass = ancestralLegacy.hasLifeCost ? 'life' : 'mana';
             const description = '<span class="' + costClass + '">' + cost + '</span> ' + this.slormancerTranslateService.translate(ancestralLegacy.costType);
-            skill.push(description);
+            skills.push(description);
         }
 
         const attributes = ancestralLegacy.values
-            .filter(value => isEffectValueSynergy(value) || isEffectValueVariable(value))
-            .filter(value => (<EffectValueSynergy | EffectValueVariable>value).upgrade !== 0)
-            .map(value => this.slormancerTemplateService.formatNextRankDescription('@ £', <EffectValueSynergy | EffectValueVariable>value)); // TODO fix le calcul
+            .filter(value => (isEffectValueSynergy(value) || isEffectValueVariable(value)) && value.upgrade !== 0)
+            .map(value => this.slormancerEffectValueService.updateEffectValue(value, rank))
+            .map(value => this.slormancerTemplateService.formatNextRankDescription('@ £', value));
 
-        return [ ...skill, ...attributes ]
+        return [ ...skills, ...attributes ]
     }
 
     private extractBuffs(template: string): Array<Buff> {
@@ -207,9 +173,9 @@ export class SlormancerAncestralLegacyService {
                 baseCost: gameData.COST,
                 costPerRank: gameData.COST_LEVEL,
                 costType: <SkillCostType>gameData.COST_TYPE,
-                totalRank: 0,
-                rank,
-                bonusRank,
+                rank: 0,
+                baseRank: rank,
+                bonusRank: bonusRank,
                 maxRank: gameData.UPGRADE_NUMBER,
                 hasLifeCost: false,
                 hasManaCost: false,
@@ -223,9 +189,13 @@ export class SlormancerAncestralLegacyService {
                 relatedBuffs: this.extractBuffs(gameData.EN_DESCRIPTION),
                 relatedMechanics: this.extractMechanics(gameData.EN_DESCRIPTION, values, data !== null && data.additionalMechanics ? data.additionalMechanics : []),
 
-                // override constants + links
+                typeLabel: '',
+                costLabel: null,
+                cooldownLabel: null,
+                genresLabel: null,
+                rankLabel: '',
 
-                template: this.slormancerTemplateService.getAncestralLegacyDescriptionTemplate(gameData),
+                template: this.slormancerTemplateService.prepareAncestralLegacyDescriptionTemplate(gameData),
                 values
             }
 
@@ -240,22 +210,52 @@ export class SlormancerAncestralLegacyService {
     }
 
     public updateAncestralLegacy(ancestralLegacy: AncestralLegacy) {
-        ancestralLegacy.rank = Math.min(ancestralLegacy.maxRank, ancestralLegacy.rank)
-        ancestralLegacy.totalRank = ancestralLegacy.bonusRank + ancestralLegacy.rank;
-        const descriptionPrefix = this.isActivable(ancestralLegacy.types) ? this.slormancerTranslateService.translate(this.ACTIVE_PREFIX) + '<br/>' : '';
-        ancestralLegacy.description = descriptionPrefix + this.slormancerTemplateService.formatUpgradeDescription(ancestralLegacy.template, ancestralLegacy.values); // TODO fixer upgrade
-        ancestralLegacy.cost = ancestralLegacy.baseCost === null ? null : ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * ancestralLegacy.totalRank);
+        ancestralLegacy.baseRank = Math.min(ancestralLegacy.maxRank, Math.max(0, ancestralLegacy.baseRank));
+        ancestralLegacy.bonusRank = Math.max(0, ancestralLegacy.bonusRank);
+        ancestralLegacy.rank = ancestralLegacy.bonusRank + ancestralLegacy.baseRank;
+        ancestralLegacy.cost = ancestralLegacy.baseCost === null ? null : ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * ancestralLegacy.rank);
         ancestralLegacy.cooldown = ancestralLegacy.baseCooldown;
 
         ancestralLegacy.hasLifeCost = ancestralLegacy.costType === SkillCostType.LifePercent || ancestralLegacy.costType === SkillCostType.LifeSecond || ancestralLegacy.costType === SkillCostType.LifeLock || ancestralLegacy.costType === SkillCostType.Life;
         ancestralLegacy.hasManaCost = ancestralLegacy.costType === SkillCostType.ManaPercent || ancestralLegacy.costType === SkillCostType.ManaSecond || ancestralLegacy.costType === SkillCostType.ManaLock || ancestralLegacy.costType === SkillCostType.Mana;
         ancestralLegacy.hasNoCost = ancestralLegacy.costType === SkillCostType.None || ancestralLegacy.cost === 0;
 
+        for (const effectValue of ancestralLegacy.values) {
+            this.slormancerEffectValueService.updateEffectValue(effectValue, ancestralLegacy.rank);
+        }
+
+        ancestralLegacy.genresLabel =  null;
+        if (ancestralLegacy.genres.length > 0) {
+            ancestralLegacy.genresLabel = ancestralLegacy.genres
+                .map(genre => this.slormancerTranslateService.translate(genre))
+                .join(' ');
+        }
+        
+        ancestralLegacy.costLabel = null;
+        if (!ancestralLegacy.hasNoCost && ancestralLegacy.cost !== null) {
+            ancestralLegacy.costLabel = this.COST_LABEL
+                + ': ' + this.slormancerTemplateService.asSpan(ancestralLegacy.cost.toString(), ancestralLegacy.hasManaCost ? 'value mana' : 'value life')
+                + ' ' + this.slormancerTranslateService.translate(ancestralLegacy.costType);
+        }
+
+        ancestralLegacy.cooldownLabel = null;
+        if (ancestralLegacy.cooldown !== null && ancestralLegacy.cooldown > 0) {
+            ancestralLegacy.cooldownLabel = this.COOLDOWN_LABEL
+                + ': ' + this.slormancerTemplateService.asSpan(ancestralLegacy.cooldown.toString(), 'value')
+                + ' ' + this.SECONDS_LABEL;
+        }
+
+        ancestralLegacy.typeLabel = this.slormancerTranslateService.translate('element_' + ancestralLegacy.element) + ' - '
+             + ancestralLegacy.types.map(type =>  this.slormancerTranslateService.translate('tt_' + type)).join(', ');
+        ancestralLegacy.rankLabel = this.RANK_LABEL + ': ' + this.slormancerTemplateService.asSpan(ancestralLegacy.rank.toString(), 'current') + '/' + ancestralLegacy.maxRank;
+        
+        const descriptionPrefix = this.isActivable(ancestralLegacy.types) ? this.slormancerTranslateService.translate(this.ACTIVE_PREFIX) + '<br/>' : '';
+        ancestralLegacy.description = descriptionPrefix + this.slormancerTemplateService.formatUpgradeDescription(ancestralLegacy.template, ancestralLegacy.values);
+        
         ancestralLegacy.nextRankDescription = [];
         ancestralLegacy.maxRankDescription = [];
-
-        if (ancestralLegacy.maxRank > 1) {
-            ancestralLegacy.nextRankDescription = this.getNextRankUpgradeDescription(ancestralLegacy, Math.min(ancestralLegacy.maxRank + ancestralLegacy.bonusRank, ancestralLegacy.totalRank + 1));
+        if (ancestralLegacy.maxRank > 1 && ancestralLegacy.baseRank < ancestralLegacy.maxRank) {
+            ancestralLegacy.nextRankDescription = this.getNextRankUpgradeDescription(ancestralLegacy, Math.max(1, ancestralLegacy.rank + 1));
             ancestralLegacy.maxRankDescription = this.getNextRankUpgradeDescription(ancestralLegacy, ancestralLegacy.maxRank + ancestralLegacy.bonusRank);
         }
     }

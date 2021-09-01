@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AbstractEffectValue, EffectValueConstant } from '../model/effect-value';
-import { EffectValueType } from '../model/enum/effect-value-type';
+import { AbstractEffectValue } from '../model/effect-value';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
 import { EffectValueValueType } from '../model/enum/effect-value-value-type';
 import { isEffectValueSynergy, isEffectValueVariable } from '../util/utils';
@@ -11,25 +10,20 @@ export class SlormancerEffectValueService {
 
     constructor() { }
 
-    public parseReaperEffectConstantValue(constant: number): AbstractEffectValue {
-        return {
-            type: EffectValueType.Constant,
-            value: constant,
-            percent: false,
-            valueType: EffectValueValueType.Unknown,
-            stat: null
-        } as EffectValueConstant;
-    }
-
     public updateEffectValue(effectValue: AbstractEffectValue, upgradeMultiplier: number): AbstractEffectValue {
+        const displayUpgradeMultiplier = Math.max(upgradeMultiplier, 1);
         if (isEffectValueSynergy(effectValue) || isEffectValueVariable(effectValue)) {
             let value = effectValue.baseValue * 1000;
+            let displayValue = effectValue.baseValue * 1000;
             if (effectValue.upgradeType === EffectValueUpgradeType.Every3) {
                 value += 1000 * effectValue.upgrade * Math.ceil(upgradeMultiplier / 3);
+                displayValue += 1000 * effectValue.upgrade * Math.ceil(displayUpgradeMultiplier / 3);
             } else {
                 value += 1000 * effectValue.upgrade * upgradeMultiplier;
+                displayValue += 1000 * effectValue.upgrade * displayUpgradeMultiplier;
             }
             effectValue.value = value / 1000;
+            effectValue.displayValue = displayValue / 1000;
         }
 
         if (isEffectValueSynergy(effectValue)) {            

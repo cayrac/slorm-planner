@@ -26,8 +26,8 @@ export interface AncestralLegacy {
     hasLifeCost: boolean;
     hasManaCost: boolean;
     hasNoCost: boolean;
-    totalRank: number;
     rank: number;
+    baseRank: number;
     bonusRank: number;
     maxRank: number;
     realm: number;
@@ -38,6 +38,12 @@ export interface AncestralLegacy {
 
     nextRankDescription: Array<string>;
     maxRankDescription: Array<string>;
+
+    typeLabel: string;
+    genresLabel: string | null;
+    costLabel: string | null;
+    cooldownLabel: string | null;
+    rankLabel: string;
 
     template: string;
     values: Array<AbstractEffectValue>;

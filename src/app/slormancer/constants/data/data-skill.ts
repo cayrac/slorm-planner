@@ -1,10 +1,10 @@
 import { DataSkill } from '../../model/data/data-skill';
 import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../../model/effect-value';
-import { EffectValueType } from '../../model/enum/effect-value-type';
 import { EffectValueValueType } from '../../model/enum/effect-value-value-type';
 import { MechanicType } from '../../model/enum/mechanic-type';
 import { SkillCostType } from '../../model/enum/skill-cost-type';
 import { GameHeroesData } from '../../model/game/game-save';
+import { effectValueConstant } from '../../util/effect-value.util';
 
 function setUpgrade(values: Array<AbstractEffectValue>, index: number, upgrade: number) {
     const value = <EffectValueVariable | EffectValueSynergy>values[index];
@@ -22,13 +22,7 @@ function setValue(values: Array<AbstractEffectValue>, index: number, newValue: n
 }
 
 function addConstant(values: Array<AbstractEffectValue>, value: number, percent: boolean, valueType: EffectValueValueType, stat: string | null = null) {
-    values.push({
-        type: EffectValueType.Constant,
-        value,
-        percent,
-        valueType,
-        stat
-    } as EffectValueConstant)
+    values.push(effectValueConstant(value, percent, stat, valueType))
 }
 
 export const DATA_SKILL_0: { [key: number]: DataSkill } = {

@@ -94,6 +94,7 @@ export class SlormancerCraftedValueService {
                     effect: {
                         type: EffectValueType.Constant,
                         value: 0,
+                        displayValue: 0,
                         percent: stat.PERCENT === '%',
                         valueType: EffectValueValueType.Stat,
                         stat: stat.REF

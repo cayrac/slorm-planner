@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 
 import { CraftableEffect } from '../model/craftable-effect';
-import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
-import { EffectValueType } from '../model/enum/effect-value-type';
+import { AbstractEffectValue } from '../model/effect-value';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
-import { EffectValueValueType } from '../model/enum/effect-value-value-type';
 import { HeroClass } from '../model/enum/hero-class';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameAffix } from '../model/game/game-item';
 import { LegendaryEffect } from '../model/legendary-effect';
+import { effectValueConstant, effectValueSynergy, effectValueVariable } from '../util/effect-value.util';
 import { list } from '../util/math.util';
 import { strictParseInt } from '../util/parse.util';
 import {
@@ -43,34 +42,11 @@ export class SlormancerLegendaryEffectService {
         let effect: AbstractEffectValue;
         
         if (type === null || type === '%') {
-            effect = {
-                type: EffectValueType.Variable,
-                value: 0,
-                baseValue: 0,
-                upgrade,
-                upgradeType: EffectValueUpgradeType.Reinforcment,
-                percent: type === '%',
-                range: false,
-                valueType: EffectValueValueType.Unknown,
-                stat: null
-            } as EffectValueVariable;
+            effect = effectValueVariable(0, upgrade, EffectValueUpgradeType.Reinforcment, type === '%');
         } else {
             const typeValues = splitData(type, ':');
-            const source = valueOrNull(typeValues[1]);
-
-            effect = {
-                type: EffectValueType.Synergy,
-                value: 0,
-                baseValue: 0,
-                synergy: 0,
-                upgrade,
-                upgradeType: EffectValueUpgradeType.Reinforcment,
-                percent: type === '%',
-                source,
-                range: false,
-                valueType: EffectValueValueType.Unknown,
-                stat: null
-            } as EffectValueSynergy;
+            const source = <string>typeValues[1];
+            effect = effectValueSynergy(0, upgrade, EffectValueUpgradeType.Reinforcment, type === '%', source);
         }
 
         return {
@@ -94,11 +70,7 @@ export class SlormancerLegendaryEffectService {
                     possibleCraftedValues: { 0: constant },
                     maxPossibleCraftedValue: 0,
                     minPossibleCraftedValue: 0,
-                    effect: {
-                        type: EffectValueType.Constant,
-                        value: constant,
-                        percent: false
-                    } as EffectValueConstant
+                    effect: effectValueConstant(constant, false, null)
              });
             }
         }

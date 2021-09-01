@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Buff } from '../model/buff';
 import { DataSkill } from '../model/data/data-skill';
 import { AbstractEffectValue, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
-import { EffectValueType } from '../model/enum/effect-value-type';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
 import { EffectValueValueType } from '../model/enum/effect-value-value-type';
 import { HeroClass } from '../model/enum/hero-class';
@@ -16,6 +15,7 @@ import { Skill } from '../model/skill';
 import { SkillClassMechanic } from '../model/skill-class-mechanic';
 import { SkillType } from '../model/skill-type';
 import { SkillUpgrade } from '../model/skill-upgrade';
+import { effectValueSynergy, effectValueVariable } from '../util/effect-value.util';
 import { list, round } from '../util/math.util';
 import {
     emptyStringToNull,
@@ -76,66 +76,18 @@ export class SlormancerSkillService {
 
             if (stat !== null && this.isDamageStat(stat)) {
                 const damageType = valueOrDefault(damageTypes.splice(0, 1)[0], 'phy');
-
-                result.push({
-                    type: EffectValueType.Synergy,
-                    value: 0,
-                    baseValue: value,
-                    synergy: 0,
-                    upgrade,
-                    upgradeType: EffectValueUpgradeType.Mastery,
-                    percent: false,
-                    source: damageType === 'phy' ? 'physical_damage' : 'elemental_damage',
-                    valueType: EffectValueValueType.Damage,
-                    stat
-                } as EffectValueSynergy);
-
+                const valueType = damageType === 'phy' ? 'physical_damage' : 'elemental_damage';
+                result.push(effectValueSynergy(value, upgrade, EffectValueUpgradeType.Mastery, false, valueType, EffectValueValueType.Damage));
             } else if (type === null) {
-                result.push({
-                    type: EffectValueType.Variable,
-                    value: 0,
-                    baseValue: value,
-                    valueType: EffectValueValueType.Stat,
-                    upgrade,
-                    upgradeType: EffectValueUpgradeType.Mastery,
-                    percent,
-                    stat
-                } as EffectValueVariable);
+                result.push(effectValueVariable(value, upgrade, EffectValueUpgradeType.Mastery, percent, stat, EffectValueValueType.Stat));
             } else if (type === 'negative') {
-                result.push({
-                    type: EffectValueType.Variable,
-                    value: 0,
-                    baseValue: value,
-                    upgrade: -upgrade,
-                    upgradeType: EffectValueUpgradeType.Mastery,
-                    percent,
-                    stat
-                } as EffectValueVariable);
+                result.push(effectValueVariable(value, -upgrade, EffectValueUpgradeType.Mastery, percent, stat, EffectValueValueType.Stat));
             } else if (type === 'every_3') {
-                result.push({
-                    type: EffectValueType.Variable,
-                    value: 0,
-                    baseValue: value,
-                    upgrade,
-                    upgradeType: EffectValueUpgradeType.Every3,
-                    percent,
-                    stat
-                } as EffectValueVariable);
+                result.push(effectValueVariable(value, upgrade, EffectValueUpgradeType.Every3, percent, stat, EffectValueValueType.Stat));
             } else {
                 const typeValues = splitData(type, ':');
-                const source = valueOrNull(typeValues[1]);
-
-                result.push({
-                    type: EffectValueType.Synergy,
-                    value: 0,
-                    synergy: 0,
-                    baseValue: value,
-                    percent,
-                    upgrade,
-                    upgradeType: EffectValueUpgradeType.Mastery,
-                    source,
-                    stat
-                } as EffectValueSynergy);
+                const source = <string>typeValues[1];
+                result.push(effectValueSynergy(value, upgrade, EffectValueUpgradeType.Mastery, percent, source, stat));
             }
         }
         
@@ -365,13 +317,6 @@ export class SlormancerSkillService {
         
         upgrade.masteryLabel =  this.MASTERY_LABEL + ' ' + upgrade.masteryRequired;
         upgrade.rankLabel =  this.RANK_LABEL + ': ' + this.slormancerTemplateService.asSpan(upgrade.rank.toString(), 'current') + '/' + upgrade.maxRank;
-        
-        upgrade.genresLabel =  null;
-        if (upgrade.genres.length > 0) {
-            upgrade.genresLabel = upgrade.genres
-                .map(genre => this.slormancerTranslateService.translate(genre))
-                .join(' ');
-        }
         
         upgrade.genresLabel =  null;
         if (upgrade.genres.length > 0) {

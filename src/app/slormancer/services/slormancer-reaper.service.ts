@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 
 import { DATA_REAPER_LEVEL } from '../constants/data/data-reaper-level';
 import { Activable } from '../model/activable';
-import { AbstractEffectValue, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
-import { EffectValueType } from '../model/enum/effect-value-type';
+import { AbstractEffectValue } from '../model/effect-value';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
-import { EffectValueValueType } from '../model/enum/effect-value-value-type';
 import { HeroClass } from '../model/enum/hero-class';
 import { GameDataReaper } from '../model/game/data/game-data-reaper';
 import { Reaper, ReaperTemplates } from '../model/reaper';
 import { ReaperEffect } from '../model/reaper-effect';
+import { effectValueSynergy, effectValueVariable } from '../util/effect-value.util';
 import { list } from '../util/math.util';
 import { strictParseFloat } from '../util/parse.util';
 import {
@@ -113,29 +112,9 @@ export class SlormancerReaperService {
         let result: AbstractEffectValue;
 
         if (level === null) {
-            result = {
-                type: EffectValueType.Variable,
-                value: 0,
-                upgrade: 0,
-                baseValue: base,
-                upgradeType: EffectValueUpgradeType.ReaperLevel,
-                range: false,
-                percent: type === '%',
-                valueType: EffectValueValueType.Unknown,
-                stat: null
-            } as EffectValueVariable;
+            result = effectValueVariable(base, 0, EffectValueUpgradeType.ReaperLevel, type === '%');
         } else {
-            result = {
-                type: EffectValueType.Variable,
-                value: 0,
-                baseValue: 0,
-                upgrade: base,
-                upgradeType: this.parseUpgradeType(level),
-                range: false,
-                percent: type === '%',
-                valueType: EffectValueValueType.Unknown,
-                stat: null
-            } as EffectValueVariable;
+            result = effectValueVariable(0, base, this.parseUpgradeType(level), type === '%');
         }
 
         return result;        
@@ -148,19 +127,11 @@ export class SlormancerReaperService {
         const source = <string>typeValues[1];
         const brutValue = <string>typeValues[2];
         const isVariable = brutValue.indexOf('*') !== -1;
-        const [upgrade, upgradeType] = splitData(brutValue, '*');
+        const [upgradeValue, upgradeType] = splitData(brutValue, '*');
 
-        result = {
-            type: EffectValueType.Synergy,
-            value: 0,
-            baseValue: isVariable ? 0 : strictParseFloat(brutValue),
-            upgrade: isVariable ? strictParseFloat(<string>upgrade) : 0,
-            upgradeType: this.parseUpgradeType(valueOrNull(upgradeType)),
-            percent: false,
-            source,
-            valueType: EffectValueValueType.Unknown,
-            stat: null
-        } as EffectValueSynergy;
+        const value = isVariable ? 0 : strictParseFloat(brutValue);
+        const upgrade = isVariable ? strictParseFloat(<string>upgradeValue) : 0;
+        result = effectValueSynergy(value, upgrade, this.parseUpgradeType(valueOrNull(upgradeType)), false, source);
         
         return result;   
     }

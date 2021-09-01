@@ -9,28 +9,25 @@
                 </div>
             </div>
             <div class="data">
-                <div class="name">{{getElementLabel(ancestralLegacy.element)}} - {{getTypeLabels(ancestralLegacy.types)}}</div>
-                <div class="genre" *ngIf="ancestralLegacy.genres.length > 0">{{getGenresLabel(ancestralLegacy.genres)}}</div>
-                <div class="cooldown" *ngIf="ancestralLegacy.cooldown !== null && ancestralLegacy.cooldown > 0">Cooldown : <span class="value">{{ancestralLegacy.cooldown}}</span> seconds</div>
-                <div class="rank">{{translate(RANK_LABEL)}}: <span class="current">{{ancestralLegacy.totalRank}}</span>/{{ancestralLegacy.maxRank}}</div>
-                <div class="cost" *ngIf="!ancestralLegacy.hasNoCost">Cost :
-                    <span [class.life]="ancestralLegacy.hasLifeCost" [class.mana]="ancestralLegacy.hasManaCost">{{ancestralLegacy.cost}}</span>
-                    <span> {{getCostLabel(ancestralLegacy.costType)}}</span>
-                </div>
+                <div class="type" [innerHTML]="ancestralLegacy.typeLabel"></div>
+                <div class="genre" *ngIf="ancestralLegacy.genresLabel !== null" [innerHTML]="ancestralLegacy.genresLabel"></div>
+                <div class="cooldown" *ngIf="ancestralLegacy.cooldownLabel !== null" [innerHTML]="ancestralLegacy.genresLabel"></div>
+                <div class="rank" [innerHTML]="ancestralLegacy.rankLabel"></div>
+                <div class="cost" *ngIf="ancestralLegacy.costLabel !== null" [innerHTML]="ancestralLegacy.costLabel"></div>
             </div>
         </div>
         <div class="separator"></div>
         <div class="description" [innerHTML]="ancestralLegacy.description"></div>
-        <ng-container *ngIf="ancestralLegacy.rank < ancestralLegacy.maxRank && (ancestralLegacy.nextRankDescription.length > 0 || ancestralLegacy.maxRankDescription.length > 0)">
+        <ng-container *ngIf="ancestralLegacy.nextRankDescription.length > 0 || ancestralLegacy.maxRankDescription.length > 0">
             <div class="separator"></div>
             <div class="next-rank">
-                <div class="title">{{translate(NEXT_RANK_LABEL)}}:</div>
+                <div class="title">{{NEXT_RANK_LABEL}}:</div>
                 <div *ngFor="let desc of ancestralLegacy.nextRankDescription" class="rank-value">
                     <div class="bullet"><div></div></div> <div [innerHTML]="desc"></div>
                 </div>
             </div>
             <div class="next-rank">
-                <div class="title">{{translate(MAX_RANK_LABEL)}}:</div>
+                <div class="title">{{MAX_RANK_LABEL}}:</div>
                 <div *ngFor="let desc of ancestralLegacy.maxRankDescription" class="rank-value">
                     <div class="bullet"><div></div></div> <div [innerHTML]="desc"></div>
                 </div>

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 
 import { AttributeTraits } from '../model/attribut-traits';
-import { AbstractEffectValue, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
+import { AbstractEffectValue, EffectValueVariable } from '../model/effect-value';
 import { Attribute } from '../model/enum/attribute';
-import { EffectValueType } from '../model/enum/effect-value-type';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
 import { EffectValueValueType } from '../model/enum/effect-value-value-type';
 import { TraitLevel } from '../model/enum/trait-level';
 import { GameDataAttribute } from '../model/game/data/game-data-attribute';
 import { Trait } from '../model/trait';
+import { effectValueSynergy, effectValueVariable } from '../util/effect-value.util';
 import { list } from '../util/math.util';
 import {
     emptyStringToNull,
@@ -59,31 +59,13 @@ export class SlormancerAttributeService {
             const percent = type === '%';
             const value = valueOrDefault(valueBases[i], 0);
             const stat = valueOrDefault(stats[i], null);
+            const upgrade = i === 0 && firstIsUpgradable ? value : 0;
 
             if (stat !== null && type !== null && type.startsWith('synergy:')) {
-                result.push({
-                    type: EffectValueType.Synergy,
-                    value,
-                    baseValue: value,
-                    upgrade: i === 0 && firstIsUpgradable ? value : 0,
-                    upgradeType: EffectValueUpgradeType.RanksAfterInThisTrait,
-                    percent,
-                    source: type.substring(8),
-                    valueType: this.isDamageStat(stat) ? EffectValueValueType.Damage : EffectValueValueType.Stat,
-                    stat
-                } as EffectValueSynergy);
-
+                const valueType = this.isDamageStat(stat) ? EffectValueValueType.Damage : EffectValueValueType.Stat;
+                result.push(effectValueSynergy(value, upgrade, EffectValueUpgradeType.RanksAfterInThisTrait, percent, type.substring(8), stat, valueType));
             } else {
-                result.push({
-                    type: EffectValueType.Variable,
-                    value,
-                    baseValue: value,
-                    upgrade: i === 0 && firstIsUpgradable ? value : 0,
-                    upgradeType: EffectValueUpgradeType.RanksAfterInThisTrait,
-                    percent,
-                    valueType: EffectValueValueType.Stat,
-                    stat
-                } as EffectValueVariable);
+                result.push(effectValueVariable(value, upgrade, EffectValueUpgradeType.RanksAfterInThisTrait, percent, stat, EffectValueValueType.Stat));
             }
         }
         
@@ -232,15 +214,7 @@ export class SlormancerAttributeService {
             this.updateTrait(trait);
 
             if (trait.template !== null) {
-                const ranksAfterMax = this.ranksAfter(trait, this.MAX_RANK);
-                const values = trait.values.map(value => ({ ...value }));
-                values.forEach(value => {
-                        if ((isEffectValueVariable(value) || isEffectValueSynergy(value))
-                            && value.upgradeType === EffectValueUpgradeType.RanksAfterInThisTrait && trait.rank < this.MAX_RANK) {
-                            value.maxUpgrade = ranksAfterMax;
-                        }
-                    });
-                const description = this.slormancerTemplateService.formatTraitDescription(trait.template, values)
+                const description = this.slormancerTemplateService.formatTraitDescription(trait.template, trait.values)
                 allDescriptions.push(this.slormancerTemplateService.asSpan(description, trait.unlocked ? 'unlocked' : 'locked'));
             } else {
                 const variables = trait.values.filter(isEffectValueVariable);

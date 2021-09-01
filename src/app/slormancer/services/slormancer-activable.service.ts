@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 
 import { Activable } from '../model/activable';
 import { DataActivable } from '../model/data/data-activable';
-import { AbstractEffectValue, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
-import { EffectValueType } from '../model/enum/effect-value-type';
+import { AbstractEffectValue } from '../model/effect-value';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
 import { HeroClass } from '../model/enum/hero-class';
 import { SkillCostType } from '../model/enum/skill-cost-type';
 import { SkillGenre } from '../model/enum/skill-genre';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
+import { effectValueSynergy, effectValueVariable } from '../util/effect-value.util';
 import { list, round } from '../util/math.util';
 import { emptyStringToNull, splitData, splitFloatData, valueOrDefault, valueOrNull } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
@@ -44,27 +44,12 @@ export class SlormancerActivableService {
             const upgrade = valueOrDefault(valuePerLevels[i], 0);
 
             if (type === null) {
-                result.push({
-                    type: EffectValueType.Variable,
-                    value: 0,
-                    baseValue,
-                    upgrade,
-                    upgradeType,
-                    percent,
-                } as EffectValueVariable);
+                result.push(effectValueVariable(baseValue, upgrade, upgradeType, percent));
             } else {
                 const typeValues = splitData(type, ':');
-                const source = valueOrNull(typeValues[1]);
+                const source = <string>typeValues[1];
 
-                result.push({
-                    type: EffectValueType.Synergy,
-                    value: 0,
-                    baseValue,
-                    upgrade,
-                    upgradeType,
-                    percent,
-                    source,
-                } as EffectValueSynergy);
+                result.push(effectValueSynergy(baseValue, upgrade, upgradeType, percent, source));
             }
         }
         

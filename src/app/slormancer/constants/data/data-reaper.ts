@@ -1,8 +1,7 @@
 import { DataReaper } from '../../model/data/data-reaper';
-import { EffectValueConstant } from '../../model/effect-value';
-import { EffectValueType } from '../../model/enum/effect-value-type';
 import { EffectValueValueType } from '../../model/enum/effect-value-value-type';
 import { ReaperEffect } from '../../model/reaper-effect';
+import { effectValueConstant } from '../../util/effect-value.util';
 import { isEffectValueVariable, valueOrNull } from '../../util/utils';
 
 function overrideValueTypeAndStat(effect: ReaperEffect | null, index: number, valueType: EffectValueValueType, stat: string | null = null) {
@@ -42,13 +41,7 @@ function changeValue(effect: ReaperEffect | null, index: number, newValue: numbe
 
 function addConstant(effect: ReaperEffect | null, value: number, percent: boolean, valueType: EffectValueValueType, stat: string | null = null) {
     if (effect !== null) {
-        effect.values.push({
-            type: EffectValueType.Constant,
-            value,
-            percent,
-            valueType,
-            stat
-        } as EffectValueConstant)
+        effect.values.push(effectValueConstant(value, percent, stat, valueType))
     } else {
         throw new Error('failed to add effect value with : ' + value + ' / ' + percent + ' / ' + valueType + ' / ' + stat);
     }

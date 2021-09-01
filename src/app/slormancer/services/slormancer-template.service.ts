@@ -105,6 +105,8 @@ export class SlormancerTemplateService {
 
             if (effectValue.upgradeType === EffectValueUpgradeType.Mastery) {
                 result = base + ' ' + sign + ' ' + upgrade + ' per mastery level';
+            } else if (effectValue.upgradeType === EffectValueUpgradeType.AncestralRank) {
+                result = base + ' ' + sign + ' ' + upgrade + ' per rank';
             } else if (effectValue.upgradeType === EffectValueUpgradeType.Every3) {
                 result = base + ' ' + sign + ' ' + upgrade + ' every third mastery level';
             } else if (effectValue.upgradeType === EffectValueUpgradeType.ReaperLevel) {
@@ -132,13 +134,13 @@ export class SlormancerTemplateService {
             const percent = effectValue.percent ? '%' : '';
 
             if (isEffectValueVariable(effectValue)) {
-                const value = this.asSpan(effectValue.value.toString() + percent, 'value');
+                const value = this.asSpan(effectValue.displayValue.toString() + percent, 'value');
                 const details = this.getEffectValueDetails(effectValue);
                 template = this.replaceAnchor(template, value + ' ' + details, this.VALUE_ANCHOR);
             } else if (isEffectValueConstant(effectValue)) {
                 const anchor = findFirst(template, this.CONSTANT_ANCHORS);
                 if (anchor !== null) {
-                    const value = this.asSpan(effectValue.value.toString() + percent, 'value');
+                    const value = this.asSpan(effectValue.displayValue.toString() + percent, 'value');
                     template = this.replaceAnchor(template, value, anchor);
                 }
             } else if (isEffectValueSynergy(effectValue)) {
@@ -155,14 +157,16 @@ export class SlormancerTemplateService {
         for (let effectValue of effectValues) {
             const percent = effectValue.percent ? '%' : '';
 
+            console.log('format skill : ',  { ...effectValue });
+
             if (isEffectValueVariable(effectValue)) {
-                const value = this.asSpan(effectValue.value.toString() + percent, 'value');
+                const value = this.asSpan(effectValue.displayValue.toString() + percent, 'value');
                 const details = this.getEffectValueDetails(effectValue);
                 template = this.replaceAnchor(template, value + ' ' + details, this.VALUE_ANCHOR);
             } else if (isEffectValueConstant(effectValue)) {
                 const anchor = findFirst(template, this.CONSTANT_ANCHORS);
                 if (anchor !== null) {
-                    const value = this.asSpan(effectValue.value.toString() + percent, 'value');
+                    const value = this.asSpan(effectValue.displayValue.toString() + percent, 'value');
                     template = this.replaceAnchor(template, value, anchor);
                 }
             } else if (isEffectValueSynergy(effectValue)) {
@@ -181,18 +185,18 @@ export class SlormancerTemplateService {
             const percent = effectValue.percent ? '%' : '';
 
             if (isEffectValueVariable(effectValue)) {
-                const value = this.asSpan(effectValue.value.toString() + percent, 'value');
+                const value = this.asSpan(effectValue.displayValue.toString() + percent, 'value');
                 const details = this.getEffectValueDetails(effectValue);
                 template = this.replaceAnchor(template, value + ' ' + details, this.VALUE_ANCHOR);
             } else if (isEffectValueConstant(effectValue)) {
                 const anchor = findFirst(template, this.CONSTANT_ANCHORS);
                 if (anchor !== null) {
-                    const value = this.asSpan(effectValue.value.toString() + percent, 'value');
+                    const value = this.asSpan(effectValue.displayValue.toString() + percent, 'value');
                     template = this.replaceAnchor(template, value, anchor);
                 }
             } else if (isEffectValueSynergy(effectValue)) {
                 const details = this.getEffectValueDetails(effectValue);
-                const value = this.asSpan(this.formatValue(effectValue.value, effectValue.percent), 'value');
+                const value = this.asSpan(this.formatValue(effectValue.displayValue, effectValue.percent), 'value');
                 const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent), 'value');
                 template = this.replaceAnchor(template, value + ' ' + details, this.VALUE_ANCHOR);
                 template = this.replaceAnchor(template, synergy, this.SYNERGY_ANCHOR);
@@ -207,13 +211,13 @@ export class SlormancerTemplateService {
             const percent = effectValue.percent ? '%' : '';
 
             if (isEffectValueVariable(effectValue)) {
-                const value = this.asSpan(effectValue.value.toString() + percent, 'value');
+                const value = this.asSpan(effectValue.displayValue.toString() + percent, 'value');
                 const details = this.getEffectValueDetails(effectValue);
                 template = this.replaceAnchor(template, value + ' ' + details, this.VALUE_ANCHOR);
             } else if (isEffectValueConstant(effectValue)) {
                 const anchor = findFirst(template, this.CONSTANT_ANCHORS);
                 if (anchor !== null) {
-                    const value = this.asSpan(effectValue.value.toString() + percent, 'value');
+                    const value = this.asSpan(effectValue.displayValue.toString() + percent, 'value');
                     template = this.replaceAnchor(template, value, anchor);
                 }
             } else if (isEffectValueSynergy(effectValue)) {
@@ -231,13 +235,13 @@ export class SlormancerTemplateService {
             const percent = effectValue.percent ? '%' : '';
 
             if (isEffectValueVariable(effectValue)) {
-                const value = this.asSpan(effectValue.value.toString() + percent, 'value');
+                const value = this.asSpan(effectValue.displayValue.toString() + percent, 'value');
                 const details = this.getEffectValueDetails(effectValue);
                 template = this.replaceAnchor(template, value + ' ' + details, this.VALUE_ANCHOR);
             } else if (isEffectValueConstant(effectValue)) {
                 const anchor = findFirst(template, this.CONSTANT_ANCHORS);
                 if (anchor !== null) {
-                    const value = this.asSpan(effectValue.value.toString() + percent, 'value');
+                    const value = this.asSpan(effectValue.displayValue.toString() + percent, 'value');
                     template = this.replaceAnchor(template, value, anchor);
                 }
             } else if (isEffectValueSynergy(effectValue)) {
@@ -273,7 +277,7 @@ export class SlormancerTemplateService {
         return this.parseTemplate(template, stats, types);
     }
 
-    public getAncestralLegacyDescriptionTemplate(data: GameDataAncestralLegacy): string {
+    public prepareAncestralLegacyDescriptionTemplate(data: GameDataAncestralLegacy): string {
         const stats = splitData(data.DESC_VALUE).filter(value => !value.startsWith('*'));
         const types = splitData(data.DESC_VALUE_REAL);
         
