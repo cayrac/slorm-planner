@@ -84,7 +84,7 @@ export class SlormancerPlannerComponent implements OnInit {
     public selectedExtendedItem: EquipableItem | null = null;
 
     public selectedReaper: Reaper | null = null;
-    public selectedReaperIndex: number | null = 17;
+    public selectedReaperIndex: number | null = 3;
 
     public selectedSkill: Skill | null = null;
     public selectedSkillIndex: number = 0;
@@ -98,8 +98,8 @@ export class SlormancerPlannerComponent implements OnInit {
     public details: boolean = true;
     public reaperBase: number = 105;
     public primordial: boolean = true;
-    public level: number = 0;
-    public bonusLevel: number = 5;
+    public level: number = 1;
+    public bonusLevel: number = 0;
     public customReaper: Reaper | null = null;
 
     constructor(private slormancerSaveParserService: SlormancerSaveParserService,
@@ -208,7 +208,13 @@ export class SlormancerPlannerComponent implements OnInit {
 
         this.selectedTrait = this.slormancerAttributeService.getAttributeTraits(this.selectedAttribute, this.attributePoints, this.bonusLevel);
 
-        this.customReaper = this.slormancerReaperService.getReaperById(this.reaperBase, this.selectedClass, this.primordial, this.level, this.level, 12345, 12345, this.bonusLevel);
+        this.customReaper = this.slormancerReaperService.getReaper(this.reaperBase, this.selectedClass, this.primordial, this.level, this.level, 12345, 12345, this.bonusLevel);
+   
+        if (this.customReaper !== null) {
+            this.customReaper.baseInfo.level = this.level;
+            this.customReaper.primordialInfo.level = this.level;
+            this.slormancerReaperService.updateReaper(this.customReaper);
+        }
     }
 
     public getBaseItem(): any {
@@ -277,11 +283,11 @@ export class SlormancerPlannerComponent implements OnInit {
         const id: number = data.id
         console.log(data);
         if (id !== null) {
-            const gameData = this.slormancerDataService.getGameDataAttribute(id);
+            const gameData = this.slormancerDataService.getGameDataReaper(id);
             if (gameData !== null) {
                 console.log(gameData);
                 console.log(gameData.REF);
-                console.log(gameData.EN_TEXT);
+                console.log(gameData.EN_DESC);
             }
         }
     }

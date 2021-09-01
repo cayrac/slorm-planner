@@ -16,6 +16,7 @@ export interface Activable {
     hasNoCost: boolean;
     genres: Array<SkillGenre>;
     damageTypes: Array<string>;
+    level: number;
 
     description: string;
     genresLabel: string | null;

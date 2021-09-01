@@ -13,7 +13,7 @@ export interface ReaperTemplates {
     base: Array<ReaperEffect>;
     benediction: Array<ReaperEffect>;
     malediction: Array<ReaperEffect>;
-    skills: Array<Activable>;
+    activables: Array<Activable>;
     primordialSkills: Array<Activable>;
 }
 
@@ -24,17 +24,19 @@ export interface Reaper {
     primordial: boolean;
     icon: string;
     level: number;
+    baseLevel: number;
     bonusLevel: number;
     kills: number;
     name: string;
     description: string;
     benediction: string | null;
     malediction: string | null;
-    skills: Array<Activable>,
+    activables: Array<Activable>,
     lore: string;
     damages: MinMax;
     maxDamagesWithBonuses: MinMax;
     maxLevelWithBonuses: number;
+    minLevel: number;
     maxLevel: number;
     templates: ReaperTemplates;
     baseInfo: ReaperInfo;

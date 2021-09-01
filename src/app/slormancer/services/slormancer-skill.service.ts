@@ -197,7 +197,6 @@ export class SlormancerSkillService {
     }
 
     public updateSkill(skill: Skill) {
-        console.log('update skill : ', skill);
         skill.level = Math.min(skill.maxLevel, skill.baseLevel) + skill.bonusLevel;
         skill.cooldown = round(skill.baseCooldown / 60, 2);
         skill.cost = skill.baseCost + skill.perLevelCost * skill.level;

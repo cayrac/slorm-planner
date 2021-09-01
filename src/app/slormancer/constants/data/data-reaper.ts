@@ -22,7 +22,7 @@ function negateValueBaseAndUpgrade(effect: ReaperEffect | null, index: number) {
     const value = effect !== null ? valueOrNull(effect.values[index]) : null;
 
     if (value !== null && isEffectValueVariable(value)) {
-        value.value = value.value * -1;
+        value.baseValue = value.baseValue * -1;
         value.upgrade = value.upgrade * -1;
     } else {
         throw new Error('failed to negate effect value at index ' + index);
@@ -34,7 +34,7 @@ function changeValue(effect: ReaperEffect | null, index: number, newValue: numbe
     const value = effect !== null ? valueOrNull(effect.values[index]) : null;
 
     if (value !== null && isEffectValueVariable(value)) {
-        value.value = newValue;
+        value.baseValue = newValue;
     } else {
         throw new Error('failed to change value for effect value at index ' + index);
     }

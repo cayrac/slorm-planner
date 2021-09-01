@@ -6,7 +6,6 @@ import { CraftableEffect } from '../model/craftable-effect';
 import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
 import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
 import { EffectValueValueType } from '../model/enum/effect-value-value-type';
-import { HeroClass } from '../model/enum/hero-class';
 import { GameDataActivable } from '../model/game/data/game-data-activable';
 import { GameDataAncestralLegacy } from '../model/game/data/game-data-ancestral-legacy';
 import { GameDataAttribute } from '../model/game/data/game-data-attribute';
@@ -27,7 +26,6 @@ import {
 } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
-import { SlormancerReaperValueService } from './slormancer-reaper-value.service';
 
 @Injectable()
 export class SlormancerTemplateService {
@@ -45,8 +43,7 @@ export class SlormancerTemplateService {
     public readonly RETURN_REGEXP = /#/g;
 
     constructor(private slormancerDataService: SlormancerDataService,
-                private slormancerItemValueService: SlormancerItemValueService,
-                private slormancerReaperValueService: SlormancerReaperValueService) { }
+                    private slormancerItemValueService: SlormancerItemValueService) { }
 
     public asSpan(content: string, className: string): string {
         return '<span class="' + className + '">' + content + '</span>';
@@ -104,16 +101,6 @@ export class SlormancerTemplateService {
         return formula === null ? '' : this.asSpan(' (' + formula + ')', 'formula');
     }
 
-    private applyItemEffectValueVariable(template: string, baseValue: number, effectValue: EffectValueVariable, reinforcment: number, anchor: string): string {
-        const computed = this.slormancerItemValueService.computeEffectVariableDetails(effectValue, baseValue, reinforcment);
-        const percent = computed.percent ? '%' : '';
-
-        const value = this.asSpan(computed.value + percent, 'value')
-        const formula = this.computedItemValueToFormula(computed);
-
-        return this.replaceAnchor(template, value + formula, anchor);
-    }
-
     private applySkillEffectValueVariable(template: string, baseValue: number, effectValue: EffectValueVariable, reinforcment: number, anchor: string): string {
         const computed = this.slormancerItemValueService.computeEffectVariableDetails(effectValue, baseValue, reinforcment);
         const percent = computed.percent ? '%' : '';
@@ -125,68 +112,10 @@ export class SlormancerTemplateService {
         return this.replaceAnchor(template, value + max + formula, anchor);
     }
 
-    private computedReaperVariableToFormula(effect: EffectValueVariable): string {
-        const formula = (effect.upgrade > 0 ? '+' : '') + effect.upgrade + ' per ' + this.translate('level');
-        return formula === null ? '' : this.asSpan(' (' + formula + ')', 'details');
-    }
-
-    private computedReaperSynergyToFormula(effect: EffectValueSynergy): string {
-        let formula = '';
-        if (effect.upgrade !== 0) {
-            formula = (effect.upgrade >= 0 ? '+' : '') + effect.upgrade + '% ' + this.translate(effect.source) + ' per ' + this.translate('level');
-        } else {
-            formula = effect.value + '% ' + this.translate(effect.source);
-        }
-        return formula === null ? '' : this.asSpan(' (' + formula + ')', 'details');
-    }
-
-    private applyReaperEffectValueVariable(template: string, effectValue: EffectValueVariable, level: number, nonPrimordialLevel: number, anchor: string): string {
-        const computed = this.slormancerReaperValueService.computeEffectVariableValue(effectValue, level, nonPrimordialLevel);
-        const percent = effectValue.percent ? '%' : '';
-
-        let value = this.asSpan(computed.toString(), 'value') + percent;
-        if (effectValue.upgrade !== 0) {
-            value += this.computedReaperVariableToFormula(effectValue);
-        }
-
-        return this.replaceAnchor(template, value, anchor);
-    }
-
-    private applyReaperEffectValueSynergy(template: string, effectValue: EffectValueSynergy, anchor: string) {
-        const computed = this.slormancerReaperValueService.computeEffectSynergyValue(effectValue);
-        
-        let value = this.asSpan(typeof computed === 'number' ? computed.toString() : computed.min + ' - ' + computed.max, 'value');
-        if (effectValue.valueType === EffectValueValueType.Damage && typeof computed !== 'number') {
-            value += this.computedReaperSynergyToFormula(effectValue);
-        }
-        
-        return this.replaceAnchor(template, value, anchor);
-    }
-
     private applyEffectValueConstant(template: string, value: EffectValueConstant, anchor: string): string {
         const percent = value.percent ? '%' : '';
         const max = this.computeMax(value, value.percent);
         return this.replaceAnchor(template, this.asSpan(value.value.toString(), 'value') + percent + max, anchor);
-    }
-
-    private applyEffectValueSynergyForActivable(template: string, baseValue: number, effectValue: EffectValueSynergy, reinforcment: number, valueAnchor: string,  synergyAnchor: string): string {
-        const computed = this.slormancerItemValueService.computeEffectSynergyDetails(effectValue, baseValue, reinforcment);
-        const formula = this.computedItemValueToFormula(computed);
-
-        if (computed.synergy !== null) {
-            let synergy: string | null = null;
-
-            if (typeof computed.synergy === 'number') {
-                synergy = this.asSpan(computed.synergy.toString(), 'value');
-                template = this.replaceAnchor(template, synergy, valueAnchor);
-                template = this.replaceAnchor(template, this.asSpan(computed.value + '%', 'value') + formula, synergyAnchor);
-            } else {
-                synergy = this.asSpan(computed.synergy.min + ' - ' + computed.synergy.max, 'value');
-                template = this.replaceAnchor(template, synergy + formula, synergyAnchor);
-            }
-        }
-
-        return template;
     }
 
     private applyEffectValueSynergyForSkill(template: string, baseValue: number, effectValue: EffectValueSynergy, reinforcment: number, valueAnchor: string,  synergyAnchor: string): string {
@@ -256,24 +185,6 @@ export class SlormancerTemplateService {
         return template;
     }
 
-    public formatActivableDescription(template: string, values: Array<AbstractEffectValue>): string {
-        for (let effectValue of values) {
-            if (isEffectValueVariable(effectValue)) {
-                template = this.applyItemEffectValueVariable(template, 0, effectValue, 0, this.VALUE_ANCHOR);
-            } else if (isEffectValueConstant(effectValue)) {
-                const anchor = findFirst(template, this.CONSTANT_ANCHORS);
-                if (anchor !== null) {
-                    template = this.applyEffectValueConstant(template, effectValue, anchor);
-                }
-            } else if (isEffectValueSynergy(effectValue)) {
-                template = this.applyEffectValueSynergyForActivable(template, 0, effectValue, 0, this.VALUE_ANCHOR, this.SYNERGY_ANCHOR);
-            }
-            
-        }
-
-        return template;
-    }
-
     private getEffectValueDetails(effectValue: EffectValueVariable | EffectValueSynergy): string {
         let result = '';
         const percent = (effectValue.percent || isEffectValueSynergy(effectValue)) ? '%' : '';
@@ -281,12 +192,16 @@ export class SlormancerTemplateService {
         if (effectValue.upgrade > 0) {
             const sign = effectValue.upgrade < 0 ? '-' : '+';
             const base = (effectValue.baseValue + effectValue.upgrade) + percent;
-            const upgrade = sign + ' ' + Math.abs(effectValue.upgrade) + percent;
+            const upgrade = Math.abs(effectValue.upgrade) + percent;
 
             if (effectValue.upgradeType === EffectValueUpgradeType.Mastery) {
-                result = base + ' ' + upgrade + ' per mastery level';
+                result = base + ' ' + sign + ' ' + upgrade + ' per mastery level';
             } else if (effectValue.upgradeType === EffectValueUpgradeType.Every3) {
-                result = base + ' ' + upgrade + ' every third mastery level';
+                result = base + ' ' + sign + ' ' + upgrade + ' every third mastery level';
+            } else if (effectValue.upgradeType === EffectValueUpgradeType.ReaperLevel) {
+                result = sign + upgrade + ' per Level';
+            } else if (effectValue.upgradeType === EffectValueUpgradeType.NonPrimordialReaperLevel) {
+                result = sign + upgrade + ' per Non-Primordial Level';
             } else {
                 result = base + ' ' + upgrade + ' every ' + effectValue.upgradeType;
             }
@@ -299,6 +214,30 @@ export class SlormancerTemplateService {
 
     private formatValue(value: number | MinMax, percent: boolean): string {
         return typeof value === 'number' ? value.toString() + (percent ? '%' : '') : (value.min + ' - ' + value.max);
+    }
+
+    public formatActivableDescription(template: string, effectValues: Array<AbstractEffectValue>): string {
+        for (let effectValue of effectValues) {
+            const percent = effectValue.percent ? '%' : '';
+
+            if (isEffectValueVariable(effectValue)) {
+                const value = this.asSpan(effectValue.value.toString() + percent, 'value');
+                const details = this.getEffectValueDetails(effectValue);
+                template = this.replaceAnchor(template, value + ' ' + details, this.VALUE_ANCHOR);
+            } else if (isEffectValueConstant(effectValue)) {
+                const anchor = findFirst(template, this.CONSTANT_ANCHORS);
+                if (anchor !== null) {
+                    const value = this.asSpan(effectValue.value.toString() + percent, 'value');
+                    template = this.replaceAnchor(template, value, anchor);
+                }
+            } else if (isEffectValueSynergy(effectValue)) {
+                const details = typeof effectValue.synergy === 'number' ? '' :  (' ' + this.getEffectValueDetails(effectValue));
+                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent), 'value');
+                template = this.replaceAnchor(template, synergy + details, this.VALUE_ANCHOR);
+            }
+        }
+
+        return template;
     }
 
     public formatSkillDescription(template: string, effectValues: Array<AbstractEffectValue>, level: number): string {
@@ -370,19 +309,25 @@ export class SlormancerTemplateService {
         return template;
     }
 
-    public formatReaperTemplate(template: string, values: Array<AbstractEffectValue>, level: number, nonPrimordialLevel: number): string {
-        for (let value of values) {
-            if (isEffectValueConstant(value)) {
+    public formatReaperTemplate(template: string, effectValues: Array<AbstractEffectValue>): string {
+        for (let effectValue of effectValues) {
+            const percent = effectValue.percent ? '%' : '';
+
+            if (isEffectValueVariable(effectValue)) {
+                const value = this.asSpan(effectValue.value.toString() + percent, 'value');
+                const details = this.getEffectValueDetails(effectValue);
+                template = this.replaceAnchor(template, value + ' ' + details, this.VALUE_ANCHOR);
+            } else if (isEffectValueConstant(effectValue)) {
                 const anchor = findFirst(template, this.CONSTANT_ANCHORS);
                 if (anchor !== null) {
-                    template = this.applyEffectValueConstant(template, value, anchor);
+                    const value = this.asSpan(effectValue.value.toString() + percent, 'value');
+                    template = this.replaceAnchor(template, value, anchor);
                 }
-            } else if (isEffectValueVariable(value)) {
-                template = this.applyReaperEffectValueVariable(template, value, level, nonPrimordialLevel, this.VALUE_ANCHOR);
-            } else if (isEffectValueSynergy(value)) {
-                template = this.applyReaperEffectValueSynergy(template, value, this.SYNERGY_ANCHOR);
-                template = template.replace(this.TYPE_ANCHOR, this.translate(value.source));
-            } else if (isEffectValueConstant(value)) {
+            } else if (isEffectValueSynergy(effectValue)) {
+                const details = typeof effectValue.synergy === 'number' ? '' :  (' ' + this.getEffectValueDetails(effectValue));
+                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent), 'value');
+                template = this.replaceAnchor(template, synergy + details, this.SYNERGY_ANCHOR);
+                template = this.replaceAnchor(template, this.translate(effectValue.source), this.TYPE_ANCHOR);
             }
         }
 
@@ -453,7 +398,7 @@ export class SlormancerTemplateService {
         return template;
     }
 
-    public getReaperDescriptionTemplate(template: string, stats: Array<string> = []): [string, string, string] {
+    public prepareReaperDescriptionTemplate(template: string, stats: Array<string> = []): [string, string, string] {
         template = this.injectStatsToTemplates(template, stats);
 
         if (template.startsWith('*')) {
@@ -467,7 +412,9 @@ export class SlormancerTemplateService {
             
         return <[string, string, string]>splitData(template, '/')
                 .map(t => this.normalizeTemplate(t))
-                .map(t => t.replace(/\.\*(.+)/g, '.<br/><br/>$1').replace(/\*(.+)/g, '<br/>$1').replace(/\*/, ''));
+                .map(t => t.replace(/\.\*(.+)/g, '.<br/><br/>$1')
+                           .replace(/\*(.+?)/g, '<br/>$1')
+                           .replace(/\*/, ''));
     }
 
     public getReaperLoreTemplate(template: string): string {
@@ -479,16 +426,28 @@ export class SlormancerTemplateService {
     }
 
     private injectStatsToTemplates(template: string, stats: Array<string> = []): string {
-        return stats.map(stat => this.translate(stat))
-        .reduce((desc, stat) => desc.replace(this.STAT_ANCHOR, stat), template);
+        for (const stat of stats) {
+            template = template.replace(this.STAT_ANCHOR, this.translate(stat));
+        }
+
+        return template;
     }
 
-    private injectTypesToTemplates(template: string, types: Array<string> = []): string {
-        return types
+    private injectSynergyTypesToTemplates(template: string, synergies: Array<string> = []): string {
+        synergies = synergies
             .map(synergy => this.getSynergyType(synergy))
-            .filter(isNotNullOrUndefined)
-            .map(synergy => this.translate(synergy))
-            .reduce((desc, synergy) => desc.replace(this.TYPE_ANCHOR, synergy), template);
+            .filter(isNotNullOrUndefined);
+
+        for (const synergy of synergies) {
+            let translated = this.translate(synergy);
+
+            if (synergy.startsWith('victims_reaper_')) {
+                translated = translated.replace('$', '{weaponClass}')
+            }
+
+            template = template.replace(this.TYPE_ANCHOR, translated);
+        }
+        return template;
     }
 
     private normalizeTemplate(template: string): string {
@@ -502,7 +461,7 @@ export class SlormancerTemplateService {
 
     private parseTemplate(template: string, stats: Array<string> = [], types: Array<string> = []): string {
         template = this.injectStatsToTemplates(template, stats)
-        template = this.injectTypesToTemplates(template, types);
+        template = this.injectSynergyTypesToTemplates(template, types);
         template = this.normalizeTemplate(template);
 
         return template;
@@ -584,20 +543,6 @@ export class SlormancerTemplateService {
         return template;
     }
     
-    public getReaperType(reaperClass: HeroClass): string {
-        return this.translate('weapon_' + reaperClass);
-    }
-
-    public getReaperName(name: string, reaperClass: HeroClass, primordial: boolean): string {
-        let type = this.getReaperType(reaperClass);
-        
-        if (primordial) {
-            type = this.replaceAnchor(this.translate('tt_reaper_corrupted'), type , this.VALUE_ANCHOR)
-        }
-
-        return this.replaceAnchor(name, type, this.TYPE_ANCHOR);
-    }
-
     public formatItemAffixValue(itemAffix: Affix): string {
         let result = this.applyEffectValueConstant('+' + this.VALUE_ANCHOR, itemAffix.craftedEffect.effect, this.VALUE_ANCHOR);
 

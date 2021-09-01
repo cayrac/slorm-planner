@@ -2,17 +2,25 @@ import { Injectable } from '@angular/core';
 
 import { DATA_REAPER_LEVEL } from '../constants/data/data-reaper-level';
 import { Activable } from '../model/activable';
-import { AbstractEffectValue } from '../model/effect-value';
+import { AbstractEffectValue, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
+import { EffectValueType } from '../model/enum/effect-value-type';
+import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
+import { EffectValueValueType } from '../model/enum/effect-value-value-type';
 import { HeroClass } from '../model/enum/hero-class';
 import { GameDataReaper } from '../model/game/data/game-data-reaper';
-import { GameWeapon } from '../model/game/game-save';
-import { MinMax } from '../model/minmax';
 import { Reaper, ReaperTemplates } from '../model/reaper';
-import { ReaperBuilder } from '../model/reaper-builder';
 import { ReaperEffect } from '../model/reaper-effect';
 import { list } from '../util/math.util';
 import { strictParseFloat } from '../util/parse.util';
-import { compare, isNotNullOrUndefined, notEmptyOrNull, removeEmptyValues, splitData, valueOrNull } from '../util/utils';
+import {
+    compare,
+    isNotNullOrUndefined,
+    notEmptyOrNull,
+    removeEmptyValues,
+    splitData,
+    valueOrDefault,
+    valueOrNull,
+} from '../util/utils';
 import { SlormancerActivableService } from './slormancer-activable.service';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerEffectValueService } from './slormancer-effect-value.service';
@@ -21,11 +29,14 @@ import { SlormancerTemplateService } from './slormancer-template.service';
 @Injectable()
 export class SlormancerReaperService {
 
-    public readonly BENEDICTION_LABEL = this.slormancerTemplateService.translate('tt_ancient_bonus');
-    public readonly MALEDICTION_LABEL = this.slormancerTemplateService.translate('tt_ancient_malus');
-    public readonly VICTIMS_LABEL = this.slormancerTemplateService.translate('tt_victims');
-    public readonly LEVEL_LABEL = this.slormancerTemplateService.translate('level');
-    public readonly REAPERSMITH_LABEL = this.slormancerTemplateService.translate('weapon_reapersmith_light');
+    private readonly BENEDICTION_LABEL = this.slormancerTemplateService.translate('tt_ancient_bonus');
+    private readonly MALEDICTION_LABEL = this.slormancerTemplateService.translate('tt_ancient_malus');
+    private readonly VICTIMS_LABEL = this.slormancerTemplateService.translate('tt_victims');
+    private readonly LEVEL_LABEL = this.slormancerTemplateService.translate('level');
+    private readonly REAPERSMITH_LABEL = this.slormancerTemplateService.translate('weapon_reapersmith_light');
+    private readonly PRIMORDIAL_REAPER_LABEL = this.slormancerTemplateService.translate('tt_reaper_corrupted');
+
+    private readonly DESCRIPTION_SKILL_REGEXP = /act:[0-9]+/g;
 
     public readonly MAX_REAPER_BONUS = 55;
 
@@ -34,75 +45,14 @@ export class SlormancerReaperService {
                 private slormancerEffectValueService: SlormancerEffectValueService,
                 private slormancerActivableService: SlormancerActivableService) { }
 
-    public getReaper(reaper: GameWeapon, weaponClass: HeroClass, primordial: boolean, bonusLevel: number = 0): Reaper | null {
-        const level = this.getReaperLevel(reaper.basic.experience);
-        const levelPrimordial = this.getReaperLevel(reaper.primordial.experience);
-        return this.getReaperById(reaper.id, weaponClass, primordial, level, levelPrimordial, reaper.basic.kills, reaper.primordial.kills, bonusLevel);
-    }
-
-    public getReaperById(id: number, weaponClass: HeroClass, primordial: boolean, level: number, levelPrimordial: number, kills: number, killsPrimordial: number, bonusLevel: number = 0): Reaper | null {
-        const gameData = this.slormancerDataService.getGameDataReaper(id);
-        const damagesRange = this.slormancerDataService.getDataReaperDamages(id);
-        let result: Reaper | null = null;
-
-        if (gameData !== null && damagesRange !== null) {
-            const templates = this.getReaperTemplates(gameData);
-            result = {
-                id,
-                weaponClass,
-                type: this.slormancerTemplateService.getReaperType(weaponClass),
-                icon: '',
-                primordial,
-                level: 0,
-                bonusLevel,
-                kills,
-                name: '',
-                description: '',
-                benediction: null,
-                malediction: null,
-                lore: this.slormancerTemplateService.getReaperLoreTemplate(gameData.EN_LORE),
-                templates,
-                smith: this.getReaperSmith(gameData.BLACKSMITH),
-                damagesRange,
-                damageType: 'weapon_damage',
-                maxLevel: gameData.MAX_LVL,
-                maxLevelWithBonuses: gameData.MAX_LVL + this.MAX_REAPER_BONUS,
-                damages: { min: 0, max: 0 },
-                maxDamagesWithBonuses: { min: 0, max: 0 },
-                baseInfo: {
-                    kills: kills,
-                    level: Math.min(level, gameData.MAX_LVL)
-                },
-                primordialInfo: {
-                    kills: killsPrimordial,
-                    level: Math.min(levelPrimordial, gameData.MAX_LVL)
-                }
-            } as Reaper;
-
-            this.updateReaper(result);
+    private getReaperName(reaper: Reaper): string {
+        let type = reaper.type
+        
+        if (reaper.primordial) {
+            type = this.slormancerTemplateService.replaceAnchor(this.PRIMORDIAL_REAPER_LABEL, type , this.slormancerTemplateService.VALUE_ANCHOR);
         }
 
-        return result
-    }
-
-    private getReaperDamages(reaper: Reaper, level: number): MinMax {
-        let result: MinMax | null = valueOrNull(reaper.damagesRange[level]);
-
-        if (result === null) {
-            const keys = Array.from(Object.keys(reaper.damagesRange)).map(parseInt);
-            
-            let closest = <number>keys[0];
-
-            for (const key of keys) {
-                if (key > closest && key <= level) {
-                    closest = key;
-                }
-            }
-
-            result = <MinMax>reaper.damagesRange[closest];
-        }
-
-        return result;
+        return this.slormancerTemplateService.replaceAnchor(reaper.templates.name, type, this.slormancerTemplateService.TYPE_ANCHOR);
     }
 
     private getReaperLevel(xp: number): number {
@@ -123,11 +73,9 @@ export class SlormancerReaperService {
         return level;
     }
 
-    private getReaperSmith(id: number): ReaperBuilder {
-        return {
-            id,
-            name: ''
-        }
+    private getReaperMinimumLevel(reaperId: number): number {
+        const parents = this.slormancerDataService.getParentsGameDataReaper(reaperId);
+        return Math.max(...parents.map(parent => parent.MAX_LVL, 1))
     }
 
     private getReaperParents(gameData: GameDataReaper): Array<GameDataReaper> {
@@ -147,6 +95,74 @@ export class SlormancerReaperService {
         return result.sort((a, b) => compare(a.REF, b.REF));
     }
 
+    private parseUpgradeType(upgradeType: string | null): EffectValueUpgradeType {
+        let result: EffectValueUpgradeType = EffectValueUpgradeType.ReaperLevel;
+
+        if (upgradeType === 'rl') {
+            result = EffectValueUpgradeType.ReaperLevel;
+        } else if (upgradeType === 'rln') {
+            result = EffectValueUpgradeType.NonPrimordialReaperLevel;
+        }
+
+        return result;
+    }
+
+    private parseReaperEffectVariableValue(base: number, level: string | null, type: string | null): AbstractEffectValue {
+        let result: AbstractEffectValue;
+
+        if (level === null) {
+            result = {
+                type: EffectValueType.Variable,
+                value: 0,
+                upgrade: 0,
+                baseValue: base,
+                upgradeType: EffectValueUpgradeType.ReaperLevel,
+                range: false,
+                percent: type === '%',
+                valueType: EffectValueValueType.Unknown,
+                stat: null
+            } as EffectValueVariable;
+        } else {
+            result = {
+                type: EffectValueType.Variable,
+                value: 0,
+                baseValue: 0,
+                upgrade: base,
+                upgradeType: this.parseUpgradeType(level),
+                range: false,
+                percent: type === '%',
+                valueType: EffectValueValueType.Unknown,
+                stat: null
+            } as EffectValueVariable;
+        }
+
+        return result;        
+    }
+
+    private parseReaperEffectSynergyValue(real: string | null): AbstractEffectValue {
+        let result: AbstractEffectValue;
+
+        const typeValues = splitData(real, ':');
+        const source = <string>typeValues[1];
+        const brutValue = <string>typeValues[2];
+        const isVariable = brutValue.indexOf('*') !== -1;
+        const [upgrade, upgradeType] = splitData(brutValue, '*');
+
+        result = {
+            type: EffectValueType.Synergy,
+            value: 0,
+            baseValue: isVariable ? 0 : strictParseFloat(brutValue),
+            upgrade: isVariable ? strictParseFloat(<string>upgrade) : 0,
+            upgradeType: this.parseUpgradeType(valueOrNull(upgradeType)),
+            percent: false,
+            source,
+            valueType: EffectValueValueType.Unknown,
+            stat: null
+        } as EffectValueSynergy;
+        
+        return result;   
+    }
+
     private getReaperValues(bases: Array<string>, types: Array<string>, levels: Array<string>, reals: Array<string>): Array<AbstractEffectValue> {
         const result: Array<AbstractEffectValue> = [];
         
@@ -159,12 +175,12 @@ export class SlormancerReaperService {
             const parsedBase = base === null ? null : strictParseFloat(base);
 
             if (parsedBase !== null) {
-                result.push(this.slormancerEffectValueService.parseReaperEffectVariableValue(parsedBase, level, type));
+                result.push(this.parseReaperEffectVariableValue(parsedBase, level, type));
             }
         }
 
         for (let real of reals) {
-            result.push(this.slormancerEffectValueService.parseReaperEffectSynergyValue(real));
+            result.push(this.parseReaperEffectSynergyValue(real));
         }
         
         return result;
@@ -185,10 +201,6 @@ export class SlormancerReaperService {
         return result;
     }
 
-    private removeSkillsFromTemplate(desc: string): string {
-        return desc.replace(/act:[0-9]+/g, '');
-    }
-
     private getReaperTemplates(gameData: GameDataReaper): ReaperTemplates {
         const gameDatas = this.getReaperParents(gameData);
 
@@ -202,12 +214,13 @@ export class SlormancerReaperService {
         for (const data of gameDatas) {
             const stats = splitData(data.VALUE_STAT, '\n')
                 .map(stats => splitData(stats, '|'))
-                .reduce((stats, total) => [...stats, ...total] , []);
+                .reduce((stats, total) => [...stats, ...total] , [])
+                .filter(notEmptyOrNull);
 
-            const template = this.removeSkillsFromTemplate(data.EN_DESC);
+            const template = data.EN_DESC.replace(this.DESCRIPTION_SKILL_REGEXP, '');
 
             const [baseTemplate, benedictionTemplate, maledictionTemplate] =
-                this.slormancerTemplateService.getReaperDescriptionTemplate(template, removeEmptyValues(stats));
+                this.slormancerTemplateService.prepareReaperDescriptionTemplate(template, stats);
 
             const [descBase, benedictionBase, maledictionBase] = splitData(data.VALUE_BASE, '\n');
             const [descType, benedictionType, maledictionType] = splitData(data.VALUE_TYPE, '\n');
@@ -239,8 +252,8 @@ export class SlormancerReaperService {
             benediction.push(benedictionEffect);
             malediction.push(maledictionEffect);
 
-            skills = [...skills, ...this.slormancerActivableService.getReaperActivable(data.REF)];
-            primordialSkills = [...primordialSkills, ...this.slormancerActivableService.getPrimordialReaperActivable(data.REF)];
+            skills = [...skills, ...this.slormancerActivableService.getReaperActivable(data.REF, 0)];
+            primordialSkills = [...primordialSkills, ...this.slormancerActivableService.getPrimordialReaperActivable(data.REF, 0)];
         }
 
         return {
@@ -248,18 +261,18 @@ export class SlormancerReaperService {
             base: base.filter(isNotNullOrUndefined),
             benediction: benediction.filter(isNotNullOrUndefined),
             malediction: malediction.filter(isNotNullOrUndefined),
-            skills,
+            activables: skills,
             primordialSkills
         }
     }
 
-    private formatTemplate(reaperEffects: Array<ReaperEffect>, reaper: Reaper): string {
+    private formatTemplate(reaperEffects: Array<ReaperEffect>): string {
         let contents: Array<string> = [];
         let stats: Array<string> = [];
         let effects: Array<string> = [];
         for (let reaperEffect of reaperEffects) {
             if (reaperEffect.template !== null) {
-                const template = this.slormancerTemplateService.formatReaperTemplate(reaperEffect.template, reaperEffect.values, reaper.level + reaper.bonusLevel, reaper.baseInfo.level);
+                const template = this.slormancerTemplateService.formatReaperTemplate(reaperEffect.template, reaperEffect.values);
                 const [stat, effect] = splitData(template);
                 stats.push(<string>stat);
                 effects.push(<string>effect);
@@ -268,34 +281,103 @@ export class SlormancerReaperService {
         contents.push(removeEmptyValues(stats).join('<br/>'));
         contents.push(removeEmptyValues(effects).join('<br/><br/>'));
         return removeEmptyValues(contents).join('<br/><br/>');
-        // TODO rajouter traductions sur activable-view
     }
+
+    public getReaper(id: number, weaponClass: HeroClass, primordial: boolean, xp: number, xpPrimordial: number, kills: number, killsPrimordial: number, bonusLevel: number = 0): Reaper | null {
+        const gameData = this.slormancerDataService.getGameDataReaper(id);
+        const damagesRange = this.slormancerDataService.getDataReaperDamages(id);
+        let result: Reaper | null = null;
+
+        const level = this.getReaperLevel(xp);
+        const levelPrimordial = this.getReaperLevel(xpPrimordial);
+
+        if (gameData !== null && damagesRange !== null) {
+            result = {
+                id,
+                weaponClass,
+                type: this.slormancerTemplateService.translate('weapon_' + weaponClass),
+                icon: '',
+                primordial,
+                level: 0,
+                baseLevel: level,
+                bonusLevel,
+                kills,
+                name: '',
+                description: '',
+                benediction: null,
+                malediction: null,
+                lore: this.slormancerTemplateService.getReaperLoreTemplate(gameData.EN_LORE),
+                templates: this.getReaperTemplates(gameData),
+                smith: { id: gameData.BLACKSMITH, name: '' },
+                damagesRange,
+                damageType: 'weapon_damage',
+                minLevel: this.getReaperMinimumLevel(id),
+                maxLevel: gameData.MAX_LVL,
+                maxLevelWithBonuses: gameData.MAX_LVL + this.MAX_REAPER_BONUS,
+                damages: { min: 0, max: 0 },
+                maxDamagesWithBonuses: { min: 0, max: 0 },
+                baseInfo: {
+                    kills: kills,
+                    level: Math.min(level, gameData.MAX_LVL)
+                },
+                primordialInfo: {
+                    kills: killsPrimordial,
+                    level: Math.min(levelPrimordial, gameData.MAX_LVL)
+                }
+            } as Reaper;
+
+            this.updateReaper(result);
+        }
+
+        return result
+    }
+
 
     public updateReaper(reaper: Reaper) {
         const info = reaper.primordial ? reaper.primordialInfo : reaper.baseInfo;
         
         reaper.icon = 'reaper_' + reaper.weaponClass + '_' + reaper.id + (reaper.primordial ? '_p' : '');
         reaper.kills = info.kills;
-        reaper.level = info.level;
-        reaper.damages = this.getReaperDamages(reaper, reaper.level + reaper.bonusLevel);
-        reaper.maxDamagesWithBonuses = this.getReaperDamages(reaper, reaper.maxLevelWithBonuses);
-        reaper.skills = reaper.templates.skills;
+        reaper.baseLevel = Math.max(reaper.minLevel, info.level);
+        reaper.bonusLevel = Math.max(0, Math.min(this.MAX_REAPER_BONUS, reaper.bonusLevel));
+        reaper.level = reaper.baseLevel + reaper.bonusLevel;
+        reaper.damages = valueOrDefault(reaper.damagesRange[reaper.level],  {min: 0, max: 0 });
+        reaper.maxDamagesWithBonuses = valueOrDefault(reaper.damagesRange[reaper.maxLevelWithBonuses],  {min: 0, max: 0 });
+        reaper.activables = reaper.templates.activables;
 
-        reaper.name = this.slormancerTemplateService.getReaperName(reaper.templates.name, reaper.weaponClass, reaper.primordial);
+        reaper.name = this.getReaperName(reaper);
 
-        reaper.description = this.formatTemplate(reaper.templates.base, reaper);
+        for (const reaperEffect of reaper.templates.base) {
+            for (const value of reaperEffect.values) {
+                this.slormancerEffectValueService.updateEffectValue(value, reaper.level);
+            }
+        }
+        for (const reaperEffect of reaper.templates.benediction) {
+            for (const value of reaperEffect.values) {
+                this.slormancerEffectValueService.updateEffectValue(value, reaper.level);
+            }
+        }
+        for (const reaperEffect of reaper.templates.malediction) {
+            for (const value of reaperEffect.values) {
+                this.slormancerEffectValueService.updateEffectValue(value, reaper.level);
+            }
+        }
+
+        reaper.description = this.formatTemplate(reaper.templates.base);
 
         if (reaper.primordial) {
-            reaper.benediction = this.formatTemplate(reaper.templates.benediction, reaper);
-            reaper.malediction = this.formatTemplate(reaper.templates.malediction, reaper);
-            reaper.skills = [...reaper.skills, ...reaper.templates.primordialSkills];
+            reaper.benediction = this.formatTemplate(reaper.templates.benediction);
+            reaper.malediction = this.formatTemplate(reaper.templates.malediction);
+            reaper.activables = [...reaper.activables, ...reaper.templates.primordialSkills];
         } else {
             reaper.benediction = null;
             reaper.malediction = null;
         }
 
-        for (const skill of reaper.skills) {
-            this.slormancerActivableService.updateActivable(skill);
+        for (const activable of reaper.activables) {
+            activable.level = reaper.level;
+            this.slormancerActivableService.updateActivable(activable);
+            activable.description = activable.description.replace('{weaponClass}', reaper.type)
         }
 
 
@@ -303,7 +385,7 @@ export class SlormancerReaperService {
         reaper.smithLabel = this.slormancerTemplateService.replaceAnchor(this.REAPERSMITH_LABEL, reaper.smith.name, this.slormancerTemplateService.TYPE_ANCHOR);
         reaper.victimsLabel = reaper.kills + ' ' + this.VICTIMS_LABEL;
         reaper.levelLabel = this.LEVEL_LABEL + ' : '
-            + (reaper.maxLevel === reaper.level ? 'Max(' + reaper.level + ')' : reaper.level)
+            + (reaper.maxLevel === reaper.baseLevel ? 'Max(' + reaper.baseLevel + ')' : reaper.baseLevel)
             + (reaper.bonusLevel > 0 ? this.slormancerTemplateService.asSpan('+' + reaper.bonusLevel, 'bonus-level') : '');
         reaper.damageTypeLabel = this.slormancerTemplateService.translate(reaper.damageType);
         reaper.benedictionTitleLabel = this.BENEDICTION_LABEL;
