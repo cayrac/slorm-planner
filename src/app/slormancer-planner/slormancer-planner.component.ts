@@ -24,7 +24,7 @@ import { SlormancerLegendaryEffectService } from '../slormancer/services/slorman
 import { SlormancerReaperService } from '../slormancer/services/slormancer-reaper.service';
 import { SlormancerSaveParserService } from '../slormancer/services/slormancer-save-parser.service';
 import { SlormancerSkillService } from '../slormancer/services/slormancer-skill.service';
-import { SlormancerTemplateService } from '../slormancer/services/slormancer-template.service';
+import { SlormancerTranslateService } from '../slormancer/services/slormancer-translate.service';
 import { list } from '../slormancer/util/math.util';
 import { enumValues, valueOrNull } from '../slormancer/util/utils';
 import { SAVE } from './save';
@@ -48,7 +48,7 @@ export class SlormancerPlannerComponent implements OnInit {
     public readonly DATA_OPTIONS = Array.from(Object.keys(DATA_REAPER_DAMAGES)).map(v => parseInt(v)).map(key => ({ value: key, label: (DATA_REAPER_DAMAGES[key] as DataReaperDamages).name }));
 
     public readonly ATTRIBUTE_OPTIONS: Array<{ label: string, attribute: Attribute }> = enumValues(Attribute)
-            .map(attribute => ({ label: this.slormancerTemplateService.translate('character_trait_' + attribute), attribute: attribute }));
+            .map(attribute => ({ label: this.slormancerTranslateService.translate('character_trait_' + attribute), attribute: attribute }));
 
     public readonly ATTRIBUTE_POINTS: Array<{ label: string, value: number }> = list(76)
             .map(points => ({ label: points.toString(), value: points }));
@@ -108,7 +108,7 @@ export class SlormancerPlannerComponent implements OnInit {
                 private slormancerDataService: SlormancerDataService,
                 private slormancerItemService: SlormancerItemService,
                 private slormancerReaperService: SlormancerReaperService,
-                private slormancerTemplateService: SlormancerTemplateService,
+                private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerAttributeService: SlormancerAttributeService,
                 private slormancerAncestralLegacyService: SlormancerAncestralLegacyService) {
         this.selectData();

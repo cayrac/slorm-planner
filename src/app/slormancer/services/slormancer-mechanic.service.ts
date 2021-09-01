@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 
 import { MechanicType } from '../model/enum/mechanic-type';
 import { Mechanic } from '../model/mechanic';
-import { SlormancerTemplateService } from './slormancer-template.service';
+import { SlormancerTranslateService } from './slormancer-translate.service';
 
 @Injectable()
 export class SlormancerMechanicService {
 
-    constructor(private slormancerTemplateService: SlormancerTemplateService) { }
+    constructor(private slormancerTranslateService: SlormancerTranslateService) { }
 
     private getName(type: MechanicType): string {
         let key = 'tt_' + type + '_name';
@@ -16,7 +16,7 @@ export class SlormancerMechanicService {
             key = 'tt_mechanic_' + type;
         }
 
-        return this.slormancerTemplateService.translate(key);
+        return this.slormancerTranslateService.translate(key);
     }
     private getDescription(type: MechanicType): string {
         let key = 'tt_help_' + type + '_effect';
@@ -25,7 +25,7 @@ export class SlormancerMechanicService {
             key = 'tt_mechanic_' + type + '_effect';
         }
 
-        return this.slormancerTemplateService.translate(key);
+        return this.slormancerTranslateService.translate(key);
     }
 
     public getMechanic(type: MechanicType): Mechanic {

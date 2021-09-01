@@ -23,19 +23,21 @@ import {
 } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
+import { SlormancerTranslateService } from './slormancer-translate.service';
 
 @Injectable()
 export class SlormancerAttributeService {
 
     private readonly MAX_RANK = 75;
 
-    private readonly TRAIT_LEVEL_LABEL = this.slormancerTemplateService.translate('trait_level');
-    private readonly TRAIT_LOCKED_LABEL = this.slormancerTemplateService.translate('trait_locked');
-    private readonly TRAIT_DEFAULT_LABEL = this.slormancerTemplateService.translate('trait_default');
-    private readonly TRAIT_RECAP_ALL_LABEL = this.slormancerTemplateService.translate('trait_recap_all');
-    private readonly TRAIT_RECAP_LABEL = this.slormancerTemplateService.translate('trait_recap');
+    private readonly TRAIT_LEVEL_LABEL = this.slormancerTranslateService.translate('trait_level');
+    private readonly TRAIT_LOCKED_LABEL = this.slormancerTranslateService.translate('trait_locked');
+    private readonly TRAIT_DEFAULT_LABEL = this.slormancerTranslateService.translate('trait_default');
+    private readonly TRAIT_RECAP_ALL_LABEL = this.slormancerTranslateService.translate('trait_recap_all');
+    private readonly TRAIT_RECAP_LABEL = this.slormancerTranslateService.translate('trait_recap');
 
     constructor(private slormancerTemplateService: SlormancerTemplateService,
+                private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerDataService: SlormancerDataService) { }
      
     private isDamageStat(stat: string): boolean {
@@ -111,9 +113,9 @@ export class SlormancerAttributeService {
     }
 
     private updateTrait(trait: Trait) {
-        trait.attributeName = this.slormancerTemplateService.translate('character_trait_' + trait.attribute);
+        trait.attributeName = this.slormancerTranslateService.translate('character_trait_' + trait.attribute);
         trait.rankLabel = this.slormancerTemplateService.replaceAnchor(this.TRAIT_LEVEL_LABEL, trait.requiredRank, this.slormancerTemplateService.VALUE_ANCHOR);
-        trait.traitLevelLabel = this.slormancerTemplateService.translate(trait.traitLevel);
+        trait.traitLevelLabel = this.slormancerTranslateService.translate(trait.traitLevel);
         trait.unlocked = trait.requiredRank <= trait.rank;
         trait.unlockLabel = trait.unlocked ? null : this.slormancerTemplateService.replaceAnchor(this.TRAIT_LOCKED_LABEL, trait.requiredRank - trait.rank, this.slormancerTemplateService.VALUE_ANCHOR);
         
@@ -168,7 +170,7 @@ export class SlormancerAttributeService {
             traits: this.buildTraits(traits, attribute),
         
             recapLabel: this.TRAIT_RECAP_ALL_LABEL,
-            attributeName: this.slormancerTemplateService.translate('character_trait_' + attribute),
+            attributeName: this.slormancerTranslateService.translate('character_trait_' + attribute),
             title: this.TRAIT_RECAP_LABEL,
             icon: 'attribute/summary/' + attribute,
             summary: '',

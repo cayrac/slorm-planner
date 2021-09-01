@@ -23,16 +23,18 @@ import { SlormancerActivableService } from './slormancer-activable.service';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
+import { SlormancerTranslateService } from './slormancer-translate.service';
 
 
 @Injectable()
 export class SlormancerLegendaryEffectService {
 
-    private readonly LEGENDARY_TITLE = this.slormancerTemplateService.translate('tt_l_roll');
+    private readonly LEGENDARY_TITLE = this.slormancerTranslateService.translate('tt_l_roll');
 
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormanderActivableService: SlormancerActivableService,
                 private slormancerTemplateService: SlormancerTemplateService,
+                private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerItemValueService: SlormancerItemValueService
                 ) { }
 

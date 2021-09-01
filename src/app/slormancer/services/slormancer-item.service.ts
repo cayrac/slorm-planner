@@ -28,22 +28,21 @@ import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
 import { SlormancerLegendaryEffectService } from './slormancer-legendary-effect.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
+import { SlormancerTranslateService } from './slormancer-translate.service';
 
 @Injectable()
 export class SlormancerItemService {
 
-    private readonly REAPER_ENCHANTMENT_LABEL = this.slormancerTemplateService.translate('tt_RP_roll_item');
-    private readonly SKILL_ENCHANTMENT_LABEL = this.slormancerTemplateService.translate('tt_MA_roll_item');
-    private readonly RARE_PREFIX = this.slormancerTemplateService.translate('RAR_loot_epic');
+    private readonly REAPER_ENCHANTMENT_LABEL = this.slormancerTranslateService.translate('tt_RP_roll_item');
+    private readonly SKILL_ENCHANTMENT_LABEL = this.slormancerTranslateService.translate('tt_MA_roll_item');
+    private readonly RARE_PREFIX = this.slormancerTranslateService.translate('RAR_loot_epic');
 
     private readonly AFFIX_ORDER = ['life', 'mana', 'ret', 'cdr', 'crit', 'minion', 'atk_phy', 'atk_mag', 'def_dodge', 'def_mag', 'def_phy', 'adventure'];
 
     private readonly AFFIX_DEF_POSSIBLE = ['crit', 'ret', 'mana', 'cdr', 'life'];
 
-    private readonly REGEXP_REMOVE_GENRE = /(.*)\(.*\)/g;
-    private readonly REGEXP_KEEP_GENRE = /.*\((.*)\)/g;
-
     constructor(private slormancerTemplateService: SlormancerTemplateService,
+                private slormancerTranslateService : SlormancerTranslateService,
                 private slormancerItemValueService : SlormancerItemValueService,
                 private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
                 private slormancerItemAffixService: SlormancerCraftedValueService,
@@ -99,22 +98,23 @@ export class SlormancerItemService {
               
                 const onDef = baseAffixes[1].startsWith('def') && this.AFFIX_DEF_POSSIBLE.indexOf(baseAffixes[0]) !== -1;
 
-                const baseName = this.slormancerTemplateService.translate('PIECE_loot_' + item.base.toUpperCase() + '_' + baseAffixes[1]);
-                resultFragments.push(baseName.replace(this.REGEXP_REMOVE_GENRE, '$1'));
-                genre = baseName.replace(this.REGEXP_KEEP_GENRE, '$1');
+                const baseName = this.slormancerTranslateService.translate('PIECE_loot_' + item.base.toUpperCase() + '_' + baseAffixes[1]);
+                const textAndGenre = this.slormancerTranslateService.splitTextAndGenre(baseName);
+                resultFragments.push(textAndGenre.text);
+                genre = textAndGenre.genre;
                 
-                const baseAdj = this.slormancerTemplateService.translate('NAME_loot_adj_' + baseAffixes[0] + (onDef ? '_ON_DEF' : ''), genre);
+                const baseAdj = this.slormancerTranslateService.translate('NAME_loot_adj_' + baseAffixes[0] + (onDef ? '_ON_DEF' : ''), genre);
                 resultFragments.unshift(baseAdj);
             }
     
             const magicAffixes = item.affixes.filter(affix => affix.rarity === Rarity.Magic);
             if (magicAffixes[0]) {
-                resultFragments.push(this.slormancerTemplateService.translate('SUF_loot_suf_' + magicAffixes[0].craftedEffect.effect.stat));
+                resultFragments.push(this.slormancerTranslateService.translate('SUF_loot_suf_' + magicAffixes[0].craftedEffect.effect.stat));
             }
     
             const rareAffixes = item.affixes.filter(affix => affix.rarity === Rarity.Rare);
             if (rareAffixes[0]) {
-                resultFragments.unshift(this.slormancerTemplateService.translate('PRE_loot_pre_' + rareAffixes[0].craftedEffect.effect.stat));
+                resultFragments.unshift(this.slormancerTranslateService.translate('PRE_loot_pre_' + rareAffixes[0].craftedEffect.effect.stat));
             }
 
             if (item.rarity === Rarity.Epic) {
@@ -272,10 +272,10 @@ export class SlormancerItemService {
     public updateEquippableItem(item: EquippableItem) {
         item.rarity = this.getItemRarity(item);
         item.name = this.getItemName(item);
-        item.baseLabel = this.slormancerTemplateService.translate('PIECE_' + item.base).replace(this.REGEXP_REMOVE_GENRE, '$1');
-        item.rarityLabel = this.slormancerTemplateService.translate('RAR_loot_' + item.rarity);
+        item.baseLabel =  this.slormancerTranslateService.removeGenre(this.slormancerTranslateService.translate('PIECE_' + item.base));
+        item.rarityLabel = this.slormancerTranslateService.translate('RAR_loot_' + item.rarity);
         item.icon = this.getItemIcon(item);
-        item.levelLabel = this.slormancerTemplateService.translate('lvl') + '. ' + item.level;
+        item.levelLabel = this.slormancerTranslateService.translate('lvl') + '. ' + item.level;
         item.itemIconBackground = 'background/bg-' + item.rarity;
 
         for (const affix of item.affixes) {
@@ -296,7 +296,7 @@ export class SlormancerItemService {
             item.reaperEnchantment.effect.value = value
             item.reaperEnchantment.effect.stat = 'increased_reapersmith_' + item.reaperEnchantment.craftedReaperSmith + '_level';
 
-            const smith = this.slormancerTemplateService.translate('weapon_reapersmith_' + item.reaperEnchantment.craftedReaperSmith);
+            const smith = this.slormancerTranslateService.translate('weapon_reapersmith_' + item.reaperEnchantment.craftedReaperSmith);
             const min = valueOrDefault(firstValue(item.reaperEnchantment.craftableValues), 0);
             const max = valueOrDefault(lastValue(item.reaperEnchantment.craftableValues), 0);
             item.reaperEnchantment.label = this.slormancerTemplateService.getReaperEnchantmentLabel(this.REAPER_ENCHANTMENT_LABEL, value, min, max, smith);
@@ -321,7 +321,7 @@ export class SlormancerItemService {
             item.attributeEnchantment.effect.value = value;
             item.attributeEnchantment.effect.stat = 'increased_attribute_' + item.attributeEnchantment.craftedAttribute + '_level';
 
-            const attributeName = this.slormancerTemplateService.translate('character_trait_' + item.attributeEnchantment.craftedAttribute);
+            const attributeName = this.slormancerTranslateService.translate('character_trait_' + item.attributeEnchantment.craftedAttribute);
             const min = valueOrDefault(firstValue(item.attributeEnchantment.craftableValues), 0);
             const max = valueOrDefault(lastValue(item.attributeEnchantment.craftableValues), 0);
             item.attributeEnchantment.label = this.slormancerTemplateService.getReaperEnchantmentLabel(this.SKILL_ENCHANTMENT_LABEL, value, min, max, attributeName);

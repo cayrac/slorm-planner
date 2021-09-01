@@ -4,7 +4,7 @@ import { SkillCostType } from '../../../slormancer/model/enum/skill-cost-type';
 import { SkillGenre } from '../../../slormancer/model/enum/skill-genre';
 import { SkillType } from '../../../slormancer/model/skill-type';
 import { SkillUpgrade } from '../../../slormancer/model/skill-upgrade';
-import { SlormancerTemplateService } from '../../../slormancer/services/slormancer-template.service';
+import { SlormancerTranslateService } from '../../../slormancer/services/slormancer-translate.service';
 
 @Component({
   selector: 'app-skill-upgrade-view',
@@ -21,21 +21,21 @@ export class SkillUpgradeViewComponent {
     @Input()
     public readonly upgrade: SkillUpgrade | null = null;
 
-    constructor(private slormancerTemplateService: SlormancerTemplateService) { }
+    constructor(private slormancerTranslateService: SlormancerTranslateService) { }
 
     public getCostLabel(costType: SkillCostType): string {
-        return this.slormancerTemplateService.translate('tt_' + costType);
+        return this.slormancerTranslateService.translate('tt_' + costType);
     }
 
     public getGenresLabel(genres: Array<SkillGenre>): string {
-        return genres.map(genre => this.slormancerTemplateService.translate(genre)).join(', ');
+        return genres.map(genre => this.slormancerTranslateService.translate(genre)).join(', ');
     }
 
     public getTypeLabel(type: SkillType): string {
-        return this.slormancerTemplateService.translate('tt_' + type);
+        return this.slormancerTranslateService.translate('tt_' + type);
     }
 
     public translate(key: string): string {
-        return this.slormancerTemplateService.translate(key);
+        return this.slormancerTranslateService.translate(key);
     }
 }

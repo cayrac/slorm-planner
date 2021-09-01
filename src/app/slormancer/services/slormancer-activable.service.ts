@@ -13,15 +13,17 @@ import { emptyStringToNull, splitData, splitFloatData, valueOrDefault, valueOrNu
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerEffectValueService } from './slormancer-effect-value.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
+import { SlormancerTranslateService } from './slormancer-translate.service';
 
 @Injectable()
 export class SlormancerActivableService {
 
-    private readonly COST_LABEL = this.slormancerTemplateService.translate('tt_cost');
-    private readonly COOLDOWN_LABEL = this.slormancerTemplateService.translate('tt_cooldown');
-    private readonly SECONDS_LABEL = this.slormancerTemplateService.translate('tt_seconds');
+    private readonly COST_LABEL = this.slormancerTranslateService.translate('tt_cost');
+    private readonly COOLDOWN_LABEL = this.slormancerTranslateService.translate('tt_cooldown');
+    private readonly SECONDS_LABEL = this.slormancerTranslateService.translate('tt_seconds');
 
     constructor(private slormancerTemplateService: SlormancerTemplateService,
+                private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerDataService: SlormancerDataService,
                 private slormancerEffectValueService: SlormancerEffectValueService) { }
 
@@ -139,7 +141,7 @@ export class SlormancerActivableService {
         activable.genresLabel =  null;
         if (activable.genres.length > 0) {
             activable.genresLabel = activable.genres
-                .map(genre => this.slormancerTemplateService.translate(genre))
+                .map(genre => this.slormancerTranslateService.translate(genre))
                 .join(' ');
         }
         
@@ -147,7 +149,7 @@ export class SlormancerActivableService {
         if (!activable.hasNoCost) {
             activable.costLabel = this.COST_LABEL
                 + ': ' + this.slormancerTemplateService.asSpan(activable.cost.toString(), activable.hasManaCost ? 'value mana' : 'value life')
-                + ' ' + this.slormancerTemplateService.translate(activable.costType);
+                + ' ' + this.slormancerTranslateService.translate(activable.costType);
         }
 
         activable.cooldownLabel = null;

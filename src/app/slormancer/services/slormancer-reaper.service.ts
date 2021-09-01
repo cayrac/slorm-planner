@@ -25,16 +25,17 @@ import { SlormancerActivableService } from './slormancer-activable.service';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerEffectValueService } from './slormancer-effect-value.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
+import { SlormancerTranslateService } from './slormancer-translate.service';
 
 @Injectable()
 export class SlormancerReaperService {
 
-    private readonly BENEDICTION_LABEL = this.slormancerTemplateService.translate('tt_ancient_bonus');
-    private readonly MALEDICTION_LABEL = this.slormancerTemplateService.translate('tt_ancient_malus');
-    private readonly VICTIMS_LABEL = this.slormancerTemplateService.translate('tt_victims');
-    private readonly LEVEL_LABEL = this.slormancerTemplateService.translate('level');
-    private readonly REAPERSMITH_LABEL = this.slormancerTemplateService.translate('weapon_reapersmith_light');
-    private readonly PRIMORDIAL_REAPER_LABEL = this.slormancerTemplateService.translate('tt_reaper_corrupted');
+    private readonly BENEDICTION_LABEL = this.slormancerTranslateService.translate('tt_ancient_bonus');
+    private readonly MALEDICTION_LABEL = this.slormancerTranslateService.translate('tt_ancient_malus');
+    private readonly VICTIMS_LABEL = this.slormancerTranslateService.translate('tt_victims');
+    private readonly LEVEL_LABEL = this.slormancerTranslateService.translate('level');
+    private readonly REAPERSMITH_LABEL = this.slormancerTranslateService.translate('weapon_reapersmith_light');
+    private readonly PRIMORDIAL_REAPER_LABEL = this.slormancerTranslateService.translate('tt_reaper_corrupted');
 
     private readonly DESCRIPTION_SKILL_REGEXP = /act:[0-9]+/g;
 
@@ -42,6 +43,7 @@ export class SlormancerReaperService {
 
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormancerTemplateService: SlormancerTemplateService,
+                private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerEffectValueService: SlormancerEffectValueService,
                 private slormancerActivableService: SlormancerActivableService) { }
 
@@ -295,7 +297,7 @@ export class SlormancerReaperService {
             result = {
                 id,
                 weaponClass,
-                type: this.slormancerTemplateService.translate('weapon_' + weaponClass),
+                type: this.slormancerTranslateService.translate('weapon_' + weaponClass),
                 icon: '',
                 primordial,
                 level: 0,
@@ -381,13 +383,13 @@ export class SlormancerReaperService {
         }
 
 
-        reaper.smith.name = this.slormancerTemplateService.translate('weapon_reapersmith_' + reaper.smith.id);
+        reaper.smith.name = this.slormancerTranslateService.translate('weapon_reapersmith_' + reaper.smith.id);
         reaper.smithLabel = this.slormancerTemplateService.replaceAnchor(this.REAPERSMITH_LABEL, reaper.smith.name, this.slormancerTemplateService.TYPE_ANCHOR);
         reaper.victimsLabel = reaper.kills + ' ' + this.VICTIMS_LABEL;
         reaper.levelLabel = this.LEVEL_LABEL + ' : '
             + (reaper.maxLevel === reaper.baseLevel ? 'Max(' + reaper.baseLevel + ')' : reaper.baseLevel)
             + (reaper.bonusLevel > 0 ? this.slormancerTemplateService.asSpan('+' + reaper.bonusLevel, 'bonus-level') : '');
-        reaper.damageTypeLabel = this.slormancerTemplateService.translate(reaper.damageType);
+        reaper.damageTypeLabel = this.slormancerTranslateService.translate(reaper.damageType);
         reaper.benedictionTitleLabel = this.BENEDICTION_LABEL;
         reaper.maledictionTitleLabel = this.MALEDICTION_LABEL;
     }

@@ -11,11 +11,13 @@ import { valueOrDefault } from '../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
+import { SlormancerTranslateService } from './slormancer-translate.service';
 
 @Injectable()
 export class SlormancerCraftedValueService {
 
     constructor(private slormancerTemplateService: SlormancerTemplateService,
+                private slormancerTranslateService : SlormancerTranslateService,
                 private slormancerItemValueService : SlormancerItemValueService,
                 private slormancerDataService: SlormancerDataService) { }
 
@@ -119,7 +121,7 @@ export class SlormancerCraftedValueService {
         itemAffix.craftedEffect.effect.value = valueOrDefault(itemAffix.craftedEffect.possibleCraftedValues[itemAffix.craftedEffect.craftedValue], 0);
 
         itemAffix.valueLabel = this.slormancerTemplateService.formatItemAffixValue(itemAffix);
-        itemAffix.statLabel = itemAffix.craftedEffect.effect.stat === null ? '' : this.slormancerTemplateService.translate(itemAffix.craftedEffect.effect.stat);
+        itemAffix.statLabel = itemAffix.craftedEffect.effect.stat === null ? '' : this.slormancerTranslateService.translate(itemAffix.craftedEffect.effect.stat);
     }
 
 }

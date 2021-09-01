@@ -30,6 +30,7 @@ import { SlormancerBuffService } from './slormancer-buff.service';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerMechanicService } from './slormancer-mechanic.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
+import { SlormancerTranslateService } from './slormancer-translate.service';
 
 @Injectable()
 export class SlormancerAncestralLegacyService {
@@ -47,6 +48,7 @@ export class SlormancerAncestralLegacyService {
 
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormancerBuffService: SlormancerBuffService,
+                private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerMechanicService: SlormancerMechanicService) { }
            
@@ -140,7 +142,7 @@ export class SlormancerAncestralLegacyService {
         const cost = ancestralLegacy.baseCost === null ? null : ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * rank);
         if (cost !== null && cost > 0 && ancestralLegacy.costPerRank !== null && ancestralLegacy.costPerRank !== 0) {
             const costClass = ancestralLegacy.hasLifeCost ? 'life' : 'mana';
-            const description = '<span class="' + costClass + '">' + cost + '</span> ' + this.slormancerTemplateService.translate(ancestralLegacy.costType);
+            const description = '<span class="' + costClass + '">' + cost + '</span> ' + this.slormancerTranslateService.translate(ancestralLegacy.costType);
             skill.push(description);
         }
 
@@ -240,7 +242,7 @@ export class SlormancerAncestralLegacyService {
     public updateAncestralLegacy(ancestralLegacy: AncestralLegacy) {
         ancestralLegacy.rank = Math.min(ancestralLegacy.maxRank, ancestralLegacy.rank)
         ancestralLegacy.totalRank = ancestralLegacy.bonusRank + ancestralLegacy.rank;
-        const descriptionPrefix = this.isActivable(ancestralLegacy.types) ? this.slormancerTemplateService.translate(this.ACTIVE_PREFIX) + '<br/>' : '';
+        const descriptionPrefix = this.isActivable(ancestralLegacy.types) ? this.slormancerTranslateService.translate(this.ACTIVE_PREFIX) + '<br/>' : '';
         ancestralLegacy.description = descriptionPrefix + this.slormancerTemplateService.formatUpgradeDescription(ancestralLegacy.template, ancestralLegacy.values); // TODO fixer upgrade
         ancestralLegacy.cost = ancestralLegacy.baseCost === null ? null : ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * ancestralLegacy.totalRank);
         ancestralLegacy.cooldown = ancestralLegacy.baseCooldown;

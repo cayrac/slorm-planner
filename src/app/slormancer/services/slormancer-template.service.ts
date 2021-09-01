@@ -12,7 +12,6 @@ import { GameDataAttribute } from '../model/game/data/game-data-attribute';
 import { GameDataLegendary } from '../model/game/data/game-data-legendary';
 import { GameDataSkill } from '../model/game/data/game-data-skill';
 import { MinMax } from '../model/minmax';
-import { strictParseInt } from '../util/parse.util';
 import {
     findFirst,
     firstValue,
@@ -22,15 +21,14 @@ import {
     isNotNullOrUndefined,
     lastValue,
     splitData,
-    valueOrNull,
 } from '../util/utils';
-import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
+import { SlormancerTranslateService } from './slormancer-translate.service';
 
 @Injectable()
 export class SlormancerTemplateService {
 
-    private readonly MAX_LABEL = this.translate('max');
+    private readonly MAX_LABEL = this.slormancerTranslateService.translate('max');
 
     public readonly STAT_ANCHOR = '£';
     public readonly TYPE_ANCHOR = '$';
@@ -42,7 +40,7 @@ export class SlormancerTemplateService {
     public readonly DAMAGE_PREFIX = 'damage:';
     public readonly RETURN_REGEXP = /#/g;
 
-    constructor(private slormancerDataService: SlormancerDataService,
+    constructor(private slormancerTranslateService: SlormancerTranslateService,
                     private slormancerItemValueService: SlormancerItemValueService) { }
 
     public asSpan(content: string, className: string): string {
@@ -327,7 +325,7 @@ export class SlormancerTemplateService {
                 const details = typeof effectValue.synergy === 'number' ? '' :  (' ' + this.getEffectValueDetails(effectValue));
                 const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent), 'value');
                 template = this.replaceAnchor(template, synergy + details, this.SYNERGY_ANCHOR);
-                template = this.replaceAnchor(template, this.translate(effectValue.source), this.TYPE_ANCHOR);
+                template = this.replaceAnchor(template, this.slormancerTranslateService.translate(effectValue.source), this.TYPE_ANCHOR);
             }
         }
 
@@ -386,7 +384,7 @@ export class SlormancerTemplateService {
 
             value = effectValue.synergy + percent;
             
-            details = this.asSpan(' (' + value + '% ' + this.translate(effectValue.source) + ')', 'details');
+            details = this.asSpan(' (' + value + '% ' + this.slormancerTranslateService.translate(effectValue.source) + ')', 'details');
         } else {
             value = effectValue.value + percent;
         }
@@ -421,13 +419,9 @@ export class SlormancerTemplateService {
         return this.normalizeTemplate(template)
     }
 
-    private getSynergyType(synergy: string): string | null {
-        return valueOrNull(splitData(synergy, ':')[1]);
-    }
-
     private injectStatsToTemplates(template: string, stats: Array<string> = []): string {
         for (const stat of stats) {
-            template = template.replace(this.STAT_ANCHOR, this.translate(stat));
+            template = template.replace(this.STAT_ANCHOR, this.slormancerTranslateService.translate(stat));
         }
 
         return template;
@@ -435,11 +429,11 @@ export class SlormancerTemplateService {
 
     private injectSynergyTypesToTemplates(template: string, synergies: Array<string> = []): string {
         synergies = synergies
-            .map(synergy => this.getSynergyType(synergy))
+            .map(synergy => splitData(synergy, ':')[1])
             .filter(isNotNullOrUndefined);
 
         for (const synergy of synergies) {
-            let translated = this.translate(synergy);
+            let translated = this.slormancerTranslateService.translate(synergy);
 
             if (synergy.startsWith('victims_reaper_')) {
                 translated = translated.replace('$', '{weaponClass}')
@@ -465,55 +459,6 @@ export class SlormancerTemplateService {
         template = this.normalizeTemplate(template);
 
         return template;
-    }
-
-    private getTextGenre(textWithGenre: string, genre: string): string {
-        let result = textWithGenre;
-
-        const splitedData = splitData(textWithGenre, '/');
-        if (splitedData.length === 4) {
-            if (genre === 'MS') {
-                result = <string>splitedData[0];
-            } else if (genre === 'FS') {
-                result = <string>splitedData[1];
-            } else if (genre === 'MP') {
-                result = <string>splitedData[2];
-            } else {
-                result = <string>splitedData[3];
-            }
-        }
-
-        return result;
-    }
-
-    public translate(key: string, genre: string | null = null): string {
-        key = key.startsWith('*') ? key.substr(1) : key;
-        const gameData = this.slormancerDataService.getTranslation(key);
-        const data = this.slormancerDataService.getDataAffixByRef(key);
-        const keyword = this.slormancerDataService.getKeywordName(key);
-        const dataTranslate = this.slormancerDataService.getDataTranslate(key);
-        let result = key;
-
-        if (gameData !== null) {
-            result = gameData.EN;
-        } else if (data !== null) {
-            result = data.name;
-        } else if (keyword !== null) {
-            result = keyword;
-        } else if (dataTranslate !== null) {
-            result = dataTranslate;
-        } else if (key.startsWith('victims_reaper_')) {
-            const reaper = this.slormancerDataService.getGameDataReaper(strictParseInt(key.substr(15)));
-            if (reaper !== null) {
-                result = reaper.EN_NAME;
-            }
-        }
-
-        if (genre !== null) {
-            result = this.getTextGenre(result, genre);
-        }
-
-        return result;
     }
 
     public getReaperEnchantmentLabel(template: string, value: number, min: number, max: number, reaperSmith: string): string {

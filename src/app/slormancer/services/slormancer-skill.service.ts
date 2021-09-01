@@ -34,17 +34,19 @@ import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerEffectValueService } from './slormancer-effect-value.service';
 import { SlormancerMechanicService } from './slormancer-mechanic.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
+import { SlormancerTranslateService } from './slormancer-translate.service';
 
 @Injectable()
 export class SlormancerSkillService {
 
-    private readonly RANK_LABEL = this.slormancerTemplateService.translate('tt_rank');
-    private readonly MASTERY_LABEL = this.slormancerTemplateService.translate('tt_mastery');
-    private readonly COST_LABEL = this.slormancerTemplateService.translate('tt_cost');
-    private readonly COOLDOWN_LABEL = this.slormancerTemplateService.translate('tt_cooldown');
-    private readonly SECONDS_LABEL = this.slormancerTemplateService.translate('tt_seconds');
+    private readonly RANK_LABEL = this.slormancerTranslateService.translate('tt_rank');
+    private readonly MASTERY_LABEL = this.slormancerTranslateService.translate('tt_mastery');
+    private readonly COST_LABEL = this.slormancerTranslateService.translate('tt_cost');
+    private readonly COOLDOWN_LABEL = this.slormancerTranslateService.translate('tt_cooldown');
+    private readonly SECONDS_LABEL = this.slormancerTranslateService.translate('tt_seconds');
 
     constructor(private slormancerTemplateService: SlormancerTemplateService,
+                private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerMechanicService: SlormancerMechanicService,
                 private slormancerDataService: SlormancerDataService,
                 private slormancerBuffService: SlormancerBuffService,
@@ -212,7 +214,7 @@ export class SlormancerSkillService {
         skill.genresLabel =  null;
         if (skill.genres.length > 0) {
             skill.genresLabel = skill.genres
-                .map(genre => this.slormancerTemplateService.translate(genre))
+                .map(genre => this.slormancerTranslateService.translate(genre))
                 .join(' ');
         }
         
@@ -220,7 +222,7 @@ export class SlormancerSkillService {
         if (!skill.hasNoCost) {
             skill.costLabel = this.COST_LABEL
                 + ': ' + this.slormancerTemplateService.asSpan(skill.cost.toString(), skill.hasManaCost ? 'value mana' : 'value life')
-                + ' ' + this.slormancerTemplateService.translate(skill.costType);
+                + ' ' + this.slormancerTranslateService.translate(skill.costType);
         }
 
         skill.cooldownLabel = null;
@@ -294,7 +296,7 @@ export class SlormancerSkillService {
         const cost = upgrade.baseCost + upgrade.perLevelCost * rank;
         if (cost > 0 && upgrade.perLevelCost !== 0) {
             const costClass = upgrade.hasLifeCost ? 'life' : 'mana';
-            const description = '<span class="' + costClass + '">' + cost + '</span> ' + this.slormancerTemplateService.translate(upgrade.costType);
+            const description = '<span class="' + costClass + '">' + cost + '</span> ' + this.slormancerTranslateService.translate(upgrade.costType);
             skill.push(description);
         }
 
@@ -367,14 +369,14 @@ export class SlormancerSkillService {
         upgrade.genresLabel =  null;
         if (upgrade.genres.length > 0) {
             upgrade.genresLabel = upgrade.genres
-                .map(genre => this.slormancerTemplateService.translate(genre))
+                .map(genre => this.slormancerTranslateService.translate(genre))
                 .join(' ');
         }
         
         upgrade.genresLabel =  null;
         if (upgrade.genres.length > 0) {
             upgrade.genresLabel = upgrade.genres
-                .map(genre => this.slormancerTemplateService.translate(genre))
+                .map(genre => this.slormancerTranslateService.translate(genre))
                 .join(' ');
         }
         
@@ -382,7 +384,7 @@ export class SlormancerSkillService {
         if (!upgrade.hasNoCost) {
             upgrade.costLabel = this.COST_LABEL
                 + ': ' + this.slormancerTemplateService.asSpan(upgrade.cost.toString(), upgrade.hasManaCost ? 'value mana' : 'value life')
-                + ' ' + this.slormancerTemplateService.translate(upgrade.costType);
+                + ' ' + this.slormancerTranslateService.translate(upgrade.costType);
         }
         
         upgrade.description = this.slormancerTemplateService.formatUpgradeDescription(upgrade.template, upgrade.values);
