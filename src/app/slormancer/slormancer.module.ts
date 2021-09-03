@@ -18,6 +18,7 @@ import { SlormancerTemplateService } from './services/content/slormancer-templat
 import { SlormancerTranslateService } from './services/content/slormancer-translate.service';
 import { SlormancerItemParserService } from './services/parser/slormancer-item-parser.service';
 import { SlormancerSaveParserService } from './services/parser/slormancer-save-parser.service';
+import { SlormancerCharacterService } from './services/slormancer-character.service';
 
 @NgModule({
   declarations: [],
@@ -40,7 +41,8 @@ import { SlormancerSaveParserService } from './services/parser/slormancer-save-p
     SlormancerAncestralLegacyService,
     SlormancerAttributeService,
     SlormancerCraftedValueService,
-    SlormancerTranslateService
+    SlormancerTranslateService,
+    SlormancerCharacterService
   ],
   bootstrap: []
 })

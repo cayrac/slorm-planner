@@ -1,14 +1,14 @@
-import { HeroClass } from '../..';
 import { Affix } from './affix';
 import { AttributeEnchantment } from './attribute-enchantment';
-import { EquippableItemBase } from './enum/equippable-item-base';
+import { EquipableItemBase } from './enum/equipable-item-base';
+import { HeroClass } from './enum/hero-class';
 import { Rarity } from './enum/rarity';
 import { LegendaryEffect } from './legendary-effect';
 import { ReaperEnchantment } from './reaper-enchantment';
 import { SkillEnchantment } from './skill-enchantment';
 
 export interface EquipableItem {
-    base: EquippableItemBase;
+    base: EquipableItemBase;
     rarity: Rarity;
     level: number;
     reinforcment: number;

@@ -136,7 +136,8 @@ export class SlormancerSaveParserService {
         return data;
     }
 
-    private parseSharedInventory(data: string): GameSharedInventory {        return  data.split(';').map(item => this.slormancerItemService.parseItem(item));
+    private parseSharedInventory(data: string): GameSharedInventory {        
+        return  data.split(';').map(item => this.slormancerItemService.parseItem(item));
     }
 
     private parseFirstHero(data: string): string {        

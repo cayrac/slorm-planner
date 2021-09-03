@@ -88,6 +88,21 @@ export function firstValue(values: { [key: number]: number }): number | null {
     return value;
 }
 
+export function lastIndex(values: { [key: number]: any }): number | null {
+    let index: number | null = null;
+
+    if (values !== null) {
+        const keys = Object.keys(values);
+        const valueIndex = valueOrNull(keys[keys.length - 1]);
+
+        if (valueIndex) {
+            index = parseInt(valueIndex);
+        }
+    }
+
+    return index;
+}
+
 export function lastValue(values: { [key: number]: number }): number | null {
     let value: number | null = null;
 

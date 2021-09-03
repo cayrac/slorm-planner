@@ -157,8 +157,6 @@ export class SlormancerTemplateService {
         for (let effectValue of effectValues) {
             const percent = effectValue.percent ? '%' : '';
 
-            console.log('format skill : ',  { ...effectValue });
-
             if (isEffectValueVariable(effectValue)) {
                 const value = this.asSpan(effectValue.displayValue.toString() + percent, 'value');
                 const details = this.getEffectValueDetails(effectValue);
@@ -176,7 +174,6 @@ export class SlormancerTemplateService {
             }
         }
 
-        console.log(this.MAX_LABEL);
         return template;
     }
 

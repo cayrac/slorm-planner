@@ -1,10 +1,10 @@
-import { EquippableItemBase } from '../../enum/equippable-item-base';
+import { EquipableItemBase } from '../../enum/equipable-item-base';
 
 export interface GameDataLegendary {
     FIELD1: string,
     FIELD2: null,
     REF: number,
-    ITEM: EquippableItemBase,
+    ITEM: EquipableItemBase,
     EN_NAME: string,
     EN_DESC: string,
     FR_NAME: string,

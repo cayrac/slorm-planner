@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { GameSave } from '../slormancer';
 import { DATA_REAPER_DAMAGES, DataReaperDamages } from '../slormancer/constants/content/data/data-reaper-damages';
 import { GAME_DATA } from '../slormancer/constants/content/game/game-data';
 import { AncestralLegacy } from '../slormancer/model/content/ancestral-legacy';
@@ -16,6 +15,7 @@ import { Reaper } from '../slormancer/model/content/reaper';
 import { Skill } from '../slormancer/model/content/skill';
 import { SkillUpgrade } from '../slormancer/model/content/skill-upgrade';
 import { GameAffix, GameEquippableItem } from '../slormancer/model/parser/game/game-item';
+import { GameSave } from '../slormancer/model/parser/game/game-save';
 import { SlormancerAncestralLegacyService } from '../slormancer/services/content/slormancer-ancestral-legacy.service';
 import { SlormancerAttributeService } from '../slormancer/services/content/slormancer-attribute.service';
 import { SlormancerDataService } from '../slormancer/services/content/slormancer-data.service';

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Affix } from '../../model/content/affix';
 import { EffectValueType } from '../../model/content/enum/effect-value-type';
 import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
-import { EquippableItemBase } from '../../model/content/enum/equippable-item-base';
+import { EquipableItemBase } from '../../model/content/enum/equipable-item-base';
 import { Rarity } from '../../model/content/enum/rarity';
 import { GameAffix, GameEquippableItem, GameItem, GameRessourceItem } from '../../model/parser/game/game-item';
 import { GameRarity } from '../../model/parser/game/game-rarity';
@@ -21,21 +21,21 @@ export class SlormancerCraftedValueService {
                 private slormancerItemValueService : SlormancerItemValueService,
                 private slormancerDataService: SlormancerDataService) { }
 
-    public getEquipableItemBase(item: GameEquippableItem): EquippableItemBase {
-        let slot: EquippableItemBase = EquippableItemBase.Helm;
+    public getEquipableItemBase(item: GameEquippableItem): EquipableItemBase {
+        let slot: EquipableItemBase = EquipableItemBase.Helm;
 
         if (item !== null) {
             switch (item.slot) {
-                case 0: slot = EquippableItemBase.Helm; break;
-                case 1: slot = EquippableItemBase.Armor; break;
-                case 2: slot = EquippableItemBase.Shoulder; break;
-                case 3: slot = EquippableItemBase.Bracer; break;
-                case 4: slot = EquippableItemBase.Glove; break;
-                case 5: slot = EquippableItemBase.Boot; break;
-                case 6: slot = EquippableItemBase.Ring; break;
-                case 7: slot = EquippableItemBase.Amulet; break;
-                case 8: slot = EquippableItemBase.Belt; break;
-                case 9: slot = EquippableItemBase.Cape; break;
+                case 0: slot = EquipableItemBase.Helm; break;
+                case 1: slot = EquipableItemBase.Armor; break;
+                case 2: slot = EquipableItemBase.Shoulder; break;
+                case 3: slot = EquipableItemBase.Bracer; break;
+                case 4: slot = EquipableItemBase.Glove; break;
+                case 5: slot = EquipableItemBase.Boot; break;
+                case 6: slot = EquipableItemBase.Ring; break;
+                case 7: slot = EquipableItemBase.Amulet; break;
+                case 8: slot = EquipableItemBase.Belt; break;
+                case 9: slot = EquipableItemBase.Cape; break;
                 default: 
                     console.error('Unexpected item slot ' + item.slot);
                     break;

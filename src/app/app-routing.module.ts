@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { SlormancerPlannerComponent } from './slormancer-planner/slormancer-planner.component';
+import { SlormancerProfileComponent } from './slormancer-planner/component/profile/profile.component';
 
 const routes: Routes = [
-  { path: 'planner', component: SlormancerPlannerComponent },
+  { path: 'planner', component: SlormancerProfileComponent },
   { path: '**', redirectTo: 'planner' }
 ];
 

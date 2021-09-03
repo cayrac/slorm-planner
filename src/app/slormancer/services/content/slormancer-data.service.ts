@@ -24,7 +24,7 @@ import { DataLegendary } from '../../model/content/data/data-legendary';
 import { DataReaper } from '../../model/content/data/data-reaper';
 import { DataSkill } from '../../model/content/data/data-skill';
 import { Attribute } from '../../model/content/enum/attribute';
-import { EquippableItemBase } from '../../model/content/enum/equippable-item-base';
+import { EquipableItemBase } from '../../model/content/enum/equipable-item-base';
 import { HeroClass } from '../../model/content/enum/hero-class';
 import { MechanicType } from '../../model/content/enum/mechanic-type';
 import { GameDataActivable } from '../../model/content/game/data/game-data-activable';
@@ -92,7 +92,7 @@ export class SlormancerDataService {
         return valueOrNull(DATA_SKILL_BUFF[buffName.toLowerCase()]);
     }
 
-    public getDataEquipableItem(type: EquippableItemBase, base: string): DataEquipableItemType | null {
+    public getDataEquipableItem(type: EquipableItemBase, base: string): DataEquipableItemType | null {
         let result: DataEquipableItemType | null = null;
 
         const typeData = DATA_EQUIPABLE_ITEM[type];

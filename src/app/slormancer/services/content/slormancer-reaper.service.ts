@@ -14,6 +14,7 @@ import { strictParseFloat } from '../../util/parse.util';
 import {
     compare,
     isNotNullOrUndefined,
+    lastIndex,
     notEmptyOrNull,
     removeEmptyValues,
     splitData,
@@ -75,8 +76,8 @@ export class SlormancerReaperService {
     }
 
     private getReaperMinimumLevel(reaperId: number): number {
-        const parents = this.slormancerDataService.getParentsGameDataReaper(reaperId);
-        return Math.max(...parents.map(parent => parent.MAX_LVL, 1))
+        const parentsMinLevel = this.slormancerDataService.getParentsGameDataReaper(reaperId).map(parent => parent.MAX_LVL);
+        return Math.max(...parentsMinLevel, 1);
     }
 
     private getReaperParents(gameData: GameDataReaper): Array<GameDataReaper> {
@@ -305,7 +306,6 @@ export class SlormancerReaperService {
         return result
     }
 
-
     public updateReaper(reaper: Reaper) {
         const info = reaper.primordial ? reaper.primordialInfo : reaper.baseInfo;
         
@@ -314,11 +314,16 @@ export class SlormancerReaperService {
         reaper.baseLevel = Math.max(reaper.minLevel, info.level);
         reaper.bonusLevel = Math.max(0, Math.min(this.MAX_REAPER_BONUS, reaper.bonusLevel));
         reaper.level = reaper.baseLevel + reaper.bonusLevel;
-        reaper.damages = valueOrDefault(reaper.damagesRange[reaper.level],  {min: 0, max: 0 });
         reaper.maxDamagesWithBonuses = valueOrDefault(reaper.damagesRange[reaper.maxLevelWithBonuses],  {min: 0, max: 0 });
         reaper.activables = reaper.templates.activables;
-
         reaper.name = this.getReaperName(reaper);
+
+        const lastDamagesIndex = lastIndex(reaper.damagesRange);
+        let damagesIndex = reaper.level;
+        if (lastDamagesIndex !== null) {
+            damagesIndex = Math.min(lastDamagesIndex, damagesIndex)
+        }
+        reaper.damages = valueOrDefault(reaper.damagesRange[damagesIndex],  {min: 0, max: 0 });
 
         for (const reaperEffect of reaper.templates.base) {
             for (const value of reaperEffect.values) {
