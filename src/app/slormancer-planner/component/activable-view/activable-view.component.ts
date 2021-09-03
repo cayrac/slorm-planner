@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Activable } from '../../../slormancer/model/activable';
+import { Activable } from '../../../slormancer/model/content/activable';
 
 @Component({
   selector: 'app-activable-view',

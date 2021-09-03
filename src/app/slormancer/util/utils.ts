@@ -1,6 +1,11 @@
-import { AbstractEffectValue, EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
-import { EffectValueType } from '../model/enum/effect-value-type';
-import { Rarity } from '../model/enum/rarity';
+import {
+    AbstractEffectValue,
+    EffectValueConstant,
+    EffectValueSynergy,
+    EffectValueVariable,
+} from '../model/content/effect-value';
+import { EffectValueType } from '../model/content/enum/effect-value-type';
+import { Rarity } from '../model/content/enum/rarity';
 
 export function isNotNullOrUndefined<T>(value: T | null | undefined): value is T {
     return value !== null && value !== undefined;

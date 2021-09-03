@@ -1,9 +1,9 @@
 export { SlormancerModule } from './slormancer.module';
 
-export { SlormancerSaveParserService } from './services/slormancer-save-parser.service';
+export { SlormancerSaveParserService } from './services/parser/slormancer-save-parser.service';
 
-export * from './model/game/game-save';
-export * from './model/enum/hero-class';
-export * from './model/game/game-item';
+export * from './model/parser/game/game-save';
+export * from './model/content/enum/hero-class';
+export * from './model/parser/game/game-item';
 
-export * from './constants/game/game-data';
+export * from './constants/content/game/game-data';

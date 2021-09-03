@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 
-import { SkillCostType } from '../../../slormancer/model/enum/skill-cost-type';
-import { SkillGenre } from '../../../slormancer/model/enum/skill-genre';
-import { SkillType } from '../../../slormancer/model/skill-type';
-import { SkillUpgrade } from '../../../slormancer/model/skill-upgrade';
-import { SlormancerTranslateService } from '../../../slormancer/services/slormancer-translate.service';
+import { SkillCostType } from '../../../slormancer/model/content/enum/skill-cost-type';
+import { SkillGenre } from '../../../slormancer/model/content/enum/skill-genre';
+import { SkillType } from '../../../slormancer/model/content/skill-type';
+import { SkillUpgrade } from '../../../slormancer/model/content/skill-upgrade';
+import { SlormancerTranslateService } from '../../../slormancer/services/content/slormancer-translate.service';
 
 @Component({
   selector: 'app-skill-upgrade-view',

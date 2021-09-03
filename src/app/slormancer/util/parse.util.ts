@@ -1,5 +1,5 @@
-import { GameHeroesData, GameWeapon } from '../model/game/game-save';
 import { MinMax } from '../model/minmax';
+import { GameHeroesData, GameWeapon } from '../model/parser/game/game-save';
 
 export function splitHeroesData(data: string): [string, string, string]  {
     const result = data.split('|');

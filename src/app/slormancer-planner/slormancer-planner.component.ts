@@ -1,30 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 
 import { GameSave } from '../slormancer';
-import { DATA_REAPER_DAMAGES, DataReaperDamages } from '../slormancer/constants/data/data-reaper-damages';
-import { GAME_DATA } from '../slormancer/constants/game/game-data';
-import { AncestralLegacy } from '../slormancer/model/ancestral-legacy';
-import { AttributeTraits } from '../slormancer/model/attribut-traits';
-import { Attribute } from '../slormancer/model/enum/attribute';
-import { HeroClass } from '../slormancer/model/enum/hero-class';
-import { EquipableItem } from '../slormancer/model/equipable-item';
-import { GameDataActivable } from '../slormancer/model/game/data/game-data-activable';
-import { GameDataLegendary } from '../slormancer/model/game/data/game-data-legendary';
-import { GameDataSkill } from '../slormancer/model/game/data/game-data-skill';
-import { GameAffix, GameEquippableItem } from '../slormancer/model/game/game-item';
-import { LegendaryEffect } from '../slormancer/model/legendary-effect';
-import { Reaper } from '../slormancer/model/reaper';
-import { Skill } from '../slormancer/model/skill';
-import { SkillUpgrade } from '../slormancer/model/skill-upgrade';
-import { SlormancerAncestralLegacyService } from '../slormancer/services/slormancer-ancestral-legacy.service';
-import { SlormancerAttributeService } from '../slormancer/services/slormancer-attribute.service';
-import { SlormancerDataService } from '../slormancer/services/slormancer-data.service';
-import { SlormancerItemService } from '../slormancer/services/slormancer-item.service';
-import { SlormancerLegendaryEffectService } from '../slormancer/services/slormancer-legendary-effect.service';
-import { SlormancerReaperService } from '../slormancer/services/slormancer-reaper.service';
-import { SlormancerSaveParserService } from '../slormancer/services/slormancer-save-parser.service';
-import { SlormancerSkillService } from '../slormancer/services/slormancer-skill.service';
-import { SlormancerTranslateService } from '../slormancer/services/slormancer-translate.service';
+import { DATA_REAPER_DAMAGES, DataReaperDamages } from '../slormancer/constants/content/data/data-reaper-damages';
+import { GAME_DATA } from '../slormancer/constants/content/game/game-data';
+import { AncestralLegacy } from '../slormancer/model/content/ancestral-legacy';
+import { AttributeTraits } from '../slormancer/model/content/attribut-traits';
+import { Attribute } from '../slormancer/model/content/enum/attribute';
+import { HeroClass } from '../slormancer/model/content/enum/hero-class';
+import { EquipableItem } from '../slormancer/model/content/equipable-item';
+import { GameDataActivable } from '../slormancer/model/content/game/data/game-data-activable';
+import { GameDataLegendary } from '../slormancer/model/content/game/data/game-data-legendary';
+import { GameDataSkill } from '../slormancer/model/content/game/data/game-data-skill';
+import { LegendaryEffect } from '../slormancer/model/content/legendary-effect';
+import { Reaper } from '../slormancer/model/content/reaper';
+import { Skill } from '../slormancer/model/content/skill';
+import { SkillUpgrade } from '../slormancer/model/content/skill-upgrade';
+import { GameAffix, GameEquippableItem } from '../slormancer/model/parser/game/game-item';
+import { SlormancerAncestralLegacyService } from '../slormancer/services/content/slormancer-ancestral-legacy.service';
+import { SlormancerAttributeService } from '../slormancer/services/content/slormancer-attribute.service';
+import { SlormancerDataService } from '../slormancer/services/content/slormancer-data.service';
+import { SlormancerItemService } from '../slormancer/services/content/slormancer-item.service';
+import { SlormancerLegendaryEffectService } from '../slormancer/services/content/slormancer-legendary-effect.service';
+import { SlormancerReaperService } from '../slormancer/services/content/slormancer-reaper.service';
+import { SlormancerSkillService } from '../slormancer/services/content/slormancer-skill.service';
+import { SlormancerTranslateService } from '../slormancer/services/content/slormancer-translate.service';
+import { SlormancerSaveParserService } from '../slormancer/services/parser/slormancer-save-parser.service';
 import { list } from '../slormancer/util/math.util';
 import { enumValues, valueOrNull } from '../slormancer/util/utils';
 import { SAVE } from './save';
@@ -112,6 +112,7 @@ export class SlormancerPlannerComponent implements OnInit {
                 private slormancerAttributeService: SlormancerAttributeService,
                 private slormancerAncestralLegacyService: SlormancerAncestralLegacyService) {
         this.selectData();
+
     }
 
     public ngOnInit() {

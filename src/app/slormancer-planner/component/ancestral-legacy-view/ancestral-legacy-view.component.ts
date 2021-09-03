@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 
-import { AncestralLegacy } from '../../../slormancer/model/ancestral-legacy';
-import { AncestralLegacyElement } from '../../../slormancer/model/ancestral-legacy-element';
-import { SkillCostType } from '../../../slormancer/model/enum/skill-cost-type';
-import { SlormancerTranslateService } from '../../../slormancer/services/slormancer-translate.service';
+import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
+import { AncestralLegacyElement } from '../../../slormancer/model/content/ancestral-legacy-element';
+import { SkillCostType } from '../../../slormancer/model/content/enum/skill-cost-type';
+import { SlormancerTranslateService } from '../../../slormancer/services/content/slormancer-translate.service';
 
 @Component({
   selector: 'app-ancestral-legacy-view',

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Trait } from '../../../slormancer/model/trait';
+import { Trait } from '../../../slormancer/model/content/trait';
 
 @Component({
   selector: 'app-trait-view',

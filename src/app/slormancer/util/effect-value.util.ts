@@ -1,7 +1,7 @@
-import { EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/effect-value';
-import { EffectValueType } from '../model/enum/effect-value-type';
-import { EffectValueUpgradeType } from '../model/enum/effect-value-upgrade-type';
-import { EffectValueValueType } from '../model/enum/effect-value-value-type';
+import { EffectValueConstant, EffectValueSynergy, EffectValueVariable } from '../model/content/effect-value';
+import { EffectValueType } from '../model/content/enum/effect-value-type';
+import { EffectValueUpgradeType } from '../model/content/enum/effect-value-upgrade-type';
+import { EffectValueValueType } from '../model/content/enum/effect-value-value-type';
 
 export function effectValueConstant(value: number, percent: boolean, stat: string | null = null, valueType: EffectValueValueType = EffectValueValueType.Unknown): EffectValueConstant {
     return {
