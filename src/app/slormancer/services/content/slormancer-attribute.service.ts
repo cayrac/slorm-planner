@@ -150,7 +150,7 @@ export class SlormancerAttributeService {
         return traits;
     }
 
-    public getAttributeTraits(attribute: Attribute, rank: number, bonusRank: number): AttributeTraits {
+    public getAttributeTraits(attribute: Attribute, rank: number, bonusRank: number = 0): AttributeTraits {
         const traits = this.slormancerDataService.getGameDataAttributes(attribute);
 
         const attributeTraits: AttributeTraits = {

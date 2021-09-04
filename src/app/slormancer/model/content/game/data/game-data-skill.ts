@@ -1,3 +1,5 @@
+import { SkillType } from '../../skill-type';
+
 export interface GameDataSkill {
     REF: number;
     EN_NAME: string;
@@ -28,7 +30,7 @@ export interface GameDataSkill {
     COST_LEVEL: number;
     COST_TYPE: string;
     GENRE: string;
-    TYPE: string;
+    TYPE: SkillType;
     UPGRADE_NUMBER: number;
     DMG_TYPE: string;
     DESC_VALUE: string;

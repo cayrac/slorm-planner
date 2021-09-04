@@ -58,12 +58,12 @@ export interface GameHeroesData<T> {
 }
 
 export interface GameHeroInventory {
-    hemlet: GameItem | null;
-    chest: GameItem | null;
-    spaulder: GameItem | null;
-    bracers: GameItem | null;
-    gloves: GameItem | null;
-    boots: GameItem | null;
+    helm: GameItem | null;
+    body: GameItem | null;
+    shoulder: GameItem | null;
+    bracer: GameItem | null;
+    glove: GameItem | null;
+    boot: GameItem | null;
     ring_l: GameItem | null;
     ring_r: GameItem | null;
     amulet: GameItem | null;

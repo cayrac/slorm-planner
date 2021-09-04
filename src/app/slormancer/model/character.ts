@@ -1,5 +1,6 @@
 import { Activable } from './content/activable';
 import { AncestralLegacy } from './content/ancestral-legacy';
+import { AttributeTraits } from './content/attribut-traits';
 import { HeroClass } from './content/enum/hero-class';
 import { EquipableItem } from './content/equipable-item';
 import { Reaper } from './content/reaper';
@@ -24,21 +25,22 @@ export interface CharacterGear {
     bracer: EquipableItem | null;
     glove: EquipableItem | null;
     boot: EquipableItem | null;
-    ring: EquipableItem | null;
+    ring_l: EquipableItem | null;
+    ring_r: EquipableItem | null;
     amulet: EquipableItem | null;
     belt: EquipableItem | null;
     cape: EquipableItem | null;
 }
 
 export interface CharacterAttributes {
-    0: number;
-    1: number;
-    2: number;
-    3: number;
-    4: number;
-    5: number;
-    6: number;
-    7: number;
+    0: AttributeTraits;
+    1: AttributeTraits;
+    2: AttributeTraits;
+    3: AttributeTraits;
+    4: AttributeTraits;
+    5: AttributeTraits;
+    6: AttributeTraits;
+    7: AttributeTraits;
 }
 
 export interface Character {
@@ -51,7 +53,7 @@ export interface Character {
     skills: Array<CharacterSkillAndPassives>;
 
     gear: CharacterGear;
-    inventory: Array<CharacterGear>;
+    inventory: Array<EquipableItem>;
 
     attributes: CharacterAttributes;
 

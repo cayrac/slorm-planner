@@ -202,12 +202,12 @@ export class SlormancerSaveParserService {
         const equipment = parsedItems.splice(0, 11);
 
         return {
-            hemlet: <GameItem | null>equipment[0],
-            chest: <GameItem | null>equipment[1],
-            spaulder: <GameItem | null>equipment[2],
-            bracers: <GameItem | null>equipment[3],
-            gloves: <GameItem | null>equipment[4],
-            boots: <GameItem | null>equipment[5],
+            helm: <GameItem | null>equipment[0],
+            body: <GameItem | null>equipment[1],
+            shoulder: <GameItem | null>equipment[2],
+            bracer: <GameItem | null>equipment[3],
+            glove: <GameItem | null>equipment[4],
+            boot: <GameItem | null>equipment[5],
             ring_l: <GameItem | null>equipment[6],
             ring_r: <GameItem | null>equipment[7],
             amulet: <GameItem | null>equipment[8],
@@ -302,7 +302,7 @@ export class SlormancerSaveParserService {
 
         const parsedData = this.parseKeys(bytes);
 
-        console.log('parsedData : ', parsedData);
+        // console.log('parsedData : ', parsedData);
 
         return {
             stats_fetched: this.parseStatsFetched(this.getOrFail(parsedData, 'stats_fetched')),

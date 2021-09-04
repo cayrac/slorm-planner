@@ -8,6 +8,7 @@ import { HeroClass } from '../../model/content/enum/hero-class';
 import { GameDataReaper } from '../../model/content/game/data/game-data-reaper';
 import { Reaper, ReaperTemplates } from '../../model/content/reaper';
 import { ReaperEffect } from '../../model/content/reaper-effect';
+import { GameWeapon } from '../../model/parser/game/game-save';
 import { effectValueSynergy, effectValueVariable } from '../../util/effect-value.util';
 import { list } from '../../util/math.util';
 import { strictParseFloat } from '../../util/parse.util';
@@ -255,6 +256,10 @@ export class SlormancerReaperService {
         contents.push(removeEmptyValues(stats).join('<br/>'));
         contents.push(removeEmptyValues(effects).join('<br/><br/>'));
         return removeEmptyValues(contents).join('<br/><br/>');
+    }
+
+    public getReaperFromGameWeapon(data: GameWeapon, weaponClass: HeroClass, primordial: boolean, bonusLevel: number = 0): Reaper | null {
+        return this.getReaper(data.id, weaponClass, primordial, data.basic.experience, data.primordial.experience, data.basic.kills, data.primordial.kills, bonusLevel);
     }
 
     public getReaper(id: number, weaponClass: HeroClass, primordial: boolean, xp: number, xpPrimordial: number, kills: number, killsPrimordial: number, bonusLevel: number = 0): Reaper | null {

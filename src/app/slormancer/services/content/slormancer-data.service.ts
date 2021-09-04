@@ -36,6 +36,7 @@ import { GameDataReaper } from '../../model/content/game/data/game-data-reaper';
 import { GameDataSkill } from '../../model/content/game/data/game-data-skill';
 import { GameDataStat } from '../../model/content/game/data/game-data-stat';
 import { GameDataTranslation } from '../../model/content/game/data/game-data-translation';
+import { SkillType } from '../../model/content/skill-type';
 import { MinMax } from '../../model/minmax';
 import { GameAffix } from '../../model/parser/game/game-item';
 import { valueOrNull } from '../../util/utils';
@@ -49,6 +50,10 @@ export class SlormancerDataService {
 
     public getGameDataReaper(id: number): GameDataReaper | null {
         return valueOrNull(GAME_DATA.REAPER.find(stat => stat.EN_NAME !== '' && stat.REF === id));
+    }
+
+    public getGameDataReaperCount(): number {
+        return GAME_DATA.REAPER.length;
     }
 
     public getGameDataBuff(ref: string): GameDataBuff | null {
@@ -74,6 +79,18 @@ export class SlormancerDataService {
     
     public getGameDataSkill(heroClass: HeroClass, id: number): GameDataSkill | null {
         return valueOrNull(GAME_DATA.SKILL[heroClass].find(skill => skill.REF === id));
+    }
+    
+    public getGameDataActiveSkillIds(heroClass: HeroClass): Array<number> {
+        return GAME_DATA.SKILL[heroClass]
+            .filter(skill => skill.TYPE === SkillType.Active || skill.TYPE === SkillType.Support)
+            .map(skill => skill.REF);
+    }
+    
+    public getGameDataUpgradeIdsForSkill(skillId: number, heroClass: HeroClass): Array<number> {
+        return GAME_DATA.SKILL[heroClass]
+            .filter(skill => skill.TYPE !== SkillType.Active && skill.TYPE !== SkillType.Support && skill.ACTIVE_BOX === skillId)
+            .map(skill => skill.REF);
     }
     
     public getDataSkillClassMechanicIdByName(heroClass: HeroClass, mechanicName: string): number | null {
