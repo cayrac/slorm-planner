@@ -5,7 +5,6 @@ for file in *.png; do convert "$file" -transparent white "../../../src/assets/im
 
 TODO
  - leveling XP
- - organisations png reapers 
 
 
 

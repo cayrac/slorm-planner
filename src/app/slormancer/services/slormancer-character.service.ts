@@ -145,6 +145,20 @@ export class SlormancerCharacterService {
 
         return result;
     }
+
+    private getHeroLevel(experience: number): number {
+        const xpPerLevel = this.slormancerDataService.getDataHeroNextLevelExperience();
+        let level = 1;
+
+        for (const nextLevel of xpPerLevel) {
+            if (experience >= nextLevel) {
+                level++;
+                experience = experience - nextLevel;
+            }
+        }
+        
+        return level;
+    }
     
     public getCharacterFromSave(saveContent: string, heroClass: HeroClass): Character {
         const start = new Date().getTime();
@@ -154,12 +168,13 @@ export class SlormancerCharacterService {
         const skill_equip = save.skill_equip[heroClass];
         const traits = save.traits[heroClass];
         const auras = save.auras[heroClass];
+        const xp = save.xp[heroClass];
 
         console.log('save : ', save);
         
         const character: Character = {
             heroClass,
-            level: 40,
+            level: this.getHeroLevel(xp),
         
             reaper: this.getEquipedReaper(save, heroClass),
         

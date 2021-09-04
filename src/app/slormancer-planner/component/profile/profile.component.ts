@@ -18,7 +18,8 @@ export class SlormancerProfileComponent implements OnInit {
     public character: Character | null = null;
 
     constructor(private slormancerCharacterService: SlormancerCharacterService,
-                private httpClient: HttpClient) { }
+                private httpClient: HttpClient) {
+    }
 
     public ngOnInit() {
         this.httpClient.get('assets/save', { responseType: 'text' })

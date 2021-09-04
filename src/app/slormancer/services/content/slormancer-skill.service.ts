@@ -38,21 +38,7 @@ import { SlormancerTranslateService } from './slormancer-translate.service';
 
 @Injectable()
 export class SlormancerSkillService {
-    //                       1             / 2            / 3         / 4          / 5          / 6       / 7       / 8       / 9       / 10    / 11     / 12     / 13     / 14     / 15
-    // round up = ok
-    // banner  (720)        :              /              /           /            /            / 96 (-1) / 144     / 226     / 354     / 556     /        /        / 
-    // whirlwind (90)c      :              /              /           /            /            / 2335    / 3501    / 5495    / 8625    / 13538   / 21249  /        / 
-    // enduring prot        : 12           /              /           /            /            /         /         /         /         /         /        /        / 
-    // crest shield (120)   :              /              /           / 225(ru/rc) /            /         /         /         /         /         /        /        / 
-    // arrow shot           :              /              /           /            /            /         /         /         /         /         / 15933  /        / 
-    // rain of arrow        :              /              /           /            /            /         /         /         /         /         /        / 8357   / 13117
-    // arcane missile (0.9) :              /              /           /            /            /         /         /         / 4802    / 7537    / 11830
-    // arcane breach (3)    :              /              /           /            /            /         /         /         /         / 2262    / 
-    // omen (660+15+0)      : 14(rc/ru)    / 17(rc/ru)    / 38 (+1)   / 42(+1)     / 68(+2)     / 110     / 165     / 259     / 406     / 637     / 1000   / 1570   / 2464   / 3692   / 5699
-    // chrono: (35+3+5)     : 259(rc/ru)   / 311(rc/rd)   / 688(ru)   / 770(rc/ru) / 1242(ru)   / 2003    / 3002    / 4712    / 7396    / 11609   / 18222
-    // A Barrier (360+2+10) : 25(rc/rd)    / 30(rc/rd1)   / 67(rc/ru) / 75         / 121(rc/ru) / 195     / 292     / 459     / 720     / 1130    /   
-    // Tumble    (360+0+4)  :              /              /           / 75(rc/ru)  / 121(rc/ru) / 195     / 292     / 459     / 720     / 1130    / 1774   / 2784   / 4370  / 6547   / 10106
-    // Cadence   (30+7+1)   :              / 363          / 802       / 898        / 1448       / 2335    / 3501    / 5495    / 8625    / 13538   / 21249  / 33352  / 52350 / 78429   /  
+   
     private readonly BASE_XP: { [key: number]: number } = {
         1: 9065,
         2: 10890,

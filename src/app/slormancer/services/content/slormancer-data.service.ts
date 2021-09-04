@@ -6,6 +6,7 @@ import { DATA_ANCESTRAL_LEGACY } from '../../constants/content/data/data-ancestr
 import { ANCESTRAL_LEGACY_REALMS } from '../../constants/content/data/data-ancestral-legacy-zones';
 import { DATA_ATTRIBUTE_MECHANIC } from '../../constants/content/data/data-attribute-mechanic';
 import { DATA_EQUIPABLE_ITEM } from '../../constants/content/data/data-equipable-item';
+import { DATA_HERO_XP_NEXT_LEVEL } from '../../constants/content/data/data-hero-xp';
 import { DATA_KEYWORD_NAME } from '../../constants/content/data/data-keyword-name';
 import { DATA_LEGENDARY } from '../../constants/content/data/data-legendary';
 import { DATA_LEGENDARY_BASE } from '../../constants/content/data/data-legendary-base';
@@ -207,5 +208,9 @@ export class SlormancerDataService {
 
     public getDataTranslate(key: string): string | null {
         return valueOrNull(DATA_TRANSLATE[key]);
+    }
+
+    public getDataHeroNextLevelExperience(): Array<number> {
+        return DATA_HERO_XP_NEXT_LEVEL;
     }
 }
