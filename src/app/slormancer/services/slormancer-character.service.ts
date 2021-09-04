@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 
 import { HeroClass } from '..//model/content/enum/hero-class';
 import { Character, CharacterSkillAndPassives } from '../model/character';
+import { Activable } from '../model/content/activable';
 import { AncestralLegacy } from '../model/content/ancestral-legacy';
 import { Attribute } from '../model/content/enum/attribute';
 import { EquipableItem } from '../model/content/equipable-item';
 import { Reaper } from '../model/content/reaper';
+import { Skill } from '../model/content/skill';
 import { GameItem } from '../model/parser/game/game-item';
 import { GameSave } from '../model/parser/game/game-save';
 import { isNotNullOrUndefined, valueOrDefault, valueOrNull } from '../util/utils';
@@ -84,6 +86,65 @@ export class SlormancerCharacterService {
             .map(([key, equiped]) => parseInt(key));
             
     }
+
+    private getCharacterGear(character: Character): Array<EquipableItem> {
+        return [
+            character.gear.amulet,
+            character.gear.belt,
+            character.gear.body,
+            character.gear.boot,
+            character.gear.bracer,
+            character.gear.cape,
+            character.gear.glove,
+            character.gear.helm,
+            character.gear.ring_l,
+            character.gear.ring_r,
+            character.gear.shoulder
+        ].filter(isNotNullOrUndefined);
+    }
+
+    private getSkill(skillId: number, character: Character): Skill | null {
+        let result: Skill | null = null;
+
+        if (skillId !== -1) {
+            const skill = character.skills.map(skill => skill.skill).find(skill => skill.id = skillId);
+            if (skill) {
+                result = skill;
+            }
+        }
+
+        return result;
+    }
+
+    private getActivable(activableId: number, character: Character): Activable | AncestralLegacy | null {
+        let result: Activable | AncestralLegacy | null = null;
+
+        if (activableId !== -1) {
+            if (activableId >= 200) {
+                const realId = activableId - 200;
+                let activable = this.getCharacterGear(character)
+                    .map(item => item.legendaryEffect !== null ? item.legendaryEffect.activable : null)
+                    .find(activable => activable !== null && activable.id === realId);
+                if (activable) {
+                    result = activable;
+                } else if (character.reaper !== null) {
+                    activable = character.reaper.activables
+                        .find(activable => activable !== null && activable.id === realId);
+                    if (activable) {
+                        result = activable;
+                    }
+                }
+            } else if (character.ancestralLegacies.activeAncestralLegacies.indexOf(activableId) !== -1) {
+                const activable = character.ancestralLegacies.ancestralLegacies
+                    .find(ancestralLegacy => ancestralLegacy.id === activableId);
+                if (activable) {
+                    result = activable;
+                }
+            }
+        }
+
+        return result;
+    }
     
     public getCharacterFromSave(saveContent: string, heroClass: HeroClass): Character {
         const start = new Date().getTime();
@@ -92,12 +153,11 @@ export class SlormancerCharacterService {
         const inventory = save.inventory[heroClass];
         const skill_equip = save.skill_equip[heroClass];
         const traits = save.traits[heroClass];
-        save.traits
+        const auras = save.auras[heroClass];
 
         console.log('save : ', save);
         
-
-        const character = {
+        const character: Character = {
             heroClass,
             level: 40,
         
@@ -136,9 +196,9 @@ export class SlormancerCharacterService {
                 [Attribute.Bravery]: this.slormancerAttributeService.getAttributeTraits(Attribute.Bravery, valueOrDefault(traits[Attribute.Bravery], 0)),
             },
         
-            primarySkill: skill_equip.indexOf(2) === -1 ? null : skill_equip.indexOf(2),
-            secondarySkill: skill_equip.indexOf(3) === -1 ? null : skill_equip.indexOf(3),
-            supportSkill: skill_equip.indexOf(4) === -1 ? null : skill_equip.indexOf(4),
+            primarySkill: null,
+            secondarySkill: null,
+            supportSkill: null,
             activable1: null,
             activable2: null,
             activable3: null,
@@ -146,6 +206,14 @@ export class SlormancerCharacterService {
         }
 
         this.updateCharacter(character);
+
+        character.primarySkill = this.getSkill(skill_equip.indexOf(2), character);
+        character.secondarySkill = this.getSkill(skill_equip.indexOf(3), character);
+        character.supportSkill = this.getSkill(skill_equip.indexOf(4), character);
+        character.activable1 = this.getActivable(valueOrDefault(auras[0], -1), character);
+        character.activable2 = this.getActivable(valueOrDefault(auras[1], -1), character);
+        character.activable3 = this.getActivable(valueOrDefault(auras[2], -1), character);
+        character.activable4 = this.getActivable(valueOrDefault(auras[3], -1), character);
 
         const time = new Date().getTime() - start;
         console.log('Character built from save in ' + time + ' milliseconds');

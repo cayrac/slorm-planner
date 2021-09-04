@@ -4,6 +4,10 @@
             <p><b>Support skill : </b><span [innerHTML]="getSkillName(character.supportSkill)"></span></p>
             <p><b>Primary skill : </b><span [innerHTML]="getSkillName(character.primarySkill)"></span></p>
             <p><b>Secondary skill : </b><span [innerHTML]="getSkillName(character.secondarySkill)"></span></p>
+            <p><b>Activable 1 : </b><span [innerHTML]="getActivableName(character.activable1)"></span></p>
+            <p><b>Activable 2 : </b><span [innerHTML]="getActivableName(character.activable2)"></span></p>
+            <p><b>Activable 3 : </b><span [innerHTML]="getActivableName(character.activable3)"></span></p>
+            <p><b>Activable 4 : </b><span [innerHTML]="getActivableName(character.activable4)"></span></p>
 
             <p><b>Reaper : </b><span *ngIf="character.reaper !== null" [innerHTML]="character.reaper.name"></span></p>
 
@@ -29,6 +33,7 @@
             </div></mat-tab>
         <mat-tab label="Stats">Stats</mat-tab>
         <mat-tab label="Json">
-            <textarea>{{character | json}}</textarea></mat-tab>
+            <textarea>{{character | json}}</textarea>
+        </mat-tab>
       </mat-tab-group>
 </div>

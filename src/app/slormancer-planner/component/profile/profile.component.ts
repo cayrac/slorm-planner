@@ -2,9 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 import { Character } from '../../../slormancer/model/character';
+import { Activable } from '../../../slormancer/model/content/activable';
+import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
 import { HeroClass } from '../../../slormancer/model/content/enum/hero-class';
+import { Skill } from '../../../slormancer/model/content/skill';
 import { SlormancerCharacterService } from '../../../slormancer/services/slormancer-character.service';
-import { valueOrNull } from '../../../slormancer/util/utils';
 
 @Component({
   selector: 'app-profile',
@@ -29,17 +31,12 @@ export class SlormancerProfileComponent implements OnInit {
         console.log(this.character.ancestralLegacies.activeNodes);
     }
 
-    public getSkillName(id: number | null): string {
-        let name: string = '';
+    public getSkillName(skill: Skill | null): string {
+        return skill === null ? '' : skill.name;
+    }
 
-        if (this.character !== null && id !== null) {
-            const skill = valueOrNull(this.character.skills.map(data => data.skill).find(skill => skill.id === id));
-            if (skill !== null) {
-                name = skill.name;
-            }
-        }
-
-        return name;
+    public getActivableName(activable: Activable | AncestralLegacy | null): string {
+        return activable === null ? '' : activable.name;
     }
 
     public getAncestralLegacyName(id: number): string {

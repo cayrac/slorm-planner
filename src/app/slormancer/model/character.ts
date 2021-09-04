@@ -58,9 +58,9 @@ export interface Character {
 
     attributes: CharacterAttributes;
 
-    primarySkill: number | null;
-    secondarySkill: number | null;
-    supportSkill: number | null;
+    primarySkill: Skill | null;
+    secondarySkill: Skill | null;
+    supportSkill: Skill | null;
     activable1: Activable | AncestralLegacy | null;
     activable2: Activable | AncestralLegacy | null;
     activable3: Activable | AncestralLegacy | null;

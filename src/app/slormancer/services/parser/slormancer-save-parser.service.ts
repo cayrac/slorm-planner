@@ -295,6 +295,12 @@ export class SlormancerSaveParserService {
         return found;
     }
 
+    public getBytes(content: string): Bytes {
+        const [data] = content.split('#', 2);
+        
+        return toBytes(<string>data);
+    }
+
     public parseSaveFile(content: string): GameSave {
         const [data, hash] = content.split('#', 2);
         
