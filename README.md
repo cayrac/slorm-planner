@@ -3,9 +3,12 @@
 for file in *.png; do convert "$file" -transparent white "../../../src/assets/img/shoulders/$file"; done
 `
 
-mettre des tabs pour tester plus vite
+TODO
+ - legacy nodes
+ - leveling XP
+ - activables
+ - organisations png reapers 
 
-character => character update
 
 
 => profile à mettre dans planner

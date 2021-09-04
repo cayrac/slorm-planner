@@ -42,15 +42,6 @@ export class SlormancerAncestralLegacyService {
     private readonly SECONDS_LABEL = this.slormancerTranslateService.translate('tt_seconds');
     private readonly RANK_LABEL = this.slormancerTranslateService.translate('tt_rank');
 
-    private readonly UNAVAILABLE_ANCESTRAL_LEGACY: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-        11, 12, 13, 14, 17, 18, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30, 31, 33, 34, 36, 37, 38, 39,
-        40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 54, 56, 58, 59, 60, 61, 62, 63, 64, 65,
-        66, 67, 68, 69, 70, 71, 73, 74, 75, 76, 77, 78, 79, 82, 83, 84, 86, 87, 88, 89, 90, 91, 92,
-        95, 96, 102, 103, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117,
-        118, 120, 122, 123, 124, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142,
-        144, 145, 146, 147
-    ];
-
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormancerBuffService: SlormancerBuffService,
                 private slormancerEffectValueService: SlormancerEffectValueService,
@@ -146,14 +137,14 @@ export class SlormancerAncestralLegacyService {
     }
 
     public isAvailable(ref: number): boolean {
-        return this.UNAVAILABLE_ANCESTRAL_LEGACY.indexOf(ref) === -1;
+        return this.slormancerDataService.getGameDataAncestralLegacyIds().indexOf(ref) !== -1;
     }
 
     public getAncestralLegacy(ref: number, rank: number, bonusRank: number = 0): AncestralLegacy | null {
         const gameData = this.slormancerDataService.getGameDataAncestralLegacy(ref);
         let ancestralLegacy: AncestralLegacy | null = null;
 
-        if (gameData !== null && this.UNAVAILABLE_ANCESTRAL_LEGACY.indexOf(ref) === -1) {
+        if (gameData !== null) {
             const data = this.slormancerDataService.getDataAncestralLegacy(ref);
             const values = this.parseEffectValues(gameData);
             ancestralLegacy = {

@@ -14,8 +14,9 @@ export interface CharacterSkillAndPassives {
 }
 
 export interface CharacterAncestralLegacies {
-    nodes: Array<AncestralLegacy>;
-    selectedNodes: Array<number>;
+    ancestralLegacies: Array<AncestralLegacy>;
+    activeNodes: Array<number>;
+    activeAncestralLegacies: Array<number>;
 }
 
 export interface CharacterGear {

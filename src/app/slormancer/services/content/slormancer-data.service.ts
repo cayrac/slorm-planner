@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { DATA_ACTIVABLE } from '../../constants/content/data/data-activable';
 import { DATA_AFFIX } from '../../constants/content/data/data-affix';
 import { DATA_ANCESTRAL_LEGACY } from '../../constants/content/data/data-ancestral-legacy';
+import { ANCESTRAL_LEGACY_REALMS } from '../../constants/content/data/data-ancestral-legacy-zones';
 import { DATA_ATTRIBUTE_MECHANIC } from '../../constants/content/data/data-attribute-mechanic';
 import { DATA_EQUIPABLE_ITEM } from '../../constants/content/data/data-equipable-item';
 import { DATA_KEYWORD_NAME } from '../../constants/content/data/data-keyword-name';
@@ -141,9 +142,23 @@ export class SlormancerDataService {
     public getGameDataLegendary(id: number): GameDataLegendary | null {
         return valueOrNull(GAME_DATA.LEGENDARY.find(leg => leg.REF === id));
     }
+    
+    public getAncestralSkillIdFromNodes(nodes: Array<number>): Array<number> {
+        const realms = ANCESTRAL_LEGACY_REALMS
+            .filter(realms => realms.nodes.find(node => nodes.indexOf(node) !== -1) !== undefined)
+            .map(zone => zone.realm);
+
+        return GAME_DATA.ANCESTRAL_LEGACY
+            .filter(ancestralLegacy => realms.indexOf(ancestralLegacy.REALM) !== -1)
+            .map(ancestralLegacy => ancestralLegacy.REF);
+    }
 
     public getGameDataAncestralLegacy(id: number): GameDataAncestralLegacy | null {
         return valueOrNull(GAME_DATA.ANCESTRAL_LEGACY.find(ancestralLegacu => ancestralLegacu.REF === id));
+    }
+
+    public getGameDataAncestralLegacyIds(): Array<number> {
+        return GAME_DATA.ANCESTRAL_LEGACY.map(data => data.REF);
     }
 
     public getTranslation(key: string): GameDataTranslation | null {

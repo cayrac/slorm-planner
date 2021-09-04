@@ -27,7 +27,6 @@ import { SlormancerTranslateService } from '../slormancer/services/content/slorm
 import { SlormancerSaveParserService } from '../slormancer/services/parser/slormancer-save-parser.service';
 import { list } from '../slormancer/util/math.util';
 import { enumValues, valueOrNull } from '../slormancer/util/utils';
-import { SAVE } from './save';
 
 interface Data {
     level: number | string;
@@ -116,7 +115,7 @@ export class SlormancerPlannerComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.loadSave(SAVE);
+        // this.loadSave(SAVE);
         this.updateData();
     }
 

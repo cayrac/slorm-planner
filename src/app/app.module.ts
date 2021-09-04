@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -40,7 +41,8 @@ import { SlormancerPlannerComponent } from './slormancer-planner/slormancer-plan
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    SlormancerModule
+    SlormancerModule,
+    HttpClientModule, // TODO besoin uniquement pour charger rapidement la save, à virer ensuite
   ],
   providers: [],
   bootstrap: [AppComponent]

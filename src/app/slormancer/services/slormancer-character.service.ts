@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 
 import { HeroClass } from '..//model/content/enum/hero-class';
 import { Character, CharacterSkillAndPassives } from '../model/character';
+import { AncestralLegacy } from '../model/content/ancestral-legacy';
 import { Attribute } from '../model/content/enum/attribute';
 import { EquipableItem } from '../model/content/equipable-item';
 import { Reaper } from '../model/content/reaper';
 import { GameItem } from '../model/parser/game/game-item';
 import { GameSave } from '../model/parser/game/game-save';
 import { isNotNullOrUndefined, valueOrDefault, valueOrNull } from '../util/utils';
+import { SlormancerAncestralLegacyService } from './content/slormancer-ancestral-legacy.service';
 import { SlormancerAttributeService } from './content/slormancer-attribute.service';
 import { SlormancerDataService } from './content/slormancer-data.service';
 import { SlormancerItemService } from './content/slormancer-item.service';
@@ -23,7 +25,8 @@ export class SlormancerCharacterService {
                 private slormancerReaperService: SlormancerReaperService,
                 private slormancerDataService: SlormancerDataService,
                 private slormancerSkillService: SlormancerSkillService,
-                private slormancerAttributeService: SlormancerAttributeService
+                private slormancerAttributeService: SlormancerAttributeService,
+                private slormancerAncestralLegacyService: SlormancerAncestralLegacyService
         ) { }
 
     private getSkills(save: GameSave, heroClass: HeroClass): Array<CharacterSkillAndPassives> {
@@ -65,7 +68,25 @@ export class SlormancerCharacterService {
         return reaperData !== null ? this.slormancerReaperService.getReaperFromGameWeapon(reaperData, heroClass, primordial) : null;
     }
 
+    private getAncestralLegacies(save: GameSave, heroClass: HeroClass): Array<AncestralLegacy> {
+        const elementRank = save.element_rank[heroClass];
+
+        return Object.entries(elementRank)
+            .map(([key, rank]) => this.slormancerAncestralLegacyService.getAncestralLegacy(parseInt(key), rank))
+            .filter(isNotNullOrUndefined);
+    }
+
+    private getActiveNodes(save: GameSave, heroClass: HeroClass): Array<number> {
+        const elementEquip = save.element_equip[heroClass];
+
+        return Object.entries(elementEquip)
+            .filter(([key, equiped]) => equiped === 1)
+            .map(([key, equiped]) => parseInt(key));
+            
+    }
+    
     public getCharacterFromSave(saveContent: string, heroClass: HeroClass): Character {
+        const start = new Date().getTime();
         const save = this.slormancerSaveParserService.parseSaveFile(saveContent);
 
         const inventory = save.inventory[heroClass];
@@ -75,20 +96,17 @@ export class SlormancerCharacterService {
 
         console.log('save : ', save);
         
-        // TODO legacy nodes
-        // leveling XP
-        // legacies
-        // activables
 
-        return {
+        const character = {
             heroClass,
             level: 40,
         
             reaper: this.getEquipedReaper(save, heroClass),
         
             ancestralLegacies: {
-                nodes: [],
-                selectedNodes: []
+                ancestralLegacies: this.getAncestralLegacies(save, heroClass),
+                activeNodes: this.getActiveNodes(save, heroClass),
+                activeAncestralLegacies: []
             },
             skills: this.getSkills(save, heroClass),
         
@@ -126,9 +144,15 @@ export class SlormancerCharacterService {
             activable3: null,
             activable4: null
         }
+
+        this.updateCharacter(character);
+
+        const time = new Date().getTime() - start;
+        console.log('Character built from save in ' + time + ' milliseconds');
+        return character;
     }
 
     public updateCharacter(character: Character) {
-        
+        character.ancestralLegacies.activeAncestralLegacies = this.slormancerDataService.getAncestralSkillIdFromNodes(character.ancestralLegacies.activeNodes);
     }
 }
