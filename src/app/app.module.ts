@@ -1,7 +1,9 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,7 +41,9 @@ import { SlormancerPlannerComponent } from './slormancer-planner/slormancer-plan
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
+    MatTabsModule,
     AppRoutingModule,
     SlormancerModule,
     HttpClientModule, // TODO besoin uniquement pour charger rapidement la save, à virer ensuite
