@@ -314,7 +314,7 @@ export class SlormancerReaperService {
     public updateReaper(reaper: Reaper) {
         const info = reaper.primordial ? reaper.primordialInfo : reaper.baseInfo;
         
-        reaper.icon = 'reaper_' + reaper.weaponClass + '_' + reaper.id + (reaper.primordial ? '_p' : '');
+        reaper.icon = 'reaper/' + reaper.weaponClass + '/' + reaper.id + (reaper.primordial ? '_p' : '');
         reaper.kills = info.kills;
         reaper.baseLevel = Math.max(reaper.minLevel, info.level);
         reaper.bonusLevel = Math.max(0, Math.min(this.MAX_REAPER_BONUS, reaper.bonusLevel));
