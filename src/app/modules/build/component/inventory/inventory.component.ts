@@ -9,11 +9,11 @@ import { Skill } from '../../../slormancer/model/content/skill';
 import { SlormancerCharacterService } from '../../../slormancer/services/slormancer-character.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: 'app-inventory',
+  templateUrl: './inventory.component.html',
+  styleUrls: ['./inventory.component.scss']
 })
-export class SlormancerProfileComponent implements OnInit {
+export class InventoryComponent implements OnInit {
 
     public character: Character | null = null;
 
@@ -24,6 +24,32 @@ export class SlormancerProfileComponent implements OnInit {
     public ngOnInit() {
         this.httpClient.get('assets/save', { responseType: 'text' })
         .subscribe(save => this.loadSave(save, HeroClass.Huntress));
+    }
+
+    public uploadSave(file: Event) {
+        if (file.target !== null) {
+            const files = (<HTMLInputElement>file.target).files;
+            if (files !== null && files[0]) {
+                this.upload(files[0]);
+            }
+        }
+    }
+
+    private upload(file: File) {
+        var reader: FileReader | null = new FileReader();
+ 
+		reader.onerror = () => {
+			reader = null;
+            alert('Failed to upload file');
+ 		};
+		reader.onloadend = () => {
+            if (reader !== null && reader.result !== null) {
+                this.loadSave(reader.result.toString(), HeroClass.Huntress);
+                reader = null;
+            }
+		};
+ 
+		reader.readAsText(file);
     }
 
     private loadSave(save: string, heroclass: HeroClass) {

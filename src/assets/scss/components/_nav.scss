@@ -1,0 +1,15 @@
+nav.mat-tab-nav-bar {
+    border-bottom: 0;
+
+    .mat-tab-link {
+        opacity: 1;
+
+        &.mat-tab-label-active {
+            font-weight: bold;
+        }
+    
+        &:not(.mat-tab-label-active) {
+            letter-spacing: .5px;
+        }
+    }
+}

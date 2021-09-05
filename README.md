@@ -4,8 +4,8 @@ for file in *.png; do convert "$file" -transparent white "../../../src/assets/im
 `
 
 TODO
- - leveling XP
 
+=> commencer interface
 
 
 => profile à mettre dans planner

@@ -1,0 +1,12 @@
+@import "theme/material.scss";
+@import "theme/font.scss";
+
+@import "abstracts/colors.scss";
+
+@import "components/nav.scss";
+
+body {
+    font-family: 'Berlin Sans FB Regular';
+    // background-color: $background-color;
+    // color: $text-color;
+}
