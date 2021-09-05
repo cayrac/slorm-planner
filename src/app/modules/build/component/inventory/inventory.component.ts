@@ -30,6 +30,8 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
 
     }
 
+    // 9 2 3 4
+
     constructor(private plannerService: PlannerService) {
         super();
     }

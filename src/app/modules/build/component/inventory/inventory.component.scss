@@ -29,8 +29,7 @@ main {
         position: relative;
         background-color: $background-gear;
     }
-
-
+    
     .gear {
         .equipment {
             @include flex(column, stretch, space-between);
@@ -54,6 +53,35 @@ main {
                     border: 3px solid rgb(60, 60, 60);
                     background-color: black;
                     color: white;
+                    @include flex(column, center, flex-end);
+
+                    .animation {
+                        position: relative;
+                        height: 144px;
+                        width: 96px;
+                        img {
+                            position: absolute;
+                            width: 100%;
+                            height: 100%;
+                            image-rendering: pixelated;
+                            animation-duration: 1s;
+                            animation-iteration-count: infinite;
+                            animation-timing-function: linear;
+    
+                            &.idle-1 {
+                                animation-name: idle-1;
+                            }
+                            &.idle-2 {
+                                animation-name: idle-2;
+                            }
+                            &.idle-3 {
+                                animation-name: idle-3;
+                            }
+                            &.idle-4 {
+                                animation-name: idle-4;
+                            }
+                        }
+                    }
                 }
             }
             .bottom-equipment {
@@ -70,4 +98,38 @@ main {
             }
         }
     }
+}
+
+@keyframes idle-1 {
+    0%   { opacity:1; }
+    24%  { opacity:1; }
+    25%  { opacity:0; }
+    99%  { opacity:0; }
+    100% { opacity:1; }
+}
+
+@keyframes idle-2 {
+    0%   { opacity:0; }
+    24%  { opacity:0; }
+    25%  { opacity:1; }
+    49%  { opacity:1; }
+    50%  { opacity:0; }
+    100% { opacity:0; }
+}
+
+@keyframes idle-3 {
+    0%   { opacity:0; }
+    49%  { opacity:0; }
+    50%  { opacity:1; }
+    74%  { opacity:1; }
+    75%  { opacity:0; }
+    100% { opacity:0; }
+}
+
+@keyframes idle-4 {
+    0%   { opacity:0; }
+    74%  { opacity:0; }
+    75%  { opacity:1; }
+    99%  { opacity:1; }
+    100% { opacity:0; }
 }
