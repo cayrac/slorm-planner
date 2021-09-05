@@ -1,110 +1,71 @@
-.content {
-    width: 100%;
-    height: 100%;
-    max-height: 900px;
+@import "../../../../../assets/scss/abstracts/flex.scss";
+@import "../../../../../assets/scss/abstracts/variables.scss";
+
+$background-gear: rgb(9,9,9);
+
+main {
+    @include flex(row, stretch, space-between);
+    @include flex-gap($space-content);
+    height: 800px;
+    min-width: 1200px;
+
+    .item {
+        width: 56px;
+        min-width: 56px;
+        min-height: 56px;
+        min-height: 56px;
+        border: 3px solid black;
+        position: relative;
     
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-
-    .upload {
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .test {
-        display: flex;
-        flex-direction: column;
-        padding: 10px;
-
-        .row {
-            display: flex;
-            flex-direction: row;
-            height: 25px;
-            line-height: 25px;
-            border-bottom: 1px solid gray;
-            > * {
-                flex-basis: 0;
-                flex-grow: 1;
-            }
-
-            .notsame {
-                color: red;
-            }
-            .same {
-                color: green;
-            }
+        img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
         }
     }
 
-    .save {
-        width: 100%;
-        height: 100%;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: stretch;
-
-        .item {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
+    .gear, .stats, .inventory {
+        @include flex-grow();
+        position: relative;
+        background-color: $background-gear;
+    }
 
 
-            .json {
-                flex-grow: 1;
-                max-width: 50%;
-                max-height: 750px;
+    .gear {
+        .equipment {
+            @include flex(column, stretch, space-between);
+            min-height: 450px;
+
+            .top-equipment {
+                @include flex(row, center, center);
+                @include flex-gap($space-unit * 5);
+                @include flex-grow();
             }
-            .parsed {
-                flex-grow: 1;
-
-                input {
-                    width: 100%;
+            .center-equipment {
+                @include flex(row, stretch, space-between);
+                .left-equipment, .right-equipment {
+                    @include flex(column, center, center);
+                    @include flex-gap($space-unit * 2);
+                    @include flex-grow();
                 }
-
-                .chart {
-                    width: 100%;
-                    height: 350px;
-                }
-
-                .row {
-                    display: flex;
-                    flex-direction: row;
-                    border-bottom: 1px solid black;
-                    height: 40px;
-                    align-items: center;
-
-                    .same {
-                        color: green;
-                    }
-
-                    > * {
-                        flex-grow: 1;
-                        flex-basis: 0;
-                    }
+                .character-preview {
+                    width: 150px;
+                    height: 200px;
+                    border: 3px solid rgb(60, 60, 60);
+                    background-color: black;
                 }
             }
-            .json, .parsed {
-                flex-basis: 0;
-                padding: 10px;
-        
-                app-json {
-                    overflow: hidden;
-                    width: 100%;
-                    overflow: auto;
-                }
-            }
+            .bottom-equipment {
+                @include flex(row, center, center);
+                @include flex-gap($space-unit * 4);
+                @include flex-grow();
 
-            .legendary-data {
-                display: flex;
-                flex-direction: row;
+                .ring_l, .ring_r {
+                    margin-bottom: 20px;
+                }
+                .boot {
+                    margin-top: 20px;
+                }
             }
         }
     }

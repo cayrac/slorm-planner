@@ -106,10 +106,8 @@ export class SlormancerCharacterService {
     private getSkill(skillId: number, character: Character): Skill | null {
         let result: Skill | null = null;
 
-        console.log('get skill : ' + skillId);
         if (skillId !== -1) {
             const skill = character.skills.map(skill => skill.skill).find(skill => skill.id === skillId);
-            console.log(skill);
             if (skill) {
                 result = skill;
             }
@@ -171,8 +169,6 @@ export class SlormancerCharacterService {
         const traits = save.traits[heroClass];
         const auras = save.auras[heroClass];
         const xp = save.xp[heroClass];
-
-        console.log('save : ', save);
         
         const character: Character = {
             heroClass,

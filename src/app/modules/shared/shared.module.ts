@@ -10,6 +10,7 @@ import { SkillUpgradeViewComponent } from './components/skill-upgrade-view/skill
 import { SkillViewComponent } from './components/skill-view/skill-view.component';
 import { TraitViewComponent } from './components/trait-view/trait-view.component';
 import { MaterialModule } from './material.module';
+import { PlannerService } from './services/planner.service';
 
 
 @NgModule({
@@ -29,7 +30,15 @@ import { MaterialModule } from './material.module';
     ],
     exports: [
         MaterialModule,
+        ItemViewComponent,
+        ReaperViewComponent,
+        ActivableViewComponent,
+        SkillViewComponent,
+        SkillUpgradeViewComponent,
+        AncestralLegacyViewComponent,
+        TraitViewComponent,
+        AttributeSummaryViewComponent,
     ],
-    providers: [],
+    providers: [PlannerService],
 })
 export class SharedModule { }

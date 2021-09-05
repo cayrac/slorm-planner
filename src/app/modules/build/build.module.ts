@@ -1,3 +1,4 @@
+import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -9,6 +10,7 @@ import { SlormancerModule } from '../slormancer';
 import { BuildRoutingModule } from './build-routing.module';
 import { BuildComponent } from './build.component';
 import { AncestralLegaciesComponent } from './component/ancestral-legacies/ancestral-legacies.component';
+import { ItemSlotComponent } from './component/inventory/components/item-slot.component';
 import { InventoryComponent } from './component/inventory/inventory.component';
 import { SkillsComponent } from './component/skills/skills.component';
 
@@ -18,12 +20,14 @@ import { SkillsComponent } from './component/skills/skills.component';
     SkillsComponent,
     AncestralLegaciesComponent,
     InventoryComponent,
-    BuildComponent
+    BuildComponent,
+    ItemSlotComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
     BuildRoutingModule,
+    OverlayModule,
     FormsModule,
     SlormancerModule,
     MaterialModule,

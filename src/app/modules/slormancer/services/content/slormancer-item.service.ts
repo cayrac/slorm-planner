@@ -153,11 +153,12 @@ export class SlormancerItemService {
         if (item.legendaryEffect !== null) {
             base = item.legendaryEffect.itemIcon;
         } else {
-            base = 'item/' + item.base + '/' + item.affixes
+            const affixes = item.affixes
                 .filter(affix => affix.rarity === Rarity.Normal)
                 .map(affix => affix.primaryNameType)
                 .sort()
                 .join('-');
+            base = 'assets/img/icon/item/' + item.base + '/' + affixes + '.png';
         }
 
         return base;
@@ -279,7 +280,7 @@ export class SlormancerItemService {
         item.rarityLabel = this.slormancerTranslateService.translate('RAR_loot_' + item.rarity);
         item.icon = this.getItemIcon(item);
         item.levelLabel = this.slormancerTranslateService.translate('lvl') + '. ' + item.level;
-        item.itemIconBackground = 'background/bg-' + item.rarity;
+        item.itemIconBackground = 'assets/img/background/bg-' + item.rarity + '.png';
 
         for (const affix of item.affixes) {
             affix.itemLevel = item.level;

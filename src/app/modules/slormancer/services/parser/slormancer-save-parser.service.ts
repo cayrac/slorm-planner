@@ -308,8 +308,6 @@ export class SlormancerSaveParserService {
 
         const parsedData = this.parseKeys(bytes);
 
-        // console.log('parsedData : ', parsedData);
-
         return {
             stats_fetched: this.parseStatsFetched(this.getOrFail(parsedData, 'stats_fetched')),
             version: this.parseVersion(this.getOrFail(parsedData, 'version')),

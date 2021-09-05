@@ -5,8 +5,8 @@
         <div class="main">
             <div class="info">
                 <div class="icon">
-                    <img class="background" src="assets/img/{{item.itemIconBackground}}.png" />
-                    <img src="assets/img/icon/{{item.icon}}.png" />
+                    <img class="background" [src]="item.itemIconBackground" />
+                    <img [src]="item.icon" />
                 </div>
                 <div class="rarity">{{item.rarityLabel}}</div>
                 <div class="split">-</div>

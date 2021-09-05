@@ -134,7 +134,8 @@ export class SlormancerLegendaryEffectService {
                 id: gameData.REF,
                 name: gameData.EN_NAME,
                 reinforcment,
-                itemIcon: 'item/' + gameData.ITEM + '/' + base,
+                // assets/img/icon/item/' + item.base + '/' + affixes + '.png
+                itemIcon: 'assets/img/icon/item/' + gameData.ITEM + '/' + base + '.png',
                 value: affix.value,
                 activable: this.slormanderActivableService.getLegendaryActivable(gameData.REF, heroClass),
                 onlyStat: gameData.STAT_ONLY === true,

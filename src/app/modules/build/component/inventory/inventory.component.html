@@ -1,5 +1,34 @@
-<main>
-    <div class="quick stats">
+<main *ngIf="character !== null">
+    <div class="stats">
+    </div>
+    <div class="gear">    
+        <div class="equipment">
+            <div class="top-equipment">
+                <app-item-slot class="helm" [item]="character.gear.helm"></app-item-slot>
+                <app-item-slot class="amulet" [item]="character.gear.amulet"></app-item-slot>
+            </div>
+            <div class="center-equipment">
+                <div class="left-equipment">
+                    <app-item-slot class="shoulder" [item]="character.gear.shoulder"></app-item-slot>
+                    <app-item-slot class="bracer" [item]="character.gear.bracer"></app-item-slot>
+                    <app-item-slot class="glove" [item]="character.gear.glove"></app-item-slot>
+                </div>
+                <div class="character-preview">
+                </div>
+                <div class="right-equipment">
+                    <app-item-slot class="body" [item]="character.gear.body"></app-item-slot>
+                    <app-item-slot class="cape" [item]="character.gear.cape"></app-item-slot>
+                    <app-item-slot class="belt" [item]="character.gear.belt"></app-item-slot>
+                </div>
+            </div>
+            <div class="bottom-equipment">
+                <app-item-slot class="ring_l" [item]="character.gear.ring_l"></app-item-slot>
+                <app-item-slot class="boot" [item]="character.gear.boot"></app-item-slot>
+                <app-item-slot class="ring_r" [item]="character.gear.ring_r"></app-item-slot>
+            </div>
+        </div>
+    </div>
+    <div class="inventory">
 
     </div>
-</main>>
+</main>

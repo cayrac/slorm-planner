@@ -24,6 +24,11 @@
     }
 }
 
+@mixin flex-gap($size: $space-content) {
+    gap: $size;
+}
+
+
 @mixin flex-row-to-column($breakpoint, $align: null, $justify: null) {
     @include flex(row, $align, $justify);
 

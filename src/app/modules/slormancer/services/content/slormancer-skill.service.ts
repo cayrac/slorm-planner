@@ -39,7 +39,7 @@ import { SlormancerTranslateService } from './slormancer-translate.service';
 @Injectable()
 export class SlormancerSkillService {
    
-    private readonly BASE_XP: { [key: number]: number } = {
+    /*private readonly BASE_XP: { [key: number]: number } = {
         1: 9065,
         2: 10890,
         3: 24060,
@@ -49,7 +49,7 @@ export class SlormancerSkillService {
 
 
         10: 1508
-    }
+    }*/
 
     private readonly RANK_LABEL = this.slormancerTranslateService.translate('tt_rank');
     private readonly MASTERY_LABEL = this.slormancerTranslateService.translate('tt_mastery');
@@ -63,7 +63,6 @@ export class SlormancerSkillService {
                 private slormancerDataService: SlormancerDataService,
                 private slormancerBuffService: SlormancerBuffService,
                 private slormancerEffectValueService: SlormancerEffectValueService) {
-        console.log(this.BASE_XP);
     }
 
     private getSkillLevelFromXp(heroClass: HeroClass, skill: number, experience: number): number {

@@ -1,4 +1,10 @@
-@import "../../../assets/scss/abstracts/flex.scss";
+@import "../../../assets/scss/abstracts/flex";
+@import "../../../assets/scss/abstracts/spacing";
+
+:host {
+    height: 100%;
+    @include flex(column, stretch);
+}
 
 .header {
     @include flex(row, center);
@@ -19,4 +25,9 @@
     nav {
         @include flex-grow();
     }
+}
+
+.content {
+    @include flex-grow();
+    @include spacing();
 }

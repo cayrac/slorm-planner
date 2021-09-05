@@ -5,12 +5,20 @@
 @import "abstracts/browsers.scss";
 @import "abstracts/breakpoints.scss";
 @import "abstracts/flex.scss";
+@import "abstracts/spacing.scss";
 
 @import "components/nav.scss";
 
-body {
+html, body {
     margin: 0;
+    height: 100%;
     font-family: 'Berlin Sans FB Regular';
+
     // background-color: $background-color;
     // color: $text-color;
+}
+
+app-root {
+    display: block;
+    height: 100%;
 }
