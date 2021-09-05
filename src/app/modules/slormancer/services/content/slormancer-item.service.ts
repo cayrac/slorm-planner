@@ -183,7 +183,7 @@ export class SlormancerItemService {
             },
 
             label: '',
-            icon: 'enchantment/reaper'
+            icon: 'assets/img/icon/enchantment/reaper.png'
         }
     }
 
@@ -316,7 +316,7 @@ export class SlormancerItemService {
             const min = valueOrDefault(firstValue(item.skillEnchantment.craftableValues), 0);
             const max = valueOrDefault(lastValue(item.skillEnchantment.craftableValues), 0);
             item.skillEnchantment.label = this.slormancerTemplateService.getReaperEnchantmentLabel(this.SKILL_ENCHANTMENT_LABEL, value, min, max, skill === null ? '??' : skill.EN_NAME);
-            item.skillEnchantment.icon = 'enchantment/skill/' + item.heroClass + '/' + item.skillEnchantment.craftedSkill;
+            item.skillEnchantment.icon = 'assets/img/icon/enchantment/skill/' + item.heroClass + '/' + item.skillEnchantment.craftedSkill + '.png';
         }
 
         if (item.attributeEnchantment !== null) {
@@ -329,7 +329,7 @@ export class SlormancerItemService {
             const min = valueOrDefault(firstValue(item.attributeEnchantment.craftableValues), 0);
             const max = valueOrDefault(lastValue(item.attributeEnchantment.craftableValues), 0);
             item.attributeEnchantment.label = this.slormancerTemplateService.getReaperEnchantmentLabel(this.SKILL_ENCHANTMENT_LABEL, value, min, max, attributeName);
-            item.attributeEnchantment.icon = 'enchantment/attribute/' + item.attributeEnchantment.craftedAttribute;
+            item.attributeEnchantment.icon = 'assets/img/icon/enchantment/attribute/' + item.attributeEnchantment.craftedAttribute + '.png';
         }
     }
 }

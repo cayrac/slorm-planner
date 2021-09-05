@@ -18,6 +18,9 @@ export class AncestralLegacyViewComponent {
     @Input()
     public readonly ancestralLegacy: AncestralLegacy | null = null;
 
+    @Input()
+    public readonly hideNextRank: boolean = false;
+
     constructor(private slormancerTranslateService: SlormancerTranslateService) { }
 
     public getCostLabel(costType: SkillCostType): string {

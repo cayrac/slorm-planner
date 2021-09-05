@@ -68,7 +68,7 @@ export class SlormancerActivableService {
         const activable = {
             id: data.REF,
             name: data.EN_NAME,
-            icon: 'skill/activable/' + data.REF,
+            icon: 'assets/img/icon/skill/activable/' + data.REF + '.png',
             description: '',
             baseCooldown: data.COOLDOWN,
             cooldown: 0,

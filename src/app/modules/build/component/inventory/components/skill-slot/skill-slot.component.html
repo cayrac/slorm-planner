@@ -1,0 +1,11 @@
+
+<div class="skill" [class.support]="support" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+    <ng-container *ngIf="skill !== null">
+        <img [src]="support ? skill.iconLarge : skill.icon">
+        <ng-template cdkConnectedOverlay
+            [cdkConnectedOverlayOpen]="showOverlay"
+            [cdkConnectedOverlayOrigin]="trigger">
+            <app-skill-view [skill]="skill"></app-skill-view>
+        </ng-template>
+    </ng-container>
+</div>

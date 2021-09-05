@@ -10,11 +10,14 @@ import { SlormancerModule } from '../slormancer';
 import { BuildRoutingModule } from './build-routing.module';
 import { BuildComponent } from './build.component';
 import { AncestralLegaciesComponent } from './component/ancestral-legacies/ancestral-legacies.component';
+import { ActivableSlotComponent } from './component/inventory/components/activable-slot/activable-slot.component';
 import {
   CharacterAnimationComponent,
 } from './component/inventory/components/character-animation/character-animation.component';
 import { ItemSlotComponent } from './component/inventory/components/item-slot/item-slot.component';
 import { ReaperSlotComponent } from './component/inventory/components/reaper-slot/reaper-slot.component';
+import { SkillBarComponent } from './component/inventory/components/skill-bar/skill-bar.component';
+import { SkillSlotComponent } from './component/inventory/components/skill-slot/skill-slot.component';
 import { InventoryComponent } from './component/inventory/inventory.component';
 import { SkillsComponent } from './component/skills/skills.component';
 
@@ -27,7 +30,10 @@ import { SkillsComponent } from './component/skills/skills.component';
     BuildComponent,
     ItemSlotComponent,
     CharacterAnimationComponent,
-    ReaperSlotComponent
+    ReaperSlotComponent,
+    SkillSlotComponent,
+    SkillBarComponent,
+    ActivableSlotComponent
   ],
   imports: [
     CommonModule,

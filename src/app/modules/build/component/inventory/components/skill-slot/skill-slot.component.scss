@@ -1,23 +1,26 @@
 @import "../../../../../../../assets/scss/abstracts/flex.scss";
 @import "../../../../../../../assets/scss/abstracts/variables.scss";
 
-$background-gear: rgb(9,9,9);
-
 :host {
-    width: 64px;
-    min-width: 64px;
-    height: 64px;
-    min-height: 64px;
+    min-width: 42px;
+    height: 42px;
+    min-height: 42px;
+    overflow:hidden;
 }
 
-.item {
-    width: 56px;
-    min-width: 56px;
-    min-height: 56px;
-    min-height: 56px;
+.skill {
+    width: 34px;
+    min-width: 34px;
+    height: 34px;
+    min-height: 34px;
     border: 4px solid black;
     position: relative;
     background-color: rgb(19, 19, 19);
+
+    &.support {
+        width: 84px;
+        min-width: 84px;
+    }
 
     img {
         position: absolute;

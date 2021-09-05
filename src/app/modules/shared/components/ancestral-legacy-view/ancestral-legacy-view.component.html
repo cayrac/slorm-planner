@@ -5,7 +5,7 @@
             <div class="visual">
                 <div class="icon">
                     <div class="icon-border"></div>
-                    <img src="assets/img/icon/{{ancestralLegacy.icon}}.png" />
+                    <img [src]="ancestralLegacy.icon" />
                 </div>
             </div>
             <div class="data">
@@ -18,7 +18,7 @@
         </div>
         <div class="separator"></div>
         <div class="description" [innerHTML]="ancestralLegacy.description"></div>
-        <ng-container *ngIf="ancestralLegacy.nextRankDescription.length > 0 || ancestralLegacy.maxRankDescription.length > 0">
+        <ng-container *ngIf="!hideNextRank && (ancestralLegacy.nextRankDescription.length > 0 || ancestralLegacy.maxRankDescription.length > 0)">
             <div class="separator"></div>
             <div class="next-rank">
                 <div class="title">{{NEXT_RANK_LABEL}}:</div>

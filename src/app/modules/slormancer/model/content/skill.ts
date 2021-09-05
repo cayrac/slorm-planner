@@ -13,6 +13,7 @@ export interface Skill {
     bonusLevel: number;
     name: string;
     icon: string;
+    iconLarge: string;
     description: string;
     baseCooldown: number;
     cooldown: number;

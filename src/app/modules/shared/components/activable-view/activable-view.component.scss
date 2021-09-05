@@ -74,9 +74,14 @@ $item-text-color       : white;
         .icon {
             display: flex;
             align-items: center;
+            border: 4px solid $activable-gold-border;
+            min-width: 44px;
+            min-height: 44px;
+            width: 44px;
+            height: 44px;
 
             img { 
-                border: 4px solid $activable-gold-border;
+                border: 4px solid black;
                 min-width: 36px;
                 min-height: 36px;
                 width: 36px;

@@ -1,0 +1,13 @@
+@import "../../../../../../../assets/scss/abstracts/flex.scss";
+@import "../../../../../../../assets/scss/abstracts/variables.scss";
+
+.skill-bar {
+    @include flex(row);
+    @include flex-gap($space-unit);
+    border: 3px solid rgb(60, 60, 60);
+    padding: $space-unit $space-unit * 2;
+
+    app-skill-slot, app-activable-slot {
+        border: 3px solid rgb(60, 60, 60);
+    }
+}

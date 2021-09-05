@@ -150,7 +150,7 @@ export class SlormancerAncestralLegacyService {
             ancestralLegacy = {
                 id: ref,
                 name: gameData.EN_NAME,
-                icon: 'legacy/' + ref,
+                icon: 'assets/img/icon/legacy/' + ref + '.png',
                 description: '',
                 types: <Array<AncestralLegacyType>>splitData(gameData.TYPE, ','),
                 element: <AncestralLegacyElement>gameData.REALM_COLOR,

@@ -70,7 +70,7 @@
                         <span class="value" *ngIf="item.legendaryEffect.activable !== null"> {{item.legendaryEffect.activable.name}}</span>
                     </div>
                     <div class="icon" *ngIf="item.legendaryEffect.skillIcon !== null">
-                        <img src="assets/img/icon/{{item.legendaryEffect.skillIcon}}.png" />
+                        <img [src]="item.legendaryEffect.skillIcon" />
                     </div>
                 </div>
             </div>
@@ -79,15 +79,15 @@
             [activable]="item.legendaryEffect.activable"
             [reinforcment]="item.reinforcment"></app-activable-view>
         <div class="buff reaper" *ngIf="item.reaperEnchantment !== null">
-            <img src="assets/img/icon/{{item.reaperEnchantment.icon}}.png"/>
+            <img [src]="item.reaperEnchantment.icon"/>
             <div class="info" [innerHTML]="item.reaperEnchantment.label"></div>
         </div>
         <div class="buff skill" *ngIf="item.skillEnchantment !== null">
-            <img src="assets/img/icon/{{item.skillEnchantment.icon}}.png"/>
+            <img [src]="item.skillEnchantment.icon"/>
             <div class="info" [innerHTML]="item.skillEnchantment.label"></div>
         </div>
         <div class="buff attribute atr-{{item.attributeEnchantment.craftedAttribute}}" *ngIf="item.attributeEnchantment !== null">
-            <img src="assets/img/icon/{{item.attributeEnchantment.icon}}.png"/>
+            <img [src]="item.attributeEnchantment.icon"/>
             <div class="info" [innerHTML]="item.attributeEnchantment.label"></div>
         </div>
     </div>

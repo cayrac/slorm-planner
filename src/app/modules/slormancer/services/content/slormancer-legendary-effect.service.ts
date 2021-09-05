@@ -112,9 +112,9 @@ export class SlormancerLegendaryEffectService {
     
             if (skillValue !== null) {
                 if (hero === 99) {
-                    icon = 'legacy/' + skillValue;
+                    icon = 'assets/img/icon/legacy/' + skillValue + '.png';
                 } else {
-                    icon = 'skill/' + hero + '/' + skillValue;
+                    icon = 'assets/img/icon/skill/' + hero + '/' + skillValue + '.png';
                 }
             }
         }
@@ -134,7 +134,6 @@ export class SlormancerLegendaryEffectService {
                 id: gameData.REF,
                 name: gameData.EN_NAME,
                 reinforcment,
-                // assets/img/icon/item/' + item.base + '/' + affixes + '.png
                 itemIcon: 'assets/img/icon/item/' + gameData.ITEM + '/' + base + '.png',
                 value: affix.value,
                 activable: this.slormanderActivableService.getLegendaryActivable(gameData.REF, heroClass),
