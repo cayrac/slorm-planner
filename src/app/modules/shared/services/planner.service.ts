@@ -21,7 +21,7 @@ export class PlannerService {
         this.characterChanged = new BehaviorSubject<Character | null>(this.character);
         
         this.httpClient.get('assets/save', { responseType: 'text' })
-        .subscribe(save => this.loadSave(save, HeroClass.Huntress));
+        .subscribe(save => this.loadSave(save, HeroClass.Warrior));
     }
 
     public loadSave(save: string, heroclass: HeroClass) {

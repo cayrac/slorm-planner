@@ -36,7 +36,7 @@ export class BuildComponent {
         };
         reader.onloadend = () => {
             if (reader !== null && reader.result !== null) {
-                this.plannerService.loadSave(reader.result.toString(), HeroClass.Huntress);
+                this.plannerService.loadSave(reader.result.toString(), HeroClass.Mage);
                 reader = null;
             }
         };
