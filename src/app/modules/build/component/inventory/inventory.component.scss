@@ -29,7 +29,7 @@ main {
         position: relative;
         background-color: $background-gear;
     }
-    
+
     .gear {
         .equipment {
             @include flex(column, stretch, space-between);
@@ -51,14 +51,15 @@ main {
                     width: 150px;
                     height: 200px;
                     border: 3px solid rgb(60, 60, 60);
+                    padding: $space-unit * 2;
                     background-color: black;
                     color: white;
                     @include flex(column, center, flex-end);
 
                     .animation {
                         position: relative;
-                        height: 144px;
-                        width: 96px;
+                        height: 136px;
+                        width: 88px;
                         img {
                             position: absolute;
                             width: 100%;
