@@ -1,0 +1,22 @@
+@import "../../../assets/scss/abstracts/flex.scss";
+
+.header {
+    @include flex(row, center);
+    width: 100%;
+
+    .tools {
+        // hauteur nav
+        @include flex(row, center);
+        width: 48px;
+        min-width: 48px;
+        cursor: pointer;
+
+        mat-icon {
+            margin: auto;
+        }
+    }
+
+    nav {
+        @include flex-grow();
+    }
+}

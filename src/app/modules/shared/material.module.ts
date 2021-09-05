@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, RippleGlobalOptions } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 
 const globalRippleConfig: RippleGlobalOptions = {
@@ -15,11 +16,13 @@ const globalRippleConfig: RippleGlobalOptions = {
     declarations: [ ],
     imports: [
         MatTabsModule,
-        MatButtonModule
+        MatButtonModule,
+        MatIconModule
     ],
     exports: [
         MatTabsModule,
-        MatButtonModule
+        MatButtonModule,
+        MatIconModule
     ],
     providers: [
         {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: globalRippleConfig}

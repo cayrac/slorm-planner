@@ -1,11 +1,16 @@
 
-<nav class="tabs-nav" mat-tab-nav-bar>
-    <a mat-tab-link *ngFor="let route of ROUTES; let i = index"
-        [routerLink]="route.route"
-        routerLinkActive #rla="routerLinkActive"
-        [active]="rla.isActive">
-        <span translate>{{ route.name }}</span>
-    </a>
-</nav>
+<div class="header">
+    <div class="tools">
+        <mat-icon>settings</mat-icon>
+    </div>
+    <nav mat-tab-nav-bar>
+        <a mat-tab-link *ngFor="let route of ROUTES; let i = index"
+            [routerLink]="route.route"
+            routerLinkActive #rla="routerLinkActive"
+            [active]="rla.isActive">
+            <span translate>{{ route.name }}</span>
+        </a>
+    </nav>
+</div>
 TEST
 <router-outlet></router-outlet>

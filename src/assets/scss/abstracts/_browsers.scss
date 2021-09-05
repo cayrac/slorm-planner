@@ -1,0 +1,40 @@
+@mixin safari-only() {
+    @media not all and (min-resolution:.001dpcm) {
+        @supports (-webkit-appearance:none) {
+            @content;
+        }
+    }
+}
+
+@mixin safari-only-gap($size, $direction: row) {
+    // css fix pour le gap ne fonctionnant pour safari
+    @include safari-only() {
+        gap: 0;
+        > * {
+            &, &:not(:first-child), &:not(:last-child){
+                margin: 0;
+            }
+        }
+        
+        @if ($direction == row) {
+            > * {
+                &:not(:first-child) {
+                    margin-left: $size / 2;
+                } 
+                &:not(:last-child) {
+                    margin-right: $size / 2;
+                } 
+            }
+        }
+        @if ($direction == column) {
+            > * {
+                &:not(:first-child) {
+                    margin-top: $size / 2;
+                } 
+                &:not(:last-child) {
+                    margin-bottom: $size / 2;
+                } 
+            }
+        }
+    }
+}
