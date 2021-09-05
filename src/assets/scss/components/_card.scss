@@ -1,0 +1,10 @@
+@import '../abstracts/flex';
+
+mat-card-content {
+    overflow: auto;
+}
+
+mat-card-actions.mat-card-actions {
+    @include flex-row-to-column('tablet', stretch, flex-end);
+    @include flex-gap($space-unit * 2);
+}

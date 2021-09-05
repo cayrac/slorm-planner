@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { ActivableViewComponent } from './components/activable-view/activable-view.component';
 import { AncestralLegacyViewComponent } from './components/ancestral-legacy-view/ancestral-legacy-view.component';
 import { AttributeSummaryViewComponent } from './components/attribute-summary-view/attribute-summary-view.component';
+import { ItemEditModalComponent } from './components/item-edit-modal/item-edit-modal.component';
 import { ItemViewComponent } from './components/item-view/item-view.component';
 import { ReaperViewComponent } from './components/reaper-view/reaper-view.component';
 import { SkillUpgradeViewComponent } from './components/skill-upgrade-view/skill-upgrade-view.component';
@@ -23,10 +25,12 @@ import { PlannerService } from './services/planner.service';
         AncestralLegacyViewComponent,
         TraitViewComponent,
         AttributeSummaryViewComponent,
+        ItemEditModalComponent
     ],
     imports: [
         CommonModule,
-        MaterialModule
+        MaterialModule,
+        ReactiveFormsModule
     ],
     exports: [
         MaterialModule,
@@ -38,6 +42,7 @@ import { PlannerService } from './services/planner.service';
         AncestralLegacyViewComponent,
         TraitViewComponent,
         AttributeSummaryViewComponent,
+        ItemEditModalComponent
     ],
     providers: [PlannerService],
 })

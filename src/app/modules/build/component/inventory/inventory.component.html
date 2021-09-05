@@ -1,39 +1,43 @@
-<main *ngIf="character !== null">  
-    <div class="gear">    
-        <div class="equipment">
-            <div class="top-equipment">
-                <app-item-slot class="helm" [base]="bases.Helm" [item]="character.gear.helm"></app-item-slot>
-                <app-item-slot class="amulet" [base]="bases.Amulet" [item]="character.gear.amulet"></app-item-slot>
-            </div>
-            <div class="center-equipment">
-                <div class="left-equipment">
-                    <app-item-slot class="shoulder" [base]="bases.Shoulder" [item]="character.gear.shoulder"></app-item-slot>
-                    <app-item-slot class="bracer" [base]="bases.Bracer" [item]="character.gear.bracer"></app-item-slot>
-                    <app-item-slot class="glove" [base]="bases.Glove" [item]="character.gear.glove"></app-item-slot>
+<main *ngIf="character !== null">
+    <mat-card class="gear">
+        <mat-card-content>
+            <div class="equipment">
+                <div class="top-equipment">
+                    <app-item-slot class="helm" [base]="bases.Helm" [item]="character.gear.helm" [maxLevel]="character.level"></app-item-slot>
+                    <app-item-slot class="amulet" [base]="bases.Amulet" [item]="character.gear.amulet" [maxLevel]="character.level"></app-item-slot>
                 </div>
-                <div class="character-preview">
-                    <app-character-animation [heroClass]="character.heroClass"></app-character-animation>
+                <div class="center-equipment">
+                    <div class="left-equipment">
+                        <app-item-slot class="shoulder" [base]="bases.Shoulder" [item]="character.gear.shoulder" [maxLevel]="character.level"></app-item-slot>
+                        <app-item-slot class="bracer" [base]="bases.Bracer" [item]="character.gear.bracer" [maxLevel]="character.level"></app-item-slot>
+                        <app-item-slot class="glove" [base]="bases.Glove" [item]="character.gear.glove" [maxLevel]="character.level"></app-item-slot>
+                    </div>
+                    <div class="character-preview">
+                        <app-character-animation [heroClass]="character.heroClass"></app-character-animation>
+                    </div>
+                    <div class="right-equipment">
+                        <app-item-slot class="body" [base]="bases.Body" [item]="character.gear.body" [maxLevel]="character.level"></app-item-slot>
+                        <app-item-slot class="cape" [base]="bases.Cape" [item]="character.gear.cape" [maxLevel]="character.level"></app-item-slot>
+                        <app-item-slot class="belt" [base]="bases.Belt" [item]="character.gear.belt" [maxLevel]="character.level"></app-item-slot>
+                    </div>
                 </div>
-                <div class="right-equipment">
-                    <app-item-slot class="body" [base]="bases.Body" [item]="character.gear.body"></app-item-slot>
-                    <app-item-slot class="cape" [base]="bases.Cape" [item]="character.gear.cape"></app-item-slot>
-                    <app-item-slot class="belt" [base]="bases.Belt" [item]="character.gear.belt"></app-item-slot>
+                <div class="bottom-equipment">
+                    <app-item-slot class="ring_l" [base]="bases.Ring" [item]="character.gear.ring_l" [maxLevel]="character.level"></app-item-slot>
+                    <app-item-slot class="boot" [base]="bases.Boot" [item]="character.gear.boot" [maxLevel]="character.level"></app-item-slot>
+                    <app-item-slot class="ring_r" [base]="bases.Ring" [item]="character.gear.ring_r" [maxLevel]="character.level"></app-item-slot>
                 </div>
             </div>
-            <div class="bottom-equipment">
-                <app-item-slot class="ring_l" [base]="bases.Ring" [item]="character.gear.ring_l"></app-item-slot>
-                <app-item-slot class="boot" [base]="bases.Boot" [item]="character.gear.boot"></app-item-slot>
-                <app-item-slot class="ring_r" [base]="bases.Ring" [item]="character.gear.ring_r"></app-item-slot>
+            <hr/>
+            <div class="weapon">
+                <app-reaper-slot [reaper]="character.reaper"></app-reaper-slot>
             </div>
-        </div>
-        <hr/>
-        <div class="weapon">
-            <app-reaper-slot [reaper]="character.reaper"></app-reaper-slot>
-        </div>
-        <div class="skills">
-            <app-skill-bar></app-skill-bar>
-        </div>
-    </div>
-    <div class="inventory">
-    </div>
+            <div class="skills">
+                <app-skill-bar></app-skill-bar>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="inventory">
+        <mat-card-content>
+        </mat-card-content>
+    </mat-card>
 </main>

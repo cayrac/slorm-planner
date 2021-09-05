@@ -10,7 +10,7 @@ import { EquipableItemBase } from '../../model/content/enum/equipable-item-base'
 import { HeroClass } from '../../model/content/enum/hero-class';
 import { Rarity } from '../../model/content/enum/rarity';
 import { ReaperSmith } from '../../model/content/enum/reaper-smith';
-import { EquipableItem as EquippableItem } from '../../model/content/equipable-item';
+import { EquipableItem, EquipableItem as EquippableItem } from '../../model/content/equipable-item';
 import { ReaperEnchantment } from '../../model/content/reaper-enchantment';
 import { SkillEnchantment } from '../../model/content/skill-enchantment';
 import { GameEnchantment, GameEquippableItem, GameItem, GameRessourceItem } from '../../model/parser/game/game-item';
@@ -330,6 +330,18 @@ export class SlormancerItemService {
             const max = valueOrDefault(lastValue(item.attributeEnchantment.craftableValues), 0);
             item.attributeEnchantment.label = this.slormancerTemplateService.getReaperEnchantmentLabel(this.SKILL_ENCHANTMENT_LABEL, value, min, max, attributeName);
             item.attributeEnchantment.icon = 'assets/img/icon/enchantment/attribute/' + item.attributeEnchantment.craftedAttribute + '.png';
+        }
+    }
+
+    public getEquipableItemClone(item: EquipableItem): EquipableItem {
+
+        return {
+            ...item,
+            affixes: item.affixes.map(affix => this.slormancerItemAffixService.getAffixClone(affix)),
+            reaperEnchantment: item.reaperEnchantment === null ? null : { ...item.reaperEnchantment },
+            skillEnchantment: item.skillEnchantment === null ? null : { ...item.skillEnchantment },
+            attributeEnchantment: item.attributeEnchantment === null ? null : { ...item.attributeEnchantment },
+            legendaryEffect: item.legendaryEffect === null ? null : this.slormancerLegendaryEffectService.getLegendaryEffectClone(item.legendaryEffect)
         }
     }
 }

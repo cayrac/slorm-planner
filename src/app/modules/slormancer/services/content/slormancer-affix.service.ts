@@ -120,9 +120,20 @@ export class SlormancerCraftedValueService {
         itemAffix.craftedEffect.minPossibleCraftedValue = minValue ? minValue : itemAffix.craftedEffect.craftedValue;
         itemAffix.craftedEffect.maxPossibleCraftedValue = maxValue ? maxValue : itemAffix.craftedEffect.craftedValue;
         itemAffix.craftedEffect.effect.value = valueOrDefault(itemAffix.craftedEffect.possibleCraftedValues[itemAffix.craftedEffect.craftedValue], 0);
+        itemAffix.craftedEffect.effect.displayValue = itemAffix.craftedEffect.effect.value;
 
         itemAffix.valueLabel = this.slormancerTemplateService.formatItemAffixValue(itemAffix);
         itemAffix.statLabel = itemAffix.craftedEffect.effect.stat === null ? '' : this.slormancerTranslateService.translate(itemAffix.craftedEffect.effect.stat);
+    }
+
+    public getAffixClone(itemAffix: Affix): Affix {
+        return {
+            ...itemAffix,
+            craftedEffect: {
+                ...itemAffix.craftedEffect,
+                effect: { ...itemAffix.craftedEffect.effect }
+            }
+        };
     }
 
 }

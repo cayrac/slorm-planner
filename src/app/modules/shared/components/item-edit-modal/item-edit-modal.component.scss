@@ -1,0 +1,19 @@
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/variables";
+
+form {
+    mat-card-content {
+        @include flex(row, stretch);
+        @include flex-gap($space-content);
+        overflow: auto;
+
+        .preview {
+            width: 350px;
+        }
+
+        .form {
+            min-width: 400px;
+            @include flex-grow()
+        }
+    }
+}

@@ -1,5 +1,5 @@
 
-<div class="item" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+<div class="item" cdkOverlayOrigin #trigger="cdkOverlayOrigin" (click)="edit()">
     <ng-container *ngIf="item !== null">
         <img [src]="item.itemIconBackground">
         <img [src]="item.icon">

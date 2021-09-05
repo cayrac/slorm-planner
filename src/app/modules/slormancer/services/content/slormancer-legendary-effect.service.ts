@@ -173,4 +173,12 @@ export class SlormancerLegendaryEffectService {
             this.slormanderActivableService.updateActivable(legendaryEffect.activable);
         }
     }
+
+    public getLegendaryEffectClone(legendaryEffect: LegendaryEffect): LegendaryEffect { 
+        return {
+            ...legendaryEffect,
+            effects: legendaryEffect.effects
+                .map(craftedEffect => ({ ...craftedEffect, effect: { ...craftedEffect.effect } }))
+        }
+    }
 }

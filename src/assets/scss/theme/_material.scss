@@ -59,3 +59,4 @@ $my-theme: mat.define-light-theme((
 
 @include mat.button-theme($my-theme);
 @include mat.tabs-theme($my-theme);
+@include mat.card-theme($my-theme);

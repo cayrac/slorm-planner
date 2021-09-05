@@ -1,5 +1,10 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
+import {
+    ItemEditModalComponent,
+    ItemEditModalData,
+} from '../../../../../shared/components/item-edit-modal/item-edit-modal.component';
 import { EquipableItemBase } from '../../../../../slormancer/model/content/enum/equipable-item-base';
 import { EquipableItem } from '../../../../../slormancer/model/content/equipable-item';
 
@@ -17,6 +22,9 @@ export class ItemSlotComponent implements OnInit {
     @Input()
     public readonly base: EquipableItemBase | null = null;
 
+    @Input()
+    public readonly maxLevel: number = 40;
+
     public showOverlay = false;
 
     @HostListener('mouseenter')
@@ -29,8 +37,25 @@ export class ItemSlotComponent implements OnInit {
         this.showOverlay = false;
     }
     
-    constructor() { }
+    constructor(private dialog: MatDialog) { }
 
-    public ngOnInit() { }
+    public ngOnInit() {
+        if (this.base === EquipableItemBase.Amulet) {
+            this.edit();
+        }
+    }
     
+    public edit() {
+        if (this.item !== null) {
+            const data: ItemEditModalData = {
+                item: this.item,
+                baseLocked: this.base !== null,
+                maxLevel: this.maxLevel
+            };
+            this.dialog.open(ItemEditModalComponent, { data })
+            .afterClosed().subscribe(data => {
+                console.log(data);
+            })
+        }
+    }
 }

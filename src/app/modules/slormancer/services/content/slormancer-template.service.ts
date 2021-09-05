@@ -408,7 +408,7 @@ export class SlormancerTemplateService {
     public formatItemAffixValue(itemAffix: Affix): string {
         const percent = itemAffix.craftedEffect.effect.percent ? '%' : '';
 
-        let result = '+' + this.asSpan(itemAffix.craftedEffect.craftedValue.toString(), 'value') + percent;
+        let result = '+' + this.asSpan(itemAffix.craftedEffect.effect.displayValue.toString(), 'value') + percent;
         if (itemAffix.isPure) {
             result += this.asSpan(' (' + (itemAffix.pure - 100) + '% pure)', 'details pure');
         } else {

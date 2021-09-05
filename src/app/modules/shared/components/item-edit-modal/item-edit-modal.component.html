@@ -1,0 +1,17 @@
+
+<form [formGroup]="form" (submit)="submit()">
+    <mat-card>
+        <mat-card-content>
+            <div class="preview">
+                <app-item-view [item]="item" [details]="true"></app-item-view>
+            </div>
+            <div class="form">
+
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-flat-button color="primary">Reset</button>
+            <button mat-flat-button type="submit" color="primary">Submit</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
