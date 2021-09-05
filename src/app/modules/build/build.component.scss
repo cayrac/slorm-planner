@@ -8,6 +8,7 @@
 
 .header {
     @include flex(row, center);
+    @include flex-gap($space-content);
     width: 100%;
 
     .tools {

@@ -16,14 +16,15 @@ export class PlannerService {
     constructor(private slormancerCharacterService: SlormancerCharacterService,
                 private httpClient: HttpClient
         ) {
+            console.log('NEW PlannerService Instance')
 
-            this.characterChanged = new BehaviorSubject<Character | null>(this.character);
+        this.characterChanged = new BehaviorSubject<Character | null>(this.character);
         
         this.httpClient.get('assets/save', { responseType: 'text' })
         .subscribe(save => this.loadSave(save, HeroClass.Huntress));
     }
 
-    private loadSave(save: string, heroclass: HeroClass) {
+    public loadSave(save: string, heroclass: HeroClass) {
         this.character = this.slormancerCharacterService.getCharacterFromSave(save, heroclass);
         console.log(this.character);
         this.characterChanged.next(this.character);

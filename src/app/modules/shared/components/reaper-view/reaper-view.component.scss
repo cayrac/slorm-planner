@@ -77,11 +77,6 @@ $reaper-desc-details            : rgb(104, 104, 104);
                     -o-transform: scale(4);
                     -webkit-transform: scale(4);
                     transform: scale(4);
-
-                    &.primordial {
-                        -webkit-filter: drop-shadow(0 0 2px rgba(26, 220, 818, 1));
-                        filter: drop-shadow(0 0 2px rgba(26, 220, 181, 1));
-                    }
                 }
             }
 

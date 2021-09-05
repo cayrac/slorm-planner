@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
 import {
@@ -6,6 +6,7 @@ import {
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { PlannerService } from '../../../shared/services/planner.service';
 import { Character } from '../../../slormancer/model/character';
+import { EquipableItemBase } from '../../../slormancer/model/content/enum/equipable-item-base';
 
 @Component({
   selector: 'app-inventory',
@@ -14,23 +15,9 @@ import { Character } from '../../../slormancer/model/character';
 })
 export class InventoryComponent extends AbstractUnsubscribeComponent implements OnInit {
 
+    public bases = EquipableItemBase;
+
     public character: Character | null = null;
-
-    public idle: number = 0;
-
-    @HostListener('window:keydown', ['$event'])
-    spaceEvent(event: any) {
-        if (event.keyCode == 81) { // left
-            this.idle--;
-        } else if (event.keyCode == 68) {
-            this.idle++;
-        }
-
-        this.idle = (this.idle + 10) % 10;
-
-    }
-
-    // 9 2 3 4
 
     constructor(private plannerService: PlannerService) {
         super();

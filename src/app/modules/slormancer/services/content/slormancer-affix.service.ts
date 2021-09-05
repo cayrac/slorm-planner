@@ -27,7 +27,7 @@ export class SlormancerCraftedValueService {
         if (item !== null) {
             switch (item.slot) {
                 case 0: slot = EquipableItemBase.Helm; break;
-                case 1: slot = EquipableItemBase.Armor; break;
+                case 1: slot = EquipableItemBase.Body; break;
                 case 2: slot = EquipableItemBase.Shoulder; break;
                 case 3: slot = EquipableItemBase.Bracer; break;
                 case 4: slot = EquipableItemBase.Glove; break;

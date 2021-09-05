@@ -3,8 +3,11 @@
     <ng-container *ngIf="item !== null">
         <img [src]="item.itemIconBackground">
         <img [src]="item.icon">
-        <ng-template cdkConnectedOverlay [cdkConnectedOverlayOpen]="showTooltip" [cdkConnectedOverlayOrigin]="trigger">
+        <ng-template cdkConnectedOverlay
+            [cdkConnectedOverlayOpen]="showOverlay"
+            [cdkConnectedOverlayOrigin]="trigger">
             <app-item-view [item]="item" [details]="false"></app-item-view>
         </ng-template>
     </ng-container>
+    <img *ngIf="item === null && base !== null" src="assets/img/icon/item/{{base}}/empty.png">
 </div>

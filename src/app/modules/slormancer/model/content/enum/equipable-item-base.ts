@@ -1,6 +1,6 @@
 export enum EquipableItemBase {
     Helm = 'helm',
-    Armor = 'body',
+    Body = 'body',
     Shoulder = 'shoulder',
     Bracer = 'bracer',
     Glove = 'glove',

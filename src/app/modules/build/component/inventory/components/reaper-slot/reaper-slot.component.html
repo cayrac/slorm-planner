@@ -1,0 +1,14 @@
+
+<div class="reaper" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+    <div class="inner-slot"></div>
+    <ng-container *ngIf="reaper !== null">
+        <img [src]="reaper.icon" [class.primordial-effect]="reaper.primordial">
+        <ng-template cdkConnectedOverlay
+            [cdkConnectedOverlayOpen]="showOverlay"
+            [cdkConnectedOverlayOrigin]="trigger">
+            <app-reaper-view [reaper]="reaper"></app-reaper-view>
+        </ng-template>
+    </ng-container>
+</div>
+<div class="reaper-level" *ngIf="reaper !== null" [innerHTML]="reaper.levelLabel"></div>
+<div class="reaper-level" *ngIf="reaper === null">No reaper selected</div>

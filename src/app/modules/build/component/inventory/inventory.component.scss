@@ -1,5 +1,5 @@
-@import "../../../../../assets/scss/abstracts/flex.scss";
-@import "../../../../../assets/scss/abstracts/variables.scss";
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/variables";
 
 $background-gear: rgb(9,9,9);
 
@@ -7,30 +7,15 @@ main {
     @include flex(row, stretch, space-between);
     @include flex-gap($space-content);
     height: 800px;
-    min-width: 1200px;
+    min-width: 1000px;
 
-    .item {
-        width: 56px;
-        min-width: 56px;
-        min-height: 56px;
-        min-height: 56px;
-        border: 3px solid black;
-        position: relative;
-    
-        img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-    }
-
-    .gear, .stats, .inventory {
-        @include flex-grow();
-        position: relative;
+    .gear, .inventory {
+        padding: $space-content;
         background-color: $background-gear;
     }
 
     .gear {
+        @include flex-grow(1);
         .equipment {
             @include flex(column, stretch, space-between);
             min-height: 450px;
@@ -53,36 +38,8 @@ main {
                     border: 3px solid rgb(60, 60, 60);
                     padding: $space-unit * 2;
                     background-color: black;
-                    color: white;
                     @include flex(column, center, flex-end);
 
-                    .animation {
-                        position: relative;
-                        height: 136px;
-                        width: 88px;
-                        img {
-                            position: absolute;
-                            width: 100%;
-                            height: 100%;
-                            image-rendering: pixelated;
-                            animation-duration: 1s;
-                            animation-iteration-count: infinite;
-                            animation-timing-function: linear;
-    
-                            &.idle-1 {
-                                animation-name: idle-1;
-                            }
-                            &.idle-2 {
-                                animation-name: idle-2;
-                            }
-                            &.idle-3 {
-                                animation-name: idle-3;
-                            }
-                            &.idle-4 {
-                                animation-name: idle-4;
-                            }
-                        }
-                    }
                 }
             }
             .bottom-equipment {
@@ -98,39 +55,24 @@ main {
                 }
             }
         }
+
+        .weapon {
+            @include flex(column, center, center);
+            margin: $space-content;
+            padding: $space-content;
+            background-color: rgb(22, 20, 18);
+            border: 3px solid rgb(60, 60, 60);
+        }
     }
-}
 
-@keyframes idle-1 {
-    0%   { opacity:1; }
-    24%  { opacity:1; }
-    25%  { opacity:0; }
-    99%  { opacity:0; }
-    100% { opacity:1; }
-}
+    hr {
+        margin: $space-content $space-content * 3;
+        border: 0;
+        height: 4px;
+        background-color: rgb(20, 20, 20);
+    }
 
-@keyframes idle-2 {
-    0%   { opacity:0; }
-    24%  { opacity:0; }
-    25%  { opacity:1; }
-    49%  { opacity:1; }
-    50%  { opacity:0; }
-    100% { opacity:0; }
-}
-
-@keyframes idle-3 {
-    0%   { opacity:0; }
-    49%  { opacity:0; }
-    50%  { opacity:1; }
-    74%  { opacity:1; }
-    75%  { opacity:0; }
-    100% { opacity:0; }
-}
-
-@keyframes idle-4 {
-    0%   { opacity:0; }
-    74%  { opacity:0; }
-    75%  { opacity:1; }
-    99%  { opacity:1; }
-    100% { opacity:0; }
+    .inventory {
+        @include flex-grow(1);
+    }
 }
