@@ -12,7 +12,7 @@ import { valueOrDefault } from '../../util/utils';
 export class SlormancerItemValueService {
 
     private readonly AFFIX_MIN_MAX: { [key: string]: { [key: string]: { [key: number]: MinMax }}} = {
-        'normal': {
+        'basic': {
             '': {
                 1: { min: 70, max: 100 },
                 2: { min: 70, max: 100 },

@@ -1,0 +1,18 @@
+@import '../abstracts/flex';
+
+mat-dialog-container {
+    background-color: white;
+
+
+    mat-dialog-actions.mat-dialog-actions {
+        @include flex-row-to-column('tablet', stretch, flex-end);
+        @include flex-gap($space-unit * 2);
+        min-height: auto;
+    
+        .mat-button-base+.mat-button-base,
+        .mat-mdc-button-base+.mat-mdc-button-bas {
+            margin-left: 0;
+        }
+    }
+}
+

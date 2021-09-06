@@ -1,0 +1,99 @@
+$color-main: black;
+$color-field-disabled: rgb(100, 100, 100);
+
+mat-form-field.mat-form-field {
+    font: 14px FiraSans, sans-serif;
+    line-height: 14px;
+    width: 100%;
+
+    .mat-form-field-wrapper {
+        .mat-form-field-flex {
+            align-items: center;
+            
+            .mat-form-field-infix {
+                width: auto;
+                padding: 3px 0 8px;
+
+                input {
+                    padding: 0 6px;
+                    color: $color-main;
+                    height: initial;
+
+                    &::placeholder {
+                        color: $color-main;
+                    }
+
+                    &[type=number]::-webkit-inner-spin-button,
+                    &[type=number]::-webkit-outer-spin-button {
+                        margin: 0 8px 2px 0;
+                    }
+                }
+
+                .mat-form-field-label-wrapper {
+                    top: -19px;
+                    left: 7px;
+                }
+            }
+        }
+    }
+
+    &.mat-form-field-appearance-outline {
+        &.mat-form-field-can-float.mat-form-field-should-float {
+            .mat-form-field-label {
+                transform: translateY(-19px) scale(0.75);
+            }
+        }
+
+        &.mat-form-field-disabled {
+            .mat-form-field-outline {
+                color: rgba(0,0,0,.04);
+            }
+        }
+
+        .mat-form-field-subscript-wrapper {
+            line-height: 12px;
+        }
+
+        .mat-form-field-outline {
+            color: rgb(60, 60, 60);
+            background-color: #fff;
+            border-radius: 4px;
+        }
+
+        .mat-form-field-outline.mat-form-field-outline-thick {
+            color: rgb(60, 60, 60);
+        }
+
+        .mat-form-field-infix {
+            padding: 5px 0 7px;
+        }
+    }
+
+    &.mat-form-field-invalid {
+        margin-bottom: 16px;
+
+        .mat-form-field-outline.mat-form-field-outline-thick {
+            color: red;
+        }
+    }
+
+    &.no-error-padding {
+        .mat-form-field-wrapper {
+            padding-bottom: 0;
+        }
+
+        &.mat-form-field-invalid {
+            margin-bottom: 0;
+        }
+    }
+
+    &.mat-form-field-disabled {
+        .mat-form-field-wrapper {
+            .mat-form-field-infix {
+                input {
+                    color: $color-field-disabled;
+                }
+            }
+        }
+    }
+}

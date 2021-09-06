@@ -23,7 +23,7 @@ export class ItemViewComponent {
     constructor() { }
 
     public getNormalAffixes(): Array<Affix> {
-        return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === Rarity.Normal);
+        return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === Rarity.Basic);
     }
 
     public getMagicAffixes(): Array<Affix> {

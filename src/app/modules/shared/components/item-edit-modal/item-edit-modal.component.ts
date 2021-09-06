@@ -1,11 +1,14 @@
 import { Component, Inject } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
+import { MAX_BASIC_STATS, MAX_ITEM_LEVEL } from '../../../slormancer/constants/common';
 import { Affix } from '../../../slormancer/model/content/affix';
+import { Rarity } from '../../../slormancer/model/content/enum/rarity';
 import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
 import { LegendaryEffect } from '../../../slormancer/model/content/legendary-effect';
 import { SlormancerItemService } from '../../../slormancer/services/content/slormancer-item.service';
+import { valueOrDefault } from '../../../slormancer/util/utils';
 
 export interface ItemEditModalData {
     item: EquipableItem;
@@ -13,26 +16,11 @@ export interface ItemEditModalData {
     maxLevel: number;
 }
 
-/*
-
-    base: EquipableItemBase;
-    rarity: Rarity;
-    level: number;
-    reinforcment: number;
-    affixes: Array<Affix>;
-    legendaryEffect: LegendaryEffect | null;
-    reaperEnchantment: ReaperEnchantment | null;
-    skillEnchantment: SkillEnchantment | null;
-    attributeEnchantment: AttributeEnchantment | null;
-    heroClass: HeroClass;
-
-    name: string;
-    baseLabel: string;
-    rarityLabel: string;
-    levelLabel: string;
-    icon: string;
-    itemIconBackground: string
-    */
+interface SelectOption<T> {
+    label: string;
+    value: T;
+    disabled: boolean;
+}
 
 @Component({
   selector: 'app-item-edit-modal',
@@ -41,45 +29,61 @@ export interface ItemEditModalData {
 })
 export class ItemEditModalComponent {
 
-    public readonly originalItem: EquipableItem;
+    public readonly MAX_ITEM_LEVEL = MAX_ITEM_LEVEL;
 
-    public readonly item: EquipableItem;
+    public readonly originalItem: EquipableItem;
 
     public readonly baseLocked: boolean;
 
     public readonly maxLevel: number;
 
-    public readonly form: FormGroup;
+    private statOptions: { [key: number]: Array<SelectOption<string>> } = {};
+
+    private craftOptions: { [key: number]: Array<SelectOption<number>> } = {};
+
+    public item: EquipableItem;
+
+    public form: FormGroup;
 
     constructor(public dialogRef: MatDialogRef<ItemEditModalComponent>,
                 private slormancerItemService: SlormancerItemService,
                 @Inject(MAT_DIALOG_DATA) public data: ItemEditModalData
                 ) {
         this.originalItem = data.item;
-        this.item = this.slormancerItemService.getEquipableItemClone(data.item);
         this.baseLocked = data.baseLocked;
         this.maxLevel = data.maxLevel;
 
+        this.item = this.slormancerItemService.getEquipableItemClone(this.originalItem);
         this.form = this.itemToForm(this.item);
-
-        this.slormancerItemService.updateEquippableItem(this.item);
     }
 
-    /*
-    
-    primaryNameType: string;
-    rarity: Rarity;
-    pure: number;
-    itemLevel: number;
-    reinforcment: number;
-    locked: boolean;
+    public reset() {
+        this.item = this.slormancerItemService.getEquipableItemClone(this.originalItem);
+        this.form = this.itemToForm(this.item);
+    }
 
-    craftedEffect: CraftableEffect<EffectValueConstant>;
+    public submit() {
+        this.dialogRef.close(this.item);
+    }
 
-    isPure: boolean;
-    valueLabel: string;
-    statLabel: string;
-    */
+    private updatePreview() {
+        if (this.form.valid) {
+            const value = this.form.value;
+            this.item.level = value.level;
+            this.item.reinforcment = value.reinforcment;
+
+            this.slormancerItemService.updateEquippableItem(this.item);
+        }
+    }
+
+    private buildOptions(item: EquipableItem) {
+        this.craftOptions = {};
+        this.statOptions = {};
+        item.affixes.forEach((value, index) => {
+            this.craftOptions[index] = Object.entries(value.craftedEffect.possibleCraftedValues)
+                .map(([key, value]) => ({ value: parseInt(key), label: value.toString(), disabled: false }));
+        });
+    }
 
     private affixToForm(affix: Affix): FormGroup {
         return new FormGroup({
@@ -99,10 +103,9 @@ export class ItemEditModalComponent {
     }
 
     private itemToForm(item: EquipableItem): FormGroup {
-        return new FormGroup({
-            level: new FormControl(item.level),
-            base: new FormControl(item.base),
-            reinforcment: new FormControl(item.reinforcment),
+        const form = new FormGroup({
+            level: new FormControl(item.level, [Validators.required, Validators.min(1), Validators.max(this.MAX_ITEM_LEVEL), Validators.pattern(/^[0-9]+$/)]),
+            reinforcment: new FormControl(item.reinforcment, [Validators.required, Validators.min(0), Validators.pattern(/^[0-9]+$/)]),
             affixes: new FormArray(item.affixes.map(affix => this.affixToForm(affix))),
             legendaryEffect: this.legendaryEffectToForm(item.legendaryEffect),
             reaper: new FormGroup({
@@ -117,10 +120,44 @@ export class ItemEditModalComponent {
                 attribute: new FormControl(item.attributeEnchantment === null ? null : item.attributeEnchantment.craftedAttribute),
                 value: new FormControl(item.attributeEnchantment === null ? 2 : item.attributeEnchantment.craftedValue)
             })
-        })
+        });
+
+        form.valueChanges.subscribe(() => {
+            this.updatePreview();
+        });
+
+        this.buildOptions(item);
+
+        console.log(form.value);
+
+        return form;
     }
 
-    public submit() {
-        this.dialogRef.close(this.item);
+    public getAffixControls(): Array<AbstractControl> {
+        const affixes = <FormArray | null>this.form.get('affixes');
+        return affixes !== null ? affixes.controls : [];
+    }
+
+    public isBasicStat(affixForm: AbstractControl): boolean {
+        const control = affixForm.get('rarity');
+        return control !== null && control.value === Rarity.Basic;
+    }
+
+    public hasBasicStats(): boolean {
+        const controls = <FormArray | null>this.form.get('affixes');
+        return controls !== null && controls.controls.filter(control => this.isBasicStat(control)).length > 0
+    }
+
+    public hasMaximumBasicStats(): boolean {
+        const controls = <FormArray | null>this.form.get('affixes');
+        return controls !== null && controls.controls.filter(control => this.isBasicStat(control)).length >= MAX_BASIC_STATS
+    }
+
+    public getStatOptions(index: number): Array<SelectOption<string>> {
+        return valueOrDefault(this.statOptions[index], []);
+    }
+
+    public getCraftOptions(index: number): Array<SelectOption<number>> {
+        return valueOrDefault(this.craftOptions[index], []);
     }
 }

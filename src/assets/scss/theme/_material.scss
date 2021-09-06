@@ -41,13 +41,13 @@ $boxtal-app-theme:   mat-light-theme($boxtal-app-primary, $boxtal-app-accent, $b
 @include mat-tabs-theme($boxtal-app-theme);
 @include mat-toolbar-theme($boxtal-app-theme);*/
 
-$my-primary: mat.define-palette($boxtal-primary, 500);
-$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$my-primary: mat.define-palette($pallet-primary, 500);
+$my-accent: mat.define-palette($pallet-accent, A200, A100, A400);
 
 // The "warn" palette is optional and defaults to red if not specified.
 $my-warn: mat.define-palette(mat.$red-palette);
 
-$my-theme: mat.define-light-theme((
+$theme: mat.define-light-theme((
     color: (
         primary: $my-primary,
         accent: $my-accent,
@@ -55,8 +55,11 @@ $my-theme: mat.define-light-theme((
     )
 ));
 
-@include mat.core-theme($my-theme);
+@include mat.core-theme($theme);
 
-@include mat.button-theme($my-theme);
-@include mat.tabs-theme($my-theme);
-@include mat.card-theme($my-theme);
+@include mat.button-theme($theme);
+@include mat.tabs-theme($theme);
+@include mat.card-theme($theme);
+@include mat.select-theme($theme);
+@include mat.input-theme($theme);
+@include mat.form-field-theme($theme);

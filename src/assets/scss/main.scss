@@ -1,15 +1,17 @@
-@import "theme/material.scss";
-@import "theme/font.scss";
+@import "theme/material";
+@import "theme/font";
 
-@import "abstracts/variables.scss";
-@import "abstracts/browsers.scss";
-@import "abstracts/breakpoints.scss";
-@import "abstracts/flex.scss";
-@import "abstracts/spacing.scss";
+@import "abstracts/variables";
+@import "abstracts/browsers";
+@import "abstracts/breakpoints";
+@import "abstracts/flex";
+@import "abstracts/spacing";
 
-@import "components/nav.scss";
-@import "components/reaper.scss";
-@import "components/card.scss";
+@import "components/nav";
+@import "components/reaper";
+@import "components/card";
+@import "components/dialog";
+@import "components/form_field";
 
 html, body {
     margin: 0;

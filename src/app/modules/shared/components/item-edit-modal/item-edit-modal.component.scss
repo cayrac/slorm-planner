@@ -1,19 +1,25 @@
 @import "../../../../../assets/scss/abstracts/flex";
 @import "../../../../../assets/scss/abstracts/variables";
 
-form {
-    mat-card-content {
-        @include flex(row, stretch);
-        @include flex-gap($space-content);
-        overflow: auto;
+mat-dialog-content {
+    @include flex(row, stretch);
+    @include flex-gap($space-content);
+    overflow: auto;
 
-        .preview {
-            width: 350px;
-        }
+    .preview {
+        max-width: 350px;
+    }
 
-        .form {
-            min-width: 400px;
-            @include flex-grow()
+    .form {
+        padding: $space-unit * 2 0;
+        @include flex(column, stretch);
+        @include flex-grow();
+        width: 450px;
+
+        .form-line {
+            @include flex-row-to-column('small-desktop', flex-start, space-between);
+            @include flex-gap($space-unit * 4);
+            min-height: $space-unit * 8;
         }
     }
 }

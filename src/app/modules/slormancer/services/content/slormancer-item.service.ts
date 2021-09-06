@@ -87,7 +87,7 @@ export class SlormancerItemService {
         } else {
             let genre = 'MS';
 
-            const normalAffixes = item.affixes.filter(affix => affix.rarity === Rarity.Normal);
+            const normalAffixes = item.affixes.filter(affix => affix.rarity === Rarity.Basic);
             if (normalAffixes.length > 0) {
                 const baseAffixes = <[string, string]>(<[Affix, Affix]>[
                     normalAffixes[0],
@@ -132,7 +132,7 @@ export class SlormancerItemService {
 
     private getItemRarity(item: EquippableItem): Rarity {
         const rarities = item.affixes.map(affix => affix.rarity);
-        let rarity = Rarity.Normal;
+        let rarity = Rarity.Basic;
 
         if (item.legendaryEffect !== null) {
             rarity = Rarity.Legendary;
@@ -154,7 +154,7 @@ export class SlormancerItemService {
             base = item.legendaryEffect.itemIcon;
         } else {
             const affixes = item.affixes
-                .filter(affix => affix.rarity === Rarity.Normal)
+                .filter(affix => affix.rarity === Rarity.Basic)
                 .map(affix => affix.primaryNameType)
                 .sort()
                 .join('-');
@@ -259,7 +259,7 @@ export class SlormancerItemService {
             attributeEnchantment: attributeEnchantment ? this.getAttributeEnchantment(attributeEnchantment) : null,
             heroClass,
 
-            rarity: Rarity.Normal,
+            rarity: Rarity.Basic,
             name: '',
             baseLabel: '',
             rarityLabel: '',

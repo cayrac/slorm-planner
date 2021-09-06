@@ -1,17 +1,72 @@
 
-<form [formGroup]="form" (submit)="submit()">
-    <mat-card>
-        <mat-card-content>
-            <div class="preview">
-                <app-item-view [item]="item" [details]="true"></app-item-view>
+<form [formGroup]="form" (submit)="submit()" >
+    <mat-dialog-content>
+        <div class="preview">
+            <app-item-view [item]="item" [details]="true"></app-item-view>
+        </div>
+        <div class="form">
+            <div class="form-line">
+                <mat-form-field appearance="outline">
+                    <mat-label>Item level</mat-label>
+                    <input matInput type="number" min="1" step="1" [max]="MAX_ITEM_LEVEL" formControlName="level">
+                    <mat-error>Level must be between 1 and {{MAX_ITEM_LEVEL}}</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Item reinforcment</mat-label>
+                    <input matInput type="number" min="0" step="1" formControlName="reinforcment">
+                    <mat-error>Reinforcment must be >= 0</mat-error>
+                </mat-form-field>
             </div>
-            <div class="form">
-
+            <ng-container formArrayName="affixes">
+                <ng-container *ngIf="hasBasicStats()">
+                    <div class="form-line">
+                        <div>Base Stats :</div>
+                    </div>
+                    <ng-container *ngFor="let affixControl of getAffixControls(); let i = index">
+                        <div class="form-line" [formGroupName]="i" *ngIf="isBasicStat(affixControl)">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Stat</mat-label>
+                                <mat-select formControlName="stat">
+                                    <mat-option *ngFor="let option of getStatOptions(i)" [value]="option.value">{{option.label}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Value</mat-label>
+                                <mat-select formControlName="value">
+                                    <mat-option *ngFor="let option of getCraftOptions(i)" [value]="option.value">{{option.label}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </ng-container>
+                    <div class="form-line">
+                    </div>
+                </ng-container>
+                <div class="form-line" *ngIf="hasMaximumBasicStats()">
+                    <button mat-flat-button color="primary">Add Base Stat</button>
+                </div>
+                <div class="form-line">
+                    Magic affixes
+                </div>
+                <div class="form-line">
+                    Magic affixes
+                </div>
+            </ng-container>
+            <div>
+                Effet legendaire ...
             </div>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-flat-button color="primary">Reset</button>
-            <button mat-flat-button type="submit" color="primary">Submit</button>
-        </mat-card-actions>
-    </mat-card>
+            <div>
+                Buff reaper ...
+            </div>
+            <div>
+                Buff skill ...
+            </div>
+            <div>
+                Buff stat ...
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-flat-button type="button" color="primary" (click)="reset()">Reset</button>
+        <button mat-flat-button type="submit" color="primary">Submit</button>
+    </mat-dialog-actions>
 </form>

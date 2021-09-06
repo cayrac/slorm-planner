@@ -48,7 +48,7 @@ export class SlormancerCraftedValueService {
         let result: Rarity;
 
         if (rarity === 'N') {
-            result = Rarity.Normal;
+            result = Rarity.Basic;
         } else if (rarity === 'M') {
             result = Rarity.Magic;
         } else if (rarity === 'R') {

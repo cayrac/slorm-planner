@@ -5,6 +5,7 @@ import {
     ItemEditModalComponent,
     ItemEditModalData,
 } from '../../../../../shared/components/item-edit-modal/item-edit-modal.component';
+import { MAX_ITEM_LEVEL } from '../../../../../slormancer/constants/common';
 import { EquipableItemBase } from '../../../../../slormancer/model/content/enum/equipable-item-base';
 import { EquipableItem } from '../../../../../slormancer/model/content/equipable-item';
 
@@ -23,7 +24,7 @@ export class ItemSlotComponent implements OnInit {
     public readonly base: EquipableItemBase | null = null;
 
     @Input()
-    public readonly maxLevel: number = 40;
+    public readonly maxLevel: number = MAX_ITEM_LEVEL;
 
     public showOverlay = false;
 
