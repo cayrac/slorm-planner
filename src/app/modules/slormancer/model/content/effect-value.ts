@@ -6,7 +6,7 @@ import { EffectValueValueType } from './enum/effect-value-value-type';
 export interface AbstractEffectValue {
     type: EffectValueType;
     valueType: EffectValueValueType;
-    stat: string | null;
+    stat: string;
     percent: boolean;
     value: number;
     displayValue: number;

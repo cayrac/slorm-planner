@@ -12,6 +12,7 @@ import { list } from '../../util/math.util';
 import { strictParseInt } from '../../util/parse.util';
 import {
     emptyStringToNull,
+    getCraftValue,
     isEffectValueSynergy,
     isEffectValueVariable,
     splitData,
@@ -52,7 +53,7 @@ export class SlormancerLegendaryEffectService {
         return {
             score,
             craftedValue: range ? craftedValue : 100,
-            possibleCraftedValues: {},
+            possibleCraftedValues: [],
             maxPossibleCraftedValue: 100,
             minPossibleCraftedValue: range ? 75 : 100,
             effect,
@@ -67,7 +68,7 @@ export class SlormancerLegendaryEffectService {
                 effect.effects.push({
                     score: constant,
                     craftedValue: 0,
-                    possibleCraftedValues: { 0: constant },
+                    possibleCraftedValues: [],
                     maxPossibleCraftedValue: 0,
                     minPossibleCraftedValue: 0,
                     effect: effectValueConstant(constant, false, null)
@@ -163,7 +164,8 @@ export class SlormancerLegendaryEffectService {
                     craftedEffect.minPossibleCraftedValue,
                     craftedEffect.maxPossibleCraftedValue,
                     upgrade);
-                craftedEffect.effect.value = valueOrDefault(craftedEffect.possibleCraftedValues[craftedEffect.craftedValue], 0);
+                
+                craftedEffect.effect.value = getCraftValue(craftedEffect, craftedEffect.craftedValue);
             }
         }
 

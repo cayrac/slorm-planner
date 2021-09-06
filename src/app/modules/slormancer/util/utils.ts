@@ -1,3 +1,4 @@
+import { CraftableEffect } from '../model/content/craftable-effect';
 import {
     AbstractEffectValue,
     EffectValueConstant,
@@ -10,6 +11,7 @@ import { Rarity } from '../model/content/enum/rarity';
 export function isNotNullOrUndefined<T>(value: T | null | undefined): value is T {
     return value !== null && value !== undefined;
 }
+
 export function isFirst<T>(value: T, index: number, array: Array<T>, compare: (a: T, b: T) => boolean = (a, b) => a === b): boolean {
     const found = array.find(v => compare(v, value)); 
     return found !== undefined && array.indexOf(found) === index;
@@ -153,4 +155,9 @@ export function isEffectValueSynergy(value: AbstractEffectValue): value is Effec
 export function enumValues<T>(enumType: { [key: string]: T | string }): Array<T> {
     const values = Object.values(enumType);
     return <Array<T>><unknown>values.slice(values.length / 2);
+}
+
+export function getCraftValue(craftedValue: CraftableEffect, craft: number, defaultValue: number = 0) {
+    const found = craftedValue.possibleCraftedValues.find(v => v.craft === craft);
+    return found ? found.value : defaultValue;
 }

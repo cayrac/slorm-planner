@@ -12,6 +12,7 @@ import { GameDataSkill } from '../../model/content/game/data/game-data-skill';
 import { MinMax } from '../../model/minmax';
 import {
     findFirst,
+    getCraftValue,
     isEffectValueConstant,
     isEffectValueSynergy,
     isEffectValueVariable,
@@ -50,8 +51,8 @@ export class SlormancerTemplateService {
         let result : Array<string> = [];
 
         if (craftedEffect.minPossibleCraftedValue < craftedEffect.maxPossibleCraftedValue) {
-            const min = craftedEffect.possibleCraftedValues[craftedEffect.minPossibleCraftedValue];
-            const max = craftedEffect.possibleCraftedValues[craftedEffect.maxPossibleCraftedValue];
+            const min = getCraftValue(craftedEffect, craftedEffect.minPossibleCraftedValue);
+            const max = getCraftValue(craftedEffect, craftedEffect.maxPossibleCraftedValue);
             result.push(min + percent + '-' + max + percent);
         }
         if ((isEffectValueSynergy(craftedEffect.effect) || isEffectValueVariable(craftedEffect.effect)) && craftedEffect.effect.upgrade > 0) {
@@ -413,8 +414,8 @@ export class SlormancerTemplateService {
             result += this.asSpan(' (' + (itemAffix.pure - 100) + '% pure)', 'details pure');
         } else {
             const percent = itemAffix.craftedEffect.effect.percent ? '%' : '';
-            result += this.asSpan(' (' + itemAffix.craftedEffect.possibleCraftedValues[itemAffix.craftedEffect.minPossibleCraftedValue] + percent
-                + '-' + itemAffix.craftedEffect.possibleCraftedValues[itemAffix.craftedEffect.maxPossibleCraftedValue] + percent + ')', 'details range');
+            result += this.asSpan(' (' + getCraftValue(itemAffix.craftedEffect, itemAffix.craftedEffect.minPossibleCraftedValue) + percent
+                + '-' + getCraftValue(itemAffix.craftedEffect, itemAffix.craftedEffect.maxPossibleCraftedValue) + percent + ')', 'details range');
         }
         
         return result;

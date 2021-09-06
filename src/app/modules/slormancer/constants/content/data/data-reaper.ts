@@ -10,7 +10,9 @@ function overrideValueTypeAndStat(effect: ReaperEffect | null, index: number, va
 
     if (value !== null) {
         value.valueType = valueType;
-        value.stat = stat;
+        if (stat !== null) {
+            value.stat = stat;
+        }
     } else {
         throw new Error('failed to override effect value at index ' + index + ' with : ' + valueType + ' / ' + stat);
     }

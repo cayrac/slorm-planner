@@ -23,7 +23,7 @@ import {
     lastValue,
     valueOrDefault,
 } from '../../util/utils';
-import { SlormancerCraftedValueService } from './slormancer-affix.service';
+import { SlormancerAffixService } from './slormancer-affix.service';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
 import { SlormancerLegendaryEffectService } from './slormancer-legendary-effect.service';
@@ -45,7 +45,7 @@ export class SlormancerItemService {
                 private slormancerTranslateService : SlormancerTranslateService,
                 private slormancerItemValueService : SlormancerItemValueService,
                 private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
-                private slormancerItemAffixService: SlormancerCraftedValueService,
+                private slormancerItemAffixService: SlormancerAffixService,
                 private slormancerDataService: SlormancerDataService) { }
 
     public getEquipableItemBase(item: GameEquippableItem): EquipableItemBase {

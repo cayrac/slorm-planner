@@ -5,6 +5,7 @@ import { DATA_AFFIX } from '../../constants/content/data/data-affix';
 import { DATA_ANCESTRAL_LEGACY } from '../../constants/content/data/data-ancestral-legacy';
 import { ANCESTRAL_LEGACY_REALMS } from '../../constants/content/data/data-ancestral-legacy-zones';
 import { DATA_ATTRIBUTE_MECHANIC } from '../../constants/content/data/data-attribute-mechanic';
+import { DATA_BASE_MAX_BASIC_STATS } from '../../constants/content/data/data-base-max-basic-stat';
 import { DATA_EQUIPABLE_ITEM } from '../../constants/content/data/data-equipable-item';
 import { DATA_HERO_XP_NEXT_LEVEL } from '../../constants/content/data/data-hero-xp';
 import { DATA_KEYWORD_NAME } from '../../constants/content/data/data-keyword-name';
@@ -29,6 +30,7 @@ import { Attribute } from '../../model/content/enum/attribute';
 import { EquipableItemBase } from '../../model/content/enum/equipable-item-base';
 import { HeroClass } from '../../model/content/enum/hero-class';
 import { MechanicType } from '../../model/content/enum/mechanic-type';
+import { Rarity } from '../../model/content/enum/rarity';
 import { GameDataActivable } from '../../model/content/game/data/game-data-activable';
 import { GameDataAncestralLegacy } from '../../model/content/game/data/game-data-ancestral-legacy';
 import { GameDataAttribute } from '../../model/content/game/data/game-data-attribute';
@@ -41,13 +43,17 @@ import { GameDataTranslation } from '../../model/content/game/data/game-data-tra
 import { SkillType } from '../../model/content/skill-type';
 import { MinMax } from '../../model/minmax';
 import { GameAffix } from '../../model/parser/game/game-item';
-import { valueOrNull } from '../../util/utils';
+import { valueOrDefault, valueOrNull } from '../../util/utils';
 
 @Injectable()
 export class SlormancerDataService {
 
     public getGameDataStat(affix: GameAffix): GameDataStat | null {
         return valueOrNull(GAME_DATA.STAT.find(stat => stat.REF_NB === affix.type));
+    }
+
+    public getGameDataStatByRef(statValue: string): GameDataStat | null {
+        return valueOrNull(GAME_DATA.STAT.find(stat => stat.REF === statValue));
     }
 
     public getGameDataReaper(id: number): GameDataReaper | null {
@@ -212,5 +218,24 @@ export class SlormancerDataService {
 
     public getDataHeroNextLevelExperience(): Array<number> {
         return DATA_HERO_XP_NEXT_LEVEL;
+    }
+
+    public getBaseMaxBasicStat(base: EquipableItemBase): number {
+        return valueOrDefault(DATA_BASE_MAX_BASIC_STATS[base], 0);
+    }
+
+    public getAffixPossibleStats(base: EquipableItemBase, rarity: Rarity): Array<string> {
+        let stats: Array<string> = [];
+        const key = base === EquipableItemBase.Body ? 'ARMOR' : <keyof GameDataStat>base.toUpperCase();
+
+        if (rarity === Rarity.Basic) {
+            stats = GAME_DATA.STAT.filter(stat => stat[key] === 'P').map(stat => stat.REF);
+        } else if (rarity === Rarity.Magic || rarity === Rarity.Rare) {
+            stats = GAME_DATA.STAT.filter(stat => stat[key] === 'S').map(stat => stat.REF);
+        } else if (rarity === Rarity.Epic) {
+            stats = GAME_DATA.STAT.map(stat => stat.REF);
+        }
+
+        return stats;
     }
 }

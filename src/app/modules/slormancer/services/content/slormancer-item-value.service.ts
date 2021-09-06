@@ -141,29 +141,37 @@ export class SlormancerItemValueService {
         return minMax;
     }
 
-    public getAffixValues(level: number, reinforcment: number, score: number, percent: boolean, rarity: Rarity, pure: number | null): { [ key: number]: number } {
-        let values: { [key: number]: number } = { };
+    public getAffixValues(level: number, reinforcment: number, score: number, percent: boolean, rarity: Rarity, pure: number | null): Array<{ craft: number, value: number }> {
+        let values: Array<{ craft: number, value: number }> = [];
         const levelScore = this.getLevelPercentScore(level);
 
         const range = this.getAffixMinMax(rarity, percent, levelScore);
 
         if (range !== null) {
-            values = {};
-            for (let value of list(range.min, range.max)) {
-                values[value] = this.computeAffixValue(level, reinforcment, score, value, percent, pure);
-            }
+            values = list(range.min, range.max).map(v => ({ craft: v, value: this.computeAffixValue(level, reinforcment, score, v, percent, pure) }));
         }
 
         return values;
     }
 
-    public computeEffectRange(value: number, min: number, max: number, upgrade: number): { [ key: number]: number } {
-        const values: { [ key: number]: number } = {};
-        for (let ratio of list(75, 100)) {
-            values[ratio] = this.roundValue(value * ratio / 100, false, false) + upgrade;
+    public getAffixValuesMinMax(level: number, reinforcment: number, score: number, percent: boolean, rarity: Rarity, pure: number | null): MinMax {
+        let value: MinMax = { min: 0, max: 0 };
+        const levelScore = this.getLevelPercentScore(level);
+        const range = this.getAffixMinMax(rarity, percent, levelScore);
+
+        if (range !== null) {
+            value = {
+                min: this.computeAffixValue(level, reinforcment, score, range.min, percent, pure),
+                max: this.computeAffixValue(level, reinforcment, score, range.max, percent, pure)
+            }
+            
         }
 
-        return values;
+        return value;
+    }
+
+    public computeEffectRange(value: number, min: number, max: number, upgrade: number): Array<{ craft: number, value: number }> {
+        return list(75, 100).map(ratio => ({ craft: value, value: this.roundValue(value * ratio / 100, false, false) + upgrade }));
     }
 
     public computeEffectVariableDetails(effect: EffectValueVariable, itemValue: number, reinforcment: number): ComputedEffectValue {

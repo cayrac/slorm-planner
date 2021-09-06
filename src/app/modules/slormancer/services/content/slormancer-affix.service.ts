@@ -5,16 +5,17 @@ import { EffectValueType } from '../../model/content/enum/effect-value-type';
 import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
 import { EquipableItemBase } from '../../model/content/enum/equipable-item-base';
 import { Rarity } from '../../model/content/enum/rarity';
+import { MinMax } from '../../model/minmax';
 import { GameAffix, GameEquippableItem, GameItem, GameRessourceItem } from '../../model/parser/game/game-item';
 import { GameRarity } from '../../model/parser/game/game-rarity';
-import { valueOrDefault } from '../../util/utils';
+import { getCraftValue } from '../../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 import { SlormancerTranslateService } from './slormancer-translate.service';
 
 @Injectable()
-export class SlormancerCraftedValueService {
+export class SlormancerAffixService {
 
     constructor(private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerTranslateService : SlormancerTranslateService,
@@ -70,13 +71,26 @@ export class SlormancerCraftedValueService {
         return item !== null && item.hasOwnProperty('quantity');
     }
 
+    public getAffixValueSummary(statName: string, itemLevel: number, reinforcment: number, rarity: Rarity, pure: number): { minMax: MinMax, percent: boolean } {
+        let value: { minMax: MinMax, percent: boolean } = { minMax: { min: 0, max: 0 }, percent: false };
+
+        const stat = this.slormancerDataService.getGameDataStatByRef(statName);
+
+        if (stat !== null) {
+            value.percent = stat.PERCENT === '%';
+            value.minMax = this.slormancerItemValueService.getAffixValuesMinMax(itemLevel, reinforcment, stat.SCORE, value.percent, rarity, pure);
+        }
+
+        return value;
+    }
+
     public getAffix(affix: GameAffix, itemLevel: number, reinforcment: number): Affix | null {
         let result: Affix | null = null;
 
         const stat = this.slormancerDataService.getGameDataStat(affix);
         if (stat !== null) {
             result = {
-                primaryNameType: stat.PRIMARY_NAME_TYPE,
+                primaryNameType: '',
                 rarity: this.getRarity(affix.rarity),
                 itemLevel,
                 reinforcment,
@@ -85,8 +99,8 @@ export class SlormancerCraftedValueService {
                 isPure: false,
 
                 craftedEffect: {
-                    score: stat.SCORE,
-                    possibleCraftedValues: { [affix.value] : 0 },
+                    score: 0,
+                    possibleCraftedValues: [],
                     minPossibleCraftedValue: affix.value,
                     craftedValue: affix.value,
                     maxPossibleCraftedValue: affix.value,
@@ -95,7 +109,7 @@ export class SlormancerCraftedValueService {
                         type: EffectValueType.Constant,
                         value: 0,
                         displayValue: 0,
-                        percent: stat.PERCENT === '%',
+                        percent: false,
                         valueType: EffectValueValueType.Stat,
                         stat: stat.REF
                     },
@@ -110,17 +124,30 @@ export class SlormancerCraftedValueService {
     }
 
     public updateAffix(itemAffix: Affix) {
-        itemAffix.isPure = itemAffix.pure > 100;
+
+
+        const stat = this.slormancerDataService.getGameDataStatByRef(itemAffix.craftedEffect.effect.stat);
+
+        itemAffix.craftedEffect.score = 0;
+        itemAffix.craftedEffect.effect.percent = false;
+        itemAffix.primaryNameType = '';
+        if (stat !== null) {
+            itemAffix.primaryNameType = stat.PRIMARY_NAME_TYPE;
+            itemAffix.craftedEffect.score = stat.SCORE;
+            itemAffix.craftedEffect.effect.percent = stat.PERCENT === '%';
+        }
+
         itemAffix.craftedEffect.possibleCraftedValues = this.slormancerItemValueService
             .getAffixValues(itemAffix.itemLevel, itemAffix.reinforcment, itemAffix.craftedEffect.score, itemAffix.craftedEffect.effect.percent, itemAffix.rarity, itemAffix.pure);
        
-        const keys = Object.keys(itemAffix.craftedEffect.possibleCraftedValues).map(k => parseInt(k));
-        const minValue = keys[0];
-        const maxValue = keys[keys.length - 1];
-        itemAffix.craftedEffect.minPossibleCraftedValue = minValue ? minValue : itemAffix.craftedEffect.craftedValue;
-        itemAffix.craftedEffect.maxPossibleCraftedValue = maxValue ? maxValue : itemAffix.craftedEffect.craftedValue;
-        itemAffix.craftedEffect.effect.value = valueOrDefault(itemAffix.craftedEffect.possibleCraftedValues[itemAffix.craftedEffect.craftedValue], 0);
+        const minValue = itemAffix.craftedEffect.possibleCraftedValues[0];
+        const maxValue = itemAffix.craftedEffect.possibleCraftedValues[Math.max(0, itemAffix.craftedEffect.possibleCraftedValues.length - 1)];
+        itemAffix.craftedEffect.minPossibleCraftedValue = minValue ? minValue.craft : itemAffix.craftedEffect.craftedValue;
+        itemAffix.craftedEffect.maxPossibleCraftedValue = maxValue ? maxValue.craft : itemAffix.craftedEffect.craftedValue;
+        itemAffix.craftedEffect.effect.value = getCraftValue(itemAffix.craftedEffect, itemAffix.craftedEffect.craftedValue);
         itemAffix.craftedEffect.effect.displayValue = itemAffix.craftedEffect.effect.value;
+
+        itemAffix.isPure = itemAffix.pure > 100;
 
         itemAffix.valueLabel = this.slormancerTemplateService.formatItemAffixValue(itemAffix);
         itemAffix.statLabel = itemAffix.craftedEffect.effect.stat === null ? '' : this.slormancerTranslateService.translate(itemAffix.craftedEffect.effect.stat);

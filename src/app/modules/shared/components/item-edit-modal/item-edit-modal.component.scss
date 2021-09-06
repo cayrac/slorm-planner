@@ -14,12 +14,26 @@ mat-dialog-content {
         padding: $space-unit * 2 0;
         @include flex(column, stretch);
         @include flex-grow();
-        width: 450px;
+        width: 600px;
 
         .form-line {
             @include flex-row-to-column('small-desktop', flex-start, space-between);
             @include flex-gap($space-unit * 4);
-            min-height: $space-unit * 8;
+            @include respond-to('small-desktop') {
+                align-items: stretch;
+            }
+
+            .field {
+                @include flex-grow();
+            }
+        }
+        .form-info {
+            @include flex(row, center);
+            min-height: $space-unit * 12;
         }
     }
+}
+
+.shaded {
+    color: rgb(60, 60, 60);
 }

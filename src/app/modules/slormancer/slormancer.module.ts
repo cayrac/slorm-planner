@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { SlormancerActivableService } from './services/content/slormancer-activable.service';
-import { SlormancerCraftedValueService } from './services/content/slormancer-affix.service';
+import { SlormancerAffixService } from './services/content/slormancer-affix.service';
 import { SlormancerAncestralLegacyService } from './services/content/slormancer-ancestral-legacy.service';
 import { SlormancerAttributeService } from './services/content/slormancer-attribute.service';
 import { SlormancerBuffService } from './services/content/slormancer-buff.service';
@@ -40,7 +40,7 @@ import { SlormancerCharacterService } from './services/slormancer-character.serv
     SlormancerBuffService,
     SlormancerAncestralLegacyService,
     SlormancerAttributeService,
-    SlormancerCraftedValueService,
+    SlormancerAffixService,
     SlormancerTranslateService,
     SlormancerCharacterService
   ],
