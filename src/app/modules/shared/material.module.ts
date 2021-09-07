@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatTabsModule } from '@angular/material/tabs';
 
 const globalRippleConfig: RippleGlobalOptions = {
@@ -27,7 +28,8 @@ const globalRippleConfig: RippleGlobalOptions = {
         MatDialogModule,
         MatFormFieldModule,
         MatInputModule,
-        MatSelectModule
+        MatSelectModule,
+        MatSliderModule
     ],
     exports: [
         MatTabsModule,
@@ -37,7 +39,8 @@ const globalRippleConfig: RippleGlobalOptions = {
         MatDialogModule,
         MatFormFieldModule,
         MatInputModule,
-        MatSelectModule
+        MatSelectModule,
+        MatSliderModule
     ],
     providers: [
         {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: globalRippleConfig}

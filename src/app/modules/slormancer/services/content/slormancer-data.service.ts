@@ -56,6 +56,10 @@ export class SlormancerDataService {
         return valueOrNull(GAME_DATA.STAT.find(stat => stat.REF === statValue));
     }
 
+    public getGameDataStats(): Array<GameDataStat> {
+        return GAME_DATA.STAT;
+    }
+
     public getGameDataReaper(id: number): GameDataReaper | null {
         return valueOrNull(GAME_DATA.REAPER.find(stat => stat.EN_NAME !== '' && stat.REF === id));
     }

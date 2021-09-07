@@ -7,23 +7,14 @@ import { Affix } from '../../../slormancer/model/content/affix';
 import { Rarity } from '../../../slormancer/model/content/enum/rarity';
 import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
 import { LegendaryEffect } from '../../../slormancer/model/content/legendary-effect';
-import { SlormancerAffixService } from '../../../slormancer/services/content/slormancer-affix.service';
 import { SlormancerDataService } from '../../../slormancer/services/content/slormancer-data.service';
 import { SlormancerItemService } from '../../../slormancer/services/content/slormancer-item.service';
-import { SlormancerTranslateService } from '../../../slormancer/services/content/slormancer-translate.service';
-import { compareString, isFirst, valueOrDefault } from '../../../slormancer/util/utils';
+import { valueOrNull } from '../../../slormancer/util/utils';
 
 export interface ItemEditModalData {
     item: EquipableItem;
     baseLocked: boolean;
     maxLevel: number;
-}
-
-interface SelectOption<T> {
-    label: string;
-    triggered?: string;
-    value: T;
-    disabled: boolean;
 }
 
 @Component({
@@ -43,9 +34,7 @@ export class ItemEditModalComponent {
 
     private maxBasicStats: number = 0;
 
-    private statOptions: { [key: number]: Array<SelectOption<string>> } = {};
-
-    private craftOptions: { [key: number]: Array<SelectOption<number>> } = {};
+    public itemStats: Array<string> = [];
 
     public item: EquipableItem;
 
@@ -53,9 +42,7 @@ export class ItemEditModalComponent {
 
     constructor(public dialogRef: MatDialogRef<ItemEditModalComponent>,
                 private slormancerItemService: SlormancerItemService,
-                private slormancerAffixService: SlormancerAffixService,
                 private slormancerDataService: SlormancerDataService,
-                private slormancerTranslateService: SlormancerTranslateService,
                 @Inject(MAT_DIALOG_DATA) public data: ItemEditModalData
                 ) {
         this.originalItem = data.item;
@@ -64,6 +51,12 @@ export class ItemEditModalComponent {
 
         this.item = this.slormancerItemService.getEquipableItemClone(this.originalItem);
         this.form = this.buildForm();
+
+        // STOP : fait un component, t'as trop de refresh avec les accès / conditions
+
+        // item edit form service (avec cache)
+        // object avec options préconstruites
+        // rempalcer selects par slider (displayWith)
     }
 
     public reset() {
@@ -102,35 +95,9 @@ export class ItemEditModalComponent {
             });
 
             this.slormancerItemService.updateEquippableItem(this.item);
+
+            this.itemStats = this.item.affixes.map(affix => affix.craftedEffect.effect.stat);
         }
-    }
-
-    private buildOptions(item: EquipableItem) {
-        this.craftOptions = {};
-        this.statOptions = {};
-
-        const usedStats = item.affixes.map(affix => affix.craftedEffect.effect.stat);
-
-        item.affixes.forEach((affix, index) => {
-            const percent = affix.craftedEffect.effect.percent ? '%' : '';
-            this.craftOptions[index] = affix.craftedEffect.possibleCraftedValues
-                .filter((value, index, values) => isFirst(value, index, values, (a, b) => a.value === b.value))
-                .map(value => ({ value: value.craft, label: value.value.toString() + percent, disabled: false }));
-            this.statOptions[index] = this.slormancerDataService.getAffixPossibleStats(item.base, affix.rarity)
-                .map(stat => {
-                    const summary = this.slormancerAffixService.getAffixValueSummary(stat, item.level, item.reinforcment, affix.rarity, affix.pure);
-                    const percent = summary.percent ? '%' : '';
-                    const summarylabel = '<span class="shaded">(' + summary.minMax.min + percent + '-' + summary.minMax.max + percent + ')</span>';
-                    const statLabel = this.slormancerTranslateService.translate(stat)
-                    return {
-                        value: stat,
-                        label: statLabel + ' ' + summarylabel,
-                        disabled: usedStats.indexOf(stat) !== -1 && stat !== affix.craftedEffect.effect.stat
-                    }
-                })
-                .sort((a, b) => compareString(a.label, b.label));
-
-        });
     }
 
     private affixToForm(affix: Affix): FormGroup {
@@ -172,19 +139,17 @@ export class ItemEditModalComponent {
 
         form.valueChanges.subscribe(() => {
             this.updatePreview(form);
-            this.buildOptions(this.item);
         });
         this.updatePreview(form);
-        this.buildOptions(this.item);
 
         this.maxBasicStats = this.slormancerDataService.getBaseMaxBasicStat(this.item.base);
 
         return form;
     }
 
-    public getAffixControls(): Array<AbstractControl> {
+    public getAffixControls(): Array<FormGroup> {
         const affixes = <FormArray | null>this.form.get('affixes');
-        return affixes !== null ? affixes.controls : [];
+        return affixes !== null ? <Array<FormGroup>>affixes.controls : [];
     }
 
     public isBasicStat(affixForm: AbstractControl): boolean {
@@ -247,16 +212,7 @@ export class ItemEditModalComponent {
         return controls !== null && controls.controls.filter(control => this.isEpicStat(control)).length >= MAX_EPIC_STATS;
     }
 
-    public getStatOptions(index: number): Array<SelectOption<string>> {
-        return valueOrDefault(this.statOptions[index], []);
-    }
-
-    public getCraftOptions(index: number): Array<SelectOption<number>> {
-        return valueOrDefault(this.craftOptions[index], []);
-    }
-
-    public getStatLabel(affixControl: AbstractControl): string {
-        const stat = affixControl.get('stat');
-        return stat === null ? '??' : this.slormancerTranslateService.translate(stat.value);
+    public getAffix(index: number): Affix | null {
+        return valueOrNull(this.item.affixes[index]);
     }
 }

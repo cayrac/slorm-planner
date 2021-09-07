@@ -21,21 +21,12 @@
                 <ng-container *ngIf="hasBasicStats()">
                     <div class="form-info">Base Stats :</div>
                     <ng-container *ngFor="let affixControl of getAffixControls(); let i = index">
-                        <div class="form-line" [formGroupName]="i" *ngIf="isBasicStat(affixControl)">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Stat</mat-label>
-                                <mat-select formControlName="stat">
-                                    <mat-select-trigger>{{getStatLabel(affixControl)}}</mat-select-trigger>
-                                    <mat-option *ngFor="let option of getStatOptions(i)" [disabled]="option.disabled" [value]="option.value"><span [innerHTML]="option.label"></span></mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                            <mat-form-field appearance="outline">
-                                <mat-label>Value</mat-label>
-                                <mat-select formControlName="value">
-                                    <mat-option *ngFor="let option of getCraftOptions(i)" [value]="option.value">{{option.label}}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
+                        <app-item-edit-stat *ngIf="isBasicStat(affixControl)"
+                            [form]="affixControl"
+                            [base]="item.base"
+                            [itemStats]="itemStats"
+                            [affix]="getAffix(i)">
+                        </app-item-edit-stat>
                     </ng-container>
                 </ng-container>
                 <div class="form-line" *ngIf="!hasMaximumBasicStats()">
@@ -44,25 +35,12 @@
                 <ng-container *ngIf="hasMagicStats()">
                     <div class="form-info">Magic Stats :</div>
                     <ng-container *ngFor="let affixControl of getAffixControls(); let i = index">
-                        <div class="form-line" [formGroupName]="i" *ngIf="isMagicStat(affixControl)">
-                            <div class="field">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Stat</mat-label>
-                                    <mat-select formControlName="stat">
-                                        <mat-select-trigger>{{getStatLabel(affixControl)}}</mat-select-trigger>
-                                        <mat-option *ngFor="let option of getStatOptions(i)" [disabled]="option.disabled" [value]="option.value"><span [innerHTML]="option.label"></span></mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div class="field">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Value</mat-label>
-                                    <mat-select formControlName="value">
-                                        <mat-option *ngFor="let option of getCraftOptions(i)" [value]="option.value">{{option.label}}</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                        </div>
+                        <app-item-edit-stat *ngIf="isMagicStat(affixControl)"
+                            [form]="affixControl"
+                            [base]="item.base"
+                            [itemStats]="itemStats"
+                            [affix]="getAffix(i)">
+                        </app-item-edit-stat>
                     </ng-container>
                 </ng-container>
                 <div class="form-line" *ngIf="!hasMaximumMagicStats()">
@@ -71,25 +49,12 @@
                 <ng-container *ngIf="hasRareStats()">
                     <div class="form-info">Rare Stats :</div>
                     <ng-container *ngFor="let affixControl of getAffixControls(); let i = index">
-                        <div class="form-line" [formGroupName]="i" *ngIf="isRareStat(affixControl)">
-                            <div class="field">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Stat</mat-label>
-                                    <mat-select formControlName="stat">
-                                        <mat-select-trigger>{{getStatLabel(affixControl)}}</mat-select-trigger>
-                                        <mat-option *ngFor="let option of getStatOptions(i)" [disabled]="option.disabled" [value]="option.value"><span [innerHTML]="option.label"></span></mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div class="field">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Value</mat-label>
-                                    <mat-select formControlName="value">
-                                        <mat-option *ngFor="let option of getCraftOptions(i)" [value]="option.value">{{option.label}}</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                        </div>
+                        <app-item-edit-stat *ngIf="isRareStat(affixControl)"
+                            [form]="affixControl"
+                            [base]="item.base"
+                            [itemStats]="itemStats"
+                            [affix]="getAffix(i)">
+                        </app-item-edit-stat>
                     </ng-container>
                 </ng-container>
                 <div class="form-line" *ngIf="!hasMaximumRareStats()">
@@ -98,25 +63,12 @@
                 <ng-container *ngIf="hasEpicStats()">
                     <div class="form-info">Epic Stats :</div>
                     <ng-container *ngFor="let affixControl of getAffixControls(); let i = index">
-                        <div class="form-line" [formGroupName]="i" *ngIf="isEpicStat(affixControl)">
-                            <div class="field">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Stat</mat-label>
-                                    <mat-select formControlName="stat">
-                                        <mat-select-trigger>{{getStatLabel(affixControl)}}</mat-select-trigger>
-                                        <mat-option *ngFor="let option of getStatOptions(i)" [disabled]="option.disabled" [value]="option.value"><span [innerHTML]="option.label"></span></mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div class="field">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Value</mat-label>
-                                    <mat-select formControlName="value">
-                                        <mat-option *ngFor="let option of getCraftOptions(i)" [value]="option.value">{{option.label}}</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                        </div>
+                        <app-item-edit-stat *ngIf="isEpicStat(affixControl)"
+                            [form]="affixControl"
+                            [base]="item.base"
+                            [itemStats]="itemStats"
+                            [affix]="getAffix(i)">
+                        </app-item-edit-stat>
                     </ng-container>
                 </ng-container>
                 <div class="form-line" *ngIf="!hasMaximumEpicStats()">

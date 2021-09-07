@@ -1,0 +1,15 @@
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/variables";
+
+
+.stat-form {
+    @include flex-row-to-column('small-desktop', flex-start, space-between);
+    @include flex-gap($space-unit * 4);
+    @include respond-to('small-desktop') {
+        align-items: stretch;
+    }
+
+    .field {
+        @include flex-grow();
+    }
+}
