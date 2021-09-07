@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, RippleGlobalOptions } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -29,7 +30,8 @@ const globalRippleConfig: RippleGlobalOptions = {
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
-        MatSliderModule
+        MatSliderModule,
+        MatCheckboxModule
     ],
     exports: [
         MatTabsModule,
@@ -40,7 +42,8 @@ const globalRippleConfig: RippleGlobalOptions = {
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
-        MatSliderModule
+        MatSliderModule,
+        MatCheckboxModule
     ],
     providers: [
         {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: globalRippleConfig}

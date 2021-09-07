@@ -11,5 +11,25 @@
 
     .field {
         @include flex-grow();
+        @include flex-row-to-column('tablet', stretch, center);
+        @include flex-gap($space-unit * 4);
+
+        .slider {
+            @include flex(column, stretch);
+            @include flex-grow();
+        }
+
+        .additional {
+            @include flex(row, center, space-between);
+            @include flex-gap($space-unit * 4);
+
+            .value {
+                width: 40px;
+            }
+
+            .delete {
+                cursor : pointer;
+            }
+        }
     }
 }

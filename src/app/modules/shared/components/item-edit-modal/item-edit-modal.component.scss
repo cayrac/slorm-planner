@@ -29,7 +29,10 @@ mat-dialog-content {
         }
         .form-info {
             @include flex(row, center);
-            min-height: $space-unit * 12;
+            min-height: $space-unit * 10;
+        }
+        .form-add {
+            @include flex(row, center, flex-end);
         }
     }
 }

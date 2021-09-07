@@ -10,14 +10,33 @@
         </mat-form-field>
     </div>
     <div class="field">
-        <mat-slider
-            color="primary"
-            [min]="affix.craftedEffect.minPossibleCraftedValue"
-            [max]="affix.craftedEffect.maxPossibleCraftedValue"
-            [thumbLabel]="true"
-            [step]="1"
-            formControlName="value"
-            [displayWith]="displayWith">
-        </mat-slider>
+        <div class="slider">
+            <mat-slider *ngIf="!affix.isPure"
+                color="primary"
+                [min]="affix.craftedEffect.minPossibleCraftedValue"
+                [max]="affix.craftedEffect.maxPossibleCraftedValue"
+                [step]="1"
+                formControlName="value"
+                (input)="updateSliderStat($event)">
+            </mat-slider>
+            <mat-slider *ngIf="affix.isPure"
+                color="primary"
+                [min]="101"
+                [max]="200"
+                [step]="1"
+                formControlName="purity"
+                (input)="updateSliderPurity($event)">
+            </mat-slider>
+        </div>
+        <div class="additional">
+            <div class="value">
+                {{displayedValue}}
+            </div>
+            <mat-checkbox color="primary" (change)="purityChanged($event)" [checked]="affix.isPure">Pure</mat-checkbox>
+            
+            <button mat-icon-button color="primary" type="button" [disabled]="!removable" (click)="removeStat()">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
     </div>
 </div>

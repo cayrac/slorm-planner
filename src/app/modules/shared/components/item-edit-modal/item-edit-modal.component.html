@@ -17,7 +17,7 @@
                     <mat-error>Reinforcment must be >= 0</mat-error>
                 </mat-form-field>
             </div>
-            <ng-container formArrayName="affixes">
+            <ng-container>
                 <ng-container *ngIf="hasBasicStats()">
                     <div class="form-info">Base Stats :</div>
                     <ng-container *ngFor="let affixControl of getAffixControls(); let i = index">
@@ -25,54 +25,56 @@
                             [form]="affixControl"
                             [base]="item.base"
                             [itemStats]="itemStats"
-                            [affix]="getAffix(i)">
+                            [affix]="getAffix(i)"
+                            [removable]="getAffixControls().length > 1 && !hasMagicStats() && !hasRareStats() && !hasEpicStats()"
+                            (remove)="removeAffix(i)">
                         </app-item-edit-stat>
                     </ng-container>
                 </ng-container>
-                <div class="form-line" *ngIf="!hasMaximumBasicStats()">
-                    <button mat-flat-button color="primary">Add Base Stat</button>
+                <div class="form-add" *ngIf="!hasMaximumBasicStats()">
+                    <button mat-icon-button type="button" color="primary" (click)="addBasicAffix()"><mat-icon>add</mat-icon></button>
                 </div>
-                <ng-container *ngIf="hasMagicStats()">
-                    <div class="form-info">Magic Stats :</div>
-                    <ng-container *ngFor="let affixControl of getAffixControls(); let i = index">
-                        <app-item-edit-stat *ngIf="isMagicStat(affixControl)"
-                            [form]="affixControl"
-                            [base]="item.base"
-                            [itemStats]="itemStats"
-                            [affix]="getAffix(i)">
-                        </app-item-edit-stat>
-                    </ng-container>
+                <div class="form-info" *ngIf="hasBasicStats()">Magic Stats :</div>
+                <ng-container *ngFor="let affixControl of getAffixControls(); let i = index">
+                    <app-item-edit-stat *ngIf="isMagicStat(affixControl)"
+                        [form]="affixControl"
+                        [base]="item.base"
+                        [itemStats]="itemStats"
+                        [affix]="getAffix(i)"
+                        [removable]="!hasRareStats() && !hasEpicStats()"
+                        (remove)="removeAffix(i)">
+                    </app-item-edit-stat>
                 </ng-container>
-                <div class="form-line" *ngIf="!hasMaximumMagicStats()">
-                    <button mat-flat-button color="primary">Add Magic Stat</button>
+                <div class="form-add" *ngIf="hasBasicStats() && !hasMaximumMagicStats()">
+                    <button mat-icon-button type="button" color="primary" (click)="addMagicAffix()"><mat-icon>add</mat-icon></button>
                 </div>
-                <ng-container *ngIf="hasRareStats()">
-                    <div class="form-info">Rare Stats :</div>
-                    <ng-container *ngFor="let affixControl of getAffixControls(); let i = index">
-                        <app-item-edit-stat *ngIf="isRareStat(affixControl)"
-                            [form]="affixControl"
-                            [base]="item.base"
-                            [itemStats]="itemStats"
-                            [affix]="getAffix(i)">
-                        </app-item-edit-stat>
-                    </ng-container>
+                <div class="form-info" *ngIf="hasMagicStats()">Rare Stats :</div>
+                <ng-container *ngFor="let affixControl of getAffixControls(); let i = index">
+                    <app-item-edit-stat *ngIf="isRareStat(affixControl)"
+                        [form]="affixControl"
+                        [base]="item.base"
+                        [itemStats]="itemStats"
+                        [affix]="getAffix(i)"
+                        [removable]="!hasEpicStats()"
+                        (remove)="removeAffix(i)">
+                    </app-item-edit-stat>
                 </ng-container>
-                <div class="form-line" *ngIf="!hasMaximumRareStats()">
-                    <button mat-flat-button color="primary">Add Rare Stat</button>
+                <div class="form-add" *ngIf="hasMagicStats() && !hasMaximumRareStats()">
+                    <button mat-icon-button type="button" color="primary" (click)="addRareAffix()"><mat-icon>add</mat-icon></button>
                 </div>
-                <ng-container *ngIf="hasEpicStats()">
-                    <div class="form-info">Epic Stats :</div>
-                    <ng-container *ngFor="let affixControl of getAffixControls(); let i = index">
-                        <app-item-edit-stat *ngIf="isEpicStat(affixControl)"
-                            [form]="affixControl"
-                            [base]="item.base"
-                            [itemStats]="itemStats"
-                            [affix]="getAffix(i)">
-                        </app-item-edit-stat>
-                    </ng-container>
+                <div class="form-info" *ngIf="hasRareStats()">Epic Stats :</div>
+                <ng-container *ngFor="let affixControl of getAffixControls(); let i = index">
+                    <app-item-edit-stat *ngIf="isEpicStat(affixControl)"
+                        [form]="affixControl"
+                        [base]="item.base"
+                        [itemStats]="itemStats"
+                        [affix]="getAffix(i)"
+                        [removable]="true"
+                        (remove)="removeAffix(i)">
+                    </app-item-edit-stat>
                 </ng-container>
-                <div class="form-line" *ngIf="!hasMaximumEpicStats()">
-                    <button mat-flat-button color="primary">Add Epic Stat</button>
+                <div class="form-add" *ngIf="hasRareStats() && !hasMaximumEpicStats()">
+                    <button mat-icon-button type="button" color="primary" (click)="addEpicAffix()"><mat-icon>add</mat-icon></button>
                 </div>
             </ng-container>
             <div>

@@ -7,9 +7,11 @@ import { Affix } from '../../../slormancer/model/content/affix';
 import { Rarity } from '../../../slormancer/model/content/enum/rarity';
 import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
 import { LegendaryEffect } from '../../../slormancer/model/content/legendary-effect';
+import { SlormancerAffixService } from '../../../slormancer/services/content/slormancer-affix.service';
 import { SlormancerDataService } from '../../../slormancer/services/content/slormancer-data.service';
 import { SlormancerItemService } from '../../../slormancer/services/content/slormancer-item.service';
 import { valueOrNull } from '../../../slormancer/util/utils';
+import { ItemFormService } from '../../services/item-form.service';
 
 export interface ItemEditModalData {
     item: EquipableItem;
@@ -43,6 +45,8 @@ export class ItemEditModalComponent {
     constructor(public dialogRef: MatDialogRef<ItemEditModalComponent>,
                 private slormancerItemService: SlormancerItemService,
                 private slormancerDataService: SlormancerDataService,
+                private slormancerAffixService: SlormancerAffixService,
+                private itemFormservice: ItemFormService,
                 @Inject(MAT_DIALOG_DATA) public data: ItemEditModalData
                 ) {
         this.originalItem = data.item;
@@ -79,17 +83,11 @@ export class ItemEditModalComponent {
 
                 if (control !== null) {
                     const purity = (<FormControl>control.get('purity')).value;
-                    const pure = (<FormControl>control.get('pure')).value;
                     const value = (<FormControl>control.get('value')).value;
                     const stat =(<FormControl>control.get('stat')).value;
 
-                    if (pure) {
-                        affix.pure = purity;
-                        affix.craftedEffect.craftedValue = affix.craftedEffect.maxPossibleCraftedValue;
-                    } else {
-                        affix.pure = 100;
-                        affix.craftedEffect.craftedValue = value;
-                    }
+                    affix.pure = purity;
+                    affix.craftedEffect.craftedValue = value;
                     affix.craftedEffect.effect.stat = stat;
                 }
             });
@@ -103,7 +101,6 @@ export class ItemEditModalComponent {
     private affixToForm(affix: Affix): FormGroup {
         return new FormGroup({
             rarity: new FormControl(affix.rarity),
-            pure: new FormControl(affix.isPure),
             value: new FormControl(affix.craftedEffect.craftedValue),
             purity: new FormControl(affix.pure),
             stat: new FormControl(affix.craftedEffect.effect.stat)
@@ -214,5 +211,49 @@ export class ItemEditModalComponent {
 
     public getAffix(index: number): Affix | null {
         return valueOrNull(this.item.affixes[index]);
+    }
+
+    public removeAffix(index: number) {
+        const formAffixes = <FormArray | null>this.form.get('affixes');
+
+        if (formAffixes !== null) {
+            formAffixes.removeAt(index);
+            this.item.affixes.splice(index, 1);
+            this.updatePreview(this.form);
+        }
+    }
+
+    private addAffix(rarity: Rarity) {
+        const formAffixes = <FormArray | null>this.form.get('affixes');
+        const possibleStats = this.itemFormservice.getStatsOptions(this.item.base, rarity)
+            .filter(option => this.itemStats.indexOf(option.value) === -1);
+
+        const stat = possibleStats[0];
+        if (stat && formAffixes !== null) {
+            const affix = this.slormancerAffixService.getAffixFromStat(stat.value, this.item.level, this.item.reinforcment, rarity);
+
+            if (affix !== null) {
+                this.item.affixes.push(affix);
+                formAffixes.push(this.affixToForm(affix));
+
+                this.updatePreview(this.form);
+            }
+        }
+    }
+
+    public addBasicAffix() {
+        this.addAffix(Rarity.Basic);
+    }
+
+    public addMagicAffix() {
+        this.addAffix(Rarity.Magic);
+    }
+
+    public addRareAffix() {
+        this.addAffix(Rarity.Rare);
+    }
+
+    public addEpicAffix() {
+        this.addAffix(Rarity.Epic);
     }
 }
