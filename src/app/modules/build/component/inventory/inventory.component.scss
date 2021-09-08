@@ -16,9 +16,10 @@ main {
 
     .gear {
         @include flex-grow(1);
+        max-width: 500px;
         .equipment {
             @include flex(column, stretch, space-between);
-            min-height: 450px;
+            min-height: 400px;
 
             .top-equipment {
                 @include flex(row, center, center);
@@ -78,5 +79,26 @@ main {
 
     .inventory {
         @include flex-grow(1);
+
+        mat-tab-group {
+            height: 100%;
+        }
+
+        .items {
+            padding-top: $space-content;
+            margin-left: $space-unit * 2;
+
+            &.bag {
+                max-width: 64px * 8;
+            }
+            &.stash {
+                max-width: 64px * 5;
+            }
+
+            app-item-slot {
+                display: block;
+                float: left;
+            }
+        }
     }
 }

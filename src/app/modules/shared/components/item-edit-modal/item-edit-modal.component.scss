@@ -2,20 +2,21 @@
 @import "../../../../../assets/scss/abstracts/variables";
 
 mat-dialog-content {
-    @include flex(row, stretch);
+    @include flex-row-to-column('tablet', stretch);
     @include flex-gap($space-content);
     @include flex-grow(1);
     overflow: auto;
 
     .preview {
         max-width: 350px;
+
+        @include hide-for('tablet');
     }
 
     .form {
         padding: $space-unit * 2 0;
         @include flex(column, stretch);
         @include flex-grow();
-        width: 600px;
 
         .form-line {
             @include flex-row-to-column('small-desktop', flex-start, space-between);
@@ -29,11 +30,8 @@ mat-dialog-content {
             }
         }
         .form-info {
-            @include flex(row, center);
+            @include flex(row, center, space-between);
             min-height: $space-unit * 10;
-        }
-        .form-add {
-            @include flex(row, center, flex-end);
         }
     }
 }

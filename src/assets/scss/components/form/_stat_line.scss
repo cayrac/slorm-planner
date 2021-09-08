@@ -1,0 +1,36 @@
+form .stat-line {
+    @include flex-row-to-column('small-desktop', stretch, center);
+    @include flex-gap($space-unit * 4);
+
+    @include respond-to('small-desktop') {
+        @include flex-gap(0);
+    }
+
+    .select {
+        @include flex-grow(3);
+    }
+
+    .slider {
+        @include flex(column, stretch);
+        @include flex-grow(2);
+    }
+
+    .additional {
+        @include flex(row, center, space-between);
+        min-width: 170px;
+
+        .value {
+            @include flex-grow();
+        }
+
+        .delete {
+            cursor : pointer;
+        }
+    }
+}
+
+
+.stat-info {
+    @include flex(row, center, space-between);
+    min-height: $space-unit * 10;
+}

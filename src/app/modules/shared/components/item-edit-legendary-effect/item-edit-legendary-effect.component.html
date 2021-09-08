@@ -1,8 +1,13 @@
 
-<div class="form-info">Legendary effect :</div>
-<div class="form-line" [formGroup]="form"  *ngIf="form !== null && legendaryEffect !== null">
-    <div class="field">
-        <mat-form-field appearance="outline">
+<div class="stat-info">
+    <div class="label">Legendary effect :</div>
+    <div class="add" *ngIf="form !== null && legendaryEffect === null">
+        <button mat-icon-button type="button" color="primary" (click)="addLegendaryEffect()"><mat-icon>add</mat-icon></button>
+    </div>
+</div>
+<div class="stat-line" [formGroup]="form"  *ngIf="form !== null && legendaryEffect !== null">
+    <div class="select">
+        <mat-form-field appearance="outline" class="no-error-padding">
             <mat-label>Legendary effect</mat-label>
             <mat-select formControlName="id">
                 <mat-option *ngFor="let option of options" [value]="option.value">
@@ -11,28 +16,23 @@
             </mat-select>
         </mat-form-field>
     </div>
-    <div class="field">
-        <div class="slider">
-            <mat-slider *ngIf="hasLegendaryValues()"
-                color="primary"
-                [min]="75"
-                [max]="100"
-                [step]="1"
-                formControlName="value"
-                (input)="updateSliderValue($event)">
-            </mat-slider>
-        </div>
-        <div class="additional">
-            <div class="value">
-                {{displayedValue}}
-            </div>
-            
-            <button mat-icon-button color="primary" type="button" (click)="removeLegendaryEffect()">
-                <mat-icon>delete</mat-icon>
-            </button>
-        </div>
+    <div class="slider">
+        <mat-slider *ngIf="hasLegendaryValues()"
+            color="primary"
+            [min]="75"
+            [max]="100"
+            [step]="1"
+            formControlName="value"
+            (input)="updateSliderValue($event)">
+        </mat-slider>
     </div>
-</div>
-<div class="form-add" *ngIf="form !== null && legendaryEffect === null">
-    <button mat-icon-button type="button" color="primary" (click)="addLegendaryEffect()"><mat-icon>add</mat-icon></button>
+    <div class="additional">
+        <div class="value">
+            {{displayedValue}}
+        </div>
+        
+        <button mat-icon-button color="primary" type="button" (click)="removeLegendaryEffect()">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
 </div>

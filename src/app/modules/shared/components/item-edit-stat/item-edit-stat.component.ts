@@ -20,7 +20,7 @@ export class ItemEditStatComponent implements OnChanges {
     public readonly base: EquipableItemBase = EquipableItemBase.Amulet;
 
     @Input()
-    public readonly itemStats: Array<string> = [];
+    public readonly alreadyUsedStats: Array<string> = [];
 
     @Input()
     public readonly affix: Affix | null = null;
@@ -53,7 +53,7 @@ export class ItemEditStatComponent implements OnChanges {
     }
 
     public isOptionDisabled(stat: string): boolean {
-        return this.itemStats.indexOf(stat) !== -1 && this.affix !== null && stat !== this.affix.craftedEffect.effect.stat
+        return this.alreadyUsedStats.indexOf(stat) !== -1 && this.affix !== null && stat !== this.affix.craftedEffect.effect.stat
     }
 
     public purityChanged(change: MatCheckboxChange) {

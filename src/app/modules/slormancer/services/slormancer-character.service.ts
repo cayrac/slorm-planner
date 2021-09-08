@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HeroClass } from '..//model/content/enum/hero-class';
+import { STASH_SIZE } from '../constants/common';
 import { Character, CharacterSkillAndPassives } from '../model/character';
 import { Activable } from '../model/content/activable';
 import { AncestralLegacy } from '../model/content/ancestral-legacy';
@@ -9,7 +10,7 @@ import { EquipableItem } from '../model/content/equipable-item';
 import { Reaper } from '../model/content/reaper';
 import { Skill } from '../model/content/skill';
 import { GameItem } from '../model/parser/game/game-item';
-import { GameSave } from '../model/parser/game/game-save';
+import { GameSave, GameSharedInventory } from '../model/parser/game/game-save';
 import { isNotNullOrUndefined, valueOrDefault, valueOrNull } from '../util/utils';
 import { SlormancerAncestralLegacyService } from './content/slormancer-ancestral-legacy.service';
 import { SlormancerAttributeService } from './content/slormancer-attribute.service';
@@ -159,10 +160,26 @@ export class SlormancerCharacterService {
         
         return level;
     }
+
+    private getSharedInventory(sharedInventory: GameSharedInventory, heroClass: HeroClass): Array<Array<EquipableItem | null>> {
+        const result: Array<Array<EquipableItem | null>> = [];
+        const items = sharedInventory.map(item => this.getItem(item, heroClass))
+
+        for (let i = 0, length = items.length; i < length; i += STASH_SIZE) {
+            const stash = items.slice(i, i + STASH_SIZE);
+            if (stash.length === STASH_SIZE) {
+                result.push(stash);
+            }
+        }
+        
+        return result;
+    }
     
     public getCharacterFromSave(saveContent: string, heroClass: HeroClass): Character {
         const start = new Date().getTime();
         const save = this.slormancerSaveParserService.parseSaveFile(saveContent);
+
+        console.log(save);
 
         const inventory = save.inventory[heroClass];
         const skill_equip = save.skill_equip[heroClass];
@@ -196,7 +213,8 @@ export class SlormancerCharacterService {
                 belt: this.getItem(valueOrNull(inventory.belt), heroClass),
                 cape: this.getItem(valueOrNull(inventory.cape), heroClass)
             },
-            inventory: inventory.bag.map(item => this.getItem(item, heroClass)).filter(isNotNullOrUndefined),
+            inventory: inventory.bag.map(item => this.getItem(item, heroClass)),
+            sharedInventory: this.getSharedInventory(save.shared_inventory, heroClass),
 
             attributes: {
                 [Attribute.Toughness]: this.slormancerAttributeService.getAttributeTraits(Attribute.Toughness, valueOrDefault(traits[Attribute.Toughness], 0)),

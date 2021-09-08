@@ -9,6 +9,7 @@ export interface Affix {
     itemLevel: number;
     reinforcment: number;
     locked: boolean;
+    minLevel: number;
 
     craftedEffect: CraftableEffect<EffectValueConstant>;
 

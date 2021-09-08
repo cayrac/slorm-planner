@@ -3,6 +3,18 @@
 mat-dialog-container {
     background-color: white;
 
+    @include respond-to('mobile') {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+    }
+
+    mat-dialog-content.mat-dialog-content {
+        max-height: 80vh;
+    }
 
     mat-dialog-actions.mat-dialog-actions {
         @include flex-row-to-column('tablet', stretch, flex-end);

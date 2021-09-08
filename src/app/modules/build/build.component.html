@@ -3,7 +3,7 @@
     <div class="tools">
         <mat-icon>settings</mat-icon>
     </div>
-    <nav mat-tab-nav-bar>
+    <nav mat-tab-nav-bar color="primary">
         <a mat-tab-link *ngFor="let route of ROUTES; let i = index"
             [routerLink]="route.route"
             routerLinkActive #rla="routerLinkActive"

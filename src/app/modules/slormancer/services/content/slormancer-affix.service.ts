@@ -73,16 +73,17 @@ export class SlormancerAffixService {
 
     private buildAffix(stat: GameDataStat, itemLevel: number, reinforcment: number, rarity: Rarity, locked: boolean, pure: number, value: number): Affix {
         return {
-            primaryNameType: '',
+            primaryNameType: stat.PRIMARY_NAME_TYPE,
             rarity: rarity,
             itemLevel,
             reinforcment,
             locked,
             pure,
             isPure: false,
+            minLevel: stat.MIN_LEVEL,
 
             craftedEffect: {
-                score: 0,
+                score: stat.SCORE,
                 possibleCraftedValues: [],
                 minPossibleCraftedValue: value,
                 craftedValue: value,
@@ -92,7 +93,7 @@ export class SlormancerAffixService {
                     type: EffectValueType.Constant,
                     value: 0,
                     displayValue: 0,
-                    percent: false,
+                    percent: stat.PERCENT === '%',
                     valueType: EffectValueValueType.Stat,
                     stat: stat.REF
                 },
@@ -103,12 +104,12 @@ export class SlormancerAffixService {
         }
     }
 
-    public getAffixFromStat(statName: string, itemLevel: number, reinforcment: number, rarity: Rarity): Affix | null {
+    public getAffixFromStat(statName: string, itemLevel: number, reinforcment: number, rarity: Rarity, value: number): Affix | null {
         let result: Affix | null = null;
 
         const stat = this.slormancerDataService.getGameDataStatByRef(statName);
         if (stat !== null) {
-            result = this.buildAffix(stat, itemLevel, reinforcment, rarity, false, 100, 1000);
+            result = this.buildAffix(stat, itemLevel, reinforcment, rarity, false, 100, value);
         }
 
         return result;
@@ -133,17 +134,6 @@ export class SlormancerAffixService {
     }
 
     public updateAffix(itemAffix: Affix) {
-
-        const stat = this.slormancerDataService.getGameDataStatByRef(itemAffix.craftedEffect.effect.stat);
-
-        itemAffix.craftedEffect.score = 0;
-        itemAffix.craftedEffect.effect.percent = false;
-        itemAffix.primaryNameType = '';
-        if (stat !== null) {
-            itemAffix.primaryNameType = stat.PRIMARY_NAME_TYPE;
-            itemAffix.craftedEffect.score = stat.SCORE;
-            itemAffix.craftedEffect.effect.percent = stat.PERCENT === '%';
-        }
 
         itemAffix.isPure = itemAffix.pure > 100;
 

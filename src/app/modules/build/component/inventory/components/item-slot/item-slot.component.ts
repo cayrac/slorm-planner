@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import {
@@ -7,7 +7,9 @@ import {
 } from '../../../../../shared/components/item-edit-modal/item-edit-modal.component';
 import { MAX_ITEM_LEVEL } from '../../../../../slormancer/constants/common';
 import { EquipableItemBase } from '../../../../../slormancer/model/content/enum/equipable-item-base';
+import { HeroClass } from '../../../../../slormancer/model/content/enum/hero-class';
 import { EquipableItem } from '../../../../../slormancer/model/content/equipable-item';
+import { SlormancerItemService } from '../../../../../slormancer/services/content/slormancer-item.service';
 
 
 @Component({
@@ -24,7 +26,13 @@ export class ItemSlotComponent implements OnInit {
     public readonly base: EquipableItemBase | null = null;
 
     @Input()
+    public readonly heroClass: HeroClass = HeroClass.Warrior;
+
+    @Input()
     public readonly maxLevel: number = MAX_ITEM_LEVEL;
+
+    @Output()
+    public readonly changed = new EventEmitter<EquipableItem | null>();
 
     public showOverlay = false;
 
@@ -38,25 +46,27 @@ export class ItemSlotComponent implements OnInit {
         this.showOverlay = false;
     }
     
-    constructor(private dialog: MatDialog) { }
+    constructor(private dialog: MatDialog,
+                private slormancerItemService: SlormancerItemService) { }
 
-    public ngOnInit() {
-        if (this.base === EquipableItemBase.Amulet) {
-            this.edit();
-        }
-    }
+    public ngOnInit() { }
     
-    public edit() {
-        if (this.item !== null) {
-            const data: ItemEditModalData = {
-                item: this.item,
-                baseLocked: this.base !== null,
-                maxLevel: this.maxLevel
-            };
-            this.dialog.open(ItemEditModalComponent, { data })
-            .afterClosed().subscribe(data => {
-                console.log(data);
-            })
+    public edit(item: EquipableItem | null = this.item) {
+        console.log('edit : ', item);
+        if (item === null) {
+            if (this.base !== null) {
+                this.edit(this.slormancerItemService.getEmptyEquipableItem(this.base, this.heroClass, this.maxLevel))
+            } else {
+                // TODO popup choix base
+            }
+        } else {
+            const data: ItemEditModalData = { item, maxLevel: this.maxLevel };
+            this.dialog.open(ItemEditModalComponent, { data, width: '80vw', maxWidth: '1000px' })
+            .afterClosed().subscribe((data: EquipableItem | null | undefined) => {
+                if (data !== undefined) {
+                    this.changed.emit(data);
+                }
+            });
         }
     }
 }

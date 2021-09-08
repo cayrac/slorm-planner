@@ -18,7 +18,6 @@ import { ItemFormOptionsService } from '../../services/item-form-options.service
 
 export interface ItemEditModalData {
     item: EquipableItem;
-    baseLocked: boolean;
     maxLevel: number;
 }
 
@@ -33,29 +32,28 @@ export class ItemEditModalComponent {
 
     public readonly originalItem: EquipableItem;
 
-    public readonly baseLocked: boolean;
-
     public readonly maxLevel: number;
 
     private maxBasicStats: number = 0;
 
-    public itemStats: Array<string> = [];
+    public alreadyUsedStats: Array<string> = [];
 
     public item: EquipableItem;
 
     public form: FormGroup;
 
-    constructor(public dialogRef: MatDialogRef<ItemEditModalComponent>,
+    constructor(private dialogRef: MatDialogRef<ItemEditModalComponent>,
                 private slormancerItemService: SlormancerItemService,
                 private slormancerDataService: SlormancerDataService,
                 private slormancerAffixService: SlormancerAffixService,
                 private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
                 private itemFormservice: ItemFormOptionsService,
-                @Inject(MAT_DIALOG_DATA) public data: ItemEditModalData
+                @Inject(MAT_DIALOG_DATA) data: ItemEditModalData
                 ) {
         this.originalItem = data.item;
-        this.baseLocked = data.baseLocked;
         this.maxLevel = data.maxLevel;
+
+        console.log(data);
 
         this.item = this.slormancerItemService.getEquipableItemClone(this.originalItem);
         this.form = this.buildForm();
@@ -68,6 +66,10 @@ export class ItemEditModalComponent {
         // mettre css no error padding sur champs pour gagner de la place
     }
 
+    public cancel() {
+        this.dialogRef.close();
+    }
+
     public reset() {
         this.item = this.slormancerItemService.getEquipableItemClone(this.originalItem);
         this.form = this.buildForm();
@@ -78,22 +80,33 @@ export class ItemEditModalComponent {
     }
 
     private updatePreview(form: FormGroup) {
+        const item = this.item;
         if (form.valid) {
             const value = form.value;
-            this.item.level = value.level;
-            this.item.reinforcment = value.reinforcment;
+            item.level = value.level;
+            item.reinforcment = value.reinforcment;
 
-            this.item.affixes.forEach((affix, index) => {
+            item.affixes.forEach((affix, index) => {
                 const control = <FormGroup | null>form.get('affixes.' + index);
 
                 if (control !== null) {
                     const purity = (<FormControl>control.get('purity')).value;
-                    const value = (<FormControl>control.get('value')).value;
+                    const val = (<FormControl>control.get('value')).value;
                     const stat =(<FormControl>control.get('stat')).value;
+                    const rarity = (<FormControl>control.get('rarity')).value;
 
                     affix.pure = purity;
                     affix.craftedEffect.craftedValue = value;
                     affix.craftedEffect.effect.stat = stat;
+                    
+                    if (affix.craftedEffect.effect.stat !== stat) {
+                        const newAffix = this.slormancerAffixService.getAffixFromStat(stat, item.level, item.reinforcment, rarity, val);
+                        if (newAffix !== null) {
+                            item.affixes[index] = newAffix;
+                        }
+                    } else {
+                        affix.craftedEffect.craftedValue = val;
+                    }
                 }
             });
 
@@ -102,12 +115,12 @@ export class ItemEditModalComponent {
                 const val: number = value.legendaryEffect.value;
 
                 if (id === null) {
-                    this.item.legendaryEffect = null;
+                    item.legendaryEffect = null;
                 } else {
-                    if (this.item.legendaryEffect === null || this.item.legendaryEffect.id !== id) {
-                        this.item.legendaryEffect = this.slormancerLegendaryEffectService.getLegendaryEffectById(id, val, this.item.reinforcment, this.item.heroClass);
+                    if (item.legendaryEffect === null || item.legendaryEffect.id !== id) {
+                        item.legendaryEffect = this.slormancerLegendaryEffectService.getLegendaryEffectById(id, val, item.reinforcment, item.heroClass);
                     } else {
-                        this.item.legendaryEffect.value = val;
+                        item.legendaryEffect.value = val;
                     }
                 }
             }
@@ -117,12 +130,12 @@ export class ItemEditModalComponent {
                 const val: number = value.reaper.value;
 
                 if (smith === null) {
-                    this.item.reaperEnchantment = null;
+                    item.reaperEnchantment = null;
                 } else {
-                    if (this.item.reaperEnchantment === null || this.item.reaperEnchantment.craftedReaperSmith !== smith) {
-                        this.item.reaperEnchantment = this.slormancerItemService.getReaperEnchantment(smith, val);
+                    if (item.reaperEnchantment === null || item.reaperEnchantment.craftedReaperSmith !== smith) {
+                        item.reaperEnchantment = this.slormancerItemService.getReaperEnchantment(smith, val);
                     } else {
-                        this.item.reaperEnchantment.craftedValue = val;
+                        item.reaperEnchantment.craftedValue = val;
                     }
                 }
             }
@@ -132,12 +145,12 @@ export class ItemEditModalComponent {
                 const val: number = value.skill.value;
 
                 if (skillId === null) {
-                    this.item.skillEnchantment = null;
+                    item.skillEnchantment = null;
                 } else {
-                    if (this.item.skillEnchantment === null || this.item.skillEnchantment.craftedSkill !== skillId) {
-                        this.item.skillEnchantment = this.slormancerItemService.getSkillEnchantment(skillId, val);
+                    if (item.skillEnchantment === null || item.skillEnchantment.craftedSkill !== skillId) {
+                        item.skillEnchantment = this.slormancerItemService.getSkillEnchantment(skillId, val);
                     } else {
-                        this.item.skillEnchantment.craftedValue = val;
+                        item.skillEnchantment.craftedValue = val;
                     }
                 }
             }
@@ -147,20 +160,20 @@ export class ItemEditModalComponent {
                 const val: number = value.attribute.value;
 
                 if (attribute === null) {
-                    this.item.attributeEnchantment = null;
+                    item.attributeEnchantment = null;
                 } else {
-                    if (this.item.attributeEnchantment === null || this.item.attributeEnchantment.craftedAttribute !== attribute) {
-                        this.item.attributeEnchantment = this.slormancerItemService.getAttributeEnchantment(attribute, val);
+                    if (item.attributeEnchantment === null || item.attributeEnchantment.craftedAttribute !== attribute) {
+                        item.attributeEnchantment = this.slormancerItemService.getAttributeEnchantment(attribute, val);
                     } else {
-                        this.item.attributeEnchantment.craftedValue = val;
+                        item.attributeEnchantment.craftedValue = val;
                     }
                 }
             }
 
 
-            this.slormancerItemService.updateEquippableItem(this.item);
+            this.slormancerItemService.updateEquippableItem(item);
 
-            this.itemStats = this.item.affixes.map(affix => affix.craftedEffect.effect.stat);
+            this.alreadyUsedStats = item.affixes.map(affix => affix.craftedEffect.effect.stat);
         }
     }
 
@@ -181,7 +194,9 @@ export class ItemEditModalComponent {
     }
 
     private buildForm(): FormGroup {
-        const form = new FormGroup({
+        let form: FormGroup | null = null;
+        
+        const newForm = new FormGroup({
             level: new FormControl(this.item.level, [Validators.required, Validators.min(1), Validators.max(this.MAX_ITEM_LEVEL), Validators.pattern(/^[0-9]+$/)]),
             reinforcment: new FormControl(this.item.reinforcment, [Validators.required, Validators.min(0), Validators.pattern(/^[0-9]+$/)]),
             affixes: new FormArray(this.item.affixes.map(affix => this.affixToForm(affix))),
@@ -200,12 +215,14 @@ export class ItemEditModalComponent {
             })
         });
 
-        form.valueChanges.subscribe(() => {
-            this.updatePreview(form);
+        newForm.valueChanges.subscribe(() => {
+            this.updatePreview(newForm);
         });
-        this.updatePreview(form);
+        this.updatePreview(newForm);
 
         this.maxBasicStats = this.slormancerDataService.getBaseMaxBasicStat(this.item.base);
+
+        form = newForm;
 
         return form;
     }
@@ -221,13 +238,11 @@ export class ItemEditModalComponent {
     }
 
     public hasBasicStats(): boolean {
-        const controls = <FormArray | null>this.form.get('affixes');
-        return controls !== null && controls.controls.filter(control => this.isBasicStat(control)).length > 0
+        return this.getAffixControls().filter(control => this.isBasicStat(control)).length > 0
     }
 
     public hasMaximumBasicStats(): boolean {
-        const controls = <FormArray | null>this.form.get('affixes');
-        return controls !== null && controls.controls.filter(control => this.isBasicStat(control)).length >= this.maxBasicStats;
+        return this.getAffixControls().filter(control => this.isBasicStat(control)).length >= this.maxBasicStats;
     }
 
     public isMagicStat(affixForm: AbstractControl): boolean {
@@ -236,13 +251,11 @@ export class ItemEditModalComponent {
     }
 
     public hasMagicStats(): boolean {
-        const controls = <FormArray | null>this.form.get('affixes');
-        return controls !== null && controls.controls.filter(control => this.isMagicStat(control)).length > 0
+        return this.getAffixControls().filter(control => this.isMagicStat(control)).length > 0
     }
 
     public hasMaximumMagicStats(): boolean {
-        const controls = <FormArray | null>this.form.get('affixes');
-        return controls !== null && controls.controls.filter(control => this.isMagicStat(control)).length >= MAX_MAGIC_STATS;
+        return this.getAffixControls().filter(control => this.isMagicStat(control)).length >= MAX_MAGIC_STATS;
     }
 
     public isRareStat(affixForm: AbstractControl): boolean {
@@ -251,13 +264,11 @@ export class ItemEditModalComponent {
     }
 
     public hasRareStats(): boolean {
-        const controls = <FormArray | null>this.form.get('affixes');
-        return controls !== null && controls.controls.filter(control => this.isRareStat(control)).length > 0
+        return this.getAffixControls().filter(control => this.isRareStat(control)).length > 0
     }
 
     public hasMaximumRareStats(): boolean {
-        const controls = <FormArray | null>this.form.get('affixes');
-        return controls !== null && controls.controls.filter(control => this.isRareStat(control)).length >= MAX_RARE_STATS;
+        return this.getAffixControls().filter(control => this.isRareStat(control)).length >= MAX_RARE_STATS;
     }
 
     public isEpicStat(affixForm: AbstractControl): boolean {
@@ -266,22 +277,19 @@ export class ItemEditModalComponent {
     }
 
     public hasEpicStats(): boolean {
-        const controls = <FormArray | null>this.form.get('affixes');
-        return controls !== null && controls.controls.filter(control => this.isEpicStat(control)).length > 0
+        return this.getAffixControls().filter(control => this.isEpicStat(control)).length > 0
     }
 
     public hasMaximumEpicStats(): boolean {
-        const controls = <FormArray | null>this.form.get('affixes');
-        return controls !== null && controls.controls.filter(control => this.isEpicStat(control)).length >= MAX_EPIC_STATS;
+        return this.getAffixControls().filter(control => this.isEpicStat(control)).length >= MAX_EPIC_STATS;
     }
 
     public getAffix(index: number): Affix | null {
-        return valueOrNull(this.item.affixes[index]);
+        return this.item === null ? null : valueOrNull(this.item.affixes[index]);
     }
 
     public removeAffix(index: number) {
-        const formAffixes = <FormArray | null>this.form.get('affixes');
-
+        const formAffixes = <FormArray | null>(this.form.get('affixes'));
         if (formAffixes !== null) {
             formAffixes.removeAt(index);
             this.item.affixes.splice(index, 1);
@@ -292,11 +300,11 @@ export class ItemEditModalComponent {
     private addAffix(rarity: Rarity) {
         const formAffixes = <FormArray | null>this.form.get('affixes');
         const possibleStats = this.itemFormservice.getStatsOptions(this.item.base, rarity)
-            .filter(option => this.itemStats.indexOf(option.value) === -1);
+            .filter(option => this.alreadyUsedStats.indexOf(option.value) === -1);
 
         const stat = possibleStats[0];
         if (stat && formAffixes !== null) {
-            const affix = this.slormancerAffixService.getAffixFromStat(stat.value, this.item.level, this.item.reinforcment, rarity);
+            const affix = this.slormancerAffixService.getAffixFromStat(stat.value, this.item.level, this.item.reinforcment, rarity, 1000);
 
             if (affix !== null) {
                 this.item.affixes.push(affix);
@@ -324,18 +332,18 @@ export class ItemEditModalComponent {
     }
 
     public getLegendaryEffectForm(): FormGroup | null {
-        return <FormGroup | null>this.form.get('legendaryEffect');
+        return <FormGroup | null>(this.form === null ? null : this.form.get('legendaryEffect'));
     }
 
     public getReaperEnchantmentForm(): FormGroup | null {
-        return <FormGroup | null>this.form.get('reaper');
+        return <FormGroup | null>(this.form === null ? null : this.form.get('reaper'));
     }
 
     public getSkillEnchantmentForm(): FormGroup | null {
-        return <FormGroup | null>this.form.get('skill');
+        return <FormGroup | null>(this.form === null ? null : this.form.get('skill'));
     }
 
     public getAttributeEnchantmentForm(): FormGroup | null {
-        return <FormGroup | null>this.form.get('attribute');
+        return <FormGroup | null>(this.form === null ? null : this.form.get('attribute'));
     }
 }

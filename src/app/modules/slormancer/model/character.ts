@@ -54,7 +54,8 @@ export interface Character {
     skills: Array<CharacterSkillAndPassives>;
 
     gear: CharacterGear;
-    inventory: Array<EquipableItem>;
+    inventory: Array<EquipableItem | null>;
+    sharedInventory: Array<Array<EquipableItem | null>>;
 
     attributes: CharacterAttributes;
 

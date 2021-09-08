@@ -11,6 +11,7 @@ import { HeroClass } from '../../model/content/enum/hero-class';
 import { Rarity } from '../../model/content/enum/rarity';
 import { ReaperSmith } from '../../model/content/enum/reaper-smith';
 import { EquipableItem, EquipableItem as EquippableItem } from '../../model/content/equipable-item';
+import { GameDataStat } from '../../model/content/game/data/game-data-stat';
 import { ReaperEnchantment } from '../../model/content/reaper-enchantment';
 import { SkillEnchantment } from '../../model/content/skill-enchantment';
 import { GameEnchantment, GameEquippableItem, GameItem, GameRessourceItem } from '../../model/parser/game/game-item';
@@ -243,6 +244,40 @@ export class SlormancerItemService {
             label: '',
             icon: ''
         };
+    }
+
+    public getEmptyEquipableItem(base: EquipableItemBase, heroClass: HeroClass, level: number): EquippableItem {
+        const numberBasicstats = this.slormancerDataService.getBaseMaxBasicStat(base);
+        const baseKey = <keyof GameDataStat>(base === EquipableItemBase.Body ? 'ARMOR' : base.toUpperCase());
+        const affixes = this.slormancerDataService.getGameDataStats()
+            .filter(gameData => gameData.MIN_LEVEL < level && gameData[baseKey] === 'P')
+            .slice(0, numberBasicstats)
+            .map(gameData => this.slormancerItemAffixService.getAffixFromStat(gameData.REF, level, 0, Rarity.Normal, 1000))
+            .filter(isNotNullOrUndefined);
+        
+        const result: EquipableItem = {
+            base,
+            affixes,
+            legendaryEffect: null,
+            level,
+            reinforcment: 0,
+            reaperEnchantment: null,
+            skillEnchantment: null,
+            attributeEnchantment: null,
+            heroClass,
+
+            rarity: Rarity.Normal,
+            name: '',
+            baseLabel: '',
+            rarityLabel: '',
+            levelLabel: '',
+            icon: '',
+            itemIconBackground: ''
+        };
+
+        this.updateEquippableItem(result);
+
+        return result;
     }
 
     public getEquipableItem(item: GameEquippableItem, heroClass: HeroClass): EquippableItem {
