@@ -124,8 +124,8 @@ export class SlormancerLegendaryEffectService {
         return icon;
     }
 
-    public getLegendaryEffect(affix: GameAffix, reinforcment: number, heroClass: HeroClass): LegendaryEffect | null {
-        const gameData = this.slormancerDataService.getGameDataLegendary(affix.type);
+    public getLegendaryEffectById(id: number, value: number, reinforcment: number, heroClass: HeroClass): LegendaryEffect | null {
+        const gameData = this.slormancerDataService.getGameDataLegendary(id);
         let legendaryEffect: LegendaryEffect | null = null;
 
         if (gameData !== null) {
@@ -136,11 +136,11 @@ export class SlormancerLegendaryEffectService {
                 name: gameData.EN_NAME,
                 reinforcment,
                 itemIcon: 'assets/img/icon/item/' + gameData.ITEM + '/' + base + '.png',
-                value: affix.value,
+                value,
                 activable: this.slormanderActivableService.getLegendaryActivable(gameData.REF, heroClass),
                 onlyStat: gameData.STAT_ONLY === true,
                 skillIcon: this.getIcon(gameData.HERO, gameData.SKILL),
-                effects: this.getEffectValues(gameData, affix.value),
+                effects: this.getEffectValues(gameData, value),
                 
                 title: this.LEGENDARY_TITLE,
                 description: '',
@@ -155,9 +155,14 @@ export class SlormancerLegendaryEffectService {
         return legendaryEffect;
     }
 
+    public getLegendaryEffect(affix: GameAffix, reinforcment: number, heroClass: HeroClass): LegendaryEffect | null {
+        return this.getLegendaryEffectById(affix.type, affix.value, reinforcment, heroClass);
+    }
+
     public updateLegendaryEffect(legendaryEffect: LegendaryEffect) {
         for (const craftedEffect of legendaryEffect.effects) {
             if (isEffectValueVariable(craftedEffect.effect) || isEffectValueSynergy(craftedEffect.effect)) {
+                craftedEffect.craftedValue = Math.min(craftedEffect.maxPossibleCraftedValue, Math.max(craftedEffect.minPossibleCraftedValue, legendaryEffect.value));
                 const upgrade = 100 * craftedEffect.effect.upgrade * legendaryEffect.reinforcment / 100;
                 craftedEffect.possibleCraftedValues = this.slormancerItemValueService.computeEffectRange(
                     craftedEffect.score,

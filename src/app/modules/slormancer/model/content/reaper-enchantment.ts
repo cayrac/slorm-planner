@@ -1,7 +1,7 @@
 import { EffectValueVariable } from './effect-value';
 import { ReaperSmith } from './enum/reaper-smith';
 
-export interface ReaperEnchantment {
+export interface ReaperEnchantment { // TODO injecter craftedValue
     craftedReaperSmith: ReaperSmith;
     craftableValues: { [key: number] : number },
     craftedValue: number;

@@ -49,7 +49,7 @@ export class SlormancerAffixService {
         let result: Rarity;
 
         if (rarity === 'N') {
-            result = Rarity.Basic;
+            result = Rarity.Normal;
         } else if (rarity === 'M') {
             result = Rarity.Magic;
         } else if (rarity === 'R') {

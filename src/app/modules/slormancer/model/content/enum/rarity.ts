@@ -1,5 +1,5 @@
 export enum Rarity {
-    Basic ='basic',
+    Normal ='normal',
     Magic ='magic',
     Rare ='rare',
     Epic ='epic',

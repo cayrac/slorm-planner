@@ -1,0 +1,38 @@
+
+<div class="form-info">Skill Enchantment :</div>
+<div class="form-line" [formGroup]="form"  *ngIf="form !== null && skillEnchantment !== null">
+    <div class="field">
+        <mat-form-field appearance="outline">
+            <mat-label>Skill Enchantment</mat-label>
+            <mat-select formControlName="skill">
+                <mat-option *ngFor="let option of options" [value]="option.value">
+                    <span [innerHTML]="option.label"></span>
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="field">
+        <div class="slider">
+            <mat-slider
+                color="primary"
+                [min]="1"
+                [max]="2"
+                [step]="1"
+                formControlName="value"
+                (input)="updateSliderValue($event)">
+            </mat-slider>
+        </div>
+        <div class="additional">
+            <div class="value">
+                {{displayedValue}}
+            </div>
+            
+            <button mat-icon-button color="primary" type="button" (click)="removeSkillEnchantment()">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="form-add" *ngIf="form !== null && skillEnchantment === null">
+    <button mat-icon-button type="button" color="primary" (click)="addSkillEnchantment()"><mat-icon>add</mat-icon></button>
+</div>

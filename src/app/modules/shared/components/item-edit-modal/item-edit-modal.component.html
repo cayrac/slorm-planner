@@ -77,18 +77,26 @@
                     <button mat-icon-button type="button" color="primary" (click)="addEpicAffix()"><mat-icon>add</mat-icon></button>
                 </div>
             </ng-container>
-            <div>
-                Effet legendaire ...
-            </div>
-            <div>
-                Buff reaper ...
-            </div>
-            <div>
-                Buff skill ...
-            </div>
-            <div>
-                Buff stat ...
-            </div>
+            <app-item-edit-legendary-effect
+                [base]="item.base"
+                [reinforcment]="item.reinforcment"
+                [heroClass]="item.heroClass"
+                [legendaryEffect]="item.legendaryEffect"
+                [form]="getLegendaryEffectForm()">
+            </app-item-edit-legendary-effect>
+            <app-item-edit-buff-reaper
+                [reaperEnchantment]="item.reaperEnchantment"
+                [form]="getReaperEnchantmentForm()">
+            </app-item-edit-buff-reaper>
+            <app-item-edit-buff-skill
+                [heroClass]="item.heroClass"
+                [skillEnchantment]="item.skillEnchantment"
+                [form]="getSkillEnchantmentForm()">
+            </app-item-edit-buff-skill>
+            <app-item-edit-buff-attribute
+                [attributeEnchantment]="item.attributeEnchantment"
+                [form]="getAttributeEnchantmentForm()">
+            </app-item-edit-buff-attribute>
         </div>
     </mat-dialog-content>
     <mat-dialog-actions>

@@ -7,7 +7,7 @@ import { Affix } from '../../../slormancer/model/content/affix';
 import { EquipableItemBase } from '../../../slormancer/model/content/enum/equipable-item-base';
 import { getCraftValue } from '../../../slormancer/util/utils';
 import { SelectOption } from '../../model/select-option';
-import { ItemFormService } from '../../services/item-form.service';
+import { ItemFormOptionsService } from '../../services/item-form-options.service';
 
 @Component({
   selector: 'app-item-edit-stat',
@@ -38,9 +38,7 @@ export class ItemEditStatComponent implements OnChanges {
 
     public displayedValue: string = '';
 
-    constructor(private itemFormService: ItemFormService) {
-        console.log('ItemEditStatComponent constructor');
-    }
+    constructor(private itemFormService: ItemFormOptionsService) { }
 
     public ngOnChanges() {
         if (this.affix !== null) {
@@ -59,7 +57,6 @@ export class ItemEditStatComponent implements OnChanges {
     }
 
     public purityChanged(change: MatCheckboxChange) {
-        console.log(change);
         if (this.affix !== null && this.form !== null) {
             if (change.checked) {
                 this.form.patchValue({ purity: 101 });
@@ -95,7 +92,6 @@ export class ItemEditStatComponent implements OnChanges {
     }
 
     public removeStat() {
-        console.log('removeStat');
         this.remove.emit();
     }
 }

@@ -5,6 +5,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ActivableViewComponent } from './components/activable-view/activable-view.component';
 import { AncestralLegacyViewComponent } from './components/ancestral-legacy-view/ancestral-legacy-view.component';
 import { AttributeSummaryViewComponent } from './components/attribute-summary-view/attribute-summary-view.component';
+import { ItemEditBuffAttributeComponent } from './components/item-edit-buff-attribute/item-edit-buff-attribute.component';
+import { ItemEditBuffReaperComponent } from './components/item-edit-buff-reaper/item-edit-buff-reaper.component';
+import { ItemEditBuffSkillComponent } from './components/item-edit-buff-skill/item-edit-buff-skill.component';
+import {
+    ItemEditLegendaryEffectComponent,
+} from './components/item-edit-legendary-effect/item-edit-legendary-effect.component';
 import { ItemEditModalComponent } from './components/item-edit-modal/item-edit-modal.component';
 import { ItemEditStatComponent } from './components/item-edit-stat/item-edit-stat.component';
 import { ItemViewComponent } from './components/item-view/item-view.component';
@@ -13,7 +19,7 @@ import { SkillUpgradeViewComponent } from './components/skill-upgrade-view/skill
 import { SkillViewComponent } from './components/skill-view/skill-view.component';
 import { TraitViewComponent } from './components/trait-view/trait-view.component';
 import { MaterialModule } from './material.module';
-import { ItemFormService } from './services/item-form.service';
+import { ItemFormOptionsService } from './services/item-form-options.service';
 import { PlannerService } from './services/planner.service';
 
 
@@ -28,7 +34,11 @@ import { PlannerService } from './services/planner.service';
         TraitViewComponent,
         AttributeSummaryViewComponent,
         ItemEditModalComponent,
-        ItemEditStatComponent
+        ItemEditStatComponent,
+        ItemEditLegendaryEffectComponent,
+        ItemEditBuffReaperComponent,
+        ItemEditBuffSkillComponent,
+        ItemEditBuffAttributeComponent
     ],
     imports: [
         CommonModule,
@@ -46,11 +56,15 @@ import { PlannerService } from './services/planner.service';
         TraitViewComponent,
         AttributeSummaryViewComponent,
         ItemEditModalComponent,
-        ItemEditStatComponent
+        ItemEditStatComponent,
+        ItemEditLegendaryEffectComponent,
+        ItemEditBuffReaperComponent,
+        ItemEditBuffSkillComponent,
+        ItemEditBuffAttributeComponent
     ],
     providers: [
         PlannerService,
-        ItemFormService
+        ItemFormOptionsService
     ],
 })
 export class SharedModule { }

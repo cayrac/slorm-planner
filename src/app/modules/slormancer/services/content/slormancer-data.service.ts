@@ -93,10 +93,9 @@ export class SlormancerDataService {
         return valueOrNull(GAME_DATA.SKILL[heroClass].find(skill => skill.REF === id));
     }
     
-    public getGameDataActiveSkillIds(heroClass: HeroClass): Array<number> {
+    public getGameDataActiveSkills(heroClass: HeroClass): Array<GameDataSkill> {
         return GAME_DATA.SKILL[heroClass]
-            .filter(skill => skill.TYPE === SkillType.Active || skill.TYPE === SkillType.Support)
-            .map(skill => skill.REF);
+            .filter(skill => skill.TYPE === SkillType.Active || skill.TYPE === SkillType.Support);
     }
     
     public getGameDataUpgradeIdsForSkill(skillId: number, heroClass: HeroClass): Array<number> {
@@ -152,6 +151,10 @@ export class SlormancerDataService {
 
     public getGameDataLegendary(id: number): GameDataLegendary | null {
         return valueOrNull(GAME_DATA.LEGENDARY.find(leg => leg.REF === id));
+    }
+
+    public getGameDataLegendaries(): Array<GameDataLegendary> {
+        return GAME_DATA.LEGENDARY;
     }
     
     public getAncestralSkillIdFromNodes(nodes: Array<number>): Array<number> {
@@ -232,7 +235,7 @@ export class SlormancerDataService {
         let stats: Array<string> = [];
         const key = base === EquipableItemBase.Body ? 'ARMOR' : <keyof GameDataStat>base.toUpperCase();
 
-        if (rarity === Rarity.Basic) {
+        if (rarity === Rarity.Normal) {
             stats = GAME_DATA.STAT.filter(stat => stat[key] === 'P').map(stat => stat.REF);
         } else if (rarity === Rarity.Magic || rarity === Rarity.Rare) {
             stats = GAME_DATA.STAT.filter(stat => stat[key] === 'S').map(stat => stat.REF);

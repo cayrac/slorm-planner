@@ -1,37 +1,37 @@
 @import "../../../../../assets/scss/abstracts/flex";
 @import "../../../../../assets/scss/abstracts/variables";
 
-
-.stat-form {
+.form-line {
     @include flex-row-to-column('small-desktop', flex-start, space-between);
     @include flex-gap($space-unit * 4);
     @include respond-to('small-desktop') {
         align-items: stretch;
     }
 
-    // background-color: rgb(200, 200, 200);
-
     .field {
+        @include flex-row-to-column('tablet', flex-start, space-between);
         @include flex-grow();
-        @include flex-row-to-column('tablet', stretch, center);
         @include flex-gap($space-unit * 4);
+
+        .additional {
+            @include flex(row, center);
+            @include flex-gap($space-unit * 4);
+
+            .value {
+                width: 75px;
+            }
+        }
 
         .slider {
             @include flex(column, stretch);
             @include flex-grow();
         }
-
-        .additional {
-            @include flex(row, center, space-between);
-            @include flex-gap($space-unit * 4);
-
-            .value {
-                width: 40px;
-            }
-
-            .delete {
-                cursor : pointer;
-            }
-        }
     }
+}
+.form-info {
+    @include flex(row, center);
+    min-height: $space-unit * 10;
+}
+.form-add {
+    @include flex(row, center, flex-end);
 }

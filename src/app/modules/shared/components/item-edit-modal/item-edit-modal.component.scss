@@ -4,6 +4,7 @@
 mat-dialog-content {
     @include flex(row, stretch);
     @include flex-gap($space-content);
+    @include flex-grow(1);
     overflow: auto;
 
     .preview {

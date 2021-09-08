@@ -1,7 +1,9 @@
 import { EffectValueVariable } from './effect-value';
+import { Attribute } from './enum/attribute';
+
 
 export interface AttributeEnchantment {
-    craftedAttribute: number;
+    craftedAttribute: Attribute;
     craftableValues: { [key: number] : number },
     craftedValue: number;
 

@@ -32,7 +32,7 @@ export interface GameDataLegendary {
     STAT: string,
     DAMAGE_GENRE: string,
     SPRITE: number,
-    HERO: number,
+    HERO: -1 | 0 | 1 | 2 | 99,
     SKILL: string,
     STAT_ONLY: true | null,
     LOOTABLE: boolean

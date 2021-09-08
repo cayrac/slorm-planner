@@ -87,7 +87,7 @@ export class SlormancerItemService {
         } else {
             let genre = 'MS';
 
-            const normalAffixes = item.affixes.filter(affix => affix.rarity === Rarity.Basic);
+            const normalAffixes = item.affixes.filter(affix => affix.rarity === Rarity.Normal);
             if (normalAffixes.length > 0) {
                 const baseAffixes = <[string, string]>(<[Affix, Affix]>[
                     normalAffixes[0],
@@ -132,7 +132,7 @@ export class SlormancerItemService {
 
     private getItemRarity(item: EquippableItem): Rarity {
         const rarities = item.affixes.map(affix => affix.rarity);
-        let rarity = Rarity.Basic;
+        let rarity = Rarity.Normal;
 
         if (item.legendaryEffect !== null) {
             rarity = Rarity.Legendary;
@@ -154,7 +154,7 @@ export class SlormancerItemService {
             base = item.legendaryEffect.itemIcon;
         } else {
             const affixes = item.affixes
-                .filter(affix => affix.rarity === Rarity.Basic)
+                .filter(affix => affix.rarity === Rarity.Normal)
                 .map(affix => affix.primaryNameType)
                 .sort()
                 .join('-');
@@ -164,11 +164,23 @@ export class SlormancerItemService {
         return base;
     }
 
-    private getReaperEnchantment(gameEnchantment: GameEnchantment): ReaperEnchantment | null {
+    private getReaperEnchantmentByGameEnchantment(gameEnchantment: GameEnchantment): ReaperEnchantment {
+        return this.getReaperEnchantment(gameEnchantment.type as ReaperSmith, gameEnchantment.value);
+    }
+
+    private getSkillEnchantmentByGameEnchantment(gameEnchantment: GameEnchantment): SkillEnchantment {
+        return this.getSkillEnchantment(gameEnchantment.type, gameEnchantment.value);
+    }
+
+    private getAttributeEnchantmentByGameEnchantment(gameEnchantment: GameEnchantment): AttributeEnchantment | null {
+        return this.getAttributeEnchantment(gameEnchantment.type, gameEnchantment.value);
+    }
+
+    public getReaperEnchantment(smith: ReaperSmith, value: number): ReaperEnchantment {
         return {
-            craftedReaperSmith: gameEnchantment.type as ReaperSmith,
+            craftedReaperSmith: smith,
             craftableValues: this.slormancerItemValueService.computeReaperEnchantmentValues(),
-            craftedValue: gameEnchantment.value,
+            craftedValue: value,
             
             effect: {
                 type:EffectValueType.Variable,
@@ -187,11 +199,11 @@ export class SlormancerItemService {
         }
     }
 
-    private getSkillEnchantment(gameEnchantment: GameEnchantment): SkillEnchantment | null {
+    public getSkillEnchantment(skillId: number, value: number): SkillEnchantment {
         return {
-            craftedSkill: gameEnchantment.type,
+            craftedSkill: skillId,
             craftableValues: this.slormancerItemValueService.computeSkillEnchantmentValues(),
-            craftedValue: gameEnchantment.value,
+            craftedValue: value,
             
             effect: {
                 type:EffectValueType.Variable,
@@ -210,11 +222,11 @@ export class SlormancerItemService {
         };
     }
 
-    private getAttributeEnchantment(gameEnchantment: GameEnchantment): AttributeEnchantment | null {
+    public getAttributeEnchantment(attribute: Attribute, value: number): AttributeEnchantment {
         return {
-            craftedAttribute: gameEnchantment.type as Attribute,
+            craftedAttribute: attribute,
             craftableValues: this.slormancerItemValueService.computeAttributeEnchantmentValues(),
-            craftedValue: gameEnchantment.value,
+            craftedValue: value,
             
             effect: {
                 type:EffectValueType.Variable,
@@ -254,12 +266,12 @@ export class SlormancerItemService {
             legendaryEffect: legendaryAffix === undefined ? null : this.slormancerLegendaryEffectService.getLegendaryEffect(legendaryAffix, item.reinforcment, heroClass),
             level: item.level,
             reinforcment: item.reinforcment,
-            reaperEnchantment: reaperEnchantment ? this.getReaperEnchantment(reaperEnchantment) : null,
-            skillEnchantment: skillEnchantment ? this.getSkillEnchantment(skillEnchantment) : null,
-            attributeEnchantment: attributeEnchantment ? this.getAttributeEnchantment(attributeEnchantment) : null,
+            reaperEnchantment: reaperEnchantment ? this.getReaperEnchantmentByGameEnchantment(reaperEnchantment) : null,
+            skillEnchantment: skillEnchantment ? this.getSkillEnchantmentByGameEnchantment(skillEnchantment) : null,
+            attributeEnchantment: attributeEnchantment ? this.getAttributeEnchantmentByGameEnchantment(attributeEnchantment) : null,
             heroClass,
 
-            rarity: Rarity.Basic,
+            rarity: Rarity.Normal,
             name: '',
             baseLabel: '',
             rarityLabel: '',

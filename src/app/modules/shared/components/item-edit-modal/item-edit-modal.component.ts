@@ -4,14 +4,17 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { MAX_EPIC_STATS, MAX_ITEM_LEVEL, MAX_MAGIC_STATS, MAX_RARE_STATS } from '../../../slormancer/constants/common';
 import { Affix } from '../../../slormancer/model/content/affix';
+import { Attribute } from '../../../slormancer/model/content/enum/attribute';
 import { Rarity } from '../../../slormancer/model/content/enum/rarity';
+import { ReaperSmith } from '../../../slormancer/model/content/enum/reaper-smith';
 import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
 import { LegendaryEffect } from '../../../slormancer/model/content/legendary-effect';
 import { SlormancerAffixService } from '../../../slormancer/services/content/slormancer-affix.service';
 import { SlormancerDataService } from '../../../slormancer/services/content/slormancer-data.service';
 import { SlormancerItemService } from '../../../slormancer/services/content/slormancer-item.service';
+import { SlormancerLegendaryEffectService } from '../../../slormancer/services/content/slormancer-legendary-effect.service';
 import { valueOrNull } from '../../../slormancer/util/utils';
-import { ItemFormService } from '../../services/item-form.service';
+import { ItemFormOptionsService } from '../../services/item-form-options.service';
 
 export interface ItemEditModalData {
     item: EquipableItem;
@@ -46,7 +49,8 @@ export class ItemEditModalComponent {
                 private slormancerItemService: SlormancerItemService,
                 private slormancerDataService: SlormancerDataService,
                 private slormancerAffixService: SlormancerAffixService,
-                private itemFormservice: ItemFormService,
+                private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
+                private itemFormservice: ItemFormOptionsService,
                 @Inject(MAT_DIALOG_DATA) public data: ItemEditModalData
                 ) {
         this.originalItem = data.item;
@@ -56,11 +60,12 @@ export class ItemEditModalComponent {
         this.item = this.slormancerItemService.getEquipableItemClone(this.originalItem);
         this.form = this.buildForm();
 
-        // STOP : fait un component, t'as trop de refresh avec les accès / conditions
-
-        // item edit form service (avec cache)
-        // object avec options préconstruites
-        // rempalcer selects par slider (displayWith)
+        // TODO
+        
+        // reflechir composant pour gérer stat par rareté
+        // rajouter minLevel sur EffectValue et minLevel sur item
+        // et du coup rajouter stats par level
+        // mettre css no error padding sur champs pour gagner de la place
     }
 
     public reset() {
@@ -91,6 +96,67 @@ export class ItemEditModalComponent {
                     affix.craftedEffect.effect.stat = stat;
                 }
             });
+
+            if (value.legendaryEffect !== null) {
+                const id: number | null = value.legendaryEffect.id;
+                const val: number = value.legendaryEffect.value;
+
+                if (id === null) {
+                    this.item.legendaryEffect = null;
+                } else {
+                    if (this.item.legendaryEffect === null || this.item.legendaryEffect.id !== id) {
+                        this.item.legendaryEffect = this.slormancerLegendaryEffectService.getLegendaryEffectById(id, val, this.item.reinforcment, this.item.heroClass);
+                    } else {
+                        this.item.legendaryEffect.value = val;
+                    }
+                }
+            }
+            
+            if (value.reaper !== null) {
+                const smith: ReaperSmith | null = value.reaper.smith;
+                const val: number = value.reaper.value;
+
+                if (smith === null) {
+                    this.item.reaperEnchantment = null;
+                } else {
+                    if (this.item.reaperEnchantment === null || this.item.reaperEnchantment.craftedReaperSmith !== smith) {
+                        this.item.reaperEnchantment = this.slormancerItemService.getReaperEnchantment(smith, val);
+                    } else {
+                        this.item.reaperEnchantment.craftedValue = val;
+                    }
+                }
+            }
+            
+            if (value.skill !== null) {
+                const skillId: number | null = value.skill.skill;
+                const val: number = value.skill.value;
+
+                if (skillId === null) {
+                    this.item.skillEnchantment = null;
+                } else {
+                    if (this.item.skillEnchantment === null || this.item.skillEnchantment.craftedSkill !== skillId) {
+                        this.item.skillEnchantment = this.slormancerItemService.getSkillEnchantment(skillId, val);
+                    } else {
+                        this.item.skillEnchantment.craftedValue = val;
+                    }
+                }
+            }
+            
+            if (value.attribute !== null) {
+                const attribute: Attribute | null = value.attribute.attribute;
+                const val: number = value.attribute.value;
+
+                if (attribute === null) {
+                    this.item.attributeEnchantment = null;
+                } else {
+                    if (this.item.attributeEnchantment === null || this.item.attributeEnchantment.craftedAttribute !== attribute) {
+                        this.item.attributeEnchantment = this.slormancerItemService.getAttributeEnchantment(attribute, val);
+                    } else {
+                        this.item.attributeEnchantment.craftedValue = val;
+                    }
+                }
+            }
+
 
             this.slormancerItemService.updateEquippableItem(this.item);
 
@@ -151,7 +217,7 @@ export class ItemEditModalComponent {
 
     public isBasicStat(affixForm: AbstractControl): boolean {
         const control = affixForm.get('rarity');
-        return control !== null && control.value === Rarity.Basic;
+        return control !== null && control.value === Rarity.Normal;
     }
 
     public hasBasicStats(): boolean {
@@ -242,7 +308,7 @@ export class ItemEditModalComponent {
     }
 
     public addBasicAffix() {
-        this.addAffix(Rarity.Basic);
+        this.addAffix(Rarity.Normal);
     }
 
     public addMagicAffix() {
@@ -255,5 +321,21 @@ export class ItemEditModalComponent {
 
     public addEpicAffix() {
         this.addAffix(Rarity.Epic);
+    }
+
+    public getLegendaryEffectForm(): FormGroup | null {
+        return <FormGroup | null>this.form.get('legendaryEffect');
+    }
+
+    public getReaperEnchantmentForm(): FormGroup | null {
+        return <FormGroup | null>this.form.get('reaper');
+    }
+
+    public getSkillEnchantmentForm(): FormGroup | null {
+        return <FormGroup | null>this.form.get('skill');
+    }
+
+    public getAttributeEnchantmentForm(): FormGroup | null {
+        return <FormGroup | null>this.form.get('attribute');
     }
 }

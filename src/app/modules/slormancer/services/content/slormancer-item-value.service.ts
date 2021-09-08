@@ -11,8 +11,10 @@ import { valueOrDefault } from '../../util/utils';
 @Injectable()
 export class SlormancerItemValueService {
 
+    private readonly REINFORCMENT_CACHE: { [key: number]: number } = {}; 
+
     private readonly AFFIX_MIN_MAX: { [key: string]: { [key: string]: { [key: number]: MinMax }}} = {
-        'basic': {
+        'normal': {
             '': {
                 1: { min: 70, max: 100 },
                 2: { min: 70, max: 100 },
@@ -114,7 +116,14 @@ export class SlormancerItemValueService {
     }
 
     private getReinforcmentratio(reinforcment: number): number {
-        return 100 + Array.from(new Array(reinforcment).keys()).map(i => Math.max(1, 15 - i)).reduce((current, sum) => current + sum, 0);
+        let ratio = this.REINFORCMENT_CACHE[reinforcment];
+
+        if (ratio === undefined) {
+            ratio = 100 + Math.max(reinforcment - 14, 0) + Array.from(new Array(Math.min(14, reinforcment)).keys()).map(i => Math.max(1, 15 - i)).reduce((current, sum) => current + sum, 0);
+            this.REINFORCMENT_CACHE[reinforcment] = ratio;
+        }
+
+        return ratio;
     }
 
     private computeAffixValue(level: number, reinforcment: number, score: number, value: number, percent: boolean, pure: number | null): number {
@@ -171,7 +180,7 @@ export class SlormancerItemValueService {
     }
 
     public computeEffectRange(value: number, min: number, max: number, upgrade: number): Array<{ craft: number, value: number }> {
-        return list(75, 100).map(ratio => ({ craft: value, value: this.roundValue(value * ratio / 100, false, false) + upgrade }));
+        return list(min, max).map(ratio => ({ craft: ratio, value: this.roundValue(value * ratio / 100, false, false) + upgrade }));
     }
 
     public computeEffectVariableDetails(effect: EffectValueVariable, itemValue: number, reinforcment: number): ComputedEffectValue {

@@ -35,10 +35,10 @@ export class SlormancerCharacterService {
         const skill_equip = save.skill_equip[heroClass];
         const skill_rank = save.skill_rank[heroClass];
 
-        return this.slormancerDataService.getGameDataActiveSkillIds(heroClass).map(skillId => {
-            const skill = this.slormancerSkillService.getHeroSkill(skillId, heroClass, valueOrDefault(skill_rank[skillId], 0));
-            const passives = this.slormancerDataService.getGameDataUpgradeIdsForSkill(skillId, heroClass)
-                .map(passiveId => this.slormancerSkillService.getUpgrade(passiveId, heroClass, valueOrDefault(skill_rank[skillId], 0)))
+        return this.slormancerDataService.getGameDataActiveSkills(heroClass).map(gameData => {
+            const skill = this.slormancerSkillService.getHeroSkill(gameData.REF, heroClass, valueOrDefault(skill_rank[gameData.REF], 0));
+            const passives = this.slormancerDataService.getGameDataUpgradeIdsForSkill(gameData.REF, heroClass)
+                .map(passiveId => this.slormancerSkillService.getUpgrade(passiveId, heroClass, valueOrDefault(skill_rank[gameData.REF], 0)))
                 .filter(isNotNullOrUndefined);
 
             return skill === null ? null : {

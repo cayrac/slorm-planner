@@ -8,3 +8,14 @@ export enum Attribute {
     Dexterity = 6,
     Bravery = 7,
 }
+
+export const ALL_ATTRIBUTES = [
+    Attribute.Toughness,
+    Attribute.Savagery,
+    Attribute.Fury,
+    Attribute.Determination,
+    Attribute.Zeal,
+    Attribute.Willpower,
+    Attribute.Dexterity,
+    Attribute.Bravery,
+]
