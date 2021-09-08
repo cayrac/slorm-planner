@@ -1,3 +1,7 @@
+@use '~@angular/material' as mat;
+
+@include mat.core();
+
 $pallet-primary: (
     50: #e3e3e3,
     100: #bababa,
@@ -63,3 +67,17 @@ $pallet-accent: (
         A700 : #ffffff,
     )
 );
+
+$my-primary: mat.define-palette($pallet-primary, 500);
+$my-accent: mat.define-palette($pallet-accent, A200, A100, A400);
+
+// The "warn" palette is optional and defaults to red if not specified.
+$my-warn: mat.define-palette(mat.$red-palette);
+
+$theme: mat.define-light-theme((
+    color: (
+        primary: $my-primary,
+        accent: $my-accent,
+        warn: $my-warn,
+    )
+));

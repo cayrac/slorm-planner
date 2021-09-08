@@ -1,5 +1,5 @@
 @use '~@angular/material' as mat;
-@import "./pallets.scss";
+@import "./theme";
 
 @include mat.core();
 
@@ -40,20 +40,6 @@ $boxtal-app-theme:   mat-light-theme($boxtal-app-primary, $boxtal-app-accent, $b
 @include mat-sidenav-theme($boxtal-app-theme);
 @include mat-tabs-theme($boxtal-app-theme);
 @include mat-toolbar-theme($boxtal-app-theme);*/
-
-$my-primary: mat.define-palette($pallet-primary, 500);
-$my-accent: mat.define-palette($pallet-accent, A200, A100, A400);
-
-// The "warn" palette is optional and defaults to red if not specified.
-$my-warn: mat.define-palette(mat.$red-palette);
-
-$theme: mat.define-light-theme((
-    color: (
-        primary: $my-primary,
-        accent: $my-accent,
-        warn: $my-warn,
-    )
-));
 
 @include mat.core-theme($theme);
 

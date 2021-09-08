@@ -64,12 +64,10 @@ export class ItemEditModalComponent {
         // rajouter minLevel sur EffectValue et minLevel sur item
         // et du coup rajouter stats par level
         // mettre css no error padding sur champs pour gagner de la place
-    }
 
-    public cancel() {
-        this.dialogRef.close();
+        // mettre en hint le niveau minimum
     }
-
+    
     public reset() {
         this.item = this.slormancerItemService.getEquipableItemClone(this.originalItem);
         this.form = this.buildForm();

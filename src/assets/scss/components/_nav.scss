@@ -62,14 +62,14 @@ nav.mat-tab-nav-bar, mat-tab-group.mat-tab-group {
         }
     }
     &[color="accent"] {
-        $accent-primary-pallet: map-get($theme, accent);
+        $theme-accent-pallet: map-get($theme, accent);
 
         .mat-tab-label-active::after {
-            background-color: mat-color($accent-primary-pallet);
+            background-color: mat-color($theme-accent-pallet);
         }
 
         .mat-tab-label-content {
-            color: mat-color($accent-primary-pallet);
+            color: mat-color($theme-accent-pallet);
         }
     }
 }

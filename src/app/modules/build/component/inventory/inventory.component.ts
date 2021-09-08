@@ -104,4 +104,13 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
             this.character.inventory[index] = item;
         }
     }
+
+    public updateSharedInventoryItem(stashIndex: number, index: number, item: EquipableItem | null) {
+        if (this.character !== null) {
+            const stash = this.character.sharedInventory[stashIndex];
+            if (stash) {
+                stash[index] = item;
+            }
+        }
+    }
 }

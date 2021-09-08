@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ActivableViewComponent } from './components/activable-view/activable-view.component';
 import { AncestralLegacyViewComponent } from './components/ancestral-legacy-view/ancestral-legacy-view.component';
 import { AttributeSummaryViewComponent } from './components/attribute-summary-view/attribute-summary-view.component';
+import { ItemBaseChoiceModalComponent } from './components/item-base-choice-modal/item-base-choice-modal.component';
 import { ItemEditBuffAttributeComponent } from './components/item-edit-buff-attribute/item-edit-buff-attribute.component';
 import { ItemEditBuffReaperComponent } from './components/item-edit-buff-reaper/item-edit-buff-reaper.component';
 import { ItemEditBuffSkillComponent } from './components/item-edit-buff-skill/item-edit-buff-skill.component';
@@ -38,7 +39,8 @@ import { PlannerService } from './services/planner.service';
         ItemEditLegendaryEffectComponent,
         ItemEditBuffReaperComponent,
         ItemEditBuffSkillComponent,
-        ItemEditBuffAttributeComponent
+        ItemEditBuffAttributeComponent,
+        ItemBaseChoiceModalComponent
     ],
     imports: [
         CommonModule,
@@ -60,7 +62,8 @@ import { PlannerService } from './services/planner.service';
         ItemEditLegendaryEffectComponent,
         ItemEditBuffReaperComponent,
         ItemEditBuffSkillComponent,
-        ItemEditBuffAttributeComponent
+        ItemEditBuffAttributeComponent,
+        ItemBaseChoiceModalComponent
     ],
     providers: [
         PlannerService,

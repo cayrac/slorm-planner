@@ -1,0 +1,7 @@
+<h2 mat-dialog-title>Choose a base for your item</h2>
+<mat-dialog-content>
+    <button mat-flat-button color="primary" *ngFor="let base of EQUIPABLE_ITEM_BASE_VALUES" [mat-dialog-close]="base">{{base}}</button>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-flat-button type="button" color="primary" [mat-dialog-close]="null">Cancel</button>
+</mat-dialog-actions>

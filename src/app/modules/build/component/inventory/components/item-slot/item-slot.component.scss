@@ -1,7 +1,10 @@
-@import "../../../../../../../assets/scss/abstracts/flex.scss";
-@import "../../../../../../../assets/scss/abstracts/variables.scss";
+@import "../../../../../../../assets/scss/abstracts/flex";
+@import "../../../../../../../assets/scss/abstracts/variables";
+@import "../../../../../../../assets/scss/theme/theme";
+@import '~@angular/material/theming';
 
-$background-gear: rgb(9,9,9);
+$theme-accent-pallet: map-get($theme, accent);
+$theme-warn-pallet: map-get($theme, warn);
 
 :host {
     width: 64px;
@@ -19,6 +22,14 @@ $background-gear: rgb(9,9,9);
     position: relative;
     background-color: rgb(19, 19, 19);
     cursor: pointer;
+
+    &.drop-compatible {
+        border-color: mat-color($theme-accent-pallet);
+    }
+
+    &.drop-incompatible {
+        border-color: mat-color($theme-warn-pallet);
+    }
 
     img {
         position: absolute;
