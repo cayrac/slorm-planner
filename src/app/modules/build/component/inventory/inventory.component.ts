@@ -8,6 +8,7 @@ import { PlannerService } from '../../../shared/services/planner.service';
 import { Character } from '../../../slormancer/model/character';
 import { EquipableItemBase } from '../../../slormancer/model/content/enum/equipable-item-base';
 import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
+import { itemMoveService as ItemMoveService } from './services/item-move.service';
 
 @Component({
   selector: 'app-inventory',
@@ -20,8 +21,18 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
 
     public character: Character | null = null;
 
-    constructor(private plannerService: PlannerService) {
+    public isDragging: boolean = false;
+
+    public itemGroupBeingDraggedOn: Array<EquipableItem | null> | null = null;
+
+    public itemGroupDragDropPossible: boolean = false;
+
+    constructor(private plannerService: PlannerService,
+                private itemMoveService: ItemMoveService) {
         super();
+        this.itemMoveService.draggingItem
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(dragging => this.isDragging = dragging);
     }
 
     public ngOnInit() {
@@ -30,7 +41,21 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
             .subscribe(character => this.character = character);
     }
     
-    public updateCharacter() {
+    public updateCharacter() { }
+
+    public dragInItemsGroup(itemGroup: Array<EquipableItem | null>) {
+        if (this.isDragging) {
+            this.itemGroupDragDropPossible = itemGroup.find(item => item === null) !== undefined;
+            this.itemGroupBeingDraggedOn = itemGroup;
+        }
+    }
+
+    public dragOutItemsGroup() {
+        this.itemGroupBeingDraggedOn = null;
+    }
+
+    public dragDrop(itemGroups: Array<EquipableItem | null>) {
+        this.itemMoveService.moveDraggedItemToItemGroup(itemGroups);
     }
         
     public updateHelm(helm: EquipableItem | null) {

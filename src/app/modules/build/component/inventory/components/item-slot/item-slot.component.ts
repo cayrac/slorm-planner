@@ -17,7 +17,7 @@ import { EquipableItemBase } from '../../../../../slormancer/model/content/enum/
 import { HeroClass } from '../../../../../slormancer/model/content/enum/hero-class';
 import { EquipableItem } from '../../../../../slormancer/model/content/equipable-item';
 import { SlormancerItemService } from '../../../../../slormancer/services/content/slormancer-item.service';
-import { ItemDragService } from '../../services/item-drag.service';
+import { itemMoveService } from '../../services/item-move.service';
 
 
 @Component({
@@ -50,11 +50,6 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
 
     public isDraggedItem: boolean = false;
 
-    @HostListener('mousemove')
-    public onMouseMove() {
-        this.itemDragService.cursorIsMoving();
-    }
-
     @HostListener('mouseenter')
     public onMouseOver() {
         this.isMouseOver = true;
@@ -67,28 +62,35 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
 
     @HostListener('mousedown')
     public onMouseDown() {
-        console.log('mousedown')
         if (this.item !== null) {
-            this.itemDragService.hold(this.item, this.base, (success, item) => this.dragCallback(success, item));
+            this.itemMoveService.hold(this.item, this.base, (success, item) => this.dragCallback(success, item));
         }
         return false;
     }
 
-    @HostListener('mouseup')
-    public onMouseUp() {
-        this.isDraggedItem = this.itemDragService.isDraggedItem(this.item);
-        this.itemDragService.swap(this.item, this.base, (success, item) => this.dragCallback(success, item));
+    @HostListener('mouseup', ['$event'])
+    public onMouseUp(event: MouseEvent) {
+        if (this.isDragging) {
+            this.itemMoveService.swap(this.item, this.base, (success, item) => this.dragCallback(success, item));
+            console.log(event);
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            event.preventDefault();
+        } else {
+            this.edit();
+        }
     }
     
     constructor(private dialog: MatDialog,
-                private itemDragService: ItemDragService,
+                private itemMoveService: itemMoveService,
                 private slormancerItemService: SlormancerItemService) {
         super();
-        this.itemDragService.draggingItem
+        this.itemMoveService.draggingItem
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(holding => {
                 this.isDragging = holding;
-                this.isItemCompatible = this.itemDragService.isDragItemCompatible(this.item, this.base);
+                this.isDraggedItem = this.itemMoveService.isDraggedItem(this.item);
+                this.isItemCompatible = this.itemMoveService.isDragItemCompatible(this.item, this.base);
             });
 
 
@@ -99,8 +101,8 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
 
     public ngOnInit() { }
 
-    private dragCallback(success: boolean, item: EquipableItem | null) {
-        if (success) {
+    private dragCallback(itemReplaced: boolean, item: EquipableItem | null) {
+        if (itemReplaced) {
             this.changed.emit(item);
         }
         this.isDraggedItem = false;

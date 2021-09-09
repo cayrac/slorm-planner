@@ -5,8 +5,7 @@
     [class.drop-incompatible]="!isDraggedItem && isMouseOver && isDragging && !isItemCompatible"
     [class.is-being-dragged]="isDraggedItem && isDragging"
     cdkOverlayOrigin
-    #trigger="cdkOverlayOrigin"
-    (click)="edit()">
+    #trigger="cdkOverlayOrigin">
     <ng-container *ngIf="item !== null">
         <img [src]="item.itemIconBackground">
         <img [src]="item.icon">

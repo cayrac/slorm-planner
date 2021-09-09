@@ -32,3 +32,15 @@
     @include flex-grow();
     @include spacing();
 }
+
+#drag-image, #drag-background {
+    z-index: 1;
+    position: fixed;
+    pointer-events: none;
+    &:not(.dragging) {
+        display: none;
+    }
+}
+#drag-background {
+    opacity: 0.6;
+}

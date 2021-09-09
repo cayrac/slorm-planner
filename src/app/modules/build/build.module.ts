@@ -19,7 +19,7 @@ import { ReaperSlotComponent } from './component/inventory/components/reaper-slo
 import { SkillBarComponent } from './component/inventory/components/skill-bar/skill-bar.component';
 import { SkillSlotComponent } from './component/inventory/components/skill-slot/skill-slot.component';
 import { InventoryComponent } from './component/inventory/inventory.component';
-import { ItemDragService } from './component/inventory/services/item-drag.service';
+import { itemMoveService } from './component/inventory/services/item-move.service';
 import { SkillsComponent } from './component/skills/skills.component';
 
 
@@ -47,7 +47,7 @@ import { SkillsComponent } from './component/skills/skills.component';
         HttpClientModule, // TODO besoin uniquement pour charger rapidement la save, à virer ensuite
     ],
     providers: [
-        ItemDragService 
+        itemMoveService 
     ],
 })
 export class BuildModule { }

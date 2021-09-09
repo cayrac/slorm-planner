@@ -15,4 +15,6 @@
 <div class="content">
     <input (change)="uploadSave($event)" type="file">
     <router-outlet></router-outlet>
+    <img id="drag-background" [class.dragging]="isDragging" #dragBackground>
+    <img id="drag-image" [class.dragging]="isDragging" #dragImage>
 </div>

@@ -1,7 +1,13 @@
 @import "../../../../../assets/scss/abstracts/flex";
 @import "../../../../../assets/scss/abstracts/variables";
+@import "../../../../../assets/scss/theme/theme";
+@import '~@angular/material/theming';
 
 $background-gear: rgb(9,9,9);
+$theme-accent-pallet: map-get($theme, accent);
+$theme-warn-pallet: map-get($theme, warn);
+$accent-color: mat-color($theme-accent-pallet);
+$warn-color: mat-color($theme-warn-pallet);
 
 main {
     @include flex(row, stretch, space-between);
@@ -82,6 +88,22 @@ main {
 
         mat-tab-group {
             height: 100%;
+        }
+
+        .items-group-label {
+            @include flex(row, center, center);
+            @include flex-grow();
+
+            border: 3px solid transparent;
+
+            &.drag-on {
+                &.drag-possible {
+                    border-color: $accent-color;
+                }
+                &.drag-impossible {
+                    border-color: $warn-color;
+                }
+            }
         }
 
         .items {

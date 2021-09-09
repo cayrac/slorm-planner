@@ -99,7 +99,16 @@
     <mat-card class="inventory">
         <mat-card-content>
             <mat-tab-group animationDuration="0ms" color="accent" direction="vertical">
-                <mat-tab label="Inventory">
+                <mat-tab class="test">
+                    <ng-template mat-tab-label>
+                        <div class="items-group-label"
+                            [class.drag-on]="isDragging && itemGroupBeingDraggedOn === character.inventory"
+                            [class.drag-possible]="itemGroupDragDropPossible"
+                            [class.drag-impossible]="!itemGroupDragDropPossible"
+                            (mouseenter)="dragInItemsGroup(character.inventory)"
+                            (mouseleave)="dragOutItemsGroup()"
+                            (mouseup)="dragDrop(character.inventory)">Bag</div>
+                    </ng-template>
                     <div class="items bag">
                         <app-item-slot *ngFor="let item of character.inventory; let i = index"
                             [item]="item"
@@ -109,7 +118,16 @@
                         </app-item-slot>
                     </div>
                 </mat-tab>
-                <mat-tab label="Stash {{s + 1}}" *ngFor="let stash of character.sharedInventory; let s = index">
+                <mat-tab *ngFor="let stash of character.sharedInventory; let s = index">
+                    <ng-template mat-tab-label>
+                        <div class="items-group-label"
+                            [class.drag-on]="isDragging && itemGroupBeingDraggedOn === stash"
+                            [class.drag-possible]="itemGroupDragDropPossible"
+                            [class.drag-impossible]="!itemGroupDragDropPossible"
+                            (mouseenter)="dragInItemsGroup(stash)"
+                            (mouseleave)="dragOutItemsGroup()"
+                            (mouseup)="dragDrop(stash)">Stash {{s + 1}}</div>
+                    </ng-template>
                     <div class="items stash">
                         <app-item-slot *ngFor="let item of stash; let i = index"
                             [item]="item"

@@ -35,6 +35,7 @@ nav.mat-tab-nav-bar, mat-tab-group.mat-tab-group {
             @include flex(column);
 
             .mat-tab-label {
+                @include flex(column, stretch);
                 padding: $space-unit * 3 0;
                 height: $space-content * 2;
                 min-width: 100px;
@@ -45,6 +46,11 @@ nav.mat-tab-nav-bar, mat-tab-group.mat-tab-group {
                     bottom:auto;
                     width: 2px;
                     height: 100%;
+                }
+
+                .mat-tab-label-content {
+                    @include flex-grow();
+                    @include flex(column, stretch, center);
                 }
             }
         }
