@@ -98,6 +98,18 @@ export class SlormancerActivableService {
         return activable;
     }
 
+    public getActivableClone(activable: Activable): Activable {
+        const result = {
+            ...activable,
+            genres: [ ...activable.genres ],
+            values: activable.values.map(value => this.slormancerEffectValueService.getEffectValueClone(value))
+        };
+
+        this.updateActivable(result);
+
+        return result;
+    }
+
     public getReaperActivable(reaperId: number, level: number, heroClass: HeroClass): Array<Activable> {
         const gameDataActivables = this.slormancerDataService.getGameDataReaperActivableBasedOn(reaperId, false);
         return gameDataActivables.map(data => this.buildActivable(data, EffectValueUpgradeType.ReaperLevel, level, heroClass));

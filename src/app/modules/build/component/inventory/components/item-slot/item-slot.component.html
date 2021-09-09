@@ -16,4 +16,14 @@
         </ng-template>
     </ng-container>
     <img *ngIf="item === null && base !== null" src="assets/img/icon/item/{{base}}/empty.png">
+    <div [matMenuTriggerFor]="menu"></div>
+    <mat-menu #menu="matMenu" xPosition="after" [overlapTrigger]="true">
+        <ng-template matMenuContent>
+            <button mat-menu-item *ngIf="item === null" (click)="edit()"><mat-icon>add_circle_outline</mat-icon>Create item</button>
+            <button mat-menu-item *ngIf="item !== null" (click)="edit()"><mat-icon>edit</mat-icon>Edit item</button>
+            <button mat-menu-item *ngIf="item !== null" (click)="take()"><mat-icon>content_cut</mat-icon>Move item</button>
+            <button mat-menu-item *ngIf="item !== null" (click)="copy()"><mat-icon>content_copy</mat-icon>Copy item</button>
+            <button mat-menu-item *ngIf="item !== null" (click)="remove()"><mat-icon>delete</mat-icon>Remove item</button>
+        </ng-template>
+    </mat-menu>
 </div>

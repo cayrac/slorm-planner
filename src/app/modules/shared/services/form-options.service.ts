@@ -13,7 +13,7 @@ import { compareString, valueOrDefault } from '../../slormancer/util/utils';
 import { SelectOption } from '../model/select-option';
 
 @Injectable()
-export class ItemFormOptionsService {
+export class FormOptionsService {
 
     private STATS_OPTIONS_CACHE: { [key: string]: { [key: string]: Array<SelectOption<string>> } } = {};
 

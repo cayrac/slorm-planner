@@ -14,7 +14,7 @@ import { SlormancerDataService } from '../../../slormancer/services/content/slor
 import { SlormancerItemService } from '../../../slormancer/services/content/slormancer-item.service';
 import { SlormancerLegendaryEffectService } from '../../../slormancer/services/content/slormancer-legendary-effect.service';
 import { valueOrNull } from '../../../slormancer/util/utils';
-import { ItemFormOptionsService } from '../../services/item-form-options.service';
+import { FormOptionsService } from '../../services/form-options.service';
 
 export interface ItemEditModalData {
     item: EquipableItem;
@@ -30,7 +30,7 @@ export class ItemEditModalComponent {
 
     public readonly MAX_ITEM_LEVEL = MAX_ITEM_LEVEL;
 
-    public readonly originalItem: EquipableItem;
+    private readonly originalItem: EquipableItem;
 
     public readonly maxLevel: number;
 
@@ -47,13 +47,11 @@ export class ItemEditModalComponent {
                 private slormancerDataService: SlormancerDataService,
                 private slormancerAffixService: SlormancerAffixService,
                 private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
-                private itemFormservice: ItemFormOptionsService,
+                private formOptionsService: FormOptionsService,
                 @Inject(MAT_DIALOG_DATA) data: ItemEditModalData
                 ) {
         this.originalItem = data.item;
         this.maxLevel = data.maxLevel;
-
-        console.log(data);
 
         this.item = this.slormancerItemService.getEquipableItemClone(this.originalItem);
         this.form = this.buildForm();
@@ -297,7 +295,7 @@ export class ItemEditModalComponent {
 
     private addAffix(rarity: Rarity) {
         const formAffixes = <FormArray | null>this.form.get('affixes');
-        const possibleStats = this.itemFormservice.getStatsOptions(this.item.base, rarity)
+        const possibleStats = this.formOptionsService.getStatsOptions(this.item.base, rarity)
             .filter(option => this.alreadyUsedStats.indexOf(option.value) === -1);
 
         const stat = possibleStats[0];

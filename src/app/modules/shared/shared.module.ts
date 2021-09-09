@@ -15,12 +15,14 @@ import {
 import { ItemEditModalComponent } from './components/item-edit-modal/item-edit-modal.component';
 import { ItemEditStatComponent } from './components/item-edit-stat/item-edit-stat.component';
 import { ItemViewComponent } from './components/item-view/item-view.component';
+import { ReaperEditModalComponent } from './components/reaper-edit-modal/reaper-edit-modal.component';
 import { ReaperViewComponent } from './components/reaper-view/reaper-view.component';
+import { RemoveConfirmModalComponent } from './components/remove-confirm-modal/remove-confirm-modal.component';
 import { SkillUpgradeViewComponent } from './components/skill-upgrade-view/skill-upgrade-view.component';
 import { SkillViewComponent } from './components/skill-view/skill-view.component';
 import { TraitViewComponent } from './components/trait-view/trait-view.component';
 import { MaterialModule } from './material.module';
-import { ItemFormOptionsService } from './services/item-form-options.service';
+import { FormOptionsService } from './services/form-options.service';
 import { PlannerService } from './services/planner.service';
 
 
@@ -40,7 +42,9 @@ import { PlannerService } from './services/planner.service';
         ItemEditBuffReaperComponent,
         ItemEditBuffSkillComponent,
         ItemEditBuffAttributeComponent,
-        ItemBaseChoiceModalComponent
+        ItemBaseChoiceModalComponent,
+        RemoveConfirmModalComponent,
+        ReaperEditModalComponent
     ],
     imports: [
         CommonModule,
@@ -63,11 +67,13 @@ import { PlannerService } from './services/planner.service';
         ItemEditBuffReaperComponent,
         ItemEditBuffSkillComponent,
         ItemEditBuffAttributeComponent,
-        ItemBaseChoiceModalComponent
+        ItemBaseChoiceModalComponent,
+        RemoveConfirmModalComponent,
+        ReaperEditModalComponent
     ],
     providers: [
         PlannerService,
-        ItemFormOptionsService
+        FormOptionsService
     ],
 })
 export class SharedModule { }

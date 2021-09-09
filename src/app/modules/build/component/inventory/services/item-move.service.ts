@@ -21,7 +21,7 @@ export class itemMoveService {
         console.log('new itemMoveService');
     }
 
-    public hold(item: EquipableItem, requiredBase: EquipableItemBase | null, callback: DragCallback | null) {
+    public hold(item: EquipableItem, requiredBase: EquipableItemBase | null, callback: DragCallback | null = null) {
         this.item = item;
         this.requiredBase = requiredBase;
         this.callback = callback;
@@ -39,11 +39,11 @@ export class itemMoveService {
         return sourceIsCompatible && targetIsCompatible;
     }
 
-    public isDraggedItem(item: EquipableItem | null): boolean {
+    public isHoldItem(item: EquipableItem | null): boolean {
         return item === this.item && item !== null;
     }
 
-    public getDraggedItem(): EquipableItem | null {
+    public getHoldItem(): EquipableItem | null {
         return this.item;
     }
 
@@ -55,18 +55,18 @@ export class itemMoveService {
     }
 
     public swap(item: EquipableItem | null, requiredBase: EquipableItemBase | null, callbackTarget: DragCallback | null) {
-        const itemSwap = this.item;
+        const sourceItem = this.item;
         const callableSource = this.callback;
 
         const compatible = this.isDragItemCompatible(item, requiredBase);
         this.releaseHoldItem();
-        if (item !== itemSwap) {
+        if (item !== sourceItem) {
             if (compatible) {
                 if (callableSource) {
                     callableSource(true, item);
                 }
                 if (callbackTarget) {
-                    callbackTarget(true, itemSwap);
+                    callbackTarget(true, sourceItem);
                 }
             } else {
                 if (callableSource) {
@@ -80,19 +80,17 @@ export class itemMoveService {
     }
 
     public moveDraggedItemToItemGroup(itemGroup: Array<EquipableItem | null>) {
-        console.log('moveDraggedItemToItemGroup');
-        const draggedItem = this.item;
+        const holdItem = this.item;
         const sourceCallback = this.callback;
         const firstEmptyPosition = itemGroup.indexOf(null);
-        const itemPosition = itemGroup.indexOf(draggedItem);
+        const itemPosition = itemGroup.indexOf(holdItem);
         this.releaseHoldItem();
         if (firstEmptyPosition !== -1 || itemPosition !== -1) {
             if (sourceCallback) {
                 sourceCallback(true, null);
             }
             const newPosition = Math.min(...[firstEmptyPosition, itemPosition].filter(v => v !== -1));
-            console.log('adding item at index ' + newPosition, itemGroup);
-            itemGroup.splice(newPosition, 1, draggedItem);
+            itemGroup.splice(newPosition, 1, holdItem);
         } else {
             if (sourceCallback) {
                 sourceCallback(false, null);

@@ -5,7 +5,7 @@ import { MatSliderChange } from '@angular/material/slider';
 import { ReaperEnchantment } from '../../../slormancer/model/content/reaper-enchantment';
 import { valueOrDefault } from '../../../slormancer/util/utils';
 import { SelectOption } from '../../model/select-option';
-import { ItemFormOptionsService } from '../../services/item-form-options.service';
+import { FormOptionsService } from '../../services/form-options.service';
 
 @Component({
   selector: 'app-item-edit-buff-reaper',
@@ -24,7 +24,7 @@ export class ItemEditBuffReaperComponent implements OnChanges {
 
     public displayedValue: string = '';
 
-    constructor(private itemFormService: ItemFormOptionsService) { }
+    constructor(private itemFormService: FormOptionsService) { }
 
     public ngOnChanges() {
         this.options = this.itemFormService.getReaperBuffOptions();

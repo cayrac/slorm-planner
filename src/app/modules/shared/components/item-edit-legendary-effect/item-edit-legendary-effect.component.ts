@@ -7,7 +7,7 @@ import { HeroClass } from '../../../slormancer/model/content/enum/hero-class';
 import { LegendaryEffect } from '../../../slormancer/model/content/legendary-effect';
 import { getCraftValue } from '../../../slormancer/util/utils';
 import { SelectOption } from '../../model/select-option';
-import { ItemFormOptionsService } from '../../services/item-form-options.service';
+import { FormOptionsService } from '../../services/form-options.service';
 
 @Component({
   selector: 'app-item-edit-legendary-effect',
@@ -35,7 +35,7 @@ export class ItemEditLegendaryEffectComponent implements OnChanges {
 
     public displayedValue: string = '';
 
-    constructor(private itemFormService: ItemFormOptionsService) { }
+    constructor(private itemFormService: FormOptionsService) { }
 
     public ngOnChanges() {
         console.log('ItemEditLegendaryEffectComponent ngOnChanges');

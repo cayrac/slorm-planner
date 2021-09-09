@@ -51,3 +51,4 @@ $boxtal-app-theme:   mat-light-theme($boxtal-app-primary, $boxtal-app-accent, $b
 @include mat.form-field-theme($theme);
 @include mat.slider-theme($theme);
 @include mat.checkbox-theme($theme);
+@include mat.menu-theme($theme);

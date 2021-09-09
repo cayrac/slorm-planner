@@ -6,7 +6,7 @@ import { HeroClass } from '../../../slormancer/model/content/enum/hero-class';
 import { SkillEnchantment } from '../../../slormancer/model/content/skill-enchantment';
 import { valueOrDefault } from '../../../slormancer/util/utils';
 import { SelectOption } from '../../model/select-option';
-import { ItemFormOptionsService } from '../../services/item-form-options.service';
+import { FormOptionsService } from '../../services/form-options.service';
 
 @Component({
   selector: 'app-item-edit-buff-skill',
@@ -28,7 +28,7 @@ export class ItemEditBuffSkillComponent implements OnChanges {
 
     public displayedValue: string = '';
 
-    constructor(private itemFormService: ItemFormOptionsService) { }
+    constructor(private itemFormService: FormOptionsService) { }
 
     public ngOnChanges() {
         this.options = this.itemFormService.getSkillBuffOptions(this.heroClass);

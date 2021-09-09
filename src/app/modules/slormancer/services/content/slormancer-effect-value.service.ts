@@ -10,6 +10,10 @@ export class SlormancerEffectValueService {
 
     constructor() { }
 
+    public getEffectValueClone<T extends AbstractEffectValue>(effectValue: T): T {
+        return { ...effectValue };
+    }
+
     public updateEffectValue(effectValue: AbstractEffectValue, upgradeMultiplier: number): AbstractEffectValue {
         const displayUpgradeMultiplier = Math.max(upgradeMultiplier, 1);
         if (isEffectValueSynergy(effectValue) || isEffectValueVariable(effectValue)) {

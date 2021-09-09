@@ -7,7 +7,7 @@ import { Affix } from '../../../slormancer/model/content/affix';
 import { EquipableItemBase } from '../../../slormancer/model/content/enum/equipable-item-base';
 import { getCraftValue } from '../../../slormancer/util/utils';
 import { SelectOption } from '../../model/select-option';
-import { ItemFormOptionsService } from '../../services/item-form-options.service';
+import { FormOptionsService } from '../../services/form-options.service';
 
 @Component({
   selector: 'app-item-edit-stat',
@@ -38,7 +38,7 @@ export class ItemEditStatComponent implements OnChanges {
 
     public displayedValue: string = '';
 
-    constructor(private itemFormService: ItemFormOptionsService) { }
+    constructor(private itemFormService: FormOptionsService) { }
 
     public ngOnChanges() {
         if (this.affix !== null) {

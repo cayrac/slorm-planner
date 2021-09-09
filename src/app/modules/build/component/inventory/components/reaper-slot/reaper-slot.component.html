@@ -1,5 +1,5 @@
 
-<div class="reaper" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+<div class="reaper" cdkOverlayOrigin #trigger="cdkOverlayOrigin" (click)="edit()">
     <div class="inner-slot"></div>
     <ng-container *ngIf="reaper !== null">
         <img [src]="reaper.icon" [class.primordial-effect]="reaper.primordial">

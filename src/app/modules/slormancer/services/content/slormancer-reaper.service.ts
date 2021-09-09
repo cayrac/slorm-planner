@@ -262,6 +262,34 @@ export class SlormancerReaperService {
         return this.getReaper(data.id, weaponClass, primordial, data.basic.experience, data.primordial.experience, data.basic.kills, data.primordial.kills, bonusLevel);
     }
 
+    private getReaperEffectClone(reaperEffect: ReaperEffect): ReaperEffect {
+        return {
+            ...reaperEffect,
+            values: reaperEffect.values.map(value => this.slormancerEffectValueService.getEffectValueClone(value))
+        };
+    }
+
+    public getReaperClone(reaper: Reaper): Reaper {
+        const result: Reaper = {
+            ...reaper,
+            smith: { ...reaper.smith },
+            baseInfo: { ...reaper.baseInfo },
+            primordialInfo: { ...reaper.primordialInfo },
+            templates: {
+                ...reaper.templates,
+                base: reaper.templates.base.map(effect => this.getReaperEffectClone(effect)),
+                benediction: reaper.templates.benediction.map(effect => this.getReaperEffectClone(effect)),
+                malediction: reaper.templates.malediction.map(effect => this.getReaperEffectClone(effect)),
+                activables: reaper.templates.activables.map(activable => this.slormancerActivableService.getActivableClone(activable)),
+                primordialSkills: reaper.templates.primordialSkills.map(activable => this.slormancerActivableService.getActivableClone(activable))
+            }
+        };
+
+        this.updateReaper(result);
+
+        return result;
+    }
+
     public getReaper(id: number, weaponClass: HeroClass, primordial: boolean, xp: number, xpPrimordial: number, kills: number, killsPrimordial: number, bonusLevel: number = 0): Reaper | null {
         const gameData = this.slormancerDataService.getGameDataReaper(id);
         const damagesRange = this.slormancerDataService.getDataReaperDamages(id);
@@ -308,7 +336,7 @@ export class SlormancerReaperService {
             this.updateReaper(result);
         }
 
-        return result
+        return result;
     }
 
     public updateReaper(reaper: Reaper) {
@@ -316,7 +344,7 @@ export class SlormancerReaperService {
         
         reaper.icon = 'assets/img/reaper/' + reaper.weaponClass + '/' + reaper.id + (reaper.primordial ? '_p' : '') + '.png';
         reaper.kills = info.kills;
-        reaper.baseLevel = Math.max(reaper.minLevel, info.level);
+        reaper.baseLevel = Math.min(reaper.maxLevel, Math.max(reaper.minLevel, info.level));
         reaper.bonusLevel = Math.max(0, Math.min(this.MAX_REAPER_BONUS, reaper.bonusLevel));
         reaper.level = reaper.baseLevel + reaper.bonusLevel;
         reaper.maxDamagesWithBonuses = valueOrDefault(reaper.damagesRange[reaper.maxLevelWithBonuses],  {min: 0, max: 0 });

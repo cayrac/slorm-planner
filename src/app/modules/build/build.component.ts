@@ -30,7 +30,7 @@ export class BuildComponent extends AbstractUnsubscribeComponent {
     @HostListener('mousemove', ['$event'])
     public onMouseMove(event: MouseEvent) {
         this.itemMoveService.startDragging();
-        if (this.isDragging && this.itemMoveService.getDraggedItem() !== null && this.dragImage && this.dragBackground) {
+        if (this.isDragging && this.itemMoveService.getHoldItem() !== null && this.dragImage && this.dragBackground) {
             const top = (event.clientY - this.dragImage.nativeElement.height / 2) + 'px';
             const left = (event.clientX - this.dragImage.nativeElement.width / 2) + 'px';
 
@@ -52,7 +52,7 @@ export class BuildComponent extends AbstractUnsubscribeComponent {
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(dragging => {
                 this.isDragging = dragging;
-                const item = this.itemMoveService.getDraggedItem();
+                const item = this.itemMoveService.getHoldItem();
                 if (item !== null && this.dragImage && this.dragBackground) {
                     this.dragImage.nativeElement.src = item.icon;
                     this.dragBackground.nativeElement.src = item.itemIconBackground;

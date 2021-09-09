@@ -1,0 +1,40 @@
+
+<form [formGroup]="form" (submit)="submit()" *ngIf="form !== null && reaper !== null" autocomplete="off">
+    <input autocomplete="false" name="hidden" type="text" style="display:none;">
+    <mat-dialog-content>
+        <div class="preview">
+            <app-reaper-view [reaper]="reaper"></app-reaper-view>
+        </div>
+        <div class="form">
+            <div class="form-line">
+                <mat-form-field appearance="outline">
+                    <mat-label>Reaper level (base)</mat-label>
+                    <input matInput type="number" min="1" step="1" [max]="reaper.maxLevel" formControlName="baseLevel">
+                    <mat-error>Level must be between 1 and {{reaper.maxLevel}}</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Reaper kills (base)</mat-label>
+                    <input matInput type="number" min="0" step="1" formControlName="baseKills">
+                    <mat-error>Kills must be >= 0</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="form-line">
+                <mat-form-field appearance="outline">
+                    <mat-label>Raper level (primordial)</mat-label>
+                    <input matInput type="number" min="1" step="1" [max]="reaper.maxLevel" formControlName="primordialLevel">
+                    <mat-error>Level must be between 1 and {{reaper.maxLevel}}</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Reaper kills (primordial)</mat-label>
+                    <input matInput type="number" min="0" step="1" formControlName="primordialKills">
+                    <mat-error>Kills must be >= 0</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-flat-button type="button" color="primary" [mat-dialog-close]="">Cancel</button>
+        <button mat-flat-button type="button" color="primary" (click)="reset()">Reset</button>
+        <button mat-flat-button type="submit" color="primary">Submit</button>
+    </mat-dialog-actions>
+</form>

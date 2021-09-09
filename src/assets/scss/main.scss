@@ -14,15 +14,18 @@
 @import "components/form_field";
 @import "components/select";
 @import "components/slider";
-
+@import "components/menu";
 
 @import "components/form/stat_line";
 
+$theme-primary-pallet: map-get($theme, primary);
+$primary-color: mat-color($theme-primary-pallet);
 
 html, body {
     margin: 0;
     height: 100%;
     font-family: 'Berlin Sans FB Regular';
+    color: $primary-color;
 
     // background-color: $background-color;
     // color: $text-color;

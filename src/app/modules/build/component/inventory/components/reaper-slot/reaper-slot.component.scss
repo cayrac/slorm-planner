@@ -8,6 +8,7 @@
     height: 124px;
     min-height: 124px;
     position: relative;
+    cursor: pointer;
 
     .inner-slot {
         width: $space-unit * 20;

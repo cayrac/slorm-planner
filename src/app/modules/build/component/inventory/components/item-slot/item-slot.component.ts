@@ -1,5 +1,6 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatMenuTrigger } from '@angular/material/menu';
 import { takeUntil } from 'rxjs/operators';
 
 import {
@@ -12,6 +13,9 @@ import {
     ItemEditModalComponent,
     ItemEditModalData,
 } from '../../../../../shared/components/item-edit-modal/item-edit-modal.component';
+import {
+    RemoveConfirmModalComponent,
+} from '../../../../../shared/components/remove-confirm-modal/remove-confirm-modal.component';
 import { MAX_ITEM_LEVEL } from '../../../../../slormancer/constants/common';
 import { EquipableItemBase } from '../../../../../slormancer/model/content/enum/equipable-item-base';
 import { HeroClass } from '../../../../../slormancer/model/content/enum/hero-class';
@@ -41,6 +45,9 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
 
     @Output()
     public readonly changed = new EventEmitter<EquipableItem | null>();
+    
+    @ViewChild(MatMenuTrigger, { static: true })
+    private menu: MatMenuTrigger | null = null; 
             
     public isDragging: boolean = false;
 
@@ -60,25 +67,33 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
         this.isMouseOver = false;
     }
 
-    @HostListener('mousedown')
-    public onMouseDown() {
-        if (this.item !== null) {
-            this.itemMoveService.hold(this.item, this.base, (success, item) => this.dragCallback(success, item));
+    @HostListener('mousedown', ['$event'])
+    public onMouseDown(event: MouseEvent) {
+        if (event.button === 0) {
+            this.take();
         }
         return false;
     }
 
     @HostListener('mouseup', ['$event'])
     public onMouseUp(event: MouseEvent) {
-        if (this.isDragging) {
-            this.itemMoveService.swap(this.item, this.base, (success, item) => this.dragCallback(success, item));
-            console.log(event);
-            event.stopPropagation();
-            event.stopImmediatePropagation();
-            event.preventDefault();
-        } else {
-            this.edit();
+        if (event.button === 0) {
+            if (this.isDragging) {
+                this.itemMoveService.swap(this.item, this.base, (success, item) => this.dragCallback(success, item));
+            } else {
+                this.edit();
+            }
         }
+        return false;
+    }
+
+    @HostListener('contextmenu')
+    public onMouseContextMenu() {
+        this.itemMoveService.releaseHoldItem();
+        if (this.menu !== null) {
+            this.menu.openMenu();
+        }
+        return false;
     }
     
     constructor(private dialog: MatDialog,
@@ -89,7 +104,7 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(holding => {
                 this.isDragging = holding;
-                this.isDraggedItem = this.itemMoveService.isDraggedItem(this.item);
+                this.isDraggedItem = this.itemMoveService.isHoldItem(this.item);
                 this.isItemCompatible = this.itemMoveService.isDragItemCompatible(this.item, this.base);
             });
 
@@ -110,12 +125,11 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
     }
     
     public edit(item: EquipableItem | null = this.item) {
-        console.log('edit : ', item);
         if (item === null) {
             if (this.base !== null) {
                 this.edit(this.slormancerItemService.getEmptyEquipableItem(this.base, this.heroClass, this.maxLevel));
             } else {
-                this.dialog.open(ItemBaseChoiceModalComponent, { width: '80vw', maxWidth: '1000px' })
+                this.dialog.open(ItemBaseChoiceModalComponent)
                 .afterClosed().subscribe((base: EquipableItemBase | undefined) => {
                     if (base !== undefined && base !== null) {
                         this.edit(this.slormancerItemService.getEmptyEquipableItem(base, this.heroClass, this.maxLevel));
@@ -131,5 +145,27 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
                 }
             });
         }
+    }
+
+    public take() {
+        if (this.item !== null) {
+            this.itemMoveService.hold(this.item, this.base, (success, item) => this.dragCallback(success, item));
+        }
+    }
+    
+    public copy() {
+        if (this.item !== null) {
+            const itemCopy = this.slormancerItemService.getEquipableItemClone(this.item);
+            this.itemMoveService.hold(itemCopy, itemCopy.base);
+        }
+    }
+
+    public remove() {
+        this.dialog.open(RemoveConfirmModalComponent)
+        .afterClosed().subscribe((choice) => {
+            if (choice === true) {
+                this.changed.emit(null);
+            }
+        });
     }
 }
