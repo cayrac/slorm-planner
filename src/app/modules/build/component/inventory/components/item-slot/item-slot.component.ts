@@ -44,43 +44,68 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
             
     public isDragging: boolean = false;
 
-    public showOverlay = false;
+    public isMouseOver: boolean = false;
+
+    public isItemCompatible: boolean = false;
+
+    public isDraggedItem: boolean = false;
+
+    @HostListener('mousemove')
+    public onMouseMove() {
+        this.itemDragService.cursorIsMoving();
+    }
 
     @HostListener('mouseenter')
-    public onOver() {
-        this.showOverlay = true;
+    public onMouseOver() {
+        this.isMouseOver = true;
     }
 
     @HostListener('mouseleave')
-    public onLeave() {
-        this.showOverlay = false;
+    public onMouseLeave() {
+        this.isMouseOver = false;
     }
 
     @HostListener('mousedown')
     public onMouseDown() {
-        console.log('down');
+        console.log('mousedown')
         if (this.item !== null) {
-            this.itemDragService.hold(this.item, this.base, (success, item) => success ? this.changed.emit(item) : null);
+            this.itemDragService.hold(this.item, this.base, (success, item) => this.dragCallback(success, item));
         }
         return false;
     }
 
     @HostListener('mouseup')
     public onMouseUp() {
-        console.log('up');
-        return false;
+        this.isDraggedItem = this.itemDragService.isDraggedItem(this.item);
+        this.itemDragService.swap(this.item, this.base, (success, item) => this.dragCallback(success, item));
     }
     
     constructor(private dialog: MatDialog,
                 private itemDragService: ItemDragService,
                 private slormancerItemService: SlormancerItemService) {
         super();
-        this.itemDragService.holdingItem
+        this.itemDragService.draggingItem
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(holding => console.log('dragging : ', this.isDragging = holding));
+            .subscribe(holding => {
+                this.isDragging = holding;
+                this.isItemCompatible = this.itemDragService.isDragItemCompatible(this.item, this.base);
+            });
+
+
+            // on devrait pouvoir drop n'importe où pour annuler
+            // bordure moins transparente sur l'equipement hasMatchingBase
+            // renomer en item move et gérer le click droit ?
     }
 
     public ngOnInit() { }
+
+    private dragCallback(success: boolean, item: EquipableItem | null) {
+        if (success) {
+            this.changed.emit(item);
+        }
+        this.isDraggedItem = false;
+        this.isItemCompatible = false;
+    }
     
     public edit(item: EquipableItem | null = this.item) {
         console.log('edit : ', item);

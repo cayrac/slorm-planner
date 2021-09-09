@@ -1,14 +1,20 @@
 
-<div class="item" [class.drop-compatible]="false" [class.drop-incompatible]="false" cdkOverlayOrigin #trigger="cdkOverlayOrigin" (click)="edit()">
+<div class="item"
+    [class.forced-base-compatible]="isItemCompatible && base !== null"
+    [class.drop-compatible]="!isDraggedItem && isMouseOver && isDragging && isItemCompatible"
+    [class.drop-incompatible]="!isDraggedItem && isMouseOver && isDragging && !isItemCompatible"
+    [class.is-being-dragged]="isDraggedItem && isDragging"
+    cdkOverlayOrigin
+    #trigger="cdkOverlayOrigin"
+    (click)="edit()">
     <ng-container *ngIf="item !== null">
         <img [src]="item.itemIconBackground">
         <img [src]="item.icon">
         <ng-template cdkConnectedOverlay
-            [cdkConnectedOverlayOpen]="showOverlay && !isDragging"
+            [cdkConnectedOverlayOpen]="isMouseOver && !isDragging"
             [cdkConnectedOverlayOrigin]="trigger">
             <app-item-view [item]="item" [details]="false"></app-item-view>
         </ng-template>
     </ng-container>
-    {{isDragging}}
     <img *ngIf="item === null && base !== null" src="assets/img/icon/item/{{base}}/empty.png">
 </div>

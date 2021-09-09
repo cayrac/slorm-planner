@@ -9,7 +9,7 @@ export declare type DragCallback = (cancelled: boolean, item: EquipableItem | nu
 @Injectable()
 export class ItemDragService {
 
-    public readonly holdingItem = new BehaviorSubject<boolean>(false);
+    public readonly draggingItem = new BehaviorSubject<boolean>(false);
 
     private item: EquipableItem | null = null;
 
@@ -25,30 +25,46 @@ export class ItemDragService {
         this.item = item;
         this.requiredBase = requiredBase;
         this.callback = callback;
-        console.log('hold', item);
-        this.holdingItem.next(true);
     }
 
-    public isCompatibleItem(item: EquipableItem | null, requiredBase: EquipableItemBase | null): boolean {
+    public cursorIsMoving() {
+        if (!this.draggingItem.getValue() && this.item !== null) {
+            this.draggingItem.next(true);
+        }
+    }
+
+    public isDragItemCompatible(item: EquipableItem | null, requiredBase: EquipableItemBase | null): boolean {
         const sourceIsCompatible = item === null || this.requiredBase === null || item.base === this.requiredBase;
-        const targetIsCompatible = this.item === null || requiredBase === null || this.item.base === requiredBase;
+        const targetIsCompatible = this.item !== null && (requiredBase === null || this.item.base === requiredBase);
         return sourceIsCompatible && targetIsCompatible;
     }
 
-    public swap(item: EquipableItem | null, requiredBase: EquipableItemBase | null, callback: DragCallback) {
-        if (this.callback !== null && item !== this.item) {
-            if (this.isCompatibleItem(item, requiredBase)) {
-                this.callback(true, item);
-                callback(true, this.item);
-            } else {
-                this.callback(false, null);
-                callback(false, null);
-            }
-        }
+    public isDraggedItem(item: EquipableItem | null): boolean {
+        return item === this.item && item !== null;
+    }
 
+    private releaseHoldItem() {
         this.item = null;
         this.requiredBase = null;
         this.callback = null;
-        this.holdingItem.next(false);
+        this.draggingItem.next(false);
+    }
+
+    public swap(item: EquipableItem | null, requiredBase: EquipableItemBase | null, callback: DragCallback) {
+        const itemSwap = this.item;
+        const callbaclSwap = this.callback;
+        if (callbaclSwap !== null) {
+            const compatible = this.isDragItemCompatible(item, requiredBase);
+            this.releaseHoldItem();
+            if (item !== itemSwap) {
+                if (compatible) {
+                    callbaclSwap(true, item);
+                    callback(true, itemSwap);
+                } else {
+                    callbaclSwap(false, null);
+                    callback(false, null);
+                }
+            }
+        }
     } 
 }
