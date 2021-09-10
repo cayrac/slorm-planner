@@ -35,7 +35,7 @@ export class ReaperSlotComponent implements OnInit {
     
     constructor(private dialog: MatDialog) { }
 
-    public ngOnInit() { }
+    public ngOnInit() { this.edit() }
 
     public edit() {
         const reaper = this.reaper;

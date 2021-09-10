@@ -33,8 +33,10 @@ export class ReaperEditModalComponent {
         this.originalReaper = data.reaper;
 
         this.reaper = this.slormancerReaperService.getReaperClone(this.originalReaper);
+        console.log('init id : ', this.reaper.id);
         this.form = this.buildForm();
 
+        console.log(this.originalReaper);
         console.log(this.reaper);
         console.log(this.form);
     }
@@ -53,7 +55,7 @@ export class ReaperEditModalComponent {
         if (form.valid) {
             const value = form.value;
 
-            reaper.id = value.id;
+            reaper.id = value.reaper;
             reaper.primordial = value.primordial;
             reaper.baseInfo.level = value.baseLevel;
             reaper.primordialInfo.level = value.primordialLevel;

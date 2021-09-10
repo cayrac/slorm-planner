@@ -15,7 +15,7 @@ import { SelectOption } from '../model/select-option';
 @Injectable()
 export class FormOptionsService {
 
-    private STATS_OPTIONS_CACHE: { [key: string]: { [key: string]: Array<SelectOption<string>> } } = {};
+    private STATS_OPTIONS_CACHE: { [key: string]: { P: Array<SelectOption<string>>, S: Array<SelectOption<string>> } } = {};
 
     private LEGENDARY_OPTIONS_CACHE: { [key: string]: GameHeroesData<Array<SelectOption<number>>> } = {};
 
@@ -27,6 +27,11 @@ export class FormOptionsService {
 
     private ALL_ATTRIBUTE_BUFF_OPTIONS_CACHE: Array<SelectOption<number>> = [];
 
+    private ALL_REAPER_OPTIONS_CACHE: { p: GameHeroesData<Array<SelectOption<number>>>, b: GameHeroesData<Array<SelectOption<number>>>} = {
+        p: { 0: [], 1: [], 2: [] },
+        b: { 0: [], 1: [], 2: [] }
+    };
+
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormancerTranslateService: SlormancerTranslateService
                 ) {
@@ -36,6 +41,11 @@ export class FormOptionsService {
         this.initReaperBuffOptions();
         this.initSkillBuffOptions();
         this.initAttributeBuffOptions();
+        this.initReaperOptions();
+    }
+
+    public getReaperOptions() {
+        return this.ALL_REAPER_OPTIONS_CACHE
     }
 
     public getStatsOptions(base: EquipableItemBase, rarity: Rarity): Array<SelectOption<string>> {
@@ -49,6 +59,8 @@ export class FormOptionsService {
                 result = valueOrDefault(baseStats['S'], []);
             }
         }
+
+        console.log(base, rarity, result);
 
         return result;
     }
@@ -99,19 +111,27 @@ export class FormOptionsService {
                 const statKey = this.getBaseKey(base);
                 const rarity = stat[statKey];
 
+                if (base === EquipableItemBase.Body && rarity === 'S') {
+                    console.log('Body stat : ' + stat.REF);
+                }
+
                 if (rarity !== '') {
                     let statBase = this.STATS_OPTIONS_CACHE[base];
                     if (statBase === undefined) {
-                        statBase = {};
+                        statBase = {
+                            P: [],
+                            S: []
+                        };
                         this.STATS_OPTIONS_CACHE[base] = statBase;
                     }
-                    let statRarity = statBase[rarity];
-                    if (statRarity === undefined) {
-                        statRarity = [];
-                        statBase[rarity] = statRarity;
+
+                    if (rarity === 'P') {
+                        statBase.P.push(option);
                     }
 
-                    statRarity.push(option);
+                    if (rarity === 'P' ||rarity === 'S') {
+                        statBase.S.push(option);
+                    }
                 }
             }
         }
@@ -135,6 +155,8 @@ export class FormOptionsService {
         }
 
         this.ALL_STATS_OPTIONS_CACHE.sort((a, b) => compareString(a.label, b.label));
+
+        console.log(this.STATS_OPTIONS_CACHE);
     }
 
     private initLegendaryOptionsCache() {
@@ -179,5 +201,19 @@ export class FormOptionsService {
     private initAttributeBuffOptions() {
         this.ALL_ATTRIBUTE_BUFF_OPTIONS_CACHE = ALL_ATTRIBUTES
             .map(attribute => ({ value: attribute, label: this.slormancerTranslateService.translate('character_trait_' + attribute) }));
+    }
+
+    private initReaperOptions() {
+        this.ALL_REAPER_OPTIONS_CACHE = {
+            p: { 0: [], 1: [], 2: [] },
+            b: { 0: [], 1: [], 2: [] }
+        }
+
+        /*
+        const reapers = this.slormancerDataService.getGameDataAvailableReaper();
+
+        for (const reaper of reapers) {
+            this.ALL_REAPER_OPTIONS_CACHE.p[HeroClass.Warrior]
+        }*/
     }
 }

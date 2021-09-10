@@ -91,18 +91,18 @@ export class ItemEditModalComponent {
                     const stat =(<FormControl>control.get('stat')).value;
                     const rarity = (<FormControl>control.get('rarity')).value;
 
-                    affix.pure = purity;
-                    affix.craftedEffect.craftedValue = value;
-                    affix.craftedEffect.effect.stat = stat;
-                    
                     if (affix.craftedEffect.effect.stat !== stat) {
                         const newAffix = this.slormancerAffixService.getAffixFromStat(stat, item.level, item.reinforcment, rarity, val);
                         if (newAffix !== null) {
                             item.affixes[index] = newAffix;
+                            affix = newAffix;
                         }
-                    } else {
-                        affix.craftedEffect.craftedValue = val;
                     }
+
+                    affix.craftedEffect.craftedValue = val;
+                    affix.pure = purity;
+
+                    
                 }
             });
 
@@ -171,6 +171,7 @@ export class ItemEditModalComponent {
 
             this.alreadyUsedStats = item.affixes.map(affix => affix.craftedEffect.effect.stat);
         }
+        console.log(this.item);
     }
 
     private affixToForm(affix: Affix): FormGroup {
