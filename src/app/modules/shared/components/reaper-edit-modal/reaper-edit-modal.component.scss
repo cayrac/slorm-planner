@@ -5,7 +5,6 @@ mat-dialog-content {
     @include flex-row-to-column('tablet', stretch);
     @include flex-gap($space-content);
     @include flex-grow(1);
-    overflow: auto;
 
     .preview {
         max-width: 350px;
@@ -18,24 +17,8 @@ mat-dialog-content {
         @include flex(column, stretch);
         @include flex-grow();
 
-        .form-line {
-            @include flex-row-to-column('small-desktop', flex-start, space-between);
-            @include flex-gap($space-unit * 4);
-            @include respond-to('small-desktop') {
-                align-items: stretch;
-            }
-
-            .field {
-                @include flex-grow();
-            }
-        }
-        .form-info {
-            @include flex(row, center, space-between);
-            min-height: $space-unit * 10;
+        mat-checkbox {
+            padding: $space-unit * 2 0;
         }
     }
-}
-
-.shaded {
-    color: rgb(60, 60, 60);
 }

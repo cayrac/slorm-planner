@@ -48,14 +48,19 @@ export class SlormancerReaperService {
                 private slormancerEffectValueService: SlormancerEffectValueService,
                 private slormancerActivableService: SlormancerActivableService) { }
 
-    private getReaperName(reaper: Reaper): string {
-        let type = reaper.type
+    
+    public getReaperName(template: string, primordial: boolean, heroClass: HeroClass): string {
+        const weaponName = this.slormancerTranslateService.translate('weapon_' + heroClass);
+        return this.buildReaperName(weaponName, template, primordial);
+    }        
+                
+    private buildReaperName(weaponName: string, nameTemplate: string, primordial: boolean): string {
         
-        if (reaper.primordial) {
-            type = this.slormancerTemplateService.replaceAnchor(this.PRIMORDIAL_REAPER_LABEL, type , this.slormancerTemplateService.VALUE_ANCHOR);
+        if (primordial) {
+            weaponName = this.slormancerTemplateService.replaceAnchor(this.PRIMORDIAL_REAPER_LABEL, weaponName , this.slormancerTemplateService.VALUE_ANCHOR);
         }
 
-        return this.slormancerTemplateService.replaceAnchor(reaper.templates.name, type, this.slormancerTemplateService.TYPE_ANCHOR);
+        return this.slormancerTemplateService.replaceAnchor(nameTemplate, weaponName, this.slormancerTemplateService.TYPE_ANCHOR);
     }
 
     private getReaperLevel(xp: number): number {
@@ -259,7 +264,9 @@ export class SlormancerReaperService {
     }
 
     public getReaperFromGameWeapon(data: GameWeapon, weaponClass: HeroClass, primordial: boolean, bonusLevel: number = 0): Reaper | null {
-        return this.getReaper(data.id, weaponClass, primordial, data.basic.experience, data.primordial.experience, data.basic.kills, data.primordial.kills, bonusLevel);
+        const level = this.getReaperLevel(data.basic.experience);
+        const levelPrimordial = this.getReaperLevel(data.primordial.experience);
+        return this.getReaper(data.id, weaponClass, primordial, level, levelPrimordial, data.basic.kills, data.primordial.kills, bonusLevel);
     }
 
     private getReaperEffectClone(reaperEffect: ReaperEffect): ReaperEffect {
@@ -290,13 +297,10 @@ export class SlormancerReaperService {
         return result;
     }
 
-    public getReaper(id: number, weaponClass: HeroClass, primordial: boolean, xp: number, xpPrimordial: number, kills: number, killsPrimordial: number, bonusLevel: number = 0): Reaper | null {
+    public getReaper(id: number, weaponClass: HeroClass, primordial: boolean, level: number, levelPrimordial: number, kills: number, killsPrimordial: number, bonusLevel: number = 0): Reaper | null {
         const gameData = this.slormancerDataService.getGameDataReaper(id);
         const damagesRange = this.slormancerDataService.getDataReaperDamages(id);
         let result: Reaper | null = null;
-
-        const level = this.getReaperLevel(xp);
-        const levelPrimordial = this.getReaperLevel(xpPrimordial);
 
         if (gameData !== null && damagesRange !== null) {
             result = {
@@ -340,16 +344,18 @@ export class SlormancerReaperService {
     }
 
     public updateReaper(reaper: Reaper) {
+        reaper.primordialInfo.level = Math.min(reaper.maxLevel, Math.max(reaper.primordialInfo.level, reaper.minLevel));
+        reaper.baseInfo.level = Math.min(reaper.maxLevel, Math.max(reaper.baseInfo.level, reaper.minLevel));
+
         const info = reaper.primordial ? reaper.primordialInfo : reaper.baseInfo;
-        
         reaper.icon = 'assets/img/reaper/' + reaper.weaponClass + '/' + reaper.id + (reaper.primordial ? '_p' : '') + '.png';
         reaper.kills = info.kills;
-        reaper.baseLevel = Math.min(reaper.maxLevel, Math.max(reaper.minLevel, info.level));
+        reaper.baseLevel = info.level;
         reaper.bonusLevel = Math.max(0, Math.min(this.MAX_REAPER_BONUS, reaper.bonusLevel));
         reaper.level = reaper.baseLevel + reaper.bonusLevel;
         reaper.maxDamagesWithBonuses = valueOrDefault(reaper.damagesRange[reaper.maxLevelWithBonuses],  {min: 0, max: 0 });
         reaper.activables = reaper.templates.activables;
-        reaper.name = this.getReaperName(reaper);
+        reaper.name = this.buildReaperName(reaper.type, reaper.templates.name, reaper.primordial);
 
         const lastDamagesIndex = lastIndex(reaper.damagesRange);
         let damagesIndex = reaper.level;

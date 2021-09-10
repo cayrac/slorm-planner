@@ -26,6 +26,7 @@ export class PlannerService {
 
     public loadSave(save: string, heroclass: HeroClass) {
         this.character = this.slormancerCharacterService.getCharacterFromSave(save, heroclass);
+        this.character.reaper = null;
         console.log(this.character);
         this.characterChanged.next(this.character);
     }

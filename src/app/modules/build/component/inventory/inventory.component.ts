@@ -8,6 +8,7 @@ import { PlannerService } from '../../../shared/services/planner.service';
 import { Character } from '../../../slormancer/model/character';
 import { EquipableItemBase } from '../../../slormancer/model/content/enum/equipable-item-base';
 import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
+import { Reaper } from '../../../slormancer/model/content/reaper';
 import { itemMoveService as ItemMoveService } from './services/item-move.service';
 
 @Component({
@@ -121,6 +122,12 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
     public updateRightRing(ring: EquipableItem | null) {
         if (this.character !== null) {
             this.character.gear.ring_r = ring;
+        }
+    }
+
+    public updateReaper(reaper: Reaper) {
+        if (this.character !== null) {
+            this.character.reaper = reaper;
         }
     }
 

@@ -3,9 +3,7 @@
 
 .reaper {
     @include flex(column, center, center);
-    width: 124px;
     min-width: 124px;
-    height: 124px;
     min-height: 124px;
     position: relative;
     cursor: pointer;

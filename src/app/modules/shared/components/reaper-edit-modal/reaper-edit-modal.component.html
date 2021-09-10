@@ -6,7 +6,7 @@
             <app-reaper-view [reaper]="reaper"></app-reaper-view>
         </div>
         <div class="form">
-            <div class="form-line">
+            <div class="stat-line">
                 <mat-form-field appearance="outline">
                     <mat-label>Reaper level (base)</mat-label>
                     <input matInput type="number" min="1" step="1" [max]="reaper.maxLevel" formControlName="baseLevel">
@@ -18,7 +18,7 @@
                     <mat-error>Kills must be >= 0</mat-error>
                 </mat-form-field>
             </div>
-            <div class="form-line">
+            <div class="stat-line">
                 <mat-form-field appearance="outline">
                     <mat-label>Raper level (primordial)</mat-label>
                     <input matInput type="number" min="1" step="1" [max]="reaper.maxLevel" formControlName="primordialLevel">
@@ -29,6 +29,17 @@
                     <input matInput type="number" min="0" step="1" formControlName="primordialKills">
                     <mat-error>Kills must be >= 0</mat-error>
                 </mat-form-field>
+            </div>
+            <div class="stat-line">
+                <mat-form-field appearance="outline" color="primary" class="no-error-padding">
+                    <mat-label>Reaper base</mat-label>
+                    <mat-select formControlName="reaper" color="primary">
+                        <mat-option *ngFor="let option of options" [value]="option.value">
+                            <span [innerHTML]="option.label"></span>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-checkbox color="primary" formControlName="primordial">Primordial</mat-checkbox>
             </div>
         </div>
     </mat-dialog-content>

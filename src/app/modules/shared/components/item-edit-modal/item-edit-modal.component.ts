@@ -72,7 +72,9 @@ export class ItemEditModalComponent {
     }
 
     public submit() {
-        this.dialogRef.close(this.item);
+        if (this.form.valid) {
+            this.dialogRef.close(this.item);
+        }
     }
 
     private updatePreview(form: FormGroup) {

@@ -9,6 +9,13 @@
             <app-reaper-view [reaper]="reaper"></app-reaper-view>
         </ng-template>
     </ng-container>
+    <div [matMenuTriggerFor]="menu"></div>
+    <mat-menu #menu="matMenu" xPosition="after" [overlapTrigger]="true">
+        <ng-template matMenuContent>
+            <button mat-menu-item *ngIf="reaper === null" (click)="edit()"><mat-icon>add_circle_outline</mat-icon>Add reaper</button>
+            <button mat-menu-item *ngIf="reaper !== null" (click)="edit()"><mat-icon>edit</mat-icon>Edit reaper</button>
+        </ng-template>
+    </mat-menu>
 </div>
 <div class="reaper-level" *ngIf="reaper !== null" [innerHTML]="reaper.levelLabel"></div>
 <div class="reaper-level" *ngIf="reaper === null">No reaper selected</div>

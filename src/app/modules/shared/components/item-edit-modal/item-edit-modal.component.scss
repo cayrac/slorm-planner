@@ -9,6 +9,7 @@ mat-dialog-content {
 
     .preview {
         max-width: 350px;
+        overflow-y: auto;
 
         @include hide-for('tablet');
     }
@@ -34,8 +35,4 @@ mat-dialog-content {
             min-height: $space-unit * 10;
         }
     }
-}
-
-.shaded {
-    color: rgb(60, 60, 60);
 }

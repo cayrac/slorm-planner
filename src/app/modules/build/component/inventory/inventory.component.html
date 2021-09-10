@@ -89,7 +89,11 @@
             </div>
             <hr/>
             <div class="weapon">
-                <app-reaper-slot [reaper]="character.reaper"></app-reaper-slot>
+                <app-reaper-slot
+                    [reaper]="character.reaper"
+                    [heroClass]="character.heroClass"
+                    (changed)="updateReaper($event)">
+                </app-reaper-slot>
             </div>
             <div class="skills">
                 <app-skill-bar></app-skill-bar>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { strictParseInt } from '../../util/parse.util';
-import { splitData } from '../../util/utils';
+import { splitData, valueOrNull } from '../../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 
 @Injectable()
@@ -9,6 +9,8 @@ export class SlormancerTranslateService {
 
     private readonly REGEXP_REMOVE_GENRE = /(.*)\((MS|MP|FS|FP)\)$/g;
     private readonly REGEXP_KEEP_GENRE = /.*\((MS|MP|FS|FP)\)$/g;
+
+    private readonly TRANSLATION_CACHE: { [key: string]: string } = {};
 
     constructor(private slormancerDataService: SlormancerDataService) { }
 
@@ -45,25 +47,41 @@ export class SlormancerTranslateService {
 
     public translate(key: string, genre: string | null = null): string {
         key = key.startsWith('*') ? key.substr(1) : key;
-        const gameData = this.slormancerDataService.getTranslation(key);
-        const data = this.slormancerDataService.getDataAffixByRef(key);
-        const keyword = this.slormancerDataService.getKeywordName(key);
-        const dataTranslate = this.slormancerDataService.getDataTranslate(key);
         let result = key;
 
-        if (gameData !== null) {
-            result = gameData.EN;
-        } else if (data !== null) {
-            result = data.name;
-        } else if (keyword !== null) {
-            result = keyword;
-        } else if (dataTranslate !== null) {
-            result = dataTranslate;
-        } else if (key.startsWith('victims_reaper_')) {
-            const reaper = this.slormancerDataService.getGameDataReaper(strictParseInt(key.substr(15)));
-            if (reaper !== null) {
-                result = reaper.EN_NAME;
+        const cache = valueOrNull(this.TRANSLATION_CACHE[key]);
+
+        if (cache !== null) {
+            result = cache;
+        } else {
+            const gameData = this.slormancerDataService.getTranslation(key);
+            if (gameData !== null) {
+                result = gameData.EN;
+            } else {
+                const data = this.slormancerDataService.getDataAffixByRef(key);
+                if (data !== null) {
+                    console.log('TRANSLATION used getDataAffixByRef');
+                    result = data.name;
+                } else {
+                    const keyword = this.slormancerDataService.getKeywordName(key);
+                    if (keyword !== null) {
+                        console.log('TRANSLATION used getKeywordName');
+                        result = keyword;
+                    } else {
+                        const dataTranslate = this.slormancerDataService.getDataTranslate(key);
+                        if (dataTranslate !== null) {
+                            result = dataTranslate;
+                        } else if (key.startsWith('victims_reaper_')) {
+                            const reaper = this.slormancerDataService.getGameDataReaper(strictParseInt(key.substr(15)));
+                            if (reaper !== null) {
+                                result = reaper.EN_NAME;
+                            }
+                        }
+                    }
+                }
             }
+
+            this.TRANSLATION_CACHE[key] = result;
         }
 
         if (genre !== null) {

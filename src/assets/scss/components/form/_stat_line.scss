@@ -1,5 +1,5 @@
 form .stat-line {
-    @include flex-row-to-column('small-desktop', stretch, center);
+    @include flex-row-to-column('small-desktop', center, center);
     @include flex-gap($space-unit * 4);
 
     @include respond-to('small-desktop') {
