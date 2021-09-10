@@ -58,7 +58,7 @@ export class ReaperSlotComponent implements OnInit {
                 private slormancerReaperService: SlormancerReaperService,
                 private itemMoveService: itemMoveService) { }
 
-    public ngOnInit() { this.edit() }
+    public ngOnInit() { }
 
     public edit() {
         let reaper = this.reaper;

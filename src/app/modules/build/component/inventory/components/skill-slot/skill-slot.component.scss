@@ -1,5 +1,11 @@
 @import "../../../../../../../assets/scss/abstracts/flex.scss";
 @import "../../../../../../../assets/scss/abstracts/variables.scss";
+@import "../../../../../../../assets/scss/theme/theme";
+@import '~@angular/material/theming';
+
+$theme-primary-pallet: map-get($theme, primary);
+
+$primary-color: mat-color($theme-primary-pallet);
 
 :host {
     min-width: 42px;
@@ -17,6 +23,7 @@
     position: relative;
     background-color: rgb(19, 19, 19);
 
+
     &.support {
         width: 84px;
         min-width: 84px;
@@ -26,6 +33,48 @@
         position: absolute;
         width: 100%;
         height: 100%;
+    }
+
+    .name {
+        text-transform: uppercase;
+    }
+
+    > div {
+        position: absolute;
+        top: -8px;
+        left: 0;
+    }
+}
+
+.skill-menu-entry {
+    @include flex(row, center);
+    @include flex-gap($space-unit* 2);
+
+
+    .skill-icon {
+        border: 4px solid mat-color($theme-primary-pallet, 300);
+    }
+
+    .description {
+        @include flex(column, stretch);
+        .name {
+            line-height: normal;
+            font-weight: bold;
+            text-transform: uppercase;
+        };
+        .mastery {
+            line-height: normal;
+        }
+    }
+
+    &.selected {
+        .skill {
+            border-color: rgb(237, 211, 113);
+        }
+
+        .name {
+            color: rgb(237, 211, 113);
+        }
     }
 }
 

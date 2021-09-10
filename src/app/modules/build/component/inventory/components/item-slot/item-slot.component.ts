@@ -79,7 +79,7 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
     public onMouseUp(event: MouseEvent) {
         if (event.button === 0) {
             if (this.isDragging) {
-                this.itemMoveService.swap(this.item, this.base, (success, item) => this.dragCallback(success, item));
+                this.itemMoveService.swap(this.item, this.base, (success, item) => this.moveCallback(success, item));
             } else {
                 this.edit();
             }
@@ -116,7 +116,7 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
 
     public ngOnInit() { }
 
-    private dragCallback(itemReplaced: boolean, item: EquipableItem | null) {
+    private moveCallback(itemReplaced: boolean, item: EquipableItem | null) {
         if (itemReplaced) {
             this.changed.emit(item);
         }
@@ -149,7 +149,7 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
 
     public take() {
         if (this.item !== null) {
-            this.itemMoveService.hold(this.item, this.base, (success, item) => this.dragCallback(success, item));
+            this.itemMoveService.hold(this.item, this.base, (success, item) => this.moveCallback(success, item));
         }
     }
     
@@ -167,5 +167,17 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
                 this.changed.emit(null);
             }
         });
+    }
+
+    public equip() {
+        if (this.item !== null) {
+            this.itemMoveService.equip(this.item, (success, item) => this.moveCallback(success, item));
+        }
+    }
+
+    public unequip() {
+        if (this.item !== null) {
+            this.itemMoveService.moveToStash(this.item, (success, item) => this.moveCallback(success, item));
+        }
     }
 }

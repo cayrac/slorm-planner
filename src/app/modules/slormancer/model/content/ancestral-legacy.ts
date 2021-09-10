@@ -32,6 +32,7 @@ export interface AncestralLegacy {
     maxRank: number;
     realm: number;
     links: Array<number>;
+    isActivable: boolean;
 
     relatedBuffs: Array<Buff>;
     relatedMechanics: Array<Mechanic>;

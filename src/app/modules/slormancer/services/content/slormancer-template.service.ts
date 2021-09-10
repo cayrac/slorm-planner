@@ -116,7 +116,9 @@ export class SlormancerTemplateService {
                 result = sign + upgrade + ' per Non-Primordial Level';
             } else if (effectValue.upgradeType === EffectValueUpgradeType.RanksAfterInThisTrait) {
                 result = sign + upgrade + ' for every point after this one in this Trait';
-            } else {
+            } else if (effectValue.upgradeType === EffectValueUpgradeType.Reinforcment) {
+                result = base + ' ' + sign + upgrade + ' per reinforcment';
+            }else {
                 result = base + ' ' + upgrade + ' every ' + effectValue.upgradeType;
             }
 
@@ -145,9 +147,11 @@ export class SlormancerTemplateService {
                     template = this.replaceAnchor(template, value, anchor);
                 }
             } else if (isEffectValueSynergy(effectValue)) {
-                const details = typeof effectValue.synergy === 'number' ? '' :  (' ' + this.getEffectValueDetails(effectValue));
+                const details = this.getEffectValueDetails(effectValue);
                 const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent), 'value');
-                template = this.replaceAnchor(template, synergy + details, this.VALUE_ANCHOR);
+                const value = this.asSpan(this.formatValue(effectValue.value, true), 'value');
+                template = this.replaceAnchor(template, synergy, this.VALUE_ANCHOR);
+                template = this.replaceAnchor(template, value + details, this.SYNERGY_ANCHOR);
             }
         }
 

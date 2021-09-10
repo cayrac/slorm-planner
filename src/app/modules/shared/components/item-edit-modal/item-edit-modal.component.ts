@@ -173,7 +173,6 @@ export class ItemEditModalComponent {
 
             this.alreadyUsedStats = item.affixes.map(affix => affix.craftedEffect.effect.stat);
         }
-        console.log(this.item);
     }
 
     private affixToForm(affix: Affix): FormGroup {

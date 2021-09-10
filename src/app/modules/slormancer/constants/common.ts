@@ -6,3 +6,5 @@ export const MAX_RARE_STATS = 1;
 export const MAX_EPIC_STATS = 3;
 
 export const STASH_SIZE = 35;
+
+export const SKILL_MAX_MASTERY = 15;

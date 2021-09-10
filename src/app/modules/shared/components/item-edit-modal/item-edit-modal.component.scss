@@ -8,8 +8,7 @@ mat-dialog-content {
     overflow: auto;
 
     .preview {
-        max-width: 350px;
-        overflow-y: auto;
+        max-width: 370px;
 
         @include hide-for('tablet');
     }

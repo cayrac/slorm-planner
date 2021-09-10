@@ -173,6 +173,7 @@ export class SlormancerAncestralLegacyService {
                 hasNoCost: false,
                 realm: gameData.REALM,
                 links: data === null ? [] : data.links,
+                isActivable: false,
 
                 nextRankDescription: [],
                 maxRankDescription: [],
@@ -210,6 +211,8 @@ export class SlormancerAncestralLegacyService {
         ancestralLegacy.hasLifeCost = ancestralLegacy.costType === SkillCostType.LifePercent || ancestralLegacy.costType === SkillCostType.LifeSecond || ancestralLegacy.costType === SkillCostType.LifeLock || ancestralLegacy.costType === SkillCostType.Life;
         ancestralLegacy.hasManaCost = ancestralLegacy.costType === SkillCostType.ManaPercent || ancestralLegacy.costType === SkillCostType.ManaSecond || ancestralLegacy.costType === SkillCostType.ManaLock || ancestralLegacy.costType === SkillCostType.Mana;
         ancestralLegacy.hasNoCost = ancestralLegacy.costType === SkillCostType.None || ancestralLegacy.cost === 0;
+
+        ancestralLegacy.isActivable = !ancestralLegacy.hasNoCost || ancestralLegacy.baseCooldown !== null;
 
         for (const effectValue of ancestralLegacy.values) {
             this.slormancerEffectValueService.updateEffectValue(effectValue, ancestralLegacy.rank);

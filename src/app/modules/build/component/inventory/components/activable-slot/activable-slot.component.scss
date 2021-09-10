@@ -1,5 +1,11 @@
 @import "../../../../../../../assets/scss/abstracts/flex.scss";
 @import "../../../../../../../assets/scss/abstracts/variables.scss";
+@import "../../../../../../../assets/scss/theme/theme";
+@import '~@angular/material/theming';
+
+$theme-primary-pallet: map-get($theme, primary);
+
+$primary-color: mat-color($theme-primary-pallet);
 
 :host {
     min-width: 42px;
@@ -26,6 +32,38 @@
         position: absolute;
         width: 100%;
         height: 100%;
+    }
+}
+
+.skill-menu-entry {
+    @include flex(row, center);
+    @include flex-gap($space-unit* 2);
+
+    .skill-icon {
+        border: 4px solid mat-color($theme-primary-pallet, 300);
+    }
+
+    .description {
+        @include flex(column, stretch);
+        .name {
+            line-height: normal;
+            font-weight: bold;
+            text-transform: uppercase;
+        };
+        .subtitle {
+            line-height: normal;
+        }
+    }
+
+    &.selected {
+        .skill {
+            border-color: rgb(237, 211, 113);
+            line-height: 0;
+        }
+
+        .name {
+            color: rgb(237, 211, 113);
+        }
     }
 }
 

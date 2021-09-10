@@ -9,4 +9,25 @@
             <app-activable-view *ngIf="isActivable(activable)" [activable]="activable"></app-activable-view>
         </ng-template>
     </ng-container>
+    <div [matMenuTriggerFor]="menu"></div>
+    <mat-menu #menu="matMenu" yPosition="above">
+        <ng-template matMenuContent>
+            <button mat-menu-item (click)="updateActivable(null)">
+                <div class="skill-menu-entry">
+                    <div class="skill"></div>
+                    <div class="description">
+                        <div class="subtitle">Remove activable</div>
+                    </div>
+                </div>
+            </button>
+            <button mat-menu-item *ngFor="let activable of getAvailableActivables()" (click)="updateActivable(activable)">
+                <div class="skill-menu-entry" [class.selected]="isSelectedActivable(activable)">
+                    <img [src]="activable.icon" class="skill">
+                    <div class="description">
+                        <div class="name">{{activable.name}}</div>
+                    </div>
+                </div>
+            </button>
+        </ng-template>
+    </mat-menu>
 </div>

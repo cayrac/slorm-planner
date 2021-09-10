@@ -177,6 +177,7 @@ export class SlormancerLegendaryEffectService {
         legendaryEffect.description = this.slormancerTemplateService.formatLegendaryDescription(legendaryEffect.template, legendaryEffect.effects);
 
         if (legendaryEffect.activable !== null) {
+            legendaryEffect.activable.level = legendaryEffect.reinforcment;
             this.slormanderActivableService.updateActivable(legendaryEffect.activable);
         }
     }

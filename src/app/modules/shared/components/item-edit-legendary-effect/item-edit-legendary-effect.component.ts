@@ -38,7 +38,6 @@ export class ItemEditLegendaryEffectComponent implements OnChanges {
     constructor(private itemFormService: FormOptionsService) { }
 
     public ngOnChanges() {
-        console.log('ItemEditLegendaryEffectComponent ngOnChanges');
         this.options = this.itemFormService.getLegendaryOptions(this.base, this.heroClass);
         if (this.legendaryEffect !== null) {
             this.updateLegendaryValueLabel(this.legendaryEffect.value);

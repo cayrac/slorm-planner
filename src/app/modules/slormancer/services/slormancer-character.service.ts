@@ -179,8 +179,6 @@ export class SlormancerCharacterService {
         const start = new Date().getTime();
         const save = this.slormancerSaveParserService.parseSaveFile(saveContent);
 
-        console.log(save);
-
         const inventory = save.inventory[heroClass];
         const skill_equip = save.skill_equip[heroClass];
         const traits = save.traits[heroClass];

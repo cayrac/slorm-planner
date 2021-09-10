@@ -67,6 +67,19 @@ nav.mat-tab-nav-bar, mat-tab-group.mat-tab-group {
             color: mat-color($theme-primary-pallet);
         }
     }
+    &[color="white"] {
+        $theme-primary-pallet: map-get($theme, primary);
+
+        background-color: mat-color($theme-primary-pallet, 800);
+
+        .mat-tab-label-active::after {
+            background-color: mat-contrast($theme-primary-pallet, 800);
+        }
+
+        .mat-tab-label-content {
+            color: mat-contrast($theme-primary-pallet, 800);
+        }
+    }
     &[color="accent"] {
         $theme-accent-pallet: map-get($theme, accent);
 

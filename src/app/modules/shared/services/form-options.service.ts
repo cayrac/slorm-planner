@@ -37,7 +37,6 @@ export class FormOptionsService {
                 private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerReaperService: SlormancerReaperService
                 ) {
-        console.log('NEW ItemFormService Instance');
         this.initStatOptionsCache();
         this.initLegendaryOptionsCache();
         this.initReaperBuffOptions();
@@ -61,8 +60,6 @@ export class FormOptionsService {
                 result = valueOrDefault(baseStats['S'], []);
             }
         }
-
-        console.log(base, rarity, result);
 
         return result;
     }
@@ -96,7 +93,6 @@ export class FormOptionsService {
 
     private initStatOptionsCache() {
         const stats = this.slormancerDataService.getGameDataStats().filter(stat => stat.PERCENT !== 'X');
-
 
         this.STATS_OPTIONS_CACHE = {};
         this.ALL_STATS_OPTIONS_CACHE = [];
@@ -153,8 +149,6 @@ export class FormOptionsService {
         }
 
         this.ALL_STATS_OPTIONS_CACHE.sort((a, b) => compareString(a.label, b.label));
-
-        console.log(this.STATS_OPTIONS_CACHE);
     }
 
     private initLegendaryOptionsCache() {
