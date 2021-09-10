@@ -18,4 +18,8 @@ $theme-primary-pallet: map-get($theme, primary);
     .mat-menu-item:hover:not([disabled]) {
         background-color: mat-color($theme-primary-pallet, 400);
     }
+    
+    .mat-menu-item-submenu-trigger::after {
+        border-color: transparent transparent transparent mat-contrast($theme-primary-pallet, 900);
+    }
 }

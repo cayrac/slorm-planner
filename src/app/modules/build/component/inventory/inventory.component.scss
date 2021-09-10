@@ -1,7 +1,6 @@
 @import "../../../../../assets/scss/abstracts/flex";
 @import "../../../../../assets/scss/abstracts/variables";
-@import "../../../../../assets/scss/theme/theme";
-@import '~@angular/material/theming';
+@import "../../../../../assets/scss/abstracts/color";
 
 $background-gear: rgb(9,9,9);
 $theme-accent-pallet: map-get($theme, accent);
@@ -45,8 +44,17 @@ main {
                     border: 3px solid rgb(60, 60, 60);
                     padding: $space-unit * 2;
                     background-color: black;
-                    @include flex(column, center, flex-end);
+                    @include flex(column, center, space-between);
 
+                    .actions {
+                        @include flex(row, center, flex-end);
+                        width: 100%;
+
+                        mat-icon {
+                            cursor : pointer;
+                            color: primary-color(300);
+                        }
+                    }
                 }
             }
             .bottom-equipment {

@@ -177,6 +177,10 @@ export class SlormancerItemService {
         return this.getAttributeEnchantment(gameEnchantment.type, gameEnchantment.value);
     }
 
+    public getReaperEnchantmentClone(reaperEnchantment: ReaperEnchantment): ReaperEnchantment {
+        return { ...reaperEnchantment };
+    }
+
     public getReaperEnchantment(smith: ReaperSmith, value: number): ReaperEnchantment {
         return {
             craftedReaperSmith: smith,

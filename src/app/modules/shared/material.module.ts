@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 
 const globalRippleConfig: RippleGlobalOptions = {
@@ -33,7 +34,8 @@ const globalRippleConfig: RippleGlobalOptions = {
         MatSelectModule,
         MatSliderModule,
         MatCheckboxModule,
-        MatMenuModule
+        MatMenuModule,
+        MatSnackBarModule
     ],
     exports: [
         MatTabsModule,
@@ -46,7 +48,8 @@ const globalRippleConfig: RippleGlobalOptions = {
         MatSelectModule,
         MatSliderModule,
         MatCheckboxModule,
-        MatMenuModule
+        MatMenuModule,
+        MatSnackBarModule
     ],
     providers: [
         {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: globalRippleConfig}

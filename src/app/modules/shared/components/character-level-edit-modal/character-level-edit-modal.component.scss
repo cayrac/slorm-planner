@@ -1,0 +1,7 @@
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/variables";
+
+mat-dialog-content {
+    @include flex();
+    @include flex-gap($space-unit * 2);
+}

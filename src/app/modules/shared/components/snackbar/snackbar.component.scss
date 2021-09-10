@@ -1,0 +1,21 @@
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/variables";
+
+.content {
+    padding: $space-unit * 4;
+    @include flex(row, center);
+    @include flex-gap($space-unit * 4);
+
+    img {
+        height: 30px;
+        image-rendering: pixelated;
+    }
+
+    .message {
+        @include flex-grow();
+    }
+
+    mat-icon {
+        cursor : pointer;
+    }
+}

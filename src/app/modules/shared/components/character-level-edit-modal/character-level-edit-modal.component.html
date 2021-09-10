@@ -1,0 +1,14 @@
+
+<form [formGroup]="form" (submit)="submit()" *ngIf="form !== null">
+    <h2 mat-dialog-title>Choose your hero level</h2>
+    <mat-dialog-content>
+        <mat-form-field appearance="outline">
+            <mat-label>Hero level</mat-label>
+            <input matInput type="number" min="1" step="1" [max]="MAX_HERO_LEVEL" formControlName="level">
+            <mat-error>Level must be between 1 and {{MAX_HERO_LEVEL}}</mat-error>
+        </mat-form-field>    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-flat-button type="button" color="primary" [mat-dialog-close]="null">Cancel</button>
+        <button mat-flat-button type="submit" color="primary" >Submit</button>
+    </mat-dialog-actions>
+</form>
