@@ -12,7 +12,7 @@ export interface SnackbarData {
 export class MessageService {
 
     private readonly SNACKBAR_CONFIG: MatSnackBarConfig = {
-        duration: 5000
+        duration: 500000
     }
 
     constructor(private snackBar: MatSnackBar) {

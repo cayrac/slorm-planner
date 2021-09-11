@@ -45,6 +45,12 @@ export class BuildComponent extends AbstractUnsubscribeComponent {
         this.itemMoveService.releaseHoldItem();
     }
 
+    @HostListener('contextmenu')
+    public onMouseContextMenu() {
+        this.itemMoveService.releaseHoldItem();
+        return false;
+    }
+
     constructor(private plannerService: PlannerService,
                 private itemMoveService: itemMoveService) {
         super();

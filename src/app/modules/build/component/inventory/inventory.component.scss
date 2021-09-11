@@ -49,11 +49,6 @@ main {
                     .actions {
                         @include flex(row, center, flex-end);
                         width: 100%;
-
-                        mat-icon {
-                            cursor : pointer;
-                            color: primary-color(300);
-                        }
                     }
                 }
             }

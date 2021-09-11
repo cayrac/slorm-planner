@@ -204,6 +204,10 @@ export class SlormancerItemService {
         }
     }
 
+    public getSkillEnchantmentClone(skillEnchantment: SkillEnchantment): SkillEnchantment {
+        return { ... skillEnchantment };
+    }
+
     public getSkillEnchantment(skillId: number, value: number): SkillEnchantment {
         return {
             craftedSkill: skillId,
@@ -225,6 +229,10 @@ export class SlormancerItemService {
             label: '',
             icon: ''
         };
+    }
+
+    public getAttributeEnchantmentClone(attributeEnchantment: AttributeEnchantment): AttributeEnchantment {
+        return { ...attributeEnchantment };
     }
 
     public getAttributeEnchantment(attribute: Attribute, value: number): AttributeEnchantment {

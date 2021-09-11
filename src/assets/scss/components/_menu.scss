@@ -5,9 +5,9 @@ $theme-primary-pallet: map-get($theme, primary);
 
 .mat-menu-panel[role="menu"] {
 
-    max-width: 320px;
-
     @include mat.elevation(4, mat-color($theme-primary-pallet, 400));
+
+    max-width: 320px;
 
     background-color: mat-color($theme-primary-pallet, 500);
 

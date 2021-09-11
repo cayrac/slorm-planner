@@ -41,27 +41,7 @@
                     </div>
                     <div class="character-preview">
                         <div class="actions">
-                            <mat-icon [matMenuTriggerFor]="menu" (contextmenu)="openCharacterSettings()">settings</mat-icon>
-                            <mat-menu #menu="matMenu" xPosition="after" [overlapTrigger]="true">
-                                <ng-template matMenuContent>
-                                    <button mat-menu-item (click)="editCharacterLevel()">Change hero level</button>
-                                    <button mat-menu-item *ngIf="character.reaper !== null" (click)="optimizeReaperEnchantments()">Optimise Reaper enchantments</button>
-                                    <button mat-menu-item [matMenuTriggerFor]="attributes">Optimise Attribute enchantments</button>
-                                    <button mat-menu-item [matMenuTriggerFor]="skills">Optimise Skill enchantments</button>
-                                </ng-template>
-                                <mat-menu #attributes="matMenu">
-                                    <button mat-menu-item>Fishes</button>
-                                    <button mat-menu-item>Amphibians</button>
-                                    <button mat-menu-item>Reptiles</button>
-                                    <button mat-menu-item>Birds</button>
-                                    <button mat-menu-item>Mammals</button>
-                                </mat-menu>
-                                <mat-menu #skills="matMenu">
-                                    <button mat-menu-item>Primary</button>
-                                    <button mat-menu-item>Secondary</button>
-                                    <button mat-menu-item>Support</button>
-                                </mat-menu>
-                            </mat-menu>
+                            <app-settings-menu></app-settings-menu>
                         </div>
                         <app-character-animation [heroClass]="character.heroClass"></app-character-animation>
                     </div>

@@ -19,6 +19,8 @@
 
 @import "components/form/stat_line";
 
+@import "slormancer/icon";
+
 $theme-primary-pallet: map-get($theme, primary);
 $primary-color: mat-color($theme-primary-pallet);
 

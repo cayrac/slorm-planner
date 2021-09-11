@@ -162,7 +162,7 @@ export class SlormancerAttributeService {
             recapLabel: this.TRAIT_RECAP_ALL_LABEL,
             attributeName: this.slormancerTranslateService.translate('character_trait_' + attribute),
             title: this.TRAIT_RECAP_LABEL,
-            icon: 'attribute/summary/' + attribute,
+            icon: 'assets/img/icon/attribute/' + attribute + '.png',
             summary: '',
         
             template: '',

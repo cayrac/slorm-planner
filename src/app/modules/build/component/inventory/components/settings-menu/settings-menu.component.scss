@@ -1,0 +1,13 @@
+@import "../../../../../../../assets/scss/abstracts/flex";
+@import "../../../../../../../assets/scss/abstracts/variables";
+@import "../../../../../../../assets/scss/abstracts/color";
+
+mat-icon {
+    cursor : pointer;
+    color: primary-color(300);
+}
+
+.menu-entry {
+    @include flex(row, center);
+    @include flex-gap($space-unit* 2);
+}

@@ -1,22 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatMenuTrigger } from '@angular/material/menu';
+import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
 import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
-import {
-    CharacterLevelEditModalComponent,
-} from '../../../shared/components/character-level-edit-modal/character-level-edit-modal.component';
-import { MessageService } from '../../../shared/services/message.service';
 import { PlannerService } from '../../../shared/services/planner.service';
 import { Character } from '../../../slormancer/model/character';
 import { EquipableItemBase } from '../../../slormancer/model/content/enum/equipable-item-base';
 import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
 import { Reaper } from '../../../slormancer/model/content/reaper';
-import { SlormancerItemService } from '../../../slormancer/services/content/slormancer-item.service';
-import { isNotNullOrUndefined } from '../../../slormancer/util/utils';
 import { itemMoveService as ItemMoveService } from './services/item-move.service';
 
 @Component({
@@ -25,9 +17,6 @@ import { itemMoveService as ItemMoveService } from './services/item-move.service
   styleUrls: ['./inventory.component.scss']
 })
 export class InventoryComponent extends AbstractUnsubscribeComponent implements OnInit {
-
-    @ViewChild(MatMenuTrigger)
-    private menu: MatMenuTrigger | null = null; 
 
     public bases = EquipableItemBase;
 
@@ -39,11 +28,8 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
 
     public itemGroupDragDropPossible: boolean = false;
 
-    constructor(private dialog: MatDialog,
-                private messageService: MessageService,
-                private plannerService: PlannerService,
-                private itemMoveService: ItemMoveService,
-                private slormancerItemService: SlormancerItemService) {
+    constructor(private plannerService: PlannerService,
+                private itemMoveService: ItemMoveService) {
         super();
         this.itemMoveService.draggingItem
             .pipe(takeUntil(this.unsubscribe))
@@ -157,50 +143,6 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
             if (stash) {
                 stash[index] = item;
             }
-        }
-    }
-
-    public openCharacterSettings() {
-        if (this.menu) {
-            this.menu.toggleMenu();
-        }
-    }
-
-    public editCharacterLevel() {
-        if (this.character !== null) {
-            this.dialog.open(CharacterLevelEditModalComponent, { data: { level: this.character.level } })
-            .afterClosed().subscribe(level => {
-                if (level && this.character !== null) {
-                    this.character.level = level;
-                }
-            });
-        }
-    }
-    
-    public optimizeReaperEnchantments() {
-        if (this.character !== null && this.character.reaper !== null) {
-            const reaperEnchantment = this.slormancerItemService.getReaperEnchantment(this.character.reaper.smith.id, 5);
-
-            [
-                this.character.gear.amulet,
-                this.character.gear.belt,
-                this.character.gear.body,
-                this.character.gear.boot,
-                this.character.gear.bracer,
-                this.character.gear.cape,
-                this.character.gear.glove,
-                this.character.gear.helm,
-                this.character.gear.ring_l,
-                this.character.gear.ring_r,
-                this.character.gear.shoulder,
-            ].filter(isNotNullOrUndefined)
-            .forEach(item => {
-                item.reaperEnchantment = this.slormancerItemService.getReaperEnchantmentClone(reaperEnchantment);
-                this.slormancerItemService.updateEquippableItem(item);
-            });
-
-            this.messageService.message('All equipped items reaper buff optimized for ' + this.character.reaper.smith.name);
-            
         }
     }
 }

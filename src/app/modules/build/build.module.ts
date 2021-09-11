@@ -16,6 +16,7 @@ import {
 } from './component/inventory/components/character-animation/character-animation.component';
 import { ItemSlotComponent } from './component/inventory/components/item-slot/item-slot.component';
 import { ReaperSlotComponent } from './component/inventory/components/reaper-slot/reaper-slot.component';
+import { SettingsMenuComponent } from './component/inventory/components/settings-menu/settings-menu.component';
 import { SkillBarComponent } from './component/inventory/components/skill-bar/skill-bar.component';
 import { SkillSlotComponent } from './component/inventory/components/skill-slot/skill-slot.component';
 import { InventoryComponent } from './component/inventory/inventory.component';
@@ -34,7 +35,8 @@ import { SkillsComponent } from './component/skills/skills.component';
         ReaperSlotComponent,
         SkillSlotComponent,
         SkillBarComponent,
-        ActivableSlotComponent
+        ActivableSlotComponent,
+        SettingsMenuComponent
     ],
     imports: [
         CommonModule,

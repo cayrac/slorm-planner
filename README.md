@@ -5,8 +5,8 @@ for file in *.png; do convert "$file" -transparent white "../../../src/assets/im
 
 TODO
 
-=> Nom du perso + level + spécialisation
 finir settings character
+=> Nom du perso + level + spécialisation
 recherche avec service recherche
 
 

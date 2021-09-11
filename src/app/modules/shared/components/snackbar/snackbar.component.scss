@@ -12,7 +12,16 @@
     }
 
     .message {
+        @include flex(row, center);
         @include flex-grow();
+
+        ::ng-deep {
+            img {
+                height: $space-unit * 8;
+                image-rendering: pixelated;
+                margin: 0 $space-unit;
+            }
+        }
     }
 
     mat-icon {
