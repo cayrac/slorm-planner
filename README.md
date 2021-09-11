@@ -5,7 +5,19 @@ for file in *.png; do convert "$file" -transparent white "../../../src/assets/im
 
 TODO
 
-=> commencer interface
+=> Nom du perso + level + spécialisation
+finir settings character
+recherche avec service recherche
+
+
+
+
+
+
+
+
+
+
 
 
 => profile à mettre dans planner
