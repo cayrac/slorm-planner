@@ -37,7 +37,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             addConstant(values, 8, false, EffectValueValueType.Duration, 'skill_0_0_duration');
             addConstant(values, 2.5, false, EffectValueValueType.AreaOfEffect, 'skill_0_0_aoe');
         },
-        additionalClassMechanics: []
+        additionalClassMechanics: [],
+        specialization: 219
     },
     1: {
         masteryRequired: null,
@@ -45,7 +46,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setUpgrade(values, 0, 4);
             addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'skill_0_1_aoe');
         },
-        additionalClassMechanics: []
+        additionalClassMechanics: [],
+        specialization: 220
     },
     2: {
         masteryRequired: null,
@@ -53,7 +55,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setUpgrade(values, 0, 2);
             addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_0_2_duration');
         },
-        additionalClassMechanics: []
+        additionalClassMechanics: [],
+        specialization: 221
     },
     3: {
         masteryRequired: null,
@@ -1359,21 +1362,24 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
             setUpgrade(values, 0, 6);
             addConstant(values, 15, false, EffectValueValueType.Duration, 'skill_1_0_duration');
         },
-        additionalClassMechanics: []
+        additionalClassMechanics: [],
+        specialization: 214
     },
     1: {
         masteryRequired: null,
         override: values => {
             addConstant(values, 50, false, EffectValueValueType.Stat, 'skill_1_1_evasion_bonus');
         },
-        additionalClassMechanics: []
+        additionalClassMechanics: [],
+        specialization: 215
     },
     2: {
         masteryRequired: null,
         override: values => {
             addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_1_2_duration');
         },
-        additionalClassMechanics: []
+        additionalClassMechanics: [],
+        specialization: 216
     },
     3: {
         masteryRequired: null,
@@ -2502,7 +2508,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             addConstant(values, 6, false, EffectValueValueType.Duration, 'skill_2_0_slow_duration');
             addConstant(values, -90, false, EffectValueValueType.Flat, 'skill_2_0_projectile_slow');
         },
-        additionalClassMechanics: []
+        additionalClassMechanics: [],
+        specialization: 220
     },
     3: {
         masteryRequired: null,
@@ -2510,7 +2517,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setUpgrade(values, 0, 5);
             setUpgrade(values, 1, 2);
         },
-        additionalClassMechanics: []
+        additionalClassMechanics: [],
+        specialization: 221
     },
     4: {
         masteryRequired: null,
@@ -2519,7 +2527,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setUpgrade(values, 1, 4);
             addConstant(values, 4, false, EffectValueValueType.Flat, 'skill_2_4_tick_per_second');
         },
-        additionalClassMechanics: []
+        additionalClassMechanics: [],
+        specialization: 222
     },
     5: {
         masteryRequired: null,

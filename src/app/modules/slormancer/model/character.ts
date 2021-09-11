@@ -48,6 +48,9 @@ export interface Character {
     heroClass: HeroClass;
     level: number;
 
+    name: string;
+    fullName: string;
+
     reaper: Reaper | null;
 
     ancestralLegacies: CharacterAncestralLegacies;

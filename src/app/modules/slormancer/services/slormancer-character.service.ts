@@ -18,10 +18,13 @@ import { SlormancerDataService } from './content/slormancer-data.service';
 import { SlormancerItemService } from './content/slormancer-item.service';
 import { SlormancerReaperService } from './content/slormancer-reaper.service';
 import { SlormancerSkillService } from './content/slormancer-skill.service';
+import { SlormancerTranslateService } from './content/slormancer-translate.service';
 import { SlormancerSaveParserService } from './parser/slormancer-save-parser.service';
 
 @Injectable()
 export class SlormancerCharacterService {
+
+    private readonly LEVEL_LABEL = this.slormancerTranslateService.translate('level').toLowerCase();
 
     constructor(private slormancerSaveParserService: SlormancerSaveParserService,
                 private slormancerItemservice: SlormancerItemService,
@@ -29,7 +32,8 @@ export class SlormancerCharacterService {
                 private slormancerDataService: SlormancerDataService,
                 private slormancerSkillService: SlormancerSkillService,
                 private slormancerAttributeService: SlormancerAttributeService,
-                private slormancerAncestralLegacyService: SlormancerAncestralLegacyService
+                private slormancerAncestralLegacyService: SlormancerAncestralLegacyService,
+                private slormancerTranslateService: SlormancerTranslateService
         ) { }
 
     private getSkills(save: GameSave, heroClass: HeroClass): Array<CharacterSkillAndPassives> {
@@ -188,6 +192,8 @@ export class SlormancerCharacterService {
         const character: Character = {
             heroClass,
             level: this.getHeroLevel(xp),
+            name: '',
+            fullName: '',
         
             reaper: this.getEquipedReaper(save, heroClass),
         
@@ -234,8 +240,6 @@ export class SlormancerCharacterService {
             activable4: null
         }
 
-        this.updateCharacter(character);
-
         character.primarySkill = this.getSkill(skill_equip.indexOf(2), character);
         character.secondarySkill = this.getSkill(skill_equip.indexOf(3), character);
         character.supportSkill = this.getSkill(skill_equip.indexOf(4), character);
@@ -244,6 +248,8 @@ export class SlormancerCharacterService {
         character.activable3 = this.getActivable(valueOrDefault(auras[2], -1), character);
         character.activable4 = this.getActivable(valueOrDefault(auras[3], -1), character);
 
+        this.updateCharacter(character);
+
         const time = new Date().getTime() - start;
         console.log('Character built from save in ' + time + ' milliseconds');
         return character;
@@ -251,5 +257,13 @@ export class SlormancerCharacterService {
 
     public updateCharacter(character: Character) {
         character.ancestralLegacies.activeAncestralLegacies = this.slormancerDataService.getAncestralSkillIdFromNodes(character.ancestralLegacies.activeNodes);
+
+        character.name = this.slormancerTranslateService.translate('hero_' + character.heroClass);
+        const specialization = character.supportSkill !== null ? character.supportSkill.specializationName : null;
+        let fullName = [character.name, specialization].filter(isNotNullOrUndefined).join(', ');
+        character.fullName = fullName + ' ' + this.LEVEL_LABEL + ' ' + character.level;
+
+        console.log('update character : ', specialization);
+        console.log(character.supportSkill);
     }
 }

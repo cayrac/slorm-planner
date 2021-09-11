@@ -1,7 +1,10 @@
 @import '../abstracts/flex';
+@import '../abstracts/color';
 
 mat-card.mat-card {
     @include flex(column, stretch);
+    background-color: primary-color(800);
+    color: primary-color(800, true);
 
     mat-card-content {
         @include flex-grow();

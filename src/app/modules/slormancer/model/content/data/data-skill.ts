@@ -8,5 +8,6 @@ export interface DataSkill {
     additionalClassMechanics: Array<number>;
     additionalMechanics?: Array<MechanicType>;
     costTypeOverride?: SkillCostType;
+    specialization?: number;
 };
 

@@ -1,4 +1,5 @@
 import { AbstractEffectValue } from './effect-value';
+import { HeroClass } from './enum/hero-class';
 import { SkillCostType } from './enum/skill-cost-type';
 import { SkillGenre } from './enum/skill-genre';
 import { SkillType } from './skill-type';
@@ -6,12 +7,15 @@ import { SkillType } from './skill-type';
 export interface Skill {
     id: number;
     type: SkillType.Active | SkillType.Support;
+    heroClass: HeroClass,
     unlockLevel: number | null;
     level: number;
     maxLevel: number;
     baseLevel: number;
     bonusLevel: number;
     name: string;
+    specialization: number | null;
+    specializationName: string | null;
     icon: string;
     iconLarge: string;
     description: string;

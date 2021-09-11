@@ -1,5 +1,5 @@
 
-<div class="skill" [class.support]="support" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+<div class="skill" [class.support]="support" cdkOverlayOrigin #trigger="cdkOverlayOrigin" (contextmenu)="openMenu()" (click)="openMenu()">
     <ng-container *ngIf="skill !== null">
         <img [src]="support ? skill.iconLarge : skill.icon">
         <ng-template cdkConnectedOverlay
@@ -16,6 +16,7 @@
                     <img [src]="support ? skill.iconLarge : skill.icon" class="skill" [class.support]="support">
                     <div class="description">
                         <div class="name">{{skill.name}}</div>
+                        <div *ngIf="skill.specializationName !== null" class="specialization">{{skill.specializationName}}</div>
                         <div class="mastery">{{MASTERY_LABEL}}: {{skill.level}} / {{SKILL_MAX_MASTERY}}</div>
                     </div>
                 </div>

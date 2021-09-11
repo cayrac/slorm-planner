@@ -57,7 +57,7 @@ $primary-color: mat-color($theme-primary-pallet);
 
     .description {
         @include flex(column, stretch);
-        .name {
+        .name, .specialization {
             line-height: normal;
             font-weight: bold;
             text-transform: uppercase;
@@ -72,7 +72,7 @@ $primary-color: mat-color($theme-primary-pallet);
             border-color: rgb(237, 211, 113);
         }
 
-        .name {
+        .name, .specialization {
             color: rgb(237, 211, 113);
         }
     }

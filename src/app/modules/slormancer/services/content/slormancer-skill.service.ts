@@ -132,12 +132,15 @@ export class SlormancerSkillService {
             skill = {
                 id: gameDataSkill.REF,
                 type: gameDataSkill.TYPE,
+                heroClass,
                 level: 0,
                 unlockLevel: gameDataSkill.UNLOCK_LEVEL,
                 maxLevel: gameDataSkill.UPGRADE_NUMBER,
                 baseLevel: Math.min(gameDataSkill.UPGRADE_NUMBER, this.getSkillLevelFromXp(heroClass, skillId, experience)),
                 bonusLevel,
                 name: gameDataSkill.EN_NAME,
+                specialization: null,
+                specializationName: null,
                 icon: 'assets/img/icon/skill/' + heroClass + '/' + gameDataSkill.REF + '.png',
                 iconLarge: 'assets/img/icon/skill/' + heroClass + '/' + gameDataSkill.REF + '_large.png',
                 description: '',
@@ -162,6 +165,7 @@ export class SlormancerSkillService {
             };
     
             this.applyOverride(skill, dataSkill);
+            skill.specialization = dataSkill === null ? null : valueOrNull(dataSkill.specialization);
     
             this.updateSkill(skill);
         }
@@ -180,6 +184,13 @@ export class SlormancerSkillService {
         
         for (const effectValue of skill.values) {
             this.slormancerEffectValueService.updateEffectValue(effectValue, skill.level);
+        }
+
+        if (skill.specialization !== null) {
+            const specialization = this.slormancerDataService.getGameDataSpecializationSkill(skill.heroClass, skill.specialization);
+            if (specialization !== null) {
+                skill.specializationName = specialization.EN_NAME;
+            }
         }
 
         skill.genresLabel =  null;

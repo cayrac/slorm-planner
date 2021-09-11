@@ -2,7 +2,6 @@
 @import "../../../../../assets/scss/abstracts/variables";
 @import "../../../../../assets/scss/abstracts/color";
 
-$background-gear: rgb(9,9,9);
 $theme-accent-pallet: map-get($theme, accent);
 $theme-warn-pallet: map-get($theme, warn);
 $accent-color: mat-color($theme-accent-pallet);
@@ -14,14 +13,14 @@ main {
     height: 800px;
     min-width: 1000px;
 
-    .gear, .inventory {
-        padding: $space-content;
-        background-color: $background-gear;
-    }
-
     .gear {
         @include flex-grow(1);
         max-width: 500px;
+
+        h3 {
+            text-align: center;
+        }
+
         .equipment {
             @include flex(column, stretch, space-between);
             min-height: 400px;

@@ -11,7 +11,6 @@ import { Character } from '../../../../../slormancer/model/character';
 import { Skill } from '../../../../../slormancer/model/content/skill';
 import { SkillType } from '../../../../../slormancer/model/content/skill-type';
 import { SlormancerTranslateService } from '../../../../../slormancer/services/content/slormancer-translate.service';
-import { itemMoveService } from '../../services/item-move.service';
 
 
 @Component({
@@ -50,18 +49,8 @@ export class SkillSlotComponent extends AbstractUnsubscribeComponent implements 
     public onLeave() {
         this.showOverlay = false;
     }
-
-    @HostListener('contextmenu')
-    public onMouseContextMenu() {
-        this.itemMoveService.releaseHoldItem();
-        if (this.menu !== null) {
-            this.menu.openMenu();
-        }
-        return false;
-    }
     
     constructor(private plannerService: PlannerService,
-                private itemMoveService: itemMoveService,
                 private slormancerTranslateService: SlormancerTranslateService) {
         super();
     }
@@ -96,5 +85,12 @@ export class SkillSlotComponent extends AbstractUnsubscribeComponent implements 
         if (this.skill !== skill) {
             this.changed.emit(skill);
         }
+    }
+
+    public openMenu() {
+        if (this.menu !== null) {
+            this.menu.openMenu();
+        }
+        return false;
     }
 }

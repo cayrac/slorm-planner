@@ -9,6 +9,7 @@ import { Character } from '../../../../../slormancer/model/character';
 import { Activable } from '../../../../../slormancer/model/content/activable';
 import { AncestralLegacy } from '../../../../../slormancer/model/content/ancestral-legacy';
 import { Skill } from '../../../../../slormancer/model/content/skill';
+import { SlormancerCharacterService } from '../../../../../slormancer/services/slormancer-character.service';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
 
     public character: Character | null = null;
 
-    constructor(private plannerService: PlannerService) {
+    constructor(private plannerService: PlannerService,
+                private slormancerCharacterService: SlormancerCharacterService) {
         super();
     }
 
@@ -36,6 +38,7 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
                 this.character.secondarySkill = this.character.primarySkill;
             }
             this.character.primarySkill = skill;
+            this.slormancerCharacterService.updateCharacter(this.character);
         }
     }
 
@@ -45,12 +48,14 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
                 this.character.primarySkill = this.character.secondarySkill;
             }
             this.character.secondarySkill = skill;
+            this.slormancerCharacterService.updateCharacter(this.character);
         }
     }
 
     public updateSupportSkill(skill: Skill) {
         if (this.character !== null && this.character.supportSkill !== skill) {
             this.character.supportSkill = skill;
+            this.slormancerCharacterService.updateCharacter(this.character);
         }
     }
 
@@ -66,6 +71,7 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
                 }
             }
             this.character.activable1 = activable;
+            this.slormancerCharacterService.updateCharacter(this.character);
         }
     }
 
@@ -81,6 +87,7 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
                 }
             }
             this.character.activable2 = activable;
+            this.slormancerCharacterService.updateCharacter(this.character);
         }
     }
 
@@ -96,6 +103,7 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
                 }
             }
             this.character.activable3 = activable;
+            this.slormancerCharacterService.updateCharacter(this.character);
         }
     }
 
@@ -111,6 +119,7 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
                 }
             }
             this.character.activable4 = activable;
+            this.slormancerCharacterService.updateCharacter(this.character);
         }
     }
 }
