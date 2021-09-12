@@ -4,4 +4,9 @@
     height: 34px;
     min-height: 34px;
     border: 4px solid primary-color(600);
+
+    &.support {
+        width: 84px;
+        min-width: 84px;
+    }
 }

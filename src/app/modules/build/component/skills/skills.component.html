@@ -1,1 +1,59 @@
-TODO SKILLS
+<mat-card *ngIf="character !== null">
+    <mat-card-content>
+        <div class="skills">
+            <div class="skill-option" *ngFor="let skill of getSupportSkills(character)" [class.selected]="isSkillSelected(skill)">
+                <img class="skill-icon support"
+                [class.equipped]="isSkillEquipped(skill)"
+                [src]="skill.skill.iconLarge"
+                (click)="selectSkill(skill)" />
+            </div>
+            <div class="skill-option" *ngFor="let skill of getActiveSkills(character)" [class.selected]="isSkillSelected(skill)"> 
+                <img class="skill-icon"
+                [class.equipped]="isSkillEquipped(skill)"
+                [src]="skill.skill.icon"
+                (click)="selectSkill(skill)" />
+            </div>
+        </div>
+        <div class="skill" *ngIf="selectedSkill !== null">
+            <div class="selected-skill">
+                <app-skill-view [skill]="selectedSkill.skill"></app-skill-view>
+                <div class="actions">
+                    <button mat-flat-button color="primary" (click)="equipSupport(selectedSkill)" *ngIf="!isEquippedSupportSkill(selectedSkill) && isSupport(selectedSkill)">
+                        Equip Support
+                    </button>
+                    <button mat-flat-button color="primary" (click)="equipPrimary(selectedSkill)" *ngIf="!isEquippedPrimarySkill(selectedSkill) && !isSupport(selectedSkill)">
+                        Equip Primary
+                    </button>
+                    <button mat-flat-button color="primary" (click)="equipSecondary(selectedSkill)" *ngIf="!isEquippedSecondarySkill(selectedSkill) && !isSupport(selectedSkill)">
+                        Equip Secondary
+                    </button>
+                </div>
+            </div>
+            <div class="slormancer-tooltip upgrades">
+                <div class="inner-box">
+                    <div class="line" *ngFor="let line of selectedSkillLines">
+                        <div class="number">
+                            {{line}}
+                        </div>
+                        <div class="line-upgrades">
+                            <div class="upgrade selection-border" *ngFor="let upgrade of getLineUpgrades(line)"
+                                [class.selected]="upgrade === selectedUpgrade"
+                                [class.passive]="isPassive(upgrade)"
+                                (click)="selectUpgrade(upgrade)">
+                                <div class="equipped-border" [class.equipped]="isUpgradeEquipped(upgrade)">
+                                    <img class="skill-icon" [src]="upgrade.icon" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="selected-upgrade">
+                <app-skill-upgrade-view [upgrade]="selectedUpgrade"></app-skill-upgrade-view>
+                <div class="actions">
+
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

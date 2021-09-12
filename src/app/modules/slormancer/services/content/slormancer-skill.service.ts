@@ -74,7 +74,7 @@ export class SlormancerSkillService {
         return stat === 'physical_damage' || stat === 'elemental_damage' || stat === 'bleed_damage';
     }
 
-    private parseEffectValues(data: GameDataSkill): Array<AbstractEffectValue> {
+    private parseEffectValues(data: GameDataSkill, upgradeType: EffectValueUpgradeType): Array<AbstractEffectValue> {
         const valueBases = splitFloatData(data.DESC_VALUE_BASE);
         const valuePerLevels = splitFloatData(data.DESC_VALUE_PER_LVL);
         const valueTypes = emptyStringToNull(splitData(data.DESC_VALUE_TYPE));
@@ -95,17 +95,17 @@ export class SlormancerSkillService {
             if (stat !== null && this.isDamageStat(stat)) {
                 const damageType = valueOrDefault(damageTypes.splice(0, 1)[0], 'phy');
                 const valueType = damageType === 'phy' ? 'physical_damage' : 'elemental_damage';
-                result.push(effectValueSynergy(value, upgrade, EffectValueUpgradeType.Mastery, false, valueType, EffectValueValueType.Damage));
+                result.push(effectValueSynergy(value, upgrade, upgradeType, false, valueType, EffectValueValueType.Damage));
             } else if (type === null) {
-                result.push(effectValueVariable(value, upgrade, EffectValueUpgradeType.Mastery, percent, stat, EffectValueValueType.Stat));
+                result.push(effectValueVariable(value, upgrade, upgradeType, percent, stat, EffectValueValueType.Stat));
             } else if (type === 'negative') {
-                result.push(effectValueVariable(value, -upgrade, EffectValueUpgradeType.Mastery, percent, stat, EffectValueValueType.Stat));
+                result.push(effectValueVariable(value, -upgrade, upgradeType, percent, stat, EffectValueValueType.Stat));
             } else if (type === 'every_3') {
                 result.push(effectValueVariable(value, upgrade, EffectValueUpgradeType.Every3, percent, stat, EffectValueValueType.Stat));
             } else {
                 const typeValues = splitData(type, ':');
                 const source = <string>typeValues[1];
-                result.push(effectValueSynergy(value, upgrade, EffectValueUpgradeType.Mastery, percent, source, stat));
+                result.push(effectValueSynergy(value, upgrade, upgradeType, percent, source, stat));
             }
         }
         
@@ -156,12 +156,13 @@ export class SlormancerSkillService {
                 genres: <Array<SkillGenre>>splitData(gameDataSkill.GENRE, ','),
                 damageTypes: splitData(gameDataSkill.DMG_TYPE, ','),
 
+                nameLabel: '',
                 genresLabel: null,
                 costLabel: null,
                 cooldownLabel: null,
             
                 template: this.slormancerTemplateService.getSkillDescriptionTemplate(gameDataSkill),
-                values: this.parseEffectValues(gameDataSkill)
+                values: this.parseEffectValues(gameDataSkill, EffectValueUpgradeType.Mastery)
             };
     
             this.applyOverride(skill, dataSkill);
@@ -192,6 +193,7 @@ export class SlormancerSkillService {
                 skill.specializationName = specialization.EN_NAME;
             }
         }
+        skill.nameLabel = [skill.specializationName, skill.name].filter(isNotNullOrUndefined).join('<br/>');
 
         skill.genresLabel =  null;
         if (skill.genres.length > 0) {
@@ -223,18 +225,23 @@ export class SlormancerSkillService {
         let upgrade: SkillUpgrade | null = null;
 
         if (gameDataSkill !== null && (gameDataSkill.TYPE == SkillType.Passive || gameDataSkill.TYPE === SkillType.Upgrade)) {
-            const values = this.parseEffectValues(gameDataSkill);
+            const parentSkill = this.slormancerDataService.getGameDataSkill(heroClass, gameDataSkill.ACTIVE_BOX);
+            const values = this.parseEffectValues(gameDataSkill, EffectValueUpgradeType.UpgradeRank);
+            const masteryRequired = dataSkill === null ? 0 : valueOrDefault(dataSkill.masteryRequired, 0);
+            const line = ((parentSkill !== null && parentSkill.TYPE === SkillType.Support) ? masteryRequired : Math.ceil(masteryRequired / 2))
+
             upgrade = {
                 id: gameDataSkill.REF,
                 skillId: gameDataSkill.ACTIVE_BOX,
-                masteryRequired: dataSkill === null ? null : dataSkill.masteryRequired,
+                masteryRequired,
+                line,
                 type: gameDataSkill.TYPE,
                 rank: 0,
                 upgradeLevel: gameDataSkill.UNLOCK_LEVEL,
                 maxRank: gameDataSkill.UPGRADE_NUMBER,
                 baseRank: Math.min(gameDataSkill.UPGRADE_NUMBER, baseRank),
                 name: gameDataSkill.EN_NAME,
-                icon: 'skill/' + heroClass + '/' + gameDataSkill.REF,
+                icon: 'assets/img/icon/skill/' + heroClass + '/' + gameDataSkill.REF + '.png',
                 description: '',
                 baseCost: gameDataSkill.COST,
                 perLevelCost: gameDataSkill.COST_LEVEL,
@@ -341,7 +348,7 @@ export class SlormancerSkillService {
             this.slormancerEffectValueService.updateEffectValue(effectValue, upgrade.rank);
         }
 
-        if (upgrade.maxRank > 1) {
+        if (upgrade.maxRank > 1 && upgrade.maxRank > upgrade.rank) {
             upgrade.nextRankDescription = this.getNextRankUpgradeDescription(upgrade, Math.min(upgrade.maxRank, upgrade.rank + 1));
             upgrade.maxRankDescription = this.getNextRankUpgradeDescription(upgrade, upgrade.maxRank);
         }
@@ -380,7 +387,7 @@ export class SlormancerSkillService {
                 description: '',
             
                 template: this.slormancerTemplateService.getSkillDescriptionTemplate(gameDataSkill),
-                values: this.parseEffectValues(gameDataSkill)
+                values: this.parseEffectValues(gameDataSkill, EffectValueUpgradeType.UpgradeRank)
             };
 
             this.applyOverride(mechanic, dataSkill);

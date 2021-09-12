@@ -1,5 +1,5 @@
 <div class="skill {{skill.damageTypes.length > 0 ? skill.damageTypes[0] : ''}}" *ngIf="skill !== null">
-    <div class="head">{{skill.name}}</div>
+    <div class="head" [innerHTML]="skill.nameLabel"></div>
     <div class="content">
         <div class="info">
             <div class="visual">
@@ -15,7 +15,7 @@
         </div>
         <div class="separator"></div>
         <div class="description" [innerHTML]="skill.description"></div>
-        <div class="level">
+        <div class="level-info">
             <div class="total">
                 <span class="base" [class.max]="skill.baseLevel === skill.maxLevel">{{skill.baseLevel}}</span>
                 <span class="bonus" *ngIf="skill.bonusLevel > 0"> + {{skill.bonusLevel}}</span>

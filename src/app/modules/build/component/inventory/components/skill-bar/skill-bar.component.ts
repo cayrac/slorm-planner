@@ -33,29 +33,20 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
     }
 
     public updatePrimarySkill(skill: Skill) {
-        if (this.character !== null && this.character.primarySkill !== skill) {
-            if (this.character.secondarySkill === skill) {
-                this.character.secondarySkill = this.character.primarySkill;
-            }
-            this.character.primarySkill = skill;
-            this.slormancerCharacterService.updateCharacter(this.character);
+        if (this.character !== null) {
+            this.slormancerCharacterService.setPrimarySkill(this.character, skill)
         }
     }
 
     public updateSecondarySkill(skill: Skill) {
-        if (this.character !== null && this.character.secondarySkill !== skill) {
-            if (this.character.primarySkill === skill) {
-                this.character.primarySkill = this.character.secondarySkill;
-            }
-            this.character.secondarySkill = skill;
-            this.slormancerCharacterService.updateCharacter(this.character);
+        if (this.character !== null) {
+            this.slormancerCharacterService.setSecondarySkill(this.character, skill)
         }
     }
 
     public updateSupportSkill(skill: Skill) {
-        if (this.character !== null && this.character.supportSkill !== skill) {
-            this.character.supportSkill = skill;
-            this.slormancerCharacterService.updateCharacter(this.character);
+        if (this.character !== null) {
+            this.slormancerCharacterService.setSupportSkill(this.character, skill)
         }
     }
 

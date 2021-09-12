@@ -31,6 +31,7 @@ export interface Skill {
     genres: Array<SkillGenre>;
     damageTypes: Array<string>;
 
+    nameLabel: string;
     genresLabel: string | null;
     costLabel: string | null;
     cooldownLabel: string | null;

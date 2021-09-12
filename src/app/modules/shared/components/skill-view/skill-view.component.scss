@@ -1,3 +1,4 @@
+@import "../../../../../assets/scss/abstracts/flex";
 
 $skill-bg          : rgb(21,20,18);
 $skill-border-color: rgb(60, 57, 49);
@@ -49,6 +50,7 @@ $bravery-color         : rgb(191, 60, 89);
     display: flex;
     flex-direction: column;
     max-width: 400px;
+    height: 100%;
       
     &::ng-deep {
         .value, .rank .current {
@@ -91,6 +93,7 @@ $bravery-color         : rgb(191, 60, 89);
         }
 
         &.content {
+            @include flex-grow();
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -143,14 +146,12 @@ $bravery-color         : rgb(191, 60, 89);
                 margin: 0 45px;
             }
 
-            .description {
-                flex-grow: 1;
-            }
-
-            .level {
+            .level-info {
                 display: flex;
-                flex-direction: row;
-                justify-content: space-around;
+                flex-direction: column;
+                justify-content: flex-end;
+                align-items: center;
+                flex-grow: 1;
                 .total {
                     padding: 0 5px;
                     background-color: $skill-level-bg-color;

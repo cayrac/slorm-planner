@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HeroClass } from '..//model/content/enum/hero-class';
 import { STASH_SIZE } from '../constants/common';
-import { Character, CharacterSkillAndPassives } from '../model/character';
+import { Character, CharacterSkillAndUpgrades } from '../model/character';
 import { Activable } from '../model/content/activable';
 import { AncestralLegacy } from '../model/content/ancestral-legacy';
 import { Attribute } from '../model/content/enum/attribute';
@@ -34,20 +34,20 @@ export class SlormancerCharacterService {
                 private slormancerTranslateService: SlormancerTranslateService
         ) { }
 
-    private getSkills(save: GameSave, heroClass: HeroClass): Array<CharacterSkillAndPassives> {
+    private getSkills(save: GameSave, heroClass: HeroClass): Array<CharacterSkillAndUpgrades> {
         const skill_equip = save.skill_equip[heroClass];
         const skill_rank = save.skill_rank[heroClass];
 
         return this.slormancerDataService.getGameDataActiveSkills(heroClass).map(gameData => {
             const skill = this.slormancerSkillService.getHeroSkill(gameData.REF, heroClass, valueOrDefault(skill_rank[gameData.REF], 0));
-            const passives = this.slormancerDataService.getGameDataUpgradeIdsForSkill(gameData.REF, heroClass)
+            const upgrades = this.slormancerDataService.getGameDataUpgradeIdsForSkill(gameData.REF, heroClass)
                 .map(passiveId => this.slormancerSkillService.getUpgrade(passiveId, heroClass, valueOrDefault(skill_rank[gameData.REF], 0)))
                 .filter(isNotNullOrUndefined);
 
             return skill === null ? null : {
                 skill,
-                passives,
-                selectedPassives: passives.map(passive => passive.id).filter(id => skill_equip[id] === 1)
+                upgrades,
+                selectedUpgrades: upgrades.map(passive => passive.id).filter(id => skill_equip[id] === 1)
             }
         }).filter(isNotNullOrUndefined);
     }
@@ -262,5 +262,33 @@ export class SlormancerCharacterService {
 
         console.log('update character : ', specialization);
         console.log(character.supportSkill);
+    }
+
+    public setPrimarySkill(character: Character, skill: Skill) {
+        if (character.primarySkill !== skill) {
+            if (character.secondarySkill === skill) {
+                character.secondarySkill = character.primarySkill;
+            }
+            character.primarySkill = skill;
+
+            this.updateCharacter(character);
+        }
+    }
+
+    public setSecondarySkill(character: Character, skill: Skill) {
+        if (character.secondarySkill !== skill) {
+            if (character.primarySkill === skill) {
+                character.primarySkill = character.secondarySkill;
+            }
+            character.secondarySkill = skill;
+            this.updateCharacter(character);
+        }
+    }
+
+    public setSupportSkill(character: Character, skill: Skill) {
+        if (character.supportSkill !== skill) {
+            character.supportSkill = skill;
+            this.updateCharacter(character);
+        }
     }
 }

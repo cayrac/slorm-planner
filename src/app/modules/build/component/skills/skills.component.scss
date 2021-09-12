@@ -1,110 +1,163 @@
-.content {
-    width: 100%;
-    height: 100%;
-    max-height: 900px;
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/variables";
+@import "../../../../../assets/scss/abstracts/color";
+
+.skills {
+    @include flex(row);
+    @include flex-gap($space-unit * 2);
+    height: $space-content * 3;
+
+    .skill-option {
+        transition: padding-top .1s linear;
+        padding-top: 0;
+
+        &.selected {
+            padding-top: $space-unit * 2;
+        }
+
+        img {
+            border-color: primary-color(300);
+            cursor: pointer;
     
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-
-    .upload {
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+            &.equipped {
+                border-color: #edd371;
+            }
+        }
     }
+}
 
-    .test {
-        display: flex;
-        flex-direction: column;
-        padding: 10px;
+.skill {
+    @include flex(row, stretch);
+    @include flex-gap($space-content);
+    @include flex-grow($space-content);
 
-        .row {
-            display: flex;
-            flex-direction: row;
-            height: 25px;
-            line-height: 25px;
-            border-bottom: 1px solid gray;
-            > * {
-                flex-basis: 0;
-                flex-grow: 1;
-            }
+    .slormancer-tooltip {
+        @include flex(column, stretch);
+        background-color: primary-color(500);
+        position: relative;
+        border: 3px solid black;
 
-            .notsame {
-                color: red;
-            }
-            .same {
-                color: green;
+
+        &:before {
+            content: ' ';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 3px solid primary-color(400);
+        }
+
+        .inner-box {
+            @include flex-grow();
+            border: 3px solid primary-color(400);
+            position: relative;
+
+            padding: $space-unit * 2;
+
+            &:before {
+                content: ' ';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border: 3px solid black;
             }
         }
     }
 
-    .save {
-        width: 100%;
-        height: 100%;
+    .selected-upgrade, .selected-skill {
+        @include flex(column, stretch);
+        @include flex-gap($space-unit * 4);
+        min-width: 350px;
+        width: 350px;
 
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: stretch;
+            app-skill-view, app-skill-upgrade-view {
+            @include flex-grow();
+        }
 
-        .item {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
+        .actions {
+            @include flex(row, flex-end);
+            @include flex-gap($space-unit * 2);
+            height: 36px;
+        }
 
+    }
 
-            .json {
-                flex-grow: 1;
-                max-width: 50%;
-                max-height: 750px;
+    .upgrades > .inner-box {
+        @include flex(column, stretch);
+        @include flex-gap($space-unit * 3);
+        height: 550px;
+
+        .line {
+            @include flex(row, center);
+
+            .number {
+                @include flex(row, center, center);
+                position: relative;
+                width: $space-unit * 7;
+                height: $space-unit * 7;
+                border: 2px solid black;
+                border-radius: $space-unit * 3.5 + 3;
+                
+                &:before {
+                    content: ' ';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    border: 2px solid primary-color(400);
+                    border-radius: $space-unit * 3.5 + 1;
+                }
             }
-            .parsed {
-                flex-grow: 1;
 
-                input {
+            .line-upgrades {
+                @include flex(row, center);
+                @include flex-gap($space-unit * 3);
+                position: relative;
+                padding-left: $space-unit * 5;
+
+                &:before {
+                    content: ' ';
+                    position: absolute;
+                    left: -2px;
+                    right: 1px;
+                    height: 2px;
                     width: 100%;
+                    background-color: primary-color(400);
+                    border: 2px solid black;
+                    border-left: 0;
+                    border-right: 0;
                 }
 
-                .chart {
-                    width: 100%;
-                    height: 350px;
-                }
-
-                .row {
-                    display: flex;
-                    flex-direction: row;
-                    border-bottom: 1px solid black;
-                    height: 40px;
-                    align-items: center;
-
-                    .same {
-                        color: green;
+                .upgrade.selection-border {
+                    border: 3px solid transparent;
+                    z-index: 1;
+    
+                    &.selected {
+                        border-color: rgb(132, 30, 6);
                     }
 
-                    > * {
-                        flex-grow: 1;
-                        flex-basis: 0;
+                    .equipped-border {
+                        width: 40px;
+                        height: 40px;
+                        cursor: pointer;
+                        position: relative;
+                        border: 3px solid black;
+                        padding: 3px;
+                        background-color: primary-color(400);
+                        &.equipped {
+                            background-color: #edd371;
+                        }
+    
+                        img {
+                            border: 3px solid black;
+    
+                        }
                     }
                 }
-            }
-            .json, .parsed {
-                flex-basis: 0;
-                padding: 10px;
-        
-                app-json {
-                    overflow: hidden;
-                    width: 100%;
-                    overflow: auto;
-                }
-            }
-
-            .legendary-data {
-                display: flex;
-                flex-direction: row;
             }
         }
     }

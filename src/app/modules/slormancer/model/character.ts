@@ -7,10 +7,10 @@ import { Reaper } from './content/reaper';
 import { Skill } from './content/skill';
 import { SkillUpgrade } from './content/skill-upgrade';
 
-export interface CharacterSkillAndPassives {
+export interface CharacterSkillAndUpgrades {
     skill: Skill;
-    passives: Array<SkillUpgrade>;
-    selectedPassives: Array<number>;
+    upgrades: Array<SkillUpgrade>;
+    selectedUpgrades: Array<number>;
 }
 
 export interface CharacterAncestralLegacies {
@@ -54,7 +54,7 @@ export interface Character {
     reaper: Reaper | null;
 
     ancestralLegacies: CharacterAncestralLegacies;
-    skills: Array<CharacterSkillAndPassives>;
+    skills: Array<CharacterSkillAndUpgrades>;
 
     gear: CharacterGear;
     inventory: Array<EquipableItem | null>;

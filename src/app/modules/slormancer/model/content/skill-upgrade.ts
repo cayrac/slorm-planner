@@ -9,7 +9,8 @@ import { SkillType } from './skill-type';
 export interface SkillUpgrade {
     id: number;
     skillId: number;
-    masteryRequired: number | null;
+    masteryRequired: number;
+    line: number;
     type: SkillType.Passive | SkillType.Upgrade;
     upgradeLevel: number | null;
     rank: number;
