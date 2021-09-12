@@ -1,7 +1,7 @@
 <main *ngIf="character !== null">
     <mat-card class="gear">
+        <h3>{{character.fullName}}</h3>
         <mat-card-content>
-            <h3>{{character.fullName}}</h3>
             <div class="equipment">
                 <div class="top-equipment">
                     <app-item-slot class="helm"

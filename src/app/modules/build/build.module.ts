@@ -10,6 +10,7 @@ import { SlormancerModule } from '../slormancer';
 import { BuildRoutingModule } from './build-routing.module';
 import { BuildComponent } from './build.component';
 import { AncestralLegaciesComponent } from './component/ancestral-legacies/ancestral-legacies.component';
+import { BuildHeaderComponent } from './component/build-header/build-header.component';
 import { ActivableSlotComponent } from './component/inventory/components/activable-slot/activable-slot.component';
 import {
     CharacterAnimationComponent,
@@ -36,7 +37,8 @@ import { SkillsComponent } from './component/skills/skills.component';
         SkillSlotComponent,
         SkillBarComponent,
         ActivableSlotComponent,
-        SettingsMenuComponent
+        SettingsMenuComponent,
+        BuildHeaderComponent
     ],
     imports: [
         CommonModule,

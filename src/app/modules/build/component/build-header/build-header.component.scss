@@ -1,0 +1,9 @@
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/spacing";
+
+
+mat-card-content {
+    @include flex(row, center, space-between);
+    padding: 0 $space-unit;
+
+}

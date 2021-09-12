@@ -93,13 +93,15 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
     public optimizeReaperEnchantments() {
         if (this.character !== null && this.character.reaper !== null) {
             const reaperEnchantment = this.slormancerItemService.getReaperEnchantment(this.character.reaper.smith.id, 5);
+            let icon = '';
 
             this.getGearItems().forEach(item => {
                 item.reaperEnchantment = this.slormancerItemService.getReaperEnchantmentClone(reaperEnchantment);
                 this.slormancerItemService.updateEquippableItem(item);
+                icon = item.reaperEnchantment.icon;
             });
 
-            this.messageService.message('All equipped items optimized for ' + this.character.reaper.smith.name);
+            this.messageService.message('All equipped items optimized for <img src="' + icon + '"> ' + this.character.reaper.smith.name);
             
         }
     }
@@ -126,7 +128,7 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
                 icon = item.attributeEnchantment.icon;
             });
 
-            this.messageService.message('All equipped items optimized for <img src="' + icon + '">' + traits.attributeName);
+            this.messageService.message('All equipped items optimized for <img src="' + icon + '"> ' + traits.attributeName);
             
         }
     }

@@ -60,6 +60,7 @@ import { PlannerService } from './services/planner.service';
     ],
     exports: [
         MaterialModule,
+        ReactiveFormsModule,
         ItemViewComponent,
         ReaperViewComponent,
         ActivableViewComponent,

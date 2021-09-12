@@ -29,8 +29,14 @@
 }
 
 .content {
+    @include flex(column, stretch);
     @include flex-grow();
     @include spacing();
+
+    app-build-header {
+        margin-bottom: $space-content;
+    }
+
 }
 
 #drag-image, #drag-background {
