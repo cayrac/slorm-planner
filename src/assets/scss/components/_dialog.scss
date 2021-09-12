@@ -1,7 +1,8 @@
 @import '../abstracts/flex';
 
 mat-dialog-container {
-    background-color: white;
+    background-color: primary-color(500);
+    color: primary-color(500, true);
 
     @include respond-to('mobile') {
         position: fixed;

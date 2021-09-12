@@ -1,0 +1,20 @@
+button.mat-button-base {
+
+    &[color="primary"] {
+        &[mat-flat-button] {
+            background-color: primary-color(100);
+            color: primary-color(100, true);
+        }
+        &[mat-icon-button] {
+            width: auto;
+            height: auto;
+            line-height: auto;
+
+            &[disabled] {
+                color: primary-color(300);
+            }
+            color: primary-color(100);
+        }
+    }
+
+}

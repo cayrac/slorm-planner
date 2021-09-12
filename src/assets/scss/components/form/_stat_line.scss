@@ -21,6 +21,7 @@ form .stat-line {
 
     .additional {
         @include flex(row, center, space-between);
+        @include flex-gap($space-unit * 2);
         min-width: 170px;
 
         .value {

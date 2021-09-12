@@ -1,10 +1,16 @@
-$color-main: black;
-$color-field-disabled: rgb(100, 100, 100);
+$text-color: primary-color(700, true);
+$background-color: primary-color(700);
+
+$border-color: primary-color(200);
 
 mat-form-field.mat-form-field {
     font: 14px FiraSans, sans-serif;
-    margin-bottom: 16px;
+    // margin-bottom: 16px;
     line-height: 14px;
+
+    mat-label {
+        color: primary-color(100);
+    }
 
     .mat-form-field-wrapper {
         .mat-form-field-flex {
@@ -16,11 +22,11 @@ mat-form-field.mat-form-field {
 
                 input {
                     padding: 0 6px;
-                    color: $color-main;
+                    color: $text-color;
                     height: initial;
 
                     &::placeholder {
-                        color: $color-main;
+                        color: $text-color;
                     }
 
                     &[type=number]::-webkit-inner-spin-button,
@@ -46,7 +52,7 @@ mat-form-field.mat-form-field {
 
         &.mat-form-field-disabled {
             .mat-form-field-outline {
-                color: rgba(0,0,0,.04);
+                color: $text-color;
             }
         }
 
@@ -55,13 +61,13 @@ mat-form-field.mat-form-field {
         }
 
         .mat-form-field-outline {
-            color: rgb(60, 60, 60);
-            background-color: #fff;
+            color: $border-color;
+            background-color: none;
             border-radius: 4px;
         }
 
         .mat-form-field-outline.mat-form-field-outline-thick {
-            color: rgb(60, 60, 60);
+            color: $border-color;
         }
 
         .mat-form-field-infix {
@@ -85,16 +91,6 @@ mat-form-field.mat-form-field {
 
         &.mat-form-field-invalid {
             margin-bottom: 0;
-        }
-    }
-
-    &.mat-form-field-disabled {
-        .mat-form-field-wrapper {
-            .mat-form-field-infix {
-                input {
-                    color: $color-field-disabled;
-                }
-            }
         }
     }
 }

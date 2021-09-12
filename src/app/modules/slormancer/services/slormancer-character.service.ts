@@ -19,15 +19,13 @@ import { SlormancerItemService } from './content/slormancer-item.service';
 import { SlormancerReaperService } from './content/slormancer-reaper.service';
 import { SlormancerSkillService } from './content/slormancer-skill.service';
 import { SlormancerTranslateService } from './content/slormancer-translate.service';
-import { SlormancerSaveParserService } from './parser/slormancer-save-parser.service';
 
 @Injectable()
 export class SlormancerCharacterService {
 
     private readonly LEVEL_LABEL = this.slormancerTranslateService.translate('level').toLowerCase();
 
-    constructor(private slormancerSaveParserService: SlormancerSaveParserService,
-                private slormancerItemservice: SlormancerItemService,
+    constructor(private slormancerItemservice: SlormancerItemService,
                 private slormancerReaperService: SlormancerReaperService,
                 private slormancerDataService: SlormancerDataService,
                 private slormancerSkillService: SlormancerSkillService,
@@ -179,9 +177,8 @@ export class SlormancerCharacterService {
         return result;
     }
     
-    public getCharacterFromSave(saveContent: string, heroClass: HeroClass): Character {
+    public getCharacterFromSave(save: GameSave, heroClass: HeroClass): Character {
         const start = new Date().getTime();
-        const save = this.slormancerSaveParserService.parseSaveFile(saveContent);
 
         const inventory = save.inventory[heroClass];
         const skill_equip = save.skill_equip[heroClass];

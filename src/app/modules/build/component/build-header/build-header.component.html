@@ -1,10 +1,18 @@
-<mat-card *ngIf="character !== null">
+
+<input autocomplete="false" name="hidden" type="text" style="display:none;">
+<mat-card>
     <mat-card-content>
-        <h3>{{character.fullName}}</h3> Régler hauteur
-        <input autocomplete="false" name="hidden" type="text" style="display:none;">
-        <mat-form-field appearance="outline" [formControl]="searchControl" class="no-error-padding">
+        <mat-form-field appearance="outline" color="primary" class="layer no-error-padding">
+            <mat-label>Current layer</mat-label>
+            <mat-select color="primary" [formControl]="layerControl">
+                <mat-option [value]="option.value" *ngFor="let option of layerOptions">
+                    {{option.label}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" color="primary" class="no-error-padding">
             <mat-label>Search</mat-label>
-            <input matInput type="text" autocomplete="off"/>
+            <input matInput type="text" [formControl]="searchControl" autocomplete="off"/>
         </mat-form-field>
     </mat-card-content>
 </mat-card>

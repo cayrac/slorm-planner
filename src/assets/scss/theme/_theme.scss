@@ -1,13 +1,11 @@
 @use '~@angular/material' as mat;
 
-@include mat.core();
-
 $pallet-primary: (
     50: #e2e2e2,
     100: #b7b7b7,
-    200: #888888,
-    300: #585858,
-    400: #343434,
+    200: #505050,
+    300: #353535,
+    400: #202020,
     500: #101010,
     600: #0e0e0e,
     700: #0c0c0c,
@@ -18,20 +16,20 @@ $pallet-primary: (
     A400: #e70000,
     A700: #ce0000,
     contrast: (
-        50 : #ffffff,
-        100 : #ffffff,
+        50 : #000000,
+        100 : #000000,
         200 : #ffffff,
         300 : #ffffff,
         400 : #ffffff,
-        500 : #ffffff,
-        600 : #ffffff,
-        700 : #ffffff,
-        800 : #ffffff,
-        900 : #ffffff,
-        A100 : #ffffff,
-        A200 : #ffffff,
-        A400 : #ffffff,
-        A700 : #ffffff,
+        500 : #d0d0d0,
+        600 : #d0d0d0,
+        700 : #d0d0d0,
+        800 : #d0d0d0,
+        900 : #d0d0d0,
+        A100 : #d0d0d0,
+        A200 : #d0d0d0,
+        A400 : #d0d0d0,
+        A700 : #d0d0d0,
     )
 );
 

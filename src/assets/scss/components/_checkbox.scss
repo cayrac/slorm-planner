@@ -1,0 +1,18 @@
+mat-checkbox.mat-checkbox {
+
+    &[color="primary"] {
+        .mat-checkbox-frame {
+            border-color: primary-color(100);
+        }
+
+        &.mat-checkbox-checked {
+            .mat-checkbox-background {
+                background-color: primary-color(100);
+
+                .mat-checkbox-checkmark path {
+                    stroke: primary-color(100, true) !important;
+                }
+            }
+        }
+    }
+}

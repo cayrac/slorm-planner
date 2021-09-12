@@ -3,72 +3,80 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { Character } from '../../slormancer/model/character';
-import { Activable } from '../../slormancer/model/content/activable';
-import { AncestralLegacy } from '../../slormancer/model/content/ancestral-legacy';
 import { HeroClass } from '../../slormancer/model/content/enum/hero-class';
+import { GameSave } from '../../slormancer/model/parser/game/game-save';
+import { SlormancerSaveParserService } from '../../slormancer/services/parser/slormancer-save-parser.service';
 import { SlormancerCharacterService } from '../../slormancer/services/slormancer-character.service';
-import { compare, isFirst, isNotNullOrUndefined } from '../../slormancer/util/utils';
+import { Layer } from '../model/layer';
+import { Planner } from '../model/planner';
 
 @Injectable()
 export class PlannerService {
 
-    private character: Character | null = null;
+    private planner: Planner | null = null;
 
-    public readonly characterChanged: BehaviorSubject<Character | null>;
+    private selectedLayerIndex: number = -1;
+
+    public readonly characterChanged = new BehaviorSubject<Character | null>(null);
+
+    public readonly layersChanged = new BehaviorSubject<Array<Layer>>([]);
+
+    public readonly selectedLayerIndexChanged = new BehaviorSubject<number>(this.selectedLayerIndex);
 
     constructor(private slormancerCharacterService: SlormancerCharacterService,
-                private httpClient: HttpClient
-        ) {
-            console.log('NEW PlannerService Instance')
-
-        this.characterChanged = new BehaviorSubject<Character | null>(this.character);
+                private slormancerSaveParserService: SlormancerSaveParserService,
+                private httpClient: HttpClient) {
+        console.log('NEW PlannerService Instance');
         
         this.httpClient.get('assets/save', { responseType: 'text' })
         .subscribe(save => this.loadSave(save, HeroClass.Huntress));
     }
 
-    public loadSave(save: string, heroclass: HeroClass) {
-        this.character = this.slormancerCharacterService.getCharacterFromSave(save, heroclass);
-        console.log(this.character);
-        this.characterChanged.next(this.character);
+    private initPlanner(heroClass: HeroClass) {
+        this.planner = { heroClass, layers: [] };
+        this.layersChanged.next(this.planner.layers);
     }
 
-    public getAvailableActivables(): Array<Activable | AncestralLegacy> {
-        let result: Array<Activable | AncestralLegacy> = [];
+    public setLayer(index: number) {
+        if (this.planner !== null) {
+            const newIndex = Math.min(this.planner.layers.length - 1, index);
 
-        const character = this.character;
-        if (character !== null) {
-            const legendaryActivables = [
-                character.gear.amulet,
-                character.gear.belt,
-                character.gear.body,
-                character.gear.boot,
-                character.gear.bracer,
-                character.gear.cape,
-                character.gear.glove,
-                character.gear.helm,
-                character.gear.ring_l,
-                character.gear.ring_r,
-                character.gear.shoulder
-                ]
-                .map(item => item !== null && item.legendaryEffect !== null ? item.legendaryEffect.activable : null)
-                .filter(isNotNullOrUndefined)
-                .sort((a, b) => -compare(a.level, b.level))
-                .filter((value, index, values) => isFirst(value, index, values, (a, b) => a.id === b.id));
-            const reaperActivables = character.reaper === null ? [] : character.reaper.activables;
-            const ancestralLegacies = character.ancestralLegacies.activeAncestralLegacies
-                .map(ancestralLegacy => character.ancestralLegacies.ancestralLegacies[ancestralLegacy])
-                .filter(isNotNullOrUndefined)
-                .filter(ancestralLegacy => ancestralLegacy.isActivable);
-
-            result = [
-                ...legendaryActivables,
-                ...reaperActivables,
-                ...ancestralLegacies
-            ];
-
+            if (newIndex !== this.selectedLayerIndex) {
+                this.selectedLayerIndex = newIndex;
+                const layer = this.planner.layers[this.selectedLayerIndex];
+    
+                this.selectedLayerIndexChanged.next(this.selectedLayerIndex);
+                this.characterChanged.next(layer ? layer.character : null);
+            }
         }
+    }
 
-        return result;
+    public getSelectedLayerIndex(): number {
+        return this.selectedLayerIndex;
+    }
+
+    public getLayers(): Array<Layer> {
+        return this.planner === null ? [] : this.planner.layers;
+    }
+
+    public addLayerFromSave(save: GameSave) {
+        if (this.planner !== null) {
+            const character = this.slormancerCharacterService.getCharacterFromSave(save, this.planner.heroClass);
+            const name = 'Layer ' + (this.planner.layers.length + 1);
+
+            this.planner.layers.push({ name, character });
+            this.layersChanged.next(this.planner.layers);
+            
+            this.setLayer(this.planner.layers.length - 1);
+        }
+    }
+
+    public loadSave(saveContent: string, heroClass: HeroClass) {
+        const save = this.slormancerSaveParserService.parseSaveFile(saveContent);
+        
+        this.initPlanner(heroClass);
+        this.addLayerFromSave(save);
+
+        console.log(this.planner);
     }
 }

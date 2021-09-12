@@ -1,5 +1,3 @@
-@import '~@angular/material/theming';
-
 nav.mat-tab-nav-bar, mat-tab-group.mat-tab-group {
     border-bottom: 0;
 
@@ -60,35 +58,32 @@ nav.mat-tab-nav-bar, mat-tab-group.mat-tab-group {
         $theme-primary-pallet: map-get($theme, primary);
 
         .mat-tab-label-active::after {
-            background-color: mat-color($theme-primary-pallet);
+            background-color: primary-color(700);
         }
 
         .mat-tab-label-content {
-            color: mat-color($theme-primary-pallet);
+            color: primary-color(700, true);
         }
     }
     &[color="white"] {
-        $theme-primary-pallet: map-get($theme, primary);
-
-        background-color: mat-color($theme-primary-pallet, 800);
+        background-color: primary-color(700);
 
         .mat-tab-label-active::after {
-            background-color: mat-contrast($theme-primary-pallet, 800);
+            background-color: primary-color(700, true);
         }
 
         .mat-tab-label-content {
-            color: mat-contrast($theme-primary-pallet, 800);
+            color: primary-color(700, true);
         }
     }
     &[color="accent"] {
-        $theme-accent-pallet: map-get($theme, accent);
 
         .mat-tab-label-active::after {
-            background-color: mat-color($theme-accent-pallet);
+            background-color: accent-color(700);
         }
 
         .mat-tab-label-content {
-            color: mat-color($theme-accent-pallet);
+            color: accent-color(700, true);
         }
     }
 }

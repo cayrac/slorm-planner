@@ -9,7 +9,6 @@
 .header {
     @include flex(row, center);
     @include flex-gap($space-content);
-    width: 100%;
 
     .tools {
         // hauteur nav
@@ -32,6 +31,7 @@
     @include flex(column, stretch);
     @include flex-grow();
     @include spacing();
+    overflow: auto;
 
     app-build-header {
         margin-bottom: $space-content;

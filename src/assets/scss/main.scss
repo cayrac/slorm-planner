@@ -6,6 +6,7 @@
 @import "abstracts/breakpoints";
 @import "abstracts/flex";
 @import "abstracts/spacing";
+@import "abstracts/color";
 
 @import "components/nav";
 @import "components/reaper";
@@ -16,6 +17,8 @@
 @import "components/slider";
 @import "components/menu";
 @import "components/snackbar";
+@import "components/button";
+@import "components/checkbox";
 
 @import "components/form/stat_line";
 
@@ -29,9 +32,10 @@ html, body {
     height: 100%;
     font-family: 'Berlin Sans FB Regular';
     color: $primary-color;
+    box-sizing: border-box;
 
-    // background-color: $background-color;
-    // color: $text-color;
+    background-color: primary-color(700, true);
+    color: primary-color(700, true);
 }
 
 app-root {

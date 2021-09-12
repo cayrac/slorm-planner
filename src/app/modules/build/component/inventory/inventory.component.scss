@@ -8,14 +8,26 @@ $accent-color: mat-color($theme-accent-pallet);
 $warn-color: mat-color($theme-warn-pallet);
 
 main {
-    @include flex(row, stretch, space-between);
+    @include flex-row-to-column('tablet', stretch, space-between);
     @include flex-gap($space-content);
-    height: 800px;
-    min-width: 1000px;
+    overflow-x: auto;
+
+    @include respond-to('tablet') {
+        height: auto;
+    }
 
     .gear {
-        @include flex-grow(1);
-        max-width: 500px;
+        min-width: 450px;
+        max-width: 450px;
+        width: 450px;
+        height: 760px;
+        @include flex-grow();
+        overflow: hidden;
+
+        @include respond-to('tablet') {
+            width: auto;
+            max-width: initial;
+        }
 
         h3 {
             text-align: center;
@@ -88,6 +100,7 @@ main {
 
     .inventory {
         @include flex-grow(1);
+        max-height: 760px;
 
         mat-tab-group {
             height: 100%;

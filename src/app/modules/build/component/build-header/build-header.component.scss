@@ -1,9 +1,21 @@
 @import "../../../../../assets/scss/abstracts/flex";
 @import "../../../../../assets/scss/abstracts/spacing";
 
+mat-card {
+    padding-top: $space-unit;
+    padding-bottom: $space-unit;
 
-mat-card-content {
-    @include flex(row, center, space-between);
-    padding: 0 $space-unit;
-
+    mat-card-content {
+        @include flex-row-to-column('tablet', stretch, space-between);
+        padding: $space-unit;
+    
+        .layer {
+            width: 100%;
+            max-width: 250px;
+            @include respond-to('tablet') {
+                max-width: initial;
+            }
+        }
+    
+    }
 }

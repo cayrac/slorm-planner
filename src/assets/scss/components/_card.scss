@@ -3,8 +3,8 @@
 
 mat-card.mat-card {
     @include flex(column, stretch);
-    background-color: primary-color(800);
-    color: primary-color(800, true);
+    background-color: primary-color(700);
+    color: primary-color(700, true);
 
     mat-card-content {
         @include flex-grow();
