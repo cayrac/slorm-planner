@@ -1,5 +1,6 @@
 @import "../../../assets/scss/abstracts/flex";
 @import "../../../assets/scss/abstracts/spacing";
+@import "../../../assets/scss/abstracts/color";
 
 :host {
     height: 100%;
@@ -8,7 +9,8 @@
 
 .header {
     @include flex(row, center);
-    @include flex-gap($space-content);
+
+    background-color: primary-color(700);
 
     .tools {
         // hauteur nav

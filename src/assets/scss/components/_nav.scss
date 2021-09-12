@@ -1,15 +1,20 @@
 nav.mat-tab-nav-bar, mat-tab-group.mat-tab-group {
     border-bottom: 0;
 
+    mat-ink-bar {
+        display: none;
+    }
+
     .mat-tab-link, .mat-tab-label {
         opacity: 1;
+        min-width: unset;
 
         &.mat-tab-label-active {
             font-weight: bold;
         }
     
         &:not(.mat-tab-label-active) {
-            letter-spacing: .3px;
+            letter-spacing: .5px;
         }
 
         &::after {
@@ -22,9 +27,6 @@ nav.mat-tab-nav-bar, mat-tab-group.mat-tab-group {
         }
     }
 
-    mat-ink-bar {
-        display: none;
-    }
 
     &[direction="vertical"] {
         @include flex(row, stretch);
@@ -54,36 +56,24 @@ nav.mat-tab-nav-bar, mat-tab-group.mat-tab-group {
         }
     }
 
-    &[color="primary"] {
-        $theme-primary-pallet: map-get($theme, primary);
-
-        .mat-tab-label-active::after {
-            background-color: primary-color(700);
+    &:not([direction="vertical"]) {
+        .mat-tab-link, .mat-tab-label {
+            height: 30px;
         }
-
-        .mat-tab-label-content {
-            color: primary-color(700, true);
-        }
+        flex-basis: 0;
     }
-    &[color="white"] {
-        background-color: primary-color(700);
 
+    &[color="primary"] {
         .mat-tab-label-active::after {
             background-color: primary-color(700, true);
         }
 
-        .mat-tab-label-content {
+        .mat-tab-label-content, .mat-tab-link {
             color: primary-color(700, true);
         }
-    }
-    &[color="accent"] {
 
-        .mat-tab-label-active::after {
-            background-color: accent-color(700);
-        }
-
-        .mat-tab-label-content {
-            color: accent-color(700, true);
+        .mat-tab-header-pagination-chevron {
+            border-color: primary-color(700, true);
         }
     }
 }
