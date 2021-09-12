@@ -40,6 +40,10 @@ $accent-color: mat-color($theme-accent-pallet);
         opacity: 0.3;
     }
 
+    &.hidden-search {
+        opacity: 0.2;
+    }
+
     img {
         position: absolute;
         width: 100%;

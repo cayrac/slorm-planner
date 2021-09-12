@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { takeUntil } from 'rxjs/operators';
@@ -22,6 +22,7 @@ import { HeroClass } from '../../../../../slormancer/model/content/enum/hero-cla
 import { EquipableItem } from '../../../../../slormancer/model/content/equipable-item';
 import { SlormancerItemService } from '../../../../../slormancer/services/content/slormancer-item.service';
 import { itemMoveService } from '../../services/item-move.service';
+import { SearchService } from '../../services/search.service';
 
 
 @Component({
@@ -29,7 +30,7 @@ import { itemMoveService } from '../../services/item-move.service';
   templateUrl: './item-slot.component.html',
   styleUrls: ['./item-slot.component.scss']
 })
-export class ItemSlotComponent extends AbstractUnsubscribeComponent implements OnInit {
+export class ItemSlotComponent extends AbstractUnsubscribeComponent implements OnInit, OnChanges {
 
     @Input()
     public readonly item: EquipableItem | null = null;
@@ -56,6 +57,8 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
     public isItemCompatible: boolean = false;
 
     public isDraggedItem: boolean = false;
+
+    public hiddenBySearch: boolean = false;
 
     @HostListener('mouseenter')
     public onMouseOver() {
@@ -98,6 +101,7 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
     
     constructor(private dialog: MatDialog,
                 private itemMoveService: itemMoveService,
+                private searchService: SearchService,
                 private slormancerItemService: SlormancerItemService) {
         super();
         this.itemMoveService.draggingItem
@@ -108,13 +112,24 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
                 this.isItemCompatible = this.itemMoveService.isDragItemCompatible(this.item, this.base);
             });
 
+        this.searchService.searchChanged
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(() => this.updateSearch())
 
-            // on devrait pouvoir drop n'importe où pour annuler
-            // bordure moins transparente sur l'equipement hasMatchingBase
-            // renomer en item move et gérer le click droit ?
+        // on devrait pouvoir drop n'importe où pour annuler
+        // bordure moins transparente sur l'equipement hasMatchingBase
+        // renomer en item move et gérer le click droit ?
     }
 
     public ngOnInit() { }
+
+    public ngOnChanges() {
+        this.updateSearch();
+    }
+
+    private updateSearch() {
+        this.hiddenBySearch = this.item !== null && this.searchService.hasSearch() && !this.searchService.itemMatchSearch(this.item)
+    }
 
     private moveCallback(itemReplaced: boolean, item: EquipableItem | null) {
         if (itemReplaced) {

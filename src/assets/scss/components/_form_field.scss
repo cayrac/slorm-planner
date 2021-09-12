@@ -12,6 +12,10 @@ mat-form-field.mat-form-field {
         color: primary-color(100);
     }
 
+    input {
+        caret-color: white;
+    }
+
     .mat-form-field-wrapper {
         .mat-form-field-flex {
             align-items: center;

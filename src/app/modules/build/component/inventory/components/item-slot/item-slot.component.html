@@ -4,6 +4,7 @@
     [class.drop-compatible]="!isDraggedItem && isMouseOver && isDragging && isItemCompatible"
     [class.drop-incompatible]="!isDraggedItem && isMouseOver && isDragging && !isItemCompatible"
     [class.is-being-dragged]="isDraggedItem && isDragging"
+    [class.hidden-search]="hiddenBySearch"
     cdkOverlayOrigin
     #trigger="cdkOverlayOrigin">
     <ng-container *ngIf="item !== null">

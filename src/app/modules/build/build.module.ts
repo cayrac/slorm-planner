@@ -22,6 +22,7 @@ import { SkillBarComponent } from './component/inventory/components/skill-bar/sk
 import { SkillSlotComponent } from './component/inventory/components/skill-slot/skill-slot.component';
 import { InventoryComponent } from './component/inventory/inventory.component';
 import { itemMoveService } from './component/inventory/services/item-move.service';
+import { SearchService } from './component/inventory/services/search.service';
 import { SkillsComponent } from './component/skills/skills.component';
 
 
@@ -51,7 +52,8 @@ import { SkillsComponent } from './component/skills/skills.component';
         HttpClientModule, // TODO besoin uniquement pour charger rapidement la save, à virer ensuite
     ],
     providers: [
-        itemMoveService 
+        itemMoveService,
+        SearchService
     ],
 })
 export class BuildModule { }

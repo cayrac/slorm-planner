@@ -9,11 +9,15 @@ mat-card {
         @include flex-row-to-column('tablet', stretch, space-between);
         padding: $space-unit;
     
-        .layer {
+        .layer, .search {
             width: 100%;
             max-width: 250px;
             @include respond-to('tablet') {
                 max-width: initial;
+            }
+
+            mat-icon {
+                cursor: pointer;
             }
         }
     
