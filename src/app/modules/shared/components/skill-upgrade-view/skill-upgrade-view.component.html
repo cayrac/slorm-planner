@@ -1,6 +1,6 @@
-<div class="skill {{upgrade.damageTypes.length > 0 ? upgrade.damageTypes[0] : ''}}" *ngIf="upgrade !== null">
-    <div class="head">{{getTypeLabel(upgrade.type)}}: {{upgrade.name}}</div>
-    <div class="content">
+<div class="skill slormancer-tooltip {{upgrade.damageTypes.length > 0 ? upgrade.damageTypes[0] : ''}}" *ngIf="upgrade !== null">
+    <div class="head inner-box">{{getTypeLabel(upgrade.type)}}: {{upgrade.name}}</div>
+    <div class="content inner-box">
         <div class="info">
             <div class="visual">
                 <div class="icon">

@@ -1,6 +1,6 @@
-<div class="skill {{skill.damageTypes.length > 0 ? skill.damageTypes[0] : ''}}" *ngIf="skill !== null">
-    <div class="head" [innerHTML]="skill.nameLabel"></div>
-    <div class="content">
+<div class="skill slormancer-tooltip {{skill.damageTypes.length > 0 ? skill.damageTypes[0] : ''}}" *ngIf="skill !== null">
+    <div class="head inner-box" [innerHTML]="skill.nameLabel"></div>
+    <div class="content inner-box">
         <div class="info">
             <div class="visual">
                 <div class="icon">

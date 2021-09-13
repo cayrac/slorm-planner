@@ -31,45 +31,7 @@
     @include flex-gap($space-content);
     @include flex-grow($space-content);
 
-    .slormancer-tooltip {
-        @include flex(column, stretch);
-        background-color: primary-color(500);
-        position: relative;
-        border: 3px solid black;
-
-
-        &:before {
-            content: ' ';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border: 3px solid primary-color(400);
-        }
-
-        .inner-box {
-            @include flex-grow();
-            border: 3px solid primary-color(400);
-            position: relative;
-
-            padding: $space-unit * 2;
-
-            &:before {
-                content: ' ';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                border: 3px solid black;
-            }
-        }
-    }
-
     .selected-upgrade, .selected-skill {
-        @include flex(column, stretch);
-        @include flex-gap($space-unit * 4);
         position: relative;
         min-width: 350px;
         width: 350px;
@@ -82,6 +44,7 @@
             position: absolute;
             top: $space-unit * 4;
             right: $space-unit * 4;
+            z-index: 1;
         }
 
     }

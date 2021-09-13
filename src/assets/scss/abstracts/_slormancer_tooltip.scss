@@ -1,0 +1,6 @@
+
+@mixin slormancer-tooltip-color($color) {
+    .inner-box, &:before {
+        border-color: primary-color(400);
+    }
+}

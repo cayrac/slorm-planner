@@ -31,16 +31,6 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
                 private slormancerSkillService: SlormancerSkillService,
                 private slormancerCharacterService: SlormancerCharacterService) {
         super();
-
-        // passifs rond
-
-        // upgrade:  click = equip + upgrade
-        // upgrade : click droit = downdgrade
-
-        // skill : click = upgrade
-        // skill : click droit = downdgrade
-
-        // settings sur skill : upgrade all,equip skill
     }
 
     public ngOnInit() {

@@ -1,4 +1,5 @@
 @import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/slormancer_tooltip";
 
 $skill-bg          : rgb(21,20,18);
 $skill-border-color: rgb(60, 57, 49);
@@ -44,13 +45,10 @@ $dexterity-color       : rgb(205, 112, 40);
 $bravery-color         : rgb(191, 60, 89); 
 
 .skill {
-    background-color: $skill-bg;
-    border: 3px solid $skill-outer-border-color;
+    @include slormancer-tooltip-color($skill-outer-border-color);
+    @include flex(column);
     color: $skill-text-color;
-    display: flex;
-    flex-direction: column;
     max-width: 400px;
-    height: 100%;
       
     &::ng-deep {
         .value, .rank .current {
@@ -83,7 +81,6 @@ $bravery-color         : rgb(191, 60, 89);
     }   
     
     .head, .content {
-        border: 3px solid $skill-border-color;
 
         &.head {  
             text-align: center;
