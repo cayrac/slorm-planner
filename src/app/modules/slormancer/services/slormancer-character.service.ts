@@ -45,8 +45,6 @@ export class SlormancerCharacterService {
                 .map(upgradeId => {
                     const upgrade = this.slormancerSkillService.getUpgrade(upgradeId, heroClass, valueOrDefault(skill_rank[upgradeId], 0));
 
-                    console.log('upgrade rank for ' + upgrade?.name + ' : ' + valueOrDefault(skill_rank[upgradeId], 0));
-
                     return upgrade;
                 })
                 .filter(isNotNullOrUndefined);

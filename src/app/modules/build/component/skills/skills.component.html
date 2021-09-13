@@ -28,16 +28,12 @@
                             {{line}}
                         </div>
                         <div class="line-upgrades">
-                            <div class="upgrade selection-border" *ngFor="let upgrade of getLineUpgrades(line)"
-                                [class.selected]="upgrade === selectedUpgrade"
-                                [class.passive]="isPassive(upgrade)"
+                            <app-upgrade-slot *ngFor="let upgrade of getLineUpgrades(line)"
+                                [upgrade]="upgrade"
+                                [equipped]="isUpgradeEquipped(upgrade)"
                                 (click)="incrementUpgrade(upgrade)"
                                 (contextmenu)="decrementUpgrade(upgrade)">
-                                <div class="equipped-border" [class.equipped]="isUpgradeEquipped(upgrade)">
-                                    <img class="skill-icon" [src]="upgrade.icon" />
-                                </div>
-                                <div class="rank" [class.max]="upgrade.rank === upgrade.maxRank">{{upgrade.rank === upgrade.maxRank ? 'Max' : upgrade.rank}}</div>
-                            </div>
+                            </app-upgrade-slot>
                         </div>
                     </div>
                 </div>

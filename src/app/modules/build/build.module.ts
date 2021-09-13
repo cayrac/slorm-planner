@@ -24,6 +24,7 @@ import { InventoryComponent } from './component/inventory/inventory.component';
 import { itemMoveService } from './component/inventory/services/item-move.service';
 import { SearchService } from './component/inventory/services/search.service';
 import { SettingsSkillsComponent } from './component/skills/components/settings-skills/settings-skills.component';
+import { UpgradeSlotComponent } from './component/skills/components/upgrade-slot/upgrade-slot.component';
 import { SkillsComponent } from './component/skills/skills.component';
 
 
@@ -41,7 +42,8 @@ import { SkillsComponent } from './component/skills/skills.component';
         ActivableSlotComponent,
         SettingsMenuComponent,
         BuildHeaderComponent,
-        SettingsSkillsComponent
+        SettingsSkillsComponent,
+        UpgradeSlotComponent
     ],
     imports: [
         CommonModule,

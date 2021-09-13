@@ -177,10 +177,6 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
         return false;
     }
 
-    public isPassive(upgrade: SkillUpgrade): boolean {
-        return upgrade.type === SkillType.Passive;
-    }
-
     public isSupport(skill: CharacterSkillAndUpgrades): boolean {
         return skill.skill.type === SkillType.Support;
     }
