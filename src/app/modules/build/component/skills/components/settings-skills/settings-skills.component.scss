@@ -1,0 +1,8 @@
+@import "../../../../../../../assets/scss/abstracts/flex";
+@import "../../../../../../../assets/scss/abstracts/variables";
+@import "../../../../../../../assets/scss/abstracts/color";
+
+mat-icon {
+    cursor : pointer;
+    color: primary-color(200);
+}

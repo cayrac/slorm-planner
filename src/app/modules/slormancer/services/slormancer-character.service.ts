@@ -9,6 +9,7 @@ import { Attribute } from '../model/content/enum/attribute';
 import { EquipableItem } from '../model/content/equipable-item';
 import { Reaper } from '../model/content/reaper';
 import { Skill } from '../model/content/skill';
+import { SkillUpgrade } from '../model/content/skill-upgrade';
 import { GameItem } from '../model/parser/game/game-item';
 import { GameSave, GameSharedInventory } from '../model/parser/game/game-save';
 import { isNotNullOrUndefined, valueOrDefault, valueOrNull } from '../util/utils';
@@ -41,7 +42,13 @@ export class SlormancerCharacterService {
         return this.slormancerDataService.getGameDataActiveSkills(heroClass).map(gameData => {
             const skill = this.slormancerSkillService.getHeroSkill(gameData.REF, heroClass, valueOrDefault(skill_rank[gameData.REF], 0));
             const upgrades = this.slormancerDataService.getGameDataUpgradeIdsForSkill(gameData.REF, heroClass)
-                .map(passiveId => this.slormancerSkillService.getUpgrade(passiveId, heroClass, valueOrDefault(skill_rank[gameData.REF], 0)))
+                .map(upgradeId => {
+                    const upgrade = this.slormancerSkillService.getUpgrade(upgradeId, heroClass, valueOrDefault(skill_rank[upgradeId], 0));
+
+                    console.log('upgrade rank for ' + upgrade?.name + ' : ' + valueOrDefault(skill_rank[upgradeId], 0));
+
+                    return upgrade;
+                })
                 .filter(isNotNullOrUndefined);
 
             return skill === null ? null : {
@@ -264,7 +271,9 @@ export class SlormancerCharacterService {
         console.log(character.supportSkill);
     }
 
-    public setPrimarySkill(character: Character, skill: Skill) {
+    public setPrimarySkill(character: Character, skill: Skill): boolean {
+        let result = false;
+
         if (character.primarySkill !== skill) {
             if (character.secondarySkill === skill) {
                 character.secondarySkill = character.primarySkill;
@@ -272,23 +281,63 @@ export class SlormancerCharacterService {
             character.primarySkill = skill;
 
             this.updateCharacter(character);
+
+            result = true;
         }
+
+        return result;
     }
 
-    public setSecondarySkill(character: Character, skill: Skill) {
+    public setSecondarySkill(character: Character, skill: Skill): boolean {
+        let result = false;
+
         if (character.secondarySkill !== skill) {
             if (character.primarySkill === skill) {
                 character.primarySkill = character.secondarySkill;
             }
             character.secondarySkill = skill;
             this.updateCharacter(character);
+
+            result = true;
         }
+
+        return result;
     }
 
-    public setSupportSkill(character: Character, skill: Skill) {
+    public setSupportSkill(character: Character, skill: Skill): boolean {
+        let result = false;
+
         if (character.supportSkill !== skill) {
             character.supportSkill = skill;
             this.updateCharacter(character);
+
+            result = true;
         }
+
+        return result;
+    }
+    
+    public selectUpgrade(skill: CharacterSkillAndUpgrades, newUpgrade: SkillUpgrade): boolean {
+        let changed = false;
+        
+        if (newUpgrade.skillId == skill.skill.id) {
+            const sameLineId = skill.selectedUpgrades
+                .map(id => skill.upgrades.find(upgrade => upgrade.id === id))
+                .filter(isNotNullOrUndefined)
+                .filter(upgrade => upgrade.line === newUpgrade.line)
+                .map(upgrade => upgrade.id)
+                .splice(0, 1)[0];
+    
+            if (sameLineId !== undefined && sameLineId !== newUpgrade.id) {
+                const sameLineIndex = skill.selectedUpgrades.indexOf(sameLineId);
+                skill.selectedUpgrades.splice(sameLineIndex, 1);    
+            }
+
+            skill.selectedUpgrades.push(newUpgrade.id);
+            changed = true;    
+        }
+
+
+        return changed;
     }
 }

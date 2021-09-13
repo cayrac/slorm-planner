@@ -70,17 +70,18 @@
     .selected-upgrade, .selected-skill {
         @include flex(column, stretch);
         @include flex-gap($space-unit * 4);
+        position: relative;
         min-width: 350px;
         width: 350px;
 
-            app-skill-view, app-skill-upgrade-view {
+        app-skill-view, app-skill-upgrade-view {
             @include flex-grow();
         }
 
-        .actions {
-            @include flex(row, flex-end);
-            @include flex-gap($space-unit * 2);
-            height: 36px;
+        app-settings-skills {
+            position: absolute;
+            top: $space-unit * 4;
+            right: $space-unit * 4;
         }
 
     }
@@ -134,10 +135,31 @@
 
                 .upgrade.selection-border {
                     border: 3px solid transparent;
+                    position: relative;
                     z-index: 1;
     
                     &.selected {
                         border-color: rgb(132, 30, 6);
+                    }
+
+                    &.passive {
+                        &, .equipped-border, img {
+                            border-radius: 50%;
+                        }
+                    }
+
+                    .rank {
+                        position: absolute;
+                        background-color: primary-color(400);
+                        padding: 0 2px;
+                        bottom: 0;
+                        right: 0;
+                        font-size: 10px;
+                        border-radius: $space-unit;
+
+                        &.max {
+                            color: #edd371;
+                        }
                     }
 
                     .equipped-border {

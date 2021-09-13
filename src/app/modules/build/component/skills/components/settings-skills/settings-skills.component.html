@@ -1,0 +1,18 @@
+
+<mat-icon [matMenuTriggerFor]="menu" (contextmenu)="openSettings()">settings</mat-icon>
+<mat-menu #menu="matMenu" xPosition="after" [overlapTrigger]="true">
+    <ng-template matMenuContent>
+        <button mat-menu-item (click)="maximize(selectedSkill)" *ngIf="selectedSkill !== null">
+            Maximize skill and support ranks
+        </button>
+        <button mat-menu-item (click)="equipSupport(selectedSkill)" *ngIf="selectedSkill !== null && !isEquippedSupportSkill(selectedSkill) && isSupport(selectedSkill)">
+            Equip as Support skill
+        </button>
+        <button mat-menu-item (click)="equipPrimary(selectedSkill)" *ngIf="selectedSkill !== null && !isEquippedPrimarySkill(selectedSkill) && !isSupport(selectedSkill)">
+            Equip as Primary skill
+        </button>
+        <button mat-menu-item (click)="equipSecondary(selectedSkill)" *ngIf="selectedSkill !== null && !isEquippedSecondarySkill(selectedSkill) && !isSupport(selectedSkill)">
+            Equip as Secondary skill
+        </button>
+    </ng-template>
+</mat-menu>
