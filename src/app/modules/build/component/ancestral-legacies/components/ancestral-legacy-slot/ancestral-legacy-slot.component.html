@@ -1,0 +1,12 @@
+
+<div class="ancestral-legacy" *ngIf="ancestralLegacy !== null"
+    (click)="increasesRank()"
+    (contextmenu)="decreasesRank()"
+    [class.ranked]="ancestralLegacy.baseRank > 0"
+    [class.equipped]="equipped"
+    [class.hidden-search]="hiddenBySearch">
+    <div class="inner">
+        <img [src]="ancestralLegacy.icon" />
+    </div>
+    <div class="rank" [class.max]="ancestralLegacy.rank === ancestralLegacy.maxRank">{{ancestralLegacy.rank === ancestralLegacy.maxRank ? 'Max' : ancestralLegacy.rank}}</div>
+</div>

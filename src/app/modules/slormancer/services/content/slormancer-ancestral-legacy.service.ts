@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { ANCESTRAL_LEGACY_REALMS, INITIAL_NODES } from '../../constants/content/data/data-ancestral-legacy-zones';
 import { AncestralLegacy } from '../../model/content/ancestral-legacy';
 import { AncestralLegacyElement } from '../../model/content/ancestral-legacy-element';
 import { AncestralLegacyType } from '../../model/content/ancestral-legacy-type';
@@ -252,5 +253,30 @@ export class SlormancerAncestralLegacyService {
             ancestralLegacy.nextRankDescription = this.getNextRankUpgradeDescription(ancestralLegacy, Math.max(1, ancestralLegacy.rank + 1));
             ancestralLegacy.maxRankDescription = this.getNextRankUpgradeDescription(ancestralLegacy, ancestralLegacy.maxRank + ancestralLegacy.bonusRank);
         }
+    }
+
+    public isNodeConnectedTo(node: number, nodes: Array<number>): boolean {
+        const connectedNodes = nodes.map(node => ANCESTRAL_LEGACY_REALMS.filter(realm => realm.nodes.indexOf(node) !== -1))
+            .flat()
+            .map(realm => realm.nodes)
+            .flat();
+        return connectedNodes.indexOf(node) !== -1 || INITIAL_NODES.indexOf(node) !== -1;
+    }
+
+    public getValidNodes(nodes: Array<number>): Array<number> {
+        let connectedNodes = nodes.filter(node => INITIAL_NODES.indexOf(node) !== -1);
+        let valid = true;
+
+        while (connectedNodes.length < nodes.length && valid) {
+            const newConnectedNodes = connectedNodes.map(node => ANCESTRAL_LEGACY_REALMS.filter(realm => realm.nodes.indexOf(node) !== -1))
+                .flat()
+                .map(realm => realm.nodes.filter(node => nodes.indexOf(node) !== -1))
+                .flat().filter(isFirst);
+
+            valid = connectedNodes.length < newConnectedNodes.length;
+            connectedNodes = newConnectedNodes;
+        }
+
+        return connectedNodes;
     }
 }

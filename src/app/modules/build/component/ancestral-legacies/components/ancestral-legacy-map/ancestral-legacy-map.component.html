@@ -1,0 +1,34 @@
+<div class="frame" [class.grabbed]="grabbed">
+    <div class="center" [style.top]="position.y + 'px'" [style.left]="position.x + 'px'" [style.zoom]="zoom">
+        <div class="initial absolute">
+            <div class="initial-outer-circle">
+                <div class="initial-inner-circle">
+                    <div class="initial-point"></div>
+                </div>
+            </div>
+        </div>
+        <div class="zone absolute color-{{zoneShape.color}}" *ngFor="let zoneShape of zoneShapes"
+            [style]="zoneShape.style"
+            [class.large]="zoneShape.large"
+            [class.active]="isRealmActive(zoneShape.realmId)">
+            <div class="zone-inner">
+                <app-ancestral-legacy-slot *ngFor="let ancestralLegacy of zoneShape.ancestralLegacies"
+                    [style]="zoneShape.iconStyle"
+                    [ancestralLegacy]="getAncestralLegacu(ancestralLegacy)"
+                    [equipped]="isAncestralLegacyEquipped(ancestralLegacy)">
+                </app-ancestral-legacy-slot>
+            </div>
+        </div>
+        
+        <div class="branch absolute" *ngFor="let lineShape of lineShapes" [style]="lineShape.style"></div>
+        <div class="welding absolute" *ngFor="let weldingShape of weldingShapes" [style]="weldingShape.style"></div>
+
+        <div class="node absolute" *ngFor="let nodeShape of nodeShapes"
+            (click)="toggleNode(nodeShape.nodeId)"
+            [style]="nodeShape.style"
+            [class.active]="isNodeActive(nodeShape.nodeId)"
+            [class.available]="isNodeAvailable(nodeShape.nodeId)">
+            <div class="node-inner"></div>
+        </div>
+    </div>
+</div>

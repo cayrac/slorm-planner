@@ -1,0 +1,56 @@
+@import "../../../../../../../assets/scss/abstracts/flex";
+@import "../../../../../../../assets/scss/abstracts/variables";
+@import "../../../../../../../assets/scss/abstracts/color";
+
+$color-gold: rgb(213, 173, 72);
+
+.ancestral-legacy {
+    position: relative;
+    cursor: pointer;
+    z-index: 1;
+    border-radius: 50%;
+
+    .selected {
+        border: 1px solid red;
+    }
+
+    // padding: 1px;
+    
+    &.hidden-search > * {
+        opacity: 0.2;
+    }
+
+    &.ranked.equipped .inner {
+        background-color: $color-gold;
+    }
+
+    .rank {
+        position: absolute;
+        background-color: primary-color(400);
+        padding: 0 2px;
+        bottom: 0;
+        right: 0;
+        font-size: 4px;
+        border-radius: $space-unit;
+
+        &.max {
+            color: #edd371;
+        }
+    }
+
+    .inner {
+        @include flex(row, center, center);
+        background-color: primary-color(400);
+        border: 1px solid black;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        img {
+            border: 1px solid black;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+    }
+}

@@ -10,6 +10,12 @@
         return Math.round(value * decal) / decal;
     }
 
+    /**
+     * 
+     * @param min 
+     * @param max 
+     * @returns list(min, max) or list(0, min - 1) if max is not given
+     */
     export function list(min: number, max: number | null = null): Array<number> {
         if (max === null) {
             max = min - 1;

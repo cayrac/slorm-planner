@@ -202,7 +202,8 @@ export class SlormancerCharacterService {
             ancestralLegacies: {
                 ancestralLegacies: this.getAncestralLegacies(save, heroClass),
                 activeNodes: this.getActiveNodes(save, heroClass),
-                activeAncestralLegacies: []
+                activeAncestralLegacies: [],
+                maxAncestralLegacy: 2 // TODO parser ça plus tard
             },
             skills: this.getSkills(save, heroClass),
         
@@ -335,6 +336,32 @@ export class SlormancerCharacterService {
             changed = true;    
         }
 
+
+        return changed;
+    }
+
+    public activateAncestralLegacyNode(character: Character, nodeId: number): boolean {
+        let changed = false;
+
+        if (character.ancestralLegacies.activeNodes.indexOf(nodeId) === -1
+            && character.ancestralLegacies.activeNodes.length < character.ancestralLegacies.maxAncestralLegacy
+            && this.slormancerAncestralLegacyService.isNodeConnectedTo(nodeId, character.ancestralLegacies.activeNodes)) {
+            character.ancestralLegacies.activeNodes.push(nodeId);
+            this.updateCharacter(character);
+            changed = true;
+        }
+
+        return changed;
+    }
+    
+    public disableAncestralLegacyNode(character: Character, nodeId: number): boolean {
+        let changed = false;
+
+        if (character.ancestralLegacies.activeNodes.indexOf(nodeId) !== -1) {
+            character.ancestralLegacies.activeNodes = this.slormancerAncestralLegacyService.getValidNodes(character.ancestralLegacies.activeNodes.filter(id => id !== nodeId));
+            this.updateCharacter(character);
+            changed = true;
+        }
 
         return changed;
     }

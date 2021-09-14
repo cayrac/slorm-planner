@@ -165,10 +165,27 @@ export class SlormancerDataService {
         return GAME_DATA.LEGENDARY;
     }
     
-    public getAncestralSkillIdFromNodes(nodes: Array<number>): Array<number> {
-        const realms = ANCESTRAL_LEGACY_REALMS
+    public getAncestralRealmColor(realm: number): number {
+        const gameData = valueOrNull(GAME_DATA.ANCESTRAL_LEGACY
+            .find(ancestralLegacy => ancestralLegacy.REALM === realm));
+
+        return gameData === null ? 0 : gameData.REALM_COLOR;
+    }
+
+    public getAncestralRealmsFromNodes(nodes: Array<number>): Array<number> {
+        return ANCESTRAL_LEGACY_REALMS
             .filter(realms => realms.nodes.find(node => nodes.indexOf(node) !== -1) !== undefined)
             .map(zone => zone.realm);
+    }
+
+    public getAncestralLegacyIdsFromRealm(realm: number): Array<number> {
+        return GAME_DATA.ANCESTRAL_LEGACY
+            .filter(ancestralLegacy => ancestralLegacy.REALM === realm)
+            .map(ancestralLegacy => ancestralLegacy.REF);
+    }
+    
+    public getAncestralSkillIdFromNodes(nodes: Array<number>): Array<number> {
+        const realms = this.getAncestralRealmsFromNodes(nodes);
 
         return GAME_DATA.ANCESTRAL_LEGACY
             .filter(ancestralLegacy => realms.indexOf(ancestralLegacy.REALM) !== -1)

@@ -10,6 +10,12 @@ import { SlormancerModule } from '../slormancer';
 import { BuildRoutingModule } from './build-routing.module';
 import { BuildComponent } from './build.component';
 import { AncestralLegaciesComponent } from './component/ancestral-legacies/ancestral-legacies.component';
+import {
+    AncestralLegacyMapComponent,
+} from './component/ancestral-legacies/components/ancestral-legacy-map/ancestral-legacy-map.component';
+import {
+    AncestralLegacySlotComponent,
+} from './component/ancestral-legacies/components/ancestral-legacy-slot/ancestral-legacy-slot.component';
 import { BuildHeaderComponent } from './component/build-header/build-header.component';
 import { ActivableSlotComponent } from './component/inventory/components/activable-slot/activable-slot.component';
 import {
@@ -43,7 +49,9 @@ import { SkillsComponent } from './component/skills/skills.component';
         SettingsMenuComponent,
         BuildHeaderComponent,
         SettingsSkillsComponent,
-        UpgradeSlotComponent
+        UpgradeSlotComponent,
+        AncestralLegacyMapComponent,
+        AncestralLegacySlotComponent
     ],
     imports: [
         CommonModule,

@@ -79,4 +79,15 @@ export class PlannerService {
 
         console.log(this.planner);
     }
+
+    public updateCurrentCharacter() {
+        if (this.planner !== null) {
+            const layer = this.planner.layers[this.selectedLayerIndex];
+
+            if (layer) {
+                this.slormancerCharacterService.updateCharacter(layer.character);
+                
+            }
+        }
+    }
 }

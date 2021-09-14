@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+import { AncestralLegacy } from '../../../../slormancer/model/content/ancestral-legacy';
 import { EquipableItem } from '../../../../slormancer/model/content/equipable-item';
 import { SkillUpgrade } from '../../../../slormancer/model/content/skill-upgrade';
 import { isNotNullOrUndefined } from '../../../../slormancer/util/utils';
@@ -62,6 +63,19 @@ export class SearchService {
             ...upgrade.relatedBuffs.map(buff => buff.name),
             ...upgrade.relatedClassMechanics.map(buff => buff.name),
             ...upgrade.relatedMechanics.map(buff => buff.name)
+        ]);
+    }   
+
+    public ancestralLegacyMatchSearch(ancestralLegacy: AncestralLegacy): boolean {
+        return this.stringsMatchSearch([
+            ancestralLegacy.name,
+            ancestralLegacy.costType,
+            ...ancestralLegacy.genres,
+            ancestralLegacy.isActivable ? 'activable' : null,
+            ancestralLegacy.description,
+            ...ancestralLegacy.relatedBuffs.map(buff => buff.name),
+            ...ancestralLegacy.relatedMechanics.map(mechanic => mechanic.name),
+            ...ancestralLegacy.types
         ]);
     }
 }

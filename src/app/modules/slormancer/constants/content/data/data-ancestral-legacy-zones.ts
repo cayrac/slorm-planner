@@ -1,6 +1,8 @@
-export const INITIAL_NODES: Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+import { DataAncestralLegacyRealm } from '../../../model/content/data/data-ancestral-legacy-realm';
 
-export const ANCESTRAL_LEGACY_REALMS: Array<{ nodes: Array<number>, realm: number }> = [
+export const INITIAL_NODES: Array<number> = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+export const ANCESTRAL_LEGACY_REALMS: Array<DataAncestralLegacyRealm> = [
     
     { nodes: [0, 10, 11, 31], realm: 0 },   // Elemental Boost
     { nodes: [1, 12, 13, 34], realm: 1 },   // Pain Weaver
