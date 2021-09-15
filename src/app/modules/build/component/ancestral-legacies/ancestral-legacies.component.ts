@@ -30,8 +30,6 @@ export class AncestralLegaciesComponent extends AbstractUnsubscribeComponent imp
                 private messageService: MessageService) {
         super();
 
-        // recherche ne permet pas espace
-        
         // fait flotter MC
 
         // passer aux attributs

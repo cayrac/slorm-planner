@@ -6,9 +6,10 @@
     @include flex(row, center);
     @include flex-gap($space-unit * 4);
 
-    img {
+    .mc-ripped {
         height: 30px;
         image-rendering: pixelated;
+        animation: float 2s ease-in-out infinite;
     }
 
     .message {
@@ -27,4 +28,16 @@
     mat-icon {
         cursor : pointer;
     }
+}
+
+@keyframes float {
+	0% {
+		transform: translatey(2px);
+	}
+	50% {
+		transform: translatey(-2px);
+	}
+	100% {
+		transform: translatey(2px);
+	}
 }
