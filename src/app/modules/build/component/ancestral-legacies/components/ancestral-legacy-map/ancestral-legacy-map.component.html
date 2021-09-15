@@ -14,8 +14,10 @@
             <div class="zone-inner">
                 <app-ancestral-legacy-slot *ngFor="let ancestralLegacy of zoneShape.ancestralLegacies"
                     [style]="zoneShape.iconStyle"
-                    [ancestralLegacy]="getAncestralLegacu(ancestralLegacy)"
-                    [equipped]="isAncestralLegacyEquipped(ancestralLegacy)">
+                    [ancestralLegacy]="getAncestralLegacy(ancestralLegacy)"
+                    [equipped]="isAncestralLegacyEquipped(ancestralLegacy)"
+                    [selected]="isNodeSelected(ancestralLegacy)"
+                    (changed)="selectAncestralLegacy($event)">>
                 </app-ancestral-legacy-slot>
             </div>
         </div>

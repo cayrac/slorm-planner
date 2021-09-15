@@ -20,15 +20,18 @@ export class SearchService {
     }
 
     public setSearch(value: string | null) {
-        value = value === null ? null : value.toLowerCase().trim();
         this.search = value !== null ? (value.length > 0 ? value : null) : null;
         this.searchChanged.next(this.search);
+    }
+
+    private getCleanSearchValue(): string | null {
+        return this.search === null ? null : this.search.toLowerCase().trim();
     }
 
     private stringsMatchSearch(values: Array<string | null>): boolean {
         let result = true;
 
-        const search = this.search;
+        const search = this.getCleanSearchValue();
         if (search !== null) {
             result = this.search === null ? true : values
                 .find(value => isNotNullOrUndefined(value) && value.toLowerCase().indexOf(search) !== -1) !== undefined;
@@ -75,7 +78,9 @@ export class SearchService {
             ancestralLegacy.description,
             ...ancestralLegacy.relatedBuffs.map(buff => buff.name),
             ...ancestralLegacy.relatedMechanics.map(mechanic => mechanic.name),
-            ...ancestralLegacy.types
+            ...ancestralLegacy.types,
+            ancestralLegacy.typeLabel,
+            ancestralLegacy.genresLabel
         ]);
     }
 }

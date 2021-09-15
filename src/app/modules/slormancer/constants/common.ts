@@ -8,3 +8,5 @@ export const MAX_EPIC_STATS = 3;
 export const STASH_SIZE = 35;
 
 export const SKILL_MAX_MASTERY = 15;
+
+export const MAXIMUM_ANCESTRAL_LEGACY_POINTS = 7;

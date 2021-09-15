@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
 import {
@@ -45,6 +45,12 @@ interface NodeShape {
   styleUrls: ['./ancestral-legacy-map.component.scss']
 })
 export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent implements OnInit {
+
+    @Input()
+    public selectedAncestralLegacy: AncestralLegacy | null = null;
+
+    @Output()
+    public selectedAncestralLegacyChange = new EventEmitter<AncestralLegacy>()
 
     private readonly BOUNDS_X: MinMax = { min: -200, max: 200 };
     
@@ -164,11 +170,15 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         return this.availableNodes.indexOf(nodeId) !== -1;
     }
 
+    public isNodeSelected(nodeId: number): boolean {
+        return this.selectedAncestralLegacy !== null && this.selectedAncestralLegacy.id === nodeId;
+    }
+
     public isAncestralLegacyEquipped(ancestralLegacyId: number): boolean {
         return this.character !== null && this.character.ancestralLegacies.activeAncestralLegacies.indexOf(ancestralLegacyId) !== -1;
     }
 
-    public getAncestralLegacu(ancestralLegacyId: number): AncestralLegacy | null {
+    public getAncestralLegacy(ancestralLegacyId: number): AncestralLegacy | null {
         let result: AncestralLegacy | null = null;
         
         if (this.character !== null) {
@@ -195,6 +205,10 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         }
 
         return false;
+    }
+
+    public selectAncestralLegacy(ancestralLegacy: AncestralLegacy) {
+        this.selectedAncestralLegacyChange.emit(ancestralLegacy);
     }
 
     private addLineShapes(quantity: number, baseAngle: number, distance: number, length: number) {

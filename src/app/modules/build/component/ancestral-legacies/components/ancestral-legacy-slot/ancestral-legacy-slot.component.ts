@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
 import {
@@ -24,6 +24,12 @@ export class AncestralLegacySlotComponent extends AbstractUnsubscribeComponent i
 
     @Input()
     public readonly equipped: boolean = false;
+    
+    @Input()
+    public readonly selected: boolean = false;
+
+    @Output()
+    public readonly changed = new EventEmitter<AncestralLegacy>();
 
     public hiddenBySearch: boolean = false;
 
@@ -44,6 +50,7 @@ export class AncestralLegacySlotComponent extends AbstractUnsubscribeComponent i
             ancestralLegacy.baseRank = newRank;
             this.slormancerAncestralLegacyservice.updateAncestralLegacy(ancestralLegacy);
             this.plannerService.updateCurrentCharacter();
+            this.changed.emit(ancestralLegacy);
         }
     }
 

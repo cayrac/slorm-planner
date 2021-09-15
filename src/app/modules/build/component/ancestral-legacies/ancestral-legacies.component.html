@@ -1,7 +1,18 @@
 <mat-card>
     <mat-card-content>
-        <app-ancestral-legacy-map>
-            
-        </app-ancestral-legacy-map>
+        <div class="map">
+            <div class="actions">
+                <div class="avaialble-points">
+                    <div class="point" [class.unlocked]="isPointUnlock(index)" *ngFor="let index of ANCESTRAL_LEGACY_POINTS"></div>
+                </div>
+                <mat-icon (click)="optimizeAncestralLegacies()">vertical_align_top</mat-icon>
+            </div>
+            <app-ancestral-legacy-map [(selectedAncestralLegacy)]="selectedAncestralLegacy">
+            </app-ancestral-legacy-map>
+        </div>
+        <div class="selected">
+            <app-ancestral-legacy-view [ancestralLegacy]="selectedAncestralLegacy">
+            </app-ancestral-legacy-view>
+        </div>
     </mat-card-content>
 </mat-card>

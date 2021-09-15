@@ -6,6 +6,10 @@ mat-card.mat-card {
     background-color: primary-color(700);
     color: primary-color(700, true);
 
+    @include respond-to('mobile') {
+        border-radius: 0;
+    }
+
     mat-card-content {
         @include flex-grow();
         overflow: auto;

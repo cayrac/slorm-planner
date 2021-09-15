@@ -3,6 +3,7 @@
 @import "../../../../../../../assets/scss/abstracts/color";
 
 $color-gold: rgb(213, 173, 72);
+$color-selected: rgb(132, 30, 6);
 
 .ancestral-legacy {
     position: relative;
@@ -10,14 +11,12 @@ $color-gold: rgb(213, 173, 72);
     z-index: 1;
     border-radius: 50%;
 
-    .selected {
-        border: 1px solid red;
+    &.selected {
+        border: 1px solid $color-selected;
     }
-
-    // padding: 1px;
     
     &.hidden-search > * {
-        opacity: 0.2;
+        opacity: 0.1;
     }
 
     &.ranked.equipped .inner {
