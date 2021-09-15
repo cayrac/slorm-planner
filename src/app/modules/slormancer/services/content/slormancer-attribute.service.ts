@@ -72,13 +72,14 @@ export class SlormancerAttributeService {
         return result;
     }    
 
-    private getTrait(gameData: GameDataAttribute | null, attribute: Attribute, rank: number, requiredRank: number, cumulativeValues: Array<EffectValueVariable>): Trait {
+    private getTrait(gameData: GameDataAttribute | null, attribute: Attribute, rank: number, additive: boolean, requiredRank: number, cumulativeValues: Array<EffectValueVariable>): Trait {
         return {
             attribute,
             requiredRank,
             traitLevel: requiredRank % 15 === 0 ? TraitLevel.Greater : requiredRank % 5 === 0 ? TraitLevel.Major : TraitLevel.Minor,
             rank,
             unlocked: false,
+            additive,
         
             attributeName: '',
             description: null,
@@ -139,12 +140,12 @@ export class SlormancerAttributeService {
                     .forEach(value => cumulativeValues.push(value))
             }
 
+            const additive = data !== null && data.ADDITIVE !== null
             if (data !== null && data.ADDITIVE !== 1) {
-                traits.push(this.getTrait(data, attribute, 0, rank, cumulativeValues.map(constant => ({ ...constant }))))
+                traits.push(this.getTrait(data, attribute, 0, additive, rank, cumulativeValues.map(constant => ({ ...constant }))))
             } else {
-                traits.push(this.getTrait(null, attribute, 0, rank, cumulativeValues.map(constant => ({ ...constant }))))
+                traits.push(this.getTrait(null, attribute, 0, additive, rank, cumulativeValues.map(constant => ({ ...constant }))))
             }
-            traits.push()
         }
 
         return traits;

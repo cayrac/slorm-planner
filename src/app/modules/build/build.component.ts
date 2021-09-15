@@ -16,7 +16,8 @@ export class BuildComponent extends AbstractUnsubscribeComponent {
     public readonly ROUTES = [
         { name: 'Inventory', route: 'inventory'},
         { name: 'Skills', route: 'skills'},
-        { name: 'Ancestral legacy', route: 'ancestral-legacy'},
+        { name: 'Ancestral legacies', route: 'ancestral-legacies'},
+        { name: 'Attributes', route: 'attributes'},
     ];
 
     public isDragging: boolean = false;

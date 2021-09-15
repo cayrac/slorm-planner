@@ -1,0 +1,13 @@
+<div class="trait attribute-{{trait.attribute}}" *ngIf="trait !== null"
+    [class.first]="first"
+    [class.last]="last"
+    [class.minor]="isMinor(trait)"
+    [class.major]="isMajor(trait)"
+    [class.greater]="isGreater(trait)"
+    [class.active]="trait.unlocked"
+    [class.highlight]="highlight">
+    <div class="additive" *ngIf="trait.additive"></div>
+    <div class="content">
+        <div class="node"></div>
+    </div>
+</div>

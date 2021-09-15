@@ -16,6 +16,9 @@ import {
 import {
     AncestralLegacySlotComponent,
 } from './component/ancestral-legacies/components/ancestral-legacy-slot/ancestral-legacy-slot.component';
+import { AttributesComponent } from './component/attributes/attributes.component';
+import { AttributeLineComponent } from './component/attributes/components/attribute-line/attribute-line.component';
+import { TraitComponent } from './component/attributes/components/trait/trait.component';
 import { BuildHeaderComponent } from './component/build-header/build-header.component';
 import { ActivableSlotComponent } from './component/inventory/components/activable-slot/activable-slot.component';
 import {
@@ -51,7 +54,10 @@ import { SkillsComponent } from './component/skills/skills.component';
         SettingsSkillsComponent,
         UpgradeSlotComponent,
         AncestralLegacyMapComponent,
-        AncestralLegacySlotComponent
+        AncestralLegacySlotComponent,
+        AttributesComponent,
+        AttributeLineComponent,
+        TraitComponent
     ],
     imports: [
         CommonModule,

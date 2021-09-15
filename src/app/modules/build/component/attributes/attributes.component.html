@@ -1,0 +1,5 @@
+<mat-card *ngIf="attributes !== null">
+    <mat-card-content>
+        <app-attribute-line [attribute]="attributes[attribute]" *ngFor="let attribute of ALL_ATTRIBUTES"></app-attribute-line>
+    </mat-card-content>
+</mat-card>

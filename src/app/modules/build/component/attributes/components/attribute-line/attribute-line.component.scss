@@ -1,0 +1,38 @@
+@import "../../../../../../../assets/scss/abstracts/flex";
+@import "../../../../../../../assets/scss/abstracts/color";
+
+$bar-color: primary-color(300);
+
+.bar {
+    @include flex(row, center);
+    padding: $space-unit * 3 $space-unit * 3;
+    position: relative;
+    overflow: visible;
+
+    &:before {
+        content: ' ';
+        position: absolute;
+        background-color: $bar-color;
+        border: 4px solid black;
+        left: 11px;
+        transform: rotate(45deg);
+        width: 38px;
+        height: 38px;
+    }
+
+    img {
+        z-index: 2;
+    }
+
+    .pre-bar {
+        background-color: $bar-color;
+        border: 4px solid black;
+        margin-left: -6px;
+        border-left: 0;
+        border-right: 0;
+        min-width: 20px;
+        width: 20px;
+        height: 22px;
+        z-index: 1;
+    }
+}

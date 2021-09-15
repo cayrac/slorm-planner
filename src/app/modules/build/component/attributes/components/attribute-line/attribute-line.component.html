@@ -1,0 +1,14 @@
+<div *ngIf="attribute !== null" class="bar">
+    <img [src]="attribute.icon" />
+    <div class="pre-bar"></div>
+    <app-trait *ngFor="let trait of attribute.traits; let i = index"
+        [trait]="trait"
+        [first]="i === 0"
+        [last]="i === (attribute.traits.length - 1)"
+        [highlight]="isHighlight(i)"
+        (mouseenter)="nodeEnter(i)"
+        (mouseleave)="nodeLeave(i)"
+        (click)="nodeClick(i)"
+        >
+    </app-trait>
+</div>

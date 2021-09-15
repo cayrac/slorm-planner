@@ -1,0 +1,6 @@
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/color";
+
+mat-card-content {
+    @include flex(column, stretch);
+}

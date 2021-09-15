@@ -1,6 +1,7 @@
 import { Activable } from './content/activable';
 import { AncestralLegacy } from './content/ancestral-legacy';
 import { AttributeTraits } from './content/attribut-traits';
+import { Attribute } from './content/enum/attribute';
 import { HeroClass } from './content/enum/hero-class';
 import { EquipableItem } from './content/equipable-item';
 import { Reaper } from './content/reaper';
@@ -35,14 +36,14 @@ export interface CharacterGear {
 }
 
 export interface CharacterAttributes {
-    0: AttributeTraits;
-    1: AttributeTraits;
-    2: AttributeTraits;
-    3: AttributeTraits;
-    4: AttributeTraits;
-    5: AttributeTraits;
-    6: AttributeTraits;
-    7: AttributeTraits;
+    [Attribute.Toughness]: AttributeTraits;
+    [Attribute.Savagery]: AttributeTraits;
+    [Attribute.Fury]: AttributeTraits;
+    [Attribute.Determination]: AttributeTraits;
+    [Attribute.Zeal]: AttributeTraits;
+    [Attribute.Willpower]: AttributeTraits;
+    [Attribute.Dexterity]: AttributeTraits;
+    [Attribute.Bravery]: AttributeTraits;
 }
 
 export interface Character {

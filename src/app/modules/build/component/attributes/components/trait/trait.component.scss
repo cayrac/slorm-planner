@@ -1,0 +1,161 @@
+@import "../../../../../../../assets/scss/abstracts/flex";
+@import "../../../../../../../assets/scss/abstracts/color";
+
+$bar-color: primary-color(300);
+$empty-color: primary-color(400);
+
+$toughness-color       : rgb(47, 89, 150); 
+$savagery-color        : rgb(168, 48, 7); 
+$fury-color            : rgb(121, 181, 73); 
+$determination-color   : rgb(208, 181, 69); 
+$zeal-color            : rgb(75, 193, 178); 
+$willpower-color       : rgb(117, 48, 152); 
+$dexterity-color       : rgb(205, 112, 40); 
+$bravery-color         : rgb(191, 60, 89); 
+
+.trait {
+    @include flex(row, center);
+    position: relative;
+    height: 54px;
+    width: 8px;
+    overflow: hidden;
+    cursor: pointer;
+
+    .additive {
+        position: absolute;
+        width: 4px;
+        height: 36px;
+        left:4px;
+    }
+
+    .content {
+        @include flex(row, center);
+        border: 4px solid black;
+        background-color: $bar-color;
+        overflow: hidden;
+        border-left-width: 0;
+        border-right-width: 0;
+        height: 22px;
+        z-index: 1;
+    
+        .node {
+            border: 2px solid black;
+            background-color: $empty-color;
+            height: 10px;
+        }
+    }
+
+    &.attribute-0 {
+        &.active .node, .additive, &.highlight .node {
+            background-color: $toughness-color;
+        }
+
+        &.highlight .node {
+            background-color: rgba($toughness-color, 0.5);
+        }
+    }
+    &.attribute-1 {
+        &.active .node, .additive, &.highlight .node {
+            background-color: $savagery-color;
+        }
+    }
+    &.attribute-2 {
+        &.active .node, .additive, &.highlight .node {
+            background-color: $fury-color;
+        }
+    }
+    &.attribute-3 {
+        &.active .node, .additive, &.highlight .node {
+            background-color: $determination-color;
+        }
+    }
+    &.attribute-4 {
+        &.active .node, .additive, &.highlight .node {
+            background-color: $zeal-color;
+        }
+    }
+    &.attribute-5 {
+        &.active .node, .additive, &.highlight .node {
+            background-color: $willpower-color;
+        }
+    }
+    &.attribute-6 {
+        &.active .node, .additive, &.highlight .node {
+            background-color: $dexterity-color;
+        }
+    }
+    &.attribute-7 {
+        &.active .node, .additive, &.highlight .node {
+            background-color: $bravery-color;
+        }
+    }
+    
+    &:not(.greater) .content {
+        border-left-width: 2px;
+        border-right-width: 2px;
+    }
+
+    &.minor, &.greater {
+            .content {
+            border-left-width: 0;
+            border-right-width: 0;
+
+            .node {
+                width: 4px;
+            }
+        }
+    }
+
+    &.minor {
+        &.first {
+            width: 10px;
+            .content {
+                .node {
+                    border-left-width: 4px;
+                }
+            }
+        }
+    }
+
+    &.major {
+        width: 12px;
+        .content {
+            border-left-width: 0;
+            border-right-width: 0;
+    
+            .node {
+                width: 8px;
+            }
+        }
+    }
+
+    &.greater {
+        width: 16px;
+        position: relative;
+
+        .content {
+            @include flex(row, center, center);
+            position: absolute;
+            transform: rotate(45deg);
+            border-width: 4px;
+            height: 28px;
+            width: 28px;
+            left: -10px;
+    
+            .node {
+                border-width: 2px;
+                width: 10px;
+                height: 10px;
+            }
+        }
+        
+        .additive {
+            left: 6px;
+            height: 54px;
+        }
+
+        &.last {
+            width: 32px;
+        }
+    }
+}

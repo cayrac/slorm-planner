@@ -8,6 +8,7 @@ export interface Trait {
     traitLevel: TraitLevel;
     rank: number;
     unlocked: boolean;
+    additive: boolean;
 
     attributeName: string;
     cumulativeStats: string | null;

@@ -11,6 +11,7 @@ import { Character } from '../../../slormancer/model/character';
 import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
 import { SlormancerAncestralLegacyService } from '../../../slormancer/services/content/slormancer-ancestral-legacy.service';
 import { list } from '../../../slormancer/util/math.util';
+import { valueOrNull } from '../../../slormancer/util/utils';
 
 @Component({
   selector: 'app-ancestral-legacies',
@@ -29,16 +30,30 @@ export class AncestralLegaciesComponent extends AbstractUnsubscribeComponent imp
                 private slormancerAncestralLegacyService: SlormancerAncestralLegacyService,
                 private messageService: MessageService) {
         super();
-
-        // fait flotter MC
-
-        // passer aux attributs
     }
 
     public ngOnInit() {
         this.plannerService.characterChanged
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(character => this.character = character);
+            .subscribe(character => {
+                this.character = character;
+                this.selectDefaultAncestralLegacy();
+            });
+    }
+
+    private selectDefaultAncestralLegacy() {
+        this.selectedAncestralLegacy = null;
+
+        if (this.character !== null) {
+            if (this.character.ancestralLegacies.activeAncestralLegacies.length > 0) {
+                const first = valueOrNull(this.character.ancestralLegacies.activeAncestralLegacies[0]);
+                this.selectedAncestralLegacy = first === null ? null : valueOrNull(this.character.ancestralLegacies.ancestralLegacies[first]);
+            }
+
+            if (this.selectedAncestralLegacy === null) {
+                this.selectedAncestralLegacy = valueOrNull(this.character.ancestralLegacies.ancestralLegacies[0]);
+            }
+        }
     }
 
     public isPointUnlock(index: number): boolean {
