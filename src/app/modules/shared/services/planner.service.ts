@@ -26,8 +26,6 @@ export class PlannerService {
     constructor(private slormancerCharacterService: SlormancerCharacterService,
                 private slormancerSaveParserService: SlormancerSaveParserService,
                 private httpClient: HttpClient) {
-        console.log('NEW PlannerService Instance');
-        
         this.httpClient.get('assets/save', { responseType: 'text' })
         .subscribe(save => this.loadSave(save, HeroClass.Huntress));
     }

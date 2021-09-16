@@ -37,8 +37,6 @@ export class SearchService {
         if (result !== null) {
             this.dom.innerHTML = result.toLowerCase();
             result = this.dom.textContent;
-
-            console.log(value + ' => ', result);
         }
 
 

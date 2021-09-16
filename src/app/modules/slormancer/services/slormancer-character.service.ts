@@ -284,9 +284,6 @@ export class SlormancerCharacterService {
             allocatedPoints = 0;
         }
         character.attributes.remainingPoints = character.attributes.maxPoints - allocatedPoints;
-
-        console.log('update character : ', specialization);
-        console.log(character.supportSkill);
     }
 
     public setPrimarySkill(character: Character, skill: Skill): boolean {

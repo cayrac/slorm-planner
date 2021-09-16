@@ -57,27 +57,10 @@ export class SlormancerTranslateService {
             const gameData = this.slormancerDataService.getTranslation(key);
             if (gameData !== null) {
                 result = gameData.EN;
-            } else {
-                const data = this.slormancerDataService.getDataAffixByRef(key);
-                if (data !== null) {
-                    console.log('TRANSLATION used getDataAffixByRef');
-                    result = data.name;
-                } else {
-                    const keyword = this.slormancerDataService.getKeywordName(key);
-                    if (keyword !== null) {
-                        console.log('TRANSLATION used getKeywordName');
-                        result = keyword;
-                    } else {
-                        const dataTranslate = this.slormancerDataService.getDataTranslate(key);
-                        if (dataTranslate !== null) {
-                            result = dataTranslate;
-                        } else if (key.startsWith('victims_reaper_')) {
-                            const reaper = this.slormancerDataService.getGameDataReaper(strictParseInt(key.substr(15)));
-                            if (reaper !== null) {
-                                result = reaper.EN_NAME;
-                            }
-                        }
-                    }
+            } else if (key.startsWith('victims_reaper_')) {
+                const reaper = this.slormancerDataService.getGameDataReaper(strictParseInt(key.substr(15)));
+                if (reaper !== null) {
+                    result = reaper.EN_NAME;
                 }
             }
 
