@@ -21,6 +21,10 @@ $bravery-color         : rgb(191, 60, 89);
     overflow: hidden;
     cursor: pointer;
 
+    &.hidden-by-search {
+        opacity: 0.2;
+    }
+
     .additive {
         position: absolute;
         width: 4px;
@@ -46,47 +50,75 @@ $bravery-color         : rgb(191, 60, 89);
     }
 
     &.attribute-0 {
-        &.active .node, .additive, &.highlight .node {
+        &.active .node, .additive {
             background-color: $toughness-color;
         }
 
         &.highlight .node {
-            background-color: rgba($toughness-color, 0.5);
+            background-color: rgba($toughness-color, 0.3);
         }
     }
     &.attribute-1 {
-        &.active .node, .additive, &.highlight .node {
+        &.active .node, .additive {
             background-color: $savagery-color;
+        }
+
+        &.highlight .node {
+            background-color: rgba($savagery-color, 0.3);
         }
     }
     &.attribute-2 {
-        &.active .node, .additive, &.highlight .node {
+        &.active .node, .additive {
             background-color: $fury-color;
+        }
+
+        &.highlight .node {
+            background-color: rgba($fury-color, 0.3);
         }
     }
     &.attribute-3 {
-        &.active .node, .additive, &.highlight .node {
+        &.active .node, .additive {
             background-color: $determination-color;
+        }
+
+        &.highlight .node {
+            background-color: rgba($determination-color, 0.3);
         }
     }
     &.attribute-4 {
-        &.active .node, .additive, &.highlight .node {
+        &.active .node, .additive {
             background-color: $zeal-color;
+        }
+
+        &.highlight .node {
+            background-color: rgba($zeal-color, 0.3);
         }
     }
     &.attribute-5 {
-        &.active .node, .additive, &.highlight .node {
+        &.active .node, .additive {
             background-color: $willpower-color;
+        }
+
+        &.highlight .node {
+            background-color: rgba($willpower-color, 0.3);
         }
     }
     &.attribute-6 {
-        &.active .node, .additive, &.highlight .node {
+        &.active .node, .additive {
             background-color: $dexterity-color;
+        }
+
+        &.highlight .node {
+            background-color: rgba($dexterity-color, 0.3);
         }
     }
     &.attribute-7 {
-        &.active .node, .additive, &.highlight .node {
+        &.active .node, .additive {
             background-color: $bravery-color;
+        }
+
+        &.highlight .node {
+            background-color: rgba($bravery-color, 0.3);
         }
     }
     

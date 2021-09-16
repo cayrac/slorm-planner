@@ -36,14 +36,18 @@ export interface CharacterGear {
 }
 
 export interface CharacterAttributes {
-    [Attribute.Toughness]: AttributeTraits;
-    [Attribute.Savagery]: AttributeTraits;
-    [Attribute.Fury]: AttributeTraits;
-    [Attribute.Determination]: AttributeTraits;
-    [Attribute.Zeal]: AttributeTraits;
-    [Attribute.Willpower]: AttributeTraits;
-    [Attribute.Dexterity]: AttributeTraits;
-    [Attribute.Bravery]: AttributeTraits;
+    remainingPoints: number;
+    maxPoints: number;
+    allocated: {
+        [Attribute.Toughness]: AttributeTraits;
+        [Attribute.Savagery]: AttributeTraits;
+        [Attribute.Fury]: AttributeTraits;
+        [Attribute.Determination]: AttributeTraits;
+        [Attribute.Zeal]: AttributeTraits;
+        [Attribute.Willpower]: AttributeTraits;
+        [Attribute.Dexterity]: AttributeTraits;
+        [Attribute.Bravery]: AttributeTraits;
+    }
 }
 
 export interface Character {

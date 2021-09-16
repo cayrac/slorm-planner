@@ -111,7 +111,7 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
 
         const character = this.character;
         if (character !== null) {
-            result = ALL_ATTRIBUTES.map(attribute => character.attributes[attribute]);
+            result = ALL_ATTRIBUTES.map(attribute => character.attributes.allocated[attribute]);
         }
 
         return result;

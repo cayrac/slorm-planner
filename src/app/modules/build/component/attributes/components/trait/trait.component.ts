@@ -1,7 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
 
+import {
+    AbstractUnsubscribeComponent,
+} from '../../../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { TraitLevel } from '../../../../../slormancer/model/content/enum/trait-level';
 import { Trait } from '../../../../../slormancer/model/content/trait';
+import { SearchService } from '../../../inventory/services/search.service';
 
 /*
 export interface Trait {
@@ -34,7 +39,7 @@ export interface Trait {
   templateUrl: './trait.component.html',
   styleUrls: ['./trait.component.scss']
 })
-export class TraitComponent implements OnInit {
+export class TraitComponent extends AbstractUnsubscribeComponent implements OnInit {
 
     @Input()
     public trait: Trait | null = null;
@@ -48,7 +53,26 @@ export class TraitComponent implements OnInit {
     @Input()
     public highlight: boolean = false;
 
-    constructor() { }
+    public isMouseOver = false;
+
+    public isHiddenBySearch = false;
+
+    @HostListener('mouseenter')
+    public onMouseEnter() {
+        this.isMouseOver = true;
+    }
+
+    @HostListener('mouseleave')
+    public onMouseLeave() {
+        this.isMouseOver = false;
+    }
+
+    constructor(private searchService: SearchService) {
+        super();
+        this.searchService.searchChanged
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(() => this.isHiddenBySearch = this.trait !== null && !this.searchService.traitMatchSearch(this.trait))
+    }
 
     public ngOnInit() {
     }

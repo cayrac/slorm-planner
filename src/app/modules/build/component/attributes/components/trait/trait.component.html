@@ -5,9 +5,17 @@
     [class.major]="isMajor(trait)"
     [class.greater]="isGreater(trait)"
     [class.active]="trait.unlocked"
-    [class.highlight]="highlight">
+    [class.highlight]="highlight"
+    [class.hidden-by-search]="isHiddenBySearch"
+    cdkOverlayOrigin
+    #trigger="cdkOverlayOrigin">
     <div class="additive" *ngIf="trait.additive"></div>
     <div class="content">
         <div class="node"></div>
     </div>
+    <ng-template cdkConnectedOverlay
+        [cdkConnectedOverlayOpen]="isMouseOver"
+        [cdkConnectedOverlayOrigin]="trigger">
+        <app-trait-view [trait]="trait" ></app-trait-view>
+    </ng-template>
 </div>

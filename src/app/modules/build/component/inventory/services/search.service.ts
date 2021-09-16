@@ -4,12 +4,15 @@ import { BehaviorSubject } from 'rxjs';
 import { AncestralLegacy } from '../../../../slormancer/model/content/ancestral-legacy';
 import { EquipableItem } from '../../../../slormancer/model/content/equipable-item';
 import { SkillUpgrade } from '../../../../slormancer/model/content/skill-upgrade';
+import { Trait } from '../../../../slormancer/model/content/trait';
 import { isNotNullOrUndefined } from '../../../../slormancer/util/utils';
 
 @Injectable()
 export class SearchService {
 
     private search: string | null = null;
+
+    private dom = document.createElement("div");
 
     public readonly searchChanged = new BehaviorSubject<string |null>(null);
 
@@ -26,6 +29,20 @@ export class SearchService {
 
     private getCleanSearchValue(): string | null {
         return this.search === null ? null : this.search.toLowerCase().trim();
+    }
+
+    private removeHtmlTags(value: string | null): string | null{
+        let result = value;
+
+        if (result !== null) {
+            this.dom.innerHTML = result.toLowerCase();
+            result = this.dom.textContent;
+
+            console.log(value + ' => ', result);
+        }
+
+
+        return result;
     }
 
     private stringsMatchSearch(values: Array<string | null>): boolean {
@@ -47,7 +64,7 @@ export class SearchService {
             item.base,
             item.rarity,
             ...item.affixes.map(affix => [ affix.isPure ? 'pure': null, affix.valueLabel + affix.statLabel ]).flat(),
-            item.legendaryEffect === null ? null : item.legendaryEffect.description,
+            item.legendaryEffect === null ? null : this.removeHtmlTags(item.legendaryEffect.description),
             item.reaperEnchantment !== null ? item.reaperEnchantment.label : null,
             item.skillEnchantment !== null ? item.skillEnchantment.label : null,
             item.attributeEnchantment !== null ? item.attributeEnchantment.label : null
@@ -58,11 +75,11 @@ export class SearchService {
         return this.stringsMatchSearch([
             upgrade.name,
             upgrade.type,
-            upgrade.description,
+            this.removeHtmlTags(upgrade.description),
             ...upgrade.genres,
             upgrade.genresLabel,
-            upgrade.costLabel,
-            upgrade.costType,
+            this.removeHtmlTags(upgrade.costLabel),
+            this.removeHtmlTags(upgrade.costType),
             ...upgrade.relatedBuffs.map(buff => buff.name),
             ...upgrade.relatedClassMechanics.map(buff => buff.name),
             ...upgrade.relatedMechanics.map(buff => buff.name)
@@ -75,12 +92,21 @@ export class SearchService {
             ancestralLegacy.costType,
             ...ancestralLegacy.genres,
             ancestralLegacy.isActivable ? 'activable' : null,
-            ancestralLegacy.description,
+            this.removeHtmlTags(ancestralLegacy.description),
             ...ancestralLegacy.relatedBuffs.map(buff => buff.name),
             ...ancestralLegacy.relatedMechanics.map(mechanic => mechanic.name),
             ...ancestralLegacy.types,
             ancestralLegacy.typeLabel,
             ancestralLegacy.genresLabel
+        ]);
+    }
+
+    public traitMatchSearch(trait: Trait): boolean {
+        return this.stringsMatchSearch([
+            trait.rankLabel,
+            this.removeHtmlTags(trait.cumulativeStats),
+            this.removeHtmlTags(trait.description),
+            trait.traitLevelLabel,
         ]);
     }
 }

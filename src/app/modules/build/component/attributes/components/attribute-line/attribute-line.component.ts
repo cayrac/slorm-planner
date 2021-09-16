@@ -5,22 +5,6 @@ import { AttributeTraits } from '../../../../../slormancer/model/content/attribu
 import { MinMax } from '../../../../../slormancer/model/minmax';
 import { SlormancerAttributeService } from '../../../../../slormancer/services/content/slormancer-attribute.service';
 
-/*
-
-    attribute: Attribute;
-    rank: number;
-    bonusRank: number;
-    traits: Array<Trait>;
-
-    recapLabel: string;
-    attributeName: string;
-    title: string;
-    icon: string;
-    summary: string;
-
-    template: string;
-*/
-
 @Component({
   selector: 'app-attribute-line',
   templateUrl: './attribute-line.component.html',
@@ -28,10 +12,19 @@ import { SlormancerAttributeService } from '../../../../../slormancer/services/c
 })
 export class AttributeLineComponent implements OnInit {
 
-    public highlightRange: MinMax = { min: -1, max: -1 };
+    @Input()
+    public readonly attribute: AttributeTraits | null = null;
 
     @Input()
-    public attribute: AttributeTraits | null = null;
+    public readonly remainingPoints: number = 0;
+
+    @Input()
+    public readonly iconShift: boolean = false;
+
+    public highlightRange: MinMax = { min: 0, max: 0 };
+
+    public showSummary = false;
+    
 
     constructor(private slormancerAttributeService: SlormancerAttributeService,
                 private plannerService: PlannerService) { }
@@ -40,26 +33,47 @@ export class AttributeLineComponent implements OnInit {
     }
 
     public nodeEnter(index: number) {
-        console.log('nodeEnter ' + index);
         if (this.attribute !== null) {
-            this.highlightRange = index < this.attribute.rank ? { min: index, max: this.attribute.rank } : { min: this.attribute.rank, max: index };
+            if (index < this.attribute.rank) {
+                this.highlightRange = { min: index + 1, max: this.attribute.rank };
+            } else {
+                this.highlightRange = { min: this.attribute.rank, max: Math.min(this.attribute.rank + this.remainingPoints, index + 1) };
+            }
         }
     }
 
-    public nodeLeave(index: number) {
-        console.log('nodeLeave ' + index);
+    public nodeLeave() {
         this.highlightRange = { min: -1, max: -1 };
     }
 
-    public nodeClick(index: number) {
+    private setRank(rank: number) {
         if (this.attribute !== null) {
-            this.attribute.rank = index + 1;
+            this.attribute.rank = rank;
             this.slormancerAttributeService.updateAttributeTraits(this.attribute);
             this.plannerService.updateCurrentCharacter();
+            this.highlightRange = { min: -1, max: -1 };
+        }
+    }
+
+    public nodeClick() {
+        if (this.attribute !== null && this.highlightRange.min !== -1 && this.highlightRange.max !== -1) {
+            this.setRank(this.attribute.rank === this.highlightRange.max ? this.highlightRange.min : this.highlightRange.max);
         }
     }
 
     public isHighlight(index: number): boolean {
-        return index >= this.highlightRange.min && index <= this.highlightRange.max
+        return index >= this.highlightRange.min && index < this.highlightRange.max
+    }
+
+    public addPoint(event: MouseEvent) {
+        if (this.attribute !== null && this.remainingPoints > 0) {
+            this.setRank(this.attribute.rank + Math.min(this.remainingPoints, event.shiftKey ? 10 : 1));
+        }
+    }
+
+    public removePoint(event: MouseEvent) {
+        if (this.attribute !== null && this.attribute.rank > 0) {
+            this.setRank(this.attribute.rank - Math.min(this.attribute.rank, event.shiftKey ? 10 : 1));
+        }
     }
 }

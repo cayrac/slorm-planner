@@ -240,12 +240,14 @@ export class SlormancerAttributeService {
         for (const value of cumulativeAttributes) {
             const found = valueOrNull(cumulativeUnlockedAttributes.find(v => this.sameValue(v, value)));
 
+
             if (found !== null) {
                 if (value.value !== found.value) {
                     value.max = value.value;
                 }
                 value.value = found.value;
             }
+            value.displayValue = value.value;
 
             const label = this.getDefaultVariableDescription(value);
             cumulativeAttributeLabels.push(this.slormancerTemplateService.asSpan(label, found !== null ? 'unlocked' : 'locked'));

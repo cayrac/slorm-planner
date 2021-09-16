@@ -1,5 +1,10 @@
 <mat-card *ngIf="attributes !== null">
     <mat-card-content>
-        <app-attribute-line [attribute]="attributes[attribute]" *ngFor="let attribute of ALL_ATTRIBUTES"></app-attribute-line>
+        <p>{{attributes.remainingPoints}}/{{attributes.maxPoints}} Points to spend</p>
+        <app-attribute-line *ngFor="let attribute of ALL_ATTRIBUTES"
+            [iconShift]="attribute % 2 === 0"
+            [attribute]="attributes.allocated[attribute]"
+            [remainingPoints]="attributes.remainingPoints">
+        </app-attribute-line>
     </mat-card-content>
 </mat-card>

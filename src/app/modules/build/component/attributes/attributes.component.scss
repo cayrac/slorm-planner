@@ -1,6 +1,12 @@
 @import "../../../../../assets/scss/abstracts/flex";
 @import "../../../../../assets/scss/abstracts/color";
 
+
+
 mat-card-content {
-    @include flex(column, stretch);
+    @include flex(column, center);
+
+    p {
+        color: rgb(200, 68, 7);
+    }
 }

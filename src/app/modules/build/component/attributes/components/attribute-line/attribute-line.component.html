@@ -1,14 +1,33 @@
-<div *ngIf="attribute !== null" class="bar">
-    <img [src]="attribute.icon" />
-    <div class="pre-bar"></div>
+<div *ngIf="attribute !== null" class="bar attribute-{{attribute.attribute}}" cdkOverlayOrigin #trigger="cdkOverlayOrigin" [class.icon-shift]="iconShift">
+    <img [src]="attribute.icon" 
+        (mouseenter)="showSummary = true"
+        (mouseleave)="showSummary = false"/>
+    <div class="pre-bar"
+        (mouseenter)="nodeEnter(-1)"
+        (mouseleave)="nodeLeave()"
+        (click)="nodeClick()">
+    </div>
     <app-trait *ngFor="let trait of attribute.traits; let i = index"
         [trait]="trait"
         [first]="i === 0"
         [last]="i === (attribute.traits.length - 1)"
         [highlight]="isHighlight(i)"
         (mouseenter)="nodeEnter(i)"
-        (mouseleave)="nodeLeave(i)"
-        (click)="nodeClick(i)"
-        >
+        (mouseleave)="nodeLeave()"
+        (click)="nodeClick()">
     </app-trait>
+    <div class="total">
+        +{{attribute.rank}} {{attribute.attributeName}}
+    </div>
+    <ng-template cdkConnectedOverlay
+        [cdkConnectedOverlayOpen]="showSummary"
+        [cdkConnectedOverlayOrigin]="trigger">
+        <app-attribute-summary-view [attributeTraits]="attribute" ></app-attribute-summary-view>
+    </ng-template>
+    <button mat-icon-button color="primary" (click)="addPoint($event)" [disabled]="remainingPoints === 0">
+        <mat-icon>add</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" (click)="removePoint($event)" [disabled]="attribute.rank === 0">
+        <mat-icon>remove</mat-icon>
+    </button>
 </div>

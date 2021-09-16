@@ -3,18 +3,32 @@
 
 $bar-color: primary-color(300);
 
+$toughness-color       : rgb(47, 89, 150); 
+$savagery-color        : rgb(168, 48, 7); 
+$fury-color            : rgb(121, 181, 73); 
+$determination-color   : rgb(208, 181, 69); 
+$zeal-color            : rgb(75, 193, 178); 
+$willpower-color       : rgb(117, 48, 152); 
+$dexterity-color       : rgb(205, 112, 40); 
+$bravery-color         : rgb(191, 60, 89); 
+
+$shift-size: $space-unit * 4;
+
 .bar {
     @include flex(row, center);
-    padding: $space-unit * 3 $space-unit * 3;
+    padding: $space-unit 0;
     position: relative;
-    overflow: visible;
+    height: 54px;
+
+    &.icon-shift {
+        margin-left: $shift-size;
+    }
 
     &:before {
         content: ' ';
         position: absolute;
         background-color: $bar-color;
         border: 4px solid black;
-        left: 11px;
         transform: rotate(45deg);
         width: 38px;
         height: 38px;
@@ -22,6 +36,7 @@ $bar-color: primary-color(300);
 
     img {
         z-index: 2;
+        padding-left: 1px;
     }
 
     .pre-bar {
@@ -34,5 +49,58 @@ $bar-color: primary-color(300);
         width: 20px;
         height: 22px;
         z-index: 1;
+        cursor: pointer;
+    }
+
+    &:not(.icon-shift) .pre-bar {
+        width: 20px + $shift-size;
+    }
+
+    .total {
+        display: none;
+        background-color: $bar-color;
+        border: 4px solid black;
+        font-weight: bold;
+        border-left: 0;
+        width: 130px;
+        height: 22px;
+    }
+
+    button {
+        margin-left: $space-unit * 2;
+    }
+
+    @include respond-to('tablet') {
+        app-trait {
+            display: none;
+        }
+        .total {
+            @include flex(row, center);
+        }
+    }
+
+    &.attribute-0 .total {
+        color: $toughness-color;
+    }
+    &.attribute-1 .total {
+        color: $savagery-color;
+    }
+    &.attribute-2 .total {
+        color: $fury-color;
+    }
+    &.attribute-3 .total {
+        color: $determination-color;
+    }
+    &.attribute-4 .total {
+        color: $zeal-color;
+    }
+    &.attribute-5 .total {
+        color: $willpower-color;
+    }
+    &.attribute-6 .total {
+        color: $dexterity-color;
+    }
+    &.attribute-7 .total {
+        color: $bravery-color;
     }
 }

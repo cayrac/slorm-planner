@@ -5,7 +5,7 @@ import { STASH_SIZE } from '../constants/common';
 import { Character, CharacterSkillAndUpgrades } from '../model/character';
 import { Activable } from '../model/content/activable';
 import { AncestralLegacy } from '../model/content/ancestral-legacy';
-import { Attribute } from '../model/content/enum/attribute';
+import { ALL_ATTRIBUTES, Attribute } from '../model/content/enum/attribute';
 import { EquipableItem } from '../model/content/equipable-item';
 import { Reaper } from '../model/content/reaper';
 import { Skill } from '../model/content/skill';
@@ -224,15 +224,18 @@ export class SlormancerCharacterService {
             sharedInventory: this.getSharedInventory(save.shared_inventory, heroClass),
 
             attributes: {
-                [Attribute.Toughness]: this.slormancerAttributeService.getAttributeTraits(Attribute.Toughness, valueOrDefault(traits[Attribute.Toughness], 0)),
-                [Attribute.Savagery]: this.slormancerAttributeService.getAttributeTraits(Attribute.Savagery, valueOrDefault(traits[Attribute.Savagery], 0)),
-                [Attribute.Fury]: this.slormancerAttributeService.getAttributeTraits(Attribute.Fury, valueOrDefault(traits[Attribute.Fury], 0)),
-                [Attribute.Determination]: this.slormancerAttributeService.getAttributeTraits(Attribute.Determination, valueOrDefault(traits[Attribute.Determination], 0)),
-                [Attribute.Zeal]: this.slormancerAttributeService.getAttributeTraits(Attribute.Zeal, valueOrDefault(traits[Attribute.Zeal], 0)),
-                [Attribute.Willpower]: this.slormancerAttributeService.getAttributeTraits(Attribute.Willpower, valueOrDefault(traits[Attribute.Willpower], 0)),
-                [Attribute.Dexterity]: this.slormancerAttributeService.getAttributeTraits(Attribute.Dexterity, valueOrDefault(traits[Attribute.Dexterity], 0)),
-                [Attribute.Bravery]: this.slormancerAttributeService.getAttributeTraits(Attribute.Bravery, valueOrDefault(traits[Attribute.Bravery], 0)),
-            },
+                remainingPoints: 0,
+                maxPoints: 0,
+                allocated: {
+                    [Attribute.Toughness]: this.slormancerAttributeService.getAttributeTraits(Attribute.Toughness, valueOrDefault(traits[Attribute.Toughness], 0)),
+                    [Attribute.Savagery]: this.slormancerAttributeService.getAttributeTraits(Attribute.Savagery, valueOrDefault(traits[Attribute.Savagery], 0)),
+                    [Attribute.Fury]: this.slormancerAttributeService.getAttributeTraits(Attribute.Fury, valueOrDefault(traits[Attribute.Fury], 0)),
+                    [Attribute.Determination]: this.slormancerAttributeService.getAttributeTraits(Attribute.Determination, valueOrDefault(traits[Attribute.Determination], 0)),
+                    [Attribute.Zeal]: this.slormancerAttributeService.getAttributeTraits(Attribute.Zeal, valueOrDefault(traits[Attribute.Zeal], 0)),
+                    [Attribute.Willpower]: this.slormancerAttributeService.getAttributeTraits(Attribute.Willpower, valueOrDefault(traits[Attribute.Willpower], 0)),
+                    [Attribute.Dexterity]: this.slormancerAttributeService.getAttributeTraits(Attribute.Dexterity, valueOrDefault(traits[Attribute.Dexterity], 0)),
+                    [Attribute.Bravery]: this.slormancerAttributeService.getAttributeTraits(Attribute.Bravery, valueOrDefault(traits[Attribute.Bravery], 0)),
+                }},
         
             primarySkill: null,
             secondarySkill: null,
@@ -258,6 +261,13 @@ export class SlormancerCharacterService {
         return character;
     }
 
+    private resetAttributes(character: Character) {
+        for (const attribute of ALL_ATTRIBUTES) {
+            character.attributes.allocated[attribute].rank = 0;
+            this.slormancerAttributeService.updateAttributeTraits(character.attributes.allocated[attribute]);
+        }
+    }
+
     public updateCharacter(character: Character) {
         character.ancestralLegacies.activeAncestralLegacies = this.slormancerDataService.getAncestralSkillIdFromNodes(character.ancestralLegacies.activeNodes);
 
@@ -265,6 +275,15 @@ export class SlormancerCharacterService {
         const specialization = character.supportSkill !== null ? character.supportSkill.specializationName : null;
         let fullName = [character.name, specialization].filter(isNotNullOrUndefined).join(', ');
         character.fullName = fullName + ' ' + this.LEVEL_LABEL + ' ' + character.level;
+
+        character.attributes.maxPoints = character.level;
+        let allocatedPoints = ALL_ATTRIBUTES.map(attribute => character.attributes.allocated[attribute].rank).reduce((p, c) => p + c, 0);
+
+        if (allocatedPoints > character.attributes.maxPoints) {
+            this.resetAttributes(character);
+            allocatedPoints = 0;
+        }
+        character.attributes.remainingPoints = character.attributes.maxPoints - allocatedPoints;
 
         console.log('update character : ', specialization);
         console.log(character.supportSkill);

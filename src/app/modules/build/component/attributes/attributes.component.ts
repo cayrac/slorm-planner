@@ -22,16 +22,9 @@ export class AttributesComponent extends AbstractUnsubscribeComponent implements
     constructor(private plannerService: PlannerService) {
         super();
 
-        // highlight => trouver bonne couleur pour highlight
-
-        // rajouter gestion max attributs
-
-        // rajouter overlay
-
-        // rajouter tri
-
         // rajouter renommage / ajout / suppression layer
 
+        // sidenav
     }
 
     public ngOnInit() {
