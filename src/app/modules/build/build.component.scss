@@ -13,7 +13,6 @@
     background-color: primary-color(700);
 
     .tools {
-        // hauteur nav
         @include flex(row, center);
         width: 48px;
         min-width: 48px;
@@ -27,18 +26,6 @@
     nav {
         @include flex-grow();
     }
-}
-
-.content {
-    @include flex(column, stretch);
-    @include flex-grow();
-    @include spacing();
-    overflow: auto;
-
-    app-build-header {
-        margin-bottom: $space-content;
-    }
-
 }
 
 #drag-image, #drag-background {

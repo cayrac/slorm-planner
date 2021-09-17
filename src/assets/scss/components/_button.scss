@@ -1,16 +1,21 @@
 button.mat-button-base {
 
     &[color="primary"] {
-        &[mat-flat-button] {
+        &[mat-flat-button].mat-flat-button {
             background-color: primary-color(100);
             color: primary-color(100, true);
+
+            &:disabled {
+                background-color: rgba(primary-color(100), 0.3);
+                color: rgba(primary-color(100, true), 0.3);
+            }
         }
         &[mat-icon-button] {
             width: auto;
             height: auto;
             line-height: auto;
 
-            &[disabled] {
+            &:disabled {
                 color: primary-color(300);
             }
             color: primary-color(100);

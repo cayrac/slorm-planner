@@ -1,7 +1,7 @@
 
 <div class="header">
     <div class="tools">
-        <mat-icon>menu</mat-icon>
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
     </div>
     <nav mat-tab-nav-bar color="primary">
         <a mat-tab-link *ngFor="let route of ROUTES; let i = index"
@@ -12,10 +12,15 @@
         </a>
     </nav>
 </div>
-<div class="content">
-    <!--<input (change)="uploadSave($event)" type="file">-->
-    <app-build-header></app-build-header>
-    <router-outlet></router-outlet>
-    <img id="drag-background" [class.dragging]="isDragging" #dragBackground>
-    <img id="drag-image" [class.dragging]="isDragging" #dragImage>
-</div>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav>
+        <app-sidenav [sidenav]="sidenav"></app-sidenav>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <app-build-header></app-build-header>
+        <router-outlet></router-outlet>
+        <img id="drag-background" [class.dragging]="isDragging" #dragBackground>
+        <img id="drag-image" [class.dragging]="isDragging" #dragImage>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+

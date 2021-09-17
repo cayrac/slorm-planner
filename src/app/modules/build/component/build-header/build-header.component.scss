@@ -4,22 +4,29 @@
 mat-card {
     padding-top: $space-unit;
     padding-bottom: $space-unit;
+    margin-bottom: $space-content;
 
     mat-card-content {
         @include flex-row-to-column('tablet', stretch, space-between);
         padding: $space-unit;
     
         .layer, .search {
-            width: 100%;
-            max-width: 250px;
+            @include flex(row, center);
+            @include flex-gap($space-unit * 2);
+
+            mat-form-field {
+                width: 250px;
+            }
+
             @include respond-to('tablet') {
-                max-width: initial;
+                mat-form-field {
+                    @include flex-grow();
+                }
             }
 
             mat-icon {
                 cursor: pointer;
             }
-        }
-    
+        }    
     }
 }

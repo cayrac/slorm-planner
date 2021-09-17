@@ -1,12 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { takeUntil } from 'rxjs/operators';
 
 import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
+import {
+    DeleteLayerModalComponent,
+    DeleteLayerModalData,
+} from '../../../shared/components/delete-layer-modal/delete-layer-modal.component';
+import {
+    EditLayerModalComponent,
+    EditLayerModalData,
+} from '../../../shared/components/edit-layer-modal/edit-layer-modal.component';
 import { SelectOption } from '../../../shared/model/select-option';
 import { PlannerService } from '../../../shared/services/planner.service';
+import { valueOrNull } from '../../../slormancer/util/utils';
 import { SearchService } from '../inventory/services/search.service';
 
 @Component({
@@ -22,7 +32,8 @@ export class BuildHeaderComponent extends AbstractUnsubscribeComponent implement
     public layerOptions: Array<SelectOption<number>> = [];
 
     constructor(private plannerService: PlannerService,
-                private searchService: SearchService) {
+                private searchService: SearchService,
+                private dialog: MatDialog) {
         super();
     }
 
@@ -39,7 +50,7 @@ export class BuildHeaderComponent extends AbstractUnsubscribeComponent implement
 
         this.layerControl.setValue(this.plannerService.getSelectedLayerIndex(), { emitEvent: false });
 
-        this.layerControl.valueChanges.subscribe(layer => this.plannerService.setLayer(layer));
+        this.layerControl.valueChanges.subscribe(layer => this.plannerService.setLayerIndex(layer));
         this.searchControl.valueChanges.subscribe(search => this.searchService.setSearch(search));
     }
 
@@ -51,4 +62,62 @@ export class BuildHeaderComponent extends AbstractUnsubscribeComponent implement
         this.searchService.setSearch(null)
     }
     
+    public editLayer() {
+        const layer = valueOrNull(this.plannerService.getLayers()[this.plannerService.getSelectedLayerIndex()]);
+
+        if (layer !== null) {
+            const data: EditLayerModalData = {
+                title: 'Edit layer name',
+                name: layer.name
+            }
+            this.dialog.open(EditLayerModalComponent, { data })
+                .afterClosed().subscribe(name => {
+                    if (name) {
+                        this.plannerService.setLayerName(this.plannerService.getSelectedLayerIndex(), name);
+                    }
+                });
+        }
+    }
+
+    public addLayer() {
+        const data: EditLayerModalData = {
+            title: 'New layer name',
+            name: null
+        }
+        this.dialog.open(EditLayerModalComponent, { data })
+        .afterClosed().subscribe(name => {
+            if (name) {
+                this.plannerService.addLayer(name);
+            }
+        });
+    }
+
+    public copyLayer() {
+        const data: EditLayerModalData = {
+            title: 'New layer name',
+            name: null
+        }
+        this.dialog.open(EditLayerModalComponent, { data })
+        .afterClosed().subscribe(name => {
+            if (name) {
+                this.plannerService.copyLayer(this.plannerService.getSelectedLayerIndex(), name);
+            }
+        });
+    }
+
+    public removeLayer() {
+        const layer = valueOrNull(this.plannerService.getLayers()[this.plannerService.getSelectedLayerIndex()]);
+
+        if (layer !== null) {
+            const data: DeleteLayerModalData = {
+                name: layer.name
+            }
+            this.dialog.open(DeleteLayerModalComponent, { data })
+            .afterClosed().subscribe(del => {
+                if (del) {
+                    this.plannerService.removeLayer(this.plannerService.getSelectedLayerIndex());
+                }
+            });
+        }
+    }
 }

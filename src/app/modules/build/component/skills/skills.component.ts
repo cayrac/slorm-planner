@@ -46,13 +46,23 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
 
     private updateSelectedSkill() {
         const character = this.character;
+        const selectedSkill = this.selectedSkill;
+        let newSelectedSkill: CharacterSkillAndUpgrades | null = null;
+
         if (character === null) {
-            this.selectSkill(null)
+            newSelectedSkill = null;
         } else if (this.selectedSkill === null) {
-            this.selectSkill(character.supportSkill !== null
+            newSelectedSkill = character.supportSkill !== null
                 ? valueOrNull(character.skills.find(s => s.skill === character.supportSkill))
-                : valueOrNull(character.skills[0]));
+                : valueOrNull(character.skills[0]);
+        } else if (selectedSkill !== null) {
+            newSelectedSkill = valueOrNull(character.skills.find(skill => skill.skill.id === selectedSkill.skill.id));
+            if (newSelectedSkill === null) {
+                newSelectedSkill = valueOrNull(character.skills[0]);
+            }
         }
+            
+        this.selectSkill(newSelectedSkill);
     }
 
     public getSupportSkills(character: Character): Array<CharacterSkillAndUpgrades> {
@@ -88,9 +98,11 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
     }
 
     private selectSkill(skill: CharacterSkillAndUpgrades | null) {
-        this.selectedSkill = skill;
-        this.selectedSkillLines = skill === null ? [] : skill.upgrades.map(passive => passive.line).filter(isFirst).sort();
-        this.selectedUpgrade = skill === null ? null : valueOrNull(skill.upgrades[0]);
+        if (this.selectedSkill !== skill) {
+            this.selectedSkill = skill;
+            this.selectedSkillLines = skill === null ? [] : skill.upgrades.map(passive => passive.line).filter(isFirst).sort();
+            this.selectedUpgrade = skill === null ? null : valueOrNull(skill.upgrades[0]);
+        }
     }
 
     public incrementSkill(skill: CharacterSkillAndUpgrades): boolean {

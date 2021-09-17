@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HeroClass } from '..//model/content/enum/hero-class';
-import { STASH_SIZE } from '../constants/common';
+import { INVENTORY_SIZE, MAX_HERO_LEVEL, STASH_SIZE } from '../constants/common';
 import { Character, CharacterSkillAndUpgrades } from '../model/character';
 import { Activable } from '../model/content/activable';
 import { AncestralLegacy } from '../model/content/ancestral-legacy';
@@ -12,6 +12,7 @@ import { Skill } from '../model/content/skill';
 import { SkillUpgrade } from '../model/content/skill-upgrade';
 import { GameItem } from '../model/parser/game/game-item';
 import { GameSave, GameSharedInventory } from '../model/parser/game/game-save';
+import { list } from '../util/math.util';
 import { isNotNullOrUndefined, valueOrDefault, valueOrNull } from '../util/utils';
 import { SlormancerAncestralLegacyService } from './content/slormancer-ancestral-legacy.service';
 import { SlormancerAttributeService } from './content/slormancer-attribute.service';
@@ -35,26 +36,26 @@ export class SlormancerCharacterService {
                 private slormancerTranslateService: SlormancerTranslateService
         ) { }
 
-    private getSkills(save: GameSave, heroClass: HeroClass): Array<CharacterSkillAndUpgrades> {
-        const skill_equip = save.skill_equip[heroClass];
-        const skill_rank = save.skill_rank[heroClass];
-
+    private getSkills(heroClass: HeroClass, equipped: Array<number> = [], ranks: Array<number> = []): Array<CharacterSkillAndUpgrades> {
         return this.slormancerDataService.getGameDataActiveSkills(heroClass).map(gameData => {
-            const skill = this.slormancerSkillService.getHeroSkill(gameData.REF, heroClass, valueOrDefault(skill_rank[gameData.REF], 0));
+            const skill = this.slormancerSkillService.getHeroSkill(gameData.REF, heroClass, valueOrDefault(equipped[gameData.REF], 0));
             const upgrades = this.slormancerDataService.getGameDataUpgradeIdsForSkill(gameData.REF, heroClass)
-                .map(upgradeId => {
-                    const upgrade = this.slormancerSkillService.getUpgrade(upgradeId, heroClass, valueOrDefault(skill_rank[upgradeId], 0));
-
-                    return upgrade;
-                })
+                .map(upgradeId => this.slormancerSkillService.getUpgrade(upgradeId, heroClass, valueOrDefault(ranks[upgradeId], 0)))
                 .filter(isNotNullOrUndefined);
-
             return skill === null ? null : {
                 skill,
                 upgrades,
-                selectedUpgrades: upgrades.map(passive => passive.id).filter(id => skill_equip[id] === 1)
+                selectedUpgrades: upgrades.map(passive => passive.id).filter(id => equipped[id] === 1)
             }
         }).filter(isNotNullOrUndefined);
+    }
+
+    private getSkillsClone(skillAndUpgrades: CharacterSkillAndUpgrades): CharacterSkillAndUpgrades {
+        return {
+            skill: this.slormancerSkillService.getHeroSkillClone(skillAndUpgrades.skill),
+            selectedUpgrades: [...skillAndUpgrades.selectedUpgrades],
+            upgrades: skillAndUpgrades.upgrades.map(upgrade => this.slormancerSkillService.getUpgradeClone(upgrade))
+        };
     }
 
     private getItem(item: GameItem | null, heroClass: HeroClass): EquipableItem | null {
@@ -78,18 +79,14 @@ export class SlormancerCharacterService {
         return reaperData !== null ? this.slormancerReaperService.getReaperFromGameWeapon(reaperData, heroClass, primordial) : null;
     }
 
-    private getAncestralLegacies(save: GameSave, heroClass: HeroClass): Array<AncestralLegacy> {
-        const elementRank = save.element_rank[heroClass];
-
-        return Object.entries(elementRank)
-            .map(([key, rank]) => this.slormancerAncestralLegacyService.getAncestralLegacy(parseInt(key), rank))
+    private getAncestralLegacies(ranks: Array<number> = []): Array<AncestralLegacy> {
+        return this.slormancerDataService.getGameDataAncestralLegacyIds()
+            .map(id => this.slormancerAncestralLegacyService.getAncestralLegacy(id, valueOrDefault(ranks[id], 0)))
             .filter(isNotNullOrUndefined);
     }
 
-    private getActiveNodes(save: GameSave, heroClass: HeroClass): Array<number> {
-        const elementEquip = save.element_equip[heroClass];
-
-        return Object.entries(elementEquip)
+    private getActiveNodes(equipped: Array<number> = []): Array<number> {
+        return Object.entries(equipped)
             .filter(([key, equiped]) => equiped === 1)
             .map(([key, equiped]) => parseInt(key));
             
@@ -119,6 +116,17 @@ export class SlormancerCharacterService {
             if (skill) {
                 result = skill;
             }
+        }
+
+        return result;
+    }
+
+    private getActivableFromActivable(activable: Activable | AncestralLegacy | null , character: Character): Activable | AncestralLegacy | null {
+        let result: Activable | AncestralLegacy | null = null;
+
+        if (activable  !== null) {
+            const id = (<any>activable)['isActivable'] !== undefined ? activable.id : activable.id + 200;
+            result = this.getActivable(id, character);
         }
 
         return result;
@@ -181,6 +189,140 @@ export class SlormancerCharacterService {
         
         return result;
     }
+
+    public getEmptyCharacter(heroClass: HeroClass): Character {
+        const character: Character = {
+            heroClass,
+            level: MAX_HERO_LEVEL,
+            name: '',
+            fullName: '',
+        
+            reaper: this.slormancerReaperService.getReaper(0, heroClass, false, 100, 100, 0, 0),
+        
+            ancestralLegacies: {
+                ancestralLegacies: this.getAncestralLegacies(),
+                activeNodes: [],
+                activeAncestralLegacies: [],
+                maxAncestralLegacy: 2 // TODO parser ça plus tard
+            },
+            skills: this.getSkills(heroClass),
+        
+            gear: {
+                helm: null,
+                body: null,
+                shoulder: null,
+                bracer: null,
+                glove: null,
+                boot: null,
+                ring_l: null,
+                ring_r: null,
+                amulet: null,
+                belt: null,
+                cape: null
+            },
+            inventory: list(INVENTORY_SIZE).map(() => null),
+            sharedInventory: list(4).map(() => list(STASH_SIZE).map(() => null)),
+
+            attributes: {
+                remainingPoints: 0,
+                maxPoints: 0,
+                allocated: {
+                    [Attribute.Toughness]: this.slormancerAttributeService.getAttributeTraits(Attribute.Toughness, 0),
+                    [Attribute.Savagery]: this.slormancerAttributeService.getAttributeTraits(Attribute.Savagery, 0),
+                    [Attribute.Fury]: this.slormancerAttributeService.getAttributeTraits(Attribute.Fury, 0),
+                    [Attribute.Determination]: this.slormancerAttributeService.getAttributeTraits(Attribute.Determination, 0),
+                    [Attribute.Zeal]: this.slormancerAttributeService.getAttributeTraits(Attribute.Zeal, 0),
+                    [Attribute.Willpower]: this.slormancerAttributeService.getAttributeTraits(Attribute.Willpower, 0),
+                    [Attribute.Dexterity]: this.slormancerAttributeService.getAttributeTraits(Attribute.Dexterity, 0),
+                    [Attribute.Bravery]: this.slormancerAttributeService.getAttributeTraits(Attribute.Bravery, 0),
+                }},
+        
+            primarySkill: null,
+            secondarySkill: null,
+            supportSkill: null,
+            activable1: null,
+            activable2: null,
+            activable3: null,
+            activable4: null
+        }
+
+        character.primarySkill = null;
+        character.secondarySkill = null;
+        character.supportSkill = null;
+        character.activable1 = null;
+        character.activable2 = null;
+        character.activable3 = null;
+        character.activable4 = null;
+
+        this.updateCharacter(character);
+
+        return character;
+    }
+
+    public getCharacterClone(character: Character): Character {
+        const result: Character = {
+            ...character,
+            reaper: character.reaper === null ? null : this.slormancerReaperService.getReaperClone(character.reaper),
+        
+            ancestralLegacies: {
+                ancestralLegacies: character.ancestralLegacies.ancestralLegacies.map(ancestralLegacy => this.slormancerAncestralLegacyService.getAncestralLegacyClone(ancestralLegacy)),
+                activeNodes: [...character.ancestralLegacies.activeNodes],
+                activeAncestralLegacies: [...character.ancestralLegacies.activeAncestralLegacies],
+                maxAncestralLegacy: character.ancestralLegacies.maxAncestralLegacy
+            },
+            skills: character.skills.map(skill => this.getSkillsClone(skill)),
+        
+            gear: {
+                helm: character.gear.helm === null ? null : this.slormancerItemservice.getEquipableItemClone(character.gear.helm),
+                body: character.gear.body === null ? null : this.slormancerItemservice.getEquipableItemClone(character.gear.body),
+                shoulder: character.gear.shoulder === null ? null : this.slormancerItemservice.getEquipableItemClone(character.gear.shoulder),
+                bracer: character.gear.bracer === null ? null : this.slormancerItemservice.getEquipableItemClone(character.gear.bracer),
+                glove: character.gear.glove === null ? null : this.slormancerItemservice.getEquipableItemClone(character.gear.glove),
+                boot: character.gear.boot === null ? null : this.slormancerItemservice.getEquipableItemClone(character.gear.boot),
+                ring_l: character.gear.ring_l === null ? null :  this.slormancerItemservice.getEquipableItemClone(character.gear.ring_l),
+                ring_r: character.gear.ring_r === null ? null : this.slormancerItemservice.getEquipableItemClone(character.gear.ring_r),
+                amulet: character.gear.amulet === null ? null : this.slormancerItemservice.getEquipableItemClone(character.gear.amulet),
+                belt: character.gear.belt === null ? null : this.slormancerItemservice.getEquipableItemClone(character.gear.belt),
+                cape: character.gear.cape === null ? null : this.slormancerItemservice.getEquipableItemClone(character.gear.cape),
+            },
+            inventory: character.inventory.map(item => item === null ? null : this.slormancerItemservice.getEquipableItemClone(item)),
+            sharedInventory: character.sharedInventory.map(items => items.map(item => item === null ? null : this.slormancerItemservice.getEquipableItemClone(item))),
+
+            attributes: {
+                remainingPoints: 0,
+                maxPoints: 0,
+                allocated: {
+                    [Attribute.Toughness]: this.slormancerAttributeService.getAttributeTraits(Attribute.Toughness, character.attributes.allocated[Attribute.Toughness].rank),
+                    [Attribute.Savagery]: this.slormancerAttributeService.getAttributeTraits(Attribute.Savagery, character.attributes.allocated[Attribute.Savagery].rank),
+                    [Attribute.Fury]: this.slormancerAttributeService.getAttributeTraits(Attribute.Fury, character.attributes.allocated[Attribute.Fury].rank),
+                    [Attribute.Determination]: this.slormancerAttributeService.getAttributeTraits(Attribute.Determination, character.attributes.allocated[Attribute.Determination].rank),
+                    [Attribute.Zeal]: this.slormancerAttributeService.getAttributeTraits(Attribute.Zeal, character.attributes.allocated[Attribute.Zeal].rank),
+                    [Attribute.Willpower]: this.slormancerAttributeService.getAttributeTraits(Attribute.Willpower, character.attributes.allocated[Attribute.Willpower].rank),
+                    [Attribute.Dexterity]: this.slormancerAttributeService.getAttributeTraits(Attribute.Dexterity, character.attributes.allocated[Attribute.Dexterity].rank),
+                    [Attribute.Bravery]: this.slormancerAttributeService.getAttributeTraits(Attribute.Bravery, character.attributes.allocated[Attribute.Bravery].rank),
+                }},
+        
+            primarySkill: null,
+            secondarySkill: null,
+            supportSkill: null,
+            activable1: null,
+            activable2: null,
+            activable3: null,
+            activable4: null
+        }
+
+        result.primarySkill = valueOrNull(result.skills.map(skill => skill.skill).find(skill => character.primarySkill !== null && skill.id === character.primarySkill.id));
+        result.secondarySkill = valueOrNull(result.skills.map(skill => skill.skill).find(skill => character.secondarySkill !== null && skill.id === character.secondarySkill.id));
+        result.supportSkill = valueOrNull(result.skills.map(skill => skill.skill).find(skill => character.supportSkill !== null && skill.id === character.supportSkill.id));
+        result.activable1 = this.getActivableFromActivable(character.activable1, result);
+        result.activable2 = this.getActivableFromActivable(character.activable2, result);
+        result.activable3 = this.getActivableFromActivable(character.activable3, result);
+        result.activable4 = this.getActivableFromActivable(character.activable4, result);
+
+        this.updateCharacter(result);
+
+        return result;
+    }
     
     public getCharacterFromSave(save: GameSave, heroClass: HeroClass): Character {
         const start = new Date().getTime();
@@ -200,12 +342,12 @@ export class SlormancerCharacterService {
             reaper: this.getEquipedReaper(save, heroClass),
         
             ancestralLegacies: {
-                ancestralLegacies: this.getAncestralLegacies(save, heroClass),
-                activeNodes: this.getActiveNodes(save, heroClass),
+                ancestralLegacies: this.getAncestralLegacies(save.element_rank[heroClass]),
+                activeNodes: this.getActiveNodes(save.element_equip[heroClass]),
                 activeAncestralLegacies: [],
-                maxAncestralLegacy: 2 // TODO parser ça plus tard
+                maxAncestralLegacy: 2
             },
-            skills: this.getSkills(save, heroClass),
+            skills: this.getSkills(heroClass, save.skill_equip[heroClass], save.skill_rank[heroClass]),
         
             gear: {
                 helm: this.getItem(valueOrNull(inventory.helm), heroClass),

@@ -8,6 +8,8 @@ import { AttributeSummaryViewComponent } from './components/attribute-summary-vi
 import {
     CharacterLevelEditModalComponent,
 } from './components/character-level-edit-modal/character-level-edit-modal.component';
+import { DeleteLayerModalComponent } from './components/delete-layer-modal/delete-layer-modal.component';
+import { EditLayerModalComponent } from './components/edit-layer-modal/edit-layer-modal.component';
 import { ItemBaseChoiceModalComponent } from './components/item-base-choice-modal/item-base-choice-modal.component';
 import { ItemEditBuffAttributeComponent } from './components/item-edit-buff-attribute/item-edit-buff-attribute.component';
 import { ItemEditBuffReaperComponent } from './components/item-edit-buff-reaper/item-edit-buff-reaper.component';
@@ -27,6 +29,8 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { TraitViewComponent } from './components/trait-view/trait-view.component';
 import { MaterialModule } from './material.module';
 import { FormOptionsService } from './services/form-options.service';
+import { ImportExportService } from './services/import-export.service';
+import { JsonConverterService } from './services/json-converter.service';
 import { MessageService } from './services/message.service';
 import { PlannerService } from './services/planner.service';
 
@@ -51,7 +55,9 @@ import { PlannerService } from './services/planner.service';
         RemoveConfirmModalComponent,
         ReaperEditModalComponent,
         CharacterLevelEditModalComponent,
-        SnackbarComponent
+        SnackbarComponent,
+        EditLayerModalComponent,
+        DeleteLayerModalComponent
     ],
     imports: [
         CommonModule,
@@ -83,7 +89,9 @@ import { PlannerService } from './services/planner.service';
     providers: [
         PlannerService,
         FormOptionsService,
-        MessageService
+        MessageService,
+        ImportExportService,
+        JsonConverterService
     ],
 })
 export class SharedModule { }

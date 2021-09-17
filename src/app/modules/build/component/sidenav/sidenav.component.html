@@ -1,0 +1,43 @@
+
+<input autocomplete="false" name="hidden" type="text" style="display:none;">
+<div class="sidenav">
+    <div class="import">
+        <h3>Import</h3>
+        <input type="file" (change)="uploadSave($event)" #file>
+        <button mat-flat-button color="primary" (click)="file.click()"><mat-icon>file_upload</mat-icon>From file</button>
+        <mat-form-field appearance="outline" color="primary" floatLabel="never">
+            <mat-label>Import content...</mat-label>
+            <textarea matInput [formControl]="importContent"></textarea>
+            <mat-hint align="end" *ngIf="importResult === null">Paste here a build, layer, link or save data</mat-hint>
+            <mat-hint align="end" class="success" *ngIf="importResult !== null && importResult.character !== null">Character found</mat-hint>
+            <mat-hint align="end" class="success" *ngIf="importResult !== null && importResult.layer !== null">Layer found</mat-hint>
+            <mat-hint align="end" class="success" *ngIf="importResult !== null && importResult.planner !== null">Build found</mat-hint>
+            <mat-hint align="end" class="error" *ngIf="importResult !== null && importResult.character === null && importResult.layer === null && importResult.planner === null">No compatible data found</mat-hint>
+            <mat-error>Cannot parse files bigger than {{MAX_UPLOAD_FILE_SIZE_MO}}Mo</mat-error>
+        </mat-form-field>
+        <button mat-flat-button color="primary" (click)="import()" [disabled]="!hasValidImport()">Import into current build</button>
+    </div>
+    <hr/>
+    <div class="export">
+        <h3>Export</h3>
+        <div class="export-details">
+            <p>Current layer</p>
+            <div class="actions">
+                <button mat-icon-button (click)="downloadLayer()" matTooltip="Download" matTooltipPosition="above"><mat-icon>file_download</mat-icon></button>
+                <button mat-icon-button matTooltip="Copy to clipboard" matTooltipPosition="above"><mat-icon>content_copy</mat-icon></button>
+                <button mat-icon-button matTooltip="External link" matTooltipPosition="above"><mat-icon>share</mat-icon></button>
+            </div>
+        </div>
+        <div class="export-details">
+            <p>Current build</p>
+            <div class="actions">
+                <button mat-icon-button matTooltip="Download" matTooltipPosition="above"><mat-icon>file_download</mat-icon></button>
+                <button mat-icon-button matTooltip="Copy to clipboard" matTooltipPosition="above"><mat-icon>content_copy</mat-icon></button>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="build">
+        <button mat-flat-button color="primary">New build</button>
+    </div>
+</div>

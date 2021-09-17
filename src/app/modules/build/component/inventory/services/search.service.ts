@@ -31,11 +31,22 @@ export class SearchService {
         return this.search === null ? null : this.search.toLowerCase().trim();
     }
 
-    private removeHtmlTags(value: string | null): string | null{
+    private removeHtmlTags(value: string | null, classesToRemove: Array<string> = []): string | null{
         let result = value;
 
         if (result !== null) {
             this.dom.innerHTML = result.toLowerCase();
+            if (classesToRemove.length > 0) {
+                for (const classToRemove of classesToRemove) {
+                    const items = this.dom.getElementsByClassName(classToRemove);
+                    for (let i = 0, len = items.length; i < len ; i++) {
+                        const item = items.item(i);
+                        if (item) {
+                            item.remove();
+                        }
+                    }
+                }
+            }
             result = this.dom.textContent;
         }
 
@@ -61,7 +72,7 @@ export class SearchService {
             item.name,
             item.base,
             item.rarity,
-            ...item.affixes.map(affix => [ affix.isPure ? 'pure': null, affix.valueLabel + affix.statLabel ]).flat(),
+            ...item.affixes.map(affix => [ affix.isPure ? 'pure': null, this.removeHtmlTags(affix.valueLabel + ' ' + affix.statLabel, ['details']) ]).flat(),
             item.legendaryEffect === null ? null : this.removeHtmlTags(item.legendaryEffect.description),
             item.reaperEnchantment !== null ? item.reaperEnchantment.label : null,
             item.skillEnchantment !== null ? item.skillEnchantment.label : null,

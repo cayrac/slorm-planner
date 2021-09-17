@@ -1,0 +1,49 @@
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/variables";
+@import "../../../../../assets/scss/abstracts/color";
+
+.sidenav {
+    @include flex(column, stretch);
+    @include flex-gap($space-unit * 5);
+
+    hr {
+        width: 80%;
+    }
+
+    .import, .export, .build {
+        @include flex(column, stretch);
+        @include flex-gap($space-unit * 3);
+        padding: $space-unit;
+    
+        h3 {
+            margin: 0;
+            font-weight: normal;
+        }
+    
+        input[type="file"] {
+            display: none;
+        }
+    
+        textarea {
+            min-height: $space-unit * 12;
+            max-height: $space-unit * 12;
+        }
+    
+        button mat-icon {
+            margin-right: $space-unit * 2;
+        }
+    
+        .export-details {
+            @include flex(row, center);
+            @include flex-gap($space-unit * 4);
+            p {
+                width: 100px;
+            }
+        }
+        
+        .actions {
+            @include flex(row, center);
+            @include flex-gap($space-unit * 4);
+        }
+    }
+}

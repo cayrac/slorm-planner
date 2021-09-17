@@ -9,9 +9,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 const globalRippleConfig: RippleGlobalOptions = {
     disabled: true,
@@ -35,7 +38,9 @@ const globalRippleConfig: RippleGlobalOptions = {
         MatSliderModule,
         MatCheckboxModule,
         MatMenuModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatSidenavModule,
+        MatTooltipModule
     ],
     exports: [
         MatTabsModule,
@@ -49,7 +54,9 @@ const globalRippleConfig: RippleGlobalOptions = {
         MatSliderModule,
         MatCheckboxModule,
         MatMenuModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatSidenavModule,
+        MatTooltipModule
     ],
     providers: [
         {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: globalRippleConfig}

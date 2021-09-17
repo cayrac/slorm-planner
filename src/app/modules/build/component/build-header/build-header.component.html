@@ -2,18 +2,26 @@
 <input autocomplete="false" name="hidden" type="text" style="display:none;">
 <mat-card>
     <mat-card-content>
-        <mat-form-field appearance="outline" color="primary" class="layer no-error-padding">
-            <mat-label>Current layer</mat-label>
-            <mat-select color="primary" [formControl]="layerControl">
-                <mat-option [value]="option.value" *ngFor="let option of layerOptions">
-                    {{option.label}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline" color="primary" class="search no-error-padding">
-            <mat-label>Search</mat-label>
-            <input matInput type="text" [formControl]="searchControl" autocomplete="off"/>
-            <mat-icon matSuffix *ngIf="hasSearch()" (click)="removeSearch()">close</mat-icon>
-        </mat-form-field>
+        <div class="layer">
+            <mat-form-field appearance="outline" color="primary" class="no-error-padding">
+                <mat-label>Current layer</mat-label>
+                <mat-select color="primary" [formControl]="layerControl">
+                    <mat-option [value]="option.value" *ngFor="let option of layerOptions">
+                        {{option.label}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-icon-button color="primary" (click)="editLayer()"><mat-icon>edit</mat-icon></button>
+            <button mat-icon-button color="primary" (click)="removeLayer()" [disabled]="layerOptions.length <= 1"><mat-icon>delete</mat-icon></button>
+            <button mat-icon-button color="primary" (click)="addLayer()"><mat-icon>add</mat-icon></button>
+            <button mat-icon-button color="primary" (click)="copyLayer()"><mat-icon>content_copy</mat-icon></button>
+        </div>
+        <div class="search">
+            <mat-form-field appearance="outline" color="primary" class="no-error-padding">
+                <mat-label>Search</mat-label>
+                <input matInput type="text" [formControl]="searchControl" autocomplete="off"/>
+                <mat-icon matSuffix *ngIf="hasSearch()" (click)="removeSearch()">close</mat-icon>
+            </mat-form-field>
+        </div>
     </mat-card-content>
 </mat-card>

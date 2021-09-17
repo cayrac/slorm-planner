@@ -69,12 +69,12 @@ export class TraitComponent extends AbstractUnsubscribeComponent implements OnIn
 
     constructor(private searchService: SearchService) {
         super();
-        this.searchService.searchChanged
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(() => this.isHiddenBySearch = this.trait !== null && !this.searchService.traitMatchSearch(this.trait))
     }
 
     public ngOnInit() {
+        this.searchService.searchChanged
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(() => this.isHiddenBySearch = this.trait !== null && !this.searchService.traitMatchSearch(this.trait))
     }
 
     public isMinor(trait: Trait): boolean {

@@ -174,6 +174,14 @@ export class SlormancerSkillService {
         return skill;
     }
 
+    public getHeroSkillClone(skill: Skill): Skill {
+        return { ...skill,
+            genres: [...skill.genres],
+            damageTypes: [...skill.damageTypes],
+            values: skill.values.map(value => this.slormancerEffectValueService.getEffectValueClone(value))
+        };
+    }
+
     public updateSkill(skill: Skill) {
         skill.level = Math.min(skill.maxLevel, skill.baseLevel) + skill.bonusLevel;
         skill.cooldown = round(skill.baseCooldown / 60, 2);
@@ -217,6 +225,37 @@ export class SlormancerSkillService {
         }
         
         skill.description = this.slormancerTemplateService.formatSkillDescription(skill.template, skill.values, skill.level);
+    }
+
+    public getClassMechanicClone(mechanic: SkillClassMechanic): SkillClassMechanic {
+        return {
+            ...mechanic,
+            values: mechanic.values.map(value => this.slormancerEffectValueService.getEffectValueClone(value))
+        };
+    }
+
+    public getMechanicClone(mechanic: Mechanic): Mechanic {
+        return { ...mechanic };
+    }
+
+    public getBuffClone(buff: Buff): Buff {
+        return { ...buff };
+    }
+
+    public getUpgradeClone(upgrade: SkillUpgrade): SkillUpgrade {
+        return { ...upgrade,
+            genres: [...upgrade.genres],
+            damageTypes: [...upgrade.damageTypes],
+            nextRankDescription: [...upgrade.nextRankDescription],
+            maxRankDescription: [...upgrade.maxRankDescription],
+
+            relatedClassMechanics: upgrade.relatedClassMechanics.map(mechanic => this.getClassMechanicClone(mechanic)),
+            relatedMechanics: upgrade.relatedMechanics.map(mechanic => this.getMechanicClone(mechanic)),
+            relatedBuffs: upgrade.relatedBuffs.map(buff => this.getBuffClone(buff)),
+        
+            template: upgrade.template,
+            values: upgrade.values.map(value => this.slormancerEffectValueService.getEffectValueClone(value))
+        };
     }
 
     public getUpgrade(upgradeId: number, heroClass: HeroClass, baseRank: number): SkillUpgrade | null {

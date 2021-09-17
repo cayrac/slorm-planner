@@ -141,6 +141,22 @@ export class SlormancerAncestralLegacyService {
         return this.slormancerDataService.getGameDataAncestralLegacyIds().indexOf(ref) !== -1;
     }
 
+    public getAncestralLegacyClone(ancestralLegacy: AncestralLegacy): AncestralLegacy {
+        return {
+            ...ancestralLegacy,
+            types: [ ...ancestralLegacy.types ],
+            damageTypes: [ ...ancestralLegacy.damageTypes ],
+            genres: [ ...ancestralLegacy.genres ],
+            links: [ ...ancestralLegacy.links ],
+            nextRankDescription: [ ...ancestralLegacy.nextRankDescription ],
+            maxRankDescription: [ ...ancestralLegacy.maxRankDescription ],
+            relatedBuffs: [ ...ancestralLegacy.relatedBuffs ],
+            relatedMechanics: [ ...ancestralLegacy.relatedMechanics ],
+            values: ancestralLegacy.values.map(value => this.slormancerEffectValueService.getEffectValueClone(value))
+        };
+    }
+
+
     public getAncestralLegacy(ref: number, rank: number, bonusRank: number = 0): AncestralLegacy | null {
         const gameData = this.slormancerDataService.getGameDataAncestralLegacy(ref);
         let ancestralLegacy: AncestralLegacy | null = null;

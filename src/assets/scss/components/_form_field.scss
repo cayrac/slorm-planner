@@ -8,8 +8,16 @@ mat-form-field.mat-form-field {
     // margin-bottom: 16px;
     line-height: 14px;
 
-    mat-label {
+    mat-label, mat-hint {
         color: primary-color(100);
+    }
+
+    mat-error, mat-hint.error {
+        color: #f44336;
+    }
+    
+    mat-hint.success {
+        color: #23c42b;
     }
 
     input {

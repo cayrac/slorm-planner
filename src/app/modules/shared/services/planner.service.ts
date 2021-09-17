@@ -30,12 +30,22 @@ export class PlannerService {
         .subscribe(save => this.loadSave(save, HeroClass.Huntress));
     }
 
+    public getPlannerclass(): HeroClass | null {
+        let result: HeroClass | null = null;
+
+        if (this.planner !== null) {
+            result = this.planner.heroClass;
+        }
+
+        return result;
+    }
+
     private initPlanner(heroClass: HeroClass) {
         this.planner = { heroClass, layers: [] };
         this.layersChanged.next(this.planner.layers);
     }
 
-    public setLayer(index: number) {
+    public setLayerIndex(index: number) {
         if (this.planner !== null) {
             const newIndex = Math.min(this.planner.layers.length - 1, index);
 
@@ -57,6 +67,52 @@ export class PlannerService {
         return this.planner === null ? [] : this.planner.layers;
     }
 
+    public setLayerName(index: number, name: string) {
+
+        if (this.planner !== null) {
+
+            const layer = this.planner.layers[index];
+
+            if (layer) {
+                layer.name = name;
+                this.layersChanged.next(this.planner.layers);
+            }
+        }
+    }
+
+    public addLayer(name: string, character: Character | null = null) {
+        if (this.planner !== null) {
+            const index = this.planner.layers.push({
+                name,
+                character: character !== null ? character : this.slormancerCharacterService.getEmptyCharacter(this.planner.heroClass)
+            });
+            this.layersChanged.next(this.planner.layers);
+            this.setLayerIndex(index);
+        }
+    }
+
+    public removeLayer(index: number) {
+        if (this.planner !== null && this.planner.layers.length > 1) {
+            this.planner.layers.splice(index, 1);
+            this.layersChanged.next(this.planner.layers);
+            this.setLayerIndex(Math.min(this.planner.layers.length - 1, index));
+        }
+    }
+
+    public copyLayer(index: number, name: string) {
+        if (this.planner !== null) {
+            const layer = this.planner.layers[index];
+            if (layer) {
+                const index = this.planner.layers.push({
+                    name,
+                    character: this.slormancerCharacterService.getCharacterClone(layer.character)
+                })
+                this.layersChanged.next(this.planner.layers);
+                this.setLayerIndex(index);
+            }
+        }
+    }
+
     public addLayerFromSave(save: GameSave) {
         if (this.planner !== null) {
             const character = this.slormancerCharacterService.getCharacterFromSave(save, this.planner.heroClass);
@@ -65,7 +121,7 @@ export class PlannerService {
             this.planner.layers.push({ name, character });
             this.layersChanged.next(this.planner.layers);
             
-            this.setLayer(this.planner.layers.length - 1);
+            this.setLayerIndex(this.planner.layers.length - 1);
         }
     }
 

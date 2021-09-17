@@ -92,6 +92,28 @@ export class SlormancerAttributeService {
             values: gameData === null ? [] : this.parseEffectValues(gameData),
             cumulativeValues
         }
+    }    
+    
+    private getTraitClone(trait: Trait): Trait {
+        return {
+            attribute: trait.attribute,
+            requiredRank: trait.requiredRank,
+            traitLevel: trait.traitLevel,
+            rank: trait.rank,
+            unlocked: trait.unlocked,
+            additive: trait.additive,
+        
+            attributeName: trait.attributeName,
+            description: trait.description,
+            cumulativeStats: trait.cumulativeStats,
+            rankLabel: trait.rankLabel,
+            traitLevelLabel: trait.traitLevelLabel,
+            unlockLabel: trait.unlockLabel,
+        
+            template: trait.template,
+            values: trait.values.map(value => this.slormancerEffectValueService.getEffectValueClone(value)),
+            cumulativeValues: trait.cumulativeValues.map(value => this.slormancerEffectValueService.getEffectValueClone(value))
+        }
     }
 
     private getDefaultVariableDescription(value: EffectValueVariable): string {
@@ -149,6 +171,22 @@ export class SlormancerAttributeService {
         }
 
         return traits;
+    }
+
+    public getAttributeTraitsClone(traits: AttributeTraits): AttributeTraits {
+        return {
+            attribute: traits.attribute,
+            rank: traits.rank,
+            bonusRank: traits.bonusRank,
+            traits: traits.traits.map(trait => this.getTraitClone(trait)),
+            recapLabel: traits.recapLabel,
+            attributeName: traits.attributeName,
+            title: traits.title,
+            icon: traits.icon,
+            summary: traits.summary,
+        
+            template: traits.template
+        };
     }
 
     public getAttributeTraits(attribute: Attribute, rank: number, bonusRank: number = 0): AttributeTraits {

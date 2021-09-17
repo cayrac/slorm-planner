@@ -21,10 +21,6 @@ export class AttributesComponent extends AbstractUnsubscribeComponent implements
 
     constructor(private plannerService: PlannerService) {
         super();
-
-        // rajouter renommage / ajout / suppression layer
-
-        // sidenav
     }
 
     public ngOnInit() {

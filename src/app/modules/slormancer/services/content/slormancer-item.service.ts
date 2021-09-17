@@ -393,7 +393,6 @@ export class SlormancerItemService {
     }
 
     public getEquipableItemClone(item: EquipableItem): EquipableItem {
-
         return {
             ...item,
             affixes: item.affixes.map(affix => this.slormancerItemAffixService.getAffixClone(affix)),
@@ -401,6 +400,6 @@ export class SlormancerItemService {
             skillEnchantment: item.skillEnchantment === null ? null : { ...item.skillEnchantment },
             attributeEnchantment: item.attributeEnchantment === null ? null : { ...item.attributeEnchantment },
             legendaryEffect: item.legendaryEffect === null ? null : this.slormancerLegendaryEffectService.getLegendaryEffectClone(item.legendaryEffect)
-        }
+        };
     }
 }

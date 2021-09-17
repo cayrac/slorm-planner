@@ -1,11 +1,11 @@
-
 <form [formGroup]="form" (submit)="submit()" *ngIf="form !== null">
-    <h2 mat-dialog-title>Choose your hero level</h2>
+    <h2 mat-dialog-title>{{title}}</h2>
     <mat-dialog-content>
+        <input autocomplete="false" name="hidden" type="text" style="display:none;">
         <mat-form-field appearance="outline">
-            <mat-label>Hero level</mat-label>
-            <input matInput type="number" min="1" step="1" [max]="MAX_HERO_LEVEL" formControlName="level">
-            <mat-error>Level must be between 1 and {{MAX_HERO_LEVEL}}</mat-error>
+            <mat-label>Layer name</mat-label>
+            <input matInput type="text" formControlName="name" autocomplete="off">
+            <mat-error>A layer name is required</mat-error>
         </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions>
