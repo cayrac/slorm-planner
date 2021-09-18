@@ -136,8 +136,6 @@ export class JsonCompresserService {
             result.planner = this.decompressPlanner(content);
         }
 
-        this.log('decompression result : ', result);
-
         return result;
     }
 
@@ -173,9 +171,6 @@ export class JsonCompresserService {
             result.push(buff);
         }
 
-        //console.log('splitData on ' + separator + ' : ' + content);
-        //console.log(result);
-
         return result;
     }
 
@@ -184,12 +179,13 @@ export class JsonCompresserService {
     }
     
     private decompressPlanner(planner: string): JsonPlanner {
-        const [_, data] = <[string, string]>planner.split(':', 2);
-        const splitData = this.splitData(this.removeSurround(data), this.OBJECT_VALUES_SEPARATOR);
+        const data = planner.split(':').slice(1).join(':');
+        const splitData = this.splitData(data, this.OBJECT_VALUES_SEPARATOR);
+        console.log('decompress planner : ', splitData);
         return {
             type: 'p',
             heroClass: parseInt(<string>splitData[0]),
-            layers: this.splitData(<string>splitData[1], this.ARRAY_VALUES_SEPARATOR).map(layer => this.decompressLayer(layer))
+            layers: this.splitData(this.removeSurround(<string>splitData[1]), this.ARRAY_VALUES_SEPARATOR).map(layer => this.decompressLayer(layer))
         }
     }
 
@@ -289,9 +285,6 @@ export class JsonCompresserService {
         const splitData = this.splitData(content, this.OBJECT_VALUES_SEPARATOR);
         let index = 0;
 
-        console.log('decompressSkill : ' + content);
-        console.log(splitData);
-
         return {
             id: parseInt(<string>splitData[index++]),
             rank: parseInt(<string>splitData[index++]),
@@ -306,11 +299,6 @@ export class JsonCompresserService {
                     }
                 })
         }
-    }
-
-    private log<T>(m: string, value: T): T {
-        console.log(m, value);
-        return value;
     }
 
     private decompressCharacter(character: string): JsonCharacter {
@@ -348,7 +336,7 @@ export class JsonCompresserService {
         
             reaper: this.decompressReaper(this.removeSurround(<string>splitData[index++])),
         
-            skills: this.splitData(this.removeSurround(<string>splitData[index++]), this.ARRAY_VALUES_SEPARATOR).map(skill => this.decompressSkill(this.removeSurround(skill))),
+            skills: this.splitData(this.removeSurround(<string>splitData[index++]), this.ARRAY_VALUES_SEPARATOR).map(skill => this.decompressSkill(skill)),
         
             attributes: {
                 [Attribute.Toughness]: parseInt(<string>splitData[index++]),
@@ -372,8 +360,8 @@ export class JsonCompresserService {
     }
     
     private decompressLayer(layer: string): JsonLayer {
-        const [_, data] = <[string, string]>layer.split(':', 2);
-        const splitData = this.splitData(this.removeSurround(data), this.OBJECT_VALUES_SEPARATOR);
+        const data = layer.split(':').slice(1).join(':');
+        const splitData = this.splitData(data, this.OBJECT_VALUES_SEPARATOR);
         return {
             type: 'l',
             name: atob(<string>splitData[0]),

@@ -98,11 +98,13 @@ export class JsonConverterService {
         };
     }
 
-    private skillToJson(skill: CharacterSkillAndUpgrades): JsonSkill {
+    private skillToJson(skill: CharacterSkillAndUpgrades, onlyEquipped: boolean = false): JsonSkill {
         return {
             id: skill.skill.id,
             rank: skill.skill.level,
-            upgrades: skill.upgrades.map(upgrade => ({ id: upgrade.id, rank: upgrade.rank, selected: skill.selectedUpgrades.indexOf(upgrade.id) !== -1 ? 1 : 0 })),
+            upgrades: skill.upgrades
+                .map(upgrade => ({ id: upgrade.id, rank: upgrade.rank, selected: skill.selectedUpgrades.indexOf(upgrade.id) !== -1 ? 1 : 0 }))
+                .filter(upgrade => !onlyEquipped || upgrade.selected),
         };
     }
 
@@ -205,7 +207,9 @@ export class JsonConverterService {
                 
             reaper: this.reaperToJson(character.reaper),
         
-            skills: character.skills.map(skill => this.skillToJson(skill)),
+            skills: character.skills
+                .filter(skill => skill.skill === character.supportSkill || skill.skill === character.primarySkill || skill.skill === character.secondarySkill)
+                .map(skill => this.skillToJson(skill, true)),
                 
             attributes: {
                 [Attribute.Toughness]: character.attributes.allocated[Attribute.Toughness].rank,

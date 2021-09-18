@@ -35,6 +35,13 @@ export class PlannerService {
         return this.planner;
     }
 
+    public setPlanner(planner: Planner | null) {
+        this.planner = planner;
+        console.log(this.planner);
+        this.layersChanged.next(this.planner === null ? [] : this.planner.layers);
+        this.setLayerIndex(this.planner === null ? -1 : 0, true);
+    }
+
     public getPlannerclass(): HeroClass | null {
         let result: HeroClass | null = null;
 
@@ -50,11 +57,11 @@ export class PlannerService {
         this.layersChanged.next(this.planner.layers);
     }
 
-    public setLayerIndex(index: number) {
+    public setLayerIndex(index: number, forceUpdate: boolean = false) {
         if (this.planner !== null) {
             const newIndex = Math.min(this.planner.layers.length - 1, index);
 
-            if (newIndex !== this.selectedLayerIndex) {
+            if (newIndex !== this.selectedLayerIndex || forceUpdate) {
                 this.selectedLayerIndex = newIndex;
                 const layer = this.planner.layers[this.selectedLayerIndex];
     

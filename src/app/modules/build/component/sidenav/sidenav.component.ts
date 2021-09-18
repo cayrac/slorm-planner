@@ -10,6 +10,9 @@ import {
     EditLayerModalComponent,
     EditLayerModalData,
 } from '../../../shared/components/edit-layer-modal/edit-layer-modal.component';
+import {
+    ReplacePlannerModalComponent,
+} from '../../../shared/components/replace-planner-modal/replace-planner-modal.component';
 import { SharedData } from '../../../shared/model/shared-data';
 import { ClipboardService } from '../../../shared/services/clipboard.service';
 import { DownloadService } from '../../../shared/services/download.service';
@@ -70,13 +73,14 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
         (this.importResult.character !== null || this.importResult.layer !== null || this.importResult.planner !== null);
     }
     
-    public uploadSave(event: Event) {
+    public uploadSave(event: Event, input: HTMLInputElement) {
         if (event.target !== null) {
             const files = (<HTMLInputElement>event.target).files;
             const file = files === null ? null : valueOrNull(files[0]);
             if (file !== null) {
                 if (file.size <= this.MAX_UPLOAD_FILE_SIZE) {
                     this.upload(file);
+                    input.value = '';
                 } else {
                     this.messageService.message('Cannot upload files bigger than ' + this.MAX_UPLOAD_FILE_SIZE_MO + 'Mo');
                 }
@@ -116,10 +120,17 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
                             this.closeSideNav();
                         }
                     })
-            } else if (importResult.character !== null) {
-                
-            } else if (importResult.character !== null) {
-                
+            } else if (importResult.layer !== null) {
+                this.plannerService.addLayer(importResult.layer.name, importResult.layer.character);
+                this.closeSideNav();
+            } else if (importResult.planner !== null) {
+                this.dialog.open(ReplacePlannerModalComponent)
+                    .afterClosed().subscribe((replace: boolean | undefined) => {
+                        if (replace === true) {
+                            this.plannerService.setPlanner(importResult.planner);
+                            this.closeSideNav();
+                        }
+                    })
             }
 
         }

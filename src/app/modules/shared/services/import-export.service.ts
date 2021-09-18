@@ -64,6 +64,8 @@ export class ImportExportService {
             }
         }
 
+        console.log('import : ', data);
+
         return data;
     }
 
@@ -76,6 +78,7 @@ export class ImportExportService {
     }
 
     public exportPlanner(planner: Planner): string {
+        console.log('export : ', this.jsonConverterService.plannerToJson(planner));
         return this.jsonCompresserService.compressPlanner(this.jsonConverterService.plannerToJson(planner));
     }
 }

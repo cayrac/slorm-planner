@@ -23,6 +23,7 @@ import { ItemViewComponent } from './components/item-view/item-view.component';
 import { ReaperEditModalComponent } from './components/reaper-edit-modal/reaper-edit-modal.component';
 import { ReaperViewComponent } from './components/reaper-view/reaper-view.component';
 import { RemoveConfirmModalComponent } from './components/remove-confirm-modal/remove-confirm-modal.component';
+import { ReplacePlannerModalComponent } from './components/replace-planner-modal/replace-planner-modal.component';
 import { SkillUpgradeViewComponent } from './components/skill-upgrade-view/skill-upgrade-view.component';
 import { SkillViewComponent } from './components/skill-view/skill-view.component';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
@@ -60,7 +61,8 @@ import { PlannerService } from './services/planner.service';
         CharacterLevelEditModalComponent,
         SnackbarComponent,
         EditLayerModalComponent,
-        DeleteLayerModalComponent
+        DeleteLayerModalComponent,
+        ReplacePlannerModalComponent
     ],
     imports: [
         CommonModule,
@@ -87,7 +89,8 @@ import { PlannerService } from './services/planner.service';
         ItemBaseChoiceModalComponent,
         RemoveConfirmModalComponent,
         ReaperEditModalComponent,
-        CharacterLevelEditModalComponent
+        CharacterLevelEditModalComponent,
+        ReplacePlannerModalComponent
     ],
     providers: [
         PlannerService,
