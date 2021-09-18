@@ -65,7 +65,7 @@ export class SlormancerSkillService {
                 private slormancerEffectValueService: SlormancerEffectValueService) {
     }
 
-    private getSkillLevelFromXp(heroClass: HeroClass, skill: number, experience: number): number {
+    public getSkillLevelFromXp(heroClass: HeroClass, skill: number, experience: number): number {
         // TODO
         return Math.min(15, experience);
     }

@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Affix } from '../../model/content/affix';
 import { EffectValueType } from '../../model/content/enum/effect-value-type';
 import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
-import { EquipableItemBase } from '../../model/content/enum/equipable-item-base';
 import { Rarity } from '../../model/content/enum/rarity';
 import { GameDataStat } from '../../model/content/game/data/game-data-stat';
 import { GameAffix, GameEquippableItem, GameItem, GameRessourceItem } from '../../model/parser/game/game-item';
@@ -21,29 +20,6 @@ export class SlormancerAffixService {
                 private slormancerTranslateService : SlormancerTranslateService,
                 private slormancerItemValueService : SlormancerItemValueService,
                 private slormancerDataService: SlormancerDataService) { }
-
-    public getEquipableItemBase(item: GameEquippableItem): EquipableItemBase {
-        let slot: EquipableItemBase = EquipableItemBase.Helm;
-
-        if (item !== null) {
-            switch (item.slot) {
-                case 0: slot = EquipableItemBase.Helm; break;
-                case 1: slot = EquipableItemBase.Body; break;
-                case 2: slot = EquipableItemBase.Shoulder; break;
-                case 3: slot = EquipableItemBase.Bracer; break;
-                case 4: slot = EquipableItemBase.Glove; break;
-                case 5: slot = EquipableItemBase.Boot; break;
-                case 6: slot = EquipableItemBase.Ring; break;
-                case 7: slot = EquipableItemBase.Amulet; break;
-                case 8: slot = EquipableItemBase.Belt; break;
-                case 9: slot = EquipableItemBase.Cape; break;
-                default: 
-                    console.error('Unexpected item slot ' + item.slot);
-                    break;
-            }
-        }
-        return slot;
-    }
 
     private getRarity(rarity: GameRarity): Rarity {
         let result: Rarity;
@@ -104,12 +80,12 @@ export class SlormancerAffixService {
         }
     }
 
-    public getAffixFromStat(statName: string, itemLevel: number, reinforcment: number, rarity: Rarity, value: number): Affix | null {
+    public getAffixFromStat(statName: string, itemLevel: number, reinforcment: number, rarity: Rarity, value: number, pure: number = 100): Affix | null {
         let result: Affix | null = null;
 
         const stat = this.slormancerDataService.getGameDataStatByRef(statName);
         if (stat !== null) {
-            result = this.buildAffix(stat, itemLevel, reinforcment, rarity, false, 100, value);
+            result = this.buildAffix(stat, itemLevel, reinforcment, rarity, false, pure, value);
         }
 
         return result;

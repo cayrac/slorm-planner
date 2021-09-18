@@ -53,6 +53,7 @@ export interface CharacterAttributes {
 export interface Character {
     heroClass: HeroClass;
     level: number;
+    version: string;
 
     name: string;
     fullName: string;

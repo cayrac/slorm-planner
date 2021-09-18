@@ -7,6 +7,7 @@ import { HeroClass } from '../../slormancer/model/content/enum/hero-class';
 import { GameSave } from '../../slormancer/model/parser/game/game-save';
 import { SlormancerSaveParserService } from '../../slormancer/services/parser/slormancer-save-parser.service';
 import { SlormancerCharacterService } from '../../slormancer/services/slormancer-character.service';
+import { valueOrNull } from '../../slormancer/util/utils';
 import { Layer } from '../model/layer';
 import { Planner } from '../model/planner';
 
@@ -28,6 +29,10 @@ export class PlannerService {
                 private httpClient: HttpClient) {
         this.httpClient.get('assets/save', { responseType: 'text' })
         .subscribe(save => this.loadSave(save, HeroClass.Huntress));
+    }
+
+    public getPlanner(): Planner | null {
+        return this.planner;
     }
 
     public getPlannerclass(): HeroClass | null {
@@ -62,6 +67,11 @@ export class PlannerService {
     public getSelectedLayerIndex(): number {
         return this.selectedLayerIndex;
     }
+
+    public getSelectedLayer(): Layer | null {
+        return valueOrNull(this.getLayers()[this.selectedLayerIndex]);
+    }
+
 
     public getLayers(): Array<Layer> {
         return this.planner === null ? [] : this.planner.layers;

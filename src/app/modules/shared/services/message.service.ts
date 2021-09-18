@@ -25,4 +25,11 @@ export class MessageService {
         }
         this.snackBar.openFromComponent(SnackbarComponent, { ...this.SNACKBAR_CONFIG, data });
     }
+
+    public error(message: string) {
+        const data: SnackbarData = {
+            message
+        }
+        this.snackBar.openFromComponent(SnackbarComponent, { ...this.SNACKBAR_CONFIG, data });
+    }
 }

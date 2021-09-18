@@ -11,3 +11,5 @@ export const STASH_SIZE = 35;
 export const SKILL_MAX_MASTERY = 15;
 
 export const MAXIMUM_ANCESTRAL_LEGACY_POINTS = 7;
+
+export const GAME_VERSION = '0.2.152';

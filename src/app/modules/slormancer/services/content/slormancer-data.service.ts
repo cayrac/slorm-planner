@@ -97,6 +97,10 @@ export class SlormancerDataService {
         return valueOrNull(GAME_DATA.SKILL[heroClass].find(skill => skill.REF === id));
     }
     
+    public getGameDataSkills(heroClass: HeroClass): Array<GameDataSkill> {
+        return GAME_DATA.SKILL[heroClass];
+    }
+    
     public getGameDataActiveSkills(heroClass: HeroClass): Array<GameDataSkill> {
         return GAME_DATA.SKILL[heroClass]
             .filter(skill => skill.TYPE === SkillType.Active || skill.TYPE === SkillType.Support);

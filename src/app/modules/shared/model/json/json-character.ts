@@ -6,8 +6,10 @@ import { JsonReaper } from './json-reaper';
 import { JsonSkill } from './json-skill';
 
 export interface JsonCharacter {
-    t: 'c';
-    hc: HeroClass;
+    type: 'c';
+    version: string;
+    level: number;
+    heroClass: HeroClass;
     gear: {
         helm: JsonItem | null;
         body: JsonItem | null;
@@ -21,21 +23,20 @@ export interface JsonCharacter {
         belt: JsonItem | null;
         cape: JsonItem | null;
     };
-    inv?: Array<JsonItem | null>;
-    sta?: Array<Array<JsonItem | null>>;
+    inventory: Array<JsonItem | null> | null;
+    sharedInventory: Array<Array<JsonItem | null>> | null;
 
-    al: {
-        al: Array<JsonAncestralLegacy>;
+    ancestralLegacies: {
+        ancestralLegacies: Array<JsonAncestralLegacy>;
         nodes: Array<number>;
+        maxNodes: number;
     }
 
-    reas?: Array<JsonReaper>;
+    reaper: JsonReaper | null;
 
-    rea: JsonReaper | number | null;
+    skills: Array<JsonSkill>;
 
-    skl?: Array<JsonSkill>;
-
-    att: {
+    attributes: {
         [Attribute.Toughness]: number;
         [Attribute.Savagery]: number;
         [Attribute.Fury]: number;
@@ -46,10 +47,11 @@ export interface JsonCharacter {
         [Attribute.Bravery]: number;
     };
 
-    pri: number | null | JsonSkill;
-    sec: number | null | JsonSkill;
-    act1: number | null | JsonAncestralLegacy;
-    act2: number | null | JsonAncestralLegacy;
-    act3: number | null | JsonAncestralLegacy;
-    act4: number | null | JsonAncestralLegacy;
+    primary: number | null;
+    secondary: number | null;
+    support: number | null;
+    activable1: number | null;
+    activable2: number | null;
+    activable3: number | null;
+    activable4: number | null;
 }

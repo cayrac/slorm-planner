@@ -28,8 +28,11 @@ import { SkillViewComponent } from './components/skill-view/skill-view.component
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { TraitViewComponent } from './components/trait-view/trait-view.component';
 import { MaterialModule } from './material.module';
+import { ClipboardService } from './services/clipboard.service';
+import { DownloadService } from './services/download.service';
 import { FormOptionsService } from './services/form-options.service';
 import { ImportExportService } from './services/import-export.service';
+import { JsonCompresserService } from './services/json-compresser.service';
 import { JsonConverterService } from './services/json-converter.service';
 import { MessageService } from './services/message.service';
 import { PlannerService } from './services/planner.service';
@@ -91,7 +94,10 @@ import { PlannerService } from './services/planner.service';
         FormOptionsService,
         MessageService,
         ImportExportService,
-        JsonConverterService
+        JsonConverterService,
+        ClipboardService,
+        DownloadService,
+        JsonCompresserService
     ],
 })
 export class SharedModule { }

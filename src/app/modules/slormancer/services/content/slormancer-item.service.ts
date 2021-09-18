@@ -12,6 +12,7 @@ import { Rarity } from '../../model/content/enum/rarity';
 import { ReaperSmith } from '../../model/content/enum/reaper-smith';
 import { EquipableItem, EquipableItem as EquippableItem } from '../../model/content/equipable-item';
 import { GameDataStat } from '../../model/content/game/data/game-data-stat';
+import { LegendaryEffect } from '../../model/content/legendary-effect';
 import { ReaperEnchantment } from '../../model/content/reaper-enchantment';
 import { SkillEnchantment } from '../../model/content/skill-enchantment';
 import { GameEnchantment, GameEquippableItem, GameItem, GameRessourceItem } from '../../model/parser/game/game-item';
@@ -258,6 +259,45 @@ export class SlormancerItemService {
         };
     }
 
+    public getEquipableItem(base: EquipableItemBase,
+                            heroClass: HeroClass,
+                            level: number,
+                            affixes: Array<Affix>,
+                            reinforcment: number = 0,
+                            legendaryEffect: LegendaryEffect | null,
+                            reaperEnchantment: ReaperEnchantment | null,
+                            skillEnchantment: SkillEnchantment | null,
+                            attributeEnchantment : AttributeEnchantment | null): EquippableItem {
+        
+        if (legendaryEffect !== null) {
+            legendaryEffect.reinforcment = reinforcment;
+        }
+
+        const result: EquipableItem = {
+            base,
+            affixes,
+            legendaryEffect,
+            level,
+            reinforcment,
+            reaperEnchantment,
+            skillEnchantment,
+            attributeEnchantment,
+            heroClass,
+
+            rarity: Rarity.Normal,
+            name: '',
+            baseLabel: '',
+            rarityLabel: '',
+            levelLabel: '',
+            icon: '',
+            itemIconBackground: ''
+        };
+
+        this.updateEquippableItem(result);
+
+        return result;
+    }
+
     public getEmptyEquipableItem(base: EquipableItemBase, heroClass: HeroClass, level: number): EquippableItem {
         const numberBasicstats = this.slormancerDataService.getBaseMaxBasicStat(base);
         const baseKey = <keyof GameDataStat>(base === EquipableItemBase.Body ? 'ARMOR' : base.toUpperCase());
@@ -292,7 +332,7 @@ export class SlormancerItemService {
         return result;
     }
 
-    public getEquipableItem(item: GameEquippableItem, heroClass: HeroClass): EquippableItem {
+    public getEquipableItemFromGame(item: GameEquippableItem, heroClass: HeroClass): EquippableItem {
         const base = this.getEquipableItemBase(item);
         const affixes = item.affixes
             .filter(affix => affix.rarity !== 'L')

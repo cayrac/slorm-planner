@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HeroClass } from '..//model/content/enum/hero-class';
-import { INVENTORY_SIZE, MAX_HERO_LEVEL, STASH_SIZE } from '../constants/common';
+import { GAME_VERSION, INVENTORY_SIZE, MAX_HERO_LEVEL, STASH_SIZE } from '../constants/common';
 import { Character, CharacterSkillAndUpgrades } from '../model/character';
 import { Activable } from '../model/content/activable';
 import { AncestralLegacy } from '../model/content/ancestral-legacy';
@@ -38,7 +38,7 @@ export class SlormancerCharacterService {
 
     private getSkills(heroClass: HeroClass, equipped: Array<number> = [], ranks: Array<number> = []): Array<CharacterSkillAndUpgrades> {
         return this.slormancerDataService.getGameDataActiveSkills(heroClass).map(gameData => {
-            const skill = this.slormancerSkillService.getHeroSkill(gameData.REF, heroClass, valueOrDefault(equipped[gameData.REF], 0));
+            const skill = this.slormancerSkillService.getHeroSkill(gameData.REF, heroClass, 15);
             const upgrades = this.slormancerDataService.getGameDataUpgradeIdsForSkill(gameData.REF, heroClass)
                 .map(upgradeId => this.slormancerSkillService.getUpgrade(upgradeId, heroClass, valueOrDefault(ranks[upgradeId], 0)))
                 .filter(isNotNullOrUndefined);
@@ -62,7 +62,7 @@ export class SlormancerCharacterService {
         let result: EquipableItem | null = null;
 
         if (this.slormancerItemservice.isEquipableItem(item)) {
-            result = this.slormancerItemservice.getEquipableItem(item, heroClass);
+            result = this.slormancerItemservice.getEquipableItemFromGame(item, heroClass);
         }
 
         return result;
@@ -193,11 +193,12 @@ export class SlormancerCharacterService {
     public getEmptyCharacter(heroClass: HeroClass): Character {
         const character: Character = {
             heroClass,
+            version: GAME_VERSION,
             level: MAX_HERO_LEVEL,
             name: '',
             fullName: '',
         
-            reaper: this.slormancerReaperService.getReaper(0, heroClass, false, 100, 100, 0, 0),
+            reaper: null,
         
             ancestralLegacies: {
                 ancestralLegacies: this.getAncestralLegacies(),
@@ -335,6 +336,7 @@ export class SlormancerCharacterService {
         
         const character: Character = {
             heroClass,
+            version: save.version,
             level: this.getHeroLevel(xp),
             name: '',
             fullName: '',
@@ -400,6 +402,113 @@ export class SlormancerCharacterService {
 
         const time = new Date().getTime() - start;
         console.log('Character built from save in ' + time + ' milliseconds');
+        return character;
+    }
+
+    public getCharacter(heroClass: HeroClass,
+                        version: string,
+                        level: number,
+                        reaper: Reaper | null,
+                        activeAncestralNodes: Array<number>,
+                        ancestralRanks: Array<number>,
+                        skillEquipped: Array<number>,
+                        skillRanks: Array<number>,
+                        maxAncestralNodes: number,
+                        helm: EquipableItem | null = null,
+                        body: EquipableItem | null = null,
+                        shoulder: EquipableItem | null = null,
+                        bracer: EquipableItem | null = null,
+                        glove: EquipableItem | null = null,
+                        boot: EquipableItem | null = null,
+                        ring_l: EquipableItem | null = null,
+                        ring_r: EquipableItem | null = null,
+                        amulet: EquipableItem | null = null,
+                        belt: EquipableItem | null = null,
+                        cape: EquipableItem | null = null,
+                        inventory: Array<EquipableItem | null> | null = null,
+                        sharedInventory: Array<Array<EquipableItem | null>> | null = null,
+                        toughtness: number = 0,
+                        savagery: number = 0,
+                        fury: number = 0,
+                        determination: number = 0,
+                        zeal: number = 0,
+                        willpower: number = 0,
+                        dexterity: number = 0,
+                        bravery: number = 0,
+                        primarySkill: null | number = null,
+                        secondarySkill: null | number = null,
+                        supportSkill: null | number = null,
+                        activable1: null | number = null,
+                        activable2: null | number = null,
+                        activable3: null | number = null,
+                        activable4: null | number = null
+                        ): Character {
+        const character: Character = {
+            heroClass,
+            version,
+            level,
+            name: '',
+            fullName: '',
+        
+            reaper,
+        
+            ancestralLegacies: {
+                ancestralLegacies: this.getAncestralLegacies(ancestralRanks),
+                activeNodes: activeAncestralNodes,
+                activeAncestralLegacies: [],
+                maxAncestralLegacy: maxAncestralNodes // TODO parser ça plus tard
+            },
+            skills: this.getSkills(heroClass, skillEquipped, skillRanks),
+        
+            gear: {
+                helm,
+                body,
+                shoulder,
+                bracer,
+                glove,
+                boot,
+                ring_l,
+                ring_r,
+                amulet,
+                belt,
+                cape
+            },
+            inventory: inventory === null ? list(INVENTORY_SIZE).map(() => null) : inventory,
+            sharedInventory: sharedInventory === null ? list(4).map(() => list(STASH_SIZE).map(() => null)) : sharedInventory,
+
+            attributes: {
+                remainingPoints: 0,
+                maxPoints: 0,
+                allocated: {
+                    [Attribute.Toughness]: this.slormancerAttributeService.getAttributeTraits(Attribute.Toughness, toughtness),
+                    [Attribute.Savagery]: this.slormancerAttributeService.getAttributeTraits(Attribute.Savagery, savagery),
+                    [Attribute.Fury]: this.slormancerAttributeService.getAttributeTraits(Attribute.Fury, fury),
+                    [Attribute.Determination]: this.slormancerAttributeService.getAttributeTraits(Attribute.Determination, determination),
+                    [Attribute.Zeal]: this.slormancerAttributeService.getAttributeTraits(Attribute.Zeal, zeal),
+                    [Attribute.Willpower]: this.slormancerAttributeService.getAttributeTraits(Attribute.Willpower, willpower),
+                    [Attribute.Dexterity]: this.slormancerAttributeService.getAttributeTraits(Attribute.Dexterity, dexterity),
+                    [Attribute.Bravery]: this.slormancerAttributeService.getAttributeTraits(Attribute.Bravery, bravery),
+                }},
+        
+            primarySkill: null,
+            secondarySkill: null,
+            supportSkill: null,
+            activable1: null,
+            activable2: null,
+            activable3: null,
+            activable4: null
+        }
+
+        character.primarySkill = primarySkill === null ? null : this.getSkill(primarySkill, character);
+        character.secondarySkill = secondarySkill === null ? null : this.getSkill(secondarySkill, character);
+        character.supportSkill = supportSkill === null ? null : this.getSkill(supportSkill, character);
+        character.activable1 = activable1 === null ? null : this.getActivable(activable1, character);
+        character.activable2 = activable2 === null ? null : this.getActivable(activable2, character);
+        character.activable3 = activable3 === null ? null : this.getActivable(activable3, character);
+        character.activable4 = activable4 === null ? null : this.getActivable(activable4, character);
+
+        this.updateCharacter(character);
+
         return character;
     }
 

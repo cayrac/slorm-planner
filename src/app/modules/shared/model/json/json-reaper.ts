@@ -1,8 +1,8 @@
 export interface JsonReaper {
     id: number;
-    lvl: number;
-    prilvl: number;
-    kil: number;
-    prikil: number;
-    pri: boolean
+    level: number;
+    primordialLevel: number;
+    kills: number;
+    primordialKills: number;
+    primordial: number
 }

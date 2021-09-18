@@ -7,6 +7,7 @@ import { SlormancerCharacterService } from '../../slormancer/services/slormancer
 import { Layer } from '../model/layer';
 import { Planner } from '../model/planner';
 import { SharedData } from '../model/shared-data';
+import { JsonCompresserService } from './json-compresser.service';
 import { JsonConverterService } from './json-converter.service';
 
 @Injectable()
@@ -14,7 +15,8 @@ export class ImportExportService {
 
     constructor(private slormancerCharacterService: SlormancerCharacterService,
                 private slormancerSaveParserService: SlormancerSaveParserService,
-                private jsonConverterService: JsonConverterService) {
+                private jsonConverterService: JsonConverterService,
+                private jsonCompresserService: JsonCompresserService) {
     }
 
     private parseSaveData(content: string, heroClass: HeroClass): Character {
@@ -22,14 +24,14 @@ export class ImportExportService {
         return this.slormancerCharacterService.getCharacterFromSave(save, heroClass);
     }
 
-    private parseUrlData(content: string, heroClass: HeroClass): Character {
+    private parseUrlData(content: string, heroClass: HeroClass): SharedData {
         const url = new URL(content);
-        throw new Error('not done yet' + url);
+        return this.parseJsonData(<string>url.searchParams.get('data'), heroClass);
     }
 
     private parseJsonData(content: string, heroClass: HeroClass): SharedData {
-        const url = new URL(content);
-        throw new Error('not done yet' + url);
+        const json = this.jsonCompresserService.decompress(content);
+        return this.jsonConverterService.jsonToSharedData(json);
     }
 
     public import(content: string, heroClass: HeroClass): SharedData {
@@ -43,19 +45,13 @@ export class ImportExportService {
         try {
             data.character = this.parseSaveData(content, heroClass);
             found = true;
-        } catch (e) {
-            console.log('save file parsing error : ');
-            console.error(e);
-        }
+        } catch (e) { }
 
         if (!found) {
             try {
-                data.character = this.parseUrlData(content, heroClass);
+                data = this.parseUrlData(content, heroClass);
                 found = true;
-            } catch (e) {
-                console.log('url data parsing error : ');
-                console.error(e);
-            }
+            } catch (e) { }
         }
 
         if (!found) {
@@ -71,15 +67,15 @@ export class ImportExportService {
         return data;
     }
 
-    public exportCharacter(character: Character, minimal: boolean): string {
-        return JSON.stringify(this.jsonConverterService.characterToJson(character));
+    public exportMinimalCharacter(character: Character): string {
+        return this.jsonCompresserService.compressCharacter(this.jsonConverterService.characterToMinimalJson(character));
     }
 
     public exportLayer(layer: Layer): string {
-        return JSON.stringify(this.jsonConverterService.layerToJson(layer));
+        return this.jsonCompresserService.compressLayer(this.jsonConverterService.layerToJson(layer));
     }
 
     public exportPlanner(planner: Planner): string {
-        return JSON.stringify(this.jsonConverterService.plannerToJson(planner));
+        return this.jsonCompresserService.compressPlanner(this.jsonConverterService.plannerToJson(planner));
     }
 }

@@ -3,6 +3,6 @@ import { JsonLayer } from './json-layer';
 
 export interface JsonPlanner {
     type: 'p';
-    cl: HeroClass;
-    la: Array<JsonLayer>;
+    heroClass: HeroClass;
+    layers: Array<JsonLayer>;
 }

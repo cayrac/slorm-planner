@@ -11,6 +11,8 @@ import {
     EditLayerModalData,
 } from '../../../shared/components/edit-layer-modal/edit-layer-modal.component';
 import { SharedData } from '../../../shared/model/shared-data';
+import { ClipboardService } from '../../../shared/services/clipboard.service';
+import { DownloadService } from '../../../shared/services/download.service';
 import { ImportExportService } from '../../../shared/services/import-export.service';
 import { MessageService } from '../../../shared/services/message.service';
 import { PlannerService } from '../../../shared/services/planner.service';
@@ -34,6 +36,8 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
     public importContent = new FormControl(null, Validators.maxLength(this.MAX_UPLOAD_FILE_SIZE));
 
     constructor(private messageService: MessageService,
+                private downloadService: DownloadService,
+                private clipboardService: ClipboardService,
                 private importExportService: ImportExportService,
                 private plannerService: PlannerService,
                 private dialog: MatDialog) {
@@ -122,6 +126,59 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
     }
 
     public downloadLayer() {
-        
+        const layer = this.plannerService.getSelectedLayer();
+
+        if (layer !== null) {
+            const exportedLayer = this.importExportService.exportLayer(layer);
+            this.downloadService.downloadFile(exportedLayer, 'layer.sav');
+        }
+    }
+
+    public copyLayer() {
+        const layer = this.plannerService.getSelectedLayer();
+
+        if (layer !== null) {
+            const exportedLayer = this.importExportService.exportLayer(layer);
+            if (this.clipboardService.copyToClipboard(exportedLayer)) {
+                this.messageService.message('Layer copied to clipboard');
+            } else {
+                this.messageService.error('Failed to copy layer to clipboard');
+            }
+        }
+    }
+
+    public downloadPlanner() {
+        const planner = this.plannerService.getPlanner();
+
+        if (planner !== null) {
+            const exportedPlanner = this.importExportService.exportPlanner(planner);
+            this.downloadService.downloadFile(exportedPlanner, 'build.sav');
+        }
+    }
+
+    public copyPlanner() {
+        const planner = this.plannerService.getPlanner();
+
+        if (planner !== null) {
+            const exportedPlanner = this.importExportService.exportPlanner(planner);
+            if (this.clipboardService.copyToClipboard(exportedPlanner)) {
+                this.messageService.message('Build copied to clipboard');
+            } else {
+                this.messageService.error('Failed to copy build to clipboard');
+            }
+        }
+    }
+
+    public copyExternalLink() {
+        const layer = this.plannerService.getSelectedLayer();
+
+        if (layer !== null) {
+            const exportedCharacter = this.importExportService.exportMinimalCharacter(layer.character);
+            if (this.clipboardService.copyToClipboard(exportedCharacter)) {
+                this.messageService.message('Link copied to clipboard');
+            } else {
+                this.messageService.error('Failed to copy link to clipboard');
+            }
+        }
     }
 }

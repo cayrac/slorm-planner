@@ -1,14 +1,12 @@
 import { EquipableItemBase } from '../../../slormancer/model/content/enum/equipable-item-base';
-import { Rarity } from '../../../slormancer/model/content/enum/rarity';
 
 export interface JsonItem {
-    ba: EquipableItemBase;
-    rar: Rarity;
-    lvl: number;
-    up: number;
-    aff: Array<{ r: Rarity; p: number; s: string; c: number; }>;
-    leg: { id: number; c: number } | null;
-    rea: { r: number; c: number } | null;
-    ski: { s: number; c: number } | null;
-    att: { a: number; c: number } | null;
+    base: EquipableItemBase | null;
+    level: number;
+    reinforcment: number;
+    affixes: Array<{ rarity: number; pure: number; stat: number; craftedValue: number; }>;
+    legendaryEffect: { id: number; craftedValue: number } | null;
+    reaperEnchantment: { reaperSmith: number; craftedValue: number } | null;
+    skillEnchantment: { skill: number; craftedValue: number } | null;
+    attributeEnchantment: { attribute: number; craftedValue: number } | null;
 }
