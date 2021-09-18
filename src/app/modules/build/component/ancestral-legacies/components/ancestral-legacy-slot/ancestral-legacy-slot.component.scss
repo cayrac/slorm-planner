@@ -10,6 +10,7 @@ $color-selected: rgb(132, 30, 6);
     cursor: pointer;
     z-index: 1;
     border-radius: 50%;
+    border: 1px solid transparent;
 
     &.selected {
         border: 1px solid $color-selected;

@@ -175,7 +175,7 @@ export class SlormancerTemplateService {
                     template = this.replaceAnchor(template, value, anchor);
                 }
             } else if (isEffectValueSynergy(effectValue)) {
-                const details = typeof effectValue.synergy === 'number' ? '' :  (' ' + this.getEffectValueDetails(effectValue));
+                const details = ' ' + this.getEffectValueDetails(effectValue);
                 const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent), 'value');
                 template = this.replaceAnchor(template, synergy + details, this.VALUE_ANCHOR);
             }

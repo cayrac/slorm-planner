@@ -13,7 +13,7 @@
     <div class="content">
         <div class="node"></div>
     </div>
-    <ng-template cdkConnectedOverlay
+    <ng-template cdkConnectedOverlay *ngIf="isMouseOver"
         [cdkConnectedOverlayOpen]="isMouseOver"
         [cdkConnectedOverlayOrigin]="trigger">
         <app-trait-view [trait]="trait" ></app-trait-view>

@@ -47,8 +47,8 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
     @Output()
     public readonly changed = new EventEmitter<EquipableItem | null>();
     
-    @ViewChild(MatMenuTrigger, { static: true })
-    private menu: MatMenuTrigger | null = null; 
+    @ViewChild(MatMenuTrigger)
+    private menu: MatMenuTrigger | null | undefined = null; 
             
     public isDragging: boolean = false;
 
@@ -93,7 +93,7 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
     @HostListener('contextmenu')
     public onMouseContextMenu() {
         this.itemMoveService.releaseHoldItem();
-        if (this.menu !== null) {
+        if (this.menu) {
             this.menu.openMenu();
         }
         return false;
@@ -125,6 +125,10 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
 
     public ngOnChanges() {
         this.updateSearch();
+    }
+
+    public isMenuOpen(): boolean {
+        return this.menu !== null && this.menu !== undefined && this.menu.menuOpen;
     }
 
     private updateSearch() {

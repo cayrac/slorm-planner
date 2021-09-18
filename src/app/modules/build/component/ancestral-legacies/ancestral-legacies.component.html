@@ -4,7 +4,7 @@
             <div class="avaialble-points">
                 <div class="point" [class.unlocked]="isPointUnlock(index)" *ngFor="let index of ANCESTRAL_LEGACY_POINTS"></div>
             </div>
-            <mat-icon (click)="optimizeAncestralLegacies()">vertical_align_top</mat-icon>
+            <mat-icon matTooltip="Set all ancestral legacies to max rank" matTooltipPosition="above" (click)="optimizeAncestralLegacies()">vertical_align_top</mat-icon>
         </div>
         <div class="content">
             <div class="map">
