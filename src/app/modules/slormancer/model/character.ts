@@ -1,6 +1,7 @@
 import { Activable } from './content/activable';
 import { AncestralLegacy } from './content/ancestral-legacy';
 import { AttributeTraits } from './content/attribut-traits';
+import { EffectValueConstant } from './content/effect-value';
 import { Attribute } from './content/enum/attribute';
 import { HeroClass } from './content/enum/hero-class';
 import { EquipableItem } from './content/equipable-item';
@@ -76,4 +77,6 @@ export interface Character {
     activable2: Activable | AncestralLegacy | null;
     activable3: Activable | AncestralLegacy | null;
     activable4: Activable | AncestralLegacy | null;
+
+    baseStats: Array<EffectValueConstant>;
 }

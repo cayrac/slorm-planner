@@ -36,6 +36,7 @@ import { SidenavComponent } from './component/sidenav/sidenav.component';
 import { SettingsSkillsComponent } from './component/skills/components/settings-skills/settings-skills.component';
 import { UpgradeSlotComponent } from './component/skills/components/upgrade-slot/upgrade-slot.component';
 import { SkillsComponent } from './component/skills/skills.component';
+import { StatsComponent } from './component/stats/stats.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { SkillsComponent } from './component/skills/skills.component';
         AttributesComponent,
         AttributeLineComponent,
         TraitComponent,
-        SidenavComponent
+        SidenavComponent,
+        StatsComponent
     ],
     imports: [
         CommonModule,

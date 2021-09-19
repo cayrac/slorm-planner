@@ -16,6 +16,7 @@ export class BuildComponent extends AbstractUnsubscribeComponent {
         { name: 'Skills', route: 'skills'},
         { name: 'Ancestral legacies', route: 'ancestral-legacies'},
         { name: 'Attributes', route: 'attributes'},
+        { name: 'Stats', route: 'stats'},
     ];
 
     public isDragging: boolean = false;

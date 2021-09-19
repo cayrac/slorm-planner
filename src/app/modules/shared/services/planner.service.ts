@@ -6,6 +6,7 @@ import { Character } from '../../slormancer/model/character';
 import { HeroClass } from '../../slormancer/model/content/enum/hero-class';
 import { GameSave } from '../../slormancer/model/parser/game/game-save';
 import { SlormancerSaveParserService } from '../../slormancer/services/parser/slormancer-save-parser.service';
+import { SlormancerCharacterBuilderService } from '../../slormancer/services/slormancer-character-builder.service';
 import { SlormancerCharacterService } from '../../slormancer/services/slormancer-character.service';
 import { valueOrNull } from '../../slormancer/util/utils';
 import { Layer } from '../model/layer';
@@ -25,6 +26,7 @@ export class PlannerService {
     public readonly selectedLayerIndexChanged = new BehaviorSubject<number>(this.selectedLayerIndex);
 
     constructor(private slormancerCharacterService: SlormancerCharacterService,
+                private slormancerCharacterBuilderService: SlormancerCharacterBuilderService,
                 private slormancerSaveParserService: SlormancerSaveParserService,
                 private httpClient: HttpClient) {
         this.httpClient.get('assets/save', { responseType: 'text' })
@@ -101,7 +103,7 @@ export class PlannerService {
         if (this.planner !== null) {
             const index = this.planner.layers.push({
                 name,
-                character: character !== null ? character : this.slormancerCharacterService.getEmptyCharacter(this.planner.heroClass)
+                character: character !== null ? character : this.slormancerCharacterBuilderService.getCharacter(this.planner.heroClass)
             });
             this.layersChanged.next(this.planner.layers);
             this.setLayerIndex(index);
@@ -122,7 +124,7 @@ export class PlannerService {
             if (layer) {
                 const index = this.planner.layers.push({
                     name,
-                    character: this.slormancerCharacterService.getCharacterClone(layer.character)
+                    character: this.slormancerCharacterBuilderService.getCharacterClone(layer.character)
                 })
                 this.layersChanged.next(this.planner.layers);
                 this.setLayerIndex(index);
@@ -132,7 +134,7 @@ export class PlannerService {
 
     public addLayerFromSave(save: GameSave) {
         if (this.planner !== null) {
-            const character = this.slormancerCharacterService.getCharacterFromSave(save, this.planner.heroClass);
+            const character = this.slormancerCharacterBuilderService.getCharacterFromSave(save, this.planner.heroClass);
             const name = 'Layer ' + (this.planner.layers.length + 1);
 
             this.planner.layers.push({ name, character });
@@ -144,10 +146,12 @@ export class PlannerService {
 
     public loadSave(saveContent: string, heroClass: HeroClass) {
         const save = this.slormancerSaveParserService.parseSaveFile(saveContent);
+
         
         this.initPlanner(heroClass);
         this.addLayerFromSave(save);
 
+        console.log(save);
         console.log(this.planner);
     }
 

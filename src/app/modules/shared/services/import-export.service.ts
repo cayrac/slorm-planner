@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Character } from '../../slormancer/model/character';
 import { HeroClass } from '../../slormancer/model/content/enum/hero-class';
 import { SlormancerSaveParserService } from '../../slormancer/services/parser/slormancer-save-parser.service';
-import { SlormancerCharacterService } from '../../slormancer/services/slormancer-character.service';
+import { SlormancerCharacterBuilderService } from '../../slormancer/services/slormancer-character-builder.service';
 import { Layer } from '../model/layer';
 import { Planner } from '../model/planner';
 import { SharedData } from '../model/shared-data';
@@ -13,7 +13,7 @@ import { JsonConverterService } from './json-converter.service';
 @Injectable()
 export class ImportExportService {
 
-    constructor(private slormancerCharacterService: SlormancerCharacterService,
+    constructor(private slormancerCharacterBuilderService: SlormancerCharacterBuilderService,
                 private slormancerSaveParserService: SlormancerSaveParserService,
                 private jsonConverterService: JsonConverterService,
                 private jsonCompresserService: JsonCompresserService) {
@@ -21,7 +21,7 @@ export class ImportExportService {
 
     private parseSaveData(content: string, heroClass: HeroClass): Character {
         const save = this.slormancerSaveParserService.parseSaveFile(content);
-        return this.slormancerCharacterService.getCharacterFromSave(save, heroClass);
+        return this.slormancerCharacterBuilderService.getCharacterFromSave(save, heroClass);
     }
 
     private parseUrlData(content: string, heroClass: HeroClass): SharedData {

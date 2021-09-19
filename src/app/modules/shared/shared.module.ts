@@ -100,7 +100,7 @@ import { PlannerService } from './services/planner.service';
         JsonConverterService,
         ClipboardService,
         DownloadService,
-        JsonCompresserService
+        JsonCompresserService,
     ],
 })
 export class SharedModule { }

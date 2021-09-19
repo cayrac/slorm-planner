@@ -6,6 +6,7 @@ import { AncestralLegaciesComponent } from './component/ancestral-legacies/ances
 import { AttributesComponent } from './component/attributes/attributes.component';
 import { InventoryComponent } from './component/inventory/inventory.component';
 import { SkillsComponent } from './component/skills/skills.component';
+import { StatsComponent } from './component/stats/stats.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
             { path: 'skills', component: SkillsComponent },
             { path: 'ancestral-legacies', component: AncestralLegaciesComponent },
             { path: 'attributes', component: AttributesComponent },
+            { path: 'stats', component: StatsComponent },
             { path: '**', redirectTo: 'inventory' }
         ]
     }

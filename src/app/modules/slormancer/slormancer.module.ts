@@ -14,10 +14,13 @@ import { SlormancerMechanicService } from './services/content/slormancer-mechani
 import { SlormancerReaperValueService } from './services/content/slormancer-reaper-value.service';
 import { SlormancerReaperService } from './services/content/slormancer-reaper.service';
 import { SlormancerSkillService } from './services/content/slormancer-skill.service';
+import { SlormancerStatsExtractorService } from './services/content/slormancer-stats-extractor.service';
+import { SlormancerStatsService } from './services/content/slormancer-stats.service';
 import { SlormancerTemplateService } from './services/content/slormancer-template.service';
 import { SlormancerTranslateService } from './services/content/slormancer-translate.service';
 import { SlormancerItemParserService } from './services/parser/slormancer-item-parser.service';
 import { SlormancerSaveParserService } from './services/parser/slormancer-save-parser.service';
+import { SlormancerCharacterBuilderService } from './services/slormancer-character-builder.service';
 import { SlormancerCharacterService } from './services/slormancer-character.service';
 
 @NgModule({
@@ -42,7 +45,11 @@ import { SlormancerCharacterService } from './services/slormancer-character.serv
     SlormancerAttributeService,
     SlormancerAffixService,
     SlormancerTranslateService,
-    SlormancerCharacterService
+    SlormancerCharacterService,
+    SlormancerStatsService,
+    SlormancerStatsExtractorService,
+    SlormancerCharacterService,
+    SlormancerCharacterBuilderService,
   ],
   bootstrap: []
 })

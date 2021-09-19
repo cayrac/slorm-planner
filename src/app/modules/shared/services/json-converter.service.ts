@@ -14,7 +14,7 @@ import { SlormancerDataService } from '../../slormancer/services/content/slorman
 import { SlormancerItemService } from '../../slormancer/services/content/slormancer-item.service';
 import { SlormancerLegendaryEffectService } from '../../slormancer/services/content/slormancer-legendary-effect.service';
 import { SlormancerReaperService } from '../../slormancer/services/content/slormancer-reaper.service';
-import { SlormancerCharacterService } from '../../slormancer/services/slormancer-character.service';
+import { SlormancerCharacterBuilderService } from '../../slormancer/services/slormancer-character-builder.service';
 import { isNotNullOrUndefined, valueOrDefault } from '../../slormancer/util/utils';
 import { JsonAncestralLegacy } from '../model/json/json-ancestral-legacy';
 import { JsonCharacter } from '../model/json/json-character';
@@ -43,7 +43,7 @@ export class JsonConverterService {
     ];
 
     constructor(private slormancerDataService: SlormancerDataService,
-                private slormancerCharacterService: SlormancerCharacterService,
+                private slormancerCharacterBuilderService: SlormancerCharacterBuilderService,
                 private slormancerItemService: SlormancerItemService,
                 private slormancerLegendaryService: SlormancerLegendaryEffectService,
                 private slormancerAffixService: SlormancerAffixService,
@@ -309,10 +309,10 @@ export class JsonConverterService {
                 return upgrade ? upgrade.selected : 0; 
             });
         
-        const result = this.slormancerCharacterService.getCharacter(
+        const result = this.slormancerCharacterBuilderService.getCharacter(
             character.heroClass,
-            character.version,
             character.level,
+            character.version,
             reaper,
             character.ancestralLegacies.nodes,
             ancestralRanks,
@@ -348,8 +348,6 @@ export class JsonConverterService {
             character.activable3,
             character.activable4
         );
-
-        this.slormancerCharacterService.updateCharacter(result);
         
         return result;
     }
