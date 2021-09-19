@@ -401,7 +401,9 @@ export class SlormancerCharacterBuilderService {
             activable3: null,
             activable4: null,
 
-            baseStats: []
+            baseStats: [],
+
+            stats: null,
         }
 
         character.primarySkill = primarySkill === null ? null : this.getSkill(primarySkill, skills);

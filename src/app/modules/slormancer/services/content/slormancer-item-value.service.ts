@@ -93,7 +93,7 @@ export class SlormancerItemValueService {
 
         if (percent) {
             if (precisionValue) {
-                result = bankerRound(value * 10) / 1000;
+                result = value / 100;
             } else {
                 result = bankerRound(value / 50) / 2;
             }

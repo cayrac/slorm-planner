@@ -181,7 +181,6 @@ export class JsonCompresserService {
     private decompressPlanner(planner: string): JsonPlanner {
         const data = planner.split(':').slice(1).join(':');
         const splitData = this.splitData(data, this.OBJECT_VALUES_SEPARATOR);
-        console.log('decompress planner : ', splitData);
         return {
             type: 'p',
             heroClass: parseInt(<string>splitData[0]),

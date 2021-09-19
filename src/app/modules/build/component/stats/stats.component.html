@@ -1,5 +1,15 @@
-<mat-card>
+<mat-card *ngIf="stats !== null">
     <mat-card-content>
-       TODO Stats
+        <textarea>{{stats.hero | json}}</textarea>
+        <ng-container *ngIf="stats.hero !== null">
+            <div class="section" *ngFor="let section of getSections(stats.hero)">
+                <h3>{{translate(section)}}</h3>
+                <div class="stat" *ngFor="let stat of getSectionStats(stats.hero, section)">
+                    <div class="label">{{translate(stat.stat)}}</div>
+                    <div class="value">{{getValue(stat)}}</div>
+                </div>
+            </div>
+        </ng-container>
+        
     </mat-card-content>
 </mat-card>

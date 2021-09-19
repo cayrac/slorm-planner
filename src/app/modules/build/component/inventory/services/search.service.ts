@@ -73,10 +73,10 @@ export class SearchService {
             item.base,
             item.rarity,
             ...item.affixes.map(affix => [ affix.isPure ? 'pure': null, this.removeHtmlTags(affix.valueLabel + ' ' + affix.statLabel, ['details']) ]).flat(),
-            item.legendaryEffect === null ? null : this.removeHtmlTags(item.legendaryEffect.description),
-            item.reaperEnchantment !== null ? item.reaperEnchantment.label : null,
-            item.skillEnchantment !== null ? item.skillEnchantment.label : null,
-            item.attributeEnchantment !== null ? item.attributeEnchantment.label : null
+            item.legendaryEffect === null ? null : this.removeHtmlTags(item.legendaryEffect.description, ['details']),
+            item.reaperEnchantment !== null ? this.removeHtmlTags(item.reaperEnchantment.label, ['details']) : null,
+            item.skillEnchantment !== null ? this.removeHtmlTags(item.skillEnchantment.label, ['details']) : null,
+            item.attributeEnchantment !== null ? this.removeHtmlTags(item.attributeEnchantment.label, ['details']) : null
         ]);
     }
     

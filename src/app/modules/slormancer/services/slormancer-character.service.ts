@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 
+import { DATA_HERO_BASE_STATS } from '../constants/content/data/data-stats-mapping';
 import { Character } from '../model/character';
 import { ALL_ATTRIBUTES } from '../model/content/enum/attribute';
 import { Skill } from '../model/content/skill';
 import { SkillUpgrade } from '../model/content/skill-upgrade';
-import { isNotNullOrUndefined } from '../util/utils';
+import { isNotNullOrUndefined, valueOrDefault } from '../util/utils';
 import { SlormancerAncestralLegacyService } from './content/slormancer-ancestral-legacy.service';
 import { SlormancerAttributeService } from './content/slormancer-attribute.service';
 import { SlormancerDataService } from './content/slormancer-data.service';
+import { SlormancerStatsService } from './content/slormancer-stats.service';
 import { SlormancerTranslateService } from './content/slormancer-translate.service';
 
 @Injectable()
@@ -18,7 +20,8 @@ export class SlormancerCharacterService {
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormancerAttributeService: SlormancerAttributeService,
                 private slormancerAncestralLegacyService: SlormancerAncestralLegacyService,
-                private slormancerTranslateService: SlormancerTranslateService
+                private slormancerTranslateService: SlormancerTranslateService,
+                private slormancerStatsService: SlormancerStatsService
         ) { }
 
     private resetAttributes(character: Character) {
@@ -45,7 +48,15 @@ export class SlormancerCharacterService {
         }
         character.attributes.remainingPoints = character.attributes.maxPoints - allocatedPoints;
 
-        // DATA_HERO_BASE_STATS
+        const stats = DATA_HERO_BASE_STATS[character.heroClass];
+
+        character.baseStats = stats.baseStats.map(baseStat => ({ stat: baseStat.stat, values: [ baseStat.base + character.level * baseStat.perLevel] }));
+        const levelStats = valueOrDefault(stats.levelonlyStat[character.level], []);
+        for (const levelStat of levelStats) {
+            character.baseStats.push({ stat: levelStat.stat, values: [levelStat.value]});
+        }
+
+        character.stats = this.slormancerStatsService.getStats(character);
     }
 
     public setPrimarySkill(character: Character, skill: Skill): boolean {

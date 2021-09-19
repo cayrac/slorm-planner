@@ -9,7 +9,7 @@ import { TraitLevel } from '../../model/content/enum/trait-level';
 import { GameDataAttribute } from '../../model/content/game/data/game-data-attribute';
 import { Trait } from '../../model/content/trait';
 import { effectValueSynergy, effectValueVariable } from '../../util/effect-value.util';
-import { list } from '../../util/math.util';
+import { list, round } from '../../util/math.util';
 import {
     emptyStringToNull,
     isEffectValueConstant,
@@ -174,7 +174,7 @@ export class SlormancerAttributeService {
     }
 
     public getAttributeTraitsClone(traits: AttributeTraits): AttributeTraits {
-        return {
+        const clone = {
             attribute: traits.attribute,
             rank: traits.rank,
             bonusRank: traits.bonusRank,
@@ -184,9 +184,14 @@ export class SlormancerAttributeService {
             title: traits.title,
             icon: traits.icon,
             summary: traits.summary,
+            values: [],
         
             template: traits.template
         };
+
+        this.updateAttributeTraits(clone);
+        
+        return clone;
     }
 
     public getAttributeTraits(attribute: Attribute, rank: number, bonusRank: number = 0): AttributeTraits {
@@ -203,6 +208,7 @@ export class SlormancerAttributeService {
             title: this.TRAIT_RECAP_LABEL,
             icon: 'assets/img/icon/attribute/' + attribute + '.png',
             summary: '',
+            values: [],
         
             template: '',
         };
@@ -271,12 +277,12 @@ export class SlormancerAttributeService {
             }
         }
 
-        cumulativeUnlockedAttributes = this.joinValues(cumulativeUnlockedAttributes);
+        const joinedCumulativeUnlockedAttributes = this.joinValues(cumulativeUnlockedAttributes);
         cumulativeAttributes = this.joinValues(cumulativeAttributes);
 
         const cumulativeAttributeLabels: Array<string> = []
         for (const value of cumulativeAttributes) {
-            const found = valueOrNull(cumulativeUnlockedAttributes.find(v => this.sameValue(v, value)));
+            const found = valueOrNull(joinedCumulativeUnlockedAttributes.find(v => this.sameValue(v, value)));
 
 
             if (found !== null) {
@@ -285,7 +291,8 @@ export class SlormancerAttributeService {
                 }
                 value.value = found.value;
             }
-            value.displayValue = value.value;
+            // TODO the round here is necessary on the displayValue to keep the real hidden value
+            value.displayValue = round(value.value, 3);
 
             const label = this.getDefaultVariableDescription(value);
             cumulativeAttributeLabels.push(this.slormancerTemplateService.asSpan(label, found !== null ? 'unlocked' : 'locked'));
@@ -293,6 +300,7 @@ export class SlormancerAttributeService {
 
         allDescriptions.unshift(cumulativeAttributeLabels.join('<br/>'));
 
+        attributeTraits.values = cumulativeUnlockedAttributes;
         attributeTraits.summary = allDescriptions.join('<br/></br>');
     }
 }

@@ -7,6 +7,7 @@ import { Rarity } from '../../model/content/enum/rarity';
 import { GameDataStat } from '../../model/content/game/data/game-data-stat';
 import { GameAffix, GameEquippableItem, GameItem, GameRessourceItem } from '../../model/parser/game/game-item';
 import { GameRarity } from '../../model/parser/game/game-rarity';
+import { round } from '../../util/math.util';
 import { getCraftValue } from '../../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
@@ -132,7 +133,8 @@ export class SlormancerAffixService {
         } 
 
         itemAffix.craftedEffect.effect.value = getCraftValue(itemAffix.craftedEffect, itemAffix.craftedEffect.craftedValue);
-        itemAffix.craftedEffect.effect.displayValue = itemAffix.craftedEffect.effect.value;
+        // TODO the round here is necessary on the displayValue to keep the real hidden value
+        itemAffix.craftedEffect.effect.displayValue = round(itemAffix.craftedEffect.effect.value, 3);
 
 
         itemAffix.valueLabel = this.slormancerTemplateService.formatItemAffixValue(itemAffix);

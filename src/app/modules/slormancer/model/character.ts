@@ -1,8 +1,9 @@
 import { Activable } from './content/activable';
 import { AncestralLegacy } from './content/ancestral-legacy';
 import { AttributeTraits } from './content/attribut-traits';
-import { EffectValueConstant } from './content/effect-value';
+import { CharacterStats } from './content/character-stats';
 import { Attribute } from './content/enum/attribute';
+import { GearSlot } from './content/enum/gear-slot';
 import { HeroClass } from './content/enum/hero-class';
 import { EquipableItem } from './content/equipable-item';
 import { Reaper } from './content/reaper';
@@ -23,17 +24,17 @@ export interface CharacterAncestralLegacies {
 }
 
 export interface CharacterGear {
-    helm: EquipableItem | null;
-    body: EquipableItem | null;
-    shoulder: EquipableItem | null;
-    bracer: EquipableItem | null;
-    glove: EquipableItem | null;
-    boot: EquipableItem | null;
-    ring_l: EquipableItem | null;
-    ring_r: EquipableItem | null;
-    amulet: EquipableItem | null;
-    belt: EquipableItem | null;
-    cape: EquipableItem | null;
+    [GearSlot.Helm]: EquipableItem | null;
+    [GearSlot.Body]: EquipableItem | null;
+    [GearSlot.Shoulder]: EquipableItem | null;
+    [GearSlot.Bracer]: EquipableItem | null;
+    [GearSlot.Glove]: EquipableItem | null;
+    [GearSlot.Boot]: EquipableItem | null;
+    [GearSlot.LeftRing]: EquipableItem | null;
+    [GearSlot.RightRing]: EquipableItem | null;
+    [GearSlot.Amulet]: EquipableItem | null;
+    [GearSlot.Belt]: EquipableItem | null;
+    [GearSlot.Cape]: EquipableItem | null;
 }
 
 export interface CharacterAttributes {
@@ -78,5 +79,7 @@ export interface Character {
     activable3: Activable | AncestralLegacy | null;
     activable4: Activable | AncestralLegacy | null;
 
-    baseStats: Array<EffectValueConstant>;
+    baseStats: Array<{ stat: string, values: Array<number>}>;
+
+    stats: CharacterStats | null;
 }

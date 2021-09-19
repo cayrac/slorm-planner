@@ -50,7 +50,6 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
         if (character === null) {
             newSelectedSkill = null;
         } else if (selectedSkill === null) {
-            console.log('finding skill  in : ', character.skills)
             newSelectedSkill = character.supportSkill !== null
                 ? valueOrNull(character.skills.find(s => s.skill === character.supportSkill))
                 : valueOrNull(character.skills[0]);
@@ -60,7 +59,6 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
                 newSelectedSkill = valueOrNull(character.skills[0]);
             }
         }
-        console.log('updateSelectedSkill : ', this.selectedSkill,  newSelectedSkill, character);
             
         this.selectSkill(newSelectedSkill);
     }

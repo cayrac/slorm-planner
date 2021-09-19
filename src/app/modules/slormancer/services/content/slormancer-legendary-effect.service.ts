@@ -39,15 +39,15 @@ export class SlormancerLegendaryEffectService {
                 private slormancerItemValueService: SlormancerItemValueService
                 ) { }
 
-    public parseLegendaryEffectValue(type: string | null, score: number, upgrade: number, range: boolean, craftedValue: number): CraftableEffect {
+    public parseLegendaryEffectValue(type: string | null, score: number, upgrade: number, range: boolean, stat: string | null, craftedValue: number): CraftableEffect {
         let effect: AbstractEffectValue;
         
         if (type === null || type === '%') {
-            effect = effectValueVariable(0, upgrade, EffectValueUpgradeType.Reinforcment, type === '%');
+            effect = effectValueVariable(0, upgrade, EffectValueUpgradeType.Reinforcment, type === '%', stat);
         } else {
             const typeValues = splitData(type, ':');
             const source = <string>typeValues[1];
-            effect = effectValueSynergy(0, upgrade, EffectValueUpgradeType.Reinforcment, type === '%', source);
+            effect = effectValueSynergy(0, upgrade, EffectValueUpgradeType.Reinforcment, type === '%', source, stat);
         }
 
         return {
@@ -82,6 +82,7 @@ export class SlormancerLegendaryEffectService {
     private getEffectValues(gameData: GameDataLegendary, craftedValue: number): Array<CraftableEffect> {
         const ranges = splitFloatData(gameData.RANGE);
         const types = emptyStringToNull(splitData(gameData.TYPE));
+        const stats = emptyStringToNull(splitData(gameData.STAT));
         const upgrades = splitFloatData(gameData.UPGRADABLE);
         const values = splitFloatData(gameData.VALUE);
 
@@ -89,11 +90,12 @@ export class SlormancerLegendaryEffectService {
 
         const result: Array<CraftableEffect> = [];
         for (let i of list(nb)) {
+            const stat = valueOrNull(stats[i]);
             const type = valueOrNull(types[i]);
             const maxValue = valueOrDefault(values[i], 0);
             const upgrade = valueOrDefault(upgrades[i], 0);
             const range = ranges[i] === 1;
-            result.push(this.parseLegendaryEffectValue(type, maxValue, upgrade, range, craftedValue));
+            result.push(this.parseLegendaryEffectValue(type, maxValue, upgrade, range, stat, craftedValue));
         }
         
         return result;

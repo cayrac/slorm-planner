@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import { DATA_ACTIVABLE } from '../../constants/content/data/data-activable';
-import { DATA_AFFIX } from '../../constants/content/data/data-affix';
 import { DATA_ANCESTRAL_LEGACY } from '../../constants/content/data/data-ancestral-legacy';
 import { ANCESTRAL_LEGACY_REALMS } from '../../constants/content/data/data-ancestral-legacy-zones';
 import { DATA_ATTRIBUTE_MECHANIC } from '../../constants/content/data/data-attribute-mechanic';
@@ -20,7 +19,6 @@ import { DATA_TEMPLATE_MECHANIC } from '../../constants/content/data/data-templa
 import { DATA_TRANSLATE } from '../../constants/content/data/data-translate';
 import { GAME_DATA } from '../../constants/content/game/game-data';
 import { DataActivable } from '../../model/content/data/data-activable';
-import { DataAffix } from '../../model/content/data/data-affix';
 import { DataAncestralLegacy } from '../../model/content/data/data-ancestral-legacy';
 import { DataEquipableItemType } from '../../model/content/data/data-equipable-item-type';
 import { DataLegendary } from '../../model/content/data/data-legendary';
@@ -144,21 +142,6 @@ export class SlormancerDataService {
         }
 
         return result;
-    }
-
-    public getDataAffix(affix: GameAffix): DataAffix | null {
-        const stat = this.getGameDataStat(affix);
-        let result: DataAffix | null = null;
-
-        if (stat !== null) {
-            result = this.getDataAffixByRef(stat.REF);
-        }
-
-        return result;
-    }
-
-    public getDataAffixByRef(ref: string): DataAffix | null {
-        return valueOrNull(DATA_AFFIX[ref]);
     }
 
     public getGameDataLegendary(id: number): GameDataLegendary | null {

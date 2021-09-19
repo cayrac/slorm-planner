@@ -1,6 +1,5 @@
 export interface HeroBaseStats {
-    baseStats: Array<{ stat: string, value: number }>
-    statsPerLevel: Array<{ stat: string, value: number }>
+    baseStats: Array<{ stat: string, base: number; perLevel: number }>;
     levelonlyStat: {
         [key: number]: Array<{ stat: string, value: number }>
     }

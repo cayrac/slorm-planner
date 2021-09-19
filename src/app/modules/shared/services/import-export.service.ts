@@ -58,10 +58,7 @@ export class ImportExportService {
             try {
                 data = this.parseJsonData(content, heroClass);
                 found = true;
-            } catch (e) {
-                console.log('json parsing error : ');
-                console.error(e);
-            }
+            } catch (e) { }
         }
 
         console.log('import : ', data);
