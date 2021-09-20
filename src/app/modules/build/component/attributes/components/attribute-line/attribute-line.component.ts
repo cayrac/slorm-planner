@@ -21,48 +21,75 @@ export class AttributeLineComponent implements OnInit {
     @Input()
     public readonly iconShift: boolean = false;
 
+    public unlockedRange: MinMax = { min: 0, max: 0 };
+
     public highlightRange: MinMax = { min: 0, max: 0 };
+
+    public bonusRange: MinMax = { min: 0, max: 0 };
+
+    public cappedCursor: number = 0;
 
     public showSummary = false;
     
-
     constructor(private slormancerAttributeService: SlormancerAttributeService,
                 private plannerService: PlannerService) { }
 
     public ngOnInit() {
+        this.updateCursor();
     }
 
-    public nodeEnter(index: number) {
+    private updateCursor(index: number = 0) {
         if (this.attribute !== null) {
-            if (index < this.attribute.rank) {
-                this.highlightRange = { min: index + 1, max: this.attribute.rank };
+            if (index === this.attribute.rank || index === 0) {
+                this.cappedCursor = this.attribute.rank;
+                this.highlightRange = { min: 0, max: 0 };
+                this.unlockedRange = { min: 0, max: this.attribute.rank };
+                this.bonusRange = { min: this.attribute.rank, max: this.attribute.rank + this.attribute.bonusRank };
             } else {
-                this.highlightRange = { min: this.attribute.rank, max: Math.min(this.attribute.rank + this.remainingPoints, index + 1) };
+                this.cappedCursor = Math.min(this.attribute.rank + this.remainingPoints, index + 1);
+                this.bonusRange = { min: Math.max(this.cappedCursor, this.attribute.rank), max: this.attribute.rank + this.attribute.bonusRank };
+                if (index < this.attribute.rank) {
+                    this.highlightRange = { min: index + 1, max: Math.max(this.attribute.rank, index + 1) };
+                } else {
+                    this.highlightRange = { min: this.attribute.rank, max: this.cappedCursor };
+                }
             }
         }
     }
 
+    public nodeEnter(index: number) {
+        this.updateCursor(index);
+    }
+
     public nodeLeave() {
-        this.highlightRange = { min: -1, max: -1 };
+        this.updateCursor();
     }
 
     private setRank(rank: number) {
-        if (this.attribute !== null) {
+        if (this.attribute !== null && this.attribute.rank !== rank) {
             this.attribute.rank = rank;
             this.slormancerAttributeService.updateAttributeTraits(this.attribute);
             this.plannerService.updateCurrentCharacter();
-            this.highlightRange = { min: -1, max: -1 };
+            this.updateCursor();
         }
     }
 
     public nodeClick() {
-        if (this.attribute !== null && this.highlightRange.min !== -1 && this.highlightRange.max !== -1) {
-            this.setRank(this.attribute.rank === this.highlightRange.max ? this.highlightRange.min : this.highlightRange.max);
+        if (this.attribute !== null) {
+            this.setRank(this.cappedCursor);
         }
+    }
+
+    public isUnlocked(index: number): boolean {
+        return index >= this.unlockedRange.min && index < this.unlockedRange.max;
     }
 
     public isHighlight(index: number): boolean {
         return index >= this.highlightRange.min && index < this.highlightRange.max
+    }
+
+    public isBonus(index: number): boolean {
+        return index >= this.bonusRange.min && index < this.bonusRange.max
     }
 
     public addPoint(event: MouseEvent) {

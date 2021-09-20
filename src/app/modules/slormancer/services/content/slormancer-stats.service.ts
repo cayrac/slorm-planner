@@ -5,7 +5,7 @@ import {
     HERO_CHARACTER_STATS_MAPPING,
 } from '../../constants/content/data/data-character-stats-mapping';
 import { Character } from '../../model/character';
-import { CharacterStat, CharacterStats, CharacterStatType } from '../../model/content/character-stats';
+import { CharacterStat, CharacterStats } from '../../model/content/character-stats';
 import { round } from '../../util/math.util';
 import { isNotNullOrUndefined } from '../../util/utils';
 import { CharacterExtractedStatMap, SlormancerStatsExtractorService } from './slormancer-stats-extractor.service';
@@ -18,12 +18,9 @@ export class SlormancerStatsService {
     private buildCharacterStats(stats: CharacterExtractedStatMap, mappings: Array<CharacterStatMapping>): Array<CharacterStat> {
         return mappings.map(mapping => {
             return {
-                section: mapping.section,
                 stat: mapping.stat,
                 total: 0,
-                type: mapping.type,
                 precision: mapping.precision,
-                sign: mapping.sign,
                 values: {
                     flat: mapping.source.flat.map(source => stats[source]).filter(isNotNullOrUndefined).flat(),
                     percent: mapping.source.percent.map(source => stats[source]).filter(isNotNullOrUndefined).flat(),
@@ -59,19 +56,20 @@ export class SlormancerStatsService {
             stats.splice(stats.indexOf(basicMax), 1);
         }
 
-        stats.push({
-            section: 'cat_attack',
+        const result = {
             precision: 0,
-            sign: false,
             stat: stat,
             total: { min: basicMinDamages, max: basicMinDamages + basicMaxDamages },
-            type: CharacterStatType.None,
             values: {
                 flat: [],
                 multiplier: [],
                 percent: []
             }
-        });
+        } 
+
+        stats.push(result);
+
+        return result;
     }
 
     public getStats(character: Character): CharacterStats {
@@ -85,8 +83,8 @@ export class SlormancerStatsService {
         
         result.hero = this.buildCharacterStats(stats.heroStats, HERO_CHARACTER_STATS_MAPPING);
         result.support = this.buildCharacterStats(stats.supportStats, []);
-        result.primary = this.buildCharacterStats(stats.primaryStats, HERO_CHARACTER_STATS_MAPPING);
-        result.secondary = this.buildCharacterStats(stats.secondaryStats, HERO_CHARACTER_STATS_MAPPING);
+        result.primary = this.buildCharacterStats(stats.primaryStats, []);
+        result.secondary = this.buildCharacterStats(stats.secondaryStats, []);
         
 
         for (const stats of result.hero) {
@@ -102,8 +100,21 @@ export class SlormancerStatsService {
             this.updateCharacterStatTotal(stats);
         }
 
-        this.mergeDamages(result.hero, 'min_basic_damage_add', 'max_basic_damage_add', 'basic_damage');
-        this.mergeDamages(result.hero, 'min_weapon_damage_add', 'max_weapon_damage_add', 'weapon_damage');
+        const basic = this.mergeDamages(result.hero, 'min_basic_damage_add', 'max_basic_damage_add', 'basic_damage');
+        const reaper = this.mergeDamages(result.hero, 'min_weapon_damage_add', 'max_weapon_damage_add', 'weapon_damage');
+        this.mergeDamages(result.hero, 'min_elemental_damage_add', 'max_elemental_damage_add', 'elemental_damage');
+
+
+        result.hero.push({
+            precision: 0,
+            stat: 'flat_physical_damage',
+            total: { min: basic.total.min + reaper.total.min, max: basic.total.min + reaper.total.max },
+            values: {
+                flat: [],
+                multiplier: [],
+                percent: []
+            }
+        });
 
         console.log(stats.heroStats);
         console.log(result);

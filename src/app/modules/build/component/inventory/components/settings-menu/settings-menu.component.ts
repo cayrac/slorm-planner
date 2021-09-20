@@ -14,9 +14,11 @@ import { PlannerService } from '../../../../../shared/services/planner.service';
 import { Character } from '../../../../../slormancer/model/character';
 import { AttributeTraits } from '../../../../../slormancer/model/content/attribut-traits';
 import { ALL_ATTRIBUTES } from '../../../../../slormancer/model/content/enum/attribute';
+import { ALL_GEAR_SLOT_VALUES } from '../../../../../slormancer/model/content/enum/gear-slot';
 import { EquipableItem } from '../../../../../slormancer/model/content/equipable-item';
 import { Skill } from '../../../../../slormancer/model/content/skill';
 import { SlormancerItemService } from '../../../../../slormancer/services/content/slormancer-item.service';
+import { SlormancerCharacterService } from '../../../../../slormancer/services/slormancer-character.service';
 import { isNotNullOrUndefined } from '../../../../../slormancer/util/utils';
 
 
@@ -35,7 +37,8 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
     constructor(private plannerService: PlannerService,
                 private dialog: MatDialog,
                 private messageService: MessageService,
-                private slormancerItemService: SlormancerItemService
+                private slormancerItemService: SlormancerItemService,
+                private slormancerCharacterService: SlormancerCharacterService
                 ) {
         super();
     }
@@ -67,20 +70,9 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
     public getGearItems(): Array<EquipableItem> {
         let result: Array<EquipableItem> = [];
 
-        if (this.character !== null) {
-            result = [
-                this.character.gear.amulet,
-                this.character.gear.belt,
-                this.character.gear.body,
-                this.character.gear.boot,
-                this.character.gear.bracer,
-                this.character.gear.cape,
-                this.character.gear.glove,
-                this.character.gear.helm,
-                this.character.gear.ring_l,
-                this.character.gear.ring_r,
-                this.character.gear.shoulder,
-            ].filter(isNotNullOrUndefined);
+        const character = this.character
+        if (character !== null) {
+            result = ALL_GEAR_SLOT_VALUES.map(slot => character.gear[slot]).filter(isNotNullOrUndefined);
         }
 
         return result;
@@ -100,6 +92,8 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
                 this.slormancerItemService.updateEquippableItem(item);
                 icon = item.reaperEnchantment.icon;
             });
+
+            this.slormancerCharacterService.applyReaperBonuses(this.character, this.character.reaper);
 
             this.messageService.message('All equipped items optimized for <img src="' + icon + '"> ' + this.character.reaper.smith.name);
             
@@ -128,6 +122,8 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
                 icon = item.attributeEnchantment.icon;
             });
 
+            this.slormancerCharacterService.updateCharacter(this.character);
+
             this.messageService.message('All equipped items optimized for <img src="' + icon + '"> ' + traits.attributeName);
             
         }
@@ -154,6 +150,8 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
                 this.slormancerItemService.updateEquippableItem(item);
                 icon = item.skillEnchantment.icon;
             });
+            
+            this.slormancerCharacterService.updateCharacter(this.character);
 
             this.messageService.message('All equipped items optimized for <img src="' + icon + '"> ' + skill.name);
             

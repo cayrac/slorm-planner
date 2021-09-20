@@ -6,7 +6,10 @@ const ALL_HEROES_BASE_STATS = [
     { stat: 'mana_regen_add', base: 12.2, perLevel: 1.2 },
     { stat: 'mana_regen_add', base: 12.2, perLevel: 1.2 },
     { stat: 'brut_chance_percent', base: 1, perLevel: 0 },
+    { stat: 'brut_damage_percent', base: 300, perLevel: 0 },
     { stat: 'skill_mastery_gain_percent', base: 0, perLevel: 2 },
+    { stat: 'crit_chance_percent', base: 5, perLevel: 0 },
+    { stat: 'crit_damage_percent', base: 150, perLevel: 0 },
 ];
 
 export const DATA_HERO_BASE_STATS: GameHeroesData<HeroBaseStats> = {

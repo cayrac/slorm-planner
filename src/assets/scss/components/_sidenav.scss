@@ -6,6 +6,7 @@ mat-sidenav-content {
     @include flex(column, stretch);
     @include flex-grow();
     @include spacing();
+    box-sizing: border-box;
     overflow: auto;
     
     background-color: primary-color(100);

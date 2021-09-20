@@ -2,14 +2,13 @@
     <mat-card-content>
         <textarea>{{stats.hero | json}}</textarea>
         <ng-container *ngIf="stats.hero !== null">
-            <div class="section" *ngFor="let section of getSections(stats.hero)">
-                <h3>{{translate(section)}}</h3>
-                <div class="stat" *ngFor="let stat of getSectionStats(stats.hero, section)">
-                    <div class="label">{{translate(stat.stat)}}</div>
-                    <div class="value">{{getValue(stat)}}</div>
+            <div class="section" *ngFor="let section of SECTIONS">
+                <h3>{{section.section}}</h3>
+                <div class="stat" *ngFor="let stat of section.stats">
+                    <div class="label">{{stat.name}}</div>
+                    <div class="value">{{getValue(stats.hero, stat)}}</div>
                 </div>
             </div>
         </ng-container>
-        
     </mat-card-content>
 </mat-card>

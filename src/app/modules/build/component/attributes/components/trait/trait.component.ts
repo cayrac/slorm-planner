@@ -53,6 +53,12 @@ export class TraitComponent extends AbstractUnsubscribeComponent implements OnIn
     @Input()
     public highlight: boolean = false;
 
+    @Input()
+    public unlocked: boolean = false;
+
+    @Input()
+    public bonus: boolean = false;
+
     public isMouseOver = false;
 
     public isHiddenBySearch = false;

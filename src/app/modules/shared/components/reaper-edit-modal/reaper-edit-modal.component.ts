@@ -2,12 +2,15 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
+import { Character } from '../../../slormancer/model/character';
 import { Reaper } from '../../../slormancer/model/content/reaper';
 import { SlormancerReaperService } from '../../../slormancer/services/content/slormancer-reaper.service';
+import { SlormancerCharacterService } from '../../../slormancer/services/slormancer-character.service';
 import { SelectOption } from '../../model/select-option';
 import { FormOptionsService } from '../../services/form-options.service';
 
 export interface ReaperEditModalData {
+    character: Character;
     reaper: Reaper;
 }
 
@@ -22,16 +25,20 @@ export class ReaperEditModalComponent {
 
     public options: Array<SelectOption<number>> = [];
 
+    private readonly character: Character;
+
     public reaper: Reaper;
 
     public form: FormGroup;
 
     constructor(private dialogRef: MatDialogRef<ReaperEditModalComponent>,
                 private slormancerReaperService: SlormancerReaperService,
+                private slormancerCharacterService: SlormancerCharacterService,
                 private formOptionsService: FormOptionsService,
                 @Inject(MAT_DIALOG_DATA) data: ReaperEditModalData
                 ) {
         this.originalReaper = data.reaper;
+        this.character = data.character;
 
         this.reaper = this.slormancerReaperService.getReaperClone(this.originalReaper);
         this.form = this.buildForm();
@@ -60,13 +67,15 @@ export class ReaperEditModalComponent {
                 this.reaper.baseInfo.kills = value.baseKills;
                 this.reaper.primordialInfo.kills = value.primordialKills;
     
-                this.slormancerReaperService.updateReaper(this.reaper);
             } else {
                 const newReaper = this.slormancerReaperService.getReaper(value.reaper, this.reaper.weaponClass, value.primordial, value.baseLevel, value.primordialLevel, value.baseKills, value.primordialKills, this.reaper.bonusLevel);
                 if (newReaper !== null) {
                     this.reaper = newReaper;
                 }
             }
+
+            this.slormancerReaperService.updateReaper(this.reaper);
+            this.slormancerCharacterService.applyReaperBonuses(this.character, this.reaper);
             
             this.options = this.formOptionsService.getReaperOptions(this.reaper.weaponClass, this.reaper.primordial);
 
@@ -92,7 +101,7 @@ export class ReaperEditModalComponent {
             primordial: new FormControl(this.reaper.primordial, Validators.required),
             reaper: new FormControl(this.reaper.id, Validators.required),
         });
-
+        
         newForm.valueChanges.subscribe(() => {
             this.updatePreview(newForm);
         });

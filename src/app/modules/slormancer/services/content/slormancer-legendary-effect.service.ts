@@ -7,7 +7,7 @@ import { HeroClass } from '../../model/content/enum/hero-class';
 import { GameDataLegendary } from '../../model/content/game/data/game-data-legendary';
 import { LegendaryEffect } from '../../model/content/legendary-effect';
 import { GameAffix } from '../../model/parser/game/game-item';
-import { effectValueConstant, effectValueSynergy, effectValueVariable } from '../../util/effect-value.util';
+import { effectValueSynergy, effectValueVariable } from '../../util/effect-value.util';
 import { list } from '../../util/math.util';
 import { strictParseInt } from '../../util/parse.util';
 import {
@@ -64,16 +64,7 @@ export class SlormancerLegendaryEffectService {
         const data = this.slormancerDataService.getDataLegendary(legendaryId);
 
         if (data !== null) {
-            for (const constant of data.constants) {
-                effect.effects.push({
-                    score: constant,
-                    craftedValue: 0,
-                    possibleCraftedValues: [],
-                    maxPossibleCraftedValue: 0,
-                    minPossibleCraftedValue: 0,
-                    effect: effectValueConstant(constant, false, null)
-             });
-            }
+            data.override(effect);
         }
 
         return effect;

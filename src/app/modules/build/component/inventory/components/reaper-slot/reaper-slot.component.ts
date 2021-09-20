@@ -6,6 +6,7 @@ import {
     ReaperEditModalComponent,
     ReaperEditModalData,
 } from '../../../../../shared/components/reaper-edit-modal/reaper-edit-modal.component';
+import { Character } from '../../../../../slormancer/model/character';
 import { HeroClass } from '../../../../../slormancer/model/content/enum/hero-class';
 import { Reaper } from '../../../../../slormancer/model/content/reaper';
 import { SlormancerDataService } from '../../../../../slormancer/services/content/slormancer-data.service';
@@ -19,6 +20,9 @@ import { itemMoveService } from '../../services/item-move.service';
   styleUrls: ['./reaper-slot.component.scss']
 })
 export class ReaperSlotComponent implements OnInit {
+
+    @Input()
+    public readonly character: Character | null = null;
 
     @Input()
     public readonly reaper: Reaper | null = null;
@@ -62,6 +66,7 @@ export class ReaperSlotComponent implements OnInit {
 
     public edit() {
         let reaper = this.reaper;
+        let character = this.character;
 
         if (reaper === null) {
             const reaperId = this.slormancerDataService.getGameDataAvailableReaper()[0];
@@ -71,8 +76,8 @@ export class ReaperSlotComponent implements OnInit {
             }
         }
 
-        if (reaper !== null) {
-            const data: ReaperEditModalData = { reaper };
+        if (reaper !== null && character !== null) {
+            const data: ReaperEditModalData = { reaper, character };
             this.dialog.open(ReaperEditModalComponent, { data })
             .afterClosed().subscribe((reaper: Reaper | undefined) => {
                 if (reaper) {

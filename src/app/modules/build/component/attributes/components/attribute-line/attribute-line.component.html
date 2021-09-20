@@ -12,6 +12,8 @@
         [first]="i === 0"
         [last]="i === (attribute.traits.length - 1)"
         [highlight]="isHighlight(i)"
+        [bonus]="isBonus(i)"
+        [unlocked]="isUnlocked(i)"
         (mouseenter)="nodeEnter(i)"
         (mouseleave)="nodeLeave()"
         (click)="nodeClick()">

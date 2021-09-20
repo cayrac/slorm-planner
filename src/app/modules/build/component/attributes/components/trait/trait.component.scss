@@ -13,6 +13,8 @@ $willpower-color       : rgb(117, 48, 152);
 $dexterity-color       : rgb(205, 112, 40); 
 $bravery-color         : rgb(191, 60, 89); 
 
+$bonus-color         : rgb(97, 241, 143); 
+
 .trait {
     @include flex(row, center);
     position: relative;
@@ -120,6 +122,17 @@ $bravery-color         : rgb(191, 60, 89);
         &.highlight .node {
             background-color: rgba($bravery-color, 0.3);
         }
+    }
+
+    &.bonus {
+        .content .node {
+            background-color: $bonus-color;
+        }
+
+        &.highlight .content .node {
+            background-color: rgba($bonus-color, 0.3);
+        }
+        
     }
     
     &:not(.greater) .content {

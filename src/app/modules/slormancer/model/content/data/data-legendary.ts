@@ -1,7 +1,6 @@
-import { LegendaryEffectValue } from '../legendary-effect-value';
+import { LegendaryEffect } from '../legendary-effect';
 
 export interface DataLegendary {
-    statsOverride: Array<Partial<LegendaryEffectValue>>;
-    constants: Array<number>;
+    override: (effect: LegendaryEffect) => void;
 }
 
