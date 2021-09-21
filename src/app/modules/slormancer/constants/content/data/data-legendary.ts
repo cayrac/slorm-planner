@@ -11,7 +11,7 @@ function setStat(effect: LegendaryEffect, index: number, stat: string) {
     }
 }
 
-function addConstant(effect: LegendaryEffect, value: number) {
+function addConstant(effect: LegendaryEffect, value: number, stat: string | null = null) {
 
     effect.effects.push({
         score: value,
@@ -19,11 +19,22 @@ function addConstant(effect: LegendaryEffect, value: number) {
         possibleCraftedValues: [],
         maxPossibleCraftedValue: 0,
         minPossibleCraftedValue: 0,
-        effect: effectValueConstant(value, false, null)
+        effect: effectValueConstant(value, false, stat)
     });
 }
 
 export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
+    14: {
+        override: (effect) => {
+            setStat(effect, 0, 'damages_dealt_to_mana');
+        }
+    },
+    23: {
+        override: (effect) => {
+            setStat(effect, 2, 'buff_indomptable_mountain_def_phy_mult');
+            setStat(effect, 3, 'buff_indomptable_mountain_def_phy_duration');
+        }
+    },
     28: {
         override: (effect) => {
             addConstant(effect, 10);
@@ -31,7 +42,9 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     },
     29: {
         override: (effect) => {
+            setStat(effect, 0, 'buff_ancestral_fervor_chance_on_ancestral_skill_cast');
             setStat(effect, 1, 'buff_ancestral_fervor_crit_chance_percent');
+            setStat(effect, 2, 'buff_ancestral_fervor_duration');
         }
     },
     33: {
@@ -46,7 +59,7 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     },
     62: {
         override: (effect) => {
-            addConstant(effect, 5);
+            addConstant(effect, 5, 'gravity_belt_pull_distance');
         }
     },
     69: {
@@ -58,5 +71,5 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
         override: (effect) => {
             setStat(effect, 0, 'ancestral_rank_add');
         }
-    }
+    },
 }

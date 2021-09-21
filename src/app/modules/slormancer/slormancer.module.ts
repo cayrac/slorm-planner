@@ -15,7 +15,9 @@ import { SlormancerReaperValueService } from './services/content/slormancer-reap
 import { SlormancerReaperService } from './services/content/slormancer-reaper.service';
 import { SlormancerSkillService } from './services/content/slormancer-skill.service';
 import { SlormancerStatsExtractorService } from './services/content/slormancer-stats-extractor.service';
+import { SlormancerStatUpdaterService } from './services/content/slormancer-stats-updater.service';
 import { SlormancerStatsService } from './services/content/slormancer-stats.service';
+import { SlormancerSynergyResolverService } from './services/content/slormancer-synergy-resolver.service';
 import { SlormancerTemplateService } from './services/content/slormancer-template.service';
 import { SlormancerTranslateService } from './services/content/slormancer-translate.service';
 import { SlormancerItemParserService } from './services/parser/slormancer-item-parser.service';
@@ -50,6 +52,8 @@ import { SlormancerCharacterService } from './services/slormancer-character.serv
     SlormancerStatsExtractorService,
     SlormancerCharacterService,
     SlormancerCharacterBuilderService,
+    SlormancerSynergyResolverService,
+    SlormancerStatUpdaterService
   ],
   bootstrap: []
 })

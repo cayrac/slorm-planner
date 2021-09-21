@@ -152,6 +152,10 @@ export function isEffectValueSynergy(value: AbstractEffectValue): value is Effec
     return value.type === EffectValueType.Synergy;    
 }
 
+export function isNotEffectValueSynergy(value: AbstractEffectValue): value is EffectValueVariable | EffectValueConstant {
+    return value.type !== EffectValueType.Synergy;    
+}
+
 export function getCraftValue(craftedValue: CraftableEffect, craft: number, defaultValue: number = 0) {
     const found = craftedValue.possibleCraftedValues.find(v => v.craft === craft);
     return found ? found.value : defaultValue;

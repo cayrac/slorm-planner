@@ -2,7 +2,7 @@ import { DataReaper } from '../../../model/content/data/data-reaper';
 import { EffectValueValueType } from '../../../model/content/enum/effect-value-value-type';
 import { ReaperEffect } from '../../../model/content/reaper-effect';
 import { effectValueConstant } from '../../../util/effect-value.util';
-import { isEffectValueVariable, valueOrNull } from '../../../util/utils';
+import { isEffectValueSynergy, isEffectValueVariable, valueOrNull } from '../../../util/utils';
 
 function overrideValueTypeAndStat(effect: ReaperEffect | null, index: number, valueType: EffectValueValueType, stat: string | null = null) {
 
@@ -34,7 +34,7 @@ function changeValue(effect: ReaperEffect | null, index: number, newValue: numbe
 
     const value = effect !== null ? valueOrNull(effect.values[index]) : null;
 
-    if (value !== null && isEffectValueVariable(value)) {
+    if (value !== null && (isEffectValueVariable(value) || isEffectValueSynergy(value))) {
         value.baseValue = newValue;
     } else {
         throw new Error('failed to change value for effect value at index ' + index);
@@ -127,11 +127,15 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma) => {
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'the_max_mana_add');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'the_max_mana_percent');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Flat, 'ferocious_affinity_reaper_afflict_chance');
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'ferocious_affinity_reaper_afflict_duration');
+            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Flat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 6, EffectValueValueType.Stat, 'min_basic_damage_add');
             overrideValueTypeAndStat(ba, 7, EffectValueValueType.Damage, 'elemental_damage');
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'elemental_damage');
+            changeValue(be, 1, 15);
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Flat, 'mana_consumed_percent_on_skill_cast');
         }
     },

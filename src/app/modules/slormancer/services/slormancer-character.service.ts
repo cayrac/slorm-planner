@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { DATA_HERO_BASE_STATS } from '../constants/content/data/data-hero-base-stats';
 import { Character } from '../model/character';
+import { CharacterConfig } from '../model/character-config';
 import { ALL_ATTRIBUTES, Attribute } from '../model/content/enum/attribute';
 import { ALL_GEAR_SLOT_VALUES } from '../model/content/enum/gear-slot';
 import { Reaper } from '../model/content/reaper';
@@ -18,6 +19,13 @@ import { SlormancerTranslateService } from './content/slormancer-translate.servi
 
 @Injectable()
 export class SlormancerCharacterService {
+
+    public readonly CHARACTER_CONFIG: CharacterConfig = {
+        percent_missing_health: 50,
+        percent_missing_mana: 50,
+        percent_lock_mana: 50,
+        overall_reputation: 100
+    }
 
     private readonly LEVEL_LABEL = this.slormancerTranslateService.translate('level').toLowerCase();
 
@@ -76,7 +84,7 @@ export class SlormancerCharacterService {
                 skillBonuses[item.skillEnchantment.craftedSkill] = valueOrDefault(skillBonuses[item.skillEnchantment.craftedSkill], 0) + item.skillEnchantment.craftedValue;
             }
             if (item.legendaryEffect !== null) {
-                ancestralLegacyBonuses = item.legendaryEffect.effects
+                ancestralLegacyBonuses += item.legendaryEffect.effects
                     .filter(effect => effect.effect.stat === 'ancestral_rank_add')
                     .reduce((total, effect) => total + effect.effect.value, 0);
             }
@@ -108,7 +116,7 @@ export class SlormancerCharacterService {
         }
     }
 
-    public updateCharacter(character: Character) {
+    public updateCharacter(character: Character, config: CharacterConfig = this.CHARACTER_CONFIG) {
         character.ancestralLegacies.activeAncestralLegacies = this.slormancerDataService.getAncestralSkillIdFromNodes(character.ancestralLegacies.activeNodes);
 
         character.name = this.slormancerTranslateService.translate('hero_' + character.heroClass);
@@ -136,7 +144,7 @@ export class SlormancerCharacterService {
         }
 
 
-        character.stats = this.slormancerStatsService.getStats(character);
+        character.stats = this.slormancerStatsService.getStats(character, config);
     }
 
     public setPrimarySkill(character: Character, skill: Skill): boolean {

@@ -105,7 +105,11 @@ export class SlormancerSkillService {
             } else {
                 const typeValues = splitData(type, ':');
                 const source = <string>typeValues[1];
-                result.push(effectValueSynergy(value, upgrade, upgradeType, percent, source, stat));
+                if (typeValues[0] === 'based_on_mastery') {
+                    result.push(effectValueSynergy(value * 100, 0, upgradeType, percent, 'based_on_mastery_' + source, stat));
+                } else {
+                    result.push(effectValueSynergy(value, upgrade, upgradeType, percent, source, stat));
+                }
             }
         }
         

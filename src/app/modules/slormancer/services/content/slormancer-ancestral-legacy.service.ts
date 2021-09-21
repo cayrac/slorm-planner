@@ -87,7 +87,7 @@ export class SlormancerAncestralLegacyService {
             } else {
                 const typeValues = splitData(type, ':');
                 const source = <string>typeValues[1];
-                result.push(effectValueSynergy(baseValue, upgrade, EffectValueUpgradeType.AncestralRank, percent, source));
+                result.push(effectValueSynergy(baseValue, upgrade, EffectValueUpgradeType.AncestralRank, percent, source, stat));
             }
         }
         
@@ -106,6 +106,7 @@ export class SlormancerAncestralLegacyService {
 
         const attributes = ancestralLegacy.values
             .filter(value => (isEffectValueSynergy(value) || isEffectValueVariable(value)) && value.upgrade !== 0)
+            .map(value => this.slormancerEffectValueService.getEffectValueClone(value))
             .map(value => this.slormancerEffectValueService.updateEffectValue(value, rank))
             .map(value => this.slormancerTemplateService.formatNextRankDescription('@ £', value));
 

@@ -19,7 +19,7 @@
         (click)="nodeClick()">
     </app-trait>
     <div class="total">
-        +{{attribute.rank}} {{attribute.attributeName}}
+        +{{attribute.rank + attribute.bonusRank}} {{attribute.attributeName}}
     </div>
     <ng-template cdkConnectedOverlay
         [cdkConnectedOverlayOpen]="showSummary"

@@ -1,12 +1,11 @@
 <mat-card *ngIf="stats !== null">
     <mat-card-content>
-        <textarea>{{stats.hero | json}}</textarea>
         <ng-container *ngIf="stats.hero !== null">
             <div class="section" *ngFor="let section of SECTIONS">
                 <h3>{{section.section}}</h3>
                 <div class="stat" *ngFor="let stat of section.stats">
                     <div class="label">{{stat.name}}</div>
-                    <div class="value">{{getValue(stats.hero, stat)}}</div>
+                    <div class="value" [matTooltip]="getTooltip(stats.hero, stat)" matTooltipPosition="above">{{getValue(stats.hero, stat)}}</div>
                 </div>
             </div>
         </ng-container>
