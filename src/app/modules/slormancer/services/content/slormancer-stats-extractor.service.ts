@@ -52,7 +52,7 @@ export class SlormancerStatsExtractorService {
 
             for (const effectValue of ancestralLegacy.values) {
                 if (isEffectValueSynergy(effectValue)) {
-                    if (equipped && !this.isDamageStat(effectValue.stat)) {
+                    if (equipped && !ancestralLegacy.isActivable && !this.isDamageStat(effectValue.stat)) {
                         stats.synergies.push({
                             effect: effectValue,
                             originalValue: effectValue.synergy,
@@ -67,7 +67,7 @@ export class SlormancerStatsExtractorService {
                             statsItWillUpdate: []
                         });
                     }
-                } else if (equipped) {
+                } else if (equipped && !ancestralLegacy) {
                     this.addStat(stats.heroStats, effectValue.stat, effectValue.value);
                 }
             }
@@ -269,6 +269,9 @@ export class SlormancerStatsExtractorService {
     }
 
     private addStat(cache: { [key: string]: Array<number> }, stat: string, value: number) {
+        if (stat === 'elemental_damage_percent') {
+            console.log('elemental_damage_percent stat found at ', new Error().stack);
+        }
         if (stat === null) {
             console.log('NULL stat found at ', new Error().stack);
         } else {

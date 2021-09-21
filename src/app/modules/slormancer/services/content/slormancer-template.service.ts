@@ -102,11 +102,12 @@ export class SlormancerTemplateService {
             }
         } else if (effectValue.upgrade > 0) {
             const sign = effectValue.upgrade < 0 ? '-' : '+';
-            const base = (effectValue.baseValue + effectValue.upgrade) + percent;
+            const base = (effectValue.value + effectValue.upgrade) + percent;
             const upgrade = Math.abs(effectValue.upgrade) + percent;
 
             if (effectValue.upgradeType === EffectValueUpgradeType.Mastery) {
                 result = base + ' ' + sign + ' ' + upgrade + ' per mastery level';
+                console.log(effectValue, result);
             } else if (effectValue.upgradeType === EffectValueUpgradeType.UpgradeRank) {
                 result = base + ' ' + sign + ' ' + upgrade + ' per rank';
             } else if (effectValue.upgradeType === EffectValueUpgradeType.AncestralRank) {
@@ -311,12 +312,11 @@ export class SlormancerTemplateService {
 
         let value: string = '';
         let details: string = '';
-        let percent = effectValue.percent ? '%' : '';
         if (isEffectValueSynergy(effectValue)) {
             value = this.formatValue(effectValue.synergy, effectValue.percent, true);
             details = this.asSpan(' (' + this.formatValue(effectValue.value, true) + ' ' + this.slormancerTranslateService.translate(effectValue.source) + ')', 'details');
         } else {
-            value = this.formatValue(effectValue.value, effectValue.percent) + percent;
+            value = this.formatValue(effectValue.value, effectValue.percent);
         }
 
         template = this.parseTemplate(template, effectValue.stat ? [effectValue.stat] : []);    
