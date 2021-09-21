@@ -8,13 +8,14 @@ import { ALL_GEAR_SLOT_VALUES } from '../model/content/enum/gear-slot';
 import { Reaper } from '../model/content/reaper';
 import { Skill } from '../model/content/skill';
 import { SkillUpgrade } from '../model/content/skill-upgrade';
-import { isNotNullOrUndefined, valueOrDefault } from '../util/utils';
+import { isFirst, isNotNullOrUndefined, valueOrDefault } from '../util/utils';
 import { SlormancerAncestralLegacyService } from './content/slormancer-ancestral-legacy.service';
 import { SlormancerAttributeService } from './content/slormancer-attribute.service';
 import { SlormancerDataService } from './content/slormancer-data.service';
+import { SlormancerItemService } from './content/slormancer-item.service';
 import { SlormancerReaperService } from './content/slormancer-reaper.service';
 import { SlormancerSkillService } from './content/slormancer-skill.service';
-import { SlormancerStatsService } from './content/slormancer-stats.service';
+import { CharacterStatsBuildResult, SlormancerStatsService } from './content/slormancer-stats.service';
 import { SlormancerTranslateService } from './content/slormancer-translate.service';
 
 @Injectable()
@@ -35,7 +36,8 @@ export class SlormancerCharacterService {
                 private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerStatsService: SlormancerStatsService,
                 private slormancerSkillService: SlormancerSkillService,
-                private slormancerReaperService: SlormancerReaperService
+                private slormancerReaperService: SlormancerReaperService,
+                private slormancerItemService: SlormancerItemService
         ) { }
 
     private resetAttributes(character: Character) {
@@ -116,6 +118,33 @@ export class SlormancerCharacterService {
         }
     }
 
+    private updateChangedItems(statsResult: CharacterStatsBuildResult) {
+        for (const item of statsResult.changed.items.filter(isFirst)) {
+            console.log('Updating item : ' + item.name);
+            this.slormancerItemService.updateEquippableItem(item);
+        }
+        for (const ancestralLegacy of statsResult.changed.ancestralLegacies.filter(isFirst)) {
+            this.slormancerAncestralLegacyService.updateAncestralLegacy(ancestralLegacy); 
+            console.log('Updating ancestral legacy : ' + ancestralLegacy.name);
+        }
+        for (const reaper of statsResult.changed.reapers.filter(isFirst)) {
+            this.slormancerReaperService.updateReaper(reaper);
+            console.log('Updating reaper : ' + reaper.name);
+        }
+        for (const skill of statsResult.changed.skills.filter(isFirst)) {
+            this.slormancerSkillService.updateSkill(skill);
+            console.log('Updating skill : ' + skill.name);
+        }
+        for (const upgrade of statsResult.changed.upgrades.filter(isFirst)) {
+            this.slormancerSkillService.updateUpgrade(upgrade);
+            console.log('Updating upgrade : ' + upgrade.name);
+        }
+        for (const attribute of statsResult.changed.attributes.filter(isFirst)) {
+            this.slormancerAttributeService.updateAttributeTraits(attribute);
+            console.log('Updating attribute : ' + attribute.attributeName);
+        }
+    }
+
     public updateCharacter(character: Character, config: CharacterConfig = this.CHARACTER_CONFIG) {
         character.ancestralLegacies.activeAncestralLegacies = this.slormancerDataService.getAncestralSkillIdFromNodes(character.ancestralLegacies.activeNodes);
 
@@ -143,8 +172,9 @@ export class SlormancerCharacterService {
             character.baseStats.push({ stat: levelStat.stat, values: [levelStat.value]});
         }
 
-
-        character.stats = this.slormancerStatsService.getStats(character, config);
+        const statsResult = this.slormancerStatsService.getStats(character, config);
+        character.stats = statsResult.stats;
+        this.updateChangedItems(statsResult);
     }
 
     public setPrimarySkill(character: Character, skill: Skill): boolean {

@@ -6,11 +6,30 @@ import {
 } from '../../constants/content/data/data-character-stats-mapping';
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
 import { CharacterConfig } from '../../model/character-config';
-import { CharacterStat, CharacterStats } from '../../model/content/character-stats';
+import { AncestralLegacy } from '../../model/content/ancestral-legacy';
+import { AttributeTraits } from '../../model/content/attribut-traits';
+import { CharacterStat, CharacterStats, SynergyResolveData } from '../../model/content/character-stats';
+import { EquipableItem } from '../../model/content/equipable-item';
+import { Reaper } from '../../model/content/reaper';
+import { Skill } from '../../model/content/skill';
+import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { isNotNullOrUndefined } from '../../util/utils';
 import { CharacterExtractedStatMap, SlormancerStatsExtractorService } from './slormancer-stats-extractor.service';
 import { SlormancerStatUpdaterService } from './slormancer-stats-updater.service';
 import { SlormancerSynergyResolverService } from './slormancer-synergy-resolver.service';
+
+export interface CharacterStatsBuildResult {
+    unresolvedSynergies: Array<SynergyResolveData>;
+    stats: CharacterStats,
+    changed:  {
+        items: Array<EquipableItem>;
+        ancestralLegacies: Array<AncestralLegacy>;
+        skills: Array<Skill>;
+        upgrades: Array<SkillUpgrade>;
+        reapers: Array<Reaper>;
+        attributes: Array<AttributeTraits>;
+    }
+}
 
 @Injectable()
 export class SlormancerStatsService {
@@ -100,46 +119,79 @@ export class SlormancerStatsService {
         return result;
     }
 
-    public getStats(character: Character, config: CharacterConfig): CharacterStats {
-        const result: CharacterStats = {
+    public getStats(character: Character, config: CharacterConfig): CharacterStatsBuildResult {
+        const result: CharacterStatsBuildResult = {
             unresolvedSynergies: [],
-            hero: [],
-            support: [],
-            primary: [],
-            secondary: [],
+            stats:  {
+                hero: [],
+                support: [],
+                primary: [],
+                secondary: [],
+            },
+            changed: {
+                items: [],
+                ancestralLegacies: [],
+                skills: [],
+                upgrades: [],
+                reapers: [],
+                attributes: []
+            }
         }
-        const stats = this.slormancerStatsExtractorService.extractStats(character, config);
+        const stats = this.slormancerStatsExtractorService.extractStats(character);
         
-        result.hero = this.buildCharacterStats(stats.heroStats, HERO_CHARACTER_STATS_MAPPING);
-        result.support = this.buildCharacterStats(stats.supportStats, []);
-        result.primary = this.buildCharacterStats(stats.primaryStats, []);
-        result.secondary = this.buildCharacterStats(stats.secondaryStats, []);
+        result.stats.hero = this.buildCharacterStats(stats.heroStats, HERO_CHARACTER_STATS_MAPPING);
+        result.stats.support = this.buildCharacterStats(stats.supportStats, []);
+        result.stats.primary = this.buildCharacterStats(stats.primaryStats, []);
+        result.stats.secondary = this.buildCharacterStats(stats.secondaryStats, []);
 
-        this.addConfigCharacterStats(result.hero, config);
-        this.addSkillStats(result.hero, character.skills);
+        this.addConfigCharacterStats(result.stats.hero, config);
+        this.addSkillStats(result.stats.hero, character.skills);
 
-        for (const stats of result.hero) {
+        for (const stats of result.stats.hero) {
             this.slormancerStatUpdaterService.updateStatTotal(stats);
         }
-        for (const stats of result.support) {
+        for (const stats of result.stats.support) {
             this.slormancerStatUpdaterService.updateStatTotal(stats);
         }
-        for (const stats of result.primary) {
+        for (const stats of result.stats.primary) {
             this.slormancerStatUpdaterService.updateStatTotal(stats);
         }
-        for (const stats of result.secondary) {
+        for (const stats of result.stats.secondary) {
             this.slormancerStatUpdaterService.updateStatTotal(stats);
         }
 
-        result.unresolvedSynergies = this.slormancerSynergyResolverService.resolveSynergies(stats.synergies, result.hero, config);
+        result.unresolvedSynergies = this.slormancerSynergyResolverService.resolveSynergies(stats.synergies, result.stats.hero, config);
 
-        this.slormancerSynergyResolverService.resolveIsolatedSynergies(stats.isolatedSynergies, result.hero);
+        this.slormancerSynergyResolverService.resolveIsolatedSynergies(stats.isolatedSynergies, result.stats.hero);
 
-        this.buildMechanicDamages(result.hero, 'basic_damage', 'inner_fire_damage_base_percent', 'inner_fire_damage');
-        this.buildMechanicDamages(result.hero, 'basic_damage', 'overdrive_damage_base_percent', 'overdrive_damage');
+        this.buildMechanicDamages(result.stats.hero, 'basic_damage', 'inner_fire_damage_base_percent', 'inner_fire_damage');
+        this.buildMechanicDamages(result.stats.hero, 'basic_damage', 'overdrive_damage_base_percent', 'overdrive_damage');
 
         console.log(stats.heroStats);
         console.log(result);
+
+        for (const synergy of [...stats.synergies, ...stats.isolatedSynergies]) {
+            if (synergy.valueChanged) {
+                if (synergy.objectSource.ancestralLegacy) {
+                    result.changed.ancestralLegacies.push(synergy.objectSource.ancestralLegacy);
+                }
+                if (synergy.objectSource.attribute) {
+                    result.changed.attributes.push(synergy.objectSource.attribute);
+                }
+                if (synergy.objectSource.item) {
+                    result.changed.items.push(synergy.objectSource.item);
+                }
+                if (synergy.objectSource.reaper) {
+                    result.changed.reapers.push(synergy.objectSource.reaper);
+                }
+                if (synergy.objectSource.skill) {
+                    result.changed.skills.push(synergy.objectSource.skill);
+                }
+                if (synergy.objectSource.upgrade) {
+                    result.changed.upgrades.push(synergy.objectSource.upgrade);
+                }
+            }
+        }
 
         return result;
     }
