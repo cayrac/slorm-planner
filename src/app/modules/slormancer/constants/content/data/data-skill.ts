@@ -1399,7 +1399,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     5: {
         masteryRequired: null,
         override: values => {
-            setUpgrade(values, 0, 3);
+            setUpgrade(values, 0, 4);
         },
         additionalClassMechanics: []
     },

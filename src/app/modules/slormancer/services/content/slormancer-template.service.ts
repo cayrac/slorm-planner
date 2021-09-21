@@ -10,6 +10,7 @@ import { GameDataAttribute } from '../../model/content/game/data/game-data-attri
 import { GameDataLegendary } from '../../model/content/game/data/game-data-legendary';
 import { GameDataSkill } from '../../model/content/game/data/game-data-skill';
 import { MinMax } from '../../model/minmax';
+import { round } from '../../util/math.util';
 import {
     findFirst,
     getCraftValue,
@@ -130,8 +131,10 @@ export class SlormancerTemplateService {
         return result;
     }
 
-    private formatValue(value: number | MinMax, percent: boolean): string {
-        return typeof value === 'number' ? value.toString() + (percent ? '%' : '') : (value.min + ' - ' + value.max);
+    private formatValue(value: number | MinMax, percent: boolean, roundValues: boolean = false): string {
+        return typeof value === 'number'
+        ? (roundValues ? round(value) : value) + (percent ? '%' : '')
+        : ((roundValues ? round(value.min) : value.min) + ' - ' + (roundValues ? round(value.max) : value.max));
     }
 
     public formatActivableDescription(template: string, effectValues: Array<AbstractEffectValue>): string {
@@ -150,7 +153,7 @@ export class SlormancerTemplateService {
                 }
             } else if (isEffectValueSynergy(effectValue)) {
                 const details = this.getEffectValueDetails(effectValue);
-                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent), 'value');
+                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent, true), 'value');
                 const value = this.asSpan(this.formatValue(effectValue.value, true), 'value');
                 template = this.replaceAnchor(template, synergy, this.VALUE_ANCHOR);
                 template = this.replaceAnchor(template, value + details, this.SYNERGY_ANCHOR);
@@ -160,7 +163,7 @@ export class SlormancerTemplateService {
         return template;
     }
 
-    public formatSkillDescription(template: string, effectValues: Array<AbstractEffectValue>, level: number): string {
+    public formatSkillDescription(template: string, effectValues: Array<AbstractEffectValue>): string {
         for (let effectValue of effectValues) {
             const percent = effectValue.percent ? '%' : '';
 
@@ -176,7 +179,7 @@ export class SlormancerTemplateService {
                 }
             } else if (isEffectValueSynergy(effectValue)) {
                 const details = ' ' + this.getEffectValueDetails(effectValue);
-                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent), 'value');
+                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent, true), 'value');
                 template = this.replaceAnchor(template, synergy + details, this.VALUE_ANCHOR);
             }
         }
@@ -201,7 +204,7 @@ export class SlormancerTemplateService {
             } else if (isEffectValueSynergy(effectValue)) {
                 const details = this.getEffectValueDetails(effectValue);
                 const value = this.asSpan(this.formatValue(effectValue.displayValue, effectValue.percent), 'value');
-                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent), 'value');
+                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent, true), 'value');
                 template = this.replaceAnchor(template, value + details, this.VALUE_ANCHOR);
                 template = this.replaceAnchor(template, synergy, this.SYNERGY_ANCHOR);
             }
@@ -226,7 +229,7 @@ export class SlormancerTemplateService {
                 }
             } else if (isEffectValueSynergy(effectValue)) {
                 const details = this.getEffectValueDetails(effectValue);
-                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent), 'value');
+                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent, true), 'value');
                 const value = this.asSpan(this.formatValue(effectValue.value, true), 'value');
                 template = this.replaceAnchor(template, synergy, this.VALUE_ANCHOR);
                 template = this.replaceAnchor(template, value + ' ' + details, this.SYNERGY_ANCHOR);
@@ -252,7 +255,7 @@ export class SlormancerTemplateService {
                 }
             } else if (isEffectValueSynergy(effectValue)) {
                 const details = typeof effectValue.synergy === 'number' ? '' :  (' ' + this.getEffectValueDetails(effectValue));
-                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent), 'value');
+                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent, true), 'value');
                 template = this.replaceAnchor(template, synergy + details, this.SYNERGY_ANCHOR);
                 template = this.replaceAnchor(template, this.slormancerTranslateService.translate(effectValue.source), this.TYPE_ANCHOR);
             }
@@ -310,10 +313,10 @@ export class SlormancerTemplateService {
         let details: string = '';
         let percent = effectValue.percent ? '%' : '';
         if (isEffectValueSynergy(effectValue)) {
-            value = effectValue.synergy + percent;
-            details = this.asSpan(' (' + value + '% ' + this.slormancerTranslateService.translate(effectValue.source) + ')', 'details');
+            value = this.formatValue(effectValue.synergy, effectValue.percent, true);
+            details = this.asSpan(' (' + this.formatValue(effectValue.value, true) + ' ' + this.slormancerTranslateService.translate(effectValue.source) + ')', 'details');
         } else {
-            value = effectValue.value + percent;
+            value = this.formatValue(effectValue.value, effectValue.percent) + percent;
         }
 
         template = this.parseTemplate(template, effectValue.stat ? [effectValue.stat] : []);    

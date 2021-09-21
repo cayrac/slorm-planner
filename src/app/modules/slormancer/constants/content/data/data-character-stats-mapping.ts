@@ -783,7 +783,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         source: {
             flat: ['min_elemental_damage_add'],
             max: ['max_elemental_damage_add'],
-            percent: [],
+            percent: ['elemental_damage_percent'],
             multiplier: ['elemental_damage_mult', 'elemental_damage_global_mult'],
         } 
     },

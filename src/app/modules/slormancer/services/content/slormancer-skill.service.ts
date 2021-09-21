@@ -228,7 +228,7 @@ export class SlormancerSkillService {
                 + ' ' + this.SECONDS_LABEL;
         }
         
-        skill.description = this.slormancerTemplateService.formatSkillDescription(skill.template, skill.values, skill.level);
+        skill.description = this.slormancerTemplateService.formatSkillDescription(skill.template, skill.values);
     }
 
     public getClassMechanicClone(mechanic: SkillClassMechanic): SkillClassMechanic {
@@ -442,6 +442,6 @@ export class SlormancerSkillService {
     }
 
     public updateClassMechanic(upgrade: SkillClassMechanic) {
-        upgrade.description = this.slormancerTemplateService.formatSkillDescription(upgrade.template, upgrade.values, 0);
+        upgrade.description = this.slormancerTemplateService.formatSkillDescription(upgrade.template, upgrade.values);
     }
 }

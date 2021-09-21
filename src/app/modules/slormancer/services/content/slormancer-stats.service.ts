@@ -184,7 +184,7 @@ export class SlormancerStatsService {
         this.buildMechanicDamages(result.stats.hero, 'basic_damage', 'overdrive_damage_base_percent', 'overdrive_damage');
 
         console.log(stats.heroStats);
-        console.log(result);
+        // console.log(result);
 
         for (const synergy of [...stats.synergies, ...stats.isolatedSynergies]) {
             if (this.hasSynergyValueChanged(synergy)) {
