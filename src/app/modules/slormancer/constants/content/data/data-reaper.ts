@@ -132,9 +132,10 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'ferocious_affinity_reaper_afflict_duration');
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Flat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 6, EffectValueValueType.Stat, 'min_basic_damage_add');
+            changeValue(ba, 6, 8);
             overrideValueTypeAndStat(ba, 7, EffectValueValueType.Damage, 'elemental_damage');
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
-            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'elemental_damage');
+            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'min_elemental_damage_add');
             changeValue(be, 1, 15);
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Flat, 'mana_consumed_percent_on_skill_cast');
         }

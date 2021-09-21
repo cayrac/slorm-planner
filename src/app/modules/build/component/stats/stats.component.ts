@@ -80,7 +80,7 @@ export class StatsComponent extends AbstractUnsubscribeComponent implements OnIn
                 { name: this.slormancerTranslateService.translate('armor_penetration'), stat: 'armor_penetration', sign: false, suffix: '%' },
                 { name: this.slormancerTranslateService.translate('elemental_penetration'), stat: 'elemental_penetration', sign: false, suffix: '%' },
                 { name: this.slormancerTranslateService.translate('dot_increased_damage'), stat: 'dot_increased_damage', sign: true, suffix: '%' },
-                { name: this.slormancerTranslateService.translate('reduced_by_elite'), stat: 'reduced_by_elite', sign: false, suffix: '%' },
+                { name: this.slormancerTranslateService.translate('increased_on_elite'), stat: 'increased_on_elite', sign: false, suffix: '%' },
             ]
         },
         {
@@ -204,9 +204,9 @@ export class StatsComponent extends AbstractUnsubscribeComponent implements OnIn
 
         if (found) {
             result =  'Flat: ' + found.values.flat.map(v => this.valueToString(v, false, format.suffix)).join(', ') + '\n';
-            result =  'Max: ' + found.values.max.map(v => this.valueToString(v, false, format.suffix)).join(', ') + '\n';
-            result += 'Percent: ' + found.values.percent.map(v => this.valueToString(v, false, format.suffix)).join(', ') + '\n';
-            result += 'Multiplier: ' + found.values.multiplier.map(v => this.valueToString(v, false, format.suffix)).join(', ');
+            result += 'Max: ' + found.values.max.map(v => this.valueToString(v, false, format.suffix)).join(', ') + '\n';
+            result += 'Percent: ' + found.values.percent.map(v => this.valueToString(v, false, '%')).join(', ') + '\n';
+            result += 'Multiplier: ' + found.values.multiplier.map(v => this.valueToString(v, false, '%')).join(', ');
         }
 
         return result;

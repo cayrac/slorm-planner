@@ -71,39 +71,6 @@ export class SlormancerStatsService {
         }
     }
 
-    private mergeDamages(stats: Array<CharacterStat>, min: string, max: string, stat: string) {
-        const basicMin = stats.find(stat => stat.stat === min);
-        const basicMax = stats.find(stat => stat.stat === max);
-
-        let basicMinDamages = 0;
-        let basicMaxDamages = 0;
-        if (basicMin) {
-            basicMinDamages = <number>basicMin.total;
-            stats.splice(stats.indexOf(basicMin), 1);
-        }
-        if (basicMax) {
-            basicMaxDamages = <number>basicMax.total;
-            stats.splice(stats.indexOf(basicMax), 1);
-        }
-
-        const result = {
-            precision: 0,
-            stat: stat,
-            allowMinMax: true,
-            total: { min: basicMinDamages, max: basicMinDamages + basicMaxDamages },
-            values: {
-                flat: [{ min: basicMinDamages, max: basicMinDamages + basicMaxDamages }],
-                max: [],
-                multiplier: [],
-                percent: []
-            }
-        } 
-
-        stats.push(result);
-
-        return result;
-    }
-
     private buildMechanicDamages(stats: Array<CharacterStat>, damageSource: string, damagePercent: string, stat: string) {
         const damageSourceStat = stats.find(stat => stat.stat === damageSource);
         const damagePercentStat = stats.find(stat => stat.stat === damagePercent);
@@ -164,25 +131,7 @@ export class SlormancerStatsService {
             this.slormancerStatUpdaterService.updateStatTotal(stats);
         }
 
-        const basic = this.mergeDamages(result.hero, 'min_basic_damage_add', 'max_basic_damage_add', 'basic_damage');
-        const reaper = this.mergeDamages(result.hero, 'min_weapon_damage_add', 'max_weapon_damage_add', 'weapon_damage');
-
         result.unresolvedSynergies = this.slormancerSynergyResolverService.resolveSynergies(stats.synergies, result.hero, config);
-
-        const skillDamages = {
-            precision: 0,
-            stat: 'physical_damage',
-            total: 0,
-            allowMinMax: true,
-            values: {
-                flat: [ basic.total, reaper.total ],
-                max: [],
-                multiplier: [],
-                percent: []
-            }
-        }
-        this.slormancerStatUpdaterService.updateStatTotal(skillDamages);
-        result.hero.push(skillDamages);
 
         this.slormancerSynergyResolverService.resolveIsolatedSynergies(stats.isolatedSynergies, result.hero);
 

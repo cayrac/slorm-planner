@@ -21,9 +21,9 @@ import { SlormancerTranslateService } from './content/slormancer-translate.servi
 export class SlormancerCharacterService {
 
     public readonly CHARACTER_CONFIG: CharacterConfig = {
-        percent_missing_health: 50,
-        percent_missing_mana: 50,
-        percent_lock_mana: 50,
+        percent_missing_health: 0,
+        percent_missing_mana: 0,
+        percent_lock_mana: 0,
         overall_reputation: 100
     }
 

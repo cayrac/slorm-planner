@@ -4,7 +4,6 @@ import { GameHeroesData } from '../../../model/parser/game/game-save';
 const ALL_HEROES_BASE_STATS = [
     { stat: 'the_speed_add', base: 2.4, perLevel: 0 },
     { stat: 'mana_regen_add', base: 12.2, perLevel: 1.2 },
-    { stat: 'mana_regen_add', base: 12.2, perLevel: 1.2 },
     { stat: 'brut_chance_percent', base: 1, perLevel: 0 },
     { stat: 'brut_damage_percent', base: 300, perLevel: 0 },
     { stat: 'skill_mastery_gain_percent', base: 0, perLevel: 2 },

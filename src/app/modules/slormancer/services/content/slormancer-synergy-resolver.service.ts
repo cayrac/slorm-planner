@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
+import { HERO_CHARACTER_STATS_MAPPING } from '../../constants/content/data/data-character-stats-mapping';
 import { CharacterConfig } from '../../model/character-config';
 import { CharacterStat, SynergyResolveData } from '../../model/content/character-stats';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
 import { effectValueSynergy } from '../../util/effect-value.util';
-import { round } from '../../util/math.util';
 import { SlormancerStatUpdaterService } from './slormancer-stats-updater.service';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class SlormancerSynergyResolverService {
 
     constructor(private slormancerStatUpdaterService: SlormancerStatUpdaterService) { }
 
-    private addMissingSynergies(synergies: Array<SynergyResolveData>, config: CharacterConfig) {
+    private addDefaultSynergies(synergies: Array<SynergyResolveData>, config: CharacterConfig) {
         synergies.push({
             effect: effectValueSynergy(100 - config.percent_missing_mana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'current_mana'),
             valueChanged: true,
@@ -24,12 +24,25 @@ export class SlormancerSynergyResolverService {
             valueChanged: true,
             objectSource: {},
             statsItWillUpdate: [ { stat: 'mana_lock_flat' } ]
-        });      
+        });
         synergies.push({
             effect: effectValueSynergy(config.percent_missing_health, 0, EffectValueUpgradeType.None, false, 'max_health', 'missing_health'),
             valueChanged: true,
             objectSource: {},
             statsItWillUpdate: [ { stat: 'missing_health' } ]
+        });
+        let mapping = HERO_CHARACTER_STATS_MAPPING.find(m => m.stat === 'physical_damage');
+        synergies.push({
+            effect: effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'basic_to_physical_damage'),
+            valueChanged: true,
+            objectSource: {},
+            statsItWillUpdate: [ { stat: 'physical_damage', mapping } ]
+        });
+        synergies.push({
+            effect: effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage'),
+            valueChanged: true,
+            objectSource: {},
+            statsItWillUpdate: [ { stat: 'physical_damage', mapping } ]
         });
     }
 
@@ -49,7 +62,7 @@ export class SlormancerSynergyResolverService {
     }
 
     public resolveSynergies(synergies: Array<SynergyResolveData>, stats: Array<CharacterStat>, config: CharacterConfig): Array<SynergyResolveData>  {
-        this.addMissingSynergies(synergies, config);
+        this.addDefaultSynergies(synergies, config);
 
         console.log('Resolve synergies : ');
         let next: SynergyResolveData | null;
@@ -65,9 +78,9 @@ export class SlormancerSynergyResolverService {
 
         if (source) {
             const newValue = typeof source.total === 'number'
-                ? round(synergyResolveData.effect.value * source.total / 100, source.precision)
-                : { min: round(synergyResolveData.effect.value * source.total.min / 100, source.precision),
-                    max: round(synergyResolveData.effect.value * source.total.max / 100, source.precision) };
+                ? synergyResolveData.effect.value * source.total / 100
+                : { min: synergyResolveData.effect.value * source.total.min / 100,
+                    max: synergyResolveData.effect.value * source.total.max / 100 };
             
             synergyResolveData.valueChanged = synergyResolveData.effect.synergy !== newValue;
             synergyResolveData.effect.synergy = newValue;
@@ -109,6 +122,7 @@ export class SlormancerSynergyResolverService {
                 };
                 stats.push(foundStat);
             }
+
             if (statToUpdate.mapping === undefined || statToUpdate.mapping.source.flat.find(v => v === synergyResolveData.effect.stat)) {
                 foundStat.values.flat.push(synergyResolveData.effect.synergy);
             } else if (typeof synergyResolveData.effect.synergy === 'number'){

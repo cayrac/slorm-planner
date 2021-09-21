@@ -205,50 +205,6 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         } 
     },
     {
-        stat: 'min_basic_damage_add',
-        precision: 0,
-        allowMinMax: false,
-        source: {
-            flat: ['min_basic_damage_add'],
-            max: [],
-            percent: ['basic_damage_percent'],
-            multiplier: [],
-        } 
-    },
-    {
-        stat: 'max_basic_damage_add',
-        precision: 0,
-        allowMinMax: false,
-        source: {
-            flat: ['max_basic_damage_add'],
-            max: [],
-            percent: ['basic_damage_percent'],
-            multiplier: [],
-        } 
-    },
-    {
-        stat: 'min_weapon_damage_add',
-        precision: 0,
-        allowMinMax: false,
-        source: {
-            flat: ['min_weapon_damage_add'],
-            max: [],
-            percent: [],
-            multiplier: ['weapon_damage_mult'],
-        } 
-    },
-    {
-        stat: 'max_weapon_damage_add',
-        precision: 0,
-        allowMinMax: false,
-        source: {
-            flat: ['max_weapon_damage_add'],
-            max: [],
-            percent: [],
-            multiplier: ['weapon_damage_mult'],
-        } 
-    },
-    {
         stat: 'critical_chance',
         precision: 1,
         allowMinMax: false,
@@ -326,7 +282,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         } 
     },
     {
-        stat: 'increased_damage_on_elite',
+        stat: 'increased_on_elite',
         precision: 1,
         allowMinMax: false,
         source: {
@@ -822,13 +778,46 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
     },
     {
         stat: 'elemental_damage',
-        precision: 1,
+        precision: 0,
         allowMinMax: true,
         source: {
-            flat: ['elemental_damage', 'min_elemental_damage_add'],
+            flat: ['min_elemental_damage_add'],
             max: ['max_elemental_damage_add'],
             percent: [],
             multiplier: ['elemental_damage_mult', 'elemental_damage_global_mult'],
+        } 
+    },
+    {
+        stat: 'basic_damage',
+        precision: 0,
+        allowMinMax: true,
+        source: {
+            flat: ['min_basic_damage_add'],
+            max: ['max_basic_damage_add'],
+            percent: ['basic_damage_percent'],
+            multiplier: ['basic_damage_percent_mult', 'basic_damage_percent_global_mult'],
+        } 
+    },
+    {
+        stat: 'weapon_damage',
+        precision: 0,
+        allowMinMax: true,
+        source: {
+            flat: ['min_weapon_damage_add'],
+            max: ['max_weapon_damage_add'],
+            percent: [],
+            multiplier: ['weapon_damage_mult'],
+        } 
+    },
+    {
+        stat: 'physical_damage',
+        precision: 0,
+        allowMinMax: true,
+        source: {
+            flat: ['basic_to_physical_damage', 'weapon_to_physical_damage'],
+            max: [],
+            percent: [],
+            multiplier: [],
         } 
     },
 ]
