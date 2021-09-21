@@ -13,6 +13,7 @@ import { EquipableItem } from '../../model/content/equipable-item';
 import { Reaper } from '../../model/content/reaper';
 import { Skill } from '../../model/content/skill';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
+import { MinMax } from '../../model/minmax';
 import { isNotNullOrUndefined } from '../../util/utils';
 import { CharacterExtractedStatMap, SlormancerStatsExtractorService } from './slormancer-stats-extractor.service';
 import { SlormancerStatUpdaterService } from './slormancer-stats-updater.service';
@@ -119,6 +120,21 @@ export class SlormancerStatsService {
         return result;
     }
 
+    private hasSynergyValueChanged(synergy: SynergyResolveData): boolean {
+        let result = true;
+
+        if (typeof synergy.originalValue === typeof synergy.effect.synergy) {
+            if (typeof synergy.originalValue === 'number') {
+                result = synergy.originalValue !== synergy.effect.synergy;
+            } else {
+                result = synergy.originalValue.min !== (<MinMax>synergy.effect.synergy).min
+                      || synergy.originalValue.max !== (<MinMax>synergy.effect.synergy).max;
+            }
+        }
+
+        return result;
+    }
+
     public getStats(character: Character, config: CharacterConfig): CharacterStatsBuildResult {
         const result: CharacterStatsBuildResult = {
             unresolvedSynergies: [],
@@ -171,7 +187,7 @@ export class SlormancerStatsService {
         console.log(result);
 
         for (const synergy of [...stats.synergies, ...stats.isolatedSynergies]) {
-            if (synergy.valueChanged) {
+            if (this.hasSynergyValueChanged(synergy)) {
                 if (synergy.objectSource.ancestralLegacy) {
                     result.changed.ancestralLegacies.push(synergy.objectSource.ancestralLegacy);
                 }

@@ -11,7 +11,6 @@ import { SkillUpgrade } from './skill-upgrade';
 export interface SynergyResolveData {
     effect: EffectValueSynergy;
     originalValue: number | MinMax;
-    valueChanged: boolean;
     objectSource: {
         skill?: Skill;
         upgrade?: SkillUpgrade;

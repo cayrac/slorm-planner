@@ -108,6 +108,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
             if (skill.skill.baseLevel < skill.skill.maxLevel) {
                 skill.skill.baseLevel++;
                 this.slormancerSkillService.updateSkill(skill.skill);
+                this.plannerService.updateCurrentCharacter();
             }
         } else {
             this.selectSkill(skill);
@@ -120,6 +121,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
             if (skill.skill.baseLevel > 1) {
                 skill.skill.baseLevel--;
                 this.slormancerSkillService.updateSkill(skill.skill);
+                this.plannerService.updateCurrentCharacter();
             }
         } else {
             this.selectSkill(skill);
@@ -166,6 +168,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
                 this.slormancerSkillService.updateUpgrade(selectedUpgrade);
                 this.slormancerSkillService.updateSkill(this.selectedSkill.skill);
             }
+            this.plannerService.updateCurrentCharacter();
         }
         return false;
     }
@@ -183,6 +186,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
                 this.slormancerSkillService.updateUpgrade(selectedUpgrade);
                 this.slormancerSkillService.updateSkill(this.selectedSkill.skill);
             }
+            this.plannerService.updateCurrentCharacter();
         }
         return false;
     }

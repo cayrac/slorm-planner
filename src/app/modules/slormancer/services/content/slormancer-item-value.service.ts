@@ -224,8 +224,6 @@ export class SlormancerItemValueService {
         result.value = result.range ? valueOrDefault(result.range[itemValue], 0) : round(effect.value + effect.upgrade * upgradeMultiplier, 2);
         result.baseFormulaUpgrade = result.range ? valueOrDefault(result.range[itemValue], 0) : round(effect.value + effect.upgrade, 2);
 
-        result.synergy = (effect.stat !== 'res_mag_add' && (effect.source === 'physical_damage' || effect.source === 'weapon_damage' || effect.source === 'elemental_damage')) ? {min: 0, max: 0} : 0;
-
         return result;
     }
 

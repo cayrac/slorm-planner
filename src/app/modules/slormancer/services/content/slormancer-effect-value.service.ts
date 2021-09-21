@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
-import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
 import { round } from '../../util/math.util';
 import { isEffectValueSynergy, isEffectValueVariable } from '../../util/utils';
 
@@ -30,11 +29,6 @@ export class SlormancerEffectValueService {
             effectValue.value = value / 1000;
             // TODO the round here is necessary on the displayValue to keep the real hidden value
             effectValue.displayValue = round(displayValue / 1000, 3);
-        }
-
-        if (isEffectValueSynergy(effectValue)) {            
-            const sourceIsDamages = effectValue.source === 'elemental_damage' || effectValue.source === 'physical_damage' || effectValue.source === 'weapon_damage';
-            effectValue.synergy = sourceIsDamages && effectValue.valueType === EffectValueValueType.Damage ? {min: 0, max: 0} : 0;
         }
 
         return effectValue;
