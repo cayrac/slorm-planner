@@ -83,10 +83,10 @@ export class SlormancerLegendaryEffectService {
         for (let i of list(nb)) {
             const stat = valueOrNull(stats[i]);
             const type = valueOrNull(types[i]);
-            const maxValue = valueOrDefault(values[i], 0);
+            const value = valueOrDefault(values[i], 0);
             const upgrade = valueOrDefault(upgrades[i], 0);
             const range = ranges[i] === 1;
-            result.push(this.parseLegendaryEffectValue(type, maxValue, upgrade, range, stat, craftedValue));
+            result.push(this.parseLegendaryEffectValue(type, value, upgrade, range, stat, craftedValue));
         }
         
         return result;

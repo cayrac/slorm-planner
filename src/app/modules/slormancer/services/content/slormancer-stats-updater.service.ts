@@ -39,17 +39,17 @@ export class SlormancerStatUpdaterService {
     }
 
     public updateStatTotal(stat: CharacterStat) {
-        let total = stat.allowMinMax ? this.addValues(stat.values.flat, stat.values.max.length > 0) : this.addNumberValues(stat.values.flat);
+        let total = stat.allowMinMax ? this.addValues(stat.sources.flat, stat.sources.max.length > 0) : this.addNumberValues(stat.sources.flat);
 
-        const percent = (100 + stat.values.percent.reduce((total, value) => total + value, 0));
+        const percent = (100 + stat.sources.percent.reduce((total, value) => total + value, 0));
 
         if (typeof total === 'number') {
             total = total * percent / 100;
     
             if (stat.stat === 'attack_speed') {
-                total = 100 - stat.values.multiplier.map(mult => Math.max(0, 100 - mult) / 100).reduce((total, value) => total * value, 1 - (<number>total / 100)) * 100;
+                total = 100 - stat.sources.multiplier.map(mult => Math.max(0, 100 - mult) / 100).reduce((total, value) => total * value, 1 - (<number>total / 100)) * 100;
             } else {
-                for (const multiplier of stat.values.multiplier) {
+                for (const multiplier of stat.sources.multiplier) {
                     const mult = (100 + multiplier);
                     total = total * mult / 100;
                 }
@@ -57,13 +57,13 @@ export class SlormancerStatUpdaterService {
 
             total = round(total, stat.precision);
         } else {
-            for (const max of stat.values.max) {
+            for (const max of stat.sources.max) {
                 total.max += max;
             }
 
             total = { min: total.min * percent / 100, max: total.max * percent / 100 };
     
-            for (const multiplier of stat.values.multiplier) {
+            for (const multiplier of stat.sources.multiplier) {
                 const mult = (100 + multiplier);
                 total = { min: total.min * mult / 100, max: total.max * mult / 100 };
             }

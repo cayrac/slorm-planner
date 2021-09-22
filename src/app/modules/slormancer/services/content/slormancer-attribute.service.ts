@@ -284,14 +284,13 @@ export class SlormancerAttributeService {
         for (const value of cumulativeAttributes) {
             const found = valueOrNull(joinedCumulativeUnlockedAttributes.find(v => this.sameValue(v, value)));
 
-
             if (found !== null) {
                 if (value.value !== found.value) {
                     value.max = value.value;
                 }
                 value.value = found.value;
             }
-            // TODO the round here is necessary on the displayValue to keep the real hidden value
+
             value.displayValue = round(value.value, 3);
 
             const label = this.getDefaultVariableDescription(value);

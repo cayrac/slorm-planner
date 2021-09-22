@@ -46,7 +46,7 @@ export class SlormancerStatsService {
                 total: 0,
                 precision: mapping.precision,
                 allowMinMax: mapping.allowMinMax,
-                values: {
+                sources: {
                     flat: mapping.source.flat.map(source => stats[source]).filter(isNotNullOrUndefined).flat(),
                     max: mapping.source.max.map(source => stats[source]).filter(isNotNullOrUndefined).flat(),
                     percent: mapping.source.percent.map(source => stats[source]).filter(isNotNullOrUndefined).flat(),
@@ -64,7 +64,7 @@ export class SlormancerStatsService {
                 total: value,
                 precision: 0,
                 allowMinMax: false,
-                values: {
+                sources: {
                     flat: [value],
                     max: [],
                     percent: [],
@@ -81,7 +81,7 @@ export class SlormancerStatsService {
                 precision: 0,
                 stat: 'based_on_mastery_' + sau.skill.id,
                 total: sau.skill.baseLevel,
-                values: {
+                sources: {
                     flat: [sau.skill.baseLevel],
                     max: [],
                     percent: [],
@@ -107,7 +107,7 @@ export class SlormancerStatsService {
             stat: stat,
             total: finalDamages,
             allowMinMax: true,
-            values: {
+            sources: {
                 flat: [finalDamages],
                 max: [],
                 multiplier: [],

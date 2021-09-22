@@ -11,6 +11,14 @@ function setStat(effect: LegendaryEffect, index: number, stat: string) {
     }
 }
 
+function setScore(effect: LegendaryEffect, index: number, score: number) {
+    const value = effect.effects[index]
+
+    if (value) {
+        value.score = score;
+    }
+}
+
 function addConstant(effect: LegendaryEffect, value: number, stat: string | null = null) {
 
     effect.effects.push({
@@ -49,6 +57,7 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     },
     33: {
         override: (effect) => {
+            setScore(effect, 0, 100);
             addConstant(effect, 100);
         }
     },

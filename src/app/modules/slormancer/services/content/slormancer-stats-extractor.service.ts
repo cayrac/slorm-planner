@@ -78,14 +78,12 @@ export class SlormancerStatsExtractorService {
             }
 
             for (const trait of attributeTraits.traits) {
-                if (trait.unlocked) {
-                    for (const effectValue of trait.values) {
-                        if (isEffectValueSynergy(effectValue)) {
-                            if (this.isDamageStat(effectValue.stat)) {                            
-                                stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { attribute: attributeTraits }));
-                            } else {
-                                stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { attribute: attributeTraits }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
-                            }
+                for (const effectValue of trait.values) {
+                    if (isEffectValueSynergy(effectValue)) {
+                        if (!trait.unlocked || this.isDamageStat(effectValue.stat)) {                            
+                            stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { attribute: attributeTraits }));
+                        } else {
+                            stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { attribute: attributeTraits }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
                         }
                     }
                 }
@@ -112,7 +110,6 @@ export class SlormancerStatsExtractorService {
                         stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { reaper: character.reaper }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
                     }
                 } else {
-                    if (effectValue.stat === null) console.log(character.reaper.id + ' - ' + character.reaper.name + ' : reaper value : ', effectValue, character.reaper.templates);
                     this.addStat(stats.heroStats, effectValue.stat, effectValue.value);
                 }
             }
@@ -211,9 +208,6 @@ export class SlormancerStatsExtractorService {
     }
 
     private addStat(cache: { [key: string]: Array<number> }, stat: string, value: number) {
-        if (stat === 'elemental_damage_percent') {
-            console.log('elemental_damage_percent stat found at ', new Error().stack);
-        }
         if (stat === null) {
             console.log('NULL stat found at ', new Error().stack);
         } else {

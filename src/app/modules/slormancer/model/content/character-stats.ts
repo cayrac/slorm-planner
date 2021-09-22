@@ -43,7 +43,7 @@ export interface CharacterStat {
     total: number | MinMax;
     allowMinMax: boolean;
     precision: number;
-    values: {
+    sources: {
         flat: Array<number | MinMax>;
         max: Array<number>;
         percent: Array<number>;
