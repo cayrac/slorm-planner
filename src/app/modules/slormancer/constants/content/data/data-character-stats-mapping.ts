@@ -1,4 +1,7 @@
 // TODO autre liste de conditions pour chaque stat
+
+
+
 export interface CharacterStatMapping {
     stat: string;
     precision: number;

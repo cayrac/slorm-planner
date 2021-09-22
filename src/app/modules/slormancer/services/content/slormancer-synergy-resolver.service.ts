@@ -125,7 +125,7 @@ export class SlormancerSynergyResolverService {
                     stat: statToUpdate.stat,
                     total: 0,
                     allowMinMax: true,
-                    sources: {
+                    values: {
                         flat: [],
                         max: [],
                         percent: [],
@@ -146,12 +146,12 @@ export class SlormancerSynergyResolverService {
             }
 
             if (statToUpdate.mapping === undefined || statToUpdate.mapping.source.flat.find(v => v === stat)) {
-                foundStat.sources.flat.push(synergy);
+                foundStat.values.flat.push(synergy);
             } else if (typeof synergy === 'number'){
                 if (statToUpdate.mapping.source.percent.find(v => v === stat)) {
-                    foundStat.sources.percent.push(synergy);
+                    foundStat.values.percent.push(synergy);
                 } else if (statToUpdate.mapping.source.multiplier.find(v => v === stat)) {
-                    foundStat.sources.multiplier.push(synergy);
+                    foundStat.values.multiplier.push(synergy);
                 }
             }
 
