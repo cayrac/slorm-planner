@@ -1,10 +1,17 @@
-// TODO autre liste de conditions pour chaque stat
 import { CharacterConfig } from '../../../model/character-config';
+import { CharacterExtractedStatMap } from '../../../services/content/slormancer-stats-extractor.service';
+import { valueOrDefault } from '../../../util/utils';
 
+function getFirstStat(stats: CharacterExtractedStatMap, stat: string, defaultValue: number = 0): number {
+    const found = stats[stat];
+
+    return found ? valueOrDefault(found[0], defaultValue) : defaultValue;
+}
 
 export interface CharacterStatMappingSource {
     stat: string;
-    condition?: (config: CharacterConfig) =>  boolean
+    condition?: (config: CharacterConfig, stats: CharacterExtractedStatMap) => boolean
+    multiplier?: (config: CharacterConfig, stats: CharacterExtractedStatMap) => number
 };
 
 export interface CharacterStatMapping {
@@ -18,6 +25,9 @@ export interface CharacterStatMapping {
         multiplier: Array<CharacterStatMappingSource>;
     }
 }
+
+// en attendant que je sache comment l'utiliser
+// const increased_damage_source: CharacterStatMappingSource = { stat: 'increased_damage_for_each_yard_with_target', condition: config => config.distance_with_target > 0, multiplier:  config => config.distance_with_target };
 
 export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
     // adventure
@@ -104,7 +114,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 3,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'health_leech_percent' }],
+            flat: [
+                { stat: 'health_leech_percent' },
+                { stat: 'health_leech_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'health_leech_percent_on_low_life_treshold', 0)) }
+            ],
             max: [],
             percent: [],
             multiplier: [],
@@ -115,7 +128,11 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'health_on_hit_add' }],
+            flat: [
+                { stat: 'health_on_hit_add' },
+                { stat: 'health_on_hit_add_after_crit', condition: (config, stats) => config.seconds_since_last_crit <= getFirstStat(stats, 'health_on_hit_add_after_crit_duration', 0) }
+
+            ],
             max: [],
             percent: [{ stat: 'health_on_hit_percent' }],
             multiplier: [{ stat: 'health_on_hit_global_mult' }],
@@ -196,7 +213,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         source: {
             flat: [{ stat: 'the_speed_add' }],
             max: [],
-            percent: [{ stat: 'the_speed_percent' }],
+            percent: [
+                { stat: 'the_speed_percent' },
+                { stat: 'the_speed_percent_after_dodge', condition: (config, stats) => config.seconds_since_last_dodge <= getFirstStat(stats, 'the_speed_percent_after_dodge_duration', 0) }
+            ],
             multiplier: [],
         } 
     },
@@ -209,7 +229,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             flat: [{ stat: 'cooldown_reduction_percent' }],
             max: [],
             percent: [],
-            multiplier: [{ stat: 'cooldown_reduction_global_mult' }],
+            multiplier: [
+                { stat: 'cooldown_reduction_global_mult' },
+                { stat: 'cooldown_reduction_global_mult_after_crit', condition: (config, stats) => config.seconds_since_last_crit <= getFirstStat(stats, 'cooldown_reduction_global_mult_after_crit_duration', 0) }
+            ],
         } 
     },
     {
@@ -217,10 +240,17 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'crit_chance_percent' }],
+            flat: [
+                { stat: 'crit_chance_percent' },
+                { stat: 'crit_chance_percent_if_no_enemies_around', condition: (config, stats) => valueOrDefault(config.ennemies_in_radius[getFirstStat(stats, 'crit_chance_percent_if_no_enemies_around_radius')], 0) === 0 },
+                { stat: 'greed_stack_crit_chance_percent', condition: config => config.greed_stacks > 0, multiplier: config => config.greed_stacks },
+                { stat: 'strider_stack_crit_chance_percent', condition: config => config.strider_stacks > 0, multiplier: config => config.strider_stacks }
+            ],
             max: [],
             percent: [],
-            multiplier: [],
+            multiplier: [
+                { stat: 'crit_chance_global_mult_after_hit_taken', condition: config => config.took_damage_before_next_cast }
+            ],
         } 
     },
     {
@@ -228,7 +258,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'crit_damage_percent' }],
+            flat: [
+                { stat: 'crit_damage_percent' },
+                { stat: 'crit_damage_percent_for_each_ennemy', multiplier: (config, stats) => valueOrDefault(config.ennemies_in_radius[getFirstStat(stats, 'crit_damage_percent_for_each_ennemy_radius')], 0) }
+            ],
             max: [],
             percent: [],
             multiplier: [],
@@ -294,7 +327,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'increased_damage_on_elite_percent' }],
+            flat: [
+                { stat: 'increased_damage_on_elite_percent' },
+                { stat: 'increased_damage_on_elite_percent_for_each_elite', multiplier: (config, stats) => valueOrDefault(config.elites_in_radius[getFirstStat(stats, 'increased_damage_on_elite_percent_for_each_elite_radius')], 0) }
+            ],
             max: [],
             percent: [],
             multiplier: [],
@@ -310,7 +346,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             percent: [{ stat: 'res_phy_percent' }],
             multiplier: [
                 { stat: 'res_phy_global_mult' },
-                { stat: 'res_phy_global_mult_on_low_life', condition: config => config.percent_missing_health > 80 }
+                { stat: 'res_phy_global_mult_on_low_life',condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'res_phy_global_mult_on_low_life_treshold', 0)) }
             ],
         } 
     },
@@ -322,7 +358,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             flat: [{ stat: 'res_mag_add' }],
             max: [],
             percent: [{ stat: 'res_mag_percent' }],
-            multiplier: [{ stat: 'res_mag_global_mult' }],
+            multiplier: [
+                { stat: 'res_mag_global_mult' },
+                { stat: 'res_mag_global_mult_after_elemental_damage_taken', condition: config => config.took_elemental_damage_recently }
+            ],
         } 
     },
     {
@@ -407,7 +446,11 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'retaliate_percent' }],
+            flat: [
+                { stat: 'retaliate_percent' },
+                { stat: 'retaliate_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'retaliate_percent_on_low_life_treshold', 0)) }
+            
+            ],
             max: [],
             percent: [],
             multiplier: [],
@@ -429,7 +472,13 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'reduced_damage_from_all_percent' }],
+            flat: [
+                { stat: 'reduced_damage_from_all_percent' },
+                { stat: 'reduced_damage_from_all_percent_after_hit_taken',
+                    condition: config => config.hits_taken_recently > 0,
+                    multiplier: (config, stats) => Math.min(config.hits_taken_recently, getFirstStat(stats, 'reduced_damage_from_all_percent_after_hit_taken_max_stack', 0))
+                }
+            ],
             max: [],
             percent: [],
             multiplier: [],
@@ -451,7 +500,11 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'reduced_damage_from_melee_percent' }],
+            flat: [
+                { stat: 'reduced_damage_from_melee_percent' },
+                { stat: 'reduced_damage_from_melee_percent_for_each_ennemy', multiplier: (config, stats) => valueOrDefault(config.ennemies_in_radius[getFirstStat(stats, 'reduced_damage_from_melee_percent_for_each_ennemy_radius')], 0) }
+        
+            ],
             max: [],
             percent: [],
             multiplier: [],
@@ -682,7 +735,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'chance_to_pierce_percent' }],
+            flat: [
+                { stat: 'chance_to_pierce_percent' },
+                { stat: 'chance_to_pierce_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) }
+            ],
             max: [],
             percent: [],
             multiplier: [],
@@ -693,7 +749,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'fork_chance_percent' }],
+            flat: [
+                { stat: 'fork_chance_percent' },
+                { stat: 'fork_chance_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) }
+            ],
             max: [],
             percent: [],
             multiplier: [],
@@ -704,7 +763,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'rebound_chance_percent' }],
+            flat: [
+                { stat: 'rebound_chance_percent' },
+                { stat: 'rebound_chance_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) }
+            ],
             max: [],
             percent: [],
             multiplier: [],
@@ -715,7 +777,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'increased_proj_speed_percent' }],
+            flat: [
+                { stat: 'increased_proj_speed_percent' },
+                { stat: 'increased_proj_speed_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) }
+            ],
             max: [],
             percent: [],
             multiplier: [],
@@ -748,7 +813,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'aoe_increased_effect_percent' }],
+            flat: [
+                { stat: 'aoe_increased_effect_percent' },
+                { stat: 'aoe_increased_effect_percent_on_low_mana', condition: (config, stats) => config.percent_missing_mana > (100 - getFirstStat(stats, 'aoe_increased_effect_percent_on_low_mana_treshold', 0))  }
+            ],
             max: [],
             percent: [],
             multiplier: [],
@@ -759,7 +827,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'totem_increased_effect_percent' }],
+            flat: [
+                { stat: 'totem_increased_effect_percent' },
+                { stat: 'totem_dexterity_totem_increased_effect_percent', condition: config => config.totem_dexterity_stacks > 0, multiplier: (config, stats) => Math.min(getFirstStat(stats, 'totem_dexterity_max_stack', 0), config.totem_dexterity_stacks) }
+            ],
             max: [],
             percent: [],
             multiplier: [],
@@ -781,7 +852,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'minion_increased_damage_percent' }],
+            flat: [
+                { stat: 'minion_increased_damage_percent' },
+                { stat: 'minion_increased_damage_percent_per_controlled_minion', condition: config => config.controlled_minions > 0, multiplier: config => config.controlled_minions },
+                ],
             max: [],
             percent: [],
             multiplier: [],
@@ -794,7 +868,11 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         source: {
             flat: [{ stat: 'min_elemental_damage_add' }],
             max: [{ stat: 'max_elemental_damage_add' }],
-            percent: [{ stat: 'elemental_damage_percent' }],
+            percent: [
+                { stat: 'elemental_damage_percent' },
+                { stat: 'elemental_prowess_elemental_damage_percent', condition: config => config.elemental_prowess_stacks > 0, multiplier: config => config.elemental_prowess_stacks },
+                { stat: 'legendary_elemental_damage_percent', condition: (_, stats) => getFirstStat(stats, 'number_equipped_legendaries', 0) > 0, multiplier: (_, stats) => getFirstStat(stats, 'number_equipped_legendaries', 0) }
+            ],
             multiplier: [{ stat: 'elemental_damage_mult' }, { stat: 'elemental_damage_global_mult' }],
         } 
     },
@@ -803,7 +881,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: true,
         source: {
-            flat: [{ stat: 'min_basic_damage_add' }],
+            flat: [
+                { stat: 'min_basic_damage_add' },
+                { stat: 'merchant_stack_min_basic_damage_add', condition: config => config.merchant_stacks > 0, multiplier: (config, stats) => Math.min(getFirstStat(stats, 'merchant_stack_max_stack', 0), config.merchant_stacks) }
+            ],
             max: [{ stat: 'max_basic_damage_add' }],
             percent: [{ stat: 'basic_damage_percent' }],
             multiplier: [{ stat: 'basic_damage_percent_mult' }, { stat: 'basic_damage_percent_global_mult' }],
@@ -817,7 +898,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             flat: [{ stat: 'min_weapon_damage_add' }],
             max: [{ stat: 'max_weapon_damage_add' }],
             percent: [],
-            multiplier: [{ stat: 'weapon_damage_mult' }],
+            multiplier: [
+                { stat: 'weapon_damage_mult' },
+                { stat: 'weapon_damage_mult_after_support_cast', condition: config => config.cast_support_before_next_cast }
+            ],
         } 
     },
     {
@@ -826,6 +910,19 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         allowMinMax: true,
         source: {
             flat: [{ stat: 'basic_to_physical_damage' }, { stat: 'weapon_to_physical_damage' }],
+            max: [],
+            percent: [],
+            multiplier: [],
+        } 
+    },
+    {
+        stat: 'mana_cost_reduction',
+        precision: 0,
+        allowMinMax: false,
+        source: {
+            flat: [
+                { stat: 'all_skill_mana_cost_reduction_per_cast', condition: config => config.skill_cast_recently > 0, multiplier: config => config.skill_cast_recently }
+            ],
             max: [],
             percent: [],
             multiplier: [],

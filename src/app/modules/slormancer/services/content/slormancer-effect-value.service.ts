@@ -15,7 +15,7 @@ export class SlormancerEffectValueService {
     }
 
     public updateEffectValue(effectValue: AbstractEffectValue, upgradeMultiplier: number): AbstractEffectValue {
-        const displayUpgradeMultiplier = Math.max(upgradeMultiplier, 1);
+        const displayUpgradeMultiplier = Math.max(upgradeMultiplier, 0);
         if (isEffectValueSynergy(effectValue) || isEffectValueVariable(effectValue)) {
             let value = effectValue.baseValue * 1000;
             let displayValue = effectValue.baseValue * 1000;

@@ -22,10 +22,31 @@ import { SlormancerTranslateService } from './content/slormancer-translate.servi
 export class SlormancerCharacterService {
 
     public readonly CHARACTER_CONFIG: CharacterConfig = {
-        percent_missing_health: 0,
-        percent_missing_mana: 0,
+        percent_missing_health: 76,
+        percent_missing_mana: 81,
         percent_lock_mana: 0,
-        overall_reputation: 100
+        overall_reputation: 100,
+        seconds_since_last_crit: 1,
+        seconds_since_last_dodge: 1,
+        hits_taken_recently: 15,
+        skill_cast_recently: 15,
+        elites_in_radius: {
+            10: 10
+        },
+        ennemies_in_radius: {
+            2: 0,
+            3: 0
+        },
+        took_elemental_damage_recently: true,
+        took_damage_before_next_cast: true,
+        cast_support_before_next_cast: true,
+        controlled_minions: 5,
+        elemental_prowess_stacks: 50,
+        totem_dexterity_stacks: 167,
+        greed_stacks: 15,
+        strider_stacks: 15,
+        merchant_stacks: 15,
+        distance_with_target: 5,
     }
 
     private readonly LEVEL_LABEL = this.slormancerTranslateService.translate('level').toLowerCase();
@@ -120,28 +141,28 @@ export class SlormancerCharacterService {
 
     private updateChangedItems(statsResult: CharacterStatsBuildResult) {
         for (const item of statsResult.changed.items.filter(isFirst)) {
-            console.log('Updating item : ' + item.name);
+            // console.log('Updating item : ' + item.name);
             this.slormancerItemService.updateEquippableItem(item);
         }
         for (const ancestralLegacy of statsResult.changed.ancestralLegacies.filter(isFirst)) {
             this.slormancerAncestralLegacyService.updateAncestralLegacy(ancestralLegacy); 
-            console.log('Updating ancestral legacy : ' + ancestralLegacy.name);
+            // console.log('Updating ancestral legacy : ' + ancestralLegacy.name);
         }
         for (const reaper of statsResult.changed.reapers.filter(isFirst)) {
             this.slormancerReaperService.updateReaper(reaper);
-            console.log('Updating reaper : ' + reaper.name);
+            // console.log('Updating reaper : ' + reaper.name);
         }
         for (const skill of statsResult.changed.skills.filter(isFirst)) {
             this.slormancerSkillService.updateSkill(skill);
-            console.log('Updating skill : ' + skill.name);
+            // console.log('Updating skill : ' + skill.name);
         }
         for (const upgrade of statsResult.changed.upgrades.filter(isFirst)) {
             this.slormancerSkillService.updateUpgrade(upgrade);
-            console.log('Updating upgrade : ' + upgrade.name);
+            // console.log('Updating upgrade : ' + upgrade.name);
         }
         for (const attribute of statsResult.changed.attributes.filter(isFirst)) {
             this.slormancerAttributeService.updateAttributeTraits(attribute);
-            console.log('Updating attribute : ' + attribute.attributeName);
+            // console.log('Updating attribute : ' + attribute.attributeName);
         }
     }
 

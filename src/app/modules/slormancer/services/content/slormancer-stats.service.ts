@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import {
     CharacterStatMapping,
+    CharacterStatMappingSource,
     HERO_CHARACTER_STATS_MAPPING,
 } from '../../constants/content/data/data-character-stats-mapping';
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
@@ -14,7 +15,6 @@ import { Reaper } from '../../model/content/reaper';
 import { Skill } from '../../model/content/skill';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { MinMax } from '../../model/minmax';
-import { isNotNullOrUndefined } from '../../util/utils';
 import { CharacterExtractedStatMap, SlormancerStatsExtractorService } from './slormancer-stats-extractor.service';
 import { SlormancerStatUpdaterService } from './slormancer-stats-updater.service';
 import { SlormancerSynergyResolverService } from './slormancer-synergy-resolver.service';
@@ -39,6 +39,20 @@ export class SlormancerStatsService {
                 private slormancerSynergyResolverService: SlormancerSynergyResolverService,
                 private slormancerStatUpdaterService: SlormancerStatUpdaterService) { }
     
+    private getMappingValues(sources: Array<CharacterStatMappingSource>, stats: CharacterExtractedStatMap, config: CharacterConfig)  {
+        return sources
+            .filter(source => source.condition === undefined || source.condition(config, stats))
+            .map(source => {
+                let result = stats[source.stat];
+                const mult = source.multiplier ? source.multiplier(config, stats) : 1;
+                if (result && mult !== 1) {
+                    result = result.map(v => v * mult);
+                }
+                return result ? result : [];
+            })
+            .flat();
+    }
+
     private buildCharacterStats(stats: CharacterExtractedStatMap, mappings: Array<CharacterStatMapping>, config: CharacterConfig): Array<CharacterStat> {
         return mappings.map(mapping => {
             return {
@@ -47,22 +61,10 @@ export class SlormancerStatsService {
                 precision: mapping.precision,
                 allowMinMax: mapping.allowMinMax,
                 values: {
-                    flat: mapping.source.flat
-                        .filter(source => source.condition === undefined || source.condition(config))
-                        .map(source => stats[source.stat])
-                        .filter(isNotNullOrUndefined).flat(),
-                    max: mapping.source.max
-                        .filter(source => source.condition === undefined || source.condition(config))
-                        .map(source => stats[source.stat])
-                        .filter(isNotNullOrUndefined).flat(),
-                    percent: mapping.source.percent
-                        .filter(source => source.condition === undefined || source.condition(config))
-                        .map(source => stats[source.stat])
-                        .filter(isNotNullOrUndefined).flat(),
-                    multiplier: mapping.source.multiplier
-                        .filter(source => source.condition === undefined || source.condition(config))
-                        .map(source => stats[source.stat])
-                        .filter(isNotNullOrUndefined).flat(),
+                    flat: this.getMappingValues(mapping.source.flat, stats, config),
+                    max: this.getMappingValues(mapping.source.max, stats, config),
+                    percent: this.getMappingValues(mapping.source.percent, stats, config),
+                    multiplier: this.getMappingValues(mapping.source.multiplier, stats, config),
                 }
             } as CharacterStat;
         });

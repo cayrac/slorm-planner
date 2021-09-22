@@ -53,7 +53,6 @@ export class SlormancerSynergyResolverService {
             method: (basic, elemental) => {
                 const basicMin = typeof basic === 'number' ? basic : basic.min;
                 const elementalMin = typeof elemental === 'number' ? elemental : elemental.min;
-                console.log('resolving external data raw_elem_diff : ', basic, elemental);
                 return Math.abs(basicMin - elementalMin);
             },
             sources: ['basic_damage', 'elemental_damage'],
@@ -148,12 +147,16 @@ export class SlormancerSynergyResolverService {
             if (statToUpdate.mapping === undefined || statToUpdate.mapping.source.flat.find(v => v.stat === stat)) {
                 foundStat.values.flat.push(synergy);
             } else if (typeof synergy === 'number'){
-                if (statToUpdate.mapping.source.percent.find(v => v.stat === stat)) {
+                if (statToUpdate.mapping.source.max.find(v => v.stat === stat)) {
+                    foundStat.values.max.push(synergy);
+                } else if (statToUpdate.mapping.source.percent.find(v => v.stat === stat)) {
                     foundStat.values.percent.push(synergy);
                 } else if (statToUpdate.mapping.source.multiplier.find(v => v.stat === stat)) {
                     foundStat.values.multiplier.push(synergy);
                 }
             }
+
+            // console.log('Synergy added ' + (typeof synergy === 'number' ? synergy : synergy.min + '-' + synergy.max) + ' ' + stat + ' to ' + foundStat.stat);
 
             this.slormancerStatUpdaterService.updateStatTotal(foundStat);
         }

@@ -31,7 +31,10 @@ export class SlormancerStatsExtractorService {
         let result: Array<{ stat: string, mapping?: CharacterStatMapping }> = [];
 
         for (const mapping of HERO_CHARACTER_STATS_MAPPING) {
-            if (mapping.source.flat.some(s => s.stat === stat) || mapping.source.percent.some(s => s.stat === stat) || mapping.source.multiplier.some(s => s.stat === stat)) {
+            if (mapping.source.flat.some(s => s.stat === stat)
+            || mapping.source.max.some(s => s.stat === stat)
+            || mapping.source.percent.some(s => s.stat === stat)
+            || mapping.source.multiplier.some(s => s.stat === stat)) {
                 result.push({ stat: mapping.stat, mapping });
             }
         }
@@ -85,7 +88,6 @@ export class SlormancerStatsExtractorService {
                             stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { attribute: attributeTraits }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
                         }
                     } else if (trait.unlocked) {
-                        if (effectValue.stat === null) console.log(trait)
                         this.addStat(stats.heroStats, effectValue.stat, effectValue.value);
                     }
                 }
@@ -138,6 +140,8 @@ export class SlormancerStatsExtractorService {
         const items = ALL_GEAR_SLOT_VALUES
             .map(slot => character.gear[slot])
             .filter(isNotNullOrUndefined);
+
+        this.addStat(stats.heroStats, 'number_equipped_legendaries', items.filter(item => item.legendaryEffect !== null).length);
 
         for (const item of items) {
             const effectValues = [...item.affixes.map(affix => affix.craftedEffect), ...(item.legendaryEffect === null ? [] : item.legendaryEffect.effects)]
