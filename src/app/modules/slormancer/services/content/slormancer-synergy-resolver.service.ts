@@ -2,9 +2,16 @@ import { Injectable } from '@angular/core';
 
 import { HERO_CHARACTER_STATS_MAPPING } from '../../constants/content/data/data-character-stats-mapping';
 import { CharacterConfig } from '../../model/character-config';
-import { CharacterStat, SynergyResolveData } from '../../model/content/character-stats';
+import {
+    CharacterStat,
+    ExternalSynergyResolveData,
+    ResolveDataType,
+    SynergyResolveData,
+} from '../../model/content/character-stats';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
+import { MinMax } from '../../model/minmax';
 import { effectValueSynergy } from '../../util/effect-value.util';
+import { isSynergyResolveData, synergyResolveData } from '../../util/synergy-resolver.util';
 import { SlormancerStatUpdaterService } from './slormancer-stats-updater.service';
 
 @Injectable()
@@ -12,90 +19,17 @@ export class SlormancerSynergyResolverService {
 
     constructor(private slormancerStatUpdaterService: SlormancerStatUpdaterService) { }
 
-    private addDefaultSynergies(synergies: Array<SynergyResolveData>, config: CharacterConfig) {
-        synergies.push({
-            effect: effectValueSynergy(100 - config.percent_missing_mana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'current_mana'),
-            originalValue: -1,
-            objectSource: {},
-            statsItWillUpdate: [ { stat: 'current_mana' } ]
-        });
-        synergies.push({
-            effect: effectValueSynergy(config.percent_missing_mana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'missing_mana'),
-            originalValue: -1,
-            objectSource: {},
-            statsItWillUpdate: [ { stat: 'missing_mana' } ]
-        });
-        synergies.push({
-            effect: effectValueSynergy(config.percent_lock_mana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'mana_lock_flat'),
-            originalValue: -1,
-            objectSource: {},
-            statsItWillUpdate: [ { stat: 'mana_lock_flat' } ]
-        });
-        synergies.push({
-            effect: effectValueSynergy(config.percent_missing_health, 0, EffectValueUpgradeType.None, false, 'max_health', 'missing_health'),
-            originalValue: -1,
-            objectSource: {},
-            statsItWillUpdate: [ { stat: 'missing_health' } ]
-        });
-        let mapping = HERO_CHARACTER_STATS_MAPPING.find(m => m.stat === 'physical_damage');
-        synergies.push({
-            effect: effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'basic_to_physical_damage'),
-            originalValue: -1,
-            objectSource: {},
-            statsItWillUpdate: [ { stat: 'physical_damage', mapping } ]
-        });
-        synergies.push({
-            effect: effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage'),
-            originalValue: -1,
-            objectSource: {},
-            statsItWillUpdate: [ { stat: 'physical_damage', mapping } ]
-        });
-    }
-
-    private takeNextSynergy(synergies: Array<SynergyResolveData>): SynergyResolveData | null {
-        const indexFound = synergies.findIndex(synergy => synergies
-            .find(s => s.statsItWillUpdate.find(statItWillUpdate => statItWillUpdate.stat === synergy.effect.source) !== undefined) === undefined);
-        let result: SynergyResolveData | null = null;
-
-        if (indexFound !== -1) {
-            const extracted = synergies.splice(indexFound, 1)[0];
-            if (extracted) {
-                result = extracted;
-            }
-        }
-
-        return result;
-    }
-
-    public resolveSynergies(synergies: Array<SynergyResolveData>, stats: Array<CharacterStat>, config: CharacterConfig): Array<SynergyResolveData>  {
-        this.addDefaultSynergies(synergies, config);
-
+    public resolveSynergies(synergies: Array<SynergyResolveData | ExternalSynergyResolveData>, stats: Array<CharacterStat>, config: CharacterConfig): Array<SynergyResolveData>  {
         const remainingSynergies = [ ...synergies];
-        let next: SynergyResolveData | null;
+        
+        this.addDefaultSynergies(remainingSynergies, config);
+
+        let next: SynergyResolveData | ExternalSynergyResolveData | null;
         while (remainingSynergies.length > 0 && (next = this.takeNextSynergy(remainingSynergies)) !== null) {
             this.applySynergyToStats(next, stats);
         }
 
-        return remainingSynergies;
-    }
-
-    private updateSynergyValue(synergyResolveData: SynergyResolveData, stats: Array<CharacterStat>) {
-        const source = stats.find(stat => stat.stat === synergyResolveData.effect.source);
-
-        if (source) {
-            const newValue = typeof source.total === 'number'
-                ? synergyResolveData.effect.value * source.total / 100
-                : { min: synergyResolveData.effect.value * source.total.min / 100,
-                    max: synergyResolveData.effect.value * source.total.max / 100 };
-            
-            synergyResolveData.effect.synergy = newValue;
-            
-            if (synergyResolveData.effect.stat === null) {
-                console.log('Synergy is going to add it\'s value to null', synergyResolveData);
-            }
-        } else {
-            console.log('no source (' + synergyResolveData.effect.source + ') found for ', synergyResolveData);
-        }
+        return remainingSynergies.filter(isSynergyResolveData);
     }
 
     public resolveIsolatedSynergies(synergies: Array<SynergyResolveData>, stats: Array<CharacterStat>) {
@@ -104,7 +38,82 @@ export class SlormancerSynergyResolverService {
         }
     }
 
-    private applySynergyToStats(synergyResolveData: SynergyResolveData, stats: Array<CharacterStat>) {
+    private addDefaultSynergies(resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>, config: CharacterConfig) {
+        resolveDatas.push(synergyResolveData(effectValueSynergy(100 - config.percent_missing_mana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'current_mana'), -1, {}, [ { stat: 'current_mana' } ]));
+        resolveDatas.push(synergyResolveData(effectValueSynergy(config.percent_missing_mana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'missing_mana'), -1, {}, [ { stat: 'missing_mana' } ]));
+        resolveDatas.push(synergyResolveData(effectValueSynergy(config.percent_lock_mana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'mana_lock_flat'), -1, {}, [ { stat: 'mana_lock_flat' } ]));
+        resolveDatas.push(synergyResolveData(effectValueSynergy(config.percent_missing_health, 0, EffectValueUpgradeType.None, false, 'max_health', 'missing_health'), -1, {}, [ { stat: 'missing_health' } ]));
+        let mapping = HERO_CHARACTER_STATS_MAPPING.find(m => m.stat === 'physical_damage');
+        resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'basic_to_physical_damage'), -1, {}, [ { stat: 'physical_damage', mapping } ]));
+        resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage'), -1, {}, [ { stat: 'physical_damage', mapping } ]));
+
+        resolveDatas.push({
+            type: ResolveDataType.ExternalSynergy,
+            value: 0,
+            method: (basic, elemental) => {
+                const basicMin = typeof basic === 'number' ? basic : basic.min;
+                const elementalMin = typeof elemental === 'number' ? elemental : elemental.min;
+                console.log('resolving external data raw_elem_diff : ', basic, elemental);
+                return Math.abs(basicMin - elementalMin);
+            },
+            sources: ['basic_damage', 'elemental_damage'],
+            stat: 'raw_elem_diff',
+            statsItWillUpdate: [ { stat: 'raw_elem_diff' } ]
+        });
+
+        return true;
+    }
+
+    private takeNextSynergy(resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>): SynergyResolveData | ExternalSynergyResolveData | null {
+        const indexFound = resolveDatas.findIndex(resolveData => resolveDatas
+            .find(s => s.statsItWillUpdate.find(statItWillUpdate => {
+                let found = false; 
+                if (resolveData.type === ResolveDataType.Synergy) {
+                    found = statItWillUpdate.stat === resolveData.effect.source;
+                } else {
+                    found = resolveData.sources.some(source => statItWillUpdate.stat === source);
+                }
+                return found;
+            }) !== undefined) === undefined);
+
+        let result: SynergyResolveData | ExternalSynergyResolveData | null = null;
+        if (indexFound !== -1) {
+            const extracted = resolveDatas.splice(indexFound, 1)[0];
+            if (extracted) {
+                result = extracted;
+            }
+        }
+        return result;
+    }
+
+    private updateSynergyValue(resolveData: SynergyResolveData | ExternalSynergyResolveData, stats: Array<CharacterStat>) {
+        if (isSynergyResolveData(resolveData)) {
+            const source = stats.find(stat => stat.stat === resolveData.effect.source);
+    
+            if (source) {
+                const newValue = typeof source.total === 'number'
+                    ? resolveData.effect.value * source.total / 100
+                    : { min: resolveData.effect.value * source.total.min / 100,
+                        max: resolveData.effect.value * source.total.max / 100 };
+                
+                resolveData.effect.synergy = newValue;
+                
+                if (resolveData.effect.stat === null) {
+                    console.log('Synergy is going to add it\'s value to null', resolveData);
+                }
+            } else {
+                console.log('no source (' + resolveData.effect.source + ') found for ', resolveData);
+            }
+        } else {
+            const sources = resolveData.sources.map(source => {
+                const stat = stats.find(stat => stat.stat === source);
+                return  stat ? stat.total : 0;
+            });
+            resolveData.value = resolveData.method(...sources);
+        }
+    }
+
+    private applySynergyToStats(synergyResolveData: SynergyResolveData | ExternalSynergyResolveData, stats: Array<CharacterStat>) {
 
         this.updateSynergyValue(synergyResolveData, stats);
 
@@ -126,13 +135,23 @@ export class SlormancerSynergyResolverService {
                 stats.push(foundStat);
             }
 
-            if (statToUpdate.mapping === undefined || statToUpdate.mapping.source.flat.find(v => v === synergyResolveData.effect.stat)) {
-                foundStat.values.flat.push(synergyResolveData.effect.synergy);
-            } else if (typeof synergyResolveData.effect.synergy === 'number'){
-                if (statToUpdate.mapping.source.percent.find(v => v === synergyResolveData.effect.stat)) {
-                    foundStat.values.percent.push(synergyResolveData.effect.synergy);
-                } else if (statToUpdate.mapping.source.multiplier.find(v => v === synergyResolveData.effect.stat)) {
-                    foundStat.values.multiplier.push(synergyResolveData.effect.synergy);
+            let synergy: number | MinMax;
+            let stat: string;
+            if (isSynergyResolveData(synergyResolveData)) {
+                synergy = synergyResolveData.effect.synergy;
+                stat = synergyResolveData.effect.stat;
+            } else {
+                synergy = synergyResolveData.value;
+                stat = synergyResolveData.stat;
+            }
+
+            if (statToUpdate.mapping === undefined || statToUpdate.mapping.source.flat.find(v => v === stat)) {
+                foundStat.values.flat.push(synergy);
+            } else if (typeof synergy === 'number'){
+                if (statToUpdate.mapping.source.percent.find(v => v === stat)) {
+                    foundStat.values.percent.push(synergy);
+                } else if (statToUpdate.mapping.source.multiplier.find(v => v === stat)) {
+                    foundStat.values.multiplier.push(synergy);
                 }
             }
 

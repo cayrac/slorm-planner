@@ -175,6 +175,7 @@ export class SlormancerCharacterService {
         const statsResult = this.slormancerStatsService.getStats(character, config);
         character.stats = statsResult.stats;
         this.updateChangedItems(statsResult);
+        console.log(character.stats);
     }
 
     public setPrimarySkill(character: Character, skill: Skill): boolean {

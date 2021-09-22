@@ -163,7 +163,7 @@ export class StatsComponent extends AbstractUnsubscribeComponent implements OnIn
                 private slormancerTranslateService: SlormancerTranslateService) {
         super();
         // TODO synergy 
-        // TODO conditions
+        // TODO complexSynergy
     }
 
     public ngOnInit() {

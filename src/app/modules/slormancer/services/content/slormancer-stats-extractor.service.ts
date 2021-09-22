@@ -10,6 +10,7 @@ import { AbstractEffectValue } from '../../model/content/effect-value';
 import { ALL_ATTRIBUTES } from '../../model/content/enum/attribute';
 import { ALL_GEAR_SLOT_VALUES } from '../../model/content/enum/gear-slot';
 import { SkillType } from '../../model/content/skill-type';
+import { synergyResolveData } from '../../util/synergy-resolver.util';
 import { isEffectValueSynergy, isNotNullOrUndefined } from '../../util/utils';
 
 export declare type CharacterExtractedStatMap = { [key: string]: Array<number> }
@@ -53,19 +54,11 @@ export class SlormancerStatsExtractorService {
             for (const effectValue of ancestralLegacy.values) {
                 if (isEffectValueSynergy(effectValue)) {
                     if (equipped && !ancestralLegacy.isActivable && !this.isDamageStat(effectValue.stat)) {
-                        stats.synergies.push({
-                            effect: effectValue,
-                            originalValue: effectValue.synergy,
-                            objectSource: { ancestralLegacy },
-                            statsItWillUpdate: this.getSynergyStatsItWillUpdate(effectValue.stat)
-                        });
-                    } else {
-                        stats.isolatedSynergies.push({
-                            effect: effectValue,
-                            originalValue: effectValue.synergy,
-                            objectSource: { ancestralLegacy },
-                            statsItWillUpdate: []
-                        });
+                        if (equipped && !ancestralLegacy.isActivable && !this.isDamageStat(effectValue.stat)) {
+                            stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { ancestralLegacy }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
+                        } else {                        
+                            stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { ancestralLegacy }));
+                        }
                     }
                 } else if (equipped && !ancestralLegacy) {
                     this.addStat(stats.heroStats, effectValue.stat, effectValue.value);
@@ -88,20 +81,10 @@ export class SlormancerStatsExtractorService {
                 if (trait.unlocked) {
                     for (const effectValue of trait.values) {
                         if (isEffectValueSynergy(effectValue)) {
-                            if (this.isDamageStat(effectValue.stat)) {
-                                stats.isolatedSynergies.push({
-                                    effect: effectValue,
-                                    originalValue: effectValue.synergy,
-                                    objectSource: { attribute: attributeTraits },
-                                    statsItWillUpdate: []
-                                });
+                            if (this.isDamageStat(effectValue.stat)) {                            
+                                stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { attribute: attributeTraits }));
                             } else {
-                                stats.synergies.push({
-                                    effect: effectValue,
-                                    originalValue: effectValue.synergy,
-                                    objectSource: { attribute: attributeTraits },
-                                    statsItWillUpdate: this.getSynergyStatsItWillUpdate(effectValue.stat)
-                                });
+                                stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { attribute: attributeTraits }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
                             }
                         }
                     }
@@ -124,19 +107,9 @@ export class SlormancerStatsExtractorService {
             for (const effectValue of effectValues) {
                 if (isEffectValueSynergy(effectValue)) {
                     if (this.isDamageStat(effectValue.stat)) {
-                        stats.isolatedSynergies.push({
-                            effect: effectValue,
-                            originalValue: effectValue.synergy,
-                            objectSource: { reaper: character.reaper },
-                            statsItWillUpdate: []
-                        });
+                        stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { reaper: character.reaper }));
                     } else {
-                        stats.synergies.push({
-                            effect: effectValue,
-                            originalValue: effectValue.synergy,
-                            objectSource: { reaper: character.reaper },
-                            statsItWillUpdate: this.getSynergyStatsItWillUpdate(effectValue.stat)
-                        });
+                        stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { reaper: character.reaper }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
                     }
                 } else {
                     if (effectValue.stat === null) console.log(character.reaper.id + ' - ' + character.reaper.name + ' : reaper value : ', effectValue, character.reaper.templates);
@@ -155,12 +128,7 @@ export class SlormancerStatsExtractorService {
             if (item.legendaryEffect !== null) {
                 for (const craftedEffect of item.legendaryEffect.effects) {
                     if (isEffectValueSynergy(craftedEffect.effect)) {
-                        stats.isolatedSynergies.push({
-                            effect: craftedEffect.effect,
-                            originalValue: craftedEffect.effect.synergy,
-                            objectSource: { item },
-                            statsItWillUpdate: []
-                        });
+                        stats.isolatedSynergies.push(synergyResolveData(craftedEffect.effect, craftedEffect.effect.synergy, { item }));
                     }
                 }
             }
@@ -180,22 +148,11 @@ export class SlormancerStatsExtractorService {
             for (const effectValue of effectValues) {
                 if (isEffectValueSynergy(effectValue)) {
                     if (this.isDamageStat(effectValue.stat)) {
-                        stats.isolatedSynergies.push({
-                            effect: effectValue,
-                            originalValue: effectValue.synergy,
-                            objectSource: { item },
-                            statsItWillUpdate: []
-                        });
+                        stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { item }));
                     } else {
-                        stats.synergies.push({
-                            effect: effectValue,
-                            originalValue: effectValue.synergy,
-                            objectSource: { item },
-                            statsItWillUpdate: this.getSynergyStatsItWillUpdate(effectValue.stat)
-                        });
+                        stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { item }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
                     }
                 } else {
-                    if (effectValue.stat === null) console.log(item.name + ' : gear value : ', effectValue, item.legendaryEffect);
                     this.addStat(stats.heroStats, effectValue.stat, effectValue.value);
                 }
             }
@@ -210,12 +167,7 @@ export class SlormancerStatsExtractorService {
             
             for (const skillValue of sau.skill.values) {
                 if (isEffectValueSynergy(skillValue)) {
-                    stats.isolatedSynergies.push({
-                        effect: skillValue,
-                        originalValue: skillValue.synergy,
-                        objectSource: { skill: sau.skill },
-                        statsItWillUpdate: []
-                    });
+                    stats.isolatedSynergies.push(synergyResolveData(skillValue, skillValue.synergy, { skill: sau.skill }));
                 } else if (isPrimary) {
                     this.addStat(stats.primaryStats, skillValue.stat, skillValue.value);
                 } else if (isSecondary) {
@@ -231,19 +183,9 @@ export class SlormancerStatsExtractorService {
                 for (const upgradeValue of upgrade.values) {
                     if (isEffectValueSynergy(upgradeValue)) {
                         if (equipped && !this.isDamageStat(upgradeValue.stat)) {
-                            stats.synergies.push({
-                                effect: upgradeValue,
-                                originalValue: upgradeValue.synergy,
-                                objectSource: { upgrade },
-                                statsItWillUpdate: this.getSynergyStatsItWillUpdate(upgradeValue.stat)
-                            });
+                            stats.synergies.push(synergyResolveData(upgradeValue, upgradeValue.synergy, { upgrade }, this.getSynergyStatsItWillUpdate(upgradeValue.stat)));
                         } else {
-                            stats.isolatedSynergies.push({
-                                effect: upgradeValue,
-                                originalValue: upgradeValue.synergy,
-                                objectSource: { upgrade },
-                                statsItWillUpdate: []
-                            });
+                            stats.isolatedSynergies.push(synergyResolveData(upgradeValue, upgradeValue.synergy, { upgrade }));
                         }
                     } else if (equipped) {
                         if (upgrade.type === SkillType.Passive) {

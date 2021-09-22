@@ -107,7 +107,6 @@ export class SlormancerTemplateService {
 
             if (effectValue.upgradeType === EffectValueUpgradeType.Mastery) {
                 result = base + ' ' + sign + ' ' + upgrade + ' per mastery level';
-                console.log(effectValue, result);
             } else if (effectValue.upgradeType === EffectValueUpgradeType.UpgradeRank) {
                 result = base + ' ' + sign + ' ' + upgrade + ' per rank';
             } else if (effectValue.upgradeType === EffectValueUpgradeType.AncestralRank) {

@@ -79,13 +79,8 @@ export class SlormancerSkillService {
         const valueTypes = emptyStringToNull(splitData(data.DESC_VALUE_TYPE));
         const valueReals = emptyStringToNull(splitData(data.DESC_VALUE_REAL));
         const stats = emptyStringToNull(splitData(data.DESC_VALUE));
-        // const damageTypes = removeEmptyValues(splitData(data.DMG_TYPE));
 
         const max = Math.max(valueBases.length, valuePerLevels.length, valueTypes.length);
-
-        if (data.REF === 7) {
-            console.log('parseEffectValues');
-        }
 
         let result: Array<AbstractEffectValue> = [];
         for (let i of list(max)) {
@@ -95,17 +90,8 @@ export class SlormancerSkillService {
             const upgrade = valueOrDefault(valuePerLevels[i], 0);
             const stat = valueOrDefault(stats[i], null);
 
-            if (data.REF === 7) {
-                console.log('stat : ' + stat);
-            }
-
             if (stat !== null && this.isDamageStat(stat)) {
-                // const damageType = valueOrDefault(damageTypes.splice(0, 1)[0], 'phy');
-                // const valueType = damageType === 'phy' ? 'physical_damage' : 'elemental_damage';
                 result.push(effectValueSynergy(value, upgrade, upgradeType, false, stat, EffectValueValueType.Damage));
-                if (data.REF === 7) {
-                    console.log('pushed synergy : ' + value + ' - ' + stat);
-                }
             } else if (type === null) {
                 result.push(effectValueVariable(value, upgrade, upgradeType, percent, stat, EffectValueValueType.Stat));
             } else if (type === 'negative') {
@@ -121,10 +107,6 @@ export class SlormancerSkillService {
                     result.push(effectValueSynergy(value, upgrade, upgradeType, percent, source, stat));
                 }
             }
-        }
-
-        if (data.REF === 7) {
-            console.log(result.filter(isEffectValueSynergy).map(effect => effect.source).join(', '));
         }
         
         return result;

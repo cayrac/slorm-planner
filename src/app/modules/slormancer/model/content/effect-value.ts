@@ -32,3 +32,10 @@ export interface EffectValueSynergy extends AbstractEffectValue {
     source: string;
     synergy: number | MinMax;
 }
+
+export interface EffectValueComplexSynergy extends AbstractEffectValue {
+    type: EffectValueType.ComplexSynergy;
+    sources: Array<string>;
+    method: (...values: Array<number | MinMax>) => number | MinMax;
+    synergy: number | MinMax;
+}

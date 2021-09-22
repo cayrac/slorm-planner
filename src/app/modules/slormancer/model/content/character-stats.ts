@@ -8,17 +8,33 @@ import { Reaper } from './reaper';
 import { Skill } from './skill';
 import { SkillUpgrade } from './skill-upgrade';
 
+export enum ResolveDataType {
+    Synergy = 0,
+    ExternalSynergy = 1,
+}
+
+export interface SynergyResolveDataSource {
+    skill?: Skill;
+    upgrade?: SkillUpgrade;
+    item?: EquipableItem;
+    ancestralLegacy?: AncestralLegacy;
+    attribute?: AttributeTraits;
+    reaper?: Reaper;
+};
+
 export interface SynergyResolveData {
+    type: ResolveDataType.Synergy;
     effect: EffectValueSynergy;
     originalValue: number | MinMax;
-    objectSource: {
-        skill?: Skill;
-        upgrade?: SkillUpgrade;
-        item?: EquipableItem;
-        ancestralLegacy?: AncestralLegacy;
-        attribute?: AttributeTraits;
-        reaper?: Reaper;
-    };
+    objectSource: SynergyResolveDataSource;
+    statsItWillUpdate: Array<{ stat: string, mapping?: CharacterStatMapping }>;
+}
+export interface ExternalSynergyResolveData {
+    type: ResolveDataType.ExternalSynergy;
+    stat: string;
+    sources: Array<string>;
+    value: number | MinMax;
+    method: ((...values: Array<number | MinMax>) => number | MinMax);
     statsItWillUpdate: Array<{ stat: string, mapping?: CharacterStatMapping }>;
 }
 
