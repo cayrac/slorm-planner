@@ -3,6 +3,7 @@ import { Attribute } from './enum/attribute';
 import { TraitLevel } from './enum/trait-level';
 
 export interface Trait {
+    id: number;
     attribute: Attribute;
     requiredRank: number;
     traitLevel: TraitLevel;

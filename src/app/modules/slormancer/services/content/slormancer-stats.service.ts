@@ -39,7 +39,7 @@ export class SlormancerStatsService {
                 private slormancerSynergyResolverService: SlormancerSynergyResolverService,
                 private slormancerStatUpdaterService: SlormancerStatUpdaterService) { }
     
-    private buildCharacterStats(stats: CharacterExtractedStatMap, mappings: Array<CharacterStatMapping>): Array<CharacterStat> {
+    private buildCharacterStats(stats: CharacterExtractedStatMap, mappings: Array<CharacterStatMapping>, config: CharacterConfig): Array<CharacterStat> {
         return mappings.map(mapping => {
             return {
                 stat: mapping.stat,
@@ -47,10 +47,22 @@ export class SlormancerStatsService {
                 precision: mapping.precision,
                 allowMinMax: mapping.allowMinMax,
                 values: {
-                    flat: mapping.source.flat.map(source => stats[source]).filter(isNotNullOrUndefined).flat(),
-                    max: mapping.source.max.map(source => stats[source]).filter(isNotNullOrUndefined).flat(),
-                    percent: mapping.source.percent.map(source => stats[source]).filter(isNotNullOrUndefined).flat(),
-                    multiplier: mapping.source.multiplier.map(source => stats[source]).filter(isNotNullOrUndefined).flat(),
+                    flat: mapping.source.flat
+                        .filter(source => source.condition === undefined || source.condition(config))
+                        .map(source => stats[source.stat])
+                        .filter(isNotNullOrUndefined).flat(),
+                    max: mapping.source.max
+                        .filter(source => source.condition === undefined || source.condition(config))
+                        .map(source => stats[source.stat])
+                        .filter(isNotNullOrUndefined).flat(),
+                    percent: mapping.source.percent
+                        .filter(source => source.condition === undefined || source.condition(config))
+                        .map(source => stats[source.stat])
+                        .filter(isNotNullOrUndefined).flat(),
+                    multiplier: mapping.source.multiplier
+                        .filter(source => source.condition === undefined || source.condition(config))
+                        .map(source => stats[source.stat])
+                        .filter(isNotNullOrUndefined).flat(),
                 }
             } as CharacterStat;
         });
@@ -155,10 +167,7 @@ export class SlormancerStatsService {
         }
         const stats = this.slormancerStatsExtractorService.extractStats(character);
         
-        result.stats.hero = this.buildCharacterStats(stats.heroStats, HERO_CHARACTER_STATS_MAPPING);
-        result.stats.support = this.buildCharacterStats(stats.supportStats, []);
-        result.stats.primary = this.buildCharacterStats(stats.primaryStats, []);
-        result.stats.secondary = this.buildCharacterStats(stats.secondaryStats, []);
+        result.stats.hero = this.buildCharacterStats(stats.heroStats, HERO_CHARACTER_STATS_MAPPING, config);
 
         this.addConfigCharacterStats(result.stats.hero, config);
         this.addSkillStats(result.stats.hero, character.skills);

@@ -31,7 +31,7 @@ export class SlormancerStatsExtractorService {
         let result: Array<{ stat: string, mapping?: CharacterStatMapping }> = [];
 
         for (const mapping of HERO_CHARACTER_STATS_MAPPING) {
-            if (mapping.source.flat.indexOf(stat) !== -1 || mapping.source.percent.indexOf(stat) !== -1 || mapping.source.multiplier.indexOf(stat) !== -1) {
+            if (mapping.source.flat.some(s => s.stat === stat) || mapping.source.percent.some(s => s.stat === stat) || mapping.source.multiplier.some(s => s.stat === stat)) {
                 result.push({ stat: mapping.stat, mapping });
             }
         }
@@ -73,7 +73,6 @@ export class SlormancerStatsExtractorService {
 
             for (const effectValue of attributeTraits.values) {
                 if (!isEffectValueSynergy(effectValue)) {
-                    this.addStat(stats.heroStats, effectValue.stat, effectValue.value);
                 }
             }
 
@@ -85,6 +84,9 @@ export class SlormancerStatsExtractorService {
                         } else {
                             stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { attribute: attributeTraits }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
                         }
+                    } else if (trait.unlocked) {
+                        if (effectValue.stat === null) console.log(trait)
+                        this.addStat(stats.heroStats, effectValue.stat, effectValue.value);
                     }
                 }
             }

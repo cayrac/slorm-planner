@@ -38,9 +38,9 @@ export class AttributeLineComponent implements OnInit {
         this.updateCursor();
     }
 
-    private updateCursor(index: number = 0) {
+    private updateCursor(index: number | null = null) {
         if (this.attribute !== null) {
-            if (index === this.attribute.rank || index === 0) {
+            if (index === null) {
                 this.cappedCursor = this.attribute.rank;
                 this.highlightRange = { min: 0, max: 0 };
                 this.unlockedRange = { min: 0, max: this.attribute.rank };

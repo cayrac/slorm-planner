@@ -145,12 +145,12 @@ export class SlormancerSynergyResolverService {
                 stat = synergyResolveData.stat;
             }
 
-            if (statToUpdate.mapping === undefined || statToUpdate.mapping.source.flat.find(v => v === stat)) {
+            if (statToUpdate.mapping === undefined || statToUpdate.mapping.source.flat.find(v => v.stat === stat)) {
                 foundStat.values.flat.push(synergy);
             } else if (typeof synergy === 'number'){
-                if (statToUpdate.mapping.source.percent.find(v => v === stat)) {
+                if (statToUpdate.mapping.source.percent.find(v => v.stat === stat)) {
                     foundStat.values.percent.push(synergy);
-                } else if (statToUpdate.mapping.source.multiplier.find(v => v === stat)) {
+                } else if (statToUpdate.mapping.source.multiplier.find(v => v.stat === stat)) {
                     foundStat.values.multiplier.push(synergy);
                 }
             }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { DATA_ATTRIBUTE } from '../../constants/content/data/data-attribute';
 import { AttributeTraits } from '../../model/content/attribut-traits';
 import { AbstractEffectValue, EffectValueVariable } from '../../model/content/effect-value';
 import { Attribute } from '../../model/content/enum/attribute';
@@ -73,7 +74,8 @@ export class SlormancerAttributeService {
     }    
 
     private getTrait(gameData: GameDataAttribute | null, attribute: Attribute, rank: number, additive: boolean, requiredRank: number, cumulativeValues: Array<EffectValueVariable>): Trait {
-        return {
+        const trait: Trait = {
+            id: gameData !== null ? gameData.REF : -1,
             attribute,
             requiredRank,
             traitLevel: requiredRank % 15 === 0 ? TraitLevel.Greater : requiredRank % 5 === 0 ? TraitLevel.Major : TraitLevel.Minor,
@@ -92,10 +94,21 @@ export class SlormancerAttributeService {
             values: gameData === null ? [] : this.parseEffectValues(gameData),
             cumulativeValues
         }
+
+        if (gameData !== null) {
+            const data = DATA_ATTRIBUTE[gameData.REF];
+
+            if (data) {
+                data.override(trait);
+            }
+        }
+
+        return trait;
     }    
     
     private getTraitClone(trait: Trait): Trait {
         return {
+            id: trait.id,
             attribute: trait.attribute,
             requiredRank: trait.requiredRank,
             traitLevel: trait.traitLevel,
@@ -259,7 +272,7 @@ export class SlormancerAttributeService {
             this.updateTrait(trait);
 
             if (trait.template !== null) {
-                const description = this.slormancerTemplateService.formatTraitDescription(trait.template, trait.values)
+                const description = this.slormancerTemplateService.formatTraitDescription(trait.template, trait.values);
                 allDescriptions.push(this.slormancerTemplateService.asSpan(description, trait.unlocked ? 'unlocked' : 'locked'));
             } else {
                 const variables = trait.values.filter(isEffectValueVariable);

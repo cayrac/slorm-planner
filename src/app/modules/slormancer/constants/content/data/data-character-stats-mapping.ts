@@ -1,16 +1,21 @@
 // TODO autre liste de conditions pour chaque stat
+import { CharacterConfig } from '../../../model/character-config';
 
 
+export interface CharacterStatMappingSource {
+    stat: string;
+    condition?: (config: CharacterConfig) =>  boolean
+};
 
 export interface CharacterStatMapping {
     stat: string;
     precision: number;
     allowMinMax: boolean;
     source: {
-        flat: Array<string>;
-        max: Array<string>;
-        percent: Array<string>;
-        multiplier: Array<string>;
+        flat: Array<CharacterStatMappingSource>;
+        max: Array<CharacterStatMappingSource>;
+        percent: Array<CharacterStatMappingSource>;
+        multiplier: Array<CharacterStatMappingSource>;
     }
 }
 
@@ -21,7 +26,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['slormite_find_percent'],
+            flat: [{ stat: 'slormite_find_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -32,7 +37,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['xp_find_percent'],
+            flat: [{ stat: 'xp_find_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -43,7 +48,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['influence_gain_percent'],
+            flat: [{ stat: 'influence_gain_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -54,7 +59,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['mf_find_percent'],
+            flat: [{ stat: 'mf_find_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -65,7 +70,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['mf_qual_percent'],
+            flat: [{ stat: 'mf_qual_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -77,10 +82,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: ['the_max_health_add'],
+            flat: [{ stat: 'the_max_health_add' }],
             max: [],
-            percent: ['the_max_health_percent'],
-            multiplier: ['the_max_health_global_mult'],
+            percent: [{ stat: 'the_max_health_percent' }],
+            multiplier: [{ stat: 'the_max_health_global_mult' }],
         } 
     },
     {
@@ -88,9 +93,9 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: ['health_regen_add'],
+            flat: [{ stat: 'health_regen_add' }],
             max: [],
-            percent: ['health_regen_percent'],
+            percent: [{ stat: 'health_regen_percent' }],
             multiplier: [],
         } 
     },
@@ -99,7 +104,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 3,
         allowMinMax: false,
         source: {
-            flat: ['health_leech_percent'],
+            flat: [{ stat: 'health_leech_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -110,10 +115,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: ['health_on_hit_add'],
+            flat: [{ stat: 'health_on_hit_add' }],
             max: [],
-            percent: ['health_on_hit_percent'],
-            multiplier: ['health_on_hit_global_mult'],
+            percent: [{ stat: 'health_on_hit_percent' }],
+            multiplier: [{ stat: 'health_on_hit_global_mult' }],
         } 
     },
     {
@@ -121,10 +126,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: ['health_on_kill_add'],
+            flat: [{ stat: 'health_on_kill_add' }],
             max: [],
-            percent: ['health_on_kill_percent'],
-            multiplier: ['health_on_kill_global_mult'],
+            percent: [{ stat: 'health_on_kill_percent' }],
+            multiplier: [{ stat: 'health_on_kill_global_mult' }],
         } 
     },
     // max_mana
@@ -133,10 +138,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: ['the_max_mana_add'],
+            flat: [{ stat: 'the_max_mana_add' }],
             max: [],
-            percent: ['the_max_mana_percent'],
-            multiplier: ['the_max_mana_global_mult'],
+            percent: [{ stat: 'the_max_mana_percent' }],
+            multiplier: [{ stat: 'the_max_mana_global_mult' }],
         } 
     },
     {
@@ -144,9 +149,9 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: ['mana_regen_add'],
+            flat: [{ stat: 'mana_regen_add' }],
             max: [],
-            percent: ['mana_regen_percent'],
+            percent: [{ stat: 'mana_regen_percent' }],
             multiplier: [],
         } 
     },
@@ -155,7 +160,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 3,
         allowMinMax: false,
         source: {
-            flat: ['mana_leech_percent'],
+            flat: [{ stat: 'mana_leech_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -166,10 +171,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: ['mana_on_hit_add'],
+            flat: [{ stat: 'mana_on_hit_add' }],
             max: [],
-            percent: ['mana_on_hit_percent'],
-            multiplier: ['mana_on_hit_global_mult'],
+            percent: [{ stat: 'mana_on_hit_percent' }],
+            multiplier: [{ stat: 'mana_on_hit_global_mult' }],
         } 
     },
     {
@@ -177,10 +182,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: ['mana_on_kill_add'],
+            flat: [{ stat: 'mana_on_kill_add' }],
             max: [],
-            percent: ['mana_on_kill_percent'],
-            multiplier: ['mana_on_kill_global_mult'],
+            percent: [{ stat: 'mana_on_kill_percent' }],
+            multiplier: [{ stat: 'mana_on_kill_global_mult' }],
         } 
     },
     // movement
@@ -189,9 +194,9 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 3,
         allowMinMax: false,
         source: {
-            flat: ['the_speed_add'],
+            flat: [{ stat: 'the_speed_add' }],
             max: [],
-            percent: ['the_speed_percent'],
+            percent: [{ stat: 'the_speed_percent' }],
             multiplier: [],
         } 
     },
@@ -201,10 +206,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 3,
         allowMinMax: false,
         source: {
-            flat: ['cooldown_reduction_percent'],
+            flat: [{ stat: 'cooldown_reduction_percent' }],
             max: [],
             percent: [],
-            multiplier: ['cooldown_reduction_global_mult'],
+            multiplier: [{ stat: 'cooldown_reduction_global_mult' }],
         } 
     },
     {
@@ -212,7 +217,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['crit_chance_percent'],
+            flat: [{ stat: 'crit_chance_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -223,7 +228,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['crit_damage_percent'],
+            flat: [{ stat: 'crit_damage_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -234,7 +239,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['brut_chance_percent'],
+            flat: [{ stat: 'brut_chance_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -245,7 +250,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['brut_damage_percent'],
+            flat: [{ stat: 'brut_damage_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -256,7 +261,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['armor_penetration_percent'],
+            flat: [{ stat: 'armor_penetration_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -267,7 +272,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['elemental_penetration_percent'],
+            flat: [{ stat: 'elemental_penetration_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -278,7 +283,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['dot_increased_damage_percent'],
+            flat: [{ stat: 'dot_increased_damage_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -289,7 +294,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['increased_damage_on_elite_percent'],
+            flat: [{ stat: 'increased_damage_on_elite_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -300,10 +305,13 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: ['res_phy_add'],
+            flat: [{ stat: 'res_phy_add' }],
             max: [],
-            percent: ['res_phy_percent'],
-            multiplier: ['res_phy_global_mult'],
+            percent: [{ stat: 'res_phy_percent' }],
+            multiplier: [
+                { stat: 'res_phy_global_mult' },
+                { stat: 'res_phy_global_mult_on_low_life', condition: config => config.percent_missing_health > 80 }
+            ],
         } 
     },
     {
@@ -311,10 +319,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: ['res_mag_add'],
+            flat: [{ stat: 'res_mag_add' }],
             max: [],
-            percent: ['res_mag_percent'],
-            multiplier: ['res_mag_global_mult'],
+            percent: [{ stat: 'res_mag_percent' }],
+            multiplier: [{ stat: 'res_mag_global_mult' }],
         } 
     },
     {
@@ -322,7 +330,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: ['fire_resistance_percent'],
+            flat: [{ stat: 'fire_resistance_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -333,7 +341,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: ['ice_resistance_percent'],
+            flat: [{ stat: 'ice_resistance_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -344,7 +352,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: ['lightning_resistance_percent'],
+            flat: [{ stat: 'lightning_resistance_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -355,7 +363,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: ['light_resistance_percent'],
+            flat: [{ stat: 'light_resistance_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -366,7 +374,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: ['shadow_resistance_percent'],
+            flat: [{ stat: 'shadow_resistance_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -377,10 +385,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: ['dodge_add'],
+            flat: [{ stat: 'dodge_add' }],
             max: [],
-            percent: ['dodge_percent'],
-            multiplier: ['dodge_global_mult'],
+            percent: [{ stat: 'dodge_percent' }],
+            multiplier: [{ stat: 'dodge_global_mult' }],
         } 
     },
     {
@@ -388,10 +396,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: ['thorns_add'],
+            flat: [{ stat: 'thorns_add' }],
             max: [],
-            percent: ['thorns_percent'],
-            multiplier: ['thorns_global_mult'],
+            percent: [{ stat: 'thorns_percent' }],
+            multiplier: [{ stat: 'thorns_global_mult' }],
         } 
     },
     {
@@ -399,7 +407,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['retaliate_percent'],
+            flat: [{ stat: 'retaliate_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -410,7 +418,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['tenacity_percent'],
+            flat: [{ stat: 'tenacity_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -421,7 +429,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['reduced_damage_from_all_percent'],
+            flat: [{ stat: 'reduced_damage_from_all_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -432,7 +440,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['reduced_damage_on_elite_percent'],
+            flat: [{ stat: 'reduced_damage_on_elite_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -443,7 +451,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['reduced_damage_from_melee_percent'],
+            flat: [{ stat: 'reduced_damage_from_melee_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -454,7 +462,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['reduced_damage_from_projectile_percent'],
+            flat: [{ stat: 'reduced_damage_from_projectile_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -465,7 +473,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['reduced_damage_from_area_percent'],
+            flat: [{ stat: 'reduced_damage_from_area_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -476,7 +484,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['gold_find_percent'],
+            flat: [{ stat: 'gold_find_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -487,7 +495,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['scrap_find_percent'],
+            flat: [{ stat: 'scrap_find_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -498,7 +506,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['slormite_find_percent'],
+            flat: [{ stat: 'slormite_find_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -509,7 +517,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['slormeline_find_percent'],
+            flat: [{ stat: 'slormeline_find_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -520,7 +528,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['reaper_find_percent'],
+            flat: [{ stat: 'reaper_find_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -531,7 +539,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['reaper_xp_find_percent'],
+            flat: [{ stat: 'reaper_xp_find_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -542,7 +550,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['skill_mastery_gain_percent'],
+            flat: [{ stat: 'skill_mastery_gain_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -553,7 +561,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['inner_fire_chance_percent'],
+            flat: [{ stat: 'inner_fire_chance_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -564,9 +572,9 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['inner_fire_max_number_add'],
+            flat: [{ stat: 'inner_fire_max_number_add' }],
             max: [],
-            percent: ['inner_fire_max_number_percent'],
+            percent: [{ stat: 'inner_fire_max_number_percent' }],
             multiplier: [],
         } 
     },
@@ -575,9 +583,9 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 2,
         allowMinMax: false,
         source: {
-            flat: ['inner_fire_duration_add'],
+            flat: [{ stat: 'inner_fire_duration_add' }],
             max: [],
-            percent: ['inner_fire_duration_percent'],
+            percent: [{ stat: 'inner_fire_duration_percent' }],
             multiplier: [],
         } 
     },
@@ -586,9 +594,9 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['inner_fire_damage_add'],
+            flat: [{ stat: 'inner_fire_damage_add' }],
             max: [],
-            percent: ['inner_fire_damage_percent'],
+            percent: [{ stat: 'inner_fire_damage_percent' }],
             multiplier: [],
         } 
     },
@@ -597,7 +605,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['overdrive_chance_percent'],
+            flat: [{ stat: 'overdrive_chance_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -608,9 +616,9 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['overdrive_bounce_number_add'],
+            flat: [{ stat: 'overdrive_bounce_number_add' }],
             max: [],
-            percent: ['overdrive_bounce_number_percent'],
+            percent: [{ stat: 'overdrive_bounce_number_percent' }],
             multiplier: [],
         } 
     },
@@ -619,7 +627,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['overdrive_damage_percent'],
+            flat: [{ stat: 'overdrive_damage_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -630,7 +638,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['recast_chance_percent'],
+            flat: [{ stat: 'recast_chance_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -641,9 +649,9 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['knockback_melee_add'],
+            flat: [{ stat: 'knockback_melee_add' }],
             max: [],
-            percent: ['knockback_melee_percent'],
+            percent: [{ stat: 'knockback_melee_percent' }],
             multiplier: [],
         } 
     },
@@ -652,9 +660,9 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['knockback_melee_add'],
+            flat: [{ stat: 'knockback_melee_add' }],
             max: [],
-            percent: ['knockback_melee_percent'],
+            percent: [{ stat: 'knockback_melee_percent' }],
             multiplier: [],
         } 
     },
@@ -663,9 +671,9 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['additional_projectile_add'],
+            flat: [{ stat: 'additional_projectile_add' }],
             max: [],
-            percent: ['additional_projectile_percent'],
+            percent: [{ stat: 'additional_projectile_percent' }],
             multiplier: [],
         } 
     },
@@ -674,7 +682,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['chance_to_pierce_percent'],
+            flat: [{ stat: 'chance_to_pierce_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -685,7 +693,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['fork_chance_percent'],
+            flat: [{ stat: 'fork_chance_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -696,7 +704,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['rebound_chance_percent'],
+            flat: [{ stat: 'rebound_chance_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -707,7 +715,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['increased_proj_speed_percent'],
+            flat: [{ stat: 'increased_proj_speed_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -718,9 +726,9 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['knockback_projectile_add'],
+            flat: [{ stat: 'knockback_projectile_add' }],
             max: [],
-            percent: ['knockback_projectile_percent'],
+            percent: [{ stat: 'knockback_projectile_percent' }],
             multiplier: [],
         } 
     },
@@ -729,7 +737,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['aoe_increased_size_percent'],
+            flat: [{ stat: 'aoe_increased_size_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -740,7 +748,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['aoe_increased_effect_percent'],
+            flat: [{ stat: 'aoe_increased_effect_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -751,7 +759,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['totem_increased_effect_percent'],
+            flat: [{ stat: 'totem_increased_effect_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -762,7 +770,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['aura_increased_effect_percent'],
+            flat: [{ stat: 'aura_increased_effect_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -773,7 +781,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: ['minion_increased_damage_percent'],
+            flat: [{ stat: 'minion_increased_damage_percent' }],
             max: [],
             percent: [],
             multiplier: [],
@@ -784,10 +792,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: true,
         source: {
-            flat: ['min_elemental_damage_add'],
-            max: ['max_elemental_damage_add'],
-            percent: ['elemental_damage_percent'],
-            multiplier: ['elemental_damage_mult', 'elemental_damage_global_mult'],
+            flat: [{ stat: 'min_elemental_damage_add' }],
+            max: [{ stat: 'max_elemental_damage_add' }],
+            percent: [{ stat: 'elemental_damage_percent' }],
+            multiplier: [{ stat: 'elemental_damage_mult' }, { stat: 'elemental_damage_global_mult' }],
         } 
     },
     {
@@ -795,10 +803,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: true,
         source: {
-            flat: ['min_basic_damage_add'],
-            max: ['max_basic_damage_add'],
-            percent: ['basic_damage_percent'],
-            multiplier: ['basic_damage_percent_mult', 'basic_damage_percent_global_mult'],
+            flat: [{ stat: 'min_basic_damage_add' }],
+            max: [{ stat: 'max_basic_damage_add' }],
+            percent: [{ stat: 'basic_damage_percent' }],
+            multiplier: [{ stat: 'basic_damage_percent_mult' }, { stat: 'basic_damage_percent_global_mult' }],
         } 
     },
     {
@@ -806,10 +814,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: true,
         source: {
-            flat: ['min_weapon_damage_add'],
-            max: ['max_weapon_damage_add'],
+            flat: [{ stat: 'min_weapon_damage_add' }],
+            max: [{ stat: 'max_weapon_damage_add' }],
             percent: [],
-            multiplier: ['weapon_damage_mult'],
+            multiplier: [{ stat: 'weapon_damage_mult' }],
         } 
     },
     {
@@ -817,7 +825,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: true,
         source: {
-            flat: ['basic_to_physical_damage', 'weapon_to_physical_damage'],
+            flat: [{ stat: 'basic_to_physical_damage' }, { stat: 'weapon_to_physical_damage' }],
             max: [],
             percent: [],
             multiplier: [],
