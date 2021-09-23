@@ -114,7 +114,7 @@ export class PlannerService {
         if (this.planner !== null && this.planner.layers.length > 1) {
             this.planner.layers.splice(index, 1);
             this.layersChanged.next(this.planner.layers);
-            this.setLayerIndex(Math.min(this.planner.layers.length - 1, index));
+            this.setLayerIndex(Math.min(this.planner.layers.length - 1, index), true);
         }
     }
 

@@ -32,6 +32,17 @@ export interface CharacterStatMapping {
 export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
     // adventure
     {
+        stat: 'level',
+        precision: 0,
+        allowMinMax: false,
+        source: {
+            flat: [{ stat: 'hero_level' }],
+            max: [],
+            percent: [],
+            multiplier: [],
+        } 
+    },
+    {
         stat: 'essence_find',
         precision: 1,
         allowMinMax: false,
@@ -230,6 +241,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             max: [],
             percent: [],
             multiplier: [
+                { stat: 'adam_blessing_buff_cooldown_reduction_global_mult', condition: config => config.has_adam_blessing_buff },
                 { stat: 'cooldown_reduction_global_mult' },
                 { stat: 'cooldown_reduction_global_mult_after_crit', condition: (config, stats) => config.seconds_since_last_crit <= getFirstStat(stats, 'cooldown_reduction_global_mult_after_crit_duration', 0) }
             ],
@@ -244,7 +256,6 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             max: [],
             percent: [],
             multiplier: [
-                { stat: 'enemy_cooldown_reduction_global_mult' },
                 { stat: 'aura_air_conditionner_enemy_cooldown_reduction_global_mult', condition: config => config.has_aura_air_conditionner },
             ],
         } 

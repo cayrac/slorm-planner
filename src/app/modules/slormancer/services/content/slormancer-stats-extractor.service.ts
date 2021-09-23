@@ -118,6 +118,7 @@ export class SlormancerStatsExtractorService {
                     if (this.isDamageStat(effectValue.stat)) {
                         stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { reaper: character.reaper }));
                     } else {
+                        console.log('reaper synergy', synergyResolveData(effectValue, effectValue.synergy, { reaper: character.reaper }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
                         stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { reaper: character.reaper }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
                     }
                 } else {
@@ -218,6 +219,7 @@ export class SlormancerStatsExtractorService {
         for (const baseStat of baseStats) {
             this.addStat(stats.heroStats, baseStat[0], baseStat[1]);
         }
+        this.addStat(stats.heroStats, 'hero_level', character.level);
     }
 
     private addStat(cache: { [key: string]: Array<number> }, stat: string, value: number) {

@@ -42,6 +42,8 @@ export class ReaperEditModalComponent {
 
         this.reaper = this.slormancerReaperService.getReaperClone(this.originalReaper);
         this.form = this.buildForm();
+
+        console.log(this.reaper);
     }
     
     public reset() {

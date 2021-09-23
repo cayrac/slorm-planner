@@ -67,30 +67,27 @@ function moveValue(source: ReaperEffect | null, index: number, target: ReaperEff
 export const DATA_REAPER: { [key: number]: DataReaper } = {
     0: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'min_basic_damage_add');
-            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'nmin_elemental_damage_add');
+            // overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'min_basic_damage_add');
+            // overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'nmin_elemental_damage_add');
         }
     },
     1: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'life_heal_on_breach_closed');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'health_restored_on_breach_close');
         }
     },
     2: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'adam_nostrus_reaper_buff_attack_speed');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Duration, 'adam_nostrus_reaper_buff_duration');
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Duration, 'adam_nostrus_reaper_buff_duration_per_monster');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'adam_blessing_buff_cooldown_reduction_global_mult');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Duration, 'adam_blessing_buff_duration');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Duration, 'adam_blessing_buff_duration_per_monster');
         }
     },
     3: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'xp_find_percent');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'trainee_reaper_effect_chance');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'trainee_reaper_effect_damages');
-            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'xp_find_percent');
-            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'xp_find_global_mult');
-            overrideValueTypeAndStat(be, 2, EffectValueValueType.Stat, 'min_weapon_damage_add');
+            // overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'xp_find');
         }
     },
     6: {

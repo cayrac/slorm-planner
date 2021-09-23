@@ -156,7 +156,7 @@ export class SlormancerSynergyResolverService {
                 }
             }
 
-            // console.log('Synergy added ' + (typeof synergy === 'number' ? synergy : synergy.min + '-' + synergy.max) + ' ' + stat + ' to ' + foundStat.stat);
+            console.log('Synergy added ' + (typeof synergy === 'number' ? synergy : synergy.min + '-' + synergy.max) + ' ' + stat + ' to ' + foundStat.stat);
 
             this.slormancerStatUpdaterService.updateStatTotal(foundStat);
         }

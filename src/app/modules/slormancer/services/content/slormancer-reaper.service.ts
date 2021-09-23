@@ -115,19 +115,19 @@ export class SlormancerReaperService {
         return result;
     }
 
-    private parseReaperEffectVariableValue(base: number, level: string | null, type: string | null): AbstractEffectValue {
+    private parseReaperEffectVariableValue(base: number, level: string | null, type: string | null, stat: string | null): AbstractEffectValue {
         let result: AbstractEffectValue;
 
         if (level === null) {
-            result = effectValueVariable(base, 0, EffectValueUpgradeType.ReaperLevel, type === '%');
+            result = effectValueVariable(base, 0, EffectValueUpgradeType.ReaperLevel, type === '%', stat);
         } else {
-            result = effectValueVariable(0, base, this.parseUpgradeType(level), type === '%');
+            result = effectValueVariable(0, base, this.parseUpgradeType(level), type === '%', stat);
         }
 
         return result;        
     }
 
-    private parseReaperEffectSynergyValue(real: string | null): AbstractEffectValue {
+    private parseReaperEffectSynergyValue(real: string | null, stat: string | null): AbstractEffectValue {
         let result: AbstractEffectValue;
 
         const typeValues = splitData(real, ':');
@@ -136,37 +136,45 @@ export class SlormancerReaperService {
         const isVariable = brutValue.indexOf('*') !== -1;
         const [upgradeValue, upgradeType] = splitData(brutValue, '*');
 
-        const value = isVariable ? 0 : strictParseFloat(brutValue);
+        const value = isVariable ? 0 : strictParseFloat(brutValue) * 100;
         const upgrade = isVariable ? strictParseFloat(<string>upgradeValue) : 0;
-        result = effectValueSynergy(value, upgrade, this.parseUpgradeType(valueOrNull(upgradeType)), false, source);
+        result = effectValueSynergy(value, upgrade, this.parseUpgradeType(valueOrNull(upgradeType)), false, source, stat);
         
         return result;   
     }
 
-    private getReaperValues(bases: Array<string>, types: Array<string>, levels: Array<string>, reals: Array<string>): Array<AbstractEffectValue> {
+    private getReaperValues(bases: Array<string>, types: Array<string>, levels: Array<string>, reals: Array<string>, stats: Array<string>): Array<AbstractEffectValue> {
         const result: Array<AbstractEffectValue> = [];
         
+        console.log('getReaperValues : ', bases, types, levels, reals);
+
+        // TODO revoir le parsing des reaper values
+
         const nb = Math.max(types.length, bases.length, levels.length);
         for (let i of list(nb)) {
             const base = notEmptyOrNull(bases[i]);
             const level = notEmptyOrNull(levels[i]);
             const type = notEmptyOrNull(types[i]);
+            const stat = notEmptyOrNull(stats[i]);
+            const real = notEmptyOrNull(reals[i]);
+
+            console.log('real ??? ' + real);
 
             const parsedBase = base === null ? null : strictParseFloat(base);
 
             if (parsedBase !== null) {
-                result.push(this.parseReaperEffectVariableValue(parsedBase, level, type));
+                result.push(this.parseReaperEffectVariableValue(parsedBase, level, type, stat));
             }
         }
 
         for (let real of reals) {
-            result.push(this.parseReaperEffectSynergyValue(real));
+            result.push(this.parseReaperEffectSynergyValue(real, null));
         }
         
         return result;
     }
 
-    private getReaperEffect(template: string | null, base: string | null, type: string | null, level: string | null, real: string | null): ReaperEffect {
+    private getReaperEffect(template: string | null, base: string | null, type: string | null, level: string | null, real: string | null, stat: string | null): ReaperEffect {
         let result: ReaperEffect = {
             template: template !== null && template !== '|' ? template : null,
             values: []
@@ -175,8 +183,9 @@ export class SlormancerReaperService {
         const parsedBase = base === null ? [] : splitData(base, '|');
         const parsedType = type === null ? [] : splitData(type, '|');
         const parsedLevel = level === null ? [] : splitData(level, '|');
-        const parsedReal = removeEmptyValues(real === null ? [] : splitData(real, '|'));
-        result.values = this.getReaperValues(parsedBase, parsedType, parsedLevel, parsedReal);
+        const parsedStat = stat === null ? [] : splitData(stat, '|');
+        const parsedReal = real === null ? [] : splitData(real, '|');
+        result.values = this.getReaperValues(parsedBase, parsedType, parsedLevel, parsedReal, parsedStat);
 
         return result;
     }
@@ -202,6 +211,7 @@ export class SlormancerReaperService {
             const [baseTemplate, benedictionTemplate, maledictionTemplate] =
                 this.slormancerTemplateService.prepareReaperDescriptionTemplate(template, stats);
 
+            const [statStat, benedictionStat, maledictionStat] = splitData(data.VALUE_STAT, '\n');
             const [descBase, benedictionBase, maledictionBase] = splitData(data.VALUE_BASE, '\n');
             const [descType, benedictionType, maledictionType] = splitData(data.VALUE_TYPE, '\n');
             const [descLevel, benedictionLevel, maledictionLevel] = splitData(data.VALUE_LEVEL, '\n');
@@ -212,17 +222,23 @@ export class SlormancerReaperService {
                             valueOrNull(descBase),
                             valueOrNull(descType),
                             valueOrNull(descLevel),
-                            valueOrNull(descReal));
+                            valueOrNull(descReal),
+                            valueOrNull(statStat)
+                            );
             const benedictionEffect = this.getReaperEffect(valueOrNull(benedictionTemplate),
                             valueOrNull(benedictionBase),
                             valueOrNull(benedictionType),
                             valueOrNull(benedictionLevel),
-                            valueOrNull(benedictionReal));
+                            valueOrNull(benedictionReal),
+                            valueOrNull(benedictionStat)
+                            );
             const maledictionEffect = this.getReaperEffect(valueOrNull(maledictionTemplate),
                             valueOrNull(maledictionBase),
                             valueOrNull(maledictionType),
                             valueOrNull(maledictionLevel),
-                            valueOrNull(maledictionReal));
+                            valueOrNull(maledictionReal),
+                            valueOrNull(maledictionStat)
+                            );
 
             if (reaperData !== null) {
                 reaperData.override(baseEffect, benedictionEffect, maledictionEffect, gameData.REF);

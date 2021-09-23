@@ -25,5 +25,6 @@ export interface CharacterConfig {
     has_elemental_temper_buff: boolean;
     has_soul_bound_buff: boolean;
     has_burning_shadow_buff: boolean;
+    has_adam_blessing_buff: boolean;
     distance_with_target: number;
 }
