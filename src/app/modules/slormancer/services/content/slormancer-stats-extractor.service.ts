@@ -76,6 +76,7 @@ export class SlormancerStatsExtractorService {
 
             for (const effectValue of attributeTraits.values) {
                 if (!isEffectValueSynergy(effectValue)) {
+                    this.addStat(stats.heroStats, effectValue.stat, effectValue.value);
                 }
             }
 
