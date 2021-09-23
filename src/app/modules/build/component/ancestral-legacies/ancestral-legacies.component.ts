@@ -64,7 +64,8 @@ export class AncestralLegaciesComponent extends AbstractUnsubscribeComponent imp
         if (this.character !== null) {
             for (const ancestralLegacy of this.character.ancestralLegacies.ancestralLegacies) {
                 ancestralLegacy.baseRank = ancestralLegacy.baseMaxRank;
-                this.slormancerAncestralLegacyService.updateAncestralLegacy(ancestralLegacy);
+                this.slormancerAncestralLegacyService.updateAncestralLegacyModel(ancestralLegacy, ancestralLegacy.baseMaxRank);
+                this.slormancerAncestralLegacyService.updateAncestralLegacyView(ancestralLegacy);
             }
             this.plannerService.updateCurrentCharacter();
             this.messageService.message('All ancestral legacies ranks set to maximum');

@@ -106,7 +106,8 @@ export class SearchService {
             ...ancestralLegacy.relatedMechanics.map(mechanic => mechanic.name),
             ...ancestralLegacy.types,
             ancestralLegacy.typeLabel,
-            ancestralLegacy.genresLabel
+            ancestralLegacy.genresLabel,
+            ancestralLegacy.costLabel
         ]);
     }
 

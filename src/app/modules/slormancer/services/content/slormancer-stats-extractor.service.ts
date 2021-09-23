@@ -57,14 +57,22 @@ export class SlormancerStatsExtractorService {
             for (const effectValue of ancestralLegacy.values) {
                 if (isEffectValueSynergy(effectValue)) {
                     if (equipped && !ancestralLegacy.isActivable && !this.isDamageStat(effectValue.stat)) {
-                        if (equipped && !ancestralLegacy.isActivable && !this.isDamageStat(effectValue.stat)) {
-                            stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { ancestralLegacy }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
-                        } else {                        
-                            stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { ancestralLegacy }));
-                        }
+                        stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { ancestralLegacy }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
+                    } else {                        
+                        stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { ancestralLegacy }));
                     }
                 } else if (equipped && !ancestralLegacy) {
                     this.addStat(stats.heroStats, effectValue.stat, effectValue.value);
+                }
+            }
+            for (const effectValue of ancestralLegacy.nextRankValues) {
+                if (isEffectValueSynergy(effectValue)) {                      
+                    stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { ancestralLegacy }));
+                }
+            }
+            for (const effectValue of ancestralLegacy.maxRankValues) {
+                if (isEffectValueSynergy(effectValue)) {                      
+                    stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { ancestralLegacy }));
                 }
             }
         }

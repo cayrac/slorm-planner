@@ -79,7 +79,7 @@ export class SlormancerAncestralLegacyService {
             if (stat !== null && this.isDamageStat(stat)) {
                 const damageType = valueOrDefault(damageTypes.splice(0, 1)[0], 'phy');
                 const source = damageType === 'phy' ? 'physical_damage' : 'elemental_damage';
-                result.push(effectValueSynergy(baseValue, upgrade, EffectValueUpgradeType.AncestralRank, percent, source, EffectValueValueType.Damage));
+                result.push(effectValueSynergy(baseValue, upgrade, EffectValueUpgradeType.AncestralRank, false, source, EffectValueValueType.Damage));
             } else if (type === null) {
                 result.push(effectValueVariable(baseValue, upgrade, EffectValueUpgradeType.AncestralRank, percent, stat));
             } else if (type === 'negative') {
@@ -94,21 +94,16 @@ export class SlormancerAncestralLegacyService {
         return result;
     }    
     
-    private getNextRankUpgradeDescription(ancestralLegacy: AncestralLegacy, rank: number): Array<string> {
+    private getNextRankUpgradeDescription(ancestralLegacy: AncestralLegacy, values: Array<AbstractEffectValue>, cost: number | null): Array<string> {
         const skills = [];
 
-        const cost = ancestralLegacy.baseCost === null ? null : ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * rank);
         if (cost !== null && cost > 0 && ancestralLegacy.costPerRank !== null && ancestralLegacy.costPerRank !== 0) {
             const costClass = ancestralLegacy.hasLifeCost ? 'life' : 'mana';
-            const description = '<span class="' + costClass + '">' + cost + '</span> ' + this.slormancerTranslateService.translate(ancestralLegacy.costType);
+            const description = '<span class="' + costClass + '">' + cost + '</span> ' + this.slormancerTranslateService.translate('tt_' + ancestralLegacy.costType);
             skills.push(description);
         }
 
-        const attributes = ancestralLegacy.values
-            .filter(value => (isEffectValueSynergy(value) || isEffectValueVariable(value)) && value.upgrade !== 0)
-            .map(value => this.slormancerEffectValueService.getEffectValueClone(value))
-            .map(value => this.slormancerEffectValueService.updateEffectValue(value, rank))
-            .map(value => this.slormancerTemplateService.formatNextRankDescription('@ £', value));
+        const attributes = values.map(value => this.slormancerTemplateService.formatNextRankDescription('@ £', value));
 
         return [ ...skills, ...attributes ]
     }
@@ -148,13 +143,14 @@ export class SlormancerAncestralLegacyService {
             types: [ ...ancestralLegacy.types ],
             damageTypes: [ ...ancestralLegacy.damageTypes ],
             genres: [ ...ancestralLegacy.genres ],
-            links: [ ...ancestralLegacy.links ],
             nextRankDescription: [ ...ancestralLegacy.nextRankDescription ],
             maxRankDescription: [ ...ancestralLegacy.maxRankDescription ],
             relatedBuffs: [ ...ancestralLegacy.relatedBuffs ],
             relatedMechanics: [ ...ancestralLegacy.relatedMechanics ],
-            values: ancestralLegacy.values.map(value => this.slormancerEffectValueService.getEffectValueClone(value))
-        };
+            values: ancestralLegacy.values.map(value => this.slormancerEffectValueService.getEffectValueClone(value)),
+            nextRankValues: ancestralLegacy.nextRankValues.map(value => this.slormancerEffectValueService.getEffectValueClone(value)),
+            maxRankValues: ancestralLegacy.maxRankValues.map(value => this.slormancerEffectValueService.getEffectValueClone(value))
+        } as AncestralLegacy
     }
 
 
@@ -179,10 +175,13 @@ export class SlormancerAncestralLegacyService {
                 auraBuff: gameData.AURA_BUFF_NAME === null ? null : this.slormancerBuffService.getBuff(gameData.AURA_BUFF_NAME),
                 genres: <Array<SkillGenre>>splitData(gameData.GENRE, ","),
                 cost: null,
+                nextRankCost: null,
+                maxRankCost: null,
                 baseCost: gameData.COST,
                 costPerRank: gameData.COST_LEVEL,
                 costType: <SkillCostType>gameData.COST_TYPE,
                 rank: 0,
+                nextRank: 1,
                 baseRank: rank,
                 bonusRank: bonusRank,
                 baseMaxRank: gameData.UPGRADE_NUMBER,
@@ -191,7 +190,6 @@ export class SlormancerAncestralLegacyService {
                 hasManaCost: false,
                 hasNoCost: false,
                 realm: gameData.REALM,
-                links: data === null ? [] : data.links,
                 isActivable: false,
 
                 nextRankDescription: [],
@@ -207,25 +205,52 @@ export class SlormancerAncestralLegacyService {
                 rankLabel: '',
 
                 template: this.slormancerTemplateService.prepareAncestralLegacyDescriptionTemplate(gameData),
-                values
+                values,
+                nextRankValues: values
+                    .filter(value => (isEffectValueSynergy(value) || isEffectValueVariable(value)) && value.upgrade !== 0)
+                    .map(value => this.slormancerEffectValueService.getEffectValueClone(value)),
+                maxRankValues: values
+                    .filter(value => (isEffectValueSynergy(value) || isEffectValueVariable(value)) && value.upgrade !== 0)
+                    .map(value => this.slormancerEffectValueService.getEffectValueClone(value)),
             }
 
             if (data !== null && data.override) {
                 data.override(ancestralLegacy.values);
             }
 
-            this.updateAncestralLegacy(ancestralLegacy);
+            this.updateAncestralLegacyModel(ancestralLegacy, rank, bonusRank);
+            this.updateAncestralLegacyView(ancestralLegacy);
         }
 
         return ancestralLegacy;
     }
 
-    public updateAncestralLegacy(ancestralLegacy: AncestralLegacy) {
-        ancestralLegacy.baseRank = Math.min(ancestralLegacy.baseMaxRank, Math.max(0, ancestralLegacy.baseRank));
-        ancestralLegacy.bonusRank = Math.max(0, ancestralLegacy.bonusRank);
-        ancestralLegacy.rank = ancestralLegacy.bonusRank + ancestralLegacy.baseRank;
-        ancestralLegacy.maxRank = ancestralLegacy.bonusRank + ancestralLegacy.baseMaxRank;
-        ancestralLegacy.cost = ancestralLegacy.baseCost === null ? null : ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * ancestralLegacy.rank);
+    public updateAncestralLegacyModel(ancestralLegacy: AncestralLegacy, rank: number, bonusRank: number = ancestralLegacy.bonusRank) {
+        ancestralLegacy.baseRank = Math.min(ancestralLegacy.baseMaxRank, Math.max(0, rank));
+        ancestralLegacy.bonusRank = Math.max(0, bonusRank);
+        ancestralLegacy.rank = ancestralLegacy.baseRank + ancestralLegacy.bonusRank;
+        ancestralLegacy.maxRank = ancestralLegacy.baseMaxRank + ancestralLegacy.bonusRank;
+        ancestralLegacy.nextRank = Math.min(ancestralLegacy.rank + 1, ancestralLegacy.maxRank);
+
+        ancestralLegacy.cost = null;
+        ancestralLegacy.nextRankCost = null;
+        ancestralLegacy.maxRankCost = null;
+        if (ancestralLegacy.baseCost !== null) {
+            ancestralLegacy.cost = ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * Math.max(1, ancestralLegacy.rank));
+            ancestralLegacy.nextRankCost = ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * ancestralLegacy.nextRank);
+            ancestralLegacy.maxRankCost = ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * ancestralLegacy.maxRank);    
+        }
+
+        for (const effectValue of ancestralLegacy.values) {
+            this.slormancerEffectValueService.updateEffectValue(effectValue, Math.max(1, ancestralLegacy.rank));
+        }
+        for (const effectValue of ancestralLegacy.nextRankValues) {
+            this.slormancerEffectValueService.updateEffectValue(effectValue, ancestralLegacy.nextRank);
+        }
+        for (const effectValue of ancestralLegacy.maxRankValues) {
+            this.slormancerEffectValueService.updateEffectValue(effectValue, ancestralLegacy.maxRank);
+        }
+
         ancestralLegacy.cooldown = ancestralLegacy.baseCooldown;
 
         ancestralLegacy.hasLifeCost = ancestralLegacy.costType === SkillCostType.LifePercent || ancestralLegacy.costType === SkillCostType.LifeSecond || ancestralLegacy.costType === SkillCostType.LifeLock || ancestralLegacy.costType === SkillCostType.Life;
@@ -233,11 +258,9 @@ export class SlormancerAncestralLegacyService {
         ancestralLegacy.hasNoCost = ancestralLegacy.costType === SkillCostType.None || ancestralLegacy.cost === 0;
 
         ancestralLegacy.isActivable = !ancestralLegacy.hasNoCost || ancestralLegacy.baseCooldown !== null;
+    }
 
-        for (const effectValue of ancestralLegacy.values) {
-            this.slormancerEffectValueService.updateEffectValue(effectValue, ancestralLegacy.rank);
-        }
-
+    public updateAncestralLegacyView(ancestralLegacy: AncestralLegacy) {
         ancestralLegacy.genresLabel =  null;
         if (ancestralLegacy.genres.length > 0) {
             ancestralLegacy.genresLabel = ancestralLegacy.genres
@@ -264,13 +287,13 @@ export class SlormancerAncestralLegacyService {
         ancestralLegacy.rankLabel = this.RANK_LABEL + ': ' + this.slormancerTemplateService.asSpan(ancestralLegacy.rank.toString(), 'current') + '/' + ancestralLegacy.baseMaxRank;
         
         const descriptionPrefix = this.isActivable(ancestralLegacy.types) ? this.slormancerTranslateService.translate(this.ACTIVE_PREFIX) + '<br/>' : '';
-        ancestralLegacy.description = descriptionPrefix + this.slormancerTemplateService.formatUpgradeDescription(ancestralLegacy.template, ancestralLegacy.values);
+        ancestralLegacy.description = descriptionPrefix + this.slormancerTemplateService.formatAncestralLegacyDescription(ancestralLegacy.template, ancestralLegacy.values);
         
         ancestralLegacy.nextRankDescription = [];
         ancestralLegacy.maxRankDescription = [];
         if (ancestralLegacy.baseMaxRank > 1 && ancestralLegacy.baseRank < ancestralLegacy.maxRank) {
-            ancestralLegacy.nextRankDescription = this.getNextRankUpgradeDescription(ancestralLegacy, Math.max(1, ancestralLegacy.rank + 1));
-            ancestralLegacy.maxRankDescription = this.getNextRankUpgradeDescription(ancestralLegacy, ancestralLegacy.maxRank);
+            ancestralLegacy.nextRankDescription = this.getNextRankUpgradeDescription(ancestralLegacy, ancestralLegacy.nextRankValues, ancestralLegacy.nextRankCost);
+            ancestralLegacy.maxRankDescription = this.getNextRankUpgradeDescription(ancestralLegacy, ancestralLegacy.maxRankValues, ancestralLegacy.maxRankCost);
         }
     }
 

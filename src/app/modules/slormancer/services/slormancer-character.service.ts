@@ -24,7 +24,7 @@ export class SlormancerCharacterService {
     public readonly CHARACTER_CONFIG: CharacterConfig = {
         percent_missing_health: 0,
         percent_missing_mana: 0,
-        percent_lock_mana: 0,
+        percent_lock_mana: 50,
         overall_reputation: 100,
         seconds_since_last_crit: 100,
         seconds_since_last_dodge: 100,
@@ -134,8 +134,8 @@ export class SlormancerCharacterService {
 
         const ancestralLegaciesToUpdate = character.ancestralLegacies.ancestralLegacies.filter(al => al.bonusRank !== ancestralLegacyBonuses);
         for (const ancestralLegacy of ancestralLegaciesToUpdate) {
-            ancestralLegacy.bonusRank = ancestralLegacyBonuses;
-            this.slormancerAncestralLegacyService.updateAncestralLegacy(ancestralLegacy);
+            this.slormancerAncestralLegacyService.updateAncestralLegacyModel(ancestralLegacy, ancestralLegacy.rank, ancestralLegacyBonuses);
+            this.slormancerAncestralLegacyService.updateAncestralLegacyView(ancestralLegacy);
         }
     }
 
@@ -145,7 +145,7 @@ export class SlormancerCharacterService {
             this.slormancerItemService.updateEquippableItem(item);
         }
         for (const ancestralLegacy of statsResult.changed.ancestralLegacies.filter(isFirst)) {
-            this.slormancerAncestralLegacyService.updateAncestralLegacy(ancestralLegacy); 
+            this.slormancerAncestralLegacyService.updateAncestralLegacyView(ancestralLegacy); 
             // console.log('Updating ancestral legacy : ' + ancestralLegacy.name);
         }
         for (const reaper of statsResult.changed.reapers.filter(isFirst)) {

@@ -92,7 +92,7 @@ export class SlormancerTemplateService {
         return template;
     }
 
-    private getEffectValueDetails(effectValue: EffectValueVariable | EffectValueSynergy): string {
+    private getEffectValueDetails(effectValue: EffectValueVariable | EffectValueSynergy, hideBase: boolean = false): string {
         let result = '';
         const percent = (effectValue.percent || isEffectValueSynergy(effectValue)) ? '%' : '';
 
@@ -101,18 +101,19 @@ export class SlormancerTemplateService {
                 result = this.asSpan('(+' + effectValue.max + percent + ' ' + this.MAX_LABEL + ')', 'details');
             }
         } else if (effectValue.upgrade > 0) {
-            const sign = effectValue.upgrade < 0 ? '-' : '+';
-            const base = (effectValue.value + effectValue.upgrade) + percent;
+            const showBase = isEffectValueSynergy(effectValue) && !hideBase;
+            const sign = showBase ? effectValue.upgrade < 0 ? '- ' : '+ ' : effectValue.upgrade < 0 ? '-' : '+';
+            const base = showBase ? (effectValue.value) + percent + ' ' : '';
             const upgrade = Math.abs(effectValue.upgrade) + percent;
 
             if (effectValue.upgradeType === EffectValueUpgradeType.Mastery) {
-                result = base + ' ' + sign + ' ' + upgrade + ' per mastery level';
+                result = base + sign + upgrade + ' per mastery level';
             } else if (effectValue.upgradeType === EffectValueUpgradeType.UpgradeRank) {
-                result = base + ' ' + sign + ' ' + upgrade + ' per rank';
+                result = base + sign + upgrade + ' per rank';
             } else if (effectValue.upgradeType === EffectValueUpgradeType.AncestralRank) {
-                result = base + ' ' + sign + ' ' + upgrade + ' per rank';
+                result = base + sign + upgrade + ' per rank';
             } else if (effectValue.upgradeType === EffectValueUpgradeType.Every3) {
-                result = base + ' ' + sign + ' ' + upgrade + ' every third mastery level';
+                result = base + sign + upgrade + ' every third mastery level';
             } else if (effectValue.upgradeType === EffectValueUpgradeType.ReaperLevel) {
                 result = sign + upgrade + ' per Level';
             } else if (effectValue.upgradeType === EffectValueUpgradeType.NonPrimordialReaperLevel) {
@@ -120,9 +121,9 @@ export class SlormancerTemplateService {
             } else if (effectValue.upgradeType === EffectValueUpgradeType.RanksAfterInThisTrait) {
                 result = sign + upgrade + ' for every point after this one in this Trait';
             } else if (effectValue.upgradeType === EffectValueUpgradeType.Reinforcment) {
-                result = base + ' ' + sign + upgrade + ' per reinforcment';
+                result = base + sign + upgrade + ' per reinforcment';
             }else {
-                result = base + ' ' + upgrade + ' every ' + effectValue.upgradeType;
+                result = base + upgrade + ' every ' + effectValue.upgradeType;
             }
 
             result = this.asSpan('(' + result + ')', 'details');
@@ -233,6 +234,32 @@ export class SlormancerTemplateService {
                 const value = this.asSpan(this.formatValue(effectValue.value, true), 'value');
                 template = this.replaceAnchor(template, synergy, this.VALUE_ANCHOR);
                 template = this.replaceAnchor(template, value + ' ' + details, this.SYNERGY_ANCHOR);
+            }
+        }
+
+        return template;
+    }
+
+    public formatAncestralLegacyDescription(template: string, effectValues: Array<AbstractEffectValue>): string {
+        for (let effectValue of effectValues) {
+            const percent = effectValue.percent ? '%' : '';
+
+            if (isEffectValueVariable(effectValue)) {
+                const value = this.asSpan(effectValue.displayValue.toString() + percent, 'value');
+                const details = this.getEffectValueDetails(effectValue);
+                template = this.replaceAnchor(template, value + ' ' + details, this.VALUE_ANCHOR);
+            } else if (isEffectValueConstant(effectValue)) {
+                const anchor = findFirst(template, this.CONSTANT_ANCHORS);
+                if (anchor !== null) {
+                    const value = this.asSpan(effectValue.displayValue.toString() + percent, 'value');
+                    template = this.replaceAnchor(template, value, anchor);
+                }
+            } else if (isEffectValueSynergy(effectValue)) {
+                const details = this.getEffectValueDetails(effectValue);
+                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent, true), 'value');
+                const value = this.asSpan(this.formatValue(effectValue.value, true), 'value');
+                template = this.replaceAnchor(template, synergy + ' ' + details , this.VALUE_ANCHOR);
+                template = this.replaceAnchor(template, value, this.SYNERGY_ANCHOR);
             }
         }
 

@@ -34,7 +34,7 @@ export class AncestralLegacySlotComponent extends AbstractUnsubscribeComponent i
     public hiddenBySearch: boolean = false;
 
     constructor(private searchService: SearchService,
-                private slormancerAncestralLegacyservice: SlormancerAncestralLegacyService,
+                private slormancerAncestralLegacyService: SlormancerAncestralLegacyService,
                 private plannerService: PlannerService) {
         super();
     }
@@ -47,8 +47,8 @@ export class AncestralLegacySlotComponent extends AbstractUnsubscribeComponent i
 
     private setRank(ancestralLegacy: AncestralLegacy, newRank: number) {
         if (ancestralLegacy.baseRank !== newRank && this.selected) {
-            ancestralLegacy.baseRank = newRank;
-            this.slormancerAncestralLegacyservice.updateAncestralLegacy(ancestralLegacy);
+            this.slormancerAncestralLegacyService.updateAncestralLegacyModel(ancestralLegacy, newRank);
+            this.slormancerAncestralLegacyService.updateAncestralLegacyView(ancestralLegacy);
             this.plannerService.updateCurrentCharacter();
         }
     }

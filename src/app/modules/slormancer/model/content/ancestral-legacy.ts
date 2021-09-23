@@ -20,6 +20,8 @@ export interface AncestralLegacy {
     auraBuff: Buff | null;
     genres: Array<SkillGenre>;
     cost: number | null;
+    nextRankCost: number | null;
+    maxRankCost: number | null;
     baseCost: number | null;
     costPerRank: number | null;
     costType: SkillCostType;
@@ -27,12 +29,12 @@ export interface AncestralLegacy {
     hasManaCost: boolean;
     hasNoCost: boolean;
     rank: number;
+    nextRank: number;
     baseRank: number;
     bonusRank: number;
     baseMaxRank: number;
     maxRank: number;
     realm: number;
-    links: Array<number>;
     isActivable: boolean;
 
     relatedBuffs: Array<Buff>;
@@ -49,4 +51,6 @@ export interface AncestralLegacy {
 
     template: string;
     values: Array<AbstractEffectValue>;
+    nextRankValues: Array<AbstractEffectValue>;
+    maxRankValues: Array<AbstractEffectValue>;
 }
