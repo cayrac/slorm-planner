@@ -258,6 +258,8 @@ export class SlormancerAncestralLegacyService {
         ancestralLegacy.hasNoCost = ancestralLegacy.costType === SkillCostType.None || ancestralLegacy.cost === 0;
 
         ancestralLegacy.isActivable = !ancestralLegacy.hasNoCost || ancestralLegacy.baseCooldown !== null;
+
+        console.log(ancestralLegacy);
     }
 
     public updateAncestralLegacyView(ancestralLegacy: AncestralLegacy) {

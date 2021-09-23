@@ -46,7 +46,7 @@ export class SlormancerStatUpdaterService {
         if (typeof total === 'number') {
             total = total * percent / 100;
     
-            if (stat.stat === 'attack_speed') {
+            if (stat.stat === 'attack_speed' || stat.stat === 'enemy_attack_speed') {
                 total = 100 - stat.values.multiplier.map(mult => Math.max(0, 100 - mult) / 100).reduce((total, value) => total * value, 1 - (<number>total / 100)) * 100;
             } else {
                 for (const multiplier of stat.values.multiplier) {

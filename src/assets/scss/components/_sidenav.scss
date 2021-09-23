@@ -1,6 +1,7 @@
 
-mat-sidenav-container {
+mat-sidenav-container.mat-sidenav-container {
     height: 100%;
+    z-index: unset;
 }
 mat-sidenav-content {
     @include flex(column, stretch);

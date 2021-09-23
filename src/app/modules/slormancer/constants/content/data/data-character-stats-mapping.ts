@@ -236,6 +236,20 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         } 
     },
     {
+        stat: 'enemy_attack_speed',
+        precision: 3,
+        allowMinMax: false,
+        source: {
+            flat: [{ stat: 'enemy_cooldown_reduction_percent' }],
+            max: [],
+            percent: [],
+            multiplier: [
+                { stat: 'enemy_cooldown_reduction_global_mult' },
+                { stat: 'aura_air_conditionner_enemy_cooldown_reduction_global_mult', condition: config => config.has_aura_air_conditionner },
+            ],
+        } 
+    },
+    {
         stat: 'critical_chance',
         precision: 1,
         allowMinMax: false,
@@ -355,7 +369,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'res_mag_add' }],
+            flat: [
+                { stat: 'res_mag_add' },
+                { stat: 'aura_neriya_shield_res_mag_add', condition: config => config.has_aura_neriya_shield }
+            ],
             max: [],
             percent: [{ stat: 'res_mag_percent' }],
             multiplier: [

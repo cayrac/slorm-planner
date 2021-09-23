@@ -47,6 +47,8 @@ export class SlormancerCharacterService {
         strider_stacks: 0,
         merchant_stacks: 0,
         distance_with_target: 0,
+        has_aura_air_conditionner: true,
+        has_aura_neriya_shield: true,
     }
 
     private readonly LEVEL_LABEL = this.slormancerTranslateService.translate('level').toLowerCase();

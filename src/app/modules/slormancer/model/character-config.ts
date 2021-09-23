@@ -18,5 +18,7 @@ export interface CharacterConfig {
     strider_stacks: number;
     merchant_stacks: number;
     totem_dexterity_stacks: number;
+    has_aura_air_conditionner: boolean;
+    has_aura_neriya_shield: boolean;
     distance_with_target: number;
 }

@@ -4,6 +4,14 @@ import { EffectValueValueType } from '../../../model/content/enum/effect-value-v
 import { MechanicType } from '../../../model/content/enum/mechanic-type';
 import { effectValueConstant } from '../../../util/effect-value.util';
 
+function setStat(values: Array<AbstractEffectValue>, index: number, stat: string) {
+    const value = values[index]
+
+    if (value) {
+        value.stat = stat;
+    }
+}
+
 function addConstant(values: Array<AbstractEffectValue>, value: number, percent: boolean, valueType: EffectValueValueType, stat: string | null = null) {
     values.push(effectValueConstant(value, percent, stat, valueType))
 }
@@ -13,12 +21,14 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
     },
     15: {
         override: values => {
-            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'aura_aoe');
+            setStat(values, 0, 'aura_air_conditionner_enemy_cooldown_reduction_global_mult');
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'aura_air_conditionner_aoe');
         }
     },
     16: {
         override: values => {
-            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'aura_aoe');
+            setStat(values, 0, 'aura_neriya_shield_res_mag_add');
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'aura_neriya_shield_aoe');
         }
     },
     19: {
