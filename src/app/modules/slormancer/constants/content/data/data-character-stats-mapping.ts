@@ -274,7 +274,8 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         source: {
             flat: [
                 { stat: 'crit_damage_percent' },
-                { stat: 'crit_damage_percent_for_each_ennemy', multiplier: (config, stats) => valueOrDefault(config.ennemies_in_radius[getFirstStat(stats, 'crit_damage_percent_for_each_ennemy_radius')], 0) }
+                { stat: 'crit_damage_percent_for_each_ennemy', multiplier: (config, stats) => valueOrDefault(config.ennemies_in_radius[getFirstStat(stats, 'crit_damage_percent_for_each_ennemy_radius')], 0) },
+                { stat: 'burning_shadow_buff_crit_damage_percent', condition: config => config.has_burning_shadow_buff }
             ],
             max: [],
             percent: [],
@@ -883,12 +884,17 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: true,
         source: {
-            flat: [{ stat: 'min_elemental_damage_add' }],
+            flat: [
+                { stat: 'min_elemental_damage_add' },
+                { stat: 'elemental_emergency_min_elemental_damage_add_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'elemental_emergency_min_elemental_damage_add_on_low_life_treshold', 0)) }
+            ],
             max: [{ stat: 'max_elemental_damage_add' }],
             percent: [
                 { stat: 'elemental_damage_percent' },
                 { stat: 'elemental_prowess_elemental_damage_percent', condition: config => config.elemental_prowess_stacks > 0, multiplier: config => config.elemental_prowess_stacks },
-                { stat: 'legendary_elemental_damage_percent', condition: (_, stats) => getFirstStat(stats, 'number_equipped_legendaries', 0) > 0, multiplier: (_, stats) => getFirstStat(stats, 'number_equipped_legendaries', 0) }
+                { stat: 'legendary_elemental_damage_percent', condition: (_, stats) => getFirstStat(stats, 'number_equipped_legendaries', 0) > 0, multiplier: (_, stats) => getFirstStat(stats, 'number_equipped_legendaries', 0) },
+                { stat: 'elemental_temper_buff_elemental_damage_percent', condition: config => config.has_elemental_temper_buff },
+                { stat: 'aura_elemental_swap_elemental_damage_percent', condition: config => config.has_aura_elemental_swap },
             ],
             multiplier: [{ stat: 'elemental_damage_mult' }, { stat: 'elemental_damage_global_mult' }],
         } 
@@ -903,7 +909,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
                 { stat: 'merchant_stack_min_basic_damage_add', condition: config => config.merchant_stacks > 0, multiplier: (config, stats) => Math.min(getFirstStat(stats, 'merchant_stack_max_stack', 0), config.merchant_stacks) }
             ],
             max: [{ stat: 'max_basic_damage_add' }],
-            percent: [{ stat: 'basic_damage_percent' }],
+            percent: [
+                { stat: 'basic_damage_percent' },
+                { stat: 'burning_shadow_buff_basic_damage_percent', condition: config => config.has_burning_shadow_buff }
+            ],
             multiplier: [{ stat: 'basic_damage_percent_mult' }, { stat: 'basic_damage_percent_global_mult' }],
         } 
     },
@@ -942,7 +951,8 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             ],
             max: [],
             percent: [],
-            multiplier: [],
+            multiplier: [
+            ],
         } 
     },
 ]

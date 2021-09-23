@@ -52,16 +52,16 @@ export class SlormancerStatsExtractorService {
 
     private addAncestralLegacyValues(character: Character, stats: CharacterExtractedStats) {
         for (const ancestralLegacy of character.ancestralLegacies.ancestralLegacies) {
-            const equipped = character.ancestralLegacies.activeAncestralLegacies.indexOf(ancestralLegacy.id) !== -1;
+            const active = ancestralLegacy.baseRank > 0 && character.ancestralLegacies.activeAncestralLegacies.indexOf(ancestralLegacy.id) !== -1;
 
             for (const effectValue of ancestralLegacy.values) {
                 if (isEffectValueSynergy(effectValue)) {
-                    if (equipped && !this.isDamageStat(effectValue.stat)) {
+                    if (active && !this.isDamageStat(effectValue.stat)) {
                         stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { ancestralLegacy }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
                     } else {                        
                         stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { ancestralLegacy }));
                     }
-                } else if (equipped) {
+                } else if (active) {
                     this.addStat(stats.heroStats, effectValue.stat, effectValue.value);
                 }
             }

@@ -20,5 +20,10 @@ export interface CharacterConfig {
     totem_dexterity_stacks: number;
     has_aura_air_conditionner: boolean;
     has_aura_neriya_shield: boolean;
+    has_aura_elemental_swap: boolean;
+    has_aura_risk_of_pain: boolean;
+    has_elemental_temper_buff: boolean;
+    has_soul_bound_buff: boolean;
+    has_burning_shadow_buff: boolean;
     distance_with_target: number;
 }

@@ -81,7 +81,7 @@ $bravery-color         : rgb(191, 60, 89);
         }
     }
     &.mag::ng-deep {
-        .value {
+        .value:not(.mana) {
             color: $magical-color-text;
         } 
     } 

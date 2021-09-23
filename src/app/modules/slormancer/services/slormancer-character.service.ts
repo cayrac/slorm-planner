@@ -49,6 +49,11 @@ export class SlormancerCharacterService {
         distance_with_target: 0,
         has_aura_air_conditionner: true,
         has_aura_neriya_shield: true,
+        has_aura_elemental_swap: true,
+        has_aura_risk_of_pain: true,
+        has_elemental_temper_buff: true,
+        has_burning_shadow_buff: true,
+        has_soul_bound_buff: true,
     }
 
     private readonly LEVEL_LABEL = this.slormancerTranslateService.translate('level').toLowerCase();
