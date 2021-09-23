@@ -88,8 +88,6 @@ export class SlormancerStatsExtractorService {
                         } else {
                             stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { attribute: attributeTraits }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
                         }
-                    } else if (trait.unlocked) {
-                        this.addStat(stats.heroStats, effectValue.stat, effectValue.value);
                     }
                 }
             }
