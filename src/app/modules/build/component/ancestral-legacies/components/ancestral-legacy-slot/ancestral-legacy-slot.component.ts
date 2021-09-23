@@ -46,24 +46,25 @@ export class AncestralLegacySlotComponent extends AbstractUnsubscribeComponent i
     }
 
     private setRank(ancestralLegacy: AncestralLegacy, newRank: number) {
-        if (ancestralLegacy.baseRank !== newRank) {
+        if (ancestralLegacy.baseRank !== newRank && this.selected) {
             ancestralLegacy.baseRank = newRank;
             this.slormancerAncestralLegacyservice.updateAncestralLegacy(ancestralLegacy);
             this.plannerService.updateCurrentCharacter();
-            this.changed.emit(ancestralLegacy);
         }
     }
 
     public increasesRank(): boolean {
         if (this.ancestralLegacy !== null) {
             this.setRank(this.ancestralLegacy, Math.max(0, this.ancestralLegacy.baseRank + 1));
+            this.changed.emit(this.ancestralLegacy);
         }
         return false;
     }
-
+ 
     public decreasesRank(): boolean {
         if (this.ancestralLegacy !== null) {
             this.setRank(this.ancestralLegacy, Math.max(0, this.ancestralLegacy.baseRank - 1));
+            this.changed.emit(this.ancestralLegacy);
         }
         return false;
     }

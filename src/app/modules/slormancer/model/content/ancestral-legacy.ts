@@ -29,6 +29,7 @@ export interface AncestralLegacy {
     rank: number;
     baseRank: number;
     bonusRank: number;
+    baseMaxRank: number;
     maxRank: number;
     realm: number;
     links: Array<number>;

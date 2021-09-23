@@ -185,7 +185,8 @@ export class SlormancerAncestralLegacyService {
                 rank: 0,
                 baseRank: rank,
                 bonusRank: bonusRank,
-                maxRank: gameData.UPGRADE_NUMBER,
+                baseMaxRank: gameData.UPGRADE_NUMBER,
+                maxRank: 0,
                 hasLifeCost: false,
                 hasManaCost: false,
                 hasNoCost: false,
@@ -220,9 +221,10 @@ export class SlormancerAncestralLegacyService {
     }
 
     public updateAncestralLegacy(ancestralLegacy: AncestralLegacy) {
-        ancestralLegacy.baseRank = Math.min(ancestralLegacy.maxRank, Math.max(0, ancestralLegacy.baseRank));
+        ancestralLegacy.baseRank = Math.min(ancestralLegacy.baseMaxRank, Math.max(0, ancestralLegacy.baseRank));
         ancestralLegacy.bonusRank = Math.max(0, ancestralLegacy.bonusRank);
         ancestralLegacy.rank = ancestralLegacy.bonusRank + ancestralLegacy.baseRank;
+        ancestralLegacy.maxRank = ancestralLegacy.bonusRank + ancestralLegacy.baseMaxRank;
         ancestralLegacy.cost = ancestralLegacy.baseCost === null ? null : ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * ancestralLegacy.rank);
         ancestralLegacy.cooldown = ancestralLegacy.baseCooldown;
 
@@ -247,7 +249,7 @@ export class SlormancerAncestralLegacyService {
         if (!ancestralLegacy.hasNoCost && ancestralLegacy.cost !== null) {
             ancestralLegacy.costLabel = this.COST_LABEL
                 + ': ' + this.slormancerTemplateService.asSpan(ancestralLegacy.cost.toString(), ancestralLegacy.hasManaCost ? 'value mana' : 'value life')
-                + ' ' + this.slormancerTranslateService.translate(ancestralLegacy.costType);
+                + ' ' + this.slormancerTranslateService.translate('tt_' + ancestralLegacy.costType);
         }
 
         ancestralLegacy.cooldownLabel = null;
@@ -259,16 +261,16 @@ export class SlormancerAncestralLegacyService {
 
         ancestralLegacy.typeLabel = this.slormancerTranslateService.translate('element_' + ancestralLegacy.element) + ' - '
              + ancestralLegacy.types.map(type =>  this.slormancerTranslateService.translate('tt_' + type)).join(', ');
-        ancestralLegacy.rankLabel = this.RANK_LABEL + ': ' + this.slormancerTemplateService.asSpan(ancestralLegacy.rank.toString(), 'current') + '/' + ancestralLegacy.maxRank;
+        ancestralLegacy.rankLabel = this.RANK_LABEL + ': ' + this.slormancerTemplateService.asSpan(ancestralLegacy.rank.toString(), 'current') + '/' + ancestralLegacy.baseMaxRank;
         
         const descriptionPrefix = this.isActivable(ancestralLegacy.types) ? this.slormancerTranslateService.translate(this.ACTIVE_PREFIX) + '<br/>' : '';
         ancestralLegacy.description = descriptionPrefix + this.slormancerTemplateService.formatUpgradeDescription(ancestralLegacy.template, ancestralLegacy.values);
         
         ancestralLegacy.nextRankDescription = [];
         ancestralLegacy.maxRankDescription = [];
-        if (ancestralLegacy.maxRank > 1 && ancestralLegacy.baseRank < ancestralLegacy.maxRank) {
+        if (ancestralLegacy.baseMaxRank > 1 && ancestralLegacy.baseRank < ancestralLegacy.maxRank) {
             ancestralLegacy.nextRankDescription = this.getNextRankUpgradeDescription(ancestralLegacy, Math.max(1, ancestralLegacy.rank + 1));
-            ancestralLegacy.maxRankDescription = this.getNextRankUpgradeDescription(ancestralLegacy, ancestralLegacy.maxRank + ancestralLegacy.bonusRank);
+            ancestralLegacy.maxRankDescription = this.getNextRankUpgradeDescription(ancestralLegacy, ancestralLegacy.maxRank);
         }
     }
 

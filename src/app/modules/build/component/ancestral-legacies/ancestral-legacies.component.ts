@@ -63,7 +63,7 @@ export class AncestralLegaciesComponent extends AbstractUnsubscribeComponent imp
     public optimizeAncestralLegacies() {
         if (this.character !== null) {
             for (const ancestralLegacy of this.character.ancestralLegacies.ancestralLegacies) {
-                ancestralLegacy.baseRank = ancestralLegacy.maxRank;
+                ancestralLegacy.baseRank = ancestralLegacy.baseMaxRank;
                 this.slormancerAncestralLegacyService.updateAncestralLegacy(ancestralLegacy);
             }
             this.plannerService.updateCurrentCharacter();

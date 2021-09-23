@@ -22,31 +22,31 @@ import { SlormancerTranslateService } from './content/slormancer-translate.servi
 export class SlormancerCharacterService {
 
     public readonly CHARACTER_CONFIG: CharacterConfig = {
-        percent_missing_health: 76,
-        percent_missing_mana: 81,
+        percent_missing_health: 0,
+        percent_missing_mana: 0,
         percent_lock_mana: 0,
         overall_reputation: 100,
-        seconds_since_last_crit: 1,
-        seconds_since_last_dodge: 1,
-        hits_taken_recently: 15,
-        skill_cast_recently: 15,
+        seconds_since_last_crit: 100,
+        seconds_since_last_dodge: 100,
+        hits_taken_recently: 0,
+        skill_cast_recently: 0,
         elites_in_radius: {
-            10: 10
+            10: 0
         },
         ennemies_in_radius: {
             2: 0,
             3: 0
         },
-        took_elemental_damage_recently: true,
-        took_damage_before_next_cast: true,
-        cast_support_before_next_cast: true,
-        controlled_minions: 5,
-        elemental_prowess_stacks: 50,
-        totem_dexterity_stacks: 167,
-        greed_stacks: 15,
-        strider_stacks: 15,
-        merchant_stacks: 15,
-        distance_with_target: 5,
+        took_elemental_damage_recently: false,
+        took_damage_before_next_cast: false,
+        cast_support_before_next_cast: false,
+        controlled_minions: 0,
+        elemental_prowess_stacks: 0,
+        totem_dexterity_stacks: 0,
+        greed_stacks: 0,
+        strider_stacks: 0,
+        merchant_stacks: 0,
+        distance_with_target: 0,
     }
 
     private readonly LEVEL_LABEL = this.slormancerTranslateService.translate('level').toLowerCase();
