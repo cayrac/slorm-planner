@@ -31,6 +31,9 @@ mat-select.mat-select {
             .mat-option-text {
                 color: $text-color;
             }
+            &.mat-option-disabled .mat-option-text {
+                color: rgba($text-color, 0.5);
+            }
 
             
         }
