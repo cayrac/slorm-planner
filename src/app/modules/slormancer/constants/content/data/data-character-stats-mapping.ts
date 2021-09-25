@@ -989,6 +989,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         source: {
             flat: [
                 { stat: 'min_elemental_damage_add' },
+                { stat: 'weapon_to_elemental_damage' },
                 { stat: 'elemental_emergency_min_elemental_damage_add_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'elemental_emergency_min_elemental_damage_add_on_low_life_treshold', 0)) }
             ],
             max: [{ stat: 'max_elemental_damage_add' }],
@@ -1073,6 +1074,18 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         allowMinMax: false,
         source: {
             flat: [ { stat: 'sum_all_resistances_add'}],
+            max: [],
+            percent: [],
+            maxPercent: [],
+            multiplier: [],
+        } 
+    },
+    {
+        stat: 'sum_reduced_resistances',
+        precision: 0,
+        allowMinMax: false,
+        source: {
+            flat: [ { stat: 'sum_reduced_resistances_add'}],
             max: [],
             percent: [],
             maxPercent: [],

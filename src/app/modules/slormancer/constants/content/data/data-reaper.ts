@@ -214,13 +214,13 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     65: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'health_regen_add');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'the_max_health_add');
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Flat, 'vindictive_slam_reaper_effect_chance');
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Damage, 'vindictive_slam_reaper_effect_elemental_damage');
             addConstant(ba, 2, false, EffectValueValueType.AreaOfEffect, 'vindictive_slam_reaper_effect_radius');
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Duration, 'vindictive_slam_reaper_benediction_effect_duration');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Damage, 'vindictive_slam_reaper_benediction_effect_damages');
+            addConstant(be, 1, false, EffectValueValueType.Stat, 'reaper_added_to_elements');
+            addConstant(ma, -100, false, EffectValueValueType.Stat, 'basic_damage_global_mult');
         }
     },
     66: {
@@ -233,6 +233,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma) => {
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Duration, 'vindictive_slam_reaper_effect_stun_duration');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Duration, 'vindictive_slam_reaper_effect_stun_chance');
+            synergyMultiply100(ba, 1);
         }
     },
     73: {
