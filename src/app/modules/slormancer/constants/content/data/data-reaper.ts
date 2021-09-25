@@ -238,14 +238,12 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     73: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'the_max_health_percent');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'mana_skill_as_life_percent');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'mana_restored_percent_on_hit_taken');
             moveValue(ba, 3, be);
             moveValue(ba, 3, be);
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'primary_skill_additional_damages');
             overrideValueTypeAndStat(be, 2, EffectValueValueType.Stat, 'the_max_health_add');
-            overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'mana_regen_add_mult');
         }
     },
     74: {

@@ -195,7 +195,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             max: [],
             percent: [{ stat: 'mana_regen_percent' }],
             maxPercent: [],
-            multiplier: [],
+            multiplier: [{ stat: 'mana_regen_global_mult' }],
         } 
     },
     {

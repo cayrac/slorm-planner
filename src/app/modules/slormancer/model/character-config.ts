@@ -9,6 +9,7 @@ export interface CharacterConfig {
     elites_in_radius: { [key: number]: number};
     took_elemental_damage_recently: boolean;
     took_damage_before_next_cast: boolean;
+    damage_stored: number;
     cast_support_before_next_cast: boolean;
     seconds_since_last_crit: number;
     seconds_since_last_dodge: number;

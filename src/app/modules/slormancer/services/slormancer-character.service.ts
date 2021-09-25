@@ -59,6 +59,7 @@ export class SlormancerCharacterService {
         has_adam_blessing_buff: true,
         all_characters_level: 120,
         iddle: false,
+        damage_stored: 1000,
     }
 
     private readonly LEVEL_LABEL = this.slormancerTranslateService.translate('level').toLowerCase();

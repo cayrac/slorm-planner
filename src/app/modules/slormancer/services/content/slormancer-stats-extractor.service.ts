@@ -54,6 +54,7 @@ export class SlormancerStatsExtractorService {
     
     private addConfigValues(config: CharacterConfig, stats: CharacterExtractedStats) {
         this.addStat(stats.heroStats, 'all_level', config.all_characters_level);
+        this.addStat(stats.heroStats, 'damage_stored', config.damage_stored);
     }
 
     private addAncestralLegacyValues(character: Character, stats: CharacterExtractedStats) {
