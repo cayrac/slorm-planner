@@ -53,6 +53,17 @@ function changeValue(effect: ReaperEffect | null, index: number, newValue: numbe
     }
 }
 
+function synergyMultiply100(effect: ReaperEffect | null, index: number) {
+
+    const value = effect !== null ? valueOrNull(effect.values[index]) : null;
+
+    if (value !== null && (isEffectValueVariable(value) || isEffectValueSynergy(value))) {
+        value.baseValue = value.baseValue * 100;
+    } else {
+        throw new Error('failed to change value for effect value at index ' + index);
+    }
+}
+
 function addConstant(effect: ReaperEffect | null, value: number, percent: boolean, valueType: EffectValueValueType, stat: string | null = null) {
     if (effect !== null) {
         effect.values.push(effectValueConstant(value, percent, stat, valueType))
@@ -106,6 +117,9 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     3: {
         override: (ba, be, ma) => {
+            synergyMultiply100(ba, 1);
+            synergyMultiply100(ba, 2);
+            synergyMultiply100(be, 2);
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'trainee_reaper_effect_chance');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'trainee_reaper_effect_additional_damage');
             overrideSynergySource(ba, 2, 'xp_find');
@@ -114,6 +128,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     6: {
         override: (ba, be, ma) => {
             moveValue(ba, 3, be);
+            synergyMultiply100(be, 1);
             addConstant(ba, 1, false, EffectValueValueType.Flat, 'skill_damage_lucky');
             addConstant(ma, 1, false, EffectValueValueType.Flat, 'cannot_imbue_skills');
         }
@@ -127,11 +142,11 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Flat, 'thornbite_reaper_buff_cooldown');
             overrideValueTypeAndStat(ba, 6, EffectValueValueType.Flat, 'idle_shield');
-            changeValue(ba, 6, 10);
 
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Duration, 'thornbite_reaper_benediction_buff_idle_duration');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'idle_thorn_crit_chance_global_mult');
             overrideValueTypeAndStat(be, 2, EffectValueValueType.Stat, 'thorn_crit_chance_percent');
+            synergyMultiply100(be, 2);
             overrideSynergySource(be, 2, 'critical_chance');
 
             addConstant(ma, 1, false, EffectValueValueType.Flat, 'non_thorn_cannot_crit');
@@ -144,23 +159,22 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     41: {
         override: (ba, be, ma) => { 
-            changeValue(ba, 0, 100);
         }
     },
     46: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'the_max_mana_add');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'the_max_mana_percent');
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');
+            changeValue(ba, 6, 8);
+            changeValue(be, 1, 15);
+
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Flat, 'ferocious_affinity_reaper_afflict_chance');
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'ferocious_affinity_reaper_afflict_duration');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Flat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 6, EffectValueValueType.Stat, 'min_basic_damage_add');
-            changeValue(ba, 6, 8);
             overrideValueTypeAndStat(ba, 7, EffectValueValueType.Damage, 'elemental_damage');
+            
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'min_elemental_damage_add');
-            changeValue(be, 1, 15);
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Flat, 'mana_consumed_percent_on_skill_cast');
         }
     },

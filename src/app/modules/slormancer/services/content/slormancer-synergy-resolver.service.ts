@@ -96,6 +96,8 @@ export class SlormancerSynergyResolverService {
         if (isSynergyResolveData(resolveData)) {
             const source = characterStats.find(stat => stat.stat === resolveData.effect.source);
             const allowMinMax = resolveData.statsItWillUpdate.reduce((t, c) => (c.mapping === undefined || c.mapping.allowMinMax) && t, true);
+            const precisions = resolveData.statsItWillUpdate.map(stat => stat.mapping ? stat.mapping.precision : 0);
+            const precision = precisions.length > 0 ? Math.min(...precisions) : 0;
     
             let sourceValue: number | MinMax = 0;
 
@@ -121,14 +123,10 @@ export class SlormancerSynergyResolverService {
 
             resolveData.effect.synergy = newValue;
 
-            if (source) {
-                resolveData.effect.displaySynergy = typeof newValue === 'number'
-                    ? round(newValue, source.precision)
-                    : { min: round(newValue.min, source.precision),
-                        max: round(newValue.max, source.precision) };
-            } else {
-                resolveData.effect.displaySynergy = newValue;
-            }
+            resolveData.effect.displaySynergy = typeof newValue === 'number'
+                ? round(newValue, precision)
+                : { min: round(newValue.min, precision),
+                    max: round(newValue.max, precision) };
 
             if (resolveData.effect.stat === null) {
                 console.log('Synergy is going to add it\'s value to null', resolveData);

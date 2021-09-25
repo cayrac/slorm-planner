@@ -14,6 +14,7 @@ import { list } from '../../util/math.util';
 import { strictParseFloat } from '../../util/parse.util';
 import {
     compare,
+    emptyStringToNull,
     isEffectValueSynergy,
     isEffectValueVariable,
     isNotNullOrUndefined,
@@ -138,7 +139,7 @@ export class SlormancerReaperService {
         const isVariable = brutValue.indexOf('*') !== -1;
         const [upgradeValue, upgradeType] = splitData(brutValue, '*');
 
-        const value = isVariable ? 0 : strictParseFloat(brutValue) * 100;
+        const value = isVariable ? 0 : strictParseFloat(brutValue);
         const upgrade = isVariable ? strictParseFloat(<string>upgradeValue) : 0;
         result = effectValueSynergy(value, upgrade, this.parseUpgradeType(valueOrNull(upgradeType)), false, source, stat);
         
@@ -154,8 +155,8 @@ export class SlormancerReaperService {
 
         let synergyCursor = 0;
         
-
-        const nb = Math.max(types.length, bases.length, levels.length, reals.length, stats.length);
+        const baseAndReal = [...emptyStringToNull(bases), ...emptyStringToNull(reals) ].filter(isNotNullOrUndefined).length
+        const nb = Math.max(types.length, baseAndReal, levels.length, stats.length);
         for (let i of list(nb)) {
             const base = notEmptyOrNull(bases[i]);
             const level = notEmptyOrNull(levels[i]);
