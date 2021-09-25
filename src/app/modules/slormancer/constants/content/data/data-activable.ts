@@ -3,7 +3,7 @@ import { AbstractEffectValue } from '../../../model/content/effect-value';
 import { EffectValueValueType } from '../../../model/content/enum/effect-value-value-type';
 import { effectValueConstant } from '../../../util/effect-value.util';
 
-function overrideValueTypeAndStat(effects: Array<AbstractEffectValue>, index: number, stat: string) {
+function overrideValueStat(effects: Array<AbstractEffectValue>, index: number, stat: string) {
     const effect = effects[index];
 
     if (effect) {
@@ -21,8 +21,14 @@ function addConstant(values: Array<AbstractEffectValue>, value: number, percent:
 export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     0: {
         override: values => {
-            overrideValueTypeAndStat(values, 0, 'golden_buff_retaliate_percent')
-            overrideValueTypeAndStat(values, 1, 'golden_buff_reduced_damage_from_all_percent')
+            overrideValueStat(values, 0, 'golden_buff_retaliate_percent')
+            overrideValueStat(values, 1, 'golden_buff_reduced_damage_from_all_percent')
+        }
+    },
+    2: {
+        override: values => {
+            overrideValueStat(values, 0, 'health_regen_add');
+            overrideValueStat(values, 1, 'manabender_buff_duration');
         }
     },
     10: {

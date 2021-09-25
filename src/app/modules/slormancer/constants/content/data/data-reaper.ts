@@ -250,9 +250,10 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma) => {
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'mana_regen_add');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'mana_cost_percent_as_additional_damages');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'min_basic_damage_add');
 
-            addConstant(be, 1, false, EffectValueValueType.AreaOfEffect, 'manabender_benediction_effect_radius');
+            addConstant(be, 1, false, EffectValueValueType.AreaOfEffect, 'manabender_buff_detonation_radius');
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'life_percent_removed_on_cast');
         }
     },

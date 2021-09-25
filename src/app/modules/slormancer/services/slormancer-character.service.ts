@@ -57,6 +57,7 @@ export class SlormancerCharacterService {
         has_gold_armor_buff: true,
         has_soul_bound_buff: true,
         has_adam_blessing_buff: true,
+        has_manabender_buff: true,
         all_characters_level: 120,
         iddle: false,
         damage_stored: 1000,

@@ -28,6 +28,7 @@ export interface CharacterConfig {
     has_burning_shadow_buff: boolean;
     has_adam_blessing_buff: boolean;
     has_gold_armor_buff: boolean;
+    has_manabender_buff: boolean;
     distance_with_target: number;
     all_characters_level: number;
     iddle: boolean;
