@@ -29,6 +29,7 @@ export interface CharacterStatMapping {
 
 // en attendant que je sache comment l'utiliser
 // const increased_damage_source: CharacterStatMappingSource = { stat: 'increased_damage_for_each_yard_with_target', condition: config => config.distance_with_target > 0, multiplier:  config => config.distance_with_target };
+// const increased_damage_source: CharacterStatMappingSource = { stat: 'no_gold_armor_buff_increased_damage_taken_mult', condition: config => !config.has_gold_armor_buff };
 
 export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
     // adventure
@@ -497,7 +498,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
     },
     {
         stat: 'thorns',
-        precision: 0,
+        precision: 1,
         allowMinMax: false,
         source: {
             flat: [{ stat: 'thorns_add' }],
@@ -526,8 +527,8 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         source: {
             flat: [
                 { stat: 'retaliate_percent' },
-                { stat: 'retaliate_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'retaliate_percent_on_low_life_treshold', 0)) }
-            
+                { stat: 'retaliate_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'retaliate_percent_on_low_life_treshold', 0)) },
+                { stat: 'golden_buff_retaliate_percent', condition: config => config.has_gold_armor_buff }
             ],
             max: [],
             percent: [],
@@ -557,7 +558,8 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
                 { stat: 'reduced_damage_from_all_percent_after_hit_taken',
                     condition: config => config.hits_taken_recently > 0,
                     multiplier: (config, stats) => Math.min(config.hits_taken_recently, getFirstStat(stats, 'reduced_damage_from_all_percent_after_hit_taken_max_stack', 0))
-                }
+                },
+                { stat: 'golden_buff_reduced_damage_from_all_percent', condition: config => config.has_gold_armor_buff }
             ],
             max: [],
             percent: [],
@@ -823,14 +825,20 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
     },
     {
         stat: 'additional_projectile',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'additional_projectile_add' }],
+            flat: [
+                { stat: 'additional_projectile_add' },
+                { stat: 'idle_additional_projectile_add', condition: config => config.iddle }
+            ],
             max: [],
             percent: [{ stat: 'additional_projectile_percent' }],
             maxPercent: [],
-            multiplier: [],
+            multiplier: [
+                { stat: 'idle_additional_projectile_global_mult', condition: config => config.iddle },
+                { stat: 'not_idle_additional_projectile_global_mult', condition: config => !config.iddle }
+            ],
         } 
     },
     {

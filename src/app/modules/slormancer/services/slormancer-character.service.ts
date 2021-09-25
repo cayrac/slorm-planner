@@ -9,6 +9,7 @@ import { Reaper } from '../model/content/reaper';
 import { Skill } from '../model/content/skill';
 import { SkillUpgrade } from '../model/content/skill-upgrade';
 import { isFirst, isNotNullOrUndefined, valueOrDefault } from '../util/utils';
+import { SlormancerActivableService } from './content/slormancer-activable.service';
 import { SlormancerAncestralLegacyService } from './content/slormancer-ancestral-legacy.service';
 import { SlormancerAttributeService } from './content/slormancer-attribute.service';
 import { SlormancerDataService } from './content/slormancer-data.service';
@@ -53,10 +54,11 @@ export class SlormancerCharacterService {
         has_aura_risk_of_pain: true,
         has_elemental_temper_buff: true,
         has_burning_shadow_buff: true,
+        has_gold_armor_buff: true,
         has_soul_bound_buff: true,
         has_adam_blessing_buff: true,
         all_characters_level: 120,
-        iddle: true
+        iddle: false,
     }
 
     private readonly LEVEL_LABEL = this.slormancerTranslateService.translate('level').toLowerCase();
@@ -68,7 +70,8 @@ export class SlormancerCharacterService {
                 private slormancerStatsService: SlormancerStatsService,
                 private slormancerSkillService: SlormancerSkillService,
                 private slormancerReaperService: SlormancerReaperService,
-                private slormancerItemService: SlormancerItemService
+                private slormancerItemService: SlormancerItemService,
+                private slormancerActivableService: SlormancerActivableService
         ) { }
 
     private resetAttributes(character: Character) {
@@ -172,6 +175,10 @@ export class SlormancerCharacterService {
         }
         for (const attribute of statsResult.changed.attributes.filter(isFirst)) {
             this.slormancerAttributeService.updateAttributeTraits(attribute);
+            // console.log('Updating attribute : ' + attribute.attributeName);
+        }
+        for (const activable of statsResult.changed.activables) {
+            this.slormancerActivableService.updateActivable(activable);
             // console.log('Updating attribute : ' + attribute.attributeName);
         }
     }

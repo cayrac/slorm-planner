@@ -6,6 +6,7 @@ import {
 } from '../../constants/content/data/data-character-stats-mapping';
 import { Character } from '../../model/character';
 import { CharacterConfig } from '../../model/character-config';
+import { Activable } from '../../model/content/activable';
 import { SynergyResolveData } from '../../model/content/character-stats';
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { ALL_ATTRIBUTES } from '../../model/content/enum/attribute';
@@ -218,6 +219,25 @@ export class SlormancerStatsExtractorService {
         }
     }
 
+    public addActivableValues(character: Character, stats: CharacterExtractedStats) {
+        const activables = [character.activable1, character.activable2, character.activable3, character.activable4]
+            .filter(isNotNullOrUndefined)
+            .filter(a => 'level' in a) as Array<Activable>;
+        for (const activable of activables) {
+            for (const effectValue of activable.values) {
+                if (isEffectValueSynergy(effectValue)) {
+                    if (this.isDamageStat(effectValue.stat)) {
+                        stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { activable }));
+                    } else {
+                        stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { activable }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
+                    }
+                } else {
+                    this.addStat(stats.heroStats, effectValue.stat, effectValue.value);
+                }
+            }
+        }
+    }
+
     private addBaseValues(character: Character, stats: CharacterExtractedStats) {
         const baseStats = character.baseStats.map(stat => stat.values.map(value => <[string, number]>[stat.stat, value])).flat();
         for (const baseStat of baseStats) {
@@ -259,6 +279,7 @@ export class SlormancerStatsExtractorService {
         this.addGearValues(character, result);
         this.addInventoryValues(character, result);
         this.addSkillValues(character, result);
+        this.addActivableValues(character, result);
         
         return result;
     }

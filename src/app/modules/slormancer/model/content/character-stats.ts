@@ -1,5 +1,6 @@
 import { CharacterStatMapping } from '../../constants/content/data/data-character-stats-mapping';
 import { MinMax } from '../minmax';
+import { Activable } from './activable';
 import { AncestralLegacy } from './ancestral-legacy';
 import { AttributeTraits } from './attribut-traits';
 import { EffectValueSynergy } from './effect-value';
@@ -20,6 +21,7 @@ export interface SynergyResolveDataSource {
     ancestralLegacy?: AncestralLegacy;
     attribute?: AttributeTraits;
     reaper?: Reaper;
+    activable?: Activable;
 };
 
 export interface SynergyResolveData {

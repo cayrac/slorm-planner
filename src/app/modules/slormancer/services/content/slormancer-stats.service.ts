@@ -7,6 +7,7 @@ import {
 } from '../../constants/content/data/data-character-stats-mapping';
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
 import { CharacterConfig } from '../../model/character-config';
+import { Activable } from '../../model/content/activable';
 import { AncestralLegacy } from '../../model/content/ancestral-legacy';
 import { AttributeTraits } from '../../model/content/attribut-traits';
 import { CharacterStat, CharacterStats, SynergyResolveData } from '../../model/content/character-stats';
@@ -29,6 +30,7 @@ export interface CharacterStatsBuildResult {
         upgrades: Array<SkillUpgrade>;
         reapers: Array<Reaper>;
         attributes: Array<AttributeTraits>;
+        activables: Array<Activable>;
     }
 }
 
@@ -168,7 +170,8 @@ export class SlormancerStatsService {
                 skills: [],
                 upgrades: [],
                 reapers: [],
-                attributes: []
+                attributes: [],
+                activables: []
             }
         }
         const stats = this.slormancerStatsExtractorService.extractStats(character, config);
@@ -220,6 +223,9 @@ export class SlormancerStatsService {
                 }
                 if (synergy.objectSource.upgrade) {
                     result.changed.upgrades.push(synergy.objectSource.upgrade);
+                }
+                if (synergy.objectSource.activable) {
+                    result.changed.activables.push(synergy.objectSource.activable);
                 }
             }
         }

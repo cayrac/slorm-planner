@@ -182,31 +182,34 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma) => {
             moveValue(ba, 0, be);
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'weapon_damage_mult');
+            addConstant(ma, -100, true, EffectValueValueType.Stat, 'elemental_damage_global_mult');
         }
     },
     60: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'projectile_skill_weapon_damage_mult');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'projectile_skill_armor_penetration');
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'projectile_skill_elemental_penetration');
-            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Flat, 'sharpshooter_reaper_buff_idle_duration');
-            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'sharpshooter_reaper_buff_additional_projectile_add');
-            overrideValueTypeAndStat(be, 0, EffectValueValueType.Flat, 'sharpshooter_reaper_benediction_buff_idle_duration');
-            overrideValueTypeAndStat(be, 1, EffectValueValueType.Flat, 'sharpshooter_reaper_benediction_buff_additional_projectile_global_mult');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'projectile_weapon_damage_mult');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'projectile_armor_penetration');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'projectile_elemental_penetration');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Flat, 'idle_duration');
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'idle_additional_projectile_add');
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Flat, 'idle_duration');
+            overrideValueTypeAndStat(be, 1, EffectValueValueType.Flat, 'idle_additional_projectile_global_mult');
+            addConstant(ma, -100, true, EffectValueValueType.Stat, 'not_idle_additional_projectile_global_mult');
+
+            
         }
     },
     61: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'thorns_add');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'the_max_health_add');
-            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'skill_additional_damages');
-            overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'gold_plated_reaper_without_gold_armor_damages_taken_mult');
+            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'primary_secondary_skill_additional_damages');
+            overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'no_gold_armor_buff_increased_damage_taken_mult');
         }
     },
     62: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'gold_plated_reaper_skill_cooldown_reduction_on_hit_taken');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'thorns_percent');
+            synergyMultiply100(ba, 1);
         }
     },
     65: {
