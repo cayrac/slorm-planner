@@ -14,6 +14,8 @@ import { list } from '../../util/math.util';
 import { strictParseFloat } from '../../util/parse.util';
 import {
     compare,
+    isEffectValueSynergy,
+    isEffectValueVariable,
     isNotNullOrUndefined,
     lastIndex,
     notEmptyOrNull,
@@ -146,29 +148,31 @@ export class SlormancerReaperService {
     private getReaperValues(bases: Array<string>, types: Array<string>, levels: Array<string>, reals: Array<string>, stats: Array<string>): Array<AbstractEffectValue> {
         const result: Array<AbstractEffectValue> = [];
         
-        console.log('getReaperValues : ', bases, types, levels, reals);
+        console.log('getReaperValues : ', bases, types, levels, reals, stats);
 
         // TODO revoir le parsing des reaper values
 
-        const nb = Math.max(types.length, bases.length, levels.length);
+        let synergyCursor = 0;
+        
+
+        const nb = Math.max(types.length, bases.length, levels.length, reals.length, stats.length);
         for (let i of list(nb)) {
             const base = notEmptyOrNull(bases[i]);
             const level = notEmptyOrNull(levels[i]);
             const type = notEmptyOrNull(types[i]);
             const stat = notEmptyOrNull(stats[i]);
-            const real = notEmptyOrNull(reals[i]);
-
-            console.log('real ??? ' + real);
 
             const parsedBase = base === null ? null : strictParseFloat(base);
+            console.log('reaper value', base, level, type, stat);
 
-            if (parsedBase !== null) {
+            if (parsedBase != null) {
                 result.push(this.parseReaperEffectVariableValue(parsedBase, level, type, stat));
+            } else {
+                const real = notEmptyOrNull(reals[synergyCursor++]);
+                if (real !== null) {
+                    result.push(this.parseReaperEffectSynergyValue(real, stat));
+                }
             }
-        }
-
-        for (let real of reals) {
-            result.push(this.parseReaperEffectSynergyValue(real, null));
         }
         
         return result;
@@ -192,6 +196,8 @@ export class SlormancerReaperService {
 
     private getReaperTemplates(gameData: GameDataReaper, heroClass: HeroClass): ReaperTemplates {
         const gameDatas = this.getReaperParents(gameData);
+
+        console.log('Parsing data for reaper : ' + gameData.REF);
 
         const base: Array<ReaperEffect | null> = [];
         const benediction: Array<ReaperEffect | null> = [];
@@ -218,21 +224,27 @@ export class SlormancerReaperService {
             const [descReal, benedictionReal, maledictionReal] = splitData(data.VALUE_REAL, '\n');
             const reaperData = this.slormancerDataService.getDataReaper(data.REF);
 
-            const baseEffect = this.getReaperEffect(valueOrNull(baseTemplate),
+            console.log('BASE : ');
+            const baseEffect = this.getReaperEffect(
+                            valueOrNull(baseTemplate),
                             valueOrNull(descBase),
                             valueOrNull(descType),
                             valueOrNull(descLevel),
                             valueOrNull(descReal),
                             valueOrNull(statStat)
                             );
-            const benedictionEffect = this.getReaperEffect(valueOrNull(benedictionTemplate),
+            console.log('BENEDICTION : ');
+            const benedictionEffect = this.getReaperEffect(
+                            valueOrNull(benedictionTemplate),
                             valueOrNull(benedictionBase),
                             valueOrNull(benedictionType),
                             valueOrNull(benedictionLevel),
                             valueOrNull(benedictionReal),
                             valueOrNull(benedictionStat)
                             );
-            const maledictionEffect = this.getReaperEffect(valueOrNull(maledictionTemplate),
+            console.log('MALEDICTION : ');
+            const maledictionEffect = this.getReaperEffect(
+                            valueOrNull(maledictionTemplate),
                             valueOrNull(maledictionBase),
                             valueOrNull(maledictionType),
                             valueOrNull(maledictionLevel),
@@ -356,7 +368,17 @@ export class SlormancerReaperService {
             this.updateReaper(result);
         }
 
+        console.log('Reaper built : ', result);
+
         return result;
+    }
+
+    private updateEffectValue(value: AbstractEffectValue, reaper: Reaper) {
+        let upgradeValue = reaper.level;
+        if ((isEffectValueVariable(value) || isEffectValueSynergy(value)) && value.upgradeType === EffectValueUpgradeType.NonPrimordialReaperLevel) {
+            upgradeValue = reaper.baseInfo.level + reaper.bonusLevel;
+        }
+        this.slormancerEffectValueService.updateEffectValue(value, upgradeValue);
     }
 
     public updateReaper(reaper: Reaper) {
@@ -382,17 +404,17 @@ export class SlormancerReaperService {
 
         for (const reaperEffect of reaper.templates.base) {
             for (const value of reaperEffect.values) {
-                this.slormancerEffectValueService.updateEffectValue(value, reaper.level);
+                this.updateEffectValue(value, reaper);
             }
         }
         for (const reaperEffect of reaper.templates.benediction) {
             for (const value of reaperEffect.values) {
-                this.slormancerEffectValueService.updateEffectValue(value, reaper.level);
+                this.updateEffectValue(value, reaper);
             }
         }
         for (const reaperEffect of reaper.templates.malediction) {
             for (const value of reaperEffect.values) {
-                this.slormancerEffectValueService.updateEffectValue(value, reaper.level);
+                this.updateEffectValue(value, reaper);
             }
         }
 

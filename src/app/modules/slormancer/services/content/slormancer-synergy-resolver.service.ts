@@ -12,6 +12,7 @@ import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-up
 import { MinMax } from '../../model/minmax';
 import { effectValueSynergy } from '../../util/effect-value.util';
 import { isSynergyResolveData, synergyResolveData } from '../../util/synergy-resolver.util';
+import { CharacterExtractedStatMap } from './slormancer-stats-extractor.service';
 import { SlormancerStatUpdaterService } from './slormancer-stats-updater.service';
 
 @Injectable()
@@ -19,22 +20,23 @@ export class SlormancerSynergyResolverService {
 
     constructor(private slormancerStatUpdaterService: SlormancerStatUpdaterService) { }
 
-    public resolveSynergies(synergies: Array<SynergyResolveData | ExternalSynergyResolveData>, stats: Array<CharacterStat>, config: CharacterConfig): Array<SynergyResolveData>  {
+    public resolveSynergies(synergies: Array<SynergyResolveData | ExternalSynergyResolveData>, characterStats: Array<CharacterStat>, config: CharacterConfig, extractedStats: CharacterExtractedStatMap): Array<SynergyResolveData>  {
         const remainingSynergies = [ ...synergies];
         
         this.addDefaultSynergies(remainingSynergies, config);
 
         let next: SynergyResolveData | ExternalSynergyResolveData | null;
         while (remainingSynergies.length > 0 && (next = this.takeNextSynergy(remainingSynergies)) !== null) {
-            this.applySynergyToStats(next, stats);
+            this.updateSynergyValue(next, characterStats, extractedStats);
+            this.applySynergyToStats(next, characterStats);
         }
 
         return remainingSynergies.filter(isSynergyResolveData);
     }
 
-    public resolveIsolatedSynergies(synergies: Array<SynergyResolveData>, stats: Array<CharacterStat>) {
+    public resolveIsolatedSynergies(synergies: Array<SynergyResolveData>, characterStats: Array<CharacterStat>, extractedStats: CharacterExtractedStatMap) {
         for (const synergy of synergies) {
-            this.updateSynergyValue(synergy, stats);
+            this.updateSynergyValue(synergy, characterStats, extractedStats);
         }
     }
 
@@ -85,27 +87,38 @@ export class SlormancerSynergyResolverService {
         return result;
     }
 
-    private updateSynergyValue(resolveData: SynergyResolveData | ExternalSynergyResolveData, stats: Array<CharacterStat>) {
+    private updateSynergyValue(resolveData: SynergyResolveData | ExternalSynergyResolveData, characterStats: Array<CharacterStat>, extractedStats: CharacterExtractedStatMap) {
         if (isSynergyResolveData(resolveData)) {
-            const source = stats.find(stat => stat.stat === resolveData.effect.source);
+            // TODO pouvoir résolve une synergye depuis les stats
+            const source = characterStats.find(stat => stat.stat === resolveData.effect.source);
     
+            let sourceValue: number | MinMax = 0;
+
             if (source) {
-                const newValue = typeof source.total === 'number'
-                    ? resolveData.effect.value * source.total / 100
-                    : { min: resolveData.effect.value * source.total.min / 100,
-                        max: resolveData.effect.value * source.total.max / 100 };
-                
-                resolveData.effect.synergy = newValue;
-                
-                if (resolveData.effect.stat === null) {
-                    console.log('Synergy is going to add it\'s value to null', resolveData);
-                }
+                sourceValue = source.total;
             } else {
-                console.log('no source (' + resolveData.effect.source + ') found for ', resolveData);
+                const stat = extractedStats[resolveData.effect.source];
+                if (stat) {
+                    sourceValue = stat.reduce((t, v) => t + v, 0);
+                } else {
+                    console.log('no source (' + resolveData.effect.source + ') found for ', resolveData);
+                }
             }
+            
+            const newValue = typeof sourceValue === 'number'
+                ? resolveData.effect.value * sourceValue / 100
+                : { min: resolveData.effect.value * sourceValue.min / 100,
+                    max: resolveData.effect.value * sourceValue.max / 100 };
+        
+            resolveData.effect.synergy = newValue;
+            
+            if (resolveData.effect.stat === null) {
+                console.log('Synergy is going to add it\'s value to null', resolveData);
+            }
+
         } else {
             const sources = resolveData.sources.map(source => {
-                const stat = stats.find(stat => stat.stat === source);
+                const stat = characterStats.find(stat => stat.stat === source);
                 return  stat ? stat.total : 0;
             });
             resolveData.value = resolveData.method(...sources);
@@ -113,8 +126,6 @@ export class SlormancerSynergyResolverService {
     }
 
     private applySynergyToStats(synergyResolveData: SynergyResolveData | ExternalSynergyResolveData, stats: Array<CharacterStat>) {
-
-        this.updateSynergyValue(synergyResolveData, stats);
 
         for (const statToUpdate of synergyResolveData.statsItWillUpdate) {
             let foundStat: CharacterStat | undefined = stats.find(stat => stat.stat === statToUpdate.stat);

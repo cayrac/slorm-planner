@@ -5,6 +5,7 @@ import {
     HERO_CHARACTER_STATS_MAPPING,
 } from '../../constants/content/data/data-character-stats-mapping';
 import { Character } from '../../model/character';
+import { CharacterConfig } from '../../model/character-config';
 import { SynergyResolveData } from '../../model/content/character-stats';
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { ALL_ATTRIBUTES } from '../../model/content/enum/attribute';
@@ -48,6 +49,10 @@ export class SlormancerStatsExtractorService {
 
     private isDamageStat(stat: string): boolean {
         return stat === 'damage' || stat === 'basic_damage' || stat === 'physical_damage' || stat === 'elemental_damage' || stat === 'weapon_damage';
+    }
+    
+    private addConfigValues(config: CharacterConfig, stats: CharacterExtractedStats) {
+        this.addStat(stats.heroStats, 'all_level', config.all_characters_level);
     }
 
     private addAncestralLegacyValues(character: Character, stats: CharacterExtractedStats) {
@@ -214,7 +219,7 @@ export class SlormancerStatsExtractorService {
         }
     }
 
-    private addBaseStats(character: Character, stats: CharacterExtractedStats) {
+    private addBaseValues(character: Character, stats: CharacterExtractedStats) {
         const baseStats = character.baseStats.map(stat => stat.values.map(value => <[string, number]>[stat.stat, value])).flat();
         for (const baseStat of baseStats) {
             this.addStat(stats.heroStats, baseStat[0], baseStat[1]);
@@ -237,7 +242,7 @@ export class SlormancerStatsExtractorService {
         }
     }
 
-    public extractStats(character: Character): CharacterExtractedStats {
+    public extractStats(character: Character, config: CharacterConfig): CharacterExtractedStats {
         const result: CharacterExtractedStats = {
             synergies:  [],
             isolatedSynergies:  [],
@@ -247,7 +252,8 @@ export class SlormancerStatsExtractorService {
             secondaryStats: { },
         }
 
-        this.addBaseStats(character, result);
+        this.addConfigValues(config, result);
+        this.addBaseValues(character, result);
         this.addAncestralLegacyValues(character, result);
         this.addAttributesValues(character, result);
         this.addReaperValues(character, result);

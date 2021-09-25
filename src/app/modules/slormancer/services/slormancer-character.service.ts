@@ -55,6 +55,7 @@ export class SlormancerCharacterService {
         has_burning_shadow_buff: true,
         has_soul_bound_buff: true,
         has_adam_blessing_buff: true,
+        all_characters_level: 120,
     }
 
     private readonly LEVEL_LABEL = this.slormancerTranslateService.translate('level').toLowerCase();

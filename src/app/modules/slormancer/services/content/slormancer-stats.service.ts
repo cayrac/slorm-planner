@@ -167,7 +167,7 @@ export class SlormancerStatsService {
                 attributes: []
             }
         }
-        const stats = this.slormancerStatsExtractorService.extractStats(character);
+        const stats = this.slormancerStatsExtractorService.extractStats(character, config);
         
         result.stats.hero = this.buildCharacterStats(stats.heroStats, HERO_CHARACTER_STATS_MAPPING, config);
 
@@ -187,9 +187,9 @@ export class SlormancerStatsService {
             this.slormancerStatUpdaterService.updateStatTotal(stats);
         }
 
-        result.unresolvedSynergies = this.slormancerSynergyResolverService.resolveSynergies(stats.synergies, result.stats.hero, config);
+        result.unresolvedSynergies = this.slormancerSynergyResolverService.resolveSynergies(stats.synergies, result.stats.hero, config, stats.heroStats);
 
-        this.slormancerSynergyResolverService.resolveIsolatedSynergies(stats.isolatedSynergies, result.stats.hero);
+        this.slormancerSynergyResolverService.resolveIsolatedSynergies(stats.isolatedSynergies, result.stats.hero, stats.heroStats);
 
         this.buildMechanicDamages(result.stats.hero, 'basic_damage', 'inner_fire_damage_base_percent', 'inner_fire_damage');
         this.buildMechanicDamages(result.stats.hero, 'basic_damage', 'overdrive_damage_base_percent', 'overdrive_damage');

@@ -69,7 +69,7 @@ export class SlormancerCharacterBuilderService {
         const reaperCount = this.slormancerDataService.getGameDataReaperCount();
 
         const weaponEquip = save.weapon_equip[heroClass];
-        const primordial = weaponEquip > reaperCount;
+        const primordial = weaponEquip >= reaperCount;
         const reaperId = weaponEquip % reaperCount;
         const reaperData = valueOrNull(save.weapon_data[heroClass][reaperId]);
 

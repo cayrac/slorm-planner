@@ -65,12 +65,6 @@ function moveValue(source: ReaperEffect | null, index: number, target: ReaperEff
 }
 
 export const DATA_REAPER: { [key: number]: DataReaper } = {
-    0: {
-        override: (ba, be, ma) => {
-            // overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'min_basic_damage_add');
-            // overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'nmin_elemental_damage_add');
-        }
-    },
     1: {
         override: (ba, be, ma) => {
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'health_restored_on_breach_close');
@@ -86,8 +80,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     3: {
         override: (ba, be, ma) => {
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'trainee_reaper_effect_chance');
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'trainee_reaper_effect_damages');
-            // overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'xp_find');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'trainee_reaper_effect_additional_damage');
         }
     },
     6: {
