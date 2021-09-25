@@ -39,9 +39,10 @@ export class SlormancerStatUpdaterService {
     }
 
     public updateStatTotal(stat: CharacterStat) {
-        let total = stat.allowMinMax ? this.addValues(stat.values.flat, stat.values.max.length > 0) : this.addNumberValues(stat.values.flat);
+        let total = stat.allowMinMax ? this.addValues(stat.values.flat, stat.values.max.length > 0 || stat.values.maxPercent.length > 0) : this.addNumberValues(stat.values.flat);
 
-        const percent = (100 + stat.values.percent.reduce((total, value) => total + value, 0));
+        const percent = 100 + stat.values.percent.reduce((total, value) => total + value, 0);
+        const maxPercent = stat.values.maxPercent.reduce((total, value) => total + value, percent);
 
         if (typeof total === 'number') {
             total = total * percent / 100;
@@ -61,8 +62,8 @@ export class SlormancerStatUpdaterService {
                 total.max += max;
             }
 
-            total = { min: total.min * percent / 100, max: total.max * percent / 100 };
-    
+            total = { min: total.min * percent / 100, max: total.max * maxPercent / 100 };
+            
             for (const multiplier of stat.values.multiplier) {
                 const mult = (100 + multiplier);
                 total = { min: total.min * mult / 100, max: total.max * mult / 100 };

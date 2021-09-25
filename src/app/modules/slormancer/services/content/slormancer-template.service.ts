@@ -83,7 +83,7 @@ export class SlormancerTemplateService {
             } else if (isEffectValueSynergy(craftedEffect.effect)) {
                 const value = this.asSpan(craftedEffect.effect.value.toString() + '%', 'value');
                 const details = this.getCraftedEffectDetails(craftedEffect);
-                const synergy = this.asSpan(craftedEffect.effect.synergy.toString() + percent, 'value');
+                const synergy = this.asSpan(craftedEffect.effect.displaySynergy.toString() + percent, 'value');
                 template = this.replaceAnchor(template, value + details, this.VALUE_ANCHOR);
                 template = this.replaceAnchor(template, synergy, this.SYNERGY_ANCHOR);
             }
@@ -154,7 +154,7 @@ export class SlormancerTemplateService {
                 }
             } else if (isEffectValueSynergy(effectValue)) {
                 const details = this.getEffectValueDetails(effectValue);
-                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent, true), 'value');
+                const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
                 const value = this.asSpan(this.formatValue(effectValue.value, true), 'value');
                 template = this.replaceAnchor(template, synergy, this.VALUE_ANCHOR);
                 template = this.replaceAnchor(template, value + details, this.SYNERGY_ANCHOR);
@@ -180,7 +180,7 @@ export class SlormancerTemplateService {
                 }
             } else if (isEffectValueSynergy(effectValue)) {
                 const details = ' ' + this.getEffectValueDetails(effectValue);
-                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent, true), 'value');
+                const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
                 template = this.replaceAnchor(template, synergy + details, this.VALUE_ANCHOR);
             }
         }
@@ -205,7 +205,7 @@ export class SlormancerTemplateService {
             } else if (isEffectValueSynergy(effectValue)) {
                 const details = this.getEffectValueDetails(effectValue);
                 const value = this.asSpan(this.formatValue(effectValue.displayValue, effectValue.percent), 'value');
-                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent, true), 'value');
+                const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
                 template = this.replaceAnchor(template, value + details, this.VALUE_ANCHOR);
                 template = this.replaceAnchor(template, synergy, this.SYNERGY_ANCHOR);
             }
@@ -230,7 +230,7 @@ export class SlormancerTemplateService {
                 }
             } else if (isEffectValueSynergy(effectValue)) {
                 const details = this.getEffectValueDetails(effectValue);
-                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent, true), 'value');
+                const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
                 const value = this.asSpan(this.formatValue(effectValue.value, true), 'value');
                 template = this.replaceAnchor(template, synergy, this.VALUE_ANCHOR);
                 template = this.replaceAnchor(template, value + ' ' + details, this.SYNERGY_ANCHOR);
@@ -256,7 +256,7 @@ export class SlormancerTemplateService {
                 }
             } else if (isEffectValueSynergy(effectValue)) {
                 const details = this.getEffectValueDetails(effectValue);
-                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent, true), 'value');
+                const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
                 const value = this.asSpan(this.formatValue(effectValue.value, true), 'value');
                 template = this.replaceAnchor(template, synergy + ' ' + details , this.VALUE_ANCHOR);
                 template = this.replaceAnchor(template, value, this.SYNERGY_ANCHOR);
@@ -281,8 +281,8 @@ export class SlormancerTemplateService {
                     template = this.replaceAnchor(template, value, anchor);
                 }
             } else if (isEffectValueSynergy(effectValue)) {
-                const details = typeof effectValue.synergy === 'number' ? '' :  (' ' + this.getEffectValueDetails(effectValue));
-                const synergy = this.asSpan(this.formatValue(effectValue.synergy, effectValue.percent, true), 'value');
+                const details = typeof effectValue.displaySynergy === 'number' ? '' :  (' ' + this.getEffectValueDetails(effectValue));
+                const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
                 template = this.replaceAnchor(template, synergy + details, this.SYNERGY_ANCHOR);
                 template = this.replaceAnchor(template, this.slormancerTranslateService.translate(effectValue.source), this.TYPE_ANCHOR);
             }
@@ -339,7 +339,7 @@ export class SlormancerTemplateService {
         let value: string = '';
         let details: string = '';
         if (isEffectValueSynergy(effectValue)) {
-            value = this.formatValue(effectValue.synergy, effectValue.percent, true);
+            value = this.formatValue(effectValue.displaySynergy, effectValue.percent);
             details = this.asSpan(' (' + this.formatValue(effectValue.value, true) + ' ' + this.slormancerTranslateService.translate(effectValue.source) + ')', 'details');
         } else {
             value = this.formatValue(effectValue.value, effectValue.percent);

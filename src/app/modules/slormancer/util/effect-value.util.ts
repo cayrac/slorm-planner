@@ -42,6 +42,7 @@ export function effectValueSynergy(value: number, upgrade: number, upgradeType: 
         upgrade,
         upgradeType,
         source,
-        synergy: 0
+        synergy: 0,
+        displaySynergy: 0,
     } as EffectValueSynergy
 }

@@ -123,7 +123,6 @@ export class SlormancerStatsExtractorService {
                     if (this.isDamageStat(effectValue.stat)) {
                         stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { reaper: character.reaper }));
                     } else {
-                        console.log('reaper synergy', synergyResolveData(effectValue, effectValue.synergy, { reaper: character.reaper }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
                         stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { reaper: character.reaper }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
                     }
                 } else {

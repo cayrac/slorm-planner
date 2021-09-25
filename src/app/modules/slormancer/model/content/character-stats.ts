@@ -47,6 +47,7 @@ export interface CharacterStat {
         flat: Array<number | MinMax>;
         max: Array<number>;
         percent: Array<number>;
+        maxPercent: Array<number>;
         multiplier: Array<number>;
     }
 };

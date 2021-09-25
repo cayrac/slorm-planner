@@ -31,11 +31,5 @@ export interface EffectValueSynergy extends AbstractEffectValue {
     upgradeType: EffectValueUpgradeType;
     source: string;
     synergy: number | MinMax;
-}
-
-export interface EffectValueComplexSynergy extends AbstractEffectValue {
-    type: EffectValueType.ComplexSynergy;
-    sources: Array<string>;
-    method: (...values: Array<number | MinMax>) => number | MinMax;
-    synergy: number | MinMax;
+    displaySynergy: number | MinMax;
 }

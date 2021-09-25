@@ -1,7 +1,7 @@
 import { DataReaper } from '../../../model/content/data/data-reaper';
 import { EffectValueValueType } from '../../../model/content/enum/effect-value-value-type';
 import { ReaperEffect } from '../../../model/content/reaper-effect';
-import { effectValueConstant } from '../../../util/effect-value.util';
+import { effectValueConstant, effectValueSynergy } from '../../../util/effect-value.util';
 import { isEffectValueSynergy, isEffectValueVariable, valueOrNull } from '../../../util/utils';
 
 function overrideValueTypeAndStat(effect: ReaperEffect | null, index: number, valueType: EffectValueValueType, stat: string | null = null) {
@@ -76,6 +76,21 @@ function moveValue(source: ReaperEffect | null, index: number, target: ReaperEff
     }
 }
 
+function duplicateSynergy(source: ReaperEffect | null, index: number, stat: string) {
+
+    if (source !== null) {
+        const synergy = source.values[index];
+
+        if (synergy && isEffectValueSynergy(synergy)) {
+            source.values.push(effectValueSynergy(synergy.baseValue, synergy.upgrade, synergy.upgradeType, synergy.percent, synergy.source, stat, synergy.valueType, synergy.max));
+        } else {
+            throw new Error('no synergy to duplicate found at index ' + index);
+        }
+    } else {
+        throw new Error('failed to move effect at index ' + index);
+    }
+}
+
 export const DATA_REAPER: { [key: number]: DataReaper } = {
     1: {
         override: (ba, be, ma) => {
@@ -98,32 +113,38 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     6: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'min_basic_damage_add');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'max_basic_damage_add');
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'basic_damage_global_mult');
             moveValue(ba, 3, be);
-            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'max_basic_damage_percent');
-            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'elemental_penetration_percent');
+            addConstant(ba, 1, false, EffectValueValueType.Flat, 'skill_damage_lucky');
+            addConstant(ma, 1, false, EffectValueValueType.Flat, 'cannot_imbue_skills');
         }
     },
     40: {
-        override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'thorns_add');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'thorns_percent');
+        override: (ba, be, ma, reaperId) => {
+            // peut être mal compris comment parser les stats ?
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'thornbite_reaper_buff_idle_duration');
-            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Flat, 'thornbite_reaper_buff_thorns_global_mult');
-            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'thornbite_reaper_buff_sum_all_resistances_percent');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Flat, 'thorns_global_mult');
+
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Flat, 'thornbite_reaper_buff_cooldown');
-            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Flat, 'thornbite_reaper_buff_shield');
-            overrideValueTypeAndStat(be, 0, EffectValueValueType.Flat, 'crit_chance_percent');
+            overrideValueTypeAndStat(ba, 6, EffectValueValueType.Flat, 'idle_shield');
+            changeValue(ba, 6, 10);
+
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Duration, 'thornbite_reaper_benediction_buff_idle_duration');
-            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'thornbite_reaper_benediction_buff_thorn_damages_crit_chance_global_mult');
-            overrideValueTypeAndStat(be, 2, EffectValueValueType.Stat, 'thorn_damages_crit_chance_percent');
+            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'idle_thorn_crit_chance_global_mult');
+            overrideValueTypeAndStat(be, 2, EffectValueValueType.Stat, 'thorn_crit_chance_percent');
+            overrideSynergySource(be, 2, 'critical_chance');
+
+            addConstant(ma, 1, false, EffectValueValueType.Flat, 'non_thorn_cannot_crit');
+
+            if (reaperId === 41) {
+                console.log('reaper copy synergy : ', ba);
+                duplicateSynergy(ba, 6, 'thorns_add');
+            }
         }
     },
     41: {
         override: (ba, be, ma) => { 
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'thorns_add');
+            changeValue(ba, 0, 100);
         }
     },
     46: {

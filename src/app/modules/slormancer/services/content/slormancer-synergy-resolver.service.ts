@@ -11,6 +11,7 @@ import {
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
 import { MinMax } from '../../model/minmax';
 import { effectValueSynergy } from '../../util/effect-value.util';
+import { round } from '../../util/math.util';
 import { isSynergyResolveData, synergyResolveData } from '../../util/synergy-resolver.util';
 import { CharacterExtractedStatMap } from './slormancer-stats-extractor.service';
 import { SlormancerStatUpdaterService } from './slormancer-stats-updater.service';
@@ -48,6 +49,10 @@ export class SlormancerSynergyResolverService {
         let mapping = HERO_CHARACTER_STATS_MAPPING.find(m => m.stat === 'physical_damage');
         resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'basic_to_physical_damage'), -1, {}, [ { stat: 'physical_damage', mapping } ]));
         resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage'), -1, {}, [ { stat: 'physical_damage', mapping } ]));
+        mapping = HERO_CHARACTER_STATS_MAPPING.find(m => m.stat === 'sum_all_resistances');
+        resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'armor', 'sum_all_resistances_add'), 0, {}, [ { stat: 'sum_all_resistances', mapping } ]));
+        resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'dodge', 'sum_all_resistances_add'), 0, {}, [ { stat: 'sum_all_resistances', mapping } ]));
+        resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'elemental_resist', 'sum_all_resistances_add'), 0, {}, [ { stat: 'sum_all_resistances', mapping } ]));
 
         resolveDatas.push({
             type: ResolveDataType.ExternalSynergy,
@@ -89,8 +94,8 @@ export class SlormancerSynergyResolverService {
 
     private updateSynergyValue(resolveData: SynergyResolveData | ExternalSynergyResolveData, characterStats: Array<CharacterStat>, extractedStats: CharacterExtractedStatMap) {
         if (isSynergyResolveData(resolveData)) {
-            // TODO pouvoir résolve une synergye depuis les stats
             const source = characterStats.find(stat => stat.stat === resolveData.effect.source);
+            const allowMinMax = resolveData.statsItWillUpdate.reduce((t, c) => (c.mapping === undefined || c.mapping.allowMinMax) && t, true);
     
             let sourceValue: number | MinMax = 0;
 
@@ -104,14 +109,27 @@ export class SlormancerSynergyResolverService {
                     console.log('no source (' + resolveData.effect.source + ') found for ', resolveData);
                 }
             }
+
+            if (typeof sourceValue !== 'number' && !allowMinMax) {
+                sourceValue = (sourceValue.min + sourceValue.max) / 2;
+            }
             
             const newValue = typeof sourceValue === 'number'
                 ? resolveData.effect.value * sourceValue / 100
                 : { min: resolveData.effect.value * sourceValue.min / 100,
                     max: resolveData.effect.value * sourceValue.max / 100 };
-        
+
             resolveData.effect.synergy = newValue;
-            
+
+            if (source) {
+                resolveData.effect.displaySynergy = typeof newValue === 'number'
+                    ? round(newValue, source.precision)
+                    : { min: round(newValue.min, source.precision),
+                        max: round(newValue.max, source.precision) };
+            } else {
+                resolveData.effect.displaySynergy = newValue;
+            }
+
             if (resolveData.effect.stat === null) {
                 console.log('Synergy is going to add it\'s value to null', resolveData);
             }
@@ -139,6 +157,7 @@ export class SlormancerSynergyResolverService {
                         flat: [],
                         max: [],
                         percent: [],
+                        maxPercent: [],
                         multiplier: [],
                     }
                 };
@@ -167,7 +186,11 @@ export class SlormancerSynergyResolverService {
                 }
             }
 
-            console.log('Synergy added ' + (typeof synergy === 'number' ? synergy : synergy.min + '-' + synergy.max) + ' ' + stat + ' to ' + foundStat.stat);
+            if ('sources' in synergyResolveData) {
+                console.log('Synergy added ' + (typeof synergy === 'number' ? synergy : synergy.min + '-' + synergy.max) + ' ' + synergyResolveData.sources.join(', ') + ' to ' + foundStat.stat);
+            } else {           
+                console.log('Synergy added ' + (typeof synergy === 'number' ? synergy : synergy.min + '-' + synergy.max) + ' ' + synergyResolveData.effect.source + ' to ' + foundStat.stat);
+            }
 
             this.slormancerStatUpdaterService.updateStatTotal(foundStat);
         }

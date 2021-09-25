@@ -64,6 +64,7 @@ export class SlormancerStatsService {
                     flat: this.getMappingValues(mapping.source.flat, stats, config),
                     max: this.getMappingValues(mapping.source.max, stats, config),
                     percent: this.getMappingValues(mapping.source.percent, stats, config),
+                    maxPercent: this.getMappingValues(mapping.source.maxPercent, stats, config),
                     multiplier: this.getMappingValues(mapping.source.multiplier, stats, config),
                 }
             } as CharacterStat;
@@ -82,6 +83,7 @@ export class SlormancerStatsService {
                     flat: [value],
                     max: [],
                     percent: [],
+                    maxPercent: [],
                     multiplier: [],
                 }
             });
@@ -99,6 +101,7 @@ export class SlormancerStatsService {
                     flat: [sau.skill.baseLevel],
                     max: [],
                     percent: [],
+                    maxPercent: [],
                     multiplier: []
                 }
             });
@@ -124,8 +127,9 @@ export class SlormancerStatsService {
             values: {
                 flat: [finalDamages],
                 max: [],
+                percent: [],
+                maxPercent: [],
                 multiplier: [],
-                percent: []
             }
         } 
 
