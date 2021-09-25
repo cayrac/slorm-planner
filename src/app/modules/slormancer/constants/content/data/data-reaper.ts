@@ -18,6 +18,18 @@ function overrideValueTypeAndStat(effect: ReaperEffect | null, index: number, va
     }
 }
 
+function overrideSynergySource(effect: ReaperEffect | null, index: number, source: string) {
+
+    const value = effect !== null ? valueOrNull(effect.values[index]) : null;
+
+    if (value !== null && isEffectValueSynergy(value)) {
+        value.source = source;
+    } else {
+        throw new Error('failed to override synergy source at index ' + index + ' with : ' + source);
+    }
+}
+
+
 function negateValueBaseAndUpgrade(effect: ReaperEffect | null, index: number) {
 
     const value = effect !== null ? valueOrNull(effect.values[index]) : null;
@@ -81,6 +93,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma) => {
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'trainee_reaper_effect_chance');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'trainee_reaper_effect_additional_damage');
+            overrideSynergySource(ba, 2, 'xp_find');
         }
     },
     6: {

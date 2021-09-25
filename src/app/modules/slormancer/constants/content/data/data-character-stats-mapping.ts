@@ -44,7 +44,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
     },
     {
         stat: 'essence_find',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         source: {
             flat: [{ stat: 'slormite_find_percent' }],
@@ -55,18 +55,18 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
     },
     {
         stat: 'xp_find',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         source: {
             flat: [{ stat: 'xp_find_percent' }],
             max: [],
             percent: [],
-            multiplier: [],
+            multiplier: [{ stat: 'xp_find_global_mult' }],
         } 
     },
     {
         stat: 'influence_gain',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         source: {
             flat: [{ stat: 'influence_gain_percent' }],
@@ -77,7 +77,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
     },
     {
         stat: 'mf_find',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         source: {
             flat: [{ stat: 'mf_find_percent' }],
@@ -88,7 +88,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
     },
     {
         stat: 'mf_qual',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         source: {
             flat: [{ stat: 'mf_qual_percent' }],
