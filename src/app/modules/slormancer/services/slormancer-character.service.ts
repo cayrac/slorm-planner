@@ -31,6 +31,8 @@ export class SlormancerCharacterService {
         seconds_since_last_dodge: 100,
         hits_taken_recently: 0,
         skill_cast_recently: 0,
+        slormocide_60: 1500,
+        goldbane_5: 1666,
         elites_in_radius: {
             10: 0
         },
@@ -222,6 +224,18 @@ export class SlormancerCharacterService {
 
         const statsResult = this.slormancerStatsService.getStats(character, config);
         character.stats = statsResult.stats;
+
+        for (const ancestralLegacyId of statsResult.unlockedAncestralLegacies) {
+            const ancestralLegacy = character.ancestralLegacies.ancestralLegacies.find(ancestralLegacy => ancestralLegacy.id === ancestralLegacyId);
+            if (ancestralLegacy) {
+                statsResult.changed.ancestralLegacies.push(ancestralLegacy);
+                this.slormancerAncestralLegacyService.updateAncestralLegacyModel(ancestralLegacy, ancestralLegacy.baseMaxRank);
+                if (!character.ancestralLegacies.activeAncestralLegacies.includes(ancestralLegacyId)) {
+                    character.ancestralLegacies.activeAncestralLegacies.push(ancestralLegacyId);
+                }
+            }
+        }
+
         this.updateChangedItems(statsResult);
         console.log(character);
     }

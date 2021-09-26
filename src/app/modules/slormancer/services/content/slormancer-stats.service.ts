@@ -16,11 +16,13 @@ import { Reaper } from '../../model/content/reaper';
 import { Skill } from '../../model/content/skill';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { MinMax } from '../../model/minmax';
+import { valueOrDefault } from '../../util/utils';
 import { CharacterExtractedStatMap, SlormancerStatsExtractorService } from './slormancer-stats-extractor.service';
 import { SlormancerStatUpdaterService } from './slormancer-stats-updater.service';
 import { SlormancerSynergyResolverService } from './slormancer-synergy-resolver.service';
 
 export interface CharacterStatsBuildResult {
+    unlockedAncestralLegacies: Array<number>;
     unresolvedSynergies: Array<SynergyResolveData>;
     stats: CharacterStats,
     changed:  {
@@ -127,6 +129,7 @@ export class SlormancerStatsService {
 
     public getStats(character: Character, config: CharacterConfig): CharacterStatsBuildResult {
         const result: CharacterStatsBuildResult = {
+            unlockedAncestralLegacies: [],
             unresolvedSynergies: [],
             stats:  {
                 hero: [],
@@ -165,6 +168,7 @@ export class SlormancerStatsService {
         }
 
         result.unresolvedSynergies = this.slormancerSynergyResolverService.resolveSynergies(stats.synergies, result.stats.hero, config, stats.heroStats);
+        result.unlockedAncestralLegacies = valueOrDefault(stats.heroStats['unlock_ancestral_legacy_max_rank'], []);
 
         this.slormancerSynergyResolverService.resolveIsolatedSynergies(stats.isolatedSynergies, result.stats.hero, stats.heroStats);
 

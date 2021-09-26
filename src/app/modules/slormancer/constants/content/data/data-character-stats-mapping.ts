@@ -123,7 +123,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             max: [],
             percent: [{ stat: 'health_regen_percent' }],
             maxPercent: [],
-            multiplier: [],
+            multiplier: [{ stat: 'health_recovery_mult' }],
         } 
     },
     {
@@ -138,7 +138,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             max: [],
             percent: [],
             maxPercent: [],
-            multiplier: [],
+            multiplier: [{ stat: 'health_recovery_mult' }],
         } 
     },
     {
@@ -154,7 +154,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             max: [],
             percent: [{ stat: 'health_on_hit_percent' }],
             maxPercent: [],
-            multiplier: [{ stat: 'health_on_hit_global_mult' }],
+            multiplier: [
+                { stat: 'health_on_hit_global_mult' },
+                { stat: 'health_recovery_mult' }
+            ],
         } 
     },
     {
@@ -166,7 +169,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             max: [],
             percent: [{ stat: 'health_on_kill_percent' }],
             maxPercent: [],
-            multiplier: [{ stat: 'health_on_kill_global_mult' }],
+            multiplier: [
+                { stat: 'health_on_kill_global_mult' },
+                { stat: 'health_recovery_mult' }
+            ],
         } 
     },
     // max_mana
@@ -317,7 +323,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             max: [],
             percent: [],
             maxPercent: [],
-            multiplier: [],
+            multiplier: [{ stat: 'crit_damage_percent_mult' }],
         } 
     },
     {
@@ -648,7 +654,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             max: [],
             percent: [],
             maxPercent: [],
-            multiplier: [],
+            multiplier: [{ stat: 'gold_find_global_mult' }],
         } 
     },
     {
@@ -788,9 +794,12 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'overdrive_bounce_number_add' }],
+            flat: [
+                { stat: 'overdrive_bounce_number_add', condition: (config, stats) => stats['overdrive_bounce_number_set'] === undefined },
+                { stat: 'overdrive_bounce_number_set' }
+            ],
             max: [],
-            percent: [{ stat: 'overdrive_bounce_number_percent' }],
+            percent: [{ stat: 'overdrive_bounce_number_percent', condition: (config, stats) => stats['overdrive_bounce_number_set'] === undefined }],
             maxPercent: [],
             multiplier: [],
         } 
@@ -1137,7 +1146,8 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
                 },
                 { stat: 'increased_damage_for_each_yard_with_target', condition: config => config.distance_with_target > 0, multiplier:  config => config.distance_with_target },
                 { stat: 'primary_secondary_skill_increased_damage_mult' },
-                { stat: 'melee_skill_increased_damage_mult' }
+                { stat: 'melee_skill_increased_damage_mult' },
+                { stat: 'light_imbued_skill_increased_damage' },
             ],
         } 
     },

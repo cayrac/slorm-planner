@@ -3,6 +3,8 @@ export interface CharacterConfig {
     percent_lock_mana: number;
     percent_missing_health: number;
     overall_reputation: number;
+    slormocide_60: number;
+    goldbane_5: number;
     hits_taken_recently: number;
     skill_cast_recently: number;
     ennemies_in_radius: { [key: number]: number};

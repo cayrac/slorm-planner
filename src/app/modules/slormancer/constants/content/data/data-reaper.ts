@@ -357,34 +357,36 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     111: {
         override: (ba, be, ma, reaperId) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'essence_find_percent');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'essence_find_global_mult');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Duration, 'slormbane_reaper_addition_damage_slorm_duration');
-            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Damage, 'slormbane_reaper_additional_damage');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Damage, 'primary_secondary_skill_additional_damage');
+            synergyMultiply100(ba, 3);
+            addConstant(ma, -100, true, EffectValueValueType.Stat, 'health_recovery_mult')
         }
     },
     112: {
         override: (ba, be, ma, reaperId) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'gold_find_percent');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'gold_find_global_mult');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Duration, 'goldscourge_reaper_addition_damage_gold_duration');
-            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Damage, 'goldscourge_reaper_additional_damage');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Damage, 'primary_secondary_skill_additional_damage');
+            synergyMultiply100(ba, 3);
             moveValue(ba, 4, be);
 
-            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'goldscourge_reaper_golden_overdrive_damage_percent');
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'golden_overdrive_damage_percent');
+            overrideSynergySource(be, 0, 'gold_find');
+            synergyMultiply100(be, 0);
+
+            addConstant(ma, 1, false, EffectValueValueType.Stat, 'overdrive_bounce_number_set');
         }
     },
     117: {
         override: (ba, be, ma, reaperId) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'lightning_resistance_percent');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'elemental_damage_percent');
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'the_speed_percent');
-            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'kah_veer_reaper_lightning_imbued_increased_damage');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'light_imbued_skill_increased_damage');
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'kah_veer_reaper_effect_cooldown_reduction_percent');
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Flat, 'kah_veer_reaper_effect_walk_distance');
-            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Flat, 'kah_veer_reaper_effect_walk_distance');
 
+            addConstant(be, 35, false, EffectValueValueType.Stat, 'unlock_ancestral_legacy_max_rank');
+            addConstant(be, 1, false, EffectValueValueType.Stat, 'trigger_thunderstuck_on_critical_strike');
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'crit_damage_percent_mult');
+
         }
     },
     118: {
