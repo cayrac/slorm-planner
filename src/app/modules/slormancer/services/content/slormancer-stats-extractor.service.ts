@@ -11,6 +11,7 @@ import { SynergyResolveData } from '../../model/content/character-stats';
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { ALL_ATTRIBUTES } from '../../model/content/enum/attribute';
 import { ALL_GEAR_SLOT_VALUES } from '../../model/content/enum/gear-slot';
+import { TraitLevel } from '../../model/content/enum/trait-level';
 import { SkillType } from '../../model/content/skill-type';
 import { synergyResolveData } from '../../util/synergy-resolver.util';
 import { isEffectValueSynergy, isNotNullOrUndefined } from '../../util/utils';
@@ -55,6 +56,7 @@ export class SlormancerStatsExtractorService {
     private addConfigValues(config: CharacterConfig, stats: CharacterExtractedStats) {
         this.addStat(stats.heroStats, 'all_level', config.all_characters_level);
         this.addStat(stats.heroStats, 'damage_stored', config.damage_stored);
+        this.addStat(stats.heroStats, 'victims_reaper_104', config.victims_reaper_104);
     }
 
     private addAncestralLegacyValues(character: Character, stats: CharacterExtractedStats) {
@@ -86,22 +88,25 @@ export class SlormancerStatsExtractorService {
     }
 
     private addAttributesValues(character: Character, stats: CharacterExtractedStats) {
+        const disableGreaterTraits = stats.heroStats['disable_greater_traits'] !== undefined;
         for (const attribute of ALL_ATTRIBUTES) {
             const attributeTraits = character.attributes.allocated[attribute];
 
-            for (const effectValue of attributeTraits.values) {
-                if (!isEffectValueSynergy(effectValue)) {
-                    this.addStat(stats.heroStats, effectValue.stat, effectValue.value);
-                }
-            }
-
             for (const trait of attributeTraits.traits) {
-                for (const effectValue of trait.values) {
-                    if (isEffectValueSynergy(effectValue)) {
-                        if (!trait.unlocked || this.isDamageStat(effectValue.stat)) {                            
-                            stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { attribute: attributeTraits }));
-                        } else {
-                            stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { attribute: attributeTraits }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
+                if (!disableGreaterTraits || trait.traitLevel !== TraitLevel.Greater) {
+                    for (const effectValue of trait.values) {
+                        if (isEffectValueSynergy(effectValue)) {
+                            if (!trait.unlocked || this.isDamageStat(effectValue.stat)) {                            
+                                stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { attribute: attributeTraits }));
+                            } else {
+                                stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { attribute: attributeTraits }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
+                            }
+                        }
+                    }
+    
+                    for (const effectValue of trait.cumulativeValues) {
+                        if (trait.unlocked) { 
+                            this.addStat(stats.heroStats, effectValue.stat, effectValue.value);                           
                         }
                     }
                 }
@@ -273,10 +278,10 @@ export class SlormancerStatsExtractorService {
         }
 
         this.addConfigValues(config, result);
+        this.addReaperValues(character, result);
         this.addBaseValues(character, result);
         this.addAncestralLegacyValues(character, result);
         this.addAttributesValues(character, result);
-        this.addReaperValues(character, result);
         this.addGearValues(character, result);
         this.addInventoryValues(character, result);
         this.addSkillValues(character, result);

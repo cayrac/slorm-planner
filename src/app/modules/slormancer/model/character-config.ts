@@ -36,5 +36,6 @@ export interface CharacterConfig {
     has_elemental_fervor_buff: boolean;
     distance_with_target: number;
     all_characters_level: number;
+    victims_reaper_104: number;
     iddle: boolean;
 }

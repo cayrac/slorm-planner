@@ -350,6 +350,11 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             addConstant(ma, -100, true, EffectValueValueType.Stat, 'melee_skill_increased_damage_mult')
         }
     },
+    104: {
+        override: (ba, be, ma, reaperId) => {
+            addConstant(ma, 1, true, EffectValueValueType.Stat, 'disable_greater_traits')
+        }
+    },
     111: {
         override: (ba, be, ma, reaperId) => {
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'essence_find_percent');

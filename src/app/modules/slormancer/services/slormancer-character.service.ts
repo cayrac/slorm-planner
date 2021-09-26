@@ -44,6 +44,7 @@ export class SlormancerCharacterService {
         took_elemental_damage_recently: false,
         took_damage_before_next_cast: false,
         cast_support_before_next_cast: false,
+        victims_reaper_104: 12345,
         controlled_minions: 0,
         elemental_prowess_stacks: 0,
         totem_dexterity_stacks: 0,
