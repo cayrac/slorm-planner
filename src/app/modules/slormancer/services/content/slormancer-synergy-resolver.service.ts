@@ -68,6 +68,10 @@ export class SlormancerSynergyResolverService {
         resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'reduced_on_melee', 'sum_reduced_resistances_add'), 0, {}, [ { stat: 'sum_reduced_resistances', mapping } ]));
         resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'reduced_on_projectile', 'sum_reduced_resistances_add'), 0, {}, [ { stat: 'sum_reduced_resistances', mapping } ]));
         resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'reduced_on_area', 'sum_reduced_resistances_add'), 0, {}, [ { stat: 'sum_reduced_resistances', mapping } ]));
+                
+        mapping = HERO_CHARACTER_STATS_MAPPING.find(m => m.stat === 'skill_elem_damage');
+        resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'skill_elem_damage_add'), 0, {}, [ { stat: 'skill_elem_damage', mapping } ]));
+        resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'skill_elem_damage_add'), 0, {}, [ { stat: 'skill_elem_damage', mapping } ]));
         
         // overdrive_damage_based_on_skill_damage
         mapping = HERO_CHARACTER_STATS_MAPPING.find(m => m.stat === 'overdrive_damage');

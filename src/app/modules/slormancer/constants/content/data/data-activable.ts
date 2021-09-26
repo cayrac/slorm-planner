@@ -47,9 +47,36 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
             synergyMultiply100(values, 0);
         }
     },
+    7: {
+        override: values => {
+            overrideValueStat(values, 0, 'health_restored');
+            overrideValueStat(values, 1, 'ring_of_life_health_restored_over_time');
+            overrideValueStat(values, 2, 'ring_of_health_duration');
+        }
+    },
+    8: {
+        override: values => {
+            overrideValueStat(values, 0, 'mana_restored');
+            overrideValueStat(values, 1, 'ring_of_mana_mana_restored_over_time');
+            overrideValueStat(values, 2, 'ring_of_mana_duration');
+        }
+    },
     10: {
         override: values => {
-            addConstant(values, 2, false, EffectValueValueType.Stat, '');
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'inextricable_torment_aura_range');
+            overrideValueStat(values, 1, 'inextricable_torment_aura_enemy_increased_damage');
+            overrideValueStat(values, 2, 'inextricable_torment_aura_enemy_cooldown_reduction_percent');
+        }
+    },
+    11: {
+        override: values => {
+            overrideValueStat(values, 0, 'fenren_trigger_chance');
+        }
+    },
+    12: {
+        override: values => {
+            overrideValueStat(values, 0, 'septimius_blade_damage');
+            overrideValueStat(values, 1, 'septimius_blade_delay');
         }
     }
 }

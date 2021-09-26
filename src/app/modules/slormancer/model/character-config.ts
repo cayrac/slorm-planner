@@ -2,6 +2,7 @@ export interface CharacterConfig {
     percent_missing_mana: number;
     percent_lock_mana: number;
     percent_missing_health: number;
+    enemy_percent_missing_health: number;
     overall_reputation: number;
     slormocide_60: number;
     goldbane_5: number;
@@ -24,10 +25,14 @@ export interface CharacterConfig {
     totem_dexterity_stacks: number;
     nimble_champion_stacks: number;
     ancestral_legacy_stacks: number;
+    conquest_stacks: number;
+    stability_stacks: number;
+    enlightenment_stacks: number;
     has_aura_air_conditionner: boolean;
     has_aura_neriya_shield: boolean;
     has_aura_elemental_swap: boolean;
     has_aura_risk_of_pain: boolean;
+    has_aura_inextricable_torment: boolean;
     has_elemental_temper_buff: boolean;
     has_soul_bound_buff: boolean;
     has_burning_shadow_buff: boolean;
@@ -36,8 +41,12 @@ export interface CharacterConfig {
     has_manabender_buff: boolean;
     has_nimble_buff: boolean;
     has_elemental_fervor_buff: boolean;
+    has_ancestral_fervor_buff: boolean;
+    has_ancient_recognition_buff: boolean;
     distance_with_target: number;
     all_characters_level: number;
     victims_reaper_104: number;
     iddle: boolean;
+    overdrive_bounces_left: number;
+    overdrive_last_bounce: boolean;
 }

@@ -10,7 +10,9 @@ const POW_10: { [key: number]: number} = {
     1: 10,
     2: 100,
     3: 1000,
-    4: 10000
+    4: 10000,
+    5: 100000,
+    6: 1000000
 };
 export function round(value: number, decimals: number = 0): number {
     const decal = valueOrDefault(POW_10[decimals], 1);

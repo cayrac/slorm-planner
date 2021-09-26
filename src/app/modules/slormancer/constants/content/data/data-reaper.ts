@@ -392,8 +392,10 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     118: {
         override: (ba, be, ma, reaperId) => {
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'light_imbued_skill_increased_damage');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Flat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'shield_globe_increased_value');
             moveValue(be, 0, ba);
+            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Flat, 'shield_decrease_treshold');
 
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'the_max_health_set');
         }

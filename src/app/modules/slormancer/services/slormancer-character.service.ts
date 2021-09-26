@@ -23,6 +23,7 @@ import { SlormancerTranslateService } from './content/slormancer-translate.servi
 export class SlormancerCharacterService {
 
     public readonly CHARACTER_CONFIG: CharacterConfig = {
+        enemy_percent_missing_health: 0,
         percent_missing_health: 0,
         percent_missing_mana: 0,
         percent_lock_mana: 50,
@@ -55,11 +56,15 @@ export class SlormancerCharacterService {
         merchant_stacks: 0,
         nimble_champion_stacks: 100,
         ancestral_legacy_stacks: 35,
+        conquest_stacks: 35,
+        stability_stacks: 35,
+        enlightenment_stacks: 852,
         distance_with_target: 0,
         has_aura_air_conditionner: true,
         has_aura_neriya_shield: true,
         has_aura_elemental_swap: true,
         has_aura_risk_of_pain: true,
+        has_aura_inextricable_torment: true,
         has_elemental_temper_buff: true,
         has_burning_shadow_buff: true,
         has_gold_armor_buff: true,
@@ -67,10 +72,14 @@ export class SlormancerCharacterService {
         has_adam_blessing_buff: true,
         has_manabender_buff: true,
         has_nimble_buff: true,
+        has_ancient_recognition_buff: true,
         has_elemental_fervor_buff: true,
+        has_ancestral_fervor_buff: true,
         all_characters_level: 120,
         iddle: false,
         damage_stored: 1000,
+        overdrive_bounces_left: 5,
+        overdrive_last_bounce: true,
     }
 
     private readonly LEVEL_LABEL = this.slormancerTranslateService.translate('level').toLowerCase();

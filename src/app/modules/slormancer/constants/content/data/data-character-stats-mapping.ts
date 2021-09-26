@@ -228,7 +228,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         } 
     },
     {
-        stat: 'life_on_kill',
+        stat: 'mana_on_kill',
         precision: 0,
         allowMinMax: false,
         source: {
@@ -277,12 +277,28 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 3,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'enemy_cooldown_reduction_percent' }],
+            flat: [
+                { stat: 'enemy_cooldown_reduction_percent' },
+                { stat: 'inextricable_torment_aura_enemy_cooldown_reduction_percent', condition: config => config.has_aura_inextricable_torment },
+            ],
             max: [],
             percent: [],
             maxPercent: [],
             multiplier: [
                 { stat: 'aura_air_conditionner_enemy_cooldown_reduction_global_mult', condition: config => config.has_aura_air_conditionner },
+            ],
+        } 
+    },
+    {
+        stat: 'enemy_damage',
+        precision: 3,
+        allowMinMax: false,
+        source: {
+            flat: [{ stat: 'inextricable_torment_aura_enemy_increased_damage', condition: config => config.has_aura_inextricable_torment, multiplier: () => -1 }],
+            max: [],
+            percent: [],
+            maxPercent: [],
+            multiplier: [
             ],
         } 
     },
@@ -296,6 +312,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
                 { stat: 'crit_chance_percent_if_no_enemies_around', condition: (config, stats) => valueOrDefault(config.ennemies_in_radius[getFirstStat(stats, 'crit_chance_percent_if_no_enemies_around_radius')], 0) === 0 },
                 { stat: 'greed_stack_crit_chance_percent', condition: config => config.greed_stacks > 0, multiplier: config => config.greed_stacks },
                 { stat: 'strider_stack_crit_chance_percent', condition: config => config.strider_stacks > 0, multiplier: config => config.strider_stacks },
+                { stat: 'ancestral_fervor_buff_crit_chance_percent', condition: config => config.has_ancestral_fervor_buff },
                 { stat: 'nimble_buff_crit_chance_percent',
                     condition: config => config.has_nimble_buff, 
                     multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getFirstStat(stats, 'nimble_champion_max_stacks'), 0))
@@ -305,7 +322,8 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [
-                { stat: 'crit_chance_global_mult_after_hit_taken', condition: config => config.took_damage_before_next_cast }
+                { stat: 'crit_chance_global_mult_after_hit_taken', condition: config => config.took_damage_before_next_cast },
+                { stat: 'enemy_full_life_crit_chance_global_mult', condition: (config, stats) => (100 - config.enemy_percent_missing_health) >= getFirstStat(stats, 'enemy_full_life_crit_chance_global_mult_treshold', 0) }
             ],
         } 
     },
@@ -588,7 +606,8 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
                     condition: config => config.hits_taken_recently > 0,
                     multiplier: (config, stats) => Math.min(config.hits_taken_recently, getFirstStat(stats, 'reduced_damage_from_all_percent_after_hit_taken_max_stack', 0))
                 },
-                { stat: 'golden_buff_reduced_damage_from_all_percent', condition: config => config.has_gold_armor_buff }
+                { stat: 'golden_buff_reduced_damage_from_all_percent', condition: config => config.has_gold_armor_buff },
+                { stat: 'stability_stack_reduced_on_all', condition: config => config.stability_stacks > 0, multiplier: (config, stats) => Math.min(config.stability_stacks, getFirstStat(stats, 'stability_max_stacks', 0)) }
             ],
             max: [],
             percent: [],
@@ -749,7 +768,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'inner_fire_max_number_add' }],
+            flat: [
+                { stat: 'inner_fire_max_number_add' },
+                { stat: 'conquest_stack_inner_fire_max_number_add', condition: config => config.conquest_stacks > 0, multiplier: (config, stats) => Math.min(getFirstStat(stats, 'conquest_max_stacks', 0), config.conquest_stacks) }
+            ],
             max: [],
             percent: [{ stat: 'inner_fire_max_number_percent' }],
             maxPercent: [],
@@ -816,7 +838,11 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             max: [],
             percent: [{ stat: 'overdrive_damage_percent' }],
             maxPercent: [],
-            multiplier: [],
+            multiplier: [
+                { stat: 'overdrive_damage_global_mult' },
+                { stat: 'overdrive_damage_global_mult_per_bounce_left', condition: config => config.overdrive_bounces_left > 0, multiplier: config => config.overdrive_bounces_left },
+                { stat: 'overdrive_damage_global_mult_last_bounce', condition: config => config.overdrive_last_bounce }
+            ],
         } 
     },
     {
@@ -1022,7 +1048,8 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             flat: [
                 { stat: 'min_elemental_damage_add' },
                 { stat: 'weapon_to_elemental_damage' },
-                { stat: 'elemental_emergency_min_elemental_damage_add_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'elemental_emergency_min_elemental_damage_add_on_low_life_treshold', 0)) }
+                { stat: 'elemental_emergency_min_elemental_damage_add_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'elemental_emergency_min_elemental_damage_add_on_low_life_treshold', 0)) },
+                { stat: 'enligntment_stack_min_elemental_damage_add', condition: config => config.enlightenment_stacks > 0, multiplier: config => Math.min(config.enlightenment_stacks, 999) }
             ],
             max: [{ stat: 'max_elemental_damage_add' }],
             percent: [
@@ -1126,6 +1153,18 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         allowMinMax: false,
         source: {
             flat: [ { stat: 'sum_reduced_resistances_add'}],
+            max: [],
+            percent: [],
+            maxPercent: [],
+            multiplier: [],
+        } 
+    },
+    {
+        stat: 'skill_elem_damage',
+        precision: 0,
+        allowMinMax: false,
+        source: {
+            flat: [ { stat: 'skill_elem_damage_add'}],
             max: [],
             percent: [],
             maxPercent: [],
