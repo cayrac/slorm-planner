@@ -107,11 +107,14 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'the_max_health_add' }],
+            flat: [
+                { stat: 'the_max_health_set' },
+                { stat: 'the_max_health_add', condition: (_, stats) => stats['the_max_health_set'] === undefined }
+            ],
             max: [],
-            percent: [{ stat: 'the_max_health_percent' }],
+            percent: [{ stat: 'the_max_health_percent', condition: (_, stats) => stats['the_max_health_set'] === undefined }],
             maxPercent: [],
-            multiplier: [{ stat: 'the_max_health_global_mult' }],
+            multiplier: [{ stat: 'the_max_health_global_mult', condition: (_, stats) => stats['the_max_health_set'] === undefined }],
         } 
     },
     {
@@ -1147,6 +1150,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
                 { stat: 'increased_damage_for_each_yard_with_target', condition: config => config.distance_with_target > 0, multiplier:  config => config.distance_with_target },
                 { stat: 'primary_secondary_skill_increased_damage_mult' },
                 { stat: 'melee_skill_increased_damage_mult' },
+                { stat: 'lightning_imbued_skill_increased_damage' },
                 { stat: 'light_imbued_skill_increased_damage' },
             ],
         } 

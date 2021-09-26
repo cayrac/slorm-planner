@@ -379,7 +379,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     117: {
         override: (ba, be, ma, reaperId) => {
-            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'light_imbued_skill_increased_damage');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'lightning_imbued_skill_increased_damage');
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'kah_veer_reaper_effect_cooldown_reduction_percent');
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Flat, 'kah_veer_reaper_effect_walk_distance');
 
@@ -391,13 +391,11 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     118: {
         override: (ba, be, ma, reaperId) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'light_resistance_percent');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'shield_globe_value');
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'rising_sun_reaper_light_imbued_increased_damage');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'light_imbued_skill_increased_damage');
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'shield_globe_increased_value');
             moveValue(be, 0, ba);
 
-            overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'the_max_health_forced');
+            overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'the_max_health_set');
         }
     },
 }
