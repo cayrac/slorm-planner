@@ -13,7 +13,6 @@ function overrideValueStat(effects: Array<AbstractEffectValue>, index: number, s
     }
 }
 
-
 function addConstant(values: Array<AbstractEffectValue>, value: number, percent: boolean, valueType: EffectValueValueType, stat: string | null = null) {
     values.push(effectValueConstant(value, percent, stat, valueType));
 }

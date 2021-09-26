@@ -111,7 +111,7 @@ export class SlormancerSynergyResolverService {
             const source = characterStats.find(stat => stat.stat === resolveData.effect.source);
             const allowMinMax = resolveData.statsItWillUpdate.reduce((t, c) => (c.mapping === undefined || c.mapping.allowMinMax) && t, true);
             const precisions = resolveData.statsItWillUpdate.map(stat => stat.mapping ? stat.mapping.precision : 0);
-            const precision = precisions.length > 0 ? Math.min(...precisions) : 0;
+            const precision = Math.max(resolveData.effect.percent ? 1 : 0, precisions.length > 0 ? Math.min(...precisions) : 0);
     
             let sourceValue: number | MinMax = 0;
 

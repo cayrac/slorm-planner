@@ -149,10 +149,6 @@ export class SlormancerReaperService {
     private getReaperValues(bases: Array<string>, types: Array<string>, levels: Array<string>, reals: Array<string>, stats: Array<string>): Array<AbstractEffectValue> {
         const result: Array<AbstractEffectValue> = [];
         
-        console.log('getReaperValues : ', bases, types, levels, reals, stats);
-
-        // TODO revoir le parsing des reaper values
-
         let synergyCursor = 0;
         
         const baseAndReal = [...emptyStringToNull(bases), ...emptyStringToNull(reals) ].filter(isNotNullOrUndefined).length
@@ -164,7 +160,6 @@ export class SlormancerReaperService {
             const stat = notEmptyOrNull(stats[i]);
 
             const parsedBase = base === null ? null : strictParseFloat(base);
-            console.log('reaper value', base, level, type, stat);
 
             if (parsedBase != null) {
                 result.push(this.parseReaperEffectVariableValue(parsedBase, level, type, stat));
@@ -198,8 +193,6 @@ export class SlormancerReaperService {
     private getReaperTemplates(gameData: GameDataReaper, heroClass: HeroClass): ReaperTemplates {
         const gameDatas = this.getReaperParents(gameData);
 
-        console.log('Parsing data for reaper : ' + gameData.REF);
-
         const base: Array<ReaperEffect | null> = [];
         const benediction: Array<ReaperEffect | null> = [];
         const malediction: Array<ReaperEffect | null> = [];
@@ -225,7 +218,6 @@ export class SlormancerReaperService {
             const [descReal, benedictionReal, maledictionReal] = splitData(data.VALUE_REAL, '\n');
             const reaperData = this.slormancerDataService.getDataReaper(data.REF);
 
-            console.log('BASE : ');
             const baseEffect = this.getReaperEffect(
                             valueOrNull(baseTemplate),
                             valueOrNull(descBase),
@@ -234,7 +226,6 @@ export class SlormancerReaperService {
                             valueOrNull(descReal),
                             valueOrNull(statStat)
                             );
-            console.log('BENEDICTION : ');
             const benedictionEffect = this.getReaperEffect(
                             valueOrNull(benedictionTemplate),
                             valueOrNull(benedictionBase),
@@ -243,7 +234,6 @@ export class SlormancerReaperService {
                             valueOrNull(benedictionReal),
                             valueOrNull(benedictionStat)
                             );
-            console.log('MALEDICTION : ');
             const maledictionEffect = this.getReaperEffect(
                             valueOrNull(maledictionTemplate),
                             valueOrNull(maledictionBase),
@@ -368,8 +358,6 @@ export class SlormancerReaperService {
 
             this.updateReaper(result);
         }
-
-        console.log('Reaper built : ', result);
 
         return result;
     }

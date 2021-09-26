@@ -29,6 +29,16 @@ function overrideSynergySource(effect: ReaperEffect | null, index: number, sourc
     }
 }
 
+function overrideSynergyPercent(effect: ReaperEffect | null, index: number, percent: boolean) {
+
+    const value = effect !== null ? valueOrNull(effect.values[index]) : null;
+
+    if (value !== null && isEffectValueSynergy(value)) {
+        value.percent = percent;
+    } else {
+        throw new Error('failed to override synergy percent at index ' + index + ' with : ' + percent);
+    }
+}
 
 function negateValueBaseAndUpgrade(effect: ReaperEffect | null, index: number) {
 
@@ -259,16 +269,17 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     75: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'nimble_warrior_reaper_effect_crit_damage_percent');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'nimble_warrior_reaper_effect_brut_damage_percent');
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'nimble_warrior_reaper_effect_crit_chance_percent');
-            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Flat, 'nimble_warrior_reaper_effect_brut_chance_percent');
-            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'nimble_warrior_reaper_effect_increased_primary_damage');
-            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Duration, 'nimble_warrior_reaper_effect_disable_duration');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'nimble_buff_crit_damage_percent');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'nimble_buff_brut_damage_percent');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'nimble_buff_crit_chance_percent');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Flat, 'nimble_buff_brut_chance_percent');
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'nimble_buff_primary_skill_increased_damages');
+            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Duration, 'nimble_buff_disable_duration');
 
-            overrideValueTypeAndStat(be, 0, EffectValueValueType.Flat, 'nimble_warrior_reaper_benediction_effect_percent');
-            overrideValueTypeAndStat(be, 1, EffectValueValueType.Duration, 'nimble_warrior_reaper_benediction_disable_duration');
-            overrideValueTypeAndStat(ma, 0, EffectValueValueType.Duration, 'nimble_warrior_reaper_malediction_disable_duration');
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Flat, 'nimble_champion_percent');
+            overrideValueTypeAndStat(be, 1, EffectValueValueType.Duration, 'nimble_champion_disable_duration');
+            addConstant(be, 100, false, EffectValueValueType.Stat, 'nimble_champion_max_stacks');
+            overrideValueTypeAndStat(ma, 0, EffectValueValueType.Duration, 'nimble_champion_lock_duration');
 
         }
     },
@@ -278,10 +289,8 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
                 negateValueBaseAndUpgrade(ba, 0);
                 negateValueBaseAndUpgrade(ba, 1);
             }
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'the_speed_percent');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'elemental_damage_global_mult');
-
-            overrideValueTypeAndStat(be, 0, EffectValueValueType.Flat, 'sleepy_butterfly_reaper_effect_damages_max_life_percent');
+            
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Flat, 'exhaustion_max_life_as_damage_percent');
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'min_cooldown_time');
 
         }
@@ -291,21 +300,22 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             if (reaperId === 79) {
                 negateValueBaseAndUpgrade(ba, 0);
             }
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'chrysalis_reaper_effect_elemental_damage_percent');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.AreaOfEffect, 'chrysalis_reaper_effect_radius');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'elemental_damage_percent_for_each_negative_effect_on_ennemies');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.AreaOfEffect, 'elemental_damage_percent_for_each_negative_effect_on_ennemies_radius');
         }
     },
     80: {
         override: (ba, be, ma, reaperId) => {
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Damage, 'sleepy_butterfly_reaper_effect_elemental_damage');
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Duration, 'sleepy_butterfly_reaper_effect_duration');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Damage, 'exhaustion_elemental_damage_per_second');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Duration, 'exhaustion_duration');
+            overrideSynergySource(ba, 2, 'movement_speed');
+            synergyMultiply100(ba,2);
         }
     },
     81: {
         override: (ba, be, ma, reaperId) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'elemental_damage_percent');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'ancestral_legacy_reaper_crystal_count');
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Damage, 'ancestral_legacy_reaper_crystal_damages');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'power_crystal_count');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Damage, 'power_crystal_damages');
 
             if (reaperId === 82 && ba !== null) {
                 changeValue(ba, 1, 2);
@@ -313,18 +323,22 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
                 changeValue(ba, 1, 3);
             }
 
-            overrideValueTypeAndStat(be, 0, EffectValueValueType.Flat, 'ancestral_legacy_reaper_crystal_projectiles_count');
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Flat, 'power_crystal_additional_projectile_add');
+            addConstant(ma, -100, true, EffectValueValueType.Stat, 'primary_secondary_skill_increased_damage_mult');
         }
     },
     82: {
         override: (ba, be, ma, reaperId) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'ancestral_legacy_reaper_buff_legacy_brut_chance');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'ancestral_legacy_stack_brut_chance_percent');
         }
     },
     83: {
         override: (ba, be, ma, reaperId) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Duration, 'ancestral_legacy_reaper_buff_fervor_duration');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'ancestral_legacy_reaper_buff_fervor_elemental_damages');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Duration, 'elemental_fervor_buff_duration');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'elemental_fervor_buff_elemental_damage_global_mult');
+            overrideSynergySource(ba, 1, 'critical_chance');
+            overrideSynergyPercent(ba, 1, true);
+            synergyMultiply100(ba, 1);
         }
     },
     98: {
@@ -362,6 +376,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'the_speed_percent');
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'kah_veer_reaper_lightning_imbued_increased_damage');
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'kah_veer_reaper_effect_cooldown_reduction_percent');
+            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Flat, 'kah_veer_reaper_effect_walk_distance');
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Flat, 'kah_veer_reaper_effect_walk_distance');
 
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'crit_damage_percent_mult');

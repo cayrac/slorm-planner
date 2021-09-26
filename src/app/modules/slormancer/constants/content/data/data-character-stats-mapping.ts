@@ -27,10 +27,6 @@ export interface CharacterStatMapping {
     }
 }
 
-// en attendant que je sache comment l'utiliser
-// const increased_damage_source: CharacterStatMappingSource = { stat: 'increased_damage_for_each_yard_with_target', condition: config => config.distance_with_target > 0, multiplier:  config => config.distance_with_target };
-// const increased_damage_source: CharacterStatMappingSource = { stat: 'no_gold_armor_buff_increased_damage_taken_mult', condition: config => !config.has_gold_armor_buff };
-
 export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
     // adventure
     {
@@ -236,7 +232,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
     },
     // movement
     {
-        stat: 'the_speed_percent',
+        stat: 'movement_speed',
         precision: 3,
         allowMinMax: false,
         source: {
@@ -290,7 +286,11 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
                 { stat: 'crit_chance_percent' },
                 { stat: 'crit_chance_percent_if_no_enemies_around', condition: (config, stats) => valueOrDefault(config.ennemies_in_radius[getFirstStat(stats, 'crit_chance_percent_if_no_enemies_around_radius')], 0) === 0 },
                 { stat: 'greed_stack_crit_chance_percent', condition: config => config.greed_stacks > 0, multiplier: config => config.greed_stacks },
-                { stat: 'strider_stack_crit_chance_percent', condition: config => config.strider_stacks > 0, multiplier: config => config.strider_stacks }
+                { stat: 'strider_stack_crit_chance_percent', condition: config => config.strider_stacks > 0, multiplier: config => config.strider_stacks },
+                { stat: 'nimble_buff_crit_chance_percent',
+                    condition: config => config.has_nimble_buff, 
+                    multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getFirstStat(stats, 'nimble_champion_max_stacks'), 0))
+                },
             ],
             max: [],
             percent: [],
@@ -308,6 +308,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             flat: [
                 { stat: 'crit_damage_percent' },
                 { stat: 'crit_damage_percent_for_each_ennemy', multiplier: (config, stats) => valueOrDefault(config.ennemies_in_radius[getFirstStat(stats, 'crit_damage_percent_for_each_ennemy_radius')], 0) },
+                { stat: 'nimble_buff_crit_damage_percent',
+                    condition: config => config.has_nimble_buff, 
+                    multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getFirstStat(stats, 'nimble_champion_max_stacks'), 0))
+                },
                 { stat: 'burning_shadow_buff_crit_damage_percent', condition: config => config.has_burning_shadow_buff }
             ],
             max: [],
@@ -321,7 +325,17 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'brut_chance_percent' }],
+            flat: [
+                { stat: 'brut_chance_percent' },
+                { stat: 'ancestral_legacy_stack_brut_chance_percent',
+                    condition: config => config.ancestral_legacy_stacks > 0,
+                    multiplier: (config, stats) => config.ancestral_legacy_stacks
+                },
+                { stat: 'nimble_buff_brut_chance_percent',
+                    condition: config => config.has_nimble_buff, 
+                    multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getFirstStat(stats, 'nimble_champion_max_stacks'), 0))
+                },
+            ],
             max: [],
             percent: [],
             maxPercent: [],
@@ -333,7 +347,13 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'brut_damage_percent' }],
+            flat: [
+                { stat: 'brut_damage_percent' },
+                { stat: 'nimble_buff_brut_damage_percent',
+                    condition: config => config.has_nimble_buff, 
+                    multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getFirstStat(stats, 'nimble_champion_max_stacks'), 0))
+                },
+            ],
             max: [],
             percent: [],
             maxPercent: [],
@@ -999,9 +1019,17 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
                 { stat: 'legendary_elemental_damage_percent', condition: (_, stats) => getFirstStat(stats, 'number_equipped_legendaries', 0) > 0, multiplier: (_, stats) => getFirstStat(stats, 'number_equipped_legendaries', 0) },
                 { stat: 'elemental_temper_buff_elemental_damage_percent', condition: config => config.has_elemental_temper_buff },
                 { stat: 'aura_elemental_swap_elemental_damage_percent', condition: config => config.has_aura_elemental_swap },
+                { stat: 'elemental_damage_percent_for_each_negative_effect_on_ennemies',
+                    condition: (config, stats) => valueOrDefault(config.negative_effects_on_ennemies_in_radius[getFirstStat(stats, 'elemental_damage_percent_for_each_negative_effect_on_ennemies_radius')], 0) > 0,
+                    multiplier: (config, stats) => valueOrDefault(config.negative_effects_on_ennemies_in_radius[getFirstStat(stats, 'elemental_damage_percent_for_each_negative_effect_on_ennemies_radius')], 0)
+                },
             ],
             maxPercent: [],
-            multiplier: [{ stat: 'elemental_damage_mult' }, { stat: 'elemental_damage_global_mult' }],
+            multiplier: [
+                { stat: 'elemental_damage_mult' },
+                { stat: 'elemental_damage_global_mult' },
+                { stat: 'elemental_fervor_buff_elemental_damage_global_mult', condition: config => config.has_elemental_fervor_buff }
+            ],
         } 
     },
     {
@@ -1090,6 +1118,41 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+        } 
+    },
+    {
+        stat: 'increased_damages',
+        precision: 1,
+        allowMinMax: false,
+        source: {
+            flat: [
+            ],
+            max: [],
+            percent: [],
+            maxPercent: [],
+            multiplier: [
+                { stat: 'nimble_buff_primary_skill_increased_damages',
+                    condition: config => config.has_nimble_buff, // TODO is_primary 
+                    multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getFirstStat(stats, 'nimble_champion_max_stacks'), 0))
+                },
+                { stat: 'increased_damage_for_each_yard_with_target', condition: config => config.distance_with_target > 0, multiplier:  config => config.distance_with_target },
+                { stat: 'primary_secondary_skill_increased_damage_mult' }
+            ],
+        } 
+    },
+    {
+        stat: 'increased_damage_taken',
+        precision: 1,
+        allowMinMax: false,
+        source: {
+            flat: [
+            ],
+            max: [],
+            percent: [],
+            maxPercent: [],
+            multiplier: [
+                { stat: 'no_gold_armor_buff_increased_damage_taken_mult', condition: config => !config.has_gold_armor_buff }
+            ],
         } 
     },
 ]

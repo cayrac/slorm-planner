@@ -6,6 +6,7 @@ export interface CharacterConfig {
     hits_taken_recently: number;
     skill_cast_recently: number;
     ennemies_in_radius: { [key: number]: number};
+    negative_effects_on_ennemies_in_radius: { [key: number]: number};
     elites_in_radius: { [key: number]: number};
     took_elemental_damage_recently: boolean;
     took_damage_before_next_cast: boolean;
@@ -19,6 +20,8 @@ export interface CharacterConfig {
     strider_stacks: number;
     merchant_stacks: number;
     totem_dexterity_stacks: number;
+    nimble_champion_stacks: number;
+    ancestral_legacy_stacks: number;
     has_aura_air_conditionner: boolean;
     has_aura_neriya_shield: boolean;
     has_aura_elemental_swap: boolean;
@@ -29,6 +32,8 @@ export interface CharacterConfig {
     has_adam_blessing_buff: boolean;
     has_gold_armor_buff: boolean;
     has_manabender_buff: boolean;
+    has_nimble_buff: boolean;
+    has_elemental_fervor_buff: boolean;
     distance_with_target: number;
     all_characters_level: number;
     iddle: boolean;

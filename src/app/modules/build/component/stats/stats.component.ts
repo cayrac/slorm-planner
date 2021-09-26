@@ -62,7 +62,7 @@ export class StatsComponent extends AbstractUnsubscribeComponent implements OnIn
         {
             section: this.slormancerTranslateService.translate('cat_movement'),
             stats: [
-                { name: this.slormancerTranslateService.translate('the_speed_percent'), stat: 'the_speed_percent', sign: false, suffix: '' }
+                { name: this.slormancerTranslateService.translate('movement_speed'), stat: 'movement_speed', sign: false, suffix: '' }
             ]
         },
         {

@@ -38,6 +38,9 @@ export class SlormancerCharacterService {
             2: 0,
             3: 0
         },
+        negative_effects_on_ennemies_in_radius: {
+            2: 10,
+        },
         took_elemental_damage_recently: false,
         took_damage_before_next_cast: false,
         cast_support_before_next_cast: false,
@@ -47,6 +50,8 @@ export class SlormancerCharacterService {
         greed_stacks: 0,
         strider_stacks: 0,
         merchant_stacks: 0,
+        nimble_champion_stacks: 100,
+        ancestral_legacy_stacks: 35,
         distance_with_target: 0,
         has_aura_air_conditionner: true,
         has_aura_neriya_shield: true,
@@ -58,6 +63,8 @@ export class SlormancerCharacterService {
         has_soul_bound_buff: true,
         has_adam_blessing_buff: true,
         has_manabender_buff: true,
+        has_nimble_buff: true,
+        has_elemental_fervor_buff: true,
         all_characters_level: 120,
         iddle: false,
         damage_stored: 1000,

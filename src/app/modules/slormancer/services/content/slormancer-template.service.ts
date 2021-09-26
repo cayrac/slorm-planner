@@ -92,6 +92,10 @@ export class SlormancerTemplateService {
         return template;
     }
 
+    private isDamageSource(stat: string): boolean {
+        return stat === 'elemental_damage' || stat === 'physical_damage' || stat === 'basic_damage' || stat === 'weapon_damage';
+    }
+
     private getEffectValueDetails(effectValue: EffectValueVariable | EffectValueSynergy, hideBase: boolean = false): string {
         let result = '';
         const percent = (effectValue.percent || isEffectValueSynergy(effectValue)) ? '%' : '';
@@ -100,33 +104,42 @@ export class SlormancerTemplateService {
             if (effectValue.value > 0 && effectValue.value < effectValue.max) {
                 result = this.asSpan('(+' + effectValue.max + percent + ' ' + this.MAX_LABEL + ')', 'details');
             }
-        } else if (effectValue.upgrade > 0) {
-            const showBase = isEffectValueSynergy(effectValue) && !hideBase;
-            const sign = showBase ? effectValue.upgrade < 0 ? '- ' : '+ ' : effectValue.upgrade < 0 ? '-' : '+';
-            const base = showBase ? (effectValue.value) + percent + ' ' : '';
-            const upgrade = Math.abs(effectValue.upgrade) + percent;
+        } else {
+            const showUpgrade = effectValue.upgrade > 0;
+            const showBase = (isEffectValueSynergy(effectValue) && this.isDamageSource(effectValue.source)) && !hideBase;
+            const hasDetails = showUpgrade || showBase;
 
-            if (effectValue.upgradeType === EffectValueUpgradeType.Mastery) {
-                result = base + sign + upgrade + ' per mastery level';
-            } else if (effectValue.upgradeType === EffectValueUpgradeType.UpgradeRank) {
-                result = base + sign + upgrade + ' per rank';
-            } else if (effectValue.upgradeType === EffectValueUpgradeType.AncestralRank) {
-                result = base + sign + upgrade + ' per rank';
-            } else if (effectValue.upgradeType === EffectValueUpgradeType.Every3) {
-                result = base + sign + upgrade + ' every third mastery level';
-            } else if (effectValue.upgradeType === EffectValueUpgradeType.ReaperLevel) {
-                result = sign + upgrade + ' per Level';
-            } else if (effectValue.upgradeType === EffectValueUpgradeType.NonPrimordialReaperLevel) {
-                result = sign + upgrade + ' per Non-Primordial Level';
-            } else if (effectValue.upgradeType === EffectValueUpgradeType.RanksAfterInThisTrait) {
-                result = sign + upgrade + ' for every point after this one in this Trait';
-            } else if (effectValue.upgradeType === EffectValueUpgradeType.Reinforcment) {
-                result = base + sign + upgrade + ' per reinforcment';
-            }else {
-                result = base + upgrade + ' every ' + effectValue.upgradeType;
+            if (hasDetails) {
+                const sign = showBase ? effectValue.upgrade < 0 ? '- ' : '+ ' : effectValue.upgrade < 0 ? '-' : '+';
+                const base = showBase ? (effectValue.value) + percent + ' ': '';
+                const upgrade = showUpgrade ? sign + Math.abs(effectValue.upgrade) + percent : '';
+
+                result = base;
+
+                if (showUpgrade) {
+                    if (effectValue.upgradeType === EffectValueUpgradeType.Mastery) {
+                        result += upgrade + ' per mastery level';
+                    } else if (effectValue.upgradeType === EffectValueUpgradeType.UpgradeRank) {
+                        result += upgrade + ' per rank';
+                    } else if (effectValue.upgradeType === EffectValueUpgradeType.AncestralRank) {
+                        result += upgrade + ' per rank';
+                    } else if (effectValue.upgradeType === EffectValueUpgradeType.Every3) {
+                        result += upgrade + ' every third mastery level';
+                    } else if (effectValue.upgradeType === EffectValueUpgradeType.ReaperLevel) {
+                        result += upgrade + ' per Level';
+                    } else if (effectValue.upgradeType === EffectValueUpgradeType.NonPrimordialReaperLevel) {
+                        result += upgrade + ' per Non-Primordial Level';
+                    } else if (effectValue.upgradeType === EffectValueUpgradeType.RanksAfterInThisTrait) {
+                        result += upgrade + ' for every point after this one in this Trait';
+                    } else if (effectValue.upgradeType === EffectValueUpgradeType.Reinforcment) {
+                        result += upgrade + ' per reinforcment';
+                    }
+                } else if (isEffectValueSynergy(effectValue)) {
+                    result += this.slormancerTranslateService.translate(effectValue.source);
+                }
+
+                result = this.asSpan('(' + result + ')', 'details');
             }
-
-            result = this.asSpan('(' + result + ')', 'details');
         }
 
         return result;
@@ -281,7 +294,7 @@ export class SlormancerTemplateService {
                     template = this.replaceAnchor(template, value, anchor);
                 }
             } else if (isEffectValueSynergy(effectValue)) {
-                const details = typeof effectValue.displaySynergy === 'number' ? '' :  (' ' + this.getEffectValueDetails(effectValue));
+                const details = this.getEffectValueDetails(effectValue);
                 const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
                 template = this.replaceAnchor(template, synergy + details, this.SYNERGY_ANCHOR);
                 template = this.replaceAnchor(template, this.slormancerTranslateService.translate(effectValue.source), this.TYPE_ANCHOR);
