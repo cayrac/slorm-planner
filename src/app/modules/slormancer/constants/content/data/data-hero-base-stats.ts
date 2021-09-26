@@ -11,9 +11,9 @@ const ALL_HEROES_BASE_STATS = [
     { stat: 'crit_damage_percent', base: 150, perLevel: 0 },
     { stat: 'inner_fire_max_number_add', base: 5, perLevel: 0 },
     { stat: 'inner_fire_duration_add', base: 12, perLevel: 0 },
-    { stat: 'inner_fire_damage_add', base: 50, perLevel: 0 },
+    { stat: 'inner_fire_damage_percent', base: -50, perLevel: 0 },
     { stat: 'overdrive_bounce_number_add', base: 2, perLevel: 0 },
-    { stat: 'overdrive_damage_percent', base: 60, perLevel: 0 },
+    { stat: 'overdrive_damage_percent', base: -40, perLevel: 0 },
 ];
 
 export const DATA_HERO_BASE_STATS: GameHeroesData<HeroBaseStats> = {

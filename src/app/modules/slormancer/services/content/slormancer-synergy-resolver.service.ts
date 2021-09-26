@@ -43,6 +43,7 @@ export class SlormancerSynergyResolverService {
 
     private addDefaultSynergies(resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>, config: CharacterConfig, extractedStats: CharacterExtractedStatMap) {
         const addReaperToElements = extractedStats['reaper_added_to_elements'] !== undefined
+        const overdriveDamageBasedOnSkillDamage = extractedStats['overdrive_damage_based_on_skill_damage'] !== undefined
 
         resolveDatas.push(synergyResolveData(effectValueSynergy(100 - config.percent_missing_mana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'current_mana'), -1, {}, [ { stat: 'current_mana' } ]));
         resolveDatas.push(synergyResolveData(effectValueSynergy(config.percent_missing_mana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'missing_mana'), -1, {}, [ { stat: 'missing_mana' } ]));
@@ -67,6 +68,17 @@ export class SlormancerSynergyResolverService {
         resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'reduced_on_melee', 'sum_reduced_resistances_add'), 0, {}, [ { stat: 'sum_reduced_resistances', mapping } ]));
         resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'reduced_on_projectile', 'sum_reduced_resistances_add'), 0, {}, [ { stat: 'sum_reduced_resistances', mapping } ]));
         resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'reduced_on_area', 'sum_reduced_resistances_add'), 0, {}, [ { stat: 'sum_reduced_resistances', mapping } ]));
+        
+        // overdrive_damage_based_on_skill_damage
+        mapping = HERO_CHARACTER_STATS_MAPPING.find(m => m.stat === 'overdrive_damage');
+        if (overdriveDamageBasedOnSkillDamage) {
+            resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'overdrive_damage_add'), 0, {}, [ { stat: 'overdrive_damage', mapping } ]));
+        } else {
+            resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'overdrive_damage_add'), 0, {}, [ { stat: 'overdrive_damage', mapping } ]));
+        }
+ 
+        mapping = HERO_CHARACTER_STATS_MAPPING.find(m => m.stat === 'inner_fire_damage');
+        resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'inner_fire_damage_add'), 0, {}, [ { stat: 'inner_fire_damage', mapping } ]));
 
         resolveDatas.push({
             type: ResolveDataType.ExternalSynergy,

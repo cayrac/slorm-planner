@@ -760,9 +760,9 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         } 
     },
     {
-        stat: 'inner_fire_damage_base_percent',
+        stat: 'inner_fire_damage',
         precision: 1,
-        allowMinMax: false,
+        allowMinMax: true,
         source: {
             flat: [{ stat: 'inner_fire_damage_add' }],
             max: [],
@@ -796,13 +796,13 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         } 
     },
     {
-        stat: 'overdrive_damage_base_percent',
-        precision: 1,
-        allowMinMax: false,
+        stat: 'overdrive_damage',
+        precision: 3,
+        allowMinMax: true,
         source: {
-            flat: [{ stat: 'overdrive_damage_percent' }],
+            flat: [{ stat: 'overdrive_damage_add' }],
             max: [],
-            percent: [],
+            percent: [{ stat: 'overdrive_damage_percent' }],
             maxPercent: [],
             multiplier: [],
         } 
@@ -1136,7 +1136,8 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
                     multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getFirstStat(stats, 'nimble_champion_max_stacks'), 0))
                 },
                 { stat: 'increased_damage_for_each_yard_with_target', condition: config => config.distance_with_target > 0, multiplier:  config => config.distance_with_target },
-                { stat: 'primary_secondary_skill_increased_damage_mult' }
+                { stat: 'primary_secondary_skill_increased_damage_mult' },
+                { stat: 'melee_skill_increased_damage_mult' }
             ],
         } 
     },

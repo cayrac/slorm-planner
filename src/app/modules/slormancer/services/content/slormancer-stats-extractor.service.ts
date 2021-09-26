@@ -59,7 +59,7 @@ export class SlormancerStatsExtractorService {
 
     private addAncestralLegacyValues(character: Character, stats: CharacterExtractedStats) {
         for (const ancestralLegacy of character.ancestralLegacies.ancestralLegacies) {
-            const active = ancestralLegacy.baseRank > 0 && character.ancestralLegacies.activeAncestralLegacies.indexOf(ancestralLegacy.id) !== -1;
+            const active = ancestralLegacy.rank > 0 && character.ancestralLegacies.activeAncestralLegacies.indexOf(ancestralLegacy.id) !== -1;
 
             for (const effectValue of ancestralLegacy.values) {
                 if (isEffectValueSynergy(effectValue)) {

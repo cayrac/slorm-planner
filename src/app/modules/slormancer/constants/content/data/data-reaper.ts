@@ -316,6 +316,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma, reaperId) => {
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'power_crystal_count');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Damage, 'power_crystal_damages');
+            addConstant(be, 1, false, EffectValueValueType.Stat, 'reaper_added_to_elements');
 
             if (reaperId === 82 && ba !== null) {
                 changeValue(ba, 1, 2);
@@ -343,11 +344,10 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     98: {
         override: (ba, be, ma, reaperId) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'overdrive_bounce_number_add');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'overdrive_chance_percent');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'overdrive_chance_percent_on_critical_strike');
 
-            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'overdrive_damage_percent');
+            addConstant(be, 1, true, EffectValueValueType.Stat, 'overdrive_damage_based_on_skill_damage')
+            addConstant(ma, -100, true, EffectValueValueType.Stat, 'melee_skill_increased_damage_mult')
         }
     },
     111: {

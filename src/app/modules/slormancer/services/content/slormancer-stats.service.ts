@@ -110,36 +110,6 @@ export class SlormancerStatsService {
         }
     }
 
-    private buildMechanicDamages(stats: Array<CharacterStat>, damageSource: string, damagePercent: string, stat: string) {
-        const damageSourceStat = stats.find(stat => stat.stat === damageSource);
-        const damagePercentStat = stats.find(stat => stat.stat === damagePercent);
-
-        let finalDamages = { min: 0, max: 0 };
-
-        if (damageSourceStat && damagePercentStat && typeof damagePercentStat.total === 'number' && typeof damageSourceStat.total !== 'number') {
-            finalDamages.min = damageSourceStat.total.min * damagePercentStat.total / 100;
-            finalDamages.max = damageSourceStat.total.max * damagePercentStat.total / 100;
-        }
-
-        const result: CharacterStat = {
-            precision: 0,
-            stat: stat,
-            total: finalDamages,
-            allowMinMax: true,
-            values: {
-                flat: [finalDamages],
-                max: [],
-                percent: [],
-                maxPercent: [],
-                multiplier: [],
-            }
-        } 
-
-        stats.push(result);
-
-        return result;
-    }
-
     private hasSynergyValueChanged(synergy: SynergyResolveData): boolean {
         let result = true;
 
@@ -197,9 +167,6 @@ export class SlormancerStatsService {
         result.unresolvedSynergies = this.slormancerSynergyResolverService.resolveSynergies(stats.synergies, result.stats.hero, config, stats.heroStats);
 
         this.slormancerSynergyResolverService.resolveIsolatedSynergies(stats.isolatedSynergies, result.stats.hero, stats.heroStats);
-
-        this.buildMechanicDamages(result.stats.hero, 'basic_damage', 'inner_fire_damage_base_percent', 'inner_fire_damage');
-        this.buildMechanicDamages(result.stats.hero, 'basic_damage', 'overdrive_damage_base_percent', 'overdrive_damage');
 
         console.log(stats.heroStats);
         // console.log(result);
