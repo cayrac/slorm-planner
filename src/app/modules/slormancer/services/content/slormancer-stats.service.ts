@@ -127,7 +127,7 @@ export class SlormancerStatsService {
         return result;
     }
 
-    public getStats(character: Character, config: CharacterConfig): CharacterStatsBuildResult {
+    public getStats(character: Character, config: CharacterConfig, additionalItem: EquipableItem | null = null): CharacterStatsBuildResult {
         const result: CharacterStatsBuildResult = {
             unlockedAncestralLegacies: [],
             unresolvedSynergies: [],
@@ -147,7 +147,7 @@ export class SlormancerStatsService {
                 activables: []
             }
         }
-        const stats = this.slormancerStatsExtractorService.extractStats(character, config);
+        const stats = this.slormancerStatsExtractorService.extractStats(character, config, additionalItem);
         
         result.stats.hero = this.buildCharacterStats(stats.heroStats, HERO_CHARACTER_STATS_MAPPING, config);
 

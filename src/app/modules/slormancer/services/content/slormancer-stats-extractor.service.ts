@@ -12,6 +12,7 @@ import { AbstractEffectValue } from '../../model/content/effect-value';
 import { ALL_ATTRIBUTES } from '../../model/content/enum/attribute';
 import { ALL_GEAR_SLOT_VALUES } from '../../model/content/enum/gear-slot';
 import { TraitLevel } from '../../model/content/enum/trait-level';
+import { EquipableItem } from '../../model/content/equipable-item';
 import { SkillType } from '../../model/content/skill-type';
 import { synergyResolveData } from '../../util/synergy-resolver.util';
 import { isEffectValueSynergy, isNotNullOrUndefined } from '../../util/utils';
@@ -163,9 +164,12 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.heroStats, 'number_equipped_legendaries', items.filter(item => item.legendaryEffect !== null).length);
 
         for (const item of items) {
-            const effectValues = [...item.affixes.map(affix => affix.craftedEffect), ...(item.legendaryEffect === null ? [] : item.legendaryEffect.effects)]
-                .flat()
-                .map(craftedEffect => craftedEffect.effect);
+            const effectValues = [
+                    ...item.affixes.map(affix => affix.craftedEffect.effect),
+                    ...(item.legendaryEffect !== null ? item.legendaryEffect.effects.map(c => c.effect) : []),
+                    ...(item.legendaryEffect !== null && item.legendaryEffect.activable !== null ? item.legendaryEffect.activable.values : [])
+                ]
+                .flat();
                 
             for (const effectValue of effectValues) {
                 if (isEffectValueSynergy(effectValue)) {
@@ -177,6 +181,21 @@ export class SlormancerStatsExtractorService {
                 } else {
                     this.addStat(stats.heroStats, effectValue.stat, effectValue.value);
                 }
+            }
+        }
+    }
+
+    private addAdditionalItemValues(additionalItem: EquipableItem | null, stats: CharacterExtractedStats) {
+        if (additionalItem !== null) {
+            const effectValues = [
+                    ...(additionalItem.legendaryEffect !== null ? additionalItem.legendaryEffect.effects.map(c => c.effect) : []),
+                    ...(additionalItem.legendaryEffect !== null && additionalItem.legendaryEffect.activable !== null ? additionalItem.legendaryEffect.activable.values : [])
+                ]
+                .flat()
+                .filter(isEffectValueSynergy);
+            
+            for (const synergy of effectValues) {            
+                stats.isolatedSynergies.push(synergyResolveData(synergy, synergy.synergy, { item: additionalItem }, this.getSynergyStatsItWillUpdate(synergy.stat)));
             }
         }
     }
@@ -267,7 +286,7 @@ export class SlormancerStatsExtractorService {
         }
     }
 
-    public extractStats(character: Character, config: CharacterConfig): CharacterExtractedStats {
+    public extractStats(character: Character, config: CharacterConfig, additionalItem: EquipableItem | null = null): CharacterExtractedStats {
         const result: CharacterExtractedStats = {
             synergies:  [],
             isolatedSynergies:  [],
@@ -283,6 +302,7 @@ export class SlormancerStatsExtractorService {
         this.addAncestralLegacyValues(character, result);
         this.addAttributesValues(character, result);
         this.addGearValues(character, result);
+        this.addAdditionalItemValues(additionalItem, result);
         this.addInventoryValues(character, result);
         this.addSkillValues(character, result);
         this.addActivableValues(character, result);

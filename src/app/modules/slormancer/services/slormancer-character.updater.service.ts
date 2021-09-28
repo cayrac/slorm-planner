@@ -5,6 +5,7 @@ import { Character } from '../model/character';
 import { CharacterConfig } from '../model/character-config';
 import { ALL_ATTRIBUTES, Attribute } from '../model/content/enum/attribute';
 import { ALL_GEAR_SLOT_VALUES } from '../model/content/enum/gear-slot';
+import { EquipableItem } from '../model/content/equipable-item';
 import { Reaper } from '../model/content/reaper';
 import { isFirst, isNotNullOrUndefined, valueOrDefault } from '../util/utils';
 import { SlormancerActivableService } from './content/slormancer-activable.service';
@@ -199,11 +200,10 @@ export class SlormancerCharacterUpdaterService {
         }
         for (const activable of statsResult.changed.activables) {
             this.slormancerActivableService.updateActivableView(activable);
-            // console.log('Updating attribute : ' + attribute.attributeName);
         }
     }
 
-    private updateCharacterStats(character: Character, updateChangedItems: boolean, config: CharacterConfig) {
+    private updateCharacterStats(character: Character, updateChangedItems: boolean, config: CharacterConfig, additionalItem: EquipableItem | null) {
 
         const stats = DATA_HERO_BASE_STATS[character.heroClass];
 
@@ -213,7 +213,7 @@ export class SlormancerCharacterUpdaterService {
             character.baseStats.push({ stat: levelStat.stat, values: [levelStat.value]});
         }
 
-        const statsResult = this.slormancerStatsService.getStats(character, config);
+        const statsResult = this.slormancerStatsService.getStats(character, config, additionalItem);
         character.stats = statsResult.stats;
 
         for (const ancestralLegacyId of statsResult.unlockedAncestralLegacies) {
@@ -232,7 +232,7 @@ export class SlormancerCharacterUpdaterService {
         }
     }
 
-    public updateCharacter(character: Character, updateChangedItems: boolean = true, config: CharacterConfig = this.CHARACTER_CONFIG) {
+    public updateCharacter(character: Character, updateChangedItems: boolean = true, additionalItem: EquipableItem | null = null) {
         character.ancestralLegacies.activeAncestralLegacies = this.slormancerDataService.getAncestralSkillIdFromNodes(character.ancestralLegacies.activeNodes);
 
         character.name = this.slormancerTranslateService.translate('hero_' + character.heroClass);
@@ -249,10 +249,9 @@ export class SlormancerCharacterUpdaterService {
         }
         character.attributes.remainingPoints = character.attributes.maxPoints - allocatedPoints;
 
-
         this.updateBonuses(character);
 
-        this.updateCharacterStats(character, updateChangedItems, config);
+        this.updateCharacterStats(character, updateChangedItems, this.CHARACTER_CONFIG, additionalItem);
         
         console.log(character);
     }

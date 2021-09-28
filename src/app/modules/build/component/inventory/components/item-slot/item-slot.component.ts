@@ -17,14 +17,11 @@ import {
 import {
     RemoveConfirmModalComponent,
 } from '../../../../../shared/components/remove-confirm-modal/remove-confirm-modal.component';
-import { MAX_ITEM_LEVEL } from '../../../../../slormancer/constants/common';
 import { EquipableItemBase } from '../../../../../slormancer/model/content/enum/equipable-item-base';
-import { HeroClass } from '../../../../../slormancer/model/content/enum/hero-class';
 import { EquipableItem } from '../../../../../slormancer/model/content/equipable-item';
 import { SlormancerItemService } from '../../../../../slormancer/services/content/slormancer-item.service';
 import { itemMoveService } from '../../services/item-move.service';
 import { SearchService } from '../../services/search.service';
-
 
 @Component({
   selector: 'app-item-slot',
@@ -41,12 +38,6 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
 
     @Input()
     public readonly base: EquipableItemBase | null = null;
-
-    @Input()
-    public readonly heroClass: HeroClass = HeroClass.Warrior;
-
-    @Input()
-    public readonly maxLevel: number = MAX_ITEM_LEVEL;
 
     @Output()
     public readonly changed = new EventEmitter<EquipableItem | null>();
@@ -119,10 +110,6 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
         this.searchService.searchChanged
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(() => this.updateSearch())
-
-        // on devrait pouvoir drop n'importe où pour annuler
-        // bordure moins transparente sur l'equipement hasMatchingBase
-        // renomer en item move et gérer le click droit ?
     }
 
     public ngOnInit() { }
@@ -148,25 +135,28 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
     }
     
     public edit(item: EquipableItem | null = this.item) {
-        if (item === null) {
-            if (this.base !== null) {
-                this.edit(this.slormancerItemService.getEmptyEquipableItem(this.base, this.heroClass, this.maxLevel));
+        const character = this.character;
+        if (character !== null) {
+            if (item === null) {
+                if (this.base !== null) {
+                    this.edit(this.slormancerItemService.getEmptyEquipableItem(this.base, character.heroClass, character.level));
+                } else {
+                    this.dialog.open(ItemBaseChoiceModalComponent)
+                    .afterClosed().subscribe((base: EquipableItemBase | undefined) => {
+                        if (base !== undefined && base !== null) {
+                            this.edit(this.slormancerItemService.getEmptyEquipableItem(base, character.heroClass, character.level));
+                        }
+                    });
+                }
             } else {
-                this.dialog.open(ItemBaseChoiceModalComponent)
-                .afterClosed().subscribe((base: EquipableItemBase | undefined) => {
-                    if (base !== undefined && base !== null) {
-                        this.edit(this.slormancerItemService.getEmptyEquipableItem(base, this.heroClass, this.maxLevel));
+                const data: ItemEditModalData = { character, item, maxLevel: character.level };
+                this.dialog.open(ItemEditModalComponent, { data, width: '80vw', maxWidth: '1000px' })
+                .afterClosed().subscribe((data: EquipableItem | null | undefined) => {
+                    if (data !== undefined) {
+                        this.changed.emit(data);
                     }
                 });
             }
-        } else if (this.character !== null) {
-            const data: ItemEditModalData = { character: this.character, item, maxLevel: this.maxLevel };
-            this.dialog.open(ItemEditModalComponent, { data, width: '80vw', maxWidth: '1000px' })
-            .afterClosed().subscribe((data: EquipableItem | null | undefined) => {
-                if (data !== undefined) {
-                    this.changed.emit(data);
-                }
-            });
         }
     }
 

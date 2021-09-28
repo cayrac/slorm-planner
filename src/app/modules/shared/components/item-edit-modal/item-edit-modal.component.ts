@@ -110,9 +110,7 @@ export class ItemEditModalComponent {
                     }
 
                     affix.craftedEffect.craftedValue = val;
-                    affix.pure = purity;
-
-                    
+                    affix.pure = purity;                   
                 }
             });
 
@@ -181,7 +179,7 @@ export class ItemEditModalComponent {
 
             this.slormancerItemService.updateEquipableItemModel(item);
             
-            this.slormancerCharacterUpdaterService.updateCharacter(this.character, false);
+            this.slormancerCharacterUpdaterService.updateCharacter(this.character, false, item);
 
             this.slormancerItemService.updateEquipableItemView(item);
         }
