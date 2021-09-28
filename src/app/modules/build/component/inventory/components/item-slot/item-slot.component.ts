@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { takeUntil } from 'rxjs/operators';
 import { Character } from 'src/app/modules/slormancer/model/character';
+import { ALL_GEAR_SLOT_VALUES } from 'src/app/modules/slormancer/model/content/enum/gear-slot';
+import { SlormancerCharacterBuilderService } from 'src/app/modules/slormancer/services/slormancer-character-builder.service';
 
 import {
     AbstractUnsubscribeComponent,
@@ -97,6 +99,7 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
     constructor(private dialog: MatDialog,
                 private itemMoveService: itemMoveService,
                 private searchService: SearchService,
+                private slormancerCharacterBuilderService: SlormancerCharacterBuilderService,
                 private slormancerItemService: SlormancerItemService) {
         super();
         this.itemMoveService.draggingItem
@@ -133,6 +136,16 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
         this.isDraggedItem = false;
         this.isItemCompatible = false;
     }
+
+    private getItemEditModalData(character: Character, item: EquipableItem): ItemEditModalData {
+        const characterClone = this.slormancerCharacterBuilderService.getCharacterClone(character);
+        const itemGearSlot = ALL_GEAR_SLOT_VALUES.find(gear => character.gear[gear] === item);
+        const itemFromGear = itemGearSlot ? characterClone.gear[itemGearSlot] : null;
+
+        const itemClone = itemFromGear !== null ? itemFromGear : this.slormancerItemService.getEquipableItemClone(item);
+
+        return { character: characterClone, item: itemClone, maxLevel: characterClone.level };
+    }
     
     public edit(item: EquipableItem | null = this.item) {
         const character = this.character;
@@ -149,7 +162,7 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
                     });
                 }
             } else {
-                const data: ItemEditModalData = { character, item, maxLevel: character.level };
+                const data: ItemEditModalData = this.getItemEditModalData(character, item);
                 this.dialog.open(ItemEditModalComponent, { data, width: '80vw', maxWidth: '1000px' })
                 .afterClosed().subscribe((data: EquipableItem | null | undefined) => {
                     if (data !== undefined) {

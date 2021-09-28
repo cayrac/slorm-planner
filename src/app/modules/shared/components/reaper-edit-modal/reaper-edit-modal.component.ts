@@ -39,7 +39,6 @@ export class ReaperEditModalComponent {
                 ) {
         this.originalReaper = this.slormancerReaperService.getReaperClone(data.reaper);
         this.character = data.character;
-
         this.reaper = data.reaper;
         this.reset();
 
@@ -68,11 +67,10 @@ export class ReaperEditModalComponent {
                 this.reaper.primordialInfo.level = value.primordialLevel;
                 this.reaper.baseInfo.kills = value.baseKills;
                 this.reaper.primordialInfo.kills = value.primordialKills;
-    
             } else {
                 const newReaper = this.slormancerReaperService.getReaperById(value.reaper, this.reaper.weaponClass, value.primordial, value.baseLevel, value.primordialLevel, value.baseKills, value.primordialKills, this.reaper.bonusLevel);
                 if (newReaper !== null) {
-                    this.reaper = newReaper;
+                    Object.assign(this.reaper, newReaper);
                 }
             }
 

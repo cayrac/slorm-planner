@@ -1,21 +1,20 @@
 
-<div class="reaper" cdkOverlayOrigin #trigger="cdkOverlayOrigin" (click)="edit()">
+<div class="reaper" cdkOverlayOrigin #trigger="cdkOverlayOrigin" (click)="edit()" *ngIf="character !== null">
     <div class="inner-slot"></div>
-    <ng-container *ngIf="reaper !== null">
-        <img [src]="reaper.icon" [class.primordial-effect]="reaper.primordial">
+    <ng-container>
+        <img [src]="character.reaper.icon" [class.primordial-effect]="character.reaper.primordial">
         <ng-template cdkConnectedOverlay
             [cdkConnectedOverlayOpen]="showOverlay"
             [cdkConnectedOverlayOrigin]="trigger">
-            <app-reaper-view [reaper]="reaper"></app-reaper-view>
+            <app-reaper-view [reaper]="character.reaper"></app-reaper-view>
         </ng-template>
     </ng-container>
     <div [matMenuTriggerFor]="menu"></div>
     <mat-menu #menu="matMenu" xPosition="after" [overlapTrigger]="true">
         <ng-template matMenuContent>
-            <button mat-menu-item *ngIf="reaper === null" (click)="edit()"><mat-icon>add_circle_outline</mat-icon>Add reaper</button>
-            <button mat-menu-item *ngIf="reaper !== null" (click)="edit()"><mat-icon>edit</mat-icon>Edit reaper</button>
+            <button mat-menu-item *ngIf="character.reaper === null" (click)="edit()"><mat-icon>add_circle_outline</mat-icon>Add reaper</button>
+            <button mat-menu-item *ngIf="character.reaper !== null" (click)="edit()"><mat-icon>edit</mat-icon>Edit reaper</button>
         </ng-template>
     </mat-menu>
 </div>
-<div class="reaper-level" *ngIf="reaper !== null" [innerHTML]="reaper.levelLabel"></div>
-<div class="reaper-level" *ngIf="reaper === null">No reaper selected</div>
+<div class="reaper-level" *ngIf="character !== null" [innerHTML]="character.reaper.levelLabel"></div>

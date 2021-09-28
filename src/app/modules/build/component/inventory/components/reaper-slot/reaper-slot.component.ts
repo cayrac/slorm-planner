@@ -1,6 +1,7 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { SlormancerCharacterBuilderService } from 'src/app/modules/slormancer/services/slormancer-character-builder.service';
 
 import {
     ReaperEditModalComponent,
@@ -8,7 +9,6 @@ import {
 } from '../../../../../shared/components/reaper-edit-modal/reaper-edit-modal.component';
 import { Character } from '../../../../../slormancer/model/character';
 import { Reaper } from '../../../../../slormancer/model/content/reaper';
-import { SlormancerReaperService } from '../../../../../slormancer/services/content/slormancer-reaper.service';
 import { itemMoveService } from '../../services/item-move.service';
 
 
@@ -21,9 +21,6 @@ export class ReaperSlotComponent implements OnInit {
 
     @Input()
     public readonly character: Character | null = null;
-
-    @Input()
-    public readonly reaper: Reaper | null = null;
 
     @Output()
     public readonly changed = new EventEmitter<Reaper>();
@@ -53,29 +50,22 @@ export class ReaperSlotComponent implements OnInit {
     }
     
     constructor(private dialog: MatDialog,
-                private slormancerReaperService: SlormancerReaperService,
+                private slormancerCharacterBuilderService: SlormancerCharacterBuilderService,
                 private itemMoveService: itemMoveService) { }
 
     public ngOnInit() { }
 
     public edit() {
-        let reaper = this.reaper;
-        const character = this.character;
 
-        if (character !== null) {
-            if (reaper === null) {
-                reaper = this.slormancerReaperService.getDefaultReaper(character.heroClass);
-            }
-    
-            if (reaper !== null) {
-                const data: ReaperEditModalData = { reaper, character };
-                this.dialog.open(ReaperEditModalComponent, { data })
-                .afterClosed().subscribe((reaper: Reaper | null | undefined) => {
-                    if (reaper) {
-                        this.changed.emit(reaper);
-                    }
-                });
-            }
+        if (this.character !== null) {
+            const character = this.slormancerCharacterBuilderService.getCharacterClone(this.character);
+            const data: ReaperEditModalData = { reaper: character.reaper, character };
+            this.dialog.open(ReaperEditModalComponent, { data })
+            .afterClosed().subscribe((reaper: Reaper | null | undefined) => {
+                if (reaper) {
+                    this.changed.emit(reaper);
+                }
+            });
         }
     }
     
