@@ -2,6 +2,7 @@ import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { takeUntil } from 'rxjs/operators';
+import { Character } from 'src/app/modules/slormancer/model/character';
 
 import {
     AbstractUnsubscribeComponent,
@@ -31,6 +32,9 @@ import { SearchService } from '../../services/search.service';
   styleUrls: ['./item-slot.component.scss']
 })
 export class ItemSlotComponent extends AbstractUnsubscribeComponent implements OnInit, OnChanges {
+
+    @Input()
+    public readonly character: Character | null = null;
 
     @Input()
     public readonly item: EquipableItem | null = null;
@@ -155,8 +159,8 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
                     }
                 });
             }
-        } else {
-            const data: ItemEditModalData = { item, maxLevel: this.maxLevel };
+        } else if (this.character !== null) {
+            const data: ItemEditModalData = { character: this.character, item, maxLevel: this.maxLevel };
             this.dialog.open(ItemEditModalComponent, { data, width: '80vw', maxWidth: '1000px' })
             .afterClosed().subscribe((data: EquipableItem | null | undefined) => {
                 if (data !== undefined) {

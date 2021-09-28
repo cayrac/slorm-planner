@@ -175,7 +175,7 @@ export class SlormancerCharacterUpdaterService {
     private updateChangedItems(statsResult: CharacterStatsBuildResult) {
         for (const item of statsResult.changed.items.filter(isFirst)) {
             // console.log('Updating item : ' + item.name);
-            this.slormancerItemService.updateEquippableItem(item);
+            this.slormancerItemService.updateEquipableItemView(item);
         }
         for (const ancestralLegacy of statsResult.changed.ancestralLegacies.filter(isFirst)) {
             this.slormancerAncestralLegacyService.updateAncestralLegacyView(ancestralLegacy); 
@@ -198,7 +198,7 @@ export class SlormancerCharacterUpdaterService {
             // console.log('Updating attribute : ' + attribute.attributeName);
         }
         for (const activable of statsResult.changed.activables) {
-            this.slormancerActivableService.updateActivable(activable);
+            this.slormancerActivableService.updateActivableView(activable);
             // console.log('Updating attribute : ' + attribute.attributeName);
         }
     }

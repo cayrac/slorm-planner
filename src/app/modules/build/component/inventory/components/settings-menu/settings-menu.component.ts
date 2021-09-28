@@ -89,7 +89,7 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
 
             this.getGearItems().forEach(item => {
                 item.reaperEnchantment = this.slormancerItemService.getReaperEnchantmentClone(reaperEnchantment);
-                this.slormancerItemService.updateEquippableItem(item);
+                this.slormancerItemService.updateEquipableItemView(item);
                 icon = item.reaperEnchantment.icon;
             });
 
@@ -118,7 +118,7 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
 
             this.getGearItems().forEach(item => {
                 item.attributeEnchantment = this.slormancerItemService.getAttributeEnchantmentClone(attributeEnchantment);
-                this.slormancerItemService.updateEquippableItem(item);
+                this.slormancerItemService.updateEquipableItemView(item);
                 icon = item.attributeEnchantment.icon;
             });
 
@@ -147,7 +147,7 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
 
             this.getGearItems().forEach(item => {
                 item.skillEnchantment = this.slormancerItemService.getSkillEnchantmentClone(skillEnchantment);
-                this.slormancerItemService.updateEquippableItem(item);
+                this.slormancerItemService.updateEquipableItemView(item);
                 icon = item.skillEnchantment.icon;
             });
             

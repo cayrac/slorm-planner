@@ -420,7 +420,8 @@ export class SlormancerReaperService {
 
         for (const activable of reaper.activables) {
             activable.level = reaper.level;
-            this.slormancerActivableService.updateActivable(activable);
+            this.slormancerActivableService.updateActivableModel(activable);
+            this.slormancerActivableService.updateActivableView(activable);
         }
 
 

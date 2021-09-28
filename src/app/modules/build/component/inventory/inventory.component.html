@@ -7,6 +7,7 @@
                     <app-item-slot class="helm"
                         [base]="bases.Helm"
                         [item]="character.gear.helm"
+                        [character]="character"
                         [maxLevel]="character.level"
                         [heroClass]="character.heroClass"
                         (changed)="updateHelm($event)">
@@ -14,6 +15,7 @@
                     <app-item-slot class="amulet"
                         [base]="bases.Amulet"
                         [item]="character.gear.amulet"
+                        [character]="character"
                         [maxLevel]="character.level"
                         [heroClass]="character.heroClass"
                         (changed)="updateAmulet($event)">
@@ -24,18 +26,21 @@
                         <app-item-slot class="shoulder"
                             [base]="bases.Shoulder"
                             [item]="character.gear.shoulder"
+                            [character]="character"
                             [maxLevel]="character.level"
                             (changed)="updateShoulder($event)">
                         </app-item-slot>
                         <app-item-slot class="bracer"
                             [base]="bases.Bracer"
                             [item]="character.gear.bracer"
+                            [character]="character"
                             [maxLevel]="character.level"
                             (changed)="updateBracer($event)">
                         </app-item-slot>
                         <app-item-slot class="glove"
                             [base]="bases.Glove"
                             [item]="character.gear.glove"
+                            [character]="character"
                             [maxLevel]="character.level"
                             (changed)="updateGlove($event)">
                         </app-item-slot>
@@ -50,18 +55,21 @@
                         <app-item-slot class="body"
                             [base]="bases.Body"
                             [item]="character.gear.body"
+                            [character]="character"
                             [maxLevel]="character.level"
                             (changed)="updateBody($event)">
                         </app-item-slot>
                         <app-item-slot class="cape"
                             [base]="bases.Cape"
                             [item]="character.gear.cape"
+                            [character]="character"
                             [maxLevel]="character.level"
                             (changed)="updateCape($event)">
                         </app-item-slot>
                         <app-item-slot class="belt"
                             [base]="bases.Belt"
                             [item]="character.gear.belt"
+                            [character]="character"
                             [maxLevel]="character.level"
                             (changed)="updateBelt($event)">
                         </app-item-slot>
@@ -71,6 +79,7 @@
                     <app-item-slot class="ring_l"
                         [base]="bases.Ring"
                         [item]="character.gear.ring_l"
+                        [character]="character"
                         [maxLevel]="character.level"
                         [heroClass]="character.heroClass"
                         (changed)="updateLeftRing($event)">
@@ -78,6 +87,7 @@
                     <app-item-slot class="boot"
                         [base]="bases.Boot"
                         [item]="character.gear.boot"
+                        [character]="character"
                         [maxLevel]="character.level"
                         [heroClass]="character.heroClass"
                         (changed)="updateBoot($event)">
@@ -85,6 +95,7 @@
                     <app-item-slot class="ring_r"
                         [base]="bases.Ring"
                         [item]="character.gear.ring_r"
+                        [character]="character"
                         [maxLevel]="character.level"
                         [heroClass]="character.heroClass"
                         (changed)="updateRightRing($event)">
@@ -121,6 +132,7 @@
                     <div class="items bag">
                         <app-item-slot *ngFor="let item of character.inventory; let i = index"
                             [item]="item"
+                            [character]="character"
                             [maxLevel]="character.level"
                             [heroClass]="character.heroClass"
                             (changed)="updateIventoryItem(i, $event)">
@@ -140,6 +152,7 @@
                     <div class="items stash">
                         <app-item-slot *ngFor="let item of stash; let i = index"
                             [item]="item"
+                            [character]="character"
                             [maxLevel]="character.level"
                             [heroClass]="character.heroClass"
                             (changed)="updateSharedInventoryItem(s, i, $event)">

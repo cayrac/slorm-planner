@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Character } from 'src/app/modules/slormancer/model/character';
+import { SlormancerCharacterUpdaterService } from 'src/app/modules/slormancer/services/slormancer-character.updater.service';
 
 import { MAX_EPIC_STATS, MAX_ITEM_LEVEL, MAX_MAGIC_STATS, MAX_RARE_STATS } from '../../../slormancer/constants/common';
 import { Affix } from '../../../slormancer/model/content/affix';
@@ -17,6 +19,7 @@ import { valueOrNull } from '../../../slormancer/util/utils';
 import { FormOptionsService } from '../../services/form-options.service';
 
 export interface ItemEditModalData {
+    character: Character,
     item: EquipableItem;
     maxLevel: number;
 }
@@ -38,11 +41,14 @@ export class ItemEditModalComponent {
 
     public alreadyUsedStats: Array<string> = [];
 
-    public item: EquipableItem;
+    private character: Character;
 
-    public form: FormGroup;
+    public item!: EquipableItem;
+
+    public form!: FormGroup;
 
     constructor(private dialogRef: MatDialogRef<ItemEditModalComponent>,
+                private slormancerCharacterUpdaterService: SlormancerCharacterUpdaterService,
                 private slormancerItemService: SlormancerItemService,
                 private slormancerDataService: SlormancerDataService,
                 private slormancerAffixService: SlormancerAffixService,
@@ -53,8 +59,9 @@ export class ItemEditModalComponent {
         this.originalItem = data.item;
         this.maxLevel = data.maxLevel;
 
-        this.item = this.slormancerItemService.getEquipableItemClone(this.originalItem);
-        this.form = this.buildForm();
+        this.character = data.character;
+        this.item = data.item;
+        this.reset();
 
         // TODO
         
@@ -67,7 +74,7 @@ export class ItemEditModalComponent {
     }
     
     public reset() {
-        this.item = this.slormancerItemService.getEquipableItemClone(this.originalItem);
+        Object.assign(this.item, this.slormancerItemService.getEquipableItemClone(this.originalItem));
         this.form = this.buildForm();
     }
 
@@ -170,9 +177,13 @@ export class ItemEditModalComponent {
             }
 
 
-            this.slormancerItemService.updateEquippableItem(item);
-
             this.alreadyUsedStats = item.affixes.map(affix => affix.craftedEffect.effect.stat);
+
+            this.slormancerItemService.updateEquipableItemModel(item);
+            
+            this.slormancerCharacterUpdaterService.updateCharacter(this.character, false);
+
+            this.slormancerItemService.updateEquipableItemView(item);
         }
     }
 

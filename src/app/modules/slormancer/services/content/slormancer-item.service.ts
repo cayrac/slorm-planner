@@ -293,7 +293,8 @@ export class SlormancerItemService {
             itemIconBackground: ''
         };
 
-        this.updateEquippableItem(result);
+        this.updateEquipableItemModel(result);
+        this.updateEquipableItemView(result);
 
         return result;
     }
@@ -327,7 +328,8 @@ export class SlormancerItemService {
             itemIconBackground: ''
         };
 
-        this.updateEquippableItem(result);
+        this.updateEquipableItemModel(result);
+        this.updateEquipableItemView(result);
 
         return result;
     }
@@ -367,19 +369,14 @@ export class SlormancerItemService {
             itemIconBackground: ''
         };
 
-        this.updateEquippableItem(result);
+        this.updateEquipableItemModel(result);
+        this.updateEquipableItemView(result);
 
         return result;
     }
 
-    public updateEquippableItem(item: EquippableItem) {
+    public updateEquipableItemModel(item: EquipableItem) {
         item.rarity = this.getItemRarity(item);
-        item.name = this.getItemName(item);
-        item.baseLabel =  this.slormancerTranslateService.removeGenre(this.slormancerTranslateService.translate('PIECE_' + item.base));
-        item.rarityLabel = this.slormancerTranslateService.translate('RAR_loot_' + item.rarity);
-        item.icon = this.getItemIcon(item);
-        item.levelLabel = this.slormancerTranslateService.translate('lvl') + '. ' + item.level;
-        item.itemIconBackground = 'assets/img/background/bg-' + item.rarity + '.png';
 
         for (const affix of item.affixes) {
             affix.itemLevel = item.level;
@@ -390,44 +387,67 @@ export class SlormancerItemService {
 
         if (item.legendaryEffect !== null) {
             item.legendaryEffect.reinforcment = item.reinforcment;
-            this.slormancerLegendaryEffectService.updateLegendaryEffect(item.legendaryEffect);
+            this.slormancerLegendaryEffectService.updateLegendaryEffectModel(item.legendaryEffect);
         }
 
         if (item.reaperEnchantment !== null) {
             const value = valueOrDefault(item.reaperEnchantment.craftableValues[item.reaperEnchantment.craftedValue], 0);
-
             item.reaperEnchantment.effect.value = value
+        }
+
+        if (item.skillEnchantment !== null) {
+            const value = valueOrDefault(item.skillEnchantment.craftableValues[item.skillEnchantment.craftedValue], 0);
+            item.skillEnchantment.effect.value = value;
+        }
+
+        if (item.attributeEnchantment !== null) {
+            const value = valueOrDefault(item.attributeEnchantment.craftableValues[item.attributeEnchantment.craftedValue], 0);
+            item.attributeEnchantment.effect.value = value;
+        }
+    }
+
+    public updateEquipableItemView(item: EquipableItem) {
+        item.name = this.getItemName(item);
+        item.baseLabel =  this.slormancerTranslateService.removeGenre(this.slormancerTranslateService.translate('PIECE_' + item.base));
+        item.rarityLabel = this.slormancerTranslateService.translate('RAR_loot_' + item.rarity);
+        item.icon = this.getItemIcon(item);
+        item.levelLabel = this.slormancerTranslateService.translate('lvl') + '. ' + item.level;
+        item.itemIconBackground = 'assets/img/background/bg-' + item.rarity + '.png';
+
+        for (const affix of item.affixes) {
+            this.slormancerItemAffixService.updateAffix(affix);
+        }
+
+        if (item.legendaryEffect !== null) {
+            this.slormancerLegendaryEffectService.updateLegendaryEffectView(item.legendaryEffect);
+        }
+
+        if (item.reaperEnchantment !== null) {
             item.reaperEnchantment.effect.stat = 'increased_reapersmith_' + item.reaperEnchantment.craftedReaperSmith + '_level';
 
             const smith = this.slormancerTranslateService.translate('weapon_reapersmith_' + item.reaperEnchantment.craftedReaperSmith);
             const min = valueOrDefault(firstValue(item.reaperEnchantment.craftableValues), 0);
             const max = valueOrDefault(lastValue(item.reaperEnchantment.craftableValues), 0);
-            item.reaperEnchantment.label = this.slormancerTemplateService.getReaperEnchantmentLabel(this.REAPER_ENCHANTMENT_LABEL, value, min, max, smith);
+            item.reaperEnchantment.label = this.slormancerTemplateService.getReaperEnchantmentLabel(this.REAPER_ENCHANTMENT_LABEL, item.reaperEnchantment.effect.value, min, max, smith);
         }
 
         if (item.skillEnchantment !== null) {
-            const value = valueOrDefault(item.skillEnchantment.craftableValues[item.skillEnchantment.craftedValue], 0);
-
-            item.skillEnchantment.effect.value = value;
             item.skillEnchantment.effect.stat = 'increased_skill_' + item.skillEnchantment.craftedSkill + '_level';
 
             const skill = this.slormancerDataService.getGameDataSkill(item.heroClass, item.skillEnchantment.craftedSkill);
             const min = valueOrDefault(firstValue(item.skillEnchantment.craftableValues), 0);
             const max = valueOrDefault(lastValue(item.skillEnchantment.craftableValues), 0);
-            item.skillEnchantment.label = this.slormancerTemplateService.getReaperEnchantmentLabel(this.SKILL_ENCHANTMENT_LABEL, value, min, max, skill === null ? '??' : skill.EN_NAME);
+            item.skillEnchantment.label = this.slormancerTemplateService.getReaperEnchantmentLabel(this.SKILL_ENCHANTMENT_LABEL, item.skillEnchantment.effect.value, min, max, skill === null ? '??' : skill.EN_NAME);
             item.skillEnchantment.icon = 'assets/img/icon/enchantment/skill/' + item.heroClass + '/' + item.skillEnchantment.craftedSkill + '.png';
         }
 
         if (item.attributeEnchantment !== null) {
-            const value = valueOrDefault(item.attributeEnchantment.craftableValues[item.attributeEnchantment.craftedValue], 0);
-
-            item.attributeEnchantment.effect.value = value;
             item.attributeEnchantment.effect.stat = 'increased_attribute_' + item.attributeEnchantment.craftedAttribute + '_level';
 
             const attributeName = this.slormancerTranslateService.translate('character_trait_' + item.attributeEnchantment.craftedAttribute);
             const min = valueOrDefault(firstValue(item.attributeEnchantment.craftableValues), 0);
             const max = valueOrDefault(lastValue(item.attributeEnchantment.craftableValues), 0);
-            item.attributeEnchantment.label = this.slormancerTemplateService.getReaperEnchantmentLabel(this.SKILL_ENCHANTMENT_LABEL, value, min, max, attributeName);
+            item.attributeEnchantment.label = this.slormancerTemplateService.getReaperEnchantmentLabel(this.SKILL_ENCHANTMENT_LABEL, item.attributeEnchantment.effect.value, min, max, attributeName);
             item.attributeEnchantment.icon = 'assets/img/icon/enchantment/attribute/' + item.attributeEnchantment.craftedAttribute + '.png';
         }
     }

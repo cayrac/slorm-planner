@@ -93,7 +93,8 @@ export class SlormancerActivableService {
 
         this.applyActivableOverride(activable, dataActivable);
 
-        this.updateActivable(activable);
+        this.updateActivableModel(activable);
+        this.updateActivableView(activable);
 
         return activable;
     }
@@ -104,8 +105,6 @@ export class SlormancerActivableService {
             genres: [ ...activable.genres ],
             values: activable.values.map(value => this.slormancerEffectValueService.getEffectValueClone(value))
         };
-
-        this.updateActivable(result);
 
         return result;
     }
@@ -125,7 +124,7 @@ export class SlormancerActivableService {
         return gameDataActivable === null ? null : this.buildActivable(gameDataActivable, EffectValueUpgradeType.Reinforcment, 0, heroClass);
     }
 
-    public updateActivable(activable: Activable) {
+    public updateActivableModel(activable: Activable) {
         activable.cooldown = round(activable.baseCooldown, 2);
         activable.cost = activable.baseCost;
 
@@ -136,7 +135,9 @@ export class SlormancerActivableService {
         for (const effectValue of activable.values) {
             this.slormancerEffectValueService.updateEffectValue(effectValue, activable.level);
         }
+    }
 
+    public updateActivableView(activable: Activable) {
         activable.genresLabel =  null;
         if (activable.genres.length > 0) {
             activable.genresLabel = activable.genres
@@ -158,7 +159,7 @@ export class SlormancerActivableService {
                 + ' ' + this.SECONDS_LABEL;
         }
 
-        activable.description = this.slormancerTemplateService.formatActivableDescription(activable.template, activable.values);
-        activable.description = activable.description.replace(/\{weaponClass\}/g, this.slormancerTranslateService.translate('weapon_' + activable.heroClass));
+        activable.description = this.slormancerTemplateService.formatActivableDescription(activable.template, activable.values)
+                .replace(/\{weaponClass\}/g, this.slormancerTranslateService.translate('weapon_' + activable.heroClass));
     }
 }

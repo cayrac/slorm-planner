@@ -142,7 +142,8 @@ export class SlormancerLegendaryEffectService {
 
             legendaryEffect = this.applyEffectOverride(legendaryEffect, gameData.REF);
 
-            this.updateLegendaryEffect(legendaryEffect);
+            this.updateLegendaryEffectModel(legendaryEffect);
+            this.updateLegendaryEffectView(legendaryEffect);
         }
 
         return legendaryEffect;
@@ -150,9 +151,9 @@ export class SlormancerLegendaryEffectService {
 
     public getLegendaryEffect(affix: GameAffix, reinforcment: number, heroClass: HeroClass): LegendaryEffect | null {
         return this.getLegendaryEffectById(affix.type, affix.value, reinforcment, heroClass);
-    }
-
-    public updateLegendaryEffect(legendaryEffect: LegendaryEffect) {
+    } 
+    
+    public updateLegendaryEffectModel(legendaryEffect: LegendaryEffect) {
         for (const craftedEffect of legendaryEffect.effects) {
             if (isEffectValueVariable(craftedEffect.effect) || isEffectValueSynergy(craftedEffect.effect)) {
                 craftedEffect.craftedValue = Math.min(craftedEffect.maxPossibleCraftedValue, Math.max(craftedEffect.minPossibleCraftedValue, legendaryEffect.value));
@@ -168,13 +169,19 @@ export class SlormancerLegendaryEffectService {
             }
         }
 
+        if (legendaryEffect.activable !== null) {
+            legendaryEffect.activable.level = legendaryEffect.reinforcment;
+            this.slormanderActivableService.updateActivableModel(legendaryEffect.activable);
+        }
+    }
+
+    public updateLegendaryEffectView(legendaryEffect: LegendaryEffect) {
         legendaryEffect.description = this.slormancerTemplateService.formatLegendaryDescription(legendaryEffect.template, legendaryEffect.effects);
 
         if (legendaryEffect.activable !== null) {
-            legendaryEffect.activable.level = legendaryEffect.reinforcment;
-            this.slormanderActivableService.updateActivable(legendaryEffect.activable);
+            this.slormanderActivableService.updateActivableView(legendaryEffect.activable);
         }
-    }
+    } 
 
     public getLegendaryEffectClone(legendaryEffect: LegendaryEffect): LegendaryEffect { 
         return {
