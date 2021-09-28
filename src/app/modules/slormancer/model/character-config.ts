@@ -8,6 +8,7 @@ export interface CharacterConfig {
     goldbane_5: number;
     hits_taken_recently: number;
     skill_cast_recently: number;
+    frostbold_shot_recently: number;
     ennemies_in_radius: { [key: number]: number};
     negative_effects_on_ennemies_in_radius: { [key: number]: number};
     elites_in_radius: { [key: number]: number};

@@ -164,6 +164,7 @@ export class SlormancerLegendaryEffectService {
                     upgrade);
                 
                 craftedEffect.effect.value = getCraftValue(craftedEffect, craftedEffect.craftedValue);
+                craftedEffect.effect.displayValue = craftedEffect.effect.value;
             }
         }
 

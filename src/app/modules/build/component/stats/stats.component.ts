@@ -203,9 +203,15 @@ export class StatsComponent extends AbstractUnsubscribeComponent implements OnIn
         let result = 'No details found';
 
         if (found) {
+            const isMinMax = typeof found.total !== 'number';
             result =  'Flat: ' + found.values.flat.map(v => this.valueToString(v, false, format.suffix)).join(', ') + '\n';
-            result += 'Max: ' + found.values.max.map(v => this.valueToString(v, false, format.suffix)).join(', ') + '\n';
+            if (isMinMax) {
+                result += 'Flat (max): ' + found.values.max.map(v => this.valueToString(v, false, format.suffix)).join(', ') + '\n';
+            }
             result += 'Percent: ' + found.values.percent.map(v => this.valueToString(v, false, '%')).join(', ') + '\n';
+            if (isMinMax) {
+                result += 'Percent (max) : ' + found.values.maxPercent.map(v => this.valueToString(v, false, '%')).join(', ') + '\n';
+            }
             result += 'Multiplier: ' + found.values.multiplier.map(v => this.valueToString(v, false, '%')).join(', ');
         }
 

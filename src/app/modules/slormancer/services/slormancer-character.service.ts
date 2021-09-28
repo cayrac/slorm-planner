@@ -32,6 +32,7 @@ export class SlormancerCharacterService {
         seconds_since_last_dodge: 100,
         hits_taken_recently: 0,
         skill_cast_recently: 0,
+        frostbold_shot_recently: 10,
         slormocide_60: 1500,
         goldbane_5: 1666,
         elites_in_radius: {
@@ -59,7 +60,7 @@ export class SlormancerCharacterService {
         conquest_stacks: 35,
         stability_stacks: 35,
         enlightenment_stacks: 852,
-        distance_with_target: 0,
+        distance_with_target: 5,
         has_aura_air_conditionner: true,
         has_aura_neriya_shield: true,
         has_aura_elemental_swap: true,

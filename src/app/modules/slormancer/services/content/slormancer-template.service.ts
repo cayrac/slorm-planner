@@ -138,7 +138,7 @@ export class SlormancerTemplateService {
                     result += this.slormancerTranslateService.translate(effectValue.source);
                 }
 
-                result = this.asSpan('(' + result + ')', 'details');
+                result = this.asSpan(' (' + result + ')', 'details');
             }
         }
 
@@ -169,8 +169,12 @@ export class SlormancerTemplateService {
                 const details = this.getEffectValueDetails(effectValue);
                 const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
                 const value = this.asSpan(this.formatValue(effectValue.value, true), 'value');
-                template = this.replaceAnchor(template, synergy, this.VALUE_ANCHOR);
-                template = this.replaceAnchor(template, value + details, this.SYNERGY_ANCHOR);
+                if (typeof effectValue.synergy === 'number') {
+                    template = this.replaceAnchor(template, synergy, this.VALUE_ANCHOR);
+                    template = this.replaceAnchor(template, value + details, this.SYNERGY_ANCHOR);
+                } else {
+                    template = this.replaceAnchor(template, synergy + details, this.SYNERGY_ANCHOR);
+                }
             }
         }
 

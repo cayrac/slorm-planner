@@ -323,7 +323,8 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             maxPercent: [],
             multiplier: [
                 { stat: 'crit_chance_global_mult_after_hit_taken', condition: config => config.took_damage_before_next_cast },
-                { stat: 'enemy_full_life_crit_chance_global_mult', condition: (config, stats) => (100 - config.enemy_percent_missing_health) >= getFirstStat(stats, 'enemy_full_life_crit_chance_global_mult_treshold', 0) }
+                { stat: 'enemy_full_life_crit_chance_global_mult', condition: (config, stats) => (100 - config.enemy_percent_missing_health) >= getFirstStat(stats, 'enemy_full_life_crit_chance_global_mult_treshold', 0) },
+                { stat: 'crit_chance_global_mult_per_yard', condition: config => config.distance_with_target > 0, multiplier: config => config.distance_with_target }
             ],
         } 
     },
@@ -1101,7 +1102,7 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             flat: [{ stat: 'min_weapon_damage_add' }],
             max: [{ stat: 'max_weapon_damage_add' }],
             percent: [],
-            maxPercent: [],
+            maxPercent: [{ stat: 'max_weapon_damage_global_mult' }],
             multiplier: [
                 { stat: 'weapon_damage_mult' },
                 { stat: 'weapon_damage_mult_after_support_cast', condition: config => config.cast_support_before_next_cast }

@@ -72,6 +72,11 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
             setStat(effect, 1, 'hremesal_effect_cooldown');
         }
     },
+    20: {
+        override: (effect) => {
+            setStat(effect, 0, 'crit_chance_global_mult_per_yard');
+        }
+    },
     23: {
         override: (effect) => {
             setStat(effect, 2, 'buff_indomptable_mountain_def_phy_mult');
@@ -129,13 +134,14 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     39: {
         override: (effect) => {
             setStat(effect, 0, 'deadly_splinter_damages');
+            // valueMultiply100(effect, 0);
         }
     },
     41: {
         override: (effect) => {
             setStat(effect, 0, 'vilinis_delay');
-            setStat(effect, 0, 'vilinis_damage_from_initial_hit');
-            setStat(effect, 0, 'vilinis_reapply_chance');
+            setStat(effect, 1, 'vilinis_damage_from_initial_hit');
+            setStat(effect, 2, 'vilinis_reapply_chance');
         }
     },
     54: {
@@ -148,6 +154,11 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
         override: (effect) => {
             setStat(effect, 0, 'explosive_projectile_cooldown_reduction_percent_per_hit');
             setStat(effect, 1, 'stab_copy_count');
+        }
+    },
+    56: {
+        override: (effect) => {
+            setStat(effect, 0, 'additional_wandering_arrow_add');
         }
     },
     57: {
@@ -178,6 +189,13 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     73: {
         override: (effect) => {
             setStat(effect, 0, 'burning_trail_burning_rage_burning_change');
+        }
+    },
+    74: {
+        override: (effect) => {
+            setStat(effect, 0, 'frist_crit_chance_per_frostbolt_shot_recently');
+            setStat(effect, 1, 'frist_crit_damage_per_frostbolt_shot_recently');
+            setStat(effect, 2, 'frostbolt_shot_recently_duration');
         }
     },
     75: {
