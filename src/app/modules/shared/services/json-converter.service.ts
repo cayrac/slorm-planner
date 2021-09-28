@@ -87,8 +87,8 @@ export class JsonConverterService {
         };
     }
 
-    private reaperToJson(reaper: Reaper | null): JsonReaper | null {
-        return reaper === null ? null : {
+    private reaperToJson(reaper: Reaper): JsonReaper {
+        return {
             id: reaper.id,
             level: reaper.baseInfo.level,
             primordialLevel: reaper.primordialInfo.level,
@@ -273,7 +273,7 @@ export class JsonConverterService {
     }
 
     public jsonToCharacter(character: JsonCharacter): Character {
-        const reaper = character.reaper === null ? null : this.slormancerReaperService.getReaper(
+        const reaper = this.slormancerReaperService.getReaperById(
             character.reaper.id,
             character.heroClass,
             character.reaper.primordial === 1,

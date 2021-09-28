@@ -261,23 +261,18 @@ export class JsonCompresserService {
         }
     }
 
-    private decompressReaper(content: string): JsonReaper | null {
-        let result: JsonReaper | null = null;
+    private decompressReaper(content: string): JsonReaper {
+        const splitData = this.splitData(content, this.OBJECT_VALUES_SEPARATOR);
+        let index = 0;
 
-        if (content.length > 0) {
-            const splitData = this.splitData(content, this.OBJECT_VALUES_SEPARATOR);
-            let index = 0;
-            result = {
-                id: parseInt(<string>splitData[index++]),
-                level: parseInt(<string>splitData[index++]),
-                kills: parseInt(<string>splitData[index++]),
-                primordialLevel: parseInt(<string>splitData[index++]),
-                primordialKills: parseInt(<string>splitData[index++]),
-                primordial: parseInt(<string>splitData[index++])
-            }
-        }
-
-        return result;
+        return {
+            id: parseInt(<string>splitData[index++]),
+            level: parseInt(<string>splitData[index++]),
+            kills: parseInt(<string>splitData[index++]),
+            primordialLevel: parseInt(<string>splitData[index++]),
+            primordialKills: parseInt(<string>splitData[index++]),
+            primordial: parseInt(<string>splitData[index++])
+        };
     }
 
     private decompressSkill(content: string): JsonSkill {

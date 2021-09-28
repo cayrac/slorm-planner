@@ -32,7 +32,7 @@ export interface JsonCharacter {
         maxNodes: number;
     }
 
-    reaper: JsonReaper | null;
+    reaper: JsonReaper;
 
     skills: Array<JsonSkill>;
 

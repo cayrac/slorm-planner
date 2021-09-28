@@ -102,7 +102,7 @@ export class SlormancerCharacterUpdaterService {
         }
     }
 
-    public applyReaperBonuses(character: Character, reaper: Reaper) {
+    private applyReaperBonuses(character: Character, reaper: Reaper) {
         const items = ALL_GEAR_SLOT_VALUES.map(slot => character.gear[slot]).filter(isNotNullOrUndefined);
 
         let bonus = 0;
@@ -114,7 +114,8 @@ export class SlormancerCharacterUpdaterService {
 
         if (reaper.bonusLevel !== bonus) {
             reaper.bonusLevel = bonus;
-            this.slormancerReaperService.updateReaper(reaper);
+            this.slormancerReaperService.updateReaperModel(reaper);
+            this.slormancerReaperService.updateReaperView(reaper);
         }
     }
 
@@ -183,7 +184,7 @@ export class SlormancerCharacterUpdaterService {
             // console.log('Updating ancestral legacy : ' + ancestralLegacy.name);
         }
         for (const reaper of statsResult.changed.reapers.filter(isFirst)) {
-            this.slormancerReaperService.updateReaper(reaper);
+            this.slormancerReaperService.updateReaperView(reaper);
             // console.log('Updating reaper : ' + reaper.name);
         }
         for (const skill of statsResult.changed.skills.filter(isFirst)) {

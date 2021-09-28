@@ -18,7 +18,6 @@ import { ALL_GEAR_SLOT_VALUES } from '../../../../../slormancer/model/content/en
 import { EquipableItem } from '../../../../../slormancer/model/content/equipable-item';
 import { Skill } from '../../../../../slormancer/model/content/skill';
 import { SlormancerItemService } from '../../../../../slormancer/services/content/slormancer-item.service';
-import { SlormancerCharacterUpdaterService } from '../../../../../slormancer/services/slormancer-character.updater.service';
 import { isNotNullOrUndefined } from '../../../../../slormancer/util/utils';
 
 
@@ -37,8 +36,7 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
     constructor(private plannerService: PlannerService,
                 private dialog: MatDialog,
                 private messageService: MessageService,
-                private slormancerItemService: SlormancerItemService,
-                private slormancerCharacterService: SlormancerCharacterUpdaterService
+                private slormancerItemService: SlormancerItemService
                 ) {
         super();
     }
@@ -71,7 +69,7 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
         let result: Array<EquipableItem> = [];
 
         const character = this.character
-        if (character !== null) {
+        if (character !== null) {   
             result = ALL_GEAR_SLOT_VALUES.map(slot => character.gear[slot]).filter(isNotNullOrUndefined);
         }
 
@@ -93,7 +91,7 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
                 icon = item.reaperEnchantment.icon;
             });
 
-            this.slormancerCharacterService.applyReaperBonuses(this.character, this.character.reaper);
+            this.plannerService.updateCurrentCharacter();
 
             this.messageService.message('All equipped items optimized for <img src="' + icon + '"> ' + this.character.reaper.smith.name);
             
@@ -122,7 +120,7 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
                 icon = item.attributeEnchantment.icon;
             });
 
-            this.slormancerCharacterService.updateCharacter(this.character);
+            this.plannerService.updateCurrentCharacter();
 
             this.messageService.message('All equipped items optimized for <img src="' + icon + '"> ' + traits.attributeName);
             
@@ -151,7 +149,7 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
                 icon = item.skillEnchantment.icon;
             });
             
-            this.slormancerCharacterService.updateCharacter(this.character);
+            this.plannerService.updateCurrentCharacter();
 
             this.messageService.message('All equipped items optimized for <img src="' + icon + '"> ' + skill.name);
             

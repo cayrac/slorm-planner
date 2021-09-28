@@ -60,7 +60,7 @@ export interface Character {
     name: string;
     fullName: string;
 
-    reaper: Reaper | null;
+    reaper: Reaper;
 
     ancestralLegacies: CharacterAncestralLegacies;
     skills: Array<CharacterSkillAndUpgrades>;

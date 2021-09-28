@@ -65,15 +65,24 @@ export class SlormancerCharacterBuilderService {
         return result;
     }
 
-    private getEquipedReaper(save: GameSave, heroClass: HeroClass): Reaper | null {
+    private getEquipedReaper(save: GameSave, heroClass: HeroClass): Reaper {
         const reaperCount = this.slormancerDataService.getGameDataReaperCount();
+        let result: Reaper | null = null;
 
         const weaponEquip = save.weapon_equip[heroClass];
         const primordial = weaponEquip >= reaperCount;
         const reaperId = weaponEquip % reaperCount;
         const reaperData = valueOrNull(save.weapon_data[heroClass][reaperId]);
 
-        return reaperData !== null ? this.slormancerReaperService.getReaperFromGameWeapon(reaperData, heroClass, primordial) : null;
+        if (reaperData !== null) {
+            result = this.slormancerReaperService.getReaperFromGameWeapon(reaperData, heroClass, primordial);
+        }
+
+        if (result === null) {
+            throw new Error('failed to parse reaper');
+        }
+
+        return result;
     }
 
     private getAncestralLegacies(ranks: Array<number> = []): Array<AncestralLegacy> {
@@ -190,7 +199,7 @@ export class SlormancerCharacterBuilderService {
     public getCharacterClone(character: Character): Character {
         const result: Character = {
             ...character,
-            reaper: character.reaper === null ? null : this.slormancerReaperService.getReaperClone(character.reaper),
+            reaper: this.slormancerReaperService.getReaperClone(character.reaper),
         
             ancestralLegacies: {
                 ancestralLegacies: character.ancestralLegacies.ancestralLegacies.map(ancestralLegacy => this.slormancerAncestralLegacyService.getAncestralLegacyClone(ancestralLegacy)),
@@ -346,6 +355,11 @@ export class SlormancerCharacterBuilderService {
                         activable4: null | number = null
                         ): Character {
         const skills = this.getSkills(heroClass, skillEquipped, skillRanks);
+
+        if (reaper === null) {
+            reaper = this.slormancerReaperService.getDefaultReaper(heroClass);
+        }
+
         const character: Character = {
             heroClass,
             version,

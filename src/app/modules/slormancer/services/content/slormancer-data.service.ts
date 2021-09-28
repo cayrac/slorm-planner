@@ -86,9 +86,9 @@ export class SlormancerDataService {
         return GAME_DATA.REAPER.filter(stat => stat.EN_NAME !== '' && stat.EVOLVE_IN === id)
     }
 
-    public getDataReaperDamages(id: number): { [key: number]: MinMax } | null {
+    public getDataReaperDamages(id: number): { [key: number]: MinMax } {
         const data = DATA_REAPER_DAMAGES[id];
-        return data ? data.damages : null;
+        return data ? data.damages : { 0: { min: 0, max: 0 } };
     }    
     
     public getGameDataSkill(heroClass: HeroClass, id: number): GameDataSkill | null {

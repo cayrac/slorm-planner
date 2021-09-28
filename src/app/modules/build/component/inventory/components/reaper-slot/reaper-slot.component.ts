@@ -7,9 +7,7 @@ import {
     ReaperEditModalData,
 } from '../../../../../shared/components/reaper-edit-modal/reaper-edit-modal.component';
 import { Character } from '../../../../../slormancer/model/character';
-import { HeroClass } from '../../../../../slormancer/model/content/enum/hero-class';
 import { Reaper } from '../../../../../slormancer/model/content/reaper';
-import { SlormancerDataService } from '../../../../../slormancer/services/content/slormancer-data.service';
 import { SlormancerReaperService } from '../../../../../slormancer/services/content/slormancer-reaper.service';
 import { itemMoveService } from '../../services/item-move.service';
 
@@ -26,9 +24,6 @@ export class ReaperSlotComponent implements OnInit {
 
     @Input()
     public readonly reaper: Reaper | null = null;
-
-    @Input()
-    public readonly heroClass: HeroClass = HeroClass.Warrior;
 
     @Output()
     public readonly changed = new EventEmitter<Reaper>();
@@ -58,7 +53,6 @@ export class ReaperSlotComponent implements OnInit {
     }
     
     constructor(private dialog: MatDialog,
-                private slormancerDataService: SlormancerDataService,
                 private slormancerReaperService: SlormancerReaperService,
                 private itemMoveService: itemMoveService) { }
 
@@ -66,24 +60,22 @@ export class ReaperSlotComponent implements OnInit {
 
     public edit() {
         let reaper = this.reaper;
-        let character = this.character;
+        const character = this.character;
 
-        if (reaper === null) {
-            const reaperId = this.slormancerDataService.getGameDataAvailableReaper()[0];
-            
-            if (reaperId) {
-                reaper = this.slormancerReaperService.getReaper(reaperId.REF, this.heroClass, false, 1, 1, 0, 0, 0);
+        if (character !== null) {
+            if (reaper === null) {
+                reaper = this.slormancerReaperService.getDefaultReaper(character.heroClass);
             }
-        }
-
-        if (reaper !== null && character !== null) {
-            const data: ReaperEditModalData = { reaper, character };
-            this.dialog.open(ReaperEditModalComponent, { data })
-            .afterClosed().subscribe((reaper: Reaper | undefined) => {
-                if (reaper) {
-                    this.changed.emit(reaper);
-                }
-            });
+    
+            if (reaper !== null) {
+                const data: ReaperEditModalData = { reaper, character };
+                this.dialog.open(ReaperEditModalComponent, { data })
+                .afterClosed().subscribe((reaper: Reaper | null | undefined) => {
+                    if (reaper) {
+                        this.changed.emit(reaper);
+                    }
+                });
+            }
         }
     }
     

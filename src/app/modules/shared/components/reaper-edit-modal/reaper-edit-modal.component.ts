@@ -29,25 +29,25 @@ export class ReaperEditModalComponent {
 
     public reaper: Reaper;
 
-    public form: FormGroup;
+    public form!: FormGroup;
 
     constructor(private dialogRef: MatDialogRef<ReaperEditModalComponent>,
                 private slormancerReaperService: SlormancerReaperService,
-                private slormancerCharacterService: SlormancerCharacterUpdaterService,
+                private slormancerCharacterUpdaterService: SlormancerCharacterUpdaterService,
                 private formOptionsService: FormOptionsService,
                 @Inject(MAT_DIALOG_DATA) data: ReaperEditModalData
                 ) {
-        this.originalReaper = data.reaper;
+        this.originalReaper = this.slormancerReaperService.getReaperClone(data.reaper);
         this.character = data.character;
 
-        this.reaper = this.slormancerReaperService.getReaperClone(this.originalReaper);
-        this.form = this.buildForm();
+        this.reaper = data.reaper;
+        this.reset();
 
         console.log(this.reaper);
     }
     
     public reset() {
-        this.reaper = this.slormancerReaperService.getReaperClone(this.originalReaper);
+        Object.assign(this.reaper, this.originalReaper);
         this.form = this.buildForm();
     }
 
@@ -70,14 +70,15 @@ export class ReaperEditModalComponent {
                 this.reaper.primordialInfo.kills = value.primordialKills;
     
             } else {
-                const newReaper = this.slormancerReaperService.getReaper(value.reaper, this.reaper.weaponClass, value.primordial, value.baseLevel, value.primordialLevel, value.baseKills, value.primordialKills, this.reaper.bonusLevel);
+                const newReaper = this.slormancerReaperService.getReaperById(value.reaper, this.reaper.weaponClass, value.primordial, value.baseLevel, value.primordialLevel, value.baseKills, value.primordialKills, this.reaper.bonusLevel);
                 if (newReaper !== null) {
                     this.reaper = newReaper;
                 }
             }
 
-            this.slormancerReaperService.updateReaper(this.reaper);
-            this.slormancerCharacterService.applyReaperBonuses(this.character, this.reaper);
+            this.slormancerReaperService.updateReaperModel(this.reaper);
+            this.slormancerCharacterUpdaterService.updateCharacter(this.character, false);
+            this.slormancerReaperService.updateReaperView(this.reaper);
             
             this.options = this.formOptionsService.getReaperOptions(this.reaper.weaponClass, this.reaper.primordial);
 

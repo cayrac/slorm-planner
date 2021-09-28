@@ -251,9 +251,7 @@ export class SlormancerStatsExtractorService {
         for (const activable of activables) {
             for (const effectValue of activable.values) {
                 if (isEffectValueSynergy(effectValue)) {
-                    if (this.isDamageStat(effectValue.stat)) {
-                        stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { activable }));
-                    } else {
+                    if (!this.isDamageStat(effectValue.stat)) {
                         stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { activable }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
                     }
                 } else {
