@@ -18,7 +18,7 @@ import { ALL_GEAR_SLOT_VALUES } from '../../../../../slormancer/model/content/en
 import { EquipableItem } from '../../../../../slormancer/model/content/equipable-item';
 import { Skill } from '../../../../../slormancer/model/content/skill';
 import { SlormancerItemService } from '../../../../../slormancer/services/content/slormancer-item.service';
-import { SlormancerCharacterService } from '../../../../../slormancer/services/slormancer-character.service';
+import { SlormancerCharacterUpdaterService } from '../../../../../slormancer/services/slormancer-character.updater.service';
 import { isNotNullOrUndefined } from '../../../../../slormancer/util/utils';
 
 
@@ -38,7 +38,7 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
                 private dialog: MatDialog,
                 private messageService: MessageService,
                 private slormancerItemService: SlormancerItemService,
-                private slormancerCharacterService: SlormancerCharacterService
+                private slormancerCharacterService: SlormancerCharacterUpdaterService
                 ) {
         super();
     }

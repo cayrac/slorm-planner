@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
+import {
+    SlormancerCharacterModifierService,
+} from 'src/app/modules/slormancer/services/slormancer-character.modifier.service';
 
 import {
     AbstractUnsubscribeComponent,
@@ -9,7 +12,6 @@ import { Character, CharacterSkillAndUpgrades } from '../../../slormancer/model/
 import { SkillType } from '../../../slormancer/model/content/skill-type';
 import { SkillUpgrade } from '../../../slormancer/model/content/skill-upgrade';
 import { SlormancerSkillService } from '../../../slormancer/services/content/slormancer-skill.service';
-import { SlormancerCharacterService } from '../../../slormancer/services/slormancer-character.service';
 import { isFirst, valueOrNull } from '../../../slormancer/util/utils';
 
 @Component({
@@ -29,7 +31,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
 
     constructor(private plannerService: PlannerService,
                 private slormancerSkillService: SlormancerSkillService,
-                private slormancerCharacterService: SlormancerCharacterService) {
+                private slormancerCharacterModifierService: SlormancerCharacterModifierService) {
         super();
     }
 
@@ -156,7 +158,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
             }
 
             if (!this.isUpgradeEquipped(selectedUpgrade)) {
-                this.slormancerCharacterService.selectUpgrade(this.character, selectedUpgrade);
+                this.slormancerCharacterModifierService.selectUpgrade(this.character, selectedUpgrade);
     
                 if (selectedUpgrade.baseRank === 0) {
                     selectedUpgrade.baseRank = 1;
@@ -180,7 +182,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
             }
 
             if (!this.isUpgradeEquipped(selectedUpgrade)) {
-                this.slormancerCharacterService.selectUpgrade(this.character, selectedUpgrade);
+                this.slormancerCharacterModifierService.selectUpgrade(this.character, selectedUpgrade);
             } else if (selectedUpgrade.baseRank > 1) {
                 selectedUpgrade.baseRank--;
                 this.slormancerSkillService.updateUpgrade(selectedUpgrade);
@@ -197,19 +199,19 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
 
     public equipSupport(skill: CharacterSkillAndUpgrades) {
         if (this.character !== null) {
-            this.slormancerCharacterService.setSupportSkill(this.character, skill.skill);
+            this.slormancerCharacterModifierService.setSupportSkill(this.character, skill.skill);
         }
     }
 
     public equipPrimary(skill: CharacterSkillAndUpgrades) {
         if (this.character !== null) {
-            this.slormancerCharacterService.setPrimarySkill(this.character, skill.skill);
+            this.slormancerCharacterModifierService.setPrimarySkill(this.character, skill.skill);
         }
     }
 
     public equipSecondary(skill: CharacterSkillAndUpgrades) {
         if (this.character !== null) {
-            this.slormancerCharacterService.setSecondarySkill(this.character, skill.skill);
+            this.slormancerCharacterModifierService.setSecondarySkill(this.character, skill.skill);
         }
     }
 }

@@ -19,7 +19,7 @@ import { SlormancerDataService } from './content/slormancer-data.service';
 import { SlormancerItemService } from './content/slormancer-item.service';
 import { SlormancerReaperService } from './content/slormancer-reaper.service';
 import { SlormancerSkillService } from './content/slormancer-skill.service';
-import { SlormancerCharacterService } from './slormancer-character.service';
+import { SlormancerCharacterUpdaterService } from './slormancer-character.updater.service';
 
 @Injectable()
 export class SlormancerCharacterBuilderService {
@@ -30,7 +30,7 @@ export class SlormancerCharacterBuilderService {
                 private slormancerSkillService: SlormancerSkillService,
                 private slormancerAttributeService: SlormancerAttributeService,
                 private slormancerAncestralLegacyService: SlormancerAncestralLegacyService,
-                private slormancerCharacterService: SlormancerCharacterService
+                private slormancerCharacterService: SlormancerCharacterUpdaterService
         ) { }
 
     private getSkills(heroClass: HeroClass, equipped: Array<number> = [], ranks: Array<number> = []): Array<CharacterSkillAndUpgrades> {

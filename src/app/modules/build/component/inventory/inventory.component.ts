@@ -9,7 +9,7 @@ import { Character } from '../../../slormancer/model/character';
 import { EquipableItemBase } from '../../../slormancer/model/content/enum/equipable-item-base';
 import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
 import { Reaper } from '../../../slormancer/model/content/reaper';
-import { SlormancerCharacterService } from '../../../slormancer/services/slormancer-character.service';
+import { SlormancerCharacterUpdaterService } from '../../../slormancer/services/slormancer-character.updater.service';
 import { itemMoveService as ItemMoveService } from './services/item-move.service';
 
 @Component({
@@ -31,7 +31,7 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
 
     constructor(private plannerService: PlannerService,
                 private itemMoveService: ItemMoveService,
-                private slormancerCharacterService: SlormancerCharacterService) {
+                private slormancerCharacterService: SlormancerCharacterUpdaterService) {
         super();
         this.itemMoveService.draggingItem
             .pipe(takeUntil(this.unsubscribe))

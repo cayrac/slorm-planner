@@ -1,5 +1,8 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
+import {
+    SlormancerCharacterModifierService,
+} from 'src/app/modules/slormancer/services/slormancer-character.modifier.service';
 
 import {
     AbstractUnsubscribeComponent,
@@ -13,7 +16,6 @@ import { Character } from '../../../../../slormancer/model/character';
 import { AncestralLegacy } from '../../../../../slormancer/model/content/ancestral-legacy';
 import { MinMax } from '../../../../../slormancer/model/minmax';
 import { SlormancerDataService } from '../../../../../slormancer/services/content/slormancer-data.service';
-import { SlormancerCharacterService } from '../../../../../slormancer/services/slormancer-character.service';
 import { list } from '../../../../../slormancer/util/math.util';
 import { isFirst, valueOrDefault, valueOrNull } from '../../../../../slormancer/util/utils';
 
@@ -104,7 +106,7 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
 
     constructor(private plannerService: PlannerService,
                 private slormancerDataService: SlormancerDataService,
-                private slormancerCharacterService: SlormancerCharacterService) {
+                private slormancerCharacterModifierService: SlormancerCharacterModifierService) {
         super();
         this.drawMap();
     }
@@ -194,9 +196,9 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
             let changed = false;
 
             if (this.isNodeActive(nodeId)) {
-                changed = this.slormancerCharacterService.disableAncestralLegacyNode(this.character, nodeId);
+                changed = this.slormancerCharacterModifierService.disableAncestralLegacyNode(this.character, nodeId);
             } else {
-                changed = this.slormancerCharacterService.activateAncestralLegacyNode(this.character, nodeId);
+                changed = this.slormancerCharacterModifierService.activateAncestralLegacyNode(this.character, nodeId);
             }
     
             if (changed) {

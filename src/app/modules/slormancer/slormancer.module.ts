@@ -23,7 +23,8 @@ import { SlormancerTranslateService } from './services/content/slormancer-transl
 import { SlormancerItemParserService } from './services/parser/slormancer-item-parser.service';
 import { SlormancerSaveParserService } from './services/parser/slormancer-save-parser.service';
 import { SlormancerCharacterBuilderService } from './services/slormancer-character-builder.service';
-import { SlormancerCharacterService } from './services/slormancer-character.service';
+import { SlormancerCharacterModifierService } from './services/slormancer-character.modifier.service';
+import { SlormancerCharacterUpdaterService } from './services/slormancer-character.updater.service';
 
 @NgModule({
   declarations: [],
@@ -47,13 +48,14 @@ import { SlormancerCharacterService } from './services/slormancer-character.serv
     SlormancerAttributeService,
     SlormancerAffixService,
     SlormancerTranslateService,
-    SlormancerCharacterService,
+    SlormancerCharacterUpdaterService,
     SlormancerStatsService,
     SlormancerStatsExtractorService,
-    SlormancerCharacterService,
+    SlormancerCharacterUpdaterService,
     SlormancerCharacterBuilderService,
     SlormancerSynergyResolverService,
-    SlormancerStatUpdaterService
+    SlormancerStatUpdaterService,
+    SlormancerCharacterModifierService,
   ],
   bootstrap: []
 })

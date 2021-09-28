@@ -7,7 +7,7 @@ import { HeroClass } from '../../slormancer/model/content/enum/hero-class';
 import { GameSave } from '../../slormancer/model/parser/game/game-save';
 import { SlormancerSaveParserService } from '../../slormancer/services/parser/slormancer-save-parser.service';
 import { SlormancerCharacterBuilderService } from '../../slormancer/services/slormancer-character-builder.service';
-import { SlormancerCharacterService } from '../../slormancer/services/slormancer-character.service';
+import { SlormancerCharacterUpdaterService } from '../../slormancer/services/slormancer-character.updater.service';
 import { valueOrNull } from '../../slormancer/util/utils';
 import { Layer } from '../model/layer';
 import { Planner } from '../model/planner';
@@ -25,7 +25,7 @@ export class PlannerService {
 
     public readonly selectedLayerIndexChanged = new BehaviorSubject<number>(this.selectedLayerIndex);
 
-    constructor(private slormancerCharacterService: SlormancerCharacterService,
+    constructor(private slormancerCharacterService: SlormancerCharacterUpdaterService,
                 private slormancerCharacterBuilderService: SlormancerCharacterBuilderService,
                 private slormancerSaveParserService: SlormancerSaveParserService,
                 private httpClient: HttpClient) {

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
+import {
+    SlormancerCharacterModifierService,
+} from 'src/app/modules/slormancer/services/slormancer-character.modifier.service';
 
 import {
     AbstractUnsubscribeComponent,
@@ -9,7 +12,6 @@ import { Character } from '../../../../../slormancer/model/character';
 import { Activable } from '../../../../../slormancer/model/content/activable';
 import { AncestralLegacy } from '../../../../../slormancer/model/content/ancestral-legacy';
 import { Skill } from '../../../../../slormancer/model/content/skill';
-import { SlormancerCharacterService } from '../../../../../slormancer/services/slormancer-character.service';
 
 
 @Component({
@@ -22,7 +24,7 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
     public character: Character | null = null;
 
     constructor(private plannerService: PlannerService,
-                private slormancerCharacterService: SlormancerCharacterService) {
+                private slormancerCharacterModifierService: SlormancerCharacterModifierService) {
         super();
     }
 
@@ -34,25 +36,26 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
 
     public updatePrimarySkill(skill: Skill) {
         if (this.character !== null) {
-            this.slormancerCharacterService.setPrimarySkill(this.character, skill)
+            this.slormancerCharacterModifierService.setPrimarySkill(this.character, skill)
         }
     }
 
     public updateSecondarySkill(skill: Skill) {
         if (this.character !== null) {
-            this.slormancerCharacterService.setSecondarySkill(this.character, skill)
+            this.slormancerCharacterModifierService.setSecondarySkill(this.character, skill)
         }
     }
 
     public updateSupportSkill(skill: Skill) {
         if (this.character !== null) {
-            this.slormancerCharacterService.setSupportSkill(this.character, skill)
+            this.slormancerCharacterModifierService.setSupportSkill(this.character, skill)
         }
     }
 
     public updateActivable1(activable: Activable | AncestralLegacy | null) {
         if (this.character !== null && this.character.activable1 !== activable) {
             if (activable !== null) {
+                // à déplacer dans character modifier
                 if (this.character.activable2 === activable) {
                     this.character.activable2 = this.character.activable1;
                 } else if (this.character.activable3 === activable) {
@@ -62,7 +65,7 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
                 }
             }
             this.character.activable1 = activable;
-            this.slormancerCharacterService.updateCharacter(this.character);
+            this.plannerService.updateCurrentCharacter();
         }
     }
 
@@ -78,7 +81,7 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
                 }
             }
             this.character.activable2 = activable;
-            this.slormancerCharacterService.updateCharacter(this.character);
+            this.plannerService.updateCurrentCharacter();
         }
     }
 
@@ -94,7 +97,7 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
                 }
             }
             this.character.activable3 = activable;
-            this.slormancerCharacterService.updateCharacter(this.character);
+            this.plannerService.updateCurrentCharacter();
         }
     }
 
@@ -110,7 +113,7 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
                 }
             }
             this.character.activable4 = activable;
-            this.slormancerCharacterService.updateCharacter(this.character);
+            this.plannerService.updateCurrentCharacter();
         }
     }
 }

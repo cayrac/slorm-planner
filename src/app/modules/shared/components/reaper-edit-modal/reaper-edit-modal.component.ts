@@ -5,7 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Character } from '../../../slormancer/model/character';
 import { Reaper } from '../../../slormancer/model/content/reaper';
 import { SlormancerReaperService } from '../../../slormancer/services/content/slormancer-reaper.service';
-import { SlormancerCharacterService } from '../../../slormancer/services/slormancer-character.service';
+import { SlormancerCharacterUpdaterService } from '../../../slormancer/services/slormancer-character.updater.service';
 import { SelectOption } from '../../model/select-option';
 import { FormOptionsService } from '../../services/form-options.service';
 
@@ -33,7 +33,7 @@ export class ReaperEditModalComponent {
 
     constructor(private dialogRef: MatDialogRef<ReaperEditModalComponent>,
                 private slormancerReaperService: SlormancerReaperService,
-                private slormancerCharacterService: SlormancerCharacterService,
+                private slormancerCharacterService: SlormancerCharacterUpdaterService,
                 private formOptionsService: FormOptionsService,
                 @Inject(MAT_DIALOG_DATA) data: ReaperEditModalData
                 ) {

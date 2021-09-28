@@ -1,6 +1,9 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { takeUntil } from 'rxjs/operators';
+import {
+    SlormancerCharacterModifierService,
+} from 'src/app/modules/slormancer/services/slormancer-character.modifier.service';
 
 import {
     AbstractUnsubscribeComponent,
@@ -10,7 +13,6 @@ import { PlannerService } from '../../../../../shared/services/planner.service';
 import { Character, CharacterSkillAndUpgrades } from '../../../../../slormancer/model/character';
 import { SkillType } from '../../../../../slormancer/model/content/skill-type';
 import { SlormancerSkillService } from '../../../../../slormancer/services/content/slormancer-skill.service';
-import { SlormancerCharacterService } from '../../../../../slormancer/services/slormancer-character.service';
 
 
 @Component({
@@ -31,7 +33,7 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
     constructor(private plannerService: PlannerService,
                 private messageService: MessageService,
                 private slormancerSkillService: SlormancerSkillService,
-                private slormancerCharacterService: SlormancerCharacterService
+                private slormancerCharacterModifierService: SlormancerCharacterModifierService
                 ) {
         super();
     }
@@ -63,7 +65,7 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
                 this.slormancerSkillService.updateUpgrade(upgrade);
             }
 
-            this.slormancerCharacterService.updateCharacter(this.character);
+            this.plannerService.updateCurrentCharacter();
 
             this.messageService.message('Skill and upgrades set to max rank for <img src="' + skill.skill.icon + '"/> ' + skill.skill.name);
         }
@@ -71,7 +73,7 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
 
     public equipSupport(skill: CharacterSkillAndUpgrades) {
         if (this.character !== null) {
-            if (this.slormancerCharacterService.setSupportSkill(this.character, skill.skill)) {
+            if (this.slormancerCharacterModifierService.setSupportSkill(this.character, skill.skill)) {
                 this.messageService.message('Skill equipped as support : <img src="' + skill.skill.icon + '"/> ' + skill.skill.name);
             }
         }
@@ -79,7 +81,7 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
 
     public equipPrimary(skill: CharacterSkillAndUpgrades) {
         if (this.character !== null) {
-            if (this.slormancerCharacterService.setPrimarySkill(this.character, skill.skill)) {
+            if (this.slormancerCharacterModifierService.setPrimarySkill(this.character, skill.skill)) {
                 this.messageService.message('Skill equipped as primary : <img src="' + skill.skill.icon + '"/> ' + skill.skill.name);
             }
         }
@@ -87,7 +89,7 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
 
     public equipSecondary(skill: CharacterSkillAndUpgrades) {
         if (this.character !== null) {
-            if (this.slormancerCharacterService.setSecondarySkill(this.character, skill.skill)) {
+            if (this.slormancerCharacterModifierService.setSecondarySkill(this.character, skill.skill)) {
                 this.messageService.message('Skill equipped as secondary : <img src="' + skill.skill.icon + '"/> ' + skill.skill.name);
             }
         }
