@@ -1,4 +1,4 @@
-import { CharacterStatMapping } from '../constants/content/data/data-character-stats-mapping';
+import { MergedStatMapping } from '../constants/content/data/data-character-stats-mapping';
 import {
     ExternalSynergyResolveData,
     ResolveDataType,
@@ -12,6 +12,6 @@ export function isSynergyResolveData(resolveData: SynergyResolveData | ExternalS
     return resolveData.type === ResolveDataType.Synergy
 }
 
-export function synergyResolveData(effect: EffectValueSynergy, originalValue: number | MinMax, objectSource: SynergyResolveDataSource = {}, statsItWillUpdate: Array<{ stat: string, mapping?: CharacterStatMapping }> = []): SynergyResolveData {
+export function synergyResolveData(effect: EffectValueSynergy, originalValue: number | MinMax, objectSource: SynergyResolveDataSource = {}, statsItWillUpdate: Array<{ stat: string, mapping?: MergedStatMapping }> = []): SynergyResolveData {
     return { type: ResolveDataType.Synergy, effect, originalValue, objectSource, statsItWillUpdate };
 }

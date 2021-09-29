@@ -5,4 +5,5 @@ export enum EffectValueValueType {
     Damage = 'damage',
     Flat = 'flat',
     Stat = 'stat',
+    Upgrade = 'upgrade',
 }

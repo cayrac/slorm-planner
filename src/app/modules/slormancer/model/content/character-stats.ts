@@ -1,4 +1,4 @@
-import { CharacterStatMapping } from '../../constants/content/data/data-character-stats-mapping';
+import { MergedStatMapping } from '../../constants/content/data/data-character-stats-mapping';
 import { MinMax } from '../minmax';
 import { Activable } from './activable';
 import { AncestralLegacy } from './ancestral-legacy';
@@ -29,7 +29,7 @@ export interface SynergyResolveData {
     effect: EffectValueSynergy;
     originalValue: number | MinMax;
     objectSource: SynergyResolveDataSource;
-    statsItWillUpdate: Array<{ stat: string, mapping?: CharacterStatMapping }>;
+    statsItWillUpdate: Array<{ stat: string, mapping?: MergedStatMapping }>;
 }
 export interface ExternalSynergyResolveData {
     type: ResolveDataType.ExternalSynergy;
@@ -37,10 +37,10 @@ export interface ExternalSynergyResolveData {
     sources: Array<string>;
     value: number | MinMax;
     method: ((...values: Array<number | MinMax>) => number | MinMax);
-    statsItWillUpdate: Array<{ stat: string, mapping?: CharacterStatMapping }>;
+    statsItWillUpdate: Array<{ stat: string, mapping?: MergedStatMapping }>;
 }
 
-export interface CharacterStat {
+export interface MergedStat {
     stat: string;
     total: number | MinMax;
     allowMinMax: boolean;
@@ -52,11 +52,4 @@ export interface CharacterStat {
         maxPercent: Array<number>;
         multiplier: Array<number>;
     }
-};
-
-export interface CharacterStats {
-    hero: Array<CharacterStat>;
-    support: Array<CharacterStat>;
-    primary: Array<CharacterStat>;
-    secondary: Array<CharacterStat>;
 };

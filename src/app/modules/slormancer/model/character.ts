@@ -1,7 +1,7 @@
 import { Activable } from './content/activable';
 import { AncestralLegacy } from './content/ancestral-legacy';
 import { AttributeTraits } from './content/attribut-traits';
-import { CharacterStats } from './content/character-stats';
+import { MergedStat } from './content/character-stats';
 import { Attribute } from './content/enum/attribute';
 import { GearSlot } from './content/enum/gear-slot';
 import { HeroClass } from './content/enum/hero-class';
@@ -81,5 +81,5 @@ export interface Character {
 
     baseStats: Array<{ stat: string, values: Array<number>}>;
 
-    stats: CharacterStats | null;
+    stats: Array<MergedStat>;
 }

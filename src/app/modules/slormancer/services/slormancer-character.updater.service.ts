@@ -22,6 +22,9 @@ import { SlormancerTranslateService } from './content/slormancer-translate.servi
 export class SlormancerCharacterUpdaterService {
 
     public readonly CHARACTER_CONFIG: CharacterConfig = {
+        totems_under_control: 10,
+        traps_nearby: 5,
+        serenity: 4,
         enemy_percent_missing_health: 0,
         percent_missing_health: 0,
         percent_missing_mana: 0,
@@ -80,6 +83,8 @@ export class SlormancerCharacterUpdaterService {
         damage_stored: 1000,
         overdrive_bounces_left: 5,
         overdrive_last_bounce: true,
+        hero_close_to_turret_syndrome: true,
+        turret_syndrome_on_cooldown: true,
     }
 
     private readonly LEVEL_LABEL = this.slormancerTranslateService.translate('level').toLowerCase();
@@ -204,7 +209,7 @@ export class SlormancerCharacterUpdaterService {
         }
     }
 
-    private updateCharacterStats(character: Character, updateChangedItems: boolean, config: CharacterConfig, additionalItem: EquipableItem | null) {
+    private updateCharacterStats(character: Character, updateViews: boolean, config: CharacterConfig, additionalItem: EquipableItem | null) {
 
         const stats = DATA_HERO_BASE_STATS[character.heroClass];
 
@@ -214,7 +219,7 @@ export class SlormancerCharacterUpdaterService {
             character.baseStats.push({ stat: levelStat.stat, values: [levelStat.value]});
         }
 
-        const statsResult = this.slormancerStatsService.getStats(character, config, additionalItem);
+        const statsResult = this.slormancerStatsService.updateCharacterStats(character, config, additionalItem);
         character.stats = statsResult.stats;
 
         for (const ancestralLegacyId of statsResult.unlockedAncestralLegacies) {
@@ -228,12 +233,18 @@ export class SlormancerCharacterUpdaterService {
             }
         }
 
-        if (updateChangedItems) {
+        for (const skillAndUpgrades of character.skills) {
+            this.slormancerStatsService.updateSkillStats(character, skillAndUpgrades, config, statsResult.extractedStats);
+
+            break;
+        }
+
+        if (updateViews) {
             this.updateChangedItems(statsResult);
         }
     }
 
-    public updateCharacter(character: Character, updateChangedItems: boolean = true, additionalItem: EquipableItem | null = null) {
+    public updateCharacter(character: Character, updateViews: boolean = true, additionalItem: EquipableItem | null = null) {
         character.ancestralLegacies.activeAncestralLegacies = this.slormancerDataService.getAncestralSkillIdFromNodes(character.ancestralLegacies.activeNodes);
 
         character.name = this.slormancerTranslateService.translate('hero_' + character.heroClass);
@@ -252,8 +263,8 @@ export class SlormancerCharacterUpdaterService {
 
         this.updateBonuses(character);
 
-        this.updateCharacterStats(character, updateChangedItems, this.CHARACTER_CONFIG, additionalItem);
-        
+        this.updateCharacterStats(character, updateViews, this.CHARACTER_CONFIG, additionalItem);
+
         console.log(character);
     }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { CharacterStat } from '../../model/content/character-stats';
+import { MergedStat } from '../../model/content/character-stats';
 import { MinMax } from '../../model/minmax';
 import { round } from '../../util/math.util';
 
@@ -38,7 +38,7 @@ export class SlormancerStatUpdaterService {
         return result;
     }
 
-    public updateStatTotal(stat: CharacterStat) {
+    public updateStatTotal(stat: MergedStat) {
         let total = stat.allowMinMax ? this.addValues(stat.values.flat, stat.values.max.length > 0 || stat.values.maxPercent.length > 0) : this.addNumberValues(stat.values.flat);
 
         const percent = 100 + stat.values.percent.reduce((total, value) => total + value, 0);

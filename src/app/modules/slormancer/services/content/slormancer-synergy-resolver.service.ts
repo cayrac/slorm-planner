@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { HERO_CHARACTER_STATS_MAPPING } from '../../constants/content/data/data-character-stats-mapping';
+import { GLOBAL_MERGED_STATS_MAPPING } from '../../constants/content/data/data-character-stats-mapping';
 import { CharacterConfig } from '../../model/character-config';
 import {
-    CharacterStat,
     ExternalSynergyResolveData,
+    MergedStat,
     ResolveDataType,
     SynergyResolveData,
 } from '../../model/content/character-stats';
@@ -13,7 +13,7 @@ import { MinMax } from '../../model/minmax';
 import { effectValueSynergy } from '../../util/effect-value.util';
 import { round } from '../../util/math.util';
 import { isSynergyResolveData, synergyResolveData } from '../../util/synergy-resolver.util';
-import { CharacterExtractedStatMap } from './slormancer-stats-extractor.service';
+import { ExtractedStatMap } from './slormancer-stats-extractor.service';
 import { SlormancerStatUpdaterService } from './slormancer-stats-updater.service';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class SlormancerSynergyResolverService {
 
     constructor(private slormancerStatUpdaterService: SlormancerStatUpdaterService) { }
 
-    public resolveSynergies(synergies: Array<SynergyResolveData | ExternalSynergyResolveData>, characterStats: Array<CharacterStat>, config: CharacterConfig, extractedStats: CharacterExtractedStatMap): Array<SynergyResolveData>  {
+    public resolveSynergies(synergies: Array<SynergyResolveData | ExternalSynergyResolveData>, characterStats: Array<MergedStat>, config: CharacterConfig, extractedStats: ExtractedStatMap): Array<SynergyResolveData>  {
         const remainingSynergies = [ ...synergies];
         
         this.addDefaultSynergies(remainingSynergies, config, extractedStats);
@@ -35,13 +35,13 @@ export class SlormancerSynergyResolverService {
         return remainingSynergies.filter(isSynergyResolveData);
     }
 
-    public resolveIsolatedSynergies(synergies: Array<SynergyResolveData>, characterStats: Array<CharacterStat>, extractedStats: CharacterExtractedStatMap) {
+    public resolveIsolatedSynergies(synergies: Array<SynergyResolveData>, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap) {
         for (const synergy of synergies) {
             this.updateSynergyValue(synergy, characterStats, extractedStats);
         }
     }
 
-    private addDefaultSynergies(resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>, config: CharacterConfig, extractedStats: CharacterExtractedStatMap) {
+    private addDefaultSynergies(resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>, config: CharacterConfig, extractedStats: ExtractedStatMap) {
         const addReaperToElements = extractedStats['reaper_added_to_elements'] !== undefined
         const overdriveDamageBasedOnSkillDamage = extractedStats['overdrive_damage_based_on_skill_damage'] !== undefined
 
@@ -50,38 +50,38 @@ export class SlormancerSynergyResolverService {
         resolveDatas.push(synergyResolveData(effectValueSynergy(config.percent_lock_mana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'mana_lock_flat'), -1, {}, [ { stat: 'mana_lock_flat' } ]));
         resolveDatas.push(synergyResolveData(effectValueSynergy(config.percent_missing_health, 0, EffectValueUpgradeType.None, false, 'max_health', 'missing_health'), -1, {}, [ { stat: 'missing_health' } ]));
         
-        let mapping = HERO_CHARACTER_STATS_MAPPING.find(m => m.stat === 'physical_damage');
+        let mapping = GLOBAL_MERGED_STATS_MAPPING.find(m => m.stat === 'physical_damage');
         resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'basic_to_physical_damage'), -1, {}, [ { stat: 'physical_damage', mapping } ]));
         if (addReaperToElements) {
-            let mapping = HERO_CHARACTER_STATS_MAPPING.find(m => m.stat === 'elemental_damage');
+            let mapping = GLOBAL_MERGED_STATS_MAPPING.find(m => m.stat === 'elemental_damage');
             resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_elemental_damage'), -1, {}, [ { stat: 'elemental_damage', mapping } ]));
         } else {
             resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage'), -1, {}, [ { stat: 'physical_damage', mapping } ]));
         }
         
-        mapping = HERO_CHARACTER_STATS_MAPPING.find(m => m.stat === 'sum_all_resistances');
+        mapping = GLOBAL_MERGED_STATS_MAPPING.find(m => m.stat === 'sum_all_resistances');
         resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'armor', 'sum_all_resistances_add'), 0, {}, [ { stat: 'sum_all_resistances', mapping } ]));
         resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'dodge', 'sum_all_resistances_add'), 0, {}, [ { stat: 'sum_all_resistances', mapping } ]));
         resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'elemental_resist', 'sum_all_resistances_add'), 0, {}, [ { stat: 'sum_all_resistances', mapping } ]));
         
-        mapping = HERO_CHARACTER_STATS_MAPPING.find(m => m.stat === 'sum_reduced_resistances');
+        mapping = GLOBAL_MERGED_STATS_MAPPING.find(m => m.stat === 'sum_reduced_resistances');
         resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'reduced_on_melee', 'sum_reduced_resistances_add'), 0, {}, [ { stat: 'sum_reduced_resistances', mapping } ]));
         resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'reduced_on_projectile', 'sum_reduced_resistances_add'), 0, {}, [ { stat: 'sum_reduced_resistances', mapping } ]));
         resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'reduced_on_area', 'sum_reduced_resistances_add'), 0, {}, [ { stat: 'sum_reduced_resistances', mapping } ]));
                 
-        mapping = HERO_CHARACTER_STATS_MAPPING.find(m => m.stat === 'skill_elem_damage');
+        mapping = GLOBAL_MERGED_STATS_MAPPING.find(m => m.stat === 'skill_elem_damage');
         resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'skill_elem_damage_add'), 0, {}, [ { stat: 'skill_elem_damage', mapping } ]));
         resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'skill_elem_damage_add'), 0, {}, [ { stat: 'skill_elem_damage', mapping } ]));
         
         // overdrive_damage_based_on_skill_damage
-        mapping = HERO_CHARACTER_STATS_MAPPING.find(m => m.stat === 'overdrive_damage');
+        mapping = GLOBAL_MERGED_STATS_MAPPING.find(m => m.stat === 'overdrive_damage');
         if (overdriveDamageBasedOnSkillDamage) {
             resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'overdrive_damage_add'), 0, {}, [ { stat: 'overdrive_damage', mapping } ]));
         } else {
             resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'overdrive_damage_add'), 0, {}, [ { stat: 'overdrive_damage', mapping } ]));
         }
  
-        mapping = HERO_CHARACTER_STATS_MAPPING.find(m => m.stat === 'inner_fire_damage');
+        mapping = GLOBAL_MERGED_STATS_MAPPING.find(m => m.stat === 'inner_fire_damage');
         resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'inner_fire_damage_add'), 0, {}, [ { stat: 'inner_fire_damage', mapping } ]));
 
         resolveDatas.push({
@@ -122,7 +122,7 @@ export class SlormancerSynergyResolverService {
         return result;
     }
 
-    private updateSynergyValue(resolveData: SynergyResolveData | ExternalSynergyResolveData, characterStats: Array<CharacterStat>, extractedStats: CharacterExtractedStatMap) {
+    private updateSynergyValue(resolveData: SynergyResolveData | ExternalSynergyResolveData, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap) {
         if (isSynergyResolveData(resolveData)) {
             const source = characterStats.find(stat => stat.stat === resolveData.effect.source);
             const allowMinMax = resolveData.statsItWillUpdate.reduce((t, c) => (c.mapping === undefined || c.mapping.allowMinMax) && t, true);
@@ -171,10 +171,10 @@ export class SlormancerSynergyResolverService {
         }
     }
 
-    private applySynergyToStats(synergyResolveData: SynergyResolveData | ExternalSynergyResolveData, stats: Array<CharacterStat>) {
+    private applySynergyToStats(synergyResolveData: SynergyResolveData | ExternalSynergyResolveData, stats: Array<MergedStat>) {
 
         for (const statToUpdate of synergyResolveData.statsItWillUpdate) {
-            let foundStat: CharacterStat | undefined = stats.find(stat => stat.stat === statToUpdate.stat);
+            let foundStat: MergedStat | undefined = stats.find(stat => stat.stat === statToUpdate.stat);
             if (foundStat === undefined) {
                 foundStat = {
                     precision:  statToUpdate.mapping ? statToUpdate.mapping.precision : 0,

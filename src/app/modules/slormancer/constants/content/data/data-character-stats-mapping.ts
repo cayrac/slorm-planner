@@ -1,33 +1,34 @@
 import { CharacterConfig } from '../../../model/character-config';
-import { CharacterExtractedStatMap } from '../../../services/content/slormancer-stats-extractor.service';
+import { GameHeroesData } from '../../../model/parser/game/game-save';
+import { ExtractedStatMap } from '../../../services/content/slormancer-stats-extractor.service';
 import { valueOrDefault } from '../../../util/utils';
 
-function getFirstStat(stats: CharacterExtractedStatMap, stat: string, defaultValue: number = 0): number {
+function getFirstStat(stats: ExtractedStatMap, stat: string, defaultValue: number = 0): number {
     const found = stats[stat];
 
     return found ? valueOrDefault(found[0], defaultValue) : defaultValue;
 }
 
-export interface CharacterStatMappingSource {
+export interface MergedStatMappingSource {
     stat: string;
-    condition?: (config: CharacterConfig, stats: CharacterExtractedStatMap) => boolean
-    multiplier?: (config: CharacterConfig, stats: CharacterExtractedStatMap) => number
+    condition?: (config: CharacterConfig, stats: ExtractedStatMap) => boolean
+    multiplier?: (config: CharacterConfig, stats: ExtractedStatMap) => number
 };
 
-export interface CharacterStatMapping {
+export interface MergedStatMapping {
     stat: string;
     precision: number;
     allowMinMax: boolean;
     source: {
-        flat: Array<CharacterStatMappingSource>;
-        max: Array<CharacterStatMappingSource>;
-        percent: Array<CharacterStatMappingSource>;
-        maxPercent: Array<CharacterStatMappingSource>;
-        multiplier: Array<CharacterStatMappingSource>;
+        flat: Array<MergedStatMappingSource>;
+        max: Array<MergedStatMappingSource>;
+        percent: Array<MergedStatMappingSource>;
+        maxPercent: Array<MergedStatMappingSource>;
+        multiplier: Array<MergedStatMappingSource>;
     }
 }
 
-export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
+export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     // adventure
     {
         stat: 'level',
@@ -112,7 +113,13 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
                 { stat: 'the_max_health_add', condition: (_, stats) => stats['the_max_health_set'] === undefined }
             ],
             max: [],
-            percent: [{ stat: 'the_max_health_percent', condition: (_, stats) => stats['the_max_health_set'] === undefined }],
+            percent: [
+                { stat: 'the_max_health_percent', condition: (_, stats) => stats['the_max_health_set'] === undefined },
+                { stat: 'the_max_health_percent_per_totem',
+                    condition: (config, stats) => config.totems_under_control > 0 && stats['the_max_health_set'] === undefined,
+                    multiplier: config => config.totems_under_control
+                }
+            ],
             maxPercent: [],
             multiplier: [{ stat: 'the_max_health_global_mult', condition: (_, stats) => stats['the_max_health_set'] === undefined }],
         } 
@@ -261,7 +268,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         precision: 3,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'cooldown_reduction_percent' }],
+            flat: [
+                { stat: 'cooldown_reduction_percent' },
+                { stat: 'turret_syndrome_reduced_cooldown_per_serenity', condition: config => config.serenity > 0, multiplier: config => config.serenity }
+            ],
             max: [],
             percent: [],
             maxPercent: [],
@@ -539,7 +549,10 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
         source: {
             flat: [{ stat: 'dodge_add' }],
             max: [],
-            percent: [{ stat: 'dodge_percent' }],
+            percent: [
+                { stat: 'dodge_percent' },
+                { stat: 'turret_syndrome_on_cooldown_dodge_percent', condition: config => config.turret_syndrome_on_cooldown }
+            ],
             maxPercent: [],
             multiplier: [{ stat: 'dodge_global_mult' }],
         } 
@@ -1210,4 +1223,121 @@ export const HERO_CHARACTER_STATS_MAPPING: Array<CharacterStatMapping> = [
             ],
         } 
     },
-]
+];
+
+export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>> = {
+    0: [],
+    1: [
+        {
+            stat: 'trap_increased_damage',
+            precision: 0,
+            allowMinMax: false,
+            source: {
+                flat: [],
+                max: [],
+                percent: [{ stat: 'trap_increased_damage_percent', condition: config => config.traps_nearby > 0, multiplier: config => config.traps_nearby }],
+                maxPercent: [],
+                multiplier: [],
+            } 
+        }
+    ],
+    2: [],
+}
+
+export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<MergedStatMapping>}> = {
+    0: { },
+    1: {
+        0: [
+            {
+                stat: 'turret_syndrome_fire_rate',
+                precision: 0,
+                allowMinMax: false,
+                source: {
+                    flat: [{ stat: 'fire_rate' }],
+                    max: [],
+                    percent: [],
+                    maxPercent: [],
+                    multiplier: [],
+                } 
+            },
+            {
+                stat: 'light_arrow_increased_damage',
+                precision: 0,
+                allowMinMax: false,
+                source: {
+                    flat: [{ stat: 'light_arrow_increased_damage' }],
+                    max: [],
+                    percent: [],
+                    maxPercent: [],
+                    multiplier: [],
+                } 
+            },
+            {
+                stat: 'light_arrow_projectile_speed',
+                precision: 0,
+                allowMinMax: false,
+                source: {
+                    flat: [{ stat: 'shared_projectile_speed', condition: config => config.hero_close_to_turret_syndrome }],
+                    max: [],
+                    percent: [],
+                    maxPercent: [],
+                    multiplier: [],
+                } 
+            },
+            {
+                stat: 'light_arrow_additional_projectile',
+                precision: 0,
+                allowMinMax: false,
+                source: {
+                    flat: [{ stat: 'shared_additional_projectile', condition: config => config.hero_close_to_turret_syndrome }],
+                    max: [],
+                    percent: [],
+                    maxPercent: [],
+                    multiplier: [],
+                } 
+            },
+            {
+                stat: 'light_arrow_fork',
+                precision: 0,
+                allowMinMax: false,
+                source: {
+                    flat: [{ stat: 'shared_fork', condition: config => config.hero_close_to_turret_syndrome }],
+                    max: [],
+                    percent: [],
+                    maxPercent: [],
+                    multiplier: [],
+                } 
+            },
+            {
+                stat: 'light_arrow_pierce',
+                precision: 0,
+                allowMinMax: false,
+                source: {
+                    flat: [
+                        { stat: 'shared_pierce', condition: config => config.hero_close_to_turret_syndrome },
+                        { stat: 'light_arrow_chance_to_pierce_percent' }
+                    ],
+                    max: [],
+                    percent: [],
+                    maxPercent: [],
+                    multiplier: [],
+                } 
+            },
+            {
+                stat: 'light_arrow_rebound',
+                precision: 0,
+                allowMinMax: false,
+                source: {
+                    flat: [{ stat: 'shared_rebound', condition: config => config.hero_close_to_turret_syndrome }],
+                    max: [],
+                    percent: [],
+                    maxPercent: [],
+                    multiplier: [],
+                } 
+            }
+        ]
+    },
+    2: {
+        
+    },
+}

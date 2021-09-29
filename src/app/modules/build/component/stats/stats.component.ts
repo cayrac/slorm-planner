@@ -5,7 +5,7 @@ import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { PlannerService } from '../../../shared/services/planner.service';
-import { CharacterStat, CharacterStats } from '../../../slormancer/model/content/character-stats';
+import { MergedStat } from '../../../slormancer/model/content/character-stats';
 import { MinMax } from '../../../slormancer/model/minmax';
 import { SlormancerTranslateService } from '../../../slormancer/services/content/slormancer-translate.service';
 
@@ -33,6 +33,7 @@ export class StatsComponent extends AbstractUnsubscribeComponent implements OnIn
             section: this.slormancerTranslateService.translate('cat_adventure'),
             stats: [
                 { name: this.slormancerTranslateService.translate('essence_find'), stat: 'essence_find', sign: true, suffix: '%' },
+                { name: this.slormancerTranslateService.translate('gold_find'), stat: 'gold_find', sign: true, suffix: '%' },
                 { name: this.slormancerTranslateService.translate('xp_find'), stat: 'xp_find', sign: true, suffix: '%' },
                 { name: this.slormancerTranslateService.translate('influence_gain'), stat: 'influence_gain', sign: true, suffix: '%' },
                 { name: this.slormancerTranslateService.translate('mf_find'), stat: 'mf_find', sign: true, suffix: '%' },
@@ -157,13 +158,11 @@ export class StatsComponent extends AbstractUnsubscribeComponent implements OnIn
         },
     ];
 
-    public stats: CharacterStats | null = null;
+    public stats: Array<MergedStat> | null = null;
 
     constructor(private plannerService: PlannerService,
                 private slormancerTranslateService: SlormancerTranslateService) {
         super();
-        // TODO synergy 
-        // TODO complexSynergy
     }
 
     public ngOnInit() {
@@ -187,7 +186,7 @@ export class StatsComponent extends AbstractUnsubscribeComponent implements OnIn
         return result;
     }
 
-    public getValue(characterStats: Array<CharacterStat>, format: StatFormat): string {
+    public getValue(characterStats: Array<MergedStat>, format: StatFormat): string {
         const found = characterStats.find(characterStat => characterStat.stat === format.stat);
         let result = '0';
 
@@ -198,7 +197,7 @@ export class StatsComponent extends AbstractUnsubscribeComponent implements OnIn
         return result;
     }
 
-    public getTooltip(characterStats: Array<CharacterStat>, format: StatFormat): string {
+    public getTooltip(characterStats: Array<MergedStat>, format: StatFormat): string {
         const found = characterStats.find(characterStat => characterStat.stat === format.stat);
         let result = 'No details found';
 

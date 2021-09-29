@@ -1,30 +1,31 @@
 import { Injectable } from '@angular/core';
 
 import {
-    CharacterStatMapping,
-    CharacterStatMappingSource,
-    HERO_CHARACTER_STATS_MAPPING,
+    GLOBAL_MERGED_STATS_MAPPING,
+    MergedStatMapping,
+    MergedStatMappingSource,
 } from '../../constants/content/data/data-character-stats-mapping';
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
 import { CharacterConfig } from '../../model/character-config';
 import { Activable } from '../../model/content/activable';
 import { AncestralLegacy } from '../../model/content/ancestral-legacy';
 import { AttributeTraits } from '../../model/content/attribut-traits';
-import { CharacterStat, CharacterStats, SynergyResolveData } from '../../model/content/character-stats';
+import { MergedStat, SynergyResolveData } from '../../model/content/character-stats';
 import { EquipableItem } from '../../model/content/equipable-item';
 import { Reaper } from '../../model/content/reaper';
 import { Skill } from '../../model/content/skill';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { MinMax } from '../../model/minmax';
 import { valueOrDefault } from '../../util/utils';
-import { CharacterExtractedStatMap, SlormancerStatsExtractorService } from './slormancer-stats-extractor.service';
+import { ExtractedStatMap, SlormancerStatsExtractorService } from './slormancer-stats-extractor.service';
 import { SlormancerStatUpdaterService } from './slormancer-stats-updater.service';
 import { SlormancerSynergyResolverService } from './slormancer-synergy-resolver.service';
 
 export interface CharacterStatsBuildResult {
     unlockedAncestralLegacies: Array<number>;
     unresolvedSynergies: Array<SynergyResolveData>;
-    stats: CharacterStats,
+    extractedStats: ExtractedStatMap,
+    stats: Array<MergedStat>,
     changed:  {
         items: Array<EquipableItem>;
         ancestralLegacies: Array<AncestralLegacy>;
@@ -36,6 +37,16 @@ export interface CharacterStatsBuildResult {
     }
 }
 
+export interface SkillStatsBuildResult {
+    unresolvedSynergies: Array<SynergyResolveData>;
+    extractedStats: ExtractedStatMap,
+    stats: Array<MergedStat>,
+    changed: {
+        skills: Array<Skill>;
+        upgrades: Array<SkillUpgrade>;
+    }
+}
+
 @Injectable()
 export class SlormancerStatsService {
 
@@ -43,7 +54,7 @@ export class SlormancerStatsService {
                 private slormancerSynergyResolverService: SlormancerSynergyResolverService,
                 private slormancerStatUpdaterService: SlormancerStatUpdaterService) { }
     
-    private getMappingValues(sources: Array<CharacterStatMappingSource>, stats: CharacterExtractedStatMap, config: CharacterConfig)  {
+    private getMappingValues(sources: Array<MergedStatMappingSource>, stats: ExtractedStatMap, config: CharacterConfig)  {
         return sources
             .filter(source => source.condition === undefined || source.condition(config, stats))
             .map(source => {
@@ -57,7 +68,7 @@ export class SlormancerStatsService {
             .flat();
     }
 
-    private buildCharacterStats(stats: CharacterExtractedStatMap, mappings: Array<CharacterStatMapping>, config: CharacterConfig): Array<CharacterStat> {
+    private buildMergedStats(stats: ExtractedStatMap, mappings: Array<MergedStatMapping>, config: CharacterConfig): Array<MergedStat> {
         return mappings.map(mapping => {
             return {
                 stat: mapping.stat,
@@ -71,11 +82,11 @@ export class SlormancerStatsService {
                     maxPercent: this.getMappingValues(mapping.source.maxPercent, stats, config),
                     multiplier: this.getMappingValues(mapping.source.multiplier, stats, config),
                 }
-            } as CharacterStat;
+            } as MergedStat;
         });
     }
 
-    private addConfigCharacterStats(stats: Array<CharacterStat>, config: CharacterConfig) {
+    private addConfigCharacterStats(stats: Array<MergedStat>, config: CharacterConfig) {
         const configEntries = <Array<[string, number]>>Object.entries(config);
         for (const [stat, value] of configEntries) {
             stats.push({
@@ -94,7 +105,7 @@ export class SlormancerStatsService {
         }
     }
 
-    private addSkillStats(stats: Array<CharacterStat>, skills: Array<CharacterSkillAndUpgrades>) {
+    private addSkillStats(stats: Array<MergedStat>, skills: Array<CharacterSkillAndUpgrades>) {
         for (const sau of skills) {
             stats.push({
                 allowMinMax: false,
@@ -127,16 +138,12 @@ export class SlormancerStatsService {
         return result;
     }
 
-    public getStats(character: Character, config: CharacterConfig, additionalItem: EquipableItem | null = null): CharacterStatsBuildResult {
+    public updateCharacterStats(character: Character, config: CharacterConfig, additionalItem: EquipableItem | null = null): CharacterStatsBuildResult {
         const result: CharacterStatsBuildResult = {
             unlockedAncestralLegacies: [],
             unresolvedSynergies: [],
-            stats:  {
-                hero: [],
-                support: [],
-                primary: [],
-                secondary: [],
-            },
+            extractedStats: {},
+            stats: [],
             changed: {
                 items: [],
                 ancestralLegacies: [],
@@ -147,35 +154,27 @@ export class SlormancerStatsService {
                 activables: []
             }
         }
-        const stats = this.slormancerStatsExtractorService.extractStats(character, config, additionalItem);
+        const extractedStats = this.slormancerStatsExtractorService.extractCharacterStats(character, config, additionalItem);
         
-        result.stats.hero = this.buildCharacterStats(stats.heroStats, HERO_CHARACTER_STATS_MAPPING, config);
+        result.extractedStats = extractedStats.stats;
+        result.stats = this.buildMergedStats(extractedStats.stats, GLOBAL_MERGED_STATS_MAPPING, config);
 
-        this.addConfigCharacterStats(result.stats.hero, config);
-        this.addSkillStats(result.stats.hero, character.skills);
+        this.addConfigCharacterStats(result.stats, config);
+        this.addSkillStats(result.stats, character.skills);
 
-        for (const stats of result.stats.hero) {
-            this.slormancerStatUpdaterService.updateStatTotal(stats);
-        }
-        for (const stats of result.stats.support) {
-            this.slormancerStatUpdaterService.updateStatTotal(stats);
-        }
-        for (const stats of result.stats.primary) {
-            this.slormancerStatUpdaterService.updateStatTotal(stats);
-        }
-        for (const stats of result.stats.secondary) {
+        for (const stats of result.stats) {
             this.slormancerStatUpdaterService.updateStatTotal(stats);
         }
 
-        result.unresolvedSynergies = this.slormancerSynergyResolverService.resolveSynergies(stats.synergies, result.stats.hero, config, stats.heroStats);
-        result.unlockedAncestralLegacies = valueOrDefault(stats.heroStats['unlock_ancestral_legacy_max_rank'], []);
+        result.unresolvedSynergies = this.slormancerSynergyResolverService.resolveSynergies(extractedStats.synergies, result.stats, config, extractedStats.stats);
+        result.unlockedAncestralLegacies = valueOrDefault(extractedStats.stats['unlock_ancestral_legacy_max_rank'], []);
 
-        this.slormancerSynergyResolverService.resolveIsolatedSynergies(stats.isolatedSynergies, result.stats.hero, stats.heroStats);
+        this.slormancerSynergyResolverService.resolveIsolatedSynergies(extractedStats.isolatedSynergies, result.stats, extractedStats.stats);
 
-        console.log(stats.heroStats);
+        console.log(extractedStats);
         // console.log(result);
 
-        for (const synergy of [...stats.synergies, ...stats.isolatedSynergies]) {
+        for (const synergy of [...extractedStats.synergies, ...extractedStats.isolatedSynergies]) {
             if (this.hasSynergyValueChanged(synergy)) {
                 if (synergy.objectSource.ancestralLegacy) {
                     result.changed.ancestralLegacies.push(synergy.objectSource.ancestralLegacy);
@@ -197,6 +196,44 @@ export class SlormancerStatsService {
                 }
                 if (synergy.objectSource.activable) {
                     result.changed.activables.push(synergy.objectSource.activable);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public updateSkillStats(character: Character, skillAndUpgrades: CharacterSkillAndUpgrades, config: CharacterConfig, characterExtractedStats: ExtractedStatMap): SkillStatsBuildResult {
+        const result: SkillStatsBuildResult = {
+            unresolvedSynergies: [],
+            extractedStats: {},
+            stats: [],
+            changed: {
+                skills: [],
+                upgrades: []
+            }
+        }
+
+        const extractedStats = this.slormancerStatsExtractorService.extractSkillStats(character, skillAndUpgrades, config, characterExtractedStats);
+
+        result.extractedStats = extractedStats.stats;
+        result.stats = this.buildMergedStats(extractedStats.stats, GLOBAL_MERGED_STATS_MAPPING, config);
+        
+        for (const stats of result.stats) {
+            this.slormancerStatUpdaterService.updateStatTotal(stats);
+        }
+        
+        result.unresolvedSynergies = this.slormancerSynergyResolverService.resolveSynergies(extractedStats.synergies, result.stats, config, extractedStats.stats);
+
+        this.slormancerSynergyResolverService.resolveIsolatedSynergies(extractedStats.isolatedSynergies, result.stats, extractedStats.stats);
+
+        for (const synergy of [...extractedStats.synergies, ...extractedStats.isolatedSynergies]) {
+            if (this.hasSynergyValueChanged(synergy)) {
+                if (synergy.objectSource.skill) {
+                    result.changed.skills.push(synergy.objectSource.skill);
+                }
+                if (synergy.objectSource.upgrade) {
+                    result.changed.upgrades.push(synergy.objectSource.upgrade);
                 }
             }
         }

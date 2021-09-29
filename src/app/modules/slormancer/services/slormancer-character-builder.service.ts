@@ -417,7 +417,7 @@ export class SlormancerCharacterBuilderService {
 
             baseStats: [],
 
-            stats: null,
+            stats: [],
         }
 
         character.primarySkill = primarySkill === null ? null : this.getSkill(primarySkill, skills);

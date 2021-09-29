@@ -1,9 +1,12 @@
 export interface CharacterConfig {
+    serenity: number;
     percent_missing_mana: number;
     percent_lock_mana: number;
     percent_missing_health: number;
     enemy_percent_missing_health: number;
     overall_reputation: number;
+    totems_under_control: number;
+    traps_nearby: number;
     slormocide_60: number;
     goldbane_5: number;
     hits_taken_recently: number;
@@ -50,4 +53,6 @@ export interface CharacterConfig {
     iddle: boolean;
     overdrive_bounces_left: number;
     overdrive_last_bounce: boolean;
+    hero_close_to_turret_syndrome: boolean;
+    turret_syndrome_on_cooldown: boolean;
 }
