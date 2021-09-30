@@ -126,7 +126,7 @@ export class SlormancerValueUpdater {
                 
         skill.cost = stats.mana.total;
 
-        skill.cooldown = skill.baseCooldown * (100 - stats.attackSpeed.total) / 100;
+        skill.cooldown = round(skill.baseCooldown * (100 - stats.attackSpeed.total) / 100, 2);
 
         const damageMultipliers = this.getValidDamageMultipliers(skill.genres, stats);
 

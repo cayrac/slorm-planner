@@ -191,7 +191,7 @@ export class SlormancerSkillService {
 
         skill.hasLifeCost = skill.costType === SkillCostType.LifeSecond || skill.costType === SkillCostType.LifeLock || skill.costType === SkillCostType.Life;
         skill.hasManaCost = skill.costType === SkillCostType.ManaSecond || skill.costType === SkillCostType.ManaLock || skill.costType === SkillCostType.Mana;
-        skill.hasNoCost = skill.costType === SkillCostType.None || skill.baseCost === 0;
+        skill.hasNoCost = skill.costType === SkillCostType.None;
         
         for (const effectValue of skill.values) {
             this.slormancerEffectValueService.updateEffectValue(effectValue, skill.level);
@@ -222,7 +222,7 @@ export class SlormancerSkillService {
         }
 
         skill.cooldownLabel = null;
-        if (skill.baseCost > 0) {
+        if (skill.baseCooldown > 0) {
             skill.cooldownLabel = this.COOLDOWN_LABEL
                 + ': ' + this.slormancerTemplateService.asSpan(skill.cooldown.toString(), 'value')
                 + ' ' + this.SECONDS_LABEL;

@@ -270,7 +270,6 @@ export class SlormancerCharacterUpdaterService {
             const result = this.slormancerStatsService.updateSkillStats(character, skillAndUpgrades, config, statsResult.extractedStats);
             this.slormancerValueUpdater.updateSkillAndUpgradeValues(skillAndUpgrades, result.stats);
             statsResult.changed.skills.push(skillAndUpgrades.skill);
-            break;
         }
 
         this.displaySynergyLoopError(statsResult)
