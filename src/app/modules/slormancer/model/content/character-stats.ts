@@ -40,9 +40,9 @@ export interface ExternalSynergyResolveData {
     statsItWillUpdate: Array<{ stat: string, mapping?: MergedStatMapping }>;
 }
 
-export interface MergedStat {
+export interface MergedStat<T = number | MinMax> {
     stat: string;
-    total: number | MinMax;
+    total: T;
     allowMinMax: boolean;
     precision: number;
     values: {

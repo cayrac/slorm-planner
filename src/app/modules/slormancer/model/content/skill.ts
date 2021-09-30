@@ -21,8 +21,9 @@ export interface Skill {
     description: string;
     baseCooldown: number;
     cooldown: number;
-    baseCost: number;
+    initialCost: number;
     perLevelCost: number;
+    baseCost: number;
     cost: number;
     costType: SkillCostType;
     hasLifeCost: boolean;

@@ -19,8 +19,9 @@ export interface SkillUpgrade {
     name: string;
     icon: string;
     description: string;
-    baseCost: number;
+    initialCost: number;
     perLevelCost: number;
+    baseCost: number;
     cost: number;
     costType: SkillCostType;
     hasLifeCost: boolean;

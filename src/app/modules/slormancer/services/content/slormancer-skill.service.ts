@@ -144,10 +144,11 @@ export class SlormancerSkillService {
                 icon: 'assets/img/icon/skill/' + heroClass + '/' + gameDataSkill.REF + '.png',
                 iconLarge: 'assets/img/icon/skill/' + heroClass + '/' + gameDataSkill.REF + '_large.png',
                 description: '',
-                baseCooldown: gameDataSkill.COOLDOWN,
+                baseCooldown: round(gameDataSkill.COOLDOWN / 60, 2),
                 cooldown: 0,
-                baseCost: gameDataSkill.COST,
+                initialCost: gameDataSkill.COST,
                 perLevelCost: gameDataSkill.COST_LEVEL,
+                baseCost: 0,
                 cost: 0,
                 costType: <SkillCostType>gameDataSkill.COST_TYPE,
                 hasLifeCost: false,
@@ -168,7 +169,8 @@ export class SlormancerSkillService {
             this.applyOverride(skill, dataSkill);
             skill.specialization = dataSkill === null ? null : valueOrNull(dataSkill.specialization);
     
-            this.updateSkill(skill);
+            this.updateSkillModel(skill);
+            this.updateSkillView(skill);
         }
 
         return skill;
@@ -182,19 +184,21 @@ export class SlormancerSkillService {
         };
     }
 
-    public updateSkill(skill: Skill) {
+    public updateSkillModel(skill: Skill) {
         skill.level = Math.min(skill.maxLevel, skill.baseLevel) + skill.bonusLevel;
-        skill.cooldown = round(skill.baseCooldown / 60, 2);
-        skill.cost = skill.baseCost + skill.perLevelCost * skill.level;
+        skill.cooldown = skill.baseCooldown;
+        skill.baseCost = skill.initialCost + skill.perLevelCost * skill.level;
 
         skill.hasLifeCost = skill.costType === SkillCostType.LifeSecond || skill.costType === SkillCostType.LifeLock || skill.costType === SkillCostType.Life;
         skill.hasManaCost = skill.costType === SkillCostType.ManaSecond || skill.costType === SkillCostType.ManaLock || skill.costType === SkillCostType.Mana;
-        skill.hasNoCost = skill.costType === SkillCostType.None || skill.cost === 0;
+        skill.hasNoCost = skill.costType === SkillCostType.None || skill.baseCost === 0;
         
         for (const effectValue of skill.values) {
             this.slormancerEffectValueService.updateEffectValue(effectValue, skill.level);
         }
+    }
 
+    public updateSkillView(skill: Skill) {
         if (skill.specialization !== null) {
             const specialization = this.slormancerDataService.getGameDataSpecializationSkill(skill.heroClass, skill.specialization);
             if (specialization !== null) {
@@ -218,7 +222,7 @@ export class SlormancerSkillService {
         }
 
         skill.cooldownLabel = null;
-        if (skill.cooldown > 0) {
+        if (skill.baseCost > 0) {
             skill.cooldownLabel = this.COOLDOWN_LABEL
                 + ': ' + this.slormancerTemplateService.asSpan(skill.cooldown.toString(), 'value')
                 + ' ' + this.SECONDS_LABEL;
@@ -282,8 +286,9 @@ export class SlormancerSkillService {
                 name: gameDataSkill.EN_NAME,
                 icon: 'assets/img/icon/skill/' + heroClass + '/' + gameDataSkill.REF + '.png',
                 description: '',
-                baseCost: gameDataSkill.COST,
+                initialCost: gameDataSkill.COST,
                 perLevelCost: gameDataSkill.COST_LEVEL,
+                baseCost: 0,
                 cost: 0,
                 costType: <SkillCostType>gameDataSkill.COST_TYPE,
                 hasLifeCost: false,
@@ -321,7 +326,7 @@ export class SlormancerSkillService {
     private getNextRankUpgradeDescription(upgrade: SkillUpgrade, rank: number): Array<string> {
         const skill = [];
 
-        const cost = upgrade.baseCost + upgrade.perLevelCost * rank;
+        const cost = upgrade.initialCost + upgrade.perLevelCost * rank;
         if (cost > 0 && upgrade.perLevelCost !== 0) {
             const costClass = upgrade.hasLifeCost ? 'life' : 'mana';
             const description = '<span class="' + costClass + '">' + cost + '</span> ' + this.slormancerTranslateService.translate(upgrade.costType);
@@ -374,11 +379,12 @@ export class SlormancerSkillService {
 
     public updateUpgrade(upgrade: SkillUpgrade) {
         upgrade.rank = Math.min(upgrade.maxRank, upgrade.baseRank);
-        upgrade.cost = upgrade.baseCost + upgrade.perLevelCost * Math.max(upgrade.rank, 1);
+        upgrade.baseCost = upgrade.initialCost + upgrade.perLevelCost * Math.max(upgrade.rank, 1);
+        upgrade.cost = upgrade.baseCost;
 
         upgrade.hasLifeCost = upgrade.costType === SkillCostType.LifeSecond || upgrade.costType === SkillCostType.LifeLock || upgrade.costType === SkillCostType.Life;
         upgrade.hasManaCost = upgrade.costType === SkillCostType.ManaSecond || upgrade.costType === SkillCostType.ManaLock || upgrade.costType === SkillCostType.Mana;
-        upgrade.hasNoCost = upgrade.costType === SkillCostType.None || upgrade.cost === 0;
+        upgrade.hasNoCost = upgrade.costType === SkillCostType.None || upgrade.baseCost === 0;
 
         upgrade.nextRankDescription = [];
         upgrade.maxRankDescription = [];

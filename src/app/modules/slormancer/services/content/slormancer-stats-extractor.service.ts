@@ -9,6 +9,7 @@ import { AbstractEffectValue } from '../../model/content/effect-value';
 import { ALL_ATTRIBUTES } from '../../model/content/enum/attribute';
 import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
 import { ALL_GEAR_SLOT_VALUES } from '../../model/content/enum/gear-slot';
+import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { TraitLevel } from '../../model/content/enum/trait-level';
 import { EquipableItem } from '../../model/content/equipable-item';
 import { SkillType } from '../../model/content/skill-type';
@@ -97,6 +98,8 @@ export class SlormancerStatsExtractorService {
                             } else {
                                 stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { attribute: attributeTraits }, this.getSynergyStatsItWillUpdate(effectValue.stat)));
                             }
+                        } else if (trait.unlocked) { 
+                            this.addStat(stats.stats, effectValue.stat, effectValue.value);                           
                         }
                     }
     
@@ -136,7 +139,6 @@ export class SlormancerStatsExtractorService {
     }
 
     private addInventoryValues(character: Character, stats: ExtractedStats) {
-        // TODO optimisation possible : un exemplaire de chaque effect legendaire géré par le service
         const items = [...character.inventory, ...character.sharedInventory.flat()]
             .filter(isNotNullOrUndefined)
 
@@ -208,14 +210,16 @@ export class SlormancerStatsExtractorService {
             for (const upgrade of sau.upgrades) {
                 const equipped = skillEquiped && sau.selectedUpgrades.includes(upgrade.id);
                 for (const upgradeValue of upgrade.values) {
-                    if (isEffectValueSynergy(upgradeValue) && upgradeValue.valueType !== EffectValueValueType.Upgrade) {
-                        if (equipped && !this.isDamageStat(upgradeValue.stat)) {
-                            stats.synergies.push(synergyResolveData(upgradeValue, upgradeValue.synergy, { upgrade }, this.getSynergyStatsItWillUpdate(upgradeValue.stat)));
-                        } else {
-                            stats.isolatedSynergies.push(synergyResolveData(upgradeValue, upgradeValue.synergy, { upgrade }));
+                    if (upgradeValue.valueType !== EffectValueValueType.Upgrade) {
+                        if (isEffectValueSynergy(upgradeValue)) {
+                            if (equipped && !this.isDamageStat(upgradeValue.stat)) {
+                                stats.synergies.push(synergyResolveData(upgradeValue, upgradeValue.synergy, { upgrade }, this.getSynergyStatsItWillUpdate(upgradeValue.stat)));
+                            } else {
+                                stats.isolatedSynergies.push(synergyResolveData(upgradeValue, upgradeValue.synergy, { upgrade }));
+                            }
+                        } else if (equipped) {
+                            this.addStat(stats.stats, upgradeValue.stat, upgradeValue.value);
                         }
-                    } else if (equipped) {
-                        this.addStat(stats.stats, upgradeValue.stat, upgradeValue.value);
                     }
                 }
             }
@@ -299,6 +303,10 @@ export class SlormancerStatsExtractorService {
         if (skillAndUpgrades.skill === character.secondarySkill) {
             extractedStats.stats['skill_is_equipped_secondary'] = [1];
         }
+        if (skillAndUpgrades.skill.genres.includes(SkillGenre.Melee)) {
+            extractedStats.stats['skill_is_melee'] = [1];
+        }
+        extractedStats.stats['mana_cost_add'] = [skillAndUpgrades.skill.initialCost];
     }
 
     private addSkillValues(skillAndUpgrades: CharacterSkillAndUpgrades, extractedStats: ExtractedStats) {
@@ -319,15 +327,21 @@ export class SlormancerStatsExtractorService {
         for (const upgrade of skillAndUpgrades.upgrades) {
             const equipped = skillAndUpgrades.selectedUpgrades.includes(upgrade.id);
             for (const upgradeValue of upgrade.values) {
-                if (isEffectValueSynergy(upgradeValue) && upgradeValue.valueType === EffectValueValueType.Upgrade) {
-                    if (equipped && !this.isDamageStat(upgradeValue.stat)) {
-                        extractedStats.synergies.push(synergyResolveData(upgradeValue, upgradeValue.synergy, { upgrade }, this.getSynergyStatsItWillUpdate(upgradeValue.stat)));
-                    } else {
-                        extractedStats.isolatedSynergies.push(synergyResolveData(upgradeValue, upgradeValue.synergy, { upgrade }));
+                if (upgradeValue.valueType === EffectValueValueType.Upgrade) {
+                    if (isEffectValueSynergy(upgradeValue)) {
+                        if (equipped && !this.isDamageStat(upgradeValue.stat)) {
+                            extractedStats.synergies.push(synergyResolveData(upgradeValue, upgradeValue.synergy, { upgrade }, this.getSynergyStatsItWillUpdate(upgradeValue.stat)));
+                        } else {
+                            extractedStats.isolatedSynergies.push(synergyResolveData(upgradeValue, upgradeValue.synergy, { upgrade }));
+                        }
+                    } else if (equipped) {
+                        this.addStat(extractedStats.stats, upgradeValue.stat, upgradeValue.value);
                     }
-                } else if (equipped) {
-                    this.addStat(extractedStats.stats, upgradeValue.stat, upgradeValue.value);
                 }
+            }
+
+            if (equipped && upgrade.cost !== 0) {
+                this.addStat(extractedStats.stats, 'mana_cost_add', upgrade.cost);
             }
         }
     }
@@ -342,8 +356,6 @@ export class SlormancerStatsExtractorService {
         this.addSkillInfoValues(character, skillAndUpgrades, result);
         this.addSkillValues(skillAndUpgrades, result)
         this.addUpgradeValues(skillAndUpgrades, result)
-
-        console.log('EXTRACT SKLL STATS : ', result);
         
         return result;
     }

@@ -109,7 +109,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
         if (this.selectedSkill === skill) {
             if (skill.skill.baseLevel < skill.skill.maxLevel) {
                 skill.skill.baseLevel++;
-                this.slormancerSkillService.updateSkill(skill.skill);
+                this.slormancerSkillService.updateSkillModel(skill.skill);
                 this.plannerService.updateCurrentCharacter();
             }
         } else {
@@ -122,7 +122,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
         if (this.selectedSkill === skill) {
             if (skill.skill.baseLevel > 1) {
                 skill.skill.baseLevel--;
-                this.slormancerSkillService.updateSkill(skill.skill);
+                this.slormancerSkillService.updateSkillModel(skill.skill);
                 this.plannerService.updateCurrentCharacter();
             }
         } else {
@@ -153,8 +153,10 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
 
     public incrementUpgrade(selectedUpgrade: SkillUpgrade): boolean {
         if (this.selectedSkill !== null && this.character !== null) {
+            let selectionChanged = false;
             if (this.selectedUpgrade !== selectedUpgrade) {
                 this.selectedUpgrade = selectedUpgrade;
+                selectionChanged = true;
             }
 
             if (!this.isUpgradeEquipped(selectedUpgrade)) {
@@ -165,7 +167,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
                     this.slormancerSkillService.updateUpgrade(selectedUpgrade);
                     this.plannerService.updateCurrentCharacter();
                 }
-            } else if (selectedUpgrade.baseRank < selectedUpgrade.maxRank) {
+            } else if (!selectionChanged && selectedUpgrade.baseRank < selectedUpgrade.maxRank) {
                 selectedUpgrade.baseRank++;
                 this.slormancerSkillService.updateUpgrade(selectedUpgrade);
                 this.plannerService.updateCurrentCharacter();
@@ -177,13 +179,15 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
 
     public decrementUpgrade(selectedUpgrade: SkillUpgrade): boolean {
         if (this.selectedSkill !== null && this.character !== null) {
+            let selectionChanged = false;
             if (this.selectedUpgrade !== selectedUpgrade) {
                 this.selectedUpgrade = selectedUpgrade;
+                selectionChanged = true;
             }
 
             if (!this.isUpgradeEquipped(selectedUpgrade)) {
                 this.slormancerCharacterModifierService.selectUpgrade(this.character, selectedUpgrade);
-            } else if (selectedUpgrade.baseRank > 1) {
+            } else if (!selectionChanged && selectedUpgrade.baseRank > 1) {
                 selectedUpgrade.baseRank--;
                 this.slormancerSkillService.updateUpgrade(selectedUpgrade);
                 this.plannerService.updateCurrentCharacter();

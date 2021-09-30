@@ -9,6 +9,10 @@ function getFirstStat(stats: ExtractedStatMap, stat: string, defaultValue: numbe
     return found ? valueOrDefault(found[0], defaultValue) : defaultValue;
 }
 
+function hasStat(stats: ExtractedStatMap, stat: string): boolean {
+    return stats[stat] !== undefined;
+}
+
 export interface MergedStatMappingSource {
     stat: string;
     condition?: (config: CharacterConfig, stats: ExtractedStatMap) => boolean
@@ -40,6 +44,21 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+        } 
+    },
+    {
+        stat: 'mana_cost',
+        precision: 0,
+        allowMinMax: false,
+        source: {
+            flat: [{ stat: 'mana_cost_add' }],
+            max: [],
+            percent: [],
+            maxPercent: [],
+            multiplier: [
+                { stat: 'all_skill_mana_cost_reduction_per_cast', condition: config => config.skill_cast_recently > 0, multiplier: config => -config.skill_cast_recently },
+                { stat: 'aura_elemental_swap_mana_cost_increase', condition: config => config.has_aura_elemental_swap }
+            ],
         } 
     },
     {
@@ -1135,21 +1154,6 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         } 
     },
     {
-        stat: 'mana_cost_reduction',
-        precision: 0,
-        allowMinMax: false,
-        source: {
-            flat: [
-                { stat: 'all_skill_mana_cost_reduction_per_cast', condition: config => config.skill_cast_recently > 0, multiplier: config => config.skill_cast_recently }
-            ],
-            max: [],
-            percent: [],
-            maxPercent: [],
-            multiplier: [
-            ],
-        } 
-    },
-    {
         stat: 'sum_all_resistances',
         precision: 0,
         allowMinMax: false,
@@ -1197,14 +1201,15 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxPercent: [],
             multiplier: [
                 { stat: 'nimble_buff_primary_skill_increased_damages',
-                    condition: config => config.has_nimble_buff, // TODO is_primary 
+                    condition: (config, stats) => config.has_nimble_buff && hasStat(stats, 'skill_is_equipped_primary'), 
                     multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getFirstStat(stats, 'nimble_champion_max_stacks'), 0))
                 },
                 { stat: 'increased_damage_for_each_yard_with_target', condition: config => config.distance_with_target > 0, multiplier:  config => config.distance_with_target },
-                { stat: 'primary_secondary_skill_increased_damage_mult' },
-                { stat: 'melee_skill_increased_damage_mult' },
-                { stat: 'lightning_imbued_skill_increased_damage' },
-                { stat: 'light_imbued_skill_increased_damage' },
+                { stat: 'primary_secondary_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')},
+                { stat: 'melee_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee') },
+                { stat: 'lightning_imbued_skill_increased_damage', condition: (_, stats) => hasStat(stats, 'skill_lightning_imbued') },
+                { stat: 'light_imbued_skill_increased_damage', condition: (_, stats) => hasStat(stats, 'skill_light_imbued') },
+                { stat: 'light_arrow_increased_damage' },
             ],
         } 
     },

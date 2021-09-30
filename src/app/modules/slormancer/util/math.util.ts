@@ -1,3 +1,4 @@
+import { MinMax } from '../model/minmax';
 import { valueOrDefault } from './utils';
 
 export function bankerRound(value: number): number {
@@ -31,4 +32,33 @@ export function list(min: number, max: number | null = null): Array<number> {
         min = 0;
     }
     return Array.from(new Array(max - min + 1).keys()).map(v => min + v);
+}
+
+export function add(a: number | MinMax, b: number | MinMax, forceMinMax: boolean = false): number | MinMax {
+    let result: number | MinMax;
+    const aIsNumber = typeof a === 'number';
+    const bIsNumber = typeof b === 'number';
+
+    if (!forceMinMax && aIsNumber && bIsNumber) {
+        result = <number>a + <number>b;
+    } else {
+        result = { min: 0, max: 0 };
+
+        if (aIsNumber) {
+            result.min += <number>a;
+            result.max += <number>a;
+        } else {
+            result.min += (<MinMax>a).min;
+            result.max += (<MinMax>a).max;
+        }
+        if (bIsNumber) {
+            result.min += <number>b;
+            result.max += <number>b;
+        } else {
+            result.min += (<MinMax>b).min;
+            result.max += (<MinMax>b).max;
+        }
+    }
+
+    return result;
 }

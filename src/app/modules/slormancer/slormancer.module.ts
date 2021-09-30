@@ -20,6 +20,7 @@ import { SlormancerStatsService } from './services/content/slormancer-stats.serv
 import { SlormancerSynergyResolverService } from './services/content/slormancer-synergy-resolver.service';
 import { SlormancerTemplateService } from './services/content/slormancer-template.service';
 import { SlormancerTranslateService } from './services/content/slormancer-translate.service';
+import { SlormancerValueUpdater } from './services/content/slormancer-value-updater.service';
 import { SlormancerItemParserService } from './services/parser/slormancer-item-parser.service';
 import { SlormancerSaveParserService } from './services/parser/slormancer-save-parser.service';
 import { SlormancerCharacterBuilderService } from './services/slormancer-character-builder.service';
@@ -56,6 +57,7 @@ import { SlormancerCharacterUpdaterService } from './services/slormancer-charact
     SlormancerSynergyResolverService,
     SlormancerStatUpdaterService,
     SlormancerCharacterModifierService,
+    SlormancerValueUpdater
   ],
   bootstrap: []
 })

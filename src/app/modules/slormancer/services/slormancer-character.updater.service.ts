@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { MessageService } from '../../shared/services/message.service';
 import { DATA_HERO_BASE_STATS } from '../constants/content/data/data-hero-base-stats';
 import { Character } from '../model/character';
 import { CharacterConfig } from '../model/character-config';
@@ -17,6 +18,7 @@ import { SlormancerReaperService } from './content/slormancer-reaper.service';
 import { SlormancerSkillService } from './content/slormancer-skill.service';
 import { CharacterStatsBuildResult, SlormancerStatsService } from './content/slormancer-stats.service';
 import { SlormancerTranslateService } from './content/slormancer-translate.service';
+import { SlormancerValueUpdater } from './content/slormancer-value-updater.service';
 
 @Injectable()
 export class SlormancerCharacterUpdaterService {
@@ -33,7 +35,7 @@ export class SlormancerCharacterUpdaterService {
         seconds_since_last_crit: 100,
         seconds_since_last_dodge: 100,
         hits_taken_recently: 0,
-        skill_cast_recently: 0,
+        skill_cast_recently: 80,
         frostbold_shot_recently: 10,
         slormocide_60: 1500,
         goldbane_5: 1666,
@@ -53,7 +55,7 @@ export class SlormancerCharacterUpdaterService {
         victims_reaper_104: 12345,
         controlled_minions: 0,
         elemental_prowess_stacks: 0,
-        totem_dexterity_stacks: 0,
+        totem_dexterity_stacks: 100,
         greed_stacks: 0,
         strider_stacks: 0,
         merchant_stacks: 0,
@@ -97,7 +99,9 @@ export class SlormancerCharacterUpdaterService {
                 private slormancerSkillService: SlormancerSkillService,
                 private slormancerReaperService: SlormancerReaperService,
                 private slormancerItemService: SlormancerItemService,
-                private slormancerActivableService: SlormancerActivableService
+                private slormancerActivableService: SlormancerActivableService,
+                private slormancerValueUpdater: SlormancerValueUpdater,
+                private messageService: MessageService,
         ) { }
 
     private resetAttributes(character: Character) {
@@ -168,7 +172,7 @@ export class SlormancerCharacterUpdaterService {
             const bonus = valueOrDefault(skillBonuses[skill.skill.id], 0);
             if (skill.skill.bonusLevel !== bonus) {
                 skill.skill.bonusLevel = bonus;
-                this.slormancerSkillService.updateSkill(skill.skill);
+                this.slormancerSkillService.updateSkillModel(skill.skill);
             }
         }
 
@@ -193,7 +197,7 @@ export class SlormancerCharacterUpdaterService {
             // console.log('Updating reaper : ' + reaper.name);
         }
         for (const skill of statsResult.changed.skills.filter(isFirst)) {
-            this.slormancerSkillService.updateSkill(skill);
+            this.slormancerSkillService.updateSkillView(skill);
             // console.log('Updating skill : ' + skill.name);
         }
         for (const upgrade of statsResult.changed.upgrades.filter(isFirst)) {
@@ -206,6 +210,35 @@ export class SlormancerCharacterUpdaterService {
         }
         for (const activable of statsResult.changed.activables) {
             this.slormancerActivableService.updateActivableView(activable);
+        }
+    }
+
+    private displaySynergyLoopError(statsResult: CharacterStatsBuildResult) {
+        if (statsResult.unresolvedSynergies.length > 1) {
+            const names = statsResult.unresolvedSynergies
+                .map(unresolvedSynergy => {
+                    let result = null;
+
+                    if (unresolvedSynergy.objectSource.activable) {
+                        result = unresolvedSynergy.objectSource.activable.name;
+                    } else if (unresolvedSynergy.objectSource.ancestralLegacy) {
+                        result = unresolvedSynergy.objectSource.ancestralLegacy.name;
+                    } else if (unresolvedSynergy.objectSource.attribute) {
+                        result = unresolvedSynergy.objectSource.attribute.attributeName;
+                    } else if (unresolvedSynergy.objectSource.item) {
+                        result = unresolvedSynergy.objectSource.item.name;
+                    } else if (unresolvedSynergy.objectSource.reaper) {
+                        result = unresolvedSynergy.objectSource.reaper.name;
+                    } else if (unresolvedSynergy.objectSource.skill) {
+                        result = unresolvedSynergy.objectSource.skill.name;
+                    } else if (unresolvedSynergy.objectSource.upgrade) {
+                        result = unresolvedSynergy.objectSource.upgrade.name;
+                    }
+
+                    return result;
+                }).filter(isNotNullOrUndefined);
+            console.log('unresolved : ', statsResult.unresolvedSynergies, names);
+            this.messageService.error('Your build contain a synergy loop between : ' + names.join(', '));
         }
     }
 
@@ -234,10 +267,13 @@ export class SlormancerCharacterUpdaterService {
         }
 
         for (const skillAndUpgrades of character.skills) {
-            this.slormancerStatsService.updateSkillStats(character, skillAndUpgrades, config, statsResult.extractedStats);
-
+            const result = this.slormancerStatsService.updateSkillStats(character, skillAndUpgrades, config, statsResult.extractedStats);
+            this.slormancerValueUpdater.updateSkillAndUpgradeValues(skillAndUpgrades, result.stats);
+            statsResult.changed.skills.push(skillAndUpgrades.skill);
             break;
         }
+
+        this.displaySynergyLoopError(statsResult)
 
         if (updateViews) {
             this.updateChangedItems(statsResult);
