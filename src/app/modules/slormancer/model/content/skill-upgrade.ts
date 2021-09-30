@@ -32,6 +32,7 @@ export interface SkillUpgrade {
 
     nextRankDescription: Array<string>;
     maxRankDescription: Array<string>;
+    nextRankTemplate: Array<string>;
 
     relatedClassMechanics: Array<SkillClassMechanic>;
     relatedMechanics: Array<Mechanic>;
