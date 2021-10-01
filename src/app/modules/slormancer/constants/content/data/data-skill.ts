@@ -1377,7 +1377,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: null,
         override: values => {
             setUpgrade(values, 0, 6);
-            addConstant(values, 15, false, EffectValueValueType.Duration, 'skill_1_0_duration');
+            addConstant(values, 15, false, EffectValueValueType.Duration, 'duration');
         },
         additionalClassMechanics: [],
         specialization: 214
@@ -1385,7 +1385,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     1: {
         masteryRequired: null,
         override: values => {
-            addConstant(values, 50, false, EffectValueValueType.Stat, 'skill_1_1_evasion_bonus');
+            addConstant(values, 50, false, EffectValueValueType.Stat, 'assassin_haste_buff_dodge_global_mult');
         },
         additionalClassMechanics: [],
         specialization: 215
@@ -2287,24 +2287,30 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     158: {
         masteryRequired: 1,
         override: values => { 
-            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'skill_isolated_aoe');
+            setStat(values, 0, 'isolated_target_increased_damage');
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'isolated_target_distance');
         },
         additionalClassMechanics: []
     },
     159: {
         masteryRequired: 1,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'assassin_haste_buff_movement_speed');
+        },
         additionalClassMechanics: []
     },
     160: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'negative_effect_target_increased_damage');
+        },
         additionalClassMechanics: []
     },
     161: {
         masteryRequired: 2,
         override: values => {
-            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'skill_close_aoe');
+            setStat(values, 0, 'close_target_increased_damage');
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'close_target_radius');
         },
         additionalClassMechanics: []
     },
@@ -2315,29 +2321,39 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     },
     163: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'tumble_cooldown_reset_chance_on_cast');
+        },
         additionalClassMechanics: []
     },
     164: {
         masteryRequired: 3,
         override: values => { 
-            addConstant(values, 8, false, EffectValueValueType.Duration, 'skill_tormented_delighted_buff_disabled_duration');
+            setStat(values, 0, 'self_control_cooldown_reduction_global_mult');
+            addConstant(values, 8, false, EffectValueValueType.Duration, 'self_control_disabled_duration');
         },
         additionalClassMechanics: []
     },
     165: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => { 
+            setStat(values, 0, 'poisoned_enemy_increased_damage');
+            
+        },
         additionalClassMechanics: []
     },
     166: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            addConstant(values, -100, false, EffectValueValueType.Stat, 'last_cast_tormented_increased_cost');
+        },
         additionalClassMechanics: []
     },
     167: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'last_cast_tormented_crit_chance_percent');
+        },
         additionalClassMechanics: []
     },
     168: {
@@ -2347,12 +2363,16 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     },
     169: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'ravenous_dagger_spawn_on_tumble_cast');
+        },
         additionalClassMechanics: []
     },
     170: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'trap_spawn_on_tumble_cast');
+        },
         additionalClassMechanics: []
     },
     171: {
@@ -2367,7 +2387,10 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     },
     173: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'arrow_shot_on_tumble_cast');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'arrow_shot_on_tumble_land');
+        },
         additionalClassMechanics: []
     },
     174: {
@@ -2382,17 +2405,23 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     },
     176: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'ravenous_dagger_pull_on_tumble_land');
+        },
         additionalClassMechanics: []
     },
     177: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'arrow_shot_void_arrow_immortal_arrow_repeal_non_elemental_projectile');
+        },
         additionalClassMechanics: []
     },
     178: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'tormented_movement_speed');
+        },
         additionalClassMechanics: []
     },
     179: {
@@ -2402,12 +2431,17 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     },
     180: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'critical_strike_chance_lucky');
+        },
         additionalClassMechanics: []
     },
     181: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            setStat(values, 1, 'tormented_additional_projectile_add');
+            setStat(values, 2, 'arrow_shot_void_arrow_heavy_explosive_increased_mana_cost');
+        },
         additionalClassMechanics: []
     },
     182: {

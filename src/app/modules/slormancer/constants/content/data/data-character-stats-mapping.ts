@@ -2,6 +2,7 @@ import { CharacterConfig } from '../../../model/character-config';
 import { GameHeroesData } from '../../../model/parser/game/game-save';
 import { ExtractedStatMap } from '../../../services/content/slormancer-stats-extractor.service';
 import { valueOrDefault } from '../../../util/utils';
+import { DELIGHTED_VALUE } from '../../common';
 
 function getFirstStat(stats: ExtractedStatMap, stat: string, defaultValue: number = 0): number {
     const found = stats[stat];
@@ -57,7 +58,9 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxPercent: [],
             multiplier: [
                 { stat: 'all_skill_mana_cost_reduction_per_cast', condition: config => config.skill_cast_recently > 0, multiplier: config => -config.skill_cast_recently },
-                { stat: 'aura_elemental_swap_mana_cost_increase', condition: config => config.has_aura_elemental_swap }
+                { stat: 'aura_elemental_swap_mana_cost_increase', condition: config => config.has_aura_elemental_swap },
+                { stat: 'last_cast_tormented_increased_cost', condition: config => config.last_cast_tormented },
+                { stat: 'arrow_shot_void_arrow_heavy_explosive_increased_mana_cost', condition: (_, stats) => [3, 4, 6].includes(getFirstStat(stats, 'skill_id', 0)) }
             ],
         } 
     },
@@ -275,7 +278,9 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             max: [],
             percent: [
                 { stat: 'the_speed_percent' },
-                { stat: 'the_speed_percent_after_dodge', condition: (config, stats) => config.seconds_since_last_dodge <= getFirstStat(stats, 'the_speed_percent_after_dodge_duration', 0) }
+                { stat: 'the_speed_percent_after_dodge', condition: (config, stats) => config.seconds_since_last_dodge <= getFirstStat(stats, 'the_speed_percent_after_dodge_duration', 0) },
+                { stat: 'assassin_haste_buff_movement_speed', condition: config => config.has_assassin_haste_buff },
+                { stat: 'tormented_movement_speed', condition: config => config.serenity === 0 }
             ],
             maxPercent: [],
             multiplier: [],
@@ -297,7 +302,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             multiplier: [
                 { stat: 'adam_blessing_buff_cooldown_reduction_global_mult', condition: config => config.has_adam_blessing_buff },
                 { stat: 'cooldown_reduction_global_mult' },
-                { stat: 'cooldown_reduction_global_mult_after_crit', condition: (config, stats) => config.seconds_since_last_crit <= getFirstStat(stats, 'cooldown_reduction_global_mult_after_crit_duration', 0) }
+                { stat: 'cooldown_reduction_global_mult_after_crit', condition: (config, stats) => config.seconds_since_last_crit <= getFirstStat(stats, 'cooldown_reduction_global_mult_after_crit_duration', 0) },
+                { stat: 'self_control_cooldown_reduction_global_mult', condition: config => config.serenity > 0 && config.serenity < DELIGHTED_VALUE }
             ],
         } 
     },
@@ -323,7 +329,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         precision: 3,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'inextricable_torment_aura_enemy_increased_damage', condition: config => config.has_aura_inextricable_torment, multiplier: () => -1 }],
+            flat: [
+                { stat: 'inextricable_torment_aura_enemy_increased_damage', condition: config => config.has_aura_inextricable_torment, multiplier: () => -1 },
+                { stat: 'poisoned_enemy_increased_damage', condition: config => config.enemy_is_poisoned, multiplier: () => -1 }
+            ],
             max: [],
             percent: [],
             maxPercent: [],
@@ -346,6 +355,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                     condition: config => config.has_nimble_buff, 
                     multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getFirstStat(stats, 'nimble_champion_max_stacks'), 0))
                 },
+                { stat: 'last_cast_tormented_crit_chance_percent', condition: config => config.last_cast_tormented }
             ],
             max: [],
             percent: [],
@@ -573,7 +583,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'turret_syndrome_on_cooldown_dodge_percent', condition: config => config.turret_syndrome_on_cooldown }
             ],
             maxPercent: [],
-            multiplier: [{ stat: 'dodge_global_mult' }],
+            multiplier: [
+                { stat: 'dodge_global_mult' },
+                { stat: 'assassin_haste_buff_dodge_global_mult', condition: config => config.has_assassin_haste_buff }
+            ],
         } 
     },
     {
@@ -921,7 +934,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'additional_projectile_add' },
-                { stat: 'idle_additional_projectile_add', condition: config => config.iddle }
+                { stat: 'idle_additional_projectile_add', condition: config => config.iddle },
+                { stat: 'tormented_additional_projectile_add', condition: config => config.serenity === 0 }
             ],
             max: [],
             percent: [{ stat: 'additional_projectile_percent' }],
@@ -1210,6 +1224,9 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'lightning_imbued_skill_increased_damage', condition: (_, stats) => hasStat(stats, 'skill_lightning_imbued') },
                 { stat: 'light_imbued_skill_increased_damage', condition: (_, stats) => hasStat(stats, 'skill_light_imbued') },
                 { stat: 'light_arrow_increased_damage' },
+                { stat: 'isolated_target_increased_damage', condition: config => config.target_is_isolated },
+                { stat: 'negative_effect_target_increased_damage', condition: config => config.target_has_negative_effect },
+                { stat: 'close_target_increased_damage', condition: (config, stats) => config.distance_with_target <= getFirstStat(stats, 'close_target_radius') },
             ],
         } 
     },

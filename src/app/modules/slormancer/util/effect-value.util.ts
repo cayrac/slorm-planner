@@ -9,6 +9,7 @@ export function effectValueConstant(value: number, percent: boolean, stat: strin
         valueType,
         stat,
         percent,
+        baseValue: value,
         value,
         displayValue: value
     } as EffectValueConstant;

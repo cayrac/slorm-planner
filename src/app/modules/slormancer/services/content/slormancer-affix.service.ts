@@ -68,6 +68,7 @@ export class SlormancerAffixService {
 
                 effect: {
                     type: EffectValueType.Constant,
+                    baseValue: 0,
                     value: 0,
                     displayValue: 0,
                     percent: stat.PERCENT === '%',

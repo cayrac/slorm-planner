@@ -26,7 +26,9 @@ export class SlormancerCharacterUpdaterService {
     public readonly CHARACTER_CONFIG: CharacterConfig = {
         totems_under_control: 10,
         traps_nearby: 5,
-        serenity: 4,
+        serenity: 0,
+        last_cast_tormented: true,
+        last_cast_delighted: true,
         enemy_percent_missing_health: 0,
         percent_missing_health: 0,
         percent_missing_mana: 0,
@@ -39,6 +41,9 @@ export class SlormancerCharacterUpdaterService {
         frostbold_shot_recently: 10,
         slormocide_60: 1500,
         goldbane_5: 1666,
+        target_is_isolated: true,
+        enemy_is_poisoned: true,
+        target_has_negative_effect: true,
         elites_in_radius: {
             10: 0
         },
@@ -80,6 +85,7 @@ export class SlormancerCharacterUpdaterService {
         has_ancient_recognition_buff: true,
         has_elemental_fervor_buff: true,
         has_ancestral_fervor_buff: true,
+        has_assassin_haste_buff: true,
         all_characters_level: 120,
         iddle: false,
         damage_stored: 1000,

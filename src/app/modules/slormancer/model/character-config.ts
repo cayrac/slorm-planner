@@ -1,9 +1,12 @@
 export interface CharacterConfig {
     serenity: number;
+    last_cast_tormented: boolean;
+    last_cast_delighted: boolean;
     percent_missing_mana: number;
     percent_lock_mana: number;
     percent_missing_health: number;
     enemy_percent_missing_health: number;
+    enemy_is_poisoned: boolean;
     overall_reputation: number;
     totems_under_control: number;
     traps_nearby: number;
@@ -12,6 +15,8 @@ export interface CharacterConfig {
     hits_taken_recently: number;
     skill_cast_recently: number;
     frostbold_shot_recently: number;
+    target_is_isolated: boolean;
+    target_has_negative_effect: boolean;
     ennemies_in_radius: { [key: number]: number};
     negative_effects_on_ennemies_in_radius: { [key: number]: number};
     elites_in_radius: { [key: number]: number};
@@ -47,6 +52,7 @@ export interface CharacterConfig {
     has_elemental_fervor_buff: boolean;
     has_ancestral_fervor_buff: boolean;
     has_ancient_recognition_buff: boolean;
+    has_assassin_haste_buff: boolean;
     distance_with_target: number;
     all_characters_level: number;
     victims_reaper_104: number;

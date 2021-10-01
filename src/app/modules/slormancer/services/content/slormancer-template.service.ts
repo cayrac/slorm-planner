@@ -351,8 +351,11 @@ export class SlormancerTemplateService {
         return this.parseTemplate(template, stat === null ? [] : [stat]);
     }
 
-    public formatNextRankDescription(template: string, effectValue: AbstractEffectValue): string { 
+    public prepareNextRankDescriptionTemplate(template: string, effectValue: AbstractEffectValue): string { 
+        return this.parseTemplate(template, [effectValue.stat]);   
+    }
 
+    public formatNextRankDescription(template: string, effectValue: AbstractEffectValue): string { 
         let value: string = '';
         let details: string = '';
         if (isEffectValueSynergy(effectValue)) {
@@ -362,10 +365,7 @@ export class SlormancerTemplateService {
             value = this.formatValue(effectValue.value, effectValue.percent);
         }
 
-        template = this.parseTemplate(template, effectValue.stat ? [effectValue.stat] : []);    
-        template = this.replaceAnchor(template, this.asSpan(value, 'value') + details, this.VALUE_ANCHOR);
-
-        return template;
+        return this.replaceAnchor(template, this.asSpan(value, 'value') + details, this.VALUE_ANCHOR);
     }
 
     public prepareReaperDescriptionTemplate(template: string, stats: Array<string> = []): [string, string, string] {

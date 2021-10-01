@@ -310,7 +310,11 @@ export class SlormancerSkillService {
                 relatedBuffs: this.extractBuffs(gameDataSkill.EN_DESCRIPTION),
             
                 template: this.slormancerTemplateService.getSkillDescriptionTemplate(gameDataSkill),
-                values: values
+                nextRankTemplate: values
+                    .filter(value => isEffectValueSynergy(value) || isEffectValueVariable(value))
+                    .filter(value => (<EffectValueSynergy | EffectValueVariable>value).upgrade !== 0)
+                    .map(value => this.slormancerTemplateService.prepareNextRankDescriptionTemplate('@ £', value)),
+                values
             };
     
             this.applyOverride(upgrade, dataSkill);
@@ -337,7 +341,7 @@ export class SlormancerSkillService {
             .filter(value => isEffectValueSynergy(value) || isEffectValueVariable(value))
             .filter(value => (<EffectValueSynergy | EffectValueVariable>value).upgrade !== 0)
             .map(value => this.slormancerEffectValueService.updateEffectValue({ ...value }, rank))
-            .map(value => this.slormancerTemplateService.formatNextRankDescription('@ £', value));
+            .map((value, index) => this.slormancerTemplateService.formatNextRankDescription(<string>upgrade.nextRankTemplate[index], value));
 
         return [ ...skill, ...attributes ]
     }

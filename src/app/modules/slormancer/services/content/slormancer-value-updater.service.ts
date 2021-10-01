@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { CharacterSkillAndUpgrades } from '../../model/character';
 import { MergedStat } from '../../model/content/character-stats';
 import { EffectValueSynergy } from '../../model/content/effect-value';
+import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { Skill } from '../../model/content/skill';
 import { MinMax } from '../../model/minmax';
@@ -58,6 +59,20 @@ export class SlormancerValueUpdater {
 
         if (genres.includes(SkillGenre.Minion)) {
             multipliers.push(stats.minionIncreasedDamage.total);
+        }
+
+        return multipliers.filter(v => v !== 0);
+    }
+
+    private getValidurationMultipliers(genres: Array<SkillGenre>, stats: SkillStats): Array<number> {
+        const multipliers: Array<number> = [];
+        
+        if (genres.includes(SkillGenre.Totem)) {
+            multipliers.push(stats.totemIncreasedEffect.total);
+        }
+
+        if (genres.includes(SkillGenre.Aura)) {
+            multipliers.push(stats.auraIncreasedEffect.total);
         }
 
         return multipliers.filter(v => v !== 0);
@@ -125,11 +140,20 @@ export class SlormancerValueUpdater {
     private updateSkillValues(skill: Skill, stats: SkillStats) {
                 
         skill.cost = stats.mana.total;
-
         skill.cooldown = round(skill.baseCooldown * (100 - stats.attackSpeed.total) / 100, 2);
 
+        const damageValues = skill.values.filter(isEffectValueSynergy).filter(value => value.stat === 'damage');
         const damageMultipliers = this.getValidDamageMultipliers(skill.genres, stats);
-
-        this.updateDamages(skill.values.filter(isEffectValueSynergy).filter(value => value.stat === 'damage'), stats.additionalDamages.total, damageMultipliers);
+        this.updateDamages(damageValues, stats.additionalDamages.total, damageMultipliers);
+    
+        const durationValues = skill.values.filter(value => value.valueType === EffectValueValueType.Duration);
+        const durationMultipliers = this.getValidurationMultipliers(skill.genres, stats);
+        for (const value of durationValues) {
+            value.value = value.baseValue;
+            for (const multiplier of durationMultipliers) {
+                value.value = value.value * (100 + multiplier) / 100;
+            }
+            value.displayValue = round(value.value, 2);
+        }
     }
 }

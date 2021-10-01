@@ -197,13 +197,17 @@ export class SlormancerStatsExtractorService {
         }
     }
 
-    private addPassiveValues(character: Character, stats: ExtractedStats) {
+    private addSkillPassiveValues(character: Character, stats: ExtractedStats) {
         for (const sau of character.skills) {
             const skillEquiped = character.supportSkill === sau.skill || character.primarySkill === sau.skill || character.secondarySkill === sau.skill;
             
             for (const skillValue of sau.skill.values) {
-                if (isEffectValueSynergy(skillValue)) {
-                    stats.isolatedSynergies.push(synergyResolveData(skillValue, skillValue.synergy, { skill: sau.skill }));
+                if (skillValue.valueType !== EffectValueValueType.Upgrade) {
+                    if (isEffectValueSynergy(skillValue)) {
+                        stats.isolatedSynergies.push(synergyResolveData(skillValue, skillValue.synergy, { skill: sau.skill }));
+                    } else if (skillEquiped) {
+                        this.addStat(stats.stats, skillValue.stat, skillValue.value);
+                    }
                 }
             }
 
@@ -281,7 +285,7 @@ export class SlormancerStatsExtractorService {
         this.addGearValues(character, result);
         this.addAdditionalItemValues(additionalItem, result);
         this.addInventoryValues(character, result);
-        this.addPassiveValues(character, result);
+        this.addSkillPassiveValues(character, result);
         this.addActivableValues(character, result);
         
         return result;
@@ -306,6 +310,7 @@ export class SlormancerStatsExtractorService {
         if (skillAndUpgrades.skill.genres.includes(SkillGenre.Melee)) {
             extractedStats.stats['skill_is_melee'] = [1];
         }
+        extractedStats.stats['skill_id'] = [skillAndUpgrades.skill.id];
         extractedStats.stats['mana_cost_add'] = [skillAndUpgrades.skill.initialCost];
     }
 
