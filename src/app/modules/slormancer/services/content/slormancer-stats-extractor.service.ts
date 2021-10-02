@@ -312,18 +312,21 @@ export class SlormancerStatsExtractorService {
         }
         extractedStats.stats['skill_id'] = [skillAndUpgrades.skill.id];
         extractedStats.stats['mana_cost_add'] = [skillAndUpgrades.skill.initialCost];
+        extractedStats.stats['cooldown_time_add'] = [skillAndUpgrades.skill.baseCooldown];
     }
 
     private addSkillValues(skillAndUpgrades: CharacterSkillAndUpgrades, extractedStats: ExtractedStats) {
         for (const skillValue of skillAndUpgrades.skill.values) {
-            if (isEffectValueSynergy(skillValue)) {
-                if (!this.isDamageStat(skillValue.stat)) {
-                    extractedStats.synergies.push(synergyResolveData(skillValue, skillValue.synergy, { skill: skillAndUpgrades.skill }, this.getSynergyStatsItWillUpdate(skillValue.stat)));
+            if (skillValue.valueType === EffectValueValueType.Upgrade) {
+                if (isEffectValueSynergy(skillValue)) {
+                    if (!this.isDamageStat(skillValue.stat)) {
+                        extractedStats.synergies.push(synergyResolveData(skillValue, skillValue.synergy, { skill: skillAndUpgrades.skill }, this.getSynergyStatsItWillUpdate(skillValue.stat)));
+                    } else {
+                        extractedStats.isolatedSynergies.push(synergyResolveData(skillValue, skillValue.synergy, { skill: skillAndUpgrades.skill }));
+                    }
                 } else {
-                    extractedStats.isolatedSynergies.push(synergyResolveData(skillValue, skillValue.synergy, { skill: skillAndUpgrades.skill }));
+                    this.addStat(extractedStats.stats, skillValue.stat, skillValue.value);
                 }
-            } else {
-                this.addStat(extractedStats.stats, skillValue.stat, skillValue.value);
             }
         }
     }

@@ -24,6 +24,7 @@ function setValue(values: Array<AbstractEffectValue>, index: number, newValue: n
 
     if (value && typeof value.value === 'number') {
         value.value = newValue;
+        value.baseValue = newValue;
     }
 }
 
@@ -1468,79 +1469,125 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     },
     11: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            setAsUpgrade(values, 0);
+            setUpgrade(values, 0, 100);
+            setStat(values, 0, 'increased_damage_mult');
+        },
         additionalClassMechanics: []
     },
     12: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => { 
+            setAsUpgrade(values, 0);
+            setStat(values, 0, 'arrow_shot_rebound_chance_percent');
+        },
         additionalClassMechanics: []
     },
     13: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setAsUpgrade(values, 0);
+            setStat(values, 0, 'arrow_shot_fork_chance_percent');
+        },
         additionalClassMechanics: []
     },
     14: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => { 
+            setStat(values, 0, 'trap_increased_damage_if_tracked');
+        },
         additionalClassMechanics: []
     },
     15: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setAsUpgrade(values, 0);
+            setStat(values, 0, 'chance_to_pierce_percent');
+        },
         additionalClassMechanics: []
     },
     16: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setAsUpgrade(values, 0);
+            setStat(values, 0, 'fork_count');
+        },
         additionalClassMechanics: []
     },
     17: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setAsUpgrade(values, 0);
+            setStat(values, 0, 'increased_proj_speed_percent_if_tormented');
+        },
         additionalClassMechanics: []
     },
     18: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'dodge_global_mult_if_delighted');
+        },
         additionalClassMechanics: []
     },
     19: {
         masteryRequired: 6,
         override: values => {
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_rebound_before_hit_increased_damage_first_hit');
+            setStat(values, 0, 'increased_damage_per_rebound');
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'first_hit_after_rebound_increased_damage');
+            setAsUpgrade(values, 0);
+            setAsUpgrade(values, 1);
         },
         additionalClassMechanics: []
     },
     20: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'cooldown_time_multiplier');
+            setStat(values, 1, 'crit_chance_percent');
+            setAsUpgrade(values, 0);
+            setAsUpgrade(values, 1);
+        },
         additionalClassMechanics: []
     },
     21: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'additional_projectile_add');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     22: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setAsUpgrade(values, 0);
+            setStat(values, 0, 'arrow_shot_mana_on_kill_add');
+        },
         additionalClassMechanics: []
     },
     23: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'increased_damage_per_pierce');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     24: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'fork_reset_chance');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     25: {
         masteryRequired: 10,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'reset_poison_on_hit');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     26: {

@@ -19,6 +19,10 @@ export function round(value: number, decimals: number = 0): number {
     const decal = valueOrDefault(POW_10[decimals], 1);
     return Math.round(value * decal) / decal;
 }
+export function floor(value: number, decimals: number = 0): number {
+    const decal = valueOrDefault(POW_10[decimals], 1);
+    return Math.floor(value * decal) / decal;
+}
 
 /**
  * 

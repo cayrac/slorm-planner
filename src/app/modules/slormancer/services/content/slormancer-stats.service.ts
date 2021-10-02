@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import {
     GLOBAL_MERGED_STATS_MAPPING,
+    HERO_MERGED_STATS_MAPPING,
     MergedStatMapping,
     MergedStatMappingSource,
 } from '../../constants/content/data/data-character-stats-mapping';
@@ -217,7 +218,7 @@ export class SlormancerStatsService {
         const extractedStats = this.slormancerStatsExtractorService.extractSkillStats(character, skillAndUpgrades, config, characterExtractedStats);
 
         result.extractedStats = extractedStats.stats;
-        result.stats = this.buildMergedStats(extractedStats.stats, GLOBAL_MERGED_STATS_MAPPING, config);
+        result.stats = this.buildMergedStats(extractedStats.stats, [...GLOBAL_MERGED_STATS_MAPPING, ...HERO_MERGED_STATS_MAPPING[character.heroClass]], config);
         
         for (const stats of result.stats) {
             this.slormancerStatUpdaterService.updateStatTotal(stats);

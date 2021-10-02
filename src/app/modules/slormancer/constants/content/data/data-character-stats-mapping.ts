@@ -65,6 +65,20 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         } 
     },
     {
+        stat: 'cooldown_time',
+        precision: 4,
+        allowMinMax: false,
+        source: {
+            flat: [{ stat: 'cooldown_time_add' }],
+            max: [],
+            percent: [],
+            maxPercent: [],
+            multiplier: [
+                { stat: 'cooldown_time_multiplier'},
+            ],
+        } 
+    },
+    {
         stat: 'essence_find',
         precision: 2,
         allowMinMax: false,
@@ -264,7 +278,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'mana_on_kill_add' }],
+            flat: [
+                { stat: 'mana_on_kill_add' },
+                { stat: 'arrow_shot_mana_on_kill_add', condition: (_, stats) => getFirstStat(stats, 'skill_id') === 3 }
+            ],
             max: [],
             percent: [{ stat: 'mana_on_kill_percent' }],
             maxPercent: [],
@@ -594,7 +611,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxPercent: [],
             multiplier: [
                 { stat: 'dodge_global_mult' },
-                { stat: 'assassin_haste_buff_dodge_global_mult', condition: config => config.has_assassin_haste_buff }
+                { stat: 'assassin_haste_buff_dodge_global_mult', condition: config => config.has_assassin_haste_buff },
+                { stat: 'dodge_global_mult_if_delighted', condition: config => config.serenity === DELIGHTED_VALUE }
             ],
         } 
     },
@@ -977,7 +995,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'fork_chance_percent' },
-                { stat: 'fork_chance_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) }
+                { stat: 'fork_chance_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) },
+                { stat: 'arrow_shot_fork_chance_percent', condition: (_, stats) => getFirstStat(stats, 'skill_id') === 3 },
             ],
             max: [],
             percent: [],
@@ -992,7 +1011,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'rebound_chance_percent' },
-                { stat: 'rebound_chance_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) }
+                { stat: 'rebound_chance_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) },
+                { stat: 'arrow_shot_rebound_chance_percent', condition: (_, stats) => getFirstStat(stats, 'skill_id') === 3 },
             ],
             max: [],
             percent: [],
@@ -1007,7 +1027,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'increased_proj_speed_percent' },
-                { stat: 'increased_proj_speed_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) }
+                { stat: 'increased_proj_speed_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) },
+                { stat: 'increased_proj_speed_percent_if_tormented', condition: (config) => config.serenity === 0}
             ],
             max: [],
             percent: [],
@@ -1092,7 +1113,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             flat: [
                 { stat: 'minion_increased_damage_percent' },
                 { stat: 'minion_increased_damage_percent_per_controlled_minion', condition: config => config.controlled_minions > 0, multiplier: config => config.controlled_minions },
-                ],
+            ],
             max: [],
             percent: [],
             maxPercent: [],
@@ -1240,6 +1261,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'negative_effect_target_increased_damage', condition: config => config.target_has_negative_effect },
                 { stat: 'close_target_increased_damage', condition: (config, stats) => config.distance_with_target <= getFirstStat(stats, 'close_target_radius') },
                 { stat: 'smoke_screen_buff_increased_damage', condition: config => config.has_smoke_screen_buff },
+                { stat: 'increased_damage_per_rebound', condition: config => config.rebounds_before_hit > 0, multiplier: config => config.rebounds_before_hit },
+                { stat: 'first_hit_after_rebound_increased_damage', condition: config => config.rebounds_before_hit > 0 && config.is_first_hit },
+                { stat: 'increased_damage_per_pierce', condition: config => config.pierces_before_hit > 0, multiplier: config => config.pierces_before_hit },
+                { stat: 'increased_damage_mult' }, // le "mult" sert à ne pas utiliser les increased_damage pas encore configuré
             ],
         } 
     },
@@ -1284,9 +1309,12 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             source: {
                 flat: [],
                 max: [],
-                percent: [{ stat: 'trap_increased_damage_percent', condition: config => config.traps_nearby > 0, multiplier: config => config.traps_nearby }],
+                percent: [],
                 maxPercent: [],
-                multiplier: [],
+                multiplier: [
+                    { stat: 'trap_increased_damage_percent', condition: config => config.traps_nearby > 0, multiplier: config => config.traps_nearby },
+                    { stat: 'trap_increased_damage_if_tracked', condition: config => config.target_is_tracked }
+                ],
             } 
         },
         {

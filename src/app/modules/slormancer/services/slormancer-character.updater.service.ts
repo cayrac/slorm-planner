@@ -41,9 +41,13 @@ export class SlormancerCharacterUpdaterService {
         frostbold_shot_recently: 10,
         slormocide_60: 1500,
         goldbane_5: 1666,
+        rebounds_before_hit: 1,
+        pierces_before_hit: 0,
         target_is_isolated: true,
+        target_is_tracked: true,
         enemy_is_poisoned: true,
         target_has_negative_effect: true,
+        is_first_hit: true,
         elites_in_radius: {
             10: 0
         },
@@ -278,6 +282,7 @@ export class SlormancerCharacterUpdaterService {
             const result = this.slormancerStatsService.updateSkillStats(character, skillAndUpgrades, config, statsResult.extractedStats);
             this.slormancerValueUpdater.updateSkillAndUpgradeValues(skillAndUpgrades, result.stats);
             statsResult.changed.skills.push(skillAndUpgrades.skill);
+            statsResult.changed.upgrades.push(...skillAndUpgrades.upgrades);
         }
 
         this.displaySynergyLoopError(statsResult)

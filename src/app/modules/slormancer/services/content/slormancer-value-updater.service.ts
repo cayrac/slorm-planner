@@ -6,12 +6,14 @@ import { EffectValueSynergy } from '../../model/content/effect-value';
 import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { Skill } from '../../model/content/skill';
+import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { MinMax } from '../../model/minmax';
 import { add, round } from '../../util/math.util';
 import { isEffectValueSynergy } from '../../util/utils';
 
 interface SkillStats {
     mana: MergedStat<number>;
+    cooldown: MergedStat<number>;
     attackSpeed: MergedStat<number>;
     increasedDamage: MergedStat<number>;
     totemIncreasedEffect: MergedStat<number>;
@@ -20,6 +22,7 @@ interface SkillStats {
     minionIncreasedDamage: MergedStat<number>;
     additionalDamages: MergedStat;
     additionalDuration: MergedStat<number>;
+    additionalProjectiles: MergedStat<number>;
 }
 
 @Injectable()
@@ -62,6 +65,10 @@ export class SlormancerValueUpdater {
             multipliers.push(stats.minionIncreasedDamage.total);
         }
 
+        if (genres.includes(SkillGenre.Projectile)) {
+            multipliers.push(-Math.min(Math.floor(stats.additionalProjectiles.total), 9) * 10);
+        }
+
         return multipliers.filter(v => v !== 0);
     }
 
@@ -79,9 +86,10 @@ export class SlormancerValueUpdater {
         return multipliers.filter(v => v !== 0);
     }
 
-    public updateSkillAndUpgradeValues(skillAndUpgrades: CharacterSkillAndUpgrades, stats: Array<MergedStat>) {
+    public updateSkillAndUpgradeValues(skillAndUpgrades: CharacterSkillAndUpgrades, stats: Array<MergedStat>): Array<SkillUpgrade> {
         const skillStats: SkillStats = {
             mana: <MergedStat<number>>this.getStatValueOrDefault(stats, 'mana_cost'),
+            cooldown: <MergedStat<number>>this.getStatValueOrDefault(stats, 'cooldown_time'),
             attackSpeed: <MergedStat<number>>this.getStatValueOrDefault(stats, 'attack_speed'),
             increasedDamage: <MergedStat<number>>this.getStatValueOrDefault(stats, 'increased_damages'),
             totemIncreasedEffect: <MergedStat<number>>this.getStatValueOrDefault(stats, 'totem_increased_effect'),
@@ -90,13 +98,16 @@ export class SlormancerValueUpdater {
             minionIncreasedDamage: <MergedStat<number>>this.getStatValueOrDefault(stats, 'minion_increased_damage'),
             additionalDamages: <MergedStat<number>>this.getStatValueOrDefault(stats, 'additional_damage'),
             additionalDuration: <MergedStat<number>>this.getStatValueOrDefault(stats, 'skill_additional_duration'),
+            additionalProjectiles: <MergedStat<number>>this.getStatValueOrDefault(stats, 'additional_projectile'),
         }
 
-        if (skillAndUpgrades.skill.id === 2) {
+        if (skillAndUpgrades.skill.id === 3) {
             console.log('update skill and upgrade values ', skillAndUpgrades, stats, skillStats);
         }
 
         this.updateSkillValues(skillAndUpgrades.skill, skillStats);
+
+        return [];
     }
 
     private updateDamages(damages: Array<EffectValueSynergy>, additional: number | MinMax, multipliers: Array<number>) {
@@ -142,7 +153,7 @@ export class SlormancerValueUpdater {
     private updateSkillValues(skill: Skill, stats: SkillStats) {
                 
         skill.cost = stats.mana.total;
-        skill.cooldown = round(skill.baseCooldown * (100 - stats.attackSpeed.total) / 100, 2);
+        skill.cooldown = round(stats.cooldown.total * (100 - stats.attackSpeed.total) / 100, 2);
 
         const damageValues = skill.values.filter(isEffectValueSynergy).filter(value => value.stat === 'damage');
         const damageMultipliers = this.getValidDamageMultipliers(skill.genres, stats);
@@ -159,11 +170,6 @@ export class SlormancerValueUpdater {
                 value.value = value.value * (100 + multiplier) / 100;
             }
             value.displayValue = round(value.value, 2);
-        }
-
-        const duration = skill.values.find(value => value.valueType === EffectValueValueType.Duration && value.stat === 'skill_duration');
-        if (skill.id === 2) {
-            console.log('SMOKE SCREEN DURATION FOUND : ', duration, stats.additionalDuration.total);
         }
     }
 }

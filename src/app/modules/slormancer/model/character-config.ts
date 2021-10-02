@@ -15,8 +15,12 @@ export interface CharacterConfig {
     hits_taken_recently: number;
     skill_cast_recently: number;
     frostbold_shot_recently: number;
+    rebounds_before_hit: number;
+    pierces_before_hit: number;
     target_is_isolated: boolean;
+    target_is_tracked: boolean;
     target_has_negative_effect: boolean;
+    is_first_hit: boolean;
     ennemies_in_radius: { [key: number]: number};
     negative_effects_on_ennemies_in_radius: { [key: number]: number};
     elites_in_radius: { [key: number]: number};

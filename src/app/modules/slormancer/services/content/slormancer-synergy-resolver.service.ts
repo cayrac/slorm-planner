@@ -215,9 +215,9 @@ export class SlormancerSynergyResolverService {
             }
 
             /*if ('sources' in synergyResolveData) {
-                // console.log('Synergy added ' + (typeof synergy === 'number' ? synergy : synergy.min + '-' + synergy.max) + ' ' + synergyResolveData.sources.join(', ') + ' to ' + foundStat.stat);
+                console.log('Synergy added ' + (typeof synergy === 'number' ? synergy : synergy.min + '-' + synergy.max) + ' ' + synergyResolveData.sources.join(', ') + ' to ' + foundStat.stat);
             } else {           
-                // console.log('Synergy added ' + (typeof synergy === 'number' ? synergy : synergy.min + '-' + synergy.max) + ' ' + synergyResolveData.effect.source + ' to ' + foundStat.stat);
+                console.log('Synergy added ' + (typeof synergy === 'number' ? synergy : synergy.min + '-' + synergy.max) + ' ' + synergyResolveData.effect.source + ' to ' + foundStat.stat);
             }*/
 
             this.slormancerStatUpdaterService.updateStatTotal(foundStat);
