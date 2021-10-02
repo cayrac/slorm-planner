@@ -112,13 +112,13 @@ export class SlormancerValueUpdater {
             additionalProjectiles: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'additional_projectile'),
         }
 
-        if (skillAndUpgrades.skill.id === 5) {
+        if (skillAndUpgrades.skill.id === 6) {
             console.log('update skill and upgrade values ', skillAndUpgrades, stats.stats, skillStats);
         }
 
         this.updateSkillValues(skillAndUpgrades.skill, skillStats, stats);
 
-        // hack multiply and conquer bug
+        // hack to add multiply and conquer bug
         if (skillAndUpgrades.skill.heroClass === HeroClass.Huntress && skillAndUpgrades.skill.id === 5 && skillAndUpgrades.selectedUpgrades.includes(45) && skillAndUpgrades.selectedUpgrades.includes(52)) {
             const critChanceToRemove = <number>skillAndUpgrades.upgrades.find(u => u.id === 45)?.values[0]?.value;
             const multiplyAndConquerSynergy = <EffectValueSynergy>skillAndUpgrades.upgrades.find(u => u.id === 52)?.values[0];

@@ -1443,9 +1443,10 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     6: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 8);
-            addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'skill_1_6_aoe');
-            addConstant(values, 10, false, EffectValueValueType.Flat, 'skill_1_6_increased_damage_per_second');
+            addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'skill_radius');
+            addConstant(values, 10, false, EffectValueValueType.Flat, 'increased_damage_mult_per_second');
         },
         additionalClassMechanics: []
     },
@@ -1856,7 +1857,6 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 9,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'double_damage_if_double_kill');
-            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
@@ -1878,69 +1878,100 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     },
     58: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'reverse_projectile_speed_effect');
+        },
         additionalClassMechanics: []
     },
     59: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => { 
+            setStat(values, 0, 'increased_damage_on_elite_percent');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     60: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'mana_on_hit_add');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     61: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'cooldown_reduction_global_mult');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     62: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'auto_aim');
+        },
         additionalClassMechanics: []
     },
     63: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'chance_to_pierce_percent');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     64: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'trap_spawn_on_first_hit');
+        },
         additionalClassMechanics: []
     },
     65: {
         masteryRequired: 5,
         override: values => {
-            addConstant(values, 5, false, EffectValueValueType.Flat, 'skill_ragenous_dagger_spawn_on_first_hit');
+            addConstant(values, 5, false, EffectValueValueType.Upgrade, 'ravenous_dagger_spawn_on_first_hit');
         },
         additionalClassMechanics: []
     },
     66: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            addConstant(values, 5, false, EffectValueValueType.Upgrade, 'poison_on_hit');
+        },
         additionalClassMechanics: []
     },
     67: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'aoe_increased_size_percent');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     68: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'crit_chance_percent');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     69: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'brut_chance_percent');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     70: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            addConstant(values, 5, false, EffectValueValueType.Upgrade, 'can_be_recast');
+        },
         additionalClassMechanics: []
     },
     71: {
