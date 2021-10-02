@@ -17,10 +17,12 @@ export interface CharacterConfig {
     frostbold_shot_recently: number;
     rebounds_before_hit: number;
     pierces_before_hit: number;
+    enemies_in_aoe: number;
     target_is_isolated: boolean;
     target_is_tracked: boolean;
     target_has_negative_effect: boolean;
     is_first_hit: boolean;
+    is_last_volley: boolean;
     ennemies_in_radius: { [key: number]: number};
     negative_effects_on_ennemies_in_radius: { [key: number]: number};
     elites_in_radius: { [key: number]: number};
@@ -43,6 +45,7 @@ export interface CharacterConfig {
     conquest_stacks: number;
     stability_stacks: number;
     enlightenment_stacks: number;
+    delightful_rain_stack: number;
     has_aura_air_conditionner: boolean;
     has_aura_neriya_shield: boolean;
     has_aura_elemental_swap: boolean;

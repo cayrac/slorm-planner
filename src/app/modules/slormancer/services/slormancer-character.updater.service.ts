@@ -43,11 +43,13 @@ export class SlormancerCharacterUpdaterService {
         goldbane_5: 1666,
         rebounds_before_hit: 1,
         pierces_before_hit: 0,
+        enemies_in_aoe: 10,
         target_is_isolated: true,
         target_is_tracked: true,
         enemy_is_poisoned: true,
         target_has_negative_effect: true,
         is_first_hit: true,
+        is_last_volley: false,
         elites_in_radius: {
             10: 0
         },
@@ -75,6 +77,7 @@ export class SlormancerCharacterUpdaterService {
         conquest_stacks: 35,
         stability_stacks: 35,
         enlightenment_stacks: 852,
+        delightful_rain_stack: 25,
         distance_with_target: 5,
         has_aura_air_conditionner: true,
         has_aura_neriya_shield: true,
@@ -92,7 +95,7 @@ export class SlormancerCharacterUpdaterService {
         has_elemental_fervor_buff: true,
         has_ancestral_fervor_buff: true,
         has_assassin_haste_buff: true,
-        has_smoke_screen_buff: true,
+        has_smoke_screen_buff: false,
         all_characters_level: 120,
         idle: true,
         damage_stored: 1000,
@@ -280,7 +283,7 @@ export class SlormancerCharacterUpdaterService {
 
         for (const skillAndUpgrades of character.skills) {
             const result = this.slormancerStatsService.updateSkillStats(character, skillAndUpgrades, config, statsResult.extractedStats);
-            this.slormancerValueUpdater.updateSkillAndUpgradeValues(skillAndUpgrades, result.stats);
+            this.slormancerValueUpdater.updateSkillAndUpgradeValues(skillAndUpgrades, result);
             statsResult.changed.skills.push(skillAndUpgrades.skill);
             statsResult.changed.upgrades.push(...skillAndUpgrades.upgrades);
         }

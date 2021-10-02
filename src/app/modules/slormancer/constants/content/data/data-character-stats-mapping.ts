@@ -324,7 +324,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'adam_blessing_buff_cooldown_reduction_global_mult', condition: config => config.has_adam_blessing_buff },
                 { stat: 'cooldown_reduction_global_mult' },
                 { stat: 'cooldown_reduction_global_mult_after_crit', condition: (config, stats) => config.seconds_since_last_crit <= getFirstStat(stats, 'cooldown_reduction_global_mult_after_crit_duration', 0) },
-                { stat: 'self_control_cooldown_reduction_global_mult', condition: config => config.serenity > 0 && config.serenity < DELIGHTED_VALUE }
+                { stat: 'self_control_cooldown_reduction_global_mult', condition: config => config.serenity > 0 && config.serenity < DELIGHTED_VALUE },
+                { stat: 'delightful_rain_stack_cooldown_reduction_global_mult', condition: config => config.delightful_rain_stack > 0, multiplier: (config, stats) => Math.min(config.delightful_rain_stack, getFirstStat(stats, 'delightful_rain_max_stacks')) }
             ],
         } 
     },
@@ -377,7 +378,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                     multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getFirstStat(stats, 'nimble_champion_max_stacks'), 0))
                 },
                 { stat: 'last_cast_tormented_crit_chance_percent', condition: config => config.last_cast_tormented },
-                { stat: 'smoke_screen_buff_crit_chance_percent', condition: config => config.has_smoke_screen_buff }
+                { stat: 'smoke_screen_buff_crit_chance_percent', condition: config => config.has_smoke_screen_buff },
+                { stat: 'crit_chance_percent_per_enemy_in_aoe', condition: config => config.enemies_in_aoe > 0, multiplier: config => config.enemies_in_aoe }
             ],
             max: [],
             percent: [],
@@ -1265,6 +1267,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'first_hit_after_rebound_increased_damage', condition: config => config.rebounds_before_hit > 0 && config.is_first_hit },
                 { stat: 'increased_damage_per_pierce', condition: config => config.pierces_before_hit > 0, multiplier: config => config.pierces_before_hit },
                 { stat: 'increased_damage_mult' }, // le "mult" sert à ne pas utiliser les increased_damage pas encore configuré
+                { stat: 'decreased_damage', multiplier: () => -1 },
+                { stat: 'increased_damage_per_volley_before', condition: config => config.is_last_volley, multiplier: (_, stats) => getFirstStat(stats, 'additional_volleys') },
             ],
         } 
     },

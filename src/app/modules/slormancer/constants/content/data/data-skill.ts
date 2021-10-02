@@ -1378,6 +1378,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: null,
         override: values => {
             setUpgrade(values, 0, 6);
+            setStat(values, 0, 'physical_damage');
             addConstant(values, 15, false, EffectValueValueType.Duration, 'skill_duration');
         },
         additionalClassMechanics: [],
@@ -1404,6 +1405,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: null,
         override: values => {
             setUpgrade(values, 0, 4);
+            setStat(values, 0, 'physical_damage');
         },
         additionalClassMechanics: []
     },
@@ -1411,7 +1413,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: null,
         override: values => {
             setUpgrade(values, 0, 3);
-            addConstant(values, 1.2, false, EffectValueValueType.AreaOfEffect, 'skill_1_4_aoe');
+            setStat(values, 0, 'physical_damage');
+            addConstant(values, 1.2, false, EffectValueValueType.AreaOfEffect, 'skill_aoe');
         },
         additionalClassMechanics: []
     },
@@ -1592,88 +1595,133 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     },
     26: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'increased_damage_mult_per_potential_projectile');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     27: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'ravenous_dagger_spawn_on_cast_if_tormented');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     28: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'travel_time_reduction');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     29: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => { 
+            setStat(values, 0, 'aoe_increased_size_percent');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     30: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'armor_broken_on_hit_chance');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     31: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'pull_range_on_cast');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     32: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'increased_damage_mult');
+            setAsUpgrade(values, 0);
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'damage_type_to_elemental');
+            setAsUpgrade(values, 1);
+        },
         additionalClassMechanics: []
     },
     33: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'trap_spawn_on_cast_chance');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     34: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'additional_volleys');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     35: {
         masteryRequired: 6,
         override: values => { 
-            addConstant(values, -25, false, EffectValueValueType.Flat, 'skill_increased_aoe_size');
+            addConstant(values, -25, false, EffectValueValueType.Flat, 'aoe_increased_size_percent_mult');
+            setStat(values, 0, 'additional_volleys');
+            setAsUpgrade(values, 0);
+            setAsUpgrade(values, 1);
         },
         additionalClassMechanics: []
     },
     36: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'pull_ravenous_dagger_on_hit');
+        },
         additionalClassMechanics: []
     },
     37: {
         masteryRequired: 7,
         override: values => {
-            addConstant(values, 5, false, EffectValueValueType.Duration, 'skill_slow_duration');
+            setStat(values, 0, 'slow_on_hit_percent');
+            setAsUpgrade(values, 0);
+            addConstant(values, 5, false, EffectValueValueType.Upgrade, 'slow_on_hit_duration');
         },
         additionalClassMechanics: []
     },
     38: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'crit_chance_percent_per_enemy_in_aoe');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     39: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'health_on_kill_add');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     40: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'increased_damage_per_volley_before');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     41: {
         masteryRequired: 10,
         override: values => { 
-            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_delightful_rain_stack_increased_attack_speed');
-            addConstant(values, 25, false, EffectValueValueType.Flat, 'skill_delightful_rain_stack_maximum');
+            addConstant(values, 2, false, EffectValueValueType.Flat, 'delightful_rain_stack_cooldown_reduction_global_mult');
+            addConstant(values, 25, false, EffectValueValueType.Flat, 'delightful_rain_max_stacks');
         },
         additionalClassMechanics: []
     },

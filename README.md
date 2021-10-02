@@ -16,5 +16,5 @@ Run `npm run start` to start the server on http://localhost:4200/
 
 ## Removing white background from pngs
 `
-for file in *.png; do convert "$file" -transparent white "../../../src/assets/img/shoulders/$file"; done
+for file in *.png; do convert "$file" -transparent white "$file"; done
 `

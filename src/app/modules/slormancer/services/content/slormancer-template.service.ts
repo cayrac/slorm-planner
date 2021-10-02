@@ -199,6 +199,7 @@ export class SlormancerTemplateService {
                 const details = ' ' + this.getEffectValueDetails(effectValue);
                 const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
                 template = this.replaceAnchor(template, synergy + details, this.VALUE_ANCHOR);
+                template = this.replaceAnchor(template, this.slormancerTranslateService.translate(effectValue.stat), '{damageType}');
             }
         }
 
@@ -323,7 +324,8 @@ export class SlormancerTemplateService {
     }
 
     public getSkillDescriptionTemplate(data: GameDataSkill): string {
-        const stats = splitData(data.DESC_VALUE).filter(value => !value.startsWith('*'));
+        const stats = splitData(data.DESC_VALUE).filter(value => !value.startsWith('*'))
+            .map(stat => this.isDamageSource(stat) ? '{damageType}' : stat);;
         const types = splitData(data.DESC_VALUE_REAL);
         
         const template = data.EN_DESCRIPTION.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
@@ -331,7 +333,8 @@ export class SlormancerTemplateService {
     }
 
     public prepareAncestralLegacyDescriptionTemplate(data: GameDataAncestralLegacy): string {
-        const stats = splitData(data.DESC_VALUE).filter(value => !value.startsWith('*'));
+        const stats = splitData(data.DESC_VALUE)
+            .filter(value => !value.startsWith('*'));
         const types = splitData(data.DESC_VALUE_REAL);
         
         const template = data.EN_DESCRIPTION.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');

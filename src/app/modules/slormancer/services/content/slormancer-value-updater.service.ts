@@ -9,7 +9,8 @@ import { Skill } from '../../model/content/skill';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { MinMax } from '../../model/minmax';
 import { add, round } from '../../util/math.util';
-import { isEffectValueSynergy } from '../../util/utils';
+import { isDamageType, isEffectValueSynergy, valueOrDefault } from '../../util/utils';
+import { SkillStatsBuildResult } from './slormancer-stats.service';
 
 interface SkillStats {
     mana: MergedStat<number>;
@@ -19,6 +20,7 @@ interface SkillStats {
     totemIncreasedEffect: MergedStat<number>;
     auraIncreasedEffect: MergedStat<number>;
     aoeIncreasedEffect: MergedStat<number>;
+    aoeIncreasedSize: MergedStat<number>;
     minionIncreasedDamage: MergedStat<number>;
     additionalDamages: MergedStat;
     additionalDuration: MergedStat<number>;
@@ -43,30 +45,37 @@ export class SlormancerValueUpdater {
         return result
     }
 
-    private getValidDamageMultipliers(genres: Array<SkillGenre>, stats: SkillStats): Array<number> {
+    private getValidDamageMultipliers(genres: Array<SkillGenre>, skillStats: SkillStats, stats: SkillStatsBuildResult): Array<number> {
         const multipliers: Array<number> = [];
 
-        multipliers.push(stats.increasedDamage.values.percent.reduce((t, v) => t + v, 0));
-        multipliers.push(...stats.increasedDamage.values.multiplier);
+        multipliers.push(skillStats.increasedDamage.values.percent.reduce((t, v) => t + v, 0));
+        multipliers.push(...skillStats.increasedDamage.values.multiplier);
         
         if (genres.includes(SkillGenre.Aoe)) {
-            multipliers.push(stats.aoeIncreasedEffect.total);
+            multipliers.push(skillStats.aoeIncreasedEffect.total);
         }
 
         if (genres.includes(SkillGenre.Totem)) {
-            multipliers.push(stats.totemIncreasedEffect.total);
+            multipliers.push(skillStats.totemIncreasedEffect.total);
         }
 
         if (genres.includes(SkillGenre.Aura)) {
-            multipliers.push(stats.auraIncreasedEffect.total);
+            multipliers.push(skillStats.auraIncreasedEffect.total);
         }
 
         if (genres.includes(SkillGenre.Minion)) {
-            multipliers.push(stats.minionIncreasedDamage.total);
+            multipliers.push(skillStats.minionIncreasedDamage.total);
         }
 
         if (genres.includes(SkillGenre.Projectile)) {
-            multipliers.push(-Math.min(Math.floor(stats.additionalProjectiles.total), 9) * 10);
+            multipliers.push(-Math.min(Math.floor(skillStats.additionalProjectiles.total), 9) * 10);
+        }
+
+        if (stats.extractedStats['increased_damage_mult_per_potential_projectile'] !== undefined) {
+            const increasedDamage = <number>stats.extractedStats['increased_damage_mult_per_potential_projectile'][0];
+            const projectilesMultiplier = Math.floor(skillStats.additionalProjectiles.total);
+            multipliers.push(increasedDamage * projectilesMultiplier);
+            console.log('increased_damage_mult_per_potential_projectile', increasedDamage, projectilesMultiplier, increasedDamage * projectilesMultiplier);
         }
 
         return multipliers.filter(v => v !== 0);
@@ -86,26 +95,27 @@ export class SlormancerValueUpdater {
         return multipliers.filter(v => v !== 0);
     }
 
-    public updateSkillAndUpgradeValues(skillAndUpgrades: CharacterSkillAndUpgrades, stats: Array<MergedStat>): Array<SkillUpgrade> {
+    public updateSkillAndUpgradeValues(skillAndUpgrades: CharacterSkillAndUpgrades, stats: SkillStatsBuildResult): Array<SkillUpgrade> {
         const skillStats: SkillStats = {
-            mana: <MergedStat<number>>this.getStatValueOrDefault(stats, 'mana_cost'),
-            cooldown: <MergedStat<number>>this.getStatValueOrDefault(stats, 'cooldown_time'),
-            attackSpeed: <MergedStat<number>>this.getStatValueOrDefault(stats, 'attack_speed'),
-            increasedDamage: <MergedStat<number>>this.getStatValueOrDefault(stats, 'increased_damages'),
-            totemIncreasedEffect: <MergedStat<number>>this.getStatValueOrDefault(stats, 'totem_increased_effect'),
-            auraIncreasedEffect: <MergedStat<number>>this.getStatValueOrDefault(stats, 'aura_increased_effect'),
-            aoeIncreasedEffect: <MergedStat<number>>this.getStatValueOrDefault(stats, 'aoe_increased_effect'),
-            minionIncreasedDamage: <MergedStat<number>>this.getStatValueOrDefault(stats, 'minion_increased_damage'),
-            additionalDamages: <MergedStat<number>>this.getStatValueOrDefault(stats, 'additional_damage'),
-            additionalDuration: <MergedStat<number>>this.getStatValueOrDefault(stats, 'skill_additional_duration'),
-            additionalProjectiles: <MergedStat<number>>this.getStatValueOrDefault(stats, 'additional_projectile'),
+            mana: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'mana_cost'),
+            cooldown: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'cooldown_time'),
+            attackSpeed: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'attack_speed'),
+            increasedDamage: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'increased_damages'),
+            totemIncreasedEffect: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'totem_increased_effect'),
+            auraIncreasedEffect: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'aura_increased_effect'),
+            aoeIncreasedEffect: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'aoe_increased_effect'),
+            aoeIncreasedSize: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'aoe_increased_size'),
+            minionIncreasedDamage: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'minion_increased_damage'),
+            additionalDamages: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'additional_damage'),
+            additionalDuration: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'skill_additional_duration'),
+            additionalProjectiles: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'additional_projectile'),
         }
 
-        if (skillAndUpgrades.skill.id === 3) {
-            console.log('update skill and upgrade values ', skillAndUpgrades, stats, skillStats);
+        if (skillAndUpgrades.skill.id === 4) {
+            console.log('update skill and upgrade values ', skillAndUpgrades, stats.stats, skillStats);
         }
 
-        this.updateSkillValues(skillAndUpgrades.skill, skillStats);
+        this.updateSkillValues(skillAndUpgrades.skill, skillStats, stats);
 
         return [];
     }
@@ -150,25 +160,33 @@ export class SlormancerValueUpdater {
         }
     }
 
-    private updateSkillValues(skill: Skill, stats: SkillStats) {
+    private updateSkillValues(skill: Skill, skillStats: SkillStats, stats: SkillStatsBuildResult) {
                 
-        skill.cost = stats.mana.total;
-        skill.cooldown = round(stats.cooldown.total * (100 - stats.attackSpeed.total) / 100, 2);
+        skill.cost = skillStats.mana.total;
+        skill.cooldown = round(skillStats.cooldown.total * (100 - skillStats.attackSpeed.total) / 100, 2);
 
-        const damageValues = skill.values.filter(isEffectValueSynergy).filter(value => value.stat === 'damage');
-        const damageMultipliers = this.getValidDamageMultipliers(skill.genres, stats);
-        this.updateDamages(damageValues, stats.additionalDamages.total, damageMultipliers);
+        const damageValues = skill.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
+        const damageMultipliers = this.getValidDamageMultipliers(skill.genres, skillStats, stats);
+        this.updateDamages(damageValues, skillStats.additionalDamages.total, damageMultipliers);
     
         const durationValues = skill.values.filter(value => value.valueType === EffectValueValueType.Duration);
-        const durationMultipliers = this.getValidurationMultipliers(skill.genres, stats);
+        const durationMultipliers = this.getValidurationMultipliers(skill.genres, skillStats);
         for (const value of durationValues) {
             value.value = value.baseValue;
             if (value.stat === 'skill_duration') {
-                value.value += stats.additionalDuration.total;
+                value.value += skillStats.additionalDuration.total;
             }
             for (const multiplier of durationMultipliers) {
                 value.value = value.value * (100 + multiplier) / 100;
             }
+            value.displayValue = round(value.value, 2);
+        }
+
+        const aoeValues = skill.values.filter(value => value.valueType === EffectValueValueType.AreaOfEffect);
+        const aoeMultipliers = valueOrDefault(stats.extractedStats['aoe_increased_size_percent_mult'], []);
+        for (const value of aoeValues) {
+            value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
+            value.value  = aoeMultipliers.reduce((t, v) => t * (100 + v) / 100, value.value);
             value.displayValue = round(value.value, 2);
         }
     }

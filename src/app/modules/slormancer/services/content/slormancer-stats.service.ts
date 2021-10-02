@@ -12,12 +12,13 @@ import { Activable } from '../../model/content/activable';
 import { AncestralLegacy } from '../../model/content/ancestral-legacy';
 import { AttributeTraits } from '../../model/content/attribut-traits';
 import { MergedStat, SynergyResolveData } from '../../model/content/character-stats';
+import { HeroClass } from '../../model/content/enum/hero-class';
 import { EquipableItem } from '../../model/content/equipable-item';
 import { Reaper } from '../../model/content/reaper';
 import { Skill } from '../../model/content/skill';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { MinMax } from '../../model/minmax';
-import { valueOrDefault } from '../../util/utils';
+import { isDamageType, isEffectValueSynergy, valueOrDefault } from '../../util/utils';
 import { ExtractedStatMap, SlormancerStatsExtractorService } from './slormancer-stats-extractor.service';
 import { SlormancerStatUpdaterService } from './slormancer-stats-updater.service';
 import { SlormancerSynergyResolverService } from './slormancer-synergy-resolver.service';
@@ -216,6 +217,20 @@ export class SlormancerStatsService {
         }
 
         const extractedStats = this.slormancerStatsExtractorService.extractSkillStats(character, skillAndUpgrades, config, characterExtractedStats);
+
+        // Spécial changes
+        if (character.heroClass === HeroClass.Huntress && skillAndUpgrades.skill.id === 4) {
+            const physicalDamage = extractedStats.stats['damage_type_to_elemental'] === undefined;
+            
+            const damageValues = skillAndUpgrades.skill.values
+                .filter(isEffectValueSynergy)
+                .filter(value => isDamageType(value.stat));
+
+            for (const damageValue of damageValues) {
+                damageValue.stat = physicalDamage ? 'physical_damage' : 'elemental_damage';
+                damageValue.source = physicalDamage ? 'physical_damage' : 'elemental_damage';
+            }
+        }
 
         result.extractedStats = extractedStats.stats;
         result.stats = this.buildMergedStats(extractedStats.stats, [...GLOBAL_MERGED_STATS_MAPPING, ...HERO_MERGED_STATS_MAPPING[character.heroClass]], config);

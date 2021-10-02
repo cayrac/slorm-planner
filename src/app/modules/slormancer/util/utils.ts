@@ -160,3 +160,7 @@ export function getCraftValue(craftedValue: CraftableEffect, craft: number, defa
     const found = craftedValue.possibleCraftedValues.find(v => v.craft === craft);
     return found ? found.value : defaultValue;
 }
+
+export function isDamageType(stat: string): boolean {
+    return stat === 'elemental_damage' || stat === 'physical_damage' || stat === 'basic_damage' || stat === 'weapon_damage';
+}
