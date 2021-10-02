@@ -14,6 +14,7 @@ import { round } from '../../util/math.util';
 import {
     findFirst,
     getCraftValue,
+    isDamageType,
     isEffectValueConstant,
     isEffectValueSynergy,
     isEffectValueVariable,
@@ -248,10 +249,16 @@ export class SlormancerTemplateService {
                 }
             } else if (isEffectValueSynergy(effectValue)) {
                 const details = this.getEffectValueDetails(effectValue);
-                const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
-                const value = this.asSpan(this.formatValue(effectValue.value, true), 'value');
+                let synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
+                let value = this.asSpan(this.formatValue(effectValue.value, true), 'value');
+                if (isDamageType(effectValue.stat)) {
+                    synergy +=  ' ' + details;
+                } else {
+                    value +=  ' ' + details;
+                }
                 template = this.replaceAnchor(template, synergy, this.VALUE_ANCHOR);
-                template = this.replaceAnchor(template, value + ' ' + details, this.SYNERGY_ANCHOR);
+                template = this.replaceAnchor(template, value, this.SYNERGY_ANCHOR);
+                template = this.replaceAnchor(template, this.slormancerTranslateService.translate(effectValue.stat), '{damageType}');
             }
         }
 

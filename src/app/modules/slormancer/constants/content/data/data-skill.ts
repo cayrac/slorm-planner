@@ -10,6 +10,7 @@ import { MechanicType } from '../../../model/content/enum/mechanic-type';
 import { SkillCostType } from '../../../model/content/enum/skill-cost-type';
 import { GameHeroesData } from '../../../model/parser/game/game-save';
 import { effectValueConstant } from '../../../util/effect-value.util';
+import { isEffectValueSynergy } from '../../../util/utils';
 
 function setUpgrade(values: Array<AbstractEffectValue>, index: number, upgrade: number) {
     const value = <EffectValueVariable | EffectValueSynergy>values[index];
@@ -47,6 +48,19 @@ function setAsUpgrade(values: Array<AbstractEffectValue>, index: number) {
 function addConstant(values: Array<AbstractEffectValue>, value: number, percent: boolean, valueType: EffectValueValueType, stat: string | null = null) {
     values.push(effectValueConstant(value, percent, stat, valueType))
 }
+
+function synergyMultiply100(values: Array<AbstractEffectValue>, index: number) {
+
+    const value = values[index];
+
+    if (value && isEffectValueSynergy(value)) {
+        value.baseValue = value.baseValue * 100;
+        value.upgrade = value.upgrade * 100;
+    } else {
+        throw new Error('failed to change value for effect value at index ' + index);
+    }
+}
+
 
 export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     0: {
@@ -1421,6 +1435,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     5: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 4);
         },
         additionalClassMechanics: []
@@ -1690,6 +1705,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
             setStat(values, 0, 'slow_on_hit_percent');
             setAsUpgrade(values, 0);
             addConstant(values, 5, false, EffectValueValueType.Upgrade, 'slow_on_hit_duration');
+            setAsUpgrade(values, 1);
         },
         additionalClassMechanics: []
     },
@@ -1722,92 +1738,142 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => { 
             addConstant(values, 2, false, EffectValueValueType.Flat, 'delightful_rain_stack_cooldown_reduction_global_mult');
             addConstant(values, 25, false, EffectValueValueType.Flat, 'delightful_rain_max_stacks');
+            setAsUpgrade(values, 0);
+            setAsUpgrade(values, 1);
         },
         additionalClassMechanics: []
     },
     42: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'next_skill_apply_poison_if_tormented');
+        },
         additionalClassMechanics: []
     },
     43: {
         masteryRequired: 2,
         override: values => {
-            addConstant(values, 50, false, EffectValueValueType.Flat, 'skill_next_stab_buff_ancestral_strike_chance');
-            addConstant(values, 2, false, EffectValueValueType.Duration, 'skill_next_stab_buff_duration');
+            setStat(values, 0, 'ancestral_stab_slash_buff_required_hits');
+            addConstant(values, 50, false, EffectValueValueType.Upgrade, 'ancestral_stab_slash_buff_brut_chance_percent');
+            addConstant(values, 2, false, EffectValueValueType.Upgrade, 'ancestral_stab_slash_buff_duration');
+            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
     44: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'increased_damage_mult');
+            setStat(values, 1, 'mana_cost_mult');
+            setAsUpgrade(values, 0);
+            setAsUpgrade(values, 1);
+        },
         additionalClassMechanics: []
     },
     45: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'recast_chance_percent');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     46: {
         masteryRequired: 4,
         override: values => {
-            addConstant(values, 4, false, EffectValueValueType.Flat, 'skill_daze_duration');
+            setStat(values, 0, 'daze_on_hit_percent');
+            addConstant(values, 4, false, EffectValueValueType.Flat, 'daze_on_hit_duration');
+            setAsUpgrade(values, 0);
+            setAsUpgrade(values, 1);
         },
         additionalClassMechanics: []
     },
     47: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'poison_on_first_hit');
+        },
         additionalClassMechanics: []
     },
     48: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'increased_damage_mult');
+            synergyMultiply100(values, 0);
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     49: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'physical_damage');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     50: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'elemental_resistance_broken_on_hit');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     51: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'crit_damage_percent');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     52: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'crit_damage_percent');
+            synergyMultiply100(values, 0);
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     53: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'overdrive_on_kill');
+        },
         additionalClassMechanics: []
     },
     54: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'poison_on_hit_propagation');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     55: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'double_damage_if_double_kill');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     56: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'poison_health_leech_percent_if_delighted');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     57: {
         masteryRequired: 10,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'recast_of_recast_chance');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     58: {

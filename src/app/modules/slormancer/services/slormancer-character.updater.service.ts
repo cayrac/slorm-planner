@@ -96,6 +96,7 @@ export class SlormancerCharacterUpdaterService {
         has_ancestral_fervor_buff: true,
         has_assassin_haste_buff: true,
         has_smoke_screen_buff: false,
+        has_ancestral_stab_slash_buff: true,
         all_characters_level: 120,
         idle: true,
         damage_stored: 1000,

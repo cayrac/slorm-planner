@@ -63,6 +63,7 @@ export interface CharacterConfig {
     has_ancient_recognition_buff: boolean;
     has_assassin_haste_buff: boolean;
     has_smoke_screen_buff: boolean;
+    has_ancestral_stab_slash_buff: boolean;
     distance_with_target: number;
     all_characters_level: number;
     victims_reaper_104: number;

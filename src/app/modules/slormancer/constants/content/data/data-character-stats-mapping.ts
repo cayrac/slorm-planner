@@ -60,7 +60,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'all_skill_mana_cost_reduction_per_cast', condition: config => config.skill_cast_recently > 0, multiplier: config => -config.skill_cast_recently },
                 { stat: 'aura_elemental_swap_mana_cost_increase', condition: config => config.has_aura_elemental_swap },
                 { stat: 'last_cast_tormented_increased_cost', condition: config => config.last_cast_tormented },
-                { stat: 'arrow_shot_void_arrow_heavy_explosive_increased_mana_cost', condition: (_, stats) => [3, 4, 6].includes(getFirstStat(stats, 'skill_id', 0)) }
+                { stat: 'arrow_shot_void_arrow_heavy_explosive_increased_mana_cost', condition: (_, stats) => [3, 4, 6].includes(getFirstStat(stats, 'skill_id', 0)) },
+                { stat: 'mana_cost_mult' }
             ],
         } 
     },
@@ -426,6 +427,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                     condition: config => config.has_nimble_buff, 
                     multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getFirstStat(stats, 'nimble_champion_max_stacks'), 0))
                 },
+                {
+                    stat: 'ancestral_stab_slash_buff_brut_chance_percent',
+                    condition: config => config.has_ancestral_stab_slash_buff, 
+                }
             ],
             max: [],
             percent: [],
@@ -937,21 +942,12 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'knockback_melee_add' }],
+            flat: [
+                { stat: 'knockback_melee_add' },
+                { stat: 'knockback_melee_percent' }
+            ],
             max: [],
-            percent: [{ stat: 'knockback_melee_percent' }],
-            maxPercent: [],
-            multiplier: [],
-        } 
-    },
-    {
-        stat: 'knockback_melee',
-        precision: 1,
-        allowMinMax: false,
-        source: {
-            flat: [{ stat: 'knockback_melee_add' }],
-            max: [],
-            percent: [{ stat: 'knockback_melee_percent' }],
+            percent: [],
             maxPercent: [],
             multiplier: [],
         } 

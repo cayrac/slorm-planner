@@ -4,6 +4,7 @@ import { CharacterSkillAndUpgrades } from '../../model/character';
 import { MergedStat } from '../../model/content/character-stats';
 import { EffectValueSynergy } from '../../model/content/effect-value';
 import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
+import { HeroClass } from '../../model/content/enum/hero-class';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { Skill } from '../../model/content/skill';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
@@ -111,11 +112,20 @@ export class SlormancerValueUpdater {
             additionalProjectiles: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'additional_projectile'),
         }
 
-        if (skillAndUpgrades.skill.id === 4) {
+        if (skillAndUpgrades.skill.id === 5) {
             console.log('update skill and upgrade values ', skillAndUpgrades, stats.stats, skillStats);
         }
 
         this.updateSkillValues(skillAndUpgrades.skill, skillStats, stats);
+
+        // hack multiply and conquer bug
+        if (skillAndUpgrades.skill.heroClass === HeroClass.Huntress && skillAndUpgrades.skill.id === 5 && skillAndUpgrades.selectedUpgrades.includes(45) && skillAndUpgrades.selectedUpgrades.includes(52)) {
+            const critChanceToRemove = <number>skillAndUpgrades.upgrades.find(u => u.id === 45)?.values[0]?.value;
+            const multiplyAndConquerSynergy = <EffectValueSynergy>skillAndUpgrades.upgrades.find(u => u.id === 52)?.values[0];
+
+            (<number>multiplyAndConquerSynergy.synergy) -= critChanceToRemove;
+            (<number>multiplyAndConquerSynergy.displaySynergy) -= critChanceToRemove;
+        }
 
         return [];
     }
