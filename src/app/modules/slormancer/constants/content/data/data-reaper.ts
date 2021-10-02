@@ -162,7 +162,6 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             addConstant(ma, 1, false, EffectValueValueType.Flat, 'non_thorn_cannot_crit');
 
             if (reaperId === 41) {
-                console.log('reaper copy synergy : ', ba);
                 duplicateSynergy(ba, 6, 'thorns_add');
             }
         }

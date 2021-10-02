@@ -137,10 +137,6 @@ export class SlormancerAttributeService {
     private updateTrait(trait: Trait) {
         const ranksAfterThisOne = this.ranksAfter(trait, trait.rank);
 
-        if (trait.id === 51) {
-            console.log('trait ' + ranksAfterThisOne, trait.rank, trait.requiredRank, trait.values);
-        }
-
         trait.attributeName = this.slormancerTranslateService.translate('character_trait_' + trait.attribute);
         trait.rankLabel = this.slormancerTemplateService.replaceAnchor(this.TRAIT_LEVEL_LABEL, trait.requiredRank, this.slormancerTemplateService.VALUE_ANCHOR);
         trait.traitLevelLabel = this.slormancerTranslateService.translate(trait.traitLevel);

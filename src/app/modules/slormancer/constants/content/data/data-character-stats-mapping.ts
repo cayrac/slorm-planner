@@ -229,7 +229,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             max: [],
             percent: [{ stat: 'mana_regen_percent' }],
             maxPercent: [],
-            multiplier: [{ stat: 'mana_regen_global_mult' }],
+            multiplier: [
+                { stat: 'mana_regen_global_mult' },
+                { stat: 'smoke_screen_buff_mana_regen_global_mult', condition: config => config.has_smoke_screen_buff }
+            ],
         } 
     },
     {
@@ -280,7 +283,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'the_speed_percent' },
                 { stat: 'the_speed_percent_after_dodge', condition: (config, stats) => config.seconds_since_last_dodge <= getFirstStat(stats, 'the_speed_percent_after_dodge_duration', 0) },
                 { stat: 'assassin_haste_buff_movement_speed', condition: config => config.has_assassin_haste_buff },
-                { stat: 'tormented_movement_speed', condition: config => config.serenity === 0 }
+                { stat: 'tormented_movement_speed', condition: config => config.serenity === 0 },
+                { stat: 'movement_speed_after_trap_triggered', condition: config => config.trap_triggered_recently }
             ],
             maxPercent: [],
             multiplier: [],
@@ -355,7 +359,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                     condition: config => config.has_nimble_buff, 
                     multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getFirstStat(stats, 'nimble_champion_max_stacks'), 0))
                 },
-                { stat: 'last_cast_tormented_crit_chance_percent', condition: config => config.last_cast_tormented }
+                { stat: 'last_cast_tormented_crit_chance_percent', condition: config => config.last_cast_tormented },
+                { stat: 'smoke_screen_buff_crit_chance_percent', condition: config => config.has_smoke_screen_buff }
             ],
             max: [],
             percent: [],
@@ -432,7 +437,11 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'armor_penetration_percent' }],
+            flat: [
+                { stat: 'armor_penetration_percent' },
+                { stat: 'idle_armor_penetration_percent', condition: config => config.idle },
+                
+            ],
             max: [],
             percent: [],
             maxPercent: [],
@@ -610,7 +619,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             max: [],
             percent: [],
             maxPercent: [],
-            multiplier: [{ stat: 'idle_thorn_crit_chance_global_mult', condition: config => config.iddle }],
+            multiplier: [{ stat: 'idle_thorn_crit_chance_global_mult', condition: config => config.idle }],
         } 
     },
     {
@@ -934,15 +943,15 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'additional_projectile_add' },
-                { stat: 'idle_additional_projectile_add', condition: config => config.iddle },
+                { stat: 'idle_additional_projectile_add', condition: config => config.idle },
                 { stat: 'tormented_additional_projectile_add', condition: config => config.serenity === 0 }
             ],
             max: [],
             percent: [{ stat: 'additional_projectile_percent' }],
             maxPercent: [],
             multiplier: [
-                { stat: 'idle_additional_projectile_global_mult', condition: config => config.iddle },
-                { stat: 'not_idle_additional_projectile_global_mult', condition: config => !config.iddle }
+                { stat: 'idle_additional_projectile_global_mult', condition: config => config.idle },
+                { stat: 'not_idle_additional_projectile_global_mult', condition: config => !config.idle }
             ],
         } 
     },
@@ -1011,9 +1020,12 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'knockback_projectile_add' }],
+            flat: [
+                { stat: 'knockback_projectile_add' },
+                { stat: 'knockback_projectile_percent' }
+            ],
             max: [],
-            percent: [{ stat: 'knockback_projectile_percent' }],
+            percent: [],
             maxPercent: [],
             multiplier: [],
         } 
@@ -1227,6 +1239,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'isolated_target_increased_damage', condition: config => config.target_is_isolated },
                 { stat: 'negative_effect_target_increased_damage', condition: config => config.target_has_negative_effect },
                 { stat: 'close_target_increased_damage', condition: (config, stats) => config.distance_with_target <= getFirstStat(stats, 'close_target_radius') },
+                { stat: 'smoke_screen_buff_increased_damage', condition: config => config.has_smoke_screen_buff },
             ],
         } 
     },
@@ -1245,6 +1258,20 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             ],
         } 
     },
+    {
+        stat: 'skill_additional_duration',
+        precision: 0,
+        allowMinMax: false,
+        source: {
+            flat: [
+                { stat: 'skill_duration_add' }
+            ],
+            max: [],
+            percent: [],
+            maxPercent: [],
+            multiplier: [],
+        } 
+    },
 ];
 
 export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>> = {
@@ -1260,6 +1287,21 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
                 percent: [{ stat: 'trap_increased_damage_percent', condition: config => config.traps_nearby > 0, multiplier: config => config.traps_nearby }],
                 maxPercent: [],
                 multiplier: [],
+            } 
+        },
+        {
+            stat: 'poison_increased_damage',
+            precision: 0,
+            allowMinMax: false,
+            source: {
+                flat: [],
+                max: [],
+                percent: [],
+                maxPercent: [],
+                multiplier: [
+                    { stat: 'poison_increased_damage_per_poisoned_enemy', condition: config => config.poison_enemies > 0, multiplier: config => config.poison_enemies },
+                    { stat: 'poison_increased_damage' }
+                ],
             } 
         }
     ],
@@ -1357,6 +1399,8 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                     multiplier: [],
                 } 
             }
+        ],
+        2: [
         ]
     },
     2: {

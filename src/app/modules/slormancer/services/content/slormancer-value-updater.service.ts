@@ -19,6 +19,7 @@ interface SkillStats {
     aoeIncreasedEffect: MergedStat<number>;
     minionIncreasedDamage: MergedStat<number>;
     additionalDamages: MergedStat;
+    additionalDuration: MergedStat<number>;
 }
 
 @Injectable()
@@ -79,7 +80,7 @@ export class SlormancerValueUpdater {
     }
 
     public updateSkillAndUpgradeValues(skillAndUpgrades: CharacterSkillAndUpgrades, stats: Array<MergedStat>) {
-        const foundStats: SkillStats = {
+        const skillStats: SkillStats = {
             mana: <MergedStat<number>>this.getStatValueOrDefault(stats, 'mana_cost'),
             attackSpeed: <MergedStat<number>>this.getStatValueOrDefault(stats, 'attack_speed'),
             increasedDamage: <MergedStat<number>>this.getStatValueOrDefault(stats, 'increased_damages'),
@@ -88,16 +89,17 @@ export class SlormancerValueUpdater {
             aoeIncreasedEffect: <MergedStat<number>>this.getStatValueOrDefault(stats, 'aoe_increased_effect'),
             minionIncreasedDamage: <MergedStat<number>>this.getStatValueOrDefault(stats, 'minion_increased_damage'),
             additionalDamages: <MergedStat<number>>this.getStatValueOrDefault(stats, 'additional_damage'),
+            additionalDuration: <MergedStat<number>>this.getStatValueOrDefault(stats, 'skill_additional_duration'),
         }
 
-        console.log('update skill and upgrade values ', skillAndUpgrades, stats);
+        if (skillAndUpgrades.skill.id === 2) {
+            console.log('update skill and upgrade values ', skillAndUpgrades, stats, skillStats);
+        }
 
-        this.updateSkillValues(skillAndUpgrades.skill, foundStats);
+        this.updateSkillValues(skillAndUpgrades.skill, skillStats);
     }
 
     private updateDamages(damages: Array<EffectValueSynergy>, additional: number | MinMax, multipliers: Array<number>) {
-        console.log('update damages : ', damages, additional, multipliers);
-
         if (typeof additional === 'number' && additional > 0 || typeof additional !== 'number' && (additional.min > 0 || additional.max > 0)) {
             const averageDamages = damages.map(v => typeof v.synergy === 'number' ? v.synergy : ((v.synergy.min + v.synergy.max) / 2));
             const totalDamages = averageDamages.reduce((t, v) => t + v, 0);
@@ -150,10 +152,18 @@ export class SlormancerValueUpdater {
         const durationMultipliers = this.getValidurationMultipliers(skill.genres, stats);
         for (const value of durationValues) {
             value.value = value.baseValue;
+            if (value.stat === 'skill_duration') {
+                value.value += stats.additionalDuration.total;
+            }
             for (const multiplier of durationMultipliers) {
                 value.value = value.value * (100 + multiplier) / 100;
             }
             value.displayValue = round(value.value, 2);
+        }
+
+        const duration = skill.values.find(value => value.valueType === EffectValueValueType.Duration && value.stat === 'skill_duration');
+        if (skill.id === 2) {
+            console.log('SMOKE SCREEN DURATION FOUND : ', duration, stats.additionalDuration.total);
         }
     }
 }

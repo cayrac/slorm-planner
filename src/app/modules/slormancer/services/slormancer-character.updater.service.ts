@@ -54,6 +54,8 @@ export class SlormancerCharacterUpdaterService {
         negative_effects_on_ennemies_in_radius: {
             2: 10,
         },
+        poison_enemies: 5,
+        trap_triggered_recently: true,
         took_elemental_damage_recently: false,
         took_damage_before_next_cast: false,
         cast_support_before_next_cast: false,
@@ -86,8 +88,9 @@ export class SlormancerCharacterUpdaterService {
         has_elemental_fervor_buff: true,
         has_ancestral_fervor_buff: true,
         has_assassin_haste_buff: true,
+        has_smoke_screen_buff: true,
         all_characters_level: 120,
-        iddle: false,
+        idle: true,
         damage_stored: 1000,
         overdrive_bounces_left: 5,
         overdrive_last_bounce: true,
@@ -243,7 +246,6 @@ export class SlormancerCharacterUpdaterService {
 
                     return result;
                 }).filter(isNotNullOrUndefined);
-            console.log('unresolved : ', statsResult.unresolvedSynergies, names);
             this.messageService.error('Your build contain a synergy loop between : ' + names.join(', '));
         }
     }

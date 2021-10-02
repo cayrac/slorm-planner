@@ -171,7 +171,7 @@ export class SlormancerStatsService {
 
         this.slormancerSynergyResolverService.resolveIsolatedSynergies(extractedStats.isolatedSynergies, result.stats, extractedStats.stats);
 
-        console.log(extractedStats);
+        // console.log(extractedStats);
         // console.log(result);
 
         for (const synergy of [...extractedStats.synergies, ...extractedStats.isolatedSynergies]) {

@@ -20,6 +20,8 @@ export interface CharacterConfig {
     ennemies_in_radius: { [key: number]: number};
     negative_effects_on_ennemies_in_radius: { [key: number]: number};
     elites_in_radius: { [key: number]: number};
+    poison_enemies: number;
+    trap_triggered_recently: boolean;
     took_elemental_damage_recently: boolean;
     took_damage_before_next_cast: boolean;
     damage_stored: number;
@@ -53,10 +55,11 @@ export interface CharacterConfig {
     has_ancestral_fervor_buff: boolean;
     has_ancient_recognition_buff: boolean;
     has_assassin_haste_buff: boolean;
+    has_smoke_screen_buff: boolean;
     distance_with_target: number;
     all_characters_level: number;
     victims_reaper_104: number;
-    iddle: boolean;
+    idle: boolean;
     overdrive_bounces_left: number;
     overdrive_last_bounce: boolean;
     hero_close_to_turret_syndrome: boolean;

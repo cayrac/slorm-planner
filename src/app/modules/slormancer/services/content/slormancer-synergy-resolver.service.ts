@@ -158,9 +158,9 @@ export class SlormancerSynergyResolverService {
                 : { min: round(newValue.min, precision),
                     max: round(newValue.max, precision) };
 
-            if (resolveData.effect.stat === null) {
-                console.log('Synergy is going to add it\'s value to null', resolveData);
-            }
+            /*if (resolveData.effect.stat === null) {
+                // console.log('Synergy is going to add it\'s value to null', resolveData);
+            }*/
 
         } else {
             const sources = resolveData.sources.map(source => {
@@ -214,11 +214,11 @@ export class SlormancerSynergyResolverService {
                 }
             }
 
-            if ('sources' in synergyResolveData) {
-                console.log('Synergy added ' + (typeof synergy === 'number' ? synergy : synergy.min + '-' + synergy.max) + ' ' + synergyResolveData.sources.join(', ') + ' to ' + foundStat.stat);
+            /*if ('sources' in synergyResolveData) {
+                // console.log('Synergy added ' + (typeof synergy === 'number' ? synergy : synergy.min + '-' + synergy.max) + ' ' + synergyResolveData.sources.join(', ') + ' to ' + foundStat.stat);
             } else {           
-                console.log('Synergy added ' + (typeof synergy === 'number' ? synergy : synergy.min + '-' + synergy.max) + ' ' + synergyResolveData.effect.source + ' to ' + foundStat.stat);
-            }
+                // console.log('Synergy added ' + (typeof synergy === 'number' ? synergy : synergy.min + '-' + synergy.max) + ' ' + synergyResolveData.effect.source + ' to ' + foundStat.stat);
+            }*/
 
             this.slormancerStatUpdaterService.updateStatTotal(foundStat);
         }
