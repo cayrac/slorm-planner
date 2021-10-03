@@ -67,16 +67,6 @@ export class SlormancerStatsExtractorService {
                     this.addStat(stats.stats, effectValue.stat, effectValue.value);
                 }
             }
-            for (const effectValue of ancestralLegacy.nextRankValues) {
-                if (isEffectValueSynergy(effectValue)) {                      
-                    stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { ancestralLegacy }));
-                }
-            }
-            for (const effectValue of ancestralLegacy.maxRankValues) {
-                if (isEffectValueSynergy(effectValue)) {                      
-                    stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.synergy, { ancestralLegacy }));
-                }
-            }
         }
     }
 

@@ -40,10 +40,6 @@ export interface AncestralLegacy {
     relatedBuffs: Array<Buff>;
     relatedMechanics: Array<Mechanic>;
 
-    nextRankDescription: Array<string>;
-    maxRankDescription: Array<string>;
-    nextRankTemplate: Array<string>;
-
     typeLabel: string;
     genresLabel: string | null;
     costLabel: string | null;
@@ -52,6 +48,4 @@ export interface AncestralLegacy {
 
     template: string;
     values: Array<AbstractEffectValue>;
-    nextRankValues: Array<AbstractEffectValue>;
-    maxRankValues: Array<AbstractEffectValue>;
 }

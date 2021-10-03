@@ -18,21 +18,6 @@
         </div>
         <div class="separator"></div>
         <div class="description" [innerHTML]="upgrade.description"></div>
-        <ng-container *ngIf="upgrade.rank < upgrade.maxRank && upgrade.nextRankDescription.length > 0 || upgrade.maxRankDescription.length > 0">
-            <div class="separator"></div>
-            <div class="next-rank">
-                <div class="title">{{translate(NEXT_RANK_LABEL)}}:</div>
-                <div *ngFor="let desc of upgrade.nextRankDescription" class="rank-value">
-                    <div class="bullet"><div></div></div> <div [innerHTML]="desc"></div>
-                </div>
-            </div>
-            <div class="next-rank">
-                <div class="title">{{translate(MAX_RANK_LABEL)}}:</div>
-                <div *ngFor="let desc of upgrade.maxRankDescription" class="rank-value">
-                    <div class="bullet"><div></div></div> <div [innerHTML]="desc"></div>
-                </div>
-            </div>
-        </ng-container>
         <div class="mechanics" *ngIf="upgrade.relatedClassMechanics.length > 0 || upgrade.relatedMechanics.length > 0 || upgrade.relatedBuffs.length > 0">
             <div class="mechanic" *ngFor="let mechanic of upgrade.relatedClassMechanics">
                 <div class="mechanic-icon">

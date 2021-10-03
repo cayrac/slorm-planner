@@ -18,21 +18,6 @@
         </div>
         <div class="separator"></div>
         <div class="description" [innerHTML]="ancestralLegacy.description"></div>
-        <ng-container *ngIf="!hideNextRank && (ancestralLegacy.nextRankDescription.length > 0 || ancestralLegacy.maxRankDescription.length > 0)">
-            <div class="separator"></div>
-            <div class="next-rank">
-                <div class="title">{{NEXT_RANK_LABEL}}:</div>
-                <div *ngFor="let desc of ancestralLegacy.nextRankDescription" class="rank-value">
-                    <div class="bullet"><div></div></div> <div [innerHTML]="desc"></div>
-                </div>
-            </div>
-            <div class="next-rank">
-                <div class="title">{{MAX_RANK_LABEL}}:</div>
-                <div *ngFor="let desc of ancestralLegacy.maxRankDescription" class="rank-value">
-                    <div class="bullet"><div></div></div> <div [innerHTML]="desc"></div>
-                </div>
-            </div>
-        </ng-container>
         <div class="mechanics" *ngIf="ancestralLegacy.relatedMechanics.length > 0 || ancestralLegacy.relatedBuffs.length > 0">
             <div class="mechanic" *ngFor="let mechanic of ancestralLegacy.relatedMechanics">
                 <div class="mechanic-icon">

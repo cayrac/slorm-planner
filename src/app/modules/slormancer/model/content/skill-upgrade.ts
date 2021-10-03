@@ -30,10 +30,6 @@ export interface SkillUpgrade {
     genres: Array<SkillGenre>;
     damageTypes: Array<string>;
 
-    nextRankDescription: Array<string>;
-    maxRankDescription: Array<string>;
-    nextRankTemplate: Array<string>;
-
     relatedClassMechanics: Array<SkillClassMechanic>;
     relatedMechanics: Array<Mechanic>;
     relatedBuffs: Array<Buff>;

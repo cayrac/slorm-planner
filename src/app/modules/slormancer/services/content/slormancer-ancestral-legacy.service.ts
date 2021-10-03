@@ -5,7 +5,7 @@ import { AncestralLegacy } from '../../model/content/ancestral-legacy';
 import { AncestralLegacyElement } from '../../model/content/ancestral-legacy-element';
 import { AncestralLegacyType } from '../../model/content/ancestral-legacy-type';
 import { Buff } from '../../model/content/buff';
-import { AbstractEffectValue, EffectValueSynergy, EffectValueVariable } from '../../model/content/effect-value';
+import { AbstractEffectValue } from '../../model/content/effect-value';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
 import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
 import { MechanicType } from '../../model/content/enum/mechanic-type';
@@ -18,7 +18,6 @@ import { list } from '../../util/math.util';
 import {
     emptyStringToNull,
     isEffectValueSynergy,
-    isEffectValueVariable,
     isFirst,
     isNotNullOrUndefined,
     removeEmptyValues,
@@ -92,21 +91,6 @@ export class SlormancerAncestralLegacyService {
         }
         
         return result;
-    }    
-    
-    private getNextRankUpgradeDescription(ancestralLegacy: AncestralLegacy, values: Array<AbstractEffectValue>, cost: number | null): Array<string> {
-        const skills = [];
-
-        if (cost !== null && cost > 0 && ancestralLegacy.costPerRank !== null && ancestralLegacy.costPerRank !== 0) {
-            const costClass = ancestralLegacy.hasLifeCost ? 'life' : 'mana';
-            const description = '<span class="' + costClass + '">' + cost + '</span> ' + this.slormancerTranslateService.translate('tt_' + ancestralLegacy.costType);
-            skills.push(description);
-        }
-
-        const attributes = values
-            .map((value, index) => this.slormancerTemplateService.formatNextRankDescription(<string>ancestralLegacy.nextRankTemplate[index], value));
-
-        return [ ...skills, ...attributes ]
     }
 
     private extractBuffs(template: string): Array<Buff> {
@@ -144,13 +128,9 @@ export class SlormancerAncestralLegacyService {
             types: [ ...ancestralLegacy.types ],
             damageTypes: [ ...ancestralLegacy.damageTypes ],
             genres: [ ...ancestralLegacy.genres ],
-            nextRankDescription: [ ...ancestralLegacy.nextRankDescription ],
-            maxRankDescription: [ ...ancestralLegacy.maxRankDescription ],
             relatedBuffs: [ ...ancestralLegacy.relatedBuffs ],
             relatedMechanics: [ ...ancestralLegacy.relatedMechanics ],
-            values: ancestralLegacy.values.map(value => this.slormancerEffectValueService.getEffectValueClone(value)),
-            nextRankValues: ancestralLegacy.nextRankValues.map(value => this.slormancerEffectValueService.getEffectValueClone(value)),
-            maxRankValues: ancestralLegacy.maxRankValues.map(value => this.slormancerEffectValueService.getEffectValueClone(value))
+            values: ancestralLegacy.values.map(value => this.slormancerEffectValueService.getEffectValueClone(value))
         } as AncestralLegacy
     }
 
@@ -193,13 +173,6 @@ export class SlormancerAncestralLegacyService {
                 realm: gameData.REALM,
                 isActivable: false,
 
-                nextRankDescription: [],
-                maxRankDescription: [],
-                nextRankTemplate: values
-                    .filter(value => isEffectValueSynergy(value) || isEffectValueVariable(value))
-                    .filter(value => (<EffectValueSynergy | EffectValueVariable>value).upgrade !== 0)
-                    .map(value => this.slormancerTemplateService.prepareNextRankDescriptionTemplate('@ £', value)),
-
                 relatedBuffs: this.extractBuffs(gameData.EN_DESCRIPTION),
                 relatedMechanics: this.extractMechanics(gameData.EN_DESCRIPTION, values, data !== null && data.additionalMechanics ? data.additionalMechanics : []),
 
@@ -210,13 +183,7 @@ export class SlormancerAncestralLegacyService {
                 rankLabel: '',
 
                 template: this.slormancerTemplateService.prepareAncestralLegacyDescriptionTemplate(gameData),
-                values,
-                nextRankValues: values
-                    .filter(value => (isEffectValueSynergy(value) || isEffectValueVariable(value)) && value.upgrade !== 0)
-                    .map(value => this.slormancerEffectValueService.getEffectValueClone(value)),
-                maxRankValues: values
-                    .filter(value => (isEffectValueSynergy(value) || isEffectValueVariable(value)) && value.upgrade !== 0)
-                    .map(value => this.slormancerEffectValueService.getEffectValueClone(value)),
+                values
             }
 
             if (data !== null && data.override) {
@@ -249,12 +216,6 @@ export class SlormancerAncestralLegacyService {
         for (const effectValue of ancestralLegacy.values) {
             this.slormancerEffectValueService.updateEffectValue(effectValue, Math.max(1, ancestralLegacy.rank));
         }
-        for (const effectValue of ancestralLegacy.nextRankValues) {
-            this.slormancerEffectValueService.updateEffectValue(effectValue, ancestralLegacy.nextRank);
-        }
-        for (const effectValue of ancestralLegacy.maxRankValues) {
-            this.slormancerEffectValueService.updateEffectValue(effectValue, ancestralLegacy.maxRank);
-        }
 
         ancestralLegacy.cooldown = ancestralLegacy.baseCooldown;
 
@@ -262,7 +223,7 @@ export class SlormancerAncestralLegacyService {
         ancestralLegacy.hasManaCost = ancestralLegacy.costType === SkillCostType.ManaPercent || ancestralLegacy.costType === SkillCostType.ManaSecond || ancestralLegacy.costType === SkillCostType.ManaLock || ancestralLegacy.costType === SkillCostType.Mana;
         ancestralLegacy.hasNoCost = ancestralLegacy.costType === SkillCostType.None || ancestralLegacy.cost === 0;
 
-        ancestralLegacy.isActivable = !ancestralLegacy.hasNoCost || ancestralLegacy.baseCooldown !== null;
+        ancestralLegacy.isActivable = !ancestralLegacy.hasNoCost || ancestralLegacy.baseCooldown !== null || ancestralLegacy.genres.includes(SkillGenre.Aura);
     }
 
     public updateAncestralLegacyView(ancestralLegacy: AncestralLegacy) {
@@ -293,13 +254,6 @@ export class SlormancerAncestralLegacyService {
         
         const descriptionPrefix = this.isActivable(ancestralLegacy.types) ? this.slormancerTranslateService.translate(this.ACTIVE_PREFIX) + '<br/>' : '';
         ancestralLegacy.description = descriptionPrefix + this.slormancerTemplateService.formatAncestralLegacyDescription(ancestralLegacy.template, ancestralLegacy.values);
-        
-        ancestralLegacy.nextRankDescription = [];
-        ancestralLegacy.maxRankDescription = [];
-        if (ancestralLegacy.baseMaxRank > 1 && ancestralLegacy.baseRank < ancestralLegacy.maxRank) {
-            ancestralLegacy.nextRankDescription = this.getNextRankUpgradeDescription(ancestralLegacy, ancestralLegacy.nextRankValues, ancestralLegacy.nextRankCost);
-            ancestralLegacy.maxRankDescription = this.getNextRankUpgradeDescription(ancestralLegacy, ancestralLegacy.maxRankValues, ancestralLegacy.maxRankCost);
-        }
     }
 
     public isNodeConnectedTo(node: number, nodes: Array<number>): boolean {

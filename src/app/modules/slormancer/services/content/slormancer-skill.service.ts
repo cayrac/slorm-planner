@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Buff } from '../../model/content/buff';
 import { DataSkill } from '../../model/content/data/data-skill';
-import { AbstractEffectValue, EffectValueSynergy, EffectValueVariable } from '../../model/content/effect-value';
+import { AbstractEffectValue } from '../../model/content/effect-value';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
 import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
 import { HeroClass } from '../../model/content/enum/hero-class';
@@ -20,7 +20,6 @@ import { list, round } from '../../util/math.util';
 import {
     emptyStringToNull,
     isEffectValueSynergy,
-    isEffectValueVariable,
     isFirst,
     isNotNullOrUndefined,
     splitData,
@@ -254,8 +253,6 @@ export class SlormancerSkillService {
         return { ...upgrade,
             genres: [...upgrade.genres],
             damageTypes: [...upgrade.damageTypes],
-            nextRankDescription: [...upgrade.nextRankDescription],
-            maxRankDescription: [...upgrade.maxRankDescription],
 
             relatedClassMechanics: upgrade.relatedClassMechanics.map(mechanic => this.getClassMechanicClone(mechanic)),
             relatedMechanics: upgrade.relatedMechanics.map(mechanic => this.getMechanicClone(mechanic)),
@@ -306,18 +303,12 @@ export class SlormancerSkillService {
                 genresLabel: null,
                 costLabel: null,
 
-                nextRankDescription: [],
-                maxRankDescription: [],
                 // prévoir de déplacer ça dans upgrade quand je ferais refonte templates
                 relatedClassMechanics: this.extractSkillMechanics(gameDataSkill.EN_DESCRIPTION, heroClass, dataSkill === null ? [] : dataSkill.additionalClassMechanics),
                 relatedMechanics: [],
                 relatedBuffs: this.extractBuffs(gameDataSkill.EN_DESCRIPTION),
             
                 template: this.slormancerTemplateService.getSkillDescriptionTemplate(gameDataSkill),
-                nextRankTemplate: values
-                    .filter(value => isEffectValueSynergy(value) || isEffectValueVariable(value))
-                    .filter(value => (<EffectValueSynergy | EffectValueVariable>value).upgrade !== 0)
-                    .map(value => this.slormancerTemplateService.prepareNextRankDescriptionTemplate('@ £', value)),
                 values
             };
     
@@ -329,25 +320,6 @@ export class SlormancerSkillService {
         }
 
         return upgrade;
-    }
-
-    private getNextRankUpgradeDescription(upgrade: SkillUpgrade, rank: number): Array<string> {
-        const skill = [];
-
-        const cost = upgrade.initialCost + upgrade.perLevelCost * rank;
-        if (cost > 0 && upgrade.perLevelCost !== 0) {
-            const costClass = upgrade.hasLifeCost ? 'life' : 'mana';
-            const description = '<span class="' + costClass + '">' + cost + '</span> ' + this.slormancerTranslateService.translate(upgrade.costType);
-            skill.push(description);
-        }
-
-        const attributes = upgrade.values
-            .filter(value => isEffectValueSynergy(value) || isEffectValueVariable(value))
-            .filter(value => (<EffectValueSynergy | EffectValueVariable>value).upgrade !== 0)
-            .map(value => this.slormancerEffectValueService.updateEffectValue({ ...value }, rank))
-            .map((value, index) => this.slormancerTemplateService.formatNextRankDescription(<string>upgrade.nextRankTemplate[index], value));
-
-        return [ ...skill, ...attributes ]
     }
 
     private extractBuffs(template: string): Array<Buff> {
@@ -394,16 +366,8 @@ export class SlormancerSkillService {
         upgrade.hasManaCost = upgrade.costType === SkillCostType.ManaSecond || upgrade.costType === SkillCostType.ManaLock || upgrade.costType === SkillCostType.Mana;
         upgrade.hasNoCost = upgrade.costType === SkillCostType.None || upgrade.baseCost === 0;
 
-        upgrade.nextRankDescription = [];
-        upgrade.maxRankDescription = [];
-
         for (const effectValue of upgrade.values) {
             this.slormancerEffectValueService.updateEffectValue(effectValue, upgrade.rank);
-        }
-
-        if (upgrade.maxRank > 1 && upgrade.maxRank > upgrade.rank) {
-            upgrade.nextRankDescription = this.getNextRankUpgradeDescription(upgrade, Math.min(upgrade.maxRank, upgrade.rank + 1));
-            upgrade.maxRankDescription = this.getNextRankUpgradeDescription(upgrade, upgrade.maxRank);
         }
         
         upgrade.masteryLabel =  this.MASTERY_LABEL + ' ' + upgrade.masteryRequired;
