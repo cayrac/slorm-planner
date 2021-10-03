@@ -24,6 +24,7 @@ export interface CharacterConfig {
     target_has_negative_effect: boolean;
     is_first_hit: boolean;
     is_last_volley: boolean;
+    void_arrow_fully_charged: boolean;
     ennemies_in_radius: { [key: number]: number};
     negative_effects_on_ennemies_in_radius: { [key: number]: number};
     elites_in_radius: { [key: number]: number};

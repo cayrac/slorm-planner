@@ -10,6 +10,10 @@ function getFirstStat(stats: ExtractedStatMap, stat: string, defaultValue: numbe
     return found ? valueOrDefault(found[0], defaultValue) : defaultValue;
 }
 
+function getMaxStat(stats: ExtractedStatMap, stat: string): number {
+    return Math.max(0, ...valueOrDefault(stats[stat], []));
+}
+
 function hasStat(stats: ExtractedStatMap, stat: string): boolean {
     return stats[stat] !== undefined;
 }
@@ -61,7 +65,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'aura_elemental_swap_mana_cost_increase', condition: config => config.has_aura_elemental_swap },
                 { stat: 'last_cast_tormented_increased_cost', condition: config => config.last_cast_tormented },
                 { stat: 'arrow_shot_void_arrow_heavy_explosive_increased_mana_cost', condition: (_, stats) => [3, 4, 6].includes(getFirstStat(stats, 'skill_id', 0)) },
-                { stat: 'mana_cost_mult' }
+                { stat: 'mana_cost_mult' },
+                { stat: 'mana_cost_reduction_mult', multiplier: () => -1 }
             ],
         } 
     },
@@ -983,7 +988,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'chance_to_pierce_percent' },
-                { stat: 'chance_to_pierce_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) }
+                { stat: 'chance_to_pierce_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) },
+                { stat: 'chance_to_pierce_percent_if_fully_charged', condition: (config) => config.void_arrow_fully_charged }
             ],
             max: [],
             percent: [],
@@ -1016,6 +1022,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'rebound_chance_percent' },
                 { stat: 'rebound_chance_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) },
                 { stat: 'arrow_shot_rebound_chance_percent', condition: (_, stats) => getFirstStat(stats, 'skill_id') === 3 },
+                { stat: 'rebound_chance_percent_if_fully_charged', condition: config => config.void_arrow_fully_charged },
             ],
             max: [],
             percent: [],
@@ -1271,6 +1278,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'decreased_damage', multiplier: () => -1 },
                 { stat: 'increased_damage_per_volley_before', condition: config => config.is_last_volley, multiplier: (_, stats) => getFirstStat(stats, 'additional_volleys') },
                 { stat: 'latent_storm_stack_increased_damage', condition: config => config.target_latent_storm_stacks > 0, multiplier: (config, stats) => Math.min(config.target_latent_storm_stacks, getFirstStat(stats, 'latent_storm_max_stacks')) },
+                { stat: 'increased_damages_mult_if_fully_charged', condition: (config, stats) => config.void_arrow_fully_charged && hasStat(stats, 'max_charge'), multiplier: (_, stats) => getMaxStat(stats, 'max_charge') }
             ],
         } 
     },

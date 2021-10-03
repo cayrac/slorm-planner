@@ -112,7 +112,7 @@ export class SlormancerValueUpdater {
             additionalProjectiles: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'additional_projectile'),
         }
 
-        if (skillAndUpgrades.skill.id === 7) {
+        if (skillAndUpgrades.skill.id === 8) {
             console.log('update skill and upgrade values ', skillAndUpgrades, stats.stats, skillStats);
         }
 
@@ -209,6 +209,13 @@ export class SlormancerValueUpdater {
                 value.value  = aoeMultipliers.reduce((t, v) => t * (100 + v) / 100, value.value);
                 value.displayValue = round(value.value, 2);
             }
+        }
+
+        const maxChargeValue = skill.values.find(value => value.stat === 'displayed_max_charge');
+        if (maxChargeValue) {
+            const maxCharge = Math.max(0, ...valueOrDefault(stats.extractedStats['max_charge'], []));
+            maxChargeValue.value = maxCharge;
+            maxChargeValue.displayValue = round(maxChargeValue.value, 2);
         }
     }
 

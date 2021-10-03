@@ -51,6 +51,7 @@ export class SlormancerCharacterUpdaterService {
         target_has_negative_effect: true,
         is_first_hit: true,
         is_last_volley: false,
+        void_arrow_fully_charged: false,
         elites_in_radius: {
             10: 0
         },

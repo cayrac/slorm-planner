@@ -1466,10 +1466,14 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     8: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 3);
+            setStat(values, 1, 'elemental_damage');
             setUpgrade(values, 1, 3);
-            addConstant(values, 300, false, EffectValueValueType.Duration, 'skill_1_7_max_charged_increased_damages');
-            addConstant(values, 100, false, EffectValueValueType.Duration, 'skill_1_7_max_charged_piece_chances');
+            addConstant(values, 0, false, EffectValueValueType.Upgrade, 'displayed_max_charge');
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'chance_to_pierce_percent_if_fully_charged');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'increased_damages_mult_if_fully_charged');
+            addConstant(values, 300, false, EffectValueValueType.Upgrade, 'max_charge');
         },
         additionalClassMechanics: []
     },
@@ -2116,80 +2120,118 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     88: {
         masteryRequired: 10,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'additional_target');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'additional_target');
         },
         additionalClassMechanics: []
     },
     89: {
         masteryRequired: 2,
         override: values => {
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_full_charge_rebounce_chance');
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'rebound_chance_percent_if_fully_charged');
         },
         additionalClassMechanics: []
     },
     90: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'chance_to_pierce_percent');
+            synergyMultiply100(values, 0);
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     91: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'increased_damage_mult');
+            synergyMultiply100(values, 0);
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     92: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'mana_cost_reduction_mult');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     93: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'max_charge');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     94: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            addConstant(values, -100, true, EffectValueValueType.Upgrade, 'elemental_damage_mult');
+            addConstant(values, 150, true, EffectValueValueType.Upgrade, 'increased_damage_mult');
+        },
         additionalClassMechanics: []
     },
     95: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, true, EffectValueValueType.Upgrade, 'wormhole_on_hit');
+        },
         additionalClassMechanics: []
     },
     96: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'overdrive_chance_percent');
+            setAsUpgrade(values, 0);
+            addConstant(values, 1, true, EffectValueValueType.Upgrade, 'can_trigger_overdrive');
+        },
         additionalClassMechanics: []
     },
     97: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'physical_damage');
+        },
         additionalClassMechanics: []
     },
     98: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'knockback_projectile_percent');
+            setAsUpgrade(values, 0);
+            addConstant(values, 1, true, EffectValueValueType.Upgrade, 'reverse_knockback_projectile');
+        },
         additionalClassMechanics: []
     },
     99: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, true, EffectValueValueType.Upgrade, 'wormhold_absorb_on_kill');
+        },
         additionalClassMechanics: []
     },
     100: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'charge_speed_mult');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     101: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, true, EffectValueValueType.Upgrade, 'delighted_on_cast');
+        },
         additionalClassMechanics: []
     },
     102: {
         masteryRequired: 10,
-        override: values => { },
+        override: values => {
+            addConstant(values, 100, true, EffectValueValueType.Upgrade, 'charge_speed_mult_if_tormented');
+        },
         additionalClassMechanics: []
     },
     103: {
