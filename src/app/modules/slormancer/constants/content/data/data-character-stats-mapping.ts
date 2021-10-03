@@ -66,6 +66,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'last_cast_tormented_increased_cost', condition: config => config.last_cast_tormented },
                 { stat: 'arrow_shot_void_arrow_heavy_explosive_increased_mana_cost', condition: (_, stats) => [3, 4, 6].includes(getFirstStat(stats, 'skill_id', 0)) },
                 { stat: 'mana_cost_mult' },
+                { stat: 'mana_cost_mult_if_tormented', condition: config => config.serenity === 0 },
                 { stat: 'mana_cost_reduction_mult', multiplier: () => -1 }
             ],
         } 
@@ -1278,7 +1279,9 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'decreased_damage', multiplier: () => -1 },
                 { stat: 'increased_damage_per_volley_before', condition: config => config.is_last_volley, multiplier: (_, stats) => getFirstStat(stats, 'additional_volleys') },
                 { stat: 'latent_storm_stack_increased_damage', condition: config => config.target_latent_storm_stacks > 0, multiplier: (config, stats) => Math.min(config.target_latent_storm_stacks, getFirstStat(stats, 'latent_storm_max_stacks')) },
-                { stat: 'increased_damages_mult_if_fully_charged', condition: (config, stats) => config.void_arrow_fully_charged && hasStat(stats, 'max_charge'), multiplier: (_, stats) => getMaxStat(stats, 'max_charge') }
+                { stat: 'increased_damages_mult_if_fully_charged', condition: (config, stats) => config.void_arrow_fully_charged && hasStat(stats, 'max_charge'), multiplier: (_, stats) => getMaxStat(stats, 'max_charge') },
+                { stat: 'increased_damage_mult_per_target_left_health_percent', condition: config => config.enemy_percent_missing_health < 100, multiplier: config => 100 - config.enemy_percent_missing_health },
+                { stat: 'increased_damage_mult_per_target_missing_health_percent', condition: config => config.enemy_percent_missing_health > 0, multiplier: config => config.enemy_percent_missing_health }
             ],
         } 
     },

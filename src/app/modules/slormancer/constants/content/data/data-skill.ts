@@ -1480,8 +1480,9 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     9: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 8);
-            addConstant(values, 50, false, EffectValueValueType.Duration, 'skill_1_9_climax_increased_damages');
+            addConstant(values, 50, false, EffectValueValueType.Upgrade, 'climax_increased_damage');
         },
         additionalClassMechanics: []
     },
@@ -2236,83 +2237,120 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     },
     103: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'increased_damage_mult');
+            synergyMultiply100(values, 0);
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     104: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, true, EffectValueValueType.Upgrade, 'increased_damage_mult_per_target_left_health_percent');
+        },
         additionalClassMechanics: []
     },
     105: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, true, EffectValueValueType.Upgrade, 'increased_damage_mult_per_target_missing_health_percent');
+        },
         additionalClassMechanics: []
     },
     106: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, true, EffectValueValueType.Upgrade, 'increased_range');
+        },
         additionalClassMechanics: []
     },
     107: {
         masteryRequired: 3,
         override: values => {
-            addConstant(values, 0, false, EffectValueValueType.Flat, 'skill_tormented_cost_and_cooldown');
+            addConstant(values, 0, false, EffectValueValueType.Upgrade, 'cost_and_cooldown');
+            addConstant(values, -100, false, EffectValueValueType.Upgrade, 'mana_cost_mult_if_tormented');
+            addConstant(values, -100, false, EffectValueValueType.Upgrade, 'cooldown_time_multiplier_if_tormented');
         },
         additionalClassMechanics: []
     },
     108: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'cooldown_reset_on_climax');
+        },
         additionalClassMechanics: []
     },
     109: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'cooldown_reduction_percent_on_critical_strike');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     110: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'move_to_climax');
+        },
         additionalClassMechanics: []
     },
     111: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'climax_crit_chance_percent');
+            setAsUpgrade(values, 0);
+            addConstant(values, -50, false, EffectValueValueType.Upgrade, 'climax_increased_damage_add');
+        },
         additionalClassMechanics: []
     },
     112: {
         masteryRequired: 6,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'skill_blind_aoe');
+            setStat(values, 0, 'blind_duration');
+            setAsUpgrade(values, 0);
+            addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'blind_on_climax_aoe');
         },
         additionalClassMechanics: []
     },
     113: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'poison_on_climax_and_delighted');
+        },
         additionalClassMechanics: []
     },
     114: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'spawn_trap_on_climax_and_tormented');
+        },
         additionalClassMechanics: []
     },
     115: {
         masteryRequired: 8,
         override: values => {
-            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_overdrive_trigger_count')
+            setStat(values, 0, 'overdrive_chance_percent');
+            setAsUpgrade(values, 0);
+            addConstant(values, 2, false, EffectValueValueType.Flat, 'overdrive_count_mult')
         },
         additionalClassMechanics: []
     },
     116: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'ravenous_dagger_explosion_on_climax');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     117: {
         masteryRequired: 10,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'opposite_finesse_increased_damages');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     118: {
