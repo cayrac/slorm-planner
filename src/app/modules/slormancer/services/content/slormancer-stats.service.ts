@@ -162,7 +162,6 @@ export class SlormancerStatsService {
         result.stats = this.buildMergedStats(extractedStats.stats, GLOBAL_MERGED_STATS_MAPPING, config);
 
         this.addConfigCharacterStats(result.stats, config);
-        this.addSkillStats(result.stats, character.skills);
 
         for (const stats of result.stats) {
             this.slormancerStatUpdaterService.updateStatTotal(stats);
@@ -234,7 +233,8 @@ export class SlormancerStatsService {
 
         result.extractedStats = extractedStats.stats;
         result.stats = this.buildMergedStats(extractedStats.stats, [...GLOBAL_MERGED_STATS_MAPPING, ...HERO_MERGED_STATS_MAPPING[character.heroClass]], config);
-        
+        this.addSkillStats(result.stats, character.skills);
+
         for (const stats of result.stats) {
             this.slormancerStatUpdaterService.updateStatTotal(stats);
         }

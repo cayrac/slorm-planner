@@ -69,7 +69,7 @@ export class SlormancerValueUpdater {
         }
 
         if (genres.includes(SkillGenre.Projectile)) {
-            multipliers.push(-Math.min(Math.floor(skillStats.additionalProjectiles.total), 9) * 10);
+            multipliers.push(-Math.min(skillStats.additionalProjectiles.total, 9) * 10);
         }
 
         if (stats.extractedStats['increased_damage_mult_per_potential_projectile'] !== undefined) {
@@ -127,10 +127,15 @@ export class SlormancerValueUpdater {
             (<number>multiplyAndConquerSynergy.displaySynergy) -= critChanceToRemove;
         }
 
+        for (const upgrade of skillAndUpgrades.upgrades) {
+            this.updateUpgradeValues(upgrade, skillStats, stats);
+        }
+
         return [];
     }
 
     private updateDamages(damages: Array<EffectValueSynergy>, additional: number | MinMax, multipliers: Array<number>) {
+        console.log('update damages ', damages, additional, multipliers);
         if (typeof additional === 'number' && additional > 0 || typeof additional !== 'number' && (additional.min > 0 || additional.max > 0)) {
             const averageDamages = damages.map(v => typeof v.synergy === 'number' ? v.synergy : ((v.synergy.min + v.synergy.max) / 2));
             const totalDamages = averageDamages.reduce((t, v) => t + v, 0);
@@ -197,6 +202,31 @@ export class SlormancerValueUpdater {
         for (const value of aoeValues) {
             value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
             value.value  = aoeMultipliers.reduce((t, v) => t * (100 + v) / 100, value.value);
+            value.displayValue = round(value.value, 2);
+        }
+    }
+
+    private updateUpgradeValues(upgrade: SkillUpgrade, skillStats: SkillStats, stats: SkillStatsBuildResult) {  
+        const damageValues = upgrade.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
+        const damageMultipliers = this.getValidDamageMultipliers(upgrade.genres, skillStats, stats);
+        this.updateDamages(damageValues, 0, damageMultipliers);
+    
+        const durationValues = upgrade.values.filter(value => value.valueType === EffectValueValueType.Duration);
+        const durationMultipliers = this.getValidurationMultipliers(upgrade.genres, skillStats);
+        for (const value of durationValues) {
+            value.value = value.baseValue;
+            if (value.stat === 'skill_duration') {
+                value.value += skillStats.additionalDuration.total;
+            }
+            for (const multiplier of durationMultipliers) {
+                value.value = value.value * (100 + multiplier) / 100;
+            }
+            value.displayValue = round(value.value, 2);
+        }
+
+        const aoeValues = upgrade.values.filter(value => value.valueType === EffectValueValueType.AreaOfEffect);
+        for (const value of aoeValues) {
+            value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
             value.displayValue = round(value.value, 2);
         }
     }

@@ -1946,7 +1946,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     67: {
         masteryRequired: 6,
         override: values => {
-            setStat(values, 0, 'aoe_increased_size_percent');
+            setStat(values, 0, 'aoe_increased_size_percent_mult');
             setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
@@ -1977,18 +1977,27 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     71: {
         masteryRequired: 9,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'skill_homing_bolt_aoe');
+            setStat(values, 0, 'physical_damage');
+            addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'homing_bolt_aoe');
+            setAsUpgrade(values, 0);
+            setAsUpgrade(values, 1);
         },
         additionalClassMechanics: []
     },
     72: {
         masteryRequired: 10,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'root_on_hit_duration_if_tormented');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     73: {
         masteryRequired: 10,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'silence_on_hit_duration_if_tormented');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     74: {
