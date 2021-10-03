@@ -5,7 +5,7 @@ import { AncestralLegacy } from '../../model/content/ancestral-legacy';
 import { AncestralLegacyElement } from '../../model/content/ancestral-legacy-element';
 import { AncestralLegacyType } from '../../model/content/ancestral-legacy-type';
 import { Buff } from '../../model/content/buff';
-import { AbstractEffectValue } from '../../model/content/effect-value';
+import { AbstractEffectValue, EffectValueSynergy, EffectValueVariable } from '../../model/content/effect-value';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
 import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
 import { MechanicType } from '../../model/content/enum/mechanic-type';
@@ -103,7 +103,8 @@ export class SlormancerAncestralLegacyService {
             skills.push(description);
         }
 
-        const attributes = values.map(value => this.slormancerTemplateService.formatNextRankDescription('@ £', value));
+        const attributes = values
+            .map((value, index) => this.slormancerTemplateService.formatNextRankDescription(<string>ancestralLegacy.nextRankTemplate[index], value));
 
         return [ ...skills, ...attributes ]
     }
@@ -194,6 +195,10 @@ export class SlormancerAncestralLegacyService {
 
                 nextRankDescription: [],
                 maxRankDescription: [],
+                nextRankTemplate: values
+                    .filter(value => isEffectValueSynergy(value) || isEffectValueVariable(value))
+                    .filter(value => (<EffectValueSynergy | EffectValueVariable>value).upgrade !== 0)
+                    .map(value => this.slormancerTemplateService.prepareNextRankDescriptionTemplate('@ £', value)),
 
                 relatedBuffs: this.extractBuffs(gameData.EN_DESCRIPTION),
                 relatedMechanics: this.extractMechanics(gameData.EN_DESCRIPTION, values, data !== null && data.additionalMechanics ? data.additionalMechanics : []),

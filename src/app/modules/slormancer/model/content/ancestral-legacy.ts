@@ -42,6 +42,7 @@ export interface AncestralLegacy {
 
     nextRankDescription: Array<string>;
     maxRankDescription: Array<string>;
+    nextRankTemplate: Array<string>;
 
     typeLabel: string;
     genresLabel: string | null;
