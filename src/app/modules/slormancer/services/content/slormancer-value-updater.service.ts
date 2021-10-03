@@ -112,7 +112,7 @@ export class SlormancerValueUpdater {
             additionalProjectiles: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'additional_projectile'),
         }
 
-        if (skillAndUpgrades.skill.id === 6) {
+        if (skillAndUpgrades.skill.id === 7) {
             console.log('update skill and upgrade values ', skillAndUpgrades, stats.stats, skillStats);
         }
 
@@ -143,7 +143,6 @@ export class SlormancerValueUpdater {
             damages.forEach((synergy, index) => {
                 const ratio = <number>averageDamages[index] / totalDamages;
                 const additionalDamages = typeof additional === 'number' ? additional * ratio : { min: additional.min * ratio, max: additional.max * ratio };
-                
                 synergy.synergy = add(synergy.synergy, additionalDamages);
             });
         }
@@ -181,47 +180,43 @@ export class SlormancerValueUpdater {
         skill.cooldown = round(skillStats.cooldown.total * (100 - skillStats.attackSpeed.total) / 100, 2);
 
         const damageValues = skill.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
-        const damageMultipliers = this.getValidDamageMultipliers(skill.genres, skillStats, stats);
-        this.updateDamages(damageValues, skillStats.additionalDamages.total, damageMultipliers);
+        if (damageValues.length > 0) {
+            const damageMultipliers = this.getValidDamageMultipliers(skill.genres, skillStats, stats);
+            this.updateDamages(damageValues, skillStats.additionalDamages.total, damageMultipliers);
+        }
     
         const durationValues = skill.values.filter(value => value.valueType === EffectValueValueType.Duration);
-        const durationMultipliers = this.getValidurationMultipliers(skill.genres, skillStats);
-        for (const value of durationValues) {
-            value.value = value.baseValue;
-            if (value.stat === 'skill_duration') {
-                value.value += skillStats.additionalDuration.total;
+        if (durationValues.length > 0) {
+            const durationMultipliers = this.getValidurationMultipliers(skill.genres, skillStats);
+            for (const value of durationValues) {
+                value.value = value.baseValue;
+                if (value.stat === 'skill_duration') {
+                    value.value += skillStats.additionalDuration.total;
+                }
+                for (const multiplier of durationMultipliers) {
+                    value.value = value.value * (100 + multiplier) / 100;
+                }
+                value.value = Math.max(0, value.value);
+                value.displayValue = round(value.value, 2);
             }
-            for (const multiplier of durationMultipliers) {
-                value.value = value.value * (100 + multiplier) / 100;
-            }
-            value.displayValue = round(value.value, 2);
         }
 
         const aoeValues = skill.values.filter(value => value.valueType === EffectValueValueType.AreaOfEffect);
-        const aoeMultipliers = valueOrDefault(stats.extractedStats['aoe_increased_size_percent_mult'], []);
-        for (const value of aoeValues) {
-            value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
-            value.value  = aoeMultipliers.reduce((t, v) => t * (100 + v) / 100, value.value);
-            value.displayValue = round(value.value, 2);
+        if (aoeValues.length > 0) {
+            const aoeMultipliers = valueOrDefault(stats.extractedStats['aoe_increased_size_percent_mult'], []);
+            for (const value of aoeValues) {
+                value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
+                value.value  = aoeMultipliers.reduce((t, v) => t * (100 + v) / 100, value.value);
+                value.displayValue = round(value.value, 2);
+            }
         }
     }
 
     private updateUpgradeValues(upgrade: SkillUpgrade, skillStats: SkillStats, stats: SkillStatsBuildResult) {  
         const damageValues = upgrade.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
-        const damageMultipliers = this.getValidDamageMultipliers(upgrade.genres, skillStats, stats);
-        this.updateDamages(damageValues, 0, damageMultipliers);
-    
-        const durationValues = upgrade.values.filter(value => value.valueType === EffectValueValueType.Duration);
-        const durationMultipliers = this.getValidurationMultipliers(upgrade.genres, skillStats);
-        for (const value of durationValues) {
-            value.value = value.baseValue;
-            if (value.stat === 'skill_duration') {
-                value.value += skillStats.additionalDuration.total;
-            }
-            for (const multiplier of durationMultipliers) {
-                value.value = value.value * (100 + multiplier) / 100;
-            }
-            value.displayValue = round(value.value, 2);
+        if (damageValues.length > 0) {
+            const damageMultipliers = this.getValidDamageMultipliers(upgrade.genres, skillStats, stats);
+            this.updateDamages(damageValues, 0, damageMultipliers);
         }
 
         const aoeValues = upgrade.values.filter(value => value.valueType === EffectValueValueType.AreaOfEffect);

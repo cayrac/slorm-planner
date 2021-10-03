@@ -76,6 +76,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxPercent: [],
             multiplier: [
                 { stat: 'cooldown_time_multiplier'},
+                { stat: 'cooldown_time_multiplier_if_tormented', condition: config => config.serenity === 0 },
             ],
         } 
     },
@@ -240,7 +241,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'mana_regen_add' }],
+            flat: [
+                { stat: 'mana_regen_add' },
+                { stat: 'mana_regen_add_if_delighted_and_enemy_has_latent_storm', condition: config => config.serenity === DELIGHTED_VALUE && config.enemies_affected_by_latent_storm > 0 }
+            ],
             max: [],
             percent: [{ stat: 'mana_regen_percent' }],
             maxPercent: [],
@@ -302,7 +306,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'the_speed_percent_after_dodge', condition: (config, stats) => config.seconds_since_last_dodge <= getFirstStat(stats, 'the_speed_percent_after_dodge_duration', 0) },
                 { stat: 'assassin_haste_buff_movement_speed', condition: config => config.has_assassin_haste_buff },
                 { stat: 'tormented_movement_speed', condition: config => config.serenity === 0 },
-                { stat: 'movement_speed_after_trap_triggered', condition: config => config.trap_triggered_recently }
+                { stat: 'movement_speed_after_trap_triggered', condition: config => config.trap_triggered_recently },
+                { stat: 'the_speed_percent_per_latent_storm', condition: config => config.enemies_affected_by_latent_storm > 0, multiplier: (config, stats) => Math.min(getFirstStat(stats, 'the_speed_percent_per_latent_storm_max'), config.enemies_affected_by_latent_storm) }
             ],
             maxPercent: [],
             multiplier: [],
@@ -326,7 +331,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'cooldown_reduction_global_mult' },
                 { stat: 'cooldown_reduction_global_mult_after_crit', condition: (config, stats) => config.seconds_since_last_crit <= getFirstStat(stats, 'cooldown_reduction_global_mult_after_crit_duration', 0) },
                 { stat: 'self_control_cooldown_reduction_global_mult', condition: config => config.serenity > 0 && config.serenity < DELIGHTED_VALUE },
-                { stat: 'delightful_rain_stack_cooldown_reduction_global_mult', condition: config => config.delightful_rain_stack > 0, multiplier: (config, stats) => Math.min(config.delightful_rain_stack, getFirstStat(stats, 'delightful_rain_max_stacks')) }
+                { stat: 'delightful_rain_stack_cooldown_reduction_global_mult', condition: config => config.delightful_rain_stacks > 0, multiplier: (config, stats) => Math.min(config.delightful_rain_stacks, getFirstStat(stats, 'delightful_rain_max_stacks')) }
             ],
         } 
     },
@@ -1265,6 +1270,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'increased_damage_mult' }, // le "mult" sert à ne pas utiliser les increased_damage pas encore configuré
                 { stat: 'decreased_damage', multiplier: () => -1 },
                 { stat: 'increased_damage_per_volley_before', condition: config => config.is_last_volley, multiplier: (_, stats) => getFirstStat(stats, 'additional_volleys') },
+                { stat: 'latent_storm_stack_increased_damage', condition: config => config.target_latent_storm_stacks > 0, multiplier: (config, stats) => Math.min(config.target_latent_storm_stacks, getFirstStat(stats, 'latent_storm_max_stacks')) },
             ],
         } 
     },
@@ -1285,11 +1291,13 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'skill_additional_duration',
-        precision: 0,
+        precision: 1,
         allowMinMax: false,
         source: {
             flat: [
-                { stat: 'skill_duration_add' }
+                { stat: 'skill_duration_add' },
+                { stat: 'skill_duration_reduction', multiplier: () => -1 },
+                { stat: 'skill_duration_reduction_if_tormented', condition: config => config.serenity === 0, multiplier: () => -1 }
             ],
             max: [],
             percent: [],

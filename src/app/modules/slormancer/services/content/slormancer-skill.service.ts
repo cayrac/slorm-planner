@@ -210,7 +210,7 @@ export class SlormancerSkillService {
         skill.genresLabel =  null;
         if (skill.genres.length > 0) {
             skill.genresLabel = skill.genres
-                .map(genre => this.slormancerTranslateService.translate(genre))
+                .map(genre => this.slormancerTranslateService.translate('atk_' + genre))
                 .join(' ');
         }
         
@@ -408,7 +408,7 @@ export class SlormancerSkillService {
         upgrade.genresLabel =  null;
         if (upgrade.genres.length > 0) {
             upgrade.genresLabel = upgrade.genres
-                .map(genre => this.slormancerTranslateService.translate(genre))
+                .map(genre => this.slormancerTranslateService.translate('atk_' + genre))
                 .join(' ');
         }
         

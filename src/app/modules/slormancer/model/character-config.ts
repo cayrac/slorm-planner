@@ -18,6 +18,7 @@ export interface CharacterConfig {
     rebounds_before_hit: number;
     pierces_before_hit: number;
     enemies_in_aoe: number;
+    enemies_affected_by_latent_storm: number;
     target_is_isolated: boolean;
     target_is_tracked: boolean;
     target_has_negative_effect: boolean;
@@ -45,7 +46,8 @@ export interface CharacterConfig {
     conquest_stacks: number;
     stability_stacks: number;
     enlightenment_stacks: number;
-    delightful_rain_stack: number;
+    delightful_rain_stacks: number;
+    target_latent_storm_stacks: number;
     has_aura_air_conditionner: boolean;
     has_aura_neriya_shield: boolean;
     has_aura_elemental_swap: boolean;

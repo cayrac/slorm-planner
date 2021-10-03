@@ -1453,9 +1453,13 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     7: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 7);
+            setStat(values, 1, 'elemental_damage');
             setUpgrade(values, 1, 20);
-            addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_1_7_duration');
+            addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_duration');
+            setAsUpgrade(values, 0);
+            setAsUpgrade(values, 1);
         },
         additionalClassMechanics: []
     },
@@ -2002,83 +2006,118 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     },
     74: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            addConstant(values, 5, true, EffectValueValueType.Upgrade, 'skill_duration_reduction_if_tormented')
+        },
         additionalClassMechanics: []
     },
     75: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'skill_duration_reduction');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     76: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'skill_range_add');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     77: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, true, EffectValueValueType.Upgrade, 'blind_on_hit');
+        },
         additionalClassMechanics: []
     },
     78: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'mana_regen_add_if_delighted_and_enemy_has_latent_storm');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     79: {
         masteryRequired: 4,
         override: values => {
-            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_movement_speed_per_affected_ennemie');
+            addConstant(values, 2, false, EffectValueValueType.Upgrade, 'the_speed_percent_per_latent_storm');
+            setStat(values, 0, 'the_speed_percent_per_latent_storm_max');
+            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
     80: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'elemental_damage');
+            addConstant(values, 0.5, false, EffectValueValueType.AreaOfEffect, 'shearing_winds_aoe');
+        },
         additionalClassMechanics: []
     },
     81: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'skill_spread_if_delighted');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     82: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'increased_damage_mult');
+            addConstant(values, 2, false, EffectValueValueType.Upgrade, 'skill_duration_add');
+        },
         additionalClassMechanics: []
     },
     83: {
         masteryRequired: 6,
         override: values => {
+            setStat(values, 0, 'elemental_damage');
             addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'skill_explosion_aoe');
         },
         additionalClassMechanics: []
     },
     84: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     85: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'transfer_if_target_die');
+        },
         additionalClassMechanics: []
     },
     86: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'physical_damage');
+        },
         additionalClassMechanics: []
     },
     87: {
         masteryRequired: 9,
         override: values => {
-            addConstant(values, 30, false, EffectValueValueType.Flat, 'skill_increased_damage_per_stack');
+            addConstant(values, 30, false, EffectValueValueType.Upgrade, 'latent_storm_stack_increased_damage');
+            setStat(values, 0, 'latent_storm_max_stacks');
+            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
     88: {
         masteryRequired: 10,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Flat, 'additional_target');
+        },
         additionalClassMechanics: []
     },
     89: {
