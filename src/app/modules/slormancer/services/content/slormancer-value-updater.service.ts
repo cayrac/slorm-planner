@@ -10,7 +10,8 @@ import { Skill } from '../../model/content/skill';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { MinMax } from '../../model/minmax';
 import { add, round } from '../../util/math.util';
-import { isDamageType, isEffectValueSynergy, valueOrDefault } from '../../util/utils';
+import { isDamageType, isEffectValueSynergy, isEffectValueVariable, valueOrDefault } from '../../util/utils';
+import { SlormancerEffectValueService } from './slormancer-effect-value.service';
 import { SkillStatsBuildResult } from './slormancer-stats.service';
 
 interface SkillStats {
@@ -30,6 +31,10 @@ interface SkillStats {
 
 @Injectable()
 export class SlormancerValueUpdater {
+
+    constructor(
+        private slormancerEffectValueService: SlormancerEffectValueService
+        ) { }
 
     private getStatValueOrDefault(stats: Array<MergedStat>, stat: string): MergedStat {
         let result = stats.find(s => s.stat === stat);
@@ -112,7 +117,7 @@ export class SlormancerValueUpdater {
             additionalProjectiles: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'additional_projectile'),
         }
 
-        if (skillAndUpgrades.skill.id === 9) {
+        if (skillAndUpgrades.skill.id === 10) {
             console.log('update skill and upgrade values ', skillAndUpgrades, stats.stats, skillStats);
         }
 
@@ -174,14 +179,14 @@ export class SlormancerValueUpdater {
         }
     }
 
-    private updateSkillValues(skill: Skill, skillStats: SkillStats, stats: SkillStatsBuildResult) {
+    private updateSkillValues(skill: Skill, skillStats: SkillStats, statsResult: SkillStatsBuildResult) {
                 
         skill.cost = skillStats.mana.total;
         skill.cooldown = round(skillStats.cooldown.total * (100 - skillStats.attackSpeed.total) / 100, 2);
 
         const damageValues = skill.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
         if (damageValues.length > 0) {
-            const damageMultipliers = this.getValidDamageMultipliers(skill.genres, skillStats, stats);
+            const damageMultipliers = this.getValidDamageMultipliers(skill.genres, skillStats, statsResult);
             this.updateDamages(damageValues, skillStats.additionalDamages.total, damageMultipliers);
         }
     
@@ -204,7 +209,7 @@ export class SlormancerValueUpdater {
         if (skill.genres.includes(SkillGenre.Aoe)) {
             const aoeValues = skill.values.filter(value => value.valueType === EffectValueValueType.AreaOfEffect);
             if (aoeValues.length > 0) {
-                const aoeMultipliers = valueOrDefault(stats.extractedStats['aoe_increased_size_percent_mult'], []);
+                const aoeMultipliers = valueOrDefault(statsResult.extractedStats['aoe_increased_size_percent_mult'], []);
                 for (const value of aoeValues) {
                     value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
                     value.value  = aoeMultipliers.reduce((t, v) => t * (100 + v) / 100, value.value);
@@ -215,17 +220,25 @@ export class SlormancerValueUpdater {
 
         const maxChargeValue = skill.values.find(value => value.stat === 'displayed_max_charge');
         if (maxChargeValue) {
-            const maxCharge = Math.max(0, ...valueOrDefault(stats.extractedStats['max_charge'], []));
+            const maxCharge = Math.max(0, ...valueOrDefault(statsResult.extractedStats['max_charge'], []));
             maxChargeValue.value = maxCharge;
             maxChargeValue.displayValue = round(maxChargeValue.value, 2);
         }
 
         const climaxValue = skill.values.find(value => value.stat === 'climax_increased_damage');
         if (climaxValue) {
-            console.log('climaxValue found : ', climaxValue);
-            const climaxAdd = valueOrDefault(stats.extractedStats['climax_increased_damage_add'], [])
+            const climaxAdd = valueOrDefault(statsResult.extractedStats['climax_increased_damage_add'], [])
             climaxValue.value = climaxAdd.reduce((t, v) => t + v, climaxValue.baseValue);
             climaxValue.displayValue = round(climaxValue.value, 2);
+        }
+
+        const instructionsValue = skill.values.find(value => value.stat === 'instructions');
+        if (instructionsValue && isEffectValueVariable(instructionsValue)) {
+            console.log('has instructions value : ', instructionsValue);
+            this.slormancerEffectValueService.updateEffectValue(instructionsValue, skill.level);
+            const instructionsTotal = <number>valueOrDefault(statsResult.stats.find(stat => stat.stat === 'additional_instructions')?.total, 0);
+            instructionsValue.value += instructionsTotal;
+            instructionsValue.displayValue = round(instructionsValue.value, 2);
         }
     }
 

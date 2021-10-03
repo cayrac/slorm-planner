@@ -337,7 +337,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'cooldown_reduction_global_mult' },
                 { stat: 'cooldown_reduction_global_mult_after_crit', condition: (config, stats) => config.seconds_since_last_crit <= getFirstStat(stats, 'cooldown_reduction_global_mult_after_crit_duration', 0) },
                 { stat: 'self_control_cooldown_reduction_global_mult', condition: config => config.serenity > 0 && config.serenity < DELIGHTED_VALUE },
-                { stat: 'delightful_rain_stack_cooldown_reduction_global_mult', condition: config => config.delightful_rain_stacks > 0, multiplier: (config, stats) => Math.min(config.delightful_rain_stacks, getFirstStat(stats, 'delightful_rain_max_stacks')) }
+                { stat: 'delightful_rain_stack_cooldown_reduction_global_mult', condition: config => config.delightful_rain_stacks > 0, multiplier: (config, stats) => Math.min(config.delightful_rain_stacks, getFirstStat(stats, 'delightful_rain_max_stacks')) },
+                { stat: 'exhilerating_senses_stack_cooldown_reduction_global_mult', condition: config => config.exhilerating_senses_stacks > 0, multiplier: config => config.exhilerating_senses_stacks }
             ],
         } 
     },
@@ -1447,7 +1448,21 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                 } 
             }
         ],
-        2: [
+        10: [
+            {
+                stat: 'additional_instructions',
+                precision: 0,
+                allowMinMax: false,
+                source: {
+                    flat: [
+                        { stat: 'instructions_add' }
+                    ],
+                    max: [],
+                    percent: [],
+                    maxPercent: [],
+                    multiplier: [],
+                } 
+            }
         ]
     },
     2: {

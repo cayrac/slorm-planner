@@ -20,8 +20,23 @@ export class SlormancerEffectValueService {
             let value = effectValue.baseValue * 1000;
             let displayValue = effectValue.baseValue * 1000;
             if (effectValue.upgradeType === EffectValueUpgradeType.Every3) {
-                value += 1000 * effectValue.upgrade * Math.ceil(upgradeMultiplier / 3);
-                displayValue += 1000 * effectValue.upgrade * Math.ceil(displayUpgradeMultiplier / 3);
+                value = Math.max(value, 1000 * effectValue.upgrade * Math.ceil((upgradeMultiplier + 1) / 3));
+                // 1 => 2
+                // 2 => 2
+                // 3 => 2
+                // 4 => 2
+                // 5 => 2
+                // 6 => 3
+                // 7 => 3
+                // 8 => 3
+                // 9 => 4
+                // 10 => 4
+                // 11 => 4
+                // 12 => 5
+                // 13 => 5
+                // 14 => 5
+                // 15 => 6
+                displayValue = value;
             } else {
                 value += 1000 * effectValue.upgrade * upgradeMultiplier;
                 displayValue += 1000 * effectValue.upgrade * displayUpgradeMultiplier;

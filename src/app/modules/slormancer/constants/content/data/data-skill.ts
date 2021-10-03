@@ -5,11 +5,12 @@ import {
     EffectValueSynergy,
     EffectValueVariable,
 } from '../../../model/content/effect-value';
+import { EffectValueUpgradeType } from '../../../model/content/enum/effect-value-upgrade-type';
 import { EffectValueValueType } from '../../../model/content/enum/effect-value-value-type';
 import { MechanicType } from '../../../model/content/enum/mechanic-type';
 import { SkillCostType } from '../../../model/content/enum/skill-cost-type';
 import { GameHeroesData } from '../../../model/parser/game/game-save';
-import { effectValueConstant } from '../../../util/effect-value.util';
+import { effectValueConstant, effectValueSynergy } from '../../../util/effect-value.util';
 import { isEffectValueSynergy } from '../../../util/utils';
 
 function setUpgrade(values: Array<AbstractEffectValue>, index: number, upgrade: number) {
@@ -1489,9 +1490,12 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     10: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 7);
+            setStat(values, 1, 'instructions');
+            setAsUpgrade(values, 1);
             setValue(values, 1, 2);
-            addConstant(values, 1, false, EffectValueValueType.Duration, 'skill_1_10_wait_duration');
+            addConstant(values, 1, false, EffectValueValueType.Duration, 'wait_duration');
         },
         additionalClassMechanics: []
     },
@@ -2356,76 +2360,99 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     118: {
         masteryRequired: 2,
         override: values => {
-            addConstant(values, 4, false, EffectValueValueType.AreaOfEffect, 'skill_wandering_arrow_range');
+            setStat(values, 0, 'physical_damage');
+            setAsUpgrade(values, 0);
+            addConstant(values, 4, false, EffectValueValueType.AreaOfEffect, 'wandering_arrow_range');
         },
         additionalClassMechanics: []
     },
     119: {
         masteryRequired: 2,
         override: values => {
+            setStat(values, 0, 'travel_back_additional_damage_per_remaining_instructions');
+            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
     120: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {{
+            setStat(values, 0, 'instructions_add');
+            setAsUpgrade(values, 0);
+        }},
         additionalClassMechanics: []
     },
     121: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'mana_regen_add_per_hit');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     122: {
         masteryRequired: 3,
         override: values => {
-            addConstant(values, 5, false, EffectValueValueType.Flat, 'skill_ancestral_strike_chance_per_yard');
+            addConstant(values, 5, false, EffectValueValueType.Upgrade, 'brut_chance_percent_per_yard_with_immortal_arrow');
         },
         additionalClassMechanics: []
     },
     123: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'inner_fire_chance_percent');
+            setAsUpgrade(values, 0);
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'can_trigger_inner_fire');
+        },
         additionalClassMechanics: []
     },
     124: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'physical_damage');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     125: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            values.push(effectValueSynergy(0, 100, EffectValueUpgradeType.UpgradeRank, true, 'additional_projectile', 'additional_instructions', EffectValueValueType.Upgrade))
+        },
         additionalClassMechanics: []
     },
     126: {
         masteryRequired: 5,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_serenity_per_completed_instruction');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'serenity_per_hit');
         },
         additionalClassMechanics: []
     },
     127: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'crit_damage_percent_per_instruction');
+        },
         additionalClassMechanics: []
     },
     128: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'stun_duration');
+        },
         additionalClassMechanics: []
     },
     129: {
         masteryRequired: 7,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_critical_strike_chance_per_traveled_yard');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'crit_chance_percent_per_traveled_yard');
         },
         additionalClassMechanics: []
     },
     130: {
         masteryRequired: 8,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_buff_increased_attack_speed_per_return_hit');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'exhilerating_senses_stack_cooldown_reduction_global_mult');
         },
         additionalClassMechanics: []
     },
@@ -2437,9 +2464,12 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     132: {
         masteryRequired: 10,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_impatient_arrow_stack_per_second');
-            addConstant(values, 5, false, EffectValueValueType.Flat, 'skill_shockwave_chance_per_impatient_arrow_stack');
-            addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'skill_shockwave_aoe');
+            setAsUpgrade(values, 0);
+            setStat(values, 1, 'physical_damage');
+            setAsUpgrade(values, 1);
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'impatient_arrow_stack_per_second');
+            addConstant(values, 5, false, EffectValueValueType.Upgrade, 'impatient_arrow_stack_shockwave_chance');
+            addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'impatient_arrow_shockwave_aoe');
         },
         additionalClassMechanics: []
     },

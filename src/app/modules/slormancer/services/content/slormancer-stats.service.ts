@@ -5,6 +5,7 @@ import {
     HERO_MERGED_STATS_MAPPING,
     MergedStatMapping,
     MergedStatMappingSource,
+    SKILL_MERGED_STATS_MAPPING,
 } from '../../constants/content/data/data-character-stats-mapping';
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
 import { CharacterConfig } from '../../model/character-config';
@@ -232,7 +233,7 @@ export class SlormancerStatsService {
         }
 
         result.extractedStats = extractedStats.stats;
-        result.stats = this.buildMergedStats(extractedStats.stats, [...GLOBAL_MERGED_STATS_MAPPING, ...HERO_MERGED_STATS_MAPPING[character.heroClass]], config);
+        result.stats = this.buildMergedStats(extractedStats.stats, [...GLOBAL_MERGED_STATS_MAPPING, ...HERO_MERGED_STATS_MAPPING[character.heroClass], ...valueOrDefault(SKILL_MERGED_STATS_MAPPING[character.heroClass][skillAndUpgrades.skill.id], []) ], config);
         this.addSkillStats(result.stats, character.skills);
 
         for (const stats of result.stats) {

@@ -120,6 +120,10 @@ export class SlormancerSkillService {
             if (overrideData.costTypeOverride && (<Skill | SkillUpgrade>skill).costType) {
                 (<Skill | SkillUpgrade>skill).costType = overrideData.costTypeOverride;
             }
+
+            if (overrideData.additionalGenres && 'genres' in skill) {
+                skill.genres.push(...overrideData.additionalGenres)
+            }
         }
     } 
 

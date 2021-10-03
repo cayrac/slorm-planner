@@ -81,6 +81,8 @@ export class SlormancerCharacterUpdaterService {
         enlightenment_stacks: 852,
         delightful_rain_stacks: 25,
         target_latent_storm_stacks: 25,
+        exhilerating_senses_stacks: 25,
+        impatient_arrow_stacks: 10,
         distance_with_target: 5,
         has_aura_air_conditionner: true,
         has_aura_neriya_shield: true,
