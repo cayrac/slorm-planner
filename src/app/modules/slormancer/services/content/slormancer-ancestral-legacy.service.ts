@@ -156,13 +156,11 @@ export class SlormancerAncestralLegacyService {
                 auraBuff: gameData.AURA_BUFF_NAME === null ? null : this.slormancerBuffService.getBuff(gameData.AURA_BUFF_NAME),
                 genres: <Array<SkillGenre>>splitData(gameData.GENRE, ","),
                 cost: null,
-                nextRankCost: null,
-                maxRankCost: null,
+                currentRankCost: null,
                 baseCost: gameData.COST,
                 costPerRank: gameData.COST_LEVEL,
                 costType: <SkillCostType>gameData.COST_TYPE,
                 rank: 0,
-                nextRank: 1,
                 baseRank: rank,
                 bonusRank: bonusRank,
                 baseMaxRank: gameData.UPGRADE_NUMBER,
@@ -202,15 +200,11 @@ export class SlormancerAncestralLegacyService {
         ancestralLegacy.bonusRank = Math.max(0, bonusRank);
         ancestralLegacy.rank = ancestralLegacy.baseRank + ancestralLegacy.bonusRank;
         ancestralLegacy.maxRank = ancestralLegacy.baseMaxRank + ancestralLegacy.bonusRank;
-        ancestralLegacy.nextRank = Math.min(ancestralLegacy.rank + 1, ancestralLegacy.maxRank);
 
         ancestralLegacy.cost = null;
-        ancestralLegacy.nextRankCost = null;
-        ancestralLegacy.maxRankCost = null;
         if (ancestralLegacy.baseCost !== null) {
-            ancestralLegacy.cost = ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * Math.max(1, ancestralLegacy.rank));
-            ancestralLegacy.nextRankCost = ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * ancestralLegacy.nextRank);
-            ancestralLegacy.maxRankCost = ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * ancestralLegacy.maxRank);    
+            ancestralLegacy.currentRankCost = ancestralLegacy.baseCost + (ancestralLegacy.costPerRank === null ? 0 : ancestralLegacy.costPerRank * Math.max(1, ancestralLegacy.rank));
+            ancestralLegacy.cost = ancestralLegacy.currentRankCost;
         }
 
         for (const effectValue of ancestralLegacy.values) {

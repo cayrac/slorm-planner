@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Affix } from '../../model/content/affix';
 import { AttributeEnchantment } from '../../model/content/attribute-enchantment';
 import { Attribute } from '../../model/content/enum/attribute';
-import { EffectValueType } from '../../model/content/enum/effect-value-type';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
 import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
 import { EquipableItemBase } from '../../model/content/enum/equipable-item-base';
@@ -16,6 +15,7 @@ import { LegendaryEffect } from '../../model/content/legendary-effect';
 import { ReaperEnchantment } from '../../model/content/reaper-enchantment';
 import { SkillEnchantment } from '../../model/content/skill-enchantment';
 import { GameEnchantment, GameEquippableItem, GameItem, GameRessourceItem } from '../../model/parser/game/game-item';
+import { effectValueVariable } from '../../util/effect-value.util';
 import {
     compare,
     compareRarities,
@@ -187,19 +187,7 @@ export class SlormancerItemService {
             craftedReaperSmith: smith,
             craftableValues: this.slormancerItemValueService.computeReaperEnchantmentValues(),
             craftedValue: value,
-            
-            effect: {
-                type:EffectValueType.Variable,
-                percent: false,
-                value: 0,
-                displayValue: 0,
-                baseValue: 0,
-                stat: '',
-                valueType: EffectValueValueType.Stat,
-                upgradeType: EffectValueUpgradeType.Reinforcment,
-                upgrade: 0,
-            },
-
+            effect: effectValueVariable(0, 0, EffectValueUpgradeType.Reinforcment, false, '', EffectValueValueType.Stat),
             label: '',
             icon: 'assets/img/icon/enchantment/reaper.png'
         }
@@ -214,19 +202,7 @@ export class SlormancerItemService {
             craftedSkill: skillId,
             craftableValues: this.slormancerItemValueService.computeSkillEnchantmentValues(),
             craftedValue: value,
-            
-            effect: {
-                type:EffectValueType.Variable,
-                percent: false,
-                value: 0,
-                displayValue: 0,
-                baseValue: 0,
-                stat: '',
-                valueType: EffectValueValueType.Stat,
-                upgradeType: EffectValueUpgradeType.Reinforcment,
-                upgrade: 0,
-            },
-
+            effect: effectValueVariable(0, 0, EffectValueUpgradeType.Reinforcment, false, '', EffectValueValueType.Stat),
             label: '',
             icon: ''
         };
@@ -241,19 +217,7 @@ export class SlormancerItemService {
             craftedAttribute: attribute,
             craftableValues: this.slormancerItemValueService.computeAttributeEnchantmentValues(),
             craftedValue: value,
-            
-            effect: {
-                type:EffectValueType.Variable,
-                percent: false,
-                value: 0,
-                displayValue: 0,
-                baseValue: 0,
-                stat: '',
-                valueType: EffectValueValueType.Stat,
-                upgradeType: EffectValueUpgradeType.Reinforcment,
-                upgrade: 0,
-            },
-
+            effect: effectValueVariable(0, 0, EffectValueUpgradeType.Reinforcment, false, '', EffectValueValueType.Stat),
             label: '',
             icon: ''
         };

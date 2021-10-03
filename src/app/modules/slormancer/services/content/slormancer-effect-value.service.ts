@@ -42,6 +42,11 @@ export class SlormancerEffectValueService {
                 displayValue += 1000 * effectValue.upgrade * displayUpgradeMultiplier;
             }
             effectValue.value = value / 1000;
+
+            if (isEffectValueVariable(effectValue)) {
+                effectValue.upgradedValue = effectValue.value;
+            }
+
             // TODO the round here is necessary on the displayValue to keep the real hidden value
             effectValue.displayValue = round(displayValue / 1000, 3);
         }

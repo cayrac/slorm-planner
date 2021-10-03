@@ -4,8 +4,11 @@ import { MessageService } from '../../shared/services/message.service';
 import { DATA_HERO_BASE_STATS } from '../constants/content/data/data-hero-base-stats';
 import { Character } from '../model/character';
 import { CharacterConfig } from '../model/character-config';
+import { Activable } from '../model/content/activable';
+import { AncestralLegacy } from '../model/content/ancestral-legacy';
 import { ALL_ATTRIBUTES, Attribute } from '../model/content/enum/attribute';
 import { ALL_GEAR_SLOT_VALUES } from '../model/content/enum/gear-slot';
+import { SkillGenre } from '../model/content/enum/skill-genre';
 import { EquipableItem } from '../model/content/equipable-item';
 import { Reaper } from '../model/content/reaper';
 import { isFirst, isNotNullOrUndefined, valueOrDefault } from '../util/utils';
@@ -212,7 +215,10 @@ export class SlormancerCharacterUpdaterService {
         }
         for (const ancestralLegacy of statsResult.changed.ancestralLegacies.filter(isFirst)) {
             this.slormancerAncestralLegacyService.updateAncestralLegacyView(ancestralLegacy); 
-            // console.log('Updating ancestral legacy : ' + ancestralLegacy.name);
+
+            if (ancestralLegacy.id === 19) {
+                console.log('Updating ancestral legacy : ' + ancestralLegacy.id + ' : ' + ancestralLegacy.name);
+            }
         }
         for (const reaper of statsResult.changed.reapers.filter(isFirst)) {
             this.slormancerReaperService.updateReaperView(reaper);
@@ -263,18 +269,62 @@ export class SlormancerCharacterUpdaterService {
         }
     }
 
-    private updateCharacterStats(character: Character, updateViews: boolean, config: CharacterConfig, additionalItem: EquipableItem | null) {
-
+    private getCharacterStatsResult(character: Character, config: CharacterConfig, additionalItem: EquipableItem | null): CharacterStatsBuildResult {
         const stats = DATA_HERO_BASE_STATS[character.heroClass];
-
+        
         character.baseStats = stats.baseStats.map(baseStat => ({ stat: baseStat.stat, values: [ baseStat.base + character.level * baseStat.perLevel] }));
         const levelStats = valueOrDefault(stats.levelonlyStat[character.level], []);
         for (const levelStat of levelStats) {
             character.baseStats.push({ stat: levelStat.stat, values: [levelStat.value]});
         }
 
-        const statsResult = this.slormancerStatsService.updateCharacterStats(character, config, additionalItem);
+        return this.slormancerStatsService.updateCharacterStats(character, config, additionalItem);
+    }
+
+    private updateCharacterActivables(character: Character, statsResult: CharacterStatsBuildResult, additionalItem: EquipableItem | null, auraOnly: boolean): { items: Array<EquipableItem>, ancestralLegacies: Array<AncestralLegacy> } {
+        const ancestralLegacies = character.ancestralLegacies.ancestralLegacies.filter(ancestralLegacy => ancestralLegacy.isActivable);
+        const items = <Array<EquipableItem>>[...ALL_GEAR_SLOT_VALUES.map(slot => character.gear[slot]), ...character.inventory, ...character.sharedInventory.flat(), additionalItem]
+            .filter(item => item !== null && item.legendaryEffect !== null && item.legendaryEffect.activable !== null);
+        const result: { items: Array<EquipableItem>, ancestralLegacies: Array<AncestralLegacy> } = { items: [], ancestralLegacies: [] };
+
+
+        for (const ancestralLegacy of ancestralLegacies) {
+            if (ancestralLegacy.genres.includes(SkillGenre.Aura) || !auraOnly) {
+                this.slormancerValueUpdater.updateAncestralLegacyActivable(ancestralLegacy, statsResult);
+                result.ancestralLegacies.push(ancestralLegacy);
+            }
+        }
+        for (const item of items) {
+            const activable = <Activable>item.legendaryEffect?.activable;
+            if (activable.genres.includes(SkillGenre.Aura) || !auraOnly) {
+                this.slormancerValueUpdater.updateActivable(activable, statsResult);
+                result.items.push(item);
+            }
+        }
+
+        return { items, ancestralLegacies };
+    }
+
+    private updateCharacterStats(character: Character, updateViews: boolean, config: CharacterConfig, additionalItem: EquipableItem | null) {
+
+        const statResultPreAura = this.getCharacterStatsResult(character, config, additionalItem)
+        const auraChanged = this.updateCharacterActivables(character, statResultPreAura, additionalItem, true);
+
+        console.log('Changed pre aura', statResultPreAura);
+
+        const statsResult = this.getCharacterStatsResult(character, config, additionalItem);
         character.stats = statsResult.stats;
+
+        statsResult.changed.items.push(...auraChanged.items);
+        statsResult.changed.items.push(...statResultPreAura.changed.items);
+        statsResult.changed.ancestralLegacies.push(...auraChanged.ancestralLegacies);
+        statsResult.changed.ancestralLegacies.push(...statResultPreAura.changed.ancestralLegacies);
+        statsResult.changed.activables.push(...statResultPreAura.changed.activables);
+        statsResult.changed.attributes.push(...statResultPreAura.changed.attributes);
+        statsResult.changed.reapers.push(...statResultPreAura.changed.reapers);
+        statsResult.changed.skills.push(...statResultPreAura.changed.skills);
+        statsResult.changed.upgrades.push(...statResultPreAura.changed.upgrades);
+
 
         for (const ancestralLegacyId of statsResult.unlockedAncestralLegacies) {
             const ancestralLegacy = character.ancestralLegacies.ancestralLegacies.find(ancestralLegacy => ancestralLegacy.id === ancestralLegacyId);
@@ -293,6 +343,10 @@ export class SlormancerCharacterUpdaterService {
             statsResult.changed.skills.push(skillAndUpgrades.skill);
             statsResult.changed.upgrades.push(...skillAndUpgrades.upgrades);
         }
+
+        const activableChanged = this.updateCharacterActivables(character, statsResult, additionalItem, false);
+        statsResult.changed.items.push(...activableChanged.items);
+        statsResult.changed.ancestralLegacies.push(...activableChanged.ancestralLegacies);
 
         this.displaySynergyLoopError(statsResult)
 

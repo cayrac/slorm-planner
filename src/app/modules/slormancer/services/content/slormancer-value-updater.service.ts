@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 
 import { CharacterSkillAndUpgrades } from '../../model/character';
+import { Activable } from '../../model/content/activable';
+import { AncestralLegacy } from '../../model/content/ancestral-legacy';
 import { MergedStat } from '../../model/content/character-stats';
 import { EffectValueSynergy } from '../../model/content/effect-value';
 import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
 import { HeroClass } from '../../model/content/enum/hero-class';
+import { SkillCostType } from '../../model/content/enum/skill-cost-type';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { Skill } from '../../model/content/skill';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
@@ -81,7 +84,28 @@ export class SlormancerValueUpdater {
             const increasedDamage = <number>stats.extractedStats['increased_damage_mult_per_potential_projectile'][0];
             const projectilesMultiplier = Math.floor(skillStats.additionalProjectiles.total);
             multipliers.push(increasedDamage * projectilesMultiplier);
-            console.log('increased_damage_mult_per_potential_projectile', increasedDamage, projectilesMultiplier, increasedDamage * projectilesMultiplier);
+        }
+
+        return multipliers.filter(v => v !== 0);
+    }
+
+    private getValidStatMultipliers(genres: Array<SkillGenre>, skillStats: SkillStats, stats: SkillStatsBuildResult): Array<number> {
+        const multipliers: Array<number> = [];
+        
+        if (genres.includes(SkillGenre.Aoe)) {
+            multipliers.push(skillStats.aoeIncreasedEffect.total);
+        }
+
+        if (genres.includes(SkillGenre.Totem)) {
+            multipliers.push(skillStats.totemIncreasedEffect.total);
+        }
+
+        if (genres.includes(SkillGenre.Aura)) {
+            multipliers.push(skillStats.auraIncreasedEffect.total);
+        }
+
+        if (genres.includes(SkillGenre.Minion)) {
+            multipliers.push(skillStats.minionIncreasedDamage.total);
         }
 
         return multipliers.filter(v => v !== 0);
@@ -101,8 +125,8 @@ export class SlormancerValueUpdater {
         return multipliers.filter(v => v !== 0);
     }
 
-    public updateSkillAndUpgradeValues(skillAndUpgrades: CharacterSkillAndUpgrades, stats: SkillStatsBuildResult): Array<SkillUpgrade> {
-        const skillStats: SkillStats = {
+    private getSkillStats(stats: SkillStatsBuildResult): SkillStats {
+        return {
             mana: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'mana_cost'),
             cooldown: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'cooldown_time'),
             attackSpeed: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'attack_speed'),
@@ -116,10 +140,82 @@ export class SlormancerValueUpdater {
             additionalDuration: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'skill_additional_duration'),
             additionalProjectiles: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'additional_projectile'),
         }
+    }
 
-        if (skillAndUpgrades.skill.id === 10) {
-            console.log('update skill and upgrade values ', skillAndUpgrades, stats.stats, skillStats);
+    public updateActivable(activable: Activable, statsResult: SkillStatsBuildResult) {
+        const skillStats = this.getSkillStats(statsResult);
+
+        activable.cost = skillStats.mana.values.multiplier.reduce((t, v) => t * (100 + v) / 100 , activable.baseCost);
+        activable.cooldown = round(activable.baseCooldown * (100 - skillStats.attackSpeed.total) / 100, 2);
+        
+        for (const value of activable.values) {
+            if (isEffectValueSynergy(value)) {
+                if (isDamageType(value.stat)) {
+                    const damageMultipliers = this.getValidDamageMultipliers(activable.genres, skillStats, statsResult);
+                    this.updateDamages([value], 0, damageMultipliers);
+                }
+            } else if (value.valueType === EffectValueValueType.AreaOfEffect) {
+                value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
+                value.displayValue = round(value.value, 2);
+            } else if (value.valueType !== EffectValueValueType.Static)  {
+                const statMultipliers = this.getValidStatMultipliers(activable.genres, skillStats, statsResult);
+                value.value = isEffectValueVariable(value) ? value.upgradedValue : value.baseValue;
+                if (value.percent) {
+                    let sumMultiplier = 100;
+                    for (const multiplier of statMultipliers) {
+                        sumMultiplier += multiplier;
+                    }
+                    value.value = value.value * sumMultiplier / 100;
+                } else {
+                    for (const multiplier of statMultipliers) {
+                        value.value = value.value * (100 + multiplier) / 100;
+                    }
+                }
+                value.displayValue = round(value.value, 3);
+            }
         }
+    }
+
+    public updateAncestralLegacyActivable(ancestralLegacy: AncestralLegacy, statsResult: SkillStatsBuildResult) {
+        const skillStats = this.getSkillStats(statsResult);
+
+        if (ancestralLegacy.currentRankCost !== null && ancestralLegacy.hasManaCost && ancestralLegacy.costType !== SkillCostType.ManaLock) {
+            ancestralLegacy.cost = skillStats.mana.values.multiplier.reduce((t, v) => t * (100 + v) / 100 , ancestralLegacy.currentRankCost);
+        }
+        if (ancestralLegacy.baseCooldown !== null) {
+            ancestralLegacy.cooldown = round(ancestralLegacy.baseCooldown * (100 - skillStats.attackSpeed.total) / 100, 2);
+        }
+        
+        for (const value of ancestralLegacy.values) {
+            if (isEffectValueSynergy(value)) {
+                if (isDamageType(value.stat)) {
+                    const damageMultipliers = this.getValidDamageMultipliers(ancestralLegacy.genres, skillStats, statsResult);
+                    this.updateDamages([value], 0, damageMultipliers);
+                }
+            } else if (value.valueType === EffectValueValueType.AreaOfEffect) {
+                value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
+                value.displayValue = round(value.value, 2);
+            } else if (value.valueType !== EffectValueValueType.Static) {
+                const statMultipliers = this.getValidStatMultipliers(ancestralLegacy.genres, skillStats, statsResult);
+                value.value = isEffectValueVariable(value) ? value.upgradedValue : value.baseValue;
+                if (value.percent) {
+                    let sumMultiplier = 100;
+                    for (const multiplier of statMultipliers) {
+                        sumMultiplier += multiplier;
+                    }
+                    value.value = value.value * sumMultiplier / 100;
+                } else {
+                    for (const multiplier of statMultipliers) {
+                        value.value = value.value * (100 + multiplier) / 100;
+                    }
+                }
+                value.displayValue = round(value.value, 3);
+            }
+        }
+    }
+
+    public updateSkillAndUpgradeValues(skillAndUpgrades: CharacterSkillAndUpgrades, stats: SkillStatsBuildResult): Array<SkillUpgrade> {
+        const skillStats = this.getSkillStats(stats);
 
         this.updateSkillValues(skillAndUpgrades.skill, skillStats, stats);
 
@@ -140,7 +236,6 @@ export class SlormancerValueUpdater {
     }
 
     private updateDamages(damages: Array<EffectValueSynergy>, additional: number | MinMax, multipliers: Array<number>) {
-        // console.log('update damages ', damages, additional, multipliers);
         if (typeof additional === 'number' && additional > 0 || typeof additional !== 'number' && (additional.min > 0 || additional.max > 0)) {
             const averageDamages = damages.map(v => typeof v.synergy === 'number' ? v.synergy : ((v.synergy.min + v.synergy.max) / 2));
             const totalDamages = averageDamages.reduce((t, v) => t + v, 0);
@@ -234,7 +329,6 @@ export class SlormancerValueUpdater {
 
         const instructionsValue = skill.values.find(value => value.stat === 'instructions');
         if (instructionsValue && isEffectValueVariable(instructionsValue)) {
-            console.log('has instructions value : ', instructionsValue);
             this.slormancerEffectValueService.updateEffectValue(instructionsValue, skill.level);
             const instructionsTotal = <number>valueOrDefault(statsResult.stats.find(stat => stat.stat === 'additional_instructions')?.total, 0);
             instructionsValue.value += instructionsTotal;

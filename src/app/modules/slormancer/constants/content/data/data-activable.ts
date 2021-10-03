@@ -13,6 +13,16 @@ function overrideValueStat(effects: Array<AbstractEffectValue>, index: number, s
         throw new Error('failed to override effect stat at index ' + index + ' with : ' + stat);
     }
 }
+function halveSynergy(effects: Array<AbstractEffectValue>, index: number) {
+    const effect = effects[index];
+
+    if (effect && isEffectValueSynergy(effect)) {
+        effect.baseValue = effect.baseValue / 2;
+        effect.upgrade = effect.upgrade / 2;
+    } else {
+        throw new Error('failed to halve synergy at index ' + index);
+    }
+}
 
 function addConstant(values: Array<AbstractEffectValue>, value: number, percent: boolean, valueType: EffectValueValueType, stat: string | null = null) {
     values.push(effectValueConstant(value, percent, stat, valueType));
@@ -52,13 +62,19 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
             overrideValueStat(values, 0, 'health_restored');
             overrideValueStat(values, 1, 'ring_of_life_health_restored_over_time');
             overrideValueStat(values, 2, 'ring_of_health_duration');
+
+            halveSynergy(values, 0);
+            halveSynergy(values, 1);
         }
     },
     8: {
         override: values => {
             overrideValueStat(values, 0, 'mana_restored');
-            overrideValueStat(values, 1, 'ring_of_mana_mana_restored_over_time');
-            overrideValueStat(values, 2, 'ring_of_mana_duration');
+            overrideValueStat(values, 1, 'mana_restored_over_time');
+            overrideValueStat(values, 2, 'mana_restored_over_time_duration');
+            
+            halveSynergy(values, 0);
+            halveSynergy(values, 1);
         }
     },
     10: {

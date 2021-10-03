@@ -16,7 +16,12 @@ function addConstant(values: Array<AbstractEffectValue>, value: number, percent:
     values.push(effectValueConstant(value, percent, stat, valueType))
 }
 
-export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {    
+export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {     
+    0: {
+        override: values => {
+            setStat(values, 0, 'elemental_damage');
+        }
+    },
     15: {
         override: values => {
             setStat(values, 0, 'aura_air_conditionner_enemy_cooldown_reduction_global_mult');
@@ -27,6 +32,16 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
         override: values => {
             setStat(values, 0, 'aura_neriya_shield_res_mag_add');
             addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'aura_neriya_shield_aoe');
+        }
+    },
+    19: {
+        override: values => {
+            setStat(values, 0, 'elemental_damage');
+        }
+    },
+    24: {
+        override: values => {
+            setStat(values, 0, 'elemental_damage');
         }
     },
     32: {
@@ -63,7 +78,7 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
     93: {
         override: values => {
             setStat(values, 0, 'aura_elemental_swap_elemental_damage_percent');
-            addConstant(values, 100, true, EffectValueValueType.Stat, 'aura_elemental_swap_mana_cost_increase');
+            addConstant(values, 100, true, EffectValueValueType.Static, 'aura_elemental_swap_mana_cost_increase');
         }
     },
     94: {
