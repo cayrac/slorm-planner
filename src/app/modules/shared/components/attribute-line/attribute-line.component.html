@@ -1,4 +1,8 @@
-<div *ngIf="attribute !== null" class="bar attribute-{{attribute.attribute}}" cdkOverlayOrigin #trigger="cdkOverlayOrigin" [class.icon-shift]="iconShift">
+<div *ngIf="attribute !== null" class="bar attribute-{{attribute.attribute}}" cdkOverlayOrigin
+    #trigger="cdkOverlayOrigin"
+    [class.icon-shift]="iconShift"
+    [class.readonly]="readonly"
+    [class.short]="short">
     <img [src]="attribute.icon" 
         (mouseenter)="showSummary = true"
         (mouseleave)="showSummary = false"/>
@@ -26,10 +30,10 @@
         [cdkConnectedOverlayOrigin]="trigger">
         <app-attribute-summary-view [attributeTraits]="attribute" ></app-attribute-summary-view>
     </ng-template>
-    <button mat-icon-button color="primary" (click)="addPoint($event)" [disabled]="remainingPoints === 0">
+    <button mat-icon-button color="primary" (click)="addPoint($event)" [disabled]="remainingPoints === 0" *ngIf="!readonly">
         <mat-icon>add</mat-icon>
     </button>
-    <button mat-icon-button color="primary" (click)="removePoint($event)" [disabled]="attribute.rank === 0">
+    <button mat-icon-button color="primary" (click)="removePoint($event)" [disabled]="attribute.rank === 0" *ngIf="!readonly">
         <mat-icon>remove</mat-icon>
     </button>
 </div>

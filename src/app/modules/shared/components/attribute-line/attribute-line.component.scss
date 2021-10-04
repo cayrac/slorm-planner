@@ -1,5 +1,5 @@
-@import "../../../../../../../assets/scss/abstracts/flex";
-@import "../../../../../../../assets/scss/abstracts/color";
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/color";
 
 $bar-color: primary-color(300);
 
@@ -49,6 +49,9 @@ $shift-size: $space-unit * 4;
         width: 20px;
         height: 22px;
         z-index: 1;
+    }
+    
+    &:not(.readonly) .pre-bar {
         cursor: pointer;
     }
 
@@ -68,6 +71,15 @@ $shift-size: $space-unit * 4;
 
     button {
         margin-left: $space-unit * 2;
+    }
+
+    &.short {
+        app-trait {
+            display: none;
+        }
+        .total {
+            @include flex(row, center);
+        }
     }
 
     @include respond-to('tablet') {

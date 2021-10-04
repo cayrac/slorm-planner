@@ -29,7 +29,81 @@
                     <div class="cell"><div class="value" [matTooltip]="MAX_DODGE_LABEL">{{getDodge()}}</div><img src="assets/img/icon/stat/dodge.png"/></div>
                 </div>
             </div>
-            Skills
+            <div class="skill-info">
+                <h4>Support Skill</h4>
+                <div class="skill-line">
+                    <div class="skill">
+                        <app-skill-slot [skill]="character.supportSkill" [support]="true"></app-skill-slot>
+                    </div>
+                    <div class="upgrades">
+                        <app-upgrade-slot *ngFor="let upgrade of getSkillUpgrades(character.supportSkill)"
+                            [upgrade]="upgrade"
+                            [equipped]="false"
+                            [selected]="false">
+                        </app-upgrade-slot>
+                    </div>
+                </div>
+            </div>
+            <div class="skill-info">
+                <h4>Primary Skill</h4>
+                <div class="skill-line">
+                    <div class="skill">
+                        <app-skill-slot [skill]="character.primarySkill"></app-skill-slot>
+                    </div>
+                    <div class="upgrades">
+                        <app-upgrade-slot *ngFor="let upgrade of getSkillUpgrades(character.primarySkill)"
+                            [upgrade]="upgrade"
+                            [equipped]="false"
+                            [selected]="false">
+                        </app-upgrade-slot>
+                    </div>
+                </div>
+            </div>
+            <div class="skill-info">
+                <h4>Secondary Skill</h4>
+                <div class="skill-line">
+                    <div class="skill">
+                        <app-skill-slot [skill]="character.secondarySkill"></app-skill-slot>
+                    </div>
+                    <div class="upgrades">
+                        <app-upgrade-slot *ngFor="let upgrade of getSkillUpgrades(character.secondarySkill)"
+                            [upgrade]="upgrade"
+                            [equipped]="false"
+                            [selected]="false">
+                        </app-upgrade-slot>
+                    </div>
+                </div>
+            </div>
+            <div class="activables-ancestral-legacies">
+                <div class="activables">
+                    <h4>Activables</h4>
+                    <div class="slots">
+                        <app-activable-slot [activable]="character.activable1"></app-activable-slot>
+                        <app-activable-slot [activable]="character.activable2"></app-activable-slot>
+                        <app-activable-slot [activable]="character.activable3"></app-activable-slot>
+                        <app-activable-slot [activable]="character.activable4"></app-activable-slot>
+                    </div>
+                </div>
+                <div class="ancestral-legacies">
+                    <h4>Ancestral Legacies</h4>
+                    <div class="slots">
+                        <app-ancestral-legacy-slot *ngFor="let ancestralLegacy of getAncestralLegacies()"
+                            [ancestralLegacy]="ancestralLegacy">
+                        </app-ancestral-legacy-slot>
+                    </div>
+                </div>
+            </div>
+            <div class="attributes">
+                <ng-container *ngFor="let attribute of ALL_ATTRIBUTES">
+                    <app-attribute-line *ngIf="showAttribute(attribute)"
+                        [short]="true"
+                        [readonly]="true"
+                        [iconShift]="true"
+                        [attribute]="character.attributes.allocated[attribute]"
+                        [remainingPoints]="character.attributes.remainingPoints">
+                    </app-attribute-line>
+                </ng-container>
+            </div>
         </mat-card-content>
     </mat-card>
 </main>

@@ -12,17 +12,11 @@ import { AncestralLegaciesComponent } from './component/ancestral-legacies/ances
 import {
     AncestralLegacyMapComponent,
 } from './component/ancestral-legacies/components/ancestral-legacy-map/ancestral-legacy-map.component';
-import {
-    AncestralLegacySlotComponent,
-} from './component/ancestral-legacies/components/ancestral-legacy-slot/ancestral-legacy-slot.component';
 import { AttributesComponent } from './component/attributes/attributes.component';
-import { AttributeLineComponent } from './component/attributes/components/attribute-line/attribute-line.component';
-import { TraitComponent } from './component/attributes/components/trait/trait.component';
 import { BuildHeaderComponent } from './component/build-header/build-header.component';
 import { InventoryComponent } from './component/inventory/inventory.component';
 import { SidenavComponent } from './component/sidenav/sidenav.component';
 import { SettingsSkillsComponent } from './component/skills/components/settings-skills/settings-skills.component';
-import { UpgradeSlotComponent } from './component/skills/components/upgrade-slot/upgrade-slot.component';
 import { SkillsComponent } from './component/skills/skills.component';
 import { StatsComponent } from './component/stats/stats.component';
 
@@ -35,12 +29,8 @@ import { StatsComponent } from './component/stats/stats.component';
         BuildComponent,
         BuildHeaderComponent,
         SettingsSkillsComponent,
-        UpgradeSlotComponent,
         AncestralLegacyMapComponent,
-        AncestralLegacySlotComponent,
         AttributesComponent,
-        AttributeLineComponent,
-        TraitComponent,
         SidenavComponent,
         StatsComponent
     ],

@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { PlannerService } from '../../../../../shared/services/planner.service';
-import { AttributeTraits } from '../../../../../slormancer/model/content/attribut-traits';
-import { MinMax } from '../../../../../slormancer/model/minmax';
-import { SlormancerAttributeService } from '../../../../../slormancer/services/content/slormancer-attribute.service';
+import { AttributeTraits } from '../../../slormancer/model/content/attribut-traits';
+import { MinMax } from '../../../slormancer/model/minmax';
+import { SlormancerAttributeService } from '../../../slormancer/services/content/slormancer-attribute.service';
+import { PlannerService } from '../../services/planner.service';
 
 @Component({
   selector: 'app-attribute-line',
@@ -20,6 +20,12 @@ export class AttributeLineComponent implements OnInit {
 
     @Input()
     public readonly iconShift: boolean = false;
+
+    @Input()
+    public readonly short: boolean = false;
+
+    @Input()
+    public readonly readonly: boolean = false;
 
     public unlockedRange: MinMax = { min: 0, max: 0 };
 
@@ -66,7 +72,7 @@ export class AttributeLineComponent implements OnInit {
     }
 
     private setRank(rank: number) {
-        if (this.attribute !== null && this.attribute.rank !== rank) {
+        if (this.attribute !== null && this.attribute.rank !== rank && !this.readonly) {
             this.attribute.rank = rank;
             this.slormancerAttributeService.updateAttributeTraits(this.attribute);
             this.plannerService.updateCurrentCharacter();

@@ -4,7 +4,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { ActivableSlotComponent } from './components/activable-slot/activable-slot.component';
 import { ActivableViewComponent } from './components/activable-view/activable-view.component';
+import { AncestralLegacySlotComponent } from './components/ancestral-legacy-slot/ancestral-legacy-slot.component';
 import { AncestralLegacyViewComponent } from './components/ancestral-legacy-view/ancestral-legacy-view.component';
+import { AttributeLineComponent } from './components/attribute-line/attribute-line.component';
 import { AttributeSummaryViewComponent } from './components/attribute-summary-view/attribute-summary-view.component';
 import { CharacterAnimationComponent } from './components/character-animation/character-animation.component';
 import { CharacterEquipmentComponent } from './components/character-equipment/character-equipment.component';
@@ -36,6 +38,8 @@ import { SkillUpgradeViewComponent } from './components/skill-upgrade-view/skill
 import { SkillViewComponent } from './components/skill-view/skill-view.component';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { TraitViewComponent } from './components/trait-view/trait-view.component';
+import { TraitComponent } from './components/trait/trait.component';
+import { UpgradeSlotComponent } from './components/upgrade-slot/upgrade-slot.component';
 import { MaterialModule } from './material.module';
 import { ClipboardService } from './services/clipboard.service';
 import { DownloadService } from './services/download.service';
@@ -82,6 +86,10 @@ import { SearchService } from './services/search.service';
         SkillBarComponent,
         SettingsMenuComponent,
         CharacterEquipmentComponent,
+        UpgradeSlotComponent,
+        AncestralLegacySlotComponent,
+        AttributeLineComponent,
+        TraitComponent,
     ],
     imports: [
         CommonModule,
@@ -118,6 +126,10 @@ import { SearchService } from './services/search.service';
         SkillBarComponent,
         SettingsMenuComponent,
         CharacterEquipmentComponent,
+        UpgradeSlotComponent,
+        AncestralLegacySlotComponent,
+        AttributeLineComponent,
+        TraitComponent,
     ],
     providers: [
         PlannerService,

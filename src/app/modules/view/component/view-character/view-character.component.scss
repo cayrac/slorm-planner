@@ -75,6 +75,55 @@ main {
                 }
             }
 
+            h4 {
+                margin: 0;
+            }
+
+            .skill-line {
+                @include flex(row, center, space-between);
+                @include flex-gap($space-unit * 4);
+                min-height: $space-content * 3;
+
+                .skill {
+                    width: 80px;
+                }
+
+                .upgrades {
+                    @include flex-grow(1);
+
+                    app-upgrade-slot {
+                        padding: $space-unit;
+                        float: left;
+                    }
+                }
+            }
+
+            .activables-ancestral-legacies {
+                @include flex(row, center, space-between);
+                @include flex-gap($space-unit * 4);
+
+                .activables, .ancestral-legacies {
+                    @include flex(column, stretch);
+                    @include flex-gap($space-unit * 2);
+                    @include flex-grow(1);
+
+                    .slots {
+                        @include flex(row, center);
+                        min-height: $space-content * 3;
+                        app-ancestral-legacy-slot {
+                            zoom: 2;
+                        }
+                    }
+                }
+            }
+
+            .attributes {
+                padding: $space-unit;
+                
+                app-attribute-line {
+                    float: left;
+                }
+            }
         }
     }
 

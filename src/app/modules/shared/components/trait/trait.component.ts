@@ -1,12 +1,10 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
-import {
-    AbstractUnsubscribeComponent,
-} from '../../../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
-import { SearchService } from '../../../../../shared/services/search.service';
-import { TraitLevel } from '../../../../../slormancer/model/content/enum/trait-level';
-import { Trait } from '../../../../../slormancer/model/content/trait';
+import { TraitLevel } from '../../../slormancer/model/content/enum/trait-level';
+import { Trait } from '../../../slormancer/model/content/trait';
+import { SearchService } from '../../services/search.service';
+import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 
 /*
 export interface Trait {

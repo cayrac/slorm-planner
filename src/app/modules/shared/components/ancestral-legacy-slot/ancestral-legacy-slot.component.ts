@@ -1,15 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
-import {
-    AbstractUnsubscribeComponent,
-} from '../../../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
-import { PlannerService } from '../../../../../shared/services/planner.service';
-import { SearchService } from '../../../../../shared/services/search.service';
-import { AncestralLegacy } from '../../../../../slormancer/model/content/ancestral-legacy';
-import {
-    SlormancerAncestralLegacyService,
-} from '../../../../../slormancer/services/content/slormancer-ancestral-legacy.service';
+import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
+import { SlormancerAncestralLegacyService } from '../../../slormancer/services/content/slormancer-ancestral-legacy.service';
+import { PlannerService } from '../../services/planner.service';
+import { SearchService } from '../../services/search.service';
+import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 
 
 @Component({
