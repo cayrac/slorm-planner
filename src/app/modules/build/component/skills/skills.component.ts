@@ -175,7 +175,6 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
                 this.slormancerSkillService.updateUpgrade(selectedUpgrade);
                 this.plannerService.updateCurrentCharacter();
             }
-            console.log(selectedUpgrade);
         }
         return false;
     }

@@ -36,6 +36,7 @@ import { ImportExportService } from './services/import-export.service';
 import { JsonCompresserService } from './services/json-compresser.service';
 import { JsonConverterService } from './services/json-converter.service';
 import { MessageService } from './services/message.service';
+import { OnlinePasteService } from './services/online-paste.service';
 import { PlannerService } from './services/planner.service';
 
 
@@ -101,6 +102,7 @@ import { PlannerService } from './services/planner.service';
         ClipboardService,
         DownloadService,
         JsonCompresserService,
+        OnlinePasteService,
     ],
 })
 export class SharedModule { }

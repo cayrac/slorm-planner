@@ -36,6 +36,8 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
 
     public importResult: SharedData | null = null;
 
+    public busy: boolean = false;
+
     public importContent = new FormControl(null, Validators.maxLength(this.MAX_UPLOAD_FILE_SIZE));
 
     constructor(private messageService: MessageService,
@@ -47,9 +49,14 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
         super();
         this.importContent.valueChanges.subscribe((value: string | null) => {
             const heroClass = this.plannerService.getPlannerclass();
-            if (this.importContent.valid && heroClass !== null) {
+            if (this.importContent.valid && heroClass !== null && !this.busy) {
                 if (value !== null && value.length > 0) {
-                    this.importResult = this.importExportService.import(value, heroClass);
+                    this.busy = true;
+                    this.importExportService.import(value, heroClass)
+                        .then(result => {
+                            this.busy = false;
+                            this.importResult = result
+                        });
                 } else {
                     this.importResult = null;
                 }
@@ -184,12 +191,14 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
         const layer = this.plannerService.getSelectedLayer();
 
         if (layer !== null) {
-            const exportedCharacter = this.importExportService.exportMinimalCharacter(layer.character);
-            if (this.clipboardService.copyToClipboard(exportedCharacter)) {
-                this.messageService.message('Link copied to clipboard');
-            } else {
-                this.messageService.error('Failed to copy link to clipboard');
-            }
+            this.importExportService.exportCharacterAsLink(layer.character)
+                .then(result => {
+                    if (result !== null && this.clipboardService.copyToClipboard(result)) {
+                        this.messageService.message('Link copied to clipboard');
+                    } else {
+                        this.messageService.error('Failed to create link to current layer');
+                    }
+                });
         }
     }
 }

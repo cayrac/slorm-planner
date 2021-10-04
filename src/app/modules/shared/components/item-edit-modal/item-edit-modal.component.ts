@@ -80,7 +80,6 @@ export class ItemEditModalComponent {
 
     public submit() {
         if (this.form.valid) {
-            console.log(this.item.legendaryEffect);
             this.dialogRef.close(this.item);
         }
     }

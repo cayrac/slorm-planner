@@ -210,31 +210,22 @@ export class SlormancerCharacterUpdaterService {
 
     private updateChangedItems(statsResult: CharacterStatsBuildResult) {
         for (const item of statsResult.changed.items.filter(isFirst)) {
-            // console.log('Updating item : ' + item.name);
             this.slormancerItemService.updateEquipableItemView(item);
         }
         for (const ancestralLegacy of statsResult.changed.ancestralLegacies.filter(isFirst)) {
             this.slormancerAncestralLegacyService.updateAncestralLegacyView(ancestralLegacy); 
-
-            if (ancestralLegacy.id === 19) {
-                console.log('Updating ancestral legacy : ' + ancestralLegacy.id + ' : ' + ancestralLegacy.name);
-            }
         }
         for (const reaper of statsResult.changed.reapers.filter(isFirst)) {
             this.slormancerReaperService.updateReaperView(reaper);
-            // console.log('Updating reaper : ' + reaper.name);
         }
         for (const skill of statsResult.changed.skills.filter(isFirst)) {
             this.slormancerSkillService.updateSkillView(skill);
-            // console.log('Updating skill : ' + skill.name);
         }
         for (const upgrade of statsResult.changed.upgrades.filter(isFirst)) {
             this.slormancerSkillService.updateUpgrade(upgrade);
-            // console.log('Updating upgrade : ' + upgrade.name);
         }
         for (const attribute of statsResult.changed.attributes.filter(isFirst)) {
             this.slormancerAttributeService.updateAttributeTraits(attribute);
-            // console.log('Updating attribute : ' + attribute.attributeName);
         }
         for (const activable of statsResult.changed.activables) {
             this.slormancerActivableService.updateActivableView(activable);
@@ -309,8 +300,6 @@ export class SlormancerCharacterUpdaterService {
 
         const statResultPreAura = this.getCharacterStatsResult(character, config, additionalItem)
         const auraChanged = this.updateCharacterActivables(character, statResultPreAura, additionalItem, true);
-
-        console.log('Changed pre aura', statResultPreAura);
 
         const statsResult = this.getCharacterStatsResult(character, config, additionalItem);
         character.stats = statsResult.stats;

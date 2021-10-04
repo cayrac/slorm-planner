@@ -22,7 +22,6 @@ import { JsonItem } from '../model/json/json-item';
 import { JsonLayer } from '../model/json/json-layer';
 import { JsonPlanner } from '../model/json/json-planner';
 import { JsonReaper } from '../model/json/json-reaper';
-import { JsonSharedData } from '../model/json/json-shared-data';
 import { JsonSkill } from '../model/json/json-skill';
 import { Layer } from '../model/layer';
 import { Planner } from '../model/planner';
@@ -366,11 +365,11 @@ export class JsonConverterService {
         };
     }
 
-    public jsonToSharedData(json: JsonSharedData): SharedData {
+    public jsonToSharedData(json: JsonPlanner | JsonLayer | JsonCharacter): SharedData {
         return {
-            character: json.character === null ? null : this.jsonToCharacter(json.character),
-            layer: json.layer === null ? null : this.jsonToLayer(json.layer),
-            planner: json.planner === null ? null : this.jsonToPlanner(json.planner)
+            character: json.type === 'c' ? this.jsonToCharacter(json) : null,
+            layer: json.type === 'l' ? this.jsonToLayer(json) : null,
+            planner: json.type === 'p' ? this.jsonToPlanner(json) : null
         };
     }
 

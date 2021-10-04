@@ -7,7 +7,7 @@
         <button mat-flat-button color="primary" (click)="fileInput.click()"><mat-icon>file_upload</mat-icon>From file</button>
         <mat-form-field appearance="outline" color="primary" floatLabel="never">
             <mat-label>Import content...</mat-label>
-            <textarea matInput [formControl]="importContent"></textarea>
+            <textarea matInput [formControl]="importContent" [disabled]="busy"></textarea>
             <mat-hint align="end" *ngIf="importResult === null">Paste here a build, layer, link or save data</mat-hint>
             <mat-hint align="end" class="success" *ngIf="importResult !== null && importResult.character !== null">Compatible character found</mat-hint>
             <mat-hint align="end" class="success" *ngIf="importResult !== null && importResult.layer !== null">Compatible layer found</mat-hint>
@@ -23,16 +23,16 @@
         <div class="export-details">
             <p>Current layer</p>
             <div class="actions">
-                <button mat-icon-button (click)="downloadLayer()" matTooltip="Download" matTooltipPosition="above"><mat-icon>file_download</mat-icon></button>
-                <button mat-icon-button (click)="copyLayer()" matTooltip="Copy to clipboard" matTooltipPosition="above"><mat-icon>content_copy</mat-icon></button>
-                <button mat-icon-button (click)="copyExternalLink()" matTooltip="External link" matTooltipPosition="above"><mat-icon>share</mat-icon></button>
+                <button mat-icon-button (click)="!busy && downloadLayer()" matTooltip="Download" matTooltipPosition="above"><mat-icon>file_download</mat-icon></button>
+                <button mat-icon-button (click)="!busy && copyLayer()" matTooltip="Copy to clipboard" matTooltipPosition="above"><mat-icon>content_copy</mat-icon></button>
+                <button mat-icon-button (click)="!busy && copyExternalLink()" matTooltip="External link" matTooltipPosition="above"><mat-icon>share</mat-icon></button>
             </div>
         </div>
         <div class="export-details">
             <p>Current build</p>
             <div class="actions">
-                <button mat-icon-button (click)="downloadPlanner()" matTooltip="Download" matTooltipPosition="above"><mat-icon>file_download</mat-icon></button>
-                <button mat-icon-button (click)="copyPlanner()" matTooltip="Copy to clipboard" matTooltipPosition="above"><mat-icon>content_copy</mat-icon></button>
+                <button mat-icon-button (click)="!busy && downloadPlanner()" matTooltip="Download" matTooltipPosition="above"><mat-icon>file_download</mat-icon></button>
+                <button mat-icon-button (click)="!busy && copyPlanner()" matTooltip="Copy to clipboard" matTooltipPosition="above"><mat-icon>content_copy</mat-icon></button>
             </div>
         </div>
     </div>

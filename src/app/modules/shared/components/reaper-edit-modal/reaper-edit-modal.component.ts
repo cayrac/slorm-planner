@@ -41,8 +41,6 @@ export class ReaperEditModalComponent {
         this.character = data.character;
         this.reaper = data.reaper;
         this.reset();
-
-        console.log(this.reaper);
     }
     
     public reset() {

@@ -4,19 +4,22 @@ import { Character } from '../../slormancer/model/character';
 import { HeroClass } from '../../slormancer/model/content/enum/hero-class';
 import { SlormancerSaveParserService } from '../../slormancer/services/parser/slormancer-save-parser.service';
 import { SlormancerCharacterBuilderService } from '../../slormancer/services/slormancer-character-builder.service';
+import { valueOrNull } from '../../slormancer/util/utils';
 import { Layer } from '../model/layer';
 import { Planner } from '../model/planner';
 import { SharedData } from '../model/shared-data';
-import { JsonCompresserService } from './json-compresser.service';
 import { JsonConverterService } from './json-converter.service';
+import { OnlinePasteService } from './online-paste.service';
 
 @Injectable()
 export class ImportExportService {
 
+    private readonly VIEW_PATH = window.origin + '/view/';
+
     constructor(private slormancerCharacterBuilderService: SlormancerCharacterBuilderService,
                 private slormancerSaveParserService: SlormancerSaveParserService,
-                private jsonConverterService: JsonConverterService,
-                private jsonCompresserService: JsonCompresserService) {
+                private pastebinService: OnlinePasteService,
+                private jsonConverterService: JsonConverterService) {
     }
 
     private parseSaveData(content: string, heroClass: HeroClass): Character {
@@ -24,58 +27,98 @@ export class ImportExportService {
         return this.slormancerCharacterBuilderService.getCharacterFromSave(save, heroClass);
     }
 
-    private parseUrlData(content: string, heroClass: HeroClass): SharedData {
-        const url = new URL(content);
-        return this.parseJsonData(<string>url.searchParams.get('data'), heroClass);
+    private parseUrlData(path: string): Promise<SharedData> {
+        return new Promise(resolve => {
+            const defaultResult: SharedData = {
+                character: null,
+                layer: null,
+                planner: null
+            }
+            let key: string | null = null;
+
+            try {
+                const url = new URL(path);
+                const fragments = url.pathname.split('/');
+                key = valueOrNull(fragments[fragments.length - 1]);
+            } catch (e) { }
+
+            if (key == null) {
+                resolve(defaultResult);
+            } else {
+                this.importFromOnlinePaste(key).then(data => resolve(data));
+            }
+        });
     }
 
-    private parseJsonData(content: string, heroClass: HeroClass): SharedData {
-        const json = this.jsonCompresserService.decompress(content);
+    private parseJsonData(content: string): SharedData {
+        const json = JSON.parse(content);
         return this.jsonConverterService.jsonToSharedData(json);
     }
 
-    public import(content: string, heroClass: HeroClass): SharedData {
-        let data: SharedData = {
-            character: null,
-            layer: null,
-            planner: null
-        };
-        let found = false;
-        
-        try {
-            data.character = this.parseSaveData(content, heroClass);
-            found = true;
-        } catch (e) { }
-
-        if (!found) {
-            try {
-                data = this.parseUrlData(content, heroClass);
-                found = true;
-            } catch (e) { }
-        }
-
-        if (!found) {
-            try {
-                data = this.parseJsonData(content, heroClass);
-                found = true;
-            } catch (e) { }
-        }
-
-        console.log('import : ', data);
-
-        return data;
+    public importFromOnlinePaste(key: string): Promise<SharedData> {
+        return new Promise(resolve => {
+            this.pastebinService.getPaste(key)
+            .subscribe(result => {
+                if (result !== null) {
+                    this.import(result).then(sharedData => resolve(sharedData));
+                } else {
+                    resolve({
+                        character: null,
+                        layer: null,
+                        planner: null
+                    });
+                }
+            });
+        });
     }
 
-    public exportMinimalCharacter(character: Character): string {
-        return this.jsonCompresserService.compressCharacter(this.jsonConverterService.characterToMinimalJson(character));
+    public import(content: string, heroClass: HeroClass | null = null): Promise<SharedData> {
+        return new Promise(resolve => {
+            let data: SharedData = {
+                character: null,
+                layer: null,
+                planner: null
+            };
+
+            if (heroClass !== null) {
+                try {
+                    data.character = this.parseSaveData(content, heroClass);
+                    resolve(data);
+                } catch (e) { console.log('save parsing error', e); }
+            }
+
+            try {
+                data = this.parseJsonData(atob(content));
+                resolve(data);
+            } catch (e) { console.log('base 64 parsing error', e); }
+    
+            try {
+                data = this.parseJsonData(content);
+                resolve(data);
+            } catch (e) { console.log('json parsing error', e); }
+    
+            this.parseUrlData(content)
+                .then(result => resolve(result));
+        });
+    }
+
+    public exportCharacter(character: Character): string {
+        return btoa(JSON.stringify(this.jsonConverterService.characterToJson(character)));
     }
 
     public exportLayer(layer: Layer): string {
-        return this.jsonCompresserService.compressLayer(this.jsonConverterService.layerToJson(layer));
+        return btoa(JSON.stringify(this.jsonConverterService.layerToJson(layer)));
     }
 
     public exportPlanner(planner: Planner): string {
-        console.log('export : ', this.jsonConverterService.plannerToJson(planner));
-        return this.jsonCompresserService.compressPlanner(this.jsonConverterService.plannerToJson(planner));
+        return btoa(JSON.stringify(this.jsonConverterService.plannerToJson(planner)));
+    }
+
+    public exportCharacterAsLink(character: Character): Promise<string | null> {
+        const content = this.exportCharacter(character);
+        return new Promise(resolve => {
+            this.pastebinService.createPaste(content)
+            .subscribe(result => resolve(result === null ? null : this.VIEW_PATH + result));
+        });
     }
 }
