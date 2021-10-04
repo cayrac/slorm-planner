@@ -2,9 +2,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { ActivableSlotComponent } from './components/activable-slot/activable-slot.component';
 import { ActivableViewComponent } from './components/activable-view/activable-view.component';
 import { AncestralLegacyViewComponent } from './components/ancestral-legacy-view/ancestral-legacy-view.component';
 import { AttributeSummaryViewComponent } from './components/attribute-summary-view/attribute-summary-view.component';
+import { CharacterAnimationComponent } from './components/character-animation/character-animation.component';
+import { CharacterEquipmentComponent } from './components/character-equipment/character-equipment.component';
 import {
     CharacterLevelEditModalComponent,
 } from './components/character-level-edit-modal/character-level-edit-modal.component';
@@ -19,11 +22,16 @@ import {
 } from './components/item-edit-legendary-effect/item-edit-legendary-effect.component';
 import { ItemEditModalComponent } from './components/item-edit-modal/item-edit-modal.component';
 import { ItemEditStatComponent } from './components/item-edit-stat/item-edit-stat.component';
+import { ItemSlotComponent } from './components/item-slot/item-slot.component';
 import { ItemViewComponent } from './components/item-view/item-view.component';
 import { ReaperEditModalComponent } from './components/reaper-edit-modal/reaper-edit-modal.component';
+import { ReaperSlotComponent } from './components/reaper-slot/reaper-slot.component';
 import { ReaperViewComponent } from './components/reaper-view/reaper-view.component';
 import { RemoveConfirmModalComponent } from './components/remove-confirm-modal/remove-confirm-modal.component';
 import { ReplacePlannerModalComponent } from './components/replace-planner-modal/replace-planner-modal.component';
+import { SettingsMenuComponent } from './components/settings-menu/settings-menu.component';
+import { SkillBarComponent } from './components/skill-bar/skill-bar.component';
+import { SkillSlotComponent } from './components/skill-slot/skill-slot.component';
 import { SkillUpgradeViewComponent } from './components/skill-upgrade-view/skill-upgrade-view.component';
 import { SkillViewComponent } from './components/skill-view/skill-view.component';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
@@ -33,15 +41,20 @@ import { ClipboardService } from './services/clipboard.service';
 import { DownloadService } from './services/download.service';
 import { FormOptionsService } from './services/form-options.service';
 import { ImportExportService } from './services/import-export.service';
+import { ItemMoveService as ItemMoveService } from './services/item-move.service';
 import { JsonCompresserService } from './services/json-compresser.service';
 import { JsonConverterService } from './services/json-converter.service';
 import { MessageService } from './services/message.service';
 import { OnlinePasteService } from './services/online-paste.service';
 import { PlannerService } from './services/planner.service';
+import { SearchService } from './services/search.service';
 
 
 @NgModule({
     declarations: [
+        SnackbarComponent,
+        EditLayerModalComponent,
+        DeleteLayerModalComponent,
         ItemViewComponent,
         ReaperViewComponent,
         ActivableViewComponent,
@@ -60,10 +73,15 @@ import { PlannerService } from './services/planner.service';
         RemoveConfirmModalComponent,
         ReaperEditModalComponent,
         CharacterLevelEditModalComponent,
-        SnackbarComponent,
-        EditLayerModalComponent,
-        DeleteLayerModalComponent,
-        ReplacePlannerModalComponent
+        ReplacePlannerModalComponent,
+        ItemSlotComponent,
+        CharacterAnimationComponent,
+        ReaperSlotComponent,
+        SkillSlotComponent,
+        ActivableSlotComponent,
+        SkillBarComponent,
+        SettingsMenuComponent,
+        CharacterEquipmentComponent,
     ],
     imports: [
         CommonModule,
@@ -91,7 +109,15 @@ import { PlannerService } from './services/planner.service';
         RemoveConfirmModalComponent,
         ReaperEditModalComponent,
         CharacterLevelEditModalComponent,
-        ReplacePlannerModalComponent
+        ReplacePlannerModalComponent,
+        ItemSlotComponent,
+        CharacterAnimationComponent,
+        ReaperSlotComponent,
+        ActivableSlotComponent,
+        SkillSlotComponent,
+        SkillBarComponent,
+        SettingsMenuComponent,
+        CharacterEquipmentComponent,
     ],
     providers: [
         PlannerService,
@@ -103,6 +129,8 @@ import { PlannerService } from './services/planner.service';
         DownloadService,
         JsonCompresserService,
         OnlinePasteService,
+        ItemMoveService,
+        SearchService
     ],
 })
 export class SharedModule { }

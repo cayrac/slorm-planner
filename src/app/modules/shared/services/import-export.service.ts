@@ -84,18 +84,18 @@ export class ImportExportService {
                 try {
                     data.character = this.parseSaveData(content, heroClass);
                     resolve(data);
-                } catch (e) { console.log('save parsing error', e); }
+                } catch (e) { }
             }
 
             try {
                 data = this.parseJsonData(atob(content));
                 resolve(data);
-            } catch (e) { console.log('base 64 parsing error', e); }
+            } catch (e) {}
     
             try {
                 data = this.parseJsonData(content);
                 resolve(data);
-            } catch (e) { console.log('json parsing error', e); }
+            } catch (e) { }
     
             this.parseUrlData(content)
                 .then(result => resolve(result));

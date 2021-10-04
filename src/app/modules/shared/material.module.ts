@@ -1,3 +1,4 @@
+import { OverlayModule } from '@angular/cdk/overlay';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -19,10 +20,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 const globalRippleConfig: RippleGlobalOptions = {
     disabled: true,
     animation: {
-      enterDuration: 0,
-      exitDuration: 0
+        enterDuration: 0,
+        exitDuration: 0
     }
-  };
+};
 
 @NgModule({
     declarations: [ ],
@@ -40,7 +41,8 @@ const globalRippleConfig: RippleGlobalOptions = {
         MatMenuModule,
         MatSnackBarModule,
         MatSidenavModule,
-        MatTooltipModule
+        MatTooltipModule,
+        OverlayModule,
     ],
     exports: [
         MatTabsModule,
@@ -56,7 +58,8 @@ const globalRippleConfig: RippleGlobalOptions = {
         MatMenuModule,
         MatSnackBarModule,
         MatSidenavModule,
-        MatTooltipModule
+        MatTooltipModule,
+        OverlayModule,
     ],
     providers: [
         {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: globalRippleConfig}

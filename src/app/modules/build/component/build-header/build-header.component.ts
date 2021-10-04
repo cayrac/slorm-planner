@@ -16,8 +16,8 @@ import {
 } from '../../../shared/components/edit-layer-modal/edit-layer-modal.component';
 import { SelectOption } from '../../../shared/model/select-option';
 import { PlannerService } from '../../../shared/services/planner.service';
+import { SearchService } from '../../../shared/services/search.service';
 import { valueOrNull } from '../../../slormancer/util/utils';
-import { SearchService } from '../inventory/services/search.service';
 
 @Component({
   selector: 'app-build-header',

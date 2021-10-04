@@ -2,7 +2,7 @@ import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
 import { AbstractUnsubscribeComponent } from '../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
-import { itemMoveService } from './component/inventory/services/item-move.service';
+import { ItemMoveService } from '../shared/services/item-move.service';
 
 @Component({
   selector: 'app-build',
@@ -50,7 +50,7 @@ export class BuildComponent extends AbstractUnsubscribeComponent {
         this.itemMoveService.releaseHoldItem();
     }
 
-    constructor(private itemMoveService: itemMoveService) {
+    constructor(private itemMoveService: ItemMoveService) {
         super();
         this.itemMoveService.draggingItem
             .pipe(takeUntil(this.unsubscribe))

@@ -1,0 +1,96 @@
+
+<div class="equipment" *ngIf="character !== null">
+    <div class="top-equipment">
+        <app-item-slot class="helm"
+            [readonly]="readonly"
+            [base]="bases.Helm"
+            [item]="character.gear[gearSlot.Helm]"
+            [character]="character"
+            (changed)="updateItem(gearSlot.Helm, $event)">
+        </app-item-slot>
+        <app-item-slot class="amulet"
+            [readonly]="readonly"
+            [base]="bases.Amulet"
+            [item]="character.gear[gearSlot.Amulet]"
+            [character]="character"
+            (changed)="updateItem(gearSlot.Amulet, $event)">
+        </app-item-slot>
+    </div>
+    <div class="center-equipment">
+        <div class="left-equipment">
+            <app-item-slot class="shoulder"
+                [readonly]="readonly"
+                [base]="bases.Shoulder"
+                [item]="character.gear[gearSlot.Shoulder]"
+                [character]="character"
+                (changed)="updateItem(gearSlot.Shoulder, $event)">
+            </app-item-slot>
+            <app-item-slot class="bracer"
+                [readonly]="readonly"
+                [base]="bases.Bracer"
+                [item]="character.gear[gearSlot.Bracer]"
+                [character]="character"
+                (changed)="updateItem(gearSlot.Bracer, $event)">
+            </app-item-slot>
+            <app-item-slot class="glove"
+                [readonly]="readonly"
+                [base]="bases.Glove"
+                [item]="character.gear[gearSlot.Glove]"
+                [character]="character"
+                (changed)="updateItem(gearSlot.Glove, $event)">
+            </app-item-slot>
+        </div>
+        <div class="character-preview">
+            <div class="actions">
+                <app-settings-menu *ngIf="!readonly"></app-settings-menu>
+            </div>
+            <app-character-animation [heroClass]="character.heroClass"></app-character-animation>
+        </div>
+        <div class="right-equipment">
+            <app-item-slot class="body"
+                [readonly]="readonly"
+                [base]="bases.Body"
+                [item]="character.gear[gearSlot.Body]"
+                [character]="character"
+                (changed)="updateItem(gearSlot.Body, $event)">
+            </app-item-slot>
+            <app-item-slot class="cape"
+                [readonly]="readonly"
+                [base]="bases.Cape"
+                [item]="character.gear[gearSlot.Cape]"
+                [character]="character"
+                (changed)="updateItem(gearSlot.Cape, $event)">
+            </app-item-slot>
+            <app-item-slot class="belt"
+                [readonly]="readonly"
+                [base]="bases.Belt"
+                [item]="character.gear[gearSlot.Belt]"
+                [character]="character"
+                (changed)="updateItem(gearSlot.Belt, $event)">
+            </app-item-slot>
+        </div>
+    </div>
+    <div class="bottom-equipment">
+        <app-item-slot class="ring_l"
+            [readonly]="readonly"
+            [base]="bases.Ring"
+            [item]="character.gear[gearSlot.LeftRing]"
+            [character]="character"
+            (changed)="updateItem(gearSlot.LeftRing, $event)">
+        </app-item-slot>
+        <app-item-slot class="boot"
+            [readonly]="readonly"
+            [base]="bases.Boot"
+            [item]="character.gear[gearSlot.Boot]"
+            [character]="character"
+            (changed)="updateItem(gearSlot.Boot, $event)">
+        </app-item-slot>
+        <app-item-slot class="ring_r"
+            [readonly]="readonly"
+            [base]="bases.Ring"
+            [item]="character.gear[gearSlot.RightRing]"
+            [character]="character"
+            (changed)="updateItem(gearSlot.RightRing, $event)">
+        </app-item-slot>
+    </div>
+</div>

@@ -25,7 +25,11 @@
             <div class="actions">
                 <button mat-icon-button (click)="!busy && downloadLayer()" matTooltip="Download" matTooltipPosition="above"><mat-icon>file_download</mat-icon></button>
                 <button mat-icon-button (click)="!busy && copyLayer()" matTooltip="Copy to clipboard" matTooltipPosition="above"><mat-icon>content_copy</mat-icon></button>
-                <button mat-icon-button (click)="!busy && copyExternalLink()" matTooltip="External link" matTooltipPosition="above"><mat-icon>share</mat-icon></button>
+                <button mat-icon-button (click)="!busy && copyExternalLink()" matTooltip="External link" matTooltipPosition="above">
+                    <mat-icon *ngIf="!generatingLink">share</mat-icon>
+                    <mat-icon *ngIf="generatingLink" class="refresh">sync</mat-icon>
+                </button>
+                
             </div>
         </div>
         <div class="export-details">

@@ -1,0 +1,35 @@
+<main>
+    <mat-card class="equipment">
+        <mat-card-content>
+            <h3>{{character.fullName}}</h3>
+            <app-character-equipment [character]="character" [readonly]="true"></app-character-equipment>
+            <hr/>
+            <div class="weapon">
+                <app-reaper-slot
+                    [readonly]="true"
+                    [character]="character">
+                </app-reaper-slot>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="skills">
+        <mat-card-content>
+            <div class="summary">
+                <div class="damages">
+                    <div class="cell"><div class="value" [matTooltip]="PHYSICAL_DAMAGE_LABEL">{{getPhysicalDamages()}}</div><img src="assets/img/icon/stat/physical.png"/></div>
+                    <div class="cell"><div class="value" [matTooltip]="ELEMENTAL_DAMAGE_LABEL">{{getElementalDamages()}}</div><img src="assets/img/icon/stat/magical.png"/></div>
+                </div>
+                <div class="ressources">
+                    <div class="cell"><div class="value" [matTooltip]="MAX_LIFE_LABEL">{{getMaximumLife()}}</div><img src="assets/img/icon/stat/life.png"/></div>
+                    <div class="cell"><div class="value" [matTooltip]="MAX_MANA_LABEL">{{getMaximumMana()}}</div><img src="assets/img/icon/stat/mana.png"/></div>
+                </div>
+                <div class="defenses">
+                    <div class="cell"><div class="value" [matTooltip]="MAX_ARMOR_LABEL">{{getArmor()}}</div><img src="assets/img/icon/stat/armor.png"/></div>
+                    <div class="cell"><div class="value" [matTooltip]="MAX_ELEMENTAL_RESISTANCE_LABEL">{{getElementalResistance()}}</div><img src="assets/img/icon/stat/elemental_resistance.png"/></div>
+                    <div class="cell"><div class="value" [matTooltip]="MAX_DODGE_LABEL">{{getDodge()}}</div><img src="assets/img/icon/stat/dodge.png"/></div>
+                </div>
+            </div>
+            Skills
+        </mat-card-content>
+    </mat-card>
+</main>

@@ -38,6 +38,8 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
 
     public busy: boolean = false;
 
+    public generatingLink: boolean = false;
+
     public importContent = new FormControl(null, Validators.maxLength(this.MAX_UPLOAD_FILE_SIZE));
 
     constructor(private messageService: MessageService,
@@ -190,7 +192,8 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
     public copyExternalLink() {
         const layer = this.plannerService.getSelectedLayer();
 
-        if (layer !== null) {
+        if (layer !== null && !this.generatingLink) {
+            this.generatingLink = true;
             this.importExportService.exportCharacterAsLink(layer.character)
                 .then(result => {
                     if (result !== null && this.clipboardService.copyToClipboard(result)) {
@@ -198,6 +201,7 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
                     } else {
                         this.messageService.error('Failed to create link to current layer');
                     }
+                    this.generatingLink = false;
                 });
         }
     }

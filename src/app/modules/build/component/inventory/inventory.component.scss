@@ -34,50 +34,6 @@ main {
             margin-bottom: $space-unit;
         }
 
-        .equipment {
-            @include flex(column, stretch, space-between);
-            min-height: 400px;
-
-            .top-equipment {
-                @include flex(row, center, center);
-                @include flex-gap($space-unit * 5);
-                @include flex-grow();
-            }
-            .center-equipment {
-                @include flex(row, stretch, space-between);
-                .left-equipment, .right-equipment {
-                    @include flex(column, center, center);
-                    @include flex-gap($space-unit * 2);
-                    @include flex-grow();
-                }
-                .character-preview {
-                    width: 150px;
-                    height: 200px;
-                    border: 3px solid rgb(60, 60, 60);
-                    padding: $space-unit * 2;
-                    background-color: black;
-                    @include flex(column, center, space-between);
-
-                    .actions {
-                        @include flex(row, center, flex-end);
-                        width: 100%;
-                    }
-                }
-            }
-            .bottom-equipment {
-                @include flex(row, center, center);
-                @include flex-gap($space-unit * 4);
-                @include flex-grow();
-
-                .ring_l, .ring_r {
-                    margin-bottom: 20px;
-                }
-                .boot {
-                    margin-top: 20px;
-                }
-            }
-        }
-
         .weapon {
             @include flex(column, center, center);
             margin: $space-content;
@@ -89,13 +45,6 @@ main {
         .skills {
             @include flex(column, center, center);
         }
-    }
-
-    hr {
-        margin: $space-content $space-content * 3;
-        border: 0;
-        height: 4px;
-        background-color: rgb(20, 20, 20);
     }
 
     .inventory {

@@ -1,0 +1,65 @@
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/variables";
+@import "../../../../../assets/scss/theme/theme";
+@import '~@angular/material/theming';
+
+$theme-accent-pallet: map-get($theme, accent);
+$theme-warn-pallet: map-get($theme, warn);
+
+$accent-color: mat-color($theme-accent-pallet);
+
+:host {
+    width: 64px;
+    min-width: 64px;
+    height: 64px;
+    min-height: 64px;
+}
+
+.item {
+    width: 56px;
+    min-width: 56px;
+    min-height: 56px;
+    min-height: 56px;
+    border: 4px solid black;
+    position: relative;
+    background-color: rgb(19, 19, 19);
+
+    &:not(.readonly) {
+        cursor: pointer;
+    }
+
+    &.forced-base-compatible {
+        border-color: rgba($accent-color, .7);
+    }
+    &.drop-compatible {
+        border-color: $accent-color;
+    }
+
+    &.drop-incompatible {
+        border-color: mat-color($theme-warn-pallet);
+    }
+
+    &.is-being-dragged {
+        opacity: 0.3;
+    }
+
+    &.hidden-search {
+        opacity: 0.2;
+    }
+
+    img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    > div { // .mat-menu-trigger
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}
+
+app-item-view {
+    width: 350px;
+}

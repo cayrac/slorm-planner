@@ -1,0 +1,35 @@
+
+<div class="item"
+    [class.readonly]="readonly"
+    [class.forced-base-compatible]="isItemCompatible && base !== null"
+    [class.drop-compatible]="!isDraggedItem && isMouseOver && isDragging && isItemCompatible"
+    [class.drop-incompatible]="!isDraggedItem && isMouseOver && isDragging && !isItemCompatible"
+    [class.is-being-dragged]="isDraggedItem && isDragging"
+    [class.hidden-search]="hiddenBySearch"
+    cdkOverlayOrigin
+    #trigger="cdkOverlayOrigin">
+    <ng-container *ngIf="item !== null">
+        <img [src]="item.itemIconBackground">
+        <img [src]="item.icon">
+    </ng-container>
+    <img *ngIf="item === null && base !== null" src="assets/img/icon/item/{{base}}/empty.png">
+    <ng-container *ngIf="isMouseOver || isMenuOpen()">
+        <ng-template cdkConnectedOverlay
+            [cdkConnectedOverlayOpen]="!isDragging && isMouseOver"
+            [cdkConnectedOverlayOrigin]="trigger">
+            <app-item-view [item]="item" [details]="false"></app-item-view>
+        </ng-template>
+        <div [matMenuTriggerFor]="menu"></div>
+        <mat-menu #menu="matMenu" xPosition="after" [overlapTrigger]="true">
+            <ng-template matMenuContent>
+                <button mat-menu-item *ngIf="item !== null && base === null" (click)="equip()"><mat-icon>arrow_back</mat-icon>Equip item</button>
+                <button mat-menu-item *ngIf="item !== null && base !== null" (click)="unequip()"><mat-icon>arrow_forward</mat-icon>Unequip item</button>
+                <button mat-menu-item *ngIf="item === null" (click)="edit()"><mat-icon>add</mat-icon>Create item</button>
+                <button mat-menu-item *ngIf="item !== null" (click)="edit()"><mat-icon>edit</mat-icon>Edit item</button>
+                <button mat-menu-item *ngIf="item !== null" (click)="take()"><mat-icon>content_cut</mat-icon>Move item</button>
+                <button mat-menu-item *ngIf="item !== null" (click)="copy()"><mat-icon>content_copy</mat-icon>Copy item</button>
+                <button mat-menu-item *ngIf="item !== null" (click)="remove()"><mat-icon>delete</mat-icon>Remove item</button>
+            </ng-template>
+        </mat-menu>
+    </ng-container>
+</div>
