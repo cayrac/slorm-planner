@@ -1,0 +1,22 @@
+<mat-card>
+    <mat-card-content>
+        <mat-form-field appearance="outline">
+            <input matInput type="number" [(ngModel)]="base">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <input matInput type="string" [(ngModel)]="formula">
+        </mat-form-field>
+        <div class="line">
+            <div class="resist"><b>Resist</b></div>
+            <div class="expected"><b>Expected</b></div>
+            <div class="computed"><b>Computed</b></div>
+            <div class="reverse"><b>Reverse</b></div>
+        </div>
+        <div class="line" *ngFor="let line of DATA">
+            <div class="resist">{{line.resist}}</div>
+            <div class="expected">{{line.expected}}</div>
+            <div class="computed {{getClass(line.expected, compute(line.resist))}}">{{compute(line.resist)}}</div>
+            <div class="reverse">{{reverse(line)}}</div>
+        </div>
+    </mat-card-content>
+</mat-card>

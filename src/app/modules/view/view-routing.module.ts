@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { ViewCharacterComponent } from './component/view-character/view-character.component';
 import { CharacterPasteLoad } from './resolver/character-paste-load.resolver';
 
-// http://localhost:4200/view/sHIfx
 const routes: Routes = [
     {
         path: ':key', component: ViewCharacterComponent, resolve: { character: CharacterPasteLoad }
