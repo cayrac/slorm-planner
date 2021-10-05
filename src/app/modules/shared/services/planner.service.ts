@@ -1,18 +1,15 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { Character } from '../../slormancer/model/character';
 import { HeroClass } from '../../slormancer/model/content/enum/hero-class';
-import { GameSave } from '../../slormancer/model/parser/game/game-save';
-import { SlormancerSaveParserService } from '../../slormancer/services/parser/slormancer-save-parser.service';
 import { SlormancerCharacterBuilderService } from '../../slormancer/services/slormancer-character-builder.service';
 import { SlormancerCharacterUpdaterService } from '../../slormancer/services/slormancer-character.updater.service';
 import { valueOrNull } from '../../slormancer/util/utils';
 import { Layer } from '../model/layer';
 import { Planner } from '../model/planner';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class PlannerService {
 
     private planner: Planner | null = null;
@@ -26,11 +23,9 @@ export class PlannerService {
     public readonly selectedLayerIndexChanged = new BehaviorSubject<number>(this.selectedLayerIndex);
 
     constructor(private slormancerCharacterService: SlormancerCharacterUpdaterService,
-                private slormancerCharacterBuilderService: SlormancerCharacterBuilderService,
-                private slormancerSaveParserService: SlormancerSaveParserService,
-                private httpClient: HttpClient) {
-        this.httpClient.get('assets/save', { responseType: 'text' })
-        .subscribe(save => this.loadSave(save, HeroClass.Huntress));
+                private slormancerCharacterBuilderService: SlormancerCharacterBuilderService) {
+        console.log('new planner instance');
+        this.layersChanged.subscribe(s => console.log('layer changed : ', s));
     }
 
     public getPlanner(): Planner | null {
@@ -131,27 +126,16 @@ export class PlannerService {
         }
     }
 
-    public addLayerFromSave(save: GameSave) {
-        if (this.planner !== null) {
-            const character = this.slormancerCharacterBuilderService.getCharacterFromSave(save, this.planner.heroClass);
-            const name = 'Layer ' + (this.planner.layers.length + 1);
-
-            this.planner.layers.push({ name, character });
-            this.layersChanged.next(this.planner.layers);
-            
-            this.setLayerIndex(this.planner.layers.length - 1);
+    public createNewPlanner(heroClass: HeroClass, character: Character | null) {
+        if (character === null || heroClass === character.heroClass) {
+            this.initPlanner(heroClass);
+            this.addLayer('Layer 1', character);
+            this.setLayerIndex(0, true);
         }
     }
 
-    public loadSave(saveContent: string, heroClass: HeroClass) {
-        const save = this.slormancerSaveParserService.parseSaveFile(saveContent);
-
-        
-        this.initPlanner(heroClass);
-        this.addLayerFromSave(save);
-
-        console.log(save);
-        console.log(this.planner);
+    public deletePlanner() {
+        this.setPlanner(null);
     }
 
     public updateCurrentCharacter() {

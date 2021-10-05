@@ -13,7 +13,7 @@ import { SlormancerTranslateService } from '../../slormancer/services/content/sl
 import { compareString, valueOrDefault } from '../../slormancer/util/utils';
 import { SelectOption } from '../model/select-option';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class FormOptionsService {
 
     private STATS_OPTIONS_CACHE: { [key: string]: { P: Array<SelectOption<string>>, S: Array<SelectOption<string>> } } = {};

@@ -12,7 +12,7 @@ interface GetPasteResponse {
     }
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OnlinePasteService {
 
     private readonly PASTEE_KEY = 'utkdp1fltzudjX0XZ6qkP1RAxGn7c4NaNJ90278VN';

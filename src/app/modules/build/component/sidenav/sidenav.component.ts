@@ -2,10 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 
 import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
+import { DeletePlannerModalComponent } from '../../../shared/components/delete-planner-modal/delete-planner-modal.component';
 import {
     EditLayerModalComponent,
     EditLayerModalData,
@@ -47,6 +49,7 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
                 private clipboardService: ClipboardService,
                 private importExportService: ImportExportService,
                 private plannerService: PlannerService,
+                private router: Router,
                 private dialog: MatDialog) {
         super();
         this.importContent.valueChanges.subscribe((value: string | null) => {
@@ -204,5 +207,16 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
                     this.generatingLink = false;
                 });
         }
+    }
+
+    public createNewBuild() {
+        this.dialog.open(DeletePlannerModalComponent)
+            .afterClosed().subscribe((result: boolean | undefined) => {
+                if (result === true) {
+                    this.plannerService.deletePlanner();
+                    this.router.navigate(['/create']);
+                }
+            })
+        
     }
 }

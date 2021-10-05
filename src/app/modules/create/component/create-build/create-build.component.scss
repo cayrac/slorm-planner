@@ -1,0 +1,19 @@
+@use '~@angular/material' as mat;
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/spacing";
+@import "../../../../../assets/scss/abstracts/color";
+
+main {
+    @include flex-row-to-column('tablet', stretch, center);
+    @include flex-gap($space-content);
+    @include spacing($space-content, true);
+    overflow-x: auto;
+
+    @include respond-to('tablet') {
+        height: auto;
+    }
+
+    mat-card {
+        width: 500px;
+    }
+}

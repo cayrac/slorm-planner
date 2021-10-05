@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const appRoutes: Routes = [
   { path: 'build', loadChildren: () => import('./modules/build/build.module').then((m) => m.BuildModule) },
   { path: 'view', loadChildren: () => import('./modules/view/view.module').then((m) => m.ViewModule) },
+  { path: 'create', loadChildren: () => import('./modules/create/create.module').then((m) => m.CreateModule) },
   { path: '**', pathMatch: 'full', redirectTo: 'build' }
 ];
 

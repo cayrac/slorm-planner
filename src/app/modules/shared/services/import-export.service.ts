@@ -11,7 +11,7 @@ import { SharedData } from '../model/shared-data';
 import { JsonConverterService } from './json-converter.service';
 import { OnlinePasteService } from './online-paste.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ImportExportService {
 
     private readonly VIEW_PATH = window.origin + '/view/';

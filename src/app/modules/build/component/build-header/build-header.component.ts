@@ -43,7 +43,9 @@ export class BuildHeaderComponent extends AbstractUnsubscribeComponent implement
             .subscribe(layer => this.layerControl.setValue(layer, { emitEvent: false }));
         this.plannerService.layersChanged
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(layers => this.layerOptions = layers.map((layer, index) => ({ label: layer.name, value: index })));
+            .subscribe(layers => {
+                this.layerOptions = layers.map((layer, index) => ({ label: layer.name, value: index }));
+            });
         this.searchService.searchChanged
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(search => this.searchControl.setValue(search, { emitEvent: false }));

@@ -14,6 +14,7 @@ import {
     CharacterLevelEditModalComponent,
 } from './components/character-level-edit-modal/character-level-edit-modal.component';
 import { DeleteLayerModalComponent } from './components/delete-layer-modal/delete-layer-modal.component';
+import { DeletePlannerModalComponent } from './components/delete-planner-modal/delete-planner-modal.component';
 import { EditLayerModalComponent } from './components/edit-layer-modal/edit-layer-modal.component';
 import { ItemBaseChoiceModalComponent } from './components/item-base-choice-modal/item-base-choice-modal.component';
 import { ItemEditBuffAttributeComponent } from './components/item-edit-buff-attribute/item-edit-buff-attribute.component';
@@ -42,17 +43,6 @@ import { TraitViewComponent } from './components/trait-view/trait-view.component
 import { TraitComponent } from './components/trait/trait.component';
 import { UpgradeSlotComponent } from './components/upgrade-slot/upgrade-slot.component';
 import { MaterialModule } from './material.module';
-import { ClipboardService } from './services/clipboard.service';
-import { DownloadService } from './services/download.service';
-import { FormOptionsService } from './services/form-options.service';
-import { ImportExportService } from './services/import-export.service';
-import { ItemMoveService as ItemMoveService } from './services/item-move.service';
-import { JsonCompresserService } from './services/json-compresser.service';
-import { JsonConverterService } from './services/json-converter.service';
-import { MessageService } from './services/message.service';
-import { OnlinePasteService } from './services/online-paste.service';
-import { PlannerService } from './services/planner.service';
-import { SearchService } from './services/search.service';
 
 
 @NgModule({
@@ -92,6 +82,7 @@ import { SearchService } from './services/search.service';
         AttributeLineComponent,
         TraitComponent,
         MainStatsComponent,
+        DeletePlannerModalComponent,
     ],
     imports: [
         CommonModule,
@@ -120,6 +111,7 @@ import { SearchService } from './services/search.service';
         ReaperEditModalComponent,
         CharacterLevelEditModalComponent,
         ReplacePlannerModalComponent,
+        DeletePlannerModalComponent,
         ItemSlotComponent,
         CharacterAnimationComponent,
         ReaperSlotComponent,
@@ -135,17 +127,6 @@ import { SearchService } from './services/search.service';
         MainStatsComponent,
     ],
     providers: [
-        PlannerService,
-        FormOptionsService,
-        MessageService,
-        ImportExportService,
-        JsonConverterService,
-        ClipboardService,
-        DownloadService,
-        JsonCompresserService,
-        OnlinePasteService,
-        ItemMoveService,
-        SearchService
     ],
 })
 export class SharedModule { }

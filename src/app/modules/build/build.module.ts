@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { MaterialModule } from '../shared/material.module';
 import { SharedModule } from '../shared/shared.module';
-import { SlormancerModule } from '../slormancer';
 import { BuildRoutingModule } from './build-routing.module';
 import { BuildComponent } from './build.component';
 import { AncestralLegaciesComponent } from './component/ancestral-legacies/ancestral-legacies.component';
@@ -39,9 +37,7 @@ import { StatsComponent } from './component/stats/stats.component';
         SharedModule,
         BuildRoutingModule,
         FormsModule,
-        SlormancerModule,
         MaterialModule,
-        HttpClientModule,
     ]
 })
 export class BuildModule { }

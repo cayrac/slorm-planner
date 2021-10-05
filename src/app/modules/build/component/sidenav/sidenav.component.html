@@ -25,9 +25,9 @@
             <div class="actions">
                 <button mat-icon-button (click)="!busy && downloadLayer()" matTooltip="Download"><mat-icon>file_download</mat-icon></button>
                 <button mat-icon-button (click)="!busy && copyLayer()" matTooltip="Copy to clipboard"><mat-icon>content_copy</mat-icon></button>
-                <button mat-icon-button (click)="!busy && copyExternalLink()" matTooltip="External link">
+                <button mat-icon-button (click)="!busy && copyExternalLink()" matTooltip="External link (using paste.ee)">
                     <mat-icon *ngIf="!generatingLink">share</mat-icon>
-                    <mat-icon *ngIf="generatingLink" class="refresh">sync</mat-icon>
+                    <mat-icon *ngIf="generatingLink" class="animation-rotation">sync</mat-icon>
                 </button>
                 
             </div>
@@ -42,6 +42,6 @@
     </div>
     <hr/>
     <div class="build">
-        <button mat-flat-button color="primary">New build</button>
+        <button mat-flat-button color="primary" (click)="createNewBuild()">New build</button>
     </div>
 </div>

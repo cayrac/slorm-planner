@@ -47,15 +47,3 @@
         }
     }
 }
-
-.refresh {
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    animation-name: rotate;
-}
-
-@keyframes rotate { // 0% -> 25% 
-    0%   { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}

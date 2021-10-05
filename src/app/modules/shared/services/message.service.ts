@@ -8,7 +8,7 @@ export interface SnackbarData {
 
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MessageService {
 
     private currentSnackBar: MatSnackBarRef<SnackbarComponent> | null = null;

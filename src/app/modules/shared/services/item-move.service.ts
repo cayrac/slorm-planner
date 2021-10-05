@@ -8,7 +8,7 @@ import { PlannerService } from './planner.service';
 
 export declare type DragCallback = (itemReplaced: boolean, item: EquipableItem | null) => void;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ItemMoveService {
 
     public readonly draggingItem = new BehaviorSubject<boolean>(false);

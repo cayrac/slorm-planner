@@ -1,0 +1,20 @@
+
+<input type="file" (change)="uploadGameSave($event)" #fileInput>
+<div class="import-game">
+    <h3>Create build from a Slormancer save file</h3>
+    <button mat-flat-button color="primary" (click)="fileInput.click()">
+        <ng-container *ngIf="!busy"><mat-icon>file_upload</mat-icon>Upload a Slormancer save file</ng-container>
+        <ng-container *ngIf="busy"><mat-icon class="animation-rotation">sync</mat-icon>Uploading...</ng-container>
+        
+    </button>
+    <div class="save-summary" [class.disabled]="characters === null">
+        <p [class.disabled]="characters === null">Choose which character you want to upload</p>
+        <div class="classes">
+            <div class="head" *ngFor="let heroClass of HERO_CLASSES" [class.selected]="selectedClass === heroClass" (click)="selectedClass = heroClass">
+                <img src="assets/img/character/icon/{{heroClass}}/head.png" />
+                <div class="level">{{getLevel(heroClass)}}</div>
+            </div>
+        </div>
+    </div>
+    <button mat-flat-button color="primary" [disabled]="characters === null || selectedClass === null" (click)="createBuild()">Create build</button>
+</div>

@@ -7,7 +7,7 @@ import { SkillUpgrade } from '../../slormancer/model/content/skill-upgrade';
 import { Trait } from '../../slormancer/model/content/trait';
 import { isNotNullOrUndefined } from '../../slormancer/util/utils';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SearchService {
 
     private search: string | null = null;

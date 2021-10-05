@@ -27,7 +27,7 @@ import { Layer } from '../model/layer';
 import { Planner } from '../model/planner';
 import { SharedData } from '../model/shared-data';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class JsonConverterService {
 
     private readonly STAT_MAPPING: { [key: number]: string };

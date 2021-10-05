@@ -5,20 +5,22 @@ import { FormsModule } from '@angular/forms';
 
 import { MaterialModule } from '../shared/material.module';
 import { SharedModule } from '../shared/shared.module';
-import { ViewCharacterComponent } from './component/view-character/view-character.component';
-import { ViewRoutingModule } from './view-routing.module';
-import { ViewComponent } from './view.component';
+import { CreateBuildFromGameComponent } from './component/create-build-from-game/create-build-from-game.component';
+import { CreateBuildComponent } from './component/create-build/create-build.component';
+import { CreateRoutingModule } from './create-routing.module';
+import { CreateComponent } from './create.component';
 
 
 @NgModule({
     declarations: [
-        ViewComponent,
-        ViewCharacterComponent
+        CreateComponent,
+        CreateBuildComponent,
+        CreateBuildFromGameComponent
     ],
     imports: [
         CommonModule,
         SharedModule,
-        ViewRoutingModule,
+        CreateRoutingModule,
         OverlayModule,
         FormsModule,
         MaterialModule,
@@ -26,4 +28,4 @@ import { ViewComponent } from './view.component';
     providers: [
     ],
 })
-export class ViewModule { }
+export class CreateModule { }
