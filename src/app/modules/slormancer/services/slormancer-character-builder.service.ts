@@ -372,7 +372,7 @@ export class SlormancerCharacterBuilderService {
             ancestralLegacies: {
                 ancestralLegacies: this.getAncestralLegacies(ancestralRanks),
                 activeNodes: activeAncestralNodes,
-                activeAncestralLegacies: [],
+                activeAncestralLegacies: this.slormancerDataService.getAncestralSkillIdFromNodes(activeAncestralNodes),
                 maxAncestralLegacy: maxAncestralNodes // TODO parser ça plus tard
             },
             skills,

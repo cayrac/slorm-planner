@@ -26,6 +26,7 @@ import { ItemEditModalComponent } from './components/item-edit-modal/item-edit-m
 import { ItemEditStatComponent } from './components/item-edit-stat/item-edit-stat.component';
 import { ItemSlotComponent } from './components/item-slot/item-slot.component';
 import { ItemViewComponent } from './components/item-view/item-view.component';
+import { MainStatsComponent } from './components/main-stats/main-stats.component';
 import { ReaperEditModalComponent } from './components/reaper-edit-modal/reaper-edit-modal.component';
 import { ReaperSlotComponent } from './components/reaper-slot/reaper-slot.component';
 import { ReaperViewComponent } from './components/reaper-view/reaper-view.component';
@@ -90,6 +91,7 @@ import { SearchService } from './services/search.service';
         AncestralLegacySlotComponent,
         AttributeLineComponent,
         TraitComponent,
+        MainStatsComponent,
     ],
     imports: [
         CommonModule,
@@ -130,6 +132,7 @@ import { SearchService } from './services/search.service';
         AncestralLegacySlotComponent,
         AttributeLineComponent,
         TraitComponent,
+        MainStatsComponent,
     ],
     providers: [
         PlannerService,

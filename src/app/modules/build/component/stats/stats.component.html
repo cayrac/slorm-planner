@@ -1,13 +1,7 @@
 <mat-card *ngIf="stats !== null">
     <mat-card-content>
-        <ng-container *ngIf="stats !== null">
-            <div class="section" *ngFor="let section of SECTIONS">
-                <h3>{{section.section}}</h3>
-                <div class="stat" *ngFor="let stat of section.stats">
-                    <div class="label">{{stat.name}}</div>
-                    <div class="value" [matTooltip]="getTooltip(stats, stat)">{{getValue(stats, stat)}}</div>
-                </div>
-            </div>
-        </ng-container>
+        <div *ngIf="stats !== null" class="stats">
+            <app-main-stats [stats]="stats"></app-main-stats>
+        </div>
     </mat-card-content>
 </mat-card>

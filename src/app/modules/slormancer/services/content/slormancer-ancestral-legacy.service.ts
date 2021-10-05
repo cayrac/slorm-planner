@@ -196,10 +196,12 @@ export class SlormancerAncestralLegacyService {
     }
 
     public updateAncestralLegacyModel(ancestralLegacy: AncestralLegacy, rank: number, bonusRank: number = ancestralLegacy.bonusRank) {
+        const applyBonus = ancestralLegacy.baseMaxRank > 1 && ancestralLegacy.types.includes(AncestralLegacyType.Stat);
         ancestralLegacy.baseRank = Math.min(ancestralLegacy.baseMaxRank, Math.max(0, rank));
         ancestralLegacy.bonusRank = Math.max(0, bonusRank);
-        ancestralLegacy.rank = ancestralLegacy.baseRank + ancestralLegacy.bonusRank;
-        ancestralLegacy.maxRank = ancestralLegacy.baseMaxRank + ancestralLegacy.bonusRank;
+        
+        ancestralLegacy.rank = ancestralLegacy.baseRank + (applyBonus ? ancestralLegacy.bonusRank : 0);
+        ancestralLegacy.maxRank = ancestralLegacy.baseMaxRank + (applyBonus ? ancestralLegacy.bonusRank : 0);
 
         ancestralLegacy.cost = null;
         if (ancestralLegacy.baseCost !== null) {

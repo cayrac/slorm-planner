@@ -3,6 +3,7 @@
 
 mat-card.mat-card {
     @include flex(column, stretch);
+    @include flex-gap($space-unit * 4);
     background-color: primary-color(700);
     color: primary-color(700, true);
 
@@ -13,10 +14,21 @@ mat-card.mat-card {
     mat-card-content {
         @include flex-grow();
         overflow: auto;
+        margin-bottom: 0;
     }
     
     mat-card-actions.mat-card-actions {
-        @include flex-row-to-column('tablet', stretch, flex-end);
+        @include flex-row-to-column('tablet', center, flex-end);
         @include flex-gap($space-unit * 2);
+        padding: 0;
+        margin: 0;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        @include respond-to('tablet') {
+            align-items: stretch;
+        }
     }
 }

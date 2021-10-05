@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { Character } from '../../../slormancer/model/character';
@@ -8,10 +9,13 @@ import { Skill } from '../../../slormancer/model/content/skill';
 import { SkillUpgrade } from '../../../slormancer/model/content/skill-upgrade';
 import { MinMax } from '../../../slormancer/model/minmax';
 import { SlormancerTranslateService } from '../../../slormancer/services/content/slormancer-translate.service';
+import { SlormancerCharacterUpdaterService } from '../../../slormancer/services/slormancer-character.updater.service';
+import { SlormancerConfigurationService } from '../../../slormancer/services/slormancer-configuration.service';
 
-// TODO ajouter overlays
+// TODO
 // Ajouter switch stats
 // trouver formules réductions défenses
+// Ajouter 'activer buffs et auras'
 
 @Component({
   selector: 'app-view-character',
@@ -32,11 +36,29 @@ export class ViewCharacterComponent {
 
     public readonly character: Character;
 
+    public showSummary: boolean = true;
+
+    public readonly combatBuffControl = new FormControl(false);
+
     constructor(activatedRoute: ActivatedRoute,
+                private slormancerConfigurationService: SlormancerConfigurationService,
+                private slormancerCharacterUpdaterService: SlormancerCharacterUpdaterService,
                 private slormancerTranslateService: SlormancerTranslateService) {
         this.character = activatedRoute.snapshot.data['character'];
 
+        this.combatBuffControl.valueChanges.subscribe(() => this.updateConfiguration());
+        this.updateConfiguration();
+
         console.log(this.character);
+    }
+
+    private updateConfiguration() {
+        if (this.combatBuffControl.value) {
+            this.slormancerConfigurationService.switchToCombatConfig(this.character);
+        } else {
+            this.slormancerConfigurationService.switchToDefaultConfig(this.character);
+        }
+        this.slormancerCharacterUpdaterService.updateCharacter(this.character)
     }
 
     private getStat(stat: string): number | MinMax {

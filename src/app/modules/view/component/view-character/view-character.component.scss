@@ -35,9 +35,13 @@ main {
             background-color: rgb(22, 20, 18);
             border: 3px solid rgb(60, 60, 60);
         }
+
+        mat-checkbox {
+            margin-right: auto;
+        }
     }
 
-    .skills {
+    .summary, .stats {
         width: 450px;
 
         @include respond-to('tablet') {
@@ -49,7 +53,7 @@ main {
             @include flex(column, stretch);
             @include flex-gap($space-unit * 5);
 
-            .summary {
+            .stats {
                 @include flex(column, stretch);
                 @include flex-gap($space-unit);
 
@@ -110,6 +114,10 @@ main {
                     .slots {
                         @include flex(row, center);
                         min-height: $space-content * 3;
+
+                        > * {
+                            padding: 4px;
+                        }
                     }
                 }
             }
@@ -124,4 +132,15 @@ main {
         }
     }
 
+    .stats {
+        mat-card-content {
+            height: 725px;
+            padding-right: $space-unit * 4;
+            overflow: auto;
+
+            @include respond-to('tablet') {
+                height: auto;
+            }
+        }
+    }
 }

@@ -39,7 +39,6 @@ export class PlannerService {
 
     public setPlanner(planner: Planner | null) {
         this.planner = planner;
-        console.log(this.planner);
         this.layersChanged.next(this.planner === null ? [] : this.planner.layers);
         this.setLayerIndex(this.planner === null ? -1 : 0, true);
     }

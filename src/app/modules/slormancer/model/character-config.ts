@@ -2,9 +2,10 @@ export interface CharacterConfig {
     serenity: number;
     last_cast_tormented: boolean;
     last_cast_delighted: boolean;
-    percent_missing_mana: number;
-    percent_lock_mana: number;
     percent_missing_health: number;
+    percent_missing_mana: number;
+    percent_lock_health: number,
+    percent_lock_mana: number;
     enemy_percent_missing_health: number;
     enemy_is_poisoned: boolean;
     overall_reputation: number;

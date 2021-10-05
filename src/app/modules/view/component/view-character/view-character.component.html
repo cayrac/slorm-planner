@@ -11,10 +11,15 @@
                 </app-reaper-slot>
             </div>
         </mat-card-content>
+        <mat-card-actions>
+            <mat-checkbox color="primary" [formControl]="combatBuffControl">Activate combat buffs</mat-checkbox>
+            <button color="primary" *ngIf="showSummary" mat-flat-button (click)="showSummary = !showSummary">Show Stats</button>
+            <button color="primary" *ngIf="!showSummary" mat-flat-button (click)="showSummary = !showSummary">Show Summary</button>
+        </mat-card-actions>
     </mat-card>
-    <mat-card class="skills">
+    <mat-card class="summary" *ngIf="showSummary">
         <mat-card-content>
-            <div class="summary">
+            <div class="stats">
                 <div class="damages">
                     <div class="cell"><div class="value" [matTooltip]="PHYSICAL_DAMAGE_LABEL">{{getPhysicalDamages()}}</div><img src="assets/img/icon/stat/physical.png"/></div>
                     <div class="cell"><div class="value" [matTooltip]="ELEMENTAL_DAMAGE_LABEL">{{getElementalDamages()}}</div><img src="assets/img/icon/stat/magical.png"/></div>
@@ -112,6 +117,11 @@
                     </app-attribute-line>
                 </ng-container>
             </div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="stats" *ngIf="!showSummary">
+        <mat-card-content>
+            <app-main-stats [stats]="character.stats"></app-main-stats>
         </mat-card-content>
     </mat-card>
 </main>

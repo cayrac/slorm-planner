@@ -7,6 +7,17 @@
 
 $section-color  : rgb(206, 70, 7);
 
-.stats {
-    max-width: 300px;
+.section {
+    @include flex(column, stretch);
+    @include flex-gap($space-unit);
+
+    h3 {
+        color: $section-color;
+        margin-top: $space-unit * 5;
+        margin-bottom: $space-unit;
+    }
+    .stat {
+        @include flex(row, center, space-between);
+        padding-left: $space-unit * 2;
+    }
 }

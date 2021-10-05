@@ -22,97 +22,10 @@ import { SlormancerSkillService } from './content/slormancer-skill.service';
 import { CharacterStatsBuildResult, SlormancerStatsService } from './content/slormancer-stats.service';
 import { SlormancerTranslateService } from './content/slormancer-translate.service';
 import { SlormancerValueUpdater } from './content/slormancer-value-updater.service';
+import { SlormancerConfigurationService } from './slormancer-configuration.service';
 
 @Injectable()
 export class SlormancerCharacterUpdaterService {
-
-    public readonly CHARACTER_CONFIG: CharacterConfig = {
-        totems_under_control: 0,
-        traps_nearby: 0,
-        serenity: 0,
-        last_cast_tormented: false,
-        last_cast_delighted: false,
-        enemy_percent_missing_health: 0,
-        percent_missing_health: 0,
-        percent_missing_mana: 0,
-        percent_lock_mana: 0,
-        overall_reputation: 0,
-        seconds_since_last_crit: 0,
-        seconds_since_last_dodge: 0,
-        hits_taken_recently: 0,
-        skill_cast_recently: 0,
-        frostbold_shot_recently: 0,
-        slormocide_60: 0,
-        goldbane_5: 0,
-        rebounds_before_hit: 0,
-        pierces_before_hit: 0,
-        enemies_in_aoe: 0,
-        enemies_affected_by_latent_storm: 0,
-        target_is_isolated: false,
-        target_is_tracked: false,
-        enemy_is_poisoned: false,
-        target_has_negative_effect: false,
-        is_first_hit: false,
-        is_last_volley: false,
-        void_arrow_fully_charged: false,
-        elites_in_radius: {
-            10: 0
-        },
-        ennemies_in_radius: {
-            2: 0,
-            3: 0
-        },
-        negative_effects_on_ennemies_in_radius: {
-            2: 0,
-        },
-        poison_enemies: 0,
-        trap_triggered_recently: false,
-        took_elemental_damage_recently: false,
-        took_damage_before_next_cast: false,
-        cast_support_before_next_cast: false,
-        victims_reaper_104: 0,
-        controlled_minions: 0,
-        elemental_prowess_stacks: 0,
-        totem_dexterity_stacks: 0,
-        greed_stacks: 0,
-        strider_stacks: 0,
-        merchant_stacks: 0,
-        nimble_champion_stacks: 0,
-        ancestral_legacy_stacks: 0,
-        conquest_stacks: 0,
-        stability_stacks: 0,
-        enlightenment_stacks: 0,
-        delightful_rain_stacks: 0,
-        target_latent_storm_stacks: 0,
-        exhilerating_senses_stacks: 0,
-        impatient_arrow_stacks: 0,
-        distance_with_target: 0,
-        has_aura_air_conditionner: true,
-        has_aura_neriya_shield: true,
-        has_aura_elemental_swap: true,
-        has_aura_risk_of_pain: true,
-        has_aura_inextricable_torment: true,
-        has_elemental_temper_buff: false,
-        has_burning_shadow_buff: false,
-        has_gold_armor_buff: false,
-        has_soul_bound_buff: false,
-        has_adam_blessing_buff: false,
-        has_manabender_buff: false,
-        has_nimble_buff: false,
-        has_ancient_recognition_buff: false,
-        has_elemental_fervor_buff: false,
-        has_ancestral_fervor_buff: false,
-        has_assassin_haste_buff: false,
-        has_smoke_screen_buff: false,
-        has_ancestral_stab_slash_buff: false,
-        all_characters_level: 120,
-        idle: false,
-        damage_stored: 0,
-        overdrive_bounces_left: 0,
-        overdrive_last_bounce: false,
-        hero_close_to_turret_syndrome: false,
-        turret_syndrome_on_cooldown: false,
-    }
 
     private readonly LEVEL_LABEL = this.slormancerTranslateService.translate('level').toLowerCase();
 
@@ -126,6 +39,7 @@ export class SlormancerCharacterUpdaterService {
                 private slormancerItemService: SlormancerItemService,
                 private slormancerActivableService: SlormancerActivableService,
                 private slormancerValueUpdater: SlormancerValueUpdater,
+                private slormancerConfigurationService: SlormancerConfigurationService,
                 private messageService: MessageService,
         ) { }
 
@@ -363,7 +277,8 @@ export class SlormancerCharacterUpdaterService {
 
         this.updateBonuses(character);
 
-        this.updateCharacterStats(character, updateViews, this.CHARACTER_CONFIG, additionalItem);
+        this.slormancerConfigurationService.updateAuraMissingResources(character);
+        this.updateCharacterStats(character, updateViews, this.slormancerConfigurationService.getConfiguration(), additionalItem);
 
         console.log(character);
     }
