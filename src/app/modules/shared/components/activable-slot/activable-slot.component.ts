@@ -21,6 +21,9 @@ export class ActivableSlotComponent extends AbstractUnsubscribeComponent impleme
     @Input()
     public readonly activable: Activable | AncestralLegacy | null = null;
 
+    @Input()
+    public readonly readonly: boolean = false;
+
     @Output()
     public readonly changed = new EventEmitter<Activable | AncestralLegacy | null>();
 
@@ -44,7 +47,7 @@ export class ActivableSlotComponent extends AbstractUnsubscribeComponent impleme
     @HostListener('contextmenu')
     public onMouseContextMenu() {
         this.itemMoveService.releaseHoldItem();
-        if (this.menu !== null) {
+        if (this.menu !== null && !this.readonly) {
             this.menu.openMenu();
         }
         return false;

@@ -122,4 +122,8 @@ export class BuildHeaderComponent extends AbstractUnsubscribeComponent implement
             });
         }
     }
+
+    public hasRoomForMoreLayer(): boolean {
+        return this.plannerService.hasRoomForMoreLayers();
+    }
 }

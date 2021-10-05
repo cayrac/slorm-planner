@@ -9,7 +9,6 @@ import { PlannerService } from '../../../shared/services/planner.service';
 import { Character } from '../../../slormancer/model/character';
 import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
 import { Reaper } from '../../../slormancer/model/content/reaper';
-import { SlormancerCharacterUpdaterService } from '../../../slormancer/services/slormancer-character.updater.service';
 
 @Component({
   selector: 'app-inventory',
@@ -27,8 +26,7 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
     public itemGroupDragDropPossible: boolean = false;
 
     constructor(private plannerService: PlannerService,
-                private itemMoveService: ItemMoveService,
-                private slormancerCharacterService: SlormancerCharacterUpdaterService) {
+                private itemMoveService: ItemMoveService) {
         super();
         this.itemMoveService.draggingItem
             .pipe(takeUntil(this.unsubscribe))
@@ -65,13 +63,14 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
     public updateReaper(reaper: Reaper) {
         if (this.character !== null) {
             this.character.reaper = reaper;
-            this.slormancerCharacterService.updateCharacter(this.character);
+            this.plannerService.updateCurrentCharacter();
         }
     }
 
     public updateIventoryItem(index: number, item: EquipableItem | null) {
         if (this.character !== null) {
             this.character.inventory[index] = item;
+            this.plannerService.updateCurrentCharacter();
         }
     }
 
@@ -80,6 +79,7 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
             const stash = this.character.sharedInventory[stashIndex];
             if (stash) {
                 stash[index] = item;
+                this.plannerService.savePlanner();
             }
         }
     }

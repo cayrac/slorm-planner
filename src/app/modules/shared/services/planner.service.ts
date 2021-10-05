@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 import { Character } from '../../slormancer/model/character';
 import { HeroClass } from '../../slormancer/model/content/enum/hero-class';
@@ -12,9 +13,15 @@ import { Planner } from '../model/planner';
 @Injectable({ providedIn: 'root' })
 export class PlannerService {
 
+    private readonly MAX_LAYERS = 10;
+
+    private readonly STORAGE_KEY = 'slorm-planner-build';
+
     private planner: Planner | null = null;
 
     private selectedLayerIndex: number = -1;
+
+    public readonly manualSave = new Subject();
 
     public readonly characterChanged = new BehaviorSubject<Character | null>(null);
 
@@ -24,8 +31,18 @@ export class PlannerService {
 
     constructor(private slormancerCharacterService: SlormancerCharacterUpdaterService,
                 private slormancerCharacterBuilderService: SlormancerCharacterBuilderService) {
-        console.log('new planner instance');
-        this.layersChanged.subscribe(s => console.log('layer changed : ', s));
+        const data = localStorage.getItem(this.STORAGE_KEY)
+        this.setPlanner(data === null ? null : JSON.parse(data))
+        console.log('Loaded planner from local storage : ', this.planner);
+
+        this.manualSave.pipe(debounceTime(500))
+            .subscribe(() => {
+                console.log('attempt to save ...');
+                if (this.planner !== null) {
+                    console.log('saving ...');
+                    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.planner));
+                }
+            });
     }
 
     public getPlanner(): Planner | null {
@@ -36,6 +53,7 @@ export class PlannerService {
         this.planner = planner;
         this.layersChanged.next(this.planner === null ? [] : this.planner.layers);
         this.setLayerIndex(this.planner === null ? -1 : 0, true);
+        this.savePlanner();
     }
 
     public getPlannerclass(): HeroClass | null {
@@ -63,6 +81,7 @@ export class PlannerService {
     
                 this.selectedLayerIndexChanged.next(this.selectedLayerIndex);
                 this.characterChanged.next(layer ? layer.character : null);
+                this.savePlanner();
             }
         }
     }
@@ -89,6 +108,7 @@ export class PlannerService {
             if (layer) {
                 layer.name = name;
                 this.layersChanged.next(this.planner.layers);
+                this.savePlanner();
             }
         }
     }
@@ -101,6 +121,7 @@ export class PlannerService {
             });
             this.layersChanged.next(this.planner.layers);
             this.setLayerIndex(index);
+            this.savePlanner();
         }
     }
 
@@ -109,6 +130,7 @@ export class PlannerService {
             this.planner.layers.splice(index, 1);
             this.layersChanged.next(this.planner.layers);
             this.setLayerIndex(Math.min(this.planner.layers.length - 1, index), true);
+            this.savePlanner();
         }
     }
 
@@ -122,20 +144,23 @@ export class PlannerService {
                 })
                 this.layersChanged.next(this.planner.layers);
                 this.setLayerIndex(index);
+                this.savePlanner();
             }
         }
     }
 
-    public createNewPlanner(heroClass: HeroClass, character: Character | null) {
+    public createNewPlanner(heroClass: HeroClass, character: Character | null = null, layerName = 'Layer 1') {
         if (character === null || heroClass === character.heroClass) {
             this.initPlanner(heroClass);
-            this.addLayer('Layer 1', character);
+            this.addLayer(layerName, character);
             this.setLayerIndex(0, true);
+            this.savePlanner();
         }
     }
 
     public deletePlanner() {
         this.setPlanner(null);
+        localStorage.removeItem(this.STORAGE_KEY);
     }
 
     public updateCurrentCharacter() {
@@ -144,8 +169,18 @@ export class PlannerService {
 
             if (layer) {
                 this.slormancerCharacterService.updateCharacter(layer.character);
-                
+                this.savePlanner();
             }
         }
+    }
+
+    public savePlanner() {
+        this.manualSave.next();
+    }
+
+    public hasRoomForMoreLayers(character: Character | null = null): boolean {
+        return this.planner === null
+            || (this.planner.layers.length < this.MAX_LAYERS
+                && (character === null || this.planner.heroClass === character.heroClass));
     }
 }

@@ -3,21 +3,9 @@
         <mat-card-content>
             <app-create-build-from-game></app-create-build-from-game>
             <hr/>
-            <h3>Create build from exported data</h3>
-            <input type="file" (change)="uploadSave($event, fileInput)" #fileInput>
-            <button mat-flat-button color="primary" (click)="fileInput.click()"><mat-icon>file_upload</mat-icon>Upload exported file</button>
-            <mat-form-field appearance="outline" color="primary" floatLabel="never">
-                <mat-label>Import content...</mat-label>
-                <textarea matInput [formControl]="importContent" [disabled]="busy"></textarea>
-                <mat-hint align="end" *ngIf="importResult === null">Paste here a build, layer or link</mat-hint>
-                <mat-hint align="end" class="success" *ngIf="importResult !== null && importResult.character !== null">Compatible character found</mat-hint>
-                <mat-hint align="end" class="success" *ngIf="importResult !== null && importResult.layer !== null">Compatible layer found</mat-hint>
-                <mat-hint align="end" class="success" *ngIf="importResult !== null && importResult.planner !== null">Build found</mat-hint>
-                <mat-hint align="end" class="error" *ngIf="importResult !== null && importResult.character === null && importResult.layer === null && importResult.planner === null">No compatible data found</mat-hint>
-                <mat-error>Cannot parse files bigger than {{MAX_UPLOAD_FILE_SIZE_MO}}Mo</mat-error>
-            </mat-form-field>
+            <app-create-build-from-export></app-create-build-from-export>
             <hr/>
-            <h3>Create empty build</h3>
+            <app-create-build-empty></app-create-build-empty>
         </mat-card-content>
     </mat-card>
 </main>

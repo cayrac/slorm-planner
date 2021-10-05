@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
+import { PlannerService } from '../../../shared/services/planner.service';
 import { Character } from '../../../slormancer/model/character';
 import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
 import { ALL_ATTRIBUTES, Attribute } from '../../../slormancer/model/content/enum/attribute';
@@ -41,6 +42,8 @@ export class ViewCharacterComponent {
     public readonly combatBuffControl = new FormControl(false);
 
     constructor(activatedRoute: ActivatedRoute,
+                private router: Router,
+                private plannerService: PlannerService,
                 private slormancerConfigurationService: SlormancerConfigurationService,
                 private slormancerCharacterUpdaterService: SlormancerCharacterUpdaterService,
                 private slormancerTranslateService: SlormancerTranslateService) {
@@ -124,5 +127,21 @@ export class ViewCharacterComponent {
         const traits = this.character.attributes.allocated[attribute];
 
         return traits.rank > 0 || traits.bonusRank > 0;
+    }
+
+    public canImport(): boolean {
+        return this.plannerService.hasRoomForMoreLayers(this.character);
+    }
+
+    public import() {
+        if (this.canImport()) {
+            console.log('import ', this.plannerService.getPlanner());
+            if (this.plannerService.getPlanner() === null) {
+                this.plannerService.createNewPlanner(this.character.heroClass, this.character);
+            } else {
+                this.plannerService.addLayer('Imported layer', this.character);
+            }
+            this.router.navigate(['/build']);
+        }
     }
 }

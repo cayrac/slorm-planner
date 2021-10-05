@@ -15,5 +15,10 @@ main {
 
     mat-card {
         width: 500px;
+
+        mat-card-content {
+            @include flex(column, center);
+            @include flex-gap($space-unit * 5);
+        }
     }
 }

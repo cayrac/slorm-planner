@@ -1,0 +1,13 @@
+
+<div class="import-game">
+    <h3>Create empty build</h3>
+    <div class="save-summary">
+        <p>Choose which character you want to build</p>
+        <div class="classes">
+            <div class="head" *ngFor="let heroClass of HERO_CLASSES" [class.selected]="selectedClass === heroClass" (click)="selectedClass = heroClass">
+                <img src="assets/img/character/icon/{{heroClass}}/head.png" />
+            </div>
+        </div>
+    </div>
+    <button mat-flat-button color="primary" [disabled]="selectedClass === null" (click)="createBuild()">Create build</button>
+</div>
