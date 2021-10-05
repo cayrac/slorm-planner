@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
 import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
@@ -24,8 +24,26 @@ export class AncestralLegacySlotComponent extends AbstractUnsubscribeComponent i
     @Input()
     public readonly selected: boolean = false;
 
+    @Input()
+    public readonly readonly: boolean = false;
+
+    @Input()
+    public readonly overlay: boolean = false;
+    
     @Output()
     public readonly changed = new EventEmitter<AncestralLegacy>();
+
+    public showOverlay = false;
+
+    @HostListener('mouseenter')
+    public onOver() {
+        this.showOverlay = true;
+    }
+
+    @HostListener('mouseleave')
+    public onLeave() {
+        this.showOverlay = false;
+    }
 
     public hiddenBySearch: boolean = false;
 

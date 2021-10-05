@@ -28,6 +28,9 @@ export class SkillSlotComponent extends AbstractUnsubscribeComponent implements 
     @Input()
     public readonly support: boolean = false;
 
+    @Input()
+    public readonly readonly: boolean = false;
+
     @Output()
     public readonly changed = new EventEmitter<Skill>();
 
@@ -86,7 +89,7 @@ export class SkillSlotComponent extends AbstractUnsubscribeComponent implements 
     }
 
     public openMenu() {
-        if (this.menu !== null) {
+        if (this.menu !== null && !this.readonly) {
             this.menu.openMenu();
         }
         return false;

@@ -110,9 +110,6 @@ main {
                     .slots {
                         @include flex(row, center);
                         min-height: $space-content * 3;
-                        app-ancestral-legacy-slot {
-                            zoom: 2;
-                        }
                     }
                 }
             }

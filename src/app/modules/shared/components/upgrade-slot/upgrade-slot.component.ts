@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 
 import { SkillType } from '../../../slormancer/model/content/skill-type';
@@ -23,7 +23,25 @@ export class UpgradeSlotComponent extends AbstractUnsubscribeComponent implement
     @Input()
     public readonly equipped: boolean = false;
 
+    @Input()
+    public readonly overlay: boolean = false;
+
+    @Input()
+    public readonly readonly: boolean = false;
+
     public hiddenBySearch: boolean = false;
+
+    public showOverlay = false;
+
+    @HostListener('mouseenter')
+    public onOver() {
+        this.showOverlay = true;
+    }
+
+    @HostListener('mouseleave')
+    public onLeave() {
+        this.showOverlay = false;
+    }
 
     constructor(private searchService: SearchService) {
         super();

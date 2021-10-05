@@ -34,7 +34,6 @@
     .equipped-border {
         width: 40px;
         height: 40px;
-        cursor: pointer;
         position: relative;
         border: 3px solid black;
         padding: 3px;
@@ -46,6 +45,23 @@
         img {
             border: 3px solid black;
 
+        }
+    }
+
+    &:not(.readonly) .equipped-border {
+        cursor: pointer;
+    }
+
+    &.readonly {
+        .equipped-border {
+            padding: 0;
+            border-width: 4px;
+            width: 34px;
+            height: 34px;
+
+            img {
+                border-width: 0;
+            }
         }
     }
 }

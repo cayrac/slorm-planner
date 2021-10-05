@@ -5,9 +5,16 @@
     [class.ranked]="ancestralLegacy.baseRank > 0"
     [class.equipped]="equipped"
     [class.selected]="selected"
-    [class.hidden-search]="hiddenBySearch">
+    [class.readonly]="readonly"
+    [class.hidden-search]="hiddenBySearch"
+    cdkOverlayOrigin #trigger="cdkOverlayOrigin">
     <div class="inner">
         <img [src]="ancestralLegacy.icon" />
     </div>
     <div class="rank" [class.max]="ancestralLegacy.rank === ancestralLegacy.maxRank">{{ancestralLegacy.rank === ancestralLegacy.maxRank ? 'Max' : ancestralLegacy.rank}}</div>
+    <ng-template cdkConnectedOverlay *ngIf="showOverlay && overlay"
+        [cdkConnectedOverlayOpen]="showOverlay"
+        [cdkConnectedOverlayOrigin]="trigger">
+        <app-ancestral-legacy-view [ancestralLegacy]="ancestralLegacy"></app-ancestral-legacy-view>
+    </ng-template>
 </div>

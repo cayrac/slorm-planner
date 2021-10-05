@@ -33,11 +33,13 @@
                 <h4>Support Skill</h4>
                 <div class="skill-line">
                     <div class="skill">
-                        <app-skill-slot [skill]="character.supportSkill" [support]="true"></app-skill-slot>
+                        <app-skill-slot [readonly]="true" [skill]="character.supportSkill" [support]="true"></app-skill-slot>
                     </div>
                     <div class="upgrades">
                         <app-upgrade-slot *ngFor="let upgrade of getSkillUpgrades(character.supportSkill)"
                             [upgrade]="upgrade"
+                            [readonly]="true"
+                            [overlay]="true"
                             [equipped]="false"
                             [selected]="false">
                         </app-upgrade-slot>
@@ -48,11 +50,13 @@
                 <h4>Primary Skill</h4>
                 <div class="skill-line">
                     <div class="skill">
-                        <app-skill-slot [skill]="character.primarySkill"></app-skill-slot>
+                        <app-skill-slot [readonly]="true" [skill]="character.primarySkill"></app-skill-slot>
                     </div>
                     <div class="upgrades">
                         <app-upgrade-slot *ngFor="let upgrade of getSkillUpgrades(character.primarySkill)"
                             [upgrade]="upgrade"
+                            [readonly]="true"
+                            [overlay]="true"
                             [equipped]="false"
                             [selected]="false">
                         </app-upgrade-slot>
@@ -63,11 +67,13 @@
                 <h4>Secondary Skill</h4>
                 <div class="skill-line">
                     <div class="skill">
-                        <app-skill-slot [skill]="character.secondarySkill"></app-skill-slot>
+                        <app-skill-slot [readonly]="true" [skill]="character.secondarySkill"></app-skill-slot>
                     </div>
                     <div class="upgrades">
                         <app-upgrade-slot *ngFor="let upgrade of getSkillUpgrades(character.secondarySkill)"
                             [upgrade]="upgrade"
+                            [readonly]="true"
+                            [overlay]="true"
                             [equipped]="false"
                             [selected]="false">
                         </app-upgrade-slot>
@@ -88,7 +94,9 @@
                     <h4>Ancestral Legacies</h4>
                     <div class="slots">
                         <app-ancestral-legacy-slot *ngFor="let ancestralLegacy of getAncestralLegacies()"
-                            [ancestralLegacy]="ancestralLegacy">
+                            [ancestralLegacy]="ancestralLegacy"
+                            [readonly]="true"
+                            [overlay]="true">
                         </app-ancestral-legacy-slot>
                     </div>
                 </div>

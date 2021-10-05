@@ -14,7 +14,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltipDefaultOptions, MatTooltipModule } from '@angular/material/tooltip';
 
 
 const globalRippleConfig: RippleGlobalOptions = {
@@ -23,6 +23,14 @@ const globalRippleConfig: RippleGlobalOptions = {
         enterDuration: 0,
         exitDuration: 0
     }
+};
+
+const globalTooltipConfig: MatTooltipDefaultOptions = {
+    showDelay: 0,
+    hideDelay: 0,
+    touchendHideDelay: 0,
+    position: 'above'
+
 };
 
 @NgModule({
@@ -62,7 +70,8 @@ const globalRippleConfig: RippleGlobalOptions = {
         OverlayModule,
     ],
     providers: [
-        {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: globalRippleConfig}
+        {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: globalRippleConfig },
+        {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: globalTooltipConfig }
     ],
 })
 export class MaterialModule { }

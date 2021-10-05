@@ -9,6 +9,10 @@ import { SkillUpgrade } from '../../../slormancer/model/content/skill-upgrade';
 import { MinMax } from '../../../slormancer/model/minmax';
 import { SlormancerTranslateService } from '../../../slormancer/services/content/slormancer-translate.service';
 
+// TODO ajouter overlays
+// Ajouter switch stats
+// trouver formules réductions défenses
+
 @Component({
   selector: 'app-view-character',
   templateUrl: './view-character.component.html',

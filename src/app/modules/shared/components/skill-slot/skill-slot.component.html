@@ -1,5 +1,5 @@
 
-<div class="skill" [class.support]="support" cdkOverlayOrigin #trigger="cdkOverlayOrigin" (contextmenu)="openMenu()" (click)="openMenu()">
+<div class="skill" [class.support]="support" [class.readonly]="readonly" cdkOverlayOrigin #trigger="cdkOverlayOrigin" (contextmenu)="openMenu()" (click)="openMenu()">
     <ng-container *ngIf="skill !== null">
         <img [src]="support ? skill.iconLarge : skill.icon">
         <ng-template cdkConnectedOverlay

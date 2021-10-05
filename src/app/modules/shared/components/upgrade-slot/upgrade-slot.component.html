@@ -1,9 +1,16 @@
 
 <div class="upgrade" *ngIf="upgrade !== null"
     [class.hidden-search]="hiddenBySearch"
-    [class.passive]="isPassive(upgrade)">
+    [class.passive]="isPassive(upgrade)"
+    [class.readonly]="readonly"
+    cdkOverlayOrigin #trigger="cdkOverlayOrigin">
     <div class="equipped-border" [class.equipped]="equipped">
         <img class="skill-icon" [src]="upgrade.icon" />
     </div>
     <div class="rank" [class.max]="upgrade.rank === upgrade.maxRank">{{upgrade.rank === upgrade.maxRank ? 'Max' : upgrade.rank}}</div>
+    <ng-template cdkConnectedOverlay *ngIf="showOverlay && overlay"
+        [cdkConnectedOverlayOpen]="showOverlay"
+        [cdkConnectedOverlayOrigin]="trigger">
+        <app-skill-upgrade-view [upgrade]="upgrade"></app-skill-upgrade-view>
+    </ng-template>
 </div>

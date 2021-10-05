@@ -5,7 +5,7 @@
                 <h3>{{section.section}}</h3>
                 <div class="stat" *ngFor="let stat of section.stats">
                     <div class="label">{{stat.name}}</div>
-                    <div class="value" [matTooltip]="getTooltip(stats, stat)" matTooltipPosition="above">{{getValue(stats, stat)}}</div>
+                    <div class="value" [matTooltip]="getTooltip(stats, stat)">{{getValue(stats, stat)}}</div>
                 </div>
             </div>
         </ng-container>
