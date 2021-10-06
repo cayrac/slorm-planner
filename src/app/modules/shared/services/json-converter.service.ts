@@ -290,6 +290,7 @@ export class JsonConverterService {
 
                 const skill = character.skills.find(skill => skill.id === index);
                 if (skill) {
+                    console.log('PARSING SKILL RANK : ', skill.id, skill.rank)
                     rank = skill.rank;
                 } else {
                     const upgrade = character.skills.map(skill => skill.upgrades).flat()

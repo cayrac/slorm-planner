@@ -1,7 +1,10 @@
 export interface CharacterConfig {
+    knight_other_level: number;
     serenity: number;
     last_cast_tormented: boolean;
     last_cast_delighted: boolean;
+    next_cast_is_fortunate: boolean;
+    next_cast_is_perfect: boolean;
     percent_missing_health: number;
     percent_missing_mana: number;
     percent_lock_health: number,
@@ -22,6 +25,7 @@ export interface CharacterConfig {
     enemies_affected_by_latent_storm: number;
     target_is_isolated: boolean;
     target_is_tracked: boolean;
+    target_is_skewered: boolean;
     target_has_negative_effect: boolean;
     is_first_hit: boolean;
     is_last_volley: boolean;
@@ -37,6 +41,7 @@ export interface CharacterConfig {
     cast_support_before_next_cast: boolean;
     seconds_since_last_crit: number;
     seconds_since_last_dodge: number;
+    banners_nearby: number;
     controlled_minions: number;
     elemental_prowess_stacks: number;
     greed_stacks: number;
@@ -70,6 +75,8 @@ export interface CharacterConfig {
     has_assassin_haste_buff: boolean;
     has_smoke_screen_buff: boolean;
     has_ancestral_stab_slash_buff: boolean;
+    has_banner_regeneration_buff: boolean;
+    has_banner_haste_buff: boolean;
     distance_with_target: number;
     all_characters_level: number;
     victims_reaper_104: number;

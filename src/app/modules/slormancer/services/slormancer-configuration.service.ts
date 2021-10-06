@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { MAX_HERO_LEVEL } from '../constants/common';
 import { Character } from '../model/character';
 import { CharacterConfig } from '../model/character-config';
 import { SkillCostType } from '../model/content/enum/skill-cost-type';
@@ -7,12 +8,15 @@ import { SkillCostType } from '../model/content/enum/skill-cost-type';
 @Injectable()
 export class SlormancerConfigurationService {
 
-    private readonly DEFAULT_CONFIG = {
+    private readonly DEFAULT_CONFIG: CharacterConfig = {
+        knight_other_level: MAX_HERO_LEVEL,
         totems_under_control: 0,
         traps_nearby: 0,
         serenity: 0,
         last_cast_tormented: false,
         last_cast_delighted: false,
+        next_cast_is_fortunate: false,
+        next_cast_is_perfect: false,
         enemy_percent_missing_health: 0,
         percent_missing_health: 0,
         percent_missing_mana: 0,
@@ -34,6 +38,7 @@ export class SlormancerConfigurationService {
         target_is_tracked: false,
         enemy_is_poisoned: false,
         target_has_negative_effect: false,
+        target_is_skewered: false,
         is_first_hit: false,
         is_last_volley: false,
         void_arrow_fully_charged: false,
@@ -53,6 +58,7 @@ export class SlormancerConfigurationService {
         took_damage_before_next_cast: false,
         cast_support_before_next_cast: false,
         victims_reaper_104: 0,
+        banners_nearby: 10,
         controlled_minions: 0,
         elemental_prowess_stacks: 0,
         totem_dexterity_stacks: 0,
@@ -87,6 +93,8 @@ export class SlormancerConfigurationService {
         has_assassin_haste_buff: false,
         has_smoke_screen_buff: false,
         has_ancestral_stab_slash_buff: false,
+        has_banner_regeneration_buff: true,
+        has_banner_haste_buff: false,
         all_characters_level: 120,
         idle: false,
         damage_stored: 0,
@@ -97,11 +105,14 @@ export class SlormancerConfigurationService {
     }
 
     private readonly COMBAT_CONFIG: CharacterConfig = {
+        knight_other_level: MAX_HERO_LEVEL,
         totems_under_control: 0,
         traps_nearby: 0,
         serenity: 6,
         last_cast_tormented: false,
         last_cast_delighted: false,
+        next_cast_is_fortunate: false,
+        next_cast_is_perfect: false,
         enemy_percent_missing_health: 0,
         percent_missing_health: 0,
         percent_missing_mana: 0,
@@ -123,6 +134,7 @@ export class SlormancerConfigurationService {
         target_is_tracked: false,
         enemy_is_poisoned: false,
         target_has_negative_effect: false,
+        target_is_skewered: false,
         is_first_hit: false,
         is_last_volley: false,
         void_arrow_fully_charged: false,
@@ -142,6 +154,7 @@ export class SlormancerConfigurationService {
         took_damage_before_next_cast: false,
         cast_support_before_next_cast: false,
         victims_reaper_104: 0,
+        banners_nearby: 0,
         controlled_minions: 0,
         elemental_prowess_stacks: 1,
         totem_dexterity_stacks: 200,
@@ -176,6 +189,8 @@ export class SlormancerConfigurationService {
         has_assassin_haste_buff: true,
         has_smoke_screen_buff: true,
         has_ancestral_stab_slash_buff: true,
+        has_banner_regeneration_buff: true,
+        has_banner_haste_buff: true,
         all_characters_level: 120,
         idle: true,
         damage_stored: 0,

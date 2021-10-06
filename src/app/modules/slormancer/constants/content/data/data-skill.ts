@@ -67,8 +67,16 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     0: {
         masteryRequired: null,
         override: values => {
-            addConstant(values, 8, false, EffectValueValueType.Duration, 'skill_0_0_duration');
-            addConstant(values, 2.5, false, EffectValueValueType.AreaOfEffect, 'skill_0_0_aoe');
+            addConstant(values, 8, false, EffectValueValueType.Duration, 'banner_duration');
+            addConstant(values, 2.5, false, EffectValueValueType.AreaOfEffect, 'banner_aoe');
+            setStat(values, 0, 'banner_provocation_banner_max_health');
+            setAsUpgrade(values, 0);
+            setStat(values, 1, 'banner_regeneration_buff_health_on_hit_add');
+            setAsUpgrade(values, 1);
+            setStat(values, 2, 'banner_haste_buff_cooldown_reduction_global_mult');
+            setAsUpgrade(values, 2);
+            setStat(values, 3, 'banner_sluggishness_slow');
+            setAsUpgrade(values, 3);
         },
         additionalClassMechanics: [],
         specialization: 219
@@ -962,160 +970,206 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     },
     138: {
         masteryRequired: 1,
-        override: () => { },
+        override: values => {
+            setStat(values, 0, 'res_phy_percent_per_banner');
+        },
         additionalClassMechanics: []
     },
     139: {
         masteryRequired: 1,
-        override: () => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'skewer_on_hit_if_fortunate');
+        },
         additionalClassMechanics: []
     },
     140: {
         masteryRequired: 1,
-        override: () => { },
+        override: values => {
+            setStat(values, 0, 'increased_damage_if_target_is_skewered');
+        },
         additionalClassMechanics: []
     },
     141: {
         masteryRequired: 2,
-        override: () => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'refresh_banner_cooldown_on_kill');
+        },
         additionalClassMechanics: []
     },
     142: {
         masteryRequired: 2,
-        override: () => { },
+        override: values => {
+            synergyMultiply100(values, 0);
+        },
         additionalClassMechanics: []
     },
     143: {
         masteryRequired: 2,
-        override: () => { },
+        override: values => { },
         additionalClassMechanics: []
     },
     144: {
         masteryRequired: 3,
-        override: () => { },
+        override: values => {
+            setStat(values, 0, 'cooldown_time_reduction_multiplier');
+            setAsUpgrade(values, 0);
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'banner_drop_randomly');
+        },
         additionalClassMechanics: []
     },
     145: {
         masteryRequired: 3,
-        override: () => { },
+        override: values => { },
         additionalClassMechanics: []
     },
     146: {
         masteryRequired: 3,
-        override: () => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'block_stack_on_critical');
+        },
         additionalClassMechanics: []
     },
     147: {
         masteryRequired: 3,
-        override: () => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'skewer_max_stack_add');
+        },
         additionalClassMechanics: []
     },
     148: {
         masteryRequired: 4,
-        override: () => { },
+        override: values => {
+            setStat(values, 0, 'banner_provocation_banner_def_phy');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     149: {
         masteryRequired: 4,
-        override: () => { },
+        override: values => {
+            setStat(values, 0, 'banner_regeneration_buff_mana_on_hit_add');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'banner_knockback_on_land');
+        },
         additionalClassMechanics: []
     },
     150: {
         masteryRequired: 4,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Duration, 'skill_0_150_stun_duration');
+            setStat(values, 0, 'banner_sluggishness_daze');
+            setAsUpgrade(values, 0);
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'banner_sluggishness_stun_duration_on_land');
         },
         additionalClassMechanics: []
     },
     151: {
         masteryRequired: 4,
         override: values => {
-            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_0_151_block_per_second');
+            addConstant(values, 3, false, EffectValueValueType.Stat, 'banner_haste_block_stack_per_second');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'banner_knockback_on_land');
         },
         additionalClassMechanics: []
     },
     152: {
         masteryRequired: 5,
-        override: () => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'cooldown_reset_on_block');
+        },
         additionalClassMechanics: []
     },
     153: {
         masteryRequired: 5,
-        override: () => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'banner_fixed_order');
+        },
         additionalClassMechanics: []
     },
     154: {
         masteryRequired: 5,
-        override: () => { },
+        override: values => {
+            setStat(values, 0, 'skewer_additional_damage_percent');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     155: {
         masteryRequired: 6,
         override: values => {
-            addConstant(values, 2, false, EffectValueValueType.Duration, 'skill_0_155_stun_duration');
+            setStat(values, 0, 'wood_stick_training_lance_stun_chance');
+            addConstant(values, 2, false, EffectValueValueType.Duration, 'wood_stick_training_lance_stun_duration');
         },
         additionalClassMechanics: []
     },
     156: {
         masteryRequired: 6,
-        override: () => { },
+        override: values => {
+            setStat(values, 0, 'mighty_swing_cadence_whirlwind_crit_damage_percent');
+        },
         additionalClassMechanics: []
     },
     157: {
         masteryRequired: 6,
-        override: () => { },
+        override: values => {
+            setStat(values, 0, 'grappling_hook_crest_shield_cooldown_time_reduction_multiplier');
+        },
         additionalClassMechanics: []
     },
     158: {
         masteryRequired: 7,
-        override: () => { },
+        override: values => { },
         additionalClassMechanics: []
     },
     159: {
         masteryRequired: 7,
-        override: values => {
-            addConstant(values, 0, false, EffectValueValueType.Flat, 'skill_0_159_max_damage_taken_if_source_life_is_full');
+        override: values => {            
+            addConstant(values, 0, false, EffectValueValueType.Stat, 'garbage_stat');
+            addConstant(values, 100, false, EffectValueValueType.Stat, 'reduced_damage_from_melee_percent_if_source_is_full_life');
         },
         additionalClassMechanics: []
     },
     160: {
         masteryRequired: 7,
-        override: () => { },
+        override: values => {
+            addConstant(values, 0, false, EffectValueValueType.Stat, 'skewer_as_critical');
+        },
         additionalClassMechanics: []
     },
     161: {
         masteryRequired: 8,
-        override: () => { },
+        override: values => {
+            setStat(values, 0, 'increased_damage_if_not_fortunate_or_perfect');
+        },
         additionalClassMechanics: [215]
     },
     162: {
         masteryRequired: 8,
-        override: () => { },
+        override: values => {
+            setStat(values, 0, 'skewer_damage_per_second_percent');
+        },
         additionalClassMechanics: []
     },
     163: {
         masteryRequired: 1,
-        override: () => { },
+        override: values => { },
         additionalClassMechanics: []
     },
     164: {
         masteryRequired: 1,
-        override: () => { },
+        override: values => { },
         additionalClassMechanics: []
     },
     165: {
         masteryRequired: 1,
-        override: () => { },
+        override: values => { },
         additionalClassMechanics: []
     },
     166: {
         masteryRequired: 2,
-        override: () => { },
+        override: values => { },
         additionalClassMechanics: []
     },
     167: {
         masteryRequired: 2,
-        override: () => { },
+        override: values => { },
         additionalClassMechanics: [217]
     },
     168: {
@@ -1128,7 +1182,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     },
     169: {
         masteryRequired: 3,
-        override: () => { },
+        override: values => { },
         additionalClassMechanics: []
     },
     170: {
@@ -1141,7 +1195,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     },
     171: {
         masteryRequired: 3,
-        override: () => { },
+        override: values => { },
         additionalClassMechanics: []
     },
     172: {
@@ -1160,7 +1214,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     },
     174: {
         masteryRequired: 4,
-        override: () => { },
+        override: values => { },
         additionalClassMechanics: []
     },
     175: {
@@ -1180,23 +1234,23 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     },
     177: {
         masteryRequired: 5,
-        override: () => { },
+        override: values => { },
         additionalClassMechanics: [],
         additionalMechanics: [MechanicType.Overdrive]
     },
     178: {
         masteryRequired: 6,
-        override: () => { },
+        override: values => { },
         additionalClassMechanics: []
     },
     179: {
         masteryRequired: 6,
-        override: () => { },
+        override: values => { },
         additionalClassMechanics: []
     },
     180: {
         masteryRequired: 6,
-        override: () => { },
+        override: values => { },
         additionalClassMechanics: []
     },
     181: {
@@ -1208,7 +1262,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     },
     182: {
         masteryRequired: 7,
-        override: () => { },
+        override: values => { },
         additionalClassMechanics: []
     },
     183: {
@@ -1473,7 +1527,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
             setUpgrade(values, 1, 3);
             addConstant(values, 0, false, EffectValueValueType.Upgrade, 'displayed_max_charge');
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'chance_to_pierce_percent_if_fully_charged');
-            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'increased_damages_mult_if_fully_charged');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'increased_damage_mult_if_fully_charged');
             addConstant(values, 300, false, EffectValueValueType.Upgrade, 'max_charge');
         },
         additionalClassMechanics: []

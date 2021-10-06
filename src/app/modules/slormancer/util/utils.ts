@@ -162,5 +162,5 @@ export function getCraftValue(craftedValue: CraftableEffect, craft: number, defa
 }
 
 export function isDamageType(stat: string): boolean {
-    return stat === 'elemental_damage' || stat === 'physical_damage' || stat === 'basic_damage' || stat === 'weapon_damage';
+    return stat === 'elemental_damage' || stat === 'physical_damage' || stat === 'basic_damage' || stat === 'weapon_damage' || stat === 'bleed_damage' || stat === 'damage';
 }

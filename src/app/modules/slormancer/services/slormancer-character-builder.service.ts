@@ -35,7 +35,7 @@ export class SlormancerCharacterBuilderService {
 
     private getSkills(heroClass: HeroClass, equipped: Array<number> = [], ranks: Array<number> = []): Array<CharacterSkillAndUpgrades> {
         return this.slormancerDataService.getGameDataActiveSkills(heroClass).map(gameData => {
-            const skill = this.slormancerSkillService.getHeroSkill(gameData.REF, heroClass, 15);
+            const skill = this.slormancerSkillService.getHeroSkill(gameData.REF, heroClass, Math.min(15, valueOrDefault(ranks[gameData.REF], 0)));
             const upgrades = this.slormancerDataService.getGameDataUpgradeIdsForSkill(gameData.REF, heroClass)
                 .map(upgradeId => this.slormancerSkillService.getUpgrade(upgradeId, heroClass, valueOrDefault(ranks[upgradeId], 0)))
                 .filter(isNotNullOrUndefined);

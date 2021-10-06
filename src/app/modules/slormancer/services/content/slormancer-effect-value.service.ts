@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
+import { round } from '../../util/math.util';
 import { isEffectValueSynergy, isEffectValueVariable } from '../../util/utils';
 
 @Injectable()
@@ -22,10 +23,10 @@ export class SlormancerEffectValueService {
                 value += effectValue.upgrade * upgradeMultiplier;
             }
 
+            effectValue.value = value
+            effectValue.displayValue = round(value, 2);
             if (isEffectValueVariable(effectValue)) {
                 effectValue.upgradedValue = value;
-            } else {
-                effectValue.value = value;
             }
         }
 

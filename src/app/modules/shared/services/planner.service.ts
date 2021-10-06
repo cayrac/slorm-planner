@@ -9,6 +9,7 @@ import { SlormancerCharacterUpdaterService } from '../../slormancer/services/slo
 import { valueOrNull } from '../../slormancer/util/utils';
 import { Layer } from '../model/layer';
 import { Planner } from '../model/planner';
+import { JsonConverterService } from './json-converter.service';
 
 @Injectable({ providedIn: 'root' })
 export class PlannerService {
@@ -30,9 +31,10 @@ export class PlannerService {
     public readonly selectedLayerIndexChanged = new BehaviorSubject<number>(this.selectedLayerIndex);
 
     constructor(private slormancerCharacterService: SlormancerCharacterUpdaterService,
+                private jsonConverterService: JsonConverterService,
                 private slormancerCharacterBuilderService: SlormancerCharacterBuilderService) {
-        const data = localStorage.getItem(this.STORAGE_KEY)
-        this.setPlanner(data === null ? null : JSON.parse(data))
+        const data = localStorage.getItem(this.STORAGE_KEY);
+        this.setPlanner(data === null ? null : this.jsonConverterService.jsonToPlanner(JSON.parse(data)))
         console.log('Loaded planner from local storage : ', this.planner);
 
         this.manualSave.pipe(debounceTime(500))
@@ -40,7 +42,7 @@ export class PlannerService {
                 console.log('attempt to save ...');
                 if (this.planner !== null) {
                     console.log('saving ...');
-                    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.planner));
+                    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.jsonConverterService.plannerToJson(this.planner)));
                 }
             });
     }

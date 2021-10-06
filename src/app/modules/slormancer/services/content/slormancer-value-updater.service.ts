@@ -122,6 +122,10 @@ export class SlormancerValueUpdater {
             multipliers.push(stats.auraIncreasedEffect.total);
         }
 
+        if (genres.includes(SkillGenre.Aoe)) {
+            multipliers.push(stats.aoeIncreasedEffect.total);
+        }
+
         return multipliers.filter(v => v !== 0);
     }
 
