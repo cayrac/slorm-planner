@@ -652,14 +652,17 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [{ stat: 'thorns_add' }],
             max: [],
-            percent: [{ stat: 'thorns_percent' }],
+            percent: [
+                { stat: 'thorns_percent' },
+                { stat: 'thorns_percent_on_blocked_hit', condition: config => config.is_hit_blocked }
+            ],
             maxPercent: [],
             multiplier: [{ stat: 'thorns_global_mult' }],
         } 
     },
     {
         stat: 'thorns_critical_chance',
-        precision: 1, // Transférer la précision à la synergie
+        precision: 1,
         allowMinMax: false,
         source: {
             flat: [{ stat: 'thorn_crit_chance_percent' }],
@@ -677,8 +680,21 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             flat: [
                 { stat: 'retaliate_percent' },
                 { stat: 'retaliate_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'retaliate_percent_on_low_life_treshold', 0)) },
-                { stat: 'golden_buff_retaliate_percent', condition: config => config.has_gold_armor_buff }
+                { stat: 'golden_buff_retaliate_percent', condition: config => config.has_gold_armor_buff },
+                { stat: 'retaliate_percent_on_blocked_hit', condition: config => config.is_hit_blocked },
             ],
+            max: [],
+            percent: [],
+            maxPercent: [],
+            multiplier: [],
+        } 
+    },
+    {
+        stat: 'retaliate_critical_chance',
+        precision: 1,
+        allowMinMax: false,
+        source: {
+            flat: [{ stat: 'retaliate_crit_chance_percent' }],
             max: [],
             percent: [],
             maxPercent: [],
@@ -762,7 +778,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'reduced_damage_from_area_percent' }],
+            flat: [
+                { stat: 'reduced_damage_from_area_percent' },
+                { stat: 'enduring_protector_buff_reduced_damage_from_area_percent', condition: config => config.has_enduring_protector_buff },
+            ],
             max: [],
             percent: [],
             maxPercent: [],

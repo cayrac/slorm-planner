@@ -28,6 +28,7 @@ export interface CharacterConfig {
     target_is_skewered: boolean;
     target_has_negative_effect: boolean;
     is_first_hit: boolean;
+    is_hit_blocked: boolean;
     is_last_volley: boolean;
     void_arrow_fully_charged: boolean;
     ennemies_in_radius: { [key: number]: number};
@@ -77,6 +78,7 @@ export interface CharacterConfig {
     has_ancestral_stab_slash_buff: boolean;
     has_banner_regeneration_buff: boolean;
     has_banner_haste_buff: boolean;
+    has_enduring_protector_buff: boolean;
     distance_with_target: number;
     all_characters_level: number;
     victims_reaper_104: number;

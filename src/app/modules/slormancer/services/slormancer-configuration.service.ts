@@ -40,6 +40,7 @@ export class SlormancerConfigurationService {
         target_has_negative_effect: false,
         target_is_skewered: false,
         is_first_hit: false,
+        is_hit_blocked: true,
         is_last_volley: false,
         void_arrow_fully_charged: false,
         elites_in_radius: {
@@ -95,6 +96,7 @@ export class SlormancerConfigurationService {
         has_ancestral_stab_slash_buff: false,
         has_banner_regeneration_buff: true,
         has_banner_haste_buff: false,
+        has_enduring_protector_buff: true,
         all_characters_level: 120,
         idle: false,
         damage_stored: 0,
@@ -136,6 +138,7 @@ export class SlormancerConfigurationService {
         target_has_negative_effect: false,
         target_is_skewered: false,
         is_first_hit: false,
+        is_hit_blocked: false,
         is_last_volley: false,
         void_arrow_fully_charged: false,
         elites_in_radius: {
@@ -191,6 +194,7 @@ export class SlormancerConfigurationService {
         has_ancestral_stab_slash_buff: true,
         has_banner_regeneration_buff: true,
         has_banner_haste_buff: true,
+        has_enduring_protector_buff: true,
         all_characters_level: 120,
         idle: true,
         damage_stored: 0,

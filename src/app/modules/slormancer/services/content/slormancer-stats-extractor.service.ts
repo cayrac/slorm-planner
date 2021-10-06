@@ -8,6 +8,7 @@ import { SynergyResolveData } from '../../model/content/character-stats';
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { ALL_ATTRIBUTES } from '../../model/content/enum/attribute';
 import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
+import { EquipableItemBase } from '../../model/content/enum/equipable-item-base';
 import { ALL_GEAR_SLOT_VALUES } from '../../model/content/enum/gear-slot';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { TraitLevel } from '../../model/content/enum/trait-level';
@@ -140,6 +141,7 @@ export class SlormancerStatsExtractorService {
     }
 
     private addGearValues(character: Character, stats: ExtractedStats) {
+        const addChestTwice = stats.stats['add_chest_stats_twice'] !== undefined;
         const items = ALL_GEAR_SLOT_VALUES
             .map(slot => character.gear[slot])
             .filter(isNotNullOrUndefined);
@@ -147,13 +149,18 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'number_equipped_legendaries', items.filter(item => item.legendaryEffect !== null).length);
 
         for (const item of items) {
+            const affixEffectValues = item.affixes.map(affix => affix.craftedEffect.effect);
             const effectValues = [
-                    ...item.affixes.map(affix => affix.craftedEffect.effect),
+                    ...affixEffectValues,
                     ...(item.legendaryEffect !== null ? item.legendaryEffect.effects.map(c => c.effect) : []),
                     ...(item.legendaryEffect !== null && item.legendaryEffect.activable !== null ? item.legendaryEffect.activable.values : [])
                 ]
                 .flat();
-                
+            
+            if (addChestTwice && item.base === EquipableItemBase.Body) {
+                effectValues.push(...affixEffectValues);
+            }
+
             for (const effectValue of effectValues) {
                 if (isEffectValueSynergy(effectValue)) {
                     if (isDamageType(effectValue.stat)) {
@@ -264,6 +271,7 @@ export class SlormancerStatsExtractorService {
         }
 
         this.addConfigValues(config, result);
+        this.addSkillPassiveValues(character, result);
         this.addReaperValues(character, result);
         this.addBaseValues(character, result);
         this.addAncestralLegacyValues(character, result);
@@ -271,7 +279,6 @@ export class SlormancerStatsExtractorService {
         this.addGearValues(character, result);
         this.addAdditionalItemValues(additionalItem, result);
         this.addInventoryValues(character, result);
-        this.addSkillPassiveValues(character, result);
         this.addActivableValues(character, result);
         
         return result;

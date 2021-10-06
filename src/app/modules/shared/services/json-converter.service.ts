@@ -15,6 +15,7 @@ import { SlormancerItemService } from '../../slormancer/services/content/slorman
 import { SlormancerLegendaryEffectService } from '../../slormancer/services/content/slormancer-legendary-effect.service';
 import { SlormancerReaperService } from '../../slormancer/services/content/slormancer-reaper.service';
 import { SlormancerCharacterBuilderService } from '../../slormancer/services/slormancer-character-builder.service';
+import { round } from '../../slormancer/util/math.util';
 import { isNotNullOrUndefined, valueOrDefault } from '../../slormancer/util/utils';
 import { JsonAncestralLegacy } from '../model/json/json-ancestral-legacy';
 import { JsonCharacter } from '../model/json/json-character';
@@ -290,8 +291,7 @@ export class JsonConverterService {
 
                 const skill = character.skills.find(skill => skill.id === index);
                 if (skill) {
-                    console.log('PARSING SKILL RANK : ', skill.id, skill.rank)
-                    rank = skill.rank;
+                    rank = round(skill.rank);
                 } else {
                     const upgrade = character.skills.map(skill => skill.upgrades).flat()
                         .find(upgrade => upgrade.id === index);
