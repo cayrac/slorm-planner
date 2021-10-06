@@ -51,5 +51,6 @@ export interface MergedStat<T = number | MinMax> {
         percent: Array<number>;
         maxPercent: Array<number>;
         multiplier: Array<number>;
+        maxMultiplier: Array<number>;
     }
 };

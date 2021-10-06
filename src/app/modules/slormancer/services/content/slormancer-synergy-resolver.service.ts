@@ -182,6 +182,7 @@ export class SlormancerSynergyResolverService {
                         percent: [],
                         maxPercent: [],
                         multiplier: [],
+                        maxMultiplier: [],
                     }
                 };
                 stats.push(foundStat);

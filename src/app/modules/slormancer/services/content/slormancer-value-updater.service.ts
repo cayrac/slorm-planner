@@ -22,6 +22,7 @@ interface SkillStats {
     cooldown: MergedStat<number>;
     attackSpeed: MergedStat<number>;
     increasedDamage: MergedStat<number>;
+    skillIncreasedDamage: MergedStat<number>;
     totemIncreasedEffect: MergedStat<number>;
     auraIncreasedEffect: MergedStat<number>;
     aoeIncreasedEffect: MergedStat<number>;
@@ -40,7 +41,7 @@ export class SlormancerValueUpdater {
         ) { }
 
     private getStatValueOrDefault(stats: Array<MergedStat>, stat: string): MergedStat {
-        let result = stats.find(s => s.stat === stat);
+        let result: MergedStat | undefined = stats.find(s => s.stat === stat);
 
         if (result === undefined) {
             result = {
@@ -48,7 +49,7 @@ export class SlormancerValueUpdater {
                 precision: 0,
                 stat,
                 total: 0,
-                values: { flat: [], maxPercent: [], max: [], multiplier: [], percent: [] }
+                values: { flat: [], maxPercent: [], max: [], multiplier: [], percent: [], maxMultiplier: [] }
             };
         }
         return result
@@ -134,6 +135,7 @@ export class SlormancerValueUpdater {
             mana: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'mana_cost'),
             cooldown: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'cooldown_time'),
             attackSpeed: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'attack_speed'),
+            skillIncreasedDamage: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'skill_increased_damages'),
             increasedDamage: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'increased_damages'),
             totemIncreasedEffect: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'totem_increased_effect'),
             auraIncreasedEffect: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'aura_increased_effect'),
@@ -156,7 +158,7 @@ export class SlormancerValueUpdater {
             if (isEffectValueSynergy(value)) {
                 if (isDamageType(value.stat)) {
                     const damageMultipliers = this.getValidDamageMultipliers(activable.genres, skillStats, statsResult);
-                    this.updateDamages([value], 0, damageMultipliers);
+                    this.updateDamages([value], 0, damageMultipliers, skillStats.increasedDamage.values.maxMultiplier);
                 }
             } else if (value.valueType === EffectValueValueType.AreaOfEffect) {
                 value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
@@ -194,7 +196,7 @@ export class SlormancerValueUpdater {
             if (isEffectValueSynergy(value)) {
                 if (isDamageType(value.stat)) {
                     const damageMultipliers = this.getValidDamageMultipliers(ancestralLegacy.genres, skillStats, statsResult);
-                    this.updateDamages([value], 0, damageMultipliers);
+                    this.updateDamages([value], 0, damageMultipliers, skillStats.increasedDamage.values.maxMultiplier);
                 }
             } else if (value.valueType === EffectValueValueType.AreaOfEffect) {
                 value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
@@ -239,7 +241,7 @@ export class SlormancerValueUpdater {
         return [];
     }
 
-    private updateDamages(damages: Array<EffectValueSynergy>, additional: number | MinMax, multipliers: Array<number>) {
+    private updateDamages(damages: Array<EffectValueSynergy>, additional: number | MinMax, multipliers: Array<number>, maxMultipliers: Array<number>) {
         if (typeof additional === 'number' && additional > 0 || typeof additional !== 'number' && (additional.min > 0 || additional.max > 0)) {
             const averageDamages = damages.map(v => typeof v.synergy === 'number' ? v.synergy : ((v.synergy.min + v.synergy.max) / 2));
             const totalDamages = averageDamages.reduce((t, v) => t + v, 0);
@@ -260,6 +262,9 @@ export class SlormancerValueUpdater {
                 } else {
                     for (const multiplier of multipliers) {
                         damage.synergy.min = damage.synergy.min * (100 + multiplier) / 100;
+                        damage.synergy.max = damage.synergy.max * (100 + multiplier) / 100;
+                    }
+                    for (const multiplier of maxMultipliers) {
                         damage.synergy.max = damage.synergy.max * (100 + multiplier) / 100;
                     }
                 }
@@ -286,7 +291,8 @@ export class SlormancerValueUpdater {
         const damageValues = skill.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
         if (damageValues.length > 0) {
             const damageMultipliers = this.getValidDamageMultipliers(skill.genres, skillStats, statsResult);
-            this.updateDamages(damageValues, skillStats.additionalDamages.total, damageMultipliers);
+            damageMultipliers.push(...skillStats.skillIncreasedDamage.values.multiplier);
+            this.updateDamages(damageValues, skillStats.additionalDamages.total, damageMultipliers, skillStats.skillIncreasedDamage.values.maxMultiplier);
         }
     
         const durationValues = skill.values.filter(value => value.valueType === EffectValueValueType.Duration);
@@ -344,7 +350,7 @@ export class SlormancerValueUpdater {
         const damageValues = upgrade.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
         if (damageValues.length > 0) {
             const damageMultipliers = this.getValidDamageMultipliers(upgrade.genres, skillStats, stats);
-            this.updateDamages(damageValues, 0, damageMultipliers);
+            this.updateDamages(damageValues, 0, damageMultipliers, skillStats.increasedDamage.values.maxMultiplier);
         }
 
         if (upgrade.genres.includes(SkillGenre.Aoe)) {

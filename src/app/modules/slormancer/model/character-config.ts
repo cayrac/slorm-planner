@@ -26,6 +26,7 @@ export interface CharacterConfig {
     target_is_isolated: boolean;
     target_is_tracked: boolean;
     target_is_skewered: boolean;
+    target_is_splintered: boolean;
     target_has_negative_effect: boolean;
     is_first_hit: boolean;
     is_hit_blocked: boolean;
@@ -59,6 +60,7 @@ export interface CharacterConfig {
     exhilerating_senses_stacks: number;
     impatient_arrow_stacks: number;
     frenzy_stacks: number;
+    oak_bark_armor_stacks: number;
     has_aura_air_conditionner: boolean;
     has_aura_neriya_shield: boolean;
     has_aura_elemental_swap: boolean;

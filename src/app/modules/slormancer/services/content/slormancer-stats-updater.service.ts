@@ -69,6 +69,10 @@ export class SlormancerStatUpdaterService {
                 total = { min: total.min * mult / 100, max: total.max * mult / 100 };
             }
 
+            for (const multiplier of stat.values.maxMultiplier) {
+                total.max = total.max * (100 + multiplier) / 100;
+            }
+
             total = { min: round(total.min, stat.precision), max: round(total.max, stat.precision) };
         }
 

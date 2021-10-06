@@ -57,13 +57,13 @@ export class SlormancerStatsService {
                 private slormancerSynergyResolverService: SlormancerSynergyResolverService,
                 private slormancerStatUpdaterService: SlormancerStatUpdaterService) { }
     
-    private getMappingValues(sources: Array<MergedStatMappingSource>, stats: ExtractedStatMap, config: CharacterConfig)  {
+    private getMappingValues(sources: Array<MergedStatMappingSource>, stats: ExtractedStatMap, config: CharacterConfig): Array<number | MinMax>  {
         return sources
             .filter(source => source.condition === undefined || source.condition(config, stats))
             .map(source => {
                 let result = stats[source.stat];
-                const mult = source.multiplier ? source.multiplier(config, stats) : 1;
-                if (result && mult !== 1) {
+                if (result && source.multiplier) {
+                    const mult = source.multiplier(config, stats);
                     result = result.map(v => v * mult);
                 }
                 return result ? result : [];
@@ -84,6 +84,7 @@ export class SlormancerStatsService {
                     percent: this.getMappingValues(mapping.source.percent, stats, config),
                     maxPercent: this.getMappingValues(mapping.source.maxPercent, stats, config),
                     multiplier: this.getMappingValues(mapping.source.multiplier, stats, config),
+                    maxMultiplier: this.getMappingValues(mapping.source.maxMultiplier, stats, config),
                 }
             } as MergedStat;
         });
@@ -103,6 +104,7 @@ export class SlormancerStatsService {
                     percent: [],
                     maxPercent: [],
                     multiplier: [],
+                    maxMultiplier: [],
                 }
             });
         }
@@ -120,7 +122,8 @@ export class SlormancerStatsService {
                     max: [],
                     percent: [],
                     maxPercent: [],
-                    multiplier: []
+                    multiplier: [],
+                    maxMultiplier: [],
                 }
             });
         }

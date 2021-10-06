@@ -75,6 +75,7 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
         if (this.character !== null) {
             if (this.slormancerCharacterModifierService.setSupportSkill(this.character, skill.skill)) {
                 this.messageService.message('Skill equipped as support : <img src="' + skill.skill.icon + '"/> ' + skill.skill.name);
+                this.plannerService.updateCurrentCharacter();
             }
         }
     }
@@ -83,6 +84,7 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
         if (this.character !== null) {
             if (this.slormancerCharacterModifierService.setPrimarySkill(this.character, skill.skill)) {
                 this.messageService.message('Skill equipped as primary : <img src="' + skill.skill.icon + '"/> ' + skill.skill.name);
+                this.plannerService.updateCurrentCharacter();
             }
         }
     }
@@ -91,6 +93,7 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
         if (this.character !== null) {
             if (this.slormancerCharacterModifierService.setSecondarySkill(this.character, skill.skill)) {
                 this.messageService.message('Skill equipped as secondary : <img src="' + skill.skill.icon + '"/> ' + skill.skill.name);
+                this.plannerService.updateCurrentCharacter();
             }
         }
     }

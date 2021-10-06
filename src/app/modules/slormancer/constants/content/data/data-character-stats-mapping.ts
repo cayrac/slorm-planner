@@ -34,6 +34,7 @@ export interface MergedStatMapping {
         percent: Array<MergedStatMappingSource>;
         maxPercent: Array<MergedStatMappingSource>;
         multiplier: Array<MergedStatMappingSource>;
+        maxMultiplier: Array<MergedStatMappingSource>;
     }
 }
 
@@ -49,6 +50,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -69,6 +71,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'mana_cost_mult_if_tormented', condition: config => config.serenity === 0 },
                 { stat: 'mana_cost_reduction_mult', multiplier: () => -1 }
             ],
+            maxMultiplier: [],
         } 
     },
     {
@@ -86,6 +89,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'cooldown_time_multiplier_if_tormented', condition: config => config.serenity === 0 },
                 { stat: 'grappling_hook_crest_shield_cooldown_time_reduction_multiplier', condition: (_, stats) => [7, 8].includes(getFirstStat(stats, 'skill_id')), multiplier: () => -1 },
             ],
+            maxMultiplier: [],
         } 
     },
     {
@@ -98,6 +102,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -110,6 +115,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [{ stat: 'xp_find_global_mult' }],
+            maxMultiplier: [],
         } 
     },
     {
@@ -122,6 +128,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -134,6 +141,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -146,6 +154,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     // max_health
@@ -168,6 +177,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             ],
             maxPercent: [],
             multiplier: [{ stat: 'the_max_health_global_mult', condition: (_, stats) => stats['the_max_health_set'] === undefined }],
+            maxMultiplier: [],
         } 
     },
     {
@@ -180,6 +190,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [{ stat: 'health_regen_percent' }],
             maxPercent: [],
             multiplier: [{ stat: 'health_recovery_mult' }],
+            maxMultiplier: [],
         } 
     },
     {
@@ -196,6 +207,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [{ stat: 'health_recovery_mult' }],
+            maxMultiplier: [],
         } 
     },
     {
@@ -215,6 +227,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'health_on_hit_global_mult' },
                 { stat: 'health_recovery_mult' }
             ],
+            maxMultiplier: [],
         } 
     },
     {
@@ -230,6 +243,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'health_on_kill_global_mult' },
                 { stat: 'health_recovery_mult' }
             ],
+            maxMultiplier: [],
         } 
     },
     // max_mana
@@ -243,6 +257,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [{ stat: 'the_max_mana_percent' }],
             maxPercent: [],
             multiplier: [{ stat: 'the_max_mana_global_mult' }],
+            maxMultiplier: [],
         } 
     },
     {
@@ -261,6 +276,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'mana_regen_global_mult' },
                 { stat: 'smoke_screen_buff_mana_regen_global_mult', condition: config => config.has_smoke_screen_buff }
             ],
+            maxMultiplier: [],
         } 
     },
     {
@@ -273,6 +289,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -288,6 +305,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [{ stat: 'mana_on_hit_percent' }],
             maxPercent: [],
             multiplier: [{ stat: 'mana_on_hit_global_mult' }],
+            maxMultiplier: [],
         } 
     },
     {
@@ -303,6 +321,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [{ stat: 'mana_on_kill_percent' }],
             maxPercent: [],
             multiplier: [{ stat: 'mana_on_kill_global_mult' }],
+            maxMultiplier: [],
         } 
     },
     // movement
@@ -323,6 +342,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             ],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     // Attack
@@ -348,6 +368,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'banner_haste_buff_cooldown_reduction_global_mult', condition: config => config.has_banner_haste_buff },
                 { stat: 'frenzy_stack_cooldown_reduction_global_mult', condition: config => config.frenzy_stacks > 0, multiplier: (config, stats) => Math.min(config.frenzy_stacks, getFirstStat(stats, 'frenzy_max_stacks')) },
             ],
+            maxMultiplier: [],
         } 
     },
     {
@@ -365,6 +386,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             multiplier: [
                 { stat: 'aura_air_conditionner_enemy_cooldown_reduction_global_mult', condition: config => config.has_aura_air_conditionner },
             ],
+            maxMultiplier: [],
         } 
     },
     {
@@ -381,6 +403,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxPercent: [],
             multiplier: [
             ],
+            maxMultiplier: [],
         } 
     },
     {
@@ -410,6 +433,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'enemy_full_life_crit_chance_global_mult', condition: (config, stats) => (100 - config.enemy_percent_missing_health) >= getFirstStat(stats, 'enemy_full_life_crit_chance_global_mult_treshold', 0) },
                 { stat: 'crit_chance_global_mult_per_yard', condition: config => config.distance_with_target > 0, multiplier: config => config.distance_with_target }
             ],
+            maxMultiplier: [],
         } 
     },
     {
@@ -431,6 +455,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [{ stat: 'crit_damage_percent_mult' }],
+            maxMultiplier: [],
         } 
     },
     {
@@ -457,6 +482,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -475,6 +501,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -491,6 +518,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -503,6 +531,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -515,6 +544,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -530,6 +560,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -542,12 +573,14 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [
                 { stat: 'res_phy_percent' },
                 { stat: 'res_phy_percent_per_banner', condition: config => config.banners_nearby > 0, multiplier: config => config.banners_nearby },
+                { stat: 'oak_bark_armor_stack_res_phy_percent', condition: config => config.oak_bark_armor_stacks > 0, multiplier: (config, stats) => Math.min(config.oak_bark_armor_stacks, getFirstStat(stats, 'oak_bark_armor_max_stack')) },
             ],
             maxPercent: [],
             multiplier: [
                 { stat: 'res_phy_global_mult' },
                 { stat: 'res_phy_global_mult_on_low_life',condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'res_phy_global_mult_on_low_life_treshold', 0)) }
             ],
+            maxMultiplier: [],
         } 
     },
     {
@@ -566,6 +599,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'res_mag_global_mult' },
                 { stat: 'res_mag_global_mult_after_elemental_damage_taken', condition: config => config.took_elemental_damage_recently }
             ],
+            maxMultiplier: [],
         } 
     },
     {
@@ -578,6 +612,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -590,6 +625,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -602,6 +638,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -614,6 +651,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -626,6 +664,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -645,6 +684,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'assassin_haste_buff_dodge_global_mult', condition: config => config.has_assassin_haste_buff },
                 { stat: 'dodge_global_mult_if_delighted', condition: config => config.serenity === DELIGHTED_VALUE }
             ],
+            maxMultiplier: [],
         } 
     },
     {
@@ -660,6 +700,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             ],
             maxPercent: [],
             multiplier: [{ stat: 'thorns_global_mult' }],
+            maxMultiplier: [],
         } 
     },
     {
@@ -672,6 +713,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [{ stat: 'idle_thorn_crit_chance_global_mult', condition: config => config.idle }],
+            maxMultiplier: [],
         } 
     },
     {
@@ -689,6 +731,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -701,6 +744,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -713,6 +757,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -733,6 +778,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -745,6 +791,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -761,6 +808,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -773,6 +821,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -788,6 +837,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -800,6 +850,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [{ stat: 'gold_find_global_mult' }],
+            maxMultiplier: [],
         } 
     },
     {
@@ -812,6 +863,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -824,6 +876,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -836,6 +889,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -848,6 +902,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -860,6 +915,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -872,6 +928,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -887,6 +944,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -902,6 +960,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [{ stat: 'inner_fire_max_number_percent' }],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -914,6 +973,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [{ stat: 'inner_fire_duration_percent' }],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -926,6 +986,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [{ stat: 'inner_fire_damage_percent' }],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -941,6 +1002,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -956,6 +1018,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [{ stat: 'overdrive_bounce_number_percent', condition: (config, stats) => stats['overdrive_bounce_number_set'] === undefined }],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -972,6 +1035,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'overdrive_damage_global_mult_per_bounce_left', condition: config => config.overdrive_bounces_left > 0, multiplier: config => config.overdrive_bounces_left },
                 { stat: 'overdrive_damage_global_mult_last_bounce', condition: config => config.overdrive_last_bounce }
             ],
+            maxMultiplier: [],
         } 
     },
     {
@@ -988,6 +1052,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1003,6 +1068,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1023,6 +1089,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'idle_additional_projectile_global_mult', condition: config => config.idle },
                 { stat: 'not_idle_additional_projectile_global_mult', condition: config => !config.idle },
             ],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1033,12 +1100,14 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             flat: [
                 { stat: 'chance_to_pierce_percent' },
                 { stat: 'chance_to_pierce_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) },
-                { stat: 'chance_to_pierce_percent_if_fully_charged', condition: (config) => config.void_arrow_fully_charged }
+                { stat: 'chance_to_pierce_percent_if_fully_charged', condition: (config) => config.void_arrow_fully_charged },
+                { stat: 'chance_to_pierce_percent_if_fortunate_of_perfect', condition: (config) => config.next_cast_is_fortunate || config.next_cast_is_perfect },
             ],
             max: [],
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1055,6 +1124,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1072,6 +1142,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1088,6 +1159,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1103,6 +1175,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1115,6 +1188,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1130,6 +1204,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1145,6 +1220,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1157,6 +1233,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1172,6 +1249,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1203,6 +1281,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'elemental_damage_global_mult' },
                 { stat: 'elemental_fervor_buff_elemental_damage_global_mult', condition: config => config.has_elemental_fervor_buff }
             ],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1225,6 +1304,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'basic_damage_percent_global_mult' },
                 { stat: 'basic_damage_global_mult' },
             ],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1240,6 +1320,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'weapon_damage_mult' },
                 { stat: 'weapon_damage_mult_after_support_cast', condition: config => config.cast_support_before_next_cast }
             ],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1252,6 +1333,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1264,6 +1346,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1276,6 +1359,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1288,6 +1372,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1330,6 +1415,28 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'chivalry_low_life_reduced_damage', condition: (config, stats) => getFirstStat(stats, 'chivalry_low_life_treshold') > (100 - config.enemy_percent_missing_health), multiplier: () => -1 },
                 { stat: 'chivalry_high_life_increased_damage', condition: (config, stats) => getFirstStat(stats, 'chivalry_high_life_treshold') < (100 - config.enemy_percent_missing_health) },
                 { stat: 'increased_damage_mult_if_no_legendaries', condition: (_, stats) => getFirstStat(stats, 'number_equipped_legendaries') === 0 },
+                { stat: 'increased_damage_mult_on_splintered_enemy', condition: config => config.target_is_splintered },
+            ],
+            maxMultiplier: [
+            ],
+        } 
+    },
+    {
+        stat: 'skill_increased_damages',
+        precision: 1,
+        allowMinMax: false,
+        source: {
+            flat: [
+            ],
+            max: [],
+            percent: [],
+            maxPercent: [],
+            multiplier: [
+                { stat: 'skill_decreased_damage_mult', multiplier: () => -1 },
+                { stat: 'skill_increased_damage_mult' },
+            ],
+            maxMultiplier: [
+                { stat: 'skill_increased_max_damage_mult' },
             ],
         } 
     },
@@ -1346,6 +1453,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             multiplier: [
                 { stat: 'no_gold_armor_buff_increased_damage_taken_mult', condition: config => !config.has_gold_armor_buff }
             ],
+            maxMultiplier: [],
         } 
     },
     {
@@ -1362,6 +1470,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [],
+            maxMultiplier: [],
         } 
     },
 ];
@@ -1378,6 +1487,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
                 percent: [],
                 maxPercent: [],
                 multiplier: [],
+                maxMultiplier: [],
             } 
         }
     ],
@@ -1395,6 +1505,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
                     { stat: 'trap_increased_damage_percent', condition: config => config.traps_nearby > 0, multiplier: config => config.traps_nearby },
                     { stat: 'trap_increased_damage_if_tracked', condition: config => config.target_is_tracked }
                 ],
+                maxMultiplier: [],
             } 
         },
         {
@@ -1410,6 +1521,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
                     { stat: 'poison_increased_damage_per_poisoned_enemy', condition: config => config.poison_enemies > 0, multiplier: config => config.poison_enemies },
                     { stat: 'poison_increased_damage' }
                 ],
+                maxMultiplier: [],
             } 
         }
     ],
@@ -1430,6 +1542,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                     percent: [],
                     maxPercent: [],
                     multiplier: [],
+                    maxMultiplier: [],
                 } 
             },
             {
@@ -1442,6 +1555,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                     percent: [],
                     maxPercent: [],
                     multiplier: [],
+                    maxMultiplier: [],
                 } 
             },
             {
@@ -1454,6 +1568,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                     percent: [],
                     maxPercent: [],
                     multiplier: [],
+                    maxMultiplier: [],
                 } 
             },
             {
@@ -1466,6 +1581,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                     percent: [],
                     maxPercent: [],
                     multiplier: [],
+                    maxMultiplier: [],
                 } 
             },
             {
@@ -1478,6 +1594,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                     percent: [],
                     maxPercent: [],
                     multiplier: [],
+                    maxMultiplier: [],
                 } 
             },
             {
@@ -1493,6 +1610,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                     percent: [],
                     maxPercent: [],
                     multiplier: [],
+                    maxMultiplier: [],
                 } 
             },
             {
@@ -1505,6 +1623,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                     percent: [],
                     maxPercent: [],
                     multiplier: [],
+                    maxMultiplier: [],
                 } 
             }
         ],
@@ -1521,6 +1640,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                     percent: [],
                     maxPercent: [],
                     multiplier: [],
+                    maxMultiplier: [],
                 } 
             }
         ]

@@ -35,13 +35,10 @@ export class PlannerService {
                 private slormancerCharacterBuilderService: SlormancerCharacterBuilderService) {
         const data = localStorage.getItem(this.STORAGE_KEY);
         this.setPlanner(data === null ? null : this.jsonConverterService.jsonToPlanner(JSON.parse(data)))
-        console.log('Loaded planner from local storage : ', this.planner);
 
         this.manualSave.pipe(debounceTime(500))
             .subscribe(() => {
-                console.log('attempt to save ...');
                 if (this.planner !== null) {
-                    console.log('saving ...');
                     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.jsonConverterService.plannerToJson(this.planner)));
                 }
             });
