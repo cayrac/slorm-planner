@@ -112,6 +112,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     3: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 4);
         },
         additionalClassMechanics: []
@@ -172,95 +173,129 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     },
     11: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'crit_chance_percent');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     12: {
         masteryRequired: 2,
         override: values => { 
-            addConstant(values, 4, false, EffectValueValueType.Duration, 'skill_0_12_daze_duration');
+            setStat(values, 0, 'daze_percent');
+            setAsUpgrade(values, 0);
+            addConstant(values, 4, false, EffectValueValueType.Upgrade, 'daze_duration');
         },
         additionalClassMechanics: []
     },
     13: {
         masteryRequired: 2,
         override: values => { 
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_0_13_perfect_skewer_chance');
+            setStat(values, 0, 'skewer_chance');
+            setAsUpgrade(values, 0);
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'skewer_chance_if_perfect');
         },
         additionalClassMechanics: []
     },
     14: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     15: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'health_leech_percent_if_perfect')
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     16: {
         masteryRequired: 4,
         override: values => { 
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_0_16_perfect_overdrive_chance');
+            setStat(values, 0, 'overdrive_chance_percent')
+            setAsUpgrade(values, 0);
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'overdrive_chance_percent_if_fortunate_or_perfect');
         },
         additionalClassMechanics: []
     },
     17: {
         masteryRequired: 4,
         override: values => { 
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_0_17_perfect_inner_fire_chance');
+            setStat(values, 0, 'inner_fire_chance_percent')
+            setAsUpgrade(values, 0);
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'inner_fire_chance_percent_if_fortunate_or_perfect');
         },
         additionalClassMechanics: []
     },
     18: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'increased_damage_mult_if_no_legendaries');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     19: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'crit_chance_percent');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     20: {
         masteryRequired: 6,
         override: values => { 
-            addConstant(values, 2, false, EffectValueValueType.Duration, 'skill_0_20_hold_duration');
+            setStat(values, 0, 'physical_damage');
+            setAsUpgrade(values, 0);
+            addConstant(values, 2, false, EffectValueValueType.Upgrade, 'hold_duration');
         },
         additionalClassMechanics: [],
         costTypeOverride: SkillCostType.Mana
     },
     21: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'block_stack_on_hit');
+        },
         additionalClassMechanics: []
     },
     22: {
         masteryRequired: 8,
         override: values => { 
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_0_22_perfect_recast_chance');
+            setStat(values, 0, 'recast_chance_percent')
+            setAsUpgrade(values, 0);
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'recast_chance_percent_if_fortunate_or_perfect');
         },
         additionalClassMechanics: []
     },
     23: {
         masteryRequired: 8,
         override: values => { 
-            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_0_23_buff_attacks_speed');
-            addConstant(values, 5, false, EffectValueValueType.Duration, 'skill_0_23_buff_duration');
-            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_0_23_buff_fortunate_stack_per_hit');
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_0_23_buff_default_stack_per_hit');
+            setStat(values, 0, 'frenzy_max_stacks');
+            addConstant(values, 3, false, EffectValueValueType.Stat, 'frenzy_stack_cooldown_reduction_global_mult');
+            addConstant(values, 5, false, EffectValueValueType.Stat, 'frenzy_stack_duration');
+            addConstant(values, 3, false, EffectValueValueType.Stat, 'frenzy_stack_per_hit_if_fortunate_of_perfect');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'frenzy_stack_per_hit');
         },
         additionalClassMechanics: []
     },
     24: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'recast_additional_hit');
+        },
         additionalClassMechanics: []
     },
     25: {
         masteryRequired: 10,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'increased_damage_mult');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     26: {
@@ -1326,7 +1361,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 8,
         override: values => { 
             addConstant(values, 4, false, EffectValueValueType.Flat, 'perfect_additional_projectile_add');
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'perfect_recast_chance_percent');
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'recast_chance_percent_if_perfect');
         },
         additionalClassMechanics: []
     },

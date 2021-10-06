@@ -58,6 +58,7 @@ export interface CharacterConfig {
     target_latent_storm_stacks: number;
     exhilerating_senses_stacks: number;
     impatient_arrow_stacks: number;
+    frenzy_stacks: number;
     has_aura_air_conditionner: boolean;
     has_aura_neriya_shield: boolean;
     has_aura_elemental_swap: boolean;
