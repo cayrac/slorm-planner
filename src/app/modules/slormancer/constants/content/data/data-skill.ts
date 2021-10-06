@@ -84,8 +84,9 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     1: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 4);
-            addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'skill_0_1_aoe');
+            addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'skill_aoe');
         },
         additionalClassMechanics: [],
         specialization: 220
@@ -1154,144 +1155,177 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     },
     164: {
         masteryRequired: 1,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'astral_increased_damage_mult');
+        },
         additionalClassMechanics: []
     },
     165: {
         masteryRequired: 1,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'cooldown_reduction_per_ennemy_hit');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     166: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'block_chance_is_lucky');
+        },
         additionalClassMechanics: []
     },
     167: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'astral_retribution_on_fortunate');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'astral_meteor_on_perfect');
+        },
         additionalClassMechanics: [217]
     },
     168: {
         masteryRequired: 2,
         override: values => {
-            addConstant(values, 2, false, EffectValueValueType.Duration, 'skill_0_168_stun_duration');
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_0_168_fortunate_stun_chance');
+            setStat(values, 0, 'stun_chance_add');
+            setAsUpgrade(values, 0);
+            addConstant(values, 2, false, EffectValueValueType.Upgrade, 'stun_duration');
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'stun_chance_add_if_fortunate_or_perfect');
         },
         additionalClassMechanics: []
     },
     169: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'pull_distance');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     170: {
         masteryRequired: 3,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'inner_fire_lucky');
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'overdrive_lucky');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'inner_fire_is_lucky');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'overdrive_is_lucky');
         },
         additionalClassMechanics: []
     },
     171: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'astral_retribution_chance_on_astral_kill');
+        },
         additionalClassMechanics: []
     },
     172: {
         masteryRequired: 4,
         override: values => { 
-            addConstant(values, 4, false, EffectValueValueType.Flat, 'skill_0_172_crest_shield_cast');
+            addConstant(values, 4, false, EffectValueValueType.Upgrade, 'crest_shield_cast_on_perfect_cast');
         },
         additionalClassMechanics: []
     },
     173: {
         masteryRequired: 4,
         override: values => { 
-            addConstant(values, 2, false, EffectValueValueType.Flat, 'luck_gained_on_cast');
+            addConstant(values, 2, false, EffectValueValueType.Stat, 'luck_gained_on_cast');
         },
         additionalClassMechanics: []
     },
     174: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'whirlwind_cast_on_block');
+        },
         additionalClassMechanics: []
     },
     175: {
         masteryRequired: 5,
         override: values => { 
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'ancestral_strike_lucky');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'ancestral_strike_chance_is_lucky');
         },
         additionalClassMechanics: []
     },
     176: {
         masteryRequired: 5,
-        override: () => {
-
+        override: values => {
+            setStat(values, 0, 'inner_fire_crit_chance_percent');
         },
         additionalClassMechanics: [],
         additionalMechanics: [MechanicType.InnerFire]
     },
     177: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'overdrive_crit_chance_percent');
+        },
         additionalClassMechanics: [],
         additionalMechanics: [MechanicType.Overdrive]
     },
     178: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'always_max_damage_if_fortunate_or_perfect');
+        },
         additionalClassMechanics: []
     },
     179: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'astral_meteor_increased_damage_mult');
+        },
         additionalClassMechanics: []
     },
     180: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'purge_on_cast');
+        },
         additionalClassMechanics: []
     },
     181: {
         masteryRequired: 7,
         override: values => { 
-            addConstant(values,3, false, EffectValueValueType.Duration, 'skill_0_181_cooldown');
+            setStat(values, 0, 'second_chance_health_restored_percent');
+            addConstant(values,3, false, EffectValueValueType.Duration, 'second_chance_cooldown');
         },
         additionalClassMechanics: []
     },
     182: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'astral_meteor_recast_chance');
+        },
         additionalClassMechanics: []
     },
     183: {
         masteryRequired: 7,
         override: values => { 
-            addConstant(values, 75, false, EffectValueValueType.Flat, 'skill_0_183_low_life_damage_reduction');
-            addConstant(values, 25, false, EffectValueValueType.Duration, 'skill_0_183_low_life_treshold');
-            addConstant(values, 25, false, EffectValueValueType.Duration, 'skill_0_183_low_life_treshold');
+            addConstant(values, 75, false, EffectValueValueType.Flat, 'chivalry_low_life_reduced_damage');
+            addConstant(values, 25, false, EffectValueValueType.Duration, 'chivalry_low_life_treshold');
+            setStat(values, 0, 'chivalry_high_life_increased_damage');
+            addConstant(values, 25, false, EffectValueValueType.Duration, 'chivalry_high_life_treshold');
         },
         additionalClassMechanics: []
     },
     184: {
         masteryRequired: 7,
         override: values => { 
-            addConstant(values, 3, false, EffectValueValueType.Flat, 'astral_retribution_on_support_cast');
+            addConstant(values, 3, false, EffectValueValueType.Upgrade, 'astral_retribution_on_cast');
         },
         additionalClassMechanics: [217]
     },
     185: {
         masteryRequired: 8,
         override: values => { 
-            addConstant(values, 4, false, EffectValueValueType.Flat, 'perfect_cast_additional_projectiles');
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'perfect_cast_recast_chance');
+            addConstant(values, 4, false, EffectValueValueType.Flat, 'perfect_additional_projectile_add');
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'perfect_recast_chance_percent');
         },
         additionalClassMechanics: []
     },
     186: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'keep_luck_chance');
+        },
         additionalClassMechanics: []
     },
     187: {
@@ -2837,7 +2871,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     180: {
         masteryRequired: 8,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Stat, 'critical_strike_chance_lucky');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'critical_strike_chance_is_lucky');
         },
         additionalClassMechanics: []
     },

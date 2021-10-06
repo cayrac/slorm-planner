@@ -952,7 +952,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'recast_chance_percent' }],
+            flat: [
+                { stat: 'recast_chance_percent' },
+                { stat: 'perfect_recast_chance_percent', condition: config => config.next_cast_is_perfect },
+            ],
             max: [],
             percent: [],
             maxPercent: [],
@@ -982,14 +985,15 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             flat: [
                 { stat: 'additional_projectile_add' },
                 { stat: 'idle_additional_projectile_add', condition: config => config.idle },
-                { stat: 'tormented_additional_projectile_add', condition: config => config.serenity === 0 }
+                { stat: 'tormented_additional_projectile_add', condition: config => config.serenity === 0 },
+                { stat: 'perfect_additional_projectile_add', condition: config => config.next_cast_is_perfect },
             ],
             max: [],
             percent: [{ stat: 'additional_projectile_percent' }],
             maxPercent: [],
             multiplier: [
                 { stat: 'idle_additional_projectile_global_mult', condition: config => config.idle },
-                { stat: 'not_idle_additional_projectile_global_mult', condition: config => !config.idle }
+                { stat: 'not_idle_additional_projectile_global_mult', condition: config => !config.idle },
             ],
         } 
     },
@@ -1295,6 +1299,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'increased_damage_mult_per_target_missing_health_percent', condition: config => config.enemy_percent_missing_health > 0, multiplier: config => config.enemy_percent_missing_health },
                 { stat: 'increased_damage_if_target_is_skewered', condition: config => config.target_is_skewered },
                 { stat: 'increased_damage_if_not_fortunate_or_perfect', condition: config => !config.next_cast_is_fortunate && !config.next_cast_is_perfect },
+                { stat: 'chivalry_low_life_reduced_damage', condition: (config, stats) => getFirstStat(stats, 'chivalry_low_life_treshold') > (100 - config.enemy_percent_missing_health), multiplier: () => -1 },
+                { stat: 'chivalry_high_life_increased_damage', condition: (config, stats) => getFirstStat(stats, 'chivalry_high_life_treshold') < (100 - config.enemy_percent_missing_health) },
             ],
         } 
     },

@@ -43,7 +43,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
                 console.log(this.character);
                 this.updateSelectedSkill();
                 if (character !== null) { // TODO remove
-                    this.selectSkill(<CharacterSkillAndUpgrades>character.skills[0]);
+                    this.selectSkill(<CharacterSkillAndUpgrades>character.skills[2]);
                 }
             });
     }
