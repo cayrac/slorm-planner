@@ -101,9 +101,9 @@ export class JsonConverterService {
     private skillToJson(skill: CharacterSkillAndUpgrades, onlyEquipped: boolean = false): JsonSkill {
         return {
             id: skill.skill.id,
-            rank: skill.skill.level,
+            rank: skill.skill.baseLevel,
             upgrades: skill.upgrades
-                .map(upgrade => ({ id: upgrade.id, rank: upgrade.rank, selected: skill.selectedUpgrades.indexOf(upgrade.id) !== -1 ? 1 : 0 }))
+                .map(upgrade => ({ id: upgrade.id, rank: upgrade.baseRank, selected: skill.selectedUpgrades.indexOf(upgrade.id) !== -1 ? 1 : 0 }))
                 .filter(upgrade => !onlyEquipped || upgrade.selected),
         };
     }

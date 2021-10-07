@@ -128,10 +128,13 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     5: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 2);
+            setSource(values, 1, 'physical_damage');
+            setStat(values, 1, 'bleed_damage');
             setUpgrade(values, 1, 14);
-            addConstant(values, 7, false, EffectValueValueType.Duration, 'skill_0_5_duration');
-            addConstant(values, 10, false, EffectValueValueType.Flat, 'skill_0_5_max_stack');
+            addConstant(values, 7, false, EffectValueValueType.Duration, 'bleed_stack_duration');
+            addConstant(values, 10, false, EffectValueValueType.Flat, 'bleed_max_stacks');
         },
         additionalClassMechanics: []
     },
