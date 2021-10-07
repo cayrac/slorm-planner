@@ -324,6 +324,16 @@ export class SlormancerValueUpdater {
                 
         skill.cost = skillStats.mana.total;
         skill.cooldown = Math.max(0, round(skillStats.cooldown.total * (100 - skillStats.attackSpeed.total) / 100, 2));
+        skill.costType = skill.baseCostType;
+        skill.genres = skill.baseGenres.slice(0);
+        
+        if (statsResult.extractedStats['no_longer_channeling'] !== undefined) {
+            if (skill.costType === SkillCostType.ManaSecond) {
+                skill.costType = SkillCostType.Mana;
+            } else if (skill.costType === SkillCostType.LifeSecond) {
+                skill.costType = SkillCostType.Life;
+            }
+        }
 
         const damageValues = skill.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
         if (damageValues.length > 0) {

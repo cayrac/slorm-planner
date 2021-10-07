@@ -10,8 +10,8 @@ export class SlormancerConfigurationService {
 
     private readonly DEFAULT_CONFIG: CharacterConfig = {
         knight_other_level: MAX_HERO_LEVEL,
-        enemy_under_command: 10,
-        elite_under_command: 10,
+        enemy_under_command: 0,
+        elite_under_command: 0,
         totems_under_control: 0,
         traps_nearby: 0,
         serenity: 0,
@@ -43,9 +43,11 @@ export class SlormancerConfigurationService {
         target_has_negative_effect: false,
         target_is_skewered: false,
         target_is_splintered: false,
+        target_has_broken_armor: false,
         is_first_hit: false,
         is_hit_blocked: true,
         is_last_volley: false,
+        is_channeling_whirlwind: true,
         void_arrow_fully_charged: false,
         elites_in_radius: {
             10: 0
@@ -113,6 +115,7 @@ export class SlormancerConfigurationService {
         idle: false,
         damage_stored: 0,
         overdrive_bounces_left: 0,
+        time_spend_channeling: 10,
         overdrive_last_bounce: false,
         hero_close_to_turret_syndrome: false,
         turret_syndrome_on_cooldown: false,
@@ -153,9 +156,11 @@ export class SlormancerConfigurationService {
         target_has_negative_effect: false,
         target_is_skewered: false,
         target_is_splintered: false,
+        target_has_broken_armor: false,
         is_first_hit: false,
         is_hit_blocked: false,
         is_last_volley: false,
+        is_channeling_whirlwind: false,
         void_arrow_fully_charged: false,
         elites_in_radius: {
             10: 0
@@ -223,6 +228,7 @@ export class SlormancerConfigurationService {
         idle: true,
         damage_stored: 0,
         overdrive_bounces_left: 0,
+        time_spend_channeling: 20,
         overdrive_last_bounce: false,
         hero_close_to_turret_syndrome: true,
         turret_syndrome_on_cooldown: true,

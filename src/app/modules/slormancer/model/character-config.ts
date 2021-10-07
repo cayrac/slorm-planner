@@ -30,10 +30,12 @@ export interface CharacterConfig {
     target_is_tracked: boolean;
     target_is_skewered: boolean;
     target_is_splintered: boolean;
+    target_has_broken_armor: boolean;
     target_has_negative_effect: boolean;
     is_first_hit: boolean;
     is_hit_blocked: boolean;
     is_last_volley: boolean;
+    is_channeling_whirlwind: boolean;
     void_arrow_fully_charged: boolean;
     ennemies_in_radius: { [key: number]: number};
     negative_effects_on_ennemies_in_radius: { [key: number]: number};
@@ -96,6 +98,7 @@ export interface CharacterConfig {
     victims_reaper_104: number;
     idle: boolean;
     overdrive_bounces_left: number;
+    time_spend_channeling: number;
     overdrive_last_bounce: boolean;
     hero_close_to_turret_syndrome: boolean;
     turret_syndrome_on_cooldown: boolean;

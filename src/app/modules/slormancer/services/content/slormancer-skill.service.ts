@@ -36,18 +36,6 @@ import { SlormancerTranslateService } from './slormancer-translate.service';
 
 @Injectable()
 export class SlormancerSkillService {
-   
-    /*private readonly BASE_XP: { [key: number]: number } = {
-        1: 9065,
-        2: 10890,
-        3: 24060,
-        4: 26940, // 484, 446
-        5: 43440,
-        6: 70050,
-
-
-        10: 1508
-    }*/
 
     private readonly RANK_LABEL = this.slormancerTranslateService.translate('tt_rank');
     private readonly MASTERY_LABEL = this.slormancerTranslateService.translate('tt_mastery');
@@ -153,10 +141,12 @@ export class SlormancerSkillService {
                 perLevelCost: gameDataSkill.COST_LEVEL,
                 baseCost: 0,
                 cost: 0,
+                baseCostType: <SkillCostType>gameDataSkill.COST_TYPE,
                 costType: <SkillCostType>gameDataSkill.COST_TYPE,
                 hasLifeCost: false,
                 hasManaCost: false,
                 hasNoCost: false,
+                baseGenres: <Array<SkillGenre>>splitData(gameDataSkill.GENRE, ','),
                 genres: <Array<SkillGenre>>splitData(gameDataSkill.GENRE, ','),
                 damageTypes: splitData(gameDataSkill.DMG_TYPE, ','),
 
@@ -195,6 +185,8 @@ export class SlormancerSkillService {
         skill.hasLifeCost = skill.costType === SkillCostType.LifeSecond || skill.costType === SkillCostType.LifeLock || skill.costType === SkillCostType.Life;
         skill.hasManaCost = skill.costType === SkillCostType.ManaSecond || skill.costType === SkillCostType.ManaLock || skill.costType === SkillCostType.Mana;
         skill.hasNoCost = skill.costType === SkillCostType.None;
+        skill.costType = skill.baseCostType;
+        skill.genres = skill.baseGenres.slice(0);
         
         for (const effectValue of skill.values) {
             this.slormancerEffectValueService.updateEffectValue(effectValue, skill.level);
@@ -221,7 +213,7 @@ export class SlormancerSkillService {
         if (!skill.hasNoCost) {
             skill.costLabel = this.COST_LABEL
                 + ': ' + this.slormancerTemplateService.asSpan(skill.cost.toString(), skill.hasManaCost ? 'value mana' : 'value life')
-                + ' ' + this.slormancerTranslateService.translate(skill.costType);
+                + ' ' + this.slormancerTranslateService.translate('tt_' + skill.costType);
         }
 
         skill.cooldownLabel = null;
@@ -384,7 +376,7 @@ export class SlormancerSkillService {
         if (!upgrade.hasNoCost) {
             upgrade.costLabel = this.COST_LABEL
                 + ': ' + this.slormancerTemplateService.asSpan(upgrade.cost.toString(), upgrade.hasManaCost ? 'value mana' : 'value life')
-                + ' ' + this.slormancerTranslateService.translate(upgrade.costType);
+                + ' ' + this.slormancerTranslateService.translate('tt_' + upgrade.costType);
         }
         
         upgrade.description = this.slormancerTemplateService.formatUpgradeDescription(upgrade.template, upgrade.values);

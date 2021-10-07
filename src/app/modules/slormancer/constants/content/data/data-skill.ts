@@ -11,13 +11,16 @@ import { MechanicType } from '../../../model/content/enum/mechanic-type';
 import { SkillCostType } from '../../../model/content/enum/skill-cost-type';
 import { GameHeroesData } from '../../../model/parser/game/game-save';
 import { effectValueConstant, effectValueSynergy } from '../../../util/effect-value.util';
-import { isEffectValueSynergy } from '../../../util/utils';
+import { isEffectValueSynergy, isEffectValueVariable } from '../../../util/utils';
 
 function setUpgrade(values: Array<AbstractEffectValue>, index: number, upgrade: number) {
     const value = <EffectValueVariable | EffectValueSynergy>values[index];
 
     if (value && typeof value.upgrade === 'number') {
         value.upgrade = upgrade;
+    } else {
+        console.log(values);
+        throw new Error('failed to update upgrade at index ' + index);
     }
 }
 
@@ -27,6 +30,9 @@ function setValue(values: Array<AbstractEffectValue>, index: number, newValue: n
     if (value && typeof value.value === 'number') {
         value.value = newValue;
         value.baseValue = newValue;
+    } else {
+        console.log(values);
+        throw new Error('failed to update value at index ' + index);
     }
 }
 
@@ -35,6 +41,9 @@ function setStat(values: Array<AbstractEffectValue>, index: number, stat: string
 
     if (value) {
         value.stat = stat;
+    } else {
+        console.log(values);
+        throw new Error('failed to update stat at index ' + index);
     }
 }
 
@@ -43,6 +52,9 @@ function setSynergyPrecision(values: Array<AbstractEffectValue>, index: number, 
 
     if (value && isEffectValueSynergy(value)) {
         value.precision = precision;
+    } else {
+        console.log(values);
+        throw new Error('failed to update precision at index ' + index);
     }
 }
 
@@ -51,6 +63,9 @@ function setSynergyAllowMinMax(values: Array<AbstractEffectValue>, index: number
 
     if (value && isEffectValueSynergy(value)) {
         value.allowMinMax = allowMinMax;
+    } else {
+        console.log(values);
+        throw new Error('failed to update allowMinMax at index ' + index);
     }
 }
 
@@ -59,6 +74,9 @@ function setSource(values: Array<AbstractEffectValue>, index: number, source: st
 
     if (isEffectValueSynergy(value)) {
         value.source = source;
+    } else {
+        console.log(values);
+        throw new Error('failed to update source at index ' + index);
     }
 }
 
@@ -67,6 +85,9 @@ function setAsUpgrade(values: Array<AbstractEffectValue>, index: number) {
 
     if (value) {
         value.valueType = EffectValueValueType.Upgrade;
+    } else {
+        console.log(values);
+        throw new Error('failed to set an effect as upgrade at index ' + index);
     }
 }
 
@@ -81,6 +102,16 @@ function synergyMultiply100(values: Array<AbstractEffectValue>, index: number) {
     if (value && isEffectValueSynergy(value)) {
         value.baseValue = value.baseValue * 100;
         value.upgrade = value.upgrade * 100;
+    } else {
+        throw new Error('failed to change value for effect value at index ' + index);
+    }
+}
+
+function variableToSynergy(values: Array<AbstractEffectValue>, index: number, source: string, stat: string, precision: number | null = null, allowMinMax: boolean = true) {
+    const value = values[index];
+
+    if (value && isEffectValueVariable(value)) {
+        values.splice(index, 1, effectValueSynergy(value.baseValue, value.upgrade, value.upgradeType, value.percent, source, stat, value.valueType, undefined, precision, allowMinMax));
     } else {
         throw new Error('failed to change value for effect value at index ' + index);
     }
@@ -184,6 +215,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     9: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 2);
         },
         additionalClassMechanics: []
@@ -653,9 +685,9 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 6,
         override: values => {
             setStat(values, 0, 'cadence_critically_critical_crit_chance_percent');
-            setStat(values, 2, 'cadence_critically_critical_multiplier_if_fortunate');
-            setStat(values, 4, 'cadence_critically_critical_multiplier_if_perfect');
             setAsUpgrade(values, 0);
+            addConstant(values, 2, false, EffectValueValueType.Stat, 'cadence_critically_critical_multiplier_if_fortunate');
+            addConstant(values, 4, false, EffectValueValueType.Stat, 'cadence_critically_critical_multiplier_if_perfect');
         },
         additionalClassMechanics: []
     },
@@ -939,8 +971,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     99: {
         masteryRequired: 7,
         override: values =>  { 
-            setStat(values, 0, 'can_aim_to_increase_size');
-            setAsUpgrade(values, 0);
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'can_aim_to_increase_size');
         },
         additionalClassMechanics: []
     },
@@ -978,6 +1009,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     104: {
         masteryRequired: 2,
         override: values =>  { 
+            setStat(values, 0, 'inner_fire_damage_mult_if_channeling_whirlwind')
         },
         additionalClassMechanics: [],
         additionalMechanics: [MechanicType.InnerFire]
@@ -985,100 +1017,125 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     105: {
         masteryRequired: 2,
         override: values =>  { 
+            setStat(values, 0, 'skill_increased_damage_mult');
+            setAsUpgrade(values, 0);
+            synergyMultiply100(values, 0);
+            setSynergyPrecision(values, 0, 0);
         },
         additionalClassMechanics: []
     },
     106: {
         masteryRequired: 2,
         override: values =>  { 
+            setStat(values, 0, 'skill_increased_damage_mult_against_broken_armor');
+            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
     107: {
         masteryRequired: 3,
         override: values =>  { 
-            addConstant(values, 8, false, EffectValueValueType.Flat, 'skill_hit_per_rotation_required_for_astral_retribution');
+            addConstant(values, 8, false, EffectValueValueType.Upgrade, 'astral_retribution_if_enemies_in_range_count');
         },
         additionalClassMechanics: []
     },
     108: {
         masteryRequired: 3,
         override: values =>  { 
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'can_move_through_enemies');
         },
         additionalClassMechanics: []
     },
     109: {
         masteryRequired: 4,
-        override: values =>  { 
+        override: values =>  {
+            setStat(values, 0, 'block_stack_per_critical');
+            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
     110: {
         masteryRequired: 4,
-        override: values =>  { 
+        override: values => {
+            setStat(values, 0, 'recast_chance_percent');
+            setAsUpgrade(values, 0);
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'recast_only_if_critical');
         },
         additionalClassMechanics: []
     },
     111: {
         masteryRequired: 5,
-        override: values => { 
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_perfect_arcane_beam_per_rotation_chance');
+        override: values => {
+            setStat(values, 0, 'arcane_beam_chance');
+            setAsUpgrade(values, 0);
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'arcane_beam_chance_if_perfect');
         },
         additionalClassMechanics: []
     },
     112: {
         masteryRequired: 6,
         override: values =>  { 
+            setStat(values, 0, 'tenacity_percent_while_channeling_whirlwind')
         },
         additionalClassMechanics: []
     },
     113: {
         masteryRequired: 7,
         override: values => { 
-            addConstant(values, -25, false, EffectValueValueType.Flat, 'skill_elemental_reduction_percent_while_channeling');
+            setStat(values, 0, 'skill_increased_damage_mult_while_channeling_whirlwind');
+            setAsUpgrade(values, 0);
+            addConstant(values, -25, false, EffectValueValueType.Stat, 'res_mag_global_mult_while_channeling_whirlwind');
         },
         additionalClassMechanics: []
     },
     114: {
         masteryRequired: 7,
         override: values => { 
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_perfect_dancing_blade_chance');
+            setAsUpgrade(values, 0);
+            variableToSynergy(values, 1, 'weapon_damage', 'physical_damage', 0, true);
+            setAsUpgrade(values, 1);
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'skill_perfect_dancing_blade_chance');
         },
         additionalClassMechanics: []
     },
     115: {
         masteryRequired: 8,
         override: values => { 
-            addConstant(values, 5, false, EffectValueValueType.Flat, 'skill_perfect_arcane_beam_count');
+            addConstant(values, 5, false, EffectValueValueType.Upgrade, 'arcane_beam_cast_if_perfect');
         },
         additionalClassMechanics: []
     },
     116: {
         masteryRequired: 8,
         override: values => { 
-            addConstant(values, 300, false, EffectValueValueType.Flat, 'skill_max_channeling_over_time_damage_bonus');
+            setStat(values, 0, 'skill_increased_damage_mult_per_second_while_channeling_whirlwind');
+            setAsUpgrade(values, 0);
+            addConstant(values, 300, false, EffectValueValueType.Upgrade, 'skill_increased_damage_mult_max_while_channeling_whirlwind');
         },
         additionalClassMechanics: []
     },
     117: {
         masteryRequired: 9,
         override: values => { 
-            addConstant(values, 5, false, EffectValueValueType.Flat, 'skill_skewing_max_stack');
-            addConstant(values, 5, false, EffectValueValueType.Flat, 'skill_skewing_stack_conversion');
+            addConstant(values, 5, false, EffectValueValueType.Upgrade, 'skewing_max_stack');
+            addConstant(values, 5, false, EffectValueValueType.Upgrade, 'skewing_stack_count_conversion');
         },
         additionalClassMechanics: []
     },
     118: {
         masteryRequired: 9,
         override: values =>{ 
-            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'skill_attraction_aoe');
+            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'pull_aoe');
         },
         additionalClassMechanics: []
     },
     119: {
         masteryRequired: 10,
         override: values => { 
-            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_additional_cooldown');
+            setStat(values, 0, 'skill_increased_damage_mult');
+            setAsUpgrade(values, 0);
+            addConstant(values, 3, false, EffectValueValueType.Upgrade, 'cooldown_time_add');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'no_longer_channeling');
         },
         additionalClassMechanics: []
     },
@@ -1400,7 +1457,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     166: {
         masteryRequired: 2,
         override: values => {
-            setStat(values, 0, 'block_chance_is_lucky');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'block_chance_is_lucky');
         },
         additionalClassMechanics: []
     },
@@ -1492,7 +1549,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     178: {
         masteryRequired: 6,
         override: values => {
-            setStat(values, 0, 'always_max_damage_if_fortunate_or_perfect');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'always_max_damage_if_fortunate_or_perfect');
         },
         additionalClassMechanics: []
     },

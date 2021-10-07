@@ -609,7 +609,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxPercent: [],
             multiplier: [
                 { stat: 'res_mag_global_mult' },
-                { stat: 'res_mag_global_mult_after_elemental_damage_taken', condition: config => config.took_elemental_damage_recently }
+                { stat: 'res_mag_global_mult_after_elemental_damage_taken', condition: config => config.took_elemental_damage_recently },
+                { stat: 'res_mag_global_mult_while_channeling_whirlwind', condition: config => config.is_channeling_whirlwind },
             ],
             maxMultiplier: [],
         } 
@@ -764,7 +765,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'tenacity_percent' }],
+            flat: [
+                { stat: 'tenacity_percent' },
+                { stat: 'tenacity_percent_while_channeling_whirlwind', condition: config => config.is_channeling_whirlwind },
+            ],
             max: [],
             percent: [],
             maxPercent: [],
@@ -1000,9 +1004,13 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [{ stat: 'inner_fire_damage_add' }],
             max: [],
-            percent: [{ stat: 'inner_fire_damage_percent' }],
+            percent: [
+                { stat: 'inner_fire_damage_percent' },
+            ],
             maxPercent: [],
-            multiplier: [],
+            multiplier: [
+                { stat: 'inner_fire_damage_mult_if_channeling_whirlwind', condition: (config, stats) => config.is_channeling_whirlwind && !hasStat(stats, 'no_longer_channeling') }
+            ],
             maxMultiplier: [],
         } 
     },
@@ -1453,6 +1461,12 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'skill_decreased_damage_mult', multiplier: () => -1 },
                 { stat: 'skill_increased_damage_mult' },
                 { stat: 'skill_and_enemy_under_control_increased_damage_mult' },
+                { stat: 'skill_increased_damage_mult_against_broken_armor', condition: config => config.target_has_broken_armor },
+                { stat: 'skill_increased_damage_mult_while_channeling_whirlwind', condition: config => config.is_channeling_whirlwind },
+                { stat: 'skill_increased_damage_mult_per_second_while_channeling_whirlwind',
+                    condition: (config, stats) => config.is_channeling_whirlwind && config.time_spend_channeling > 0 && !hasStat(stats, 'no_longer_channeling'),
+                    multiplier: (config, stats) => Math.min(config.time_spend_channeling, Math.round(getFirstStat(stats, 'skill_increased_damage_mult_max_while_channeling_whirlwind') / getFirstStat(stats, 'skill_increased_damage_mult_per_second_while_channeling_whirlwind'))),
+                },
             ],
             maxMultiplier: [
                 { stat: 'skill_increased_max_damage_mult' },

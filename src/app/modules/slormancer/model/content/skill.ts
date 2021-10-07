@@ -25,10 +25,12 @@ export interface Skill {
     perLevelCost: number;
     baseCost: number;
     cost: number;
+    baseCostType: SkillCostType;
     costType: SkillCostType;
     hasLifeCost: boolean;
     hasManaCost: boolean;
     hasNoCost: boolean;
+    baseGenres: Array<SkillGenre>;
     genres: Array<SkillGenre>;
     damageTypes: Array<string>;
 
