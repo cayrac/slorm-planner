@@ -439,100 +439,127 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     42: {
         masteryRequired: 2,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_mana_cost_reduction_per_bleed');
-            addConstant(values, 7, false, EffectValueValueType.AreaOfEffect, 'skill_mana_cost_reduction_per_bleed_distance');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'mana_cost_reduction_per_bleed');
+            addConstant(values, 7, false, EffectValueValueType.Upgrade, 'mana_cost_reduction_per_bleed_distance');
         },
         additionalClassMechanics: []
     },
     43: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'bleed_slow');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     44: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'bleed_increased_damage_mult');
+            synergyMultiply100(values, 0);
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     45: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'block_stack_per_projectile');
+        },
         additionalClassMechanics: []
     },
     46: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'destroy_physical_projectiles');
+        },
         additionalClassMechanics: []
     },
     47: {
         masteryRequired: 4,
         override: values => { 
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_additional_cooldown_per_bleed');
-            addConstant(values, 0, false, EffectValueValueType.Flat, 'skill_cooldown_reduction_minimum');
+            setStat(values, 0, 'quick_silver_max_cooldown_time_reduction_multiplier');
+            setAsUpgrade(values, 0);
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'quick_silver_cooldown_time_reduction_multiplier');
+            addConstant(values, 0, false, EffectValueValueType.Upgrade, 'quick_silver_min_cooldown_time_reduction_multiplier');
         },
         additionalClassMechanics: []
     },
     48: {
         masteryRequired: 5,
         override: values => { 
-            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_additional_bleed_stack_if_full_life');
+            addConstant(values, 2, false, EffectValueValueType.Upgrade, 'bleed_on_hit_add_if_target_full_life');
         },
         additionalClassMechanics: []
     },
     49: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'physical_damage');
+        },
         additionalClassMechanics: []
     },
     50: {
         masteryRequired: 6,
-        override: values => { 
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_perfect_fork_chance');
+        override: values => {
+            setStat(values, 0, 'fork_chance_percent');
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'fork_chance_percent_if_perfect');
         },
         additionalClassMechanics: []
     },
     51: {
         masteryRequired: 7,
         override: values => { 
-            addConstant(values, 4, false, EffectValueValueType.Flat, 'skill_training_dummy_duration');
+            addConstant(values, 4, false, EffectValueValueType.Duration, 'training_dummy_duration');
         },
         additionalClassMechanics: []
     },
     52: {
         masteryRequired: 8,
-        override: values => { 
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_perfect_overdrive_chance');
+        override: values => {
+            setStat(values, 0, 'overdrive_chance_percent');
+            setAsUpgrade(values, 0);
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'overdrive_chance_percent_if_perfect');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'overdrive_apply_bleed');
         },
         additionalClassMechanics: []
     },
     53: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'bleed_on_hit_add');
+        },
         additionalClassMechanics: []
     },
     54: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'bleed_transfer_on_death');
+        },
         additionalClassMechanics: []
     },
     55: {
         masteryRequired: 9,
         override: values => { 
-            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_chance_additional_projectile_count');
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_fortunate_chance_additional_projectile');
+            setStat(values, 0, 'chance_additional_projectile');
+            setAsUpgrade(values, 0);
+            addConstant(values, 2, false, EffectValueValueType.Upgrade, 'chance_additional_projectile_add');
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'chance_additional_projectile_if_fortunate_or_perfect');
         },
         additionalClassMechanics: []
     },
     56: {
         masteryRequired: 10,
         override: values => { 
-            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'skill_bleed_apply_aoe');
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'bleed_on_hit_aoe');
         },
         additionalClassMechanics: []
     },
     57: {
         masteryRequired: 10,
-        override: values => { },
+        override: values => {
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'skewer_on_hit');
+        },
         additionalClassMechanics: []
     },
     58: {

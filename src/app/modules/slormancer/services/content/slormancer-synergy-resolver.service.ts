@@ -126,8 +126,13 @@ export class SlormancerSynergyResolverService {
         if (isSynergyResolveData(resolveData)) {
             const source = characterStats.find(stat => stat.stat === resolveData.effect.source);
             const allowMinMax = resolveData.statsItWillUpdate.reduce((t, c) => (c.mapping === undefined || c.mapping.allowMinMax) && t, true);
-            const precisions = resolveData.statsItWillUpdate.map(stat => stat.mapping ? stat.mapping.precision : 0);
-            const precision = Math.max(resolveData.effect.percent ? 1 : 0, precisions.length > 0 ? Math.min(...precisions) : 0);
+            
+            // precision sur synergie ?
+            let precision = 0;
+            if (resolveData.effect.stat !== 'bleed_increased_damage_mult') {
+                const precisions = resolveData.statsItWillUpdate.map(stat => stat.mapping ? stat.mapping.precision : 0);
+                precision = Math.max(resolveData.effect.percent ? 1 : 0, precisions.length > 0 ? Math.min(...precisions) : 0);
+            }
     
             let sourceValue: number | MinMax = 0;
 

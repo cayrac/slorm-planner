@@ -4,7 +4,7 @@ import { CharacterSkillAndUpgrades } from '../../model/character';
 import { Activable } from '../../model/content/activable';
 import { AncestralLegacy } from '../../model/content/ancestral-legacy';
 import { MergedStat } from '../../model/content/character-stats';
-import { EffectValueSynergy } from '../../model/content/effect-value';
+import { AbstractEffectValue, EffectValueSynergy } from '../../model/content/effect-value';
 import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
 import { HeroClass } from '../../model/content/enum/hero-class';
 import { SkillCostType } from '../../model/content/enum/skill-cost-type';
@@ -89,6 +89,13 @@ export class SlormancerValueUpdater {
 
         if (isDot) {
             multipliers.push(skillStats.dotIncreasedDamage.total);
+        }
+
+        if (stat == 'bleed_damage') {
+            const bleedIncreasedDamage = <MergedStat<number>>stats.stats.find(mergedStat => mergedStat.stat === 'bleed_increased_damage');
+            if (bleedIncreasedDamage) {
+                multipliers.push(...bleedIncreasedDamage.values.multiplier);
+            }
         }
 
         if (stats.extractedStats['increased_damage_mult_per_potential_projectile'] !== undefined) {
@@ -287,6 +294,19 @@ export class SlormancerValueUpdater {
         }
     }
 
+    private updateDuration(duration: AbstractEffectValue, genres: Array<SkillGenre>, skillStats: SkillStats) {
+        const durationMultipliers = this.getValidurationMultipliers(genres, skillStats);
+        duration.value = duration.baseValue;
+        if (duration.stat === 'skill_duration') {
+            duration.value += skillStats.additionalDuration.total;
+        }
+        for (const multiplier of durationMultipliers) {
+            duration.value = duration.value * (100 + multiplier) / 100;
+        }
+        duration.value = Math.max(0, duration.value);
+        duration.displayValue = round(duration.value, 2);
+    }
+
     private updateSkillValues(skill: Skill, skillStats: SkillStats, statsResult: SkillStatsBuildResult) {
                 
         skill.cost = skillStats.mana.total;
@@ -301,19 +321,8 @@ export class SlormancerValueUpdater {
         }
     
         const durationValues = skill.values.filter(value => value.valueType === EffectValueValueType.Duration);
-        if (durationValues.length > 0) {
-            const durationMultipliers = this.getValidurationMultipliers(skill.genres, skillStats);
-            for (const value of durationValues) {
-                value.value = value.baseValue;
-                if (value.stat === 'skill_duration') {
-                    value.value += skillStats.additionalDuration.total;
-                }
-                for (const multiplier of durationMultipliers) {
-                    value.value = value.value * (100 + multiplier) / 100;
-                }
-                value.value = Math.max(0, value.value);
-                value.displayValue = round(value.value, 2);
-            }
+        for (const durationValue of durationValues) {
+            this.updateDuration(durationValue, skill.genres, skillStats);
         }
 
         if (skill.genres.includes(SkillGenre.Aoe)) {
@@ -355,6 +364,11 @@ export class SlormancerValueUpdater {
         const damageValues = upgrade.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
         for (const damageValue of damageValues) {
             this.updateDamage(damageValue, upgrade.genres, skillStats, statsResult);
+        }
+    
+        const durationValues = upgrade.values.filter(value => value.valueType === EffectValueValueType.Duration);
+        for (const durationValue of durationValues) {
+            this.updateDuration(durationValue, upgrade.genres, skillStats);
         }
 
         if (upgrade.genres.includes(SkillGenre.Aoe)) {

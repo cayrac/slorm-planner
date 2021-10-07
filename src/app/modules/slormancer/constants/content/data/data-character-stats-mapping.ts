@@ -58,7 +58,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         precision: 0,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'mana_cost_add' }],
+            flat: [
+                { stat: 'mana_cost_add' },
+                { stat: 'mana_cost_reduction_per_bleed', condition: config => config.enemy_bleed_stacks > 0, multiplier: config => config.enemy_bleed_stacks },
+            ],
             max: [],
             percent: [],
             maxPercent: [],
@@ -88,6 +91,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'cooldown_time_reduction_multiplier', multiplier: () => -1 },
                 { stat: 'cooldown_time_multiplier_if_tormented', condition: config => config.serenity === 0 },
                 { stat: 'grappling_hook_crest_shield_cooldown_time_reduction_multiplier', condition: (_, stats) => [7, 8].includes(getFirstStat(stats, 'skill_id')), multiplier: () => -1 },
+                {
+                    stat: 'quick_silver_cooldown_time_reduction_multiplier',
+                    multiplier: (config, stats) => - Math.max(getFirstStat(stats, 'quick_silver_min_cooldown_time_reduction_multiplier'), getFirstStat(stats, 'quick_silver_max_cooldown_time_reduction_multiplier') - config.enemy_bleed_stacks)
+                }
             ],
             maxMultiplier: [],
         } 
@@ -1529,7 +1536,23 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
 }
 
 export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<MergedStatMapping>}> = {
-    0: { },
+    0: {
+        5: [
+            {
+                stat: 'bleed_increased_damage',
+                precision: 0,
+                allowMinMax: false,
+                source: {
+                    flat: [],
+                    max: [],
+                    percent: [],
+                    maxPercent: [],
+                    multiplier: [{ stat: 'bleed_increased_damage_mult' }],
+                    maxMultiplier: [],
+                } 
+            }
+        ]
+    },
     1: {
         0: [
             {
