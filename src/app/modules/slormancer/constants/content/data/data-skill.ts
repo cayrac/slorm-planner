@@ -2021,8 +2021,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     25: {
         masteryRequired: 10,
         override: values => {
-            setStat(values, 0, 'reset_poison_on_hit');
-            setAsUpgrade(values, 0);
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'reset_poison_on_hit');
         },
         additionalClassMechanics: []
     },
@@ -2164,7 +2163,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     42: {
         masteryRequired: 2,
         override: values => {
-            setStat(values, 0, 'next_skill_apply_poison_if_tormented');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'next_skill_apply_poison_if_tormented');
         },
         additionalClassMechanics: []
     },
@@ -2646,6 +2645,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     103: {
         masteryRequired: 2,
         override: values => {
+            setSource(values, 0, 'movement_speed');
             setStat(values, 0, 'increased_damage_mult');
             synergyMultiply100(values, 0);
             setAsUpgrade(values, 0);
@@ -3247,7 +3247,6 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     189: {
         masteryRequired: 3,
         override: values => {
-            setAsUpgrade(values, 1);
             addConstant(values, 1, false, EffectValueValueType.Stat, 'trigger_all_ravenous_dagger_at_once');
         },
         additionalClassMechanics: []
