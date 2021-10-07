@@ -11,6 +11,7 @@ export interface CharacterConfig {
     percent_lock_mana: number;
     enemy_percent_missing_health: number;
     enemy_is_poisoned: boolean;
+    enemy_has_military_oppression: boolean;
     overall_reputation: number;
     totems_under_control: number;
     traps_nearby: number;
@@ -62,6 +63,7 @@ export interface CharacterConfig {
     frenzy_stacks: number;
     oak_bark_armor_stacks: number;
     enemy_bleed_stacks: number;
+    block_stacks: number;
     has_aura_air_conditionner: boolean;
     has_aura_neriya_shield: boolean;
     has_aura_elemental_swap: boolean;

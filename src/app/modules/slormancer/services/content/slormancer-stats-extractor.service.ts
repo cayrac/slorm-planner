@@ -51,6 +51,9 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'all_level', config.all_characters_level);
         this.addStat(stats.stats, 'damage_stored', config.damage_stored);
         this.addStat(stats.stats, 'victims_reaper_104', config.victims_reaper_104);
+        this.addStat(stats.stats, 'percent_missing_mana', config.percent_missing_mana);
+        this.addStat(stats.stats, 'enemy_percent_missing_health', config.enemy_percent_missing_health);
+        this.addStat(stats.stats, 'block_stacks', config.block_stacks);
     }
 
     private addAncestralLegacyValues(character: Character, stats: ExtractedStats) {
@@ -306,6 +309,15 @@ export class SlormancerStatsExtractorService {
         extractedStats.stats['skill_id'] = [skillAndUpgrades.skill.id];
         extractedStats.stats['mana_cost_add'] = [skillAndUpgrades.skill.initialCost];
         extractedStats.stats['cooldown_time_add'] = [skillAndUpgrades.skill.baseCooldown];
+        if (character.supportSkill) {
+            extractedStats.stats['support_skill'] = [character.supportSkill.id];
+        }
+        if (character.primarySkill) {
+            extractedStats.stats['primary_skill'] = [character.primarySkill.id];
+        }
+        if (character.secondarySkill) {
+            extractedStats.stats['secondary_skill'] = [character.secondarySkill.id];
+        }
     }
 
     private addSkillValues(skillAndUpgrades: CharacterSkillAndUpgrades, extractedStats: ExtractedStats) {

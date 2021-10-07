@@ -13,7 +13,13 @@ import { Skill } from '../../model/content/skill';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { MinMax } from '../../model/minmax';
 import { add, round } from '../../util/math.util';
-import { isDamageType, isEffectValueSynergy, isEffectValueVariable, valueOrDefault } from '../../util/utils';
+import {
+    isDamageType,
+    isEffectValueConstant,
+    isEffectValueSynergy,
+    isEffectValueVariable,
+    valueOrDefault,
+} from '../../util/utils';
 import { SlormancerEffectValueService } from './slormancer-effect-value.service';
 import { SkillStatsBuildResult } from './slormancer-stats.service';
 
@@ -270,15 +276,22 @@ export class SlormancerValueUpdater {
         }
     }
 
-    private updateDamage(damage: EffectValueSynergy, genres: Array<SkillGenre>, skillStats: SkillStats, statsResult: SkillStatsBuildResult, isSkill: boolean = false) {
+    private updateDamage(damage: EffectValueSynergy, genres: Array<SkillGenre>, skillStats: SkillStats, statsResult: SkillStatsBuildResult, isSkill: boolean = false, addntionalMultipliers: Array<number> = []) {
         const multipliers = this.getValidDamageMultipliers(genres, skillStats, statsResult, damage.stat, isSkill);
         if (typeof damage.synergy === 'number') {
             for (const multiplier of multipliers) {
+                damage.synergy = damage.synergy * (100 + multiplier) / 100;
+            }            
+            for (const multiplier of addntionalMultipliers) {
                 damage.synergy = damage.synergy * (100 + multiplier) / 100;
             }
             damage.displaySynergy = round(damage.synergy, 0);
         } else {
             for (const multiplier of multipliers) {
+                damage.synergy.min = damage.synergy.min * (100 + multiplier) / 100;
+                damage.synergy.max = damage.synergy.max * (100 + multiplier) / 100;
+            }         
+            for (const multiplier of addntionalMultipliers) {
                 damage.synergy.min = damage.synergy.min * (100 + multiplier) / 100;
                 damage.synergy.max = damage.synergy.max * (100 + multiplier) / 100;
             }
@@ -316,8 +329,16 @@ export class SlormancerValueUpdater {
         if (damageValues.length > 0) {
             this.spreadAdditionalDamages(damageValues.filter(damage => damage.stat !== 'bleed_damage'), skillStats.additionalDamages.total);
             for (const damageValue of damageValues) {
-                this.updateDamage(damageValue, skill.genres, skillStats, statsResult, true);
+                const additionamMultipliers: Array<number> = [];
+                if (skill.heroClass == HeroClass.Warrior && skill.id === 6 && damageValues.indexOf(damageValue) === 0) {
+                    const stat = <MergedStat<number>>statsResult.stats.find(mergedStat => mergedStat.stat === 'non_magnified_increased_damage_mult');
+                    if (stat) {
+                        additionamMultipliers.push(stat.total);
+                    }
+                }
+                this.updateDamage(damageValue, skill.genres, skillStats, statsResult, true, additionamMultipliers);
             }
+
         }
     
         const durationValues = skill.values.filter(value => value.valueType === EffectValueValueType.Duration);
@@ -357,6 +378,18 @@ export class SlormancerValueUpdater {
             const instructionsTotal = <number>valueOrDefault(statsResult.stats.find(stat => stat.stat === 'additional_instructions')?.total, 0);
             instructionsValue.value += instructionsTotal;
             instructionsValue.displayValue = round(instructionsValue.value, 2);
+        }
+
+        const cadenceCastCount = skill.values.find(value => value.stat === 'cadence_cast_count');
+        if (cadenceCastCount && isEffectValueConstant(cadenceCastCount)) {
+            console.log('Updating cadence cast count : ', cadenceCastCount);
+            const cadenceCastCountNewvalue = statsResult.extractedStats['cadence_cast_count_new_value'];
+            if (cadenceCastCountNewvalue && cadenceCastCountNewvalue[0] !== undefined) {
+                cadenceCastCount.value = cadenceCastCountNewvalue[0];
+            } else {
+                cadenceCastCount.value = cadenceCastCount.baseValue;
+            }
+            cadenceCastCount.displayValue = round(cadenceCastCount.value, 2);
         }
     }
 

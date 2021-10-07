@@ -403,7 +403,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'inextricable_torment_aura_enemy_increased_damage', condition: config => config.has_aura_inextricable_torment, multiplier: () => -1 },
-                { stat: 'poisoned_enemy_increased_damage', condition: config => config.enemy_is_poisoned, multiplier: () => -1 }
+                { stat: 'poisoned_enemy_increased_damage', condition: config => config.enemy_is_poisoned, multiplier: () => -1 },
+                { stat: 'military_oppression_enemy_increased_damage', condition: config => config.enemy_has_military_oppression, multiplier: () => -1 },
             ],
             max: [],
             percent: [],
@@ -430,7 +431,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 },
                 { stat: 'last_cast_tormented_crit_chance_percent', condition: config => config.last_cast_tormented },
                 { stat: 'smoke_screen_buff_crit_chance_percent', condition: config => config.has_smoke_screen_buff },
-                { stat: 'crit_chance_percent_per_enemy_in_aoe', condition: config => config.enemies_in_aoe > 0, multiplier: config => config.enemies_in_aoe }
+                { stat: 'crit_chance_percent_per_enemy_in_aoe', condition: config => config.enemies_in_aoe > 0, multiplier: config => config.enemies_in_aoe },
+                { stat: 'blademaster_crit_chance_percent', multiplier: (_, stats) => [3, 9].includes(getFirstStat(stats, 'primary_skill', -1)) || [3, 9].includes(getFirstStat(stats, 'secondary_skill', -1)) ? 2 : 1 },
             ],
             max: [],
             percent: [],
@@ -438,7 +440,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             multiplier: [
                 { stat: 'crit_chance_global_mult_after_hit_taken', condition: config => config.took_damage_before_next_cast },
                 { stat: 'enemy_full_life_crit_chance_global_mult', condition: (config, stats) => (100 - config.enemy_percent_missing_health) >= getFirstStat(stats, 'enemy_full_life_crit_chance_global_mult_treshold', 0) },
-                { stat: 'crit_chance_global_mult_per_yard', condition: config => config.distance_with_target > 0, multiplier: config => config.distance_with_target }
+                { stat: 'crit_chance_global_mult_per_yard', condition: config => config.distance_with_target > 0, multiplier: config => config.distance_with_target },
             ],
             maxMultiplier: [],
         } 
@@ -1423,6 +1425,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'chivalry_high_life_increased_damage', condition: (config, stats) => getFirstStat(stats, 'chivalry_high_life_treshold') < (100 - config.enemy_percent_missing_health) },
                 { stat: 'increased_damage_mult_if_no_legendaries', condition: (_, stats) => getFirstStat(stats, 'number_equipped_legendaries') === 0 },
                 { stat: 'increased_damage_mult_on_splintered_enemy', condition: config => config.target_is_splintered },
+                { stat: 'increased_damage_if_fortunate_or_perfect', condition: config => config.next_cast_is_fortunate || config.next_cast_is_perfect },
             ],
             maxMultiplier: [
             ],

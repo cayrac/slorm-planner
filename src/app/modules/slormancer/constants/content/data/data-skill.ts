@@ -134,16 +134,18 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setStat(values, 1, 'bleed_damage');
             setUpgrade(values, 1, 14);
             addConstant(values, 7, false, EffectValueValueType.Duration, 'bleed_stack_duration');
-            addConstant(values, 10, false, EffectValueValueType.Flat, 'bleed_max_stacks');
+            addConstant(values, 10, false, EffectValueValueType.Stat, 'bleed_max_stacks');
         },
         additionalClassMechanics: []
     },
     6: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 5);
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 1, 7);
-            addConstant(values, 8, false, EffectValueValueType.Duration, 'skill_0_6_magnified_hit_count');
+            addConstant(values, 8, false, EffectValueValueType.Upgrade, 'cadence_cast_count');
         },
         additionalClassMechanics: []
     },
@@ -564,88 +566,123 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     },
     58: {
         masteryRequired: 2,
-        override: values => { 
-            addConstant(values, 1, false, EffectValueValueType.Duration, 'skill_silence_duration');
-            addConstant(values, 100, false, EffectValueValueType.AreaOfEffect, 'skill_fortunate_silence_chance');
+        override: values => {
+            setStat(values, 0, 'silence_chance');
+            setAsUpgrade(values, 0);
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'silence_duration');
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'silence_chance_if_fortunate_or_perfect');
         },
         additionalClassMechanics: []
     },
     59: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'increased_damage_if_fortunate_or_perfect');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     60: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'military_oppression_enemy_increased_damage'),
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     61: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            synergyMultiply100(values, 0);
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     62: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            values.push(effectValueSynergy(0, 100, EffectValueUpgradeType.UpgradeRank, true, 'enemy_percent_missing_health', 'non_magnified_increased_damage_mult', EffectValueValueType.Upgrade))
+        },
         additionalClassMechanics: []
     },
     63: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setSource(values, 0, 'block_stacks');
+            setStat(values, 0, 'crit_chance_percent');
+            synergyMultiply100(values, 0);
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     64: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'cadence_cast_count_new_value');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     65: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'magnified_if_fortunate_or_perfect');
+        },
         additionalClassMechanics: []
     },
     66: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'cadence_critically_critical_crit_chance_percent');
+            setStat(values, 2, 'cadence_critically_critical_multiplier_if_fortunate');
+            setStat(values, 4, 'cadence_critically_critical_multiplier_if_perfect');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     67: {
         masteryRequired: 7,
         override: values => { 
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_magnified_count_on_other_skill_cast');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'magnified_count_add_on_other_skill_cast');
         },
         additionalClassMechanics: []
     },
     68: {
         masteryRequired: 8,
         override: values => { 
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_perfect_chance_cast_whirlwing_on_cast');
+            setStat(values, 0, 'chance_to_cast_whirlwind');
+            setAsUpgrade(values, 0);
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'chance_to_cast_whirlwind_on_cast_if_perfect');
         },
         additionalClassMechanics: []
     },
     69: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'blademaster_crit_chance_percent');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     70: {
         masteryRequired: 9,
         override: values => { 
-            addConstant(values, 5, false, EffectValueValueType.Flat, 'skill_perfect_recast_multiplier');
+            addConstant(values, 5, false, EffectValueValueType.Upgrade, 'recast_multiplier_if_perfect');
         },
         additionalClassMechanics: []
     },
     71: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'recast_are_magnified');
+        },
         additionalClassMechanics: []
     },
     72: {
         masteryRequired: 10,
         override: values => { 
-            addConstant(values, 5, false, EffectValueValueType.Flat, 'skill_beat_stack_trigger');
-            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_beat_trigger_astral_retribution_count');
+            addConstant(values, 5, false, EffectValueValueType.Upgrade, 'astral_beat_max_stacks');
+            addConstant(values, 3, false, EffectValueValueType.Upgrade, 'astral_beat_astral_retribution_count');
         },
         additionalClassMechanics: []
     },
