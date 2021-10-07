@@ -72,7 +72,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'arrow_shot_void_arrow_heavy_explosive_increased_mana_cost', condition: (_, stats) => [3, 4, 6].includes(getFirstStat(stats, 'skill_id', 0)) },
                 { stat: 'mana_cost_mult' },
                 { stat: 'mana_cost_mult_if_tormented', condition: config => config.serenity === 0 },
-                { stat: 'mana_cost_reduction_mult', multiplier: () => -1 }
+                { stat: 'mana_cost_reduction_mult', multiplier: () => -1 },
+                { stat: 'mana_cost_mult_per_enemy_under_control', condition: config => config.enemy_under_command > 0 || config.elite_under_command > 0, multiplier: config => config.enemy_under_command + config.elite_under_command * 10 },
             ],
             maxMultiplier: [],
         } 
@@ -94,7 +95,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 {
                     stat: 'quick_silver_cooldown_time_reduction_multiplier',
                     multiplier: (config, stats) => - Math.max(getFirstStat(stats, 'quick_silver_min_cooldown_time_reduction_multiplier'), getFirstStat(stats, 'quick_silver_max_cooldown_time_reduction_multiplier') - config.enemy_bleed_stacks)
-                }
+                },
+                { stat: 'cooldown_time_multiplier_if_fortunate_or_perfect', condition: config => config.next_cast_is_perfect || config.next_cast_is_fortunate },
             ],
             maxMultiplier: [],
         } 
@@ -180,7 +182,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'the_max_health_percent_per_totem',
                     condition: (config, stats) => config.totems_under_control > 0 && stats['the_max_health_set'] === undefined,
                     multiplier: config => config.totems_under_control
-                }
+                },
+                { stat: 'vitality_stack_the_max_health_percent', condition: config => config.vitality_stacks > 0, multiplier: (config, stats) => Math.min(getFirstStat(stats, 'vitality_max_stack'), config.vitality_stacks) },
             ],
             maxPercent: [],
             multiplier: [{ stat: 'the_max_health_global_mult', condition: (_, stats) => stats['the_max_health_set'] === undefined }],
@@ -812,6 +815,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'reduced_damage_from_melee_percent' },
                 { stat: 'reduced_damage_from_melee_percent_for_each_ennemy', multiplier: (config, stats) => valueOrDefault(config.ennemies_in_radius[getFirstStat(stats, 'reduced_damage_from_melee_percent_for_each_ennemy_radius')], 0) },
                 { stat: 'reduced_damage_from_melee_percent_if_source_is_full_life', condition: config => config.enemy_percent_missing_health === 0 },
+                { stat: 'melee_defense_stack_reduction', condition: config => config.melee_defense_stacks > 0, multiplier: config => config.melee_defense_stacks },
             ],
             max: [],
             percent: [],
@@ -825,7 +829,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'reduced_damage_from_projectile_percent' }],
+            flat: [
+                { stat: 'reduced_damage_from_projectile_percent' },
+                { stat: 'projectile_defense_stack_reduction', condition: config => config.projectile_defense_stacks > 0, multiplier: config => config.projectile_defense_stacks },
+            ],
             max: [],
             percent: [],
             maxPercent: [],
@@ -841,6 +848,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             flat: [
                 { stat: 'reduced_damage_from_area_percent' },
                 { stat: 'enduring_protector_buff_reduced_damage_from_area_percent', condition: config => config.has_enduring_protector_buff },
+                { stat: 'aoe_defense_stack_reduction', condition: config => config.aoe_defense_stacks > 0, multiplier: config => config.aoe_defense_stacks },
             ],
             max: [],
             percent: [],
@@ -1444,6 +1452,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             multiplier: [
                 { stat: 'skill_decreased_damage_mult', multiplier: () => -1 },
                 { stat: 'skill_increased_damage_mult' },
+                { stat: 'skill_and_enemy_under_control_increased_damage_mult' },
             ],
             maxMultiplier: [
                 { stat: 'skill_increased_max_damage_mult' },

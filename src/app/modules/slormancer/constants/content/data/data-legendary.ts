@@ -63,7 +63,7 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     },
     18: {
         override: (effect) => {
-            setStat(effect, 0, 'cooldown_reduction_global_mult');
+            setStat(effect, 0, 'cooldown_time_reduction_multiplier');
         }
     },
     19: {

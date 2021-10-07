@@ -1,6 +1,8 @@
 export interface CharacterConfig {
     knight_other_level: number;
     serenity: number;
+    enemy_under_command: number;
+    elite_under_command: number;
     last_cast_tormented: boolean;
     last_cast_delighted: boolean;
     next_cast_is_fortunate: boolean;
@@ -64,6 +66,10 @@ export interface CharacterConfig {
     oak_bark_armor_stacks: number;
     enemy_bleed_stacks: number;
     block_stacks: number;
+    melee_defense_stacks: number;
+    projectile_defense_stacks: number;
+    aoe_defense_stacks: number;
+    vitality_stacks: number;
     has_aura_air_conditionner: boolean;
     has_aura_neriya_shield: boolean;
     has_aura_elemental_swap: boolean;

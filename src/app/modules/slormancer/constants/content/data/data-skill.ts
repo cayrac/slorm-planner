@@ -38,6 +38,22 @@ function setStat(values: Array<AbstractEffectValue>, index: number, stat: string
     }
 }
 
+function setSynergyPrecision(values: Array<AbstractEffectValue>, index: number, precision: number) {
+    const value = values[index];
+
+    if (value && isEffectValueSynergy(value)) {
+        value.precision = precision;
+    }
+}
+
+function setSynergyAllowMinMax(values: Array<AbstractEffectValue>, index: number, allowMinMax: boolean) {
+    const value = values[index];
+
+    if (value && isEffectValueSynergy(value)) {
+        value.allowMinMax = allowMinMax;
+    }
+}
+
 function setSource(values: Array<AbstractEffectValue>, index: number, source: string) {
     const value = <AbstractEffectValue>values[index];
 
@@ -152,6 +168,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     7: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 6);
         },
         additionalClassMechanics: []
@@ -458,6 +475,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 2,
         override: values => {
             setStat(values, 0, 'bleed_increased_damage_mult');
+            setSynergyPrecision(values, 0, 0);
             synergyMultiply100(values, 0);
             setAsUpgrade(values, 0);
         },
@@ -651,6 +669,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 8,
         override: values => { 
             setStat(values, 0, 'chance_to_cast_whirlwind');
+
             setAsUpgrade(values, 0);
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'chance_to_cast_whirlwind_on_cast_if_perfect');
         },
@@ -689,94 +708,131 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     73: {
         masteryRequired: 2,
         override: values => { 
-            addConstant(values, 0, false, EffectValueValueType.Duration, 'skill_perfect_cast_cooldown');
+            addConstant(values, 0, false, EffectValueValueType.Upgrade, 'garbage_stat');
+            addConstant(values, -100, false, EffectValueValueType.Upgrade, 'cooldown_time_multiplier_if_fortunate_or_perfect');
         },
         additionalClassMechanics: []
     },
     74: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            addConstant(values, 0, false, EffectValueValueType.Upgrade, 'restore_cost_if_no_enemy_hit');
+        },
         additionalClassMechanics: []
     },
     75: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            addConstant(values, 0, false, EffectValueValueType.Upgrade, 'block_stack_per_hit');
+        },
         additionalClassMechanics: []
     },
     76: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'increased_range_percent');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     77: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'eagle_punch_chance_per_yard');
+            setAsUpgrade(values, 0);
+            setStat(values, 1, 'physical_damage');
+            setAsUpgrade(values, 1);
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'eagle_punch_increased_damage_if_perfect');
+        },
         additionalClassMechanics: []
     },
     78: {
         masteryRequired: 4,
         override: values => { 
-            addConstant(values, 4, false, EffectValueValueType.AreaOfEffect, 'skill_mass_hook_distance');
-            addConstant(values, 50, false, EffectValueValueType.Flat, 'skill_damage_reduction');
+            addConstant(values, 4, false, EffectValueValueType.AreaOfEffect, 'pull_distance');
+            addConstant(values, 50, false, EffectValueValueType.Upgrade, 'skill_decreased_damage_mult');
         },
         additionalClassMechanics: []
     },
     79: {
         masteryRequired: 4,
         override: values =>  { 
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_increased_cost_percent_per_controlled_enemy');
+            setSource(values, 0, 'weapon_damage');
+            setStat(values, 0, 'enemy_under_control_additional_damage');
+            setSynergyAllowMinMax(values, 0, false);
+            setAsUpgrade(values, 0);
+            setSource(values, 1, 'attack_speed');
+            setSynergyPrecision(values, 1, 0);
+            synergyMultiply100(values, 1);
+            setStat(values, 1, 'enemy_under_control_attack_speed');
+            setAsUpgrade(values, 0);
+            
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'mana_cost_mult_per_enemy_under_control');
         },
         additionalClassMechanics: []
     },
     80: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'skill_and_enemy_under_control_increased_damage_mult');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     81: {
         masteryRequired: 6,
         override: values => { 
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_melee_defense_stack_reduction');
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_projectile_defense_stack_reduction');
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_aoe_defense_stack_reduction');
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_max_defense_stack');
+            setStat(values, 0, 'defense_stack_duration');
+            setAsUpgrade(values, 0);
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'melee_defense_stack_reduction');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'projectile_defense_stack_reduction');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'aoe_defense_stack_reduction');
+            addConstant(values, 100, false, EffectValueValueType.Stat, 'defense_max_stack');
         },
         additionalClassMechanics: []
     },
     82: {
         masteryRequired: 7,
         override: values => { 
-            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'skill_stun_aoe');
-            addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_stun_duration');
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_fortunate_stun_chance');
+            setStat(values, 0, 'stun_chance');
+            setAsUpgrade(values, 0);
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'stun_aoe');
+            addConstant(values, 3, false, EffectValueValueType.Duration, 'stun_duration');
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'stun_chance_if_fortunate');
         },
         additionalClassMechanics: []
     },
     83: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'elemental_resistance_broken_on_hit');
+        },
         additionalClassMechanics: []
     },
     84: {
         masteryRequired: 8,
         override: values => { 
-            addConstant(values, 8, false, EffectValueValueType.Flat, 'skill_blind_duration');
+            addConstant(values, 8, false, EffectValueValueType.Upgrade, 'blind_duration');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'blind_on_hit');
         },
         additionalClassMechanics: []
     },
     85: {
         masteryRequired: 8,
         override: values => { 
-            addConstant(values, 7, false, EffectValueValueType.Duration, 'skill_vitality_stack_duration');
-            addConstant(values, 10, false, EffectValueValueType.Flat, 'skill_max_vitality_stack');
+            setStat(values, 0, 'vitality_stack_the_max_health_percent');
+            addConstant(values, 7, false, EffectValueValueType.Stat, 'vitality_stack_duration');
+            addConstant(values, 10, false, EffectValueValueType.Stat, 'vitality_max_stack');
         },
         additionalClassMechanics: []
     },
     86: {
         masteryRequired: 9,
         override: values => { 
-            addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_earthquake_duration');
-            addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'skill_earthquake_aoe');
+            setStat(values, 0, 'physical_damage');
+            setAsUpgrade(values, 0);
+            addConstant(values, 3, false, EffectValueValueType.Upgrade, 'earthquake_duration');
+            addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'earthquake_aoe');
         },
         additionalClassMechanics: []
     },

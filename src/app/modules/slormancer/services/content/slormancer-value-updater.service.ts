@@ -176,7 +176,7 @@ export class SlormancerValueUpdater {
         const skillStats = this.getSkillStats(statsResult);
 
         activable.cost = skillStats.mana.values.multiplier.reduce((t, v) => t * (100 + v) / 100 , activable.baseCost);
-        activable.cooldown = round(activable.baseCooldown * (100 - skillStats.attackSpeed.total) / 100, 2);
+        activable.cooldown = Math.max(0, round(activable.baseCooldown * (100 - skillStats.attackSpeed.total) / 100, 2));
         
         for (const value of activable.values) {
             if (isEffectValueSynergy(value)) {
@@ -212,7 +212,7 @@ export class SlormancerValueUpdater {
             ancestralLegacy.cost = skillStats.mana.values.multiplier.reduce((t, v) => t * (100 + v) / 100 , ancestralLegacy.currentRankCost);
         }
         if (ancestralLegacy.baseCooldown !== null) {
-            ancestralLegacy.cooldown = round(ancestralLegacy.baseCooldown * (100 - skillStats.attackSpeed.total) / 100, 2);
+            ancestralLegacy.cooldown = Math.max(0, round(ancestralLegacy.baseCooldown * (100 - skillStats.attackSpeed.total) / 100, 2));
         }
         
         for (const value of ancestralLegacy.values) {
@@ -323,7 +323,7 @@ export class SlormancerValueUpdater {
     private updateSkillValues(skill: Skill, skillStats: SkillStats, statsResult: SkillStatsBuildResult) {
                 
         skill.cost = skillStats.mana.total;
-        skill.cooldown = round(skillStats.cooldown.total * (100 - skillStats.attackSpeed.total) / 100, 2);
+        skill.cooldown = Math.max(0, round(skillStats.cooldown.total * (100 - skillStats.attackSpeed.total) / 100, 2));
 
         const damageValues = skill.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
         if (damageValues.length > 0) {

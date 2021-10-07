@@ -10,6 +10,8 @@ export class SlormancerConfigurationService {
 
     private readonly DEFAULT_CONFIG: CharacterConfig = {
         knight_other_level: MAX_HERO_LEVEL,
+        enemy_under_command: 10,
+        elite_under_command: 10,
         totems_under_control: 0,
         traps_nearby: 0,
         serenity: 0,
@@ -81,6 +83,10 @@ export class SlormancerConfigurationService {
         oak_bark_armor_stacks: 0,
         enemy_bleed_stacks: 0,
         block_stacks: 0,
+        melee_defense_stacks: 0,
+        projectile_defense_stacks: 0,
+        aoe_defense_stacks: 0,
+        vitality_stacks: 0,
         distance_with_target: 0,
         has_aura_air_conditionner: true,
         has_aura_neriya_shield: true,
@@ -114,6 +120,8 @@ export class SlormancerConfigurationService {
 
     private readonly COMBAT_CONFIG: CharacterConfig = {
         knight_other_level: MAX_HERO_LEVEL,
+        enemy_under_command: 0,
+        elite_under_command: 0,
         totems_under_control: 0,
         traps_nearby: 0,
         serenity: 6,
@@ -185,6 +193,10 @@ export class SlormancerConfigurationService {
         oak_bark_armor_stacks: 10,
         enemy_bleed_stacks: 0,
         block_stacks: 0,
+        melee_defense_stacks: 0,
+        projectile_defense_stacks: 0,
+        aoe_defense_stacks: 0,
+        vitality_stacks: 10,
         distance_with_target: 0,
         has_aura_air_conditionner: true,
         has_aura_neriya_shield: true,

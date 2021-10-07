@@ -30,6 +30,8 @@ export interface EffectValueSynergy extends AbstractEffectValue {
     upgrade: number;
     upgradeType: EffectValueUpgradeType;
     source: string;
+    precision: number | null;
+    allowMinMax: boolean;
     baseSynergy: number | MinMax;
     synergy: number | MinMax;
     displaySynergy: number | MinMax;
