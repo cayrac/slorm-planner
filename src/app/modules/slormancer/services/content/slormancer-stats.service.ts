@@ -160,10 +160,11 @@ export class SlormancerStatsService {
                 activables: []
             }
         }
-        const extractedStats = this.slormancerStatsExtractorService.extractCharacterStats(character, config, additionalItem);
+        const mapping = GLOBAL_MERGED_STATS_MAPPING;
+        const extractedStats = this.slormancerStatsExtractorService.extractCharacterStats(character, config, additionalItem, mapping);
         
         result.extractedStats = extractedStats.stats;
-        result.stats = this.buildMergedStats(extractedStats.stats, GLOBAL_MERGED_STATS_MAPPING, config);
+        result.stats = this.buildMergedStats(extractedStats.stats, mapping, config);
 
         this.addConfigCharacterStats(result.stats, config);
 
@@ -215,8 +216,9 @@ export class SlormancerStatsService {
                 upgrades: []
             }
         }
+        const mapping = [...GLOBAL_MERGED_STATS_MAPPING, ...HERO_MERGED_STATS_MAPPING[character.heroClass], ...valueOrDefault(SKILL_MERGED_STATS_MAPPING[character.heroClass][skillAndUpgrades.skill.id], []) ];
 
-        const extractedStats = this.slormancerStatsExtractorService.extractSkillStats(character, skillAndUpgrades, config, characterExtractedStats);
+        const extractedStats = this.slormancerStatsExtractorService.extractSkillStats(character, skillAndUpgrades, config, characterExtractedStats, mapping);
 
         // Spécial changes
         if (character.heroClass === HeroClass.Huntress && skillAndUpgrades.skill.id === 4) {
@@ -233,13 +235,13 @@ export class SlormancerStatsService {
         }
 
         result.extractedStats = extractedStats.stats;
-        result.stats = this.buildMergedStats(extractedStats.stats, [...GLOBAL_MERGED_STATS_MAPPING, ...HERO_MERGED_STATS_MAPPING[character.heroClass], ...valueOrDefault(SKILL_MERGED_STATS_MAPPING[character.heroClass][skillAndUpgrades.skill.id], []) ], config);
+        result.stats = this.buildMergedStats(extractedStats.stats, mapping, config);
         this.addSkillStats(result.stats, character.skills);
 
         for (const stats of result.stats) {
             this.slormancerStatUpdaterService.updateStatTotal(stats);
         }
-        
+
         result.unresolvedSynergies = this.slormancerSynergyResolverService.resolveSynergies(extractedStats.synergies, result.stats, config, extractedStats.stats);
 
         this.slormancerSynergyResolverService.resolveIsolatedSynergies(extractedStats.isolatedSynergies, result.stats, extractedStats.stats);

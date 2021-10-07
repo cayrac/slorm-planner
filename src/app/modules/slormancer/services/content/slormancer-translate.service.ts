@@ -54,6 +54,10 @@ export class SlormancerTranslateService {
         if (cache !== null) {
             result = cache;
         } else {
+            if (key === 'training_lance_additional_damage') {
+                key = 'physical_damage';
+            }
+
             const gameData = this.slormancerDataService.getTranslation(key);
             if (gameData !== null) {
                 result = gameData.EN;

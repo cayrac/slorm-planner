@@ -245,6 +245,18 @@ export class SlormancerValueUpdater {
     public updateSkillAndUpgradeValues(skillAndUpgrades: CharacterSkillAndUpgrades, stats: SkillStatsBuildResult): Array<SkillUpgrade> {
         const skillStats = this.getSkillStats(stats);
 
+        if (skillAndUpgrades.skill.heroClass === HeroClass.Warrior && skillAndUpgrades.selectedUpgrades.includes(123)) {
+            const honorableThrow = <SkillUpgrade>skillAndUpgrades.upgrades.find(upgrade => upgrade.id === 123);
+            let trainingLanceAdditionalDamage = (<EffectValueSynergy>honorableThrow.values.find(value => value.stat === 'training_lance_additional_damage')).synergy;
+
+            if (skillAndUpgrades.selectedUpgrades.includes(137)) {
+                // trainingLanceAdditionalDamage = add(trainingLanceAdditionalDamage, TODO)
+            }
+
+            const trainingLanceDamage = <EffectValueSynergy>skillAndUpgrades.skill.values[0];
+            this.spreadAdditionalDamages([trainingLanceDamage], trainingLanceAdditionalDamage);
+        }
+
         this.updateSkillValues(skillAndUpgrades.skill, skillStats, stats);
 
         // hack to add multiply and conquer bug
@@ -269,7 +281,7 @@ export class SlormancerValueUpdater {
             const totalDamages = averageDamages.reduce((t, v) => t + v, 0);
             
             damages.forEach((synergy, index) => {
-                const ratio = <number>averageDamages[index] / totalDamages;
+                const ratio = totalDamages === 0 ? 1 / damages.length : <number>averageDamages[index] / totalDamages;
                 const additionalDamages = typeof additional === 'number' ? additional * ratio : { min: additional.min * ratio, max: additional.max * ratio };
                 synergy.synergy = add(synergy.synergy, additionalDamages);
             });
@@ -392,7 +404,6 @@ export class SlormancerValueUpdater {
 
         const cadenceCastCount = skill.values.find(value => value.stat === 'cadence_cast_count');
         if (cadenceCastCount && isEffectValueConstant(cadenceCastCount)) {
-            console.log('Updating cadence cast count : ', cadenceCastCount);
             const cadenceCastCountNewvalue = statsResult.extractedStats['cadence_cast_count_new_value'];
             if (cadenceCastCountNewvalue && cadenceCastCountNewvalue[0] !== undefined) {
                 cadenceCastCount.value = cadenceCastCountNewvalue[0];

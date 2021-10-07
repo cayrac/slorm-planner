@@ -93,10 +93,6 @@ export class SlormancerTemplateService {
         return template;
     }
 
-    private isDamageSource(stat: string): boolean {
-        return stat === 'elemental_damage' || stat === 'physical_damage' || stat === 'basic_damage' || stat === 'weapon_damage';
-    }
-
     private getEffectValueDetails(effectValue: EffectValueVariable | EffectValueSynergy, hideBase: boolean = false): string {
         let result = '';
         const percent = (effectValue.percent || isEffectValueSynergy(effectValue)) ? '%' : '';
@@ -107,7 +103,7 @@ export class SlormancerTemplateService {
             }
         } else {
             const showUpgrade = effectValue.upgrade > 0;
-            const showBase = (isEffectValueSynergy(effectValue) && this.isDamageSource(effectValue.source)) && !hideBase;
+            const showBase = (isEffectValueSynergy(effectValue) && isDamageType(effectValue.source)) && !hideBase && effectValue.value !== 0;
             const hasDetails = showUpgrade || showBase;
 
             if (hasDetails) {
@@ -334,7 +330,7 @@ export class SlormancerTemplateService {
 
     public getSkillDescriptionTemplate(data: GameDataSkill): string {
         const stats = splitData(data.DESC_VALUE).filter(value => !value.startsWith('*'))
-            .map(stat => this.isDamageSource(stat) ? '{damageType}' : stat);;
+            .map(stat => isDamageType(stat) ? '{damageType}' : stat);
         const types = splitData(data.DESC_VALUE_REAL);
         
         const template = data.EN_DESCRIPTION.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');

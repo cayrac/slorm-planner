@@ -223,7 +223,9 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     10: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 1, 7);
+            setStat(values, 1, 'physical_damage');
         },
         additionalClassMechanics: []
     },
@@ -1142,26 +1144,32 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     120: {
         masteryRequired: 2,
         override: values => { 
-            addConstant(values, 1, false, EffectValueValueType.Duration, 'skill_training_lance_root_duration');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'root_duration');
         },
         additionalClassMechanics: []
     },
     121: {
         masteryRequired: 2,
-        override: values => { 
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_perfect_astral_retribution_chance');
+        override: values => {
+            setStat(values, 0, 'training_lance_astral_retribution_chance_on_hit');
+            setAsUpgrade(values, 0);
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'training_lance_astral_retribution_chance_on_hit_if_perfect');
         },
         additionalClassMechanics: []
     },
     122: {
         masteryRequired: 2,
         override: values => { 
+            setStat(values, 0, 'elder_lance_brut_chance_percent');
+            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
     123: {
         masteryRequired: 2,
         override: values => { 
+            setStat(values, 0, 'training_lance_additional_damage');
+            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
