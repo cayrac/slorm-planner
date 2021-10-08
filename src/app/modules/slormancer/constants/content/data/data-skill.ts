@@ -2097,6 +2097,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => { 
             setStat(values, 0, 'aoe_increased_size_percent');
             setAsUpgrade(values, 0);
+            setStat(values, 1, 'skill_decreased_damage_mult');
+            setAsUpgrade(values, 1);
         },
         additionalClassMechanics: []
     },
