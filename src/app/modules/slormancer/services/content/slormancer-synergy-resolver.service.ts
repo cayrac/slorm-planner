@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { GLOBAL_MERGED_STATS_MAPPING } from '../../constants/content/data/data-character-stats-mapping';
+import {
+    GLOBAL_MERGED_STATS_MAPPING,
+    HERO_MERGED_STATS_MAPPING,
+} from '../../constants/content/data/data-character-stats-mapping';
 import { CharacterConfig } from '../../model/character-config';
 import {
     ExternalSynergyResolveData,
@@ -9,6 +12,7 @@ import {
     SynergyResolveData,
 } from '../../model/content/character-stats';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
+import { HeroClass } from '../../model/content/enum/hero-class';
 import { MinMax } from '../../model/minmax';
 import { effectValueSynergy } from '../../util/effect-value.util';
 import { round } from '../../util/math.util';
@@ -21,10 +25,10 @@ export class SlormancerSynergyResolverService {
 
     constructor(private slormancerStatUpdaterService: SlormancerStatUpdaterService) { }
 
-    public resolveSynergies(synergies: Array<SynergyResolveData | ExternalSynergyResolveData>, characterStats: Array<MergedStat>, config: CharacterConfig, extractedStats: ExtractedStatMap): Array<SynergyResolveData>  {
+    public resolveSynergies(heroClass: HeroClass, synergies: Array<SynergyResolveData | ExternalSynergyResolveData>, characterStats: Array<MergedStat>, config: CharacterConfig, extractedStats: ExtractedStatMap): Array<SynergyResolveData>  {
         const remainingSynergies = [ ...synergies];
         
-        this.addDefaultSynergies(remainingSynergies, config, extractedStats);
+        this.addDefaultSynergies(remainingSynergies, config, extractedStats, heroClass);
 
         let next: SynergyResolveData | ExternalSynergyResolveData | null;
         while (remainingSynergies.length > 0 && (next = this.takeNextSynergy(remainingSynergies)) !== null) {
@@ -41,7 +45,7 @@ export class SlormancerSynergyResolverService {
         }
     }
 
-    private addDefaultSynergies(resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>, config: CharacterConfig, extractedStats: ExtractedStatMap) {
+    private addDefaultSynergies(resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>, config: CharacterConfig, extractedStats: ExtractedStatMap, heroClass: HeroClass) {
         const addReaperToElements = extractedStats['reaper_added_to_elements'] !== undefined
         const overdriveDamageBasedOnSkillDamage = extractedStats['overdrive_damage_based_on_skill_damage'] !== undefined
 
@@ -97,6 +101,11 @@ export class SlormancerSynergyResolverService {
             statsItWillUpdate: [ { stat: 'raw_elem_diff' } ]
         });
 
+        if (heroClass === HeroClass.Mage) {
+            mapping = HERO_MERGED_STATS_MAPPING[heroClass].find(m => m.stat === 'mana_bond_damage');
+            resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'mana_lost_last_second', 'mana_bond_damage_add'), 0, {}, [ { stat: 'mana_bond_damage_add', mapping } ]));
+        }
+
         return true;
     }
 
@@ -126,7 +135,7 @@ export class SlormancerSynergyResolverService {
         if (isSynergyResolveData(resolveData)) {
             const source = characterStats.find(stat => stat.stat === resolveData.effect.source);
             const allowMinMax = resolveData.statsItWillUpdate.reduce((t, c) => (c.mapping === undefined || c.mapping.allowMinMax) && t, resolveData.effect.allowMinMax);
-            
+
             let precision = resolveData.effect.precision;
             if (precision === null) {
                 const precisions = resolveData.statsItWillUpdate.map(stat => stat.mapping ? stat.mapping.precision : 0);

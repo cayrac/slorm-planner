@@ -10,7 +10,11 @@ export class SlormancerTranslateService {
     private readonly REGEXP_REMOVE_GENRE = /(.*)\((MS|MP|FS|FP)\)$/g;
     private readonly REGEXP_KEEP_GENRE = /.*\((MS|MP|FS|FP)\)$/g;
 
-    private readonly TRANSLATION_CACHE: { [key: string]: string } = {};
+    private readonly TRANSLATION_CACHE: { [key: string]: string } = {
+        atk_temporal: 'Temporal',
+        atk_arcanic: 'Arcanic',
+        atk_obliteration: 'Obliteration',
+    };
 
     constructor(private slormancerDataService: SlormancerDataService) { }
 

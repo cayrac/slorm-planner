@@ -1,12 +1,18 @@
 export interface CharacterConfig {
+    mana_lost_last_second: number;
+    mana_gained_last_second: number;
     knight_other_level: number;
     serenity: number;
+    arcanic_emblems: number;
+    temporal_emblems: number;
+    obliteration_emblems: number;
     enemy_under_command: number;
     elite_under_command: number;
     last_cast_tormented: boolean;
     last_cast_delighted: boolean;
     next_cast_is_fortunate: boolean;
     next_cast_is_perfect: boolean;
+    next_cast_is_new_emblem: boolean;
     percent_missing_health: number;
     percent_missing_mana: number;
     percent_lock_health: number,
@@ -26,10 +32,12 @@ export interface CharacterConfig {
     pierces_before_hit: number;
     enemies_in_aoe: number;
     enemies_affected_by_latent_storm: number;
+    target_is_close: boolean;
     target_is_isolated: boolean;
     target_is_tracked: boolean;
     target_is_skewered: boolean;
     target_is_splintered: boolean;
+    target_is_time_locked: boolean;
     target_has_broken_armor: boolean;
     target_has_negative_effect: boolean;
     is_first_hit: boolean;
@@ -73,6 +81,7 @@ export interface CharacterConfig {
     aoe_defense_stacks: number;
     vitality_stacks: number;
     cosmic_stacks: number;
+    invigorate_stacks: number;
     has_aura_air_conditionner: boolean;
     has_aura_neriya_shield: boolean;
     has_aura_elemental_swap: boolean;
@@ -94,6 +103,7 @@ export interface CharacterConfig {
     has_banner_regeneration_buff: boolean;
     has_banner_haste_buff: boolean;
     has_enduring_protector_buff: boolean;
+    has_speed_gate_buff: boolean;
     distance_with_target: number;
     all_characters_level: number;
     victims_reaper_104: number;
@@ -103,4 +113,5 @@ export interface CharacterConfig {
     overdrive_last_bounce: boolean;
     hero_close_to_turret_syndrome: boolean;
     turret_syndrome_on_cooldown: boolean;
+    projectile_passed_through_wall_of_omen: boolean;
 }

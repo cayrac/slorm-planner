@@ -172,7 +172,7 @@ export class SlormancerStatsService {
             this.slormancerStatUpdaterService.updateStatTotal(stats);
         }
 
-        result.unresolvedSynergies = this.slormancerSynergyResolverService.resolveSynergies(extractedStats.synergies, result.stats, config, extractedStats.stats);
+        result.unresolvedSynergies = this.slormancerSynergyResolverService.resolveSynergies(character.heroClass, extractedStats.synergies, result.stats, config, extractedStats.stats);
         result.unlockedAncestralLegacies = valueOrDefault(extractedStats.stats['unlock_ancestral_legacy_max_rank'], []);
 
         this.slormancerSynergyResolverService.resolveIsolatedSynergies(extractedStats.isolatedSynergies, result.stats, extractedStats.stats);
@@ -242,7 +242,7 @@ export class SlormancerStatsService {
             this.slormancerStatUpdaterService.updateStatTotal(stats);
         }
 
-        result.unresolvedSynergies = this.slormancerSynergyResolverService.resolveSynergies(extractedStats.synergies, result.stats, config, extractedStats.stats);
+        result.unresolvedSynergies = this.slormancerSynergyResolverService.resolveSynergies(character.heroClass, extractedStats.synergies, result.stats, config, extractedStats.stats);
 
         this.slormancerSynergyResolverService.resolveIsolatedSynergies(extractedStats.isolatedSynergies, result.stats, extractedStats.stats);
 

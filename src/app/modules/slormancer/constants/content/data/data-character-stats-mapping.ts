@@ -34,6 +34,7 @@ const CHANCE_TO_PIERCE: MergedStatMapping = {
             { stat: 'chance_to_pierce_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) },
             { stat: 'chance_to_pierce_percent_if_fully_charged', condition: (config) => config.void_arrow_fully_charged },
             { stat: 'chance_to_pierce_percent_if_fortunate_of_perfect', condition: (config) => config.next_cast_is_fortunate || config.next_cast_is_perfect },
+            { stat: 'chance_to_pierce_percent_if_projectile_passed_through_wall_of_omen', condition: (config, stats) => config.projectile_passed_through_wall_of_omen && hasStat(stats, 'skill_is_projectile') },
         ],
         max: [],
         percent: [],
@@ -93,6 +94,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'mana_cost_mult_if_tormented', condition: config => config.serenity === 0 },
                 { stat: 'mana_cost_reduction_mult', multiplier: () => -1 },
                 { stat: 'mana_cost_mult_per_enemy_under_control', condition: config => config.enemy_under_command > 0 || config.elite_under_command > 0, multiplier: config => config.enemy_under_command + config.elite_under_command * 10 },
+                { stat: 'cost_reduction_mult_per_arcanic_emblem_if_not_arcanic', condition: (config, stats) => config.arcanic_emblems > 0 && !hasStat(stats, 'skill_is_arcanic'), multiplier: config => - config.arcanic_emblems },
             ],
             maxMultiplier: [],
         } 
@@ -116,6 +118,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                     multiplier: (config, stats) => - Math.max(getFirstStat(stats, 'quick_silver_min_cooldown_time_reduction_multiplier'), getFirstStat(stats, 'quick_silver_max_cooldown_time_reduction_multiplier') - config.enemy_bleed_stacks)
                 },
                 { stat: 'cooldown_time_multiplier_if_fortunate_or_perfect', condition: config => config.next_cast_is_perfect || config.next_cast_is_fortunate },
+                { stat: 'cooldown_time_reduction_multiplier_per_temporal_emblem_if_not_temporal', condition: (config, stats) => config.temporal_emblems > 0 && !hasStat(stats, 'skill_is_temporal'), multiplier: config => - config.temporal_emblems },
             ],
             maxMultiplier: [],
         } 
@@ -367,7 +370,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'assassin_haste_buff_movement_speed', condition: config => config.has_assassin_haste_buff },
                 { stat: 'tormented_movement_speed', condition: config => config.serenity === 0 },
                 { stat: 'movement_speed_after_trap_triggered', condition: config => config.trap_triggered_recently },
-                { stat: 'the_speed_percent_per_latent_storm', condition: config => config.enemies_affected_by_latent_storm > 0, multiplier: (config, stats) => Math.min(getFirstStat(stats, 'the_speed_percent_per_latent_storm_max'), config.enemies_affected_by_latent_storm) }
+                { stat: 'the_speed_percent_per_latent_storm', condition: config => config.enemies_affected_by_latent_storm > 0, multiplier: (config, stats) => Math.min(getFirstStat(stats, 'the_speed_percent_per_latent_storm_max'), config.enemies_affected_by_latent_storm) },
+                { stat: 'speed_gate_buff_the_speed_percent', condition: config => config.has_speed_gate_buff },
             ],
             maxPercent: [],
             multiplier: [],
@@ -455,6 +459,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'smoke_screen_buff_crit_chance_percent', condition: config => config.has_smoke_screen_buff },
                 { stat: 'crit_chance_percent_per_enemy_in_aoe', condition: config => config.enemies_in_aoe > 0, multiplier: config => config.enemies_in_aoe },
                 { stat: 'blademaster_crit_chance_percent', multiplier: (_, stats) => [3, 9].includes(getFirstStat(stats, 'primary_skill', -1)) || [3, 9].includes(getFirstStat(stats, 'secondary_skill', -1)) ? 2 : 1 },
+                { stat: 'crit_chance_percent_if_target_is_time_locked', condition: config => config.target_is_time_locked },
             ],
             max: [],
             percent: [],
@@ -1041,6 +1046,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             flat: [
                 { stat: 'overdrive_chance_percent' },
                 { stat: 'overdrive_chance_percent_if_fortunate_or_perfect', condition: config => config.next_cast_is_perfect || config.next_cast_is_fortunate },
+                { stat: 'overdrive_chance_percent_if_next_cast_is_new_emblem', condition: (config, stats) => config.next_cast_is_new_emblem && hasStat(stats, 'skill_is_melee') },
             ],
             max: [],
             percent: [],
@@ -1125,6 +1131,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'idle_additional_projectile_add', condition: config => config.idle },
                 { stat: 'tormented_additional_projectile_add', condition: config => config.serenity === 0 },
                 { stat: 'perfect_additional_projectile_add', condition: config => config.next_cast_is_perfect },
+                { stat: 'additional_projectile_add_if_next_cast_is_new_emblem', condition: (config, stats) => config.next_cast_is_new_emblem && hasStat(stats, 'skill_is_projectile') },
             ],
             max: [],
             percent: [{ stat: 'additional_projectile_percent' }],
@@ -1180,7 +1187,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             flat: [
                 { stat: 'increased_proj_speed_percent' },
                 { stat: 'increased_proj_speed_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) },
-                { stat: 'increased_proj_speed_percent_if_tormented', condition: (config) => config.serenity === 0}
+                { stat: 'increased_proj_speed_percent_if_tormented', condition: (config) => config.serenity === 0},
+                { stat: 'increased_proj_speed_percent_if_projectile_passed_through_wall_of_omen', condition: (config, stats) => config.projectile_passed_through_wall_of_omen && hasStat(stats, 'skill_is_projectile')},
             ],
             max: [],
             percent: [],
@@ -1301,6 +1309,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                     condition: (config, stats) => valueOrDefault(config.negative_effects_on_ennemies_in_radius[getFirstStat(stats, 'elemental_damage_percent_for_each_negative_effect_on_ennemies_radius')], 0) > 0,
                     multiplier: (config, stats) => valueOrDefault(config.negative_effects_on_ennemies_in_radius[getFirstStat(stats, 'elemental_damage_percent_for_each_negative_effect_on_ennemies_radius')], 0)
                 },
+                { stat: 'invigorate_stack_elemental_damage_percent', condition: config => config.invigorate_stacks > 0, multiplier: (config, stats) => Math.min(config.invigorate_stacks, getFirstStat(stats, 'invigorate_max_stacks'))},
             ],
             maxPercent: [],
             multiplier: [
@@ -1444,6 +1453,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'increased_damage_mult_if_no_legendaries', condition: (_, stats) => getFirstStat(stats, 'number_equipped_legendaries') === 0 },
                 { stat: 'increased_damage_mult_on_splintered_enemy', condition: config => config.target_is_splintered },
                 { stat: 'increased_damage_if_fortunate_or_perfect', condition: config => config.next_cast_is_fortunate || config.next_cast_is_perfect },
+                { stat: 'increased_damage_mult_if_target_is_time_locked', condition: config => config.target_is_time_locked },
             ],
             maxMultiplier: [
             ],
@@ -1469,6 +1479,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                     condition: (config, stats) => config.is_channeling_whirlwind && config.time_spend_channeling > 0 && !hasStat(stats, 'no_longer_channeling'),
                     multiplier: (config, stats) => Math.min(config.time_spend_channeling, Math.round(getFirstStat(stats, 'skill_increased_damage_mult_max_while_channeling_whirlwind') / getFirstStat(stats, 'skill_increased_damage_mult_per_second_while_channeling_whirlwind'))),
                 },
+                { stat: 'increased_damage_mult_per_obliteration_emblem_if_not_obliteration', condition: (config, stats) => config.obliteration_emblems > 0 && !hasStat(stats, 'skill_is_obliteration'), multiplier: config => config.obliteration_emblems },
             ],
             maxMultiplier: [
                 { stat: 'skill_increased_max_damage_mult' },
@@ -1560,7 +1571,23 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             } 
         }
     ],
-    2: [],
+    2: [
+        {
+            stat: 'mana_bond_damage',
+            precision: 0,
+            allowMinMax: true,
+            source: {
+                flat: [{ stat: 'mana_bond_damage_add' }],
+                max: [],
+                percent: [],
+                maxPercent: [],
+                multiplier: [
+                    { stat: 'arcane_bond_increased_damage_mult_if_close', condition: config => config.target_is_close },
+                ],
+                maxMultiplier: [],
+            } 
+        }
+    ],
 }
 
 export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<MergedStatMapping>}> = {

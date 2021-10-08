@@ -6,5 +6,8 @@ export enum SkillGenre {
     Melee = "melee",
     Projectile = "projectile",
     Special = "special",
-    Minion = "minion"
+    Minion = "minion",
+    Temporal = "temporal",
+    Arcanic = "arcanic",
+    Obliteration = "obliteration",
 }

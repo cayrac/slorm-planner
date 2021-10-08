@@ -322,7 +322,7 @@ export class SlormancerValueUpdater {
 
     private updateSkillValues(skill: Skill, skillStats: SkillStats, statsResult: SkillStatsBuildResult) {
                 
-        skill.cost = skillStats.mana.total;
+        skill.cost = Math.max(0, skillStats.mana.total);
         skill.cooldown = Math.max(0, round(skillStats.cooldown.total * (100 - skillStats.attackSpeed.total) / 100, 2));
         skill.costType = skill.baseCostType;
         skill.genres = skill.baseGenres.slice(0);

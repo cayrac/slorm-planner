@@ -54,6 +54,8 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'percent_missing_mana', config.percent_missing_mana);
         this.addStat(stats.stats, 'enemy_percent_missing_health', config.enemy_percent_missing_health);
         this.addStat(stats.stats, 'block_stacks', config.block_stacks);
+        this.addStat(stats.stats, 'mana_lost_last_second', config.mana_lost_last_second);
+        this.addStat(stats.stats, 'mana_gained_last_second', config.mana_gained_last_second);
     }
 
     private addAncestralLegacyValues(character: Character, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
@@ -305,6 +307,18 @@ export class SlormancerStatsExtractorService {
         }
         if (skillAndUpgrades.skill.genres.includes(SkillGenre.Melee)) {
             extractedStats.stats['skill_is_melee'] = [1];
+        }
+        if (skillAndUpgrades.skill.genres.includes(SkillGenre.Projectile)) {
+            extractedStats.stats['skill_is_projectile'] = [1];
+        }
+        if (skillAndUpgrades.skill.genres.includes(SkillGenre.Temporal)) {
+            extractedStats.stats['skill_is_temporal'] = [1];
+        }
+        if (skillAndUpgrades.skill.genres.includes(SkillGenre.Arcanic)) {
+            extractedStats.stats['skill_is_arcanic'] = [1];
+        }
+        if (skillAndUpgrades.skill.genres.includes(SkillGenre.Obliteration)) {
+            extractedStats.stats['skill_is_obliteration'] = [1];
         }
         extractedStats.stats['skill_id'] = [skillAndUpgrades.skill.id];
         extractedStats.stats['mana_cost_add'] = [skillAndUpgrades.skill.initialCost];
