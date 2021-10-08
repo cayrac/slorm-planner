@@ -245,18 +245,6 @@ export class SlormancerValueUpdater {
     public updateSkillAndUpgradeValues(skillAndUpgrades: CharacterSkillAndUpgrades, stats: SkillStatsBuildResult): Array<SkillUpgrade> {
         const skillStats = this.getSkillStats(stats);
 
-        if (skillAndUpgrades.skill.heroClass === HeroClass.Warrior && skillAndUpgrades.selectedUpgrades.includes(123)) {
-            const honorableThrow = <SkillUpgrade>skillAndUpgrades.upgrades.find(upgrade => upgrade.id === 123);
-            let trainingLanceAdditionalDamage = (<EffectValueSynergy>honorableThrow.values.find(value => value.stat === 'training_lance_additional_damage')).synergy;
-
-            if (skillAndUpgrades.selectedUpgrades.includes(137)) {
-                // trainingLanceAdditionalDamage = add(trainingLanceAdditionalDamage, TODO)
-            }
-
-            const trainingLanceDamage = <EffectValueSynergy>skillAndUpgrades.skill.values[0];
-            this.spreadAdditionalDamages([trainingLanceDamage], trainingLanceAdditionalDamage);
-        }
-
         this.updateSkillValues(skillAndUpgrades.skill, skillStats, stats);
 
         // hack to add multiply and conquer bug
@@ -350,6 +338,29 @@ export class SlormancerValueUpdater {
         const damageValues = skill.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
         if (damageValues.length > 0) {
             this.spreadAdditionalDamages(damageValues.filter(damage => damage.stat !== 'bleed_damage'), skillStats.additionalDamages.total);
+
+            if (skill.heroClass === HeroClass.Warrior && skill.id === 10) {
+                const trainingLanceAdditionalDamage = statsResult.stats.find(mergedStat => mergedStat.stat === 'training_lance_additional_damage');
+                const elderLanceAdditionalDamage = statsResult.stats.find(mergedStat => mergedStat.stat === 'elder_lance_additional_damage');
+
+                const trainingLanceDamage = <EffectValueSynergy>skill.values[0];
+                const elderLanceDamage = <EffectValueSynergy>skill.values[1];
+
+
+                if (trainingLanceAdditionalDamage && trainingLanceDamage) {
+                    // equivalent a simplement changer la base value et upgrade
+                    console.log('trainingLanceAdditionalDamage : ', trainingLanceAdditionalDamage, elderLanceDamage, statsResult.extractedStats['add_twice_elder_lance_to_training_lance'])
+                    if (statsResult.extractedStats['add_twice_elder_lance_to_training_lance'] !== undefined && elderLanceDamage) {
+                        trainingLanceAdditionalDamage.total = add(trainingLanceAdditionalDamage.total, add(elderLanceDamage.synergy, elderLanceDamage.synergy));
+                    }
+
+                    this.spreadAdditionalDamages([trainingLanceDamage], trainingLanceAdditionalDamage.total);
+                }
+                if (elderLanceAdditionalDamage && elderLanceDamage) {
+                    this.spreadAdditionalDamages([elderLanceDamage], elderLanceAdditionalDamage.total);
+                }
+            }
+
             for (const damageValue of damageValues) {
                 const additionamMultipliers: Array<number> = [];
                 if (skill.heroClass == HeroClass.Warrior && skill.id === 6 && damageValues.indexOf(damageValue) === 0) {
@@ -358,9 +369,16 @@ export class SlormancerValueUpdater {
                         additionamMultipliers.push(stat.total);
                     }
                 }
+                if (skill.heroClass === HeroClass.Warrior && skill.id === 10) {
+                    if (skill.values.indexOf(damageValue) === 1) {
+                        const elderLanceIncreasedDamage = statsResult.stats.find(mergedStat => mergedStat.stat === 'elder_lance_increased_damage');
+                        if (elderLanceIncreasedDamage) {
+                            additionamMultipliers.push(...elderLanceIncreasedDamage.values.multiplier);
+                        }
+                    }
+                }
                 this.updateDamage(damageValue, skill.genres, skillStats, statsResult, true, additionamMultipliers);
             }
-
         }
     
         const durationValues = skill.values.filter(value => value.valueType === EffectValueValueType.Duration);

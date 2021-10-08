@@ -24,6 +24,25 @@ export interface MergedStatMappingSource {
     multiplier?: (config: CharacterConfig, stats: ExtractedStatMap) => number
 };
 
+const CHANCE_TO_PIERCE: MergedStatMapping = {
+    stat: 'chance_to_pierce',
+    precision: 1,
+    allowMinMax: false,
+    source: {
+        flat: [
+            { stat: 'chance_to_pierce_percent' },
+            { stat: 'chance_to_pierce_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) },
+            { stat: 'chance_to_pierce_percent_if_fully_charged', condition: (config) => config.void_arrow_fully_charged },
+            { stat: 'chance_to_pierce_percent_if_fortunate_of_perfect', condition: (config) => config.next_cast_is_fortunate || config.next_cast_is_perfect },
+        ],
+        max: [],
+        percent: [],
+        maxPercent: [],
+        multiplier: [],
+        maxMultiplier: [],
+    } 
+}
+
 export interface MergedStatMapping {
     stat: string;
     precision: number;
@@ -1117,24 +1136,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxMultiplier: [],
         } 
     },
-    {
-        stat: 'chance_to_pierce',
-        precision: 1,
-        allowMinMax: false,
-        source: {
-            flat: [
-                { stat: 'chance_to_pierce_percent' },
-                { stat: 'chance_to_pierce_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) },
-                { stat: 'chance_to_pierce_percent_if_fully_charged', condition: (config) => config.void_arrow_fully_charged },
-                { stat: 'chance_to_pierce_percent_if_fortunate_of_perfect', condition: (config) => config.next_cast_is_fortunate || config.next_cast_is_perfect },
-            ],
-            max: [],
-            percent: [],
-            maxPercent: [],
-            multiplier: [],
-            maxMultiplier: [],
-        } 
-    },
+    CHANCE_TO_PIERCE,
     {
         stat: 'fork_chance',
         precision: 1,
@@ -1576,6 +1578,90 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                     multiplier: [{ stat: 'bleed_increased_damage_mult' }],
                     maxMultiplier: [],
                 } 
+            }
+        ],
+        10: [
+            {
+                stat: 'training_lance_additional_damage',
+                precision: 0,
+                allowMinMax: true,
+                source: {
+                    flat: [
+                        { stat: 'training_lance_additional_damage_add' },
+                    ],
+                    max: [],
+                    percent: [],
+                    maxPercent: [],
+                    multiplier: [],
+                    maxMultiplier: [],
+                } 
+            },
+            {
+                stat: 'elder_lance_additional_damage',
+                precision: 3,
+                allowMinMax: true,
+                source: {
+                    flat: [
+                        { stat: 'elder_lance_additional_damage_per_cosmic_stack', condition: config => config.cosmic_stacks > 0, multiplier: config => config.cosmic_stacks },
+                    ],
+                    max: [],
+                    percent: [],
+                    maxPercent: [],
+                    multiplier: [],
+                    maxMultiplier: [],
+                } 
+            },
+            {
+                stat: 'elder_lance_ancestral_damage',
+                precision: 3,
+                allowMinMax: false,
+                source: {
+                    flat: [
+                        { stat: 'brut_damage_percent' },
+                        { stat: 'nimble_buff_brut_damage_percent',
+                            condition: config => config.has_nimble_buff, 
+                            multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getFirstStat(stats, 'nimble_champion_max_stacks'), 0))
+                        },
+                        { stat: 'elder_lance_ancestral_damage_per_cosmic_stack', condition: config => config.cosmic_stacks > 0, multiplier: config => config.cosmic_stacks },
+                    ],
+                    max: [],
+                    percent: [],
+                    maxPercent: [],
+                    multiplier: [],
+                    maxMultiplier: [],
+                } 
+            },
+            {
+                stat: 'training_lance_chance_to_pierce',
+                precision: 0,
+                allowMinMax: false,
+                source: {
+                    flat: [ ...CHANCE_TO_PIERCE.source.flat,
+                        { stat: 'training_lance_chance_to_pierce_percent_if_low_life', condition: (config, stats) => config.enemy_percent_missing_health > getFirstStat(stats, 'training_lance_chance_to_pierce_percent_if_low_life_treshold') },
+                    ],
+                    max: [...CHANCE_TO_PIERCE.source.max],
+                    percent: [...CHANCE_TO_PIERCE.source.percent],
+                    maxPercent: [...CHANCE_TO_PIERCE.source.maxPercent],
+                    multiplier: [...CHANCE_TO_PIERCE.source.multiplier],
+                    maxMultiplier: [...CHANCE_TO_PIERCE.source.maxMultiplier],
+                }
+            },
+            {
+                stat: 'elder_lance_increased_damage',
+                precision: 2,
+                allowMinMax: false,
+                source: {
+                    flat: [
+                    ],
+                    max: [],
+                    percent: [],
+                    maxPercent: [],
+                    multiplier: [                        
+                        { stat: 'elder_lance_increased_damage_mult_if_high_life', condition: (config, stats) => config.enemy_percent_missing_health < getFirstStat(stats, 'elder_lance_increased_damage_mult_if_high_life_treshold') },
+                    ],
+                    maxMultiplier: [],
+                } 
+                
             }
         ]
     },

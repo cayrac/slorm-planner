@@ -167,6 +167,5 @@ export function isDamageType(stat: string): boolean {
         || stat === 'basic_damage'
         || stat === 'weapon_damage'
         || stat === 'bleed_damage'
-        || stat === 'training_lance_additional_damage'
         || stat === 'damage';
 }

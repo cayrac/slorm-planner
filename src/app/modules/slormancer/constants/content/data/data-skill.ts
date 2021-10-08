@@ -1168,7 +1168,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     123: {
         masteryRequired: 2,
         override: values => { 
-            setStat(values, 0, 'training_lance_additional_damage');
+            setStat(values, 0, 'training_lance_additional_damage_add');
             setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
@@ -1176,90 +1176,113 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     124: {
         masteryRequired: 3,
         override: values => { 
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_cosmic_stack_astral_retribution_increased_damage');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'cosmic_stack_astral_retribution_increased_damage');
         },
         additionalClassMechanics: []
     },
     125: {
         masteryRequired: 4,
-        override: values => { 
+        override: values => {
+            setStat(values, 0, 'elder_lance_increased_damage_on_elite_percent');
+            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
     126: {
         masteryRequired: 4,
-        override: values => { 
+        override: values => {
+            setStat(values, 0, 'training_lance_rebound_chance_percent');
+            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
     127: {
         masteryRequired: 5,
         override: values => { 
+            setStat(values, 0, 'elder_lance_additional_damage_per_cosmic_stack');
+            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
     128: {
         masteryRequired: 5,
         override: values => { 
+            setStat(values, 0, 'elder_lance_ancestral_damage_per_cosmic_stack');
+            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
     129: {
         masteryRequired: 6,
-        override: values => { 
+        override: values => {
+            setStat(values, 0, 'skill_increased_damage_mult');
+            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
     130: {
         masteryRequired: 7,
-        override: values => { 
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'apply_max_skewer_on_hit');
         },
         additionalClassMechanics: []
     },
     131: {
         masteryRequired: 7,
-        override: values => { 
+        override: values => {
+            setStat(values, 0, 'elder_lance_skill_increased_damage_per_enemy_hit');
+            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
     132: {
         masteryRequired: 8,
         override: values => { 
-            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_additional_elder_lance');
+            addConstant(values, 2, false, EffectValueValueType.Flat, 'additional_elder_lance');
         },
         additionalClassMechanics: []
     },
     133: {
         masteryRequired: 8,
         override: values => { 
-            addConstant(values, 1, false, EffectValueValueType.Duration, 'skill_trap_delay');
+            setStat(values, 0, 'physical_damage');
+            setAsUpgrade(values, 0);
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'skill_trap_delay');
             addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'skill_trap_aoe');
         },
         additionalClassMechanics: []
     },
     134: {
         masteryRequired: 9,
-        override: values => { 
+        override: values => {
+            setStat(values, 0, 'additional_elder_lance_if_perfect');
+            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
     135: {
         masteryRequired: 9,
-        override: values => { 
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'additional_elder_lance_tour');
         },
         additionalClassMechanics: []
     },
     136: {
         masteryRequired: 10,
         override: values => { 
-            addConstant(values, 50, false, EffectValueValueType.Flat, 'skill_training_lance_additional_pierce_chance_life_treshold');
-            addConstant(values, 50, false, EffectValueValueType.Flat, 'skill_elder_lance_increased_damages_life_treshold');
+            setStat(values, 0, 'training_lance_chance_to_pierce_percent_if_low_life');
+            setAsUpgrade(values, 0);
+            addConstant(values, 50, false, EffectValueValueType.Upgrade, 'training_lance_chance_to_pierce_percent_if_low_life_treshold');
+            setStat(values, 1, 'elder_lance_increased_damage_mult_if_high_life');
+            setAsUpgrade(values, 1);
+            addConstant(values, 50, false, EffectValueValueType.Upgrade, 'elder_lance_increased_damage_mult_if_high_life_treshold');
         },
         additionalClassMechanics: []
     },
     137: {
         masteryRequired: 10,
         override: values => { 
+            addConstant(values, 2, false, EffectValueValueType.Upgrade, 'add_twice_elder_lance_to_training_lance');
         },
         additionalClassMechanics: []
     },

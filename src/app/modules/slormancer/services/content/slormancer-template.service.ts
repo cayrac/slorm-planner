@@ -249,7 +249,7 @@ export class SlormancerTemplateService {
                 const details = this.getEffectValueDetails(effectValue);
                 let synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
                 let value = this.asSpan(this.formatValue(effectValue.value, true), 'value');
-                if (isDamageType(effectValue.stat)) {
+                if (isDamageType(effectValue.stat) || effectValue.allowMinMax) {
                     synergy +=  ' ' + details;
                 } else {
                     value +=  ' ' + details;

@@ -72,6 +72,7 @@ export interface CharacterConfig {
     projectile_defense_stacks: number;
     aoe_defense_stacks: number;
     vitality_stacks: number;
+    cosmic_stacks: number;
     has_aura_air_conditionner: boolean;
     has_aura_neriya_shield: boolean;
     has_aura_elemental_swap: boolean;

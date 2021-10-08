@@ -54,7 +54,7 @@ export class SlormancerTranslateService {
         if (cache !== null) {
             result = cache;
         } else {
-            if (key === 'training_lance_additional_damage') {
+            if (key === 'training_lance_additional_damage_add') {
                 key = 'physical_damage';
             }
 
