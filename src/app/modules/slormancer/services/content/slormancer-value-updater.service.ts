@@ -349,6 +349,11 @@ export class SlormancerValueUpdater {
         }
 
         const damageValues = skill.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
+
+        if (skill.id === 3) {
+            console.log(statsResult.stats.find(mergedStat => mergedStat.stat === 'physical_damage'));
+            console.log('damage values : ', ...damageValues);
+        }
         if (damageValues.length > 0) {
             this.spreadAdditionalDamages(damageValues.filter(damage => damage.stat !== 'bleed_damage'), skillStats.additionalDamages.total);
 
@@ -392,6 +397,10 @@ export class SlormancerValueUpdater {
                 }
                 this.updateDamage(damageValue, skill.genres, skillStats, statsResult, true, additionamMultipliers);
             }
+        }
+
+        if (skill.id === 3) {
+            console.log('damage values après : ', ...damageValues);
         }
     
         const durationValues = skill.values.filter(value => value.valueType === EffectValueValueType.Duration);
