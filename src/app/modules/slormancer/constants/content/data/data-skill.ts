@@ -48,6 +48,17 @@ function setStat(values: Array<AbstractEffectValue>, index: number, stat: string
     }
 }
 
+function setPercent(values: Array<AbstractEffectValue>, index: number, percent: boolean) {
+    const value = <EffectValueVariable | EffectValueConstant>values[index];
+
+    if (value) {
+        value.percent = percent;
+    } else {
+        console.log(values);
+        throw new Error('failed to update stat at index ' + index);
+    }
+}
+
 function setSynergyPrecision(values: Array<AbstractEffectValue>, index: number, precision: number) {
     const value = values[index];
 
@@ -4399,12 +4410,16 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     165: {
         masteryRequired: 1,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'cost_refund');
+        },
         additionalClassMechanics: []
     },
     166: {
         masteryRequired: 1,
-        override: values => { },
+        override: values => {
+            synergyMultiply100(values, 0);
+        },
         additionalClassMechanics: []
     },
     167: {
@@ -4414,12 +4429,16 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     168: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'temporal_clone_cannot_be_targeted');
+        },
         additionalClassMechanics: []
     },
     169: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setPercent(values, 0, false);
+        },
         additionalClassMechanics: []
     },
     170: {
@@ -4430,18 +4449,24 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     171: {
         masteryRequired: 3,
         override: values => {
-            addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_swap_delay');
+            addConstant(values, 3, false, EffectValueValueType.Upgrade, 'recast_delay');
         },
         additionalClassMechanics: []
     },
     172: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            addConstant(values, 0, false, EffectValueValueType.Upgrade, 'swap_if_cast_on_enemy');
+        },
         additionalClassMechanics: []
     },
     173: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            addConstant(values, 0, false, EffectValueValueType.Upgrade, 'life_on_hit_gain_as_mana');
+            addConstant(values, 0, false, EffectValueValueType.Upgrade, 'life_on_kill_gain_as_mana');
+            addConstant(values, 0, false, EffectValueValueType.Upgrade, 'life_leech_gain_as_mana');
+        },
         additionalClassMechanics: []
     },
     174: {
@@ -4451,52 +4476,66 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     175: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'remnant_increased_damage_mult');
+        },
         additionalClassMechanics: []
     },
     176: {
         masteryRequired: 4,
         override: values => {
-            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'skill_mana_resonance_aoe');
+            setStat(values, 0, 'elemental_damage');
+            setAsUpgrade(values, 0);
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'mana_resonance_aoe');
         },
         additionalClassMechanics: []
     },
     177: {
         masteryRequired: 4,
         override: values => {
-            addConstant(values, 10, false, EffectValueValueType.Flat, 'skill_cooldown_reset_life_lost_treshold');
+            addConstant(values, 10, false, EffectValueValueType.Upgrade, 'cooldown_reset_if_health_lost_treshold');
         },
         additionalClassMechanics: []
     },
     178: {
         masteryRequired: 5,
         override: values => {
-            addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_temporal_clone_delay_explosion');
-            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'skill_temporal_clone_explosion_aoe');
+            setStat(values, 0, 'elemental_damage');
+            setAsUpgrade(values, 0);
+            addConstant(values, 3, false, EffectValueValueType.Duration, 'temporal_clone_explosion_delay');
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'temporal_clone_explosion_aoe');
         },
         additionalClassMechanics: []
     },
     179: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'remnant_overdrive_overdrive_chance_percent');
+        },
         additionalClassMechanics: []
     },
     180: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'inner_fire_same_orbit');
+        },
         additionalClassMechanics: [],
         additionalMechanics: [MechanicType.InnerFire]
     },
     181: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'clone_max_health');
+            setAsUpgrade(values, 0);
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'clone_has_taunt');
+        },
         additionalClassMechanics: []
     },
     182: {
         masteryRequired: 3,
         override: values => {
-            addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_recast_duration');
-            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_additional_cooldown_per_recast');
+            addConstant(values, 3, false, EffectValueValueType.Upgrade, 'recast_duration');
+            addConstant(values, 2, false, EffectValueValueType.Upgrade, 'cooldown_time_add_per_recast');
         },
         additionalClassMechanics: []
     },
@@ -4519,20 +4558,26 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     186: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'cooldown_reduction_global_mult')
+            addConstant(values, -50, false, EffectValueValueType.Stat, 'the_max_health_global_mult');
+        },
         additionalClassMechanics: []
     },
     187: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'temporal_clone_cast_remnant_of_arcane_missile_on_cast');
+        },
         additionalClassMechanics: []
     },
     188: {
         masteryRequired: 8,
         override: values => {
-            addConstant(values, 4, false, EffectValueValueType.Flat, 'skill_remnant_cloud_max_grow');
-            addConstant(values, 1, false, EffectValueValueType.Duration, 'skill_remnant_cloud_explosion_delay');
-            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'skill_remnant_cloud_explosion_aoe');
+            setStat(values, 0, 'elemental_damage');
+            addConstant(values, 4, false, EffectValueValueType.Stat, 'remnant_cloud_max_grow');
+            addConstant(values, 1, false, EffectValueValueType.Duration, 'remnant_cloud_explosion_delay');
+            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'remnant_cloud_explosion_aoe');
         },
         additionalClassMechanics: []
     },

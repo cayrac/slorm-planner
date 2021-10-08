@@ -55,7 +55,8 @@ export class SlormancerConfigurationService {
         is_first_hit: false,
         is_hit_blocked: true,
         is_last_volley: false,
-        is_channeling_whirlwind: true,
+        is_channeling_whirlwind: false,
+        is_remnant: false,
         void_arrow_fully_charged: false,
         elites_in_radius: {
             10: 0
@@ -181,6 +182,7 @@ export class SlormancerConfigurationService {
         is_hit_blocked: false,
         is_last_volley: false,
         is_channeling_whirlwind: false,
+        is_remnant: false,
         void_arrow_fully_charged: false,
         elites_in_radius: {
             10: 0

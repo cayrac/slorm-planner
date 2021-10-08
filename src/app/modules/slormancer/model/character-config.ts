@@ -43,6 +43,7 @@ export interface CharacterConfig {
     is_first_hit: boolean;
     is_hit_blocked: boolean;
     is_last_volley: boolean;
+    is_remnant: boolean;
     is_channeling_whirlwind: boolean;
     void_arrow_fully_charged: boolean;
     ennemies_in_radius: { [key: number]: number};

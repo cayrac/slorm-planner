@@ -128,7 +128,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         precision: 2,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'slormite_find_percent' }],
+            flat: [{ stat: 'essence_find_percent' }],
             max: [],
             percent: [],
             maxPercent: [],
@@ -1454,6 +1454,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'increased_damage_mult_on_splintered_enemy', condition: config => config.target_is_splintered },
                 { stat: 'increased_damage_if_fortunate_or_perfect', condition: config => config.next_cast_is_fortunate || config.next_cast_is_perfect },
                 { stat: 'increased_damage_mult_if_target_is_time_locked', condition: config => config.target_is_time_locked },
+                { stat: 'remnant_damage_reduction_mult', condition: config => config.is_remnant },
+                { stat: 'remnant_increased_damage_mult', condition: config => config.is_remnant },
             ],
             maxMultiplier: [
             ],

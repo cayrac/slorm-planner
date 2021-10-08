@@ -46,6 +46,11 @@ export class SlormancerStatsExtractorService {
 
         return result;
     }
+
+    private addCharacterValues(character: Character, stats: ExtractedStats) {
+        this.addStat(stats.stats, 'half_level', character.level / 2);
+        this.addStat(stats.stats, 'remnant_damage_reduction_mult', -50);
+    }
     
     private addConfigValues(config: CharacterConfig, stats: ExtractedStats) {
         this.addStat(stats.stats, 'all_level', config.all_characters_level);
@@ -275,6 +280,7 @@ export class SlormancerStatsExtractorService {
             stats: { },
         }
 
+        this.addCharacterValues(character, result);
         this.addConfigValues(config, result);
         this.addSkillPassiveValues(character, result, mergedStatMapping);
         this.addReaperValues(character, result, mergedStatMapping);
