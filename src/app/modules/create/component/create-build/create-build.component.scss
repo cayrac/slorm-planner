@@ -14,11 +14,23 @@ main {
     }
 
     mat-card {
-        width: 500px;
-
         mat-card-content {
-            @include flex(column, center);
+            @include flex(column, stretch);
             @include flex-gap($space-unit * 5);
+
+            width: 340px;
+            padding: 0 60px;
+
+            h3 {
+                width: 100%;
+                text-align: center;
+                margin-top: 0;
+            }
+
+            @include respond-to('tablet') {
+                width: auto;
+                padding: 0;
+            }
         }
     }
 }

@@ -16,6 +16,8 @@ import {
 import { DeleteLayerModalComponent } from './components/delete-layer-modal/delete-layer-modal.component';
 import { DeletePlannerModalComponent } from './components/delete-planner-modal/delete-planner-modal.component';
 import { EditLayerModalComponent } from './components/edit-layer-modal/edit-layer-modal.component';
+import { FileUploadButtonComponent } from './components/file-upload-button/file-upload-button.component';
+import { ImportDataComponent } from './components/import-data/import-data.component';
 import { ItemBaseChoiceModalComponent } from './components/item-base-choice-modal/item-base-choice-modal.component';
 import { ItemEditBuffAttributeComponent } from './components/item-edit-buff-attribute/item-edit-buff-attribute.component';
 import { ItemEditBuffReaperComponent } from './components/item-edit-buff-reaper/item-edit-buff-reaper.component';
@@ -83,6 +85,8 @@ import { MaterialModule } from './material.module';
         TraitComponent,
         MainStatsComponent,
         DeletePlannerModalComponent,
+        ImportDataComponent,
+        FileUploadButtonComponent,
     ],
     imports: [
         CommonModule,
@@ -125,6 +129,8 @@ import { MaterialModule } from './material.module';
         AttributeLineComponent,
         TraitComponent,
         MainStatsComponent,
+        ImportDataComponent,
+        FileUploadButtonComponent,
     ],
     providers: [
     ],

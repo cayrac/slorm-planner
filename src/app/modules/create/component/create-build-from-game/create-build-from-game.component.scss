@@ -3,18 +3,9 @@
 @import "../../../../../assets/scss/abstracts/spacing";
 @import "../../../../../assets/scss/abstracts/color";
 
-input[type="file"] {
-    display: none;
-}
-
 .import-game {
-    @include flex(column, center);
+    @include flex(column, stretch);
     @include flex-gap($space-unit * 3);
-
-
-    button {
-        width: 250px;
-    }
 
     h3 {
         text-align: center;

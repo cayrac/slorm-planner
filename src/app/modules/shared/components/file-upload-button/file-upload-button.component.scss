@@ -1,0 +1,10 @@
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/variables";
+
+input[type="file"] {
+    display: none;
+}
+
+button {
+    width: 100%;
+}

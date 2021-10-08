@@ -1,21 +1,9 @@
 
-<input type="file" (change)="uploadExportedData($event)" #fileInput>
 <div class="import-game">
-    <h3>Create build from exported data</h3>
-    <button mat-flat-button color="primary" (click)="fileInput.click()">
-        <ng-container *ngIf="!busy"><mat-icon>file_upload</mat-icon>Upload an exported file</ng-container>
-        <ng-container *ngIf="busy"><mat-icon class="animation-rotation">sync</mat-icon>Uploading...</ng-container>
-    </button>
-    <mat-form-field appearance="outline" color="primary" floatLabel="never">
-        <mat-label>Import content...</mat-label>
-        <textarea matInput [formControl]="importContent" [disabled]="busy || parsing"></textarea>
-        <mat-hint align="end" *ngIf="parsing">Parsing...</mat-hint>
-        <mat-hint align="end" *ngIf="!parsing && sharedData === null">Paste here a build, layer or link</mat-hint>
-        <mat-hint align="end" class="success" *ngIf="!parsing && sharedData !== null && sharedData.character !== null">Character found</mat-hint>
-        <mat-hint align="end" class="success" *ngIf="!parsing && sharedData !== null && sharedData.layer !== null">Layer found</mat-hint>
-        <mat-hint align="end" class="success" *ngIf="!parsing && sharedData !== null && sharedData.planner !== null">Build found</mat-hint>
-        <mat-hint align="end" class="error" *ngIf="!parsing && sharedData !== null && !hasValidSharedData()">No valid data found</mat-hint>
-        <mat-error>Cannot parse files bigger than {{MAX_UPLOAD_FILE_SIZE_MO}}Mo</mat-error>
-    </mat-form-field>
-    <button mat-flat-button color="primary" [disabled]="!hasValidSharedData()" (click)="createBuild()">Create build</button>
+    <app-import-data
+        uploadLabel="Upload an exported file"
+        importLabel="Create build"
+        (import)="createBuild($event)"
+        >
+    </app-import-data>
 </div>

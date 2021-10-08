@@ -1,0 +1,5 @@
+<input type="file" (change)="startUpload($event)" #fileInput>
+<button mat-flat-button color="primary" (click)="fileInput.click()">
+    <ng-container *ngIf="!busy"><mat-icon>file_upload</mat-icon>{{label}}</ng-container>
+    <ng-container *ngIf="busy"><mat-icon class="animation-rotation">sync</mat-icon>Uploading...</ng-container>
+</button>

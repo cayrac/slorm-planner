@@ -1,0 +1,14 @@
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/variables";
+
+.import {
+    @include flex(column, stretch);
+    @include flex-gap($space-unit * 3);
+
+    width: 100%;
+
+    textarea {
+        height: 60px;
+        max-height: 60px;
+    }
+}

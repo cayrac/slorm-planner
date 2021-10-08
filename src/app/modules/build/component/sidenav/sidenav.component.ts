@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
@@ -21,7 +20,7 @@ import { DownloadService } from '../../../shared/services/download.service';
 import { ImportExportService } from '../../../shared/services/import-export.service';
 import { MessageService } from '../../../shared/services/message.service';
 import { PlannerService } from '../../../shared/services/planner.service';
-import { valueOrNull } from '../../../slormancer/util/utils';
+import { HeroClass } from '../../../slormancer/model/content/enum/hero-class';
 
 @Component({
   selector: 'app-sidenav',
@@ -33,16 +32,9 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
     @Input()
     private sidenav: MatSidenav | null = null;
 
-    public readonly MAX_UPLOAD_FILE_SIZE_MO = 1;
-    public readonly MAX_UPLOAD_FILE_SIZE = 1024 * 1024 * this.MAX_UPLOAD_FILE_SIZE_MO;
-
-    public importResult: SharedData | null = null;
-
     public busy: boolean = false;
 
     public generatingLink: boolean = false;
-
-    public importContent = new FormControl(null, Validators.maxLength(this.MAX_UPLOAD_FILE_SIZE));
 
     constructor(private messageService: MessageService,
                 private downloadService: DownloadService,
@@ -52,75 +44,31 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
                 private router: Router,
                 private dialog: MatDialog) {
         super();
-        this.importContent.valueChanges.subscribe((value: string | null) => {
-            const heroClass = this.plannerService.getPlannerclass();
-            if (this.importContent.valid && heroClass !== null && !this.busy) {
-                if (value !== null && value.length > 0) {
-                    this.busy = true;
-                    this.importExportService.import(value, heroClass)
-                        .then(result => {
-                            this.busy = false;
-                            this.importResult = result
-                        });
-                } else {
-                    this.importResult = null;
-                }
-            }
-        })
     }
 
     public ngOnInit() {
     }
 
     private closeSideNav() {
-        this.importResult = null;
-        this.importContent.setValue(null);
         if (this.sidenav !== null) {
             this.sidenav.close();
         }
     }
 
-    public hasValidImport(): boolean {
-        return this.importResult !== null &&
-        (this.importResult.character !== null || this.importResult.layer !== null || this.importResult.planner !== null);
-    }
-    
-    public uploadSave(event: Event, input: HTMLInputElement) {
-        if (event.target !== null) {
-            const files = (<HTMLInputElement>event.target).files;
-            const file = files === null ? null : valueOrNull(files[0]);
-            if (file !== null) {
-                if (file.size <= this.MAX_UPLOAD_FILE_SIZE) {
-                    this.upload(file);
-                    input.value = '';
-                } else {
-                    this.messageService.message('Cannot upload files bigger than ' + this.MAX_UPLOAD_FILE_SIZE_MO + 'Mo');
-                }
-            }
+    public getHeroClass(): HeroClass {
+        let heroClass = HeroClass.Warrior;
+        const planner = this.plannerService.getPlanner();
+
+        if (planner !== null) {
+            heroClass = planner.heroClass;
         }
+
+        return heroClass;
     }
 
-    public upload(file: File) {
-        var reader: FileReader | null = new FileReader();
-
-        reader.onerror = () => {
-            reader = null;
-            this.messageService.message('Failed to upload this file');
-        };
-        reader.onloadend = () => {
-            if (reader !== null && reader.result !== null) {
-                this.importContent.setValue(reader.result.toString());
-                reader = null;
-            }
-        };
-
-        reader.readAsText(file);
-    }
-
-    public import() {
-        const importResult = this.importResult;
-        if (importResult !== null) {
-            if (importResult.character !== null) {
+    public import(sharedData: SharedData) {
+        if (sharedData !== null) {
+            if (sharedData.character !== null) {
                 const data: EditLayerModalData = {
                     title: 'New character layer\'s name',
                     name: null
@@ -128,18 +76,18 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
                 this.dialog.open(EditLayerModalComponent, { data })
                     .afterClosed().subscribe((name: string | null | undefined) => {
                         if (name) {
-                            this.plannerService.addLayer(name, importResult.character);
+                            this.plannerService.addLayer(name, sharedData.character);
                             this.closeSideNav();
                         }
                     })
-            } else if (importResult.layer !== null) {
-                this.plannerService.addLayer(importResult.layer.name, importResult.layer.character);
+            } else if (sharedData.layer !== null) {
+                this.plannerService.addLayer(sharedData.layer.name, sharedData.layer.character);
                 this.closeSideNav();
-            } else if (importResult.planner !== null) {
+            } else if (sharedData.planner !== null) {
                 this.dialog.open(ReplacePlannerModalComponent)
                     .afterClosed().subscribe((replace: boolean | undefined) => {
                         if (replace === true) {
-                            this.plannerService.setPlanner(importResult.planner);
+                            this.plannerService.setPlanner(sharedData.planner);
                             this.closeSideNav();
                         }
                     })
