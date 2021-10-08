@@ -104,6 +104,7 @@ export class SlormancerSynergyResolverService {
         if (heroClass === HeroClass.Mage) {
             mapping = HERO_MERGED_STATS_MAPPING[heroClass].find(m => m.stat === 'mana_bond_damage');
             resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'mana_lost_last_second', 'mana_bond_damage_add'), 0, {}, [ { stat: 'mana_bond_damage_add', mapping } ]));
+            resolveDatas.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'mana_gained_last_second', 'mana_bond_damage_add_from_restored_mana'), 0, {}, [ { stat: 'mana_bond_damage_add_from_restored_mana', mapping } ]));
         }
 
         return true;

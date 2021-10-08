@@ -4583,17 +4583,23 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     189: {
         masteryRequired: 1,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'retaliate_percent_if_channeling_arcane_barrier');
+        },
         additionalClassMechanics: []
     },
     190: {
         masteryRequired: 1,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'damage_taken_to_mana_percent');
+        },
         additionalClassMechanics: []
     },
     191: {
         masteryRequired: 1,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'crit_chance_percent_if_book_smash_or_chrono_puncture');
+        },
         additionalClassMechanics: []
     },
     192: {
@@ -4603,57 +4609,76 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     193: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'caught_projectile_increased_damage_mult');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     194: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'arcane_clone_infinite_inner_fire');
+        },
         additionalClassMechanics: [],
         additionalMechanics: [MechanicType.InnerFire]
     },
     195: {
         masteryRequired: 2,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Duration, 'skill_silence_duration');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'silence_on_critical');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'silence_duration');
         },
         additionalClassMechanics: []
     },
     196: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'arcane_bond_on_caught_projectile');
+        },
         additionalClassMechanics: []
     },
     197: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'time_lock_chance_on_hit_taken');
+        },
         additionalClassMechanics: []
     },
     198: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'reconstructed_projectile_increased_damage_mult');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     199: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'arcane_clone_cooldown_reduction_global_mult')
+        },
         additionalClassMechanics: []
     },
     200: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'elemental_damage');
+        },
         additionalClassMechanics: []
     },
     201: {
         masteryRequired: 5,
         override: values => {
-            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'skill_arcane_barius_catch_radius');
+            addConstant(values, 3, false, EffectValueValueType.Upgrade, 'arcane_barrier_increased_radius');
         },
         additionalClassMechanics: []
     },
     202: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'remnant_crit_chance_percent')
+        },
         additionalClassMechanics: []
     },
     203: {
@@ -4663,46 +4688,65 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     204: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'cast_by_clone');
+        },
         additionalClassMechanics: [218]
     },
     205: {
         masteryRequired: 6,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'additional_arcane_clone');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'max_arcane_clone_add');
         },
         additionalClassMechanics: []
     },
     206: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            synergyMultiply100(values, 0);
+        },
         additionalClassMechanics: []
     },
     207: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'arcane_bond_keep_highest_damage');
+        },
         additionalClassMechanics: []
     },
     208: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'melee_increased_damage_mult');
+            synergyMultiply100(values, 0);
+            setStat(values, 1, 'projectile_increased_damage_mult');
+            synergyMultiply100(values, 1);
+            setStat(values, 2, 'aoe_increased_damage_mult');
+            synergyMultiply100(values, 2);
+        },
         additionalClassMechanics: []
     },
     209: {
         masteryRequired: 8,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'additional_arcane_clone');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'max_arcane_clone_add');
         },
         additionalClassMechanics: []
     },
     210: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'percent_restored_mana_as_mana_bond');
+        },
         additionalClassMechanics: []
     },
     211: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'damage_taken_to_mana');
+            // Hack damage type
+            values.push(effectValueSynergy(0, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'damage', EffectValueValueType.Upgrade));
+        },
         additionalClassMechanics: []
     },
     223: {

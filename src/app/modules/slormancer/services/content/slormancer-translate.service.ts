@@ -60,6 +60,8 @@ export class SlormancerTranslateService {
         } else {
             if (key === 'training_lance_additional_damage_add') {
                 key = 'physical_damage';
+            } else if (key === 'damage_taken_to_mana') {
+                key = 'damage';
             }
 
             const gameData = this.slormancerDataService.getTranslation(key);

@@ -45,6 +45,7 @@ export interface CharacterConfig {
     is_last_volley: boolean;
     is_remnant: boolean;
     is_channeling_whirlwind: boolean;
+    is_channeling_arcane_barrier: boolean;
     void_arrow_fully_charged: boolean;
     ennemies_in_radius: { [key: number]: number};
     negative_effects_on_ennemies_in_radius: { [key: number]: number};

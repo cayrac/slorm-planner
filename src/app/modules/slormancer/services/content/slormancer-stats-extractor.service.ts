@@ -50,6 +50,7 @@ export class SlormancerStatsExtractorService {
     private addCharacterValues(character: Character, stats: ExtractedStats) {
         this.addStat(stats.stats, 'half_level', character.level / 2);
         this.addStat(stats.stats, 'remnant_damage_reduction_mult', -50);
+        this.addStat(stats.stats, 'arcane_clone_cooldown_reduction_global_mult', -35);
     }
     
     private addConfigValues(config: CharacterConfig, stats: ExtractedStats) {
@@ -316,6 +317,9 @@ export class SlormancerStatsExtractorService {
         }
         if (skillAndUpgrades.skill.genres.includes(SkillGenre.Projectile)) {
             extractedStats.stats['skill_is_projectile'] = [1];
+        }
+        if (skillAndUpgrades.skill.genres.includes(SkillGenre.Aoe)) {
+            extractedStats.stats['skill_is_aoe'] = [1];
         }
         if (skillAndUpgrades.skill.genres.includes(SkillGenre.Temporal)) {
             extractedStats.stats['skill_is_temporal'] = [1];

@@ -400,6 +400,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'exhilerating_senses_stack_cooldown_reduction_global_mult', condition: config => config.exhilerating_senses_stacks > 0, multiplier: config => config.exhilerating_senses_stacks },
                 { stat: 'banner_haste_buff_cooldown_reduction_global_mult', condition: config => config.has_banner_haste_buff },
                 { stat: 'frenzy_stack_cooldown_reduction_global_mult', condition: config => config.frenzy_stacks > 0, multiplier: (config, stats) => Math.min(config.frenzy_stacks, getFirstStat(stats, 'frenzy_max_stacks')) },
+                { stat: 'arcane_clone_cooldown_reduction_global_mult', condition: (_, stats) => hasStat(stats, 'cast_by_clone' )},
             ],
             maxMultiplier: [],
         } 
@@ -460,6 +461,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'crit_chance_percent_per_enemy_in_aoe', condition: config => config.enemies_in_aoe > 0, multiplier: config => config.enemies_in_aoe },
                 { stat: 'blademaster_crit_chance_percent', multiplier: (_, stats) => [3, 9].includes(getFirstStat(stats, 'primary_skill', -1)) || [3, 9].includes(getFirstStat(stats, 'secondary_skill', -1)) ? 2 : 1 },
                 { stat: 'crit_chance_percent_if_target_is_time_locked', condition: config => config.target_is_time_locked },
+                { stat: 'crit_chance_percent_if_book_smash_or_chrono_puncture', condition: (_, stats) => [5, 7].includes(getFirstStat(stats, 'skill_id')) },
+                { stat: 'remnant_crit_chance_percent', condition: config => config.is_remnant },
             ],
             max: [],
             percent: [],
@@ -763,6 +766,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'retaliate_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'retaliate_percent_on_low_life_treshold', 0)) },
                 { stat: 'golden_buff_retaliate_percent', condition: config => config.has_gold_armor_buff },
                 { stat: 'retaliate_percent_on_blocked_hit', condition: config => config.is_hit_blocked },
+                { stat: 'retaliate_percent_if_channeling_arcane_barrier', condition: config => config.is_channeling_arcane_barrier },
             ],
             max: [],
             percent: [],
@@ -1482,6 +1486,9 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                     multiplier: (config, stats) => Math.min(config.time_spend_channeling, Math.round(getFirstStat(stats, 'skill_increased_damage_mult_max_while_channeling_whirlwind') / getFirstStat(stats, 'skill_increased_damage_mult_per_second_while_channeling_whirlwind'))),
                 },
                 { stat: 'increased_damage_mult_per_obliteration_emblem_if_not_obliteration', condition: (config, stats) => config.obliteration_emblems > 0 && !hasStat(stats, 'skill_is_obliteration'), multiplier: config => config.obliteration_emblems },
+                { stat: 'melee_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee') },
+                { stat: 'projectile_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_projectile') },
+                { stat: 'aoe_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_aoe') },
             ],
             maxMultiplier: [
                 { stat: 'skill_increased_max_damage_mult' },
@@ -1579,12 +1586,29 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             precision: 0,
             allowMinMax: true,
             source: {
-                flat: [{ stat: 'mana_bond_damage_add' }],
+                flat: [
+                    { stat: 'mana_bond_damage_add' },
+                    { stat: 'mana_bond_damage_add_from_restored_mana', condition: (_, stats) => hasStat(stats, 'percent_restored_mana_as_mana_bond'), multiplier: (_, stats) => getFirstStat(stats, 'percent_restored_mana_as_mana_bond') / 100 },
+                ],
                 max: [],
                 percent: [],
                 maxPercent: [],
                 multiplier: [
                     { stat: 'arcane_bond_increased_damage_mult_if_close', condition: config => config.target_is_close },
+                ],
+                maxMultiplier: [],
+            } 
+        },
+        {
+            stat: 'max_arcane_clone',
+            precision: 0,
+            allowMinMax: true,
+            source: {
+                flat: [{ stat: 'max_arcane_clone_add' }],
+                max: [],
+                percent: [],
+                maxPercent: [],
+                multiplier: [
                 ],
                 maxMultiplier: [],
             } 

@@ -136,6 +136,7 @@ export const DATA_HERO_BASE_STATS: GameHeroesData<HeroBaseStats> = {
             { stat: 'health_on_kill_add', base: 3, perLevel: 0 },
             { stat: 'min_basic_damage_add', base: 4, perLevel: 0 },
             { stat: 'max_basic_damage_add', base: 1, perLevel: 0 },
+            { stat: 'max_arcane_clone_add', base: 1, perLevel: 0 },
             ...ALL_HEROES_BASE_STATS
         ],
         levelonlyStat: {
