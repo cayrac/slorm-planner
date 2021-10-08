@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { CharacterSkillAndUpgrades } from '../../model/character';
+import { Character, CharacterSkillAndUpgrades } from '../../model/character';
 import { Activable } from '../../model/content/activable';
 import { AncestralLegacy } from '../../model/content/ancestral-legacy';
 import { MergedStat } from '../../model/content/character-stats';

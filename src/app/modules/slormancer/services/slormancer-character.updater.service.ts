@@ -195,14 +195,14 @@ export class SlormancerCharacterUpdaterService {
 
         for (const ancestralLegacy of ancestralLegacies) {
             if (ancestralLegacy.genres.includes(SkillGenre.Aura) || !auraOnly) {
-                this.slormancerValueUpdater.updateAncestralLegacyActivable(ancestralLegacy, statsResult);
+                this.slormancerValueUpdater.updateAncestralLegacyActivable(character, ancestralLegacy, statsResult);
                 result.ancestralLegacies.push(ancestralLegacy);
             }
         }
         for (const item of items) {
             const activable = <Activable>item.legendaryEffect?.activable;
             if (activable.genres.includes(SkillGenre.Aura) || !auraOnly) {
-                this.slormancerValueUpdater.updateActivable(activable, statsResult);
+                this.slormancerValueUpdater.updateActivable(character, activable, statsResult);
                 result.items.push(item);
             }
         }
@@ -242,7 +242,7 @@ export class SlormancerCharacterUpdaterService {
 
         for (const skillAndUpgrades of character.skills) {
             const result = this.slormancerStatsService.updateSkillStats(character, skillAndUpgrades, config, statsResult.extractedStats);
-            this.slormancerValueUpdater.updateSkillAndUpgradeValues(skillAndUpgrades, result);
+            this.slormancerValueUpdater.updateSkillAndUpgradeValues(character, skillAndUpgrades, result);
             statsResult.changed.skills.push(skillAndUpgrades.skill);
             statsResult.changed.upgrades.push(...skillAndUpgrades.upgrades);
         }
