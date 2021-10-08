@@ -95,6 +95,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'mana_cost_reduction_mult', multiplier: () => -1 },
                 { stat: 'mana_cost_mult_per_enemy_under_control', condition: config => config.enemy_under_command > 0 || config.elite_under_command > 0, multiplier: config => config.enemy_under_command + config.elite_under_command * 10 },
                 { stat: 'cost_reduction_mult_per_arcanic_emblem_if_not_arcanic', condition: (config, stats) => config.arcanic_emblems > 0 && !hasStat(stats, 'skill_is_arcanic'), multiplier: config => - config.arcanic_emblems },
+                { stat: 'mana_cost_mult_if_low_mana', condition: (config, stats) => (100 - config.percent_missing_mana) < getFirstStat(stats, 'mana_cost_mult_if_low_mana_treshold') },
             ],
             maxMultiplier: [],
         } 
@@ -1487,7 +1488,6 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 },
                 { stat: 'increased_damage_mult_per_obliteration_emblem_if_not_obliteration', condition: (config, stats) => config.obliteration_emblems > 0 && !hasStat(stats, 'skill_is_obliteration'), multiplier: config => config.obliteration_emblems },
                 { stat: 'melee_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee') },
-                { stat: 'projectile_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_projectile') },
                 { stat: 'aoe_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_aoe') },
             ],
             maxMultiplier: [

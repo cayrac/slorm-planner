@@ -3450,7 +3450,9 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     3: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 5);
+            setStat(values, 1, 'elemental_damage');
             setUpgrade(values, 1, 2);
         },
         additionalClassMechanics: [],
@@ -3525,22 +3527,33 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     11: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'mana_cost_mult_if_low_mana_treshold');
+            setAsUpgrade(values, 0);
+            addConstant(values, -100, false, EffectValueValueType.Upgrade, 'mana_cost_mult_if_low_mana');
+        },
         additionalClassMechanics: []
     },
     12: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'cooldown_time_reduction_multiplier');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     13: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     14: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'remnant_cast_on_cast_count');
+        },
         additionalClassMechanics: []
     },
     15: {
@@ -3550,28 +3563,37 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     16: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'mana_from_hit_recovery_to_elemental_damage');
+        },
         additionalClassMechanics: []
     },
     17: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'skill_is_now_temporal');
+        },
         additionalClassMechanics: []
     },
     18: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'pierce_fork_rebound_is_highest');
+        },
         additionalClassMechanics: []
     },
     19: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'cast_by_clone');
+        },
         additionalClassMechanics: []
     },
     20: {
         masteryRequired: 4,
         override: values => {
-            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_remnant_count');
+            addConstant(values, 2, false, EffectValueValueType.Upgrade, 'remnant_cast_on_cast_count');
+            addConstant(values, 2, false, EffectValueValueType.Upgrade, 'remnant_cast_on_cast_chance');
         },
         additionalClassMechanics: []
     },

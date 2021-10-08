@@ -38,6 +38,7 @@ interface SkillStats {
     additionalDamages: MergedStat;
     additionalDuration: MergedStat<number>;
     additionalProjectiles: MergedStat<number>;
+    characterAdditionalProjectiles: MergedStat<number>;
 }
 
 @Injectable()
@@ -90,7 +91,7 @@ export class SlormancerValueUpdater {
         }
 
         if (genres.includes(SkillGenre.Projectile) && !isDot) {
-            multipliers.push(-Math.min(skillStats.additionalProjectiles.total, 9) * 10);
+            multipliers.push(-Math.min(skillStats.characterAdditionalProjectiles.total, 9) * 10);
         }
 
         if (isDot) {
@@ -153,7 +154,7 @@ export class SlormancerValueUpdater {
         return multipliers.filter(v => v !== 0);
     }
 
-    private getSkillStats(stats: SkillStatsBuildResult): SkillStats {
+    private getSkillStats(stats: SkillStatsBuildResult, character: Character): SkillStats {
         return {
             mana: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'mana_cost'),
             cooldown: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'cooldown_time'),
@@ -169,11 +170,12 @@ export class SlormancerValueUpdater {
             additionalDamages: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'additional_damage'),
             additionalDuration: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'skill_additional_duration'),
             additionalProjectiles: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'additional_projectile'),
+            characterAdditionalProjectiles: <MergedStat<number>>this.getStatValueOrDefault(character.stats, 'additional_projectile'),
         }
     }
 
-    public updateActivable(activable: Activable, statsResult: SkillStatsBuildResult) {
-        const skillStats = this.getSkillStats(statsResult);
+    public updateActivable(character: Character, activable: Activable, statsResult: SkillStatsBuildResult) {
+        const skillStats = this.getSkillStats(statsResult, character);
 
         activable.cost = skillStats.mana.values.multiplier.reduce((t, v) => t * (100 + v) / 100 , activable.baseCost);
         activable.cooldown = Math.max(0, round(activable.baseCooldown * (100 - skillStats.attackSpeed.total) / 100, 2));
@@ -205,8 +207,8 @@ export class SlormancerValueUpdater {
         }
     }
 
-    public updateAncestralLegacyActivable(ancestralLegacy: AncestralLegacy, statsResult: SkillStatsBuildResult) {
-        const skillStats = this.getSkillStats(statsResult);
+    public updateAncestralLegacyActivable(character: Character, ancestralLegacy: AncestralLegacy, statsResult: SkillStatsBuildResult) {
+        const skillStats = this.getSkillStats(statsResult, character);
 
         if (ancestralLegacy.currentRankCost !== null && ancestralLegacy.hasManaCost && ancestralLegacy.costType !== SkillCostType.ManaLock) {
             ancestralLegacy.cost = skillStats.mana.values.multiplier.reduce((t, v) => t * (100 + v) / 100 , ancestralLegacy.currentRankCost);
@@ -242,8 +244,8 @@ export class SlormancerValueUpdater {
         }
     }
 
-    public updateSkillAndUpgradeValues(skillAndUpgrades: CharacterSkillAndUpgrades, stats: SkillStatsBuildResult): Array<SkillUpgrade> {
-        const skillStats = this.getSkillStats(stats);
+    public updateSkillAndUpgradeValues(character: Character, skillAndUpgrades: CharacterSkillAndUpgrades, stats: SkillStatsBuildResult): Array<SkillUpgrade> {
+        const skillStats = this.getSkillStats(stats, character);
 
         this.updateSkillValues(skillAndUpgrades.skill, skillStats, stats);
 
@@ -327,6 +329,17 @@ export class SlormancerValueUpdater {
         skill.costType = skill.baseCostType;
         skill.genres = skill.baseGenres.slice(0);
         
+        if (statsResult.extractedStats['cast_by_clone'] !== undefined) {
+            skill.genres.push(SkillGenre.Totem);
+        }
+        
+        if (statsResult.extractedStats['skill_is_now_temporal'] !== undefined) {
+            const index = skill.genres.findIndex(genre => genre === SkillGenre.Arcanic || genre === SkillGenre.Obliteration)
+            if (index !== -1) {
+                skill.genres.splice(index, 1, SkillGenre.Temporal);
+            }
+        }
+
         if (statsResult.extractedStats['no_longer_channeling'] !== undefined) {
             if (skill.costType === SkillCostType.ManaSecond) {
                 skill.costType = SkillCostType.Mana;
@@ -429,6 +442,18 @@ export class SlormancerValueUpdater {
                 cadenceCastCount.value = cadenceCastCount.baseValue;
             }
             cadenceCastCount.displayValue = round(cadenceCastCount.value, 2);
+        }
+
+        if (statsResult.extractedStats['pierce_fork_rebound_is_highest']) {
+            const forkChance = <MergedStat<number> | undefined>statsResult.stats.find(value => value.stat === 'fork_chance');
+            const chanceToRebound = <MergedStat<number> | undefined>statsResult.stats.find(value => value.stat === 'chance_to_rebound');
+            const chanceToPierce = <MergedStat<number> | undefined>statsResult.stats.find(value => value.stat === 'chance_to_pierce');
+            if (forkChance && chanceToPierce && chanceToRebound) {
+                const newTotal = Math.max(forkChance.total, chanceToRebound.total, chanceToPierce.total);
+                forkChance.total = newTotal;
+                chanceToRebound.total = newTotal;
+                chanceToPierce.total = newTotal;
+            }
         }
     }
 

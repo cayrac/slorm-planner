@@ -27,7 +27,7 @@ export class SlormancerConfigurationService {
         next_cast_is_new_emblem: true,
         enemy_percent_missing_health: 0,
         percent_missing_health: 0,
-        percent_missing_mana: 50,
+        percent_missing_mana: 0,
         percent_lock_health: 0,
         percent_lock_mana: 0,
         overall_reputation: 0,
