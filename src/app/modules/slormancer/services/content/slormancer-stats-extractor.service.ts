@@ -107,6 +107,11 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'half_level', character.level / 2);
         this.addStat(stats.stats, 'remnant_damage_reduction_mult', -50);
         this.addStat(stats.stats, 'arcane_clone_cooldown_reduction_global_mult', -35);
+
+        if (character.heroClass === HeroClass.Mage) {
+            const maxedUpgrades = character.skills.map(skill => skill.upgrades).flat().filter(upgrade => upgrade.rank === upgrade.maxRank).length;
+            this.addStat(stats.stats, 'maxed_upgrades', maxedUpgrades);
+        }
     }
     
     private addConfigValues(config: CharacterConfig, stats: ExtractedStats) {

@@ -96,6 +96,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'mana_cost_mult_per_enemy_under_control', condition: config => config.enemy_under_command > 0 || config.elite_under_command > 0, multiplier: config => config.enemy_under_command + config.elite_under_command * 10 },
                 { stat: 'cost_reduction_mult_per_arcanic_emblem_if_not_arcanic', condition: (config, stats) => config.arcanic_emblems > 0 && !hasStat(stats, 'skill_is_arcanic'), multiplier: config => - config.arcanic_emblems },
                 { stat: 'mana_cost_mult_if_low_mana', condition: (config, stats) => (100 - config.percent_missing_mana) < getFirstStat(stats, 'mana_cost_mult_if_low_mana_treshold') },
+                { stat: 'mana_cost_reduction_mult_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => - config.arcanic_emblems },
             ],
             maxMultiplier: [],
         } 
@@ -120,6 +121,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 },
                 { stat: 'cooldown_time_multiplier_if_fortunate_or_perfect', condition: config => config.next_cast_is_perfect || config.next_cast_is_fortunate },
                 { stat: 'cooldown_time_reduction_multiplier_per_temporal_emblem_if_not_temporal', condition: (config, stats) => config.temporal_emblems > 0 && !hasStat(stats, 'skill_is_temporal'), multiplier: config => - config.temporal_emblems },
+                { stat: 'cooldown_time_reduction_multiplier_per_temporal_emblem', condition: config => config.temporal_emblems > 0, multiplier: config => - config.temporal_emblems },
             ],
             maxMultiplier: [],
         } 
@@ -1036,7 +1038,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         precision: 3,
         allowMinMax: true,
         source: {
-            flat: [{ stat: 'inner_fire_damage_add' }],
+            flat: [
+                { stat: 'inner_fire_damage_add' },
+                { stat: 'overdrive_inner_fire_additional_damage' },
+            ],
             max: [],
             percent: [
                 { stat: 'inner_fire_damage_percent' },
@@ -1086,7 +1091,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         precision: 3,
         allowMinMax: true,
         source: {
-            flat: [{ stat: 'overdrive_damage_add' }],
+            flat: [
+                { stat: 'overdrive_damage_add' },
+                { stat: 'overdrive_inner_fire_additional_damage' },
+            ],
             max: [],
             percent: [{ stat: 'overdrive_damage_percent' }],
             maxPercent: [],
@@ -1107,6 +1115,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'recast_chance_percent' },
                 { stat: 'recast_chance_percent_if_perfect', condition: config => config.next_cast_is_perfect },
                 { stat: 'recast_chance_percent_if_fortunate_or_perfect', condition: config => config.next_cast_is_perfect || config.next_cast_is_fortunate },
+                { stat: 'recast_chance_percent_per_non_obliteration_emblem', condition: config => (config.arcanic_emblems + config.temporal_emblems) > 0, multiplier: config => config.arcanic_emblems + config.temporal_emblems },
             ],
             max: [],
             percent: [],
@@ -1467,6 +1476,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'increased_damage_mult_if_target_is_time_locked', condition: config => config.target_is_time_locked },
                 { stat: 'remnant_damage_reduction_mult', condition: config => config.is_remnant },
                 { stat: 'remnant_increased_damage_mult', condition: config => config.is_remnant },
+                { stat: 'increased_damage_mult_per_inner_fire', condition: config => config.active_inner_fire > 0, multiplier: config => config.active_inner_fire },
             ],
             maxMultiplier: [
             ],

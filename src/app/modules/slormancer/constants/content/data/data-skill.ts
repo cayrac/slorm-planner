@@ -3475,6 +3475,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     5: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 15);
         },
         additionalClassMechanics: [],
@@ -3791,24 +3792,36 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     44: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setSource(values, 0, 'maxed_upgrades');
+            setStat(values, 0, 'brut_damage_percent');
+            synergyMultiply100(values, 0);
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     45: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'arcane_bond');
+        },
         additionalClassMechanics: []
     },
     46: {
         masteryRequired: 2,
         override: values => {
-            addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'skill_aoe');
+            setStat(values, 0, 'physical_damage');
+            setAsUpgrade(values, 0);
+            addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'smash_aoe');
         },
         additionalClassMechanics: []
     },
     47: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'overdrive_inner_fire_additional_damage');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     48: {
@@ -3818,47 +3831,76 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     49: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'silence_duration');
+        },
         additionalClassMechanics: []
     },
     50: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'attunment_pulse_remnant_cast_chance_per_arcanic_emblem');
+            setAsUpgrade(values, 0);
+            setStat(values, 1, 'rift_nova_remnant_cast_chance_per_temporal_emblem');
+            setAsUpgrade(values, 1);
+        },
         additionalClassMechanics: []
     },
     51: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'remnant_per_non_obliteration_emblem');
+        },
         additionalClassMechanics: []
     },
     52: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'cooldown_time_reduction_multiplier');
+            synergyMultiply100(values, 0);
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     53: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'elemental_damage');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     54: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'increased_damage_mult_per_inner_fire');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     55: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'has_betime_effect');
+        },
         additionalClassMechanics: []
     },
     56: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'cooldown_time_reduction_multiplier_per_temporal_emblem');
+            setAsUpgrade(values, 0);
+            setStat(values, 1, 'mana_cost_reduction_mult_per_arcanic_emblem');
+            setAsUpgrade(values, 1);
+        },
         additionalClassMechanics: []
     },
     57: {
         masteryRequired: 10,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'recast_chance_percent_per_non_obliteration_emblem');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     58: {

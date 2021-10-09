@@ -9,6 +9,8 @@ import { SkillCostType } from '../model/content/enum/skill-cost-type';
 export class SlormancerConfigurationService {
 
     private readonly DEFAULT_CONFIG: CharacterConfig = {
+        completed_achievements: 0,
+        active_inner_fire: 0,
         mana_lost_last_second: 0,
         mana_gained_last_second: 0,
         knight_other_level: MAX_HERO_LEVEL,
@@ -17,9 +19,9 @@ export class SlormancerConfigurationService {
         totems_under_control: 0,
         traps_nearby: 0,
         serenity: 0,
-        arcanic_emblems: 5,
-        temporal_emblems: 5,
-        obliteration_emblems: 5,
+        arcanic_emblems: 0,
+        temporal_emblems: 0,
+        obliteration_emblems: 0,
         last_cast_tormented: false,
         last_cast_delighted: false,
         next_cast_is_fortunate: false,
@@ -140,6 +142,8 @@ export class SlormancerConfigurationService {
     }
 
     private readonly COMBAT_CONFIG: CharacterConfig = {
+        completed_achievements: 0,
+        active_inner_fire: 0,
         mana_lost_last_second: 0,
         mana_gained_last_second: 0,
         knight_other_level: MAX_HERO_LEVEL,

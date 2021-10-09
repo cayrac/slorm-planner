@@ -1,4 +1,6 @@
 export interface CharacterConfig {
+    completed_achievements: number;
+    active_inner_fire: number;
     mana_lost_last_second: number;
     mana_gained_last_second: number;
     knight_other_level: number;
