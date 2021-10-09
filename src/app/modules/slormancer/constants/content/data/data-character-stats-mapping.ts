@@ -1137,6 +1137,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'tormented_additional_projectile_add', condition: config => config.serenity === 0 },
                 { stat: 'perfect_additional_projectile_add', condition: config => config.next_cast_is_perfect },
                 { stat: 'additional_projectile_add_if_next_cast_is_new_emblem', condition: (config, stats) => config.next_cast_is_new_emblem && hasStat(stats, 'skill_is_projectile') },
+                { stat: 'arcane_stack_additional_projectile_add', condition: config => config.arcane_stacks > 0, multiplier: (config, stats) => Math.min(config.arcane_stacks, getFirstStat(stats, 'arcane_max_stacks')) },
             ],
             max: [],
             percent: [{ stat: 'additional_projectile_percent' }],

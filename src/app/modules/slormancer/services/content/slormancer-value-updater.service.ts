@@ -363,7 +363,6 @@ export class SlormancerValueUpdater {
 
                 if (trainingLanceAdditionalDamage && trainingLanceDamage) {
                     // equivalent a simplement changer la base value et upgrade
-                    console.log('trainingLanceAdditionalDamage : ', trainingLanceAdditionalDamage, elderLanceDamage, statsResult.extractedStats['add_twice_elder_lance_to_training_lance'])
                     if (statsResult.extractedStats['add_twice_elder_lance_to_training_lance'] !== undefined && elderLanceDamage) {
                         trainingLanceAdditionalDamage.total = add(trainingLanceAdditionalDamage.total, add(elderLanceDamage.synergy, elderLanceDamage.synergy));
                     }

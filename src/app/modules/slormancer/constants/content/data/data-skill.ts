@@ -3560,13 +3560,18 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     15: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'arcane_max_stacks')
+            setAsUpgrade(values, 0);
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'arcane_stack_additional_projectile_add');
+        },
         additionalClassMechanics: []
     },
     16: {
         masteryRequired: 4,
         override: values => {
             setStat(values, 0, 'mana_from_hit_recovery_to_elemental_damage');
+            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
@@ -3601,32 +3606,48 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     21: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'arcane_on_hit_if_at_least_one_obliteration_emblem');
+        },
         additionalClassMechanics: []
     },
     22: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            setStat(values, 0,'remnant_time_lock_chance');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     23: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'projectiles_cast_in_line');
+        },
         additionalClassMechanics: []
     },
     24: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     25: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'lost_in_time_aoe');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     26: {
         masteryRequired: 10,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'increased_damage_mult_per_potential_projectile');
+            setAsUpgrade(values, 0);
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'merges_as_one_projectile');
+        },
         additionalClassMechanics: []
     },
     27: {
