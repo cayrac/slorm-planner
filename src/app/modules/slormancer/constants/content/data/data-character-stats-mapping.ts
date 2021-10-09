@@ -1360,7 +1360,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             multiplier: [
                 { stat: 'elemental_damage_mult' },
                 { stat: 'elemental_damage_global_mult' },
-                { stat: 'elemental_fervor_buff_elemental_damage_global_mult', condition: config => config.has_elemental_fervor_buff }
+                { stat: 'elemental_fervor_buff_elemental_damage_global_mult', condition: config => config.has_elemental_fervor_buff },
+                { stat: 'elemental_weakness_stack_elemental_damage_mult',
+                    condition: (config, stats) => config.elemental_weakness_stacks > 0 && hasStat(stats, 'skill_id') && [getFirstStat(stats, 'primary_skill'), getFirstStat(stats, 'secondary_skill')].includes(4),
+                    multiplier: (config, stats) => Math.min(config.elemental_weakness_stacks, getFirstStat(stats, 'elemental_weakness_max_stacks')) },
             ],
             maxMultiplier: [],
         } 

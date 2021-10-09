@@ -1,6 +1,7 @@
 import { DataLegendary } from '../../../model/content/data/data-legendary';
 import { LegendaryEffect } from '../../../model/content/legendary-effect';
 import { effectValueConstant } from '../../../util/effect-value.util';
+import { isEffectValueSynergy } from '../../../util/utils';
 
 
 function setStat(effect: LegendaryEffect, index: number, stat: string) {
@@ -16,6 +17,14 @@ function valueMultiply100(effect: LegendaryEffect, index: number) {
 
     if (value) {
         value.score = value.score * 100;
+    }
+}
+
+function synergySetAllowMinMax(effect: LegendaryEffect, index: number, allowMinMaw: boolean) {
+    const value = effect.effects[index]
+
+    if (value && isEffectValueSynergy(value.effect)) {
+        value.effect.allowMinMax = allowMinMaw;
     }
 }
 
@@ -45,6 +54,7 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     },
     15: {
         override: (effect) => {
+            synergySetAllowMinMax(effect, 1, false);
             setStat(effect, 0, 'immortal_grasp_health_restored');
             setStat(effect, 0, 'immortal_grasp_duration');
         }
@@ -179,6 +189,19 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     62: {
         override: (effect) => {
             addConstant(effect, 5, 'trap_pull_distance');
+        }
+    },
+    63: {
+        override: (effect) => {
+            setStat(effect, 0, 'elemental_weakness_stack_chance');
+            setStat(effect, 1, 'elemental_weakness_stack_elemental_damage_mult');
+            setStat(effect, 2, 'elemental_weakness_stack_duration');
+            setStat(effect, 3, 'elemental_weakness_max_stacks');
+        }
+    },
+    67: {
+        override: (effect) => {
+            addConstant(effect, 1, 'disable_orb_arcane_master_maluses');
         }
     },
     69: {

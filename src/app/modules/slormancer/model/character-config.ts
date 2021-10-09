@@ -111,6 +111,7 @@ export interface CharacterConfig {
     arcane_breach_collision_stacks: number;
     temporal_breach_collision_stacks: number;
     obliteration_breach_collision_stacks: number;
+    elemental_weakness_stacks: number;
     has_aura_air_conditionner: boolean;
     has_aura_neriya_shield: boolean;
     has_aura_elemental_swap: boolean;
