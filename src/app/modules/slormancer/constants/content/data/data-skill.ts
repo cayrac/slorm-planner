@@ -3533,9 +3533,11 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     10: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 5);
+            setStat(values, 1, 'elemental_damage');
             setUpgrade(values, 1, 5);
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_2_10_pierce_chance');
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'chance_to_pierce_percent');
         },
         additionalClassMechanics: [],
         additionalGenres: [SkillGenre.Arcanic]
@@ -4469,61 +4471,98 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     125: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'skill_increased_damage_mult');
+            synergyMultiply100(values, 0);
+            setSynergyPrecision(values, 0, 0);
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     126: {
         masteryRequired: 2,
         override: values => {
-            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_bounce_remnant_cast_count');
+            setStat(values, 0, 'bounce_to_remnant_chance');
+            synergyMultiply100(values, 0);
+            setSynergyPrecision(values, 0, 0);
+            addConstant(values, 3, false, EffectValueValueType.Upgrade, 'bounce_to_remnant_count');
         },
         additionalClassMechanics: []
     },
     127: {
         masteryRequired: 2,
         override: values => {
-            addConstant(values, 30, false, EffectValueValueType.Flat, 'skill_decreased_damages');
+            setStat(values, 0, 'cooldown_time_reduction_multiplier');
+            setAsUpgrade(values, 0);
+            addConstant(values, 30, false, EffectValueValueType.Upgrade, 'orb_arcane_master_skill_decreased_damage_mult');
         },
         additionalClassMechanics: []
     },
     128: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'crit_chance_percent_per_arcanic_emblem');
+            setAsUpgrade(values, 0);
+            setStat(values, 1, 'crit_damage_percent_per_obliteration_emblem');
+            setAsUpgrade(values, 1);
+            setStat(values, 2, 'brut_chance_percent_per_temporal_emblem');
+            setAsUpgrade(values, 2);
+        },
         additionalClassMechanics: []
     },
     129: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'cast_by_clone');
+        },
         additionalClassMechanics: []
     },
     130: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'cooldown_time_reduction_multiplier');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     131: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'cooldown_time_reduction_multiplier');
+            setAsUpgrade(values, 0);
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'orb_cast_in_random_direction');
+        },
         additionalClassMechanics: []
     },
     132: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'skill_increased_damage_mult');
+            setAsUpgrade(values, 0);
+            addConstant(values, -100, false, EffectValueValueType.Upgrade, 'physical_damage_mult');
+        },
         additionalClassMechanics: []
     },
     133: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'cooldown_time_reduction_multiplier');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     134: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'remnant_rift_nova_when_it_should_fork');
+        },
         additionalClassMechanics: []
     },
     135: {
         masteryRequired: 8,
         override: values => {
+            setStat(values, 0, 'elemental_damage');
+            setAsUpgrade(values, 0);
             addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'skill_temporal_explosion_aoe');
         },
         additionalClassMechanics: []
@@ -4531,31 +4570,43 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     136: {
         masteryRequired: 8,
         override: values => {
-            addConstant(values, 50, false, EffectValueValueType.AreaOfEffect, 'skill_reduced_damages');
+            setStat(values, 0, 'additional_projectile_add');
+            setAsUpgrade(values, 0);
+            addConstant(values, 50, false, EffectValueValueType.Upgrade, 'orb_arcane_master_skill_decreased_damage_mult');
         },
         additionalClassMechanics: []
     },
     137: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'cooldown_time_reduction_multiplier');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     138: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'skill_decreased_damage_mult_if_only_obliteration');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     139: {
         masteryRequired: 10,
         override: values => {
-            addConstant(values, 0.5, false, EffectValueValueType.Duration, 'skill_time_between_remnants');
+            setStat(values, 0, 'remnant_orb_arcane_master_cast_count');
+            setAsUpgrade(values, 0);
+            addConstant(values, 0.5, false, EffectValueValueType.Upgrade, 'remnant_orb_arcane_master_cast_tick');
         },
         additionalClassMechanics: []
     },
     140: {
         masteryRequired: 10,
         override: values => {
-            addConstant(values, 2, false, EffectValueValueType.Duration, 'skill_increased_cooldown');
+            setStat(values, 0, 'skill_increased_damage_mult');
+            setAsUpgrade(values, 0);
+            addConstant(values, 2, false, EffectValueValueType.Upgrade, 'orb_arcane_master_cooldown_time_add');
         },
         additionalClassMechanics: []
     },

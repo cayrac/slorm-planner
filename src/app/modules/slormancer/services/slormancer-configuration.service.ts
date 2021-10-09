@@ -17,7 +17,7 @@ export class SlormancerConfigurationService {
         mana_gained_last_second: 0,
         knight_other_level: MAX_HERO_LEVEL,
         enemy_under_command: 0,
-        enemies_in_breach_range: 10,
+        enemies_in_breach_range: 0,
         elite_under_command: 0,
         totems_under_control: 0,
         traps_nearby: 0,

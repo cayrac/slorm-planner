@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { CharacterConfig } from '../../model/character-config';
 import {
     ExternalSynergyResolveData,
     MergedStat,
@@ -9,15 +10,17 @@ import {
 import { MinMax } from '../../model/minmax';
 import { round } from '../../util/math.util';
 import { isSynergyResolveData } from '../../util/synergy-resolver.util';
+import { SlormancerStatMappingService } from './slormancer-stat-mapping.service';
 import { ExtractedStatMap } from './slormancer-stats-extractor.service';
 import { SlormancerStatUpdaterService } from './slormancer-stats-updater.service';
 
 @Injectable()
 export class SlormancerSynergyResolverService {
 
-    constructor(private slormancerStatUpdaterService: SlormancerStatUpdaterService) { }
+    constructor(private slormancerStatUpdaterService: SlormancerStatUpdaterService,
+                private slormancerStatMappingService: SlormancerStatMappingService) { }
 
-    public resolveSynergies(synergies: Array<SynergyResolveData | ExternalSynergyResolveData>, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap): { resolved: Array<SynergyResolveData>, unresolved: Array<SynergyResolveData> }  {
+    public resolveSynergies(synergies: Array<SynergyResolveData | ExternalSynergyResolveData>, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap, config: CharacterConfig): { resolved: Array<SynergyResolveData>, unresolved: Array<SynergyResolveData> }  {
         const remainingSynergies = [ ...synergies];
         const resolved: Array<SynergyResolveData> = []
         
@@ -26,7 +29,7 @@ export class SlormancerSynergyResolverService {
           let next: SynergyResolveData | ExternalSynergyResolveData | null;
         while (remainingSynergies.length > 0 && (next = this.takeNextSynergy(remainingSynergies)) !== null) {
             this.updateSynergyValue(next, characterStats, extractedStats);
-            this.applySynergyToStats(next, characterStats);
+            this.applySynergyToStats(next, characterStats, extractedStats, config);
             if ('objectSource' in next) {
                 resolved.push(next);
             }
@@ -126,7 +129,7 @@ export class SlormancerSynergyResolverService {
         }
     }
 
-    private applySynergyToStats(synergyResolveData: SynergyResolveData | ExternalSynergyResolveData, stats: Array<MergedStat>) {
+    private applySynergyToStats(synergyResolveData: SynergyResolveData | ExternalSynergyResolveData, stats: Array<MergedStat>, extractedStats: ExtractedStatMap, config: CharacterConfig) {
 
         for (const statToUpdate of synergyResolveData.statsItWillUpdate) {
             let foundStat: MergedStat | undefined = stats.find(stat => stat.stat === statToUpdate.stat);
@@ -158,16 +161,10 @@ export class SlormancerSynergyResolverService {
                 stat = synergyResolveData.stat;
             }
 
-            if (statToUpdate.mapping === undefined || statToUpdate.mapping.source.flat.find(v => v.stat === stat)) {
+            if (statToUpdate.mapping === undefined) {
                 foundStat.values.flat.push(synergy);
-            } else if (typeof synergy === 'number'){
-                if (statToUpdate.mapping.source.max.find(v => v.stat === stat)) {
-                    foundStat.values.max.push(synergy);
-                } else if (statToUpdate.mapping.source.percent.find(v => v.stat === stat)) {
-                    foundStat.values.percent.push(synergy);
-                } else if (statToUpdate.mapping.source.multiplier.find(v => v.stat === stat)) {
-                    foundStat.values.multiplier.push(synergy);
-                }
+            } else if (typeof synergy === 'number') {
+                this.slormancerStatMappingService.addUniqueValueToStat(stat, synergy, foundStat, statToUpdate.mapping, config, extractedStats);
             }
 
             this.slormancerStatUpdaterService.updateStatTotal(foundStat);

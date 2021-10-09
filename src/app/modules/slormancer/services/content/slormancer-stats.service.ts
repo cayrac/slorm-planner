@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 import {
     GLOBAL_MERGED_STATS_MAPPING,
     HERO_MERGED_STATS_MAPPING,
-    MergedStatMapping,
-    MergedStatMappingSource,
     SKILL_MERGED_STATS_MAPPING,
 } from '../../constants/content/data/data-character-stats-mapping';
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
@@ -22,6 +20,7 @@ import { Skill } from '../../model/content/skill';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { MinMax } from '../../model/minmax';
 import { isDamageType, isEffectValueSynergy, valueOrDefault } from '../../util/utils';
+import { SlormancerStatMappingService } from './slormancer-stat-mapping.service';
 import { ExtractedStatMap, ExtractedStats, SlormancerStatsExtractorService } from './slormancer-stats-extractor.service';
 import { SlormancerStatUpdaterService } from './slormancer-stats-updater.service';
 import { SlormancerSynergyResolverService } from './slormancer-synergy-resolver.service';
@@ -58,40 +57,8 @@ export class SlormancerStatsService {
 
     constructor(private slormancerStatsExtractorService: SlormancerStatsExtractorService,
                 private slormancerSynergyResolverService: SlormancerSynergyResolverService,
-                private slormancerStatUpdaterService: SlormancerStatUpdaterService) { }
-    
-    private getMappingValues(sources: Array<MergedStatMappingSource>, stats: ExtractedStatMap, config: CharacterConfig): Array<number | MinMax>  {
-        return sources
-            .filter(source => source.condition === undefined || source.condition(config, stats))
-            .map(source => {
-                let result = stats[source.stat];
-                if (result && source.multiplier) {
-                    const mult = source.multiplier(config, stats);
-                    result = result.map(v => v * mult);
-                }
-                return result ? result : [];
-            })
-            .flat();
-    }
-
-    private buildMergedStats(stats: ExtractedStatMap, mappings: Array<MergedStatMapping>, config: CharacterConfig): Array<MergedStat> {
-        return mappings.map(mapping => {
-            return {
-                stat: mapping.stat,
-                total: 0,
-                precision: mapping.precision,
-                allowMinMax: mapping.allowMinMax,
-                values: {
-                    flat: this.getMappingValues(mapping.source.flat, stats, config),
-                    max: this.getMappingValues(mapping.source.max, stats, config),
-                    percent: this.getMappingValues(mapping.source.percent, stats, config),
-                    maxPercent: this.getMappingValues(mapping.source.maxPercent, stats, config),
-                    multiplier: this.getMappingValues(mapping.source.multiplier, stats, config),
-                    maxMultiplier: this.getMappingValues(mapping.source.maxMultiplier, stats, config),
-                }
-            } as MergedStat;
-        });
-    }
+                private slormancerStatUpdaterService: SlormancerStatUpdaterService,
+                private slormancerStatMappingService: SlormancerStatMappingService) { }
 
     private addConfigCharacterStats(stats: Array<MergedStat>, config: CharacterConfig) {
         const configEntries = <Array<[string, number]>>Object.entries(config);
@@ -119,9 +86,9 @@ export class SlormancerStatsService {
                 allowMinMax: false,
                 precision: 0,
                 stat: 'based_on_mastery_' + sau.skill.id,
-                total: sau.skill.baseLevel,
+                total: sau.skill.level,
                 values: {
-                    flat: [sau.skill.baseLevel],
+                    flat: [sau.skill.level],
                     max: [],
                     percent: [],
                     maxPercent: [],
@@ -168,7 +135,7 @@ export class SlormancerStatsService {
         const extractedStats = this.slormancerStatsExtractorService.extractCharacterStats(character, config, additionalItem, mapping);
         
         result.extractedStats = extractedStats.stats;
-        result.stats = this.buildMergedStats(extractedStats.stats, mapping, config);
+        result.stats = this.slormancerStatMappingService.buildMergedStats(extractedStats.stats, mapping, config);
 
         this.addConfigCharacterStats(result.stats, config);
 
@@ -176,7 +143,7 @@ export class SlormancerStatsService {
             this.slormancerStatUpdaterService.updateStatTotal(stats);
         }
 
-        const synergyResult = this.slormancerSynergyResolverService.resolveSynergies(extractedStats.synergies, result.stats, extractedStats.stats);
+        const synergyResult = this.slormancerSynergyResolverService.resolveSynergies(extractedStats.synergies, result.stats, extractedStats.stats, config);
         result.unresolvedSynergies = synergyResult.unresolved;
         result.resolvedSynergies = synergyResult.resolved;
         result.unlockedAncestralLegacies = valueOrDefault(extractedStats.stats['unlock_ancestral_legacy_max_rank'], []);
@@ -276,15 +243,23 @@ export class SlormancerStatsService {
         this.slormancerStatsExtractorService.extractSkillInfoStats(character, skillAndUpgrades, extractedStats);
 
         result.extractedStats = extractedStats.stats;
-        result.stats = this.buildMergedStats(extractedStats.stats, mapping, config);
+        result.stats = this.slormancerStatMappingService.buildMergedStats(extractedStats.stats, mapping, config);
         this.addSkillStats(result.stats, character.skills);
 
         for (const stats of result.stats) {
             this.slormancerStatUpdaterService.updateStatTotal(stats);
         }
 
-        const synergyResult = this.slormancerSynergyResolverService.resolveSynergies(extractedStats.synergies, result.stats, extractedStats.stats);
+        if (skillAndUpgrades.skill.id === 10) {
+            console.log('avant synergies : ', result.stats.find(a => a.stat == 'cooldown_time')?.total);
+        }
+
+        const synergyResult = this.slormancerSynergyResolverService.resolveSynergies(extractedStats.synergies, result.stats, extractedStats.stats, config);
         result.unresolvedSynergies = synergyResult.unresolved;
+
+        if (skillAndUpgrades.skill.id === 10) {
+            console.log('apres synergies : ', result.stats.find(a => a.stat == 'cooldown_time')?.total);
+        }
 
         this.slormancerSynergyResolverService.resolveIsolatedSynergies(extractedStats.isolatedSynergies, result.stats, extractedStats.stats);
 

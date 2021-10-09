@@ -107,7 +107,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         precision: 4,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'cooldown_time_add' }],
+            flat: [
+                { stat: 'cooldown_time_add' },
+                { stat: 'orb_arcane_master_cooldown_time_add', condition: (_, stats) => !hasStat(stats, 'disable_orb_arcane_master_maluses') },
+            ],
             max: [],
             percent: [],
             maxPercent: [],
@@ -479,6 +482,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'crit_chance_percent_if_obliteration', condition: (_, stats) => hasStat(stats, 'skill_is_obliteration') },
                 { stat: 'crit_chance_percent_per_same_emblems', multiplier: (config, stats) => hasStat(stats, 'skill_is_temporal') ? config.temporal_emblems : hasStat(stats, 'skill_is_arcanic') ? config.arcanic_emblems : config.obliteration_emblems },
                 { stat: 'crit_chance_percent_if_remnant_and_target_in_breach', condition: config => config.is_remnant && config.target_is_in_breach_range },
+                { stat: 'crit_chance_percent_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
             ],
             max: [],
             percent: [],
@@ -506,6 +510,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'burning_shadow_buff_crit_damage_percent', condition: config => config.has_burning_shadow_buff },
                 { stat: 'mighty_swing_cadence_whirlwind_crit_damage_percent', condition: (_, stats) => [3, 6, 9].includes(getFirstStat(stats, 'skill_id')) },
                 { stat: 'crit_damage_percent_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
+                { stat: 'crit_damage_percent_per_obliteration_emblem', condition: config => config.obliteration_emblems > 0, multiplier: config => config.obliteration_emblems },
             ],
             max: [],
             percent: [],
@@ -532,7 +537,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 {
                     stat: 'ancestral_stab_slash_buff_brut_chance_percent',
                     condition: config => config.has_ancestral_stab_slash_buff, 
-                }
+                },
+                { stat: 'brut_chance_percent_per_temporal_emblem', condition: config => config.temporal_emblems > 0, multiplier: config => config.temporal_emblems },
             ],
             max: [],
             percent: [],
@@ -1407,7 +1413,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             max: [],
             percent: [],
             maxPercent: [],
-            multiplier: [],
+            multiplier: [{ stat: 'physical_damage_mult' }],
             maxMultiplier: [],
         } 
     },
@@ -1541,6 +1547,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'traumatized_stack_double_damages', condition: config => config.enemy_traumatized_stacks > 0, multiplier: (config, stats) => Math.pow(2, Math.min(config.enemy_traumatized_stacks, getFirstStat(stats, 'traumatized_max_stacks'))) },
                 { stat: 'obliteration_breach_stack_skill_increased_damage_mult', condition: config => config.obliteration_breach_collision_stacks > 0, multiplier: (config, stats) => Math.min(config.obliteration_breach_collision_stacks, getFirstStat(stats, 'breach_collision_max_stacks')) },
                 { stat: 'skill_increased_damage_mult_per_obliteration_emblem', condition: config => config.obliteration_emblems > 0, multiplier: config => config.obliteration_emblems },
+                { stat: 'orb_arcane_master_skill_decreased_damage_mult', condition: (_, stats) => !hasStat(stats, 'disable_orb_arcane_master_maluses'), multiplier: () => -1 },
+                { stat: 'skill_decreased_damage_mult_if_only_obliteration', condition: config => config.temporal_emblems === 0 && config.arcanic_emblems === 0 },
             ],
             maxMultiplier: [
                 { stat: 'skill_increased_max_damage_mult' },
