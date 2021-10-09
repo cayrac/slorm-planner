@@ -212,7 +212,7 @@ export class SlormancerStatsService {
         return result;
     }
 
-    private applySkillSpecialChanges(character: Character, skillAndUpgrades: CharacterSkillAndUpgrades, extractedStats: ExtractedStats) {
+    private applySkillSpecialChanges(character: Character, skillAndUpgrades: CharacterSkillAndUpgrades, config: CharacterConfig, extractedStats: ExtractedStats) {
         skillAndUpgrades.skill.costType = skillAndUpgrades.skill.baseCostType;
         skillAndUpgrades.skill.genres = skillAndUpgrades.skill.baseGenres.slice(0);
         
@@ -228,22 +228,26 @@ export class SlormancerStatsService {
                 damageValue.source = physicalDamage ? 'physical_damage' : 'elemental_damage';
             }
         }
-        
-        if (extractedStats.stats['cast_by_clone'] !== undefined) {
-            skillAndUpgrades.skill.genres.push(SkillGenre.Totem);
-        }
-        
-        if (extractedStats.stats['skill_is_now_temporal'] !== undefined) {
-            const index = skillAndUpgrades.skill.genres.findIndex(genre => genre === SkillGenre.Arcanic || genre === SkillGenre.Obliteration)
-            if (index !== -1) {
-                skillAndUpgrades.skill.genres.splice(index, 1, SkillGenre.Temporal);
+
+        if (character.heroClass === HeroClass.Mage) {
+            if (extractedStats.stats['cast_by_clone'] !== undefined) {
+                skillAndUpgrades.skill.genres.push(SkillGenre.Totem);
             }
-        }
-        
-        if (extractedStats.stats['skill_is_now_obliteration'] !== undefined) {
-            const index = skillAndUpgrades.skill.genres.findIndex(genre => genre === SkillGenre.Arcanic || genre === SkillGenre.Temporal)
-            if (index !== -1) {
-                skillAndUpgrades.skill.genres.splice(index, 1, SkillGenre.Obliteration);
+
+            let newMagicSchool: SkillGenre | null = null; // config
+            if (character.heroClass === HeroClass.Mage && skillAndUpgrades.skill.id === 8) {
+                newMagicSchool = config.attunment_pulse_current_school;
+            } else if (extractedStats.stats['skill_is_now_temporal'] !== undefined) {
+                newMagicSchool = SkillGenre.Temporal;
+            } else if (extractedStats.stats['skill_is_now_obliteration'] !== undefined) {
+                newMagicSchool = SkillGenre.Obliteration;
+            }
+    
+            if (newMagicSchool !== null) {
+                const index = skillAndUpgrades.skill.genres.findIndex(genre => genre === SkillGenre.Arcanic || genre === SkillGenre.Temporal || genre === SkillGenre.Obliteration)
+                if (index !== -1) {
+                    skillAndUpgrades.skill.genres.splice(index, 1, newMagicSchool);
+                }
             }
         }
 
@@ -268,7 +272,7 @@ export class SlormancerStatsService {
         }
         const mapping = [...GLOBAL_MERGED_STATS_MAPPING, ...HERO_MERGED_STATS_MAPPING[character.heroClass], ...valueOrDefault(SKILL_MERGED_STATS_MAPPING[character.heroClass][skillAndUpgrades.skill.id], []) ];
         const extractedStats = this.slormancerStatsExtractorService.extractSkillStats(skillAndUpgrades, characterStats, mapping);
-        this.applySkillSpecialChanges(character, skillAndUpgrades, extractedStats)
+        this.applySkillSpecialChanges(character, skillAndUpgrades, config, extractedStats)
         this.slormancerStatsExtractorService.extractSkillInfoStats(character, skillAndUpgrades, extractedStats);
 
         result.extractedStats = extractedStats.stats;

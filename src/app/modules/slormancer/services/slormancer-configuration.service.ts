@@ -4,11 +4,13 @@ import { MAX_HERO_LEVEL } from '../constants/common';
 import { Character } from '../model/character';
 import { CharacterConfig } from '../model/character-config';
 import { SkillCostType } from '../model/content/enum/skill-cost-type';
+import { SkillGenre } from '../model/content/enum/skill-genre';
 
 @Injectable()
 export class SlormancerConfigurationService {
 
     private readonly DEFAULT_CONFIG: CharacterConfig = {
+        attunment_pulse_current_school: SkillGenre.Arcanic,
         completed_achievements: 0,
         active_inner_fire: 0,
         mana_lost_last_second: 0,
@@ -55,6 +57,9 @@ export class SlormancerConfigurationService {
         target_is_splintered: false,
         target_has_broken_armor: false,
         target_has_remnant_vulnerability: false,
+        target_has_arcane_discordance: true,
+        target_has_temporal_discordance: true,
+        target_has_obliteration_discordance: true,
         is_first_hit: false,
         is_hit_blocked: true,
         is_last_volley: false,
@@ -150,6 +155,7 @@ export class SlormancerConfigurationService {
     }
 
     private readonly COMBAT_CONFIG: CharacterConfig = {
+        attunment_pulse_current_school: SkillGenre.Arcanic,
         completed_achievements: 0,
         active_inner_fire: 0,
         mana_lost_last_second: 0,
@@ -196,6 +202,9 @@ export class SlormancerConfigurationService {
         target_is_splintered: false,
         target_has_broken_armor: false,
         target_has_remnant_vulnerability: false,
+        target_has_arcane_discordance: true,
+        target_has_temporal_discordance: true,
+        target_has_obliteration_discordance: true,
         is_first_hit: false,
         is_hit_blocked: false,
         is_last_volley: false,

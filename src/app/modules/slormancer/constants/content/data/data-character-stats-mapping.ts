@@ -338,6 +338,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             flat: [
                 { stat: 'mana_on_hit_add' },
                 { stat: 'banner_regeneration_buff_mana_on_hit_add', condition: config => config.has_banner_regeneration_buff },
+                { stat: 'mana_on_hit_add_if_target_has_arcanic_discordance', condition: config => config.target_has_arcane_discordance },
             ],
             max: [],
             percent: [{ stat: 'mana_on_hit_percent' }],
@@ -470,6 +471,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'crit_chance_percent_if_target_is_time_locked', condition: config => config.target_is_time_locked },
                 { stat: 'crit_chance_percent_if_book_smash_or_chrono_puncture', condition: (_, stats) => [5, 7].includes(getFirstStat(stats, 'skill_id')) },
                 { stat: 'remnant_crit_chance_percent', condition: config => config.is_remnant },
+                { stat: 'crit_chance_percent_if_obliteration', condition: (_, stats) => hasStat(stats, 'skill_is_obliteration') },
+                { stat: 'crit_chance_percent_per_same_emblems', multiplier: (config, stats) => hasStat(stats, 'skill_is_temporal') ? config.temporal_emblems : hasStat(stats, 'skill_is_arcanic') ? config.arcanic_emblems : config.obliteration_emblems },
             ],
             max: [],
             percent: [],

@@ -1,4 +1,7 @@
+import { SkillGenre } from './content/enum/skill-genre';
+
 export interface CharacterConfig {
+    attunment_pulse_current_school: SkillGenre;
     completed_achievements: number;
     active_inner_fire: number;
     mana_lost_last_second: number;
@@ -43,6 +46,9 @@ export interface CharacterConfig {
     target_has_broken_armor: boolean;
     target_has_negative_effect: boolean;
     target_has_remnant_vulnerability: boolean;
+    target_has_arcane_discordance: boolean;
+    target_has_temporal_discordance: boolean;
+    target_has_obliteration_discordance: boolean;
     is_first_hit: boolean;
     is_hit_blocked: boolean;
     is_last_volley: boolean;
