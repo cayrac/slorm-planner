@@ -326,34 +326,6 @@ export class SlormancerValueUpdater {
                 
         skill.cost = Math.max(0, skillStats.mana.total);
         skill.cooldown = Math.max(0, round(skillStats.cooldown.total * (100 - skillStats.attackSpeed.total) / 100, 2));
-        skill.costType = skill.baseCostType;
-        skill.genres = skill.baseGenres.slice(0);
-        
-        if (statsResult.extractedStats['cast_by_clone'] !== undefined) {
-            skill.genres.push(SkillGenre.Totem);
-        }
-        
-        if (statsResult.extractedStats['skill_is_now_temporal'] !== undefined) {
-            const index = skill.genres.findIndex(genre => genre === SkillGenre.Arcanic || genre === SkillGenre.Obliteration)
-            if (index !== -1) {
-                skill.genres.splice(index, 1, SkillGenre.Temporal);
-            }
-        }
-        
-        if (statsResult.extractedStats['skill_is_now_obliteration'] !== undefined) {
-            const index = skill.genres.findIndex(genre => genre === SkillGenre.Arcanic || genre === SkillGenre.Temporal)
-            if (index !== -1) {
-                skill.genres.splice(index, 1, SkillGenre.Obliteration);
-            }
-        }
-
-        if (statsResult.extractedStats['no_longer_cost_per_second'] !== undefined) {
-            if (skill.costType === SkillCostType.ManaSecond) {
-                skill.costType = SkillCostType.Mana;
-            } else if (skill.costType === SkillCostType.LifeSecond) {
-                skill.costType = SkillCostType.Life;
-            }
-        }
 
         const damageValues = skill.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
 

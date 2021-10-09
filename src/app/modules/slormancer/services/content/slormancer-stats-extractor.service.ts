@@ -358,7 +358,67 @@ export class SlormancerStatsExtractorService {
         return result;
     }
 
-    private addSkillInfoValues(character: Character, skillAndUpgrades: CharacterSkillAndUpgrades, extractedStats: ExtractedStats) {
+    private addSkillValues(skillAndUpgrades: CharacterSkillAndUpgrades, extractedStats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
+        for (const skillValue of skillAndUpgrades.skill.values) {
+                if (isEffectValueSynergy(skillValue)) {
+                    if (!isDamageType(skillValue.stat) && skillValue.valueType !== EffectValueValueType.Upgrade) {
+                        extractedStats.synergies.push(synergyResolveData(skillValue, skillValue.synergy, { skill: skillAndUpgrades.skill }, this.getSynergyStatsItWillUpdate(skillValue.stat, mergedStatMapping)));
+                    } else {
+                        extractedStats.isolatedSynergies.push(synergyResolveData(skillValue, skillValue.synergy, { skill: skillAndUpgrades.skill }));
+                    }
+                } else if (skillValue.valueType === EffectValueValueType.Upgrade) {
+                    this.addStat(extractedStats.stats, skillValue.stat, skillValue.value);
+                }
+        }
+    }
+
+    private addUpgradeValues(skillAndUpgrades: CharacterSkillAndUpgrades, extractedStats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
+        for (const upgrade of skillAndUpgrades.upgrades) {
+            const equipped = skillAndUpgrades.selectedUpgrades.includes(upgrade.id);
+            for (const upgradeValue of upgrade.values) {
+                if (upgradeValue.valueType === EffectValueValueType.Upgrade) {
+                    if (isEffectValueSynergy(upgradeValue)) {
+                        if (equipped && !isDamageType(upgradeValue.stat)) {
+                            extractedStats.synergies.push(synergyResolveData(upgradeValue, upgradeValue.synergy, { upgrade }, this.getSynergyStatsItWillUpdate(upgradeValue.stat, mergedStatMapping)));
+                        } else {
+                            extractedStats.isolatedSynergies.push(synergyResolveData(upgradeValue, upgradeValue.synergy, { upgrade }));
+                        }
+                    } else if (equipped) {
+                        this.addStat(extractedStats.stats, upgradeValue.stat, upgradeValue.value);
+                    }
+                }
+            }
+
+            if (equipped && upgrade.cost !== 0) {
+                this.addStat(extractedStats.stats, 'mana_cost_add', upgrade.cost);
+            }
+        }
+    }
+
+    public extractSkillStats(skillAndUpgrades: CharacterSkillAndUpgrades, characterStats: CharacterStatsBuildResult, mergedStatMapping: Array<MergedStatMapping>): ExtractedStats {
+        const result: ExtractedStats = {
+            synergies:  [],
+            isolatedSynergies:  [],
+            stats: {},
+        }
+
+        const characterSynergies = [...characterStats.resolvedSynergies, ...characterStats.unresolvedSynergies];
+        for (const synergy of characterSynergies) {
+            synergy.statsItWillUpdate = this.getSynergyStatsItWillUpdate(synergy.effect.stat, mergedStatMapping);
+        }
+        result.synergies = characterSynergies;
+
+        for (const stat in characterStats.extractedStats) {
+            result.stats[stat] = (<Array<number>>characterStats.extractedStats[stat]).slice(0);
+        }
+
+        this.addSkillValues(skillAndUpgrades, result, mergedStatMapping)
+        this.addUpgradeValues(skillAndUpgrades, result, mergedStatMapping)
+        
+        return result;
+    }
+
+    public extractSkillInfoStats(character: Character, skillAndUpgrades: CharacterSkillAndUpgrades, extractedStats: ExtractedStats) {
         if (skillAndUpgrades.skill.type === SkillType.Support) {
             extractedStats.stats['skill_is_support'] = [1];
         }
@@ -404,66 +464,5 @@ export class SlormancerStatsExtractorService {
         if (character.secondarySkill) {
             extractedStats.stats['secondary_skill'] = [character.secondarySkill.id];
         }
-    }
-
-    private addSkillValues(skillAndUpgrades: CharacterSkillAndUpgrades, extractedStats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
-        for (const skillValue of skillAndUpgrades.skill.values) {
-                if (isEffectValueSynergy(skillValue)) {
-                    if (!isDamageType(skillValue.stat) && skillValue.valueType !== EffectValueValueType.Upgrade) {
-                        extractedStats.synergies.push(synergyResolveData(skillValue, skillValue.synergy, { skill: skillAndUpgrades.skill }, this.getSynergyStatsItWillUpdate(skillValue.stat, mergedStatMapping)));
-                    } else {
-                        extractedStats.isolatedSynergies.push(synergyResolveData(skillValue, skillValue.synergy, { skill: skillAndUpgrades.skill }));
-                    }
-                } else if (skillValue.valueType === EffectValueValueType.Upgrade) {
-                    this.addStat(extractedStats.stats, skillValue.stat, skillValue.value);
-                }
-        }
-    }
-
-    private addUpgradeValues(skillAndUpgrades: CharacterSkillAndUpgrades, extractedStats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
-        for (const upgrade of skillAndUpgrades.upgrades) {
-            const equipped = skillAndUpgrades.selectedUpgrades.includes(upgrade.id);
-            for (const upgradeValue of upgrade.values) {
-                if (upgradeValue.valueType === EffectValueValueType.Upgrade) {
-                    if (isEffectValueSynergy(upgradeValue)) {
-                        if (equipped && !isDamageType(upgradeValue.stat)) {
-                            extractedStats.synergies.push(synergyResolveData(upgradeValue, upgradeValue.synergy, { upgrade }, this.getSynergyStatsItWillUpdate(upgradeValue.stat, mergedStatMapping)));
-                        } else {
-                            extractedStats.isolatedSynergies.push(synergyResolveData(upgradeValue, upgradeValue.synergy, { upgrade }));
-                        }
-                    } else if (equipped) {
-                        this.addStat(extractedStats.stats, upgradeValue.stat, upgradeValue.value);
-                    }
-                }
-            }
-
-            if (equipped && upgrade.cost !== 0) {
-                this.addStat(extractedStats.stats, 'mana_cost_add', upgrade.cost);
-            }
-        }
-    }
-
-    public extractSkillStats(character: Character, skillAndUpgrades: CharacterSkillAndUpgrades, config: CharacterConfig, characterStats: CharacterStatsBuildResult, mergedStatMapping: Array<MergedStatMapping>): ExtractedStats {
-        const result: ExtractedStats = {
-            synergies:  [],
-            isolatedSynergies:  [],
-            stats: {},
-        }
-
-        const characterSynergies = [...characterStats.resolvedSynergies, ...characterStats.unresolvedSynergies];
-        for (const synergy of characterSynergies) {
-            synergy.statsItWillUpdate = this.getSynergyStatsItWillUpdate(synergy.effect.stat, mergedStatMapping);
-        }
-        result.synergies = characterSynergies;
-
-        for (const stat in characterStats.extractedStats) {
-            result.stats[stat] = (<Array<number>>characterStats.extractedStats[stat]).slice(0);
-        }
-
-        this.addSkillInfoValues(character, skillAndUpgrades, result);
-        this.addSkillValues(skillAndUpgrades, result, mergedStatMapping)
-        this.addUpgradeValues(skillAndUpgrades, result, mergedStatMapping)
-        
-        return result;
     }
 }

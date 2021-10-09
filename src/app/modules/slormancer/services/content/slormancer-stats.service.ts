@@ -14,13 +14,15 @@ import { AncestralLegacy } from '../../model/content/ancestral-legacy';
 import { AttributeTraits } from '../../model/content/attribut-traits';
 import { MergedStat, SynergyResolveData } from '../../model/content/character-stats';
 import { HeroClass } from '../../model/content/enum/hero-class';
+import { SkillCostType } from '../../model/content/enum/skill-cost-type';
+import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { EquipableItem } from '../../model/content/equipable-item';
 import { Reaper } from '../../model/content/reaper';
 import { Skill } from '../../model/content/skill';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { MinMax } from '../../model/minmax';
 import { isDamageType, isEffectValueSynergy, valueOrDefault } from '../../util/utils';
-import { ExtractedStatMap, SlormancerStatsExtractorService } from './slormancer-stats-extractor.service';
+import { ExtractedStatMap, ExtractedStats, SlormancerStatsExtractorService } from './slormancer-stats-extractor.service';
 import { SlormancerStatUpdaterService } from './slormancer-stats-updater.service';
 import { SlormancerSynergyResolverService } from './slormancer-synergy-resolver.service';
 
@@ -210,21 +212,10 @@ export class SlormancerStatsService {
         return result;
     }
 
-    public updateSkillStats(character: Character, skillAndUpgrades: CharacterSkillAndUpgrades, config: CharacterConfig, characterStats: CharacterStatsBuildResult): SkillStatsBuildResult {
-        const result: SkillStatsBuildResult = {
-            unresolvedSynergies: [],
-            extractedStats: {},
-            stats: [],
-            changed: {
-                skills: [],
-                upgrades: []
-            }
-        }
-        const mapping = [...GLOBAL_MERGED_STATS_MAPPING, ...HERO_MERGED_STATS_MAPPING[character.heroClass], ...valueOrDefault(SKILL_MERGED_STATS_MAPPING[character.heroClass][skillAndUpgrades.skill.id], []) ];
-
-        const extractedStats = this.slormancerStatsExtractorService.extractSkillStats(character, skillAndUpgrades, config, characterStats, mapping);
-
-        // Spécial changes
+    private applySkillSpecialChanges(character: Character, skillAndUpgrades: CharacterSkillAndUpgrades, extractedStats: ExtractedStats) {
+        skillAndUpgrades.skill.costType = skillAndUpgrades.skill.baseCostType;
+        skillAndUpgrades.skill.genres = skillAndUpgrades.skill.baseGenres.slice(0);
+        
         if (character.heroClass === HeroClass.Huntress && skillAndUpgrades.skill.id === 4) {
             const physicalDamage = extractedStats.stats['damage_type_to_elemental'] === undefined;
             
@@ -237,6 +228,48 @@ export class SlormancerStatsService {
                 damageValue.source = physicalDamage ? 'physical_damage' : 'elemental_damage';
             }
         }
+        
+        if (extractedStats.stats['cast_by_clone'] !== undefined) {
+            skillAndUpgrades.skill.genres.push(SkillGenre.Totem);
+        }
+        
+        if (extractedStats.stats['skill_is_now_temporal'] !== undefined) {
+            const index = skillAndUpgrades.skill.genres.findIndex(genre => genre === SkillGenre.Arcanic || genre === SkillGenre.Obliteration)
+            if (index !== -1) {
+                skillAndUpgrades.skill.genres.splice(index, 1, SkillGenre.Temporal);
+            }
+        }
+        
+        if (extractedStats.stats['skill_is_now_obliteration'] !== undefined) {
+            const index = skillAndUpgrades.skill.genres.findIndex(genre => genre === SkillGenre.Arcanic || genre === SkillGenre.Temporal)
+            if (index !== -1) {
+                skillAndUpgrades.skill.genres.splice(index, 1, SkillGenre.Obliteration);
+            }
+        }
+
+        if (extractedStats.stats['no_longer_cost_per_second'] !== undefined) {
+            if (skillAndUpgrades.skill.costType === SkillCostType.ManaSecond) {
+                skillAndUpgrades.skill.costType = SkillCostType.Mana;
+            } else if (skillAndUpgrades.skill.costType === SkillCostType.LifeSecond) {
+                skillAndUpgrades.skill.costType = SkillCostType.Life;
+            }
+        }
+    }
+
+    public updateSkillStats(character: Character, skillAndUpgrades: CharacterSkillAndUpgrades, config: CharacterConfig, characterStats: CharacterStatsBuildResult): SkillStatsBuildResult {
+        const result: SkillStatsBuildResult = {
+            unresolvedSynergies: [],
+            extractedStats: {},
+            stats: [],
+            changed: {
+                skills: [],
+                upgrades: []
+            }
+        }
+        const mapping = [...GLOBAL_MERGED_STATS_MAPPING, ...HERO_MERGED_STATS_MAPPING[character.heroClass], ...valueOrDefault(SKILL_MERGED_STATS_MAPPING[character.heroClass][skillAndUpgrades.skill.id], []) ];
+        const extractedStats = this.slormancerStatsExtractorService.extractSkillStats(skillAndUpgrades, characterStats, mapping);
+        this.applySkillSpecialChanges(character, skillAndUpgrades, extractedStats)
+        this.slormancerStatsExtractorService.extractSkillInfoStats(character, skillAndUpgrades, extractedStats);
 
         result.extractedStats = extractedStats.stats;
         result.stats = this.buildMergedStats(extractedStats.stats, mapping, config);
