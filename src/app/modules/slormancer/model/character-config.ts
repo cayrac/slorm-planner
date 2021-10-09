@@ -12,6 +12,7 @@ export interface CharacterConfig {
     temporal_emblems: number;
     obliteration_emblems: number;
     enemy_under_command: number;
+    enemies_in_breach_range: number;
     elite_under_command: number;
     last_cast_tormented: boolean;
     last_cast_delighted: boolean;
@@ -37,12 +38,14 @@ export interface CharacterConfig {
     pierces_before_hit: number;
     enemies_in_aoe: number;
     enemies_affected_by_latent_storm: number;
+    clone_is_in_breach_range: boolean;
     target_is_close: boolean;
     target_is_isolated: boolean;
     target_is_tracked: boolean;
     target_is_skewered: boolean;
     target_is_splintered: boolean;
     target_is_time_locked: boolean;
+    target_is_in_breach_range: boolean;
     target_has_broken_armor: boolean;
     target_has_negative_effect: boolean;
     target_has_remnant_vulnerability: boolean;
@@ -104,6 +107,10 @@ export interface CharacterConfig {
     chrono_speed_stacks: number,
     enemy_bleed_stacks: number;
     enemy_traumatized_stacks: number;
+    arcane_flux_stacks: number;
+    arcane_breach_collision_stacks: number;
+    temporal_breach_collision_stacks: number;
+    obliteration_breach_collision_stacks: number;
     has_aura_air_conditionner: boolean;
     has_aura_neriya_shield: boolean;
     has_aura_elemental_swap: boolean;

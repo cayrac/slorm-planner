@@ -3509,8 +3509,10 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 4);
+            setAsUpgrade(values, 0);
             setStat(values, 0, 'elemental_damage');
             setUpgrade(values, 1, 2);
+            setAsUpgrade(values, 1);
         },
         additionalClassMechanics: [],
         additionalGenres: [SkillGenre.Arcanic]
@@ -3518,10 +3520,12 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     9: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'elemental_damage');
             setUpgrade(values, 0, 3);
-            addConstant(values, 7, false, EffectValueValueType.Duration, 'skill_2_9_duration');
-            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'skill_2_9_aoe');
-            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_2_9_tick_per_second');
+            setAsUpgrade(values, 0);
+            addConstant(values, 7, false, EffectValueValueType.Duration, 'skill_duration');
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'aoe');
+            addConstant(values, 2, false, EffectValueValueType.Upgrade, 'ticks_per_second');
         },
         additionalClassMechanics: [],
         additionalGenres: [SkillGenre.Arcanic]
@@ -4314,101 +4318,153 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         additionalClassMechanics: []
     },
     108: {
-        masteryRequired: 9,
-        override: values => { },
+        masteryRequired: 2,
+        override: values => {
+            setStat(values, 0, 'tempore_clone_spawn_chance_on_breach_end');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     109: {
-        masteryRequired: 9,
-        override: values => { },
+        masteryRequired: 2,
+        override: values => {
+            setStat(values, 0, 'the_max_mana_percent_per_enemy_in_breach_range');
+            setAsUpgrade(values, 0);
+            setStat(values, 1, 'mana_regen_add_per_enemy_in_breach_range');
+            setAsUpgrade(values, 1);
+        },
         additionalClassMechanics: []
     },
     110: {
-        masteryRequired: 9,
-        override: values => { },
+        masteryRequired: 2,
+        override: values => {
+            setStat(values, 0, 'first_tick_skill_increased_damage_mult');
+            synergyMultiply100(values, 0);
+            setSynergyPrecision(values, 0, 0);
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     111: {
-        masteryRequired: 9,
+        masteryRequired: 3,
         override: values => {
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'skill_increased_mana_cost_per_arcanic_emblem');
+            setStat(values, 0, 'cooldown_time_reduction_multiplier');
+            setAsUpgrade(values, 0);
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'mana_cost_mult_per_arcanic_emblem');
         },
         additionalClassMechanics: []
     },
     112: {
-        masteryRequired: 9,
-        override: values => { },
+        masteryRequired: 3,
+        override: values => {
+            setStat(values, 0, 'cooldown_time_reduction_multiplier');
+            setAsUpgrade(values, 0);
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'skill_decreased_damage_mult');
+        },
         additionalClassMechanics: []
     },
     113: {
-        masteryRequired: 9,
-        override: values => { },
+        masteryRequired: 4,
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'refresh_arcane_bond_on_hit');
+        },
         additionalClassMechanics: []
     },
     114: {
-        masteryRequired: 9,
+        masteryRequired: 4,
         override: values => {
-            addConstant(values, 2, false, EffectValueValueType.Duration, 'skill_delay_spawn');
+            setStat(values, 0, 'aoe_increased_size_percent');
+            setAsUpgrade(values, 0);
+            addConstant(values, 2, false, EffectValueValueType.Upgrade, 'delay_spawn');
         },
         additionalClassMechanics: []
     },
     115: {
-        masteryRequired: 9,
-        override: values => { },
+        masteryRequired: 5,
+        override: values => {
+            setStat(values, 0, 'crit_chance_percent_if_remnant_and_target_in_breach');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     116: {
-        masteryRequired: 9,
-        override: values => { },
+        masteryRequired: 5,
+        override: values => {
+            setStat(values, 0, 'arcane_bond_increased_damage_mult_if_in_breach_range');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     117: {
-        masteryRequired: 9,
-        override: values => { },
+        masteryRequired: 6,
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'teleport_on_breach_touch');
+        },
         additionalClassMechanics: []
     },
     118: {
-        masteryRequired: 9,
+        masteryRequired: 6,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_arcane_flux_increased_attack_speed');
-            addConstant(values, 2, false, EffectValueValueType.Duration, 'skill_arcane_flux_duration');
+            setStat(values, 0, 'arcane_flux_max_stacks');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'arcane_flux_stack_cooldown_reduction_global_mult');
+            addConstant(values, 2, false, EffectValueValueType.Stat, 'arcane_flux_duration');
         },
         additionalClassMechanics: []
     },
     119: {
-        masteryRequired: 9,
+        masteryRequired: 7,
         override: values => {
-            addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_duration');
+            setStat(values, 0, 'aoe_increased_size_percent');
+            setAsUpgrade(values, 0);
+            addConstant(values, 3, false, EffectValueValueType.Upgrade, 'garbage_stat');
+            addConstant(values, 4, false, EffectValueValueType.Upgrade, 'skill_duration_reduction');
         },
         additionalClassMechanics: []
     },
     120: {
-        masteryRequired: 9,
+        masteryRequired: 8,
         override: values => {
-            addConstant(values, 10, false, EffectValueValueType.Flat, 'skill_collision_max_stack');
+            setStat(values, 0, 'arcane_breach_collision_stack_aoe_increased_size_percent');
+            setAsUpgrade(values, 0);
+            setStat(values, 1, 'temporal_breach_collision_stack_duration_add');
+            setAsUpgrade(values, 1);
+            setStat(values, 2, 'obliteration_breach_stack_skill_increased_damage_mult');
+            setAsUpgrade(values, 2);
+            addConstant(values, 10, false, EffectValueValueType.Upgrade, 'breach_collision_max_stacks');
         },
         additionalClassMechanics: []
     },
     121: {
-        masteryRequired: 9,
-        override: values => { },
+        masteryRequired: 8,
+        override: values => {
+            setStat(values, 0, 'arcane_clone_cooldown_reduction_global_mult_if_in_breach');
+            setAsUpgrade(values, 0);
+            
+        },
         additionalClassMechanics: []
     },
     122: {
-        masteryRequired: 9,
+        masteryRequired: 8,
         override: values => {
-            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'skill_arcane_explosion_aoe');
+            setStat(values, 0, 'elemental_damage');
+            setAsUpgrade(values, 0);
+            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'arcane_explosion_aoe');
         },
         additionalClassMechanics: []
     },
     123: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'pull_enemies_in_range');
+        },
         additionalClassMechanics: []
     },
     124: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'skill_increased_damage_mult_per_obliteration_emblem');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     125: {

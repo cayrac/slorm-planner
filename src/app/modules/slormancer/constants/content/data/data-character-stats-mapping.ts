@@ -97,6 +97,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'cost_reduction_mult_per_arcanic_emblem_if_not_arcanic', condition: (config, stats) => config.arcanic_emblems > 0 && !hasStat(stats, 'skill_is_arcanic'), multiplier: config => - config.arcanic_emblems },
                 { stat: 'mana_cost_mult_if_low_mana', condition: (config, stats) => (100 - config.percent_missing_mana) < getFirstStat(stats, 'mana_cost_mult_if_low_mana_treshold') },
                 { stat: 'mana_cost_reduction_mult_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => - config.arcanic_emblems },
+                { stat: 'mana_cost_mult_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
             ],
             maxMultiplier: [],
         } 
@@ -292,6 +293,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [
                 { stat: 'the_max_mana_percent' },
                 { stat: 'chrono_manamorphosis_stack_the_max_mana_percent', condition: config => config.chrono_manamorphosis_stacks > 0, multiplier: (config, stats) => Math.min(config.chrono_manamorphosis_stacks, getFirstStat(stats, 'chrono_manamorphosis_max_stacks') + getFirstStat(stats, 'increased_max_chrono_stacks')) },
+                { stat: 'the_max_mana_percent_per_enemy_in_breach_range', condition: config => config.enemies_in_breach_range > 0, multiplier: config => config.enemies_in_breach_range },
             ],
             maxPercent: [],
             multiplier: [{ stat: 'the_max_mana_global_mult' }],
@@ -305,7 +307,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'mana_regen_add' },
-                { stat: 'mana_regen_add_if_delighted_and_enemy_has_latent_storm', condition: config => config.serenity === DELIGHTED_VALUE && config.enemies_affected_by_latent_storm > 0 }
+                { stat: 'mana_regen_add_if_delighted_and_enemy_has_latent_storm', condition: config => config.serenity === DELIGHTED_VALUE && config.enemies_affected_by_latent_storm > 0 },
+                { stat: 'mana_regen_add_per_enemy_in_breach_range', condition: config => config.enemies_in_breach_range > 0, multiplier: config => config.enemies_in_breach_range },
             ],
             max: [],
             percent: [{ stat: 'mana_regen_percent' }],
@@ -408,7 +411,9 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'banner_haste_buff_cooldown_reduction_global_mult', condition: config => config.has_banner_haste_buff },
                 { stat: 'frenzy_stack_cooldown_reduction_global_mult', condition: config => config.frenzy_stacks > 0, multiplier: (config, stats) => Math.min(config.frenzy_stacks, getFirstStat(stats, 'frenzy_max_stacks')) },
                 { stat: 'arcane_clone_cooldown_reduction_global_mult', condition: (_, stats) => hasStat(stats, 'cast_by_clone' )},
+                { stat: 'arcane_clone_cooldown_reduction_global_mult_if_in_breach', condition: (config, stats) => hasStat(stats, 'cast_by_clone') && config.clone_is_in_breach_range },
                 { stat: 'chrono_speed_stack_cooldown_reduction_global_mult', condition: config => config.chrono_speed_stacks > 0, multiplier: (config, stats) => Math.min(config.chrono_speed_stacks, getFirstStat(stats, 'chrono_speed_max_stacks') + getFirstStat(stats, 'increased_max_chrono_stacks')) },
+                { stat: 'arcane_flux_stack_cooldown_reduction_global_mult', condition: config => config.arcane_flux_stacks > 0, multiplier: (config, stats) => Math.min(config.arcane_flux_stacks, getFirstStat(stats, 'arcane_flux_max_stacks')) },
             ],
             maxMultiplier: [],
         } 
@@ -473,6 +478,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'remnant_crit_chance_percent', condition: config => config.is_remnant },
                 { stat: 'crit_chance_percent_if_obliteration', condition: (_, stats) => hasStat(stats, 'skill_is_obliteration') },
                 { stat: 'crit_chance_percent_per_same_emblems', multiplier: (config, stats) => hasStat(stats, 'skill_is_temporal') ? config.temporal_emblems : hasStat(stats, 'skill_is_arcanic') ? config.arcanic_emblems : config.obliteration_emblems },
+                { stat: 'crit_chance_percent_if_remnant_and_target_in_breach', condition: config => config.is_remnant && config.target_is_in_breach_range },
             ],
             max: [],
             percent: [],
@@ -1250,6 +1256,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             flat: [
                 { stat: 'aoe_increased_size_percent' },
                 { stat: 'max_charged_aoe_increased_size_percent', condition: config => config.rift_nova_fully_charged },
+                { stat: 'arcane_breach_collision_stack_aoe_increased_size_percent', condition: config => config.arcane_breach_collision_stacks > 0, multiplier: (config, stats) => Math.min(config.arcane_breach_collision_stacks, getFirstStat(stats, 'breach_collision_max_stacks')) },
             ],
             max: [],
             percent: [],
@@ -1531,8 +1538,9 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                             ),
                     multiplier: (config, stats) => Math.min(config.chrono_empower_stacks, getFirstStat(stats, 'chrono_empower_max_stacks') + getFirstStat(stats, 'increased_max_chrono_stacks'))
                 },
-                { stat: 'traumatized_stack_double_damages', condition: config => config.enemy_traumatized_stacks > 0, multiplier: (config, stats) => Math.pow(2, Math.min(config.enemy_traumatized_stacks, getFirstStat(stats, 'traumatized_max_stacks'))) }
-
+                { stat: 'traumatized_stack_double_damages', condition: config => config.enemy_traumatized_stacks > 0, multiplier: (config, stats) => Math.pow(2, Math.min(config.enemy_traumatized_stacks, getFirstStat(stats, 'traumatized_max_stacks'))) },
+                { stat: 'obliteration_breach_stack_skill_increased_damage_mult', condition: config => config.obliteration_breach_collision_stacks > 0, multiplier: (config, stats) => Math.min(config.obliteration_breach_collision_stacks, getFirstStat(stats, 'breach_collision_max_stacks')) },
+                { stat: 'skill_increased_damage_mult_per_obliteration_emblem', condition: config => config.obliteration_emblems > 0, multiplier: config => config.obliteration_emblems },
             ],
             maxMultiplier: [
                 { stat: 'skill_increased_max_damage_mult' },
@@ -1563,7 +1571,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             flat: [
                 { stat: 'skill_duration_add' },
                 { stat: 'skill_duration_reduction', multiplier: () => -1 },
-                { stat: 'skill_duration_reduction_if_tormented', condition: config => config.serenity === 0, multiplier: () => -1 }
+                { stat: 'skill_duration_reduction_if_tormented', condition: config => config.serenity === 0, multiplier: () => -1 },
+                { stat: 'temporal_breach_collision_stack_duration_add', condition: config => config.temporal_breach_collision_stacks > 0, multiplier: (config, stats) => Math.min(config.temporal_breach_collision_stacks, getFirstStat(stats, 'breach_collision_max_stacks')) },
             ],
             max: [],
             percent: [],
@@ -1626,19 +1635,20 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
     ],
     2: [
         {
-            stat: 'mana_bond_damage',
+            stat: 'arcane_bond_damage',
             precision: 0,
             allowMinMax: true,
             source: {
                 flat: [
-                    { stat: 'mana_bond_damage_add' },
-                    { stat: 'mana_bond_damage_add_from_restored_mana', condition: (_, stats) => hasStat(stats, 'percent_restored_mana_as_mana_bond'), multiplier: (_, stats) => getFirstStat(stats, 'percent_restored_mana_as_mana_bond') / 100 },
+                    { stat: 'arcane_bond_damage_add' },
+                    { stat: 'arcane_bond_damage_add_from_restored_mana', condition: (_, stats) => hasStat(stats, 'percent_restored_mana_as_mana_bond'), multiplier: (_, stats) => getFirstStat(stats, 'percent_restored_mana_as_mana_bond') / 100 },
                 ],
                 max: [],
                 percent: [],
                 maxPercent: [],
                 multiplier: [
                     { stat: 'arcane_bond_increased_damage_mult_if_close', condition: config => config.target_is_close },
+                    { stat: 'arcane_bond_increased_damage_mult_if_in_breach_range', condition: config => config.target_is_in_breach_range },
                 ],
                 maxMultiplier: [],
             } 

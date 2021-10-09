@@ -95,9 +95,9 @@ export class SlormancerStatsExtractorService {
         extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'inner_fire_damage_add'), 0, {}, [ { stat: 'inner_fire_damage', mapping } ]));
 
         if (character.heroClass === HeroClass.Mage) {
-            mapping = mergedStatMapping.find(m => m.stat === 'mana_bond_damage');
-            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'mana_lost_last_second', 'mana_bond_damage_add'), 0, {}, [ { stat: 'mana_bond_damage_add', mapping } ]));
-            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'mana_gained_last_second', 'mana_bond_damage_add_from_restored_mana'), 0, {}, [ { stat: 'mana_bond_damage_add_from_restored_mana', mapping } ]));
+            mapping = mergedStatMapping.find(m => m.stat === 'arcane_bond_damage');
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'mana_lost_last_second', 'arcane_bond_damage_add'), 0, {}, [ { stat: 'arcane_bond_damage_add', mapping } ]));
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'mana_gained_last_second', 'arcane_bond_damage_add_from_restored_mana'), 0, {}, [ { stat: 'arcane_bond_damage_add_from_restored_mana', mapping } ]));
         }
 
         return true;
