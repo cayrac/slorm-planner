@@ -3484,9 +3484,11 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     6: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 3);
+            setStat(values, 1, 'elemental_damage');
             setUpgrade(values, 1, 8);
-            addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'skill_2_6_aoe');
+            addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'aoe');
         },
         additionalClassMechanics: [],
         additionalGenres: [SkillGenre.Temporal]
@@ -3906,89 +3908,128 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     58: {
         masteryRequired: 2,
         override: values => {
-            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_emblem_per_cast_count');
+            addConstant(values, 2, false, EffectValueValueType.Upgrade, 'emblems_on_cast');
         },
         additionalClassMechanics: []
     },
     59: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'crit_damage_percent_per_arcanic_emblem');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     60: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'remnant_vulnerability_remnant_increased_damage_mult');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     61: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     62: {
         masteryRequired: 4,
         override: values => {
-            addConstant(values, 4, false, EffectValueValueType.Flat, 'skill_charge_max_time');
+            setStat(values, 0, 'max_charged_aoe_increased_size_percent');
+            setAsUpgrade(values, 0);
+            addConstant(values, 4, false, EffectValueValueType.Upgrade, 'charge_max_time');
         },
         additionalClassMechanics: []
     },
     63: {
         masteryRequired: 4,
-        override: values => { },
+        override: values => { 
+            setStat(values, 0, 'aoe_increased_size_percent');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     64: {
         masteryRequired: 5,
         override: values => {
-            addConstant(values, 10, false, EffectValueValueType.Duration, 'skill_high_spirit_stack_duration');
+            setStat(values, 0, 'high_spirit_stacks_skill_increased_damage_mult');
+            setAsUpgrade(values, 0);
+            addConstant(values, 10, false, EffectValueValueType.Upgrade, 'high_spirit_stack_duration');
         },
         additionalClassMechanics: []
     },
     65: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            addConstant(values, 10, false, EffectValueValueType.Upgrade, 'increased_knockback');
+        },
         additionalClassMechanics: []
     },
     66: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'skill_increased_damage_mult');
+            synergyMultiply100(values, 0);
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     67: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => { 
+            setStat(values, 0, 'crit_chance_percent');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     68: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            addConstant(values, 10, false, EffectValueValueType.Upgrade, 'cast_on_cursor');
+        },
         additionalClassMechanics: []
     },
     69: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'remnant_recast_chance');
+            setAsUpgrade(values, 0);
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'remnant_on_cast');
+        },
         additionalClassMechanics: []
     },
     70: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'cast_by_clone');
+        },
         additionalClassMechanics: []
     },
     71: {
         masteryRequired: 8,
         override: values => {
-            addConstant(values, 2, false, EffectValueValueType.Duration, 'skill_burst_delay');
+            setStat(values, 0, 'cooldown_time_reduction_multiplier');
+            setAsUpgrade(values, 0);
+            addConstant(values, 2, false, EffectValueValueType.Upgrade, 'delay');
         },
         additionalClassMechanics: []
     },
     72: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'skill_increased_damage_mult_per_non_temporal_emblem');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     73: {
         masteryRequired: 10,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'projectiles_stop_duration');
+        },
         additionalClassMechanics: []
     },
     74: {

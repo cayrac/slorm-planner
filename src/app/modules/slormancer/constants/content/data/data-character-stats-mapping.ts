@@ -492,6 +492,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 },
                 { stat: 'burning_shadow_buff_crit_damage_percent', condition: config => config.has_burning_shadow_buff },
                 { stat: 'mighty_swing_cadence_whirlwind_crit_damage_percent', condition: (_, stats) => [3, 6, 9].includes(getFirstStat(stats, 'skill_id')) },
+                { stat: 'crit_damage_percent_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
             ],
             max: [],
             percent: [],
@@ -1238,7 +1239,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         precision: 1,
         allowMinMax: false,
         source: {
-            flat: [{ stat: 'aoe_increased_size_percent' }],
+            flat: [
+                { stat: 'aoe_increased_size_percent' },
+                { stat: 'max_charged_aoe_increased_size_percent', condition: config => config.rift_nova_fully_charged },
+            ],
             max: [],
             percent: [],
             maxPercent: [],
@@ -1476,6 +1480,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'increased_damage_mult_if_target_is_time_locked', condition: config => config.target_is_time_locked },
                 { stat: 'remnant_damage_reduction_mult', condition: config => config.is_remnant },
                 { stat: 'remnant_increased_damage_mult', condition: config => config.is_remnant },
+                { stat: 'remnant_vulnerability_remnant_increased_damage_mult', condition: config => config.is_remnant && config.target_has_remnant_vulnerability },
                 { stat: 'increased_damage_mult_per_inner_fire', condition: config => config.active_inner_fire > 0, multiplier: config => config.active_inner_fire },
             ],
             maxMultiplier: [
@@ -1507,6 +1512,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'aoe_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_aoe') },
                 { stat: 'skill_increased_damage_mult_per_grow', condition: config => config.ray_of_obliteration_grow_stacks > 0, multiplier: (config, stats) => Math.min(config.ray_of_obliteration_grow_stacks, getFirstStat(stats, 'max_grow')) },
                 { stat: 'skill_increased_damage_mult_if_short', condition: config => config.ray_of_obliteration_is_short },
+                { stat: 'high_spirit_stacks_skill_increased_damage_mult', condition: config => config.high_spirit_stacks > 0, multiplier: config => config.high_spirit_stacks },
+                { stat: 'skill_increased_damage_mult_per_non_temporal_emblem', condition: config => (config.arcanic_emblems + config.obliteration_emblems) > 0, multiplier: config => config.arcanic_emblems + config.obliteration_emblems },
             ],
             maxMultiplier: [
                 { stat: 'skill_increased_max_damage_mult' },

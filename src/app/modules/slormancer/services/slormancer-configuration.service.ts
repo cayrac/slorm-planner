@@ -54,6 +54,7 @@ export class SlormancerConfigurationService {
         target_is_skewered: false,
         target_is_splintered: false,
         target_has_broken_armor: false,
+        target_has_remnant_vulnerability: false,
         is_first_hit: false,
         is_hit_blocked: true,
         is_last_volley: false,
@@ -63,6 +64,7 @@ export class SlormancerConfigurationService {
         is_remnant: false,
         ray_of_obliteration_is_short: true,
         void_arrow_fully_charged: false,
+        rift_nova_fully_charged: true,
         elites_in_radius: {
             10: 0
         },
@@ -106,7 +108,8 @@ export class SlormancerConfigurationService {
         cosmic_stacks: 0,
         invigorate_stacks: 0,
         arcane_stacks: 0,
-        ray_of_obliteration_grow_stacks: 3,
+        ray_of_obliteration_grow_stacks: 0,
+        high_spirit_stacks: 10,
         distance_with_target: 0,
         has_aura_air_conditionner: true,
         has_aura_neriya_shield: true,
@@ -187,6 +190,7 @@ export class SlormancerConfigurationService {
         target_is_skewered: false,
         target_is_splintered: false,
         target_has_broken_armor: false,
+        target_has_remnant_vulnerability: false,
         is_first_hit: false,
         is_hit_blocked: false,
         is_last_volley: false,
@@ -196,6 +200,7 @@ export class SlormancerConfigurationService {
         is_remnant: false,
         ray_of_obliteration_is_short: false,
         void_arrow_fully_charged: false,
+        rift_nova_fully_charged: false,
         elites_in_radius: {
             10: 0
         },
@@ -239,7 +244,8 @@ export class SlormancerConfigurationService {
         cosmic_stacks: 0,
         invigorate_stacks: 5,
         arcane_stacks: 5,
-        ray_of_obliteration_grow_stacks: 0,
+        ray_of_obliteration_grow_stacks: 3,
+        high_spirit_stacks: 10,
         distance_with_target: 0,
         has_aura_air_conditionner: true,
         has_aura_neriya_shield: true,

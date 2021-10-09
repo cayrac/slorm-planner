@@ -42,6 +42,7 @@ export interface CharacterConfig {
     target_is_time_locked: boolean;
     target_has_broken_armor: boolean;
     target_has_negative_effect: boolean;
+    target_has_remnant_vulnerability: boolean;
     is_first_hit: boolean;
     is_hit_blocked: boolean;
     is_last_volley: boolean;
@@ -51,6 +52,7 @@ export interface CharacterConfig {
     is_channeling_ray_of_obliteration: boolean;
     ray_of_obliteration_is_short: boolean;
     void_arrow_fully_charged: boolean;
+    rift_nova_fully_charged: boolean;
     ennemies_in_radius: { [key: number]: number};
     negative_effects_on_ennemies_in_radius: { [key: number]: number};
     elites_in_radius: { [key: number]: number};
@@ -90,6 +92,7 @@ export interface CharacterConfig {
     invigorate_stacks: number;
     arcane_stacks: number;
     ray_of_obliteration_grow_stacks: number;
+    high_spirit_stacks: number;
     has_aura_air_conditionner: boolean;
     has_aura_neriya_shield: boolean;
     has_aura_elemental_swap: boolean;
