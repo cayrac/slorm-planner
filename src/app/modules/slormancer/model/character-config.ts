@@ -46,6 +46,8 @@ export interface CharacterConfig {
     is_remnant: boolean;
     is_channeling_whirlwind: boolean;
     is_channeling_arcane_barrier: boolean;
+    is_channeling_ray_of_obliteration: boolean;
+    ray_of_obliteration_is_short: boolean;
     void_arrow_fully_charged: boolean;
     ennemies_in_radius: { [key: number]: number};
     negative_effects_on_ennemies_in_radius: { [key: number]: number};
@@ -85,6 +87,7 @@ export interface CharacterConfig {
     cosmic_stacks: number;
     invigorate_stacks: number;
     arcane_stacks: number;
+    ray_of_obliteration_grow_stacks: number;
     has_aura_air_conditionner: boolean;
     has_aura_neriya_shield: boolean;
     has_aura_elemental_swap: boolean;

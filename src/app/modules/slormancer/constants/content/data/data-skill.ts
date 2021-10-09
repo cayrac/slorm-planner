@@ -1149,7 +1149,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setStat(values, 0, 'skill_increased_damage_mult');
             setAsUpgrade(values, 0);
             addConstant(values, 3, false, EffectValueValueType.Upgrade, 'cooldown_time_add');
-            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'no_longer_channeling');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'no_longer_cost_per_second');
         },
         additionalClassMechanics: []
     },
@@ -3463,7 +3463,9 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     4: {
         masteryRequired: null,
         override: values => {
+            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 4);
+            setStat(values, 1, 'elemental_damage');
             setUpgrade(values, 1, 4);
             addConstant(values, 4, false, EffectValueValueType.Flat, 'skill_2_4_tick_per_second');
         },
@@ -3652,93 +3654,134 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     27: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'res_phy_percent_if_channeling_ray_of_obliteration');
+            setAsUpgrade(values, 0);
+            setStat(values, 1, 'res_mag_percent_if_channeling_ray_of_obliteration');
+            setAsUpgrade(values, 1);
+        },
         additionalClassMechanics: []
     },
     28: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'inner_fire_chance_tick');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     29: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'physical_damage');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     30: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'rotation_speed');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     31: {
         masteryRequired: 3,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'skill_increased_damage_mult');
+            synergyMultiply100(values, 0);
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     32: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'increased_range_mult');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     33: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'cast_by_clone');
+        },
         additionalClassMechanics: []
     },
     34: {
         masteryRequired: 4,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Duration, 'skill_channeling_duration_before_knockback');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'knockback_delay');
         },
         additionalClassMechanics: []
     },
     35: {
         masteryRequired: 4,
         override: values => {
-            addConstant(values, 15, false, EffectValueValueType.Flat, 'skill_slow_per_stack');
-            addConstant(values, 5, false, EffectValueValueType.Duration, 'skill_slow_duration');
+            setStat(values, 0, 'slow_percent');
+            setAsUpgrade(values, 0);
+            addConstant(values, 15, false, EffectValueValueType.Upgrade, 'slow_duration');
+            addConstant(values, 5, false, EffectValueValueType.Upgrade, 'slow_max_stack');
         },
         additionalClassMechanics: []
     },
     36: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'ray_of_obliteration_overdrive_chance_percent');
+            synergyMultiply100(values, 0);
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     37: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'skill_increased_damage_mult_if_short');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     38: {
         masteryRequired: 9,
         override: values => {
-            addConstant(values, 50, false, EffectValueValueType.Flat, 'skill_side_ray_damages_percent');
+            setStat(values, 0, 'side_ray_add');
+            setAsUpgrade(values, 0);
+            addConstant(values, 50, false, EffectValueValueType.Upgrade, 'side_ray_skill_decreased_damage_mult');
         },
         additionalClassMechanics: []
     },
     39: {
         masteryRequired: 2,
         override: values => {
-            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_max_grow');
+            setStat(values, 0, 'skill_increased_damage_mult_per_grow');
+            setAsUpgrade(values, 0);
+            addConstant(values, 3, false, EffectValueValueType.Upgrade, 'max_grow');
         },
         additionalClassMechanics: []
     },
     40: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'no_longer_cost_per_second');
+        },
         additionalClassMechanics: []
     },
     41: {
         masteryRequired: 9,
         override: values => {
-            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_full_strength_last_emblems_count');
+            addConstant(values, 3, false, EffectValueValueType.Upgrade, 'full_strength_if_no_obliteration_emblems_count');
         },
         additionalClassMechanics: []
     },
     42: {
         masteryRequired: 10,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'movement_speed_if_channeling');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     43: {

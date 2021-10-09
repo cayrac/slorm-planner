@@ -614,11 +614,12 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'res_phy_percent' },
                 { stat: 'res_phy_percent_per_banner', condition: config => config.banners_nearby > 0, multiplier: config => config.banners_nearby },
                 { stat: 'oak_bark_armor_stack_res_phy_percent', condition: config => config.oak_bark_armor_stacks > 0, multiplier: (config, stats) => Math.min(config.oak_bark_armor_stacks, getFirstStat(stats, 'oak_bark_armor_max_stack')) },
+                { stat: 'res_phy_percent_if_channeling_ray_of_obliteration', condition: config => config.is_channeling_ray_of_obliteration },
             ],
             maxPercent: [],
             multiplier: [
                 { stat: 'res_phy_global_mult' },
-                { stat: 'res_phy_global_mult_on_low_life',condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'res_phy_global_mult_on_low_life_treshold', 0)) }
+                { stat: 'res_phy_global_mult_on_low_life',condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'res_phy_global_mult_on_low_life_treshold', 0)) },
             ],
             maxMultiplier: [],
         } 
@@ -633,7 +634,11 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'aura_neriya_shield_res_mag_add', condition: config => config.has_aura_neriya_shield }
             ],
             max: [],
-            percent: [{ stat: 'res_mag_percent' }],
+            percent: [
+                { stat: 'res_mag_percent' },
+                { stat: 'res_mag_percent_if_channeling_ray_of_obliteration', condition: config => config.is_channeling_ray_of_obliteration },
+
+            ],
             maxPercent: [],
             multiplier: [
                 { stat: 'res_mag_global_mult' },
@@ -1038,7 +1043,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             ],
             maxPercent: [],
             multiplier: [
-                { stat: 'inner_fire_damage_mult_if_channeling_whirlwind', condition: (config, stats) => config.is_channeling_whirlwind && !hasStat(stats, 'no_longer_channeling') }
+                { stat: 'inner_fire_damage_mult_if_channeling_whirlwind', condition: (config, stats) => config.is_channeling_whirlwind && !hasStat(stats, 'no_longer_cost_per_second') }
             ],
             maxMultiplier: [],
         } 
@@ -1484,12 +1489,14 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'skill_increased_damage_mult_against_broken_armor', condition: config => config.target_has_broken_armor },
                 { stat: 'skill_increased_damage_mult_while_channeling_whirlwind', condition: config => config.is_channeling_whirlwind },
                 { stat: 'skill_increased_damage_mult_per_second_while_channeling_whirlwind',
-                    condition: (config, stats) => config.is_channeling_whirlwind && config.time_spend_channeling > 0 && !hasStat(stats, 'no_longer_channeling'),
+                    condition: (config, stats) => config.is_channeling_whirlwind && config.time_spend_channeling > 0 && !hasStat(stats, 'no_longer_cost_per_second'),
                     multiplier: (config, stats) => Math.min(config.time_spend_channeling, Math.round(getFirstStat(stats, 'skill_increased_damage_mult_max_while_channeling_whirlwind') / getFirstStat(stats, 'skill_increased_damage_mult_per_second_while_channeling_whirlwind'))),
                 },
                 { stat: 'increased_damage_mult_per_obliteration_emblem_if_not_obliteration', condition: (config, stats) => config.obliteration_emblems > 0 && !hasStat(stats, 'skill_is_obliteration'), multiplier: config => config.obliteration_emblems },
                 { stat: 'melee_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee') },
                 { stat: 'aoe_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_aoe') },
+                { stat: 'skill_increased_damage_mult_per_grow', condition: config => config.ray_of_obliteration_grow_stacks > 0, multiplier: (config, stats) => Math.min(config.ray_of_obliteration_grow_stacks, getFirstStat(stats, 'max_grow')) },
+                { stat: 'skill_increased_damage_mult_if_short', condition: config => config.ray_of_obliteration_is_short },
             ],
             maxMultiplier: [
                 { stat: 'skill_increased_max_damage_mult' },

@@ -340,7 +340,7 @@ export class SlormancerValueUpdater {
             }
         }
 
-        if (statsResult.extractedStats['no_longer_channeling'] !== undefined) {
+        if (statsResult.extractedStats['no_longer_cost_per_second'] !== undefined) {
             if (skill.costType === SkillCostType.ManaSecond) {
                 skill.costType = SkillCostType.Mana;
             } else if (skill.costType === SkillCostType.LifeSecond) {

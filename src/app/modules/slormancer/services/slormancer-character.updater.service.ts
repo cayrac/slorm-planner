@@ -277,7 +277,7 @@ export class SlormancerCharacterUpdaterService {
 
         this.updateBonuses(character);
 
-        this.slormancerConfigurationService.updateAuraMissingResources(character);
+        // this.slormancerConfigurationService.updateAuraMissingResources(character);
         this.updateCharacterStats(character, updateViews, this.slormancerConfigurationService.getConfiguration(), additionalItem);
 
         console.log(character);
