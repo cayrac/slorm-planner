@@ -3496,8 +3496,10 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     7: {
         masteryRequired: null,
         override: values => {
-            addConstant(values, 5000, false, EffectValueValueType.Flat, 'skill_2_7_remnant_increased_damages');
-            addConstant(values, 50, false, EffectValueValueType.Flat, 'skill_2_7_remnant_base_damages');
+            setStat(values, 0, 'physical_damage');
+            setAsUpgrade(values, 0);
+            addConstant(values, 5000, false, EffectValueValueType.Upgrade, 'chrono_pucture_skill_increased_damage_mult');
+            addConstant(values, 50, false, EffectValueValueType.Upgrade, 'chrono_pucture_default_damage_mult');
         },
         additionalClassMechanics: [],
         additionalGenres: [SkillGenre.Temporal]
@@ -4034,100 +4036,143 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     74: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'skill_is_now_obliteration');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'chrono_puncture_is_obliteration');
+        },
         additionalClassMechanics: []
     },
     75: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'time_lock_on_critical');
+        },
         additionalClassMechanics: []
     },
     76: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'temporal_sentence_chance');
+            setAsUpgrade(values, 0);
+            setStat(values, 0, 'elemental_damage');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     77: {
         masteryRequired: 2,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'mana_on_hit_add');
+            setAsUpgrade(values, 0);
+            setAsUpgrade(values, 1);
+        },
         additionalClassMechanics: []
     },
     78: {
         masteryRequired: 3,
         override: values => {
-            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_chrono_metamorphosis_stack_max_mana_percent');
-            addConstant(values, 5, false, EffectValueValueType.Duration, 'skill_chrono_metamorphosis_stack_duration');
+            setStat(values, 0, 'chrono_manamorphosis_max_stacks');
+            addConstant(values, 2, false, EffectValueValueType.Stat, 'chrono_manamorphosis_stack_the_max_mana_percent');
+            addConstant(values, 5, false, EffectValueValueType.Stat, 'chrono_manamorphosis_stack_duration');
         },
         additionalClassMechanics: []
     },
     79: {
         masteryRequired: 3,
         override: values => {
-            addConstant(values, 3, false, EffectValueValueType.Flat, 'skill_chrono_armor_stack_max_armor_percent');
-            addConstant(values, 5, false, EffectValueValueType.Duration, 'skill_chrono_armor_stack_duration');
+            setStat(values, 0, 'chrono_armor_max_stacks');
+            addConstant(values, 2, false, EffectValueValueType.Stat, 'chrono_armor_stack_res_phy_percent');
+            addConstant(values, 5, false, EffectValueValueType.Stat, 'chrono_armor_stack_duration');
         },
         additionalClassMechanics: []
     },
     80: {
         masteryRequired: 4,
         override: values => {
-            addConstant(values, 5, false, EffectValueValueType.Duration, 'skill_chrono_empower_stack_duration');
-            addConstant(values, 5, false, EffectValueValueType.Flat, 'skill_chrono_empower_stack_next_other_school_skill_increased_damage_percent');
+            setStat(values, 0, 'chrono_empower_max_stacks');
+            addConstant(values, 2, false, EffectValueValueType.Stat, 'chrono_empower_stack_duration');
+            addConstant(values, 5, false, EffectValueValueType.Stat, 'chrono_empower_stack_skill_increased_damage_mult');
         },
         additionalClassMechanics: []
     },
     81: {
         masteryRequired: 4,
         override: values => {
-            addConstant(values, 2, false, EffectValueValueType.Flat, 'skill_chrono_speed_stack_attack_speed');
-            addConstant(values, 5, false, EffectValueValueType.Duration, 'skill_chrono_speed_stack_duration');},
+            setStat(values, 0, 'chrono_speed_max_stacks');
+            addConstant(values, 2, false, EffectValueValueType.Stat, 'chrono_speed_stack_cooldown_reduction_global_mult');
+            addConstant(values, 5, false, EffectValueValueType.Stat, 'chrono_speed_stack_duration');
+        },
         additionalClassMechanics: []
     },
     82: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'multi_hit_remnant_chance');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     83: {
         masteryRequired: 5,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'arcane_bond_hit_count');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     84: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'inner_fire_chance_percent');
+            setAsUpgrade(values, 0);
+        },
         additionalClassMechanics: []
     },
     85: {
         masteryRequired: 6,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'traumatized_max_stacks');
+            setAsUpgrade(values, 0);
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'traumatized_stack_double_damages');
+        },
         additionalClassMechanics: []
     },
     86: {
         masteryRequired: 7,
-        override: values => { },
+        override: values => {
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'traumatized_kill_trigger_temporal_sentence');
+        },
         additionalClassMechanics: []
     },
     87: {
         masteryRequired: 8,
-        override: values => { },
+        override: values => {
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'mana_lost_and_refunded_on_arcane_bond_hit');
+        },
         additionalClassMechanics: []
     },
     88: {
         masteryRequired: 8,
         override: values => {
-            addConstant(values, 0.5, false, EffectValueValueType.AreaOfEffect, 'skill_chrono_burst_aoe');
+            setStat(values, 0, 'elemental_damage');
+            setAsUpgrade(values, 0);
+            addConstant(values, 0.5, false, EffectValueValueType.AreaOfEffect, 'chrono_burst_aoe');
         },
         additionalClassMechanics: []
     },
     89: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'increased_max_chrono_stacks');
+        },
         additionalClassMechanics: []
     },
     90: {
         masteryRequired: 10,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'lost_in_time_increased_damage_mult');
+            setAsUpgrade(values, 0)
+        },
         additionalClassMechanics: []
     },
     91: {
@@ -4922,7 +4967,10 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     223: {
         masteryRequired: 9,
-        override: values => { },
+        override: values => {
+            setStat(values, 0, 'recast_chance_percent');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'recast_is_remnant');
+        },
         additionalClassMechanics: []
     },
 }

@@ -108,7 +108,7 @@ export class SlormancerTemplateService {
 
             if (hasDetails) {
                 const sign = showBase ? effectValue.upgrade < 0 ? '- ' : '+ ' : effectValue.upgrade < 0 ? '-' : '+';
-                const base = showBase ? (effectValue.value) + percent + ' ': '';
+                const base = showBase ? (effectValue.displayValue) + percent + ' ': '';
                 const upgrade = showUpgrade ? sign + Math.abs(effectValue.upgrade) + percent : '';
 
                 result = base;

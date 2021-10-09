@@ -289,7 +289,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [{ stat: 'the_max_mana_add' }],
             max: [],
-            percent: [{ stat: 'the_max_mana_percent' }],
+            percent: [
+                { stat: 'the_max_mana_percent' },
+                { stat: 'chrono_manamorphosis_stack_the_max_mana_percent', condition: config => config.chrono_manamorphosis_stacks > 0, multiplier: (config, stats) => Math.min(config.chrono_manamorphosis_stacks, getFirstStat(stats, 'chrono_manamorphosis_max_stacks') + getFirstStat(stats, 'increased_max_chrono_stacks')) },
+            ],
             maxPercent: [],
             multiplier: [{ stat: 'the_max_mana_global_mult' }],
             maxMultiplier: [],
@@ -404,6 +407,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'banner_haste_buff_cooldown_reduction_global_mult', condition: config => config.has_banner_haste_buff },
                 { stat: 'frenzy_stack_cooldown_reduction_global_mult', condition: config => config.frenzy_stacks > 0, multiplier: (config, stats) => Math.min(config.frenzy_stacks, getFirstStat(stats, 'frenzy_max_stacks')) },
                 { stat: 'arcane_clone_cooldown_reduction_global_mult', condition: (_, stats) => hasStat(stats, 'cast_by_clone' )},
+                { stat: 'chrono_speed_stack_cooldown_reduction_global_mult', condition: config => config.chrono_speed_stacks > 0, multiplier: (config, stats) => Math.min(config.chrono_speed_stacks, getFirstStat(stats, 'chrono_speed_max_stacks') + getFirstStat(stats, 'increased_max_chrono_stacks')) },
             ],
             maxMultiplier: [],
         } 
@@ -618,6 +622,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'res_phy_percent_per_banner', condition: config => config.banners_nearby > 0, multiplier: config => config.banners_nearby },
                 { stat: 'oak_bark_armor_stack_res_phy_percent', condition: config => config.oak_bark_armor_stacks > 0, multiplier: (config, stats) => Math.min(config.oak_bark_armor_stacks, getFirstStat(stats, 'oak_bark_armor_max_stack')) },
                 { stat: 'res_phy_percent_if_channeling_ray_of_obliteration', condition: config => config.is_channeling_ray_of_obliteration },
+                { stat: 'chrono_armor_stack_res_phy_percent', condition: config => config.chrono_armor_stacks > 0, multiplier: (config, stats) => Math.min(config.chrono_armor_stacks, getFirstStat(stats, 'chrono_armor_max_stacks') + getFirstStat(stats, 'increased_max_chrono_stacks')) },
             ],
             maxPercent: [],
             multiplier: [
@@ -1514,6 +1519,17 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'skill_increased_damage_mult_if_short', condition: config => config.ray_of_obliteration_is_short },
                 { stat: 'high_spirit_stacks_skill_increased_damage_mult', condition: config => config.high_spirit_stacks > 0, multiplier: config => config.high_spirit_stacks },
                 { stat: 'skill_increased_damage_mult_per_non_temporal_emblem', condition: config => (config.arcanic_emblems + config.obliteration_emblems) > 0, multiplier: config => config.arcanic_emblems + config.obliteration_emblems },
+                { stat: 'chrono_pucture_skill_increased_damage_mult', condition: config => config.is_remnant, multiplier: () => 2 },
+                { stat: 'chrono_empower_stack_skill_increased_damage_mult',
+                    condition: (config, stats) => config.chrono_empower_stacks > 0
+                            && (
+                                (hasStat(stats, 'chrono_puncture_is_obliteration') && (hasStat(stats, 'skill_is_temporal') || hasStat(stats, 'skill_is_arcanic') ))
+                                || (!hasStat(stats, 'chrono_puncture_is_obliteration') && (hasStat(stats, 'skill_is_obliteration') || hasStat(stats, 'skill_is_arcanic') ))
+                            ),
+                    multiplier: (config, stats) => Math.min(config.chrono_empower_stacks, getFirstStat(stats, 'chrono_empower_max_stacks') + getFirstStat(stats, 'increased_max_chrono_stacks'))
+                },
+                { stat: 'traumatized_stack_double_damages', condition: config => config.enemy_traumatized_stacks > 0, multiplier: (config, stats) => Math.pow(2, Math.min(config.enemy_traumatized_stacks, getFirstStat(stats, 'traumatized_max_stacks'))) }
+
             ],
             maxMultiplier: [
                 { stat: 'skill_increased_max_damage_mult' },

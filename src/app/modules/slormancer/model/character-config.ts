@@ -82,7 +82,6 @@ export interface CharacterConfig {
     impatient_arrow_stacks: number;
     frenzy_stacks: number;
     oak_bark_armor_stacks: number;
-    enemy_bleed_stacks: number;
     block_stacks: number;
     melee_defense_stacks: number;
     projectile_defense_stacks: number;
@@ -93,6 +92,12 @@ export interface CharacterConfig {
     arcane_stacks: number;
     ray_of_obliteration_grow_stacks: number;
     high_spirit_stacks: number;
+    chrono_manamorphosis_stacks: number,
+    chrono_armor_stacks: number,
+    chrono_empower_stacks: number,
+    chrono_speed_stacks: number,
+    enemy_bleed_stacks: number;
+    enemy_traumatized_stacks: number;
     has_aura_air_conditionner: boolean;
     has_aura_neriya_shield: boolean;
     has_aura_elemental_swap: boolean;

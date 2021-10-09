@@ -339,6 +339,13 @@ export class SlormancerValueUpdater {
                 skill.genres.splice(index, 1, SkillGenre.Temporal);
             }
         }
+        
+        if (statsResult.extractedStats['skill_is_now_obliteration'] !== undefined) {
+            const index = skill.genres.findIndex(genre => genre === SkillGenre.Arcanic || genre === SkillGenre.Temporal)
+            if (index !== -1) {
+                skill.genres.splice(index, 1, SkillGenre.Obliteration);
+            }
+        }
 
         if (statsResult.extractedStats['no_longer_cost_per_second'] !== undefined) {
             if (skill.costType === SkillCostType.ManaSecond) {
