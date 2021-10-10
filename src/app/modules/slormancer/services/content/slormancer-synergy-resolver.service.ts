@@ -163,7 +163,7 @@ export class SlormancerSynergyResolverService {
 
             if (statToUpdate.mapping === undefined) {
                 foundStat.values.flat.push(synergy);
-            } else if (typeof synergy === 'number') {
+            } else {
                 this.slormancerStatMappingService.addUniqueValueToStat(stat, synergy, foundStat, statToUpdate.mapping, config, extractedStats);
             }
 

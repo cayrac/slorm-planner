@@ -4,7 +4,7 @@ import { ReaperEffect } from '../../../model/content/reaper-effect';
 import { effectValueConstant, effectValueSynergy } from '../../../util/effect-value.util';
 import { isEffectValueSynergy, isEffectValueVariable, valueOrNull } from '../../../util/utils';
 
-function overrideValueTypeAndStat(effect: ReaperEffect | null, index: number, valueType: EffectValueValueType, stat: string | null = null) {
+function overrideValueTypeAndStat(effect: ReaperEffect | null, index: number, valueType: EffectValueValueType, stat: string) {
 
     const value = effect !== null ? valueOrNull(effect.values[index]) : null;
 
@@ -74,7 +74,7 @@ function synergyMultiply100(effect: ReaperEffect | null, index: number) {
     }
 }
 
-function addConstant(effect: ReaperEffect | null, value: number, percent: boolean, valueType: EffectValueValueType, stat: string | null = null) {
+function addConstant(effect: ReaperEffect | null, value: number, percent: boolean, valueType: EffectValueValueType, stat: string) {
     if (effect !== null) {
         effect.values.push(effectValueConstant(value, percent, stat, valueType))
     } else {
@@ -115,12 +115,12 @@ function duplicateSynergy(source: ReaperEffect | null, index: number, stat: stri
 export const DATA_REAPER: { [key: number]: DataReaper } = {
     1: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'health_restored_on_breach_close');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'health_restored_on_breach_close');
         }
     },
     2: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'adam_blessing_buff_cooldown_reduction_global_mult');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'adam_blessing_buff_cooldown_reduction_global_mult');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Duration, 'adam_blessing_buff_duration');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Duration, 'adam_blessing_buff_duration_per_monster');
         }
@@ -130,8 +130,8 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             synergyMultiply100(ba, 1);
             synergyMultiply100(ba, 2);
             synergyMultiply100(be, 2);
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'trainee_reaper_effect_chance');
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'trainee_reaper_effect_additional_damage');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'trainee_reaper_effect_chance');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'trainee_reaper_effect_additional_damage');
             overrideSynergySource(ba, 2, 'xp_find');
         }
     },
@@ -139,19 +139,19 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma) => {
             moveValue(ba, 3, be);
             synergyMultiply100(be, 1);
-            addConstant(ba, 1, false, EffectValueValueType.Flat, 'skill_damage_lucky');
-            addConstant(ma, 1, false, EffectValueValueType.Flat, 'cannot_imbue_skills');
+            addConstant(ba, 1, false, EffectValueValueType.Stat, 'skill_damage_lucky');
+            addConstant(ma, 1, false, EffectValueValueType.Stat, 'cannot_imbue_skills');
         }
     },
     40: {
         override: (ba, be, ma, reaperId) => {
             // peut être mal compris comment parser les stats ?
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'thornbite_reaper_buff_idle_duration');
-            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Flat, 'thorns_global_mult');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'thornbite_reaper_buff_idle_duration');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'thorns_global_mult');
 
-            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'garbage_stat');
-            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Flat, 'thornbite_reaper_buff_cooldown');
-            overrideValueTypeAndStat(ba, 6, EffectValueValueType.Flat, 'idle_shield');
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'thornbite_reaper_buff_cooldown');
+            overrideValueTypeAndStat(ba, 6, EffectValueValueType.Stat, 'idle_shield');
 
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Duration, 'thornbite_reaper_benediction_buff_idle_duration');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'idle_thorn_crit_chance_global_mult');
@@ -159,7 +159,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             synergyMultiply100(be, 2);
             overrideSynergySource(be, 2, 'critical_chance');
 
-            addConstant(ma, 1, false, EffectValueValueType.Flat, 'non_thorn_cannot_crit');
+            addConstant(ma, 1, false, EffectValueValueType.Stat, 'non_thorn_cannot_crit');
 
             if (reaperId === 41) {
                 duplicateSynergy(ba, 6, 'thorns_add');
@@ -175,16 +175,16 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             changeValue(ba, 6, 8);
             changeValue(be, 1, 15);
 
-            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Flat, 'ferocious_affinity_reaper_afflict_chance');
-            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'ferocious_affinity_reaper_afflict_duration');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'ferocious_affinity_reaper_afflict_chance');
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'ferocious_affinity_reaper_afflict_duration');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');
-            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Flat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 6, EffectValueValueType.Stat, 'min_basic_damage_add');
             overrideValueTypeAndStat(ba, 7, EffectValueValueType.Damage, 'elemental_damage');
             
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'min_elemental_damage_add');
-            overrideValueTypeAndStat(ma, 0, EffectValueValueType.Flat, 'mana_consumed_percent_on_skill_cast');
+            overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'mana_consumed_percent_on_skill_cast');
         }
     },
     54: {
@@ -196,13 +196,13 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     60: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'projectile_weapon_damage_mult');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'projectile_armor_penetration');
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'projectile_elemental_penetration');
-            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Flat, 'idle_duration');
-            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'idle_additional_projectile_add');
-            overrideValueTypeAndStat(be, 0, EffectValueValueType.Flat, 'idle_duration');
-            overrideValueTypeAndStat(be, 1, EffectValueValueType.Flat, 'idle_additional_projectile_global_mult');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'projectile_weapon_damage_mult');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'projectile_armor_penetration');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'projectile_elemental_penetration');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'idle_duration');
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'idle_additional_projectile_add');
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'idle_duration');
+            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'idle_additional_projectile_global_mult');
             addConstant(ma, -100, true, EffectValueValueType.Stat, 'not_idle_additional_projectile_global_mult');
 
             
@@ -210,20 +210,21 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     61: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'primary_secondary_skill_additional_damages');
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'additional_damage');
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'no_gold_armor_buff_increased_damage_taken_mult');
         }
     },
     62: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Unknown, 'garbage_stat');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'thorns_percent');
             synergyMultiply100(ba, 1);
         }
     },
     65: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Flat, 'vindictive_slam_reaper_effect_chance');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'vindictive_slam_reaper_effect_chance');
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Damage, 'vindictive_slam_reaper_effect_elemental_damage');
             addConstant(ba, 2, false, EffectValueValueType.AreaOfEffect, 'vindictive_slam_reaper_effect_radius');
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Duration, 'vindictive_slam_reaper_benediction_effect_duration');
@@ -234,8 +235,10 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     66: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'vindictive_slam_reaper_effect_radius_mult');
-            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Flat, 'vindictive_slam_reaper_effect_elemental_damage_mult');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Unknown, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Unknown, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'vindictive_slam_reaper_effect_radius_mult');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'vindictive_slam_reaper_effect_elemental_damage_mult');
         }
     },
     67: {
@@ -247,8 +250,8 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     73: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'mana_skill_as_life_percent');
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'mana_restored_percent_on_hit_taken');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'mana_skill_as_life_percent');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'mana_restored_percent_on_hit_taken');
             moveValue(ba, 3, be);
             moveValue(ba, 3, be);
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'primary_skill_additional_damages');
@@ -258,8 +261,8 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     74: {
         override: (ba, be, ma) => {
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'mana_regen_add');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'mana_cost_percent_as_additional_damages');
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'mana_cost_percent_as_additional_damages');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'min_basic_damage_add');
 
             addConstant(be, 1, false, EffectValueValueType.AreaOfEffect, 'manabender_buff_detonation_radius');
@@ -268,14 +271,14 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     75: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'nimble_buff_crit_damage_percent');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'nimble_buff_brut_damage_percent');
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'nimble_buff_crit_chance_percent');
-            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Flat, 'nimble_buff_brut_chance_percent');
-            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'nimble_buff_primary_skill_increased_damages');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'nimble_buff_crit_damage_percent');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'nimble_buff_brut_damage_percent');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'nimble_buff_crit_chance_percent');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'nimble_buff_brut_chance_percent');
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'nimble_buff_primary_skill_increased_damages');
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Duration, 'nimble_buff_disable_duration');
 
-            overrideValueTypeAndStat(be, 0, EffectValueValueType.Flat, 'nimble_champion_percent');
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'nimble_champion_percent');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Duration, 'nimble_champion_disable_duration');
             addConstant(be, 100, false, EffectValueValueType.Stat, 'nimble_champion_max_stacks');
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Duration, 'nimble_champion_lock_duration');
@@ -289,7 +292,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
                 negateValueBaseAndUpgrade(ba, 1);
             }
             
-            overrideValueTypeAndStat(be, 0, EffectValueValueType.Flat, 'exhaustion_max_life_as_damage_percent');
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'exhaustion_max_life_as_damage_percent');
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'min_cooldown_time');
 
         }
@@ -299,7 +302,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             if (reaperId === 79) {
                 negateValueBaseAndUpgrade(ba, 0);
             }
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'elemental_damage_percent_for_each_negative_effect_on_ennemies');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'elemental_damage_percent_for_each_negative_effect_on_ennemies');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.AreaOfEffect, 'elemental_damage_percent_for_each_negative_effect_on_ennemies_radius');
         }
     },
@@ -313,7 +316,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     81: {
         override: (ba, be, ma, reaperId) => {
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'power_crystal_count');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'power_crystal_count');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Damage, 'power_crystal_damages');
             addConstant(be, 1, false, EffectValueValueType.Stat, 'reaper_added_to_elements');
 
@@ -323,19 +326,19 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
                 changeValue(ba, 1, 3);
             }
 
-            overrideValueTypeAndStat(be, 0, EffectValueValueType.Flat, 'power_crystal_additional_projectile_add');
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'power_crystal_additional_projectile_add');
             addConstant(ma, -100, true, EffectValueValueType.Stat, 'primary_secondary_skill_increased_damage_mult');
         }
     },
     82: {
         override: (ba, be, ma, reaperId) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Flat, 'ancestral_legacy_stack_brut_chance_percent');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'ancestral_legacy_stack_brut_chance_percent');
         }
     },
     83: {
         override: (ba, be, ma, reaperId) => {
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Duration, 'elemental_fervor_buff_duration');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Flat, 'elemental_fervor_buff_elemental_damage_global_mult');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'elemental_fervor_buff_elemental_damage_global_mult');
             overrideSynergySource(ba, 1, 'critical_chance');
             overrideSynergyPercent(ba, 1, true);
             synergyMultiply100(ba, 1);
@@ -343,7 +346,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     98: {
         override: (ba, be, ma, reaperId) => {
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'overdrive_chance_percent_on_critical_strike');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'overdrive_chance_percent_on_critical_strike');
 
             addConstant(be, 1, true, EffectValueValueType.Stat, 'overdrive_damage_based_on_skill_damage')
             addConstant(ma, -100, true, EffectValueValueType.Stat, 'melee_skill_increased_damage_mult')
@@ -379,8 +382,8 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     117: {
         override: (ba, be, ma, reaperId) => {
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'lightning_imbued_skill_increased_damage');
-            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'kah_veer_reaper_effect_cooldown_reduction_percent');
-            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Flat, 'kah_veer_reaper_effect_walk_distance');
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'kah_veer_reaper_effect_cooldown_reduction_percent');
+            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'kah_veer_reaper_effect_walk_distance');
 
             addConstant(be, 35, false, EffectValueValueType.Stat, 'unlock_ancestral_legacy_max_rank');
             addConstant(be, 1, false, EffectValueValueType.Stat, 'trigger_thunderstuck_on_critical_strike');
@@ -390,11 +393,11 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     118: {
         override: (ba, be, ma, reaperId) => {
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Flat, 'light_imbued_skill_increased_damage');
-            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Flat, 'garbage_stat');
-            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Flat, 'shield_globe_increased_value');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'light_imbued_skill_increased_damage');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'shield_globe_increased_value');
             moveValue(be, 0, ba);
-            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Flat, 'shield_decrease_treshold');
+            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'shield_decrease_treshold');
 
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'the_max_health_set');
         }

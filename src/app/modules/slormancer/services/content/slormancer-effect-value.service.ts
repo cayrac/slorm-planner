@@ -14,6 +14,7 @@ export class SlormancerEffectValueService {
         return { ...effectValue };
     }
 
+    // TODO update effect value model / view
     public updateEffectValue(effectValue: AbstractEffectValue, upgradeMultiplier: number): AbstractEffectValue {
         if (isEffectValueSynergy(effectValue) || isEffectValueVariable(effectValue)) {
             let value = effectValue.baseValue;
@@ -24,7 +25,7 @@ export class SlormancerEffectValueService {
             }
 
             effectValue.value = value
-            effectValue.displayValue = round(value, 2);
+            effectValue.displayValue = round(value, 3);
             if (isEffectValueVariable(effectValue)) {
                 effectValue.upgradedValue = value;
             }

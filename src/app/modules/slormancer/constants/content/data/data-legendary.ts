@@ -1,4 +1,5 @@
 import { DataLegendary } from '../../../model/content/data/data-legendary';
+import { EffectValueValueType } from '../../../model/content/enum/effect-value-value-type';
 import { LegendaryEffect } from '../../../model/content/legendary-effect';
 import { effectValueConstant } from '../../../util/effect-value.util';
 import { isEffectValueSynergy } from '../../../util/utils';
@@ -9,6 +10,8 @@ function setStat(effect: LegendaryEffect, index: number, stat: string) {
 
     if (value) {
         value.effect.stat = stat;
+    } else {
+        throw new Error('failed to update stat for legendary effect at index ' + index);
     }
 }
 
@@ -17,6 +20,8 @@ function valueMultiply100(effect: LegendaryEffect, index: number) {
 
     if (value) {
         value.score = value.score * 100;
+    } else {
+        throw new Error('failed to multiply synergy percent at index ' + index);
     }
 }
 
@@ -25,10 +30,12 @@ function synergySetAllowMinMax(effect: LegendaryEffect, index: number, allowMinM
 
     if (value && isEffectValueSynergy(value.effect)) {
         value.effect.allowMinMax = allowMinMaw;
+    } else {
+        throw new Error('failed to update allow min max at index ' + index);
     }
 }
 
-function addConstant(effect: LegendaryEffect, value: number, stat: string | null = null) {
+function addConstant(effect: LegendaryEffect, value: number, stat: string, valueType: EffectValueValueType) {
 
     effect.effects.push({
         score: value,
@@ -36,7 +43,7 @@ function addConstant(effect: LegendaryEffect, value: number, stat: string | null
         possibleCraftedValues: [],
         maxPossibleCraftedValue: 0,
         minPossibleCraftedValue: 0,
-        effect: effectValueConstant(value, false, stat)
+        effect: effectValueConstant(value, false, stat, valueType)
     });
 }
 
@@ -109,7 +116,7 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     28: {
         override: (effect) => {
             setStat(effect, 0, 'staggered_damage_percent');
-            addConstant(effect, 10, 'staggered_damage_duration');
+            addConstant(effect, 10, 'staggered_damage_duration', EffectValueValueType.Stat);
         }
     },
     29: {
@@ -117,6 +124,16 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
             setStat(effect, 0, 'ancestral_fervor_buff_chance_on_ancestral_skill_cast');
             setStat(effect, 1, 'ancestral_fervor_buff_crit_chance_percent');
             setStat(effect, 2, 'ancestral_fervor_buff_duration');
+        }
+    },
+    30: {
+        override: (effect) => {
+            setStat(effect, 0, 'soul_mantle_enemy_max_health_as_additional_damage_per_tick');
+        }
+    },
+    31: {
+        override: (effect) => {
+            setStat(effect, 0, 'ancient_recognition_buff_duration');
         }
     },
     32: {
@@ -130,9 +147,20 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
             valueMultiply100(effect, 0);
         }
     },
+    34: {
+        override: (effect) => {
+            setStat(effect, 0, 'phoenix_revive_max_health_percent');
+            setStat(effect, 1, 'phoenix_revive_cooldown');
+        }
+    },
     36: {
         override: (effect) => {
-            addConstant(effect, 100, 'reaper_added_to_elements');
+            addConstant(effect, 100, 'reaper_added_to_elements', EffectValueValueType.Stat);
+        }
+    },
+    37: {
+        override: (effect) => {
+            setStat(effect, 0, 'idle_remove_delay');
         }
     },
     38: {
@@ -154,6 +182,29 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
             setStat(effect, 2, 'vilinis_reapply_chance');
         }
     },
+    45: {
+        override: (effect) => {
+            setStat(effect, 0, 'splintered_max_stacks');
+            setStat(effect, 1, 'splintered_stack_increased_effect');
+        }
+    },
+    49: {
+        override: (effect) => {
+            setStat(effect, 0, 'astral_retribution_on_elder_lance_cast_chance_per_cosmic_stack_max');
+        }
+    },
+    50: {
+        override: (effect) => {
+            setStat(effect, 0, 'banner_radius_add_per_second');
+        }
+    },
+    52: {
+        override: (effect) => {
+            setStat(effect, 0, 'revengeance_stack_thorns_percent');
+            setStat(effect, 1, 'revengeance_stack_retaliate_percent');
+            setStat(effect, 2, 'revengeance_stack_duration');
+        }
+    },
     54: {
         override: (effect) => {
             setStat(effect, 0, 'stab_copy_chance');
@@ -163,7 +214,6 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     55: {
         override: (effect) => {
             setStat(effect, 0, 'explosive_projectile_cooldown_reduction_percent_per_hit');
-            setStat(effect, 1, 'stab_copy_count');
         }
     },
     56: {
@@ -173,7 +223,7 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     },
     57: {
         override: (effect) => {
-            addConstant(effect, 4);
+            addConstant(effect, 4, <string><any>null, EffectValueValueType.Stat);
         }
     },
     58: {
@@ -188,7 +238,7 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     },
     62: {
         override: (effect) => {
-            addConstant(effect, 5, 'trap_pull_distance');
+            addConstant(effect, 5, 'trap_pull_distance', EffectValueValueType.Stat);
         }
     },
     63: {
@@ -199,14 +249,36 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
             setStat(effect, 3, 'elemental_weakness_max_stacks');
         }
     },
+    64: {
+        override: (effect) => {
+            setStat(effect, 0, 'book_smash_trigger_count_on_critical');
+        }
+    },
+    65: {
+        override: (effect) => {
+            setStat(effect, 0, 'rift_nova_autocast_chance');
+            setStat(effect, 1, 'rift_nova_autocast_tick');
+        }
+    },
     67: {
         override: (effect) => {
-            addConstant(effect, 1, 'disable_orb_arcane_master_maluses');
+            addConstant(effect, 1, 'disable_orb_arcane_master_maluses', EffectValueValueType.Stat);
         }
     },
     69: {
         override: (effect) => {
-            addConstant(effect, 2.6);
+            addConstant(effect, 2.6, 'distortion_wave_push_distance', EffectValueValueType.AreaOfEffect);
+        }
+    },
+    70: {
+        override: (effect) => {
+            setStat(effect, 0, 'time_lock_damage_max_health_percent_treshold');
+            setStat(effect, 1, 'time_lock_damage_max_health_percent_increased_damage_mult');
+        }
+    },
+    72: {
+        override: (effect) => {
+            setStat(effect, 0, 'arcane_bond_duration_add');
         }
     },
     73: {
@@ -224,7 +296,7 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     75: {
         override: (effect) => {
             setStat(effect, 0, 'high_voltage_max_stacks');
-            setStat(effect, 0, 'high_voltage_stack_spark_machine_increased_damage');
+            setStat(effect, 1, 'high_voltage_stack_spark_machine_increased_damage');
         }
     },
     76: {

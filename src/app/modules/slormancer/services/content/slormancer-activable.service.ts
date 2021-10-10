@@ -141,7 +141,7 @@ export class SlormancerActivableService {
         activable.genresLabel =  null;
         if (activable.genres.length > 0) {
             activable.genresLabel = activable.genres
-                .map(genre => this.slormancerTranslateService.translate(genre))
+                .map(genre => this.slormancerTranslateService.translate('atk_' + genre))
                 .join(' ');
         }
         

@@ -118,11 +118,15 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'all_level', config.all_characters_level);
         this.addStat(stats.stats, 'damage_stored', config.damage_stored);
         this.addStat(stats.stats, 'victims_reaper_104', config.victims_reaper_104);
+        this.addStat(stats.stats, 'slormocide_60', config.slormocide_60);
+        this.addStat(stats.stats, 'goldbane_5', config.goldbane_5);
         this.addStat(stats.stats, 'percent_missing_mana', config.percent_missing_mana);
+        this.addStat(stats.stats, 'percent_missing_health', config.percent_missing_health);
         this.addStat(stats.stats, 'enemy_percent_missing_health', config.enemy_percent_missing_health);
         this.addStat(stats.stats, 'block_stacks', config.block_stacks);
         this.addStat(stats.stats, 'mana_lost_last_second', config.mana_lost_last_second);
         this.addStat(stats.stats, 'mana_gained_last_second', config.mana_gained_last_second);
+        this.addStat(stats.stats, 'completed_achievements', config.completed_achievements);
     }
 
     private addAncestralLegacyValues(character: Character, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {

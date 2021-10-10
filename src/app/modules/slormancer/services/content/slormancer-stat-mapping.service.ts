@@ -44,11 +44,13 @@ export class SlormancerStatMappingService {
         });
     }
 
-    public addUniqueValueToStat(stat: string, value: number, mergedStat: MergedStat, mapping: MergedStatMapping, config: CharacterConfig, extractedStats: ExtractedStatMap) {
+    public addUniqueValueToStat(stat: string, value: number | MinMax, mergedStat: MergedStat, mapping: MergedStatMapping, config: CharacterConfig, extractedStats: ExtractedStatMap) {
         let mappingSource: MergedStatMappingSource | undefined;
-        let array: Array<number> | null = null;
+        let array: Array<number | MinMax> | null = null;
 
-        if (mappingSource = mapping.source.max.find(v => v.stat === stat)) {
+        if (mappingSource = mapping.source.flat.find(v => v.stat === stat)) {
+            array = mergedStat.values.flat;
+        } else if (mappingSource = mapping.source.max.find(v => v.stat === stat)) {
             array = mergedStat.values.max;
         } else if (mappingSource = mapping.source.percent.find(v => v.stat === stat)) {
             array = mergedStat.values.percent;
@@ -62,7 +64,8 @@ export class SlormancerStatMappingService {
 
         if (mappingSource && array !== null && (mappingSource.condition === undefined || mappingSource.condition(config, extractedStats))) {
             if (mappingSource.multiplier) {
-                value = value * mappingSource.multiplier(config, extractedStats);
+                const mult = mappingSource.multiplier(config, extractedStats);
+                value = typeof value === 'number'  ? value * mult : { min: value.min * mult, max: value.max * mult };
             }
             array.push(value);
         }

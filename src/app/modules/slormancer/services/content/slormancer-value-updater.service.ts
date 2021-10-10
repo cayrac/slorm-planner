@@ -187,7 +187,7 @@ export class SlormancerValueUpdater {
                 }
             } else if (value.valueType === EffectValueValueType.AreaOfEffect) {
                 value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
-                value.displayValue = round(value.value, 2);
+                value.displayValue = round(value.value, 3);
             } else if (value.valueType !== EffectValueValueType.Static)  {
                 const statMultipliers = this.getValidStatMultipliers(activable.genres, skillStats, statsResult);
                 value.value = isEffectValueVariable(value) ? value.upgradedValue : value.baseValue;
@@ -224,7 +224,7 @@ export class SlormancerValueUpdater {
                 }
             } else if (value.valueType === EffectValueValueType.AreaOfEffect) {
                 value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
-                value.displayValue = round(value.value, 2);
+                value.displayValue = round(value.value, 3);
             } else if (value.valueType !== EffectValueValueType.Static) {
                 const statMultipliers = this.getValidStatMultipliers(ancestralLegacy.genres, skillStats, statsResult);
                 value.value = isEffectValueVariable(value) ? value.upgradedValue : value.baseValue;
@@ -385,7 +385,7 @@ export class SlormancerValueUpdater {
                 for (const value of aoeValues) {
                     value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
                     value.value  = aoeMultipliers.reduce((t, v) => t * (100 + v) / 100, value.value);
-                    value.displayValue = round(value.value, 2);
+                    value.displayValue = round(value.value, 3);
                 }
             }
         }
@@ -394,14 +394,14 @@ export class SlormancerValueUpdater {
         if (maxChargeValue) {
             const maxCharge = Math.max(0, ...valueOrDefault(statsResult.extractedStats['max_charge'], []));
             maxChargeValue.value = maxCharge;
-            maxChargeValue.displayValue = round(maxChargeValue.value, 2);
+            maxChargeValue.displayValue = round(maxChargeValue.value, 3);
         }
 
         const climaxValue = skill.values.find(value => value.stat === 'climax_increased_damage');
         if (climaxValue) {
             const climaxAdd = valueOrDefault(statsResult.extractedStats['climax_increased_damage_add'], [])
             climaxValue.value = climaxAdd.reduce((t, v) => t + v, climaxValue.baseValue);
-            climaxValue.displayValue = round(climaxValue.value, 2);
+            climaxValue.displayValue = round(climaxValue.value, 3);
         }
 
         const instructionsValue = skill.values.find(value => value.stat === 'instructions');
@@ -409,7 +409,7 @@ export class SlormancerValueUpdater {
             this.slormancerEffectValueService.updateEffectValue(instructionsValue, skill.level);
             const instructionsTotal = <number>valueOrDefault(statsResult.stats.find(stat => stat.stat === 'additional_instructions')?.total, 0);
             instructionsValue.value += instructionsTotal;
-            instructionsValue.displayValue = round(instructionsValue.value, 2);
+            instructionsValue.displayValue = round(instructionsValue.value, 3);
         }
 
         const cadenceCastCount = skill.values.find(value => value.stat === 'cadence_cast_count');
@@ -420,7 +420,7 @@ export class SlormancerValueUpdater {
             } else {
                 cadenceCastCount.value = cadenceCastCount.baseValue;
             }
-            cadenceCastCount.displayValue = round(cadenceCastCount.value, 2);
+            cadenceCastCount.displayValue = round(cadenceCastCount.value, 3);
         }
 
         if (statsResult.extractedStats['pierce_fork_rebound_is_highest']) {
@@ -451,7 +451,7 @@ export class SlormancerValueUpdater {
             const aoeValues = upgrade.values.filter(value => value.valueType === EffectValueValueType.AreaOfEffect);
             for (const value of aoeValues) {
                 value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
-                value.displayValue = round(value.value, 2);
+                value.displayValue = round(value.value, 3);
             }
         }
     }

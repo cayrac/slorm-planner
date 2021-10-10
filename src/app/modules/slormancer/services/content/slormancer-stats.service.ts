@@ -250,16 +250,8 @@ export class SlormancerStatsService {
             this.slormancerStatUpdaterService.updateStatTotal(stats);
         }
 
-        if (skillAndUpgrades.skill.id === 10) {
-            console.log('avant synergies : ', result.stats.find(a => a.stat == 'cooldown_time')?.total);
-        }
-
         const synergyResult = this.slormancerSynergyResolverService.resolveSynergies(extractedStats.synergies, result.stats, extractedStats.stats, config);
         result.unresolvedSynergies = synergyResult.unresolved;
-
-        if (skillAndUpgrades.skill.id === 10) {
-            console.log('apres synergies : ', result.stats.find(a => a.stat == 'cooldown_time')?.total);
-        }
 
         this.slormancerSynergyResolverService.resolveIsolatedSynergies(extractedStats.isolatedSynergies, result.stats, extractedStats.stats);
 

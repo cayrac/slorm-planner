@@ -43,7 +43,6 @@ export interface CharacterConfig {
     target_is_isolated: boolean;
     target_is_tracked: boolean;
     target_is_skewered: boolean;
-    target_is_splintered: boolean;
     target_is_time_locked: boolean;
     target_is_in_breach_range: boolean;
     target_has_broken_armor: boolean;
@@ -112,6 +111,9 @@ export interface CharacterConfig {
     temporal_breach_collision_stacks: number;
     obliteration_breach_collision_stacks: number;
     elemental_weakness_stacks: number;
+    high_voltage_stacks: number;
+    enemy_splintered_stacks: number;
+    revengeance_stacks: number;
     has_aura_air_conditionner: boolean;
     has_aura_neriya_shield: boolean;
     has_aura_elemental_swap: boolean;
@@ -134,6 +136,7 @@ export interface CharacterConfig {
     has_banner_haste_buff: boolean;
     has_enduring_protector_buff: boolean;
     has_speed_gate_buff: boolean;
+    has_shadow_repercussion_buff: boolean;
     distance_with_target: number;
     all_characters_level: number;
     victims_reaper_104: number;

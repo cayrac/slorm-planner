@@ -765,7 +765,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             max: [],
             percent: [
                 { stat: 'thorns_percent' },
-                { stat: 'thorns_percent_on_blocked_hit', condition: config => config.is_hit_blocked }
+                { stat: 'thorns_percent_on_blocked_hit', condition: config => config.is_hit_blocked },
+                { stat: 'revengeance_stack_thorns_percent', condition: config => config.revengeance_stacks > 0, multiplier: config => config.revengeance_stacks },
             ],
             maxPercent: [],
             multiplier: [{ stat: 'thorns_global_mult' }],
@@ -796,6 +797,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'golden_buff_retaliate_percent', condition: config => config.has_gold_armor_buff },
                 { stat: 'retaliate_percent_on_blocked_hit', condition: config => config.is_hit_blocked },
                 { stat: 'retaliate_percent_if_channeling_arcane_barrier', condition: config => config.is_channeling_arcane_barrier },
+                { stat: 'revengeance_stack_retaliate_percent', condition: config => config.revengeance_stacks > 0, multiplier: config => config.revengeance_stacks },
             ],
             max: [],
             percent: [],
@@ -1499,7 +1501,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'chivalry_low_life_reduced_damage', condition: (config, stats) => getFirstStat(stats, 'chivalry_low_life_treshold') > (100 - config.enemy_percent_missing_health), multiplier: () => -1 },
                 { stat: 'chivalry_high_life_increased_damage', condition: (config, stats) => getFirstStat(stats, 'chivalry_high_life_treshold') < (100 - config.enemy_percent_missing_health) },
                 { stat: 'increased_damage_mult_if_no_legendaries', condition: (_, stats) => getFirstStat(stats, 'number_equipped_legendaries') === 0 },
-                { stat: 'increased_damage_mult_on_splintered_enemy', condition: config => config.target_is_splintered },
+                { stat: 'increased_damage_mult_on_splintered_enemy', condition: config => config.enemy_splintered_stacks > 0, multiplier: (config, stats) => 1 + Math.max(0, Math.min(config.enemy_splintered_stacks, getFirstStat(stats, 'splintered_max_stacks', 1)) - 1) * getFirstStat(stats, 'splintered_stack_increased_effect') / 100 },
                 { stat: 'increased_damage_if_fortunate_or_perfect', condition: config => config.next_cast_is_fortunate || config.next_cast_is_perfect },
                 { stat: 'increased_damage_mult_if_target_is_time_locked', condition: config => config.target_is_time_locked },
                 { stat: 'remnant_damage_reduction_mult', condition: config => config.is_remnant },

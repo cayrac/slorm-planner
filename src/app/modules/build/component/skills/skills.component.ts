@@ -40,11 +40,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(character => {
                 this.character = character;
-                console.log(this.character);
                 this.updateSelectedSkill();
-                if (character !== null) { // TODO remove
-                    this.selectSkill(<CharacterSkillAndUpgrades>character.skills[10]);
-                }
             });
     }
 

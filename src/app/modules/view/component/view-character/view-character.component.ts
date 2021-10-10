@@ -135,7 +135,6 @@ export class ViewCharacterComponent {
 
     public import() {
         if (this.canImport()) {
-            console.log('import ', this.plannerService.getPlanner());
             if (this.plannerService.getPlanner() === null) {
                 this.plannerService.createNewPlanner(this.character.heroClass, this.character);
             } else {

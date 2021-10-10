@@ -44,6 +44,7 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
         override: values => {
             overrideValueStat(values, 0, 'golden_buff_retaliate_percent')
             overrideValueStat(values, 1, 'golden_buff_reduced_damage_from_all_percent')
+            overrideValueStat(values, 2, 'golden_buff_duration')
         }
     },
     2: {
@@ -77,11 +78,16 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
             halveSynergy(values, 1);
         }
     },
+    9: {
+        override: values => {
+            overrideValueStat(values, 0, 'shadow_repercussion_buff_duration');
+        }
+    },
     10: {
         override: values => {
             addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'inextricable_torment_aura_range');
-            overrideValueStat(values, 1, 'inextricable_torment_aura_enemy_increased_damage');
-            overrideValueStat(values, 2, 'inextricable_torment_aura_enemy_cooldown_reduction_percent');
+            overrideValueStat(values, 0, 'inextricable_torment_aura_enemy_increased_damage');
+            overrideValueStat(values, 1, 'inextricable_torment_aura_enemy_cooldown_reduction_percent');
         }
     },
     11: {
