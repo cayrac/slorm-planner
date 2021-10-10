@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { PlannerService } from '../../../shared/services/planner.service';
+import { COMBAT_CONFIG, DEFAULT_CONFIG } from '../../../slormancer/constants/content/data/default-configs';
 import { Character } from '../../../slormancer/model/character';
 import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
 import { ALL_ATTRIBUTES, Attribute } from '../../../slormancer/model/content/enum/attribute';
@@ -11,7 +12,6 @@ import { SkillUpgrade } from '../../../slormancer/model/content/skill-upgrade';
 import { MinMax } from '../../../slormancer/model/minmax';
 import { SlormancerTranslateService } from '../../../slormancer/services/content/slormancer-translate.service';
 import { SlormancerCharacterUpdaterService } from '../../../slormancer/services/slormancer-character.updater.service';
-import { SlormancerConfigurationService } from '../../../slormancer/services/slormancer-configuration.service';
 
 // TODO
 // Ajouter switch stats
@@ -44,7 +44,6 @@ export class ViewCharacterComponent {
     constructor(activatedRoute: ActivatedRoute,
                 private router: Router,
                 private plannerService: PlannerService,
-                private slormancerConfigurationService: SlormancerConfigurationService,
                 private slormancerCharacterUpdaterService: SlormancerCharacterUpdaterService,
                 private slormancerTranslateService: SlormancerTranslateService) {
         this.character = activatedRoute.snapshot.data['character'];
@@ -57,11 +56,10 @@ export class ViewCharacterComponent {
 
     private updateConfiguration() {
         if (this.combatBuffControl.value) {
-            this.slormancerConfigurationService.switchToCombatConfig(this.character);
+            this.slormancerCharacterUpdaterService.updateCharacter(this.character, COMBAT_CONFIG);
         } else {
-            this.slormancerConfigurationService.switchToDefaultConfig(this.character);
+            this.slormancerCharacterUpdaterService.updateCharacter(this.character, DEFAULT_CONFIG);
         }
-        this.slormancerCharacterUpdaterService.updateCharacter(this.character)
     }
 
     private getStat(stat: string): number | MinMax {

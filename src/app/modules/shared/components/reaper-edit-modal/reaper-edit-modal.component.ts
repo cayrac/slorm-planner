@@ -2,12 +2,15 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
+import { DEFAULT_CONFIG } from '../../../slormancer/constants/content/data/default-configs';
 import { Character } from '../../../slormancer/model/character';
 import { Reaper } from '../../../slormancer/model/content/reaper';
 import { SlormancerReaperService } from '../../../slormancer/services/content/slormancer-reaper.service';
 import { SlormancerCharacterUpdaterService } from '../../../slormancer/services/slormancer-character.updater.service';
+import { valueOrDefault } from '../../../slormancer/util/utils';
 import { SelectOption } from '../../model/select-option';
 import { FormOptionsService } from '../../services/form-options.service';
+import { PlannerService } from '../../services/planner.service';
 
 export interface ReaperEditModalData {
     character: Character;
@@ -35,6 +38,7 @@ export class ReaperEditModalComponent {
                 private slormancerReaperService: SlormancerReaperService,
                 private slormancerCharacterUpdaterService: SlormancerCharacterUpdaterService,
                 private formOptionsService: FormOptionsService,
+                private plannerService: PlannerService,
                 @Inject(MAT_DIALOG_DATA) data: ReaperEditModalData
                 ) {
         this.originalReaper = this.slormancerReaperService.getReaperClone(data.reaper);
@@ -73,7 +77,7 @@ export class ReaperEditModalComponent {
             }
 
             this.slormancerReaperService.updateReaperModel(this.reaper);
-            this.slormancerCharacterUpdaterService.updateCharacter(this.character, false);
+            this.slormancerCharacterUpdaterService.updateCharacter(this.character, valueOrDefault(this.plannerService.getConfiguration(), DEFAULT_CONFIG), false);
             this.slormancerReaperService.updateReaperView(this.reaper);
             
             this.options = this.formOptionsService.getReaperOptions(this.reaper.weaponClass, this.reaper.primordial);

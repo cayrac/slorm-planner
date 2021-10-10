@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { MaterialModule } from '../shared/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { CreateBuildEmptyComponent } from './component/create-build-empty/create-build-empty.component';
 import { CreateBuildFromExportComponent } from './component/create-build-from-export/create-build-from-export.component';
@@ -27,7 +26,6 @@ import { CreateComponent } from './create.component';
         CreateRoutingModule,
         OverlayModule,
         FormsModule,
-        MaterialModule,
     ],
     providers: [
     ],

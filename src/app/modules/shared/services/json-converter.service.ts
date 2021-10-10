@@ -243,8 +243,10 @@ export class JsonConverterService {
     public plannerToJson(planner: Planner): JsonPlanner {
         return {
             type: 'p',
+            version: planner.version,
             heroClass: planner.heroClass,
-            layers: planner.layers.map(layer => this.layerToJson(layer))
+            layers: planner.layers.map(layer => this.layerToJson(layer)),
+            configuration: { ...planner.configuration }
         };
     }
 
@@ -361,8 +363,10 @@ export class JsonConverterService {
 
     public jsonToPlanner(planner: JsonPlanner): Planner {
         return {
+            version: planner.version,
             heroClass: planner.heroClass,
-            layers: planner.layers.map(layer => this.jsonToLayer(layer))
+            layers: planner.layers.map(layer => this.jsonToLayer(layer)),
+            configuration: { ...planner.configuration }
         };
     }
 

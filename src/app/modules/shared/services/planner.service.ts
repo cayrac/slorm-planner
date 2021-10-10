@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
+import { environment } from '../../../../environments/environment';
+import { DEFAULT_CONFIG } from '../../slormancer/constants/content/data/default-configs';
 import { Character } from '../../slormancer/model/character';
+import { CharacterConfig } from '../../slormancer/model/character-config';
 import { HeroClass } from '../../slormancer/model/content/enum/hero-class';
 import { SlormancerCharacterBuilderService } from '../../slormancer/services/slormancer-character-builder.service';
 import { SlormancerCharacterUpdaterService } from '../../slormancer/services/slormancer-character.updater.service';
@@ -10,6 +13,7 @@ import { valueOrNull } from '../../slormancer/util/utils';
 import { Layer } from '../model/layer';
 import { Planner } from '../model/planner';
 import { JsonConverterService } from './json-converter.service';
+import { PlannerRetrocompatibilityService } from './planner-retrocompatibility.service';
 
 @Injectable({ providedIn: 'root' })
 export class PlannerService {
@@ -32,7 +36,8 @@ export class PlannerService {
 
     constructor(private slormancerCharacterService: SlormancerCharacterUpdaterService,
                 private jsonConverterService: JsonConverterService,
-                private slormancerCharacterBuilderService: SlormancerCharacterBuilderService) {
+                private slormancerCharacterBuilderService: SlormancerCharacterBuilderService,
+                private plannerRetrocompatibilityService: PlannerRetrocompatibilityService) {
         const data = localStorage.getItem(this.STORAGE_KEY);
         this.setPlanner(data === null ? null : this.jsonConverterService.jsonToPlanner(JSON.parse(data)))
 
@@ -49,10 +54,13 @@ export class PlannerService {
     }
 
     public setPlanner(planner: Planner | null) {
+        if (planner !== null) {
+            this.plannerRetrocompatibilityService.updateToLatestVersion(planner);
+        }
         this.planner = planner;
         this.layersChanged.next(this.planner === null ? [] : this.planner.layers);
         this.setLayerIndex(this.planner === null ? -1 : 0, true);
-        this.savePlanner();
+        this.updateAllCharacters();
     }
 
     public getPlannerclass(): HeroClass | null {
@@ -66,7 +74,12 @@ export class PlannerService {
     }
 
     private initPlanner(heroClass: HeroClass) {
-        this.planner = { heroClass, layers: [] };
+        this.planner = {
+            version: environment.version,
+            heroClass,
+            layers: [],
+            configuration: DEFAULT_CONFIG
+        };
         this.layersChanged.next(this.planner.layers);
     }
 
@@ -167,9 +180,18 @@ export class PlannerService {
             const layer = this.planner.layers[this.selectedLayerIndex];
 
             if (layer) {
-                this.slormancerCharacterService.updateCharacter(layer.character);
+                this.slormancerCharacterService.updateCharacter(layer.character, this.planner.configuration);
                 this.savePlanner();
             }
+        }
+    }
+
+    public updateAllCharacters() {
+        if (this.planner !== null) {
+            for (const layer of this.planner.layers) {
+                this.slormancerCharacterService.updateCharacter(layer.character, this.planner.configuration);
+            }
+            this.savePlanner();
         }
     }
 
@@ -181,5 +203,16 @@ export class PlannerService {
         return this.planner === null
             || (this.planner.layers.length < this.MAX_LAYERS
                 && (character === null || this.planner.heroClass === character.heroClass));
+    }
+
+    public setConfiguration(config: CharacterConfig) {
+        if (this.planner !== null) {
+            Object.assign(this.planner.configuration, config);
+            this.updateAllCharacters();
+        }
+    }
+
+    public getConfiguration(): CharacterConfig | null {
+        return this.planner === null ? null : this.planner.configuration;
     }
 }

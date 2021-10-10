@@ -200,7 +200,7 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
             } else {
                 changed = this.slormancerCharacterModifierService.activateAncestralLegacyNode(this.character, nodeId);
             }
-            this.plannerService.savePlanner();
+            this.plannerService.updateCurrentCharacter();
     
             if (changed) {
                 this.updateMap();

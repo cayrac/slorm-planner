@@ -169,3 +169,19 @@ export function isDamageType(stat: string): boolean {
         || stat === 'bleed_damage'
         || stat === 'damage';
 }
+
+export function compareVersions(a: string, b: string): number {
+    const regExStrip0 = /(\.0+)+$/;
+    const segmentsA = a.replace(regExStrip0, '').split('.');
+    const segmentsB = b.replace(regExStrip0, '').split('.');
+    const minLength = Math.min(segmentsA.length, segmentsB.length);
+
+    let diff;
+    for (let i = 0; i < minLength; i++) {
+        diff = parseInt(<string>segmentsA[i], 10) - parseInt(<string>segmentsB[i], 10);
+        if (diff) {
+            return diff;
+        }
+    }
+    return segmentsA.length - segmentsB.length;
+}

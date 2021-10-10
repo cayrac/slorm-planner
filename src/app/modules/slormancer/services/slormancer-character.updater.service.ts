@@ -22,7 +22,6 @@ import { SlormancerSkillService } from './content/slormancer-skill.service';
 import { CharacterStatsBuildResult, SlormancerStatsService } from './content/slormancer-stats.service';
 import { SlormancerTranslateService } from './content/slormancer-translate.service';
 import { SlormancerValueUpdater } from './content/slormancer-value-updater.service';
-import { SlormancerConfigurationService } from './slormancer-configuration.service';
 
 @Injectable()
 export class SlormancerCharacterUpdaterService {
@@ -39,7 +38,6 @@ export class SlormancerCharacterUpdaterService {
                 private slormancerItemService: SlormancerItemService,
                 private slormancerActivableService: SlormancerActivableService,
                 private slormancerValueUpdater: SlormancerValueUpdater,
-                private slormancerConfigurationService: SlormancerConfigurationService,
                 private messageService: MessageService,
         ) { }
 
@@ -258,7 +256,7 @@ export class SlormancerCharacterUpdaterService {
         }
     }
 
-    public updateCharacter(character: Character, updateViews: boolean = true, additionalItem: EquipableItem | null = null) {
+    public updateCharacter(character: Character, config: CharacterConfig, updateViews: boolean = true, additionalItem: EquipableItem | null = null) {
         character.ancestralLegacies.activeAncestralLegacies = this.slormancerDataService.getAncestralSkillIdFromNodes(character.ancestralLegacies.activeNodes);
 
         character.name = this.slormancerTranslateService.translate('hero_' + character.heroClass);
@@ -277,8 +275,7 @@ export class SlormancerCharacterUpdaterService {
 
         this.updateBonuses(character);
 
-        // this.slormancerConfigurationService.updateAuraMissingResources(character);
-        this.updateCharacterStats(character, updateViews, this.slormancerConfigurationService.getConfiguration(), additionalItem);
+        this.updateCharacterStats(character, updateViews, config, additionalItem);
 
         console.log(character);
     }

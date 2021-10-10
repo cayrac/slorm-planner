@@ -19,7 +19,6 @@ import { SlormancerDataService } from './content/slormancer-data.service';
 import { SlormancerItemService } from './content/slormancer-item.service';
 import { SlormancerReaperService } from './content/slormancer-reaper.service';
 import { SlormancerSkillService } from './content/slormancer-skill.service';
-import { SlormancerCharacterUpdaterService } from './slormancer-character.updater.service';
 
 @Injectable()
 export class SlormancerCharacterBuilderService {
@@ -29,8 +28,7 @@ export class SlormancerCharacterBuilderService {
                 private slormancerDataService: SlormancerDataService,
                 private slormancerSkillService: SlormancerSkillService,
                 private slormancerAttributeService: SlormancerAttributeService,
-                private slormancerAncestralLegacyService: SlormancerAncestralLegacyService,
-                private slormancerCharacterService: SlormancerCharacterUpdaterService
+                private slormancerAncestralLegacyService: SlormancerAncestralLegacyService
         ) { }
 
     private getSkills(heroClass: HeroClass, equipped: Array<number> = [], ranks: Array<number> = []): Array<CharacterSkillAndUpgrades> {
@@ -256,8 +254,6 @@ export class SlormancerCharacterBuilderService {
         result.activable3 = this.getActivableFromActivable(character.activable3, result);
         result.activable4 = this.getActivableFromActivable(character.activable4, result);
 
-        this.slormancerCharacterService.updateCharacter(result);
-
         return result;
     }
     
@@ -427,8 +423,6 @@ export class SlormancerCharacterBuilderService {
         character.activable2 = activable2 === null ? null : this.getActivable(activable2, character);
         character.activable3 = activable3 === null ? null : this.getActivable(activable3, character);
         character.activable4 = activable4 === null ? null : this.getActivable(activable4, character);
-
-        this.slormancerCharacterService.updateCharacter(character);
 
         return character;
     }

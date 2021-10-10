@@ -27,7 +27,6 @@ import { SlormancerSaveParserService } from './services/parser/slormancer-save-p
 import { SlormancerCharacterBuilderService } from './services/slormancer-character-builder.service';
 import { SlormancerCharacterModifierService } from './services/slormancer-character.modifier.service';
 import { SlormancerCharacterUpdaterService } from './services/slormancer-character.updater.service';
-import { SlormancerConfigurationService } from './services/slormancer-configuration.service';
 
 @NgModule({
   declarations: [],
@@ -60,7 +59,6 @@ import { SlormancerConfigurationService } from './services/slormancer-configurat
     SlormancerStatUpdaterService,
     SlormancerCharacterModifierService,
     SlormancerValueUpdater,
-    SlormancerConfigurationService,
     SlormancerStatMappingService
   ],
   bootstrap: []

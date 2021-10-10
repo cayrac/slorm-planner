@@ -5,13 +5,11 @@ import { Skill } from '../model/content/skill';
 import { SkillUpgrade } from '../model/content/skill-upgrade';
 import { isNotNullOrUndefined } from '../util/utils';
 import { SlormancerAncestralLegacyService } from './content/slormancer-ancestral-legacy.service';
-import { SlormancerCharacterUpdaterService } from './slormancer-character.updater.service';
 
 @Injectable()
 export class SlormancerCharacterModifierService {
 
     constructor(private slormancerAncestralLegacyService: SlormancerAncestralLegacyService,
-                private slormancerCharacterService: SlormancerCharacterUpdaterService,
         ) { }
 
     public setPrimarySkill(character: Character, skill: Skill): boolean {
@@ -22,8 +20,6 @@ export class SlormancerCharacterModifierService {
                 character.secondarySkill = character.primarySkill;
             }
             character.primarySkill = skill;
-
-            this.slormancerCharacterService.updateCharacter(character);
 
             result = true;
         }
@@ -39,7 +35,6 @@ export class SlormancerCharacterModifierService {
                 character.primarySkill = character.secondarySkill;
             }
             character.secondarySkill = skill;
-            this.slormancerCharacterService.updateCharacter(character);
 
             result = true;
         }
@@ -52,7 +47,6 @@ export class SlormancerCharacterModifierService {
 
         if (character.supportSkill !== skill) {
             character.supportSkill = skill;
-            this.slormancerCharacterService.updateCharacter(character);
 
             result = true;
         }
@@ -79,7 +73,6 @@ export class SlormancerCharacterModifierService {
 
             skill.selectedUpgrades.push(selectedUpgrade.id);
 
-            this.slormancerCharacterService.updateCharacter(character);
             changed = true;    
         }
 
@@ -94,7 +87,6 @@ export class SlormancerCharacterModifierService {
             && character.ancestralLegacies.activeNodes.length < character.ancestralLegacies.maxAncestralLegacy
             && this.slormancerAncestralLegacyService.isNodeConnectedTo(nodeId, character.ancestralLegacies.activeNodes)) {
             character.ancestralLegacies.activeNodes.push(nodeId);
-            this.slormancerCharacterService.updateCharacter(character);
             changed = true;
         }
 
@@ -106,7 +98,6 @@ export class SlormancerCharacterModifierService {
 
         if (character.ancestralLegacies.activeNodes.indexOf(nodeId) !== -1) {
             character.ancestralLegacies.activeNodes = this.slormancerAncestralLegacyService.getValidNodes(character.ancestralLegacies.activeNodes.filter(id => id !== nodeId));
-            this.slormancerCharacterService.updateCharacter(character);
             changed = true;
         }
 

@@ -207,18 +207,21 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
     public equipSupport(skill: CharacterSkillAndUpgrades) {
         if (this.character !== null) {
             this.slormancerCharacterModifierService.setSupportSkill(this.character, skill.skill);
+            this.plannerService.updateCurrentCharacter();
         }
     }
 
     public equipPrimary(skill: CharacterSkillAndUpgrades) {
         if (this.character !== null) {
             this.slormancerCharacterModifierService.setPrimarySkill(this.character, skill.skill);
+            this.plannerService.updateCurrentCharacter();
         }
     }
 
     public equipSecondary(skill: CharacterSkillAndUpgrades) {
         if (this.character !== null) {
             this.slormancerCharacterModifierService.setSecondarySkill(this.character, skill.skill);
+            this.plannerService.updateCurrentCharacter();
         }
     }
 }

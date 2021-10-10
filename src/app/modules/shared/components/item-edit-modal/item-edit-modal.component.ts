@@ -5,6 +5,7 @@ import { Character } from 'src/app/modules/slormancer/model/character';
 import { SlormancerCharacterUpdaterService } from 'src/app/modules/slormancer/services/slormancer-character.updater.service';
 
 import { MAX_EPIC_STATS, MAX_ITEM_LEVEL, MAX_MAGIC_STATS, MAX_RARE_STATS } from '../../../slormancer/constants/common';
+import { DEFAULT_CONFIG } from '../../../slormancer/constants/content/data/default-configs';
 import { Affix } from '../../../slormancer/model/content/affix';
 import { Attribute } from '../../../slormancer/model/content/enum/attribute';
 import { Rarity } from '../../../slormancer/model/content/enum/rarity';
@@ -15,8 +16,9 @@ import { SlormancerAffixService } from '../../../slormancer/services/content/slo
 import { SlormancerDataService } from '../../../slormancer/services/content/slormancer-data.service';
 import { SlormancerItemService } from '../../../slormancer/services/content/slormancer-item.service';
 import { SlormancerLegendaryEffectService } from '../../../slormancer/services/content/slormancer-legendary-effect.service';
-import { valueOrNull } from '../../../slormancer/util/utils';
+import { valueOrDefault, valueOrNull } from '../../../slormancer/util/utils';
 import { FormOptionsService } from '../../services/form-options.service';
+import { PlannerService } from '../../services/planner.service';
 
 export interface ItemEditModalData {
     character: Character,
@@ -54,6 +56,7 @@ export class ItemEditModalComponent {
                 private slormancerAffixService: SlormancerAffixService,
                 private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
                 private formOptionsService: FormOptionsService,
+                private plannerService: PlannerService,
                 @Inject(MAT_DIALOG_DATA) data: ItemEditModalData
                 ) {
         this.originalItem = data.item;
@@ -178,7 +181,7 @@ export class ItemEditModalComponent {
 
             this.slormancerItemService.updateEquipableItemModel(item);
             
-            this.slormancerCharacterUpdaterService.updateCharacter(this.character, false, item);
+            this.slormancerCharacterUpdaterService.updateCharacter(this.character, valueOrDefault(this.plannerService.getConfiguration(), DEFAULT_CONFIG), false, item);
 
             this.slormancerItemService.updateEquipableItemView(item);
         }

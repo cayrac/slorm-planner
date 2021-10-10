@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { MaterialModule } from '../shared/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { ViewCharacterComponent } from './component/view-character/view-character.component';
 import { ViewRoutingModule } from './view-routing.module';
@@ -21,7 +20,6 @@ import { ViewComponent } from './view.component';
         ViewRoutingModule,
         OverlayModule,
         FormsModule,
-        MaterialModule,
     ],
     providers: [
     ],
