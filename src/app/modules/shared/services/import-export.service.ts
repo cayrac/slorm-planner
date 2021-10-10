@@ -84,7 +84,9 @@ export class ImportExportService {
                 try {
                     data.character = this.parseSaveData(content, heroClass);
                     resolve(data);
-                } catch (e) { }
+                } catch (e) {
+                    console.error('Error when parsing save file : ', e);
+                }
             }
 
             try {
