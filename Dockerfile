@@ -6,7 +6,6 @@ COPY angular.json .
 COPY package.json .
 COPY tsconfig.json .
 COPY src src
-COPY httpd.conf /usr/local/apache2/conf/httpd.conf
 
 RUN apk add --no-cache nodejs=14.17.6-r0 npm apache2 openrc
 
@@ -15,3 +14,5 @@ RUN npm install
 RUN ln -s node_modules/.bin/ng /bin/ng
 
 RUN npm run build
+
+COPY httpd.conf /usr/local/apache2/conf/httpd.conf
