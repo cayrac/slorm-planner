@@ -14,6 +14,7 @@
         "node": ">=14.17.5"
     },
     "dependencies": {
+        "@angular-devkit/build-angular": "12.0.3",
         "@angular/cli": "12.0.3",
         "@angular/animations": "12.0.3",
         "@angular/cdk": "12.0.3",
@@ -33,7 +34,6 @@
         "zone.js": "0.11.4"
     },
     "devDependencies": {
-        "@angular-devkit/build-angular": "12.0.3",
         "@angular/compiler-cli": "12.0.3",
         "@angular/language-service": "12.0.3",
         "@types/jasmine": "3.7.7",
