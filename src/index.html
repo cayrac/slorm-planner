@@ -1,14 +1,22 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Slorm-planner</title>
-  <base href="/">
-  <meta id="viewport" name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-  <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta charset="utf-8">
+    <title>Slorm-planner</title>
+    <base href="/">
+    <meta id="viewport" name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="
+        frame-src 'self';
+        script-src 'self' 'unsafe-eval' 'unsafe-inline';
+        style-src 'self' 'unsafe-inline';
+        font-src 'self';
+        img-src 'self';
+        script-src-attr 'unsafe-inline';
+        connect-src 'self' *.paste.ee;
+        default-src 'self';">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-  <app-root></app-root>
+    <app-root></app-root>
 </body>
 </html>

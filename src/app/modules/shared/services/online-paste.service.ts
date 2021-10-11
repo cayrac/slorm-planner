@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { valueOrNull } from '../../slormancer/util/utils';
 
@@ -40,8 +40,7 @@ export class OnlinePasteService {
                 } catch (e) { }
 
                 return key;
-            }),
-            catchError(() => of(null))
+            })
         );
     }
 
@@ -51,8 +50,7 @@ export class OnlinePasteService {
 
         return this.http.get<GetPasteResponse>(this.PASTEE_GET_PATH + key, { headers })
             .pipe(
-                map(response => response.success ? valueOrNull(response.paste.sections[0]?.contents) : null),
-                catchError(() => of(null))
+                map(response => response.success ? valueOrNull(response.paste.sections[0]?.contents) : null)
             );
     }
 }

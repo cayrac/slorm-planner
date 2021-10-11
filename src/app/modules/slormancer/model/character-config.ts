@@ -21,8 +21,6 @@ export interface CharacterConfig {
     next_cast_is_new_emblem: boolean;
     percent_missing_health: number;
     percent_missing_mana: number;
-    percent_lock_health: number,
-    percent_lock_mana: number;
     enemy_percent_missing_health: number;
     enemy_is_poisoned: boolean;
     enemy_has_military_oppression: boolean;
@@ -36,7 +34,7 @@ export interface CharacterConfig {
     frostbold_shot_recently: number;
     rebounds_before_hit: number;
     pierces_before_hit: number;
-    enemies_in_aoe: number;
+    enemies_in_rain_of_arrow: number;
     enemies_affected_by_latent_storm: number;
     clone_is_in_breach_range: boolean;
     target_is_close: boolean;
@@ -51,7 +49,7 @@ export interface CharacterConfig {
     target_has_arcane_discordance: boolean;
     target_has_temporal_discordance: boolean;
     target_has_obliteration_discordance: boolean;
-    is_first_hit: boolean;
+    is_first_arrow_shot_hit: boolean;
     is_hit_blocked: boolean;
     is_last_volley: boolean;
     is_remnant: boolean;
@@ -61,17 +59,17 @@ export interface CharacterConfig {
     ray_of_obliteration_is_short: boolean;
     void_arrow_fully_charged: boolean;
     rift_nova_fully_charged: boolean;
-    ennemies_in_radius: { [key: number]: number};
-    negative_effects_on_ennemies_in_radius: { [key: number]: number};
-    elites_in_radius: { [key: number]: number};
+    negative_effects_on_ennemies_in_radius: number;
+    ennemies_in_radius: number;
+    elites_in_radius: number;
     poison_enemies: number;
     trap_triggered_recently: boolean;
     took_elemental_damage_recently: boolean;
-    took_damage_before_next_cast: boolean;
+    took_physical_damage_recently: boolean;
     damage_stored: number;
     cast_support_before_next_cast: boolean;
-    seconds_since_last_crit: number;
-    seconds_since_last_dodge: number;
+    crit_recently: boolean;
+    dodge_recently: boolean;
     banners_nearby: number;
     controlled_minions: number;
     elemental_prowess_stacks: number;
@@ -114,11 +112,6 @@ export interface CharacterConfig {
     high_voltage_stacks: number;
     enemy_splintered_stacks: number;
     revengeance_stacks: number;
-    has_aura_air_conditionner: boolean;
-    has_aura_neriya_shield: boolean;
-    has_aura_elemental_swap: boolean;
-    has_aura_risk_of_pain: boolean;
-    has_aura_inextricable_torment: boolean;
     has_elemental_temper_buff: boolean;
     has_soul_bound_buff: boolean;
     has_burning_shadow_buff: boolean;

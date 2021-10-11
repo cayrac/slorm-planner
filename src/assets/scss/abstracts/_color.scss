@@ -36,3 +36,5 @@ $warn-color: mat-color($theme-warn-pallet);
         @return mat-color($theme-warn-pallet, $hue);
     }
 }
+
+$section-title-color: rgb(206, 70, 7);

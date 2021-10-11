@@ -105,4 +105,8 @@ mat-form-field.mat-form-field {
             margin-bottom: 0;
         }
     }
+
+    .mat-form-field-prefix .mat-icon, .mat-form-field-suffix .mat-icon {
+        line-height: normal;
+    }
 }

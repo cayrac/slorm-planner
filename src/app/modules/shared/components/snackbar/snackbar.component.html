@@ -1,5 +1,6 @@
 <div class="content">
     <img class="mc-ripped" src="assets/img/icon/message/success.png"/>
     <div class="message" [innerHTML]="message"></div>
+    <button mat-flat-button color="primary" *ngIf="action !== null && actionCallback !== null" (click)="actionClick()">{{action}}</button>
     <mat-icon (click)="close()">close</mat-icon>
 </div>

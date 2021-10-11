@@ -1,0 +1,10 @@
+@import "../../../../../../../assets/scss/abstracts/flex";
+@import "../../../../../../../assets/scss/abstracts/color";
+
+mat-form-field, mat-checkbox {
+    width: 100%;
+}
+
+mat-checkbox label {
+    width: 100%;
+}

@@ -1,0 +1,11 @@
+<ng-container *ngIf="config !== null && control !== null">
+    <mat-form-field appearance="outline" color="primary" *ngIf="isNumber(config)" class="no-error-padding">
+        <mat-label>{{config.label}}</mat-label>
+        <input matInput type="number" [formControl]="control" />
+        <mat-icon matSuffix *ngIf="config.info" [matTooltip]="config.info">info</mat-icon>
+    </mat-form-field>
+    <mat-checkbox color="primary" labelPosition="before" *ngIf="isBoolean(config)" [formControl]="control">
+        {{config.label}}
+        <mat-icon *ngIf="config.info" [matTooltip]="config.info">info</mat-icon>
+    </mat-checkbox>
+</ng-container>

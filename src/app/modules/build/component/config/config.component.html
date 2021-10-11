@@ -1,7 +1,20 @@
-<mat-card>
-    <mat-card-title>
-        Général
-    </mat-card-title>
-    <mat-card-content>
-    </mat-card-content>
-</mat-card>
+<main>
+    <mat-card *ngIf="config !== null">
+        <mat-card-content>
+            <ng-container *ngFor="let group of GENERAL_CONFIG_GROUPS">
+                <h3 class="section">{{group.title}}</h3>
+                <app-config-entry *ngFor="let entry of group.configurations" [control]="getControl(entry)" [config]="entry"></app-config-entry>
+            </ng-container>
+        </mat-card-content>
+    </mat-card>
+    <mat-card *ngIf="config !== null">
+        <mat-card-content>
+            <ng-container *ngFor="let group of ENEMY_CONFIG_GROUPS">
+                <ng-container *ngIf="isGroupValid(group)">
+                    <h3 class="section">{{group.title}}</h3>
+                    <app-config-entry *ngFor="let entry of group.configurations" [control]="getControl(entry)" [config]="entry"></app-config-entry>
+                </ng-container>
+            </ng-container>
+        </mat-card-content>
+    </mat-card>
+</main>

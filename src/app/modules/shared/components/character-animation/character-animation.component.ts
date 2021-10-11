@@ -13,7 +13,11 @@ export class CharacterAnimationComponent implements OnInit {
     @Input()
     public readonly heroClass: HeroClass | null = null;
 
+    @Input()
+    public readonly suffix: string = '';
+
     public flipAnimation: boolean = false;
+    
     
     @ViewChild('animation')
     private animation: ElementRef<HTMLElement> | null = null;

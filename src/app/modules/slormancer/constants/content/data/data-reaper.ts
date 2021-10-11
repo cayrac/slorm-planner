@@ -211,7 +211,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     61: {
         override: (ba, be, ma) => {
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
-            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'additional_damage');
+            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'additional_damage_add');
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'no_gold_armor_buff_increased_damage_taken_mult');
         }
     },

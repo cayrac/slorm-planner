@@ -13,6 +13,7 @@ import { CharacterEquipmentComponent } from './components/character-equipment/ch
 import {
     CharacterLevelEditModalComponent,
 } from './components/character-level-edit-modal/character-level-edit-modal.component';
+import { ContentBlockedModalComponent } from './components/content-blocked-modal/content-blocked-modal.component';
 import { DeleteLayerModalComponent } from './components/delete-layer-modal/delete-layer-modal.component';
 import { DeletePlannerModalComponent } from './components/delete-planner-modal/delete-planner-modal.component';
 import { EditLayerModalComponent } from './components/edit-layer-modal/edit-layer-modal.component';
@@ -87,6 +88,7 @@ import { MaterialModule } from './material.module';
         DeletePlannerModalComponent,
         ImportDataComponent,
         FileUploadButtonComponent,
+        ContentBlockedModalComponent,
     ],
     imports: [
         CommonModule,
@@ -131,6 +133,7 @@ import { MaterialModule } from './material.module';
         MainStatsComponent,
         ImportDataComponent,
         FileUploadButtonComponent,
+        ContentBlockedModalComponent,
     ],
     providers: [
     ],

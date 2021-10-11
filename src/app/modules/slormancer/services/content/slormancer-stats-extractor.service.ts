@@ -12,13 +12,14 @@ import { EffectValueValueType } from '../../model/content/enum/effect-value-valu
 import { EquipableItemBase } from '../../model/content/enum/equipable-item-base';
 import { ALL_GEAR_SLOT_VALUES } from '../../model/content/enum/gear-slot';
 import { HeroClass } from '../../model/content/enum/hero-class';
+import { SkillCostType } from '../../model/content/enum/skill-cost-type';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { TraitLevel } from '../../model/content/enum/trait-level';
 import { EquipableItem } from '../../model/content/equipable-item';
 import { SkillType } from '../../model/content/skill-type';
 import { effectValueSynergy } from '../../util/effect-value.util';
 import { synergyResolveData } from '../../util/synergy-resolver.util';
-import { isDamageType, isEffectValueSynergy, isNotNullOrUndefined } from '../../util/utils';
+import { isDamageType, isEffectValueSynergy, isNotNullOrUndefined, valueOrDefault } from '../../util/utils';
 import { CharacterStatsBuildResult } from './slormancer-stats.service';
 
 export declare type ExtractedStatMap = { [key: string]: Array<number> }
@@ -55,10 +56,14 @@ export class SlormancerStatsExtractorService {
         const addReaperToElements = extractedStats.stats['reaper_added_to_elements'] !== undefined
         const overdriveDamageBasedOnSkillDamage = extractedStats.stats['overdrive_damage_based_on_skill_damage'] !== undefined
 
-        extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100 - config.percent_missing_mana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'current_mana'), -1, {}, [ { stat: 'current_mana' } ]));
-        extractedStats.synergies.push(synergyResolveData(effectValueSynergy(config.percent_missing_mana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'missing_mana'), -1, {}, [ { stat: 'missing_mana' } ]));
-        extractedStats.synergies.push(synergyResolveData(effectValueSynergy(config.percent_lock_mana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'mana_lock_flat'), -1, {}, [ { stat: 'mana_lock_flat' } ]));
-        extractedStats.synergies.push(synergyResolveData(effectValueSynergy(config.percent_missing_health, 0, EffectValueUpgradeType.None, false, 'max_health', 'missing_health'), -1, {}, [ { stat: 'missing_health' } ]));
+        const percentLockedMana = valueOrDefault<[number]>(<[number]>extractedStats.stats['percent_locked_mana'], [0])[0];
+        const percentMissingHealth = valueOrDefault<[number]>(<[number]>extractedStats.stats['percent_missing_health'], [0])[0];
+        const percentMissingMana = valueOrDefault<[number]>(<[number]>extractedStats.stats['percent_missing_mana'], [0])[0];
+
+        extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100 - percentMissingMana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'current_mana'), -1, {}, [ { stat: 'current_mana' } ]));
+        extractedStats.synergies.push(synergyResolveData(effectValueSynergy(percentMissingMana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'missing_mana'), -1, {}, [ { stat: 'missing_mana' } ]));
+        extractedStats.synergies.push(synergyResolveData(effectValueSynergy(percentLockedMana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'mana_lock_flat'), -1, {}, [ { stat: 'mana_lock_flat' } ]));
+        extractedStats.synergies.push(synergyResolveData(effectValueSynergy(percentMissingHealth, 0, EffectValueUpgradeType.None, false, 'max_health', 'missing_health'), -1, {}, [ { stat: 'missing_health' } ]));
         
         let mapping = mergedStatMapping.find(m => m.stat === 'physical_damage');
         extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'basic_to_physical_damage'), -1, {}, [ { stat: 'physical_damage', mapping } ]));
@@ -114,14 +119,24 @@ export class SlormancerStatsExtractorService {
         }
     }
     
-    private addConfigValues(config: CharacterConfig, stats: ExtractedStats) {
+    private addConfigValues(character: Character, config: CharacterConfig, stats: ExtractedStats) {
+
+        const activables = [character.activable1, character.activable2, character.activable3, character.activable4 ].filter(isNotNullOrUndefined);
+
+        const lockedManaPercent = activables.filter(act => act.costType === SkillCostType.ManaLock)
+            .reduce((t, s) => t + valueOrDefault(s.cost, 0), 0);
+        const lockedHealthPercent = activables.filter(act => act.costType === SkillCostType.LifeLock)
+            .reduce((t, s) => t + valueOrDefault(s.cost, 0), 0);
+
         this.addStat(stats.stats, 'all_level', config.all_characters_level);
         this.addStat(stats.stats, 'damage_stored', config.damage_stored);
         this.addStat(stats.stats, 'victims_reaper_104', config.victims_reaper_104);
         this.addStat(stats.stats, 'slormocide_60', config.slormocide_60);
         this.addStat(stats.stats, 'goldbane_5', config.goldbane_5);
-        this.addStat(stats.stats, 'percent_missing_mana', config.percent_missing_mana);
-        this.addStat(stats.stats, 'percent_missing_health', config.percent_missing_health);
+        this.addStat(stats.stats, 'percent_locked_mana', lockedManaPercent);
+        this.addStat(stats.stats, 'percent_locked_health', lockedHealthPercent);
+        this.addStat(stats.stats, 'percent_missing_mana', lockedManaPercent > config.percent_missing_mana ? lockedManaPercent : config.percent_missing_mana);
+        this.addStat(stats.stats, 'percent_missing_health', lockedHealthPercent > config.percent_missing_health ? lockedHealthPercent :config.percent_missing_health);
         this.addStat(stats.stats, 'enemy_percent_missing_health', config.enemy_percent_missing_health);
         this.addStat(stats.stats, 'block_stacks', config.block_stacks);
         this.addStat(stats.stats, 'mana_lost_last_second', config.mana_lost_last_second);
@@ -347,7 +362,7 @@ export class SlormancerStatsExtractorService {
         }
 
         this.addCharacterValues(character, result);
-        this.addConfigValues(config, result);
+        this.addConfigValues(character, config, result);
         this.addSkillPassiveValues(character, result, mergedStatMapping);
         this.addReaperValues(character, result, mergedStatMapping);
         this.addBaseValues(character, result);

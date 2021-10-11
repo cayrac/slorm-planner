@@ -1,11 +1,22 @@
 @import "../../../../../assets/scss/abstracts/flex";
 @import "../../../../../assets/scss/abstracts/color";
+@import "../../../../../assets/scss/abstracts/spacing";
 
-mat-card-content {
-    @include flex(column, center);
-    padding: $space-unit;
+main {
+    @include flex-row-to-column('tablet', stretch);
+    @include flex-gap($space-content);
 
-    p {
-        color: rgb(200, 68, 7);
+    mat-card {
+        width: 350px;
+    
+        @include respond-to('tablet') {
+            width: auto;
+        }
+    
+        mat-card-content {
+            @include flex(column, stretch);
+            @include flex-gap($space-unit);
+            padding: $space-unit * 2 $space-unit;
+        }
     }
 }

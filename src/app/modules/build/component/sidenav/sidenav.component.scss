@@ -5,9 +5,11 @@
 .sidenav {
     @include flex(column, stretch);
     @include flex-gap($space-unit * 5);
+    height: 100%;
 
     hr {
         width: 80%;
+        background-color: primary-color(300);
     }
 
     .import, .export, .build {
@@ -18,10 +20,6 @@
         h3 {
             margin: 0;
             font-weight: normal;
-        }
-    
-        input[type="file"] {
-            display: none;
         }
     
         textarea {
@@ -45,5 +43,12 @@
             @include flex(row, center);
             @include flex-gap($space-unit * 4);
         }
+    }
+
+    .version {
+        color: primary-color(200);
+        margin-top: auto;
+        text-align: right;
+
     }
 }

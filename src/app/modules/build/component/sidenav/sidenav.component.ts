@@ -1,8 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 
+import { environment } from '../../../../../environments/environment';
 import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
@@ -28,6 +30,10 @@ import { HeroClass } from '../../../slormancer/model/content/enum/hero-class';
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent extends AbstractUnsubscribeComponent implements OnInit {
+
+    public readonly VERSION = environment.version;
+
+    public readonly GITHUB = environment.github;
 
     @Input()
     private sidenav: MatSidenav | null = null;
@@ -146,14 +152,24 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
         if (layer !== null && !this.generatingLink) {
             this.generatingLink = true;
             this.importExportService.exportCharacterAsLink(layer.character)
-                .then(result => {
-                    if (result !== null && this.clipboardService.copyToClipboard(result)) {
-                        this.messageService.message('Link copied to clipboard');
-                    } else {
-                        this.messageService.error('Failed to create link to current layer');
-                    }
-                    this.generatingLink = false;
-                });
+                .then(
+                    result => {
+                        if (result !== null && this.clipboardService.copyToClipboard(result)) {
+                            this.messageService.message('Link copied to clipboard');
+                        } else {
+                            this.messageService.error('Failed to copy link to clipboard : ' + result);
+                        }
+                        this.generatingLink = false;
+                    },
+                    (error: HttpErrorResponse) => {
+                        if (!error.ok && error.status === 0) {
+                            this.messageService.error('The link creation request has been blocked');
+                            // TODO
+                        } else {
+                            this.messageService.error('Failed to create link to current layer');
+                        }
+                        this.generatingLink = false;
+                    });
         }
     }
 

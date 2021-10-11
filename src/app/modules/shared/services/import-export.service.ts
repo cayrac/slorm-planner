@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 
 import { Character } from '../../slormancer/model/character';
 import { HeroClass } from '../../slormancer/model/content/enum/hero-class';
@@ -55,23 +56,6 @@ export class ImportExportService {
         return this.jsonConverterService.jsonToSharedData(json);
     }
 
-    public importFromOnlinePaste(key: string): Promise<SharedData> {
-        return new Promise(resolve => {
-            this.pastebinService.getPaste(key)
-            .subscribe(result => {
-                if (result !== null) {
-                    this.import(result).then(sharedData => resolve(sharedData));
-                } else {
-                    resolve({
-                        character: null,
-                        layer: null,
-                        planner: null
-                    });
-                }
-            });
-        });
-    }
-
     public import(content: string, heroClass: HeroClass | null = null): Promise<SharedData> {
         return new Promise(resolve => {
             let data: SharedData = {
@@ -116,11 +100,26 @@ export class ImportExportService {
         return btoa(JSON.stringify(this.jsonConverterService.plannerToJson(planner)));
     }
 
-    public exportCharacterAsLink(character: Character): Promise<string | null> {
+    public exportCharacterAsLink(character: Character): Promise<string> {
         const content = this.exportCharacter(character);
-        return new Promise(resolve => {
-            this.pastebinService.createPaste(content)
-            .subscribe(result => resolve(result === null ? null : this.VIEW_PATH + result));
+        return this.pastebinService.createPaste(content)
+            .pipe(map(result => this.VIEW_PATH + result)).toPromise();
+    }
+
+    public importFromOnlinePaste(key: string): Promise<SharedData> {
+        return new Promise((resolve, reject) => {
+            this.pastebinService.getPaste(key)
+            .subscribe(result => {
+                if (result !== null) {
+                    this.import(result).then(sharedData => resolve(sharedData));
+                } else {
+                    resolve({
+                        character: null,
+                        layer: null,
+                        planner: null
+                    });
+                }
+            }, error => reject(error));
         });
     }
 }

@@ -5,39 +5,41 @@ import { SnackbarComponent } from '../components/snackbar/snackbar.component';
 
 export interface SnackbarData {
     message: string;
-
+    action: string | null;
+    actionCallback: (() => void) | null;
 }
 
 @Injectable({ providedIn: 'root' })
 export class MessageService {
 
+    private readonly DEFAULT_DURATION = 5000;
+    private readonly ACTION_DURATION = 20000;
+
     private currentSnackBar: MatSnackBarRef<SnackbarComponent> | null = null;
 
-    private readonly SNACKBAR_CONFIG: MatSnackBarConfig = {
-        duration: 5000,
-        
-    }
+    constructor(private snackBar: MatSnackBar) { }
 
-    constructor(private snackBar: MatSnackBar) {
-
-    }
-
-    public message(message: string) {
-        const data: SnackbarData = {
-            message
+    private getConfig(message: string, action: string | null = null, actionCallback: (() => void) | null = null): MatSnackBarConfig {
+        return {
+            duration: (action !== null && actionCallback !== null) ? this.ACTION_DURATION : this.DEFAULT_DURATION,
+            data: {
+                message,
+                action,
+                actionCallback
+            }
         }
-        this.currentSnackBar = this.snackBar.openFromComponent(SnackbarComponent, { ...this.SNACKBAR_CONFIG, data });
     }
 
-    public error(message: string) {
-        const data: SnackbarData = {
-            message
-        }
+    public message(message: string, action: string | null = null, actionCallback: (() => void) | null = null) {
+        this.currentSnackBar = this.snackBar.openFromComponent(SnackbarComponent, this.getConfig(message, action, actionCallback));
+    }
+
+    public error(message: string, action: string | null = null, actionCallback: (() => void) | null = null) {
 
         if (this.currentSnackBar !== null) {
             this.currentSnackBar.dismiss();
         }
 
-        this.currentSnackBar = this.snackBar.openFromComponent(SnackbarComponent, { ...this.SNACKBAR_CONFIG, data });
+        this.currentSnackBar = this.snackBar.openFromComponent(SnackbarComponent, this.getConfig(message, action, actionCallback));
     }
 }
