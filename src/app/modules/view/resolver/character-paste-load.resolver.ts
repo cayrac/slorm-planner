@@ -39,7 +39,7 @@ export class CharacterPasteLoad implements Resolve<Character> {
                         } else {
                             this.messageService.error('Failed to load shared character');
                         }
-                        // this.back();
+                        this.back();
                     });
             } else {
                 this.back();

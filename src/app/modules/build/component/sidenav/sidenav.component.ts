@@ -8,6 +8,9 @@ import { environment } from '../../../../../environments/environment';
 import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
+import {
+    ContentBlockedModalComponent,
+} from '../../../shared/components/content-blocked-modal/content-blocked-modal.component';
 import { DeletePlannerModalComponent } from '../../../shared/components/delete-planner-modal/delete-planner-modal.component';
 import {
     EditLayerModalComponent,
@@ -163,7 +166,7 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
                     },
                     (error: HttpErrorResponse) => {
                         if (!error.ok && error.status === 0) {
-                            this.messageService.error('The link creation request has been blocked');
+                            this.messageService.error('The link creation request has been blocked', 'Why ?',() => this.dialog.open(ContentBlockedModalComponent));
                             // TODO
                         } else {
                             this.messageService.error('Failed to create link to current layer');

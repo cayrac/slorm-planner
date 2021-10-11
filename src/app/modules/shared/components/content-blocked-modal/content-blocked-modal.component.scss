@@ -1,0 +1,12 @@
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/variables";
+
+mat-dialog-content {
+    @include flex(row);
+    @include flex-gap($space-content);
+
+    .content {
+        float: right;
+        width: 250px;
+    }
+}
