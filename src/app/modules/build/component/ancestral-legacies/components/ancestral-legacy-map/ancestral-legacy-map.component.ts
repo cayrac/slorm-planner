@@ -74,13 +74,13 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
 
     public position: Position = { x: 0, y: 0 };
 
-    public zoom: number = 2;
+    public scale: number = 2;
 
     public grabbed = false;
 
     @HostListener('wheel', ['$event'])
     public onWheelUp(event: WheelEvent) {
-        this.zoom = Math.max(1, Math.min(2, this.zoom + (event.deltaY > 0 ? -0.2 : 0.2)));
+        this.scale = Math.max(1, Math.min(2, this.scale + (event.deltaY > 0 ? -0.2 : 0.2)));
         return false;
     }
 
@@ -98,9 +98,8 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
     @HostListener('mousemove', ['$event'])
     public onMouseMouve(event: MouseEvent) {
         if (this.grabbed) {
-            this.position.x = Math.min(this.BOUNDS_X.max, Math.max(this.BOUNDS_X.min, this.position.x + event.movementX / this.zoom));
-            this.position.y = Math.min(this.BOUNDS_Y.max, Math.max(this.BOUNDS_Y.min, this.position.y + event.movementY / this.zoom));
-            ;
+            this.position.x = Math.min(this.BOUNDS_X.max, Math.max(this.BOUNDS_X.min, this.position.x + event.movementX));
+            this.position.y = Math.min(this.BOUNDS_Y.max, Math.max(this.BOUNDS_Y.min, this.position.y + event.movementY));
         }
     }
 

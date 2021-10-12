@@ -22,6 +22,7 @@ mat-form-field.mat-form-field {
 
     input {
         caret-color: white;
+        box-sizing: border-box;
     }
 
     .mat-form-field-wrapper {
