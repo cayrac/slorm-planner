@@ -14,3 +14,8 @@
 - Creating a new build no longer initialize your available attribute points to 0
 - Fixed an issue when parsing ressources item (ressources value of size 6 instead of 8)
 - Ancestral legacies tab now correctly work on Firefox
+
+## Release 0.0.3 (2020-10-12)
+
+### Fixes
+- Fixed an issue causing character stats to be empty on first load

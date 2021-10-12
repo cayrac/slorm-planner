@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  version: '0.0.2',
+  version: '0.0.3',
   github: 'https://github.com/cayrac/slorm-planner'
 };
 

@@ -166,7 +166,7 @@ export class PlannerService {
             this.initPlanner(heroClass);
             this.addLayer(layerName, character);
             this.setLayerIndex(0, true);
-            this.savePlanner();
+            this.updateAllCharacters();
         }
     }
 
