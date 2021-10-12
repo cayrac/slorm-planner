@@ -14,6 +14,8 @@ export interface CharacterSkillAndUpgrades {
     skill: Skill;
     upgrades: Array<SkillUpgrade>;
     selectedUpgrades: Array<number>;
+
+    stats: Array<MergedStat>;
 }
 
 export interface CharacterAncestralLegacies {

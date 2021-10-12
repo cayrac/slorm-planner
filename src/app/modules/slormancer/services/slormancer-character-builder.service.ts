@@ -40,7 +40,8 @@ export class SlormancerCharacterBuilderService {
             return skill === null ? null : {
                 skill,
                 upgrades,
-                selectedUpgrades: upgrades.map(passive => passive.id).filter(id => equipped[id] === 1)
+                selectedUpgrades: upgrades.map(passive => passive.id).filter(id => equipped[id] === 1),
+                stats: [],
             }
         }).filter(isNotNullOrUndefined);
     }
@@ -49,7 +50,8 @@ export class SlormancerCharacterBuilderService {
         return {
             skill: this.slormancerSkillService.getHeroSkillClone(skillAndUpgrades.skill),
             selectedUpgrades: [...skillAndUpgrades.selectedUpgrades],
-            upgrades: skillAndUpgrades.upgrades.map(upgrade => this.slormancerSkillService.getUpgradeClone(upgrade))
+            upgrades: skillAndUpgrades.upgrades.map(upgrade => this.slormancerSkillService.getUpgradeClone(upgrade)),
+            stats: [...skillAndUpgrades.stats],
         };
     }
 

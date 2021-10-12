@@ -243,6 +243,7 @@ export class SlormancerCharacterUpdaterService {
             this.slormancerValueUpdater.updateSkillAndUpgradeValues(character, skillAndUpgrades, result);
             statsResult.changed.skills.push(skillAndUpgrades.skill);
             statsResult.changed.upgrades.push(...skillAndUpgrades.upgrades);
+            skillAndUpgrades.stats = statsResult.stats;
         }
 
         const activableChanged = this.updateCharacterActivables(character, statsResult, additionalItem, false);
