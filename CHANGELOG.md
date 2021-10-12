@@ -3,7 +3,7 @@
 ### Added
 - Initial release
 
-## Release 0.0.2 (TBR)
+## Release 0.0.2 (2020-10-12)
 
 ### Added
 - Added a content blocked page if the browser block the main scripts
