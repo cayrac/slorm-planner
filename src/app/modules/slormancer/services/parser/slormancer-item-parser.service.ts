@@ -10,6 +10,7 @@ import {
 } from '../../model/parser/game/game-item';
 import { GameRarity } from '../../model/parser/game/game-rarity';
 import { strictParseFloat, strictParseInt, strictSplit, toNumberArray } from '../../util/parse.util';
+import { splitData } from '../../util/utils';
 
 @Injectable()
 export class SlormancerItemParserService {
@@ -18,7 +19,7 @@ export class SlormancerItemParserService {
     private ENCHANTMENT_TARGETS = ['MA', 'AT', 'RP'];
 
     private isRessource(value: string): boolean {
-        return value.startsWith('0') && value.length > 1;
+        return value.startsWith('0') && splitData(value, '.').length > 5;
     }
 
     private isEquipable(value: string): boolean {
@@ -97,8 +98,7 @@ export class SlormancerItemParserService {
     }
 
     private parseRessource(source: string): GameRessourceItem {
-        const data = toNumberArray(source, '.', 8);
-
+        const data = toNumberArray(source, '.');
         return {
             quantity: <number>data[4],
             quality: <number>data[2],
