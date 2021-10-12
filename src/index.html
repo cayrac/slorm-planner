@@ -15,8 +15,56 @@
         connect-src 'self' *.paste.ee;
         default-src 'self';">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        #no-script {
+            position: fixed;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background-color: #101010;
+            color: #d0d0d0;
+            padding: 24px;
+            border-radius: 4px;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+        }
+
+        #no-script img {
+            height: 144px;
+            width: 104px;
+            transform: scaleX(-1);
+            image-rendering: pixelated;
+            float: left;
+            margin-right: 20px;
+        }
+
+        @media screen and (max-width: 448px) {
+            #no-script {
+                flex-direction: column-reverse;
+                justify-content: flex-end;
+                transform: none;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: auto;
+            }
+        }
+    </style>
 </head>
 <body>
     <app-root></app-root>
+    <div id="no-script">
+        <img src="assets/img/character/icon/2/dead.png">
+        <div class="content">
+            <p>This application require javascript in order to work.</p>
+            <p>Please enable javascript and script loading for this domain and (optionally) <a target="_blank" href="https://paste.ee">paste.ee</a></p>
+        </div>
+    </div>
+    <script type="text/javascript">
+        document.getElementById('no-script').remove();
+    </script>
 </body>
 </html>

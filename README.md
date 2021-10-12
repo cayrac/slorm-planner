@@ -1,3 +1,5 @@
+This project is a build planner for the game <a href="http://www.slormitestudios.com/">The Slormancer</a>
+
 ## Install and run project
 
 ### Windows
