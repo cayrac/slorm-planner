@@ -15,6 +15,8 @@ RUN ln -s node_modules/.bin/ng /bin/ng
 
 RUN npm run build
 
+# TODO supprimer node_modules et ne garder que dist
+
 EXPOSE 8080
 
 COPY httpd.conf /usr/local/apache2/conf/httpd.conf
