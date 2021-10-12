@@ -19,3 +19,8 @@
 
 ### Fixes
 - Fixed an issue causing character stats to be empty on first load
+
+## Release 0.0.4 (TBR)
+
+### Added
+- Added the correct average hit value on character view

@@ -66,6 +66,7 @@ main {
                         @include flex(row, center, space-between);
                         @include flex-gap($space-unit);
                         @include flex-grow(1, true);
+                        border-radius: $space-unit * 4;
                         border: $space-unit solid black;
                         background-color: primary-color(400); 
                         height: 30px;

@@ -68,6 +68,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Enemy',
             condition: () => true,
             configurations: [
+                { type: 'boolean', key: 'use_enemy_state', label: 'Use enemy state', info:'If unchecked, will ignore any stat given by a specific enemy state' },
                 { type: 'number', key: 'enemy_percent_missing_health', label: 'Missing health (%)' },
                 { type: 'number', key: 'distance_with_target', label: 'Distance with your hero (in yards)' },
                 { type: 'boolean', key: 'target_is_close', label: 'Is close to you' },

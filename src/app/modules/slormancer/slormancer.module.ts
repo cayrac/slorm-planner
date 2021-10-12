@@ -25,8 +25,10 @@ import { SlormancerValueUpdater } from './services/content/slormancer-value-upda
 import { SlormancerItemParserService } from './services/parser/slormancer-item-parser.service';
 import { SlormancerSaveParserService } from './services/parser/slormancer-save-parser.service';
 import { SlormancerCharacterBuilderService } from './services/slormancer-character-builder.service';
+import { SlormancerCharacterComparatorService } from './services/slormancer-character-comparator.service';
 import { SlormancerCharacterModifierService } from './services/slormancer-character.modifier.service';
 import { SlormancerCharacterUpdaterService } from './services/slormancer-character.updater.service';
+import { SlormancerDpsService } from './services/slormancer-dps-service';
 
 @NgModule({
   declarations: [],
@@ -59,7 +61,9 @@ import { SlormancerCharacterUpdaterService } from './services/slormancer-charact
     SlormancerStatUpdaterService,
     SlormancerCharacterModifierService,
     SlormancerValueUpdater,
-    SlormancerStatMappingService
+    SlormancerStatMappingService,
+    SlormancerDpsService,
+    SlormancerCharacterComparatorService
   ],
   bootstrap: []
 })

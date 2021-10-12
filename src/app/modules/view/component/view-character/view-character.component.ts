@@ -12,11 +12,10 @@ import { SkillUpgrade } from '../../../slormancer/model/content/skill-upgrade';
 import { MinMax } from '../../../slormancer/model/minmax';
 import { SlormancerTranslateService } from '../../../slormancer/services/content/slormancer-translate.service';
 import { SlormancerCharacterUpdaterService } from '../../../slormancer/services/slormancer-character.updater.service';
+import { SlormancerDpsService } from '../../../slormancer/services/slormancer-dps-service';
 
 // TODO
-// Ajouter switch stats
 // trouver formules réductions défenses
-// Ajouter 'activer buffs et auras'
 
 @Component({
   selector: 'app-view-character',
@@ -45,6 +44,7 @@ export class ViewCharacterComponent {
                 private router: Router,
                 private plannerService: PlannerService,
                 private slormancerCharacterUpdaterService: SlormancerCharacterUpdaterService,
+                private slormancerDpsService: SlormancerDpsService,
                 private slormancerTranslateService: SlormancerTranslateService) {
         this.character = activatedRoute.snapshot.data['character'];
 
@@ -78,11 +78,23 @@ export class ViewCharacterComponent {
     }
 
     public getPhysicalDamages(): string {
-        return this.valueToString(this.getStat('physical_damage'));
+        const critChance = <number>this.getStat('critical_chance');
+        const critDamage = <number>this.getStat('critical_damage');
+        const brutChance = <number>this.getStat('ancestral_chance');
+        const brutDamage = <number>this.getStat('ancestral_damage');
+        const damages = this.getStat('physical_damage');
+        
+        return this.valueToString(Math.round(this.slormancerDpsService.getAverageHitDamage(damages, critChance, brutChance, critDamage, brutDamage)));
     }
 
     public getElementalDamages(): string {
-        return this.valueToString(this.getStat('elemental_damage'));
+        const critChance = <number>this.getStat('critical_chance');
+        const critDamage = <number>this.getStat('critical_damage');
+        const brutChance = <number>this.getStat('ancestral_chance');
+        const brutDamage = <number>this.getStat('ancestral_damage');
+        const damages = this.getStat('elemental_damage');
+        
+        return this.valueToString(Math.round(this.slormancerDpsService.getAverageHitDamage(damages, critChance, brutChance, critDamage, brutDamage)));
     }
 
     public getMaximumLife(): string {

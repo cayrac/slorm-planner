@@ -17,7 +17,14 @@ export class PlannerRetrocompatibilityService {
                 planner.configuration['has_booster_max_buff'] = false;
                 planner.version = '0.0.2';
             }
-        }
+        },
+        {
+            version: '0.0.4',
+            update: planner => {
+                planner.configuration['use_enemy_state'] = false;
+                planner.version = '0.0.4';
+            }
+        },
     ];
 
     constructor() { }

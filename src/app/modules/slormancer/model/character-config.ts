@@ -21,6 +21,7 @@ export interface CharacterConfig {
     next_cast_is_new_emblem: boolean;
     percent_missing_health: number;
     percent_missing_mana: number;
+    use_enemy_state: boolean;
     enemy_percent_missing_health: number;
     enemy_is_poisoned: boolean;
     enemy_has_military_oppression: boolean;
