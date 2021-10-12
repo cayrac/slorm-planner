@@ -390,8 +390,8 @@ export class SlormancerCharacterBuilderService {
             sharedInventory: sharedInventory === null ? list(4).map(() => list(STASH_SIZE).map(() => null)) : sharedInventory,
 
             attributes: {
-                remainingPoints: 0,
-                maxPoints: 0,
+                remainingPoints: Math.max(0, level - toughtness - savagery - fury - determination - zeal - willpower - dexterity - bravery),
+                maxPoints: level,
                 allocated: {
                     [Attribute.Toughness]: this.slormancerAttributeService.getAttributeTraits(Attribute.Toughness, toughtness),
                     [Attribute.Savagery]: this.slormancerAttributeService.getAttributeTraits(Attribute.Savagery, savagery),

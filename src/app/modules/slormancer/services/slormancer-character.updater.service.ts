@@ -256,8 +256,31 @@ export class SlormancerCharacterUpdaterService {
         }
     }
 
+    private removeUnavailableActivables(character: Character) {
+        const availableActivables: Array<Activable | AncestralLegacy | null> = [
+            ...character.reaper.activables,
+            ...character.ancestralLegacies.ancestralLegacies.filter(ancestralLegacy => ancestralLegacy.isActivable),
+            ...ALL_GEAR_SLOT_VALUES.map(slot => character.gear[slot]?.legendaryEffect?.activable)
+        ].filter(isNotNullOrUndefined);
+
+        if (!availableActivables.includes(character.activable1)) {
+            character.activable1 = null;
+        }
+        if (!availableActivables.includes(character.activable2)) {
+            character.activable2 = null;
+        }
+        if (!availableActivables.includes(character.activable3)) {
+            character.activable3 = null;
+        }
+        if (!availableActivables.includes(character.activable4)) {
+            character.activable4 = null;
+        }
+    }
+
     public updateCharacter(character: Character, config: CharacterConfig, updateViews: boolean = true, additionalItem: EquipableItem | null = null) {
         character.ancestralLegacies.activeAncestralLegacies = this.slormancerDataService.getAncestralSkillIdFromNodes(character.ancestralLegacies.activeNodes);
+
+        this.removeUnavailableActivables(character);
 
         character.name = this.slormancerTranslateService.translate('hero_' + character.heroClass);
         const specialization = character.supportSkill !== null ? character.supportSkill.specializationName : null;
@@ -276,6 +299,7 @@ export class SlormancerCharacterUpdaterService {
         this.updateBonuses(character);
 
         this.updateCharacterStats(character, updateViews, config, additionalItem);
+
 
         console.log(character);
     }

@@ -4,8 +4,17 @@
         <input matInput type="number" [formControl]="control" />
         <mat-icon matSuffix *ngIf="config.info" [matTooltip]="config.info">info</mat-icon>
     </mat-form-field>
-    <mat-checkbox color="primary" labelPosition="before" *ngIf="isBoolean(config)" [formControl]="control">
-        {{config.label}}
-        <mat-icon *ngIf="config.info" [matTooltip]="config.info">info</mat-icon>
+    <mat-form-field appearance="outline" color="primary" *ngIf="isEnum(config)" class="no-error-padding">
+        <mat-label>{{config.label}}</mat-label>
+        <mat-select [formControl]="control">
+          <mat-option *ngFor="let value of config.values" [value]="value.value">{{value.label}}</mat-option>
+        </mat-select>
+        <mat-icon matSuffix *ngIf="config.info" [matTooltip]="config.info">info</mat-icon>
+    </mat-form-field>
+    <mat-checkbox color="primary" labelPosition="before" *ngIf="isBoolean(config)" [formControl]="control" [checked]="control.value">
+        <label>
+            {{config.label}}
+            <mat-icon *ngIf="config.info" [matTooltip]="config.info">info</mat-icon>
+        </label>
     </mat-checkbox>
 </ng-container>

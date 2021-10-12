@@ -3,20 +3,21 @@
 @import "../../../../../assets/scss/abstracts/spacing";
 
 main {
-    @include flex-row-to-column('tablet', stretch);
+    @include flex-row-to-column('tablet', stretch, space-between);
     @include flex-gap($space-content);
 
     mat-card {
-        width: 350px;
+        @include flex-grow(1, true);
+        max-width: 350px;
     
         @include respond-to('tablet') {
-            width: auto;
+            max-width: none;
         }
     
         mat-card-content {
             @include flex(column, stretch);
             @include flex-gap($space-unit);
-            padding: $space-unit * 2 $space-unit;
+            padding: $space-unit * 2 $space-unit * 3;
         }
     }
 }

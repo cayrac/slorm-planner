@@ -448,9 +448,11 @@ export class SlormancerStatsExtractorService {
             extractedStats.stats['skill_is_equipped_support'] = [1];
         }
         if (skillAndUpgrades.skill === character.primarySkill) {
+            console.log('primary : ', skillAndUpgrades.skill);
             extractedStats.stats['skill_is_equipped_primary'] = [1];
         }
         if (skillAndUpgrades.skill === character.secondarySkill) {
+            console.log('secondary : ', skillAndUpgrades.skill);
             extractedStats.stats['skill_is_equipped_secondary'] = [1];
         }
         if (skillAndUpgrades.skill.genres.includes(SkillGenre.Melee)) {

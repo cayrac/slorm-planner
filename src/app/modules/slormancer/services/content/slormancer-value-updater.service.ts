@@ -9,7 +9,6 @@ import { EffectValueValueType } from '../../model/content/enum/effect-value-valu
 import { HeroClass } from '../../model/content/enum/hero-class';
 import { SkillCostType } from '../../model/content/enum/skill-cost-type';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
-import { Skill } from '../../model/content/skill';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { MinMax } from '../../model/minmax';
 import { add, round } from '../../util/math.util';
@@ -247,7 +246,7 @@ export class SlormancerValueUpdater {
     public updateSkillAndUpgradeValues(character: Character, skillAndUpgrades: CharacterSkillAndUpgrades, stats: SkillStatsBuildResult): Array<SkillUpgrade> {
         const skillStats = this.getSkillStats(stats, character);
 
-        this.updateSkillValues(skillAndUpgrades.skill, skillStats, stats);
+        this.updateSkillValues(skillAndUpgrades, skillStats, stats);
 
         // hack to add multiply and conquer bug
         if (skillAndUpgrades.skill.heroClass === HeroClass.Huntress && skillAndUpgrades.skill.id === 5 && skillAndUpgrades.selectedUpgrades.includes(45) && skillAndUpgrades.selectedUpgrades.includes(52)) {
@@ -322,27 +321,27 @@ export class SlormancerValueUpdater {
         duration.displayValue = round(duration.value, 2);
     }
 
-    private updateSkillValues(skill: Skill, skillStats: SkillStats, statsResult: SkillStatsBuildResult) {
+    private updateSkillValues(skillAndUpgrades: CharacterSkillAndUpgrades, skillStats: SkillStats, statsResult: SkillStatsBuildResult) {
                 
-        skill.cost = Math.max(0, skillStats.mana.total);
-        skill.cooldown = Math.max(0, round(skillStats.cooldown.total * (100 - skillStats.attackSpeed.total) / 100, 2));
+        skillAndUpgrades.skill.cost = Math.max(0, skillStats.mana.total);
+        skillAndUpgrades.skill.cooldown = Math.max(0, round(skillStats.cooldown.total * (100 - skillStats.attackSpeed.total) / 100, 2));
 
-        const damageValues = skill.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
+        const damageValues = skillAndUpgrades.skill.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
 
         if (damageValues.length > 0) {
             this.spreadAdditionalDamages(damageValues.filter(damage => damage.stat !== 'bleed_damage'), skillStats.additionalDamages.total);
 
-            if (skill.heroClass === HeroClass.Warrior && skill.id === 10) {
+            if (skillAndUpgrades.skill.heroClass === HeroClass.Warrior && skillAndUpgrades.skill.id === 10) {
                 const trainingLanceAdditionalDamage = statsResult.stats.find(mergedStat => mergedStat.stat === 'training_lance_additional_damage');
                 const elderLanceAdditionalDamage = statsResult.stats.find(mergedStat => mergedStat.stat === 'elder_lance_additional_damage');
 
-                const trainingLanceDamage = <EffectValueSynergy>skill.values[0];
-                const elderLanceDamage = <EffectValueSynergy>skill.values[1];
+                const trainingLanceDamage = <EffectValueSynergy>skillAndUpgrades.skill.values[0];
+                const elderLanceDamage = <EffectValueSynergy>skillAndUpgrades.skill.values[1];
 
 
-                if (trainingLanceAdditionalDamage && trainingLanceDamage) {
+                if (trainingLanceAdditionalDamage && trainingLanceDamage) { // 123
                     // equivalent a simplement changer la base value et upgrade
-                    if (statsResult.extractedStats['add_twice_elder_lance_to_training_lance'] !== undefined && elderLanceDamage) {
+                    if (statsResult.extractedStats['add_twice_elder_lance_to_training_lance'] !== undefined && elderLanceDamage && skillAndUpgrades.selectedUpgrades.includes(123)) {
                         trainingLanceAdditionalDamage.total = add(trainingLanceAdditionalDamage.total, add(elderLanceDamage.synergy, elderLanceDamage.synergy));
                     }
 
@@ -355,31 +354,31 @@ export class SlormancerValueUpdater {
 
             for (const damageValue of damageValues) {
                 const additionamMultipliers: Array<number> = [];
-                if (skill.heroClass == HeroClass.Warrior && skill.id === 6 && damageValues.indexOf(damageValue) === 0) {
+                if (skillAndUpgrades.skill.heroClass == HeroClass.Warrior && skillAndUpgrades.skill.id === 6 && damageValues.indexOf(damageValue) === 0) {
                     const stat = <MergedStat<number>>statsResult.stats.find(mergedStat => mergedStat.stat === 'non_magnified_increased_damage_mult');
                     if (stat) {
                         additionamMultipliers.push(stat.total);
                     }
                 }
-                if (skill.heroClass === HeroClass.Warrior && skill.id === 10) {
-                    if (skill.values.indexOf(damageValue) === 1) {
+                if (skillAndUpgrades.skill.heroClass === HeroClass.Warrior && skillAndUpgrades.skill.id === 10) {
+                    if (skillAndUpgrades.skill.values.indexOf(damageValue) === 1) {
                         const elderLanceIncreasedDamage = statsResult.stats.find(mergedStat => mergedStat.stat === 'elder_lance_increased_damage');
                         if (elderLanceIncreasedDamage) {
                             additionamMultipliers.push(...elderLanceIncreasedDamage.values.multiplier);
                         }
                     }
                 }
-                this.updateDamage(damageValue, skill.genres, skillStats, statsResult, true, additionamMultipliers);
+                this.updateDamage(damageValue, skillAndUpgrades.skill.genres, skillStats, statsResult, true, additionamMultipliers);
             }
         }
     
-        const durationValues = skill.values.filter(value => value.valueType === EffectValueValueType.Duration);
+        const durationValues = skillAndUpgrades.skill.values.filter(value => value.valueType === EffectValueValueType.Duration);
         for (const durationValue of durationValues) {
-            this.updateDuration(durationValue, skill.genres, skillStats);
+            this.updateDuration(durationValue, skillAndUpgrades.skill.genres, skillStats);
         }
 
-        if (skill.genres.includes(SkillGenre.Aoe)) {
-            const aoeValues = skill.values.filter(value => value.valueType === EffectValueValueType.AreaOfEffect);
+        if (skillAndUpgrades.skill.genres.includes(SkillGenre.Aoe)) {
+            const aoeValues = skillAndUpgrades.skill.values.filter(value => value.valueType === EffectValueValueType.AreaOfEffect);
             if (aoeValues.length > 0) {
                 const aoeMultipliers = valueOrDefault(statsResult.extractedStats['aoe_increased_size_percent_mult'], []);
                 for (const value of aoeValues) {
@@ -390,29 +389,29 @@ export class SlormancerValueUpdater {
             }
         }
 
-        const maxChargeValue = skill.values.find(value => value.stat === 'displayed_max_charge');
+        const maxChargeValue = skillAndUpgrades.skill.values.find(value => value.stat === 'displayed_max_charge');
         if (maxChargeValue) {
             const maxCharge = Math.max(0, ...valueOrDefault(statsResult.extractedStats['max_charge'], []));
             maxChargeValue.value = maxCharge;
             maxChargeValue.displayValue = round(maxChargeValue.value, 3);
         }
 
-        const climaxValue = skill.values.find(value => value.stat === 'climax_increased_damage');
+        const climaxValue = skillAndUpgrades.skill.values.find(value => value.stat === 'climax_increased_damage');
         if (climaxValue) {
             const climaxAdd = valueOrDefault(statsResult.extractedStats['climax_increased_damage_add'], [])
             climaxValue.value = climaxAdd.reduce((t, v) => t + v, climaxValue.baseValue);
             climaxValue.displayValue = round(climaxValue.value, 3);
         }
 
-        const instructionsValue = skill.values.find(value => value.stat === 'instructions');
+        const instructionsValue = skillAndUpgrades.skill.values.find(value => value.stat === 'instructions');
         if (instructionsValue && isEffectValueVariable(instructionsValue)) {
-            this.slormancerEffectValueService.updateEffectValue(instructionsValue, skill.level);
+            this.slormancerEffectValueService.updateEffectValue(instructionsValue, skillAndUpgrades.skill.level);
             const instructionsTotal = <number>valueOrDefault(statsResult.stats.find(stat => stat.stat === 'additional_instructions')?.total, 0);
             instructionsValue.value += instructionsTotal;
             instructionsValue.displayValue = round(instructionsValue.value, 3);
         }
 
-        const cadenceCastCount = skill.values.find(value => value.stat === 'cadence_cast_count');
+        const cadenceCastCount = skillAndUpgrades.skill.values.find(value => value.stat === 'cadence_cast_count');
         if (cadenceCastCount && isEffectValueConstant(cadenceCastCount)) {
             const cadenceCastCountNewvalue = statsResult.extractedStats['cadence_cast_count_new_value'];
             if (cadenceCastCountNewvalue && cadenceCastCountNewvalue[0] !== undefined) {

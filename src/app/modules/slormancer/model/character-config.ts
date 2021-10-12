@@ -31,7 +31,7 @@ export interface CharacterConfig {
     goldbane_5: number;
     hits_taken_recently: number;
     skill_cast_recently: number;
-    frostbold_shot_recently: number;
+    frostbolt_shot_recently: number;
     rebounds_before_hit: number;
     pierces_before_hit: number;
     enemies_in_rain_of_arrow: number;
@@ -72,7 +72,7 @@ export interface CharacterConfig {
     dodge_recently: boolean;
     banners_nearby: number;
     controlled_minions: number;
-    elemental_prowess_stacks: number;
+    has_elemental_prowess_buff: boolean;
     greed_stacks: number;
     strider_stacks: number;
     merchant_stacks: number;
@@ -113,6 +113,7 @@ export interface CharacterConfig {
     enemy_splintered_stacks: number;
     revengeance_stacks: number;
     has_elemental_temper_buff: boolean;
+    has_splash_splash_buff: boolean;
     has_soul_bound_buff: boolean;
     has_burning_shadow_buff: boolean;
     has_adam_blessing_buff: boolean;
@@ -130,6 +131,7 @@ export interface CharacterConfig {
     has_enduring_protector_buff: boolean;
     has_speed_gate_buff: boolean;
     has_shadow_repercussion_buff: boolean;
+    has_booster_max_buff: boolean;
     distance_with_target: number;
     all_characters_level: number;
     victims_reaper_104: number;

@@ -1,10 +1,16 @@
 mat-checkbox.mat-checkbox {
 
+    label {
+        width: 100%;
+        .mat-checkbox-label {
+            flex-grow: 1;
+        }
+    }
+
     &[color="primary"] {
         .mat-checkbox-frame {
             border-color: primary-color(100);
         }
-
         &.mat-checkbox-checked {
             .mat-checkbox-background {
                 background-color: primary-color(100);

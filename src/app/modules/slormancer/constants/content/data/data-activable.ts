@@ -53,9 +53,22 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
             overrideValueStat(values, 1, 'manabender_buff_duration');
         }
     },
+    3: {
+        override: values => {
+            overrideValueStat(values, 0, 'duration');
+        }
+    },
     4: {
         override: values => {
             synergyMultiply100(values, 0);
+        }
+    },
+    6: {
+        override: values => {
+            overrideValueStat(values, 0, 'cooldown_reduction_global_mult');
+            overrideValueStat(values, 1, 'elemental_damage_mult');
+            overrideValueStat(values, 2, 'basic_damage_percent_mult');
+            overrideValueStat(values, 3, 'duration');
         }
     },
     7: {

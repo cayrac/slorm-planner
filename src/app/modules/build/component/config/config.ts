@@ -18,7 +18,7 @@ export interface ConfigEntryEnum {
     key: string;
     label: string;
     info?: string;
-    values?: Array<{ value: number, label: string }>;
+    values?: Array<{ value: string, label: string }>;
 }
 
 export declare type ConfigEntry = ConfigEntryNumber | ConfigEntryBoolean | ConfigEntryEnum;
