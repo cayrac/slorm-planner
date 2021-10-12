@@ -20,7 +20,7 @@ Run `npm run start` to start the server on http://localhost:4200/
 
 Build docker image :  `docker build -t slormplanner-image .`
 
-Run docker image :  `docker run -d -p 8080:4200 --name=slormplanner slormplanner-image`
+Run docker image :  `docker run -d -p 4200:8080 --name=slormplanner slormplanner-image`
 
 ## Removing white background from pngs
 `
