@@ -13,3 +13,4 @@
 - Activables are now correctly removed from the skill bar if you remove the related item / reaper / ancestral legacy node
 - Creating a new build no longer initialize your available attribute points to 0
 - Fixed an issue when parsing ressources item (ressources value of size 6 instead of 8)
+- Ancestral legacies tab now correctly work on Firefox
