@@ -15,6 +15,7 @@ import { MessageService } from '../../services/message.service';
 import { PlannerService } from '../../services/planner.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 import { CharacterLevelEditModalComponent } from '../character-level-edit-modal/character-level-edit-modal.component';
+import { ItemReinforcmentEditModalComponent } from '../item-reinforcment-edit-modal/item-reinforcment-edit-modal.component';
 
 
 
@@ -84,6 +85,7 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
 
             this.getGearItems().forEach(item => {
                 item.reaperEnchantment = this.slormancerItemService.getReaperEnchantmentClone(reaperEnchantment);
+                this.slormancerItemService.updateEquipableItemModel(item);
                 this.slormancerItemService.updateEquipableItemView(item);
                 icon = item.reaperEnchantment.icon;
             });
@@ -113,6 +115,7 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
 
             this.getGearItems().forEach(item => {
                 item.attributeEnchantment = this.slormancerItemService.getAttributeEnchantmentClone(attributeEnchantment);
+                this.slormancerItemService.updateEquipableItemModel(item);
                 this.slormancerItemService.updateEquipableItemView(item);
                 icon = item.attributeEnchantment.icon;
             });
@@ -142,6 +145,7 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
 
             this.getGearItems().forEach(item => {
                 item.skillEnchantment = this.slormancerItemService.getSkillEnchantmentClone(skillEnchantment);
+                this.slormancerItemService.updateEquipableItemModel(item);
                 this.slormancerItemService.updateEquipableItemView(item);
                 icon = item.skillEnchantment.icon;
             });
@@ -150,6 +154,44 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
 
             this.messageService.message('All equipped items optimized for <img src="' + icon + '"> ' + skill.name);
             
+        }
+    }
+
+    public maximizeItemsLevel() {
+        if (this.character !== null) {
+
+            const level = this.character.level;
+            this.getGearItems().forEach(item => {
+                item.level = level;
+                this.slormancerItemService.updateEquipableItemModel(item);
+                this.slormancerItemService.updateEquipableItemView(item);
+            });
+            
+            this.plannerService.updateCurrentCharacter();
+
+            this.messageService.message('All equipped items level raised to ' + level);
+        }
+    }
+
+    public changeReinforcmentLevel() {
+        if (this.character !== null) {
+
+            const maxReinforcment = Math.max(...this.getGearItems().map(item => item.reinforcment));
+            this.dialog.open(ItemReinforcmentEditModalComponent, { data: { reinforcment: maxReinforcment } })
+            .afterClosed().subscribe(reinforcment => {
+                if (typeof reinforcment === 'number') {
+                    console.log('updating to : ', reinforcment);
+                    this.getGearItems().forEach(item => {
+                        item.reinforcment = reinforcment;
+                        this.slormancerItemService.updateEquipableItemModel(item);
+                        this.slormancerItemService.updateEquipableItemView(item);
+                    });
+            
+                    this.plannerService.updateCurrentCharacter();
+        
+                    this.messageService.message('All equipped items reinforcment raised to ' + reinforcment);
+                }
+            });
         }
     }
 }

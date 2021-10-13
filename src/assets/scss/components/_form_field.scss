@@ -51,6 +51,11 @@ mat-form-field.mat-form-field {
                 .mat-form-field-label-wrapper {
                     top: -19px;
                     left: 7px;
+                    overflow: visible;
+
+                    label {
+                        overflow: visible;
+                    }
                 }
             }
         }

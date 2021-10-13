@@ -13,6 +13,8 @@ import { CharacterEquipmentComponent } from './components/character-equipment/ch
 import {
     CharacterLevelEditModalComponent,
 } from './components/character-level-edit-modal/character-level-edit-modal.component';
+import { CompareItemModalComponent } from './components/compare-item-modal/compare-item-modal.component';
+import { CompareViewComponent } from './components/compare-view/compare-view.component';
 import { ContentBlockedModalComponent } from './components/content-blocked-modal/content-blocked-modal.component';
 import { DeleteLayerModalComponent } from './components/delete-layer-modal/delete-layer-modal.component';
 import { DeletePlannerModalComponent } from './components/delete-planner-modal/delete-planner-modal.component';
@@ -28,6 +30,9 @@ import {
 } from './components/item-edit-legendary-effect/item-edit-legendary-effect.component';
 import { ItemEditModalComponent } from './components/item-edit-modal/item-edit-modal.component';
 import { ItemEditStatComponent } from './components/item-edit-stat/item-edit-stat.component';
+import {
+    ItemReinforcmentEditModalComponent,
+} from './components/item-reinforcment-edit-modal/item-reinforcment-edit-modal.component';
 import { ItemSlotComponent } from './components/item-slot/item-slot.component';
 import { ItemViewComponent } from './components/item-view/item-view.component';
 import { MainStatsComponent } from './components/main-stats/main-stats.component';
@@ -89,6 +94,9 @@ import { MaterialModule } from './material.module';
         ImportDataComponent,
         FileUploadButtonComponent,
         ContentBlockedModalComponent,
+        CompareItemModalComponent,
+        CompareViewComponent,
+        ItemReinforcmentEditModalComponent,
     ],
     imports: [
         CommonModule,
@@ -134,6 +142,9 @@ import { MaterialModule } from './material.module';
         ImportDataComponent,
         FileUploadButtonComponent,
         ContentBlockedModalComponent,
+        CompareItemModalComponent,
+        CompareViewComponent,
+        ItemReinforcmentEditModalComponent,
     ],
     providers: [
     ],

@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>{{left.name}} - {{right.name}}</h2>
+<mat-dialog-content>
+    <div class="item">
+        <app-item-view [item]="left" [equipped]="true"></app-item-view>
+    </div>
+    <app-compare-view [differences]="differences"></app-compare-view>
+    <div class="item">
+        <app-item-view [item]="right"></app-item-view>
+    </div>
+</mat-dialog-content>

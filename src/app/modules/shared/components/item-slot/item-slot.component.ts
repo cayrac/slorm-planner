@@ -3,15 +3,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { takeUntil } from 'rxjs/operators';
 import { Character } from 'src/app/modules/slormancer/model/character';
-import { ALL_GEAR_SLOT_VALUES } from 'src/app/modules/slormancer/model/content/enum/gear-slot';
+import { ALL_GEAR_SLOT_VALUES, GearSlot } from 'src/app/modules/slormancer/model/content/enum/gear-slot';
 import { SlormancerCharacterBuilderService } from 'src/app/modules/slormancer/services/slormancer-character-builder.service';
 
 import { EquipableItemBase } from '../../../slormancer/model/content/enum/equipable-item-base';
 import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
 import { SlormancerItemService } from '../../../slormancer/services/content/slormancer-item.service';
 import { ItemMoveService } from '../../services/item-move.service';
+import { PlannerService } from '../../services/planner.service';
 import { SearchService } from '../../services/search.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
+import { CompareItemModalComponent, CompareItemModalData } from '../compare-item-modal/compare-item-modal.component';
 import { ItemBaseChoiceModalComponent } from '../item-base-choice-modal/item-base-choice-modal.component';
 import { ItemEditModalComponent, ItemEditModalData } from '../item-edit-modal/item-edit-modal.component';
 import { RemoveConfirmModalComponent } from '../remove-confirm-modal/remove-confirm-modal.component';
@@ -22,6 +24,8 @@ import { RemoveConfirmModalComponent } from '../remove-confirm-modal/remove-conf
   styleUrls: ['./item-slot.component.scss']
 })
 export class ItemSlotComponent extends AbstractUnsubscribeComponent implements OnInit, OnChanges {
+
+    public readonly GearSlot = GearSlot;
 
     @Input()
     public readonly character: Character | null = null;
@@ -50,6 +54,8 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
     public isDraggedItem: boolean = false;
 
     public hiddenBySearch: boolean = false;
+
+    public comparableGearSlots: Array<GearSlot> = []
 
     @HostListener('mouseenter')
     public onMouseOver() {
@@ -94,7 +100,8 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
                 private itemMoveService: ItemMoveService,
                 private searchService: SearchService,
                 private slormancerCharacterBuilderService: SlormancerCharacterBuilderService,
-                private slormancerItemService: SlormancerItemService) {
+                private slormancerItemService: SlormancerItemService,
+                private plannerService: PlannerService) {
         super();
         this.itemMoveService.draggingItem
             .pipe(takeUntil(this.unsubscribe))
@@ -113,10 +120,23 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
 
     public ngOnChanges() {
         this.updateSearch();
+        this.updateComparableSlots();
     }
 
     public isMenuOpen(): boolean {
         return this.menu !== null && this.menu !== undefined && this.menu.menuOpen;
+    }
+
+    private updateComparableSlots() {
+        this.comparableGearSlots = [];
+        const character = this.character;
+        const item = this.item;
+        if (character !== null && item !== null && this.base === null) {
+            this.comparableGearSlots = ALL_GEAR_SLOT_VALUES.filter(slot => {
+                const characterItem = character.gear[slot];
+                return characterItem !== null && characterItem.base === item.base;
+            });
+        }
     }
 
     private updateSearch() {
@@ -198,6 +218,24 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
     public unequip() {
         if (this.item !== null) {
             this.itemMoveService.moveToStash(this.item, (success, item) => this.moveCallback(success, item));
+        }
+    }
+
+    public compareWithSlot(slot: GearSlot) {
+        if (this.item !== null && this.character !== null) {
+            const leftItem = this.character.gear[slot];
+            const config = this.plannerService.getConfiguration();
+            
+            if (leftItem !== null && config !== null) {
+                const data: CompareItemModalData = {
+                    character: this.character,
+                    slot,
+                    config,
+                    left: leftItem,
+                    right: this.item,
+                }
+                this.dialog.open(CompareItemModalComponent, { data })
+            }
         }
     }
 }

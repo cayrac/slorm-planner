@@ -1,0 +1,8 @@
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/variables";
+
+mat-dialog-content {
+    mat-form-field {
+        width: 100%;
+    }
+}

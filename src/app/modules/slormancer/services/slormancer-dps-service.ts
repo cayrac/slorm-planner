@@ -18,4 +18,8 @@ export class SlormancerDpsService {
              + (damages * realCritChance * critMultiplier / 10000)
              + (damages * realNormalChance / 100)
     }
+
+    public getDps(averageDamage: number, cooldown: number, animationTime: number = 0): number {
+        return averageDamage / (cooldown + animationTime)
+    }
 }

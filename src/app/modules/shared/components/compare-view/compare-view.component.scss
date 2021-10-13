@@ -1,0 +1,49 @@
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/variables";
+@import "../../../../../assets/scss/abstracts/color";
+
+.differences {
+    @include flex(column, stretch);
+    @include flex-gap($space-unit * 2);
+    min-width: 350px;
+
+    @include respond-to('mobile') {
+        min-width: auto;
+    }
+
+    .difference {
+        @include flex(row, center);
+
+        > * {
+            @include flex-gap($space-unit * 2);
+        }
+
+        .left, .right {
+            @include flex-grow(1, true);
+
+            @include respond-to('mobile') {
+                display: none;
+            }
+        }
+        .change {
+            @include flex-grow(2, true);
+            text-align: center;
+        }
+
+        .left {
+            text-align: left;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        &.increase .value {
+            color: green;
+        }
+
+        &.decrease .value {
+            color: red;
+        }
+    }
+}

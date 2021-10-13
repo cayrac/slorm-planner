@@ -1,0 +1,39 @@
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/variables";
+
+h2 {
+    display: none;
+    text-align: center;
+
+    @include respond-to('small-desktop') {
+        display: block;
+    }
+}
+
+mat-dialog-content {
+    @include flex(row);
+    @include flex-gap($space-content);
+
+
+    @include respond-to('small-desktop') {
+        .item {
+            display: none;
+        }
+        h2 {
+            display: block;
+        }
+    }
+    @include respond-to('mobile') {
+        app-compare-view {
+            width: 100%;
+        }
+    }
+
+
+    .item {
+        width: 370px;
+        min-width: 380px;
+        overflow-y: auto;
+
+    }
+}

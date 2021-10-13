@@ -25,6 +25,11 @@
                 <button mat-menu-item *ngIf="item !== null && base === null" (click)="equip()"><mat-icon>arrow_back</mat-icon>Equip item</button>
                 <button mat-menu-item *ngIf="item !== null && base !== null" (click)="unequip()"><mat-icon>arrow_forward</mat-icon>Unequip item</button>
                 <button mat-menu-item *ngIf="item === null" (click)="edit()"><mat-icon>add</mat-icon>Create item</button>
+                <button mat-menu-item (click)="compareWithSlot(slot)" *ngFor="let slot of comparableGearSlots">
+                    <mat-icon>compare_arrows</mat-icon>Compare
+                    <span *ngIf="slot === GearSlot.LeftRing">(Left slot)</span>
+                    <span *ngIf="slot === GearSlot.RightRing">(Right slot)</span>
+                </button>
                 <button mat-menu-item *ngIf="item !== null" (click)="edit()"><mat-icon>edit</mat-icon>Edit item</button>
                 <button mat-menu-item *ngIf="item !== null" (click)="take()"><mat-icon>content_cut</mat-icon>Move item</button>
                 <button mat-menu-item *ngIf="item !== null" (click)="copy()"><mat-icon>content_copy</mat-icon>Copy item</button>

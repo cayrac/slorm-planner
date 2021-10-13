@@ -1,0 +1,10 @@
+<div class="differences">
+    <ng-container *ngFor="let difference of differences">
+        <div class="difference" [class.increase]="difference.difference > 0" [class.decrease]="difference.difference < 0" *ngIf="difference.difference !== 0">
+            <div class="left" [matTooltip]="valueToString(difference.left, true)">{{valueToString(difference.left)}}</div>
+            <div class="change">
+                <span class="value">{{changeToString(difference.difference)}}</span> {{difference.name}}</div>
+            <div class="right" [matTooltip]="valueToString(difference.right, true)">{{valueToString(difference.right)}}</div>
+        </div>
+    </ng-container>
+</div>

@@ -24,3 +24,8 @@
 
 ### Added
 - Added the correct average hit value on character view
+- Added a compare item option
+- Added a change equipped items level option
+- Added a change equipped items reinforcment option
+### Fixes
+- Fixed an issue causing items to not be visually updated
