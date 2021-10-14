@@ -1,0 +1,27 @@
+<main *ngIf="currentLayer !== null && layers.length > 0">
+    <mat-card class="layer">
+        <mat-card-content>
+            <h2>{{currentLayer.name}}</h2>
+            <app-main-stats [stats]="currentLayer.character.stats"></app-main-stats>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="compare">
+        <mat-card-content>
+            <p *ngIf="differences === null">Choose another layer to compare with</p>
+            <app-compare-view [differences]="differences" *ngIf="differences !== null"></app-compare-view>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="layer">
+        <mat-card-content>
+            <mat-form-field appearance="outline" color="primary" class="no-error-padding">
+                <mat-label>Layer to compare with</mat-label>
+                <mat-select color="primary" [formControl]="layerControl">
+                    <mat-option [value]="layer" *ngFor="let layer of layers">
+                        {{layer.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <app-main-stats *ngIf="layerControl.value" [stats]="layerControl.value.character.stats"></app-main-stats>
+        </mat-card-content>
+    </mat-card>
+</main>

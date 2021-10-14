@@ -18,6 +18,7 @@ export class BuildComponent extends AbstractUnsubscribeComponent {
         { name: 'Attributes', route: 'attributes'},
         { name: 'Stats', route: 'stats'},
         { name: 'Config', route: 'config'},
+        { name: 'Compare', route: 'compare'},
     ];
 
     public isDragging: boolean = false;

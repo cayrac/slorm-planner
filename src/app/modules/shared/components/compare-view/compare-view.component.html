@@ -7,4 +7,5 @@
             <div class="right" [matTooltip]="valueToString(difference.right, true)">{{valueToString(difference.right)}}</div>
         </div>
     </ng-container>
+    <div *ngIf="differences.length === 0" class="no-differences">No differences</div>
 </div>

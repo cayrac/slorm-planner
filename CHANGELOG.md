@@ -20,11 +20,12 @@
 ### Fixes
 - Fixed an issue causing character stats to be empty on first load
 
-## Release 0.0.4 (TBR)
+## Release 0.0.4 (2020-10-14)
 
 ### Added
 - Added the correct average hit value on character view
 - Added a compare item option
+- Added a compare layers page
 - Added a change equipped items level option
 - Added a change equipped items reinforcment option
 ### Fixes

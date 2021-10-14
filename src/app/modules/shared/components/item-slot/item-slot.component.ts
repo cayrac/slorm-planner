@@ -91,6 +91,7 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
     public onMouseContextMenu() {
         this.itemMoveService.releaseHoldItem();
         if (this.menu && !this.readonly) {
+            this.updateComparableSlots();
             this.menu.openMenu();
         }
         return false;
@@ -113,14 +114,13 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
 
         this.searchService.searchChanged
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(() => this.updateSearch())
+            .subscribe(() => this.updateSearch());
     }
 
     public ngOnInit() { }
 
     public ngOnChanges() {
         this.updateSearch();
-        this.updateComparableSlots();
     }
 
     public isMenuOpen(): boolean {

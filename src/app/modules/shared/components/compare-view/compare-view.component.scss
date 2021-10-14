@@ -11,6 +11,10 @@
         min-width: auto;
     }
 
+    .no-differences {
+        text-align: center;
+    }
+
     .difference {
         @include flex(row, center);
 

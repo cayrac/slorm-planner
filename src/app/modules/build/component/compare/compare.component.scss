@@ -8,15 +8,26 @@ main {
 
     mat-card {
         @include flex-grow(1, true);
-            
-        @include respond-to('tablet') {
-            max-width: none;
+
+        &.layer {
+            max-width: 350px;
+
+            @include respond-to('tablet') {
+                max-width: none;
+            }
+        }
+
+        &.compare {
+            p {
+                text-align: center;
+            }
         }
     
         mat-card-content {
             @include flex(column, stretch);
             @include flex-gap($space-unit);
             padding: $space-unit * 2 $space-unit * 3;
+
         }
     }
 }

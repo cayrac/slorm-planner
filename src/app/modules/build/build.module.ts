@@ -11,6 +11,7 @@ import {
 } from './component/ancestral-legacies/components/ancestral-legacy-map/ancestral-legacy-map.component';
 import { AttributesComponent } from './component/attributes/attributes.component';
 import { BuildHeaderComponent } from './component/build-header/build-header.component';
+import { CompareComponent } from './component/compare/compare.component';
 import { ConfigEntryComponent } from './component/config/components/config-entry/config-entry.component';
 import { ConfigComponent } from './component/config/config.component';
 import { InventoryComponent } from './component/inventory/inventory.component';
@@ -33,7 +34,8 @@ import { StatsComponent } from './component/stats/stats.component';
         SidenavComponent,
         StatsComponent,
         ConfigComponent,
-        ConfigEntryComponent
+        ConfigEntryComponent,
+        CompareComponent
     ],
     imports: [
         CommonModule,
