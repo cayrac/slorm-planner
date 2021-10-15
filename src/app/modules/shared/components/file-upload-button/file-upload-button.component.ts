@@ -46,8 +46,9 @@ export class FileUploadButtonComponent {
     }
     
     public startUpload(event: Event) {
-        if (event.target !== null && !this.busy) {
-            const files = (<HTMLInputElement>event.target).files;
+        const target = <HTMLInputElement>event.target;
+        if (target !== null && !this.busy) {
+            const files = target.files;
             const file = files === null ? null : valueOrNull(files[0]);
             if (file !== null) {
                 if (file.size <= this.MAX_UPLOAD_FILE_SIZE) {
@@ -55,9 +56,11 @@ export class FileUploadButtonComponent {
                     this.uploadFile(file).then(
                         content => {
                             this.upload.emit(content);
+                            target.value = '';
                             this.busy = false;
                         },
                         () => {
+                            target.value = '';
                             this.messageService.error('Failed to upload this file');
                             this.busy = false;
                         }

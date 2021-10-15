@@ -46,7 +46,8 @@ export class ImportExportService {
             if (key == null) {
                 resolve(defaultResult);
             } else {
-                this.importFromOnlinePaste(key).then(data => resolve(data));
+                this.importFromOnlinePaste(key)
+                    .then(data => resolve(data), () => resolve(defaultResult));
             }
         });
     }

@@ -34,3 +34,6 @@
 - Fixed an issue causing items to not be visually updated
 - Skills mana cost is now correctly computed based on upgrades
 - Manabender now correctly add additional damages to skills based on their mana cost
+- Fixed a parsing error on float values
+- Fixed an import soft lock on invalid import key
+- Fixed an issue preventing a file to be uploaded twice in a row

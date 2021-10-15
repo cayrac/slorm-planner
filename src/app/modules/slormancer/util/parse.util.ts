@@ -76,6 +76,9 @@ export function parseIntOrdefault<T>(data: string, defaultValue: T): number | T 
 
 export function strictParseFloat(data: string): number {
     data = data.replace(/^0*([0-9]+.+?)0*$/, '$1');
+    if (data.endsWith('.')) {
+        data = data.substr(0, data.length - 1);
+    }
     const value = parseFloat(data);
     if (data !== value.toString()) {
         throw new Error('Float parse error : expected "' + data + '" but got "' + value + '"');
