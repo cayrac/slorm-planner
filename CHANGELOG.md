@@ -28,6 +28,8 @@
 - Added a compare layers page
 - Added a change equipped items level option
 - Added a change equipped items reinforcment option
+### Changed
+- Aura and buff effects are now only added to stats if the related activable is in the skill bar
 ### Fixes
 - Fixed an issue causing items to not be visually updated
 - Skills mana cost is now correctly computed based on upgrades

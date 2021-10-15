@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { MergedStatMapping } from '../../constants/content/data/data-character-stats-mapping';
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
 import { CharacterConfig } from '../../model/character-config';
-import { Activable } from '../../model/content/activable';
 import { SynergyResolveData } from '../../model/content/character-stats';
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { ALL_ATTRIBUTES } from '../../model/content/enum/attribute';
@@ -146,7 +145,7 @@ export class SlormancerStatsExtractorService {
 
     private addAncestralLegacyValues(character: Character, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
         for (const ancestralLegacy of character.ancestralLegacies.ancestralLegacies) {
-            const active = ancestralLegacy.rank > 0 && character.ancestralLegacies.activeAncestralLegacies.indexOf(ancestralLegacy.id) !== -1;
+            const active = ancestralLegacy.rank > 0 && character.ancestralLegacies.activeAncestralLegacies.indexOf(ancestralLegacy.id) !== -1 && !ancestralLegacy.isActivable;
 
             for (const effectValue of ancestralLegacy.values) {
                 if (isEffectValueSynergy(effectValue)) {
@@ -316,13 +315,13 @@ export class SlormancerStatsExtractorService {
 
     public addActivableValues(character: Character, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
         const activables = [character.activable1, character.activable2, character.activable3, character.activable4]
-            .filter(isNotNullOrUndefined)
-            .filter(a => 'level' in a) as Array<Activable>;
+            .filter(isNotNullOrUndefined);
         for (const activable of activables) {
             for (const effectValue of activable.values) {
                 if (isEffectValueSynergy(effectValue)) {
                     if (!isDamageType(effectValue.stat)) {
-                        stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, { activable }, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping)));
+                        const source = 'level' in activable ? { activable } : { ancestralLegacy: activable };
+                        stats.synergies.push(synergyResolveData(effectValue, effectValue.synergy, source, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping)));
                     }
                 } else {
                     this.addStat(stats.stats, effectValue.stat, effectValue.value);
