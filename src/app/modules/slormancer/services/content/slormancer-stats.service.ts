@@ -239,7 +239,7 @@ export class SlormancerStatsService {
         }
         const mapping = [...GLOBAL_MERGED_STATS_MAPPING, ...HERO_MERGED_STATS_MAPPING[character.heroClass], ...valueOrDefault(SKILL_MERGED_STATS_MAPPING[character.heroClass][skillAndUpgrades.skill.id], []) ];
         const extractedStats = this.slormancerStatsExtractorService.extractSkillStats(skillAndUpgrades, characterStats, mapping);
-        this.applySkillSpecialChanges(character, skillAndUpgrades, config, extractedStats)
+        this.applySkillSpecialChanges(character, skillAndUpgrades, config, extractedStats);
         this.slormancerStatsExtractorService.extractSkillInfoStats(character, skillAndUpgrades, extractedStats);
 
         result.extractedStats = extractedStats.stats;

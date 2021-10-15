@@ -439,51 +439,50 @@ export class SlormancerStatsExtractorService {
 
     public extractSkillInfoStats(character: Character, skillAndUpgrades: CharacterSkillAndUpgrades, extractedStats: ExtractedStats) {
         if (skillAndUpgrades.skill.type === SkillType.Support) {
-            extractedStats.stats['skill_is_support'] = [1];
+            this.addStat(extractedStats.stats, 'skill_is_support', 1);
         }
         if (skillAndUpgrades.skill.type === SkillType.Active) {
-            extractedStats.stats['skill_is_active'] = [1];
+            this.addStat(extractedStats.stats, 'skill_is_active', 1);
         }
         if (skillAndUpgrades.skill === character.supportSkill) {
-            extractedStats.stats['skill_is_equipped_support'] = [1];
+            this.addStat(extractedStats.stats, 'skill_is_equipped_support', 1);
         }
         if (skillAndUpgrades.skill === character.primarySkill) {
-            console.log('primary : ', skillAndUpgrades.skill);
-            extractedStats.stats['skill_is_equipped_primary'] = [1];
+            this.addStat(extractedStats.stats, 'skill_is_equipped_primary', 1);
         }
         if (skillAndUpgrades.skill === character.secondarySkill) {
-            console.log('secondary : ', skillAndUpgrades.skill);
-            extractedStats.stats['skill_is_equipped_secondary'] = [1];
+            this.addStat(extractedStats.stats, 'skill_is_equipped_secondary', 1);
         }
         if (skillAndUpgrades.skill.genres.includes(SkillGenre.Melee)) {
-            extractedStats.stats['skill_is_melee'] = [1];
+            this.addStat(extractedStats.stats, 'skill_is_melee', 1);
         }
         if (skillAndUpgrades.skill.genres.includes(SkillGenre.Projectile)) {
-            extractedStats.stats['skill_is_projectile'] = [1];
+            this.addStat(extractedStats.stats, 'skill_is_projectile', 1);
         }
         if (skillAndUpgrades.skill.genres.includes(SkillGenre.Aoe)) {
-            extractedStats.stats['skill_is_aoe'] = [1];
+            this.addStat(extractedStats.stats, 'skill_is_aoe', 1);
         }
         if (skillAndUpgrades.skill.genres.includes(SkillGenre.Temporal)) {
-            extractedStats.stats['skill_is_temporal'] = [1];
+            this.addStat(extractedStats.stats, 'skill_is_temporal', 1);
         }
         if (skillAndUpgrades.skill.genres.includes(SkillGenre.Arcanic)) {
-            extractedStats.stats['skill_is_arcanic'] = [1];
+            this.addStat(extractedStats.stats, 'skill_is_arcanic', 1);
         }
         if (skillAndUpgrades.skill.genres.includes(SkillGenre.Obliteration)) {
-            extractedStats.stats['skill_is_obliteration'] = [1];
+            this.addStat(extractedStats.stats, 'skill_is_obliteration', 1);
         }
-        extractedStats.stats['skill_id'] = [skillAndUpgrades.skill.id];
-        extractedStats.stats['mana_cost_add'] = [skillAndUpgrades.skill.initialCost];
-        extractedStats.stats['cooldown_time_add'] = [skillAndUpgrades.skill.baseCooldown];
+
+        this.addStat(extractedStats.stats, 'skill_id', skillAndUpgrades.skill.id);
+        this.addStat(extractedStats.stats, 'mana_cost_add', skillAndUpgrades.skill.initialCost);
+        this.addStat(extractedStats.stats, 'cooldown_time_add', skillAndUpgrades.skill.baseCooldown);
         if (character.supportSkill) {
-            extractedStats.stats['support_skill'] = [character.supportSkill.id];
+            this.addStat(extractedStats.stats, 'support_skill', character.supportSkill.id);
         }
         if (character.primarySkill) {
-            extractedStats.stats['primary_skill'] = [character.primarySkill.id];
+            this.addStat(extractedStats.stats, 'primary_skill', character.primarySkill.id);
         }
         if (character.secondarySkill) {
-            extractedStats.stats['secondary_skill'] = [character.secondarySkill.id];
+            this.addStat(extractedStats.stats, 'secondary_skill', character.secondarySkill.id);
         }
     }
 }

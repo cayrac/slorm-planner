@@ -30,3 +30,4 @@
 - Added a change equipped items reinforcment option
 ### Fixes
 - Fixed an issue causing items to not be visually updated
+- Skills mana cost is now correctly computed based on upgrades
