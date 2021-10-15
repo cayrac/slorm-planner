@@ -1,8 +1,9 @@
 import { DataReaper } from '../../../model/content/data/data-reaper';
+import { EffectValueUpgradeType } from '../../../model/content/enum/effect-value-upgrade-type';
 import { EffectValueValueType } from '../../../model/content/enum/effect-value-value-type';
 import { ReaperEffect } from '../../../model/content/reaper-effect';
 import { effectValueConstant, effectValueSynergy } from '../../../util/effect-value.util';
-import { isEffectValueSynergy, isEffectValueVariable, valueOrNull } from '../../../util/utils';
+import { isEffectValueConstant, isEffectValueSynergy, isEffectValueVariable, valueOrNull } from '../../../util/utils';
 
 function overrideValueTypeAndStat(effect: ReaperEffect | null, index: number, valueType: EffectValueValueType, stat: string) {
 
@@ -93,7 +94,7 @@ function moveValue(source: ReaperEffect | null, index: number, target: ReaperEff
             throw new Error('no effect to move found at index ' + index);
         }
     } else {
-        throw new Error('failed to move effect at index ' + index);
+        throw new Error('failed to move effect value at index ' + index);
     }
 }
 
@@ -108,7 +109,22 @@ function duplicateSynergy(source: ReaperEffect | null, index: number, stat: stri
             throw new Error('no synergy to duplicate found at index ' + index);
         }
     } else {
-        throw new Error('failed to move effect at index ' + index);
+        throw new Error('failed to duplicate synergy at index ' + index);
+    }
+}
+
+function duplicateVariableAsSynergy(effect: ReaperEffect | null, index: number, type: EffectValueValueType, source: string, stat: string) {
+
+    if (effect !== null) {
+        const value = effect.values[index];
+
+        if (value && (isEffectValueVariable(value) || isEffectValueConstant(value))) {
+            effect.values.push(effectValueSynergy(value.baseValue, 'upgrade' in value ? value.upgrade : 0, 'upgradeType' in value ? value.upgradeType : EffectValueUpgradeType.None, value.percent, source, stat, type, value.max));
+        } else {
+            throw new Error('no value to duplicate found at index ' + index);
+        }
+    } else {
+        throw new Error('failed to duplicate variable at index ' + index);
     }
 }
 
@@ -262,12 +278,14 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     74: {
         override: (ba, be, ma) => {
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'mana_regen_add');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'mana_cost_percent_as_additional_damages');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'min_basic_damage_add');
 
             addConstant(be, 1, false, EffectValueValueType.AreaOfEffect, 'manabender_buff_detonation_radius');
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'life_percent_removed_on_cast');
+            
+            duplicateVariableAsSynergy(ba, 1, EffectValueValueType.Stat, 'mana_cost', 'primary_secondary_skill_additional_damage')
         }
     },
     75: {

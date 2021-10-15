@@ -20,7 +20,7 @@
 ### Fixes
 - Fixed an issue causing character stats to be empty on first load
 
-## Release 0.0.4 (2020-10-14)
+## Release 0.0.4 TBR
 
 ### Added
 - Added the correct average hit value on character view
@@ -31,3 +31,4 @@
 ### Fixes
 - Fixed an issue causing items to not be visually updated
 - Skills mana cost is now correctly computed based on upgrades
+- Manabender now correctly add additional damages to skills based on their mana cost
