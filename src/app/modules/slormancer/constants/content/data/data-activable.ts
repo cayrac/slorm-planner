@@ -110,7 +110,7 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     },
     12: {
         override: values => {
-            overrideValueStat(values, 0, 'septimius_blade_damage');
+            overrideValueStat(values, 0, 'physical_damage');
             overrideValueStat(values, 1, 'septimius_blade_delay');
         }
     }

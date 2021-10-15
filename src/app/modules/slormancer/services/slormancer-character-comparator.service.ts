@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Character, CharacterAncestralLegacies, CharacterSkillAndUpgrades } from '../model/character';
 import { CharacterStatDifference } from '../model/character-stat-differences';
+import { Activable } from '../model/content/activable';
 import { EffectValueSynergy } from '../model/content/effect-value';
 import { ALL_GEAR_SLOT_VALUES } from '../model/content/enum/gear-slot';
 import { HeroClass } from '../model/content/enum/hero-class';
@@ -99,6 +100,21 @@ export class SlormancerCharacterComparatorService {
         }
     }
 
+    private addActivableDps(differences: Array<CharacterStatDifference>, left: Activable | null, right: Activable | null) {
+        if (left && right && left.id === right.id) {
+            const leftSynergyDamages = left.values.filter(value => isDamageType(value.stat));
+            const rightSynergyDamages = right.values.filter(value => isDamageType(value.stat));
+            console.log('activable : ', leftSynergyDamages, rightSynergyDamages);
+            if (leftSynergyDamages.length > 0 && rightSynergyDamages.length > 0) {
+                const leftDamages = leftSynergyDamages
+                    .reduce((total, value) => add(total, (<EffectValueSynergy>value).displaySynergy), <number | MinMax>0);
+                const rightDamages = rightSynergyDamages
+                    .reduce((total, value) => add(total, (<EffectValueSynergy>value).displaySynergy), <number | MinMax>0);
+                differences.push(this.buildCharacterStatDifference(leftDamages, rightDamages, left.name));
+            }
+        }
+    }
+
     private addPassiveDamages(differences: Array<CharacterStatDifference>, left: CharacterSkillAndUpgrades | null, right: CharacterSkillAndUpgrades | null) {
         if (left && right && left.skill.heroClass === right.skill.heroClass && left.skill.id === right.skill.id) {
             const commonUpgrades = left.selectedUpgrades.filter(upgrade => right.selectedUpgrades.includes(upgrade));
@@ -147,6 +163,19 @@ export class SlormancerCharacterComparatorService {
         } else if ([81, 82, 83].includes(left.id) && [81, 82, 83].includes(right.id)) {
             differences.push(this.buildCharacterStatDifference(<MinMax | number>leftSynergyDamages[0], <MinMax | number>rightSynergyDamages[0], 'Crystal Shard'));
         }
+
+        let commonActivableIds = left.activables
+            .map(activable => activable.id)
+            .filter(id => right.activables.some(activable => activable.id === id));
+        
+        for (const activableId of commonActivableIds) {
+            const leftActivable = left.activables.find(activable => activable.id === activableId);
+            const rightActivable = right.activables.find(activable => activable.id === activableId);
+
+            if (leftActivable && rightActivable) {
+                this.addActivableDps(differences, leftActivable, rightActivable);
+            }
+        }
     }
 
     private addAncestralLegacyDamages(differences: Array<CharacterStatDifference>, left: CharacterAncestralLegacies, right: CharacterAncestralLegacies) {
@@ -191,7 +220,7 @@ export class SlormancerCharacterComparatorService {
             const leftLegendary = <LegendaryEffect>leftLegendaries.find(leftLegendary => leftLegendary.id === commonId);
             const rightLegendary = <LegendaryEffect>rightLegendaries.find(rightLegendary => rightLegendary.id === commonId);
 
-            console.log(leftLegendary, rightLegendary);
+            
 
             const leftSynergyDamages = leftLegendary.effects
                 .filter(value => isDamageType(value.effect.stat))
@@ -201,9 +230,10 @@ export class SlormancerCharacterComparatorService {
                 .map(value => (<EffectValueSynergy>value.effect).displaySynergy);
     
             if (leftSynergyDamages.length > 0 && rightSynergyDamages.length > 0) {
-                console.log(leftSynergyDamages[0], rightSynergyDamages[0]);
                 differences.push(this.buildCharacterStatDifference(<MinMax | number>leftSynergyDamages[0], <MinMax | number>rightSynergyDamages[0], leftLegendary.name));
             }
+
+            this.addActivableDps(differences, leftLegendary.activable, rightLegendary.activable);
         }
     }
 

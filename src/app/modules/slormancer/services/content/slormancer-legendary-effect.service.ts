@@ -186,6 +186,7 @@ export class SlormancerLegendaryEffectService {
     public getLegendaryEffectClone(legendaryEffect: LegendaryEffect): LegendaryEffect { 
         return {
             ...legendaryEffect,
+            activable: legendaryEffect.activable === null ? null : this.slormanderActivableService.getActivableClone(legendaryEffect.activable),
             effects: legendaryEffect.effects
                 .map(craftedEffect => ({ ...craftedEffect, effect: { ...craftedEffect.effect } }))
         }
