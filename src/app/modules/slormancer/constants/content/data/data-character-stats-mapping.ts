@@ -1105,7 +1105,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             max: [],
             percent: [{ stat: 'overdrive_bounce_number_percent', condition: (config, stats) => stats['overdrive_bounce_number_set'] === undefined }],
             maxPercent: [],
-            multiplier: [],
+            multiplier: [{ stat: 'overdrive_bounce_number_global_mult' }],
             maxMultiplier: [],
         } 
     },

@@ -5,9 +5,8 @@ import { ViewCharacterComponent } from './component/view-character/view-characte
 import { CharacterPasteLoad } from './resolver/character-paste-load.resolver';
 
 const routes: Routes = [
-    {
-        path: ':key', component: ViewCharacterComponent, resolve: { character: CharacterPasteLoad }
-    }
+    { path: ':key', component: ViewCharacterComponent, resolve: { character: CharacterPasteLoad } },
+    { path: ':key/:name', component: ViewCharacterComponent, resolve: { character: CharacterPasteLoad } },
 ];
 
 @NgModule({

@@ -39,3 +39,9 @@
 - Fixed an import soft lock on invalid import key
 - Fixed an issue preventing a file to be uploaded twice in a row
 - Turn the tide now correctly increase projectile damages
+
+## Release 0.0.5 (2020-10-15)
+### Added
+- Added name in character view link
+### Fixes
+- cloak of the insatiable now correctly increase bounce number
