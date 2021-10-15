@@ -36,7 +36,9 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
 
     public readonly VERSION = environment.version;
 
-    public readonly GITHUB = environment.github;
+    public readonly GITHUB_LINK = environment.githublink;
+
+    public readonly GAME_LINK = environment.gameLink;
 
     @Input()
     private sidenav: MatSidenav | null = null;
