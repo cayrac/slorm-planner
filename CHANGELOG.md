@@ -37,3 +37,4 @@
 - Fixed a parsing error on float values
 - Fixed an import soft lock on invalid import key
 - Fixed an issue preventing a file to be uploaded twice in a row
+- Turn the tide now correctly increase projectile damages

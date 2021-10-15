@@ -5091,13 +5091,13 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     208: {
         masteryRequired: 7,
         override: values => {
-            setStat(values, 0, 'melee_increased_damage_mult');
+            setStat(values, 0, 'skill_melee_increased_damage_mult');
             setSource(values, 0, 'reduced_on_melee');
             synergyMultiply100(values, 0);
-            setStat(values, 1, 'projectile_increased_damage_mult');
+            setStat(values, 1, 'skill_projectile_increased_damage_mult');
             setSource(values, 1, 'reduced_on_projectile');
             synergyMultiply100(values, 1);
-            setStat(values, 2, 'aoe_increased_damage_mult');
+            setStat(values, 2, 'skill_aoe_increased_damage_mult');
             setSource(values, 2, 'reduced_on_area');
             synergyMultiply100(values, 2);
         },
