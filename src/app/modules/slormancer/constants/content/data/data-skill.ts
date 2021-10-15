@@ -4068,8 +4068,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'temporal_sentence_chance');
             setAsUpgrade(values, 0);
-            setStat(values, 0, 'elemental_damage');
-            setAsUpgrade(values, 0);
+            setStat(values, 1, 'elemental_damage');
+            setAsUpgrade(values, 1);
         },
         additionalClassMechanics: []
     },

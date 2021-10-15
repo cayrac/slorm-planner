@@ -224,11 +224,12 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     65: {
         override: (ba, be, ma) => {
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Unknown, 'garbage_stat');
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'vindictive_slam_reaper_effect_chance');
-            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Damage, 'vindictive_slam_reaper_effect_elemental_damage');
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Damage, 'elemental_damage');
             addConstant(ba, 2, false, EffectValueValueType.AreaOfEffect, 'vindictive_slam_reaper_effect_radius');
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Duration, 'vindictive_slam_reaper_benediction_effect_duration');
-            overrideValueTypeAndStat(be, 1, EffectValueValueType.Damage, 'vindictive_slam_reaper_benediction_effect_damages');
+            overrideValueTypeAndStat(be, 1, EffectValueValueType.Damage, 'elemental_damage');
             addConstant(be, 1, false, EffectValueValueType.Stat, 'reaper_added_to_elements');
             addConstant(ma, -100, false, EffectValueValueType.Stat, 'basic_damage_global_mult');
         }
@@ -308,7 +309,8 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     80: {
         override: (ba, be, ma, reaperId) => {
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Damage, 'exhaustion_elemental_damage_per_second');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Unknown, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Damage, 'elemental_damage');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Duration, 'exhaustion_duration');
             overrideSynergySource(ba, 2, 'movement_speed');
             synergyMultiply100(ba,2);
@@ -317,7 +319,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     81: {
         override: (ba, be, ma, reaperId) => {
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'power_crystal_count');
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Damage, 'power_crystal_damages');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Damage, 'elemental_damage');
             addConstant(be, 1, false, EffectValueValueType.Stat, 'reaper_added_to_elements');
 
             if (reaperId === 82 && ba !== null) {

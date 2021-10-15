@@ -39,7 +39,10 @@ export class CompareComponent extends AbstractUnsubscribeComponent implements On
         this.plannerService.selectedLayerIndexChanged
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(index => {
-                this.currentLayer = <Layer>this.plannerService.getLayers()[index];
+                const layers = this.plannerService.getLayers();
+                const newCompareToIndex = index === 0 && layers.length > 1 ? 1 : 0;
+                this.currentLayer = <Layer>layers[index];
+                this.layerControl.setValue(layers[newCompareToIndex]);
                 this.updateDifferences()
             });
         this.layerControl.valueChanges.subscribe(() => this.updateDifferences())

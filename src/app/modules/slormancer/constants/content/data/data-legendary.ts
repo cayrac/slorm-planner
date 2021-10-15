@@ -166,12 +166,12 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     38: {
         override: (effect) => {
             setStat(effect, 0, 'slorm_reaper_copy_chance');
-            setStat(effect, 1, 'slorm_reaper_damages');
+            setStat(effect, 1, 'physical_damage');
         }
     },
     39: {
         override: (effect) => {
-            setStat(effect, 0, 'deadly_splinter_damages');
+            setStat(effect, 0, 'physical_damage');
             // valueMultiply100(effect, 0);
         }
     },
@@ -267,6 +267,7 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     },
     69: {
         override: (effect) => {
+            setStat(effect, 0, 'time_lock_damage_max_health_percent_treshold');
             addConstant(effect, 2.6, 'distortion_wave_push_distance', EffectValueValueType.AreaOfEffect);
         }
     },
