@@ -260,11 +260,20 @@ export class SlormancerCharacterUpdaterService {
             statsResult.changed.skills.push(skillAndUpgrades.skill);
             statsResult.changed.upgrades.push(...skillAndUpgrades.upgrades);
             skillAndUpgrades.stats = statsResult.stats;
+
+            for (const upgrade of skillAndUpgrades.upgrades) {
+                for (const classMechanic of upgrade.relatedClassMechanics) {
+                    this.slormancerValueUpdater.updateClassMechanic(classMechanic, statsResult);
+                    statsResult.changed.classMechanic.push(classMechanic);
+                }
+            }
         }
 
         const activableChanged = this.updateCharacterActivables(character, statsResult, additionalItem, false);
         statsResult.changed.items.push(...activableChanged.items);
         statsResult.changed.ancestralLegacies.push(...activableChanged.ancestralLegacies);
+
+        
 
         this.displaySynergyLoopError(statsResult)
 

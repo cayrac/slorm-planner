@@ -4,6 +4,7 @@ import { DATA_CLASS_MECHANIC } from '../../constants/content/data/data-class-mec
 import { ClassMechanic } from '../../model/content/class-mechanic';
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { HeroClass } from '../../model/content/enum/hero-class';
+import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { isDamageType, valueOrDefault } from '../../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
@@ -17,6 +18,7 @@ export class SlormancerClassMechanicService {
     public getClassMechanicClone(classMechanic: ClassMechanic): ClassMechanic {
         return {
             ...classMechanic,
+            genres : [ ...classMechanic.genres ],
             values: classMechanic.values.map(value => ({ ...value }))
         }
     }
@@ -27,13 +29,15 @@ export class SlormancerClassMechanicService {
 
         if (data !== null) {
             const values: Array<AbstractEffectValue> = valueOrDefault(DATA_CLASS_MECHANIC[heroClass][id]?.values, []);
+            const genres: Array<SkillGenre> = valueOrDefault(DATA_CLASS_MECHANIC[heroClass][id]?.genres, []);
             mechanic = {
                 id: data.REF,
                 name: data.EN_NAME,
+                genres,
                 description: '',
                 icon: 'skill/' + heroClass + '/' + data.REF,
                 template: this.slormancerTemplateService.prepareMechanicTemplate(data.EN_DESCRIPTION, values.map(value => value.stat).filter(isDamageType)),
-                values
+                values: values.map(value => ({ ...value }))
             };
 
             this.updateClassMechanicView(mechanic);

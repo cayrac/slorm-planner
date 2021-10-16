@@ -50,7 +50,7 @@ export class SlormancerMechanicService {
             description: '',
             icon: 'mechanic/' + type,
             template: this.getDescription(type, values),
-            values,
+            values: values.map(value => ({ ...value })),
         };
 
         this.updateMechanicView(mechanic);

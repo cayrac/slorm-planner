@@ -1692,7 +1692,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
         },
         {
             stat: 'astral_retribution_damage',
-            precision: 2,
+            precision: 3,
             allowMinMax: true,
             source: {
                 flat: [{ stat: 'astral_retribution_damage_add' }],
@@ -1705,7 +1705,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
         },
         {
             stat: 'astral_meteor_damage',
-            precision: 2,
+            precision: 3,
             allowMinMax: true,
             source: {
                 flat: [{ stat: 'astral_meteor_damage_add' }],
@@ -1722,8 +1722,22 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
     ],
     1: [
         {
+            stat: 'ravenous_dagger_damage',
+            precision: 3,
+            allowMinMax: true,
+            source: {
+                flat: [{ stat: 'ravenous_dagger_damage_add' }],
+                max: [],
+                percent: [],
+                maxPercent: [],
+                multiplier: [
+                ],
+                maxMultiplier: [],
+            } 
+        },
+        {
             stat: 'trap_damage',
-            precision: 0,
+            precision: 3,
             allowMinMax: true,
             source: {
                 flat: [{ stat: 'trap_damage_add' }],
@@ -1739,7 +1753,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
         },
         {
             stat: 'poison_damage',
-            precision: 0,
+            precision: 3,
             allowMinMax: true,
             source: {
                 flat: [{ stat: 'poison_damage_add' }],

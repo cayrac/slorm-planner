@@ -4,6 +4,7 @@ import {
     ASTRAL_METEOR_DAMAGE_PERCENT,
     ASTRAL_RETRIBUTION_DAMAGE_PERCENT,
     POISON_DAMAGE_PERCENT,
+    RAVENOUS_DAGGER_DAMAGE_PERCENT,
 } from '../../constants/common';
 import { MergedStatMapping } from '../../constants/content/data/data-character-stats-mapping';
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
@@ -113,15 +114,15 @@ export class SlormancerStatsExtractorService {
 
         if (character.heroClass === HeroClass.Mage) {
             mapping = mergedStatMapping.find(m => m.stat === 'arcane_bond_damage');
-            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'mana_lost_last_second', 'arcane_bond_damage_add'), 0, {}, [ { stat: 'arcane_bond_damage_add', mapping } ]));
-            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'mana_gained_last_second', 'arcane_bond_damage_add_from_restored_mana'), 0, {}, [ { stat: 'arcane_bond_damage_add_from_restored_mana', mapping } ]));
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'mana_lost_last_second', 'arcane_bond_damage_add'), 0, {}, [ { stat: 'arcane_bond_damage', mapping } ]));
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'mana_gained_last_second', 'arcane_bond_damage_add_from_restored_mana'), 0, {}, [ { stat: 'arcane_bond_damage', mapping } ]));
         }
         
         if (character.heroClass === HeroClass.Huntress) {
-            mapping = mergedStatMapping.find(m => m.stat === 'poison_damage_add');
-            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(POISON_DAMAGE_PERCENT, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'poison_damage_add'), 0, {}, [ { stat: 'poison_damage_add', mapping } ]));
-            mapping = mergedStatMapping.find(m => m.stat === 'poison_damage_add');
-            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(POISON_DAMAGE_PERCENT, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'poison_damage_add'), 0, {}, [ { stat: 'poison_damage_add', mapping } ]));
+            mapping = mergedStatMapping.find(m => m.stat === 'poison_damage');
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(POISON_DAMAGE_PERCENT, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'poison_damage_add'), 0, {}, [ { stat: 'poison_damage', mapping } ]));
+            mapping = mergedStatMapping.find(m => m.stat === 'ravenous_dagger_damage');
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(RAVENOUS_DAGGER_DAMAGE_PERCENT, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'ravenous_dagger_damage_add'), 0, {}, [ { stat: 'ravenous_dagger_damage', mapping } ]));
         }
 
         return true;
@@ -498,7 +499,7 @@ export class SlormancerStatsExtractorService {
         if (skillAndUpgrades.skill.genres.includes(SkillGenre.Projectile)) {
             this.addStat(extractedStats.stats, 'skill_is_projectile', 1);
         }
-        if (skillAndUpgrades.skill.genres.includes(SkillGenre.Aoe)) {
+        if (skillAndUpgrades.skill.genres.includes(SkillGenre.AreaOfEffect)) {
             this.addStat(extractedStats.stats, 'skill_is_aoe', 1);
         }
         if (skillAndUpgrades.skill.genres.includes(SkillGenre.Temporal)) {

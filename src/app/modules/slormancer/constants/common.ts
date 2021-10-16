@@ -17,7 +17,9 @@ export const DELIGHTED_VALUE = 12;
 export const GAME_VERSION = '0.2.152';
 
 export const POISON_DAMAGE_PERCENT = 200;
+export const RAVENOUS_DAGGER_DAMAGE_PERCENT = 100;
 export const ASTRAL_RETRIBUTION_DAMAGE_PERCENT = 200;
 export const ASTRAL_METEOR_DAMAGE_PERCENT = 400;
 
 export const SHIELD_DURATION = 3;
+export const POISON_DURATION = 7;
