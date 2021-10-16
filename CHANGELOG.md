@@ -44,4 +44,8 @@
 ### Added
 - Added name in character view link
 ### Fixes
-- cloak of the insatiable now correctly increase bounce number
+- Cloak of the insatiable now correctly increase bounce number
+
+## Release 0.0.6 (TBR)
+### Fixes
+- Fixed an issue with arcane breach configuration and buffs not being applied

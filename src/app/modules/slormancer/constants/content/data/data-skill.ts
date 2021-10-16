@@ -4338,9 +4338,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 2,
         override: values => {
             setStat(values, 0, 'the_max_mana_percent_per_enemy_in_breach_range');
-            setAsUpgrade(values, 0);
             setStat(values, 1, 'mana_regen_add_per_enemy_in_breach_range');
-            setAsUpgrade(values, 1);
         },
         additionalClassMechanics: []
     },
@@ -4392,7 +4390,6 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 5,
         override: values => {
             setStat(values, 0, 'crit_chance_percent_if_remnant_and_target_in_breach');
-            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
@@ -4400,7 +4397,6 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 5,
         override: values => {
             setStat(values, 0, 'arcane_bond_increased_damage_mult_if_in_breach_range');
-            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
@@ -4447,7 +4443,6 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 8,
         override: values => {
             setStat(values, 0, 'arcane_clone_cooldown_reduction_global_mult_if_in_breach');
-            setAsUpgrade(values, 0);
             
         },
         additionalClassMechanics: []

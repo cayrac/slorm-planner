@@ -539,7 +539,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
         },
         {
             title: 'Arcane Breach',
-            condition: character => this.isSkillEquipped(character, HeroClass.Mage, 8),
+            condition: character => this.isSkillEquipped(character, HeroClass.Mage, 9),
             configurations: [
                 { type: 'number', key: 'enemies_in_breach_range', label: 'How many enemies are in your breachs' },
                 { type: 'number', key: 'arcane_flux_stacks', label: 'How many arcane flux stacks do you have' },
