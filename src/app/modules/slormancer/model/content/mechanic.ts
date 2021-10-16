@@ -1,3 +1,4 @@
+import { AbstractEffectValue } from './effect-value';
 import { MechanicType } from './enum/mechanic-type';
 
 export interface Mechanic {
@@ -7,4 +8,5 @@ export interface Mechanic {
     description: string;
 
     template: string;
+    values: Array<AbstractEffectValue>;
 }

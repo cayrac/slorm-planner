@@ -128,6 +128,34 @@ function duplicateVariableAsSynergy(effect: ReaperEffect | null, index: number, 
     }
 }
 
+function setSynergyAllowMinMax(effect: ReaperEffect | null, index: number, allowMinMax: boolean) {
+    if (effect !== null) {
+        const value = effect.values[index];
+    
+        if (value && isEffectValueSynergy(value)) {
+            value.allowMinMax = allowMinMax;
+        } else {
+            throw new Error('failed to update allowMinMax at index ' + index);
+        }
+    } else {
+        throw new Error('failed to duplicate variable at index ' + index);
+    }
+}
+
+function setSynergyPrecision(effect: ReaperEffect | null, index: number, precision: number) {
+    if (effect !== null) {
+        const value = effect.values[index];
+    
+        if (value && isEffectValueSynergy(value)) {
+            value.precision = precision;
+        } else {
+            throw new Error('failed to update precision at index ' + index);
+        }
+    } else {
+        throw new Error('failed to duplicate variable at index ' + index);
+    }
+}
+
 export const DATA_REAPER: { [key: number]: DataReaper } = {
     1: {
         override: (ba, be, ma) => {
@@ -415,7 +443,9 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma, reaperId) => {
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'light_imbued_skill_increased_damage');
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'garbage_stat');
-            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'shield_globe_increased_value');
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'shield_globe_value_add');
+            setSynergyAllowMinMax(ba, 4, false);
+            setSynergyPrecision(ba, 4, 0);
             moveValue(be, 0, ba);
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'shield_decrease_treshold');
 

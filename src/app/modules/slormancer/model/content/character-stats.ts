@@ -5,6 +5,7 @@ import { AncestralLegacy } from './ancestral-legacy';
 import { AttributeTraits } from './attribut-traits';
 import { EffectValueSynergy } from './effect-value';
 import { EquipableItem } from './equipable-item';
+import { Mechanic } from './mechanic';
 import { Reaper } from './reaper';
 import { Skill } from './skill';
 import { SkillUpgrade } from './skill-upgrade';
@@ -22,6 +23,7 @@ export interface SynergyResolveDataSource {
     attribute?: AttributeTraits;
     reaper?: Reaper;
     activable?: Activable;
+    mechanic?: Mechanic;
 };
 
 export interface SynergyResolveData {

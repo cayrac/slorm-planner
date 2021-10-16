@@ -35,8 +35,8 @@
         [cdkConnectedOverlayOrigin]="overlayTrigger">
         <div class="slormancer-tooltip">
             <div class="inner-box">
-                <h3>{{overlayMechanic.name}}</h3>
-                <p>{{overlayMechanic.description}}</p>
+                <h3 [innerHTML]="overlayMechanic.name"></h3>
+                <p [innerHTML]="overlayMechanic.description"></p>
             </div>
         </div>
     </ng-template>

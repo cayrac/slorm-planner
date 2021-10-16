@@ -4,6 +4,7 @@
 @import "../../../../../assets/scss/abstracts/color";
 
 $mechanic-bg-color : rgb(20, 19, 16);
+$physical-color-text  : rgb(206, 70, 7);
 
 .mechanics {
     display: flex;
@@ -53,5 +54,11 @@ $mechanic-bg-color : rgb(20, 19, 16);
     }
     p {
         margin: $space-unit * 2 0;
+    }
+
+    ::ng-deep {
+        .value {
+            color: $physical-color-text;
+        }
     }
 }

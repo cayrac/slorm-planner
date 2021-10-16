@@ -1,3 +1,4 @@
+import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { Component, Input } from '@angular/core';
 
 import { Buff } from '../../../slormancer/model/content/buff';
@@ -20,14 +21,13 @@ export class MechanicsViewComponent {
     @Input()
     public readonly buffs: Array<Buff> = [];
 
-    public overlayTrigger: any | null = null;
+    public overlayTrigger: CdkOverlayOrigin | null = null;
 
     public overlayMechanic: Mechanic | ClassMechanic | Buff | null = null;
 
     constructor() { }
 
-    public showOverlay(trigger: any, mechanic: Mechanic | ClassMechanic | Buff) {
-        console.log('showOverlay : ',  trigger, mechanic);
+    public showOverlay(trigger: CdkOverlayOrigin, mechanic: Mechanic | ClassMechanic | Buff) {
         this.overlayMechanic = mechanic;
         this.overlayTrigger = trigger;
     }

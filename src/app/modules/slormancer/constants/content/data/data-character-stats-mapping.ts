@@ -1077,6 +1077,23 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         } 
     },
     {
+        stat: 'shield_globe_value',
+        precision: 3,
+        allowMinMax: true,
+        source: {
+            flat: [
+                { stat: 'shield_globe_value_add' },
+            ],
+            max: [],
+            percent: [
+            ],
+            maxPercent: [],
+            multiplier: [
+            ],
+            maxMultiplier: [],
+        } 
+    },
+    {
         stat: 'overdrive_chance',
         precision: 1,
         allowMinMax: false,

@@ -314,6 +314,22 @@ export class SlormancerTemplateService {
         return template;
     }
 
+    public formatMechanicTemplate(template: string, effectValues: Array<AbstractEffectValue>): string {
+        for (let effectValue of effectValues) {
+            const percent = effectValue.percent ? '%' : '';
+
+            if (isEffectValueConstant(effectValue)) {
+                const value = this.asSpan(effectValue.displayValue.toString() + percent, 'value');
+                template = this.replaceAnchor(template, value, this.TYPE_ANCHOR);
+            } else if (isEffectValueSynergy(effectValue)) {
+                const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
+                template = this.replaceAnchor(template, synergy, this.VALUE_ANCHOR);
+            }
+        }
+
+        return template;
+    }
+
     public getLegendaryDescriptionTemplate(data: GameDataLegendary): string {
         const stats = splitData(data.STAT);
         const types = splitData(data.TYPE)
@@ -361,6 +377,10 @@ export class SlormancerTemplateService {
 
     public prepareNextRankDescriptionTemplate(template: string, effectValue: AbstractEffectValue): string { 
         return this.parseTemplate(template, [effectValue.stat]);   
+    }
+
+    public prepareMechanicTemplate(template: string, stats: Array<string>): string { 
+        return this.parseTemplate(template, stats);   
     }
 
     public formatNextRankDescription(template: string, effectValue: AbstractEffectValue): string { 

@@ -15,6 +15,7 @@ import { HeroClass } from '../../model/content/enum/hero-class';
 import { SkillCostType } from '../../model/content/enum/skill-cost-type';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { EquipableItem } from '../../model/content/equipable-item';
+import { Mechanic } from '../../model/content/mechanic';
 import { Reaper } from '../../model/content/reaper';
 import { Skill } from '../../model/content/skill';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
@@ -39,6 +40,7 @@ export interface CharacterStatsBuildResult {
         reapers: Array<Reaper>;
         attributes: Array<AttributeTraits>;
         activables: Array<Activable>;
+        mechanics: Array<Mechanic>;
     }
 }
 
@@ -102,12 +104,12 @@ export class SlormancerStatsService {
     private hasSynergyValueChanged(synergy: SynergyResolveData): boolean {
         let result = true;
 
-        if (typeof synergy.originalValue === typeof synergy.effect.synergy) {
+        if (typeof synergy.originalValue === typeof synergy.effect.displaySynergy) {
             if (typeof synergy.originalValue === 'number') {
-                result = synergy.originalValue !== synergy.effect.synergy;
+                result = synergy.originalValue !== synergy.effect.displaySynergy;
             } else {
-                result = synergy.originalValue.min !== (<MinMax>synergy.effect.synergy).min
-                      || synergy.originalValue.max !== (<MinMax>synergy.effect.synergy).max;
+                result = synergy.originalValue.min !== (<MinMax>synergy.effect.displaySynergy).min
+                      || synergy.originalValue.max !== (<MinMax>synergy.effect.displaySynergy).max;
             }
         }
 
@@ -128,7 +130,8 @@ export class SlormancerStatsService {
                 upgrades: [],
                 reapers: [],
                 attributes: [],
-                activables: []
+                activables: [],
+                mechanics: []
             }
         }
         const mapping = [...GLOBAL_MERGED_STATS_MAPPING, ...HERO_MERGED_STATS_MAPPING[character.heroClass]];
@@ -172,6 +175,10 @@ export class SlormancerStatsService {
                 }
                 if (synergy.objectSource.activable) {
                     result.changed.activables.push(synergy.objectSource.activable);
+                }
+                if (synergy.objectSource.mechanic) {
+                    console.log('Adding to mechanics to update...');
+                    result.changed.mechanics.push(synergy.objectSource.mechanic);
                 }
             }
         }

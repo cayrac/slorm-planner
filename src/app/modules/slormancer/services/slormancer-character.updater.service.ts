@@ -17,6 +17,7 @@ import { SlormancerAncestralLegacyService } from './content/slormancer-ancestral
 import { SlormancerAttributeService } from './content/slormancer-attribute.service';
 import { SlormancerDataService } from './content/slormancer-data.service';
 import { SlormancerItemService } from './content/slormancer-item.service';
+import { SlormancerMechanicService } from './content/slormancer-mechanic.service';
 import { SlormancerReaperService } from './content/slormancer-reaper.service';
 import { SlormancerSkillService } from './content/slormancer-skill.service';
 import { CharacterStatsBuildResult, SlormancerStatsService } from './content/slormancer-stats.service';
@@ -37,6 +38,7 @@ export class SlormancerCharacterUpdaterService {
                 private slormancerReaperService: SlormancerReaperService,
                 private slormancerItemService: SlormancerItemService,
                 private slormancerActivableService: SlormancerActivableService,
+                private slormancerMechanicService: SlormancerMechanicService,
                 private slormancerValueUpdater: SlormancerValueUpdater,
                 private messageService: MessageService,
         ) { }
@@ -120,7 +122,7 @@ export class SlormancerCharacterUpdaterService {
         }
     }
 
-    private updateChangedItems(statsResult: CharacterStatsBuildResult) {
+    private updateChangedEntities(statsResult: CharacterStatsBuildResult) {
         for (const item of statsResult.changed.items.filter(isFirst)) {
             this.slormancerItemService.updateEquipableItemView(item);
         }
@@ -141,6 +143,9 @@ export class SlormancerCharacterUpdaterService {
         }
         for (const activable of statsResult.changed.activables) {
             this.slormancerActivableService.updateActivableView(activable);
+        }
+        for (const mechanic of statsResult.changed.mechanics) {
+            this.slormancerMechanicService.updateMechanicView(mechanic);
         }
     }
 
@@ -214,7 +219,7 @@ export class SlormancerCharacterUpdaterService {
         const auraChanged = this.updateCharacterActivables(character, statResultPreAura, additionalItem, true);
 
         const statsResult = this.getCharacterStatsResult(character, config, additionalItem);
-        character.stats = statsResult.stats;
+            character.stats = statsResult.stats;
 
         statsResult.changed.items.push(...auraChanged.items);
         statsResult.changed.items.push(...statResultPreAura.changed.items);
@@ -225,6 +230,7 @@ export class SlormancerCharacterUpdaterService {
         statsResult.changed.reapers.push(...statResultPreAura.changed.reapers);
         statsResult.changed.skills.push(...statResultPreAura.changed.skills);
         statsResult.changed.upgrades.push(...statResultPreAura.changed.upgrades);
+        statsResult.changed.mechanics.push(...statResultPreAura.changed.mechanics);
 
 
         for (const ancestralLegacyId of statsResult.unlockedAncestralLegacies) {
@@ -253,7 +259,7 @@ export class SlormancerCharacterUpdaterService {
         this.displaySynergyLoopError(statsResult)
 
         if (updateViews) {
-            this.updateChangedItems(statsResult);
+            this.updateChangedEntities(statsResult);
         }
     }
 
