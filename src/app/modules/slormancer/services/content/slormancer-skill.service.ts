@@ -249,8 +249,8 @@ export class SlormancerSkillService {
             genres: [...upgrade.genres],
             damageTypes: [...upgrade.damageTypes],
 
-            relatedClassMechanics: [...upgrade.relatedClassMechanics],
-            relatedMechanics: [...upgrade.relatedMechanics],
+            relatedClassMechanics: upgrade.relatedClassMechanics.map(mechanic => this.slormancerClassMechanicService.getClassMechanicClone(mechanic)),
+            relatedMechanics: upgrade.relatedMechanics.map(mechanic => this.slormancerMechanicService.getMechanicClone(mechanic)),
             relatedBuffs: upgrade.relatedBuffs.map(buff => this.getBuffClone(buff)),
         
             template: upgrade.template,

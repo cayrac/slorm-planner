@@ -1486,7 +1486,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     164: {
         masteryRequired: 1,
         override: values => {
-            setStat(values, 0, 'astral_increased_damage_mult');
+            setStat(values, 0, 'astral_retribution_increased_damage_mult');
         },
         additionalClassMechanics: []
     },
@@ -1804,7 +1804,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     208: {
         masteryRequired: 7,
         override: values => {
-            addConstant(values, 100, false, EffectValueValueType.Flat, 'block_damage_reduction');
+            addConstant(values, 100, false, EffectValueValueType.Flat, 'garbage_stat');
+            addConstant(values, 10, false, EffectValueValueType.Stat, 'block_damage_reduction_add');
         },
         additionalClassMechanics: []
     },

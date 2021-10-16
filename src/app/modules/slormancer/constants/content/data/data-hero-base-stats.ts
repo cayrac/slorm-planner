@@ -27,6 +27,7 @@ export const DATA_HERO_BASE_STATS: GameHeroesData<HeroBaseStats> = {
             { stat: 'health_regen_add', base: 2, perLevel: 0 },
             { stat: 'skewer_max_stack_add', base: 5, perLevel: 0 },
             { stat: 'skewer_damage_percent_add', base: 10, perLevel: 0 },
+            { stat: 'block_damage_reduction_add', base: 90, perLevel: 0 },
             ...ALL_HEROES_BASE_STATS
         ],
         levelonlyStat: {

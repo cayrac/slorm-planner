@@ -14,6 +14,13 @@ export class SlormancerClassMechanicService {
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormancerTemplateService: SlormancerTemplateService) { }
 
+    public getClassMechanicClone(classMechanic: ClassMechanic): ClassMechanic {
+        return {
+            ...classMechanic,
+            values: classMechanic.values.map(value => ({ ...value }))
+        }
+    }
+
     public getClassMechanic(heroClass: HeroClass, id: number): ClassMechanic | null {
         const data = this.slormancerDataService.getGameDataSkill(heroClass, id);
         let mechanic: ClassMechanic | null = null;

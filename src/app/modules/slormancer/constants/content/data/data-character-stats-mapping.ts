@@ -1676,13 +1676,55 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
                 multiplier: [],
                 maxMultiplier: [],
             } 
+        },
+        {
+            stat: 'block_damage_reduction',
+            precision: 0,
+            allowMinMax: false,
+            source: {
+                flat: [{ stat: 'block_damage_reduction_add' }],
+                max: [],
+                percent: [],
+                maxPercent: [],
+                multiplier: [],
+                maxMultiplier: [],
+            } 
+        },
+        {
+            stat: 'astral_retribution_damage',
+            precision: 2,
+            allowMinMax: true,
+            source: {
+                flat: [{ stat: 'astral_retribution_damage_add' }],
+                max: [],
+                percent: [],
+                maxPercent: [],
+                multiplier: [{ stat: 'astral_retribution_increased_damage_mult' }],
+                maxMultiplier: [],
+            } 
+        },
+        {
+            stat: 'astral_meteor_damage',
+            precision: 2,
+            allowMinMax: true,
+            source: {
+                flat: [{ stat: 'astral_meteor_damage_add' }],
+                max: [],
+                percent: [],
+                maxPercent: [],
+                multiplier: [
+                    { stat: 'astral_retribution_increased_damage_mult' },
+                    { stat: 'astral_meteor_increased_damage_mult' }
+                ],
+                maxMultiplier: [],
+            } 
         }
     ],
     1: [
         {
             stat: 'trap_damage',
             precision: 0,
-            allowMinMax: false,
+            allowMinMax: true,
             source: {
                 flat: [{ stat: 'trap_damage_add' }],
                 max: [],
@@ -1698,7 +1740,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
         {
             stat: 'poison_damage',
             precision: 0,
-            allowMinMax: false,
+            allowMinMax: true,
             source: {
                 flat: [{ stat: 'poison_damage_add' }],
                 max: [],

@@ -35,6 +35,13 @@ export class SlormancerMechanicService {
         return this.slormancerTemplateService.prepareMechanicTemplate(template, values.map(value => value.stat).filter(isDamageType));
     }
 
+    public getMechanicClone(mechanic: Mechanic): Mechanic {
+        return {
+            ...mechanic,
+            values: mechanic.values.map(value => ({ ...value })),
+        };
+    }
+
     public getMechanic(type: MechanicType): Mechanic {
         const values = valueOrDefault(DATA_MECHANIC[<string>type]?.values, []);
         const mechanic: Mechanic = {

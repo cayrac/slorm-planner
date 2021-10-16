@@ -129,7 +129,7 @@ export class SlormancerAncestralLegacyService {
             damageTypes: [ ...ancestralLegacy.damageTypes ],
             genres: [ ...ancestralLegacy.genres ],
             relatedBuffs: [ ...ancestralLegacy.relatedBuffs ],
-            relatedMechanics: [ ...ancestralLegacy.relatedMechanics ],
+            relatedMechanics: ancestralLegacy.relatedMechanics.map(mechanic => this.slormancerMechanicService.getMechanicClone(mechanic)),
             values: ancestralLegacy.values.map(value => this.slormancerEffectValueService.getEffectValueClone(value))
         } as AncestralLegacy
     }

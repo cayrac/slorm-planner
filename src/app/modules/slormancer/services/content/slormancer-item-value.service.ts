@@ -79,6 +79,7 @@ export class SlormancerItemValueService {
     constructor() { }
 
     private getLevelPercentScore(level: number): number {
+        // 20 35
         return Math.max(1, Math.floor((level + 10) / 15));
     }
 

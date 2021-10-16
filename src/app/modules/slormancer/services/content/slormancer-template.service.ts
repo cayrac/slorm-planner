@@ -316,17 +316,20 @@ export class SlormancerTemplateService {
 
     public formatMechanicTemplate(template: string, effectValues: Array<AbstractEffectValue>): string {
         for (let effectValue of effectValues) {
-            const percent = effectValue.percent ? '%' : '';
-
             if (isEffectValueConstant(effectValue)) {
-                const value = this.asSpan(effectValue.displayValue.toString() + percent, 'value');
-                template = this.replaceAnchor(template, value, this.TYPE_ANCHOR);
+                const anchor = findFirst(template, [this.TYPE_ANCHOR, this.VALUE_ANCHOR, ...this.CONSTANT_ANCHORS]);
+                if (anchor !== null) {
+                    const value = this.asSpan(this.formatValue(effectValue.displayValue, effectValue.percent), 'value');
+                    template = this.replaceAnchor(template, value, anchor);
+                }
             } else if (isEffectValueSynergy(effectValue)) {
                 const anchor = findFirst(template, [this.TYPE_ANCHOR, this.VALUE_ANCHOR]);
                 if (anchor !== null) {
                     const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
                     template = this.replaceAnchor(template, synergy, anchor);
                 }
+                const value = this.asSpan(this.formatValue(effectValue.displayValue, false), 'value');
+                template = this.replaceAnchor(template, value, this.SYNERGY_ANCHOR);
             }
         }
 
@@ -383,7 +386,8 @@ export class SlormancerTemplateService {
     }
 
     public prepareMechanicTemplate(template: string, stats: Array<string>): string { 
-        return this.parseTemplate(template, stats);   
+        return this.parseTemplate(template, stats)
+            .replace(/\µ/g, '@');   
     }
 
     public formatNextRankDescription(template: string, effectValue: AbstractEffectValue): string { 

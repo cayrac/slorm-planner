@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { POISON_DAMAGE_PERCENT } from '../../constants/common';
+import {
+    ASTRAL_METEOR_DAMAGE_PERCENT,
+    ASTRAL_RETRIBUTION_DAMAGE_PERCENT,
+    POISON_DAMAGE_PERCENT,
+} from '../../constants/common';
 import { MergedStatMapping } from '../../constants/content/data/data-character-stats-mapping';
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
 import { CharacterConfig } from '../../model/character-config';
@@ -99,6 +103,13 @@ export class SlormancerStatsExtractorService {
  
         mapping = mergedStatMapping.find(m => m.stat === 'inner_fire_damage');
         extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'inner_fire_damage_add'), 0, {}, [ { stat: 'inner_fire_damage', mapping } ]));
+
+        if (character.heroClass === HeroClass.Warrior) {
+            mapping = mergedStatMapping.find(m => m.stat === 'astral_retribution_damage');
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(ASTRAL_RETRIBUTION_DAMAGE_PERCENT, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'astral_retribution_damage_add'), 0, {}, [ { stat: 'astral_retribution_damage', mapping } ]));
+            mapping = mergedStatMapping.find(m => m.stat === 'astral_meteor_damage');
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(ASTRAL_METEOR_DAMAGE_PERCENT, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'astral_meteor_damage_add'), 0, {}, [ { stat: 'astral_meteor_damage', mapping } ]));
+        }
 
         if (character.heroClass === HeroClass.Mage) {
             mapping = mergedStatMapping.find(m => m.stat === 'arcane_bond_damage');
