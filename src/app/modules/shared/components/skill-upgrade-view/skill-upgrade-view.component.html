@@ -18,25 +18,10 @@
         </div>
         <div class="separator"></div>
         <div class="description" [innerHTML]="upgrade.description"></div>
-        <div class="mechanics" *ngIf="upgrade.relatedClassMechanics.length > 0 || upgrade.relatedMechanics.length > 0 || upgrade.relatedBuffs.length > 0">
-            <div class="mechanic" *ngFor="let mechanic of upgrade.relatedClassMechanics">
-                <div class="mechanic-icon">
-                    <img src="assets/img/icon/{{mechanic.icon}}.png"/>
-                </div>
-                <div class="mechanic-name">{{mechanic.name}}</div>
-            </div>
-            <div class="mechanic" *ngFor="let mechanic of upgrade.relatedMechanics">
-                <div class="mechanic-icon">
-                    <img src="assets/img/icon/{{mechanic.icon}}.png"/>
-                </div>
-                <div class="mechanic-name">{{mechanic.name}}</div>
-            </div>
-            <div class="mechanic" *ngFor="let buff of upgrade.relatedBuffs">
-                <div class="mechanic-icon">
-                    <img src="assets/img/icon/{{buff.icon}}.png"/>
-                </div>
-                <div class="mechanic-name">{{buff.name}}</div>
-            </div>
-        </div>
+        <app-mechanics-view
+            [classMechanics]="upgrade.relatedClassMechanics"
+            [mechanics]="upgrade.relatedMechanics"
+            [buffs]="upgrade.relatedBuffs">
+        </app-mechanics-view>
     </div>
 </div>

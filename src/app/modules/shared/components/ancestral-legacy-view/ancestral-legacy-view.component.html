@@ -18,19 +18,9 @@
         </div>
         <div class="separator"></div>
         <div class="description" [innerHTML]="ancestralLegacy.description"></div>
-        <div class="mechanics" *ngIf="ancestralLegacy.relatedMechanics.length > 0 || ancestralLegacy.relatedBuffs.length > 0">
-            <div class="mechanic" *ngFor="let mechanic of ancestralLegacy.relatedMechanics">
-                <div class="mechanic-icon">
-                    <img src="assets/img/icon/{{mechanic.icon}}.png"/>
-                </div>
-                <div class="mechanic-name">{{mechanic.name}}</div>
-            </div>
-            <div class="mechanic" *ngFor="let buff of ancestralLegacy.relatedBuffs">
-                <div class="mechanic-icon">
-                    <img src="assets/img/icon/{{buff.icon}}.png"/>
-                </div>
-                <div class="mechanic-name">{{buff.name}}</div>
-            </div>
-        </div>
+        <app-mechanics-view
+            [mechanics]="ancestralLegacy.relatedMechanics"
+            [buffs]="ancestralLegacy.relatedBuffs">
+        </app-mechanics-view>
     </div>
 </div>

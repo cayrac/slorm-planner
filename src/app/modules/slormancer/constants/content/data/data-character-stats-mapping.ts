@@ -1629,11 +1629,11 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
     ],
     1: [
         {
-            stat: 'trap_increased_damage',
+            stat: 'trap_damage',
             precision: 0,
             allowMinMax: false,
             source: {
-                flat: [],
+                flat: [{ stat: 'trap_damage_add' }],
                 max: [],
                 percent: [],
                 maxPercent: [],
@@ -1645,11 +1645,11 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             } 
         },
         {
-            stat: 'poison_increased_damage',
+            stat: 'poison_damage',
             precision: 0,
             allowMinMax: false,
             source: {
-                flat: [],
+                flat: [{ stat: 'poison_damage_add' }],
                 max: [],
                 percent: [],
                 maxPercent: [],

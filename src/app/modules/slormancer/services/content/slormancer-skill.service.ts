@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Buff } from '../../model/content/buff';
+import { ClassMechanic } from '../../model/content/class-mechanic';
 import { DataSkill } from '../../model/content/data/data-skill';
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
@@ -12,7 +13,6 @@ import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { GameDataSkill } from '../../model/content/game/data/game-data-skill';
 import { Mechanic } from '../../model/content/mechanic';
 import { Skill } from '../../model/content/skill';
-import { SkillClassMechanic } from '../../model/content/skill-class-mechanic';
 import { SkillType } from '../../model/content/skill-type';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { effectValueSynergy, effectValueVariable } from '../../util/effect-value.util';
@@ -28,6 +28,7 @@ import {
     valueOrNull,
 } from '../../util/utils';
 import { SlormancerBuffService } from './slormancer-buff.service';
+import { SlormancerClassMechanicService } from './slormancer-class-mechanic.service';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerEffectValueService } from './slormancer-effect-value.service';
 import { SlormancerMechanicService } from './slormancer-mechanic.service';
@@ -46,6 +47,7 @@ export class SlormancerSkillService {
     constructor(private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerMechanicService: SlormancerMechanicService,
+                private slormancerClassMechanicService: SlormancerClassMechanicService,
                 private slormancerDataService: SlormancerDataService,
                 private slormancerBuffService: SlormancerBuffService,
                 private slormancerEffectValueService: SlormancerEffectValueService) {
@@ -99,7 +101,7 @@ export class SlormancerSkillService {
         return result;
     }
 
-    private applyOverride(skill: Skill | SkillUpgrade | SkillClassMechanic, overrideData: DataSkill | null) {
+    private applyOverride(skill: Skill | SkillUpgrade | ClassMechanic, overrideData: DataSkill | null) {
     
         if (overrideData !== null) {
             overrideData.override(skill.values);
@@ -227,7 +229,7 @@ export class SlormancerSkillService {
         skill.description = this.slormancerTemplateService.formatSkillDescription(skill.template, skill.values);
     }
 
-    public getClassMechanicClone(mechanic: SkillClassMechanic): SkillClassMechanic {
+    public getClassMechanicClone(mechanic: ClassMechanic): ClassMechanic {
         return {
             ...mechanic,
             values: mechanic.values.map(value => this.slormancerEffectValueService.getEffectValueClone(value))
@@ -247,8 +249,8 @@ export class SlormancerSkillService {
             genres: [...upgrade.genres],
             damageTypes: [...upgrade.damageTypes],
 
-            relatedClassMechanics: upgrade.relatedClassMechanics.map(mechanic => this.getClassMechanicClone(mechanic)),
-            relatedMechanics: upgrade.relatedMechanics.map(mechanic => this.getMechanicClone(mechanic)),
+            relatedClassMechanics: [...upgrade.relatedClassMechanics],
+            relatedMechanics: [...upgrade.relatedMechanics],
             relatedBuffs: upgrade.relatedBuffs.map(buff => this.getBuffClone(buff)),
         
             template: upgrade.template,
@@ -324,13 +326,13 @@ export class SlormancerSkillService {
             .filter(isNotNullOrUndefined);
     }
     
-    private extractSkillMechanics(template: string, heroClass: HeroClass, additionalSkillMechanics: Array<number>): Array<SkillClassMechanic> {
+    private extractSkillMechanics(template: string, heroClass: HeroClass, additionalSkillMechanics: Array<number>): Array<ClassMechanic> {
         const ids = valueOrDefault(template.match(/<(.*?)>/g), [])
             .map(m => this.slormancerDataService.getDataSkillClassMechanicIdByName(heroClass, m));
         return [ ...ids, ...additionalSkillMechanics ]
             .filter(isNotNullOrUndefined)
             .filter(isFirst)
-            .map(id => this.getClassMechanic(id, heroClass))
+            .map(id => this.slormancerClassMechanicService.getClassMechanic(heroClass, id))
             .filter(isNotNullOrUndefined);
     }
 
@@ -347,7 +349,7 @@ export class SlormancerSkillService {
         return [ ...attributeMechanics, ...synergyMechanics, ...templateMechanics, ...additional ]
             .filter(isNotNullOrUndefined)
             .filter(isFirst)
-            .map(mechanic => this.slormancerMechanicService.getMechanic(mechanic));
+            .map(type => this.slormancerMechanicService.getMechanic(type));
     }
 
     public updateUpgrade(upgrade: SkillUpgrade) {
@@ -381,34 +383,5 @@ export class SlormancerSkillService {
         }
         
         upgrade.description = this.slormancerTemplateService.formatUpgradeDescription(upgrade.template, upgrade.values);
-    }
-
-    public getClassMechanic(mechanicId: number, heroClass: HeroClass): SkillClassMechanic | null {
-        const gameDataSkill = this.slormancerDataService.getGameDataSkill(heroClass, mechanicId);
-        const dataSkill = this.slormancerDataService.getDataSkill(heroClass, mechanicId);
-        let mechanic: SkillClassMechanic | null = null;
-
-        if (gameDataSkill !== null && (gameDataSkill.TYPE == SkillType.Mechanic || gameDataSkill.TYPE === SkillType.Mechanics)) {
-            mechanic = {
-                id: gameDataSkill.REF,
-                type: gameDataSkill.TYPE,
-                name: gameDataSkill.EN_NAME,
-                icon: 'skill/' + heroClass + '/' + gameDataSkill.REF,
-                description: '',
-            
-                template: this.slormancerTemplateService.getSkillDescriptionTemplate(gameDataSkill),
-                values: this.parseEffectValues(gameDataSkill, EffectValueUpgradeType.UpgradeRank)
-            };
-
-            this.applyOverride(mechanic, dataSkill);
-    
-            this.updateClassMechanic(mechanic);
-        }
-
-        return mechanic;
-    }
-
-    public updateClassMechanic(upgrade: SkillClassMechanic) {
-        upgrade.description = this.slormancerTemplateService.formatSkillDescription(upgrade.template, upgrade.values);
     }
 }

@@ -15,3 +15,5 @@ export const MAXIMUM_ANCESTRAL_LEGACY_POINTS = 7;
 export const DELIGHTED_VALUE = 12;
 
 export const GAME_VERSION = '0.2.152';
+
+export const POISON_DAMAGE_PERCENT = 200;

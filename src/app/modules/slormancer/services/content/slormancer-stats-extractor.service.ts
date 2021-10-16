@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { POISON_DAMAGE_PERCENT } from '../../constants/common';
 import { MergedStatMapping } from '../../constants/content/data/data-character-stats-mapping';
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
 import { CharacterConfig } from '../../model/character-config';
@@ -102,6 +103,13 @@ export class SlormancerStatsExtractorService {
             mapping = mergedStatMapping.find(m => m.stat === 'arcane_bond_damage');
             extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'mana_lost_last_second', 'arcane_bond_damage_add'), 0, {}, [ { stat: 'arcane_bond_damage_add', mapping } ]));
             extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'mana_gained_last_second', 'arcane_bond_damage_add_from_restored_mana'), 0, {}, [ { stat: 'arcane_bond_damage_add_from_restored_mana', mapping } ]));
+        }
+        
+        if (character.heroClass === HeroClass.Huntress) {
+            mapping = mergedStatMapping.find(m => m.stat === 'poison_damage_add');
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(POISON_DAMAGE_PERCENT, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'poison_damage_add'), 0, {}, [ { stat: 'poison_damage_add', mapping } ]));
+            mapping = mergedStatMapping.find(m => m.stat === 'poison_damage_add');
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(POISON_DAMAGE_PERCENT, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'poison_damage_add'), 0, {}, [ { stat: 'poison_damage_add', mapping } ]));
         }
 
         return true;

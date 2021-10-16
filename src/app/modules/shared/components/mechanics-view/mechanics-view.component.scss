@@ -1,0 +1,57 @@
+
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/slormancer_tooltip";
+@import "../../../../../assets/scss/abstracts/color";
+
+$mechanic-bg-color : rgb(20, 19, 16);
+
+.mechanics {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: $space-unit;
+
+    .mechanic {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        background-color: black;
+        padding: $space-unit;
+        gap: $space-unit;
+
+        .mechanic-icon {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            img {
+                min-width: $space-unit * 9;
+                min-height: $space-unit * 9;
+                width: $space-unit * 9;
+                height: $space-unit * 9;
+            }
+
+        }
+
+        .mechanic-name {
+            background-color: $mechanic-bg-color;
+            padding: $space-unit * 2;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-grow: 1;
+        }
+    }
+}
+
+.slormancer-tooltip {
+    max-width: 350px;
+    h3 {
+        margin: $space-unit * 2 0;
+        font-weight: normal;
+        color: $section-title-color;
+    }
+    p {
+        margin: $space-unit * 2 0;
+    }
+}

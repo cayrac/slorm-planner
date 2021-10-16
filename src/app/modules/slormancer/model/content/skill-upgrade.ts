@@ -1,9 +1,9 @@
 import { Buff } from './buff';
+import { ClassMechanic } from './class-mechanic';
 import { AbstractEffectValue } from './effect-value';
 import { SkillCostType } from './enum/skill-cost-type';
 import { SkillGenre } from './enum/skill-genre';
 import { Mechanic } from './mechanic';
-import { SkillClassMechanic } from './skill-class-mechanic';
 import { SkillType } from './skill-type';
 
 export interface SkillUpgrade {
@@ -30,7 +30,7 @@ export interface SkillUpgrade {
     genres: Array<SkillGenre>;
     damageTypes: Array<string>;
 
-    relatedClassMechanics: Array<SkillClassMechanic>;
+    relatedClassMechanics: Array<ClassMechanic>;
     relatedMechanics: Array<Mechanic>;
     relatedBuffs: Array<Buff>;
 

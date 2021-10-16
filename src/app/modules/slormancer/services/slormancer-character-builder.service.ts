@@ -238,6 +238,7 @@ export class SlormancerCharacterBuilderService {
                     [Attribute.Dexterity]: this.slormancerAttributeService.getAttributeTraits(Attribute.Dexterity, character.attributes.allocated[Attribute.Dexterity].rank),
                     [Attribute.Bravery]: this.slormancerAttributeService.getAttributeTraits(Attribute.Bravery, character.attributes.allocated[Attribute.Bravery].rank),
                 }},
+                
         
             primarySkill: null,
             secondarySkill: null,
@@ -405,6 +406,9 @@ export class SlormancerCharacterBuilderService {
                     [Attribute.Bravery]: this.slormancerAttributeService.getAttributeTraits(Attribute.Bravery, bravery),
                 }},
         
+            mechanics: [],
+            classMechanics: [],
+
             primarySkill: null,
             secondarySkill: null,
             supportSkill: null,

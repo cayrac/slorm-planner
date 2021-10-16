@@ -13,6 +13,7 @@
         right: 0;
         bottom: 0;
         border: 3px solid primary-color(400);
+        pointer-events: none;
     }
 
     .inner-box {
@@ -30,6 +31,7 @@
             right: 0;
             bottom: 0;
             border: 3px solid black;
+            pointer-events: none;
         }
     }
 }

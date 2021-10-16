@@ -1,0 +1,43 @@
+
+<div class="mechanics" *ngIf="classMechanics.length > 0 || mechanics.length > 0 || buffs.length > 0">
+    <div class="mechanic" *ngFor="let classMechanic of classMechanics"
+        cdkOverlayOrigin
+        #trigger="cdkOverlayOrigin"
+        (mouseenter)="showOverlay(trigger, classMechanic)"
+        (mouseleave)="hideOverlay()">
+        <div class="mechanic-icon">
+            <img src="assets/img/icon/{{classMechanic.icon}}.png"/>
+        </div>
+        <div class="mechanic-name">{{classMechanic.name}}</div>
+    </div>
+    <div class="mechanic" *ngFor="let mechanic of mechanics"
+        cdkOverlayOrigin
+        #trigger="cdkOverlayOrigin"
+        (mouseenter)="showOverlay(trigger, mechanic)"
+        (mouseleave)="hideOverlay()">
+        <div class="mechanic-icon">
+            <img src="assets/img/icon/{{mechanic.icon}}.png"/>
+        </div>
+        <div class="mechanic-name">{{mechanic.name}}</div>
+    </div>
+    <div class="mechanic" *ngFor="let buff of buffs"
+        cdkOverlayOrigin
+        #trigger="cdkOverlayOrigin"
+        (mouseenter)="showOverlay(trigger, buff)"
+        (mouseleave)="hideOverlay()">
+        <div class="mechanic-icon">
+            <img src="assets/img/icon/{{buff.icon}}.png"/>
+        </div>
+        <div class="mechanic-name">{{buff.name}}</div>
+    </div>
+    <ng-template cdkConnectedOverlay *ngIf="overlayMechanic !== null && overlayTrigger !== null"
+        [cdkConnectedOverlayOpen]="true"
+        [cdkConnectedOverlayOrigin]="overlayTrigger">
+        <div class="slormancer-tooltip">
+            <div class="inner-box">
+                <h3>{{overlayMechanic.name}}</h3>
+                <p>{{overlayMechanic.description}}</p>
+            </div>
+        </div>
+    </ng-template>
+</div>

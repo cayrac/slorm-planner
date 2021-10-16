@@ -5,6 +5,7 @@ import { SlormancerAffixService } from './services/content/slormancer-affix.serv
 import { SlormancerAncestralLegacyService } from './services/content/slormancer-ancestral-legacy.service';
 import { SlormancerAttributeService } from './services/content/slormancer-attribute.service';
 import { SlormancerBuffService } from './services/content/slormancer-buff.service';
+import { SlormancerClassMechanicService } from './services/content/slormancer-class-mechanic.service';
 import { SlormancerDataService } from './services/content/slormancer-data.service';
 import { SlormancerEffectValueService } from './services/content/slormancer-effect-value.service';
 import { SlormancerItemValueService } from './services/content/slormancer-item-value.service';
@@ -47,6 +48,7 @@ import { SlormancerDpsService } from './services/slormancer-dps-service';
     SlormancerEffectValueService,
     SlormancerReaperValueService,
     SlormancerMechanicService,
+    SlormancerClassMechanicService,
     SlormancerBuffService,
     SlormancerAncestralLegacyService,
     SlormancerAttributeService,

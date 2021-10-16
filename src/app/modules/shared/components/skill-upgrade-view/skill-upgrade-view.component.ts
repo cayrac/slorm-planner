@@ -1,7 +1,10 @@
 import { Component, Input } from '@angular/core';
 
+import { Buff } from '../../../slormancer/model/content/buff';
+import { ClassMechanic } from '../../../slormancer/model/content/class-mechanic';
 import { SkillCostType } from '../../../slormancer/model/content/enum/skill-cost-type';
 import { SkillGenre } from '../../../slormancer/model/content/enum/skill-genre';
+import { Mechanic } from '../../../slormancer/model/content/mechanic';
 import { SkillType } from '../../../slormancer/model/content/skill-type';
 import { SkillUpgrade } from '../../../slormancer/model/content/skill-upgrade';
 import { SlormancerTranslateService } from '../../../slormancer/services/content/slormancer-translate.service';
@@ -21,6 +24,8 @@ export class SkillUpgradeViewComponent {
     @Input()
     public readonly upgrade: SkillUpgrade | null = null;
 
+    public mouseOverElement: Mechanic | ClassMechanic | Buff | null = null
+
     constructor(private slormancerTranslateService: SlormancerTranslateService) { }
 
     public getCostLabel(costType: SkillCostType): string {
@@ -37,5 +42,14 @@ export class SkillUpgradeViewComponent {
 
     public translate(key: string): string {
         return this.slormancerTranslateService.translate(key);
+    }
+
+    public showMechanicOverlay(mechanic: Mechanic | ClassMechanic | Buff) {
+        console.log('show mechanic : ', mechanic);
+        this.mouseOverElement = mechanic;
+    }
+
+    public hideMechanicOverlay() {
+        this.mouseOverElement = null;
     }
 }

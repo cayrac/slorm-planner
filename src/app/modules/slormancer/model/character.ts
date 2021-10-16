@@ -2,10 +2,12 @@ import { Activable } from './content/activable';
 import { AncestralLegacy } from './content/ancestral-legacy';
 import { AttributeTraits } from './content/attribut-traits';
 import { MergedStat } from './content/character-stats';
+import { ClassMechanic } from './content/class-mechanic';
 import { Attribute } from './content/enum/attribute';
 import { GearSlot } from './content/enum/gear-slot';
 import { HeroClass } from './content/enum/hero-class';
 import { EquipableItem } from './content/equipable-item';
+import { Mechanic } from './content/mechanic';
 import { Reaper } from './content/reaper';
 import { Skill } from './content/skill';
 import { SkillUpgrade } from './content/skill-upgrade';
@@ -82,6 +84,9 @@ export interface Character {
     activable4: Activable | AncestralLegacy | null;
 
     baseStats: Array<{ stat: string, values: Array<number>}>;
+
+    mechanics: Array<Mechanic>;
+    classMechanics: Array<ClassMechanic>;
 
     stats: Array<MergedStat>;
 }

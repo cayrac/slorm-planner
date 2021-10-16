@@ -1213,7 +1213,6 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 5,
         override: values => { 
             setStat(values, 0, 'elder_lance_additional_damage_per_cosmic_stack');
-            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
@@ -1221,7 +1220,6 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 5,
         override: values => { 
             setStat(values, 0, 'elder_lance_ancestral_damage_per_cosmic_stack');
-            setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
     },
