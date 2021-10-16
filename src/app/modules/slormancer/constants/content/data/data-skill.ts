@@ -38,9 +38,11 @@ function setValue(values: Array<AbstractEffectValue>, index: number, newValue: n
 }
 
 function setStat(values: Array<AbstractEffectValue>, index: number, stat: string) {
-    const value = <EffectValueVariable | EffectValueConstant>values[index];
+    const value = <EffectValueVariable | EffectValueConstant | EffectValueSynergy>values[index];
 
     if (value) {
+        if (stat === 'skill_increased_damage_mult' && 'source' in value && value.source === 'the_speed_percent') {
+        }
         value.stat = stat;
     } else {
         console.log(values);
@@ -1033,6 +1035,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 2,
         override: values =>  { 
             setStat(values, 0, 'skill_increased_damage_mult');
+            setSource(values, 0, 'movement_speed_percent');
             setAsUpgrade(values, 0);
             synergyMultiply100(values, 0);
             setSynergyPrecision(values, 0, 0);
@@ -1361,7 +1364,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     147: {
         masteryRequired: 3,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Stat, 'skewer_max_stack_add');
+            setStat(values, 0, 'skewer_max_stack_add');
         },
         additionalClassMechanics: []
     },
@@ -1415,8 +1418,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     154: {
         masteryRequired: 5,
         override: values => {
-            setStat(values, 0, 'skewer_additional_damage_percent');
-            setAsUpgrade(values, 0);
+            setStat(values, 0, 'skewer_damage_percent_add');
         },
         additionalClassMechanics: []
     },

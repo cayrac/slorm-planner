@@ -3,6 +3,7 @@ import { MinMax } from '../minmax';
 import { Activable } from './activable';
 import { AncestralLegacy } from './ancestral-legacy';
 import { AttributeTraits } from './attribut-traits';
+import { ClassMechanic } from './class-mechanic';
 import { EffectValueSynergy } from './effect-value';
 import { EquipableItem } from './equipable-item';
 import { Mechanic } from './mechanic';
@@ -24,6 +25,7 @@ export interface SynergyResolveDataSource {
     reaper?: Reaper;
     activable?: Activable;
     mechanic?: Mechanic;
+    classMechanic?: ClassMechanic;
 };
 
 export interface SynergyResolveData {

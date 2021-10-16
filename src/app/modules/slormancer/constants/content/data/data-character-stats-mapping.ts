@@ -391,6 +391,27 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxMultiplier: [],
         } 
     },
+    {
+        stat: 'movement_speed_percent',
+        precision: 3,
+        allowMinMax: false,
+        source: {
+            flat: [               
+                { stat: 'the_speed_percent' },
+                { stat: 'the_speed_percent_after_dodge', condition: config => config.dodge_recently },
+                { stat: 'assassin_haste_buff_movement_speed', condition: config => config.has_assassin_haste_buff },
+                { stat: 'tormented_movement_speed', condition: config => config.serenity === 0 },
+                { stat: 'movement_speed_after_trap_triggered', condition: config => config.trap_triggered_recently },
+                { stat: 'the_speed_percent_per_latent_storm', condition: config => config.enemies_affected_by_latent_storm > 0, multiplier: (config, stats) => Math.min(getFirstStat(stats, 'the_speed_percent_per_latent_storm_max'), config.enemies_affected_by_latent_storm) },
+                { stat: 'speed_gate_buff_the_speed_percent', condition: config => config.has_speed_gate_buff },],
+            max: [],
+            percent: [
+            ],
+            maxPercent: [],
+            multiplier: [],
+            maxMultiplier: [],
+        } 
+    },
     // Attack
     {
         stat: 'attack_speed',
@@ -1631,11 +1652,24 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
 export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>> = {
     0: [
         {
-            stat: 'skewer_max_stack',
+            stat: 'skewer_max_stacks',
             precision: 0,
             allowMinMax: false,
             source: {
                 flat: [{ stat: 'skewer_max_stack_add' }],
+                max: [],
+                percent: [],
+                maxPercent: [],
+                multiplier: [],
+                maxMultiplier: [],
+            } 
+        },
+        {
+            stat: 'skewer_damage_percent',
+            precision: 0,
+            allowMinMax: false,
+            source: {
+                flat: [{ stat: 'skewer_damage_percent_add' }],
                 max: [],
                 percent: [],
                 maxPercent: [],

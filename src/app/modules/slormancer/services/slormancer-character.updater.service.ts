@@ -15,6 +15,7 @@ import { isFirst, isNotNullOrUndefined, valueOrDefault } from '../util/utils';
 import { SlormancerActivableService } from './content/slormancer-activable.service';
 import { SlormancerAncestralLegacyService } from './content/slormancer-ancestral-legacy.service';
 import { SlormancerAttributeService } from './content/slormancer-attribute.service';
+import { SlormancerClassMechanicService } from './content/slormancer-class-mechanic.service';
 import { SlormancerDataService } from './content/slormancer-data.service';
 import { SlormancerItemService } from './content/slormancer-item.service';
 import { SlormancerMechanicService } from './content/slormancer-mechanic.service';
@@ -39,6 +40,7 @@ export class SlormancerCharacterUpdaterService {
                 private slormancerItemService: SlormancerItemService,
                 private slormancerActivableService: SlormancerActivableService,
                 private slormancerMechanicService: SlormancerMechanicService,
+                private slormancerClassMechanicService: SlormancerClassMechanicService,
                 private slormancerValueUpdater: SlormancerValueUpdater,
                 private messageService: MessageService,
         ) { }
@@ -147,6 +149,9 @@ export class SlormancerCharacterUpdaterService {
         for (const mechanic of statsResult.changed.mechanics) {
             this.slormancerMechanicService.updateMechanicView(mechanic);
         }
+        for (const classMechanic of statsResult.changed.classMechanic) {
+            this.slormancerClassMechanicService.updateClassMechanicView(classMechanic);
+        }
     }
 
     private displaySynergyLoopError(statsResult: CharacterStatsBuildResult) {
@@ -169,6 +174,10 @@ export class SlormancerCharacterUpdaterService {
                         result = unresolvedSynergy.objectSource.skill.name;
                     } else if (unresolvedSynergy.objectSource.upgrade) {
                         result = unresolvedSynergy.objectSource.upgrade.name;
+                    } else if (unresolvedSynergy.objectSource.mechanic) {
+                        result = unresolvedSynergy.objectSource.mechanic.name;
+                    } else if (unresolvedSynergy.objectSource.classMechanic) {
+                        result = unresolvedSynergy.objectSource.classMechanic.name;
                     }
 
                     return result;
@@ -231,6 +240,7 @@ export class SlormancerCharacterUpdaterService {
         statsResult.changed.skills.push(...statResultPreAura.changed.skills);
         statsResult.changed.upgrades.push(...statResultPreAura.changed.upgrades);
         statsResult.changed.mechanics.push(...statResultPreAura.changed.mechanics);
+        statsResult.changed.classMechanic.push(...statResultPreAura.changed.classMechanic);
 
 
         for (const ancestralLegacyId of statsResult.unlockedAncestralLegacies) {

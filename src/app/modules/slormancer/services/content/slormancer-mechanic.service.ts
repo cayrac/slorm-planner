@@ -4,7 +4,7 @@ import { DATA_MECHANIC } from '../../constants/content/data/data-mechanic';
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { MechanicType } from '../../model/content/enum/mechanic-type';
 import { Mechanic } from '../../model/content/mechanic';
-import { isDamageType, isEffectValueSynergy, valueOrDefault } from '../../util/utils';
+import { isDamageType, valueOrDefault } from '../../util/utils';
 import { SlormancerTemplateService } from './slormancer-template.service';
 import { SlormancerTranslateService } from './slormancer-translate.service';
 
@@ -52,7 +52,6 @@ export class SlormancerMechanicService {
     }
 
     public updateMechanicView(mechanic: Mechanic) {
-        console.log('updating mechanic view : ', mechanic, mechanic.values.filter(isEffectValueSynergy).map(synergy => synergy.displaySynergy).join(', '));
         mechanic.description = this.slormancerTemplateService.formatMechanicTemplate(mechanic.template, mechanic.values);
     }
 }

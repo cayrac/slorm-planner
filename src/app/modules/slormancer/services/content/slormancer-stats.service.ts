@@ -11,6 +11,7 @@ import { Activable } from '../../model/content/activable';
 import { AncestralLegacy } from '../../model/content/ancestral-legacy';
 import { AttributeTraits } from '../../model/content/attribut-traits';
 import { MergedStat, SynergyResolveData } from '../../model/content/character-stats';
+import { ClassMechanic } from '../../model/content/class-mechanic';
 import { HeroClass } from '../../model/content/enum/hero-class';
 import { SkillCostType } from '../../model/content/enum/skill-cost-type';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
@@ -41,6 +42,7 @@ export interface CharacterStatsBuildResult {
         attributes: Array<AttributeTraits>;
         activables: Array<Activable>;
         mechanics: Array<Mechanic>;
+        classMechanic: Array<ClassMechanic>;
     }
 }
 
@@ -131,12 +133,15 @@ export class SlormancerStatsService {
                 reapers: [],
                 attributes: [],
                 activables: [],
-                mechanics: []
+                mechanics: [],
+                classMechanic: [],
             }
         }
         const mapping = [...GLOBAL_MERGED_STATS_MAPPING, ...HERO_MERGED_STATS_MAPPING[character.heroClass]];
         const extractedStats = this.slormancerStatsExtractorService.extractCharacterStats(character, config, additionalItem, mapping);
         
+        console.log('extracted stats : ', extractedStats, extractedStats.stats['skewer_damage_percent_add']?.join(', '));
+
         result.extractedStats = extractedStats.stats;
         result.stats = this.slormancerStatMappingService.buildMergedStats(extractedStats.stats, mapping, config);
 
@@ -177,8 +182,10 @@ export class SlormancerStatsService {
                     result.changed.activables.push(synergy.objectSource.activable);
                 }
                 if (synergy.objectSource.mechanic) {
-                    console.log('Adding to mechanics to update...');
                     result.changed.mechanics.push(synergy.objectSource.mechanic);
+                }
+                if (synergy.objectSource.classMechanic) {
+                    result.changed.classMechanic.push(synergy.objectSource.classMechanic);
                 }
             }
         }

@@ -322,8 +322,11 @@ export class SlormancerTemplateService {
                 const value = this.asSpan(effectValue.displayValue.toString() + percent, 'value');
                 template = this.replaceAnchor(template, value, this.TYPE_ANCHOR);
             } else if (isEffectValueSynergy(effectValue)) {
-                const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
-                template = this.replaceAnchor(template, synergy, this.VALUE_ANCHOR);
+                const anchor = findFirst(template, [this.TYPE_ANCHOR, this.VALUE_ANCHOR]);
+                if (anchor !== null) {
+                    const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
+                    template = this.replaceAnchor(template, synergy, anchor);
+                }
             }
         }
 

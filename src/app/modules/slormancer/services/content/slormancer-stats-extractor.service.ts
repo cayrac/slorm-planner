@@ -5,6 +5,7 @@ import { MergedStatMapping } from '../../constants/content/data/data-character-s
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
 import { CharacterConfig } from '../../model/character-config';
 import { SynergyResolveData } from '../../model/content/character-stats';
+import { ClassMechanic } from '../../model/content/class-mechanic';
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { ALL_ATTRIBUTES } from '../../model/content/enum/attribute';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
@@ -149,13 +150,20 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'mana_lost_last_second', config.mana_lost_last_second);
         this.addStat(stats.stats, 'mana_gained_last_second', config.mana_gained_last_second);
         this.addStat(stats.stats, 'completed_achievements', config.completed_achievements);
+        this.addStat(stats.stats, 'knight_other_level', config.knight_other_level);
     }
 
     private addMechanicValues(mechanics: Array<Mechanic>, stats: ExtractedStats) {
-
         for (const mechanic of mechanics) {
             stats.isolatedSynergies.push(...mechanic.values.filter(isEffectValueSynergy)
                 .map(synergy => synergyResolveData(synergy, synergy.displaySynergy, { mechanic })));
+        }
+    }
+
+    private addClassMechanicValues(classMechanics: Array<ClassMechanic>, stats: ExtractedStats) {
+        for (const classMechanic of classMechanics) {
+            stats.isolatedSynergies.push(...classMechanic.values.filter(isEffectValueSynergy)
+                .map(synergy => synergyResolveData(synergy, synergy.displaySynergy, { classMechanic })));
         }
     }
 
@@ -329,6 +337,7 @@ export class SlormancerStatsExtractorService {
                 }
 
                 this.addMechanicValues(upgrade.relatedMechanics, stats);
+                this.addClassMechanicValues(upgrade.relatedClassMechanics, stats);
             }
         }
     }
