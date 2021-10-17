@@ -46,9 +46,9 @@
 ### Fixes
 - Cloak of the insatiable now correctly increase bounce number
 
-## Release 0.0.6 (TBR)
+## Release 0.0.6 (2021-10-17)
 ### Added
-- Added mechanic tooltips
+- Added mechanics
 ### Fixes
 - Fixed an issue causing the changelog to be in the past
 - Fixed an issue with arcane breach configuration and buffs not being applied
