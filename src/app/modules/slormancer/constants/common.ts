@@ -28,7 +28,9 @@ export const ASTRAL_METEOR_AOE = 1.5;
 export const ARCANE_CLONE_ATTACK_SPEED_REDUCTION = -35;
 export const ARCANE_BOND_DAMAGE_FROM_MANA_SPENT = 100;
 export const MAX_EMBLEMS = 3;
+export const REMNANT_DAMAGE_REDUCTION = 50;
 
 export const SHIELD_DURATION = 3;
 export const POISON_DURATION = 7;
 export const ARCANE_BOND_DURATION = 7;
+export const TIME_LOCK_DURATION = 3;

@@ -7,6 +7,7 @@ import {
     ASTRAL_RETRIBUTION_DAMAGE_PERCENT,
     POISON_DAMAGE_PERCENT,
     RAVENOUS_DAGGER_DAMAGE_PERCENT,
+    REMNANT_DAMAGE_REDUCTION,
     TRAP_DAMAGE_PERCENT,
 } from '../../constants/common';
 import { MergedStatMapping } from '../../constants/content/data/data-character-stats-mapping';
@@ -136,7 +137,7 @@ export class SlormancerStatsExtractorService {
 
     private addCharacterValues(character: Character, stats: ExtractedStats) {
         this.addStat(stats.stats, 'half_level', character.level / 2);
-        this.addStat(stats.stats, 'remnant_damage_reduction_mult', -50);
+        this.addStat(stats.stats, 'remnant_damage_reduction_mult', -REMNANT_DAMAGE_REDUCTION);
         this.addStat(stats.stats, 'arcane_clone_cooldown_reduction_global_mult', ARCANE_CLONE_ATTACK_SPEED_REDUCTION);
 
         if (character.heroClass === HeroClass.Mage) {

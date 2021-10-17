@@ -1806,7 +1806,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
         {
             stat: 'arcane_bond_duration',
             precision: 0,
-            allowMinMax: true,
+            allowMinMax: false,
             source: {
                 flat: [
                     { stat: 'arcane_bond_duration_add' },
@@ -1819,9 +1819,41 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             } 
         },
         {
+            stat: 'time_lock_duration',
+            precision: 0,
+            allowMinMax: false,
+            source: {
+                flat: [
+                    { stat: 'time_lock_duration_add' },
+                ],
+                max: [],
+                percent: [],
+                maxPercent: [],
+                multiplier: [],
+                maxMultiplier: [],
+            } 
+        },
+        {
+            stat: 'remnant_decreased_damage',
+            precision: 0,
+            allowMinMax: false,
+            source: {
+                flat: [
+                    { stat: 'remnant_damage_reduction_mult' },
+                ],
+                max: [],
+                percent: [],
+                maxPercent: [],
+                multiplier: [
+                    { stat: 'remnant_increased_damage_mult', multiplier: () => -1 },
+                ],
+                maxMultiplier: [],
+            } 
+        },
+        {
             stat: 'max_arcane_clone',
             precision: 0,
-            allowMinMax: true,
+            allowMinMax: false,
             source: {
                 flat: [{ stat: 'max_arcane_clone_add' }],
                 max: [],
