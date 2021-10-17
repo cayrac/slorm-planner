@@ -1,5 +1,6 @@
 import { HeroBaseStats } from '../../../model/content/data/data-hero-base-stats';
 import { GameHeroesData } from '../../../model/parser/game/game-save';
+import { TRAP_ARM_DURATION } from '../../common';
 
 const ALL_HEROES_BASE_STATS = [
     { stat: 'the_speed_add', base: 2.4, perLevel: 0 },
@@ -79,6 +80,7 @@ export const DATA_HERO_BASE_STATS: GameHeroesData<HeroBaseStats> = {
             { stat: 'the_max_mana_add', base: 176, perLevel: 44 },
             { stat: 'dodge_add', base: 11, perLevel: 4 },
             { stat: 'health_on_hit_add', base: 1, perLevel: 0 },
+            { stat: 'trap_arm_time_add', base: TRAP_ARM_DURATION, perLevel: 0 },
             ...ALL_HEROES_BASE_STATS
         ],
         levelonlyStat: {

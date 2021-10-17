@@ -5,6 +5,7 @@ import {
     ASTRAL_RETRIBUTION_DAMAGE_PERCENT,
     POISON_DAMAGE_PERCENT,
     RAVENOUS_DAGGER_DAMAGE_PERCENT,
+    TRAP_DAMAGE_PERCENT,
 } from '../../constants/common';
 import { MergedStatMapping } from '../../constants/content/data/data-character-stats-mapping';
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
@@ -123,6 +124,8 @@ export class SlormancerStatsExtractorService {
             extractedStats.synergies.push(synergyResolveData(effectValueSynergy(POISON_DAMAGE_PERCENT, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'poison_damage_add'), 0, {}, [ { stat: 'poison_damage', mapping } ]));
             mapping = mergedStatMapping.find(m => m.stat === 'ravenous_dagger_damage');
             extractedStats.synergies.push(synergyResolveData(effectValueSynergy(RAVENOUS_DAGGER_DAMAGE_PERCENT, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'ravenous_dagger_damage_add'), 0, {}, [ { stat: 'ravenous_dagger_damage', mapping } ]));
+            mapping = mergedStatMapping.find(m => m.stat === 'trap_damage');
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(TRAP_DAMAGE_PERCENT, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'trap_damage_add'), 0, {}, [ { stat: 'trap_damage', mapping } ]));
         }
 
         return true;

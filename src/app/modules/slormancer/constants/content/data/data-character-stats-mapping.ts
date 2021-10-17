@@ -1752,6 +1752,21 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             } 
         },
         {
+            stat: 'trap_arm_time',
+            precision: 3,
+            allowMinMax: true,
+            source: {
+                flat: [{ stat: 'trap_arm_time_add' }],
+                max: [],
+                percent: [],
+                maxPercent: [],
+                multiplier: [
+                    { stat: 'trap_arm_time_reduction_mult', multiplier: () => -1 }
+                ],
+                maxMultiplier: [],
+            } 
+        },
+        {
             stat: 'poison_damage',
             precision: 3,
             allowMinMax: true,

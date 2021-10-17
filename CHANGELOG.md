@@ -1,9 +1,9 @@
-## Release 0.0.1 (2020-10-10)
+## Release 0.0.1 (2021-10-10)
 
 ### Added
 - Initial release
 
-## Release 0.0.2 (2020-10-12)
+## Release 0.0.2 (2021-10-12)
 
 ### Added
 - Added a content blocked page if the browser block the main scripts
@@ -15,12 +15,12 @@
 - Fixed an issue when parsing ressources item (ressources value of size 6 instead of 8)
 - Ancestral legacies tab now correctly work on Firefox
 
-## Release 0.0.3 (2020-10-12)
+## Release 0.0.3 (2021-10-12)
 
 ### Fixes
 - Fixed an issue causing character stats to be empty on first load
 
-## Release 0.0.4 (2020-10-15)
+## Release 0.0.4 (2021-10-15)
 
 ### Added
 - Added the correct average hit value on character view
@@ -40,7 +40,7 @@
 - Fixed an issue preventing a file to be uploaded twice in a row
 - Turn the tide now correctly increase projectile damages
 
-## Release 0.0.5 (2020-10-15)
+## Release 0.0.5 (2021-10-15)
 ### Added
 - Added name in character view link
 ### Fixes
@@ -50,4 +50,5 @@
 ### Added
 - Added mechanic tooltips
 ### Fixes
+- Fixed an issue causing the changelog to be in the past
 - Fixed an issue with arcane breach configuration and buffs not being applied

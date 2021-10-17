@@ -180,6 +180,15 @@ export class SlormancerValueUpdater {
         if (classMechanic.genres.includes(SkillGenre.AreaOfEffect)) {
             const aoeStat = <MergedStat<number>>this.getStatValueOrDefault(statsResult.stats, 'aoe_increased_effect');
             multipliers.push(aoeStat.total);
+
+            const aoeSizes = classMechanic.values.filter(value => value.valueType === EffectValueValueType.AreaOfEffect);
+            if (aoeSizes.length > 0) {
+                const aoeSizeStat = <MergedStat<number>>this.getStatValueOrDefault(statsResult.stats, 'aoe_increased_size');
+                for (const aoeSize of aoeSizes) {
+                    aoeSize.value = aoeSize.baseValue * (100 + aoeSizeStat.total) / 100;
+                    aoeSize.displayValue = round(aoeSize.value, 2);
+                }
+            }
         }
         if (classMechanic.genres.includes(SkillGenre.DamageOverTime)) {
             const dotStat = <MergedStat<number>>this.getStatValueOrDefault(statsResult.stats, 'dot_increased_damage');

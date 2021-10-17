@@ -3003,7 +3003,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     145: {
         masteryRequired: 4,
         override: values => {
-            setStat(values, 0, 'trap_arm_arm_time_percent');
+            setStat(values, 0, 'trap_arm_time_reduction_mult');
         },
         additionalClassMechanics: []
     },
@@ -3017,7 +3017,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     147: {
         masteryRequired: 5,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Stat, 'trap_increased_damage_percent');
+            setStat(values, 0, 'trap_increased_damage_percent');
         },
         additionalClassMechanics: []
     },

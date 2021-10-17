@@ -18,8 +18,13 @@ export const GAME_VERSION = '0.2.152';
 
 export const POISON_DAMAGE_PERCENT = 200;
 export const RAVENOUS_DAGGER_DAMAGE_PERCENT = 100;
+export const TRAP_DAMAGE_PERCENT = 200;
+export const TRAP_AOE = 1.5;
+export const TRAP_STUN_DURATION = 3;
+export const TRAP_ARM_DURATION = 1;
 export const ASTRAL_RETRIBUTION_DAMAGE_PERCENT = 200;
 export const ASTRAL_METEOR_DAMAGE_PERCENT = 400;
+export const ASTRAL_METEOR_AOE = 1.5;
 
 export const SHIELD_DURATION = 3;
 export const POISON_DURATION = 7;

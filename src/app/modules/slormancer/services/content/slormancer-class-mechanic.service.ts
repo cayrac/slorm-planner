@@ -30,13 +30,14 @@ export class SlormancerClassMechanicService {
         if (data !== null) {
             const values: Array<AbstractEffectValue> = valueOrDefault(DATA_CLASS_MECHANIC[heroClass][id]?.values, []);
             const genres: Array<SkillGenre> = valueOrDefault(DATA_CLASS_MECHANIC[heroClass][id]?.genres, []);
+            const templateOverride = valueOrDefault(DATA_CLASS_MECHANIC[heroClass][id]?.templateOverride, template => template);
             mechanic = {
                 id: data.REF,
                 name: data.EN_NAME,
                 genres,
                 description: '',
                 icon: 'skill/' + heroClass + '/' + data.REF,
-                template: this.slormancerTemplateService.prepareMechanicTemplate(data.EN_DESCRIPTION, values.map(value => value.stat).filter(isDamageType)),
+                template: this.slormancerTemplateService.prepareMechanicTemplate(templateOverride(data.EN_DESCRIPTION), values.map(value => value.stat).filter(isDamageType)),
                 values: values.map(value => ({ ...value }))
             };
 

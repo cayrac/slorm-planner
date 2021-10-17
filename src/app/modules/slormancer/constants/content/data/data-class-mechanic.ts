@@ -6,11 +6,15 @@ import { SkillGenre } from '../../../model/content/enum/skill-genre';
 import { GameHeroesData } from '../../../model/parser/game/game-save';
 import { effectValueConstant, effectValueSynergy } from '../../../util/effect-value.util';
 import {
+    ASTRAL_METEOR_AOE,
     ASTRAL_METEOR_DAMAGE_PERCENT,
     ASTRAL_RETRIBUTION_DAMAGE_PERCENT,
     POISON_DAMAGE_PERCENT,
     POISON_DURATION,
     RAVENOUS_DAGGER_DAMAGE_PERCENT,
+    TRAP_AOE,
+    TRAP_DAMAGE_PERCENT,
+    TRAP_STUN_DURATION,
 } from '../../common';
 
 export const DATA_CLASS_MECHANIC: GameHeroesData<{ [key: number]:  DataClassMechanic }> = {
@@ -27,7 +31,7 @@ export const DATA_CLASS_MECHANIC: GameHeroesData<{ [key: number]:  DataClassMech
                 effectValueConstant(ASTRAL_RETRIBUTION_DAMAGE_PERCENT, false, 'garbage_stat', EffectValueValueType.Stat),
                 effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'astral_meteor_damage', 'skill_damage', EffectValueValueType.Stat, undefined, 3),
                 effectValueConstant(ASTRAL_METEOR_DAMAGE_PERCENT, false, 'garbage_stat', EffectValueValueType.Stat),
-                effectValueConstant(1.5, false, 'astral_meteor_aoe', EffectValueValueType.AreaOfEffect),
+                effectValueConstant(ASTRAL_METEOR_AOE, false, 'astral_meteor_aoe', EffectValueValueType.AreaOfEffect),
             ]
         },
         218: {
@@ -43,6 +47,17 @@ export const DATA_CLASS_MECHANIC: GameHeroesData<{ [key: number]:  DataClassMech
                 effectValueConstant(RAVENOUS_DAGGER_DAMAGE_PERCENT, false, 'garbage_stat', EffectValueValueType.Stat),
             ],
             genres: [ SkillGenre.AreaOfEffect ]
+        },
+        210: {
+            values: [
+                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'trap_damage', 'physical_damage', EffectValueValueType.Stat, undefined, 3),
+                effectValueConstant(TRAP_DAMAGE_PERCENT, false, 'garbage_stat', EffectValueValueType.Stat),
+                effectValueConstant(TRAP_AOE, false, 'trap_aoe', EffectValueValueType.AreaOfEffect),
+                effectValueConstant(TRAP_STUN_DURATION, false, 'trap_stun_duration', EffectValueValueType.Duration),
+                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'trap_arm_time', 'arm_time', EffectValueValueType.Stat, undefined, 3),
+            ],
+            genres: [ SkillGenre.AreaOfEffect ],
+            templateOverride: template => template.replace('£', '$')
         },
         211: {
             values: [
