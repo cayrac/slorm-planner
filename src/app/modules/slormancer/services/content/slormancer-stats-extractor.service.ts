@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import {
+    ARCANE_BOND_DAMAGE_FROM_MANA_SPENT as ARCANE_BOND_DAMAGE_FROM_MANA_LOST,
+    ARCANE_CLONE_ATTACK_SPEED_REDUCTION,
     ASTRAL_METEOR_DAMAGE_PERCENT,
     ASTRAL_RETRIBUTION_DAMAGE_PERCENT,
     POISON_DAMAGE_PERCENT,
@@ -115,7 +117,8 @@ export class SlormancerStatsExtractorService {
 
         if (character.heroClass === HeroClass.Mage) {
             mapping = mergedStatMapping.find(m => m.stat === 'arcane_bond_damage');
-            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'mana_lost_last_second', 'arcane_bond_damage_add'), 0, {}, [ { stat: 'arcane_bond_damage', mapping } ]));
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(ARCANE_BOND_DAMAGE_FROM_MANA_LOST, 0, EffectValueUpgradeType.None, false, 'mana_lost_last_second', 'arcane_bond_damage_add'), 0, {}, [ { stat: 'arcane_bond_damage', mapping } ]));
+            // reduced by percent_restored_mana_as_arcane_bond_damage
             extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'mana_gained_last_second', 'arcane_bond_damage_add_from_restored_mana'), 0, {}, [ { stat: 'arcane_bond_damage', mapping } ]));
         }
         
@@ -134,7 +137,7 @@ export class SlormancerStatsExtractorService {
     private addCharacterValues(character: Character, stats: ExtractedStats) {
         this.addStat(stats.stats, 'half_level', character.level / 2);
         this.addStat(stats.stats, 'remnant_damage_reduction_mult', -50);
-        this.addStat(stats.stats, 'arcane_clone_cooldown_reduction_global_mult', -35);
+        this.addStat(stats.stats, 'arcane_clone_cooldown_reduction_global_mult', ARCANE_CLONE_ATTACK_SPEED_REDUCTION);
 
         if (character.heroClass === HeroClass.Mage) {
             const maxedUpgrades = character.skills.map(skill => skill.upgrades).flat().filter(upgrade => upgrade.rank === upgrade.maxRank).length;

@@ -4766,6 +4766,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 8,
         override: values => {
             addConstant(values, 5, false, EffectValueValueType.Stat, 'max_emblems');
+            addConstant(values, 2, false, EffectValueValueType.Stat, 'max_emblems_add');
         },
         additionalClassMechanics: [214]
     },
@@ -4913,6 +4914,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 7,
         override: values => {
             addConstant(values, 4, false, EffectValueValueType.Flat, 'max_emblems');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'max_emblems_add');
         },
         additionalClassMechanics: [214]
     },
@@ -5109,7 +5111,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     210: {
         masteryRequired: 8,
         override: values => {
-            setStat(values, 0, 'percent_restored_mana_as_mana_bond');
+            setStat(values, 0, 'percent_restored_mana_as_arcane_bond_damage');
         },
         additionalClassMechanics: []
     },

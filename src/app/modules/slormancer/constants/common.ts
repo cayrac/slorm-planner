@@ -25,6 +25,10 @@ export const TRAP_ARM_DURATION = 1;
 export const ASTRAL_RETRIBUTION_DAMAGE_PERCENT = 200;
 export const ASTRAL_METEOR_DAMAGE_PERCENT = 400;
 export const ASTRAL_METEOR_AOE = 1.5;
+export const ARCANE_CLONE_ATTACK_SPEED_REDUCTION = -35;
+export const ARCANE_BOND_DAMAGE_FROM_MANA_SPENT = 100;
+export const MAX_EMBLEMS = 3;
 
 export const SHIELD_DURATION = 3;
 export const POISON_DURATION = 7;
+export const ARCANE_BOND_DURATION = 7;

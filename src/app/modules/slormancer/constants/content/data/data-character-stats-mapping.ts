@@ -1791,7 +1791,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             source: {
                 flat: [
                     { stat: 'arcane_bond_damage_add' },
-                    { stat: 'arcane_bond_damage_add_from_restored_mana', condition: (_, stats) => hasStat(stats, 'percent_restored_mana_as_mana_bond'), multiplier: (_, stats) => getFirstStat(stats, 'percent_restored_mana_as_mana_bond') / 100 },
+                    { stat: 'arcane_bond_damage_add_from_restored_mana', condition: (_, stats) => hasStat(stats, 'percent_restored_mana_as_arcane_bond_damage'), multiplier: (_, stats) => getFirstStat(stats, 'percent_restored_mana_as_arcane_bond_damage') / 100 },
                 ],
                 max: [],
                 percent: [],
@@ -1800,6 +1800,21 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
                     { stat: 'arcane_bond_increased_damage_mult_if_close', condition: config => config.use_enemy_state && config.target_is_close },
                     { stat: 'arcane_bond_increased_damage_mult_if_in_breach_range', condition: config => config.target_is_in_breach_range },
                 ],
+                maxMultiplier: [],
+            } 
+        },
+        {
+            stat: 'arcane_bond_duration',
+            precision: 0,
+            allowMinMax: true,
+            source: {
+                flat: [
+                    { stat: 'arcane_bond_duration_add' },
+                ],
+                max: [],
+                percent: [],
+                maxPercent: [],
+                multiplier: [],
                 maxMultiplier: [],
             } 
         },
@@ -1816,7 +1831,23 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
                 ],
                 maxMultiplier: [],
             } 
-        }
+        },
+        {
+            stat: 'max_emblems',
+            precision: 0,
+            allowMinMax: true,
+            source: {
+                flat: [
+                    { stat: 'max_emblems_add' },
+                ],
+                max: [],
+                percent: [],
+                maxPercent: [],
+                multiplier: [
+                ],
+                maxMultiplier: [],
+            } 
+        },
     ],
 }
 

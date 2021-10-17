@@ -1,6 +1,6 @@
 import { HeroBaseStats } from '../../../model/content/data/data-hero-base-stats';
 import { GameHeroesData } from '../../../model/parser/game/game-save';
-import { TRAP_ARM_DURATION } from '../../common';
+import { ARCANE_BOND_DURATION, MAX_EMBLEMS, TRAP_ARM_DURATION } from '../../common';
 
 const ALL_HEROES_BASE_STATS = [
     { stat: 'the_speed_add', base: 2.4, perLevel: 0 },
@@ -143,6 +143,8 @@ export const DATA_HERO_BASE_STATS: GameHeroesData<HeroBaseStats> = {
             { stat: 'min_basic_damage_add', base: 4, perLevel: 0 },
             { stat: 'max_basic_damage_add', base: 1, perLevel: 0 },
             { stat: 'max_arcane_clone_add', base: 1, perLevel: 0 },
+            { stat: 'arcane_bond_duration_add', base: ARCANE_BOND_DURATION, perLevel: 0 },
+            { stat: 'max_emblems_add', base: MAX_EMBLEMS, perLevel: 0 },
             ...ALL_HEROES_BASE_STATS
         ],
         levelonlyStat: {
