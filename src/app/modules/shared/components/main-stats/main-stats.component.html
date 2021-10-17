@@ -1,7 +1,7 @@
 <ng-container *ngIf="stats !== null">
     <div class="section" *ngFor="let section of SECTIONS">
         <h3>{{section.section}}</h3>
-        <div class="stat" *ngFor="let stat of section.stats">
+        <div class="stat" *ngFor="let stat of section.stats" (click)="showStats(stats, stat)">
             <div class="label">{{stat.name}}</div>
             <div class="value" [matTooltip]="getTooltip(stats, stat)">{{getValue(stats, stat)}}</div>
         </div>

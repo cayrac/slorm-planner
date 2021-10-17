@@ -7,11 +7,11 @@ import { DELIGHTED_VALUE } from '../../common';
 function getFirstStat(stats: ExtractedStatMap, stat: string, defaultValue: number = 0): number {
     const found = stats[stat];
 
-    return found ? valueOrDefault(found[0], defaultValue) : defaultValue;
+    return found ? valueOrDefault(found[0]?.value, defaultValue) : defaultValue;
 }
 
 function getMaxStat(stats: ExtractedStatMap, stat: string): number {
-    return Math.max(0, ...valueOrDefault(stats[stat], []));
+    return Math.max(0, ...valueOrDefault(stats[stat]?.map(v => v.value), []));
 }
 
 function hasStat(stats: ExtractedStatMap, stat: string): boolean {

@@ -160,23 +160,23 @@ export class SlormancerCharacterUpdaterService {
                 .map(unresolvedSynergy => {
                     let result = null;
 
-                    if (unresolvedSynergy.objectSource.activable) {
+                    if ('activable' in unresolvedSynergy.objectSource) {
                         result = unresolvedSynergy.objectSource.activable.name;
-                    } else if (unresolvedSynergy.objectSource.ancestralLegacy) {
+                    } else if ('ancestralLegacy' in unresolvedSynergy.objectSource) {
                         result = unresolvedSynergy.objectSource.ancestralLegacy.name;
-                    } else if (unresolvedSynergy.objectSource.attribute) {
+                    } else if ('attribute' in unresolvedSynergy.objectSource) {
                         result = unresolvedSynergy.objectSource.attribute.attributeName;
-                    } else if (unresolvedSynergy.objectSource.item) {
+                    } else if ('item' in unresolvedSynergy.objectSource) {
                         result = unresolvedSynergy.objectSource.item.name;
-                    } else if (unresolvedSynergy.objectSource.reaper) {
+                    } else if ('reaper' in unresolvedSynergy.objectSource) {
                         result = unresolvedSynergy.objectSource.reaper.name;
-                    } else if (unresolvedSynergy.objectSource.skill) {
+                    } else if ('skill' in unresolvedSynergy.objectSource) {
                         result = unresolvedSynergy.objectSource.skill.name;
-                    } else if (unresolvedSynergy.objectSource.upgrade) {
+                    } else if ('upgrade' in unresolvedSynergy.objectSource) {
                         result = unresolvedSynergy.objectSource.upgrade.name;
-                    } else if (unresolvedSynergy.objectSource.mechanic) {
+                    } else if ('mechanic' in unresolvedSynergy.objectSource) {
                         result = unresolvedSynergy.objectSource.mechanic.name;
-                    } else if (unresolvedSynergy.objectSource.classMechanic) {
+                    } else if ('classMechanic' in unresolvedSynergy.objectSource) {
                         result = unresolvedSynergy.objectSource.classMechanic.name;
                     }
 

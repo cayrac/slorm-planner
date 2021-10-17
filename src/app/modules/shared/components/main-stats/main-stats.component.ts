@@ -187,6 +187,14 @@ export class MainStatsComponent extends AbstractUnsubscribeComponent implements 
 
         return result;
     }
+    
+    public showStats(characterStats: Array<MergedStat>, format: StatFormat) {
+        const found = characterStats.find(characterStat => characterStat.stat === format.stat);
+
+        if (found) {
+            console.log(found);
+        }
+    }
 
     public getTooltip(characterStats: Array<MergedStat>, format: StatFormat): string {
         const found = characterStats.find(characterStat => characterStat.stat === format.stat);
@@ -194,15 +202,15 @@ export class MainStatsComponent extends AbstractUnsubscribeComponent implements 
 
         if (found) {
             const isMinMax = typeof found.total !== 'number';
-            result =  'Flat: ' + found.values.flat.map(v => this.valueToString(v, false, format.suffix)).join(', ') + '\n';
+            result =  'Flat: ' + found.values.flat.map(v => this.valueToString(v.value, false, format.suffix)).join(', ') + '\n';
             if (isMinMax) {
-                result += 'Flat (max): ' + found.values.max.map(v => this.valueToString(v, false, format.suffix)).join(', ') + '\n';
+                result += 'Flat (max): ' + found.values.max.map(v => this.valueToString(v.value, false, format.suffix)).join(', ') + '\n';
             }
-            result += 'Percent: ' + found.values.percent.map(v => this.valueToString(v, false, '%')).join(', ') + '\n';
+            result += 'Percent: ' + found.values.percent.map(v => this.valueToString(v.value, false, '%')).join(', ') + '\n';
             if (isMinMax) {
-                result += 'Percent (max) : ' + found.values.maxPercent.map(v => this.valueToString(v, false, '%')).join(', ') + '\n';
+                result += 'Percent (max) : ' + found.values.maxPercent.map(v => this.valueToString(v.value, false, '%')).join(', ') + '\n';
             }
-            result += 'Multiplier: ' + found.values.multiplier.map(v => this.valueToString(v, false, '%')).join(', ');
+            result += 'Multiplier: ' + found.values.multiplier.map(v => this.valueToString(v.value, false, '%')).join(', ');
         }
 
         return result;

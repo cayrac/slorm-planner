@@ -39,19 +39,20 @@ export class SlormancerStatUpdaterService {
     }
 
     public updateStatTotal(stat: MergedStat) {
-        let total = stat.allowMinMax ? this.addValues(stat.values.flat, stat.values.max.length > 0 || stat.values.maxPercent.length > 0) : this.addNumberValues(stat.values.flat);
+        const flatValues = stat.values.flat.map(v => v.value);
+        let total = stat.allowMinMax ? this.addValues(flatValues, stat.values.max.length > 0 || stat.values.maxPercent.length > 0) : this.addNumberValues(flatValues);
 
-        const percent = 100 + stat.values.percent.reduce((total, value) => total + value, 0);
-        const maxPercent = stat.values.maxPercent.reduce((total, value) => total + value, percent);
+        const percent = 100 + stat.values.percent.reduce((total, value) => total + value.value, 0);
+        const maxPercent = stat.values.maxPercent.reduce((total, value) => total + value.value, percent);
 
         if (typeof total === 'number') {
             total = total * percent / 100;
     
             if (stat.stat === 'attack_speed' || stat.stat === 'enemy_attack_speed') {
-                total = 100 - stat.values.multiplier.map(mult => Math.max(0, 100 - mult) / 100).reduce((total, value) => total * value, 1 - (<number>total / 100)) * 100;
+                total = 100 - stat.values.multiplier.map(mult => Math.max(0, 100 - mult.value) / 100).reduce((total, value) => total * value, 1 - (<number>total / 100)) * 100;
             } else {
                 for (const multiplier of stat.values.multiplier) {
-                    const mult = (100 + multiplier);
+                    const mult = (100 + multiplier.value);
                     total = total * mult / 100;
                 }
             }
@@ -59,18 +60,18 @@ export class SlormancerStatUpdaterService {
             total = round(total, stat.precision);
         } else {
             for (const max of stat.values.max) {
-                total.max += max;
+                total.max += max.value;
             }
 
             total = { min: total.min * percent / 100, max: total.max * maxPercent / 100 };
             
             for (const multiplier of stat.values.multiplier) {
-                const mult = (100 + multiplier);
+                const mult = (100 + multiplier.value);
                 total = { min: total.min * mult / 100, max: total.max * mult / 100 };
             }
 
             for (const multiplier of stat.values.maxMultiplier) {
-                total.max = total.max * (100 + multiplier) / 100;
+                total.max = total.max * (100 + multiplier.value) / 100;
             }
 
             total = { min: round(total.min, stat.precision), max: round(total.max, stat.precision) };

@@ -1,38 +1,18 @@
 import { MergedStatMapping } from '../../constants/content/data/data-character-stats-mapping';
+import { Entity } from '../entity';
 import { MinMax } from '../minmax';
-import { Activable } from './activable';
-import { AncestralLegacy } from './ancestral-legacy';
-import { AttributeTraits } from './attribut-traits';
-import { ClassMechanic } from './class-mechanic';
 import { EffectValueSynergy } from './effect-value';
-import { EquipableItem } from './equipable-item';
-import { Mechanic } from './mechanic';
-import { Reaper } from './reaper';
-import { Skill } from './skill';
-import { SkillUpgrade } from './skill-upgrade';
 
 export enum ResolveDataType {
     Synergy = 0,
     ExternalSynergy = 1,
 }
 
-export interface SynergyResolveDataSource {
-    skill?: Skill;
-    upgrade?: SkillUpgrade;
-    item?: EquipableItem;
-    ancestralLegacy?: AncestralLegacy;
-    attribute?: AttributeTraits;
-    reaper?: Reaper;
-    activable?: Activable;
-    mechanic?: Mechanic;
-    classMechanic?: ClassMechanic;
-};
-
 export interface SynergyResolveData {
     type: ResolveDataType.Synergy;
     effect: EffectValueSynergy;
     originalValue: number | MinMax;
-    objectSource: SynergyResolveDataSource;
+    objectSource: Entity;
     statsItWillUpdate: Array<{ stat: string, mapping?: MergedStatMapping }>;
 }
 export interface ExternalSynergyResolveData {
@@ -40,6 +20,7 @@ export interface ExternalSynergyResolveData {
     stat: string;
     sources: Array<string>;
     value: number | MinMax;
+    objectSource: Entity;
     method: ((...values: Array<number | MinMax>) => number | MinMax);
     statsItWillUpdate: Array<{ stat: string, mapping?: MergedStatMapping }>;
 }
@@ -50,11 +31,11 @@ export interface MergedStat<T = number | MinMax> {
     allowMinMax: boolean;
     precision: number;
     values: {
-        flat: Array<number | MinMax>;
-        max: Array<number>;
-        percent: Array<number>;
-        maxPercent: Array<number>;
-        multiplier: Array<number>;
-        maxMultiplier: Array<number>;
+        flat: Array<{ value: number | MinMax, source: Entity }>;
+        max: Array<{ value: number, source: Entity }>;
+        percent: Array<{ value: number, source: Entity }>;
+        maxPercent: Array<{ value: number, source: Entity }>;
+        multiplier: Array<{ value: number, source: Entity }>;
+        maxMultiplier: Array<{ value: number, source: Entity }>;
     }
 };

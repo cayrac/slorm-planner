@@ -73,7 +73,7 @@ export class SlormancerStatsService {
                 precision: 0,
                 allowMinMax: false,
                 values: {
-                    flat: [value],
+                    flat: [ { value: value, source: { synergy: 'Configuration' } }],
                     max: [],
                     percent: [],
                     maxPercent: [],
@@ -92,7 +92,7 @@ export class SlormancerStatsService {
                 stat: 'based_on_mastery_' + sau.skill.id,
                 total: sau.skill.level,
                 values: {
-                    flat: [sau.skill.level],
+                    flat: [ { value: sau.skill.level, source: { skill: sau.skill }  }],
                     max: [],
                     percent: [],
                     maxPercent: [],
@@ -156,37 +156,37 @@ export class SlormancerStatsService {
         const synergyResult = this.slormancerSynergyResolverService.resolveSynergies(extractedStats.synergies, result.stats, extractedStats.stats, config);
         result.unresolvedSynergies = synergyResult.unresolved;
         result.resolvedSynergies = synergyResult.resolved;
-        result.unlockedAncestralLegacies = valueOrDefault(extractedStats.stats['unlock_ancestral_legacy_max_rank'], []);
+        result.unlockedAncestralLegacies = valueOrDefault(extractedStats.stats['unlock_ancestral_legacy_max_rank'], []).map(v => v.value);
 
         this.slormancerSynergyResolverService.resolveIsolatedSynergies(extractedStats.isolatedSynergies, result.stats, extractedStats.stats);
 
         for (const synergy of [...extractedStats.synergies, ...extractedStats.isolatedSynergies]) {
             if (this.hasSynergyValueChanged(synergy)) {
-                if (synergy.objectSource.ancestralLegacy) {
+                if ('ancestralLegacy' in synergy.objectSource) {
                     result.changed.ancestralLegacies.push(synergy.objectSource.ancestralLegacy);
                 }
-                if (synergy.objectSource.attribute) {
+                if ('attribute' in synergy.objectSource) {
                     result.changed.attributes.push(synergy.objectSource.attribute);
                 }
-                if (synergy.objectSource.item) {
+                if ('item' in synergy.objectSource) {
                     result.changed.items.push(synergy.objectSource.item);
                 }
-                if (synergy.objectSource.reaper) {
+                if ('reaper' in synergy.objectSource) {
                     result.changed.reapers.push(synergy.objectSource.reaper);
                 }
-                if (synergy.objectSource.skill) {
+                if ('skill' in synergy.objectSource) {
                     result.changed.skills.push(synergy.objectSource.skill);
                 }
-                if (synergy.objectSource.upgrade) {
+                if ('upgrade' in synergy.objectSource) {
                     result.changed.upgrades.push(synergy.objectSource.upgrade);
                 }
-                if (synergy.objectSource.activable) {
+                if ('activable' in synergy.objectSource) {
                     result.changed.activables.push(synergy.objectSource.activable);
                 }
-                if (synergy.objectSource.mechanic) {
+                if ('mechanic' in synergy.objectSource) {
                     result.changed.mechanics.push(synergy.objectSource.mechanic);
                 }
-                if (synergy.objectSource.classMechanic) {
+                if ('classMechanic' in synergy.objectSource) {
                     result.changed.classMechanic.push(synergy.objectSource.classMechanic);
                 }
             }
@@ -273,10 +273,10 @@ export class SlormancerStatsService {
 
         for (const synergy of [...extractedStats.synergies, ...extractedStats.isolatedSynergies]) {
             if (this.hasSynergyValueChanged(synergy)) {
-                if (synergy.objectSource.skill) {
+                if ('skill' in synergy.objectSource) {
                     result.changed.skills.push(synergy.objectSource.skill);
                 }
-                if (synergy.objectSource.upgrade) {
+                if ('upgrade' in synergy.objectSource) {
                     result.changed.upgrades.push(synergy.objectSource.upgrade);
                 }
             }

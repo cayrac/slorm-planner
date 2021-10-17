@@ -11,6 +11,7 @@ import { HeroClass } from '../../model/content/enum/hero-class';
 import { SkillCostType } from '../../model/content/enum/skill-cost-type';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
+import { EntityValue } from '../../model/entity-value';
 import { MinMax } from '../../model/minmax';
 import { add, round } from '../../util/math.util';
 import {
@@ -67,11 +68,11 @@ export class SlormancerValueUpdater {
         const multipliers: Array<number> = [];
         const isDot = stat === 'bleed_damage';
 
-        multipliers.push(skillStats.increasedDamage.values.percent.reduce((t, v) => t + v, 0));
-        multipliers.push(...skillStats.increasedDamage.values.multiplier);
+        multipliers.push(skillStats.increasedDamage.values.percent.reduce((t, v) => t + v.value, 0));
+        multipliers.push(...skillStats.increasedDamage.values.multiplier.map(v => v.value));
 
         if (isSkill) {
-            multipliers.push(...skillStats.skillIncreasedDamage.values.multiplier)
+            multipliers.push(...skillStats.skillIncreasedDamage.values.multiplier.map(v => v.value))
         }
         
         if (genres.includes(SkillGenre.AreaOfEffect)) {
@@ -101,12 +102,12 @@ export class SlormancerValueUpdater {
         if (stat == 'bleed_damage') {
             const bleedIncreasedDamage = <MergedStat<number>>stats.stats.find(mergedStat => mergedStat.stat === 'bleed_increased_damage');
             if (bleedIncreasedDamage) {
-                multipliers.push(...bleedIncreasedDamage.values.multiplier);
+                multipliers.push(...bleedIncreasedDamage.values.multiplier.map(v => v.value));
             }
         }
 
         if (stats.extractedStats['increased_damage_mult_per_potential_projectile'] !== undefined) {
-            const increasedDamage = <number>stats.extractedStats['increased_damage_mult_per_potential_projectile'][0];
+            const increasedDamage = (<EntityValue<number>>stats.extractedStats['increased_damage_mult_per_potential_projectile'][0]).value;
             const projectilesMultiplier = Math.floor(skillStats.additionalProjectiles.total);
             multipliers.push(increasedDamage * projectilesMultiplier);
         }
@@ -222,7 +223,7 @@ export class SlormancerValueUpdater {
     public updateActivable(character: Character, activable: Activable, statsResult: SkillStatsBuildResult) {
         const skillStats = this.getSkillStats(statsResult, character);
 
-        activable.cost = skillStats.mana.values.multiplier.reduce((t, v) => t * (100 + v) / 100 , activable.baseCost);
+        activable.cost = skillStats.mana.values.multiplier.reduce((t, v) => t * (100 + v.value) / 100 , activable.baseCost);
         activable.cooldown = Math.max(0, round(activable.baseCooldown * (100 - skillStats.attackSpeed.total) / 100, 2));
         
         for (const value of activable.values) {
@@ -256,7 +257,7 @@ export class SlormancerValueUpdater {
         const skillStats = this.getSkillStats(statsResult, character);
 
         if (ancestralLegacy.currentRankCost !== null && ancestralLegacy.hasManaCost && ancestralLegacy.costType !== SkillCostType.ManaLock) {
-            ancestralLegacy.cost = skillStats.mana.values.multiplier.reduce((t, v) => t * (100 + v) / 100 , ancestralLegacy.currentRankCost);
+            ancestralLegacy.cost = skillStats.mana.values.multiplier.reduce((t, v) => t * (100 + v.value) / 100 , ancestralLegacy.currentRankCost);
         }
         if (ancestralLegacy.baseCooldown !== null) {
             ancestralLegacy.cooldown = Math.max(0, round(ancestralLegacy.baseCooldown * (100 - skillStats.attackSpeed.total) / 100, 2));
@@ -344,7 +345,7 @@ export class SlormancerValueUpdater {
             }
             if (isSkill) {
                 for (const maxMultiplier of skillStats.skillIncreasedDamage.values.maxMultiplier) {
-                    damage.synergy.max = damage.synergy.max * (100 + maxMultiplier) / 100;
+                    damage.synergy.max = damage.synergy.max * (100 + maxMultiplier.value) / 100;
                 }
             }
             damage.displaySynergy = {
@@ -410,7 +411,7 @@ export class SlormancerValueUpdater {
                     if (skillAndUpgrades.skill.values.indexOf(damageValue) === 1) {
                         const elderLanceIncreasedDamage = statsResult.stats.find(mergedStat => mergedStat.stat === 'elder_lance_increased_damage');
                         if (elderLanceIncreasedDamage) {
-                            additionamMultipliers.push(...elderLanceIncreasedDamage.values.multiplier);
+                            additionamMultipliers.push(...elderLanceIncreasedDamage.values.multiplier.map(v => v.value));
                         }
                     }
                 }
@@ -429,7 +430,7 @@ export class SlormancerValueUpdater {
                 const aoeMultipliers = valueOrDefault(statsResult.extractedStats['aoe_increased_size_percent_mult'], []);
                 for (const value of aoeValues) {
                     value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
-                    value.value  = aoeMultipliers.reduce((t, v) => t * (100 + v) / 100, value.value);
+                    value.value  = aoeMultipliers.reduce((t, v) => t * (100 + v.value) / 100, value.value);
                     value.displayValue = round(value.value, 3);
                 }
             }
@@ -437,7 +438,7 @@ export class SlormancerValueUpdater {
 
         const maxChargeValue = skillAndUpgrades.skill.values.find(value => value.stat === 'displayed_max_charge');
         if (maxChargeValue) {
-            const maxCharge = Math.max(0, ...valueOrDefault(statsResult.extractedStats['max_charge'], []));
+            const maxCharge = Math.max(0, ...valueOrDefault(statsResult.extractedStats['max_charge'], []).map(v => v.value));
             maxChargeValue.value = maxCharge;
             maxChargeValue.displayValue = round(maxChargeValue.value, 3);
         }
@@ -445,7 +446,7 @@ export class SlormancerValueUpdater {
         const climaxValue = skillAndUpgrades.skill.values.find(value => value.stat === 'climax_increased_damage');
         if (climaxValue) {
             const climaxAdd = valueOrDefault(statsResult.extractedStats['climax_increased_damage_add'], [])
-            climaxValue.value = climaxAdd.reduce((t, v) => t + v, climaxValue.baseValue);
+            climaxValue.value = climaxAdd.reduce((t, v) => t + v.value, climaxValue.baseValue);
             climaxValue.displayValue = round(climaxValue.value, 3);
         }
 
@@ -461,7 +462,7 @@ export class SlormancerValueUpdater {
         if (cadenceCastCount && isEffectValueConstant(cadenceCastCount)) {
             const cadenceCastCountNewvalue = statsResult.extractedStats['cadence_cast_count_new_value'];
             if (cadenceCastCountNewvalue && cadenceCastCountNewvalue[0] !== undefined) {
-                cadenceCastCount.value = cadenceCastCountNewvalue[0];
+                cadenceCastCount.value = cadenceCastCountNewvalue[0].value;
             } else {
                 cadenceCastCount.value = cadenceCastCount.baseValue;
             }

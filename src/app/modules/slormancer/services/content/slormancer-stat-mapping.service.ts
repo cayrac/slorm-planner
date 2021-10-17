@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { MergedStatMapping, MergedStatMappingSource } from '../../constants/content/data/data-character-stats-mapping';
 import { CharacterConfig } from '../../model/character-config';
 import { MergedStat } from '../../model/content/character-stats';
+import { Entity } from '../../model/entity';
 import { MinMax } from '../../model/minmax';
 import { ExtractedStatMap } from './slormancer-stats-extractor.service';
 
@@ -11,14 +12,16 @@ export class SlormancerStatMappingService {
 
     constructor() { }
     
-    private getMappingValues(sources: Array<MergedStatMappingSource>, stats: ExtractedStatMap, config: CharacterConfig): Array<number | MinMax>  {
+    private getMappingValues(sources: Array<MergedStatMappingSource>, stats: ExtractedStatMap, config: CharacterConfig): Array<{ value: number | MinMax, source: Entity }>  {
         return sources
             .filter(source => source.condition === undefined || source.condition(config, stats))
             .map(source => {
                 let result = stats[source.stat];
                 if (result && source.multiplier) {
                     const mult = source.multiplier(config, stats);
-                    result = result.map(v => v * mult);
+                    for (const entry of result) {
+                        entry.value = entry.value * mult;
+                    }
                 }
                 return result ? result : [];
             })
@@ -44,9 +47,9 @@ export class SlormancerStatMappingService {
         });
     }
 
-    public addUniqueValueToStat(stat: string, value: number | MinMax, mergedStat: MergedStat, mapping: MergedStatMapping, config: CharacterConfig, extractedStats: ExtractedStatMap) {
+    public addUniqueValueToStat(stat: string, value: number | MinMax, mergedStat: MergedStat, mapping: MergedStatMapping, config: CharacterConfig, extractedStats: ExtractedStatMap, source: Entity) {
         let mappingSource: MergedStatMappingSource | undefined;
-        let array: Array<number | MinMax> | null = null;
+        let array: Array<{ value: number | MinMax, source: Entity }> | null = null;
 
         if (mappingSource = mapping.source.flat.find(v => v.stat === stat)) {
             array = mergedStat.values.flat;
@@ -67,7 +70,7 @@ export class SlormancerStatMappingService {
                 const mult = mappingSource.multiplier(config, extractedStats);
                 value = typeof value === 'number'  ? value * mult : { min: value.min * mult, max: value.max * mult };
             }
-            array.push(value);
+            array.push({ value, source });
         }
     }
 }

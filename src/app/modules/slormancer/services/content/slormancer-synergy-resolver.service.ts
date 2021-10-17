@@ -30,7 +30,7 @@ export class SlormancerSynergyResolverService {
         while (remainingSynergies.length > 0 && (next = this.takeNextSynergy(remainingSynergies)) !== null) {
             this.updateSynergyValue(next, characterStats, extractedStats);
             this.applySynergyToStats(next, characterStats, extractedStats, config);
-            if ('objectSource' in next) {
+            if ('originalValue' in next) {
                 resolved.push(next);
             }
         }
@@ -53,6 +53,7 @@ export class SlormancerSynergyResolverService {
                 const elementalMin = typeof elemental === 'number' ? elemental : elemental.min;
                 return Math.abs(basicMin - elementalMin);
             },
+            objectSource: { synergy: 'Difference raw and elemental damage'},
             sources: ['basic_damage', 'elemental_damage'],
             stat: 'raw_elem_diff',
             statsItWillUpdate: [ { stat: 'raw_elem_diff' } ]
@@ -99,7 +100,7 @@ export class SlormancerSynergyResolverService {
             } else {
                 const stat = extractedStats[resolveData.effect.source];
                 if (stat) {
-                    sourceValue = stat.reduce((t, v) => t + v, 0);
+                    sourceValue = stat.reduce((t, v) => t + v.value, 0);
                 } else {
                     console.log('no source (' + resolveData.effect.source + ') found for ', resolveData);
                 }
@@ -162,9 +163,9 @@ export class SlormancerSynergyResolverService {
             }
 
             if (statToUpdate.mapping === undefined) {
-                foundStat.values.flat.push(synergy);
+                foundStat.values.flat.push({ value: synergy, source: synergyResolveData.objectSource });
             } else {
-                this.slormancerStatMappingService.addUniqueValueToStat(stat, synergy, foundStat, statToUpdate.mapping, config, extractedStats);
+                this.slormancerStatMappingService.addUniqueValueToStat(stat, synergy, foundStat, statToUpdate.mapping, config, extractedStats, synergyResolveData.objectSource);
             }
 
             this.slormancerStatUpdaterService.updateStatTotal(foundStat);
