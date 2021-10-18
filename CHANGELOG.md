@@ -52,3 +52,7 @@
 ### Fixes
 - Fixed an issue causing the changelog to be in the past
 - Fixed an issue with arcane breach configuration and buffs not being applied
+
+## Release 0.0.7 (2021-10-18)
+### Added
+- Stats tab now display full details and formula when a stat is selected
