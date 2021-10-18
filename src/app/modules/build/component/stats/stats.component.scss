@@ -7,6 +7,24 @@
 
 $section-color  : rgb(206, 70, 7);
 
-.stats {
-    max-width: 300px;
+
+main {
+    @include flex-row-to-column('tablet', stretch, space-between);
+    @include flex-gap($space-content);
+    overflow-x: auto;
+
+    .stats {
+        max-width: 300px;
+    }
+
+    @include respond-to('tablet') {
+        height: auto;
+        .stats {
+            max-width: unset;
+        }
+    }
+
+    mat-card {
+        @include flex-grow(1, true);
+    }
 }

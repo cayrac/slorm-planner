@@ -12,12 +12,12 @@ import { SlormancerItemValueService } from './services/content/slormancer-item-v
 import { SlormancerItemService } from './services/content/slormancer-item.service';
 import { SlormancerLegendaryEffectService } from './services/content/slormancer-legendary-effect.service';
 import { SlormancerMechanicService } from './services/content/slormancer-mechanic.service';
+import { SlormancerMergedStatUpdaterService } from './services/content/slormancer-merged-stat-updater.service';
 import { SlormancerReaperValueService } from './services/content/slormancer-reaper-value.service';
 import { SlormancerReaperService } from './services/content/slormancer-reaper.service';
 import { SlormancerSkillService } from './services/content/slormancer-skill.service';
 import { SlormancerStatMappingService } from './services/content/slormancer-stat-mapping.service';
 import { SlormancerStatsExtractorService } from './services/content/slormancer-stats-extractor.service';
-import { SlormancerStatUpdaterService } from './services/content/slormancer-stats-updater.service';
 import { SlormancerStatsService } from './services/content/slormancer-stats.service';
 import { SlormancerSynergyResolverService } from './services/content/slormancer-synergy-resolver.service';
 import { SlormancerTemplateService } from './services/content/slormancer-template.service';
@@ -60,7 +60,7 @@ import { SlormancerDpsService } from './services/slormancer-dps-service';
     SlormancerCharacterUpdaterService,
     SlormancerCharacterBuilderService,
     SlormancerSynergyResolverService,
-    SlormancerStatUpdaterService,
+    SlormancerMergedStatUpdaterService,
     SlormancerCharacterModifierService,
     SlormancerValueUpdater,
     SlormancerStatMappingService,

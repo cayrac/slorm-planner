@@ -1,7 +1,12 @@
-<mat-card *ngIf="stats !== null">
-    <mat-card-content>
-        <div *ngIf="stats !== null" class="stats">
-            <app-main-stats [stats]="stats"></app-main-stats>
-        </div>
-    </mat-card-content>
-</mat-card>
+<main *ngIf="stats !== null">
+    <mat-card class="stats">
+        <mat-card-content>
+            <app-main-stats [stats]="stats" (selected)="selectMergedStat($event)"></app-main-stats>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-content>
+            <app-merged-stat-view [mergedStat]="selectedMergedStat"></app-merged-stat-view>
+        </mat-card-content>
+    </mat-card>
+</main>

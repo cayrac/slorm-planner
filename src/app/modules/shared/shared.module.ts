@@ -37,6 +37,7 @@ import { ItemSlotComponent } from './components/item-slot/item-slot.component';
 import { ItemViewComponent } from './components/item-view/item-view.component';
 import { MainStatsComponent } from './components/main-stats/main-stats.component';
 import { MechanicsViewComponent } from './components/mechanics-view/mechanics-view.component';
+import { MergedStatViewComponent } from './components/merged-stat-view/merged-stat-view.component';
 import { ReaperEditModalComponent } from './components/reaper-edit-modal/reaper-edit-modal.component';
 import { ReaperSlotComponent } from './components/reaper-slot/reaper-slot.component';
 import { ReaperViewComponent } from './components/reaper-view/reaper-view.component';
@@ -99,6 +100,7 @@ import { MaterialModule } from './material.module';
         CompareViewComponent,
         ItemReinforcmentEditModalComponent,
         MechanicsViewComponent,
+        MergedStatViewComponent,
     ],
     imports: [
         CommonModule,
@@ -148,6 +150,7 @@ import { MaterialModule } from './material.module';
         CompareViewComponent,
         ItemReinforcmentEditModalComponent,
         MechanicsViewComponent,
+        MergedStatViewComponent,
     ],
     providers: [
     ],

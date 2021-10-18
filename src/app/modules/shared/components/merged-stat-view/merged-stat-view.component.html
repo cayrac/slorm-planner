@@ -1,0 +1,196 @@
+
+<div class="merged-stat" *ngIf="mergedStat !== null">
+    <ng-container *ngIf="hasFlatValues(mergedStat)">
+        <h3 class="section">{{translate(mergedStat.stat)}} - Flat values</h3>
+        <div class="line head">
+            <div class="label">Type</div>
+            <div class="value">
+                Value<span *ngIf="mergedStat.allowMinMax"> (min)</span>
+            </div>
+            <div class="value" *ngIf="mergedStat.allowMinMax">
+                Value<span> (max)</span>
+            </div>
+            <div class="source">
+                Source
+            </div>
+            <div class="source-name">
+                Source name
+            </div>
+        </div>
+        <div class="line data" *ngFor="let value of mergedStat.values.flat">
+            <div class="label">Flat</div>
+            <div class="value">
+                {{minValueToString(value.value, mergedStat.suffix, '+')}}
+            </div>
+            <div class="value" *ngIf="mergedStat.allowMinMax">
+                {{maxValueToString(value.value, mergedStat.suffix, '+')}}
+            </div>
+            <div class="source">
+                {{getSource(value.source)}}
+            </div>
+            <div class="source-name">
+                {{getSourceName(value.source)}}
+            </div>
+        </div>
+        <div class="line data" *ngFor="let value of mergedStat.values.max">
+            <div class="label">Flat</div>
+            <div class="value">
+            </div>
+            <div class="value">
+                +{{valueToString(value.value, mergedStat.suffix)}}
+            </div>
+            <div class="source">
+                {{getSource(value.source)}}
+            </div>
+            <div class="source-name">
+                {{getSourceName(value.source)}}
+            </div>
+        </div>
+        <div class="line total">
+            <div class="label">Flat (Total)</div>
+            <div class="value">
+                {{minValueToString(getTotalFlat(mergedStat), mergedStat.suffix)}}
+            </div>
+            <div class="value" *ngIf="mergedStat.allowMinMax">
+                {{maxValueToString(getTotalFlat(mergedStat), mergedStat.suffix)}}
+            </div>
+            <div class="source">
+            </div>
+            <div class="source-name">
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="mergedStat.values.percent.length > 0 || mergedStat.values.maxPercent.length > 0">
+        <h3 class="section">{{translate(mergedStat.stat)}} - Percent values</h3>
+        <div class="line head">
+            <div class="label">Type</div>
+            <div class="value">
+                Value<span *ngIf="mergedStat.allowMinMax"> (min)</span>
+            </div>
+            <div class="value" *ngIf="mergedStat.allowMinMax">
+                Value<span> (max)</span>
+            </div>
+            <div class="source">
+                Source
+            </div>
+            <div class="source-name">
+                Source name
+            </div>
+        </div>
+        <div class="line data" *ngFor="let value of mergedStat.values.percent">
+            <div class="label">Percent</div>
+            <div class="value">
+                {{minValueToString(value.value, '%', '+')}}
+            </div>
+            <div class="value" *ngIf="mergedStat.allowMinMax">
+                {{maxValueToString(value.value, '%', '+')}}
+            </div>
+            <div class="source">
+                {{getSource(value.source)}}
+            </div>
+            <div class="source-name">
+                {{getSourceName(value.source)}}
+            </div>
+        </div>
+        <div class="line data" *ngFor="let value of mergedStat.values.maxPercent">
+            <div class="label">Percent</div>
+            <div class="value">
+            </div>
+            <div class="value">
+                +{{valueToString(value.value, '%')}}
+            </div>
+            <div class="source">
+                {{getSource(value.source)}}
+            </div>
+            <div class="source-name">
+                {{getSourceName(value.source)}}
+            </div>
+        </div>
+        <div class="line total">
+            <div class="label">Percent (Total)</div>
+            <div class="value">
+                {{minValueToString(getTotalPercent(mergedStat), '%', '+')}}
+            </div>
+            <div class="value" *ngIf="mergedStat.allowMinMax">
+                {{maxValueToString(getTotalPercent(mergedStat), '%', '+')}}
+            </div>
+            <div class="source">
+            </div>
+            <div class="source-name">
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="mergedStat.values.multiplier.length > 0 || mergedStat.values.maxMultiplier.length > 0">
+        <h3 class="section">{{translate(mergedStat.stat)}} - Multiplier values</h3>
+        <div class="line head">
+            <div class="label">Type</div>
+            <div class="value">
+                Value<span *ngIf="mergedStat.allowMinMax"> (min)</span>
+            </div>
+            <div class="value" *ngIf="mergedStat.allowMinMax">
+                Value<span> (max)</span>
+            </div>
+            <div class="source">
+                Source
+            </div>
+            <div class="source-name">
+                Source name
+            </div>
+        </div>
+        <div class="line data" *ngFor="let value of mergedStat.values.multiplier">
+            <div class="label">Multiplier</div>
+            <div class="value">
+                {{minValueToString(value.value, '%', '+')}}
+            </div>
+            <div class="value" *ngIf="mergedStat.allowMinMax">
+                {{maxValueToString(value.value, '%', '+')}}
+            </div>
+            <div class="source">
+                {{getSource(value.source)}}
+            </div>
+            <div class="source-name">
+                {{getSourceName(value.source)}}
+            </div>
+        </div>
+        <div class="line data" *ngFor="let value of mergedStat.values.maxMultiplier">
+            <div class="label">Multiplier</div>
+            <div class="value">
+            </div>
+            <div class="value">
+                +{{value.value}}%
+            </div>
+            <div class="source">
+                {{getSource(value.source)}}
+            </div>
+            <div class="source-name">
+                {{getSourceName(value.source)}}
+            </div>
+        </div>
+    </ng-container>
+    <h3 class="section">{{translate(mergedStat.stat)}} - Total</h3>
+    <div class="line total" *ngIf="showFormula(mergedStat)">
+        <div class="label">Formula<span *ngIf="totalHasMinMax(mergedStat)"> (Min)</span></div>
+        <div class="formula">
+            {{getMinFormula(mergedStat)}}
+        </div>
+    </div>
+    <div class="line total" *ngIf="showFormula(mergedStat) && totalHasMinMax(mergedStat)">
+        <div class="label">Formula (Max)</div>
+        <div class="formula">
+            {{getMaxFormula(mergedStat)}}
+        </div>
+    </div>
+    <div class="line total">
+        <div class="label">Total (rounded)</div>
+        <div class="value">
+            {{minValueToString(mergedStat.total, mergedStat.suffix)}}
+        </div>
+        <div class="value" *ngIf="mergedStat.allowMinMax">
+            {{maxValueToString(mergedStat.total, mergedStat.suffix)}}
+        </div>
+        <div class="source">
+        </div>
+        <div class="source-name">
+        </div>
+    </div>
+</div>

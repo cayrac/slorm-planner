@@ -24,10 +24,26 @@ export interface MergedStatMappingSource {
     multiplier?: (config: CharacterConfig, stats: ExtractedStatMap) => number
 };
 
+export interface MergedStatMapping {
+    stat: string;
+    precision: number;
+    allowMinMax: boolean;
+    suffix: '%' | 's' | '';
+    source: {
+        flat: Array<MergedStatMappingSource>;
+        max: Array<MergedStatMappingSource>;
+        percent: Array<MergedStatMappingSource>;
+        maxPercent: Array<MergedStatMappingSource>;
+        multiplier: Array<MergedStatMappingSource>;
+        maxMultiplier: Array<MergedStatMappingSource>;
+    }
+}
+
 const CHANCE_TO_PIERCE: MergedStatMapping = {
     stat: 'chance_to_pierce',
     precision: 1,
     allowMinMax: false,
+    suffix: '%',
     source: {
         flat: [
             { stat: 'chance_to_pierce_percent' },
@@ -44,26 +60,13 @@ const CHANCE_TO_PIERCE: MergedStatMapping = {
     } 
 }
 
-export interface MergedStatMapping {
-    stat: string;
-    precision: number;
-    allowMinMax: boolean;
-    source: {
-        flat: Array<MergedStatMappingSource>;
-        max: Array<MergedStatMappingSource>;
-        percent: Array<MergedStatMappingSource>;
-        maxPercent: Array<MergedStatMappingSource>;
-        multiplier: Array<MergedStatMappingSource>;
-        maxMultiplier: Array<MergedStatMappingSource>;
-    }
-}
-
 export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     // adventure
     {
         stat: 'level',
         precision: 0,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [{ stat: 'hero_level' }],
             max: [],
@@ -77,6 +80,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'mana_cost',
         precision: 0,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'mana_cost_add' },
@@ -106,6 +110,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'cooldown_time',
         precision: 4,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'cooldown_time_add' },
@@ -115,6 +120,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [
+                { stat: 'turret_syndrome_reduced_cooldown_per_serenity', condition: (config, stats) => config.serenity > 0 && getFirstStat(stats, 'skill_id') === 0, multiplier: config => - config.serenity },
                 { stat: 'cooldown_time_multiplier'},
                 { stat: 'cooldown_time_reduction_multiplier', multiplier: () => -1 },
                 { stat: 'cooldown_time_multiplier_if_tormented', condition: config => config.serenity === 0 },
@@ -134,6 +140,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'essence_find',
         precision: 2,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'essence_find_percent' }],
             max: [],
@@ -147,6 +154,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'xp_find',
         precision: 2,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'xp_find_percent' }],
             max: [],
@@ -160,6 +168,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'influence_gain',
         precision: 2,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'influence_gain_percent' }],
             max: [],
@@ -173,6 +182,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'mf_find',
         precision: 2,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'mf_find_percent' }],
             max: [],
@@ -186,6 +196,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'mf_qual',
         precision: 2,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'mf_qual_percent' }],
             max: [],
@@ -200,6 +211,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'max_health',
         precision: 0,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'the_max_health_set' },
@@ -223,6 +235,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'health_regeneration',
         precision: 0,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [{ stat: 'health_regen_add' }],
             max: [],
@@ -236,6 +249,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'health_leech_percent',
         precision: 3,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'health_leech_percent' },
@@ -253,6 +267,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'life_on_hit',
         precision: 0,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'health_on_hit_add' },
@@ -273,6 +288,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'life_on_kill',
         precision: 0,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [{ stat: 'health_on_kill_add' }],
             max: [],
@@ -290,6 +306,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'max_mana',
         precision: 0,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [{ stat: 'the_max_mana_add' }],
             max: [],
@@ -307,6 +324,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'mana_regeneration',
         precision: 0,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'mana_regen_add' },
@@ -327,6 +345,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'mana_leech_percent',
         precision: 3,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'mana_leech_percent' }],
             max: [],
@@ -340,6 +359,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'mana_on_hit',
         precision: 0,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'mana_on_hit_add' },
@@ -357,6 +377,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'mana_on_kill',
         precision: 0,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'mana_on_kill_add' },
@@ -374,6 +395,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'movement_speed',
         precision: 3,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [{ stat: 'the_speed_add' }],
             max: [],
@@ -395,6 +417,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'movement_speed_percent',
         precision: 3,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [               
                 { stat: 'the_speed_percent' },
@@ -417,10 +440,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'attack_speed',
         precision: 3,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
-                { stat: 'cooldown_reduction_percent' },
-                { stat: 'turret_syndrome_reduced_cooldown_per_serenity', condition: config => config.serenity > 0, multiplier: config => config.serenity }
+                { stat: 'cooldown_reduction_percent' }
             ],
             max: [],
             percent: [],
@@ -446,6 +469,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'enemy_attack_speed',
         precision: 3,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'enemy_cooldown_reduction_percent' },
@@ -464,6 +488,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'enemy_damage',
         precision: 3,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'inextricable_torment_aura_enemy_increased_damage', multiplier: () => -1 },
@@ -482,6 +507,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'critical_chance',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'crit_chance_percent' },
@@ -520,6 +546,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'critical_damage',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'crit_damage_percent' },
@@ -544,6 +571,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'ancestral_chance',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'brut_chance_percent' },
@@ -572,6 +600,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'ancestral_damage',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'brut_damage_percent' },
@@ -591,6 +620,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'armor_penetration',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'armor_penetration_percent' },
@@ -608,6 +638,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'elemental_penetration',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'elemental_penetration_percent' }],
             max: [],
@@ -621,6 +652,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'dot_increased_damage',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'dot_increased_damage_percent' }],
             max: [],
@@ -634,6 +666,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'increased_on_elite',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'increased_damage_on_elite_percent' },
@@ -650,6 +683,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'armor',
         precision: 0,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [{ stat: 'res_phy_add' }],
             max: [],
@@ -672,6 +706,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'elemental_resist',
         precision: 0,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'res_mag_add' },
@@ -696,6 +731,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'fire_resistance',
         precision: 0,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [{ stat: 'fire_resistance_percent' }],
             max: [],
@@ -709,6 +745,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'ice_resistance',
         precision: 0,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'ice_resistance_percent' }],
             max: [],
@@ -722,6 +759,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'lightning_resistance',
         precision: 0,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'lightning_resistance_percent' }],
             max: [],
@@ -735,6 +773,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'light_resistance',
         precision: 0,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'light_resistance_percent' }],
             max: [],
@@ -748,6 +787,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'shadow_resistance',
         precision: 0,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'shadow_resistance_percent' }],
             max: [],
@@ -761,6 +801,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'dodge',
         precision: 0,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [{ stat: 'dodge_add' }],
             max: [],
@@ -781,6 +822,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'thorns',
         precision: 1,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [{ stat: 'thorns_add' }],
             max: [],
@@ -796,6 +838,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'thorns_critical_chance',
+        suffix: '%',
         precision: 1,
         allowMinMax: false,
         source: {
@@ -811,6 +854,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'retaliate',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'retaliate_percent' },
@@ -831,6 +875,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'retaliate_critical_chance',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'retaliate_crit_chance_percent' }],
             max: [],
@@ -844,6 +889,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'tenacity',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'tenacity_percent' },
@@ -860,6 +906,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'reduced_on_all',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'reduced_damage_from_all_percent' },
@@ -881,6 +928,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'reduced_by_elite',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'reduced_damage_on_elite_percent' }],
             max: [],
@@ -894,6 +942,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'reduced_on_melee',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'reduced_damage_from_melee_percent' },
@@ -912,6 +961,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'reduced_on_projectile',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'reduced_damage_from_projectile_percent' },
@@ -928,6 +978,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'reduced_on_area',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'reduced_damage_from_area_percent' },
@@ -945,6 +996,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'gold_find',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'gold_find_percent' }],
             max: [],
@@ -958,6 +1010,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'scrap_find',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'scrap_find_percent' }],
             max: [],
@@ -971,6 +1024,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'slormite_find',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'slormite_find_percent' }],
             max: [],
@@ -984,6 +1038,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'slormeline_find',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'slormeline_find_percent' }],
             max: [],
@@ -997,6 +1052,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'reaper_find',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'reaper_find_percent' }],
             max: [],
@@ -1010,6 +1066,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'reaper_xp_find',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'reaper_xp_find_percent' }],
             max: [],
@@ -1023,6 +1080,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'skill_mastery_gain',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'skill_mastery_gain_percent' }],
             max: [],
@@ -1036,6 +1094,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'inner_fire_chance',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'inner_fire_chance_percent' },
@@ -1052,6 +1111,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'inner_fire_max_number',
         precision: 0,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'inner_fire_max_number_add' },
@@ -1068,6 +1128,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'inner_fire_duration',
         precision: 2,
         allowMinMax: false,
+        suffix: 's',
         source: {
             flat: [{ stat: 'inner_fire_duration_add' }],
             max: [],
@@ -1081,6 +1142,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'inner_fire_damage',
         precision: 3,
         allowMinMax: true,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'inner_fire_damage_add' },
@@ -1101,6 +1163,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'shield_globe_value',
         precision: 3,
         allowMinMax: true,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'shield_globe_value_add' },
@@ -1118,6 +1181,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'overdrive_chance',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'overdrive_chance_percent' },
@@ -1135,6 +1199,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'overdrive_bounce_number',
         precision: 1,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'overdrive_bounce_number_add', condition: (config, stats) => stats['overdrive_bounce_number_set'] === undefined },
@@ -1151,6 +1216,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'overdrive_damage',
         precision: 3,
         allowMinMax: true,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'overdrive_damage_add' },
@@ -1171,6 +1237,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'recast_chance',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'recast_chance_percent' },
@@ -1189,6 +1256,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'knockback_melee',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'knockback_melee_add' },
@@ -1205,6 +1273,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'additional_projectile',
         precision: 2,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'additional_projectile_add' },
@@ -1229,6 +1298,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'fork_chance',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'fork_chance_percent' },
@@ -1246,6 +1316,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'chance_to_rebound',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'rebound_chance_percent' },
@@ -1264,6 +1335,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'projectile_speed',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'increased_proj_speed_percent' },
@@ -1282,6 +1354,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'knockback_projectile',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'knockback_projectile_add' },
@@ -1298,6 +1371,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'aoe_increased_size',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'aoe_increased_size_percent' },
@@ -1315,6 +1389,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'aoe_increased_effect',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'aoe_increased_effect_percent' },
@@ -1331,6 +1406,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'totem_increased_effect',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'totem_increased_effect_percent' },
@@ -1347,6 +1423,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'aura_increased_effect',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [{ stat: 'aura_increased_effect_percent' }],
             max: [],
@@ -1360,6 +1437,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'minion_increased_damage',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
                 { stat: 'minion_increased_damage_percent' },
@@ -1376,6 +1454,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'elemental_damage',
         precision: 0,
         allowMinMax: true,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'min_elemental_damage_add' },
@@ -1409,6 +1488,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'basic_damage',
         precision: 0,
         allowMinMax: true,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'min_basic_damage_add' },
@@ -1432,6 +1512,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'weapon_damage',
         precision: 0,
         allowMinMax: true,
+        suffix: '',
         source: {
             flat: [{ stat: 'min_weapon_damage_add' }],
             max: [{ stat: 'max_weapon_damage_add' }],
@@ -1448,6 +1529,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'physical_damage',
         precision: 0,
         allowMinMax: true,
+        suffix: '',
         source: {
             flat: [{ stat: 'basic_to_physical_damage' }, { stat: 'weapon_to_physical_damage' }],
             max: [],
@@ -1461,6 +1543,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'sum_all_resistances',
         precision: 0,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [ { stat: 'sum_all_resistances_add'}],
             max: [],
@@ -1474,6 +1557,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'sum_reduced_resistances',
         precision: 0,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [ { stat: 'sum_reduced_resistances_add'}],
             max: [],
@@ -1487,6 +1571,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'skill_elem_damage',
         precision: 0,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [ { stat: 'skill_elem_damage_add'}],
             max: [],
@@ -1500,6 +1585,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'additional_damage',
         precision: 1,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'additional_damage_add' },
@@ -1517,6 +1603,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'increased_damages',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
             ],
@@ -1569,6 +1656,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'skill_increased_damages',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
             ],
@@ -1617,6 +1705,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'increased_damage_taken',
         precision: 1,
         allowMinMax: false,
+        suffix: '%',
         source: {
             flat: [
             ],
@@ -1633,6 +1722,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'skill_additional_duration',
         precision: 1,
         allowMinMax: false,
+        suffix: '',
         source: {
             flat: [
                 { stat: 'skill_duration_add' },
@@ -1655,6 +1745,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             stat: 'skewer_max_stacks',
             precision: 0,
             allowMinMax: false,
+            suffix: '',
             source: {
                 flat: [{ stat: 'skewer_max_stack_add' }],
                 max: [],
@@ -1668,6 +1759,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             stat: 'skewer_damage_percent',
             precision: 0,
             allowMinMax: false,
+            suffix: '%',
             source: {
                 flat: [{ stat: 'skewer_damage_percent_add' }],
                 max: [],
@@ -1681,6 +1773,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             stat: 'block_damage_reduction',
             precision: 0,
             allowMinMax: false,
+            suffix: '%',
             source: {
                 flat: [{ stat: 'block_damage_reduction_add' }],
                 max: [],
@@ -1694,6 +1787,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             stat: 'astral_retribution_damage',
             precision: 3,
             allowMinMax: true,
+            suffix: '',
             source: {
                 flat: [{ stat: 'astral_retribution_damage_add' }],
                 max: [],
@@ -1707,6 +1801,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             stat: 'astral_meteor_damage',
             precision: 3,
             allowMinMax: true,
+            suffix: '',
             source: {
                 flat: [{ stat: 'astral_meteor_damage_add' }],
                 max: [],
@@ -1725,6 +1820,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             stat: 'ravenous_dagger_damage',
             precision: 3,
             allowMinMax: true,
+            suffix: '',
             source: {
                 flat: [{ stat: 'ravenous_dagger_damage_add' }],
                 max: [],
@@ -1739,6 +1835,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             stat: 'trap_damage',
             precision: 3,
             allowMinMax: true,
+            suffix: '',
             source: {
                 flat: [{ stat: 'trap_damage_add' }],
                 max: [],
@@ -1755,6 +1852,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             stat: 'trap_arm_time',
             precision: 3,
             allowMinMax: true,
+            suffix: '',
             source: {
                 flat: [{ stat: 'trap_arm_time_add' }],
                 max: [],
@@ -1770,6 +1868,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             stat: 'poison_damage',
             precision: 3,
             allowMinMax: true,
+            suffix: '',
             source: {
                 flat: [{ stat: 'poison_damage_add' }],
                 max: [],
@@ -1788,6 +1887,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             stat: 'arcane_bond_damage',
             precision: 0,
             allowMinMax: true,
+            suffix: '',
             source: {
                 flat: [
                     { stat: 'arcane_bond_damage_add' },
@@ -1807,6 +1907,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             stat: 'arcane_bond_duration',
             precision: 0,
             allowMinMax: false,
+            suffix: '',
             source: {
                 flat: [
                     { stat: 'arcane_bond_duration_add' },
@@ -1822,6 +1923,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             stat: 'time_lock_duration',
             precision: 0,
             allowMinMax: false,
+            suffix: '',
             source: {
                 flat: [
                     { stat: 'time_lock_duration_add' },
@@ -1837,6 +1939,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             stat: 'remnant_decreased_damage',
             precision: 0,
             allowMinMax: false,
+            suffix: '%',
             source: {
                 flat: [
                     { stat: 'remnant_damage_reduction_mult' },
@@ -1854,6 +1957,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             stat: 'max_arcane_clone',
             precision: 0,
             allowMinMax: false,
+            suffix: '',
             source: {
                 flat: [{ stat: 'max_arcane_clone_add' }],
                 max: [],
@@ -1868,6 +1972,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             stat: 'max_emblems',
             precision: 0,
             allowMinMax: true,
+            suffix: '',
             source: {
                 flat: [
                     { stat: 'max_emblems_add' },
@@ -1890,6 +1995,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                 stat: 'bleed_increased_damage',
                 precision: 0,
                 allowMinMax: false,
+                suffix: '%',
                 source: {
                     flat: [],
                     max: [],
@@ -1905,6 +2011,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                 stat: 'training_lance_additional_damage',
                 precision: 0,
                 allowMinMax: true,
+                suffix: '',
                 source: {
                     flat: [
                         { stat: 'training_lance_additional_damage_add' },
@@ -1920,6 +2027,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                 stat: 'elder_lance_additional_damage',
                 precision: 3,
                 allowMinMax: true,
+                suffix: '',
                 source: {
                     flat: [
                         { stat: 'elder_lance_additional_damage_per_cosmic_stack', condition: config => config.cosmic_stacks > 0, multiplier: config => config.cosmic_stacks },
@@ -1935,6 +2043,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                 stat: 'elder_lance_ancestral_damage',
                 precision: 3,
                 allowMinMax: false,
+                suffix: '',
                 source: {
                     flat: [
                         { stat: 'brut_damage_percent' },
@@ -1955,6 +2064,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                 stat: 'training_lance_chance_to_pierce',
                 precision: 0,
                 allowMinMax: false,
+                suffix: '%',
                 source: {
                     flat: [ ...CHANCE_TO_PIERCE.source.flat,
                         { stat: 'training_lance_chance_to_pierce_percent_if_low_life', condition: (config, stats) => config.use_enemy_state && config.enemy_percent_missing_health > getFirstStat(stats, 'training_lance_chance_to_pierce_percent_if_low_life_treshold') },
@@ -1970,6 +2080,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                 stat: 'elder_lance_increased_damage',
                 precision: 2,
                 allowMinMax: false,
+                suffix: '%',
                 source: {
                     flat: [
                     ],
@@ -1991,6 +2102,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                 stat: 'turret_syndrome_fire_rate',
                 precision: 0,
                 allowMinMax: false,
+                suffix: '',
                 source: {
                     flat: [{ stat: 'fire_rate' }],
                     max: [],
@@ -2004,6 +2116,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                 stat: 'light_arrow_increased_damage',
                 precision: 0,
                 allowMinMax: false,
+                suffix: '',
                 source: {
                     flat: [{ stat: 'light_arrow_increased_damage' }],
                     max: [],
@@ -2017,6 +2130,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                 stat: 'light_arrow_projectile_speed',
                 precision: 0,
                 allowMinMax: false,
+                suffix: '%',
                 source: {
                     flat: [{ stat: 'shared_projectile_speed', condition: config => config.hero_close_to_turret_syndrome }],
                     max: [],
@@ -2030,6 +2144,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                 stat: 'light_arrow_additional_projectile',
                 precision: 0,
                 allowMinMax: false,
+                suffix: '',
                 source: {
                     flat: [{ stat: 'shared_additional_projectile', condition: config => config.hero_close_to_turret_syndrome }],
                     max: [],
@@ -2043,6 +2158,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                 stat: 'light_arrow_fork',
                 precision: 0,
                 allowMinMax: false,
+                suffix: '%',
                 source: {
                     flat: [{ stat: 'shared_fork', condition: config => config.hero_close_to_turret_syndrome }],
                     max: [],
@@ -2056,6 +2172,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                 stat: 'light_arrow_pierce',
                 precision: 0,
                 allowMinMax: false,
+                suffix: '%',
                 source: {
                     flat: [
                         { stat: 'shared_pierce', condition: config => config.hero_close_to_turret_syndrome },
@@ -2072,6 +2189,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                 stat: 'light_arrow_rebound',
                 precision: 0,
                 allowMinMax: false,
+                suffix: '%',
                 source: {
                     flat: [{ stat: 'shared_rebound', condition: config => config.hero_close_to_turret_syndrome }],
                     max: [],
@@ -2087,6 +2205,7 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
                 stat: 'additional_instructions',
                 precision: 0,
                 allowMinMax: false,
+                suffix: '',
                 source: {
                     flat: [
                         { stat: 'instructions_add' }

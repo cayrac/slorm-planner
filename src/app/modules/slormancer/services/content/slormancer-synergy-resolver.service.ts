@@ -10,14 +10,14 @@ import {
 import { MinMax } from '../../model/minmax';
 import { round } from '../../util/math.util';
 import { isSynergyResolveData } from '../../util/synergy-resolver.util';
+import { SlormancerMergedStatUpdaterService } from './slormancer-merged-stat-updater.service';
 import { SlormancerStatMappingService } from './slormancer-stat-mapping.service';
 import { ExtractedStatMap } from './slormancer-stats-extractor.service';
-import { SlormancerStatUpdaterService } from './slormancer-stats-updater.service';
 
 @Injectable()
 export class SlormancerSynergyResolverService {
 
-    constructor(private slormancerStatUpdaterService: SlormancerStatUpdaterService,
+    constructor(private slormancerStatUpdaterService: SlormancerMergedStatUpdaterService,
                 private slormancerStatMappingService: SlormancerStatMappingService) { }
 
     public resolveSynergies(synergies: Array<SynergyResolveData | ExternalSynergyResolveData>, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap, config: CharacterConfig): { resolved: Array<SynergyResolveData>, unresolved: Array<SynergyResolveData> }  {
@@ -140,6 +140,7 @@ export class SlormancerSynergyResolverService {
                     stat: statToUpdate.stat,
                     total: 0,
                     allowMinMax: true,
+                    suffix: '',
                     values: {
                         flat: [],
                         max: [],

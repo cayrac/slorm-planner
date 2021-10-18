@@ -1,0 +1,47 @@
+
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/slormancer_tooltip";
+@import "../../../../../assets/scss/abstracts/color";
+
+$mechanic-bg-color : rgb(20, 19, 16);
+$physical-color-text  : rgb(206, 70, 7);
+$section-color  : rgb(206, 70, 7);
+
+.merged-stat {
+    @include flex(column, stretch);
+    @include flex-gap($space-unit);
+
+    .line {
+        @include flex(row, center);
+
+        &:not(.data) {
+            padding: $space-unit * 2 0;
+        }
+
+        .label {
+            @include flex-grow(2, true);
+            max-width: 150px;
+        }
+        .value {
+            @include flex-grow(1, true);
+        }
+        .source {
+            @include flex-grow(2, true);
+            max-width: 150px;
+        }
+        .source-name {
+            @include flex-grow(3, true);
+        }
+        .formula {
+            @include flex-grow(6, true);
+        }
+
+        &.data:hover {
+            background-color: rgba(white, 0.1);
+        }
+
+        &.head {
+            font-weight: bold;
+        }
+    }
+}

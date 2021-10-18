@@ -22,9 +22,9 @@ import { Skill } from '../../model/content/skill';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { MinMax } from '../../model/minmax';
 import { isDamageType, isEffectValueSynergy, valueOrDefault } from '../../util/utils';
+import { SlormancerMergedStatUpdaterService } from './slormancer-merged-stat-updater.service';
 import { SlormancerStatMappingService } from './slormancer-stat-mapping.service';
 import { ExtractedStatMap, ExtractedStats, SlormancerStatsExtractorService } from './slormancer-stats-extractor.service';
-import { SlormancerStatUpdaterService } from './slormancer-stats-updater.service';
 import { SlormancerSynergyResolverService } from './slormancer-synergy-resolver.service';
 
 export interface CharacterStatsBuildResult {
@@ -61,7 +61,7 @@ export class SlormancerStatsService {
 
     constructor(private slormancerStatsExtractorService: SlormancerStatsExtractorService,
                 private slormancerSynergyResolverService: SlormancerSynergyResolverService,
-                private slormancerStatUpdaterService: SlormancerStatUpdaterService,
+                private slormancerStatUpdaterService: SlormancerMergedStatUpdaterService,
                 private slormancerStatMappingService: SlormancerStatMappingService) { }
 
     private addConfigCharacterStats(stats: Array<MergedStat>, config: CharacterConfig) {
@@ -72,6 +72,7 @@ export class SlormancerStatsService {
                 total: value,
                 precision: 0,
                 allowMinMax: false,
+                suffix: '',
                 values: {
                     flat: [ { value: value, source: { synergy: 'Configuration' } }],
                     max: [],
@@ -91,6 +92,7 @@ export class SlormancerStatsService {
                 precision: 0,
                 stat: 'based_on_mastery_' + sau.skill.id,
                 total: sau.skill.level,
+                suffix: '',
                 values: {
                     flat: [ { value: sau.skill.level, source: { skill: sau.skill }  }],
                     max: [],

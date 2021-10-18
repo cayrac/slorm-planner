@@ -30,6 +30,7 @@ export interface MergedStat<T = number | MinMax> {
     total: T;
     allowMinMax: boolean;
     precision: number;
+    suffix: 's' | '%' | '';
     values: {
         flat: Array<{ value: number | MinMax, source: Entity }>;
         max: Array<{ value: number, source: Entity }>;

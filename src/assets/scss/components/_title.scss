@@ -1,6 +1,11 @@
 h3 {
-
     &.section {
         color: $section-title-color
+    }
+
+    margin-bottom: $space-unit * 2;
+    margin-top: $space-unit * 5;
+    &:not(.not-first):first-child {
+        margin-top: 0;
     }
 }

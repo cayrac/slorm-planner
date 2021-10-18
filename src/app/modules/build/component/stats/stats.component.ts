@@ -16,6 +16,8 @@ export class StatsComponent extends AbstractUnsubscribeComponent implements OnIn
 
     public stats: Array<MergedStat> | null = null;
 
+    public selectedMergedStat: MergedStat | null = null;
+
     constructor(private plannerService: PlannerService) {
         super();
     }
@@ -26,5 +28,9 @@ export class StatsComponent extends AbstractUnsubscribeComponent implements OnIn
             .subscribe(character => {
                 this.stats = character === null ? null : character.stats;
             });
+    }
+
+    public selectMergedStat(mergedStat: MergedStat) {
+        this.selectedMergedStat = mergedStat;
     }
 }
