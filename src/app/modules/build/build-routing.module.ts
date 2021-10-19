@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BuildComponent } from './build.component';
 import { AncestralLegaciesComponent } from './component/ancestral-legacies/ancestral-legacies.component';
 import { AttributesComponent } from './component/attributes/attributes.component';
+import { CalcsComponent } from './component/calcs/calcs.component';
 import { CompareComponent } from './component/compare/compare.component';
 import { ConfigComponent } from './component/config/config.component';
 import { InventoryComponent } from './component/inventory/inventory.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
             { path: 'stats', component: StatsComponent },
             { path: 'config', component: ConfigComponent },
             { path: 'compare', component: CompareComponent },
+            { path: 'calcs', component: CalcsComponent },
             { path: '**', redirectTo: 'inventory' }
         ]
     }

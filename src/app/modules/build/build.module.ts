@@ -11,6 +11,11 @@ import {
 } from './component/ancestral-legacies/components/ancestral-legacy-map/ancestral-legacy-map.component';
 import { AttributesComponent } from './component/attributes/attributes.component';
 import { BuildHeaderComponent } from './component/build-header/build-header.component';
+import { CalcsComponent } from './component/calcs/calcs.component';
+import { DefenseCalcComponent } from './component/calcs/components/defense-calc/defense-calc.component';
+import {
+    TurretSyndromeCalcComponent,
+} from './component/calcs/components/turret-syndrome-calc/turret-syndrome-calc.component';
 import { CompareComponent } from './component/compare/compare.component';
 import { ConfigEntryComponent } from './component/config/components/config-entry/config-entry.component';
 import { ConfigComponent } from './component/config/config.component';
@@ -35,7 +40,10 @@ import { StatsComponent } from './component/stats/stats.component';
         StatsComponent,
         ConfigComponent,
         ConfigEntryComponent,
-        CompareComponent
+        CompareComponent,
+        CalcsComponent,
+        DefenseCalcComponent,
+        TurretSyndromeCalcComponent
     ],
     imports: [
         CommonModule,

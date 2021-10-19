@@ -154,7 +154,7 @@ export class MainStatsComponent extends AbstractUnsubscribeComponent implements 
     ];
 
     @Input()
-    public readonly stats: Array<MergedStat> | null = null;
+    public stats: Array<MergedStat> | null = null;
 
     public selectedMergedStat: MergedStat | null = null;
 

@@ -1,0 +1,15 @@
+<main *ngIf="character !== null">
+    <mat-card>
+        <mat-card-content>
+            <mat-form-field appearance="outline" class="no-error-padding">
+                <mat-label>Selected calc</mat-label>
+                <mat-select [(ngModel)]="currentCalc">
+                    <mat-option *ngFor="let option of options" [value]="option.value">{{option.label}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <p *ngIf="currentCalc === null">Choose a calc tu display</p>
+            <app-defense-calc *ngIf="currentCalc === CalcPage.Defense" [character]="character"></app-defense-calc>
+            <app-turret-syndrome-calc *ngIf="currentCalc === CalcPage.TurretSyndrome" [character]="character"></app-turret-syndrome-calc>
+        </mat-card-content>
+    </mat-card>
+</main>
