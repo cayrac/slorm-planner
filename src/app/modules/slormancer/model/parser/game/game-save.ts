@@ -2,6 +2,7 @@ import { GameItem } from './game-item';
 
 export interface GameSave {
     stats_fetched: GameStatsFetched,
+    original_version: string,
     version: string,
     slormite_list: string,
     shared_inventory: GameSharedInventory,
@@ -16,6 +17,7 @@ export interface GameSave {
     reputation: string,
     wrath: GameHeroesData<number>,
     skill_rank: GameSkillRank,
+    ultimatums: GameUltimatums,
     reaper_pity: GameHeroesData<number>,
     gold: string,
     xp: GameXp,
@@ -50,6 +52,7 @@ export declare type GameTutorials = Array<number>;
 export declare type GameWeaponData = GameHeroesData<Array<GameWeapon>>;
 export declare type GameXp = GameHeroesData<number>;
 export declare type GameWeaponEquipped = GameHeroesData<number>;
+export declare type GameUltimatums = Array<GameUltimatum>;
 
 export interface GameHeroesData<T> {
     0: T,
@@ -76,4 +79,12 @@ export interface GameWeapon {
     id: number,
     basic: { obtained: boolean, experience: number, kills: number, generic4: number },
     primordial: { obtained: boolean, experience: number, kills: number, generic4: number }
+};
+
+export interface GameUltimatum {
+    a: number,
+    b: number,
+    c: number,
+    d: number,
+    e: number,
 };

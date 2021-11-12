@@ -18,48 +18,56 @@ export class SlormancerItemValueService {
             '': {
                 1: { min: 70, max: 100 },
                 2: { min: 70, max: 100 },
-                3: { min: 70, max: 100 }
+                3: { min: 70, max: 100 },
+                4: { min: 70, max: 100 }
             },
             '%': {
                 1: { min: 14, max: 20 },
                 2: { min: 28, max: 40 },
-                3: { min: 42, max: 60 }
+                3: { min: 42, max: 60 },
+                4: { min: 56, max: 80 }
             }
         },
         'magic': {
             '': {
                 1: { min: 45, max: 65 },
                 2: { min: 45, max: 65 },
-                3: { min: 45, max: 65 }
+                3: { min: 45, max: 65 },
+                4: { min: 45, max: 65 }
             },
             '%': {
                 1: { min: 9,  max: 13 },
                 2: { min: 18, max: 26 },
-                3: { min: 27, max: 39 }
+                3: { min: 27, max: 39 },
+                4: { min: 36, max: 52 }
             }
         },
         'rare': {
             '': {
                 1: { min: 45, max: 65 },
                 2: { min: 45, max: 65 },
-                3: { min: 45, max: 65 }
+                3: { min: 45, max: 65 },
+                4: { min: 45, max: 65 }
             },
             '%': {
                 1: { min: 9,  max: 13 },
                 2: { min: 18, max: 26 },
-                3: { min: 27, max: 39 }
+                3: { min: 27, max: 39 },
+                4: { min: 36, max: 52 }
             }
         },
         'epic': {
             '': {
                 1: { min: 20, max: 40 },
                 2: { min: 20, max: 40 },
-                3: { min: 20, max: 40 }
+                3: { min: 20, max: 40 },
+                4: { min: 20, max: 40 }
             },
             '%': {
                 1: { min: 4,  max: 8 },
                 2: { min: 8,  max: 16 },
-                3: { min: 12, max: 24 }
+                3: { min: 12, max: 24 },
+                4: { min: 16, max: 32 }
             }
         },
         'legendary': {
@@ -67,11 +75,13 @@ export class SlormancerItemValueService {
                 1: { min: 75, max: 100 },
                 2: { min: 75, max: 100 },
                 3: { min: 75, max: 100 },
+                4: { min: 75, max: 100 },
             },
             '%': {
                 1: { min: 75, max: 100 },
                 2: { min: 75, max: 100 },
                 3: { min: 75, max: 100 },
+                4: { min: 75, max: 100 },
             }
         }
     }
@@ -79,8 +89,17 @@ export class SlormancerItemValueService {
     constructor() { }
 
     private getLevelPercentScore(level: number): number {
-        // 20 35
-        return Math.max(1, Math.floor((level + 10) / 15));
+        let result = 1;
+
+        if (level >= 45) {
+            result = 4;
+        } else if (level >= 35) {
+            result = 3;
+        } else if (level >= 20) {
+            result = 2;
+        }
+        
+        return result;
     }
 
     private getComputedBaseValue(level: number, score: number, percent: boolean): number {

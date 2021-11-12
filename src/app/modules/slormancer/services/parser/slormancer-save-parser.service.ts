@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { GAME_VERSION } from '../../constants/common';
 import {
     AURAS,
     CORRUPTED_SLORM,
@@ -15,6 +16,8 @@ import {
     HERO,
     INFLUENCE,
     INVENTORY,
+    LEVEL_CAP_PREVIOUS,
+    MISSION_MATCH,
     MISSIONS,
     PROFILE,
     PURE_SLORM,
@@ -33,6 +36,7 @@ import {
     TEMPLE_UPGRADES,
     TRAITS,
     TUTORIALS,
+    ULTIMATUMS,
     VERSION,
     WEAPON_DATA,
     WEAPON_EQUIP,
@@ -58,11 +62,13 @@ import {
     GameStatsFetched,
     GameTraits,
     GameTutorials,
+    GameUltimatum,
+    GameUltimatums,
     GameWeaponData,
     GameWeaponEquipped,
     GameXp,
 } from '../../model/parser/game/game-save';
-import { bytesFindPositions, bytesToString, slice, toBytes } from '../../util/bytes.util';
+import { bytesFindPositions, bytesToString, byteToChar, slice, toBytes } from '../../util/bytes.util';
 import {
     mapHeroesArray,
     splitHeroesData,
@@ -73,7 +79,7 @@ import {
     toNumberArray,
     toWeapon,
 } from '../../util/parse.util';
-import { valueOrNull } from '../../util/utils';
+import { splitData, valueOrNull } from '../../util/utils';
 import { SlormancerItemParserService } from './slormancer-item-parser.service';
 
 @Injectable()
@@ -88,7 +94,10 @@ export class SlormancerSaveParserService {
         TEMPLE_UPGRADES,
         SLORMITE_LIST,
         SHARED_INVENTORY,
+        ULTIMATUMS,
         CORRUPTED_SLORM,
+        MISSION_MATCH,
+        LEVEL_CAP_PREVIOUS,
         
         FIRST_HERO,
         WEAPON_DATA,
@@ -217,6 +226,12 @@ export class SlormancerSaveParserService {
         }
     }
 
+    private parseUltimatum(ultimatum: string): GameUltimatum {
+        const [a, b, c, d, e] = <[ number, number, number, number, number ]>toNumberArray(ultimatum, ',', 5);
+
+        return { a, b, c, d, e };
+    }
+
     private parseInventory(data: string): GameInventory {
         return toHeroes(mapHeroesArray(splitHeroesData(data), v => this.parseHeroInventory(v.split(';'))));
     }
@@ -265,6 +280,10 @@ export class SlormancerSaveParserService {
         return toHeroes(mapHeroesArray(splitHeroesData(data), strictParseInt));
     }
 
+    private parseUltimatums(data: string): GameUltimatums {        
+        return splitData(data, '|').map(v => this.parseUltimatum(v));
+    }
+
     private parseKeys(bytes: Bytes): { [key: string]: string } {
         let data: { [key: string]: string } = {};
 
@@ -301,6 +320,16 @@ export class SlormancerSaveParserService {
         return toBytes(<string>data);
     }
 
+    private normalizeSave(data: { [key: string]: string }) {
+        const version = this.parseVersion(this.getOrFail(data, 'version'));
+
+        if (version === '0.2.152') {
+            data['level_cap_previous'] = '';
+            data['mission_match'] = '';
+            data['ultimatums']= new Array(15).fill([0, 0, 0, 0, 0].join(',')).join('|');
+        }
+    }
+
     public parseSaveFile(content: string): GameSave {
         const [data, hash] = content.split('#', 2);
         
@@ -308,9 +337,17 @@ export class SlormancerSaveParserService {
 
         const parsedData = this.parseKeys(bytes);
 
+        console.log(bytes.map(byte => byteToChar(byte)).join(''));
+        console.log(parsedData);
+        console.log(this.getOrFail(parsedData, 'ultimatums'));
+        console.log(this.getOrFail(parsedData, 'xp')); // 606|6520847|24092
+
+        this.normalizeSave(parsedData);
+
         return {
             stats_fetched: this.parseStatsFetched(this.getOrFail(parsedData, 'stats_fetched')),
-            version: this.parseVersion(this.getOrFail(parsedData, 'version')),
+            original_version: this.parseVersion(this.getOrFail(parsedData, 'version')),
+            version: GAME_VERSION,
             slormite_list: this.parseSlormiteList(this.getOrFail(parsedData, 'slormite_list')),
             shared_inventory: this.parseSharedInventory(this.getOrFail(parsedData, 'shared_inventory')),
             first_hero: this.parseFirstHero(this.getOrFail(parsedData, 'first_hero')),
@@ -324,6 +361,7 @@ export class SlormancerSaveParserService {
             reputation: this.parseReputation(this.getOrFail(parsedData, 'reputation')),
             wrath: this.parseWrath(this.getOrFail(parsedData, 'wrath')),
             skill_rank: this.parseSkillRank(this.getOrFail(parsedData, 'skill_rank')),
+            ultimatums: this.parseUltimatums(this.getOrFail(parsedData, 'ultimatums')),
             reaper_pity: this.parseReaperPity(this.getOrFail(parsedData, 'reaper_pity')),
             gold: this.parseGold(this.getOrFail(parsedData, 'gold')),
             xp: this.parseXp(this.getOrFail(parsedData, 'xp')),

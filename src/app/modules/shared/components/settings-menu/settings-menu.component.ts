@@ -180,7 +180,6 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
             this.dialog.open(ItemReinforcmentEditModalComponent, { data: { reinforcment: maxReinforcment } })
             .afterClosed().subscribe(reinforcment => {
                 if (typeof reinforcment === 'number') {
-                    console.log('updating to : ', reinforcment);
                     this.getGearItems().forEach(item => {
                         item.reinforcment = reinforcment;
                         this.slormancerItemService.updateEquipableItemModel(item);

@@ -45,7 +45,6 @@ export class SkillUpgradeViewComponent {
     }
 
     public showMechanicOverlay(mechanic: Mechanic | ClassMechanic | Buff) {
-        console.log('show mechanic : ', mechanic);
         this.mouseOverElement = mechanic;
     }
 

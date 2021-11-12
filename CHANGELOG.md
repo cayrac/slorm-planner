@@ -56,3 +56,13 @@
 ## Release 0.0.7 (2021-10-18)
 ### Added
 - Stats tab now display full details and formula when a stat is selected
+
+## Release 0.0.8 (TBD)
+### Added
+- Added compatibility for The Slormancer 0.3.014
+- Fixed font issues
+
+TODO
+ - mighty vitality : problème de calcul
+ - différence additional damage (extra) et skill additional damage
+ - reaper ajouté en "extra"

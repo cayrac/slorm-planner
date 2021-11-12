@@ -37,12 +37,14 @@ $primary-color: mat-color($theme-primary-pallet);
 html, body {
     margin: 0;
     height: 100%;
-    font-family: 'Berlin Sans FB Regular';
-    color: $primary-color;
-    box-sizing: border-box;
 
     background-color: primary-color(700, true);
     color: primary-color(700, true);
+}
+
+* {
+    font-family: 'Berlin Sans FB Regular';
+    box-sizing: border-box;
 }
 
 app-root {

@@ -1,4 +1,4 @@
-export const MAX_HERO_LEVEL = 40;
+export const MAX_HERO_LEVEL = 50;
 export const MAX_ITEM_LEVEL = MAX_HERO_LEVEL;
 
 export const MAX_MAGIC_STATS = 1;
@@ -14,7 +14,7 @@ export const MAXIMUM_ANCESTRAL_LEGACY_POINTS = 7;
 
 export const DELIGHTED_VALUE = 12;
 
-export const GAME_VERSION = '0.2.152';
+export const GAME_VERSION = '0.3.014';
 
 export const POISON_DAMAGE_PERCENT = 200;
 export const RAVENOUS_DAGGER_DAMAGE_PERCENT = 100;

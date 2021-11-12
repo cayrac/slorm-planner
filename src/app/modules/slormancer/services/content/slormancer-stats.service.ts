@@ -108,10 +108,6 @@ export class SlormancerStatsService {
     private hasSynergyValueChanged(synergy: SynergyResolveData): boolean {
         let result = true;
 
-        if (synergy.effect.source === 'astral_retribution_damage') {
-            console.log('synergy value changed : ', synergy.originalValue, synergy.effect.displaySynergy, synergy);
-        }
-
         if (typeof synergy.originalValue === typeof synergy.effect.displaySynergy) {
             if (typeof synergy.originalValue === 'number') {
                 result = synergy.originalValue !== synergy.effect.displaySynergy;

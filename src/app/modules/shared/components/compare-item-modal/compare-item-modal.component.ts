@@ -50,7 +50,5 @@ export class CompareItemModalComponent {
         this.left = data.left;
         this.right = data.right;
         this.differences = this.slormancerCharacterComparatorService.compareCharacters(leftCharacter, rightCharacter);
-
-        console.log('compare ', leftCharacter.stats.find(mergedStat => mergedStat.stat === 'elemental_damage')?.total, rightCharacter.stats.find(mergedStat => mergedStat.stat === 'elemental_damage')?.total)
     }
 }

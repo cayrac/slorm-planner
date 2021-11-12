@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { GAME_VERSION } from '../../slormancer/constants/common';
 import { DEFAULT_CONFIG } from '../../slormancer/constants/content/data/default-configs';
 import { compareVersions } from '../../slormancer/util/utils';
 import { Planner } from '../model/planner';
@@ -23,6 +24,17 @@ export class PlannerRetrocompatibilityService {
             update: planner => {
                 planner.configuration['use_enemy_state'] = false;
                 planner.version = '0.0.4';
+            }
+        },
+        {
+            version: '0.0.8',
+            update: planner => {
+                planner.version = '0.0.8';
+
+                for (const layer of planner.layers) {
+                    layer.character.originalVersion = layer.character.version;
+                    layer.character.version = GAME_VERSION;
+                }
             }
         },
     ];

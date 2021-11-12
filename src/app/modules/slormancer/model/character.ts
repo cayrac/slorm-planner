@@ -60,6 +60,7 @@ export interface Character {
     heroClass: HeroClass;
     level: number;
     version: string;
+    originalVersion: string;
 
     name: string;
     fullName: string;
