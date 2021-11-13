@@ -82,9 +82,7 @@ export interface GameWeapon {
 };
 
 export interface GameUltimatum {
-    a: number,
-    b: number,
-    c: number,
-    d: number,
-    e: number,
+    unlocked: boolean;
+    level: number;
+    equipped: GameHeroesData<boolean>;
 };

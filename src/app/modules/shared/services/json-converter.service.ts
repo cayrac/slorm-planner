@@ -9,11 +9,13 @@ import { HeroClass } from '../../slormancer/model/content/enum/hero-class';
 import { Rarity } from '../../slormancer/model/content/enum/rarity';
 import { EquipableItem } from '../../slormancer/model/content/equipable-item';
 import { Reaper } from '../../slormancer/model/content/reaper';
+import { Ultimatum } from '../../slormancer/model/content/ultimatum';
 import { SlormancerAffixService } from '../../slormancer/services/content/slormancer-affix.service';
 import { SlormancerDataService } from '../../slormancer/services/content/slormancer-data.service';
 import { SlormancerItemService } from '../../slormancer/services/content/slormancer-item.service';
 import { SlormancerLegendaryEffectService } from '../../slormancer/services/content/slormancer-legendary-effect.service';
 import { SlormancerReaperService } from '../../slormancer/services/content/slormancer-reaper.service';
+import { SlormancerUltimatumService } from '../../slormancer/services/content/slormancer-ultimatum.service';
 import { SlormancerCharacterBuilderService } from '../../slormancer/services/slormancer-character-builder.service';
 import { round } from '../../slormancer/util/math.util';
 import { isNotNullOrUndefined, valueOrDefault } from '../../slormancer/util/utils';
@@ -24,6 +26,7 @@ import { JsonLayer } from '../model/json/json-layer';
 import { JsonPlanner } from '../model/json/json-planner';
 import { JsonReaper } from '../model/json/json-reaper';
 import { JsonSkill } from '../model/json/json-skill';
+import { JsonUltimatum } from '../model/json/json-ultimatum';
 import { Layer } from '../model/layer';
 import { Planner } from '../model/planner';
 import { SharedData } from '../model/shared-data';
@@ -47,7 +50,8 @@ export class JsonConverterService {
                 private slormancerItemService: SlormancerItemService,
                 private slormancerLegendaryService: SlormancerLegendaryEffectService,
                 private slormancerAffixService: SlormancerAffixService,
-                private slormancerReaperService: SlormancerReaperService) {
+                private slormancerReaperService: SlormancerReaperService,
+                private slormancerUltimatumService: SlormancerUltimatumService) {
         this.STAT_MAPPING = {};
         this.REVERSE_STAT_MAPPING = {};
 
@@ -98,6 +102,19 @@ export class JsonConverterService {
         };
     }
 
+    private ultimatumToJson(ultimatum: Ultimatum | null): JsonUltimatum | null {
+        let result: JsonUltimatum | null = null;
+
+        if (ultimatum !== null) {
+            result = {
+                level: ultimatum.level,
+                type: ultimatum.type
+            }
+        }
+
+        return result;
+    }
+
     private skillToJson(skill: CharacterSkillAndUpgrades, onlyEquipped: boolean = false): JsonSkill {
         return {
             id: skill.skill.id,
@@ -127,6 +144,7 @@ export class JsonConverterService {
             type: 'c',
             level: character.level,
             version: character.version,
+            originalVersion: character.originalVersion,
             heroClass: character.heroClass,
             gear: {
                 helm: this.itemToJson(character.gear.helm, false),
@@ -144,6 +162,8 @@ export class JsonConverterService {
             inventory: character.inventory.map(item => this.itemToJson(item, true)),
             sharedInventory: character.sharedInventory.map(inv => inv.map(item => this.itemToJson(item, true))),
         
+            ultimatum: this.ultimatumToJson(character.ultimatum),
+
             ancestralLegacies: {
                 ancestralLegacies: character.ancestralLegacies.ancestralLegacies.map(ancestralLegacy => this.ancestralLegacyToJson(ancestralLegacy)),
                 nodes: character.ancestralLegacies.activeNodes,
@@ -180,6 +200,7 @@ export class JsonConverterService {
             type: 'c',
             level: character.level,
             version: character.version,
+            originalVersion: character.originalVersion,
             heroClass: character.heroClass,
             gear: {
                 helm: this.itemToJson(character.gear.helm, false),
@@ -196,6 +217,8 @@ export class JsonConverterService {
             },
             inventory: null,
             sharedInventory: null,
+
+            ultimatum: this.ultimatumToJson(character.ultimatum),
         
             ancestralLegacies: {
                 ancestralLegacies: character.ancestralLegacies.ancestralLegacies
@@ -274,7 +297,15 @@ export class JsonConverterService {
         return result;
     }
 
+    private normalizeJsonCharacter(character: JsonCharacter) {
+        if (character.version === '0.2.152') {
+            character.originalVersion = character.version;
+            character.ultimatum = null;
+        }
+    }
+
     public jsonToCharacter(character: JsonCharacter): Character {
+        this.normalizeJsonCharacter(character);
         const reaper = this.slormancerReaperService.getReaperById(
             character.reaper.id,
             character.heroClass,
@@ -283,6 +314,10 @@ export class JsonConverterService {
             character.reaper.primordialLevel,
             character.reaper.kills,
             character.reaper.primordialKills);
+
+        const ultimatum = character.ultimatum === null
+            ? null
+            : this.slormancerUltimatumService.getUltimatum(character.ultimatum.type, character.ultimatum.level);
 
         const ancestralRanks = this.slormancerDataService.getGameDataAncestralLegacyIds()
             .map((_, index) => character.ancestralLegacies.ancestralLegacies.find(a => a.id === index))
@@ -315,7 +350,9 @@ export class JsonConverterService {
             character.heroClass,
             character.level,
             character.version,
+            character.originalVersion,
             reaper,
+            ultimatum,
             character.ancestralLegacies.nodes,
             ancestralRanks,
             skillEquipped,

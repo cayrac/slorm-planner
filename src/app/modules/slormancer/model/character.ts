@@ -6,11 +6,13 @@ import { ClassMechanic } from './content/class-mechanic';
 import { Attribute } from './content/enum/attribute';
 import { GearSlot } from './content/enum/gear-slot';
 import { HeroClass } from './content/enum/hero-class';
+import { UltimatumType } from './content/enum/ultimatum-type';
 import { EquipableItem } from './content/equipable-item';
 import { Mechanic } from './content/mechanic';
 import { Reaper } from './content/reaper';
 import { Skill } from './content/skill';
 import { SkillUpgrade } from './content/skill-upgrade';
+import { Ultimatum } from './content/ultimatum';
 
 export interface CharacterSkillAndUpgrades {
     skill: Skill;
@@ -56,6 +58,11 @@ export interface CharacterAttributes {
     }
 }
 
+export interface CharacterUltimatum {
+    level: number;
+    activeUltimatum: UltimatumType;
+}
+
 export interface Character {
     heroClass: HeroClass;
     level: number;
@@ -73,6 +80,8 @@ export interface Character {
     gear: CharacterGear;
     inventory: Array<EquipableItem | null>;
     sharedInventory: Array<Array<EquipableItem | null>>;
+
+    ultimatum: Ultimatum | null;
 
     attributes: CharacterAttributes;
 

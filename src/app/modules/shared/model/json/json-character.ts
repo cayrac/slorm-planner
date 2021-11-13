@@ -4,10 +4,12 @@ import { JsonAncestralLegacy } from './json-ancestral-legacy';
 import { JsonItem } from './json-item';
 import { JsonReaper } from './json-reaper';
 import { JsonSkill } from './json-skill';
+import { JsonUltimatum } from './json-ultimatum';
 
 export interface JsonCharacter {
     type: 'c';
     version: string;
+    originalVersion: string;
     level: number;
     heroClass: HeroClass;
     gear: {
@@ -25,6 +27,8 @@ export interface JsonCharacter {
     };
     inventory: Array<JsonItem | null> | null;
     sharedInventory: Array<Array<JsonItem | null>> | null;
+
+    ultimatum: JsonUltimatum | null;
 
     ancestralLegacies: {
         ancestralLegacies: Array<JsonAncestralLegacy>;

@@ -9,8 +9,9 @@ import { Attribute } from '../model/content/enum/attribute';
 import { EquipableItem } from '../model/content/equipable-item';
 import { Reaper } from '../model/content/reaper';
 import { Skill } from '../model/content/skill';
+import { Ultimatum } from '../model/content/ultimatum';
 import { GameItem } from '../model/parser/game/game-item';
-import { GameSave, GameSharedInventory } from '../model/parser/game/game-save';
+import { GameSave, GameSharedInventory, GameUltimatum } from '../model/parser/game/game-save';
 import { list } from '../util/math.util';
 import { isNotNullOrUndefined, valueOrDefault, valueOrNull } from '../util/utils';
 import { SlormancerAncestralLegacyService } from './content/slormancer-ancestral-legacy.service';
@@ -19,6 +20,7 @@ import { SlormancerDataService } from './content/slormancer-data.service';
 import { SlormancerItemService } from './content/slormancer-item.service';
 import { SlormancerReaperService } from './content/slormancer-reaper.service';
 import { SlormancerSkillService } from './content/slormancer-skill.service';
+import { SlormancerUltimatumService } from './content/slormancer-ultimatum.service';
 
 @Injectable()
 export class SlormancerCharacterBuilderService {
@@ -28,7 +30,8 @@ export class SlormancerCharacterBuilderService {
                 private slormancerDataService: SlormancerDataService,
                 private slormancerSkillService: SlormancerSkillService,
                 private slormancerAttributeService: SlormancerAttributeService,
-                private slormancerAncestralLegacyService: SlormancerAncestralLegacyService
+                private slormancerAncestralLegacyService: SlormancerAncestralLegacyService,
+                private slormancerUltimatumService: SlormancerUltimatumService
         ) { }
 
     private getSkills(heroClass: HeroClass, equipped: Array<number> = [], ranks: Array<number> = []): Array<CharacterSkillAndUpgrades> {
@@ -65,7 +68,7 @@ export class SlormancerCharacterBuilderService {
         return result;
     }
 
-    private getEquipedReaper(save: GameSave, heroClass: HeroClass): Reaper {
+    private getEquippedReaper(save: GameSave, heroClass: HeroClass): Reaper {
         const reaperCount = this.slormancerDataService.getGameDataReaperCount();
         let result: Reaper | null = null;
 
@@ -80,6 +83,17 @@ export class SlormancerCharacterBuilderService {
 
         if (result === null) {
             throw new Error('failed to parse reaper');
+        }
+
+        return result;
+    }
+
+    private getEquippedUltimatum(save: GameSave, heroClass: HeroClass): Ultimatum | null {
+        let result: Ultimatum | null = null;
+
+        const equippedIndex = save.ultimatums.findIndex(ultimatum => ultimatum.equipped[heroClass]);
+        if (equippedIndex !== -1) {
+            result = this.slormancerUltimatumService.getUltimatum(equippedIndex, (<GameUltimatum>save.ultimatums[equippedIndex]).level)
         }
 
         return result;
@@ -274,7 +288,9 @@ export class SlormancerCharacterBuilderService {
         const character = this.getCharacter(heroClass,
             this.getHeroLevel(xp),
             save.version,
-            this.getEquipedReaper(save, heroClass),
+            save.original_version,
+            this.getEquippedReaper(save, heroClass),
+            this.getEquippedUltimatum(save, heroClass),
             this.getActiveNodes(save.element_equip[heroClass]),
             element_rank,
             skill_equip,
@@ -318,7 +334,9 @@ export class SlormancerCharacterBuilderService {
     public getCharacter(heroClass: HeroClass,
                         level: number = MAX_HERO_LEVEL,
                         version: string = GAME_VERSION,
+                        originalVersion: string = GAME_VERSION,
                         reaper: Reaper | null = null,
+                        ultimatum: Ultimatum | null = null,
                         activeAncestralNodes: Array<number> = [],
                         ancestralRanks: Array<number> = [],
                         skillEquipped: Array<number> = [],
@@ -362,6 +380,7 @@ export class SlormancerCharacterBuilderService {
         const character: Character = {
             heroClass,
             version,
+            originalVersion,
             level,
             name: '',
             fullName: '',
@@ -391,6 +410,8 @@ export class SlormancerCharacterBuilderService {
             },
             inventory: inventory === null ? list(INVENTORY_SIZE).map(() => null) : inventory,
             sharedInventory: sharedInventory === null ? list(4).map(() => list(STASH_SIZE).map(() => null)) : sharedInventory,
+
+            ultimatum,
 
             attributes: {
                 remainingPoints: Math.max(0, level - toughtness - savagery - fury - determination - zeal - willpower - dexterity - bravery),

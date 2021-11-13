@@ -40,9 +40,10 @@
                 .level {
                     position: absolute;
                     bottom: $space-unit * -5;
-                    width: $space-unit * 4;
-                    height: $space-unit * 4;
-                    line-height: 14px;
+                    width: $space-unit * 6;
+                    height: $space-unit * 6;
+                    line-height: 8px;
+                    font-size: 12px;
                     text-align: center;
                     border: 2px solid black;
                     padding: $space-unit;

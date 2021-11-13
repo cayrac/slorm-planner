@@ -43,6 +43,7 @@ import {
     WRATH,
     XP,
 } from '../../constants/parser/save-attributes';
+import { HeroClass } from '../../model/content/enum/hero-class';
 import { Bytes } from '../../model/parser/game/bytes';
 import { GameItem } from '../../model/parser/game/game-item';
 import {
@@ -227,9 +228,17 @@ export class SlormancerSaveParserService {
     }
 
     private parseUltimatum(ultimatum: string): GameUltimatum {
-        const [a, b, c, d, e] = <[ number, number, number, number, number ]>toNumberArray(ultimatum, ',', 5);
+        const [unlocked, level, equippedWarrior, equippedHuntress, equippedMage] = <[ number, number, number, number, number ]>toNumberArray(ultimatum, ',', 5);
 
-        return { a, b, c, d, e };
+        return { 
+            unlocked: unlocked === 1,
+            level,
+            equipped: {
+                [HeroClass.Warrior]: equippedWarrior === 1,
+                [HeroClass.Huntress]: equippedHuntress === 1,
+                [HeroClass.Mage]: equippedMage === 1
+            }
+        };
     }
 
     private parseInventory(data: string): GameInventory {
