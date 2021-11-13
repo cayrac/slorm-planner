@@ -1,9 +1,23 @@
 <div class="skill-bar">
-    <app-skill-slot [skill]="character === null ? null : character.primarySkill" (changed)="updatePrimarySkill($event)"></app-skill-slot>
-    <app-skill-slot [skill]="character === null ? null : character.secondarySkill" (changed)="updateSecondarySkill($event)"></app-skill-slot>
-    <app-skill-slot [skill]="character === null ? null : character.supportSkill" [support]="true" (changed)="updateSupportSkill($event)"></app-skill-slot>
-    <app-activable-slot [activable]="character === null ? null : character.activable1" (changed)="updateActivable1($event)"></app-activable-slot>
-    <app-activable-slot [activable]="character === null ? null : character.activable2" (changed)="updateActivable2($event)"></app-activable-slot>
-    <app-activable-slot [activable]="character === null ? null : character.activable3" (changed)="updateActivable3($event)"></app-activable-slot>
-    <app-activable-slot [activable]="character === null ? null : character.activable4" (changed)="updateActivable4($event)"></app-activable-slot>
+    <div class="skill-slot-border">
+        <app-skill-slot [skill]="character === null ? null : character.primarySkill" (changed)="updatePrimarySkill($event)"></app-skill-slot>
+    </div>
+    <div class="skill-slot-border">
+        <app-skill-slot [skill]="character === null ? null : character.secondarySkill" (changed)="updateSecondarySkill($event)"></app-skill-slot>
+    </div>
+    <div class="skill-slot-border">
+        <app-skill-slot [skill]="character === null ? null : character.supportSkill" [support]="true" (changed)="updateSupportSkill($event)"></app-skill-slot>
+    </div>
+    <div class="skill-slot-border">
+        <app-activable-slot [activable]="character === null ? null : character.activable1" (changed)="updateActivable1($event)"></app-activable-slot>
+    </div>
+    <div class="skill-slot-border">
+        <app-activable-slot [activable]="character === null ? null : character.activable2" (changed)="updateActivable2($event)"></app-activable-slot>
+    </div>
+    <div class="skill-slot-border">
+        <app-activable-slot [activable]="character === null ? null : character.activable3" (changed)="updateActivable3($event)"></app-activable-slot>
+    </div>
+    <div class="skill-slot-border">
+        <app-activable-slot [activable]="character === null ? null : character.activable4" (changed)="updateActivable4($event)"></app-activable-slot>
+    </div>
 </div>

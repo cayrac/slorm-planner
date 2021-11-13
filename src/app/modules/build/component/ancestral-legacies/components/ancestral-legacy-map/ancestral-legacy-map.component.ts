@@ -8,6 +8,7 @@ import {
     AbstractUnsubscribeComponent,
 } from '../../../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { PlannerService } from '../../../../../shared/services/planner.service';
+import { UNLOCKED_ANCESTRAL_LEGACY_POINTS } from '../../../../../slormancer/constants/common';
 import {
     ANCESTRAL_LEGACY_REALMS,
     INITIAL_NODES,
@@ -150,7 +151,7 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
             const activeRealms = ANCESTRAL_LEGACY_REALMS
                 .filter(realm => realm.nodes.find(node => selectedNodes.indexOf(node) !== -1) !== undefined);
                 
-            if (this.character.ancestralLegacies.activeNodes.length < this.character.ancestralLegacies.maxAncestralLegacy) {
+            if (this.character.ancestralLegacies.activeNodes.length < UNLOCKED_ANCESTRAL_LEGACY_POINTS) {
                 this.availableNodes = [...INITIAL_NODES, ...activeRealms.map(realm => realm.nodes).flat()].filter(isFirst);
             }
 

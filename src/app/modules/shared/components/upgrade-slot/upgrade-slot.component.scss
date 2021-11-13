@@ -32,11 +32,11 @@
     }
 
     .equipped-border {
-        width: 40px;
-        height: 40px;
+        width: 46px;
+        height: 46px;
         position: relative;
         border: 3px solid black;
-        padding: 3px;
+        padding: 2px;
         background-color: primary-color(400);
         &.equipped {
             background-color: #edd371;
@@ -44,7 +44,6 @@
 
         img {
             border: 3px solid black;
-
         }
     }
 
@@ -56,8 +55,8 @@
         .equipped-border {
             padding: 0;
             border-width: 4px;
-            width: 34px;
-            height: 34px;
+            width: 40px;
+            height: 40px;
 
             img {
                 border-width: 0;

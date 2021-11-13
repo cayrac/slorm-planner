@@ -220,8 +220,7 @@ export class SlormancerCharacterBuilderService {
             ancestralLegacies: {
                 ancestralLegacies: character.ancestralLegacies.ancestralLegacies.map(ancestralLegacy => this.slormancerAncestralLegacyService.getAncestralLegacyClone(ancestralLegacy)),
                 activeNodes: [...character.ancestralLegacies.activeNodes],
-                activeAncestralLegacies: [...character.ancestralLegacies.activeAncestralLegacies],
-                maxAncestralLegacy: character.ancestralLegacies.maxAncestralLegacy
+                activeAncestralLegacies: [...character.ancestralLegacies.activeAncestralLegacies]
             },
             skills: character.skills.map(skill => this.getSkillsClone(skill)),
         
@@ -297,7 +296,6 @@ export class SlormancerCharacterBuilderService {
             element_rank,
             skill_equip,
             skill_rank,
-            2,
             this.getItem(valueOrNull(inventory.helm), heroClass),
             this.getItem(valueOrNull(inventory.body), heroClass),
             this.getItem(valueOrNull(inventory.shoulder), heroClass),
@@ -343,7 +341,6 @@ export class SlormancerCharacterBuilderService {
                         ancestralRanks: Array<number> = [],
                         skillEquipped: Array<number> = [],
                         skillRanks: Array<number> = [],
-                        maxAncestralNodes: number = 2,
                         helm: EquipableItem | null = null,
                         body: EquipableItem | null = null,
                         shoulder: EquipableItem | null = null,
@@ -392,8 +389,7 @@ export class SlormancerCharacterBuilderService {
             ancestralLegacies: {
                 ancestralLegacies: this.getAncestralLegacies(ancestralRanks),
                 activeNodes: activeAncestralNodes,
-                activeAncestralLegacies: this.slormancerDataService.getAncestralSkillIdFromNodes(activeAncestralNodes),
-                maxAncestralLegacy: maxAncestralNodes // TODO parser ça plus tard
+                activeAncestralLegacies: this.slormancerDataService.getAncestralSkillIdFromNodes(activeAncestralNodes)
             },
             skills,
         

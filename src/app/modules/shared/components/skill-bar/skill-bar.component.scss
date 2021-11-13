@@ -5,9 +5,9 @@
     @include flex(row);
     @include flex-gap($space-unit);
     border: 3px solid rgb(60, 60, 60);
-    padding: $space-unit $space-unit * 2;
+    padding: $space-unit $space-unit;
 
-    app-skill-slot, app-activable-slot {
+    .skill-slot-border {
         border: 3px solid rgb(60, 60, 60);
     }
 }

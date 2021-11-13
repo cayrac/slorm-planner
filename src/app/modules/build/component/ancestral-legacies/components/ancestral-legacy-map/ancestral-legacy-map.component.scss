@@ -70,7 +70,7 @@ $color-node-selected: rgb(193, 57, 7);
         .branch {
             background-color: primary-color(300);
             width: 50px;
-            height: 2px;
+            height: 4px;
             border: $border-style;
             border-left: 0;
             border-right: 0;
@@ -86,16 +86,16 @@ $color-node-selected: rgb(193, 57, 7);
             @include flex(row, center, center);
             background-color: primary-color(300);
             border: $border-style;
-            width: 46px;
-            height: 46px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             .zone-inner {
                 @include flex(column, center, center);
                 @include flex-gap($space-unit);
                 background-color: primary-color(600);
                 border: $border-style;
-                width: 40px;
-                height: 40px;
+                width: 42px;
+                height: 42px;
                 border-radius: 50%;
             }
 
@@ -145,16 +145,16 @@ $color-node-selected: rgb(193, 57, 7);
             @include flex(row, center, center);
             background-color: primary-color(300);
             border: $border-style;
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             cursor: pointer;
 
             .node-inner {
                 background-color: primary-color(600);
                 border: $border-style;
-                width: 6px;
-                height: 6px;
+                width: 8px;
+                height: 8px;
                 border-radius: 50%;
             }
 

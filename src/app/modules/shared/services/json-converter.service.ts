@@ -166,8 +166,7 @@ export class JsonConverterService {
 
             ancestralLegacies: {
                 ancestralLegacies: character.ancestralLegacies.ancestralLegacies.map(ancestralLegacy => this.ancestralLegacyToJson(ancestralLegacy)),
-                nodes: character.ancestralLegacies.activeNodes,
-                maxNodes: character.ancestralLegacies.maxAncestralLegacy
+                nodes: character.ancestralLegacies.activeNodes
             },
                 
             reaper: this.reaperToJson(character.reaper),
@@ -224,8 +223,7 @@ export class JsonConverterService {
                 ancestralLegacies: character.ancestralLegacies.ancestralLegacies
                     .filter(ancestralLegacy => character.ancestralLegacies.activeAncestralLegacies.indexOf(ancestralLegacy.id) !== -1)
                     .map(ancestralLegacy => this.ancestralLegacyToJson(ancestralLegacy)),
-                nodes: character.ancestralLegacies.activeNodes,
-                maxNodes: character.ancestralLegacies.maxAncestralLegacy
+                nodes: character.ancestralLegacies.activeNodes
             },
                 
             reaper: this.reaperToJson(character.reaper),
@@ -357,7 +355,6 @@ export class JsonConverterService {
             ancestralRanks,
             skillEquipped,
             skillRanks,
-            character.ancestralLegacies.maxNodes,
             this.jsonToItem(character.gear.helm, character.heroClass, EquipableItemBase.Helm),
             this.jsonToItem(character.gear.body, character.heroClass, EquipableItemBase.Body),
             this.jsonToItem(character.gear.shoulder, character.heroClass, EquipableItemBase.Shoulder),

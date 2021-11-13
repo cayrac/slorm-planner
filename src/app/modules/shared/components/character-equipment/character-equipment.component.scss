@@ -4,7 +4,7 @@
 
 .equipment {
     @include flex(column, stretch, space-between);
-    min-height: 400px;
+    min-height: 380px;
 
     .top-equipment {
         @include flex(row, center, center);

@@ -9,14 +9,6 @@ nav.mat-tab-nav-bar, mat-tab-group.mat-tab-group {
         opacity: 1;
         min-width: unset;
 
-        &.mat-tab-label-active {
-            font-weight: bold;
-        }
-    
-        &:not(.mat-tab-label-active) {
-            letter-spacing: .5px;
-        }
-
         &::after {
             content: ' ';
             position: absolute;

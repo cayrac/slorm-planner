@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { UNLOCKED_ANCESTRAL_LEGACY_POINTS } from '../constants/common';
 import { Character } from '../model/character';
 import { Skill } from '../model/content/skill';
 import { SkillUpgrade } from '../model/content/skill-upgrade';
@@ -84,7 +85,7 @@ export class SlormancerCharacterModifierService {
         let changed = false;
 
         if (character.ancestralLegacies.activeNodes.indexOf(nodeId) === -1
-            && character.ancestralLegacies.activeNodes.length < character.ancestralLegacies.maxAncestralLegacy
+            && character.ancestralLegacies.activeNodes.length < UNLOCKED_ANCESTRAL_LEGACY_POINTS
             && this.slormancerAncestralLegacyService.isNodeConnectedTo(nodeId, character.ancestralLegacies.activeNodes)) {
             character.ancestralLegacies.activeNodes.push(nodeId);
             changed = true;

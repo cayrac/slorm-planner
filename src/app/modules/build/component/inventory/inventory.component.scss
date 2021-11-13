@@ -72,7 +72,6 @@ main {
         }
 
         .items {
-            padding-top: $space-content;
             margin-left: $space-unit * 2;
 
             &.bag {
@@ -85,6 +84,7 @@ main {
             app-item-slot {
                 display: block;
                 float: left;
+                margin: $space-unit / 2;
             }
         }
     }

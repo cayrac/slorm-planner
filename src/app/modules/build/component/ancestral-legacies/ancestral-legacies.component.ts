@@ -6,7 +6,7 @@ import {
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { MessageService } from '../../../shared/services/message.service';
 import { PlannerService } from '../../../shared/services/planner.service';
-import { MAXIMUM_ANCESTRAL_LEGACY_POINTS } from '../../../slormancer/constants/common';
+import { MAXIMUM_ANCESTRAL_LEGACY_POINTS, UNLOCKED_ANCESTRAL_LEGACY_POINTS } from '../../../slormancer/constants/common';
 import { Character } from '../../../slormancer/model/character';
 import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
 import { SlormancerAncestralLegacyService } from '../../../slormancer/services/content/slormancer-ancestral-legacy.service';
@@ -57,7 +57,7 @@ export class AncestralLegaciesComponent extends AbstractUnsubscribeComponent imp
     }
 
     public isPointUnlock(index: number): boolean {
-        return this.character !== null && this.character.ancestralLegacies.maxAncestralLegacy > index;
+        return index < UNLOCKED_ANCESTRAL_LEGACY_POINTS;
     }
 
     public optimizeAncestralLegacies() {

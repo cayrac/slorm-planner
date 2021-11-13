@@ -26,7 +26,6 @@ export interface CharacterAncestralLegacies {
     ancestralLegacies: Array<AncestralLegacy>;
     activeNodes: Array<number>;
     activeAncestralLegacies: Array<number>;
-    maxAncestralLegacy: number;
 }
 
 export interface CharacterGear {

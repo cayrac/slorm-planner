@@ -33,7 +33,6 @@ export interface JsonCharacter {
     ancestralLegacies: {
         ancestralLegacies: Array<JsonAncestralLegacy>;
         nodes: Array<number>;
-        maxNodes: number;
     }
 
     reaper: JsonReaper;

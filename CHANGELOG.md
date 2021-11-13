@@ -61,6 +61,8 @@
 ### Added
 - Added compatibility for The Slormancer 0.3.014
 - Fixed font issues
+- Increased active legacy nodes to 3
+- Raised maximum level to 50
 
 TODO
  - mighty vitality : problème de calcul

@@ -10,6 +10,8 @@ export const STASH_SIZE = 35;
 
 export const SKILL_MAX_MASTERY = 15;
 
+export const UNLOCKED_ANCESTRAL_LEGACY_POINTS = 3;
+
 export const MAXIMUM_ANCESTRAL_LEGACY_POINTS = 7;
 
 export const DELIGHTED_VALUE = 12;
