@@ -314,6 +314,13 @@ export class SlormancerTemplateService {
         return template;
     }
 
+    public formatUltimatumTemplate(template: string, effectValue: EffectValueVariable): string {
+        const percent = effectValue.percent ? '%' : '';
+        const value = this.asSpan(effectValue.displayValue.toString() + percent, 'value');
+        const details = this.getEffectValueDetails(effectValue);
+        return this.replaceAnchor(template, value + ' ' + details, this.TYPE_ANCHOR);
+    }
+
     public formatMechanicTemplate(template: string, effectValues: Array<AbstractEffectValue>): string {
         for (let effectValue of effectValues) {
             if (isEffectValueConstant(effectValue)) {
@@ -383,6 +390,10 @@ export class SlormancerTemplateService {
 
     public prepareNextRankDescriptionTemplate(template: string, effectValue: AbstractEffectValue): string { 
         return this.parseTemplate(template, [effectValue.stat]);   
+    }
+
+    public prepareUltimatumTemplate(template: string, stat: string): string { 
+        return this.parseTemplate(template).replace(this.VALUE_ANCHOR, this.slormancerTranslateService.translate(stat));   
     }
 
     public prepareMechanicTemplate(template: string, stats: Array<string>): string { 

@@ -9,10 +9,10 @@ $theme-warn-pallet: map-get($theme, warn);
 $accent-color: mat-color($theme-accent-pallet);
 
 :host {
-    width: 64px;
-    min-width: 64px;
-    height: 64px;
-    min-height: 64px;
+    width: 56px;
+    min-width: 56px;
+    height: 56px;
+    min-height: 56px;
 }
 
 .item {
