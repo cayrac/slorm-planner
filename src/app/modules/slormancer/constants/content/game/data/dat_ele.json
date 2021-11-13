@@ -1397,7 +1397,7 @@
         "EN_NAME": "Power Surge",
         "EN_DESCRIPTION": "Your Ancestral Strikes have additional Mana on Hit equal to @ of your £ (µ + µ per rank).",
         "FR_NAME": "Surtension",
-        "FR_DESCRIPTION": "Vos Coups Ancestraux ont un Mana par Coût additionnel équivalent @ de votre £ (µ + µ par rang).",
+        "FR_DESCRIPTION": "Vos Coups Ancestraux ont un Mana par Coup additionnel équivalent @ de votre £ (µ + µ par rang).",
         "CH_NAME": "电能激荡",
         "CH_DESCRIPTION": "先祖攻击获得额外的击中恢复法力，数值相当于你的£的@（µ + 每级µ）。",
         "TW_NAME": "電能激盪",
@@ -1641,7 +1641,7 @@
     {
         "REF": 40,
         "EN_NAME": "Permanent Overload",
-        "EN_DESCRIPTION": "Whenever you hit an enemy with a Lightning-Imbued Skill, your <Overcharge> timer is resetted.",
+        "EN_DESCRIPTION": "Whenever you hit an enemy with a Lightning-Imbued Skill, your <Overcharge> timer is reset.",
         "FR_NAME": "Surtension Permanente",
         "FR_DESCRIPTION": "Lorsque vous infligez des dégâts avec une Compétence Imprégnée de Foudre, la Durée de <Surcharge> est réinitialisée.",
         "CH_NAME": "永久过载",
@@ -2011,7 +2011,7 @@
         "REF": 49,
         "EN_NAME": "Aegis of Light",
         "EN_DESCRIPTION": "A <Shield Globe> is created near you every ¥ seconds.##Skills in your Primary and Secondary Slots are now Imbued with Light.#Whenever you hit an enemy with a Light-Imbued Skill, the time to the next <Shield Globe> is reduced by ¥ seconds.",
-        "FR_NAME": "Egide de Lumière",
+        "FR_NAME": "Égide de Lumière",
         "FR_DESCRIPTION": "Un <Globe de Bouclier> est créé près de vous toutes les ¥ secondes.##Les Compétences dans vos Emplacements Primaires et Secondaires sont désormais Imprégnées de Lumière.#Lorsque vous infligez des dégâts avec une Compétence Imprégnée de Lumière, le temps avant le prochain <Globe de Bouclier> est réduit de ¥ secondes.",
         "CH_NAME": "光之盾",
         "CH_DESCRIPTION": "每¥秒在周围制造一个<Shield Globe>。##主技能和副技能获得光明附魔。#使用光明附魔击中敌人时，下一次<Shield Globe>的倒计时减少¥秒。",
@@ -2215,7 +2215,7 @@
     {
         "REF": 54,
         "EN_NAME": "The Judge of Light",
-        "EN_DESCRIPTION": "While this Aura is toggled on, Light-Imbued Skills have ¥% Chance to apply a negative effect chosen randomly between: <Daze>, <Slow>, <Armor Broken>, <Elemental Resistance Broken>, <Blind> or <Silence> enemies for ¤ seconds.#While this Aura is toggled on, Light-Imbued Skills deal @ £ for every negative effect on the enemy hit.",
+        "EN_DESCRIPTION": "While this Aura is toggled on, Light-Imbued Skills have ¥% Chance to apply a negative effect chosen randomly between: <Daze>, <Slow>, <Armor Broken>, <Elemental Resistance Broken>, <Blind> or <Silence> enemies for the next ¤ seconds.#While this Aura is toggled on, Light-Imbued Skills deal @ £ for every negative effect on the enemy hit.",
         "FR_NAME": "Le Juge de Lumière",
         "FR_DESCRIPTION": "Tant que cette Aura est active, les Compétences Imprégnées de Lumière ont  ¥% de Chance d'appliquer un effet négatif choisi aux hasard entre  : <Hébétement>, <Ralentissement>, <Armure Brisée>, <Résistance Élémentaire Brisée>, <Aveuglement> ou <Silence> aux ennemis touchés pour les ¤ prochaines secondes.#Tant que cette Aura est active, les Compétences Imprégnées de Lumière infligent @ de £ pour chaque effet négatif sur l'ennemi touché.",
         "CH_NAME": "光之审判官",
@@ -4383,7 +4383,7 @@
         "DESC_VALUE_PER_LVL": "1",
         "DESC_VALUE_TYPE": "%",
         "DESC_VALUE_REAL": "",
-        "EXTRA_NBR": "10|10"
+        "EXTRA_NBR": "10|3"
     },
     {
         "REF": 107,
@@ -4710,7 +4710,7 @@
         "DESC_VALUE_BASE": "0",
         "DESC_VALUE_PER_LVL": "1",
         "DESC_VALUE_TYPE": "%",
-        "DESC_VALUE_REAL": "synergy:overall_reputation",
+        "DESC_VALUE_REAL": "synergy:total_mastery_support",
         "EXTRA_NBR": ""
     },
     {
