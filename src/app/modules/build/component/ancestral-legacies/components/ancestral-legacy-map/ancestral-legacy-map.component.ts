@@ -138,8 +138,19 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         this.addZoneShapes(list(20, 29), -90 + 360 / 20, 150, true);
         this.addLineShapes(10, -90 + 360 / 20, 106, 16);
         this.addNodeShapes(list(0, 9).map(i => 31 + i * 3), -90 + 360 / 20, 120);
-        this.addNodeShapes(list(80, 89), -90 + 360 / 40, 127); // unreachable
-        this.addNodeShapes(list(80, 89), -90 + 3 * 360 / 40, 127); // unreachable
+        this.addNodeShapes(list(10, 19).map(i => i * 3), -90 + 360 / 40, 127);
+        this.addNodeShapes(list(10, 19).map(i => 2 + i * 3), -90 + 3 * 360 / 40, 127);
+        
+        // layer 4
+        this.addZoneShapes(list(30, 39), -90, 173);
+        this.addNodeShapes([60, 63, 65, 68, 70, 73, 75, 78, 80, 83], -90 + 2 - 360 / 40, 160);
+        this.addNodeShapes(list(0, 4).map(i => 61 + i * 5), -90, 150);
+        this.addNodeShapes([62, 64, 67, 69, 72, 74, 77, 79, 82, 84], -90 - 2 + 360 / 40, 160);
+        this.addLineShapes(5, -90, 140, 10);
+
+        // layer 5
+        this.addZoneShapes([41, 42, 45, 46, 49, 50, 53, 54, 57, 58], -90 + 360 / 20, 204);
+        this.addNodeShapes([87, 89, 92, 94, 97, 99, 102, 104, 107, 109], -90 + 360 / 20, 181);
     }
 
     private updateMap() {
@@ -205,7 +216,10 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
             if (changed) {
                 this.updateMap();
             }
+
+            console.log(this.character.ancestralLegacies.activeNodes);
         }
+
 
         return false;
     }

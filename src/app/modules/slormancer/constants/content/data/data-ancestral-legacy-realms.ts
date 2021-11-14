@@ -17,7 +17,7 @@ export const ANCESTRAL_LEGACY_REALMS: Array<DataAncestralLegacyRealm> = [
 
     { nodes: [11, 12, 32, 33], realm: 10 },         // Burning Trail
     { nodes: [13, 14, 35, 36, 66], realm: 11 },     // Elemental Lock
-    { nodes: [15, 16, 38, 39, 40], realm: 12 },     // Neriya's Shield
+    { nodes: [15, 16, 38, 39], realm: 12 },         // Neriya's Shield
     { nodes: [17, 18, 41, 42, 71], realm: 13 },     // Hex Commander
     { nodes: [19, 20, 44, 45], realm: 14 },         // The Viper
     { nodes: [21, 22, 47, 48, 76], realm: 15 },     // Inner Radiance
