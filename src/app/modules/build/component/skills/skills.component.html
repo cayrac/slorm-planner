@@ -4,14 +4,14 @@
             <div class="skill-option" *ngFor="let skill of getSupportSkills(character)" [class.selected]="isSkillSelected(skill)">
                 <img class="skill-icon support"
                 [class.equipped]="isSkillEquipped(skill)"
-                [src]="skill.skill.iconLarge"
+                [src]="'assets/img/icon/' + skill.skill.iconLarge + '.png'"
                 (click)="incrementSkill(skill)"
                 (contextmenu)="decrementSkill(skill)" />
             </div>
             <div class="skill-option" *ngFor="let skill of getActiveSkills(character)" [class.selected]="isSkillSelected(skill)"> 
                 <img class="skill-icon"
                 [class.equipped]="isSkillEquipped(skill)"
-                [src]="skill.skill.icon"
+                [src]="'assets/img/icon/' + skill.skill.icon + '.png'"
                 (click)="incrementSkill(skill)"
                 (contextmenu)="decrementSkill(skill)"/>
             </div>

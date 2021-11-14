@@ -135,8 +135,9 @@ export class SlormancerSkillService {
                 name: gameDataSkill.EN_NAME,
                 specialization: null,
                 specializationName: null,
-                icon: 'assets/img/icon/skill/' + heroClass + '/' + gameDataSkill.REF + '.png',
-                iconLarge: 'assets/img/icon/skill/' + heroClass + '/' + gameDataSkill.REF + '_large.png',
+                icon: 'skill/' + heroClass + '/' + gameDataSkill.REF,
+                levelIcon: '',
+                iconLarge: 'skill/' + heroClass + '/' + gameDataSkill.REF + '_large',
                 description: '',
                 baseCooldown: round(gameDataSkill.COOLDOWN / 60, 2),
                 cooldown: 0,
@@ -227,6 +228,7 @@ export class SlormancerSkillService {
         }
         
         skill.description = this.slormancerTemplateService.formatSkillDescription(skill.template, skill.values);
+        skill.levelIcon = 'level/' + Math.max(1, skill.baseLevel);
     }
 
     public getClassMechanicClone(mechanic: ClassMechanic): ClassMechanic {

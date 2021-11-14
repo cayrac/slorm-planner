@@ -1,6 +1,5 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatMenuTrigger } from '@angular/material/menu';
 import { SlormancerCharacterBuilderService } from 'src/app/modules/slormancer/services/slormancer-character-builder.service';
 
 import { Character } from '../../../slormancer/model/character';
@@ -24,9 +23,6 @@ export class ReaperSlotComponent implements OnInit {
     @Output()
     public readonly changed = new EventEmitter<Reaper>();
 
-    @ViewChild(MatMenuTrigger, { static: true })
-    private menu: MatMenuTrigger | null = null; 
-
     public showOverlay = false;
 
     @HostListener('mouseenter')
@@ -43,9 +39,6 @@ export class ReaperSlotComponent implements OnInit {
     public onMouseContextMenu() {
         if (!this.readonly) {
             this.itemMoveService.releaseHoldItem();
-            if (this.menu !== null) {
-                this.menu.openMenu();
-            }
         }
         return false;
     }

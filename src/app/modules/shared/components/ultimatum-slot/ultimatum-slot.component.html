@@ -1,13 +1,13 @@
 
-<div class="background">
-    <div class="ultimatum" cdkOverlayOrigin #trigger="cdkOverlayOrigin" *ngIf="ultimatum !== null">
-        <div class="icon">
+<div class="background" (click)="edit()" [class.readonly]="readonly" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+    <div class="inner-background">
+        <div class="ultimatum" *ngIf="ultimatum !== null">
             <img src="assets/img/icon/{{ultimatum.icon}}.png"/>
+            <ng-template cdkConnectedOverlay *ngIf="overlay && showOverlay"
+                [cdkConnectedOverlayOpen]="true"
+                [cdkConnectedOverlayOrigin]="trigger">
+                <app-ultimatum-view [ultimatum]="ultimatum"></app-ultimatum-view>
+            </ng-template>
         </div>
-        <ng-template cdkConnectedOverlay *ngIf="overlay && showOverlay"
-            [cdkConnectedOverlayOpen]="true"
-            [cdkConnectedOverlayOrigin]="trigger">
-            TODO
-        </ng-template>
     </div>
 </div>

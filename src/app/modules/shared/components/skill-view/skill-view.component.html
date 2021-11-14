@@ -4,7 +4,7 @@
         <div class="info">
             <div class="visual">
                 <div class="icon">
-                    <img [src]="skill.icon" />
+                    <img [src]="'assets/img/icon/' + skill.icon + '.png'" />
                 </div>
             </div>
             <div class="data">
@@ -15,11 +15,9 @@
         </div>
         <div class="separator"></div>
         <div class="description" [innerHTML]="skill.description"></div>
-        <div class="level-info">
-            <div class="total">
-                <span class="base" [class.max]="skill.baseLevel === skill.maxLevel">{{skill.baseLevel}}</span>
-                <span class="bonus" *ngIf="skill.bonusLevel > 0"> + {{skill.bonusLevel}}</span>
-            </div>
+        <div class="bottom-level">
+            <img src="assets/img/icon/{{skill.levelIcon}}.png"/>
+            <span class="bonus" *ngIf="skill.bonusLevel > 0"> + {{skill.bonusLevel}}</span>
         </div>
     </div>
 </div>

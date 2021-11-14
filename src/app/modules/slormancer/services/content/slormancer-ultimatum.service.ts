@@ -19,6 +19,13 @@ export class SlormancerUltimatumService {
                 private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerEffectValueService: SlormancerEffectValueService) { }
 
+    public getUltimatumClone(ultimatum: Ultimatum): Ultimatum {
+        return {
+            ...ultimatum,
+            value: this.slormancerEffectValueService.getEffectValueClone(ultimatum.value)
+        }
+    }
+
     public getUltimatum(type: UltimatumType, level: number): Ultimatum {
         const value = DATA_ULTIMATUM[type].value();
         const result = {

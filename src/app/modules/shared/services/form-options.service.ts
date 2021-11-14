@@ -5,6 +5,7 @@ import { EQUIPABLE_ITEM_BASE_VALUES, EquipableItemBase } from '../../slormancer/
 import { HeroClass } from '../../slormancer/model/content/enum/hero-class';
 import { Rarity } from '../../slormancer/model/content/enum/rarity';
 import { ALL_REAPER_SMITH, ReaperSmith } from '../../slormancer/model/content/enum/reaper-smith';
+import { ALL_ULTIMATUM_TYPES, UltimatumType } from '../../slormancer/model/content/enum/ultimatum-type';
 import { GameDataStat } from '../../slormancer/model/content/game/data/game-data-stat';
 import { GameHeroesData } from '../../slormancer/model/parser/game/game-save';
 import { SlormancerDataService } from '../../slormancer/services/content/slormancer-data.service';
@@ -33,6 +34,8 @@ export class FormOptionsService {
         b: { 0: [], 1: [], 2: [] }
     };
 
+    private ULTIMATUM_OPTIONS_CACHE: Array<SelectOption<UltimatumType>> = []
+
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerReaperService: SlormancerReaperService
@@ -43,6 +46,7 @@ export class FormOptionsService {
         this.initSkillBuffOptions();
         this.initAttributeBuffOptions();
         this.initReaperOptions();
+        this.initUltimatumOptions();
     }
 
     public getReaperOptions(heroClass: HeroClass, primordial: boolean): Array<SelectOption<number>> {
@@ -85,6 +89,10 @@ export class FormOptionsService {
 
     public getAttributeBuffOptions(): Array<SelectOption<number>> {
         return this.ALL_ATTRIBUTE_BUFF_OPTIONS_CACHE;
+    }
+
+    public getUltimatumOptions(): Array<SelectOption<UltimatumType>> {
+        return this.ULTIMATUM_OPTIONS_CACHE;
     }
 
     private getBaseKey(base: EquipableItemBase): keyof GameDataStat {
@@ -211,5 +219,9 @@ export class FormOptionsService {
             this.ALL_REAPER_OPTIONS_CACHE.b[HeroClass.Huntress].push({ value: reaper.REF, label: this.slormancerReaperService.getReaperName(reaper.EN_NAME, false, HeroClass.Huntress ) });
             this.ALL_REAPER_OPTIONS_CACHE.b[HeroClass.Mage].push({ value: reaper.REF, label: this.slormancerReaperService.getReaperName(reaper.EN_NAME, false, HeroClass.Mage ) });
         }
+    }
+
+    private initUltimatumOptions() {
+        this.ULTIMATUM_OPTIONS_CACHE = ALL_ULTIMATUM_TYPES.map(type => ({ value: type, label: this.slormancerTranslateService.translate('ultimatum_' + type) }))
     }
 }

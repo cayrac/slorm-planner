@@ -393,7 +393,10 @@ export class SlormancerTemplateService {
     }
 
     public prepareUltimatumTemplate(template: string, stat: string): string { 
-        return this.parseTemplate(template).replace(this.VALUE_ANCHOR, this.slormancerTranslateService.translate(stat));   
+        const translatedStat = this.slormancerTranslateService.translate(stat);
+        return this.parseTemplate(template)
+            .replace(this.VALUE_ANCHOR, translatedStat) 
+            .replace(this.VALUE_ANCHOR, translatedStat);   
     }
 
     public prepareMechanicTemplate(template: string, stats: Array<string>): string { 

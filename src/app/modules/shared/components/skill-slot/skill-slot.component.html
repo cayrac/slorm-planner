@@ -1,7 +1,7 @@
 
 <div class="skill" [class.support]="support" [class.readonly]="readonly" cdkOverlayOrigin #trigger="cdkOverlayOrigin" (contextmenu)="openMenu()" (click)="openMenu()">
     <ng-container *ngIf="skill !== null">
-        <img [src]="support ? skill.iconLarge : skill.icon">
+        <img [src]="'assets/img/icon/' + (support ? skill.iconLarge : skill.icon) + '.png'">
         <ng-template cdkConnectedOverlay
             [cdkConnectedOverlayOpen]="showOverlay"
             [cdkConnectedOverlayOrigin]="trigger">
@@ -13,7 +13,7 @@
         <ng-template matMenuContent>
             <button mat-menu-item *ngFor="let skill of getAvailableSkills()" (click)="updateSkill(skill)">
                 <div class="skill-menu-entry" [class.selected]="isSelectedSkill(skill)">
-                    <img [src]="support ? skill.iconLarge : skill.icon" class="skill" [class.support]="support">
+                    <img [src]="'assets/img/icon/' + (support ? skill.iconLarge : skill.icon) + '.png'" class="skill" [class.support]="support">
                     <div class="description">
                         <div class="name">{{skill.name}}</div>
                         <div *ngIf="skill.specializationName !== null" class="specialization">{{skill.specializationName}}</div>

@@ -1,0 +1,72 @@
+$physical-color-text  : rgb(206, 70, 7);
+$bonus-border-color  : rgb(190, 135, 31);
+
+.slormancer-tooltip {
+    @include flex(column, stretch);
+    background-color: primary-color(500);
+    position: relative;
+    border: 3px solid black;
+
+    &:before {
+        content: ' ';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 3px solid primary-color(400);
+        pointer-events: none;
+    }
+
+    .inner-box {
+        @include flex-grow();
+        border: 3px solid primary-color(400);
+        position: relative;
+
+        padding: $space-unit * 2;
+
+        &:before {
+            content: ' ';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 3px solid black;
+            pointer-events: none;
+        }
+
+        .bottom-level {
+            position: relative;
+            @include flex(column, center);
+
+            &:before {
+                content: ' ';
+                position: absolute;
+                top: 60%;
+                width: 100%;
+                border: 3px solid black;
+                background-color: primary-color(300);
+                height: 3px;
+            }
+
+            img {
+                width: 34px * 1.5;
+                height: 36px * 1.5;
+                image-rendering: pixelated;
+                z-index: 1;
+            }
+
+            .bonus {
+                position: absolute;
+                font-size: 18px;
+                padding: 0 $space-unit 0 $space-unit * 5;
+                left: 50%;
+                top: 25%;
+                color: $physical-color-text;
+                background-color: primary-color(500);
+                border: 3px solid $bonus-border-color;
+            }
+        }
+    }
+}

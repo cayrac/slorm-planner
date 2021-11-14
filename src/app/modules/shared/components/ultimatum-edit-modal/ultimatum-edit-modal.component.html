@@ -1,0 +1,32 @@
+<form [formGroup]="form" (submit)="submit()" *ngIf="form !== null && ultimatum !== null" autocomplete="off">
+    <input autocomplete="false" name="hidden" type="text" style="display:none;">
+    <mat-dialog-content>
+        <div class="preview">
+            <app-ultimatum-view [ultimatum]="ultimatum"></app-ultimatum-view>
+        </div>
+        <div class="form">
+            <div class="stat-line">
+                <mat-form-field appearance="outline">
+                    <mat-label>Ultimatum level</mat-label>
+                    <input matInput type="number" min="1" step="1" [max]="ULTIMATUM_MAX_LEVEL" formControlName="level">
+                    <mat-error>Level must be between 1 and {{ULTIMATUM_MAX_LEVEL}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="stat-line">
+                <mat-form-field appearance="outline" color="primary" class="no-error-padding">
+                    <mat-label>Ultimatum type</mat-label>
+                    <mat-select formControlName="type" color="primary">
+                        <mat-option *ngFor="let option of options" [value]="option.value">
+                            <span [innerHTML]="option.label"></span>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-flat-button type="button" color="primary" [mat-dialog-close]="">Cancel</button>
+        <button mat-flat-button type="button" color="primary" (click)="reset()">Reset</button>
+        <button mat-flat-button type="submit" color="primary">Submit</button>
+    </mat-dialog-actions>
+</form>

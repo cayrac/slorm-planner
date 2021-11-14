@@ -1,0 +1,34 @@
+<div class="ultimatum slormancer-tooltip" *ngIf="ultimatum !== null">
+    <div class="head inner-box">
+        <div class="title" [innerHTML]="ultimatum.title"></div>
+        <div class="level" [innerHTML]="ultimatum.levelLabel"></div>
+    </div>
+    <div class="content inner-box">
+        <div class="data">
+            <div class="visual">
+                <div class="background">
+                    <div class="inner-background">
+                        <div class="ultimatum">
+                            <img src="assets/img/icon/{{ultimatum.icon}}.png"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="info">
+                <div class="bonus">
+                    <div class="title">{{ultimatum.bonusTitle}}</div>
+                    <div [innerHTML]="ultimatum.bonusLabel"></div>
+                </div>
+    
+                <div class="malus">
+                    <div class="title">{{ultimatum.malusTitle}}</div>
+                    <div [innerHTML]="ultimatum.malusLabel"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-level">
+            <img src="assets/img/icon/{{ultimatum.levelIcon}}.png"/>
+        </div>
+    </div>
+</div>

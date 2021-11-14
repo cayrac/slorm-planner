@@ -4,13 +4,35 @@
 @import "../../../../../assets/scss/abstracts/color";
 
 .background {
+    border: 3px solid black;
+    background-color: rgb(60, 60, 60);
+    border-radius: 10%;
+    padding: 3px;
+    width: 60px;
+    height: 70px;
 
-    .ultimatum {
+    &:not(.readonly) {
+        cursor: pointer;
+    }
 
-        img {
-            width: 24px * 3;
-            height: 24px * 3;
-            image-rendering: pixelated;
+    .inner-background {
+        @include flex(row, center, center);
+        border: 3px solid black;
+        background-color: rgb(71, 23, 18);
+        border-radius: 10%;
+        width: 100%;
+        height: 100%;
+        
+        .ultimatum {
+            width: 0;
+            height: 0;
+
+            img {
+                transform: translate(-50%, -50%);
+                width: 24px * 3;
+                height: 24px * 3;
+                image-rendering: pixelated;
+            }
         }
     }
 }

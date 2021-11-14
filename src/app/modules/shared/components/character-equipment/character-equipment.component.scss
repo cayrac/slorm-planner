@@ -36,12 +36,17 @@
         @include flex(row, center, center);
         @include flex-gap($space-unit * 4);
         @include flex-grow();
+        overflow: hidden;
 
         .ring_l, .ring_r {
             margin-bottom: 20px;
         }
         .boot {
             margin-top: 20px;
+        }
+
+        .empty {
+            width: 56px;
         }
     }
 }

@@ -1,0 +1,88 @@
+
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/slormancer_tooltip";
+@import "../../../../../assets/scss/abstracts/color";
+
+$physical-color-text  : rgb(206, 70, 7);
+$item-gray            : rgb(104, 104, 104);
+$item-range-color     : $item-gray;
+
+.ultimatum {
+    width: 350px;
+
+    &::ng-deep {
+        .value, .rank .current {
+            color: $physical-color-text;
+        }
+
+        .range, .details, .formula {
+            &, & .value {
+                color: $item-range-color;
+            }
+        }
+
+        .affixes .range, .affixes .value {
+            word-break: keep-all;
+            white-space: nowrap;
+        }
+    }
+
+    .head {
+        text-align: center;
+        text-transform: uppercase;
+        .level {
+            font-size: 80%;
+        }
+    }
+
+    .content {
+        @include flex(column);
+        @include flex-gap($space-unit * 4);
+        padding: $space-content;
+
+        .data {
+            @include flex(row);
+            @include flex-gap($space-unit * 4);
+
+            .visual {
+                .background {
+                    border: 3px solid black;
+                    background-color: rgb(60, 60, 60);
+                    border-radius: 10%;
+                    padding: 3px;
+                    width: 60px;
+                    height: 70px;
+                
+                    .inner-background {
+                        @include flex(row, center, center);
+                        border: 3px solid black;
+                        background-color: rgb(71, 23, 18);
+                        border-radius: 10%;
+                        width: 100%;
+                        height: 100%;
+                        
+                        .ultimatum {
+                            width: 0;
+                            height: 0;
+                
+                            img {
+                                transform: translate(-50%, -50%);
+                                width: 24px * 3;
+                                height: 24px * 3;
+                                image-rendering: pixelated;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .info {
+                @include flex(column);
+                @include flex-gap($space-unit * 4);
+                .title {
+                    font-size: 105%;
+                }
+            }
+        }
+    }
+}

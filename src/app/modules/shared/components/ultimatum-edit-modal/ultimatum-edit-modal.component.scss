@@ -1,0 +1,21 @@
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/variables";
+
+mat-dialog-content {
+    @include flex-row-to-column('tablet', stretch);
+    @include flex-gap($space-content);
+    @include flex-grow(1);
+
+    .preview {
+        max-width: 350px;
+
+        @include hide-for('tablet');
+    }
+
+    .form {
+        padding: $space-unit * 2 0;
+        @include flex(column, stretch);
+        @include flex-grow();
+        width: 200px;
+    }
+}

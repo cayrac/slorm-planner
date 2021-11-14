@@ -23,7 +23,7 @@ export const DATA_ULTIMATUM = {
     },
     [UltimatumType.EchoingBeyond]: <DataUltimatum>{
         value: () => effectValueVariable(15, 1.5, EffectValueUpgradeType.UpgradeRank, true, 'recast_chance', EffectValueValueType.Stat),
-        extendedMalus: false
+        extendedMalus: true
     },
     [UltimatumType.ProfoundDepth]: <DataUltimatum>{
         value: () => effectValueVariable(20, 2.5, EffectValueUpgradeType.UpgradeRank, true, 'reduced_on_area', EffectValueValueType.Stat),
@@ -31,38 +31,38 @@ export const DATA_ULTIMATUM = {
     },
     [UltimatumType.PerfectSegmentation]: <DataUltimatum>{
         value: () => effectValueVariable(10, 2, EffectValueUpgradeType.UpgradeRank, true, 'fork_chance', EffectValueValueType.Stat),
-        extendedMalus: false
+        extendedMalus: true
     },
     [UltimatumType.ImpeccableTechnique]: <DataUltimatum>{
         value: () => effectValueVariable(15, 1.5, EffectValueUpgradeType.UpgradeRank, true, 'inner_fire_chance', EffectValueValueType.Stat),
-        extendedMalus: false
+        extendedMalus: true
     },
     [UltimatumType.FlawlessPower]: <DataUltimatum>{
         value: () => effectValueVariable(175, 7, EffectValueUpgradeType.UpgradeRank, true, 'critical_damage', EffectValueValueType.Stat),
-        extendedMalus: false
+        extendedMalus: true
     },
     [UltimatumType.SplendidHorizon]: <DataUltimatum>{
         value: () => effectValueVariable(15, 2, EffectValueUpgradeType.UpgradeRank, true, 'increased_on_elite', EffectValueValueType.Stat),
-        extendedMalus: false
+        extendedMalus: true
     },
     [UltimatumType.ProdigiousCalamity]: <DataUltimatum>{
         value: () => effectValueVariable(10, 1.5, EffectValueUpgradeType.UpgradeRank, true, 'attack_speed', EffectValueValueType.Stat),
-        extendedMalus: false
+        extendedMalus: true
     },
     [UltimatumType.MarvelousJudgment]: <DataUltimatum>{
         value: () => effectValueVariable(15, 1.5, EffectValueUpgradeType.UpgradeRank, true, 'aoe_increased_size', EffectValueValueType.Stat),
-        extendedMalus: false
+        extendedMalus: true
     },
     [UltimatumType.PerpendicularParallelism]: <DataUltimatum>{
         value: () => effectValueVariable(1.1, 0.06, EffectValueUpgradeType.UpgradeRank, false, 'additional_projectile', EffectValueValueType.Stat),
-        extendedMalus: false
+        extendedMalus: true
     },
     [UltimatumType.DivineIntervention]: <DataUltimatum>{
         value: () => effectValueVariable(10, 1.5, EffectValueUpgradeType.UpgradeRank, true, 'critical_chance', EffectValueValueType.Stat),
-        extendedMalus: false
+        extendedMalus: true
     },
     [UltimatumType.StoicWrath]: <DataUltimatum>{
         value: () => effectValueVariable(7.5, 0.5, EffectValueUpgradeType.UpgradeRank, true, 'ancestral_chance', EffectValueValueType.Stat),
-        extendedMalus: false
+        extendedMalus: true
     },
 }

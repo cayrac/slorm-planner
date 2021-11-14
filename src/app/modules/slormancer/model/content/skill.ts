@@ -17,6 +17,7 @@ export interface Skill {
     specialization: number | null;
     specializationName: string | null;
     icon: string;
+    levelIcon: string;
     iconLarge: string;
     description: string;
     baseCooldown: number;
