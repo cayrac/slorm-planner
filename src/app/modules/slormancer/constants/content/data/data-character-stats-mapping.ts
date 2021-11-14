@@ -1197,7 +1197,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'overdrive_bounce_number',
-        precision: 1,
+        precision: 0,
         allowMinMax: false,
         suffix: '',
         source: {
