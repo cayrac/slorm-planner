@@ -72,6 +72,7 @@ export class SlormancerStatsService {
                 total: value,
                 precision: 0,
                 allowMinMax: false,
+                readonly: false,
                 suffix: '',
                 values: {
                     flat: [ { value: value, source: { synergy: 'Configuration' } }],
@@ -89,6 +90,7 @@ export class SlormancerStatsService {
         for (const sau of skills) {
             stats.push({
                 allowMinMax: false,
+                readonly: false,
                 precision: 0,
                 stat: 'based_on_mastery_' + sau.skill.id,
                 total: sau.skill.level,
@@ -144,6 +146,9 @@ export class SlormancerStatsService {
         
         result.extractedStats = extractedStats.stats;
         result.stats = this.slormancerStatMappingService.buildMergedStats(extractedStats.stats, mapping, config);
+        if (character.ultimatum !== null) {
+            this.slormancerStatMappingService.applyUltimatum(result.stats, mapping, character.ultimatum);
+        }
 
         this.addConfigCharacterStats(result.stats, config);
 

@@ -140,6 +140,7 @@ export class SlormancerSynergyResolverService {
                     stat: statToUpdate.stat,
                     total: 0,
                     allowMinMax: true,
+                    readonly: false,
                     suffix: '',
                     values: {
                         flat: [],

@@ -55,6 +55,7 @@ export class SlormancerValueUpdater {
         if (result === undefined) {
             result = {
                 allowMinMax: false,
+                readonly: false,
                 suffix: '',
                 precision: 0,
                 stat,

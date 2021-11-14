@@ -4,6 +4,7 @@ import { Character } from '../../../slormancer/model/character';
 import { EquipableItemBase } from '../../../slormancer/model/content/enum/equipable-item-base';
 import { GearSlot } from '../../../slormancer/model/content/enum/gear-slot';
 import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
+import { Ultimatum } from '../../../slormancer/model/content/ultimatum';
 
 
 @Component({
@@ -32,6 +33,13 @@ export class CharacterEquipmentComponent {
     public updateItem(slot: GearSlot, item: EquipableItem | null) {
         if (this.character !== null) {
             this.character.gear[slot] = item;
+            this.changed.emit(this.character);
+        }
+    }
+
+    public updateUltimatum(ultimatum: Ultimatum | null) {
+        if (this.character !== null) {
+            this.character.ultimatum = ultimatum;
             this.changed.emit(this.character);
         }
     }

@@ -29,6 +29,7 @@ export interface MergedStat<T = number | MinMax> {
     stat: string;
     total: T;
     allowMinMax: boolean;
+    readonly: boolean;
     precision: number;
     suffix: 's' | '%' | '';
     values: {

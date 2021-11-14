@@ -119,4 +119,15 @@ export class SlormancerMergedStatUpdaterService {
             stat.total.max = round(stat.total.max, stat.precision);
         }
     }
+
+    public setStatTotal(stat: MergedStat) {
+        stat.total = this.getTotal(stat);
+
+        if (typeof stat.total === 'number') {
+            stat.total = round(stat.total, stat.precision);
+        } else {
+            stat.total.min = round(stat.total.min, stat.precision);
+            stat.total.max = round(stat.total.max, stat.precision);
+        }
+    }
 }

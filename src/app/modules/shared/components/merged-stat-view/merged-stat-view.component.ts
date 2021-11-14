@@ -54,6 +54,8 @@ export class MergedStatViewComponent {
             result = 'Mechanic';
         } else if ('classMechanic' in entity) {
             result = 'Class Mechanic';
+        } else if ('ultimatum' in entity) {
+            result = 'Ultimatum';
         }
 
         return result;
@@ -82,6 +84,8 @@ export class MergedStatViewComponent {
             result = entity.mechanic.name;
         } else if ('classMechanic' in entity) {
             result = entity.classMechanic.name;
+        } else if ('ultimatum' in entity) {
+            result = entity.ultimatum.title;
         }
 
         return result;

@@ -8,6 +8,7 @@ import { Mechanic } from './content/mechanic';
 import { Reaper } from './content/reaper';
 import { Skill } from './content/skill';
 import { SkillUpgrade } from './content/skill-upgrade';
+import { Ultimatum } from './content/ultimatum';
 
 export declare type Entity =
     { synergy: string } |
@@ -20,4 +21,5 @@ export declare type Entity =
     { reaper: Reaper } |
     { activable: Activable } |
     { mechanic: Mechanic } |
-    { classMechanic: ClassMechanic };
+    { classMechanic: ClassMechanic } |
+    { ultimatum: Ultimatum };
