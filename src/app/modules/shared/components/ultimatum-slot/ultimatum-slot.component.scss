@@ -1,0 +1,16 @@
+
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/slormancer_tooltip";
+@import "../../../../../assets/scss/abstracts/color";
+
+.background {
+
+    .ultimatum {
+
+        img {
+            width: 24px * 3;
+            height: 24px * 3;
+            image-rendering: pixelated;
+        }
+    }
+}

@@ -71,6 +71,7 @@
         </div>
     </div>
     <div class="bottom-equipment">
+        <div class="empty"></div>
         <app-item-slot class="ring_l"
             [readonly]="readonly"
             [base]="bases.Ring"
@@ -92,5 +93,8 @@
             [character]="character"
             (changed)="updateItem(gearSlot.RightRing, $event)">
         </app-item-slot>
+        <app-ultimatum-slot
+            [ultimatum]="character.ultimatum">
+        </app-ultimatum-slot>
     </div>
 </div>

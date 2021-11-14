@@ -24,7 +24,7 @@ export class SlormancerUltimatumService {
         const result = {
             type,
             level,
-            icon: 'assets/img/icon/ultimatum/' + type + '.png',
+            icon: 'ultimatum/' + type,
         
             value,
         
@@ -59,7 +59,7 @@ export class SlormancerUltimatumService {
 
     public updateUltimatumView(ultimatum: Ultimatum) {
         ultimatum.levelLabel = this.LEVEL_LABEL + ' ' + ultimatum.level;
-        ultimatum.levelIcon = 'assets/img/icon/level/' + ultimatum.level + '.png';
+        ultimatum.levelIcon = 'level/' + ultimatum.level;
         ultimatum.bonusLabel = this.slormancerTemplateService.formatUltimatumTemplate(ultimatum.bonusLabelTemplate, ultimatum.value);
     }
 

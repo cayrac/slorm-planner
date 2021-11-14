@@ -51,6 +51,7 @@ import { SkillViewComponent } from './components/skill-view/skill-view.component
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { TraitViewComponent } from './components/trait-view/trait-view.component';
 import { TraitComponent } from './components/trait/trait.component';
+import { UltimatumSlotComponent } from './components/ultimatum-slot/ultimatum-slot.component';
 import { UpgradeSlotComponent } from './components/upgrade-slot/upgrade-slot.component';
 import { MaterialModule } from './material.module';
 
@@ -101,6 +102,7 @@ import { MaterialModule } from './material.module';
         ItemReinforcmentEditModalComponent,
         MechanicsViewComponent,
         MergedStatViewComponent,
+        UltimatumSlotComponent,
     ],
     imports: [
         CommonModule,
@@ -151,6 +153,7 @@ import { MaterialModule } from './material.module';
         ItemReinforcmentEditModalComponent,
         MechanicsViewComponent,
         MergedStatViewComponent,
+        UltimatumSlotComponent,
     ],
     providers: [
     ],

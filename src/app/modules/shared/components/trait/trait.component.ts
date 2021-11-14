@@ -6,32 +6,6 @@ import { Trait } from '../../../slormancer/model/content/trait';
 import { SearchService } from '../../services/search.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 
-/*
-export interface Trait {
-    attribute: Attribute;
-    requiredRank: number;
-    traitLevel: TraitLevel;
-    rank: number;
-    unlocked: boolean;
-
-    attributeName: string;
-    cumulativeStats: string | null;
-    description: string | null;
-    rankLabel: string;
-    traitLevelLabel: string;
-    unlockLabel: string | null;
-    
-    template: string | null;
-    values: Array<AbstractEffectValue>;
-    cumulativeValues: Array<EffectValueVariable>;
-}
-
-    Minor = 'trait_minor',
-    Major = 'trait_major',
-    Greater = 'trait_greater',
-
-*/
-
 @Component({
   selector: 'app-trait',
   templateUrl: './trait.component.html',
