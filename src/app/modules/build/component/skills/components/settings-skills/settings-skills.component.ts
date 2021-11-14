@@ -67,14 +67,14 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
 
             this.plannerService.updateCurrentCharacter();
 
-            this.messageService.message('Skill and upgrades set to max rank for <img src="' + skill.skill.icon + '"/> ' + skill.skill.name);
+            this.messageService.message('Skill and upgrades set to max rank for <img src="assets/img/icon/' + skill.skill.icon + '.png"/> ' + skill.skill.name);
         }
     }
 
     public equipSupport(skill: CharacterSkillAndUpgrades) {
         if (this.character !== null) {
             if (this.slormancerCharacterModifierService.setSupportSkill(this.character, skill.skill)) {
-                this.messageService.message('Skill equipped as support : <img src="' + skill.skill.icon + '"/> ' + skill.skill.name);
+                this.messageService.message('Skill equipped as support : <img src="assets/img/icon/' + skill.skill.icon + '.png"/> ' + skill.skill.name);
                 this.plannerService.updateCurrentCharacter();
             }
         }
@@ -83,7 +83,7 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
     public equipPrimary(skill: CharacterSkillAndUpgrades) {
         if (this.character !== null) {
             if (this.slormancerCharacterModifierService.setPrimarySkill(this.character, skill.skill)) {
-                this.messageService.message('Skill equipped as primary : <img src="' + skill.skill.icon + '"/> ' + skill.skill.name);
+                this.messageService.message('Skill equipped as primary : <img src="assets/img/icon/' + skill.skill.icon + '.png"/> ' + skill.skill.name);
                 this.plannerService.updateCurrentCharacter();
             }
         }
@@ -92,7 +92,7 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
     public equipSecondary(skill: CharacterSkillAndUpgrades) {
         if (this.character !== null) {
             if (this.slormancerCharacterModifierService.setSecondarySkill(this.character, skill.skill)) {
-                this.messageService.message('Skill equipped as secondary : <img src="' + skill.skill.icon + '"/> ' + skill.skill.name);
+                this.messageService.message('Skill equipped as secondary : <img src="assets/img/icon/' + skill.skill.icon + '.png"/> ' + skill.skill.name);
                 this.plannerService.updateCurrentCharacter();
             }
         }

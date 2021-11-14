@@ -12,7 +12,7 @@ import { UNLOCKED_ANCESTRAL_LEGACY_POINTS } from '../../../../../slormancer/cons
 import {
     ANCESTRAL_LEGACY_REALMS,
     INITIAL_NODES,
-} from '../../../../../slormancer/constants/content/data/data-ancestral-legacy-zones';
+} from '../../../../../slormancer/constants/content/data/data-ancestral-legacy-realms';
 import { Character } from '../../../../../slormancer/model/character';
 import { AncestralLegacy } from '../../../../../slormancer/model/content/ancestral-legacy';
 import { MinMax } from '../../../../../slormancer/model/minmax';

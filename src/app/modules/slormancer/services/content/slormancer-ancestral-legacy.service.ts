@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { ANCESTRAL_LEGACY_REALMS, INITIAL_NODES } from '../../constants/content/data/data-ancestral-legacy-zones';
+import { ANCESTRAL_LEGACY_REALMS, INITIAL_NODES } from '../../constants/content/data/data-ancestral-legacy-realms';
 import { AncestralLegacy } from '../../model/content/ancestral-legacy';
 import { AncestralLegacyElement } from '../../model/content/ancestral-legacy-element';
 import { AncestralLegacyType } from '../../model/content/ancestral-legacy-type';

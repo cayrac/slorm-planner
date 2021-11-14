@@ -18,7 +18,7 @@
     <mat-menu #skills="matMenu">
         <button mat-menu-item *ngFor="let skill of getSkills()"
             (click)="optimizeSkillEnchantments(skill)" class="menu-entry">
-            <img class="skill-icon" [src]="skill.icon"><div [innerHTML]="skill.name"></div>
+            <img class="skill-icon" [src]="'assets/img/icon/' + skill.icon + '.png'"><div [innerHTML]="skill.name"></div>
         </button>
     </mat-menu>
 </mat-menu>

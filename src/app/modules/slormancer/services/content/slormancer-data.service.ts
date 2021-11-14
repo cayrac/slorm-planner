@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { DATA_ACTIVABLE } from '../../constants/content/data/data-activable';
 import { DATA_ANCESTRAL_LEGACY } from '../../constants/content/data/data-ancestral-legacy';
-import { ANCESTRAL_LEGACY_REALMS } from '../../constants/content/data/data-ancestral-legacy-zones';
+import { ANCESTRAL_LEGACY_REALMS } from '../../constants/content/data/data-ancestral-legacy-realms';
 import { DATA_ATTRIBUTE_MECHANIC } from '../../constants/content/data/data-attribute-mechanic';
 import { DATA_BASE_MAX_BASIC_STATS } from '../../constants/content/data/data-base-max-basic-stat';
 import { DATA_EQUIPABLE_ITEM } from '../../constants/content/data/data-equipable-item';
