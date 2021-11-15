@@ -153,6 +153,9 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'remnant_damage_reduction_mult', -REMNANT_DAMAGE_REDUCTION, { synergy: 'Remnant base damage reduction' });
         this.addStat(stats.stats, 'arcane_clone_cooldown_reduction_global_mult', ARCANE_CLONE_ATTACK_SPEED_REDUCTION, { synergy: 'Arcane clone base attack speed reduction' });
 
+        const supportSkills = [ character.skills[0], character.skills[1], character.skills[2] ].filter(isNotNullOrUndefined);
+        this.addStat(stats.stats, 'total_mastery_support', supportSkills.reduce((total, skill) => total + skill.skill.level, 0), { character })
+
         if (character.heroClass === HeroClass.Mage) {
             const maxedUpgrades = character.skills.map(skill => skill.upgrades).flat().filter(upgrade => upgrade.rank === upgrade.maxRank).length;
             this.addStat(stats.stats, 'maxed_upgrades', maxedUpgrades, { synergy: 'Number of maxed upgrades' });

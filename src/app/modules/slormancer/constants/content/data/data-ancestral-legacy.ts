@@ -16,10 +16,15 @@ function addConstant(values: Array<AbstractEffectValue>, value: number, percent:
     values.push(effectValueConstant(value, percent, stat, valueType))
 }
 
-export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {     
+export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
     0: {
         override: values => {
             setStat(values, 0, 'elemental_damage');
+        }
+    },
+    5: {
+        override: values => {
+            addConstant(values, 3, false, EffectValueValueType.Duration, 'scorching_area_duration');
         }
     },
     15: {
@@ -47,6 +52,16 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
     32: {
         override: values => {
             addConstant(values, 7, false, EffectValueValueType.Duration, 'scorched_earth_duration');
+        }
+    },
+    41: {
+        override: values => {
+            addConstant(values, 5, false, EffectValueValueType.Stat, 'twitching_warp_distance');
+        }
+    },
+    46: {
+        override: values => {
+            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'light_wave_aoe');
         }
     },
     55: {
@@ -90,6 +105,17 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
         override: values => {
             setStat(values, 0, 'elemental_emergency_min_elemental_damage_add_on_low_life');
             addConstant(values, 25, false, EffectValueValueType.Flat, 'elemental_emergency_min_elemental_damage_add_on_low_life_treshold');
+        }
+    },
+    102: {
+        override: values => {
+            addConstant(values, 25, false, EffectValueValueType.Stat, 'elemental_resources_low_mana_treshold');
+        }
+    },
+    106: {
+        override: values => {
+            addConstant(values, 10, false, EffectValueValueType.Duration, 'elemental_spirit_stack_duration');
+            addConstant(values, 3, false, EffectValueValueType.Stat, 'elemental_spirit_max_stacks');
         }
     }
 }

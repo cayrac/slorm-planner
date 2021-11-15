@@ -216,15 +216,14 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
             if (changed) {
                 this.updateMap();
             }
-
-            console.log(this.character.ancestralLegacies.activeNodes);
         }
 
 
         return false;
     }
 
-    public selectAncestralLegacy(ancestralLegacy: AncestralLegacy) {
+    public selectAncestralLegacy(ancestralLegacy: AncestralLegacy) {            
+        console.log(ancestralLegacy);
         this.selectedAncestralLegacyChange.emit(ancestralLegacy);
     }
 
