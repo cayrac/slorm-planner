@@ -63,6 +63,7 @@
 - Fixed font issues
 - Increased active legacy nodes to 3
 - Raised maximum level to 50
+- Fixed an issue when computing stack multipliers
 
 TODO
  - mighty vitality : problème de calcul

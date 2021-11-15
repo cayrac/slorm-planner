@@ -20,9 +20,7 @@ export class SlormancerStatMappingService {
                 let result = stats[source.stat];
                 if (result && source.multiplier) {
                     const mult = source.multiplier(config, stats);
-                    for (const entry of result) {
-                        entry.value = entry.value * mult;
-                    }
+                    result = result.map(entry => ({ source: entry.source, value: entry.value * mult }));
                 }
                 return result ? result : [];
             })
