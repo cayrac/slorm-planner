@@ -1,4 +1,5 @@
 import { CharacterConfig } from '../../../model/character-config';
+import { ALL_SKILL_COST_TYPES, SkillCostType } from '../../../model/content/enum/skill-cost-type';
 import { GameHeroesData } from '../../../model/parser/game/game-save';
 import { ExtractedStatMap } from '../../../services/content/slormancer-stats-extractor.service';
 import { valueOrDefault } from '../../../util/utils';
@@ -16,6 +17,11 @@ function getMaxStat(stats: ExtractedStatMap, stat: string): number {
 
 function hasStat(stats: ExtractedStatMap, stat: string): boolean {
     return stats[stat] !== undefined;
+}
+
+function hasCostType(stats: ExtractedStatMap, ...costTypes: Array<SkillCostType>): boolean {
+    const expectedCostType = getFirstStat(stats, 'cost_type', -1);
+    return costTypes.some(costType => ALL_SKILL_COST_TYPES.indexOf(costType) === expectedCostType)
 }
 
 export interface MergedStatMappingSource {
@@ -60,6 +66,78 @@ const CHANCE_TO_PIERCE: MergedStatMapping = {
     } 
 }
 
+export const COST_MAPPING: MergedStatMapping = {
+    stat: 'mana_cost',
+    precision: 0,
+    allowMinMax: false,
+    suffix: '',
+    source: {
+        flat: [
+            { stat: 'mana_cost_add' },
+            { stat: 'mana_cost_reduction_per_bleed', condition: config => config.enemy_bleed_stacks > 0, multiplier: config => config.enemy_bleed_stacks },
+        ],
+        max: [],
+        percent: [],
+        maxPercent: [],
+        multiplier: [
+            { stat: 'all_skill_mana_cost_reduction_per_cast',
+                condition: (config, stats) => config.skill_cast_recently > 0 && hasCostType(stats, SkillCostType.Mana, SkillCostType.ManaSecond, SkillCostType.Life, SkillCostType.LifeSecond),
+                multiplier: config => -config.skill_cast_recently
+            },
+            { stat: 'aura_elemental_swap_mana_cost_increase', condition: (_, stats) => hasCostType(stats, SkillCostType.Mana, SkillCostType.ManaSecond, SkillCostType.Life, SkillCostType.LifeSecond) },
+            { stat: 'last_cast_tormented_increased_cost', condition: config => config.last_cast_tormented },
+            { stat: 'arrow_shot_void_arrow_heavy_explosive_increased_mana_cost', condition: (_, stats) => [3, 4, 6].includes(getFirstStat(stats, 'skill_id', 0)) },
+            { stat: 'mana_cost_mult', condition: (_, stats) => hasCostType(stats, SkillCostType.Mana, SkillCostType.ManaSecond) },
+            { stat: 'mana_cost_mult_if_tormented', condition: config => config.serenity === 0 },
+            { stat: 'mana_cost_reduction_mult', multiplier: () => -1 },
+            { stat: 'mana_cost_mult_per_enemy_under_control', condition: config => config.enemy_under_command > 0 || config.elite_under_command > 0, multiplier: config => config.enemy_under_command + config.elite_under_command * 10 },
+            { stat: 'cost_reduction_mult_per_arcanic_emblem_if_not_arcanic', condition: (config, stats) => config.arcanic_emblems > 0 && !hasStat(stats, 'skill_is_arcanic'), multiplier: config => - config.arcanic_emblems },
+            { stat: 'mana_cost_mult_if_low_mana', condition: (config, stats) => (100 - config.percent_missing_mana) < getFirstStat(stats, 'mana_cost_mult_if_low_mana_treshold') },
+            { stat: 'mana_cost_reduction_mult_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => - config.arcanic_emblems },
+            { stat: 'mana_cost_mult_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
+            { stat: 'cost_per_second_reduction', condition: (_, stats) => hasCostType(stats, SkillCostType.LifeSecond, SkillCostType.ManaSecond), multiplier: () => -1 },
+            { stat: 'cost_lock_reduction', condition: (_, stats) => hasCostType(stats, SkillCostType.LifeLock, SkillCostType.ManaLock), multiplier: () => -1 },
+        ],
+        maxMultiplier: [],
+    } 
+};
+
+export const DAMAGES_MAPPING: MergedStatMapping = {
+    stat: 'mana_cost',
+    precision: 0,
+    allowMinMax: false,
+    suffix: '',
+    source: {
+        flat: [
+            { stat: 'mana_cost_add' },
+            { stat: 'mana_cost_reduction_per_bleed', condition: config => config.enemy_bleed_stacks > 0, multiplier: config => config.enemy_bleed_stacks },
+        ],
+        max: [],
+        percent: [],
+        maxPercent: [],
+        multiplier: [
+            { stat: 'all_skill_mana_cost_reduction_per_cast',
+                condition: (config, stats) => config.skill_cast_recently > 0 && hasCostType(stats, SkillCostType.Mana, SkillCostType.ManaSecond, SkillCostType.Life, SkillCostType.LifeSecond),
+                multiplier: config => -config.skill_cast_recently
+            },
+            { stat: 'aura_elemental_swap_mana_cost_increase', condition: (_, stats) => hasCostType(stats, SkillCostType.Mana, SkillCostType.ManaSecond, SkillCostType.Life, SkillCostType.LifeSecond) },
+            { stat: 'last_cast_tormented_increased_cost', condition: config => config.last_cast_tormented },
+            { stat: 'arrow_shot_void_arrow_heavy_explosive_increased_mana_cost', condition: (_, stats) => [3, 4, 6].includes(getFirstStat(stats, 'skill_id', 0)) },
+            { stat: 'mana_cost_mult', condition: (_, stats) => hasCostType(stats, SkillCostType.Mana, SkillCostType.ManaSecond) },
+            { stat: 'mana_cost_mult_if_tormented', condition: config => config.serenity === 0 },
+            { stat: 'mana_cost_reduction_mult', multiplier: () => -1 },
+            { stat: 'mana_cost_mult_per_enemy_under_control', condition: config => config.enemy_under_command > 0 || config.elite_under_command > 0, multiplier: config => config.enemy_under_command + config.elite_under_command * 10 },
+            { stat: 'cost_reduction_mult_per_arcanic_emblem_if_not_arcanic', condition: (config, stats) => config.arcanic_emblems > 0 && !hasStat(stats, 'skill_is_arcanic'), multiplier: config => - config.arcanic_emblems },
+            { stat: 'mana_cost_mult_if_low_mana', condition: (config, stats) => (100 - config.percent_missing_mana) < getFirstStat(stats, 'mana_cost_mult_if_low_mana_treshold') },
+            { stat: 'mana_cost_reduction_mult_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => - config.arcanic_emblems },
+            { stat: 'mana_cost_mult_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
+            { stat: 'cost_per_second_reduction', condition: (_, stats) => hasCostType(stats, SkillCostType.LifeSecond, SkillCostType.ManaSecond), multiplier: () => -1 },
+            { stat: 'cost_lock_reduction', condition: (_, stats) => hasCostType(stats, SkillCostType.LifeLock, SkillCostType.ManaLock), multiplier: () => -1 },
+        ],
+        maxMultiplier: [],
+    } 
+};
+
 export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     // adventure
     {
@@ -76,36 +154,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxMultiplier: [],
         } 
     },
-    {
-        stat: 'mana_cost',
-        precision: 0,
-        allowMinMax: false,
-        suffix: '',
-        source: {
-            flat: [
-                { stat: 'mana_cost_add' },
-                { stat: 'mana_cost_reduction_per_bleed', condition: config => config.enemy_bleed_stacks > 0, multiplier: config => config.enemy_bleed_stacks },
-            ],
-            max: [],
-            percent: [],
-            maxPercent: [],
-            multiplier: [
-                { stat: 'all_skill_mana_cost_reduction_per_cast', condition: config => config.skill_cast_recently > 0, multiplier: config => -config.skill_cast_recently },
-                { stat: 'aura_elemental_swap_mana_cost_increase' },
-                { stat: 'last_cast_tormented_increased_cost', condition: config => config.last_cast_tormented },
-                { stat: 'arrow_shot_void_arrow_heavy_explosive_increased_mana_cost', condition: (_, stats) => [3, 4, 6].includes(getFirstStat(stats, 'skill_id', 0)) },
-                { stat: 'mana_cost_mult' },
-                { stat: 'mana_cost_mult_if_tormented', condition: config => config.serenity === 0 },
-                { stat: 'mana_cost_reduction_mult', multiplier: () => -1 },
-                { stat: 'mana_cost_mult_per_enemy_under_control', condition: config => config.enemy_under_command > 0 || config.elite_under_command > 0, multiplier: config => config.enemy_under_command + config.elite_under_command * 10 },
-                { stat: 'cost_reduction_mult_per_arcanic_emblem_if_not_arcanic', condition: (config, stats) => config.arcanic_emblems > 0 && !hasStat(stats, 'skill_is_arcanic'), multiplier: config => - config.arcanic_emblems },
-                { stat: 'mana_cost_mult_if_low_mana', condition: (config, stats) => (100 - config.percent_missing_mana) < getFirstStat(stats, 'mana_cost_mult_if_low_mana_treshold') },
-                { stat: 'mana_cost_reduction_mult_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => - config.arcanic_emblems },
-                { stat: 'mana_cost_mult_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
-            ],
-            maxMultiplier: [],
-        } 
-    },
+    COST_MAPPING,
     {
         stat: 'cooldown_time',
         precision: 4,
@@ -1699,6 +1748,23 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxMultiplier: [
                 { stat: 'skill_increased_max_damage_mult' },
             ],
+        } 
+    },
+    {
+        stat: 'lightning_increased_damages',
+        precision: 1,
+        allowMinMax: false,
+        suffix: '%',
+        source: {
+            flat: [
+            ],
+            max: [],
+            percent: [],
+            maxPercent: [],
+            multiplier: [
+                { stat: 'electrify_increased_lightning_damage' },
+            ],
+            maxMultiplier: [],
         } 
     },
     {

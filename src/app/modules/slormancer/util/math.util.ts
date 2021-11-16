@@ -1,9 +1,11 @@
 import { MinMax } from '../model/minmax';
 import { valueOrDefault } from './utils';
 
-export function bankerRound(value: number): number {
-    var r = Math.round(value);
-    return (((((value>0)?value:(-value))%1)===0.5)?(((0===(r%2)))?r:(r-1)):r);
+export function bankerRound(value: number, decimals: number = 0): number {
+    const decal = valueOrDefault(POW_10[decimals], 1);
+    const valueToRound = value * decal
+    var r = Math.round(valueToRound);
+    return (((((valueToRound>0)?valueToRound:(-valueToRound))%1)===0.5)?(((0===(r%2)))?r:(r-1)):r) / decal;
 }
 
 const POW_10: { [key: number]: number} = {

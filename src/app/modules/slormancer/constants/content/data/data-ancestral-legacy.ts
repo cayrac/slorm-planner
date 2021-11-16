@@ -54,6 +54,12 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
             addConstant(values, 7, false, EffectValueValueType.Duration, 'scorched_earth_duration');
         }
     },
+    33: {
+        override: values => {
+            addConstant(values, 7, false, EffectValueValueType.Duration, 'electrify_duration');
+            setStat(values, 0, 'electrify_increased_lightning_damage');
+        }
+    },
     41: {
         override: values => {
             addConstant(values, 5, false, EffectValueValueType.Stat, 'twitching_warp_distance');
@@ -88,6 +94,16 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
         override: values => {
             setStat(values, 0, 'elemental_temper_buff_elemental_damage_percent');
             addConstant(values, 6, false, EffectValueValueType.Duration, 'elemental_temper_buff_duration');
+        }
+    },
+    89: {
+        override: values => {
+            setStat(values, 0, 'cost_per_second_reduction');
+        }
+    },
+    90: {
+        override: values => {
+            setStat(values, 0, 'cost_lock_reduction');
         }
     },
     93: {

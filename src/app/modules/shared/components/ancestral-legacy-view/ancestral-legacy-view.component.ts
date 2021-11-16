@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
-import { AncestralLegacyElement } from '../../../slormancer/model/content/ancestral-legacy-element';
+import { SkillElement } from '../../../slormancer/model/content/ancestral-legacy-element';
 import { SkillCostType } from '../../../slormancer/model/content/enum/skill-cost-type';
 import { SlormancerTranslateService } from '../../../slormancer/services/content/slormancer-translate.service';
 
@@ -27,7 +27,7 @@ export class AncestralLegacyViewComponent {
         return this.slormancerTranslateService.translate('tt_' + costType);
     }    
     
-    public getElementLabel(element: AncestralLegacyElement): string {
+    public getElementLabel(element: SkillElement): string {
         return this.slormancerTranslateService.translate('element_' + element);
     }
 }

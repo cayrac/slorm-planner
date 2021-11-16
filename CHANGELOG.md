@@ -64,8 +64,10 @@
 - Increased active legacy nodes to 3
 - Raised maximum level to 50
 - Fixed an issue when computing stack multipliers
+- Reworked skills cost computing
 
 TODO
  - mighty vitality : problème de calcul
  - différence additional damage (extra) et skill additional damage
  - reaper ajouté en "extra"
+ - supprimer activables si non disponible

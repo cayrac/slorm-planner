@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { MergedStat } from '../../model/content/character-stats';
 import { MinMax } from '../../model/minmax';
-import { round } from '../../util/math.util';
+import { bankerRound, round } from '../../util/math.util';
 
 @Injectable()
 export class SlormancerMergedStatUpdaterService {
@@ -113,10 +113,10 @@ export class SlormancerMergedStatUpdaterService {
         stat.total = this.getTotal(stat);
 
         if (typeof stat.total === 'number') {
-            stat.total = round(stat.total, stat.precision);
+            stat.total = bankerRound(stat.total, stat.precision);
         } else {
-            stat.total.min = round(stat.total.min, stat.precision);
-            stat.total.max = round(stat.total.max, stat.precision);
+            stat.total.min = bankerRound(stat.total.min, stat.precision);
+            stat.total.max = bankerRound(stat.total.max, stat.precision);
         }
     }
 

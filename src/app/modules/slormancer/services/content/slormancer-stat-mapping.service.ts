@@ -27,24 +27,26 @@ export class SlormancerStatMappingService {
             .flat();
     }
 
+    public buildMergedStat(stats: ExtractedStatMap, mapping: MergedStatMapping, config: CharacterConfig): MergedStat {
+        return {
+            stat: mapping.stat,
+            total: 0,
+            precision: mapping.precision,
+            allowMinMax: mapping.allowMinMax,
+            suffix: mapping.suffix,
+            values: {
+                flat: this.getMappingValues(mapping.source.flat, stats, config),
+                max: this.getMappingValues(mapping.source.max, stats, config),
+                percent: this.getMappingValues(mapping.source.percent, stats, config),
+                maxPercent: this.getMappingValues(mapping.source.maxPercent, stats, config),
+                multiplier: this.getMappingValues(mapping.source.multiplier, stats, config),
+                maxMultiplier: this.getMappingValues(mapping.source.maxMultiplier, stats, config),
+            }
+        } as MergedStat;
+    }
+
     public buildMergedStats(stats: ExtractedStatMap, mappings: Array<MergedStatMapping>, config: CharacterConfig): Array<MergedStat> {
-        return mappings.map(mapping => {
-            return {
-                stat: mapping.stat,
-                total: 0,
-                precision: mapping.precision,
-                allowMinMax: mapping.allowMinMax,
-                suffix: mapping.suffix,
-                values: {
-                    flat: this.getMappingValues(mapping.source.flat, stats, config),
-                    max: this.getMappingValues(mapping.source.max, stats, config),
-                    percent: this.getMappingValues(mapping.source.percent, stats, config),
-                    maxPercent: this.getMappingValues(mapping.source.maxPercent, stats, config),
-                    multiplier: this.getMappingValues(mapping.source.multiplier, stats, config),
-                    maxMultiplier: this.getMappingValues(mapping.source.maxMultiplier, stats, config),
-                }
-            } as MergedStat;
-        });
+        return mappings.map(mapping => this.buildMergedStat(stats, mapping, config));
     }
 
     public applyUltimatum(stats: Array<MergedStat>, mappings: Array<MergedStatMapping>, ultimatum: Ultimatum) {

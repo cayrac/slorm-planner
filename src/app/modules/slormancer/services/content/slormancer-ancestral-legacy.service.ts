@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { ANCESTRAL_LEGACY_REALMS, INITIAL_NODES } from '../../constants/content/data/data-ancestral-legacy-realms';
 import { AncestralLegacy } from '../../model/content/ancestral-legacy';
-import { AncestralLegacyElement } from '../../model/content/ancestral-legacy-element';
+import { SkillElement } from '../../model/content/ancestral-legacy-element';
 import { AncestralLegacyType } from '../../model/content/ancestral-legacy-type';
 import { Buff } from '../../model/content/buff';
 import { AbstractEffectValue } from '../../model/content/effect-value';
@@ -148,7 +148,7 @@ export class SlormancerAncestralLegacyService {
                 icon: 'assets/img/icon/legacy/' + ref + '.png',
                 description: '',
                 types: <Array<AncestralLegacyType>>splitData(gameData.TYPE, ','),
-                element: <AncestralLegacyElement>gameData.REALM_COLOR,
+                element: <SkillElement>gameData.REALM_COLOR,
                 damageTypes: splitData(gameData.DMG_TYPE, ','),
                 sealMerge: gameData.SEAL_MERGE,
                 cooldown: null,

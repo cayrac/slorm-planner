@@ -1,4 +1,4 @@
-import { AncestralLegacyElement } from './ancestral-legacy-element';
+import { SkillElement } from './ancestral-legacy-element';
 import { AncestralLegacyType } from './ancestral-legacy-type';
 import { Buff } from './buff';
 import { AbstractEffectValue } from './effect-value';
@@ -12,7 +12,7 @@ export interface AncestralLegacy {
     icon: string;
     description: string;
     types: Array<AncestralLegacyType>;
-    element: AncestralLegacyElement;
+    element: SkillElement;
     damageTypes: Array<string>;
     sealMerge: number | null;
     cooldown: number | null;
