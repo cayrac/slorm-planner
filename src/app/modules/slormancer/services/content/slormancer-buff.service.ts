@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 
 import { Buff } from '../../model/content/buff';
 import { SlormancerDataService } from './slormancer-data.service';
+import { SlormancerTemplateService } from './slormancer-template.service';
 
 @Injectable()
 export class SlormancerBuffService {
 
-    constructor(private slormancerDataService: SlormancerDataService) { }
+    constructor(private slormancerDataService: SlormancerDataService,
+                private slormancerTemplateService: SlormancerTemplateService) { }
 
     public getBuff(ref: string): Buff | null {
         const gameDataBuff = this.slormancerDataService.getGameDataBuff(ref);
@@ -15,7 +17,7 @@ export class SlormancerBuffService {
         if (gameDataBuff !== null) {
             buff = {
                 name: gameDataBuff.EN_NAME,
-                description: gameDataBuff.EN_DESCRIPTION,
+                description: this.slormancerTemplateService.prepareBuffTemplate(gameDataBuff.EN_DESCRIPTION),
                 icon: 'buff/' + ref
             };
         }

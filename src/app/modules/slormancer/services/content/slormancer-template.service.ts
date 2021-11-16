@@ -404,6 +404,10 @@ export class SlormancerTemplateService {
             .replace(/\µ/g, '@');   
     }
 
+    public prepareBuffTemplate(template: string): string { 
+        return this.parseTemplate(template);   
+    }
+
     public formatNextRankDescription(template: string, effectValue: AbstractEffectValue): string { 
         let value: string = '';
         let details: string = '';

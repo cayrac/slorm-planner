@@ -3,6 +3,6 @@ import { MechanicType } from '../enum/mechanic-type';
 
 export interface DataAncestralLegacy {
     override?: (values: Array<AbstractEffectValue>) => void;
-    additionalMechanics?: Array<MechanicType.InnerFire>
+    additionalMechanics?: Array<MechanicType>
 };
 
