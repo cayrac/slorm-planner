@@ -3,17 +3,31 @@ import { AbstractEffectValue } from '../../../model/content/effect-value';
 import { EffectValueValueType } from '../../../model/content/enum/effect-value-value-type';
 import { MechanicType } from '../../../model/content/enum/mechanic-type';
 import { effectValueConstant } from '../../../util/effect-value.util';
+import { isEffectValueSynergy, isEffectValueVariable } from '../../../util/utils';
 
 function setStat(values: Array<AbstractEffectValue>, index: number, stat: string) {
     const value = values[index]
 
     if (value) {
         value.stat = stat;
+    } else {
+        throw new Error('failed to change stat for effect value at index ' + index);
     }
 }
 
 function addConstant(values: Array<AbstractEffectValue>, value: number, percent: boolean, valueType: EffectValueValueType, stat: string | null = null) {
     values.push(effectValueConstant(value, percent, stat, valueType))
+}
+
+function synergyMultiply100(values: Array<AbstractEffectValue>, index: number) {
+    const value = values[index];
+
+    if (value && (isEffectValueVariable(value) || isEffectValueSynergy(value))) {
+        value.baseValue = value.upgrade * 100;
+        value.upgrade = 0;
+    } else {
+        throw new Error('failed to change value for effect value at index ' + index);
+    }
 }
 
 export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
@@ -90,6 +104,11 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
     81: {
         additionalMechanics: [MechanicType.InnerFire]
     },
+    82: {
+        override: values => {
+            setStat(values, 0, 'focus_mana_regen_percent');
+        }
+    },
     85: {
         override: values => {
             setStat(values, 0, 'elemental_temper_buff_elemental_damage_percent');
@@ -125,13 +144,21 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
     },
     102: {
         override: values => {
-            addConstant(values, 25, false, EffectValueValueType.Stat, 'elemental_resources_low_mana_treshold');
+            setStat(values, 0, 'elemental_resources_min_elemental_damage_add_on_low_mana');
+            addConstant(values, 25, false, EffectValueValueType.Stat, 'elemental_resources_min_elemental_damage_add_on_low_mana_treshold');
         }
     },
     106: {
         override: values => {
+            setStat(values, 0, 'elemental_spirit_stack_elemental_damage_percent');
             addConstant(values, 10, false, EffectValueValueType.Duration, 'elemental_spirit_stack_duration');
             addConstant(values, 3, false, EffectValueValueType.Stat, 'elemental_spirit_max_stacks');
+        }
+    },
+    114: {
+        override: values => {
+            console.log('VALUES : ', values);
+            synergyMultiply100(values, 0);
         }
     }
 }

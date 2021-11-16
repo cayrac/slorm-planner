@@ -213,6 +213,27 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Electrify',
+            condition: character => this.isAncestralLegacyEquipped(character, 33),
+            configurations: [
+                { type: 'boolean', key: 'has_electrify_buff', label: 'Are you on Electrify' },
+            ]
+        },
+        {
+            title: 'Elemental Spirit',
+            condition: character => this.isAncestralLegacyEquipped(character, 106),
+            configurations: [
+                { type: 'number', key: 'elemental_spirit_stacks', label: 'How many elemental spirit stacks do you have' },
+            ]
+        },
+        {
+            title: 'Focus',
+            condition: character => this.isAncestralLegacyEquipped(character, 82),
+            configurations: [
+                { type: 'boolean', key: 'is_channeling_focus', label: 'Are you channeling Focus' },
+            ]
+        },
+        {
             title: 'Faith of the Ancients',
             condition: character => this.hasLegendaryEffect(character, 31),
             configurations: [

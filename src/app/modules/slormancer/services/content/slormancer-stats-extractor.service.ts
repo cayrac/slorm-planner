@@ -213,7 +213,7 @@ export class SlormancerStatsExtractorService {
                     } else {                        
                         stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, { ancestralLegacy }));
                     }
-                } else if (active) {
+                } else if (active && !ancestralLegacy.isActivable) {
                     this.addStat(stats.stats, effectValue.stat, effectValue.value, { ancestralLegacy });
                 }
             }

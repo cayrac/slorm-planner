@@ -35,6 +35,12 @@ export class PlannerRetrocompatibilityService {
                     layer.character.originalVersion = layer.character.version;
                     layer.character.version = GAME_VERSION;
                 }
+
+                console.log('pourquoi ça spam ?')
+
+                planner.configuration['has_electrify_buff'] = false;
+                planner.configuration['elemental_spirit_stacks'] = 0;
+                planner.configuration['is_channeling_focus'] = false;
             }
         },
     ];

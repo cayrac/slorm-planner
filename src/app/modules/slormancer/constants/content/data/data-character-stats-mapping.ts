@@ -381,7 +381,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'mana_regen_add_per_enemy_in_breach_range', condition: config => config.enemies_in_breach_range > 0, multiplier: config => config.enemies_in_breach_range },
             ],
             max: [],
-            percent: [{ stat: 'mana_regen_percent' }],
+            percent: [
+                { stat: 'mana_regen_percent' },
+                { stat: 'focus_mana_regen_percent', condition: config => config.is_channeling_focus }
+            ],
             maxPercent: [],
             multiplier: [
                 { stat: 'mana_regen_global_mult' },
@@ -1509,6 +1512,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'min_elemental_damage_add' },
                 { stat: 'weapon_to_elemental_damage' },
                 { stat: 'elemental_emergency_min_elemental_damage_add_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'elemental_emergency_min_elemental_damage_add_on_low_life_treshold', 0)) },
+                { stat: 'elemental_resources_min_elemental_damage_add_on_low_mana', condition: (config, stats) => config.percent_missing_mana > (100 - getFirstStat(stats, 'elemental_resources_min_elemental_damage_add_on_low_mana_treshold', 0)) },
                 { stat: 'enligntment_stack_min_elemental_damage_add', condition: config => config.enlightenment_stacks > 0, multiplier: config => Math.min(config.enlightenment_stacks, 999) }
             ],
             max: [{ stat: 'max_elemental_damage_add' }],
@@ -1520,6 +1524,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'aura_elemental_swap_elemental_damage_percent' },
                 { stat: 'elemental_damage_percent_for_each_negative_effect_on_ennemies', condition: config => config.negative_effects_on_ennemies_in_radius > 0, multiplier: config => config.negative_effects_on_ennemies_in_radius },
                 { stat: 'invigorate_stack_elemental_damage_percent', condition: config => config.invigorate_stacks > 0, multiplier: (config, stats) => Math.min(config.invigorate_stacks, getFirstStat(stats, 'invigorate_max_stacks'))},
+                { stat: 'elemental_spirit_stack_elemental_damage_percent', condition: config => config.elemental_spirit_stacks > 0, multiplier: (config, stats) => Math.min(config.elemental_spirit_stacks, getFirstStat(stats, 'elemental_spirit_max_stacks'))},
             ],
             maxPercent: [],
             multiplier: [
@@ -1762,7 +1767,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [
-                { stat: 'electrify_increased_lightning_damage' },
+                { stat: 'electrify_increased_lightning_damage', condition: config => config.has_electrify_buff },
             ],
             maxMultiplier: [],
         } 

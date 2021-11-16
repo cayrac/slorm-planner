@@ -57,6 +57,7 @@ export interface CharacterConfig {
     is_channeling_whirlwind: boolean;
     is_channeling_arcane_barrier: boolean;
     is_channeling_ray_of_obliteration: boolean;
+    is_channeling_focus: boolean;
     ray_of_obliteration_is_short: boolean;
     void_arrow_fully_charged: boolean;
     rift_nova_fully_charged: boolean;
@@ -113,6 +114,7 @@ export interface CharacterConfig {
     high_voltage_stacks: number;
     enemy_splintered_stacks: number;
     revengeance_stacks: number;
+    elemental_spirit_stacks: number;
     has_elemental_temper_buff: boolean;
     has_splash_splash_buff: boolean;
     has_soul_bound_buff: boolean;
@@ -133,6 +135,7 @@ export interface CharacterConfig {
     has_speed_gate_buff: boolean;
     has_shadow_repercussion_buff: boolean;
     has_booster_max_buff: boolean;
+    has_electrify_buff: boolean;
     distance_with_target: number;
     all_characters_level: number;
     victims_reaper_104: number;

@@ -118,7 +118,6 @@ export class SlormancerValueUpdater {
 
         if (element == SkillElement.Lightning) {
             const lightning = this.getStatValueOrDefault(stats.stats, 'lightning_increased_damages');
-            console.log('Lighning damage multipliers : ', lightning.values.multiplier.map(v => v.value));
             multipliers.push(...lightning.values.multiplier.map(v => v.value));
         }
 
