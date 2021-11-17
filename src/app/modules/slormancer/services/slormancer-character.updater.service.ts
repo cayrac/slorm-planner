@@ -243,14 +243,21 @@ export class SlormancerCharacterUpdaterService {
         statsResult.changed.classMechanic.push(...statResultPreAura.changed.classMechanic);
 
 
-        for (const ancestralLegacyId of statsResult.unlockedAncestralLegacies) {
-            const ancestralLegacy = character.ancestralLegacies.ancestralLegacies.find(ancestralLegacy => ancestralLegacy.id === ancestralLegacyId);
-            if (ancestralLegacy) {
+        for (const ancestralLegacy of character.ancestralLegacies.ancestralLegacies) {
+
+
+            
+
+            if (statsResult.unlockedAncestralLegacies.includes(ancestralLegacy.id)) {
                 statsResult.changed.ancestralLegacies.push(ancestralLegacy);
                 this.slormancerAncestralLegacyService.updateAncestralLegacyModel(ancestralLegacy, ancestralLegacy.baseMaxRank);
-                if (!character.ancestralLegacies.activeAncestralLegacies.includes(ancestralLegacyId)) {
-                    character.ancestralLegacies.activeAncestralLegacies.push(ancestralLegacyId);
+                if (!character.ancestralLegacies.activeAncestralLegacies.includes(ancestralLegacy.id)) {
+                    character.ancestralLegacies.activeAncestralLegacies.push(ancestralLegacy.id);
                 }
+            }
+
+            for (const mechanic of ancestralLegacy.relatedMechanics) {
+                this.slormancerValueUpdater.updateMechanic(mechanic, statsResult);
             }
         }
 

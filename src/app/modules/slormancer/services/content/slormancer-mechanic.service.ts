@@ -15,19 +15,27 @@ export class SlormancerMechanicService {
                 private slormancerTemplateService: SlormancerTemplateService) { }
 
     private getName(type: MechanicType): string {
-        let key = 'tt_' + type + '_name';
+        let key;
         
-        if (type === MechanicType.ShieldGlobe) {
+        if (type === MechanicType.WalkingBomb) {
+            key = 'tt_' + type;
+        } else if (type === MechanicType.ShieldGlobe || type === MechanicType.Fireball) {
             key = 'tt_mechanic_' + type;
+        } else {
+            key = 'tt_' + type + '_name';
         }
 
         return this.slormancerTranslateService.translate(key);
     }
     private getDescription(type: MechanicType, values: Array<AbstractEffectValue>): string {
-        let key = 'tt_help_' + type + '_effect';
+        let key;
 
-        if (type === MechanicType.ShieldGlobe) {
+        if (type === MechanicType.WalkingBomb) {
+            key = 'tt_' + type + '_effect';
+        } else if (type === MechanicType.ShieldGlobe || type === MechanicType.Fireball) {
             key = 'tt_mechanic_' + type + '_effect';
+        } else {
+            key = 'tt_help_' + type + '_effect';
         }
 
         const template = this.slormancerTranslateService.translate(key);
@@ -44,11 +52,13 @@ export class SlormancerMechanicService {
 
     public getMechanic(type: MechanicType): Mechanic {
         const values = valueOrDefault(DATA_MECHANIC[<string>type]?.values, []);
+        const genres = valueOrDefault(DATA_MECHANIC[<string>type]?.genres, []);
         const mechanic: Mechanic = {
             name: this.getName(type),
             type,
             description: '',
             icon: 'mechanic/' + type,
+            genres, 
             template: this.getDescription(type, values),
             values: values.map(value => ({ ...value })),
         };

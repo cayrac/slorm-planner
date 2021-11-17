@@ -70,3 +70,4 @@ TODO
  - différence additional damage (extra) et skill additional damage
  - reaper ajouté en "extra"
  - supprimer activables si non disponible
+ - fix flashing dart description

@@ -13,6 +13,7 @@ import { EffectValueValueType } from '../../model/content/enum/effect-value-valu
 import { HeroClass } from '../../model/content/enum/hero-class';
 import { ALL_SKILL_COST_TYPES } from '../../model/content/enum/skill-cost-type';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
+import { Mechanic } from '../../model/content/mechanic';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { Entity } from '../../model/entity';
 import { EntityValue } from '../../model/entity-value';
@@ -230,6 +231,19 @@ export class SlormancerValueUpdater {
                             max: round(value.synergy.max, precision),
                         };
                     }
+                }
+            }
+        }
+    }
+
+    public updateMechanic(mechanic: Mechanic, statsResult: SkillStatsBuildResult) {
+        if (mechanic.genres.includes(SkillGenre.AreaOfEffect)) {
+            const aoeSizes = mechanic.values.filter(value => value.valueType === EffectValueValueType.AreaOfEffect);
+            if (aoeSizes.length > 0) {
+                const aoeSizeStat = <MergedStat<number>>this.getStatValueOrDefault(statsResult.stats, 'aoe_increased_size');
+                for (const aoeSize of aoeSizes) {
+                    aoeSize.value = aoeSize.baseValue * (100 + aoeSizeStat.total) / 100;
+                    aoeSize.displayValue = round(aoeSize.value, 2);
                 }
             }
         }
