@@ -6,6 +6,7 @@ import { SkillGenre } from '../../../model/content/enum/skill-genre';
 import { GameHeroesData } from '../../../model/parser/game/game-save';
 import { effectValueConstant, effectValueSynergy } from '../../../util/effect-value.util';
 import {
+    ARCANE_BOND_DAMAGE_FROM_MANA_SPENT,
     ARCANE_CLONE_ATTACK_SPEED_REDUCTION,
     ASTRAL_METEOR_AOE,
     ASTRAL_METEOR_DAMAGE_PERCENT,
@@ -83,6 +84,7 @@ export const DATA_CLASS_MECHANIC: GameHeroesData<{ [key: number]:  DataClassMech
         },
         216: {
             values: [
+                effectValueConstant(ARCANE_BOND_DAMAGE_FROM_MANA_SPENT, false, 'garbage_stat', EffectValueValueType.Stat),
                 effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'arcane_bond_duration', 'duration', EffectValueValueType.Stat, undefined, 3),
             ]
         },
