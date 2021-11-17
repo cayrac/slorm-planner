@@ -40,10 +40,10 @@ export class SlormancerMergedStatUpdaterService {
 
     public getTotalFlat(stat: MergedStat): number | MinMax {
         const minMax = stat.values.max.length > 0 || stat.values.maxPercent.length > 0 || stat.values.maxMultiplier.length > 0;
-        const flat = this.addValues(stat.values.flat.map(v => v.value), minMax);
+        const flat = this.addValues(stat.values.flat.filter(v => !v.extra).map(v => v.value), minMax);
 
         if (minMax) {
-            (<MinMax>flat).max += this.addNumberValues(stat.values.max.map(v => v.value));
+            (<MinMax>flat).max += this.addNumberValues(stat.values.max.filter(v => !v.extra).map(v => v.value));
         }
         
         return flat;
@@ -58,6 +58,19 @@ export class SlormancerMergedStatUpdaterService {
         }
 
         return percent;
+    }
+
+    public getTotalFlatExtra(mergedStat: MergedStat): MinMax | number {
+        const minMax = mergedStat.values.max.length > 0 || mergedStat.values.maxPercent.length > 0 || mergedStat.values.maxMultiplier.length > 0;
+
+        let total = this.addValues(mergedStat.values.flat.filter(v => v.extra).map(v => v.value), minMax);
+        const max = <number>this.addValues(mergedStat.values.max.filter(v => v.extra).map(v => v.value), false);
+
+        if (typeof total !== 'number') {
+            total.max += max;   
+        }
+
+        return total;
     }
 
     public getTotalFlatAndPercent(mergedStat: MergedStat): number | MinMax {
@@ -83,7 +96,7 @@ export class SlormancerMergedStatUpdaterService {
         return stat === 'attack_speed' || stat === 'enemy_attack_speed';
     }
 
-    public getTotal(mergedStat: MergedStat): number | MinMax {
+    public getTotalWithoutExtra(mergedStat: MergedStat): number | MinMax {
         let total = this.getTotalFlatAndPercent(mergedStat);
 
         if (typeof total === 'number') {    
@@ -107,6 +120,21 @@ export class SlormancerMergedStatUpdaterService {
         }
 
         return total; 
+    }
+
+    public getTotal(mergedStat: MergedStat): number | MinMax {
+        let total = this.getTotalWithoutExtra(mergedStat);
+        let extra = this.getTotalFlatExtra(mergedStat);
+
+
+        if (typeof total === 'number') {
+            total = total + <number>extra;
+        } else {
+            total.min = total.min + (typeof extra === 'number' ? extra : extra.min);
+            total.max = total.max + (typeof extra === 'number' ? extra : extra.max);
+        }
+
+        return total;  
     }
 
     public updateStatTotal(stat: MergedStat) {

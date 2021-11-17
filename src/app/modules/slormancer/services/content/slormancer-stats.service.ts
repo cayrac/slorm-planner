@@ -74,7 +74,7 @@ export class SlormancerStatsService {
                 total: sau.skill.level,
                 suffix: '',
                 values: {
-                    flat: [ { value: sau.skill.level, source: { skill: sau.skill }  }],
+                    flat: [ { value: sau.skill.level, extra: false, source: { skill: sau.skill }  }],
                     max: [],
                     percent: [],
                     maxPercent: [],

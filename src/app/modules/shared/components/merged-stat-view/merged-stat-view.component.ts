@@ -107,6 +107,10 @@ export class MergedStatViewComponent {
         return this.slormancerStatUpdaterService.getTotalFlat(mergedStat);
     }
 
+    public getTotalFlatExtra(mergedStat: MergedStat): number | MinMax {
+        return this.slormancerStatUpdaterService.getTotalFlatExtra(mergedStat);
+    }
+
     public getTotalPercent(mergedStat: MergedStat): number | MinMax {
         const total = this.slormancerStatUpdaterService.addNumberValues(mergedStat.values.percent.map(v => v.value));
         const totalMax = total + this.slormancerStatUpdaterService.addNumberValues(mergedStat.values.maxPercent.map(v => v.value));
@@ -125,7 +129,11 @@ export class MergedStatViewComponent {
     }
 
     public hasFlatValues(mergedStat: MergedStat): boolean {
-        return mergedStat.values.flat.length > 0 || mergedStat.values.max.length > 0;
+        return mergedStat.values.flat.filter(v => !v.extra).length > 0 || mergedStat.values.max.filter(v => !v.extra).length > 0;
+    }
+
+    public hasFlatExtraValues(mergedStat: MergedStat): boolean {
+        return mergedStat.values.flat.filter(v => v.extra).length > 0 || mergedStat.values.max.filter(v => v.extra).length > 0;
     }
 
     public hasPercentValues(mergedStat: MergedStat): boolean {
@@ -137,12 +145,17 @@ export class MergedStatViewComponent {
     }
 
     public showFormula(mergedStat: MergedStat): boolean {
-        const hasFlatValues = mergedStat.values.flat.length > 0 || mergedStat.values.max.length > 0;
+        const hasFlatValues = mergedStat.values.flat.filter(v => !v.extra).length > 0 || mergedStat.values.max.filter(v => !v.extra).length > 0;
         const hasPercentValues = mergedStat.values.percent.length > 0 || mergedStat.values.maxPercent.length > 0;
         const hasMultiplierValues = mergedStat.values.multiplier.length > 0 || mergedStat.values.maxMultiplier.length > 0;
+        const hasFlatExtraValues = mergedStat.values.flat.filter(v => v.extra).length > 0 || mergedStat.values.max.filter(v => v.extra).length > 0;
         const hasDiminishingResult = this.slormancerStatUpdaterService.hasDiminishingResult(mergedStat.stat);
 
-        return (hasFlatValues ? 1 : 0) + (hasPercentValues ? 1 : 0) + (hasMultiplierValues ? 1 : 0) + (hasDiminishingResult ? 1 : 0) >= 2;
+        return (hasFlatValues ? 1 : 0)
+            + (hasPercentValues ? 1 : 0)
+            + (hasMultiplierValues ? 1 : 0)
+            + (hasFlatExtraValues ? 1 : 0)
+            + (hasDiminishingResult ? 1 : 0) >= 2;
     }
 
     public totalHasMinMax(mergedStat: MergedStat): boolean {
@@ -155,9 +168,11 @@ export class MergedStatViewComponent {
         let flat = this.slormancerStatUpdaterService.getTotalFlat(mergedStat);
         let percent = this.slormancerStatUpdaterService.getTotalPercent(mergedStat);
         let multipliers = mergedStat.values.multiplier.map(mult => mult.value)
+        let extra = this.slormancerStatUpdaterService.getTotalFlatExtra(mergedStat);
 
         flat = typeof flat === 'number' ? flat : flat.min;
         percent = typeof percent === 'number' ? percent : percent.min;
+        extra = typeof extra === 'number' ? extra : extra.min;
 
         let formula = round(typeof total === 'number' ? total : total.min, 5) + ' = ';
         if (this.slormancerStatUpdaterService.hasDiminishingResult(mergedStat.stat)) {
@@ -171,6 +186,9 @@ export class MergedStatViewComponent {
                 .filter(v => v !== 0)
                 .map(p => ' * ' + ((p + 100) / 100))
                 .join('');
+            if (extra !== 0) {
+                formula += ' + ' + extra;
+            }
         }
         
         return formula;
@@ -181,16 +199,22 @@ export class MergedStatViewComponent {
         
         let flat = this.slormancerStatUpdaterService.getTotalFlat(mergedStat);
         let percent = this.slormancerStatUpdaterService.getTotalPercent(mergedStat);
+        let extra = this.slormancerStatUpdaterService.getTotalFlatExtra(mergedStat);
         const multipliers = mergedStat.values.multiplier.map(mult => mult.value)
 
         flat = typeof flat === 'number' ? flat : flat.max;
         percent = typeof percent === 'number' ? percent : percent.max;
+        extra = typeof extra === 'number' ? extra : extra.max;
 
         let formula = round(typeof total === 'number' ? total : total.max, 5) + ' = ';
         formula += this.valueToString(flat, mergedStat.suffix) + [percent, ...multipliers]
             .filter(v => v !== 0)
             .map(p => ' * ' + ((p + 100) / 100))
             .join('');  
+
+        if (extra !== 0) {
+            formula += ' + ' + extra;
+        }
 
         return formula;
     }

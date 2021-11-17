@@ -68,8 +68,8 @@
 - Fixed an issue when computing stack multipliers
 - The Slormancer font is now correctly used
 - Flashing Dart now has the correct description
+- Extra damages (from additional damage or reaper) are now correctly added to total damages
 
 TODO
  - différence additional damage (extra) et skill additional damage
- - reaper ajouté en "extra"
  - supprimer activables si non disponible

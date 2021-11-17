@@ -26,6 +26,7 @@ function hasCostType(stats: ExtractedStatMap, ...costTypes: Array<SkillCostType>
 
 export interface MergedStatMappingSource {
     stat: string;
+    extra?: boolean
     condition?: (config: CharacterConfig, stats: ExtractedStatMap) => boolean
     multiplier?: (config: CharacterConfig, stats: ExtractedStatMap) => number
 };
@@ -1510,7 +1511,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'min_elemental_damage_add' },
-                { stat: 'weapon_to_elemental_damage' },
+                { stat: 'weapon_to_elemental_damage', extra: true },
                 { stat: 'elemental_emergency_min_elemental_damage_add_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'elemental_emergency_min_elemental_damage_add_on_low_life_treshold', 0)) },
                 { stat: 'elemental_resources_min_elemental_damage_add_on_low_mana', condition: (config, stats) => config.percent_missing_mana > (100 - getFirstStat(stats, 'elemental_resources_min_elemental_damage_add_on_low_mana_treshold', 0)) },
                 { stat: 'enligntment_stack_min_elemental_damage_add', condition: config => config.enlightenment_stacks > 0, multiplier: config => Math.min(config.enlightenment_stacks, 999) }
@@ -1585,7 +1586,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         allowMinMax: true,
         suffix: '',
         source: {
-            flat: [{ stat: 'basic_to_physical_damage' }, { stat: 'weapon_to_physical_damage' }],
+            flat: [
+                { stat: 'basic_to_physical_damage' }, 
+                { stat: 'weapon_to_physical_damage', extra: true }
+            ],
             max: [],
             percent: [],
             maxPercent: [],

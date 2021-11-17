@@ -165,7 +165,7 @@ export class SlormancerSynergyResolverService {
             }
 
             if (statToUpdate.mapping === undefined) {
-                foundStat.values.flat.push({ value: synergy, source: synergyResolveData.objectSource });
+                foundStat.values.flat.push({ value: synergy, extra: false, source: synergyResolveData.objectSource });
             } else {
                 this.slormancerStatMappingService.addUniqueValueToStat(stat, synergy, foundStat, statToUpdate.mapping, config, extractedStats, synergyResolveData.objectSource);
             }

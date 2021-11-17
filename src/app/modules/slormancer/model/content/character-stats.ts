@@ -33,11 +33,11 @@ export interface MergedStat<T = number | MinMax> {
     precision: number;
     suffix: 's' | '%' | '';
     values: {
-        flat: Array<{ value: number | MinMax, source: Entity }>;
-        max: Array<{ value: number, source: Entity }>;
-        percent: Array<{ value: number, source: Entity }>;
-        maxPercent: Array<{ value: number, source: Entity }>;
-        multiplier: Array<{ value: number, source: Entity }>;
-        maxMultiplier: Array<{ value: number, source: Entity }>;
+        flat: Array<{ value: number | MinMax, extra: boolean, source: Entity }>;
+        max: Array<{ value: number, extra: boolean, source: Entity }>;
+        percent: Array<{ value: number, extra: boolean, source: Entity }>;
+        maxPercent: Array<{ value: number, extra: boolean, source: Entity }>;
+        multiplier: Array<{ value: number, extra: boolean, source: Entity }>;
+        maxMultiplier: Array<{ value: number, extra: boolean, source: Entity }>;
     }
 };

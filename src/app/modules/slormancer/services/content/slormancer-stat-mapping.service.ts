@@ -78,7 +78,7 @@ export class SlormancerStatMappingService {
         if (stat) {
             stat.readonly = true;
             
-            stat.values.flat = [{ value: ultimatum.value.value, source: { ultimatum }}],
+            stat.values.flat = [{ value: ultimatum.value.value, extra: false, source: { ultimatum }}],
             stat.values.max = [];
             stat.values.percent = [];
             stat.values.maxPercent = [];
@@ -89,7 +89,7 @@ export class SlormancerStatMappingService {
 
     public addUniqueValueToStat(stat: string, value: number | MinMax, mergedStat: MergedStat, mapping: MergedStatMapping, config: CharacterConfig, extractedStats: ExtractedStatMap, source: Entity) {
         let mappingSource: MergedStatMappingSource | undefined;
-        let array: Array<{ value: number | MinMax, source: Entity }> | null = null;
+        let array: Array<{ value: number | MinMax, extra: boolean, source: Entity }> | null = null;
 
         if (!mergedStat.readonly) {
             if (mappingSource = mapping.source.flat.find(v => v.stat === stat)) {
@@ -111,7 +111,7 @@ export class SlormancerStatMappingService {
                     const mult = mappingSource.multiplier(config, extractedStats);
                     value = typeof value === 'number'  ? value * mult : { min: value.min * mult, max: value.max * mult };
                 }
-                array.push({ value, source });
+                array.push({ value, extra: mappingSource.extra === true, source });
             }
         }
     }
