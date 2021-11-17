@@ -40,5 +40,11 @@ export const DATA_MECHANIC: { [key: string]:  DataMechanic} = {
             effectValueConstant(1, false, 'walking_bomb_aoe', EffectValueValueType.AreaOfEffect),
         ],
         genres: [SkillGenre.AreaOfEffect]
-    }
+    },
+    [MechanicType.Dart]: {
+        values: [
+            effectValueSynergy(25, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat),
+            effectValueConstant(25, false, 'garbage_stat', EffectValueValueType.Stat),
+        ]
+    },
 }

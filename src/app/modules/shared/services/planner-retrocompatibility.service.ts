@@ -36,8 +36,6 @@ export class PlannerRetrocompatibilityService {
                     layer.character.version = GAME_VERSION;
                 }
 
-                console.log('pourquoi ça spam ?')
-
                 planner.configuration['has_electrify_buff'] = false;
                 planner.configuration['elemental_spirit_stacks'] = 0;
                 planner.configuration['is_channeling_focus'] = false;
@@ -55,7 +53,7 @@ export class PlannerRetrocompatibilityService {
         }
 
         for (let change of this.CHANGES) {
-            if (compareVersions(planner.version, change.version)) {
+            if (compareVersions(change.version, planner.version) > 0) {
                 change.update(planner);
             }
         }

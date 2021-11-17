@@ -60,14 +60,16 @@
 ## Release 0.0.8 (TBD)
 ### Added
 - Added compatibility for The Slormancer 0.3.014
-- Fixed text font issues
 - Increased active legacy nodes to 3
 - Raised maximum level to 50
-- Fixed an issue when computing stack multipliers
 - Reworked skills cost computing
+### Fixes
+- Synergies based on configuration are now correctly computed on the first load
+- Fixed an issue when computing stack multipliers
+- The Slormancer font is now correctly used
+- Flashing Dart now has the correct description
 
 TODO
  - différence additional damage (extra) et skill additional damage
  - reaper ajouté en "extra"
  - supprimer activables si non disponible
- - fix flashing dart description

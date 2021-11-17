@@ -19,7 +19,7 @@ export class SlormancerMechanicService {
         
         if (type === MechanicType.WalkingBomb) {
             key = 'tt_' + type;
-        } else if (type === MechanicType.ShieldGlobe || type === MechanicType.Fireball) {
+        } else if (type === MechanicType.ShieldGlobe || type === MechanicType.Fireball || type === MechanicType.Dart) {
             key = 'tt_mechanic_' + type;
         } else {
             key = 'tt_' + type + '_name';
@@ -32,7 +32,7 @@ export class SlormancerMechanicService {
 
         if (type === MechanicType.WalkingBomb) {
             key = 'tt_' + type + '_effect';
-        } else if (type === MechanicType.ShieldGlobe || type === MechanicType.Fireball) {
+        } else if (type === MechanicType.ShieldGlobe || type === MechanicType.Fireball || type === MechanicType.Dart) {
             key = 'tt_mechanic_' + type + '_effect';
         } else {
             key = 'tt_help_' + type + '_effect';

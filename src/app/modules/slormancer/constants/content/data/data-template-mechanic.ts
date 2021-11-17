@@ -7,4 +7,5 @@ export const DATA_TEMPLATE_MECHANIC: { [key: string]: MechanicType } = {
     '<fireball>': MechanicType.Fireball,
     '<fireballs>': MechanicType.Fireball,
     '<walking bomb>': MechanicType.WalkingBomb,
+    '<flashing dart>': MechanicType.Dart,
 };

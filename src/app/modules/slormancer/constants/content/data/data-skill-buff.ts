@@ -17,6 +17,5 @@ export const DATA_SKILL_BUFF: { [key: string]: string } = {
     '<chills>': 'ice_chill',
     '<frozen>': 'ice_frozen',
     '<freezes>': 'ice_frozen',
-    '<flashing dart>': 'light_dart',
     '<soul bound>': 'next_skill_soul_bound',
 }
