@@ -171,6 +171,9 @@ export class SlormancerStatsExtractorService {
         const lockedHealthPercent = activables.filter(act => act.costType === SkillCostType.LifeLock)
             .reduce((t, s) => t + valueOrDefault(s.cost, 0), 0);
 
+        const percentMissingMana = lockedManaPercent > config.percent_missing_mana ? lockedManaPercent : config.percent_missing_mana;
+        const percentMissingHealth = lockedHealthPercent > config.percent_missing_health ? lockedHealthPercent : config.percent_missing_health;
+        
         this.addStat(stats.stats, 'all_level', config.all_characters_level, { synergy: 'Summ all characters level' });
         this.addStat(stats.stats, 'damage_stored', config.damage_stored, { synergy: 'Damage stored' });
         this.addStat(stats.stats, 'victims_reaper_104', config.victims_reaper_104, { synergy: 'Goldfish reaper kill count' });
@@ -178,8 +181,8 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'goldbane_5', config.goldbane_5, { synergy: 'Gold found recently' });
         this.addStat(stats.stats, 'percent_locked_mana', lockedManaPercent, { synergy: 'Percent locked mana' });
         this.addStat(stats.stats, 'percent_locked_health', lockedHealthPercent, { synergy: 'Percent locked life' });
-        this.addStat(stats.stats, 'percent_missing_mana', lockedManaPercent > config.percent_missing_mana ? lockedManaPercent : config.percent_missing_mana, { synergy: 'Percent missing mana' });
-        this.addStat(stats.stats, 'percent_missing_health', lockedHealthPercent > config.percent_missing_health ? lockedHealthPercent :config.percent_missing_health, { synergy: 'Percent missing health' });
+        this.addStat(stats.stats, 'percent_missing_mana', percentMissingMana, { synergy: 'Percent missing mana' });
+        this.addStat(stats.stats, 'percent_missing_health', percentMissingHealth, { synergy: 'Percent missing health' });
         this.addStat(stats.stats, 'enemy_percent_missing_health', config.enemy_percent_missing_health, { synergy: 'Enemy percent missing health' });
         this.addStat(stats.stats, 'block_stacks', config.block_stacks, { synergy: 'Block stacks' });
         this.addStat(stats.stats, 'mana_lost_last_second', config.mana_lost_last_second, { synergy: 'Mana lost last second' });

@@ -28,7 +28,6 @@ export class MainStatsComponent extends AbstractUnsubscribeComponent implements 
             section: this.slormancerTranslateService.translate('cat_adventure'),
             stats: [
                 { name: this.slormancerTranslateService.translate('essence_find'), stat: 'essence_find', sign: true },
-                { name: this.slormancerTranslateService.translate('gold_find'), stat: 'gold_find', sign: true },
                 { name: this.slormancerTranslateService.translate('xp_find'), stat: 'xp_find', sign: true },
                 { name: this.slormancerTranslateService.translate('influence_gain'), stat: 'influence_gain', sign: true },
                 { name: this.slormancerTranslateService.translate('mf_find'), stat: 'mf_find', sign: true },

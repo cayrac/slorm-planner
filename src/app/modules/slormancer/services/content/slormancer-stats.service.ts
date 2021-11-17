@@ -64,28 +64,6 @@ export class SlormancerStatsService {
                 private slormancerStatUpdaterService: SlormancerMergedStatUpdaterService,
                 private slormancerStatMappingService: SlormancerStatMappingService) { }
 
-    private addConfigCharacterStats(stats: Array<MergedStat>, config: CharacterConfig) {
-        const configEntries = <Array<[string, number]>>Object.entries(config);
-        for (const [stat, value] of configEntries) {
-            stats.push({
-                stat: stat,
-                total: value,
-                precision: 0,
-                allowMinMax: false,
-                readonly: false,
-                suffix: '',
-                values: {
-                    flat: [ { value: value, source: { synergy: 'Configuration' } }],
-                    max: [],
-                    percent: [],
-                    maxPercent: [],
-                    multiplier: [],
-                    maxMultiplier: [],
-                }
-            });
-        }
-    }
-
     private addSkillStats(stats: Array<MergedStat>, skills: Array<CharacterSkillAndUpgrades>) {
         for (const sau of skills) {
             stats.push({
@@ -150,8 +128,6 @@ export class SlormancerStatsService {
             this.slormancerStatMappingService.applyUltimatum(result.stats, mapping, character.ultimatum);
         }
 
-        this.addConfigCharacterStats(result.stats, config);
-
         for (const stats of result.stats) {
             this.slormancerStatUpdaterService.updateStatTotal(stats);
         }
@@ -167,29 +143,21 @@ export class SlormancerStatsService {
             if (this.hasSynergyValueChanged(synergy)) {
                 if ('ancestralLegacy' in synergy.objectSource) {
                     result.changed.ancestralLegacies.push(synergy.objectSource.ancestralLegacy);
-                }
-                if ('attribute' in synergy.objectSource) {
+                } else if ('attribute' in synergy.objectSource) {
                     result.changed.attributes.push(synergy.objectSource.attribute);
-                }
-                if ('item' in synergy.objectSource) {
+                } else if ('item' in synergy.objectSource) {
                     result.changed.items.push(synergy.objectSource.item);
-                }
-                if ('reaper' in synergy.objectSource) {
+                } else if ('reaper' in synergy.objectSource) {
                     result.changed.reapers.push(synergy.objectSource.reaper);
-                }
-                if ('skill' in synergy.objectSource) {
+                } else if ('skill' in synergy.objectSource) {
                     result.changed.skills.push(synergy.objectSource.skill);
-                }
-                if ('upgrade' in synergy.objectSource) {
+                } else if ('upgrade' in synergy.objectSource) {
                     result.changed.upgrades.push(synergy.objectSource.upgrade);
-                }
-                if ('activable' in synergy.objectSource) {
+                } else if ('activable' in synergy.objectSource) {
                     result.changed.activables.push(synergy.objectSource.activable);
-                }
-                if ('mechanic' in synergy.objectSource) {
+                } else if ('mechanic' in synergy.objectSource) {
                     result.changed.mechanics.push(synergy.objectSource.mechanic);
-                }
-                if ('classMechanic' in synergy.objectSource) {
+                } else if ('classMechanic' in synergy.objectSource) {
                     result.changed.classMechanic.push(synergy.objectSource.classMechanic);
                 }
             }
@@ -278,8 +246,7 @@ export class SlormancerStatsService {
             if (this.hasSynergyValueChanged(synergy)) {
                 if ('skill' in synergy.objectSource) {
                     result.changed.skills.push(synergy.objectSource.skill);
-                }
-                if ('upgrade' in synergy.objectSource) {
+                } else if ('upgrade' in synergy.objectSource) {
                     result.changed.upgrades.push(synergy.objectSource.upgrade);
                 }
             }

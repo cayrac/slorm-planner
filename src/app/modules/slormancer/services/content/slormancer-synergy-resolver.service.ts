@@ -26,7 +26,7 @@ export class SlormancerSynergyResolverService {
         
         this.addExternalSynergies(remainingSynergies);
 
-          let next: SynergyResolveData | ExternalSynergyResolveData | null;
+        let next: SynergyResolveData | ExternalSynergyResolveData | null;
         while (remainingSynergies.length > 0 && (next = this.takeNextSynergy(remainingSynergies)) !== null) {
             this.updateSynergyValue(next, characterStats, extractedStats);
             this.applySynergyToStats(next, characterStats, extractedStats, config);

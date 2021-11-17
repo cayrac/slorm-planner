@@ -226,9 +226,8 @@ export class SlormancerCharacterUpdaterService {
 
         const statResultPreAura = this.getCharacterStatsResult(character, config, additionalItem)
         const auraChanged = this.updateCharacterActivables(character, statResultPreAura, config, additionalItem, true);
-
         const statsResult = this.getCharacterStatsResult(character, config, additionalItem);
-            character.stats = statsResult.stats;
+        character.stats = statsResult.stats;
 
         statsResult.changed.items.push(...auraChanged.items);
         statsResult.changed.items.push(...statResultPreAura.changed.items);
@@ -244,9 +243,6 @@ export class SlormancerCharacterUpdaterService {
 
 
         for (const ancestralLegacy of character.ancestralLegacies.ancestralLegacies) {
-
-
-            
 
             if (statsResult.unlockedAncestralLegacies.includes(ancestralLegacy.id)) {
                 statsResult.changed.ancestralLegacies.push(ancestralLegacy);
@@ -279,8 +275,6 @@ export class SlormancerCharacterUpdaterService {
         const activableChanged = this.updateCharacterActivables(character, statsResult, config, additionalItem, false);
         statsResult.changed.items.push(...activableChanged.items);
         statsResult.changed.ancestralLegacies.push(...activableChanged.ancestralLegacies);
-
-        
 
         this.displaySynergyLoopError(statsResult)
 
