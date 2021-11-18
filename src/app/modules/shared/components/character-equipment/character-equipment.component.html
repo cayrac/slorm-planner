@@ -94,6 +94,7 @@
             (changed)="updateItem(gearSlot.RightRing, $event)">
         </app-item-slot>
         <app-ultimatum-slot
+            [readonly]="readonly"
             [ultimatum]="character.ultimatum"
             (changed)="updateUltimatum($event)">
         </app-ultimatum-slot>

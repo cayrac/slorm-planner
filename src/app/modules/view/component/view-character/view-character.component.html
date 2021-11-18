@@ -20,7 +20,7 @@
     </mat-card>
     <mat-card class="summary" *ngIf="showSummary">
         <mat-card-content>
-            <div class="stats">
+            <div class="stats-summary">
                 <div class="damages">
                     <div class="cell"><div class="value" [matTooltip]="PHYSICAL_DAMAGE_LABEL">{{getPhysicalDamages()}}</div><img src="assets/img/icon/stat/physical.png"/></div>
                     <div class="cell"><div class="value" [matTooltip]="ELEMENTAL_DAMAGE_LABEL">{{getElementalDamages()}}</div><img src="assets/img/icon/stat/magical.png"/></div>
@@ -42,13 +42,15 @@
                         <app-skill-slot [readonly]="true" [skill]="character.supportSkill" [support]="true"></app-skill-slot>
                     </div>
                     <div class="upgrades">
-                        <app-upgrade-slot *ngFor="let upgrade of getSkillUpgrades(character.supportSkill)"
-                            [upgrade]="upgrade"
-                            [readonly]="true"
-                            [overlay]="true"
-                            [equipped]="false"
-                            [selected]="false">
-                        </app-upgrade-slot>
+                        <div class="upgrade" *ngFor="let upgrade of getSkillUpgrades(character.supportSkill)">
+                            <app-upgrade-slot
+                                [upgrade]="upgrade"
+                                [readonly]="true"
+                                [overlay]="true"
+                                [equipped]="false"
+                                [selected]="false">
+                            </app-upgrade-slot>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -59,13 +61,15 @@
                         <app-skill-slot [readonly]="true" [skill]="character.primarySkill"></app-skill-slot>
                     </div>
                     <div class="upgrades">
-                        <app-upgrade-slot *ngFor="let upgrade of getSkillUpgrades(character.primarySkill)"
-                            [upgrade]="upgrade"
-                            [readonly]="true"
-                            [overlay]="true"
-                            [equipped]="false"
-                            [selected]="false">
-                        </app-upgrade-slot>
+                        <div class="upgrade" *ngFor="let upgrade of getSkillUpgrades(character.primarySkill)">
+                            <app-upgrade-slot 
+                                [upgrade]="upgrade"
+                                [readonly]="true"
+                                [overlay]="true"
+                                [equipped]="false"
+                                [selected]="false">
+                            </app-upgrade-slot>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -76,13 +80,15 @@
                         <app-skill-slot [readonly]="true" [skill]="character.secondarySkill"></app-skill-slot>
                     </div>
                     <div class="upgrades">
-                        <app-upgrade-slot *ngFor="let upgrade of getSkillUpgrades(character.secondarySkill)"
-                            [upgrade]="upgrade"
-                            [readonly]="true"
-                            [overlay]="true"
-                            [equipped]="false"
-                            [selected]="false">
-                        </app-upgrade-slot>
+                        <div class="upgrade" *ngFor="let upgrade of getSkillUpgrades(character.secondarySkill)">
+                            <app-upgrade-slot 
+                                [upgrade]="upgrade"
+                                [readonly]="true"
+                                [overlay]="true"
+                                [equipped]="false"
+                                [selected]="false">
+                            </app-upgrade-slot>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,20 +96,30 @@
                 <div class="activables">
                     <h4>Activables</h4>
                     <div class="slots">
-                        <app-activable-slot [activable]="character.activable1" [readonly]="true"></app-activable-slot>
-                        <app-activable-slot [activable]="character.activable2" [readonly]="true"></app-activable-slot>
-                        <app-activable-slot [activable]="character.activable3" [readonly]="true"></app-activable-slot>
-                        <app-activable-slot [activable]="character.activable4" [readonly]="true"></app-activable-slot>
+                        <div class="slot">
+                            <app-activable-slot [activable]="character.activable1" [readonly]="true"></app-activable-slot>
+                        </div>
+                        <div class="slot">
+                            <app-activable-slot [activable]="character.activable2" [readonly]="true"></app-activable-slot>
+                        </div>
+                        <div class="slot">
+                            <app-activable-slot [activable]="character.activable3" [readonly]="true"></app-activable-slot>
+                        </div>
+                        <div class="slot">
+                            <app-activable-slot [activable]="character.activable4" [readonly]="true"></app-activable-slot>
+                        </div>
                     </div>
                 </div>
                 <div class="ancestral-legacies">
                     <h4>Ancestral Legacies</h4>
                     <div class="slots">
-                        <app-ancestral-legacy-slot *ngFor="let ancestralLegacy of getAncestralLegacies()"
-                            [ancestralLegacy]="ancestralLegacy"
-                            [readonly]="true"
-                            [overlay]="true">
-                        </app-ancestral-legacy-slot>
+                        <div class="slot" *ngFor="let ancestralLegacy of getAncestralLegacies()">
+                            <app-ancestral-legacy-slot 
+                                [ancestralLegacy]="ancestralLegacy"
+                                [readonly]="true"
+                                [overlay]="true">
+                            </app-ancestral-legacy-slot>
+                        </div>
                     </div>
                 </div>
             </div>

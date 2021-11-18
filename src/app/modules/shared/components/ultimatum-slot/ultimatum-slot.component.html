@@ -1,5 +1,5 @@
 
-<div class="background" (click)="edit()" [class.readonly]="readonly" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+<div class="background" (click)="!readonly && edit()" [class.readonly]="readonly" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
     <div class="inner-background">
         <div class="ultimatum" *ngIf="ultimatum !== null">
             <img src="assets/img/icon/{{ultimatum.icon}}.png"/>
