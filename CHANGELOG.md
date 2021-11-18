@@ -68,8 +68,9 @@
 - Fixed an issue when computing stack multipliers
 - The Slormancer font is now correctly used
 - Flashing Dart now has the correct description
-- Extra damages (from additional damage or reaper) are now correctly added to total damages
+- Extra elemental damage from reaper are now correctly added
+- Ancestral activables are now correctly removed from the skill bar if the related ancestral node is removed
+- Vindictive slam and mana detonation size are now correctly increased by aoe size stats
 
-TODO
- - différence additional damage (extra) et skill additional damage
- - supprimer activables si non disponible
+## Planned changes
+ - damages computing rework (probably when imubue passives are out)

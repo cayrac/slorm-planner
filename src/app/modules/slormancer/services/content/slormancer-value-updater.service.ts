@@ -14,6 +14,7 @@ import { HeroClass } from '../../model/content/enum/hero-class';
 import { ALL_SKILL_COST_TYPES } from '../../model/content/enum/skill-cost-type';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { Mechanic } from '../../model/content/mechanic';
+import { Reaper } from '../../model/content/reaper';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { Entity } from '../../model/entity';
 import { EntityValue } from '../../model/entity-value';
@@ -245,6 +246,32 @@ export class SlormancerValueUpdater {
                     aoeSize.value = aoeSize.baseValue * (100 + aoeSizeStat.total) / 100;
                     aoeSize.displayValue = round(aoeSize.value, 2);
                 }
+            }
+        }
+    }
+
+    public updateReaper(reaper: Reaper, statsResult: SkillStatsBuildResult) {
+        const effectValues = [
+            ...reaper.templates.base.map(effect => effect.values).flat(),
+            ...reaper.templates.benediction.map(effect => effect.values).flat(),
+            ...reaper.templates.malediction.map(effect => effect.values).flat()
+        ];
+
+        for (const effectValue of effectValues) {
+            if (effectValue.valueType === EffectValueValueType.AreaOfEffect) {
+
+                let multipliers = [];
+                const additionalSize = this.getStatValueOrDefault(statsResult.stats, 'vindictive_slam_reaper_effect_radius_mult');
+                const aoeSizeStat = <MergedStat<number>>this.getStatValueOrDefault(statsResult.stats, 'aoe_increased_size');
+                if (typeof additionalSize.total === 'number') {
+                    multipliers.push(additionalSize.total);
+                }
+                if (typeof aoeSizeStat.total === 'number') {
+                    multipliers.push(aoeSizeStat.total);
+                }
+
+                effectValue.value = multipliers.reduce((total, mult) => total * (100 + mult) / 100, effectValue.baseValue);
+                effectValue.displayValue = round(effectValue.value, 2);
             }
         }
     }

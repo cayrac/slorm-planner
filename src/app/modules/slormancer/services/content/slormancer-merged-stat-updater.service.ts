@@ -126,6 +126,9 @@ export class SlormancerMergedStatUpdaterService {
         let total = this.getTotalWithoutExtra(mergedStat);
         let extra = this.getTotalFlatExtra(mergedStat);
 
+        if (typeof total === 'number' && mergedStat.allowMinMax && typeof extra !== 'number') {
+            total = { min: total, max: total };
+        }
 
         if (typeof total === 'number') {
             total = total + <number>extra;

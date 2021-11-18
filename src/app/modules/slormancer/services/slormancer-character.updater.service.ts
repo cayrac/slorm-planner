@@ -241,6 +241,7 @@ export class SlormancerCharacterUpdaterService {
         statsResult.changed.mechanics.push(...statResultPreAura.changed.mechanics);
         statsResult.changed.classMechanic.push(...statResultPreAura.changed.classMechanic);
 
+        this.slormancerValueUpdater.updateReaper(character.reaper, statsResult);
 
         for (const ancestralLegacy of character.ancestralLegacies.ancestralLegacies) {
 
@@ -286,7 +287,7 @@ export class SlormancerCharacterUpdaterService {
     private removeUnavailableActivables(character: Character) {
         const availableActivables: Array<Activable | AncestralLegacy | null> = [
             ...character.reaper.activables,
-            ...character.ancestralLegacies.ancestralLegacies.filter(ancestralLegacy => ancestralLegacy.isActivable),
+            ...character.ancestralLegacies.ancestralLegacies.filter(ancestralLegacy => ancestralLegacy.isActivable && character.ancestralLegacies.activeAncestralLegacies.includes(ancestralLegacy.id)),
             ...ALL_GEAR_SLOT_VALUES.map(slot => character.gear[slot]?.legendaryEffect?.activable)
         ].filter(isNotNullOrUndefined);
 

@@ -350,7 +350,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
                 negateValueBaseAndUpgrade(ba, 0);
             }
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'elemental_damage_percent_for_each_negative_effect_on_ennemies');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.AreaOfEffect, 'elemental_damage_percent_for_each_negative_effect_on_ennemies_radius');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'elemental_damage_percent_for_each_negative_effect_on_ennemies_radius');
         }
     },
     80: {
