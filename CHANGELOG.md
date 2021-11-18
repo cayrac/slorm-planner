@@ -57,7 +57,7 @@
 ### Added
 - Stats tab now display full details and formula when a stat is selected
 
-## Release 0.0.8 (TBD)
+## Release 0.0.8 (2021-11-18)
 ### Added
 - Added compatibility for The Slormancer 0.3.014
 - Increased active legacy nodes to 3
@@ -73,4 +73,4 @@
 - Vindictive slam and mana detonation size are now correctly increased by aoe size stats
 
 ## Planned changes
- - damages computing rework (probably when imubue passives are out)
+- damages computing rework (probably when imubue passives are out)
