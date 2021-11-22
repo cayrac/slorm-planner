@@ -150,7 +150,8 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     34: {
         override: (effect) => {
             setStat(effect, 0, 'phoenix_revive_max_health_percent');
-            setStat(effect, 1, 'phoenix_revive_cooldown');
+            setStat(effect, 1, 'phoenix_invulnerability_duration');
+            setStat(effect, 2, 'phoenix_revive_cooldown');
         }
     },
     36: {

@@ -20539,6 +20539,19 @@
         "PT": ""
     },
     {
+        "REF": "blacksmith_confirm",
+        "EN": "You are about to:#$.##Are you sure you want to proceed?",
+        "FR": "Vous êtes sur le point de :#$.##Êtes-vous sûr de votre choix ?",
+        "CH": "",
+        "TW": "",
+        "JP": "",
+        "DE": "",
+        "ES": "",
+        "IT": "",
+        "RU": "",
+        "PT": ""
+    },
+    {
         "REF": "blacksmith_filter",
         "EN": "Filter out Equipment",
         "FR": "Filter l'équipement",

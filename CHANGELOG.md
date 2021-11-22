@@ -72,5 +72,10 @@
 - Ancestral activables are now correctly removed from the skill bar if the related ancestral node is removed
 - Vindictive slam and mana detonation size are now correctly increased by aoe size stats
 
+## Release 0.0.9 (2021-11-22)
+### Added
+- Added compatibility for The Slormancer 0.3.015
+
 ## Planned changes
 - damages computing rework (probably when imubue passives are out)
+- fix manabender activable cooldown

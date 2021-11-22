@@ -216,9 +216,6 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     46: {
         override: (ba, be, ma) => {
-            changeValue(ba, 6, 8);
-            changeValue(be, 1, 15);
-
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'ferocious_affinity_reaper_afflict_chance');
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'ferocious_affinity_reaper_afflict_duration');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');

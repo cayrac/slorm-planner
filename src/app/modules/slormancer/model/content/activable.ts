@@ -7,7 +7,7 @@ export interface Activable {
     id: number;
     name: string;
     icon: string;
-    baseCooldown: number;
+    baseCooldown: number | null;
     cooldown: number;
     baseCost: number;
     cost: number;

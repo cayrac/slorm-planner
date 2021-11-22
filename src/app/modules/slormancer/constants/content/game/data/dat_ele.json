@@ -3365,7 +3365,7 @@
         "EN_NAME": "Focus",
         "EN_DESCRIPTION": "You have +@ £ while channeling Focus.#Hold to channel Focus.",
         "FR_NAME": "Concentration",
-        "FR_DESCRIPTION": "Vous avez +@ de £ tant que vous canalisez Focus.#Maintenez la Compétence pour canaliser Focus.",
+        "FR_DESCRIPTION": "Vous avez +@ de £ tant que vous canalisez Concentration.#Maintenez la Compétence pour canaliser Concentration.",
         "CH_NAME": "专注",
         "CH_DESCRIPTION": "引导专注时获得+@£。#按住按键来引导专注。",
         "TW_NAME": "專注",
@@ -4996,7 +4996,7 @@
         "DESC_VALUE": "mana_on_hit_add|mana_on_hit_percent|mana_on_kill_add|the_max_mana_percent",
         "DESC_VALUE_BASE": "0|0|0|0",
         "DESC_VALUE_PER_LVL": "1|2|4|1",
-        "DESC_VALUE_TYPE": "|%|%|%",
+        "DESC_VALUE_TYPE": "|%||%",
         "DESC_VALUE_REAL": "|||",
         "EXTRA_NBR": ""
     },

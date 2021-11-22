@@ -41,6 +41,16 @@ export class PlannerRetrocompatibilityService {
                 planner.configuration['is_channeling_focus'] = false;
             }
         },
+        {
+            version: '0.0.9',
+            update: planner => {
+                planner.version = '0.0.9';
+
+                for (const layer of planner.layers) {
+                    layer.character.version = GAME_VERSION;
+                }
+            }
+        },
     ];
 
     constructor() { }

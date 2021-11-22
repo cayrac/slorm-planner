@@ -2291,7 +2291,7 @@
         "VALUE_TYPE": "|%|%|%|||\n%|\n%",
         "VALUE_LEVEL": "rl|rl||rl|||\n|\n",
         "VALUE_STAT": "the_max_mana_add|the_max_mana_percent|min_basic_damage_add|chance|elemental_damage|\nmin_elemental_damage_add|",
-        "VALUE_REAL": "synergy:max_mana:5|synergy:current_mana:100|\nsynergy:max_mana:20",
+        "VALUE_REAL": "synergy:max_mana:8|synergy:current_mana:100|\nsynergy:max_mana:15",
         "LOOTABLE": 1,
         "BASE_DMG_MIN": 23,
         "BASE_DMG_MAX": 28,

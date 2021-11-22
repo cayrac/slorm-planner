@@ -6534,7 +6534,7 @@
     {
         "REF": 139,
         "EN_NAME": "Precise Caster",
-        "EN_DESCRIPTION": "If your cast is <Fortunate>, it applies <Skewer> to the every enemy hit.",
+        "EN_DESCRIPTION": "If your cast is <Fortunate>, it applies <Skewer> to every enemy hit.",
         "FR_NAME": "Lanceur de Précision",
         "FR_DESCRIPTION": "Si votre Compétence est Favorable, elle applique Embrocher au premier ennemi touché.",
         "CH_NAME": "精准施法者",

@@ -17,10 +17,14 @@ const POW_10: { [key: number]: number} = {
     5: 100000,
     6: 1000000
 };
-export function round(value: number, decimals: number = 0): number {
+
+export function round<T extends number | MinMax>(value: T, decimals: number = 0): T {
     const decal = valueOrDefault(POW_10[decimals], 1);
-    return Math.round(value * decal) / decal;
+    return <T>(typeof value === 'number'
+        ? Math.round(value * decal) / decal
+        : { min: Math.round((<MinMax>value).min * decal) / decal, max: Math.round((<MinMax>value).max * decal) / decal });
 }
+
 export function floor(value: number, decimals: number = 0): number {
     const decal = valueOrDefault(POW_10[decimals], 1);
     return Math.floor(value * decal) / decal;
@@ -63,6 +67,21 @@ export function add(a: number | MinMax, b: number | MinMax, forceMinMax: boolean
         } else {
             result.min += (<MinMax>b).min;
             result.max += (<MinMax>b).max;
+        }
+    }
+
+    return result;
+}
+
+export function mult(base: number | MinMax, ...multipliers: Array<number>): number | MinMax {
+    let result: number | MinMax = typeof base === 'number' ? base : { ...base };
+
+    for (const multiplier of multipliers) {
+        if (typeof result === 'number') {
+            result = result * (100 + multiplier) / 100;
+        } else {
+            result.min = result.min * (100 + multiplier) / 100;
+            result.max = result.max * (100 + multiplier) / 100;
         }
     }
 

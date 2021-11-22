@@ -19,7 +19,7 @@ import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { Entity } from '../../model/entity';
 import { EntityValue } from '../../model/entity-value';
 import { MinMax } from '../../model/minmax';
-import { add, round } from '../../util/math.util';
+import { add, mult, round } from '../../util/math.util';
 import {
     isDamageType,
     isEffectValueConstant,
@@ -260,18 +260,34 @@ export class SlormancerValueUpdater {
         for (const effectValue of effectValues) {
             if (effectValue.valueType === EffectValueValueType.AreaOfEffect) {
 
-                let multipliers = [];
-                const additionalSize = this.getStatValueOrDefault(statsResult.stats, 'vindictive_slam_reaper_effect_radius_mult');
+                let aoeSizeMultipliers = [];                
+                const vindictiveMultiplier = <EffectValueSynergy>effectValues.find(effect => isEffectValueSynergy(effect) && effect.stat === 'vindictive_slam_reaper_effect_radius_mult');
                 const aoeSizeStat = <MergedStat<number>>this.getStatValueOrDefault(statsResult.stats, 'aoe_increased_size');
-                if (typeof additionalSize.total === 'number') {
-                    multipliers.push(additionalSize.total);
+                if (vindictiveMultiplier && typeof vindictiveMultiplier.synergy === 'number') {
+                    aoeSizeMultipliers.push(vindictiveMultiplier.synergy);
                 }
                 if (typeof aoeSizeStat.total === 'number') {
-                    multipliers.push(aoeSizeStat.total);
+                    aoeSizeMultipliers.push(aoeSizeStat.total);
                 }
 
-                effectValue.value = multipliers.reduce((total, mult) => total * (100 + mult) / 100, effectValue.baseValue);
+                effectValue.value = aoeSizeMultipliers.reduce((total, mult) => total * (100 + mult) / 100, effectValue.baseValue);
                 effectValue.displayValue = round(effectValue.value, 2);
+            }
+            // special interactions
+            if (isEffectValueSynergy(effectValue) && isDamageType(effectValue.stat) && [65, 66, 67].includes(reaper.id)) {
+                let aoeEffectMultipliers = [];
+                const isSlamDamages = reaper.templates.base.map(effect => effect.values).flat().includes(effectValue);
+                const vindictiveMultiplier = <EffectValueSynergy>effectValues.find(effect => isEffectValueSynergy(effect) && effect.stat === 'vindictive_slam_reaper_effect_elemental_damage_mult');
+                const aoeEffectStat = <MergedStat<number>>this.getStatValueOrDefault(statsResult.stats, 'aoe_increased_effect');
+                if (vindictiveMultiplier && typeof vindictiveMultiplier.synergy === 'number' && isSlamDamages) {
+                    aoeEffectMultipliers.push(vindictiveMultiplier.synergy);
+                }
+                if (typeof aoeEffectStat.total === 'number') {
+                    aoeEffectMultipliers.push(aoeEffectStat.total);
+                }
+
+                effectValue.synergy = mult(effectValue.synergy, ...aoeEffectMultipliers);
+                effectValue.displaySynergy = round(effectValue.synergy, 0);
             }
         }
     }
@@ -307,7 +323,7 @@ export class SlormancerValueUpdater {
         const skillStats = this.getSkillStats(statsResult, character);
 
         activable.cost = this.getActivableCost(statsResult.extractedStats, config, activable);
-        activable.cooldown = Math.max(0, round(activable.baseCooldown * (100 - skillStats.attackSpeed.total) / 100, 2));
+        activable.cooldown = activable.baseCooldown === null ? 0 : Math.max(0, round(activable.baseCooldown * (100 - skillStats.attackSpeed.total) / 100, 2));
         
         for (const value of activable.values) {
             if (isEffectValueSynergy(value)) {
