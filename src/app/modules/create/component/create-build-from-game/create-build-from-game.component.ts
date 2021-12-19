@@ -37,7 +37,6 @@ export class CreateBuildFromGameComponent {
                 [HeroClass.Mage] : this.slormancerCharacterBuilderService.getCharacterFromSave(gameSave, HeroClass.Mage)
             }
             this.selectedClass = null;
-            console.log(this.characters[0].ancestralLegacies.activeNodes);
         } catch (e) {
             console.error(e);
             this.messageService.error('An error occured while parsing this save file');

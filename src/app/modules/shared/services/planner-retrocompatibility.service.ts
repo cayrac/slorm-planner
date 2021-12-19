@@ -51,6 +51,12 @@ export class PlannerRetrocompatibilityService {
                 }
             }
         },
+        {
+            version: '0.0.10',
+            update: planner => {
+                planner.version = '0.0.10';
+            }
+        },
     ];
 
     constructor() { }

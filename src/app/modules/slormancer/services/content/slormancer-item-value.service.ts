@@ -19,13 +19,19 @@ export class SlormancerItemValueService {
                 1: { min: 70, max: 100 },
                 2: { min: 70, max: 100 },
                 3: { min: 70, max: 100 },
-                4: { min: 70, max: 100 }
+                4: { min: 70, max: 100 },
+                9: { min: 70, max: 100 }
             },
             '%': {
                 1: { min: 14, max: 20 },
                 2: { min: 28, max: 40 },
                 3: { min: 42, max: 60 },
-                4: { min: 56, max: 80 }
+                4: { min: 56, max: 80 },
+                5: { min: 70, max: 100 },
+                6: { min: 84, max: 120 },
+                7: { min: 98, max: 140 },
+                8: { min: 112, max: 160 },
+                9: { min: 126, max: 200 }
             }
         },
         'magic': {
@@ -33,13 +39,19 @@ export class SlormancerItemValueService {
                 1: { min: 45, max: 65 },
                 2: { min: 45, max: 65 },
                 3: { min: 45, max: 65 },
-                4: { min: 45, max: 65 }
+                4: { min: 45, max: 65 },
+                9: { min: 45, max: 65 }
             },
             '%': {
                 1: { min: 9,  max: 13 },
                 2: { min: 18, max: 26 },
                 3: { min: 27, max: 39 },
-                4: { min: 36, max: 52 }
+                4: { min: 36, max: 52 },
+                5: { min: 45, max: 65 },
+                6: { min: 54, max: 78 },
+                7: { min: 63, max: 91 },
+                8: { min: 72, max: 104 },
+                9: { min: 81, max: 117 }
             }
         },
         'rare': {
@@ -47,13 +59,19 @@ export class SlormancerItemValueService {
                 1: { min: 45, max: 65 },
                 2: { min: 45, max: 65 },
                 3: { min: 45, max: 65 },
-                4: { min: 45, max: 65 }
+                4: { min: 45, max: 65 },
+                9: { min: 45, max: 65 }
             },
             '%': {
                 1: { min: 9,  max: 13 },
                 2: { min: 18, max: 26 },
                 3: { min: 27, max: 39 },
-                4: { min: 36, max: 52 }
+                4: { min: 36, max: 52 },
+                5: { min: 45, max: 65 },
+                6: { min: 54, max: 78 },
+                7: { min: 63, max: 91 },
+                8: { min: 72, max: 104 },
+                9: { min: 81, max: 117 }
             }
         },
         'epic': {
@@ -61,13 +79,19 @@ export class SlormancerItemValueService {
                 1: { min: 20, max: 40 },
                 2: { min: 20, max: 40 },
                 3: { min: 20, max: 40 },
-                4: { min: 20, max: 40 }
+                4: { min: 20, max: 40 },
+                9: { min: 20, max: 40 }
             },
             '%': {
                 1: { min: 4,  max: 8 },
                 2: { min: 8,  max: 16 },
                 3: { min: 12, max: 24 },
-                4: { min: 16, max: 32 }
+                4: { min: 16, max: 32 },
+                5: { min: 20, max: 40 },
+                6: { min: 24, max: 48 },
+                7: { min: 28, max: 56 },
+                8: { min: 32, max: 64 },
+                9: { min: 36, max: 72 }
             }
         },
         'legendary': {
@@ -76,12 +100,14 @@ export class SlormancerItemValueService {
                 2: { min: 75, max: 100 },
                 3: { min: 75, max: 100 },
                 4: { min: 75, max: 100 },
+                9: { min: 75, max: 100 },
             },
             '%': {
                 1: { min: 75, max: 100 },
                 2: { min: 75, max: 100 },
                 3: { min: 75, max: 100 },
                 4: { min: 75, max: 100 },
+                9: { min: 75, max: 100 },
             }
         }
     }
@@ -91,7 +117,17 @@ export class SlormancerItemValueService {
     private getLevelPercentScore(level: number): number {
         let result = 1;
 
-        if (level >= 45) {
+        if (level >= 95) {
+            result = 9;
+        } else if (level >= 85) {
+            result = 8;
+        } else if (level >= 75) {
+            result = 7;
+        } else if (level >= 65) {
+            result = 6;
+        } else if (level >= 55) {
+            result = 5;
+        } else if (level >= 45) {
             result = 4;
         } else if (level >= 35) {
             result = 3;

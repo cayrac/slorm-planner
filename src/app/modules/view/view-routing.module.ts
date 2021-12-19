@@ -2,15 +2,20 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ViewCharacterComponent } from './component/view-character/view-character.component';
-import { CharacterPasteLoad } from './resolver/character-paste-load.resolver';
+import { CharacterOnlinePasteResolver } from './resolver/character-online-paste.resolver';
+import { CharacterPathResolver } from './resolver/character-path.resolver';
 
 const routes: Routes = [
-    { path: ':key', component: ViewCharacterComponent, resolve: { character: CharacterPasteLoad } },
-    { path: ':key/:name', component: ViewCharacterComponent, resolve: { character: CharacterPasteLoad } },
+    { path: 'build/:key', component: ViewCharacterComponent, resolve: { character: CharacterPathResolver } },
+    { path: ':key/:name', component: ViewCharacterComponent, resolve: { character: CharacterOnlinePasteResolver } },
+    { path: ':key', component: ViewCharacterComponent, resolve: { character: CharacterOnlinePasteResolver } },
 ];
 
 @NgModule({
-    providers: [CharacterPasteLoad],
+    providers: [
+        CharacterPathResolver,
+        CharacterOnlinePasteResolver
+    ],
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })

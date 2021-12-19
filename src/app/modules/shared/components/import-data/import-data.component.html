@@ -2,14 +2,13 @@
     <app-file-upload-button [label]="uploadLabel" (upload)="upload($event)"></app-file-upload-button>
     <mat-form-field appearance="outline" color="primary" floatLabel="never">
         <mat-label>Import content...</mat-label>
-        <textarea matInput [formControl]="importContent" [disabled]="busy || parsing"></textarea>
-        <mat-hint align="end" *ngIf="parsing">Parsing...</mat-hint>
-        <mat-hint align="end" *ngIf="!parsing && sharedData === null && heroClass !== null">Paste here a save, build, layer or link</mat-hint>
-        <mat-hint align="end" *ngIf="!parsing && sharedData === null && heroClass === null">Paste here a build, layer or link</mat-hint>
-        <mat-hint align="end" class="success" *ngIf="!parsing && sharedData !== null && sharedData.character !== null">Character found</mat-hint>
-        <mat-hint align="end" class="success" *ngIf="!parsing && sharedData !== null && sharedData.layer !== null">Layer found</mat-hint>
-        <mat-hint align="end" class="success" *ngIf="!parsing && sharedData !== null && sharedData.planner !== null">Build found</mat-hint>
-        <mat-hint align="end" class="error" *ngIf="!parsing && sharedData !== null && !hasValidSharedData()">No valid data found</mat-hint>
+        <textarea matInput [formControl]="importContent"></textarea>
+        <mat-hint align="end" *ngIf="sharedData === null && heroClass !== null">Paste here a save, build, layer or link</mat-hint>
+        <mat-hint align="end" *ngIf="sharedData === null && heroClass === null">Paste here a build, layer or link</mat-hint>
+        <mat-hint align="end" class="success" *ngIf="sharedData !== null && sharedData.character !== null">Character found</mat-hint>
+        <mat-hint align="end" class="success" *ngIf="sharedData !== null && sharedData.layer !== null">Layer found</mat-hint>
+        <mat-hint align="end" class="success" *ngIf="sharedData !== null && sharedData.planner !== null">Build found</mat-hint>
+        <mat-hint align="end" class="error" *ngIf="sharedData !== null && !hasValidSharedData()">No valid data found</mat-hint>
         <mat-error>Cannot parse files bigger than {{MAX_UPLOAD_FILE_SIZE_MO}}Mo</mat-error>
     </mat-form-field>
     <button mat-flat-button color="primary" [disabled]="!hasValidSharedData()" (click)="importData()">{{importLabel}}</button>

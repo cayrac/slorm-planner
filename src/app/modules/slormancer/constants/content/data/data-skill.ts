@@ -20,7 +20,6 @@ function setUpgrade(values: Array<AbstractEffectValue>, index: number, upgrade: 
     if (value && typeof value.upgrade === 'number') {
         value.upgrade = upgrade;
     } else {
-        console.log(values);
         throw new Error('failed to update upgrade at index ' + index);
     }
 }
@@ -32,7 +31,6 @@ function setValue(values: Array<AbstractEffectValue>, index: number, newValue: n
         value.value = newValue;
         value.baseValue = newValue;
     } else {
-        console.log(values);
         throw new Error('failed to update value at index ' + index);
     }
 }
@@ -45,7 +43,6 @@ function setStat(values: Array<AbstractEffectValue>, index: number, stat: string
         }
         value.stat = stat;
     } else {
-        console.log(values);
         throw new Error('failed to update stat at index ' + index);
     }
 }
@@ -56,7 +53,6 @@ function setPercent(values: Array<AbstractEffectValue>, index: number, percent: 
     if (value) {
         value.percent = percent;
     } else {
-        console.log(values);
         throw new Error('failed to update stat at index ' + index);
     }
 }
@@ -67,7 +63,6 @@ function setSynergyPrecision(values: Array<AbstractEffectValue>, index: number, 
     if (value && isEffectValueSynergy(value)) {
         value.precision = precision;
     } else {
-        console.log(values);
         throw new Error('failed to update precision at index ' + index);
     }
 }
@@ -78,7 +73,6 @@ function setSynergyAllowMinMax(values: Array<AbstractEffectValue>, index: number
     if (value && isEffectValueSynergy(value)) {
         value.allowMinMax = allowMinMax;
     } else {
-        console.log(values);
         throw new Error('failed to update allowMinMax at index ' + index);
     }
 }
@@ -89,7 +83,6 @@ function setSource(values: Array<AbstractEffectValue>, index: number, source: st
     if (isEffectValueSynergy(value)) {
         value.source = source;
     } else {
-        console.log(values);
         throw new Error('failed to update source at index ' + index);
     }
 }
@@ -100,7 +93,6 @@ function setAsUpgrade(values: Array<AbstractEffectValue>, index: number) {
     if (value) {
         value.valueType = EffectValueValueType.Upgrade;
     } else {
-        console.log(values);
         throw new Error('failed to set an effect as upgrade at index ' + index);
     }
 }

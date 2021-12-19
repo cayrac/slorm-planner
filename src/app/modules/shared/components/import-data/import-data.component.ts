@@ -31,10 +31,6 @@ export class ImportDataComponent {
 
     public importContent = new FormControl(null, Validators.maxLength(this.MAX_UPLOAD_FILE_SIZE));
     
-    public busy: boolean = false;
-
-    public parsing: boolean = false;
-
     constructor(private importExportService: ImportExportService) {
         this.importContent.valueChanges.subscribe(content => {
             if (content === null || content.length === 0) {
@@ -46,11 +42,7 @@ export class ImportDataComponent {
     }
 
     private parseExportedData(content: string) {
-        this.parsing = true;
-        this.importExportService.import(content, this.heroClass).then(sharedData => {
-            this.sharedData = sharedData;
-            this.parsing = false;
-        });
+        this.sharedData = this.importExportService.import(content, this.heroClass);
     }
 
     public hasValidSharedData(): boolean {

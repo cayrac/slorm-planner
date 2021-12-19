@@ -1,4 +1,4 @@
-export const MAX_HERO_LEVEL = 50;
+export const MAX_HERO_LEVEL = 100;
 export const MAX_ITEM_LEVEL = MAX_HERO_LEVEL;
 
 export const MAX_MAGIC_STATS = 1;
@@ -37,3 +37,8 @@ export const SHIELD_DURATION = 3;
 export const POISON_DURATION = 7;
 export const ARCANE_BOND_DURATION = 7;
 export const TIME_LOCK_DURATION = 3;
+
+export const APP_TO_GAME_VERSION_MAPPER: { [key: string]: string } = {
+    '0.0.9': '0.3.015',
+    '0.0.10': '0.3.015'
+}

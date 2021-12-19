@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
@@ -8,9 +7,6 @@ import { environment } from '../../../../../environments/environment';
 import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
-import {
-    ContentBlockedModalComponent,
-} from '../../../shared/components/content-blocked-modal/content-blocked-modal.component';
 import { DeletePlannerModalComponent } from '../../../shared/components/delete-planner-modal/delete-planner-modal.component';
 import {
     EditLayerModalComponent,
@@ -44,8 +40,6 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
     private sidenav: MatSidenav | null = null;
 
     public busy: boolean = false;
-
-    public generatingLink: boolean = false;
 
     constructor(private messageService: MessageService,
                 private downloadService: DownloadService,
@@ -154,27 +148,14 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
     public copyExternalLink() {
         const layer = this.plannerService.getSelectedLayer();
 
-        if (layer !== null && !this.generatingLink) {
-            this.generatingLink = true;
-            this.importExportService.exportCharacterAsLink(layer.character)
-                .then(
-                    result => {
-                        if (result !== null && this.clipboardService.copyToClipboard(result)) {
-                            this.messageService.message('Link copied to clipboard');
-                        } else {
-                            this.messageService.error('Failed to copy link to clipboard : ' + result);
-                        }
-                        this.generatingLink = false;
-                    },
-                    (error: HttpErrorResponse) => {
-                        if (!error.ok && error.status === 0) {
-                            this.messageService.error('The link creation request has been blocked', 'Why ?',() => this.dialog.open(ContentBlockedModalComponent));
-                            // TODO
-                        } else {
-                            this.messageService.error('Failed to create link to current layer');
-                        }
-                        this.generatingLink = false;
-                    });
+        if (layer !== null) {
+            // this.generatingLink = true;
+            const link = this.importExportService.exportCharacterAsLink(layer.character);
+            if (this.clipboardService.copyToClipboard(link)) {
+                this.messageService.message('Link copied to clipboard');
+            } else {
+                this.messageService.error('Failed to copy link to clipboard');
+            }
         }
     }
 

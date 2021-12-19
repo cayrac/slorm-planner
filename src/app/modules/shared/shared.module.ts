@@ -15,7 +15,6 @@ import {
 } from './components/character-level-edit-modal/character-level-edit-modal.component';
 import { CompareItemModalComponent } from './components/compare-item-modal/compare-item-modal.component';
 import { CompareViewComponent } from './components/compare-view/compare-view.component';
-import { ContentBlockedModalComponent } from './components/content-blocked-modal/content-blocked-modal.component';
 import { DeleteLayerModalComponent } from './components/delete-layer-modal/delete-layer-modal.component';
 import { DeletePlannerModalComponent } from './components/delete-planner-modal/delete-planner-modal.component';
 import { EditLayerModalComponent } from './components/edit-layer-modal/edit-layer-modal.component';
@@ -57,7 +56,6 @@ import { UltimatumViewComponent } from './components/ultimatum-view/ultimatum-vi
 import { UpgradeSlotComponent } from './components/upgrade-slot/upgrade-slot.component';
 import { MaterialModule } from './material.module';
 
-
 @NgModule({
     declarations: [
         SnackbarComponent,
@@ -98,7 +96,6 @@ import { MaterialModule } from './material.module';
         DeletePlannerModalComponent,
         ImportDataComponent,
         FileUploadButtonComponent,
-        ContentBlockedModalComponent,
         CompareItemModalComponent,
         CompareViewComponent,
         ItemReinforcmentEditModalComponent,
@@ -151,7 +148,6 @@ import { MaterialModule } from './material.module';
         MainStatsComponent,
         ImportDataComponent,
         FileUploadButtonComponent,
-        ContentBlockedModalComponent,
         CompareItemModalComponent,
         CompareViewComponent,
         ItemReinforcmentEditModalComponent,

@@ -50,8 +50,6 @@ export class ViewCharacterComponent {
 
         this.combatBuffControl.valueChanges.subscribe(() => this.updateConfiguration());
         this.updateConfiguration();
-
-        console.log(this.character);
     }
 
     private updateConfiguration() {

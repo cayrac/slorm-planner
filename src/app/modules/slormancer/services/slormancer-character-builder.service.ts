@@ -96,8 +96,6 @@ export class SlormancerCharacterBuilderService {
             result = this.slormancerUltimatumService.getUltimatum(equippedIndex, (<GameUltimatum>save.ultimatums[equippedIndex]).level)
         }
 
-        console.log('get equipped ultumatum : ', result);
-
         return result;
     }
 

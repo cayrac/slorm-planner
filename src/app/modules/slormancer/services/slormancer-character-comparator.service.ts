@@ -104,7 +104,6 @@ export class SlormancerCharacterComparatorService {
         if (left && right && left.id === right.id) {
             const leftSynergyDamages = left.values.filter(value => isDamageType(value.stat));
             const rightSynergyDamages = right.values.filter(value => isDamageType(value.stat));
-            console.log('activable : ', leftSynergyDamages, rightSynergyDamages);
             if (leftSynergyDamages.length > 0 && rightSynergyDamages.length > 0) {
                 const leftDamages = leftSynergyDamages
                     .reduce((total, value) => add(total, (<EffectValueSynergy>value).displaySynergy), <number | MinMax>0);
@@ -213,8 +212,6 @@ export class SlormancerCharacterComparatorService {
         let commonLegendaryIds = leftLegendaries
             .map(effect => effect.id)
             .filter(id => rightLegendaries.some(effect => effect.id === id));
-
-        console.log('Common : ', leftLegendaries, rightLegendaries, commonLegendaryIds);
 
         for (const commonId of commonLegendaryIds) {
             const leftLegendary = <LegendaryEffect>leftLegendaries.find(leftLegendary => leftLegendary.id === commonId);

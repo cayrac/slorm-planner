@@ -26,6 +26,12 @@ import { SlormancerUltimatumService } from './services/content/slormancer-ultima
 import { SlormancerValueUpdater } from './services/content/slormancer-value-updater.service';
 import { SlormancerItemParserService } from './services/parser/slormancer-item-parser.service';
 import { SlormancerSaveParserService } from './services/parser/slormancer-save-parser.service';
+import { SlormancerBinaryCharacterService } from './services/short-data/slormancer-binary-character.service';
+import { SlormancerBinaryItemService } from './services/short-data/slormancer-binary-item.service';
+import { SlormancerBinaryReaperService } from './services/short-data/slormancer-binary-reaper.service';
+import { SlormancerBinaryUltimatumService } from './services/short-data/slormancer-binary-ultimatum.service';
+import { SlormancerCompressorService } from './services/short-data/slormancer-compressor.service';
+import { SlormancerShortDataService } from './services/short-data/slormancer-short-data.service';
 import { SlormancerCharacterBuilderService } from './services/slormancer-character-builder.service';
 import { SlormancerCharacterComparatorService } from './services/slormancer-character-comparator.service';
 import { SlormancerCharacterModifierService } from './services/slormancer-character.modifier.service';
@@ -67,7 +73,13 @@ import { SlormancerDpsService } from './services/slormancer-dps-service';
     SlormancerStatMappingService,
     SlormancerDpsService,
     SlormancerCharacterComparatorService,
-    SlormancerUltimatumService
+    SlormancerUltimatumService,
+    SlormancerShortDataService,
+    SlormancerBinaryCharacterService,
+    SlormancerCompressorService,
+    SlormancerBinaryReaperService,
+    SlormancerBinaryItemService,
+    SlormancerBinaryUltimatumService,
   ],
   bootstrap: []
 })

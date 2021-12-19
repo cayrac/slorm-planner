@@ -328,7 +328,6 @@ export class SlormancerCharacterUpdaterService {
 
         this.updateCharacterStats(character, updateViews, config, additionalItem);
 
-
         console.log(character);
     }
 }

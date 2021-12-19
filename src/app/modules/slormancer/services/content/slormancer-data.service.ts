@@ -54,6 +54,10 @@ export class SlormancerDataService {
         return valueOrNull(GAME_DATA.STAT.find(stat => stat.REF === statValue));
     }
 
+    public getGameDataStatByRefId(refId: number): GameDataStat | null {
+        return valueOrNull(GAME_DATA.STAT.find(stat => stat.REF_NB === refId));
+    }
+
     public getGameDataStats(): Array<GameDataStat> {
         return GAME_DATA.STAT;
     }

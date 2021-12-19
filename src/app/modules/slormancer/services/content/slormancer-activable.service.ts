@@ -125,7 +125,6 @@ export class SlormancerActivableService {
     }
 
     public updateActivableModel(activable: Activable) {
-        console.log('rounding : ', activable);
         activable.cooldown = activable.baseCooldown === null ? 0 : round(activable.baseCooldown, 2);
         activable.cost = activable.baseCost;
 

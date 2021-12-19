@@ -76,6 +76,14 @@
 ### Added
 - Added compatibility for The Slormancer 0.3.015
 
+## Release 0.0.10 (2021-12-20)
+### Changed
+- Replaced pastee export to an "all in url" solution to avoid browser or antivirus blocking
+### Added
+- exported builds with pastee are now redirected to the "all in url" version
+### Fixes
+- splendid greaves icon is no longer missing
+
 ## Planned changes
 - damages computing rework (probably when imubue passives are out)
 - fix manabender activable cooldown

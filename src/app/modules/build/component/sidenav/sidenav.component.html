@@ -18,10 +18,7 @@
             <div class="actions">
                 <button mat-icon-button (click)="!busy && downloadLayer()" matTooltip="Download"><mat-icon>file_download</mat-icon></button>
                 <button mat-icon-button (click)="!busy && copyLayer()" matTooltip="Copy to clipboard"><mat-icon>content_copy</mat-icon></button>
-                <button mat-icon-button (click)="!busy && copyExternalLink()" matTooltip="External link (using paste.ee)">
-                    <mat-icon *ngIf="!generatingLink">share</mat-icon>
-                    <mat-icon *ngIf="generatingLink" class="animation-rotation">sync</mat-icon>
-                </button>
+                <button mat-icon-button (click)="!busy && copyExternalLink()" matTooltip="External link"><mat-icon>share</mat-icon></button>
                 
             </div>
         </div>

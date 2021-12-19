@@ -158,7 +158,6 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
     },
     114: {
         override: values => {
-            console.log('VALUES : ', values);
             synergyMultiply100(values, 0);
         }
     }
