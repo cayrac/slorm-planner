@@ -5,6 +5,7 @@
         "ng": "ng",
         "start": "ng serve --configuration=development",
         "build": "ng build --configuration=production",
+        "build.github": "ng build --configuration=production --base-href /slorm-planner/",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e"
@@ -15,9 +16,9 @@
     },
     "dependencies": {
         "@angular-devkit/build-angular": "13.1.2",
-        "@angular/cli": "13.1.2",
         "@angular/animations": "13.1.1",
         "@angular/cdk": "13.1.1",
+        "@angular/cli": "13.1.2",
         "@angular/common": "13.1.1",
         "@angular/compiler": "13.1.1",
         "@angular/core": "13.1.1",

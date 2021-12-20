@@ -106,7 +106,7 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
 
         if (layer !== null) {
             const exportedLayer = this.importExportService.exportLayer(layer);
-            this.downloadService.downloadFile(exportedLayer, 'layer.sav');
+            this.downloadService.downloadFile(exportedLayer, layer.name);
         }
     }
 

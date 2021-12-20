@@ -86,6 +86,12 @@
 ### Fixes
 - splendid greaves icon is no longer missing
 
+## Release 0.0.10 TBR
+### Changed
+- Downloading a layer now use the layer name for the generated file
+
 ## Planned changes
 - damages computing rework (probably when imubue passives are out)
 - fix manabender activable cooldown
+- multiple builds
+- keep layer name when uploading (if not already done)
