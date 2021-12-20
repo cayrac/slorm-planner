@@ -1,0 +1,71 @@
+nav.mat-tab-nav-bar, mat-tab-group.mat-tab-group {
+    border-bottom: 0;
+
+    mat-ink-bar {
+        display: none;
+    }
+
+    .mat-tab-link, .mat-tab-label {
+        opacity: 1;
+        min-width: unset;
+
+        &::after {
+            content: ' ';
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background-color: transparent;
+        }
+    }
+
+
+    &[direction="vertical"] {
+        @include flex(row, stretch);
+
+        .mat-tab-labels {
+            @include flex(column);
+
+            .mat-tab-label {
+                @include flex(column, stretch);
+                padding: $space-unit * 3 0;
+                height: $space-content * 2;
+                min-width: 100px;
+                padding: 0;
+
+                &::after {
+                    right: 0;
+                    bottom:auto;
+                    width: 2px;
+                    height: 100%;
+                }
+
+                .mat-tab-label-content {
+                    @include flex-grow();
+                    @include flex(column, stretch, center);
+                }
+            }
+        }
+    }
+
+    &:not([direction="vertical"]) {
+        .mat-tab-link, .mat-tab-label {
+            height: 30px;
+        }
+        flex-basis: 0;
+    }
+
+    &[color="primary"] {
+        .mat-tab-label-active::after {
+            background-color: primary-color(700, true);
+        }
+
+        .mat-tab-label-content, .mat-tab-link {
+            color: primary-color(700, true);
+        }
+
+        .mat-tab-header-pagination-chevron {
+            border-color: primary-color(700, true);
+        }
+    }
+}

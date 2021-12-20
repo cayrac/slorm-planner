@@ -1,0 +1,13 @@
+@import 'variables';
+@import 'breakpoints';
+
+@mixin spacing($space: $space-content, $mobile: true) {
+    padding: $space;
+
+    @if $mobile {
+        @include respond-to('mobile') {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+}

@@ -1,0 +1,81 @@
+@use '@angular/material' as mat;
+
+$pallet-primary: (
+    50: #e2e2e2,
+    100: #b7b7b7,
+    200: #505050,
+    300: #353535,
+    400: #202020,
+    500: #101010,
+    600: #0e0e0e,
+    700: #0c0c0c,
+    800: #090909,
+    900: #050505,
+    A100: #ff4e4e,
+    A200: #ff1b1b,
+    A400: #e70000,
+    A700: #ce0000,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #ffffff,
+        300 : #ffffff,
+        400 : #d0d0d0,
+        500 : #d0d0d0,
+        600 : #d0d0d0,
+        700 : #d0d0d0,
+        800 : #d0d0d0,
+        900 : #d0d0d0,
+        A100 : #d0d0d0,
+        A200 : #d0d0d0,
+        A400 : #d0d0d0,
+        A700 : #d0d0d0,
+    )
+);
+
+$pallet-accent: (
+    50: #e4faf1,
+    100: #bcf3db,
+    200: #90ebc3,
+    300: #63e3ab,
+    400: #41dd99,
+    500: #20d787,
+    600: #1cd37f,
+    700: #18cd74,
+    800: #13c76a,
+    900: #0bbe57,
+    A100: #eafff2,
+    A200: #b7ffd2,
+    A400: #84ffb2,
+    A700: #6affa3,
+    contrast: (
+        50 : #ffffff,
+        100 : #ffffff,
+        200 : #ffffff,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #ffffff,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+$my-primary: mat.define-palette($pallet-primary, 500);
+$my-accent: mat.define-palette($pallet-accent, A200, A100, A400);
+
+// The "warn" palette is optional and defaults to red if not specified.
+$my-warn: mat.define-palette(mat.$red-palette);
+
+$theme: mat.define-light-theme((
+    color: (
+        primary: $my-primary,
+        accent: $my-accent,
+        warn: $my-warn,
+    )
+));

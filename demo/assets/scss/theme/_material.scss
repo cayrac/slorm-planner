@@ -1,0 +1,57 @@
+@use '@angular/material' as mat;
+@import "./theme";
+
+@include mat.core();
+
+//$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+// $my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+/*
+$primary-pallet: mat.define-palette($boxtal-primary);
+$accent-pallet:  mat.define-palette($boxtal-accent);
+$warn-pallet:    mat.define-palette($boxtal-warn);
+
+$my-theme: mat.define-light-theme((
+ color: (
+   primary: $primary-pallet,
+   accent: $accent-pallet,
+   warn: $warn-pallet
+ )
+));
+
+
+$boxtal-app-primary: mat-palette($boxtal-primary);
+$boxtal-app-accent:  mat-palette($boxtal-accent);
+$boxtal-app-warn:    mat-palette($boxtal-warn);
+$boxtal-app-theme:   mat-light-theme($boxtal-app-primary, $boxtal-app-accent, $boxtal-app-warn);
+
+@include mat-select-theme($boxtal-app-theme);
+@include mat-button-theme($boxtal-app-theme);
+@include mat-button-toggle-theme($boxtal-app-theme);
+@include mat-checkbox-theme($boxtal-app-theme);
+@include mat-datepicker-theme($boxtal-app-theme);
+@include mat-progress-bar-theme($boxtal-app-theme);
+@include mat-autocomplete-theme($boxtal-app-theme);
+@include mat-radio-theme($boxtal-app-theme);
+@include mat-input-theme($boxtal-app-theme);
+@include mat-form-field-outline-theme($boxtal-app-theme);
+@include mat-form-field-theme($boxtal-app-theme);
+@include mat-menu-theme($boxtal-app-theme);
+@include mat-progress-spinner-theme($boxtal-app-theme);
+@include mat-sidenav-theme($boxtal-app-theme);
+@include mat-tabs-theme($boxtal-app-theme);
+@include mat-toolbar-theme($boxtal-app-theme);*/
+
+@include mat.core-theme($theme);
+
+@include mat.button-theme($theme);
+@include mat.tabs-theme($theme);
+@include mat.card-theme($theme);
+@include mat.select-theme($theme);
+@include mat.input-theme($theme);
+@include mat.form-field-theme($theme);
+@include mat.slider-theme($theme);
+@include mat.checkbox-theme($theme);
+@include mat.menu-theme($theme);
+@include mat.snack-bar-theme($theme);
+@include mat.sidenav-theme($theme);
+@include mat.tooltip-theme($theme);

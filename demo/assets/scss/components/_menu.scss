@@ -1,0 +1,22 @@
+@use '@angular/material' as mat;
+
+.mat-menu-panel[role="menu"] {
+
+    @include mat.elevation(4, primary-color(400));
+
+    max-width: 400px;
+
+    background-color: primary-color(400);
+
+    .mat-menu-item, .mat-menu-item mat-icon {
+        color: primary-color(700, true);
+    }
+
+    .mat-menu-item:hover:not([disabled]) {
+        background-color: primary-color(300);
+    }
+    
+    .mat-menu-item-submenu-trigger::after {
+        border-color: transparent transparent transparent primary-color(900, true);
+    }
+}

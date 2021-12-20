@@ -1,0 +1,41 @@
+@use '@angular/material' as mat;
+
+$text-color: primary-color(700, true);
+
+mat-select.mat-select {
+
+    .mat-select-arrow-wrapper {
+        transform: none;
+    }
+    
+    .mat-select-value-text,
+    .mat-select-arrow-wrapper .mat-select-arrow,
+    .mat-form-field.mat-focused.mat-primary & .mat-select-arrow {
+        color: $text-color;
+    }
+}
+
+.mat-select-panel{
+    &.mat-primary {
+        @include mat.elevation(4, primary-color(400));
+    
+        background-color: primary-color(400);
+
+        mat-option {
+            background-color: primary-color(400);
+
+            &.mat-option.mat-selected:not(.mat-option-multiple), &:hover {
+                background-color: primary-color(300);
+            }
+
+            .mat-option-text {
+                color: $text-color;
+            }
+            &.mat-option-disabled .mat-option-text {
+                color: rgba($text-color, 0.5);
+            }
+
+            
+        }
+    }
+}
