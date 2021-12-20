@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import "../../../../../assets/scss/abstracts/flex";
 @import "../../../../../assets/scss/abstracts/variables";
 @import "../../../../../assets/scss/abstracts/color";
@@ -84,7 +85,7 @@ main {
             app-item-slot {
                 display: block;
                 float: left;
-                margin: $space-unit / 2;
+                margin: math.div($space-unit, 2);
             }
         }
     }

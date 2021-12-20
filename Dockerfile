@@ -2,7 +2,7 @@ FROM httpd:alpine
 
 ENV NODE_ENV=production
 
-RUN apk add --no-cache nodejs=14.18.1-r0 npm apache2 openrc
+RUN apk add --no-cache nodejs npm apache2 openrc
 
 RUN mkdir sources
 

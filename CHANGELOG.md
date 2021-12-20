@@ -79,6 +79,8 @@
 ## Release 0.0.10 (2021-12-20)
 ### Changed
 - Replaced pastee export to an "all in url" solution to avoid browser or antivirus blocking
+- Activable slot menu is now also showed on left click (like the skill slot)
+- Updated angular packages to latest versions
 ### Added
 - exported builds with pastee are now redirected to the "all in url" version
 ### Fixes

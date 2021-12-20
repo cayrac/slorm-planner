@@ -52,6 +52,15 @@ export class ActivableSlotComponent extends AbstractUnsubscribeComponent impleme
         }
         return false;
     }
+
+    @HostListener('click')
+    public onMouseClick() {
+        this.itemMoveService.releaseHoldItem();
+        if (this.menu !== null && !this.readonly) {
+            this.menu.openMenu();
+        }
+        return false;
+    }
     
     constructor(private plannerService: PlannerService,
                 private itemMoveService: ItemMoveService) {

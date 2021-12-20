@@ -26,7 +26,7 @@ export class PlannerService {
 
     private selectedLayerIndex: number = -1;
 
-    public readonly manualSave = new Subject();
+    public readonly manualSave = new Subject<void>();
 
     public readonly characterChanged = new BehaviorSubject<Character | null>(null);
 
