@@ -9,7 +9,6 @@ $content-width          :   1140px;
 $space-unit             :   4px;
 $space-content          :   5 * $space-unit;
 
-
 $breakpoints: (
     'large-desktop'     : (max-width: 1310px),
     'desktop'           : (max-width: 1024px),
@@ -17,3 +16,5 @@ $breakpoints: (
     'tablet'            : (max-width: 768px),
     'mobile'            : (max-width: 374px),
 );
+
+$font-family: 'Berlin Sans FB Regular', Roboto;

@@ -13,6 +13,7 @@ import { CharacterEquipmentComponent } from './components/character-equipment/ch
 import {
     CharacterLevelEditModalComponent,
 } from './components/character-level-edit-modal/character-level-edit-modal.component';
+import { CharacterSettingsMenuComponent } from './components/character-settings-menu/character-settings-menu.component';
 import { CompareItemModalComponent } from './components/compare-item-modal/compare-item-modal.component';
 import { CompareViewComponent } from './components/compare-view/compare-view.component';
 import { DeleteLayerModalComponent } from './components/delete-layer-modal/delete-layer-modal.component';
@@ -37,12 +38,14 @@ import { ItemViewComponent } from './components/item-view/item-view.component';
 import { MainStatsComponent } from './components/main-stats/main-stats.component';
 import { MechanicsViewComponent } from './components/mechanics-view/mechanics-view.component';
 import { MergedStatViewComponent } from './components/merged-stat-view/merged-stat-view.component';
+import {
+    OptimizeItemsStatsModalComponent,
+} from './components/optimize-items-stats-modal/optimize-items-stats-modal.component';
 import { ReaperEditModalComponent } from './components/reaper-edit-modal/reaper-edit-modal.component';
 import { ReaperSlotComponent } from './components/reaper-slot/reaper-slot.component';
 import { ReaperViewComponent } from './components/reaper-view/reaper-view.component';
 import { RemoveConfirmModalComponent } from './components/remove-confirm-modal/remove-confirm-modal.component';
 import { ReplacePlannerModalComponent } from './components/replace-planner-modal/replace-planner-modal.component';
-import { SettingsMenuComponent } from './components/settings-menu/settings-menu.component';
 import { SkillBarComponent } from './components/skill-bar/skill-bar.component';
 import { SkillSlotComponent } from './components/skill-slot/skill-slot.component';
 import { SkillUpgradeViewComponent } from './components/skill-upgrade-view/skill-upgrade-view.component';
@@ -86,7 +89,7 @@ import { MaterialModule } from './material.module';
         SkillSlotComponent,
         ActivableSlotComponent,
         SkillBarComponent,
-        SettingsMenuComponent,
+        CharacterSettingsMenuComponent,
         CharacterEquipmentComponent,
         UpgradeSlotComponent,
         AncestralLegacySlotComponent,
@@ -104,6 +107,7 @@ import { MaterialModule } from './material.module';
         UltimatumSlotComponent,
         UltimatumViewComponent,
         UltimatumEditModalComponent,
+        OptimizeItemsStatsModalComponent,
     ],
     imports: [
         CommonModule,
@@ -139,7 +143,7 @@ import { MaterialModule } from './material.module';
         ActivableSlotComponent,
         SkillSlotComponent,
         SkillBarComponent,
-        SettingsMenuComponent,
+        CharacterSettingsMenuComponent,
         CharacterEquipmentComponent,
         UpgradeSlotComponent,
         AncestralLegacySlotComponent,

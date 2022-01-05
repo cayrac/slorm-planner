@@ -53,6 +53,10 @@ export class FormOptionsService {
         return this.ALL_REAPER_OPTIONS_CACHE[primordial ? 'p' : 'b'][heroClass];
     }
 
+    public getAllStatsoptions(): Array<SelectOption<string>> {
+        return this.ALL_STATS_OPTIONS_CACHE;
+    }
+
     public getStatsOptions(base: EquipableItemBase, rarity: Rarity): Array<SelectOption<string>> {
         let result = this.ALL_STATS_OPTIONS_CACHE;
 

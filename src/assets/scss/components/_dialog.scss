@@ -16,6 +16,10 @@ mat-dialog-container {
     mat-dialog-content.mat-dialog-content {
         padding: $space-unit $space-unit * 5;
         max-height: 80vh;
+
+        > *:first-child {
+            margin-top: 0;
+        }
     }
 
     mat-dialog-actions.mat-dialog-actions {

@@ -1,0 +1,23 @@
+@import "../../../../../assets/scss/abstracts/flex";
+@import "../../../../../assets/scss/abstracts/variables";
+
+.stat {
+    cursor: pointer;
+    padding-left: $space-unit;
+
+    @include respond-to('tablet') {
+        padding-left: 0;
+    }
+
+    &:hover {
+        opacity: 0.6;
+    }
+}
+
+mat-form-field {
+    width: 200px;
+
+    @include respond-to('tablet') {
+        width: 100%;
+    }
+}

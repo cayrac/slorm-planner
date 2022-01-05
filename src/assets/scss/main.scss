@@ -31,9 +31,6 @@
 
 @import "slormancer/icon";
 
-$theme-primary-pallet: map-get($theme, primary);
-$primary-color: mat-color($theme-primary-pallet);
-
 html, body {
     margin: 0;
     height: 100%;
@@ -43,7 +40,7 @@ html, body {
 }
 
 * {
-    font-family: 'Berlin Sans FB Regular';
+    font-family: $font-family;
     box-sizing: border-box;
 }
 

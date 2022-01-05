@@ -82,7 +82,7 @@ export class SlormancerAffixService {
         }
     }
 
-    public getAffixFromStat(statName: string, itemLevel: number, reinforcment: number, rarity: Rarity, value: number, pure: number = 100): Affix | null {
+    public getAffixFromStat(statName: string, itemLevel: number, reinforcment: number, rarity: Rarity, value: number = Number.MAX_VALUE, pure: number = 100): Affix | null {
         let result: Affix | null = null;
 
         const stat = this.slormancerDataService.getGameDataStatByRef(statName);

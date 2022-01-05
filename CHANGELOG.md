@@ -82,16 +82,21 @@
 - Activable slot menu is now also showed on left click (like the skill slot)
 - Updated angular packages to latest versions
 ### Added
-- exported builds with pastee are now redirected to the "all in url" version
+- Exported builds with pastee are now redirected to the "all in url" version
 ### Fixes
-- splendid greaves icon is no longer missing
+- Splendid greaves icon is no longer missing
 
 ## Release 0.0.10 TBR
 ### Changed
 - Downloading a layer now use the layer name for the generated file
+- Reduced the max level back to 50 (up to 100 by mistake in last version)
+### Fixes
+- Material theme now correctly use the Berlin (Slormancer) font
+### Added
+- Added optimize items stats modal on character settings menu
 
 ## Planned changes
-- damages computing rework (probably when imubue passives are out)
-- fix manabender activable cooldown
-- multiple builds
-- keep layer name when uploading (if not already done)
+- Damages computing rework (probably when imbue passives are out)
+- Fix manabender activable cooldown
+- Multiple builds
+- Keep layer name when uploading (if not already done)

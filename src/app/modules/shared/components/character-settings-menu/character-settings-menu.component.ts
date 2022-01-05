@@ -16,15 +16,19 @@ import { PlannerService } from '../../services/planner.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 import { CharacterLevelEditModalComponent } from '../character-level-edit-modal/character-level-edit-modal.component';
 import { ItemReinforcmentEditModalComponent } from '../item-reinforcment-edit-modal/item-reinforcment-edit-modal.component';
+import {
+    OptimizeItemsStatsModalComponent,
+    OptimizeItemsStatsModalData,
+} from '../optimize-items-stats-modal/optimize-items-stats-modal.component';
 
 
 
 @Component({
-  selector: 'app-settings-menu',
-  templateUrl: './settings-menu.component.html',
-  styleUrls: ['./settings-menu.component.scss']
+  selector: 'app-character-settings-menu',
+  templateUrl: './character-settings-menu.component.html',
+  styleUrls: ['./character-settings-menu.component.scss']
 })
-export class SettingsMenuComponent extends AbstractUnsubscribeComponent implements OnInit {
+export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent implements OnInit {
 
     public character: Character | null = null;
 
@@ -189,6 +193,19 @@ export class SettingsMenuComponent extends AbstractUnsubscribeComponent implemen
                     this.plannerService.updateCurrentCharacter();
         
                     this.messageService.message('All equipped items reinforcment raised to ' + reinforcment);
+                }
+            });
+        }
+    }
+
+    public optimizeItemsStats() {
+        if (this.character !== null) {
+            const data: OptimizeItemsStatsModalData = { items: this.getGearItems() };
+            this.dialog.open(OptimizeItemsStatsModalComponent, { data })
+            .afterClosed().subscribe(changed => {
+                if (changed) {
+                    this.plannerService.updateCurrentCharacter();
+                    this.messageService.message('All equipped items have been updated');
                 }
             });
         }

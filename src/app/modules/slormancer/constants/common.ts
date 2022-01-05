@@ -1,4 +1,4 @@
-export const MAX_HERO_LEVEL = 100;
+export const MAX_HERO_LEVEL = 50;
 export const MAX_ITEM_LEVEL = MAX_HERO_LEVEL;
 
 export const MAX_MAGIC_STATS = 1;
