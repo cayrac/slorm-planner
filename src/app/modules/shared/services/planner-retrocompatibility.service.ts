@@ -57,6 +57,13 @@ export class PlannerRetrocompatibilityService {
                 planner.version = '0.0.10';
             }
         },
+        {
+            version: '0.0.11',
+            update: planner => {
+                planner.version = '0.0.11';
+                planner.name = 'New build'
+            }
+        },
     ];
 
     constructor() { }

@@ -144,7 +144,7 @@ export class ViewCharacterComponent {
     public import() {
         if (this.canImport()) {
             if (this.plannerService.getPlanner() === null) {
-                this.plannerService.createNewPlanner(this.character.heroClass, this.character);
+                this.plannerService.createNewPlanner(this.character.heroClass, 'New build', this.character);
             } else {
                 this.plannerService.addLayer('Imported layer', this.character);
             }

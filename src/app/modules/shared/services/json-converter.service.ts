@@ -266,6 +266,7 @@ export class JsonConverterService {
             type: 'p',
             version: planner.version,
             heroClass: planner.heroClass,
+            name: planner.name,
             layers: planner.layers.map(layer => this.layerToJson(layer)),
             configuration: { ...planner.configuration }
         };
@@ -399,6 +400,7 @@ export class JsonConverterService {
         return {
             version: planner.version,
             heroClass: planner.heroClass,
+            name: planner.name ? planner.name : 'Default name',
             layers: planner.layers.map(layer => this.jsonToLayer(layer)),
             configuration: { ...planner.configuration }
         };

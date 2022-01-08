@@ -92,7 +92,7 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
                 this.dialog.open(ReplacePlannerModalComponent)
                     .afterClosed().subscribe((replace: boolean | undefined) => {
                         if (replace === true) {
-                            this.plannerService.setPlanner(sharedData.planner);
+                            this.plannerService.addPlanner(sharedData.planner);
                             this.closeSideNav();
                         }
                     })

@@ -86,12 +86,13 @@
 ### Fixes
 - Splendid greaves icon is no longer missing
 
-## Release 0.0.10 TBR
+## Release 0.0.11 TBR
 ### Changed
 - Downloading a layer now use the layer name for the generated file
 - Reduced the max level back to 50 (up to 100 by mistake in last version)
 ### Fixes
 - Material theme now correctly use the Berlin (Slormancer) font
+- Fixed an issue causing some item stats to be ignored when loaded from a save file
 ### Added
 - Added optimize items stats modal on character settings menu
 

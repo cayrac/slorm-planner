@@ -28,7 +28,7 @@ export class SlormancerItemParserService {
 
     private isAffixe(value: string): boolean {
         const length = value.split('.').length
-        return length === 5 ||length === 4;
+        return length === 6 || length === 5 ||length === 4;
     }
 
     private isEnchantment(value: string): boolean {
@@ -36,7 +36,7 @@ export class SlormancerItemParserService {
     }
 
     private parseAffixe(affixe: string): GameAffix {
-        const [rarity, type, value, locked, pure ] = strictSplit(affixe, '.', { min: 4, max: 5 });
+        const [rarity, type, value, locked, pure, _ ] = strictSplit(affixe, '.', { min: 4, max: 6 });
 
         if (this.AFFIXE_RARITIES.indexOf(<string>rarity) === -1) {
             throw new Error('parse affixe error : Unknown rarity "' + rarity + '"');

@@ -17,13 +17,13 @@ export class CreateBuildFromExportComponent {
     
     public createBuild(sharedData: SharedData) {
         if (sharedData.character !== null) {
-            this.plannerService.createNewPlanner(sharedData.character.heroClass, sharedData.character);
+            this.plannerService.createNewPlanner(sharedData.character.heroClass, 'New build', sharedData.character);
             this.router.navigate(['/build']);
         } else if (sharedData.layer !== null) {
-            this.plannerService.createNewPlanner(sharedData.layer.character.heroClass, sharedData.layer.character, sharedData.layer.name);
+            this.plannerService.createNewPlanner(sharedData.layer.character.heroClass, 'New build', sharedData.layer.character, sharedData.layer.name);
             this.router.navigate(['/build']);
         } else if (sharedData.planner !== null) {
-            this.plannerService.setPlanner(sharedData.planner);
+            this.plannerService.addPlanner(sharedData.planner);
             this.router.navigate(['/build']);
         }
     }

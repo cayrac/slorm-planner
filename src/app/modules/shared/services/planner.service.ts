@@ -39,7 +39,7 @@ export class PlannerService {
                 private slormancerCharacterBuilderService: SlormancerCharacterBuilderService,
                 private plannerRetrocompatibilityService: PlannerRetrocompatibilityService) {
         const data = localStorage.getItem(this.STORAGE_KEY);
-        this.setPlanner(data === null ? null : this.jsonConverterService.jsonToPlanner(JSON.parse(data)))
+        this.addPlanner(data === null ? null : this.jsonConverterService.jsonToPlanner(JSON.parse(data)))
 
         this.manualSave.pipe(debounceTime(500))
             .subscribe(() => {
@@ -53,7 +53,7 @@ export class PlannerService {
         return this.planner;
     }
 
-    public setPlanner(planner: Planner | null) {
+    public addPlanner(planner: Planner | null) {
         if (planner !== null) {
             this.plannerRetrocompatibilityService.updateToLatestVersion(planner);
         }
@@ -73,9 +73,10 @@ export class PlannerService {
         return result;
     }
 
-    private initPlanner(heroClass: HeroClass) {
+    private initPlanner(heroClass: HeroClass, name: string) {
         this.planner = {
             version: environment.version,
+            name,
             heroClass,
             layers: [],
             configuration: DEFAULT_CONFIG
@@ -161,9 +162,9 @@ export class PlannerService {
         }
     }
 
-    public createNewPlanner(heroClass: HeroClass, character: Character | null = null, layerName = 'Layer 1') {
+    public createNewPlanner(heroClass: HeroClass, name: string = 'New build', character: Character | null = null, layerName = 'Layer 1') {
         if (character === null || heroClass === character.heroClass) {
-            this.initPlanner(heroClass);
+            this.initPlanner(heroClass, name);
             this.addLayer(layerName, character);
             this.setLayerIndex(0, true);
             this.updateAllCharacters();
@@ -171,7 +172,7 @@ export class PlannerService {
     }
 
     public deletePlanner() {
-        this.setPlanner(null);
+        this.addPlanner(null);
         localStorage.removeItem(this.STORAGE_KEY);
     }
 

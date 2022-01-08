@@ -47,6 +47,11 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
             overrideValueStat(values, 2, 'golden_buff_duration')
         }
     },
+    1: {
+        override: values => {
+            overrideValueStat(values, 0, 'sleeping_powder_duration')
+        }
+    },
     2: {
         override: values => {
             overrideValueStat(values, 0, 'health_regen_add');

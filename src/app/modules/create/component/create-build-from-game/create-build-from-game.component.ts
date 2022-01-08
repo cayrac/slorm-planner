@@ -55,7 +55,7 @@ export class CreateBuildFromGameComponent {
 
     public createBuild() {
         if (this.selectedClass !== null && this.characters !== null) {
-            this.plannerService.createNewPlanner(this.selectedClass, this.characters[this.selectedClass]);
+            this.plannerService.createNewPlanner(this.selectedClass, 'New build', this.characters[this.selectedClass]);
             this.router.navigate(['/build']);
         }
     }
