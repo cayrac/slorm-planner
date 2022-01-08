@@ -6,8 +6,8 @@ import { Character } from '../../../slormancer/model/character';
 import { Activable } from '../../../slormancer/model/content/activable';
 import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
 import { compare, isFirst, isNotNullOrUndefined } from '../../../slormancer/util/utils';
+import { BuildService } from '../../services/build.service';
 import { ItemMoveService } from '../../services/item-move.service';
-import { PlannerService } from '../../services/planner.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 
 
@@ -62,7 +62,7 @@ export class ActivableSlotComponent extends AbstractUnsubscribeComponent impleme
         return false;
     }
     
-    constructor(private plannerService: PlannerService,
+    constructor(private plannerService: BuildService,
                 private itemMoveService: ItemMoveService) {
         super();
         this.plannerService.characterChanged

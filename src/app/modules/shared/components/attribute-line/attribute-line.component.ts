@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AttributeTraits } from '../../../slormancer/model/content/attribut-traits';
 import { MinMax } from '../../../slormancer/model/minmax';
 import { SlormancerAttributeService } from '../../../slormancer/services/content/slormancer-attribute.service';
-import { PlannerService } from '../../services/planner.service';
+import { BuildService } from '../../services/build.service';
 
 @Component({
   selector: 'app-attribute-line',
@@ -38,7 +38,7 @@ export class AttributeLineComponent implements OnInit {
     public showSummary = false;
     
     constructor(private slormancerAttributeService: SlormancerAttributeService,
-                private plannerService: PlannerService) { }
+                private plannerService: BuildService) { }
 
     public ngOnInit() {
         this.updateCursor();

@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
-import { PlannerService } from '../../../shared/services/planner.service';
+import { BuildService } from '../../../shared/services/build.service';
 import { CharacterAttributes } from '../../../slormancer/model/character';
 import { ALL_ATTRIBUTES } from '../../../slormancer/model/content/enum/attribute';
 
@@ -19,7 +19,7 @@ export class AttributesComponent extends AbstractUnsubscribeComponent implements
 
     public attributes: CharacterAttributes | null = null;
 
-    constructor(private plannerService: PlannerService) {
+    constructor(private plannerService: BuildService) {
         super();
     }
 

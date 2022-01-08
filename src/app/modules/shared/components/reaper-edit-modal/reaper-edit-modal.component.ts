@@ -9,8 +9,8 @@ import { SlormancerReaperService } from '../../../slormancer/services/content/sl
 import { SlormancerCharacterUpdaterService } from '../../../slormancer/services/slormancer-character.updater.service';
 import { valueOrDefault } from '../../../slormancer/util/utils';
 import { SelectOption } from '../../model/select-option';
+import { BuildService } from '../../services/build.service';
 import { FormOptionsService } from '../../services/form-options.service';
-import { PlannerService } from '../../services/planner.service';
 
 export interface ReaperEditModalData {
     character: Character;
@@ -38,7 +38,7 @@ export class ReaperEditModalComponent {
                 private slormancerReaperService: SlormancerReaperService,
                 private slormancerCharacterUpdaterService: SlormancerCharacterUpdaterService,
                 private formOptionsService: FormOptionsService,
-                private plannerService: PlannerService,
+                private plannerService: BuildService,
                 @Inject(MAT_DIALOG_DATA) data: ReaperEditModalData
                 ) {
         this.originalReaper = this.slormancerReaperService.getReaperClone(data.reaper);

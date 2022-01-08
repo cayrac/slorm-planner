@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Character } from '../../slormancer/model/character';
 import { EquipableItemBase } from '../../slormancer/model/content/enum/equipable-item-base';
 import { EquipableItem } from '../../slormancer/model/content/equipable-item';
-import { PlannerService } from './planner.service';
+import { BuildService } from './build.service';
 
 export declare type DragCallback = (itemReplaced: boolean, item: EquipableItem | null) => void;
 
@@ -23,7 +23,7 @@ export class ItemMoveService {
 
     private callback: null | DragCallback = null;
 
-    constructor(private plannerService: PlannerService) {
+    constructor(private plannerService: BuildService) {
         this.plannerService.characterChanged
             .subscribe(character => this.character = character);
     }

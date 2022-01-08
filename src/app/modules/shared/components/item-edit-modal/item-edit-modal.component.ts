@@ -17,8 +17,8 @@ import { SlormancerDataService } from '../../../slormancer/services/content/slor
 import { SlormancerItemService } from '../../../slormancer/services/content/slormancer-item.service';
 import { SlormancerLegendaryEffectService } from '../../../slormancer/services/content/slormancer-legendary-effect.service';
 import { valueOrDefault, valueOrNull } from '../../../slormancer/util/utils';
+import { BuildService } from '../../services/build.service';
 import { FormOptionsService } from '../../services/form-options.service';
-import { PlannerService } from '../../services/planner.service';
 
 export interface ItemEditModalData {
     character: Character,
@@ -56,7 +56,7 @@ export class ItemEditModalComponent {
                 private slormancerAffixService: SlormancerAffixService,
                 private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
                 private formOptionsService: FormOptionsService,
-                private plannerService: PlannerService,
+                private plannerService: BuildService,
                 @Inject(MAT_DIALOG_DATA) data: ItemEditModalData
                 ) {
         this.originalItem = data.item;

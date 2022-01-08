@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PlannerService } from '../../../shared/services/planner.service';
+import { BuildService } from '../../../shared/services/build.service';
 import { HeroClass } from '../../../slormancer/model/content/enum/hero-class';
 
 @Component({
@@ -16,11 +16,11 @@ export class CreateBuildEmptyComponent {
     public selectedClass: HeroClass | null = null;
 
     constructor(private router: Router,
-                private plannerService: PlannerService) {}
+                private plannerService: BuildService) {}
 
     public createBuild() {
         if (this.selectedClass !== null) {
-            this.plannerService.createNewPlanner(this.selectedClass);
+            this.plannerService.createNewBuild(this.selectedClass);
             this.router.navigate(['/build']);
         }
     }

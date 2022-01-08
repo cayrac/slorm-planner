@@ -1,9 +1,9 @@
 import { Character } from '../../slormancer/model/character';
+import { Build } from './build';
 import { Layer } from './layer';
-import { Planner } from './planner';
 
 export interface SharedData {
     character: Character | null;
     layer: Layer | null;
-    planner: Planner | null;
+    planner: Build | null;
 }

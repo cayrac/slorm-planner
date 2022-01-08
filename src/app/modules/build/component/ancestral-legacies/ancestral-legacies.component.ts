@@ -4,8 +4,8 @@ import { takeUntil } from 'rxjs/operators';
 import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
+import { BuildService } from '../../../shared/services/build.service';
 import { MessageService } from '../../../shared/services/message.service';
-import { PlannerService } from '../../../shared/services/planner.service';
 import { MAXIMUM_ANCESTRAL_LEGACY_POINTS, UNLOCKED_ANCESTRAL_LEGACY_POINTS } from '../../../slormancer/constants/common';
 import { Character } from '../../../slormancer/model/character';
 import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
@@ -26,7 +26,7 @@ export class AncestralLegaciesComponent extends AbstractUnsubscribeComponent imp
 
     public selectedAncestralLegacy: AncestralLegacy | null = null;
 
-    constructor(private plannerService: PlannerService,
+    constructor(private plannerService: BuildService,
                 private slormancerAncestralLegacyService: SlormancerAncestralLegacyService,
                 private messageService: MessageService) {
         super();

@@ -6,8 +6,8 @@ import { SlormancerSaveParserService } from '../../slormancer/services/parser/sl
 import { SlormancerShortDataService } from '../../slormancer/services/short-data/slormancer-short-data.service';
 import { SlormancerCharacterBuilderService } from '../../slormancer/services/slormancer-character-builder.service';
 import { valueOrNull } from '../../slormancer/util/utils';
+import { Build } from '../model/build';
 import { Layer } from '../model/layer';
-import { Planner } from '../model/planner';
 import { SharedData } from '../model/shared-data';
 import { JsonConverterService } from './json-converter.service';
 
@@ -95,7 +95,7 @@ export class ImportExportService {
         return btoa(JSON.stringify(this.jsonConverterService.layerToJson(layer)));
     }
 
-    public exportPlanner(planner: Planner): string {
+    public exportPlanner(planner: Build): string {
         return btoa(JSON.stringify(this.jsonConverterService.plannerToJson(planner)));
     }
 

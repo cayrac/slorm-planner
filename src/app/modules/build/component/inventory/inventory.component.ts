@@ -4,8 +4,8 @@ import { takeUntil } from 'rxjs/operators';
 import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
+import { BuildService } from '../../../shared/services/build.service';
 import { ItemMoveService as ItemMoveService } from '../../../shared/services/item-move.service';
-import { PlannerService } from '../../../shared/services/planner.service';
 import { Character } from '../../../slormancer/model/character';
 import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
 import { Reaper } from '../../../slormancer/model/content/reaper';
@@ -25,7 +25,7 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
 
     public itemGroupDragDropPossible: boolean = false;
 
-    constructor(private plannerService: PlannerService,
+    constructor(private plannerService: BuildService,
                 private itemMoveService: ItemMoveService) {
         super();
         this.itemMoveService.draggingItem
@@ -79,7 +79,7 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
             const stash = this.character.sharedInventory[stashIndex];
             if (stash) {
                 stash[index] = item;
-                this.plannerService.savePlanner();
+                this.plannerService.saveBuild();
             }
         }
     }

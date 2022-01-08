@@ -8,7 +8,7 @@ import { Character } from '../../../slormancer/model/character';
 import { Activable } from '../../../slormancer/model/content/activable';
 import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
 import { Skill } from '../../../slormancer/model/content/skill';
-import { PlannerService } from '../../services/planner.service';
+import { BuildService } from '../../services/build.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 
 
@@ -22,7 +22,7 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
 
     public character: Character | null = null;
 
-    constructor(private plannerService: PlannerService,
+    constructor(private plannerService: BuildService,
                 private slormancerCharacterModifierService: SlormancerCharacterModifierService) {
         super();
     }

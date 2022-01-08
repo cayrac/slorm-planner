@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { BuildService } from '../../../shared/services/build.service';
 import { MessageService } from '../../../shared/services/message.service';
-import { PlannerService } from '../../../shared/services/planner.service';
 import { Character } from '../../../slormancer/model/character';
 import { HeroClass } from '../../../slormancer/model/content/enum/hero-class';
 import { GameHeroesData } from '../../../slormancer/model/parser/game/game-save';
@@ -24,7 +24,7 @@ export class CreateBuildFromGameComponent {
 
     constructor(private messageService: MessageService,
                 private router: Router,
-                private plannerService: PlannerService,
+                private plannerService: BuildService,
                 private slormancerSaveParserService: SlormancerSaveParserService,
                 private slormancerCharacterBuilderService: SlormancerCharacterBuilderService) {}
     
@@ -55,7 +55,7 @@ export class CreateBuildFromGameComponent {
 
     public createBuild() {
         if (this.selectedClass !== null && this.characters !== null) {
-            this.plannerService.createNewPlanner(this.selectedClass, 'New build', this.characters[this.selectedClass]);
+            this.plannerService.createNewBuild(this.selectedClass, 'New build', this.characters[this.selectedClass]);
             this.router.navigate(['/build']);
         }
     }

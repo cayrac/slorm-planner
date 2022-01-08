@@ -7,7 +7,7 @@ import { Character } from '../../../slormancer/model/character';
 import { Skill } from '../../../slormancer/model/content/skill';
 import { SkillType } from '../../../slormancer/model/content/skill-type';
 import { SlormancerTranslateService } from '../../../slormancer/services/content/slormancer-translate.service';
-import { PlannerService } from '../../services/planner.service';
+import { BuildService } from '../../services/build.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 
 
@@ -51,7 +51,7 @@ export class SkillSlotComponent extends AbstractUnsubscribeComponent implements 
         this.showOverlay = false;
     }
     
-    constructor(private plannerService: PlannerService,
+    constructor(private plannerService: BuildService,
                 private slormancerTranslateService: SlormancerTranslateService) {
         super();
     }

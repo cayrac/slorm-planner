@@ -9,8 +9,8 @@ import { SlormancerCharacterBuilderService } from 'src/app/modules/slormancer/se
 import { EquipableItemBase } from '../../../slormancer/model/content/enum/equipable-item-base';
 import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
 import { SlormancerItemService } from '../../../slormancer/services/content/slormancer-item.service';
+import { BuildService } from '../../services/build.service';
 import { ItemMoveService } from '../../services/item-move.service';
-import { PlannerService } from '../../services/planner.service';
 import { SearchService } from '../../services/search.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 import { CompareItemModalComponent, CompareItemModalData } from '../compare-item-modal/compare-item-modal.component';
@@ -102,7 +102,7 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
                 private searchService: SearchService,
                 private slormancerCharacterBuilderService: SlormancerCharacterBuilderService,
                 private slormancerItemService: SlormancerItemService,
-                private plannerService: PlannerService) {
+                private plannerService: BuildService) {
         super();
         this.itemMoveService.draggingItem
             .pipe(takeUntil(this.unsubscribe))

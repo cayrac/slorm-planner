@@ -11,8 +11,8 @@ import { EquipableItem } from '../../../slormancer/model/content/equipable-item'
 import { Skill } from '../../../slormancer/model/content/skill';
 import { SlormancerItemService } from '../../../slormancer/services/content/slormancer-item.service';
 import { isNotNullOrUndefined } from '../../../slormancer/util/utils';
+import { BuildService } from '../../services/build.service';
 import { MessageService } from '../../services/message.service';
-import { PlannerService } from '../../services/planner.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 import { CharacterLevelEditModalComponent } from '../character-level-edit-modal/character-level-edit-modal.component';
 import { ItemReinforcmentEditModalComponent } from '../item-reinforcment-edit-modal/item-reinforcment-edit-modal.component';
@@ -35,7 +35,7 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
     @ViewChild(MatMenuTrigger, { static: true })
     private menu: MatMenuTrigger | null = null;
 
-    constructor(private plannerService: PlannerService,
+    constructor(private plannerService: BuildService,
                 private dialog: MatDialog,
                 private messageService: MessageService,
                 private slormancerItemService: SlormancerItemService

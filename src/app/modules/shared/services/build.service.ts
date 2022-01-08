@@ -10,19 +10,19 @@ import { HeroClass } from '../../slormancer/model/content/enum/hero-class';
 import { SlormancerCharacterBuilderService } from '../../slormancer/services/slormancer-character-builder.service';
 import { SlormancerCharacterUpdaterService } from '../../slormancer/services/slormancer-character.updater.service';
 import { valueOrNull } from '../../slormancer/util/utils';
+import { Build } from '../model/build';
 import { Layer } from '../model/layer';
-import { Planner } from '../model/planner';
+import { BuildRetrocompatibilityService as BuildRetrocompatibilityService } from './build-retrocompatibility.service';
 import { JsonConverterService } from './json-converter.service';
-import { PlannerRetrocompatibilityService } from './planner-retrocompatibility.service';
 
 @Injectable({ providedIn: 'root' })
-export class PlannerService {
+export class BuildService {
 
     private readonly MAX_LAYERS = 10;
 
     private readonly STORAGE_KEY = 'slorm-planner-build';
 
-    private planner: Planner | null = null;
+    private build: Build | null = null;
 
     private selectedLayerIndex: number = -1;
 
@@ -37,64 +37,64 @@ export class PlannerService {
     constructor(private slormancerCharacterService: SlormancerCharacterUpdaterService,
                 private jsonConverterService: JsonConverterService,
                 private slormancerCharacterBuilderService: SlormancerCharacterBuilderService,
-                private plannerRetrocompatibilityService: PlannerRetrocompatibilityService) {
+                private buildRetrocompatibilityService: BuildRetrocompatibilityService) {
         const data = localStorage.getItem(this.STORAGE_KEY);
-        this.addPlanner(data === null ? null : this.jsonConverterService.jsonToPlanner(JSON.parse(data)))
+        this.addBuild(data === null ? null : this.jsonConverterService.jsonToBuild(JSON.parse(data)))
 
         this.manualSave.pipe(debounceTime(500))
             .subscribe(() => {
-                if (this.planner !== null) {
-                    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.jsonConverterService.plannerToJson(this.planner)));
+                if (this.build !== null) {
+                    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.jsonConverterService.plannerToJson(this.build)));
                 }
             });
     }
 
-    public getPlanner(): Planner | null {
-        return this.planner;
+    public getBuild(): Build | null {
+        return this.build;
     }
 
-    public addPlanner(planner: Planner | null) {
+    public addBuild(planner: Build | null) {
         if (planner !== null) {
-            this.plannerRetrocompatibilityService.updateToLatestVersion(planner);
+            this.buildRetrocompatibilityService.updateToLatestVersion(planner);
         }
-        this.planner = planner;
-        this.layersChanged.next(this.planner === null ? [] : this.planner.layers);
-        this.setLayerIndex(this.planner === null ? -1 : 0, true);
+        this.build = planner;
+        this.layersChanged.next(this.build === null ? [] : this.build.layers);
+        this.setLayerIndex(this.build === null ? -1 : 0, true);
         this.updateAllCharacters();
     }
 
-    public getPlannerclass(): HeroClass | null {
+    public getBuildClass(): HeroClass | null {
         let result: HeroClass | null = null;
 
-        if (this.planner !== null) {
-            result = this.planner.heroClass;
+        if (this.build !== null) {
+            result = this.build.heroClass;
         }
 
         return result;
     }
 
-    private initPlanner(heroClass: HeroClass, name: string) {
-        this.planner = {
+    private initBuild(heroClass: HeroClass, name: string) {
+        this.build = {
             version: environment.version,
             name,
             heroClass,
             layers: [],
             configuration: DEFAULT_CONFIG
         };
-        this.layersChanged.next(this.planner.layers);
+        this.layersChanged.next(this.build.layers);
     }
 
     public setLayerIndex(index: number, forceUpdate: boolean = false) {
-        if (this.planner !== null) {
-            const newIndex = Math.min(this.planner.layers.length - 1, index);
+        if (this.build !== null) {
+            const newIndex = Math.min(this.build.layers.length - 1, index);
 
             if (newIndex !== this.selectedLayerIndex || forceUpdate) {
                 this.selectedLayerIndex = newIndex;
-                const layer = this.planner.layers[this.selectedLayerIndex];
+                const layer = this.build.layers[this.selectedLayerIndex];
     
                 this.selectedLayerIndexChanged.next(this.selectedLayerIndex);
                 this.characterChanged.next(layer ? layer.character : null);
-                this.savePlanner();
+                this.saveBuild();
             }
         }
     }
@@ -109,111 +109,111 @@ export class PlannerService {
 
 
     public getLayers(): Array<Layer> {
-        return this.planner === null ? [] : this.planner.layers;
+        return this.build === null ? [] : this.build.layers;
     }
 
     public setLayerName(index: number, name: string) {
 
-        if (this.planner !== null) {
+        if (this.build !== null) {
 
-            const layer = this.planner.layers[index];
+            const layer = this.build.layers[index];
 
             if (layer) {
                 layer.name = name;
-                this.layersChanged.next(this.planner.layers);
-                this.savePlanner();
+                this.layersChanged.next(this.build.layers);
+                this.saveBuild();
             }
         }
     }
 
     public addLayer(name: string, character: Character | null = null) {
-        if (this.planner !== null) {
-            const index = this.planner.layers.push({
+        if (this.build !== null) {
+            const index = this.build.layers.push({
                 name,
-                character: character !== null ? character : this.slormancerCharacterBuilderService.getCharacter(this.planner.heroClass)
+                character: character !== null ? character : this.slormancerCharacterBuilderService.getCharacter(this.build.heroClass)
             });
-            this.layersChanged.next(this.planner.layers);
+            this.layersChanged.next(this.build.layers);
             this.setLayerIndex(index);
-            this.savePlanner();
+            this.saveBuild();
         }
     }
 
     public removeLayer(index: number) {
-        if (this.planner !== null && this.planner.layers.length > 1) {
-            this.planner.layers.splice(index, 1);
-            this.layersChanged.next(this.planner.layers);
-            this.setLayerIndex(Math.min(this.planner.layers.length - 1, index), true);
-            this.savePlanner();
+        if (this.build !== null && this.build.layers.length > 1) {
+            this.build.layers.splice(index, 1);
+            this.layersChanged.next(this.build.layers);
+            this.setLayerIndex(Math.min(this.build.layers.length - 1, index), true);
+            this.saveBuild();
         }
     }
 
     public copyLayer(index: number, name: string) {
-        if (this.planner !== null) {
-            const layer = this.planner.layers[index];
+        if (this.build !== null) {
+            const layer = this.build.layers[index];
             if (layer) {
-                const index = this.planner.layers.push({
+                const index = this.build.layers.push({
                     name,
                     character: this.slormancerCharacterBuilderService.getCharacterClone(layer.character)
                 })
-                this.layersChanged.next(this.planner.layers);
+                this.layersChanged.next(this.build.layers);
                 this.setLayerIndex(index);
-                this.savePlanner();
+                this.saveBuild();
             }
         }
     }
 
-    public createNewPlanner(heroClass: HeroClass, name: string = 'New build', character: Character | null = null, layerName = 'Layer 1') {
+    public createNewBuild(heroClass: HeroClass, name: string = 'New build', character: Character | null = null, layerName = 'Layer 1') {
         if (character === null || heroClass === character.heroClass) {
-            this.initPlanner(heroClass, name);
+            this.initBuild(heroClass, name);
             this.addLayer(layerName, character);
             this.setLayerIndex(0, true);
             this.updateAllCharacters();
         }
     }
 
-    public deletePlanner() {
-        this.addPlanner(null);
+    public deleteBuild() {
+        this.addBuild(null);
         localStorage.removeItem(this.STORAGE_KEY);
     }
 
     public updateCurrentCharacter() {
-        if (this.planner !== null) {
-            const layer = this.planner.layers[this.selectedLayerIndex];
+        if (this.build !== null) {
+            const layer = this.build.layers[this.selectedLayerIndex];
 
             if (layer) {
-                this.slormancerCharacterService.updateCharacter(layer.character, this.planner.configuration);
-                this.savePlanner();
+                this.slormancerCharacterService.updateCharacter(layer.character, this.build.configuration);
+                this.saveBuild();
             }
         }
     }
 
     public updateAllCharacters() {
-        if (this.planner !== null) {
-            for (const layer of this.planner.layers) {
-                this.slormancerCharacterService.updateCharacter(layer.character, this.planner.configuration);
+        if (this.build !== null) {
+            for (const layer of this.build.layers) {
+                this.slormancerCharacterService.updateCharacter(layer.character, this.build.configuration);
             }
-            this.savePlanner();
+            this.saveBuild();
         }
     }
 
-    public savePlanner() {
+    public saveBuild() {
         this.manualSave.next();
     }
 
     public hasRoomForMoreLayers(character: Character | null = null): boolean {
-        return this.planner === null
-            || (this.planner.layers.length < this.MAX_LAYERS
-                && (character === null || this.planner.heroClass === character.heroClass));
+        return this.build === null
+            || (this.build.layers.length < this.MAX_LAYERS
+                && (character === null || this.build.heroClass === character.heroClass));
     }
 
     public setConfiguration(config: CharacterConfig) {
-        if (this.planner !== null) {
-            Object.assign(this.planner.configuration, config);
+        if (this.build !== null) {
+            Object.assign(this.build.configuration, config);
             this.updateAllCharacters();
         }
     }
 
     public getConfiguration(): CharacterConfig | null {
-        return this.planner === null ? null : this.planner.configuration;
+        return this.build === null ? null : this.build.configuration;
     }
 }

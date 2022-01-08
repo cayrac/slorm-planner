@@ -6,7 +6,7 @@ import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { Layer } from '../../../shared/model/layer';
-import { PlannerService } from '../../../shared/services/planner.service';
+import { BuildService } from '../../../shared/services/build.service';
 import { CharacterStatDifference } from '../../../slormancer/model/character-stat-differences';
 import { SlormancerCharacterComparatorService } from '../../../slormancer/services/slormancer-character-comparator.service';
 
@@ -27,7 +27,7 @@ export class CompareComponent extends AbstractUnsubscribeComponent implements On
 
     public readonly layerControl = new FormControl(0);
 
-    constructor(private plannerService: PlannerService,
+    constructor(private plannerService: BuildService,
                 private slormancerCharacterComparatorService: SlormancerCharacterComparatorService) {
         super();
         this.plannerService.layersChanged

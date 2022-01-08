@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
-import { PlannerService } from '../../../shared/services/planner.service';
+import { BuildService } from '../../../shared/services/build.service';
 import { MergedStat } from '../../../slormancer/model/content/character-stats';
 
 @Component({
@@ -18,7 +18,7 @@ export class StatsComponent extends AbstractUnsubscribeComponent implements OnIn
 
     public selectedMergedStat: MergedStat | null = null;
 
-    constructor(private plannerService: PlannerService) {
+    constructor(private plannerService: BuildService) {
         super();
     }
 

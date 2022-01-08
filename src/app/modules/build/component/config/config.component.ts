@@ -5,7 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
-import { PlannerService } from '../../../shared/services/planner.service';
+import { BuildService } from '../../../shared/services/build.service';
 import { DEFAULT_CONFIG } from '../../../slormancer/constants/content/data/default-configs';
 import { Character } from '../../../slormancer/model/character';
 import { Attribute } from '../../../slormancer/model/content/enum/attribute';
@@ -577,7 +577,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
 
     public config: FormGroup | null = null;
 
-    constructor(private plannerService: PlannerService) {
+    constructor(private plannerService: BuildService) {
         super();
         this.plannerService.characterChanged
             .pipe(takeUntil(this.unsubscribe))

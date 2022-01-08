@@ -7,7 +7,7 @@ import {
 import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
-import { PlannerService } from '../../../shared/services/planner.service';
+import { BuildService } from '../../../shared/services/build.service';
 import { Character, CharacterSkillAndUpgrades } from '../../../slormancer/model/character';
 import { SkillType } from '../../../slormancer/model/content/skill-type';
 import { SkillUpgrade } from '../../../slormancer/model/content/skill-upgrade';
@@ -29,7 +29,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
 
     public selectedSkillLines: Array<number> = [];
 
-    constructor(private plannerService: PlannerService,
+    constructor(private plannerService: BuildService,
                 private slormancerSkillService: SlormancerSkillService,
                 private slormancerCharacterModifierService: SlormancerCharacterModifierService) {
         super();

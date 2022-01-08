@@ -16,11 +16,11 @@ import {
     ReplacePlannerModalComponent,
 } from '../../../shared/components/replace-planner-modal/replace-planner-modal.component';
 import { SharedData } from '../../../shared/model/shared-data';
+import { BuildService } from '../../../shared/services/build.service';
 import { ClipboardService } from '../../../shared/services/clipboard.service';
 import { DownloadService } from '../../../shared/services/download.service';
 import { ImportExportService } from '../../../shared/services/import-export.service';
 import { MessageService } from '../../../shared/services/message.service';
-import { PlannerService } from '../../../shared/services/planner.service';
 import { HeroClass } from '../../../slormancer/model/content/enum/hero-class';
 
 @Component({
@@ -45,7 +45,7 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
                 private downloadService: DownloadService,
                 private clipboardService: ClipboardService,
                 private importExportService: ImportExportService,
-                private plannerService: PlannerService,
+                private plannerService: BuildService,
                 private router: Router,
                 private dialog: MatDialog) {
         super();
@@ -62,7 +62,7 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
 
     public getHeroClass(): HeroClass {
         let heroClass = HeroClass.Warrior;
-        const planner = this.plannerService.getPlanner();
+        const planner = this.plannerService.getBuild();
 
         if (planner !== null) {
             heroClass = planner.heroClass;
@@ -92,7 +92,7 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
                 this.dialog.open(ReplacePlannerModalComponent)
                     .afterClosed().subscribe((replace: boolean | undefined) => {
                         if (replace === true) {
-                            this.plannerService.addPlanner(sharedData.planner);
+                            this.plannerService.addBuild(sharedData.planner);
                             this.closeSideNav();
                         }
                     })
@@ -124,7 +124,7 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
     }
 
     public downloadPlanner() {
-        const planner = this.plannerService.getPlanner();
+        const planner = this.plannerService.getBuild();
 
         if (planner !== null) {
             const exportedPlanner = this.importExportService.exportPlanner(planner);
@@ -133,7 +133,7 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
     }
 
     public copyPlanner() {
-        const planner = this.plannerService.getPlanner();
+        const planner = this.plannerService.getBuild();
 
         if (planner !== null) {
             const exportedPlanner = this.importExportService.exportPlanner(planner);
@@ -163,7 +163,7 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
         this.dialog.open(DeletePlannerModalComponent)
             .afterClosed().subscribe((result: boolean | undefined) => {
                 if (result === true) {
-                    this.plannerService.deletePlanner();
+                    this.plannerService.deleteBuild();
                     this.router.navigate(['/create']);
                 }
             })

@@ -15,7 +15,7 @@ import {
     EditLayerModalData,
 } from '../../../shared/components/edit-layer-modal/edit-layer-modal.component';
 import { SelectOption } from '../../../shared/model/select-option';
-import { PlannerService } from '../../../shared/services/planner.service';
+import { BuildService } from '../../../shared/services/build.service';
 import { SearchService } from '../../../shared/services/search.service';
 import { valueOrNull } from '../../../slormancer/util/utils';
 
@@ -31,7 +31,7 @@ export class BuildHeaderComponent extends AbstractUnsubscribeComponent implement
 
     public layerOptions: Array<SelectOption<number>> = [];
 
-    constructor(private plannerService: PlannerService,
+    constructor(private plannerService: BuildService,
                 private searchService: SearchService,
                 private dialog: MatDialog) {
         super();

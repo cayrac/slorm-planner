@@ -7,7 +7,7 @@ import {
 import {
     AbstractUnsubscribeComponent,
 } from '../../../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
-import { PlannerService } from '../../../../../shared/services/planner.service';
+import { BuildService } from '../../../../../shared/services/build.service';
 import { UNLOCKED_ANCESTRAL_LEGACY_POINTS } from '../../../../../slormancer/constants/common';
 import {
     ANCESTRAL_LEGACY_REALMS,
@@ -104,7 +104,7 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         }
     }
 
-    constructor(private plannerService: PlannerService,
+    constructor(private plannerService: BuildService,
                 private slormancerDataService: SlormancerDataService,
                 private slormancerCharacterModifierService: SlormancerCharacterModifierService) {
         super();

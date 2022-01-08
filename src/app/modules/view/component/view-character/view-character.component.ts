@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { PlannerService } from '../../../shared/services/planner.service';
+import { BuildService } from '../../../shared/services/build.service';
 import { COMBAT_CONFIG, DEFAULT_CONFIG } from '../../../slormancer/constants/content/data/default-configs';
 import { Character } from '../../../slormancer/model/character';
 import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
@@ -42,7 +42,7 @@ export class ViewCharacterComponent {
 
     constructor(activatedRoute: ActivatedRoute,
                 private router: Router,
-                private plannerService: PlannerService,
+                private plannerService: BuildService,
                 private slormancerCharacterUpdaterService: SlormancerCharacterUpdaterService,
                 private slormancerDpsService: SlormancerDpsService,
                 private slormancerTranslateService: SlormancerTranslateService) {
@@ -143,8 +143,8 @@ export class ViewCharacterComponent {
 
     public import() {
         if (this.canImport()) {
-            if (this.plannerService.getPlanner() === null) {
-                this.plannerService.createNewPlanner(this.character.heroClass, 'New build', this.character);
+            if (this.plannerService.getBuild() === null) {
+                this.plannerService.createNewBuild(this.character.heroClass, 'New build', this.character);
             } else {
                 this.plannerService.addLayer('Imported layer', this.character);
             }

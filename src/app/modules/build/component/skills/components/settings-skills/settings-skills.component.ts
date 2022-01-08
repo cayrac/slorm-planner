@@ -8,8 +8,8 @@ import {
 import {
     AbstractUnsubscribeComponent,
 } from '../../../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
+import { BuildService } from '../../../../../shared/services/build.service';
 import { MessageService } from '../../../../../shared/services/message.service';
-import { PlannerService } from '../../../../../shared/services/planner.service';
 import { Character, CharacterSkillAndUpgrades } from '../../../../../slormancer/model/character';
 import { SkillType } from '../../../../../slormancer/model/content/skill-type';
 import { SlormancerSkillService } from '../../../../../slormancer/services/content/slormancer-skill.service';
@@ -30,7 +30,7 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
     @ViewChild(MatMenuTrigger, { static: true })
     private menu: MatMenuTrigger | null = null;
 
-    constructor(private plannerService: PlannerService,
+    constructor(private plannerService: BuildService,
                 private messageService: MessageService,
                 private slormancerSkillService: SlormancerSkillService,
                 private slormancerCharacterModifierService: SlormancerCharacterModifierService

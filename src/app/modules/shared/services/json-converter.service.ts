@@ -19,16 +19,16 @@ import { SlormancerUltimatumService } from '../../slormancer/services/content/sl
 import { SlormancerCharacterBuilderService } from '../../slormancer/services/slormancer-character-builder.service';
 import { round } from '../../slormancer/util/math.util';
 import { isNotNullOrUndefined, valueOrDefault } from '../../slormancer/util/utils';
+import { Build } from '../model/build';
 import { JsonAncestralLegacy } from '../model/json/json-ancestral-legacy';
 import { JsonCharacter } from '../model/json/json-character';
 import { JsonItem } from '../model/json/json-item';
 import { JsonLayer } from '../model/json/json-layer';
-import { JsonPlanner } from '../model/json/json-planner';
+import { JsonPlanner as JsonBuild } from '../model/json/json-planner';
 import { JsonReaper } from '../model/json/json-reaper';
 import { JsonSkill } from '../model/json/json-skill';
 import { JsonUltimatum } from '../model/json/json-ultimatum';
 import { Layer } from '../model/layer';
-import { Planner } from '../model/planner';
 import { SharedData } from '../model/shared-data';
 
 @Injectable({ providedIn: 'root' })
@@ -261,7 +261,7 @@ export class JsonConverterService {
         };
     }
 
-    public plannerToJson(planner: Planner): JsonPlanner {
+    public plannerToJson(planner: Build): JsonBuild {
         return {
             type: 'p',
             version: planner.version,
@@ -396,7 +396,7 @@ export class JsonConverterService {
         }
     }
 
-    public jsonToPlanner(planner: JsonPlanner): Planner {
+    public jsonToBuild(planner: JsonBuild): Build {
         return {
             version: planner.version,
             heroClass: planner.heroClass,
@@ -406,11 +406,11 @@ export class JsonConverterService {
         };
     }
 
-    public jsonToSharedData(json: JsonPlanner | JsonLayer | JsonCharacter): SharedData {
+    public jsonToSharedData(json: JsonBuild | JsonLayer | JsonCharacter): SharedData {
         return {
             character: json.type === 'c' ? this.jsonToCharacter(json) : null,
             layer: json.type === 'l' ? this.jsonToLayer(json) : null,
-            planner: json.type === 'p' ? this.jsonToPlanner(json) : null
+            planner: json.type === 'p' ? this.jsonToBuild(json) : null
         };
     }
 
