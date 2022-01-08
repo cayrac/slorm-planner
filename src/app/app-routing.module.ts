@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HasNoBuildGuard } from './guard/has-no-planner.guard';
-import { HasPlannerGuard } from './guard/has-planner.guard';
+import { HasPlannerGuard } from './guard/has-build.guard';
+import { HasNoBuildGuard } from './guard/has-no-build.guard';
 
 const appRoutes: Routes = [
   { path: 'build', canActivate: [HasPlannerGuard], loadChildren: () => import('./modules/build/build.module').then((m) => m.BuildModule) },

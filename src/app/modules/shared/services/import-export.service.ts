@@ -35,14 +35,17 @@ export class ImportExportService {
         }
         let key: string | null = null;
 
+
         try {
             const url = new URL(path);
             const fragments = url.pathname.split('/');
             key = valueOrNull(fragments[fragments.length - 1]);
+            console.log('parse url fragment : ', key);
         } catch (e) { }
 
         if (key !== null) {
            result = this.importFromShortData(key);
+           console.log('parsed from url : ', result);
         }
 
         return result;
@@ -81,8 +84,10 @@ export class ImportExportService {
 
         data = this.importFromShortData(content);
         if (data.character === null) {
-            this.parseUrlData(content);
+            data = this.parseUrlData(content);
         }
+
+        console.log('data parsed : ', data);
 
         return data;
     }

@@ -93,6 +93,7 @@
 ### Fixes
 - Material theme now correctly use the Berlin (Slormancer) font
 - Fixed an issue causing some item stats to be ignored when loaded from a save file
+- Fixed an error when parsing url in the import textarea 
 ### Added
 - Added optimize items stats modal on character settings menu
 
