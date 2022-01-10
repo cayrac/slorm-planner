@@ -1,7 +1,6 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 import { SharedModule } from '../shared/shared.module';
 import { CreateFirstBuildComponent } from './component/create-first-build/create-first-build.component';
@@ -19,7 +18,6 @@ import { CreateComponent } from './create.component';
         SharedModule,
         CreateRoutingModule,
         OverlayModule,
-        FormsModule,
     ],
     providers: [
     ],

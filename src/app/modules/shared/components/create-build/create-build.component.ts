@@ -10,6 +10,8 @@ export class CreateBuildComponent {
     @Output()
     public readonly created = new EventEmitter();
 
+    public buildName: string = 'My build';
+
     constructor() {}
     
     public passCreatedEvent() {

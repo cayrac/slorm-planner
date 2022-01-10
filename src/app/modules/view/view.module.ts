@@ -1,7 +1,6 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 import { SharedModule } from '../shared/shared.module';
 import { ViewCharacterComponent } from './component/view-character/view-character.component';
@@ -19,7 +18,6 @@ import { ViewComponent } from './view.component';
         SharedModule,
         ViewRoutingModule,
         OverlayModule,
-        FormsModule,
     ],
     providers: [
     ],

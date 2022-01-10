@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { BuildStorageService } from '../../../shared/services/build-storage.service';
 import { BuildService } from '../../../shared/services/build.service';
@@ -16,6 +16,9 @@ export class CreateBuildEmptyComponent {
     @Output()
     public readonly created = new EventEmitter();
 
+    @Input()
+    public readonly name: string = 'Default name';
+
     public selectedClass: HeroClass | null = null;
 
     constructor(private buildService: BuildService,
@@ -23,8 +26,8 @@ export class CreateBuildEmptyComponent {
 
     public createBuild() {
         if (this.selectedClass !== null) {
-            const build = this.buildService.createBuild(this.selectedClass, 'New build');
-            this.buildService.addLayer(build, 'Empty layer');
+            const build = this.buildService.createBuild(this.selectedClass, this.name);
+            this.buildService.addLayer(build, this.name);
             this.buildStorageService.addBuild(build);
             this.created.emit();
         }

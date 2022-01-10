@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { BuildStorageService } from '../../../shared/services/build-storage.service';
 import { BuildService } from '../../../shared/services/build.service';
@@ -20,6 +20,9 @@ export class CreateBuildFromGameComponent {
 
     @Output()
     public readonly created = new EventEmitter();
+
+    @Input()
+    public readonly name: string = 'Default name';
     
     public characters: GameHeroesData<Character> | null = null;
 
@@ -58,7 +61,7 @@ export class CreateBuildFromGameComponent {
 
     public createBuild() {
         if (this.selectedClass !== null && this.characters !== null) {
-            const build = this.buildService.createBuildWithCharacter('Build from save', 'New layer', this.characters[this.selectedClass]);
+            const build = this.buildService.createBuildWithCharacter(this.name, 'New layer', this.characters[this.selectedClass]);
             this.buildStorageService.addBuild(build);
             this.created.emit();
         }

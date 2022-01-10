@@ -7,11 +7,6 @@
     @include flex-gap($space-unit * 5);
     height: 100%;
 
-    hr {
-        width: 80%;
-        background-color: primary-color(300);
-    }
-
     .import, .export, .build {
         @include flex(column, stretch);
         @include flex-gap($space-unit * 3);

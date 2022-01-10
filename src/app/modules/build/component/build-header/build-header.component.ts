@@ -93,8 +93,8 @@ export class BuildHeaderComponent extends AbstractUnsubscribeComponent implement
         .afterClosed().subscribe(name => {
             const build = this.buildStorageService.getBuild();
             if (name && build !== null) {
-                this.buildService.addLayer(build, name)
-                this.buildStorageService.saveBuild();
+                const addedLayer = this.buildService.addLayer(build, name)
+                this.buildStorageService.loadLayer(addedLayer);
             }
         });
     }
@@ -109,8 +109,8 @@ export class BuildHeaderComponent extends AbstractUnsubscribeComponent implement
             const build = this.buildStorageService.getBuild();
             const layer = this.buildStorageService.getLayer();
             if (name && build !== null && layer !== null) {
-                this.buildService.duplicateLayer(build, layer, name);
-                this.buildStorageService.saveBuild();
+                const addedLayer = this.buildService.duplicateLayer(build, layer, name);
+                this.buildStorageService.loadLayer(addedLayer);
             }
         });
     }

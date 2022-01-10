@@ -10,7 +10,7 @@
                     <mat-select-trigger *ngIf="buildControl.value !== null">
                         <img class="hero-icon" src="assets/img/character/icon/{{buildControl.value.heroClass}}/head.png" /> {{buildControl.value.name}}
                     </mat-select-trigger>
-                    <mat-option [ngValue]="build" *ngFor="let build of getBuilds()">
+                    <mat-option [value]="build" *ngFor="let build of getBuilds()">
                         <img class="hero-icon" src="assets/img/character/icon/{{build.heroClass}}/head.png" /> {{build.name}}
                     </mat-option>
                 </mat-select>

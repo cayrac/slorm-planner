@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { SharedData } from '../../../shared/model/shared-data';
 import { BuildStorageService } from '../../../shared/services/build-storage.service';
@@ -13,6 +13,9 @@ export class CreateBuildFromExportComponent {
 
     @Output()
     public readonly created = new EventEmitter();
+
+    @Input()
+    public readonly name: string = 'Default name';
     
     constructor(private buildStorageService: BuildStorageService,
                 private buildService: BuildService) {
@@ -20,11 +23,11 @@ export class CreateBuildFromExportComponent {
     
     public createBuild(sharedData: SharedData) {
         if (sharedData.character !== null) {
-            const build = this.buildService.createBuildWithCharacter('Imported build', 'Imported layer', sharedData.character);
+            const build = this.buildService.createBuildWithCharacter(this.name, 'Imported layer', sharedData.character);
             this.buildStorageService.addBuild(build);
             this.created.emit();
         } else if (sharedData.layer !== null) {
-            const build = this.buildService.createBuildWithCharacter('Imported build', sharedData.layer.name, sharedData.layer.character);
+            const build = this.buildService.createBuildWithCharacter(this.name, sharedData.layer.name, sharedData.layer.character);
             this.buildStorageService.addBuild(build);
             this.created.emit();
         } else if (sharedData.planner !== null) {

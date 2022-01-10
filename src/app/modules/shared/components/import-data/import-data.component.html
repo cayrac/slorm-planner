@@ -5,9 +5,9 @@
         <textarea matInput [formControl]="importContent"></textarea>
         <mat-hint align="end" *ngIf="sharedData === null && heroClass !== null">Paste here a save, build, layer or link</mat-hint>
         <mat-hint align="end" *ngIf="sharedData === null && heroClass === null">Paste here a build, layer or link</mat-hint>
-        <mat-hint align="end" class="success" *ngIf="sharedData !== null && sharedData.character !== null">Character found</mat-hint>
-        <mat-hint align="end" class="success" *ngIf="sharedData !== null && sharedData.layer !== null">Layer found</mat-hint>
-        <mat-hint align="end" class="success" *ngIf="sharedData !== null && sharedData.planner !== null">Build found</mat-hint>
+        <mat-hint align="end" class="success" *ngIf="sharedData !== null && hasValidSharedData() && sharedData.character !== null">Character found</mat-hint>
+        <mat-hint align="end" class="success" *ngIf="sharedData !== null && hasValidSharedData() && sharedData.layer !== null">Layer found</mat-hint>
+        <mat-hint align="end" class="success" *ngIf="sharedData !== null && hasValidSharedData() && sharedData.planner !== null">Build found</mat-hint>
         <mat-hint align="end" class="error" *ngIf="sharedData !== null && !hasValidSharedData()">No valid data found</mat-hint>
         <mat-error>Cannot parse files bigger than {{MAX_UPLOAD_FILE_SIZE_MO}}Mo</mat-error>
     </mat-form-field>

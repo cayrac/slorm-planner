@@ -22,9 +22,6 @@ import {
     EditLayerModalComponent,
     EditLayerModalData,
 } from '../../../shared/components/edit-layer-modal/edit-layer-modal.component';
-import {
-    ReplacePlannerModalComponent,
-} from '../../../shared/components/replace-planner-modal/replace-planner-modal.component';
 import { BuildPreview } from '../../../shared/model/build-preview';
 import { SharedData } from '../../../shared/model/shared-data';
 import { BuildStorageService } from '../../../shared/services/build-storage.service';
@@ -99,9 +96,9 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
     }
 
     public import(sharedData: SharedData) {
-        if (sharedData !== null) {
-            const build = this.buildStorageService.getBuild();
-            if (sharedData.character !== null && build !== null) {
+        const build = this.buildStorageService.getBuild();
+        if (sharedData !== null && build !== null) {
+            if (sharedData.character !== null) {
                 const data: EditLayerModalData = {
                     title: 'New character layer\'s name',
                     name: null
@@ -114,18 +111,17 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
                             this.closeSideNav();
                         }
                     })
-            } else if (sharedData.layer !== null && build !== null) {
+            } else if (sharedData.layer !== null) {
                 this.buildService.addLayer(build, sharedData.layer.name, sharedData.layer.character);
                 this.buildStorageService.saveBuild();
                 this.closeSideNav();
             } else if (sharedData.planner !== null) {
-                this.dialog.open(ReplacePlannerModalComponent)
-                    .afterClosed().subscribe((replace: boolean | undefined) => {
-                        if (replace === true && sharedData.planner !== null) {
-                            this.buildStorageService.addBuild(sharedData.planner);
-                            this.closeSideNav();
-                        }
-                    })
+
+                for (const layer of sharedData.planner.layers) {
+                    this.buildService.addLayer(build, layer.name, layer.character);
+                }
+                this.buildStorageService.saveBuild();
+                this.closeSideNav();
             }
 
         }
@@ -235,6 +231,7 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
     }
 
     public trackbyBuildPreview(index: number, preview: BuildPreview): string {
+        console.log('trackbyBuildPreview : ', index, preview);
         return preview.storageKey;
     }
 }

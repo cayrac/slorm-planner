@@ -38,15 +38,17 @@ export class BuildService {
         return build;
     }
 
-    public addLayer(build: Build, name: string, character: Character | null = null) {
-        build.layers.push({
+    public addLayer(build: Build, name: string, character: Character | null = null): Layer {
+        const layer = {
             name,
             character: character !== null ? character : this.slormancerCharacterBuilderService.getCharacter(build.heroClass)
-        });
+        }
+        build.layers.push(layer);
+        return layer;
     }
 
-    public duplicateLayer(build: Build, layer: Layer, name: string) {
-        this.addLayer(build, layer.name + ' (copy)', this.slormancerCharacterBuilderService.getCharacterClone(layer.character));
+    public duplicateLayer(build: Build, layer: Layer, name: string): Layer {
+        return this.addLayer(build, name, this.slormancerCharacterBuilderService.getCharacterClone(layer.character));
     }
 
     public deleteLayer(build: Build, layer: Layer) {

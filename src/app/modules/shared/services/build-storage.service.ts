@@ -47,6 +47,12 @@ export class BuildStorageService {
             .subscribe(() => this.saveToStorage());
     }
 
+    private getCurrentLayerIndex(): number {
+        const storageData = localStorage.getItem(this.CURRENT_LAYER_STORAGE_KEY);
+        const index = storageData === null ? 0 : parseInt(storageData, 10);
+        return Number.isNaN(index) ? 0 : index;
+    }
+
     private oldFormatTransition() {
         const oldKey = 'slorm-planner-build';
         const oldData = localStorage.getItem(oldKey);
@@ -69,7 +75,7 @@ export class BuildStorageService {
         try {
             const buildsData = localStorage.getItem(this.BUILDS_STORAGE_KEY);
             const buildData = localStorage.getItem(this.CURRENT_BUILD_STORAGE_KEY);
-            const layerData = localStorage.getItem(this.CURRENT_LAYER_STORAGE_KEY);
+            const layerIndex = this.getCurrentLayerIndex();
 
             if (buildsData !== null) {
                 this.builds = JSON.parse(buildsData);
@@ -83,16 +89,10 @@ export class BuildStorageService {
             }
 
             if (this.build !== null) {
-                if (layerData !== null) {
-                    let layerIndex = parseInt(layerData, 10);
+                let layer = valueOrDefault(this.build.layers[layerIndex], this.build.layers[0]);
 
-                    if (!Number.isNaN(layerIndex)) {
-                        let layer = valueOrDefault(this.build.layers[layerIndex], this.build.layers[0]);
-
-                        if (layer !== undefined) {
-                            this.layer = layer;
-                        }
-                    }
+                if (layer !== undefined) {
+                    this.layer = layer;
                 }
    
                 for (const layer of this.build.layers) {
@@ -134,7 +134,20 @@ export class BuildStorageService {
                 buildPreview.name = this.build.name;
             }
 
+            if (this.build !== null) {
+                let layerIndex = this.getCurrentLayerIndex();
+                const currentLayerIndex = this.layer === null ? -1 : this.build.layers.indexOf(this.layer);
+
+                layerIndex = currentLayerIndex !== -1 ? currentLayerIndex : Math.min(layerIndex, this.build.layers.length - 1);
+
+                this.layer = valueOrNull(this.build.layers[layerIndex]);
+            }
+            
+
             this.saveTrigger.next();
+
+            this.buildChanged.next(this.build);
+            this.layerChanged.next(this.layer);
         }
     }
 
@@ -182,8 +195,6 @@ export class BuildStorageService {
                 this.layer = layer;
 
                 this.saveBuild();
-                
-                this.layerChanged.next(this.layer);
             }
         }
     }
@@ -206,9 +217,6 @@ export class BuildStorageService {
 
         localStorage.setItem(this.CURRENT_BUILD_STORAGE_KEY, preview.storageKey);
         this.saveBuild();
-
-        this.buildChanged.next(this.build);
-        this.layerChanged.next(this.layer);
     }
 
     public getBuilds(): Array<BuildPreview> {

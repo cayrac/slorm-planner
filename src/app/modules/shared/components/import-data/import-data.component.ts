@@ -47,8 +47,11 @@ export class ImportDataComponent {
     }
 
     public hasValidSharedData(): boolean {
-        return this.sharedData !== null
-            && (this.sharedData.character !== null || this.sharedData.layer !== null || this.sharedData.planner !== null);
+        return this.sharedData !== null && (
+            (this.sharedData.character !== null && (this.heroClass === null || this.sharedData.character.heroClass === this.heroClass)) ||
+            (this.sharedData.layer !== null && (this.heroClass === null || this.sharedData.layer.character.heroClass === this.heroClass)) ||
+            (this.sharedData.planner !== null && (this.heroClass === null || this.sharedData.planner.heroClass === this.heroClass))
+        );
     }
     
     public upload(content: string) {
