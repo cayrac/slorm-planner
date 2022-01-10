@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 
-import { BuildService } from '../modules/shared/services/build.service';
+import { BuildStorageService } from '../modules/shared/services/build-storage.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class HasPlannerGuard implements CanActivate {
-    constructor(private plannerService: BuildService, private router: Router) {}
+    constructor(private buildStorageService: BuildStorageService, private router: Router) {}
 
     canActivate() {
-        if (this.plannerService.getBuild() === null) {
+        if (this.buildStorageService.getBuilds().length === 0) {
             this.router.navigate(['/create']);
             return false;
         } else {

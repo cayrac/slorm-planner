@@ -11,13 +11,19 @@ import { AttributeSummaryViewComponent } from './components/attribute-summary-vi
 import { CharacterAnimationComponent } from './components/character-animation/character-animation.component';
 import { CharacterEquipmentComponent } from './components/character-equipment/character-equipment.component';
 import {
-    CharacterLevelEditModalComponent,
+  CharacterLevelEditModalComponent,
 } from './components/character-level-edit-modal/character-level-edit-modal.component';
 import { CharacterSettingsMenuComponent } from './components/character-settings-menu/character-settings-menu.component';
 import { CompareItemModalComponent } from './components/compare-item-modal/compare-item-modal.component';
 import { CompareViewComponent } from './components/compare-view/compare-view.component';
+import { CreateBuildEmptyComponent } from './components/create-build-empty/create-build-empty.component';
+import { CreateBuildFromExportComponent } from './components/create-build-from-export/create-build-from-export.component';
+import { CreateBuildFromGameComponent } from './components/create-build-from-game/create-build-from-game.component';
+import { CreateBuildModalComponent } from './components/create-build-modal/create-build-modal.component';
+import { CreateBuildComponent } from './components/create-build/create-build.component';
+import { DeleteBuildModalComponent } from './components/delete-build-modal/delete-build-modal.component';
 import { DeleteLayerModalComponent } from './components/delete-layer-modal/delete-layer-modal.component';
-import { DeletePlannerModalComponent } from './components/delete-planner-modal/delete-planner-modal.component';
+import { EditBuildModalComponent } from './components/edit-build-modal/edit-build-modal.component';
 import { EditLayerModalComponent } from './components/edit-layer-modal/edit-layer-modal.component';
 import { FileUploadButtonComponent } from './components/file-upload-button/file-upload-button.component';
 import { ImportDataComponent } from './components/import-data/import-data.component';
@@ -26,12 +32,12 @@ import { ItemEditBuffAttributeComponent } from './components/item-edit-buff-attr
 import { ItemEditBuffReaperComponent } from './components/item-edit-buff-reaper/item-edit-buff-reaper.component';
 import { ItemEditBuffSkillComponent } from './components/item-edit-buff-skill/item-edit-buff-skill.component';
 import {
-    ItemEditLegendaryEffectComponent,
+  ItemEditLegendaryEffectComponent,
 } from './components/item-edit-legendary-effect/item-edit-legendary-effect.component';
 import { ItemEditModalComponent } from './components/item-edit-modal/item-edit-modal.component';
 import { ItemEditStatComponent } from './components/item-edit-stat/item-edit-stat.component';
 import {
-    ItemReinforcmentEditModalComponent,
+  ItemReinforcmentEditModalComponent,
 } from './components/item-reinforcment-edit-modal/item-reinforcment-edit-modal.component';
 import { ItemSlotComponent } from './components/item-slot/item-slot.component';
 import { ItemViewComponent } from './components/item-view/item-view.component';
@@ -39,7 +45,7 @@ import { MainStatsComponent } from './components/main-stats/main-stats.component
 import { MechanicsViewComponent } from './components/mechanics-view/mechanics-view.component';
 import { MergedStatViewComponent } from './components/merged-stat-view/merged-stat-view.component';
 import {
-    OptimizeItemsStatsModalComponent,
+  OptimizeItemsStatsModalComponent,
 } from './components/optimize-items-stats-modal/optimize-items-stats-modal.component';
 import { ReaperEditModalComponent } from './components/reaper-edit-modal/reaper-edit-modal.component';
 import { ReaperSlotComponent } from './components/reaper-slot/reaper-slot.component';
@@ -96,7 +102,7 @@ import { MaterialModule } from './material.module';
         AttributeLineComponent,
         TraitComponent,
         MainStatsComponent,
-        DeletePlannerModalComponent,
+        DeleteBuildModalComponent,
         ImportDataComponent,
         FileUploadButtonComponent,
         CompareItemModalComponent,
@@ -108,6 +114,12 @@ import { MaterialModule } from './material.module';
         UltimatumViewComponent,
         UltimatumEditModalComponent,
         OptimizeItemsStatsModalComponent,
+        CreateBuildFromGameComponent,
+        CreateBuildFromExportComponent,
+        CreateBuildEmptyComponent,
+        CreateBuildComponent,
+        CreateBuildModalComponent,
+        EditBuildModalComponent,
     ],
     imports: [
         CommonModule,
@@ -136,7 +148,7 @@ import { MaterialModule } from './material.module';
         ReaperEditModalComponent,
         CharacterLevelEditModalComponent,
         ReplacePlannerModalComponent,
-        DeletePlannerModalComponent,
+        DeleteBuildModalComponent,
         ItemSlotComponent,
         CharacterAnimationComponent,
         ReaperSlotComponent,
@@ -160,6 +172,9 @@ import { MaterialModule } from './material.module';
         UltimatumSlotComponent,
         UltimatumViewComponent,
         UltimatumEditModalComponent,
+        CreateBuildComponent,
+        CreateBuildModalComponent,
+        EditBuildModalComponent
     ],
     providers: [
     ],

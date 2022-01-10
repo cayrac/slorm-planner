@@ -8,7 +8,7 @@ import { Character } from '../../../slormancer/model/character';
 import { Activable } from '../../../slormancer/model/content/activable';
 import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
 import { Skill } from '../../../slormancer/model/content/skill';
-import { BuildService } from '../../services/build.service';
+import { BuildStorageService } from '../../services/build-storage.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 
 
@@ -22,35 +22,35 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
 
     public character: Character | null = null;
 
-    constructor(private plannerService: BuildService,
+    constructor(private buildStorageService: BuildStorageService,
                 private slormancerCharacterModifierService: SlormancerCharacterModifierService) {
         super();
     }
 
     public ngOnInit() {
-        this.plannerService.characterChanged
+        this.buildStorageService.layerChanged
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(character => this.character = character);
+            .subscribe(layer => this.character = layer !== null && layer.character !== null ? layer.character : null);
     }
 
     public updatePrimarySkill(skill: Skill) {
         if (this.character !== null) {
             this.slormancerCharacterModifierService.setPrimarySkill(this.character, skill);
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
         }
     }
 
     public updateSecondarySkill(skill: Skill) {
         if (this.character !== null) {
             this.slormancerCharacterModifierService.setSecondarySkill(this.character, skill);
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
         }
     }
 
     public updateSupportSkill(skill: Skill) {
         if (this.character !== null) {
             this.slormancerCharacterModifierService.setSupportSkill(this.character, skill);
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
         }
     }
 
@@ -67,7 +67,7 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
                 }
             }
             this.character.activable1 = activable;
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
         }
     }
 
@@ -83,7 +83,7 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
                 }
             }
             this.character.activable2 = activable;
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
         }
     }
 
@@ -99,7 +99,7 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
                 }
             }
             this.character.activable3 = activable;
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
         }
     }
 
@@ -115,7 +115,7 @@ export class SkillBarComponent extends AbstractUnsubscribeComponent implements O
                 }
             }
             this.character.activable4 = activable;
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
         }
     }
 }

@@ -16,8 +16,8 @@ import { SlormancerAffixService } from '../../../slormancer/services/content/slo
 import { SlormancerDataService } from '../../../slormancer/services/content/slormancer-data.service';
 import { SlormancerItemService } from '../../../slormancer/services/content/slormancer-item.service';
 import { SlormancerLegendaryEffectService } from '../../../slormancer/services/content/slormancer-legendary-effect.service';
-import { valueOrDefault, valueOrNull } from '../../../slormancer/util/utils';
-import { BuildService } from '../../services/build.service';
+import { valueOrNull } from '../../../slormancer/util/utils';
+import { BuildStorageService } from '../../services/build-storage.service';
 import { FormOptionsService } from '../../services/form-options.service';
 
 export interface ItemEditModalData {
@@ -45,7 +45,7 @@ export class ItemEditModalComponent {
 
     private character: Character;
 
-    public item!: EquipableItem;
+    public item: EquipableItem;
 
     public form!: FormGroup;
 
@@ -56,7 +56,7 @@ export class ItemEditModalComponent {
                 private slormancerAffixService: SlormancerAffixService,
                 private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
                 private formOptionsService: FormOptionsService,
-                private plannerService: BuildService,
+                private buildStorageService: BuildStorageService,
                 @Inject(MAT_DIALOG_DATA) data: ItemEditModalData
                 ) {
         this.originalItem = data.item;
@@ -181,7 +181,8 @@ export class ItemEditModalComponent {
 
             this.slormancerItemService.updateEquipableItemModel(item);
             
-            this.slormancerCharacterUpdaterService.updateCharacter(this.character, valueOrDefault(this.plannerService.getConfiguration(), DEFAULT_CONFIG), false, item);
+            const build = this.buildStorageService.getBuild();
+            this.slormancerCharacterUpdaterService.updateCharacter(this.character, build !== null ? build.configuration : DEFAULT_CONFIG, false, item);
 
             this.slormancerItemService.updateEquipableItemView(item);
         }

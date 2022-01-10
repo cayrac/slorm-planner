@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { BuildStorageService } from '../../../shared/services/build-storage.service';
 import { BuildService } from '../../../shared/services/build.service';
 import { COMBAT_CONFIG, DEFAULT_CONFIG } from '../../../slormancer/constants/content/data/default-configs';
 import { Character } from '../../../slormancer/model/character';
@@ -42,7 +43,8 @@ export class ViewCharacterComponent {
 
     constructor(activatedRoute: ActivatedRoute,
                 private router: Router,
-                private plannerService: BuildService,
+                private buildStorageService: BuildStorageService,
+                private buildService: BuildService,
                 private slormancerCharacterUpdaterService: SlormancerCharacterUpdaterService,
                 private slormancerDpsService: SlormancerDpsService,
                 private slormancerTranslateService: SlormancerTranslateService) {
@@ -138,16 +140,15 @@ export class ViewCharacterComponent {
     }
 
     public canImport(): boolean {
-        return this.plannerService.hasRoomForMoreLayers(this.character);
+        return this.buildStorageService.hasRoomForAnotherLayer(this.character);
     }
 
     public import() {
         if (this.canImport()) {
-            if (this.plannerService.getBuild() === null) {
-                this.plannerService.createNewBuild(this.character.heroClass, 'New build', this.character);
-            } else {
-                this.plannerService.addLayer('Imported layer', this.character);
-            }
+            const build = this.buildService.createBuildWithCharacter('Imported build', 'Imported layer', this.character);
+
+            this.buildStorageService.addBuild(build);
+            
             this.router.navigate(['/build']);
         }
     }

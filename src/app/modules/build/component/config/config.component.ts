@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
 
 import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
-import { BuildService } from '../../../shared/services/build.service';
+import { BuildStorageService } from '../../../shared/services/build-storage.service';
 import { DEFAULT_CONFIG } from '../../../slormancer/constants/content/data/default-configs';
 import { Character } from '../../../slormancer/model/character';
 import { Attribute } from '../../../slormancer/model/content/enum/attribute';
@@ -573,21 +572,17 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
         },
     ];
 
-    public character: Character | null = null;
-
     public config: FormGroup | null = null;
 
-    constructor(private plannerService: BuildService) {
+    constructor(private buildStorageService: BuildStorageService) {
         super();
-        this.plannerService.characterChanged
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(character => this.character = character);
     }
 
     public ngOnInit() {
         this.config = this.generateConfigurationForm();
 
-        console.log(this.plannerService.getConfiguration());
+        const build = this.buildStorageService.getBuild();
+        console.log(build === null ? null : build.configuration);
 
         this.config.valueChanges
             .subscribe(() => this.updateConfiguration())
@@ -596,7 +591,8 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
     private generateConfigurationForm() {
         let formData: { [key: string]: FormControl } = {};
 
-        const configEntries = Object.entries(valueOrDefault(this.plannerService.getConfiguration(), DEFAULT_CONFIG));
+        const build = this.buildStorageService.getBuild();
+        const configEntries = Object.entries(build !== null ? build.configuration : DEFAULT_CONFIG);
         for (const entry of configEntries) {
             let validators = [Validators.required, ...valueOrDefault(this.EXTRA_VALIDATORS[entry[0]], [])];
             if (entry[1] === 'number') {
@@ -609,8 +605,10 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
     }
 
     private updateConfiguration() {
-        if (this.config !== null && this.config.valid) {
-            this.plannerService.setConfiguration(this.config.value);
+        const build = this.buildStorageService.getBuild();
+        if (this.config !== null && build !== null && this.config.valid) {
+            build.configuration = this.config.value;
+            this.buildStorageService.saveBuild();
         }
     }
 
@@ -619,7 +617,8 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
     }
 
     public isGroupValid(group: ConfigGroup): boolean {
-        return this.character !== null && group.condition(this.character);
+        const layer = this.buildStorageService.getLayer();
+        return layer !== null && group.condition(layer.character);
     }
 
     public hasActivable(character: Character, id: number): boolean {

@@ -14,8 +14,8 @@ mat-sidenav-content {
 }
 
 mat-sidenav.mat-drawer {
-    background-color: primary-color(400);
-    color: primary-color(400, true);
+    background-color: primary-color(500);
+    color: primary-color(500, true);
     @include flex(column, stretch);
     padding: $space-unit * 4;
     width: 350px;

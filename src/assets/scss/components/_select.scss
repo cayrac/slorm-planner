@@ -15,7 +15,16 @@ mat-select.mat-select {
     }
 }
 
-.mat-select-panel{
+.mat-select-panel .mat-option-text, mat-select-trigger {
+    @include flex(row, center);
+
+    img {
+        height: $space-unit * 4;
+        margin-right: $space-unit * 2;
+    }
+}
+
+.mat-select-panel {
     &.mat-primary {
         @include mat.elevation(4, primary-color(400));
     

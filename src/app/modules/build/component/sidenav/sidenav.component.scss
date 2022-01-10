@@ -31,11 +31,14 @@
             margin-right: $space-unit * 2;
         }
     
-        .export-details {
+        .export-details, .build-selection {
             @include flex(row, center);
             @include flex-gap($space-unit * 4);
             p {
                 width: 100px;
+            }
+            .mat-form-field {
+                @include flex-grow();
             }
         }
         

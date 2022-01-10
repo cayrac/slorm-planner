@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, Output } from '@angular/core';
 
+import { BuildStorageService } from '../../../shared/services/build-storage.service';
 import { BuildService } from '../../../shared/services/build.service';
 import { MessageService } from '../../../shared/services/message.service';
 import { Character } from '../../../slormancer/model/character';
@@ -17,14 +17,17 @@ import { SlormancerCharacterBuilderService } from '../../../slormancer/services/
 export class CreateBuildFromGameComponent {
 
     public readonly HERO_CLASSES = [HeroClass.Warrior, HeroClass.Huntress, HeroClass.Mage];
+
+    @Output()
+    public readonly created = new EventEmitter();
     
     public characters: GameHeroesData<Character> | null = null;
 
     public selectedClass: HeroClass | null = null;
 
     constructor(private messageService: MessageService,
-                private router: Router,
-                private plannerService: BuildService,
+                private buildStorageService: BuildStorageService,
+                private buildService: BuildService,
                 private slormancerSaveParserService: SlormancerSaveParserService,
                 private slormancerCharacterBuilderService: SlormancerCharacterBuilderService) {}
     
@@ -55,8 +58,9 @@ export class CreateBuildFromGameComponent {
 
     public createBuild() {
         if (this.selectedClass !== null && this.characters !== null) {
-            this.plannerService.createNewBuild(this.selectedClass, 'New build', this.characters[this.selectedClass]);
-            this.router.navigate(['/build']);
+            const build = this.buildService.createBuildWithCharacter('Build from save', 'New layer', this.characters[this.selectedClass]);
+            this.buildStorageService.addBuild(build);
+            this.created.emit();
         }
     }
 }

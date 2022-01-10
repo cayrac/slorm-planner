@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
-import { BuildService } from '../../../shared/services/build.service';
+import { BuildStorageService } from '../../../shared/services/build-storage.service';
 import { Character } from '../../../slormancer/model/character';
 
 enum CalcPage {
@@ -30,10 +30,10 @@ export class CalcsComponent extends AbstractUnsubscribeComponent {
 
     public currentCalc: CalcPage | null = null;
 
-    constructor(private plannerService: BuildService) {
+    constructor(private buildStorageService: BuildStorageService) {
         super();
-        this.plannerService.characterChanged
+        this.buildStorageService.layerChanged
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(character => this.character = character);
+            .subscribe(layer => this.character = layer === null ? null : layer.character);
     }
 }

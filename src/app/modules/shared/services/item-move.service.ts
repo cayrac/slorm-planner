@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { Character } from '../../slormancer/model/character';
 import { EquipableItemBase } from '../../slormancer/model/content/enum/equipable-item-base';
 import { EquipableItem } from '../../slormancer/model/content/equipable-item';
-import { BuildService } from './build.service';
+import { BuildStorageService } from './build-storage.service';
 
 export declare type DragCallback = (itemReplaced: boolean, item: EquipableItem | null) => void;
 
@@ -15,17 +14,13 @@ export class ItemMoveService {
 
     private dragCount = 0;
 
-    private character: Character | null = null;
-
     private item: EquipableItem | null = null;
 
     private requiredBase: EquipableItemBase | null = null;
 
     private callback: null | DragCallback = null;
 
-    constructor(private plannerService: BuildService) {
-        this.plannerService.characterChanged
-            .subscribe(character => this.character = character);
+    constructor(private buildStorageService: BuildStorageService) {
     }
 
     public hold(item: EquipableItem, requiredBase: EquipableItemBase | null, callback: DragCallback | null = null) {
@@ -110,44 +105,44 @@ export class ItemMoveService {
     }
 
     public equip(item: EquipableItem, callbackTarget: DragCallback | null) {
-        const character = this.character;
-        if (character !== null) {
+        const layer = this.buildStorageService.getLayer();
+        if (layer !== null && layer.character !== null) {
             const requiredBase = item.base;
             this.hold(item, requiredBase, callbackTarget);
     
             switch(requiredBase) {
                 case EquipableItemBase.Amulet :
-                    this.swap(character.gear.amulet, requiredBase, (s, item) => s ? character.gear.amulet = item : null);
+                    this.swap(layer.character.gear.amulet, requiredBase, (s, item) => s ? layer.character.gear.amulet = item : null);
                     break;
                 case EquipableItemBase.Belt :
-                    this.swap(character.gear.belt, requiredBase, (s, item) => s ? character.gear.belt = item : null);
+                    this.swap(layer.character.gear.belt, requiredBase, (s, item) => s ? layer.character.gear.belt = item : null);
                     break;
                 case EquipableItemBase.Body :
-                    this.swap(character.gear.body, requiredBase, (s, item) => s ? character.gear.body = item : null);
+                    this.swap(layer.character.gear.body, requiredBase, (s, item) => s ? layer.character.gear.body = item : null);
                     break;
                 case EquipableItemBase.Boot :
-                    this.swap(character.gear.boot, requiredBase, (s, item) => s ? character.gear.boot = item : null);
+                    this.swap(layer.character.gear.boot, requiredBase, (s, item) => s ? layer.character.gear.boot = item : null);
                     break;
                 case EquipableItemBase.Bracer :
-                    this.swap(character.gear.bracer, requiredBase, (s, item) => s ? character.gear.bracer = item : null);
+                    this.swap(layer.character.gear.bracer, requiredBase, (s, item) => s ? layer.character.gear.bracer = item : null);
                     break;
                 case EquipableItemBase.Cape :
-                    this.swap(character.gear.cape, requiredBase, (s, item) => s ? character.gear.cape = item : null);
+                    this.swap(layer.character.gear.cape, requiredBase, (s, item) => s ? layer.character.gear.cape = item : null);
                     break;
                 case EquipableItemBase.Glove :
-                    this.swap(character.gear.glove, requiredBase, (s, item) => s ? character.gear.glove = item : null);
+                    this.swap(layer.character.gear.glove, requiredBase, (s, item) => s ? layer.character.gear.glove = item : null);
                     break;
                 case EquipableItemBase.Helm :
-                    this.swap(character.gear.helm, requiredBase, (s, item) => s ? character.gear.helm = item : null);
+                    this.swap(layer.character.gear.helm, requiredBase, (s, item) => s ? layer.character.gear.helm = item : null);
                     break;
                 case EquipableItemBase.Shoulder :
-                    this.swap(character.gear.shoulder, requiredBase, (s, item) => s ? character.gear.shoulder = item : null);
+                    this.swap(layer.character.gear.shoulder, requiredBase, (s, item) => s ? layer.character.gear.shoulder = item : null);
                     break;
                 case EquipableItemBase.Ring :
-                    if (character.gear.ring_r === null) {
-                        this.swap(character.gear.ring_r, requiredBase, (s, item) => s ? character.gear.ring_r = item : null);
+                    if (layer.character.gear.ring_r === null) {
+                        this.swap(layer.character.gear.ring_r, requiredBase, (s, item) => s ? layer.character.gear.ring_r = item : null);
                     } else {
-                        this.swap(character.gear.ring_l, requiredBase, (s, item) => s ? character.gear.ring_l = item : null);
+                        this.swap(layer.character.gear.ring_l, requiredBase, (s, item) => s ? layer.character.gear.ring_l = item : null);
                     }
                     break;
             }
@@ -155,11 +150,11 @@ export class ItemMoveService {
     }
 
     public moveToStash(item: EquipableItem, callbackTarget: DragCallback | null) {
-        const character = this.character;
-        if (character !== null) {
+        const layer = this.buildStorageService.getLayer();
+        if (layer !== null && layer.character !== null) {
             const firstValidItemGroup = [
-                character.inventory,
-                ...character.sharedInventory
+                layer.character.inventory,
+                ...layer.character.sharedInventory
             ].filter(group => group.find(item => item === null) !== undefined)[0];
 
             if (firstValidItemGroup) {

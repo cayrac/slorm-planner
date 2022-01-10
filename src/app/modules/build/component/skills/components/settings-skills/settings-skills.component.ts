@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { takeUntil } from 'rxjs/operators';
 import {
     SlormancerCharacterModifierService,
 } from 'src/app/modules/slormancer/services/slormancer-character.modifier.service';
@@ -8,9 +7,9 @@ import {
 import {
     AbstractUnsubscribeComponent,
 } from '../../../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
-import { BuildService } from '../../../../../shared/services/build.service';
+import { BuildStorageService } from '../../../../../shared/services/build-storage.service';
 import { MessageService } from '../../../../../shared/services/message.service';
-import { Character, CharacterSkillAndUpgrades } from '../../../../../slormancer/model/character';
+import { CharacterSkillAndUpgrades } from '../../../../../slormancer/model/character';
 import { SkillType } from '../../../../../slormancer/model/content/skill-type';
 import { SlormancerSkillService } from '../../../../../slormancer/services/content/slormancer-skill.service';
 
@@ -25,12 +24,10 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
     @Input()
     public selectedSkill: CharacterSkillAndUpgrades | null = null;
 
-    public character: Character | null = null;
-
     @ViewChild(MatMenuTrigger, { static: true })
     private menu: MatMenuTrigger | null = null;
 
-    constructor(private plannerService: BuildService,
+    constructor(private buildStorageService: BuildStorageService,
                 private messageService: MessageService,
                 private slormancerSkillService: SlormancerSkillService,
                 private slormancerCharacterModifierService: SlormancerCharacterModifierService
@@ -38,11 +35,7 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
         super();
     }
 
-    public ngOnInit() {
-        this.plannerService.characterChanged
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(character => this.character = character);
-    }
+    public ngOnInit() { }
 
     public openSettings(): boolean {
         if (this.menu !== null) {
@@ -56,7 +49,8 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
     }
 
     public maximize(skill: CharacterSkillAndUpgrades) {
-        if (this.character !== null) {
+        const layer = this.buildStorageService.getLayer();
+        if (layer !== null) {
 
             skill.skill.baseLevel = skill.skill.maxLevel;
             this.slormancerSkillService.updateSkillModel(skill.skill);
@@ -65,49 +59,55 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
                 this.slormancerSkillService.updateUpgrade(upgrade);
             }
 
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
 
             this.messageService.message('Skill and upgrades set to max rank for <img src="assets/img/icon/' + skill.skill.icon + '.png"/> ' + skill.skill.name);
         }
     }
 
     public equipSupport(skill: CharacterSkillAndUpgrades) {
-        if (this.character !== null) {
-            if (this.slormancerCharacterModifierService.setSupportSkill(this.character, skill.skill)) {
+        const layer = this.buildStorageService.getLayer();
+        if (layer !== null) {
+            if (this.slormancerCharacterModifierService.setSupportSkill(layer.character, skill.skill)) {
                 this.messageService.message('Skill equipped as support : <img src="assets/img/icon/' + skill.skill.icon + '.png"/> ' + skill.skill.name);
-                this.plannerService.updateCurrentCharacter();
+                this.buildStorageService.saveLayer();
             }
         }
     }
 
     public equipPrimary(skill: CharacterSkillAndUpgrades) {
-        if (this.character !== null) {
-            if (this.slormancerCharacterModifierService.setPrimarySkill(this.character, skill.skill)) {
+        const layer = this.buildStorageService.getLayer();
+        if (layer !== null) {
+            if (this.slormancerCharacterModifierService.setPrimarySkill(layer.character, skill.skill)) {
                 this.messageService.message('Skill equipped as primary : <img src="assets/img/icon/' + skill.skill.icon + '.png"/> ' + skill.skill.name);
-                this.plannerService.updateCurrentCharacter();
+                this.buildStorageService.saveLayer();
             }
         }
     }
 
     public equipSecondary(skill: CharacterSkillAndUpgrades) {
-        if (this.character !== null) {
-            if (this.slormancerCharacterModifierService.setSecondarySkill(this.character, skill.skill)) {
+        const layer = this.buildStorageService.getLayer();
+        if (layer !== null) {
+            if (this.slormancerCharacterModifierService.setSecondarySkill(layer.character, skill.skill)) {
                 this.messageService.message('Skill equipped as secondary : <img src="assets/img/icon/' + skill.skill.icon + '.png"/> ' + skill.skill.name);
-                this.plannerService.updateCurrentCharacter();
+                this.buildStorageService.saveLayer();
             }
         }
     }
     
     public isEquippedSupportSkill(skill: CharacterSkillAndUpgrades): boolean {
-        return this.character !== null && this.character.supportSkill === skill.skill;
+        const layer = this.buildStorageService.getLayer();
+        return layer !== null && layer.character.supportSkill === skill.skill;
     }
     
     public isEquippedPrimarySkill(skill: CharacterSkillAndUpgrades): boolean {
-        return this.character !== null && this.character.primarySkill === skill.skill;
+        const layer = this.buildStorageService.getLayer();
+        return layer !== null && layer.character.primarySkill === skill.skill;
     }
     
     public isEquippedSecondarySkill(skill: CharacterSkillAndUpgrades): boolean {
-        return this.character !== null && this.character.secondarySkill === skill.skill;
+        const layer = this.buildStorageService.getLayer();
+        return layer !== null && layer.character.secondarySkill === skill.skill;
     }
 }
     

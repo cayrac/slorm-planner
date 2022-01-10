@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
-import { BuildService } from '../../../shared/services/build.service';
+import { BuildStorageService } from '../../../shared/services/build-storage.service';
 import { ItemMoveService as ItemMoveService } from '../../../shared/services/item-move.service';
 import { Character } from '../../../slormancer/model/character';
 import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
@@ -25,7 +25,7 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
 
     public itemGroupDragDropPossible: boolean = false;
 
-    constructor(private plannerService: BuildService,
+    constructor(private buildStorageService: BuildStorageService,
                 private itemMoveService: ItemMoveService) {
         super();
         this.itemMoveService.draggingItem
@@ -34,13 +34,11 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
     }
 
     public ngOnInit() {
-        this.plannerService.characterChanged
+        this.buildStorageService.layerChanged
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(character => this.character = character);
+            .subscribe(layer => this.character = layer === null ? null : layer.character);
     }
     
-    public updateCharacter() { }
-
     public dragInItemsGroup(itemGroup: Array<EquipableItem | null>) {
         if (this.isDragging) {
             this.itemGroupDragDropPossible = itemGroup.find(item => item === null) !== undefined;
@@ -57,20 +55,20 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
     }
 
     public gearChanged() {
-        this.plannerService.updateCurrentCharacter();
+        this.buildStorageService.saveLayer();
     }
 
     public updateReaper(reaper: Reaper) {
         if (this.character !== null) {
             this.character.reaper = reaper;
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
         }
     }
 
     public updateIventoryItem(index: number, item: EquipableItem | null) {
         if (this.character !== null) {
             this.character.inventory[index] = item;
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
         }
     }
 
@@ -79,7 +77,7 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
             const stash = this.character.sharedInventory[stashIndex];
             if (stash) {
                 stash[index] = item;
-                this.plannerService.saveBuild();
+                this.buildStorageService.saveBuild();
             }
         }
     }

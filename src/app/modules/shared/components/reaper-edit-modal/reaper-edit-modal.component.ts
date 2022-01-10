@@ -7,9 +7,8 @@ import { Character } from '../../../slormancer/model/character';
 import { Reaper } from '../../../slormancer/model/content/reaper';
 import { SlormancerReaperService } from '../../../slormancer/services/content/slormancer-reaper.service';
 import { SlormancerCharacterUpdaterService } from '../../../slormancer/services/slormancer-character.updater.service';
-import { valueOrDefault } from '../../../slormancer/util/utils';
 import { SelectOption } from '../../model/select-option';
-import { BuildService } from '../../services/build.service';
+import { BuildStorageService } from '../../services/build-storage.service';
 import { FormOptionsService } from '../../services/form-options.service';
 
 export interface ReaperEditModalData {
@@ -38,7 +37,7 @@ export class ReaperEditModalComponent {
                 private slormancerReaperService: SlormancerReaperService,
                 private slormancerCharacterUpdaterService: SlormancerCharacterUpdaterService,
                 private formOptionsService: FormOptionsService,
-                private plannerService: BuildService,
+                private buildStorageService: BuildStorageService,
                 @Inject(MAT_DIALOG_DATA) data: ReaperEditModalData
                 ) {
         this.originalReaper = this.slormancerReaperService.getReaperClone(data.reaper);
@@ -76,8 +75,9 @@ export class ReaperEditModalComponent {
                 }
             }
 
+            const build = this.buildStorageService.getBuild();
             this.slormancerReaperService.updateReaperModel(this.reaper);
-            this.slormancerCharacterUpdaterService.updateCharacter(this.character, valueOrDefault(this.plannerService.getConfiguration(), DEFAULT_CONFIG), false);
+            this.slormancerCharacterUpdaterService.updateCharacter(this.character, build !== null ? build.configuration : DEFAULT_CONFIG, false);
             this.slormancerReaperService.updateReaperView(this.reaper);
             
             this.options = this.formOptionsService.getReaperOptions(this.reaper.weaponClass, this.reaper.primordial);

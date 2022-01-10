@@ -11,7 +11,7 @@ import { EquipableItem } from '../../../slormancer/model/content/equipable-item'
 import { Skill } from '../../../slormancer/model/content/skill';
 import { SlormancerItemService } from '../../../slormancer/services/content/slormancer-item.service';
 import { isNotNullOrUndefined } from '../../../slormancer/util/utils';
-import { BuildService } from '../../services/build.service';
+import { BuildStorageService } from '../../services/build-storage.service';
 import { MessageService } from '../../services/message.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 import { CharacterLevelEditModalComponent } from '../character-level-edit-modal/character-level-edit-modal.component';
@@ -20,8 +20,6 @@ import {
     OptimizeItemsStatsModalComponent,
     OptimizeItemsStatsModalData,
 } from '../optimize-items-stats-modal/optimize-items-stats-modal.component';
-
-
 
 @Component({
   selector: 'app-character-settings-menu',
@@ -35,7 +33,7 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
     @ViewChild(MatMenuTrigger, { static: true })
     private menu: MatMenuTrigger | null = null;
 
-    constructor(private plannerService: BuildService,
+    constructor(private buildStorageService: BuildStorageService,
                 private dialog: MatDialog,
                 private messageService: MessageService,
                 private slormancerItemService: SlormancerItemService
@@ -44,9 +42,9 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
     }
 
     public ngOnInit() {
-        this.plannerService.characterChanged
+        this.buildStorageService.layerChanged
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(character => this.character = character);
+            .subscribe(layer => this.character = layer === null ? null : layer.character);
     }
 
     public openCharacterSettings(): boolean {
@@ -83,7 +81,7 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
     }
     
     public optimizeReaperEnchantments() {
-        if (this.character !== null && this.character.reaper !== null) {
+        if (this.character !== null) {
             const reaperEnchantment = this.slormancerItemService.getReaperEnchantment(this.character.reaper.smith.id, 5);
             let icon = '';
 
@@ -94,7 +92,7 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
                 icon = item.reaperEnchantment.icon;
             });
 
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
 
             this.messageService.message('All equipped items optimized for <img src="' + icon + '"> ' + this.character.reaper.smith.name);
             
@@ -124,7 +122,7 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
                 icon = item.attributeEnchantment.icon;
             });
 
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
 
             this.messageService.message('All equipped items optimized for <img src="' + icon + '"> ' + traits.attributeName);
             
@@ -154,7 +152,7 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
                 icon = item.skillEnchantment.icon;
             });
             
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
 
             this.messageService.message('All equipped items optimized for <img src="' + icon + '"> ' + skill.name);
             
@@ -171,7 +169,7 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
                 this.slormancerItemService.updateEquipableItemView(item);
             });
             
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
 
             this.messageService.message('All equipped items level raised to ' + level);
         }
@@ -190,7 +188,7 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
                         this.slormancerItemService.updateEquipableItemView(item);
                     });
             
-                    this.plannerService.updateCurrentCharacter();
+                    this.buildStorageService.saveLayer();
         
                     this.messageService.message('All equipped items reinforcment raised to ' + reinforcment);
                 }
@@ -204,7 +202,7 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
             this.dialog.open(OptimizeItemsStatsModalComponent, { data })
             .afterClosed().subscribe(changed => {
                 if (changed) {
-                    this.plannerService.updateCurrentCharacter();
+                    this.buildStorageService.saveLayer();
                     this.messageService.message('All equipped items have been updated');
                 }
             });

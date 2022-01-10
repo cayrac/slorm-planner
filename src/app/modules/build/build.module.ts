@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from '../shared/shared.module';
 import { BuildRoutingModule } from './build-routing.module';
@@ -49,7 +49,7 @@ import { StatsComponent } from './component/stats/stats.component';
         CommonModule,
         SharedModule,
         BuildRoutingModule,
-        FormsModule,
+        ReactiveFormsModule, 
     ]
 })
 export class BuildModule { }

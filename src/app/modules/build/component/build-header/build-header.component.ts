@@ -14,10 +14,11 @@ import {
     EditLayerModalComponent,
     EditLayerModalData,
 } from '../../../shared/components/edit-layer-modal/edit-layer-modal.component';
+import { Layer } from '../../../shared/model/layer';
 import { SelectOption } from '../../../shared/model/select-option';
+import { BuildStorageService } from '../../../shared/services/build-storage.service';
 import { BuildService } from '../../../shared/services/build.service';
 import { SearchService } from '../../../shared/services/search.service';
-import { valueOrNull } from '../../../slormancer/util/utils';
 
 @Component({
   selector: 'app-build-header',
@@ -29,30 +30,31 @@ export class BuildHeaderComponent extends AbstractUnsubscribeComponent implement
     public readonly searchControl = new FormControl('');
     public readonly layerControl = new FormControl(null);
 
-    public layerOptions: Array<SelectOption<number>> = [];
+    public layerOptions: Array<SelectOption<Layer>> = [];
 
-    constructor(private plannerService: BuildService,
+    constructor(private buildStorageService: BuildStorageService,
+                private buildService: BuildService,
                 private searchService: SearchService,
                 private dialog: MatDialog) {
         super();
     }
 
     public ngOnInit() {
-        this.plannerService.selectedLayerIndexChanged
+        this.buildStorageService.layerChanged
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(layer => this.layerControl.setValue(layer, { emitEvent: false }));
-        this.plannerService.layersChanged
+        this.buildStorageService.buildChanged
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(layers => {
-                this.layerOptions = layers.map((layer, index) => ({ label: layer.name, value: index }));
+            .subscribe(build => {
+                this.layerOptions = build === null ? [] : build.layers.map(layer => ({ label: layer.name, value: layer }));
             });
         this.searchService.searchChanged
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(search => this.searchControl.setValue(search, { emitEvent: false }));
 
-        this.layerControl.setValue(this.plannerService.getSelectedLayerIndex(), { emitEvent: false });
+        this.layerControl.setValue(this.buildStorageService.getLayer(), { emitEvent: false });
 
-        this.layerControl.valueChanges.subscribe(layer => this.plannerService.setLayerIndex(layer));
+        this.layerControl.valueChanges.subscribe(layer => this.buildStorageService.loadLayer(layer));
         this.searchControl.valueChanges.subscribe(search => this.searchService.setSearch(search));
     }
 
@@ -65,7 +67,7 @@ export class BuildHeaderComponent extends AbstractUnsubscribeComponent implement
     }
     
     public editLayer() {
-        const layer = valueOrNull(this.plannerService.getLayers()[this.plannerService.getSelectedLayerIndex()]);
+        const layer = this.buildStorageService.getLayer();
 
         if (layer !== null) {
             const data: EditLayerModalData = {
@@ -75,7 +77,8 @@ export class BuildHeaderComponent extends AbstractUnsubscribeComponent implement
             this.dialog.open(EditLayerModalComponent, { data })
                 .afterClosed().subscribe(name => {
                     if (name) {
-                        this.plannerService.setLayerName(this.plannerService.getSelectedLayerIndex(), name);
+                        layer.name = name;
+                        this.buildStorageService.saveLayer();
                     }
                 });
         }
@@ -88,27 +91,33 @@ export class BuildHeaderComponent extends AbstractUnsubscribeComponent implement
         }
         this.dialog.open(EditLayerModalComponent, { data })
         .afterClosed().subscribe(name => {
-            if (name) {
-                this.plannerService.addLayer(name);
+            const build = this.buildStorageService.getBuild();
+            if (name && build !== null) {
+                this.buildService.addLayer(build, name)
+                this.buildStorageService.saveBuild();
             }
         });
     }
 
-    public copyLayer() {
+    public duplicateLayer() {
         const data: EditLayerModalData = {
             title: 'New layer name',
             name: null
         }
         this.dialog.open(EditLayerModalComponent, { data })
         .afterClosed().subscribe(name => {
-            if (name) {
-                this.plannerService.copyLayer(this.plannerService.getSelectedLayerIndex(), name);
+            const build = this.buildStorageService.getBuild();
+            const layer = this.buildStorageService.getLayer();
+            if (name && build !== null && layer !== null) {
+                this.buildService.duplicateLayer(build, layer, name);
+                this.buildStorageService.saveBuild();
             }
         });
     }
 
     public removeLayer() {
-        const layer = valueOrNull(this.plannerService.getLayers()[this.plannerService.getSelectedLayerIndex()]);
+        const layer = this.buildStorageService.getLayer();
+        const build = this.buildStorageService.getBuild();
 
         if (layer !== null) {
             const data: DeleteLayerModalData = {
@@ -116,14 +125,15 @@ export class BuildHeaderComponent extends AbstractUnsubscribeComponent implement
             }
             this.dialog.open(DeleteLayerModalComponent, { data })
             .afterClosed().subscribe(del => {
-                if (del) {
-                    this.plannerService.removeLayer(this.plannerService.getSelectedLayerIndex());
+                if (del && build !== null) {
+                    this.buildService.deleteLayer(build, layer);
+                    this.buildStorageService.saveBuild();
                 }
             });
         }
     }
 
     public hasRoomForMoreLayer(): boolean {
-        return this.plannerService.hasRoomForMoreLayers();
+        return this.buildStorageService.hasRoomForAnotherLayer();
     }
 }

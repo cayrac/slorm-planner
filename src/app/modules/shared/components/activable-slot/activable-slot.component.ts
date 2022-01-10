@@ -1,12 +1,10 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { takeUntil } from 'rxjs/operators';
 
-import { Character } from '../../../slormancer/model/character';
 import { Activable } from '../../../slormancer/model/content/activable';
 import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
 import { compare, isFirst, isNotNullOrUndefined } from '../../../slormancer/util/utils';
-import { BuildService } from '../../services/build.service';
+import { BuildStorageService } from '../../services/build-storage.service';
 import { ItemMoveService } from '../../services/item-move.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 
@@ -29,8 +27,6 @@ export class ActivableSlotComponent extends AbstractUnsubscribeComponent impleme
 
     @ViewChild(MatMenuTrigger, { static: true })
     private menu: MatMenuTrigger | null = null; 
-
-    private character: Character | null = null;
 
     public showOverlay = false;
 
@@ -62,12 +58,10 @@ export class ActivableSlotComponent extends AbstractUnsubscribeComponent impleme
         return false;
     }
     
-    constructor(private plannerService: BuildService,
+    constructor(private buildStorageService: BuildStorageService,
                 private itemMoveService: ItemMoveService) {
         super();
-        this.plannerService.characterChanged
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(character => this.character = character);}
+    }
 
     public ngOnInit() { }
 
@@ -82,28 +76,28 @@ export class ActivableSlotComponent extends AbstractUnsubscribeComponent impleme
     public getAvailableActivables(): Array<Activable | AncestralLegacy> {
         let result: Array<Activable | AncestralLegacy> = [];
 
-        const character = this.character;
-        if (character !== null) {
+        const layer = this.buildStorageService.getLayer();
+        if (layer !== null) {
             const legendaryActivables = [
-                character.gear.amulet,
-                character.gear.belt,
-                character.gear.body,
-                character.gear.boot,
-                character.gear.bracer,
-                character.gear.cape,
-                character.gear.glove,
-                character.gear.helm,
-                character.gear.ring_l,
-                character.gear.ring_r,
-                character.gear.shoulder
+                layer.character.gear.amulet,
+                layer.character.gear.belt,
+                layer.character.gear.body,
+                layer.character.gear.boot,
+                layer.character.gear.bracer,
+                layer.character.gear.cape,
+                layer.character.gear.glove,
+                layer.character.gear.helm,
+                layer.character.gear.ring_l,
+                layer.character.gear.ring_r,
+                layer.character.gear.shoulder
                 ]
                 .map(item => item !== null && item.legendaryEffect !== null ? item.legendaryEffect.activable : null)
                 .filter(isNotNullOrUndefined)
                 .sort((a, b) => -compare(a.level, b.level))
                 .filter((value, index, values) => isFirst(value, index, values, (a, b) => a.id === b.id));
-            const reaperActivables = character.reaper === null ? [] : character.reaper.activables;
-            const ancestralLegacies = character.ancestralLegacies.activeAncestralLegacies
-                .map(ancestralLegacy => character.ancestralLegacies.ancestralLegacies[ancestralLegacy])
+            const reaperActivables = layer.character.reaper === null ? [] : layer.character.reaper.activables;
+            const ancestralLegacies = layer.character.ancestralLegacies.activeAncestralLegacies
+                .map(ancestralLegacy => layer.character.ancestralLegacies.ancestralLegacies[ancestralLegacy])
                 .filter(isNotNullOrUndefined)
                 .filter(ancestralLegacy => ancestralLegacy.isActivable);
 
@@ -119,11 +113,12 @@ export class ActivableSlotComponent extends AbstractUnsubscribeComponent impleme
     }
 
     public isSelectedActivable(activable: Activable | AncestralLegacy): boolean {
-        return this.character !== null && (
-                this.character.activable1 === activable
-             || this.character.activable2 === activable
-             || this.character.activable3 === activable
-             || this.character.activable4 === activable); 
+        const layer = this.buildStorageService.getLayer();
+        return layer !== null && (
+                layer.character.activable1 === activable
+             || layer.character.activable2 === activable
+             || layer.character.activable3 === activable
+             || layer.character.activable4 === activable); 
     }
 
     public updateActivable(activable: Activable | AncestralLegacy | null) {

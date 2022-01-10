@@ -1,0 +1,10 @@
+<mat-card-content>
+    <h3>Create build from a Slormancer save file</h3>
+    <app-create-build-from-game (created)="passCreatedEvent()"></app-create-build-from-game>
+    <hr/>
+    <h3>Create build from exported data</h3>
+    <app-create-build-from-export (created)="passCreatedEvent()"></app-create-build-from-export>
+    <hr/>
+    <h3>Create empty build</h3>
+    <app-create-build-empty (created)="passCreatedEvent()"></app-create-build-empty>
+</mat-card-content>

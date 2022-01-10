@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
-import { BuildService } from '../../../shared/services/build.service';
+import { BuildStorageService } from '../../../shared/services/build-storage.service';
 import { CharacterAttributes } from '../../../slormancer/model/character';
 import { ALL_ATTRIBUTES } from '../../../slormancer/model/content/enum/attribute';
 
@@ -19,14 +19,14 @@ export class AttributesComponent extends AbstractUnsubscribeComponent implements
 
     public attributes: CharacterAttributes | null = null;
 
-    constructor(private plannerService: BuildService) {
+    constructor(private buildStorageService: BuildStorageService) {
         super();
     }
 
     public ngOnInit() {
-        this.plannerService.characterChanged
+        this.buildStorageService.layerChanged
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(character => this.attributes = character === null ? null : character.attributes);
+            .subscribe(layer => this.attributes = layer === null ? null : layer.character.attributes);
     }
 
 

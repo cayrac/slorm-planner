@@ -6,7 +6,7 @@ import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { Layer } from '../../../shared/model/layer';
-import { BuildService } from '../../../shared/services/build.service';
+import { BuildStorageService } from '../../../shared/services/build-storage.service';
 import { CharacterStatDifference } from '../../../slormancer/model/character-stat-differences';
 import { SlormancerCharacterComparatorService } from '../../../slormancer/services/slormancer-character-comparator.service';
 
@@ -27,23 +27,27 @@ export class CompareComponent extends AbstractUnsubscribeComponent implements On
 
     public readonly layerControl = new FormControl(0);
 
-    constructor(private plannerService: BuildService,
+    constructor(private buildStorageService: BuildStorageService,
                 private slormancerCharacterComparatorService: SlormancerCharacterComparatorService) {
         super();
-        this.plannerService.layersChanged
+        this.buildStorageService.buildChanged
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(layers => {
-                this.layers = layers;
+            .subscribe(build => {
+                this.layers = build === null ? [] : build.layers;
                 this.layerControl.setValue(this.layers[0]);
             });
-        this.plannerService.selectedLayerIndexChanged
+        this.buildStorageService.layerChanged
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(index => {
-                const layers = this.plannerService.getLayers();
-                const newCompareToIndex = index === 0 && layers.length > 1 ? 1 : 0;
-                this.currentLayer = <Layer>layers[index];
-                this.layerControl.setValue(layers[newCompareToIndex]);
-                this.updateDifferences()
+            .subscribe(layer => {
+                this.currentLayer = layer;
+                if (layer !== null) {
+                    const layerIndex = this.layers.indexOf(layer);
+                    if (layerIndex !== -1) {
+                        const newCompareToIndex = layerIndex === 0 && this.layers.length > 1 ? 1 : 0;
+                        this.layerControl.setValue(this.layers[newCompareToIndex]);
+                        this.updateDifferences()
+                    }
+                }
             });
         this.layerControl.valueChanges.subscribe(() => this.updateDifferences())
     }

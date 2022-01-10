@@ -7,7 +7,7 @@ import {
 import {
     AbstractUnsubscribeComponent,
 } from '../../../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
-import { BuildService } from '../../../../../shared/services/build.service';
+import { BuildStorageService } from '../../../../../shared/services/build-storage.service';
 import { UNLOCKED_ANCESTRAL_LEGACY_POINTS } from '../../../../../slormancer/constants/common';
 import {
     ANCESTRAL_LEGACY_REALMS,
@@ -104,7 +104,7 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         }
     }
 
-    constructor(private plannerService: BuildService,
+    constructor(private buildStorageService: BuildStorageService,
                 private slormancerDataService: SlormancerDataService,
                 private slormancerCharacterModifierService: SlormancerCharacterModifierService) {
         super();
@@ -112,10 +112,10 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
     }
 
     public ngOnInit() {
-        this.plannerService.characterChanged
+        this.buildStorageService.layerChanged
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(character => {
-                this.character = character;
+            .subscribe(layer => {
+                this.character = layer === null ? null : layer.character;
                 this.updateMap();
             });
     }
@@ -211,7 +211,7 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
             } else {
                 changed = this.slormancerCharacterModifierService.activateAncestralLegacyNode(this.character, nodeId);
             }
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
     
             if (changed) {
                 this.updateMap();

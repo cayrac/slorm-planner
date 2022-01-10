@@ -100,8 +100,8 @@ export class ImportExportService {
         return btoa(JSON.stringify(this.jsonConverterService.layerToJson(layer)));
     }
 
-    public exportPlanner(planner: Build): string {
-        return btoa(JSON.stringify(this.jsonConverterService.plannerToJson(planner)));
+    public exportBuild(build: Build): string {
+        return btoa(JSON.stringify(this.jsonConverterService.buildToJson(build)));
     }
 
     public exportCharacterAsLink(character: Character): string {

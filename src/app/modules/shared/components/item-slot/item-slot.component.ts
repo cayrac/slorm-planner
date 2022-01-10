@@ -9,7 +9,7 @@ import { SlormancerCharacterBuilderService } from 'src/app/modules/slormancer/se
 import { EquipableItemBase } from '../../../slormancer/model/content/enum/equipable-item-base';
 import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
 import { SlormancerItemService } from '../../../slormancer/services/content/slormancer-item.service';
-import { BuildService } from '../../services/build.service';
+import { BuildStorageService } from '../../services/build-storage.service';
 import { ItemMoveService } from '../../services/item-move.service';
 import { SearchService } from '../../services/search.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
@@ -102,7 +102,7 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
                 private searchService: SearchService,
                 private slormancerCharacterBuilderService: SlormancerCharacterBuilderService,
                 private slormancerItemService: SlormancerItemService,
-                private plannerService: BuildService) {
+                private buildStorageService: BuildStorageService) {
         super();
         this.itemMoveService.draggingItem
             .pipe(takeUntil(this.unsubscribe))
@@ -224,13 +224,13 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
     public compareWithSlot(slot: GearSlot) {
         if (this.item !== null && this.character !== null) {
             const leftItem = this.character.gear[slot];
-            const config = this.plannerService.getConfiguration();
+            const build = this.buildStorageService.getBuild();
             
-            if (leftItem !== null && config !== null) {
+            if (leftItem !== null && build !== null && build.configuration !== null) {
                 const data: CompareItemModalData = {
                     character: this.character,
                     slot,
-                    config,
+                    config: build.configuration,
                     left: leftItem,
                     right: this.item,
                 }

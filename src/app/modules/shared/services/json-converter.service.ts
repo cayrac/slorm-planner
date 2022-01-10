@@ -261,14 +261,14 @@ export class JsonConverterService {
         };
     }
 
-    public plannerToJson(planner: Build): JsonBuild {
+    public buildToJson(build: Build): JsonBuild {
         return {
             type: 'p',
-            version: planner.version,
-            heroClass: planner.heroClass,
-            name: planner.name,
-            layers: planner.layers.map(layer => this.layerToJson(layer)),
-            configuration: { ...planner.configuration }
+            version: build.version,
+            heroClass: build.heroClass,
+            name: build.name,
+            layers: build.layers.map(layer => this.layerToJson(layer)),
+            configuration: { ...build.configuration }
         };
     }
 
@@ -396,13 +396,13 @@ export class JsonConverterService {
         }
     }
 
-    public jsonToBuild(planner: JsonBuild): Build {
+    public jsonToBuild(build: JsonBuild): Build {
         return {
-            version: planner.version,
-            heroClass: planner.heroClass,
-            name: planner.name ? planner.name : 'Default name',
-            layers: planner.layers.map(layer => this.jsonToLayer(layer)),
-            configuration: { ...planner.configuration }
+            version: build.version,
+            heroClass: build.heroClass,
+            name: build.name ? build.name : 'Default name',
+            layers: build.layers.map(layer => this.jsonToLayer(layer)),
+            configuration: { ...build.configuration }
         };
     }
 

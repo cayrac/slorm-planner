@@ -12,9 +12,9 @@
                 </mat-select>
             </mat-form-field>
             <button mat-icon-button color="primary" matTooltip="Edit layer name" (click)="editLayer()"><mat-icon>edit</mat-icon></button>
-            <button mat-icon-button color="primary" matTooltip="Delete layer name" (click)="removeLayer()" [disabled]="layerOptions.length <= 1"><mat-icon>delete</mat-icon></button>
+            <button mat-icon-button color="primary" matTooltip="Delete layer" (click)="removeLayer()" [disabled]="layerOptions.length <= 1"><mat-icon>delete</mat-icon></button>
             <button mat-icon-button color="primary" matTooltip="Add new layer" (click)="addLayer()" [disabled]="!hasRoomForMoreLayer()"><mat-icon>add</mat-icon></button>
-            <button mat-icon-button color="primary" matTooltip="Copy this layer" (click)="copyLayer()" [disabled]="!hasRoomForMoreLayer()"><mat-icon>content_copy</mat-icon></button>
+            <button mat-icon-button color="primary" matTooltip="Duplicate this layer" (click)="duplicateLayer()" [disabled]="!hasRoomForMoreLayer()"><mat-icon>content_copy</mat-icon></button>
         </div>
         <div class="search">
             <mat-form-field appearance="outline" color="primary" class="no-error-padding">

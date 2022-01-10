@@ -3,7 +3,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
 import { SlormancerAncestralLegacyService } from '../../../slormancer/services/content/slormancer-ancestral-legacy.service';
-import { BuildService } from '../../services/build.service';
+import { BuildStorageService } from '../../services/build-storage.service';
 import { SearchService } from '../../services/search.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 
@@ -49,7 +49,7 @@ export class AncestralLegacySlotComponent extends AbstractUnsubscribeComponent i
 
     constructor(private searchService: SearchService,
                 private slormancerAncestralLegacyService: SlormancerAncestralLegacyService,
-                private plannerService: BuildService) {
+                private buildStorageService: BuildStorageService) {
         super();
     }
 
@@ -63,7 +63,7 @@ export class AncestralLegacySlotComponent extends AbstractUnsubscribeComponent i
         if (ancestralLegacy.baseRank !== newRank && this.selected) {
             this.slormancerAncestralLegacyService.updateAncestralLegacyModel(ancestralLegacy, newRank);
             this.slormancerAncestralLegacyService.updateAncestralLegacyView(ancestralLegacy);
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
         }
     }
 

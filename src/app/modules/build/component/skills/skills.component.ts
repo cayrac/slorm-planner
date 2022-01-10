@@ -7,7 +7,7 @@ import {
 import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
-import { BuildService } from '../../../shared/services/build.service';
+import { BuildStorageService } from '../../../shared/services/build-storage.service';
 import { Character, CharacterSkillAndUpgrades } from '../../../slormancer/model/character';
 import { SkillType } from '../../../slormancer/model/content/skill-type';
 import { SkillUpgrade } from '../../../slormancer/model/content/skill-upgrade';
@@ -29,17 +29,17 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
 
     public selectedSkillLines: Array<number> = [];
 
-    constructor(private plannerService: BuildService,
+    constructor(private buildStorageService: BuildStorageService,
                 private slormancerSkillService: SlormancerSkillService,
                 private slormancerCharacterModifierService: SlormancerCharacterModifierService) {
         super();
     }
 
     public ngOnInit() {
-        this.plannerService.characterChanged
+        this.buildStorageService.layerChanged
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(character => {
-                this.character = character;
+            .subscribe(layer => {
+                this.character = layer === null ? null : layer.character;
                 this.updateSelectedSkill();
             });
     }
@@ -110,7 +110,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
             if (skill.skill.baseLevel < skill.skill.maxLevel) {
                 skill.skill.baseLevel++;
                 this.slormancerSkillService.updateSkillModel(skill.skill);
-                this.plannerService.updateCurrentCharacter();
+                this.buildStorageService.saveLayer();
                 console.log(skill);
             }
         } else {
@@ -124,7 +124,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
             if (skill.skill.baseLevel > 1) {
                 skill.skill.baseLevel--;
                 this.slormancerSkillService.updateSkillModel(skill.skill);
-                this.plannerService.updateCurrentCharacter();
+                this.buildStorageService.saveLayer();
                 console.log(skill);
             }
         } else {
@@ -168,11 +168,11 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
                     selectedUpgrade.baseRank = 1;
                     this.slormancerSkillService.updateUpgrade(selectedUpgrade);
                 }
-                this.plannerService.updateCurrentCharacter();
+                this.buildStorageService.saveLayer();
             } else if (!selectionChanged && selectedUpgrade.baseRank < selectedUpgrade.maxRank) {
                 selectedUpgrade.baseRank++;
                 this.slormancerSkillService.updateUpgrade(selectedUpgrade);
-                this.plannerService.updateCurrentCharacter();
+                this.buildStorageService.saveLayer();
             }
             console.log(selectedUpgrade);
         }
@@ -189,11 +189,11 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
 
             if (!this.isUpgradeEquipped(selectedUpgrade)) {
                 this.slormancerCharacterModifierService.selectUpgrade(this.character, selectedUpgrade);
-                this.plannerService.updateCurrentCharacter();
+                this.buildStorageService.saveLayer();
             } else if (!selectionChanged && selectedUpgrade.baseRank > 1) {
                 selectedUpgrade.baseRank--;
                 this.slormancerSkillService.updateUpgrade(selectedUpgrade);
-                this.plannerService.updateCurrentCharacter();
+                this.buildStorageService.saveLayer();
             }
             console.log(selectedUpgrade);
         }
@@ -207,21 +207,21 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
     public equipSupport(skill: CharacterSkillAndUpgrades) {
         if (this.character !== null) {
             this.slormancerCharacterModifierService.setSupportSkill(this.character, skill.skill);
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
         }
     }
 
     public equipPrimary(skill: CharacterSkillAndUpgrades) {
         if (this.character !== null) {
             this.slormancerCharacterModifierService.setPrimarySkill(this.character, skill.skill);
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
         }
     }
 
     public equipSecondary(skill: CharacterSkillAndUpgrades) {
         if (this.character !== null) {
             this.slormancerCharacterModifierService.setSecondarySkill(this.character, skill.skill);
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
         }
     }
 }

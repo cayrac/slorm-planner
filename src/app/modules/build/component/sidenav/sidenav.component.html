@@ -1,6 +1,26 @@
 
 <input autocomplete="false" name="hidden" type="text" style="display:none;">
 <div class="sidenav">
+    <div class="build">
+        <h3>Builds</h3>
+        <div class="build-selection">
+            <mat-form-field appearance="outline" color="primary" class="no-error-padding">
+                <mat-label>Current build</mat-label>
+                <mat-select color="primary" [formControl]="buildControl">
+                    <mat-select-trigger *ngIf="buildControl.value !== null">
+                        <img class="hero-icon" src="assets/img/character/icon/{{buildControl.value.heroClass}}/head.png" /> {{buildControl.value.name}}
+                    </mat-select-trigger>
+                    <mat-option [ngValue]="build" *ngFor="let build of getBuilds()">
+                        <img class="hero-icon" src="assets/img/character/icon/{{build.heroClass}}/head.png" /> {{build.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-icon-button color="primary" matTooltip="Edit build name" (click)="editBuild()"><mat-icon>edit</mat-icon></button>
+            <button mat-icon-button color="primary" matTooltip="Delete build" (click)="deleteBuild()"><mat-icon>delete</mat-icon></button>
+        </div>
+        <button mat-flat-button color="primary" (click)="createNewBuild()">New build</button>
+    </div>
+    <hr/>
     <div class="import">
         <h3>Import</h3>
         <app-import-data
@@ -25,14 +45,10 @@
         <div class="export-details">
             <p>Current build</p>
             <div class="actions">
-                <button mat-icon-button (click)="!busy && downloadPlanner()" matTooltip="Download"><mat-icon>file_download</mat-icon></button>
-                <button mat-icon-button (click)="!busy && copyPlanner()" matTooltip="Copy to clipboard"><mat-icon>content_copy</mat-icon></button>
+                <button mat-icon-button (click)="!busy && downloadBuild()" matTooltip="Download"><mat-icon>file_download</mat-icon></button>
+                <button mat-icon-button (click)="!busy && copyBuild()" matTooltip="Copy to clipboard"><mat-icon>content_copy</mat-icon></button>
             </div>
         </div>
-    </div>
-    <hr/>
-    <div class="build">
-        <button mat-flat-button color="primary" (click)="createNewBuild()">New build</button>
     </div>
 
     <div class="info">

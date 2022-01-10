@@ -8,7 +8,7 @@
             <div class="stat-line">
                 <mat-form-field appearance="outline">
                     <mat-label>Ultimatum level</mat-label>
-                    <input matInput type="number" min="1" step="1" [max]="ULTIMATUM_MAX_LEVEL" formControlName="level">
+                    <input matInput type="number" step="1" formControlName="level">
                     <mat-error>Level must be between 1 and {{ULTIMATUM_MAX_LEVEL}}</mat-error>
                 </mat-form-field>
             </div>

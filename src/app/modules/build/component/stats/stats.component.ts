@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import {
     AbstractUnsubscribeComponent,
 } from '../../../shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
-import { BuildService } from '../../../shared/services/build.service';
+import { BuildStorageService } from '../../../shared/services/build-storage.service';
 import { MergedStat } from '../../../slormancer/model/content/character-stats';
 
 @Component({
@@ -18,15 +18,15 @@ export class StatsComponent extends AbstractUnsubscribeComponent implements OnIn
 
     public selectedMergedStat: MergedStat | null = null;
 
-    constructor(private plannerService: BuildService) {
+    constructor(private buildStorageService: BuildStorageService) {
         super();
     }
 
     public ngOnInit() {
-        this.plannerService.characterChanged
+        this.buildStorageService.layerChanged
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(character => {
-                this.stats = character === null ? null : character.stats;
+            .subscribe(layer => {
+                this.stats = layer === null ? null : layer.character.stats;
             });
     }
 

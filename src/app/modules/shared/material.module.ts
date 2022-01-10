@@ -1,9 +1,10 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MAT_RIPPLE_GLOBAL_OPTIONS, RippleGlobalOptions } from '@angular/material/core';
+import { MAT_RIPPLE_GLOBAL_OPTIONS, MatOptionModule, RippleGlobalOptions } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -44,6 +45,7 @@ const globalTooltipConfig: MatTooltipDefaultOptions = {
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
+        MatOptionModule,
         MatSliderModule,
         MatCheckboxModule,
         MatMenuModule,
@@ -51,6 +53,7 @@ const globalTooltipConfig: MatTooltipDefaultOptions = {
         MatSidenavModule,
         MatTooltipModule,
         OverlayModule,
+        ReactiveFormsModule,
     ],
     exports: [
         MatTabsModule,
@@ -61,6 +64,7 @@ const globalTooltipConfig: MatTooltipDefaultOptions = {
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
+        MatOptionModule,
         MatSliderModule,
         MatCheckboxModule,
         MatMenuModule,
@@ -68,6 +72,7 @@ const globalTooltipConfig: MatTooltipDefaultOptions = {
         MatSidenavModule,
         MatTooltipModule,
         OverlayModule,
+        ReactiveFormsModule,
     ],
     providers: [
         {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: globalRippleConfig },

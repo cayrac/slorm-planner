@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AttributeTraits } from '../../../slormancer/model/content/attribut-traits';
 import { MinMax } from '../../../slormancer/model/minmax';
 import { SlormancerAttributeService } from '../../../slormancer/services/content/slormancer-attribute.service';
-import { BuildService } from '../../services/build.service';
+import { BuildStorageService } from '../../services/build-storage.service';
 
 @Component({
   selector: 'app-attribute-line',
@@ -38,7 +38,7 @@ export class AttributeLineComponent implements OnInit {
     public showSummary = false;
     
     constructor(private slormancerAttributeService: SlormancerAttributeService,
-                private plannerService: BuildService) { }
+                private buildStorageService: BuildStorageService) { }
 
     public ngOnInit() {
         this.updateCursor();
@@ -75,7 +75,7 @@ export class AttributeLineComponent implements OnInit {
         if (this.attribute !== null && this.attribute.rank !== rank && !this.readonly) {
             this.attribute.rank = rank;
             this.slormancerAttributeService.updateAttributeTraits(this.attribute);
-            this.plannerService.updateCurrentCharacter();
+            this.buildStorageService.saveLayer();
             this.updateCursor();
         }
     }
