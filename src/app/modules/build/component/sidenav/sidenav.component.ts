@@ -23,6 +23,7 @@ import {
     EditLayerModalData,
 } from '../../../shared/components/edit-layer-modal/edit-layer-modal.component';
 import { BuildPreview } from '../../../shared/model/build-preview';
+import { Layer } from '../../../shared/model/layer';
 import { SharedData } from '../../../shared/model/shared-data';
 import { BuildStorageService } from '../../../shared/services/build-storage.service';
 import { BuildService } from '../../../shared/services/build.service';
@@ -106,21 +107,24 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
                 this.dialog.open(EditLayerModalComponent, { data })
                     .afterClosed().subscribe((name: string | null | undefined) => {
                         if (name) {
-                            this.buildService.addLayer(build, name, sharedData.character);
-                            this.buildStorageService.saveBuild();
+                            const addedLayer = this.buildService.addLayer(build, name, sharedData.character);
+                            this.buildStorageService.loadLayer(addedLayer);
                             this.closeSideNav();
                         }
                     })
             } else if (sharedData.layer !== null) {
-                this.buildService.addLayer(build, sharedData.layer.name, sharedData.layer.character);
-                this.buildStorageService.saveBuild();
+                const addedLayer = this.buildService.addLayer(build, sharedData.layer.name, sharedData.layer.character);
+                this.buildStorageService.loadLayer(addedLayer);
                 this.closeSideNav();
             } else if (sharedData.planner !== null) {
 
+                let lastlayer: Layer | null = null
                 for (const layer of sharedData.planner.layers) {
-                    this.buildService.addLayer(build, layer.name, layer.character);
+                    lastlayer = this.buildService.addLayer(build, layer.name, layer.character);
                 }
-                this.buildStorageService.saveBuild();
+                if (lastlayer !== null) {
+                    this.buildStorageService.loadLayer(lastlayer);
+                }
                 this.closeSideNav();
             }
 
