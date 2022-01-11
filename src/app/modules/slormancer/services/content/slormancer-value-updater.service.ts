@@ -322,6 +322,16 @@ export class SlormancerValueUpdater {
     public updateActivable(character: Character, activable: Activable, statsResult: SkillStatsBuildResult, config: CharacterConfig) {
         const skillStats = this.getSkillStats(statsResult, character);
 
+        // Manabender (activable) cooldown
+        if (activable.id === 2) {
+            const manaRegen = character.stats.find(stat => stat.stat === 'mana_regeneration');
+            const manaMax = character.stats.find(stat => stat.stat === 'max_mana');
+
+            if (manaRegen !== undefined && manaMax !== undefined && typeof manaRegen.total === 'number' && typeof manaMax.total === 'number') {
+                activable.baseCooldown = round(manaMax.total / manaRegen.total, 2);
+            }
+        }
+
         activable.cost = this.getActivableCost(statsResult.extractedStats, config, activable);
         activable.cooldown = activable.baseCooldown === null ? 0 : Math.max(0, round(activable.baseCooldown * (100 - skillStats.attackSpeed.total) / 100, 2));
         

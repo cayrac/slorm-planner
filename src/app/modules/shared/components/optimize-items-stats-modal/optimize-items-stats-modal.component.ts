@@ -83,6 +83,17 @@ export class OptimizeItemsStatsModalComponent {
             }
         }
 
+        while (item.affixes.filter(affix => affix.rarity === Rarity.Normal).length < maxStats[Rarity.Normal]) {
+            const firstAvailable = options[Rarity.Normal].find(option => item.affixes.find(affix => affix.craftedEffect.effect.stat === option.value) === undefined);
+            
+            if (firstAvailable !== undefined) {
+                const affix = this.slormancerAffixService.getAffixFromStat(firstAvailable.value, item.level, item.reinforcment, Rarity.Normal);
+                if (affix !== null) {
+                    item.affixes.push(affix);
+                }
+            }
+        }
+
         this.slormancerItemService.updateEquipableItemModel(item);
         this.slormancerItemService.updateEquipableItemView(item);
     }

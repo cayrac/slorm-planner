@@ -8,7 +8,7 @@ import { Build } from '../model/build';
 @Injectable({ providedIn: 'root' })
 export class BuildRetrocompatibilityService {
 
-    private readonly CHANGES: Array<{ version: string, update: (planner: Build) => void }> = [
+    private readonly CHANGES: Array<{ version: string, update: (build: Build) => void }> = [
         {
             version: '0.0.2',
             update: build => {
@@ -21,47 +21,47 @@ export class BuildRetrocompatibilityService {
         },
         {
             version: '0.0.4',
-            update: planner => {
-                planner.configuration['use_enemy_state'] = false;
-                planner.version = '0.0.4';
+            update: build => {
+                build.configuration['use_enemy_state'] = false;
+                build.version = '0.0.4';
             }
         },
         {
             version: '0.0.8',
-            update: planner => {
-                planner.version = '0.0.8';
+            update: build => {
+                build.version = '0.0.8';
 
-                for (const layer of planner.layers) {
+                for (const layer of build.layers) {
                     layer.character.originalVersion = layer.character.version;
                     layer.character.version = GAME_VERSION;
                 }
 
-                planner.configuration['has_electrify_buff'] = false;
-                planner.configuration['elemental_spirit_stacks'] = 0;
-                planner.configuration['is_channeling_focus'] = false;
+                build.configuration['has_electrify_buff'] = false;
+                build.configuration['elemental_spirit_stacks'] = 0;
+                build.configuration['is_channeling_focus'] = false;
             }
         },
         {
             version: '0.0.9',
-            update: planner => {
-                planner.version = '0.0.9';
+            update: build => {
+                build.version = '0.0.9';
 
-                for (const layer of planner.layers) {
+                for (const layer of build.layers) {
                     layer.character.version = GAME_VERSION;
                 }
             }
         },
         {
             version: '0.0.10',
-            update: planner => {
-                planner.version = '0.0.10';
+            update: build => {
+                build.version = '0.0.10';
             }
         },
         {
             version: '0.0.11',
-            update: planner => {
-                planner.version = '0.0.11';
-                planner.name = 'New build'
+            update: build => {
+                build.version = '0.0.11';
+                build.name = 'New build'
             }
         },
     ];

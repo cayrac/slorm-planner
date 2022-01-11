@@ -383,16 +383,54 @@ export class SlormancerStatsExtractorService {
     }
 
     public addActivableValues(character: Character, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
-        const activables = [character.activable1, character.activable2, character.activable3, character.activable4]
+        const equipedActivables = [character.activable1, character.activable2, character.activable3, character.activable4]
             .filter(isNotNullOrUndefined);
-        for (const activable of activables) {
-            const source = 'level' in activable ? { activable } : { ancestralLegacy: activable };
+
+        for (const ancestralLegacy of character.ancestralLegacies.ancestralLegacies) {
+            if (ancestralLegacy.isActivable) {
+                const equiped = equipedActivables.includes(ancestralLegacy);
+                const source = { ancestralLegacy };
+                for (const effectValue of ancestralLegacy.values) {
+                    if (isEffectValueSynergy(effectValue)) {
+                        if (!isDamageType(effectValue.stat)) {
+                            stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping)));
+                        }
+                    } else if (equiped) {
+                        this.addStat(stats.stats, effectValue.stat, effectValue.value, source);
+                    }
+                }
+            }
+        }
+        
+        const items = ALL_GEAR_SLOT_VALUES
+            .map(slot => character.gear[slot])
+            .filter(isNotNullOrUndefined);
+
+        for (const item of items) {
+            if (item.legendaryEffect !== null && item.legendaryEffect.activable !== null) {
+                const equiped = equipedActivables.includes(item.legendaryEffect.activable);
+                const source = { item };
+                for (const effectValue of item.legendaryEffect.activable.values) {
+                    if (isEffectValueSynergy(effectValue)) {
+                        if (!isDamageType(effectValue.stat)) {
+                            stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping)));
+                        }
+                    } else if (equiped) {
+                        this.addStat(stats.stats, effectValue.stat, effectValue.value, source);
+                    }
+                }
+            }
+        }
+
+        for (const activable of character.reaper.activables) {
+            const equiped = equipedActivables.includes(activable);
+            const source = { reaper: character.reaper };
             for (const effectValue of activable.values) {
                 if (isEffectValueSynergy(effectValue)) {
                     if (!isDamageType(effectValue.stat)) {
                         stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping)));
                     }
-                } else {
+                } else if (equiped) {
                     this.addStat(stats.stats, effectValue.stat, effectValue.value, source);
                 }
             }

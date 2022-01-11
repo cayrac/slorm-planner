@@ -89,16 +89,19 @@
 ## Release 0.0.11 TBR
 ### Changed
 - Downloading a layer now use the layer name for the generated file
-- Reduced the max level back to 50 (up to 100 by mistake in last version)
+- Reduced the max level back to 50 (up to 100 by mistake in version 0.0.10)
 ### Fixes
 - Material theme now correctly use the Berlin (Slormancer) font
-- Fixed an issue causing some item stats to be ignored when loaded from a save file
+- Fixed an issue causing some item stats to be ignored when parsed from a save file
 - Fixed an error when parsing url in the import textarea 
+- It should no longer possible to load a layer from a class into a build from another class
+- Fixed some activables values not being updated correctly
+- Fixed generated build links not containing slorm-reaper sub folder
 ### Added
 - Added optimize items stats modal on character settings menu
+- It is now possible to have multiple builds
 
 ## Planned changes
 - Damages computing rework (probably when imbue passives are out)
-- Fix manabender activable cooldown
-- Multiple builds
-- Keep layer name when uploading (if not already done)
+- Skills real cooldowns
+- Optimize overlays and menus

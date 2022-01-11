@@ -198,12 +198,12 @@ export class SlormancerCharacterUpdaterService {
         return this.slormancerStatsService.updateCharacterStats(character, config, additionalItem);
     }
 
-    private updateCharacterActivables(character: Character, statsResult: CharacterStatsBuildResult, config: CharacterConfig, additionalItem: EquipableItem | null, auraOnly: boolean): { items: Array<EquipableItem>, ancestralLegacies: Array<AncestralLegacy> } {
+    private updateCharacterActivables(character: Character, statsResult: CharacterStatsBuildResult, config: CharacterConfig, additionalItem: EquipableItem | null, auraOnly: boolean): { items: Array<EquipableItem>, ancestralLegacies: Array<AncestralLegacy>, reapers: Array<Reaper> } {
         const ancestralLegacies = character.ancestralLegacies.ancestralLegacies;
         const items = <Array<EquipableItem>>[...ALL_GEAR_SLOT_VALUES.map(slot => character.gear[slot]), ...character.inventory, ...character.sharedInventory.flat(), additionalItem]
             .filter(item => item !== null && item.legendaryEffect !== null && item.legendaryEffect.activable !== null);
         const result: { items: Array<EquipableItem>, ancestralLegacies: Array<AncestralLegacy> } = { items: [], ancestralLegacies: [] };
-
+        const reapers = character.reaper.activables.length > 0 ? [character.reaper] : [];
 
         for (const ancestralLegacy of ancestralLegacies) {
             if (ancestralLegacy.genres.includes(SkillGenre.Aura) || !auraOnly) {
@@ -219,7 +219,15 @@ export class SlormancerCharacterUpdaterService {
             }
         }
 
-        return { items, ancestralLegacies };
+        for (const reaper of reapers) {
+            for (const activable of reaper.activables) {
+                if (activable.genres.includes(SkillGenre.Aura) || !auraOnly) {
+                    this.slormancerValueUpdater.updateActivable(character, activable, statsResult, config);
+                }
+            }
+        }
+        
+        return { items, ancestralLegacies, reapers };
     }
 
     private updateCharacterStats(character: Character, updateViews: boolean, config: CharacterConfig, additionalItem: EquipableItem | null) {
@@ -236,6 +244,7 @@ export class SlormancerCharacterUpdaterService {
         statsResult.changed.activables.push(...statResultPreAura.changed.activables);
         statsResult.changed.attributes.push(...statResultPreAura.changed.attributes);
         statsResult.changed.reapers.push(...statResultPreAura.changed.reapers);
+        statsResult.changed.reapers.push(...auraChanged.reapers);
         statsResult.changed.skills.push(...statResultPreAura.changed.skills);
         statsResult.changed.upgrades.push(...statResultPreAura.changed.upgrades);
         statsResult.changed.mechanics.push(...statResultPreAura.changed.mechanics);
@@ -276,6 +285,7 @@ export class SlormancerCharacterUpdaterService {
         const activableChanged = this.updateCharacterActivables(character, statsResult, config, additionalItem, false);
         statsResult.changed.items.push(...activableChanged.items);
         statsResult.changed.ancestralLegacies.push(...activableChanged.ancestralLegacies);
+        statsResult.changed.reapers.push(...activableChanged.reapers);
 
         this.displaySynergyLoopError(statsResult)
 

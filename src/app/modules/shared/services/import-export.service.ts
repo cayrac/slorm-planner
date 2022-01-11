@@ -14,12 +14,22 @@ import { JsonConverterService } from './json-converter.service';
 @Injectable({ providedIn: 'root' })
 export class ImportExportService {
 
-    private readonly VIEW_BUILD_PATH = window.origin + '/view/build/';
+    private readonly VIEW_BUILD_PATH: string;
 
     constructor(private slormancerCharacterBuilderService: SlormancerCharacterBuilderService,
                 private slormancerSaveParserService: SlormancerSaveParserService,
                 private slormancerShortDataService: SlormancerShortDataService,
                 private jsonConverterService: JsonConverterService) {
+
+        const base = document.getElementsByTagName('base')[0];
+        let baseHref = '/';
+        if (base !== undefined) {
+            const href = base.getAttribute('href');
+            if (href !== null) {
+                baseHref = href;
+            }
+        }
+        this.VIEW_BUILD_PATH = window.origin + baseHref + 'view/build/';
     }
 
     private parseSaveData(content: string, heroClass: HeroClass): Character {
