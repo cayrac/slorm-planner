@@ -86,7 +86,7 @@
 ### Fixes
 - Splendid greaves icon is no longer missing
 
-## Release 0.0.11 TBR
+## Release 0.0.11 (2022-01-11)
 ### Changed
 - Downloading a layer now use the layer name for the generated file
 - Reduced the max level back to 50 (up to 100 by mistake in version 0.0.10)
