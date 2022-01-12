@@ -23,7 +23,8 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets/img",
+              "src/assets/font"
             ],
             "styles": [
               "node_modules/material-design-icons/iconfont/material-icons.css",

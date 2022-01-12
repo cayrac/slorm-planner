@@ -104,7 +104,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Reaper (Manabender)',
             condition: character => character.reaper.id === 74,
             configurations: [
-                { type: 'number', key: 'has_manabender_buff', label: 'Is manabender (buff) active' },
+                { type: 'boolean', key: 'has_manabender_buff', label: 'Is manabender (buff) active' },
             ]
         },
         {
