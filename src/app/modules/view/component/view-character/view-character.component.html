@@ -13,7 +13,7 @@
         </mat-card-content>
         <mat-card-actions>
             <mat-checkbox color="primary" [formControl]="combatBuffControl">Activate combat buffs</mat-checkbox>
-            <button color="primary" *ngIf="canImport()" (click)="import()" mat-flat-button>Import</button>
+            <button color="primary" (click)="import()" mat-flat-button>Import</button>
             <button color="primary" *ngIf="showSummary" mat-flat-button (click)="showSummary = !showSummary">Show Stats</button>
             <button color="primary" *ngIf="!showSummary" mat-flat-button (click)="showSummary = !showSummary">Show Summary</button>
         </mat-card-actions>

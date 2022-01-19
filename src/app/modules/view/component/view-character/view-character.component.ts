@@ -139,17 +139,11 @@ export class ViewCharacterComponent {
         return traits.rank > 0 || traits.bonusRank > 0;
     }
 
-    public canImport(): boolean {
-        return this.buildStorageService.hasRoomForAnotherLayer(this.character);
-    }
-
     public import() {
-        if (this.canImport()) {
-            const build = this.buildService.createBuildWithCharacter('Imported build', 'Imported layer', this.character);
+        const build = this.buildService.createBuildWithCharacter('Imported build', 'Imported layer', this.character);
 
-            this.buildStorageService.addBuild(build);
-            
-            this.router.navigate(['/build']);
-        }
+        this.buildStorageService.addBuild(build);
+        
+        this.router.navigate(['/build']);
     }
 }

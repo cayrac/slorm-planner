@@ -94,14 +94,21 @@
 - Material theme now correctly use the Berlin (Slormancer) font
 - Fixed an issue causing some item stats to be ignored when parsed from a save file
 - Fixed an error when parsing url in the import textarea 
-- It should no longer possible to load a layer from a class into a build from another class
+- It should no longer be possible to load a layer from a class into a build from another class
 - Fixed some activables values not being updated correctly
 - Fixed generated build links not containing slorm-reaper sub folder
 ### Added
 - Added optimize items stats modal on character settings menu
 - It is now possible to have multiple builds
 
+## Release 0.0.12 TBD
+### Changed
+### Fixes
+- Fixed an issue causing the import build on build view to be hidden
+
 ## Planned changes
 - Damages computing rework (probably when imbue passives are out)
 - Skills real cooldowns
 - Optimize overlays and menus
+- copy item as image ?
+- add information on where save files are located
