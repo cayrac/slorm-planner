@@ -6,7 +6,7 @@ import { BuildStorageService } from '../modules/shared/services/build-storage.se
 @Injectable({
     providedIn: 'root'
 })
-export class HasPlannerGuard implements CanActivate {
+export class HasBuildGuard implements CanActivate {
     constructor(private buildStorageService: BuildStorageService, private router: Router) {}
 
     canActivate() {

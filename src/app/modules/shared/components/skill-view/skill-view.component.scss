@@ -123,16 +123,28 @@ $bravery-color         : rgb(191, 60, 89);
                 }
 
                 .data {
-                    display: flex;
-                    flex-direction: column;
+                    @include flex(column);
+                    @include flex-grow();
                     text-transform: uppercase;
                     height: 100%;
-                    flex-grow: 1;
                     padding: 5px 0;
                     gap: 5px;
 
+                    > * {
+                        @include flex(row);
+                        @include flex-gap($space-unit);
+                    }
+
                     .genre {
                         color: $genre-color;
+                    }
+
+                    .cooldown mat-icon {
+                        height: 14px;
+                        width: 14px;
+                        font-size: 14px;
+                        line-height: 14px;
+                        display: inline;
                     }
                 }
             }

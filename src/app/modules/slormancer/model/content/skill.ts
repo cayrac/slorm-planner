@@ -21,6 +21,8 @@ export interface Skill {
     iconLarge: string;
     description: string;
     baseCooldown: number;
+    precastTime: number;
+    castTime: number;
     cooldown: number;
     initialCost: number;
     perLevelCost: number;
@@ -39,6 +41,7 @@ export interface Skill {
     genresLabel: string | null;
     costLabel: string | null;
     cooldownLabel: string | null;
+    cooldownDetailsLabel: string | null;
 
     template: string;
     values: Array<AbstractEffectValue>;

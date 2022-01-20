@@ -105,10 +105,10 @@
 ### Changed
 ### Fixes
 - Fixed an issue causing the import build on build view to be hidden
+### Added
+- Added save files location on the import save button
+- Added skills estimated time between casts
 
 ## Planned changes
 - Damages computing rework (probably when imbue passives are out)
-- Skills real cooldowns
-- Optimize overlays and menus
 - copy item as image ?
-- add information on where save files are located

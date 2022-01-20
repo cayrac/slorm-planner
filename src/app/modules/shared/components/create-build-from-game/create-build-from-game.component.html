@@ -1,6 +1,7 @@
 
 <div class="import-game">
-    <app-file-upload-button label="Upload a Slormancer save file" (upload)="parseGameSave($event)"></app-file-upload-button>
+    <app-file-upload-button label="Upload a Slormancer save file" help="Save files are located in :
+        C:\Users\[User]\AppData\Local\The_Slormancer" (upload)="parseGameSave($event)"></app-file-upload-button>
     <div class="save-summary" [class.disabled]="characters === null">
         <p [class.disabled]="characters === null">Choose which character you want to upload</p>
         <div class="classes">

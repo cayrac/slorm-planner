@@ -16,6 +16,9 @@ export class FileUploadButtonComponent {
     @Input()
     public label: string | null = null;
 
+    @Input()
+    public help: string | null = null;
+
     @Output()
     public upload = new EventEmitter<string>();
     

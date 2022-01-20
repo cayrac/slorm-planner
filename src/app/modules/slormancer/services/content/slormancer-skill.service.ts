@@ -141,6 +141,8 @@ export class SlormancerSkillService {
                 description: '',
                 baseCooldown: round(gameDataSkill.COOLDOWN / 60, 2),
                 cooldown: 0,
+                precastTime: gameDataSkill.PRECAST_TIME,
+                castTime: gameDataSkill.CAST_TIME,
                 initialCost: gameDataSkill.COST,
                 perLevelCost: gameDataSkill.COST_LEVEL,
                 baseCost: 0,
@@ -158,6 +160,7 @@ export class SlormancerSkillService {
                 genresLabel: null,
                 costLabel: null,
                 cooldownLabel: null,
+                cooldownDetailsLabel: null,
             
                 template: this.slormancerTemplateService.getSkillDescriptionTemplate(gameDataSkill),
                 values: this.parseEffectValues(gameDataSkill, EffectValueUpgradeType.Mastery)
@@ -221,10 +224,20 @@ export class SlormancerSkillService {
         }
 
         skill.cooldownLabel = null;
+        skill.cooldownDetailsLabel = null;
         if (skill.baseCooldown > 0) {
             skill.cooldownLabel = this.COOLDOWN_LABEL
                 + ': ' + this.slormancerTemplateService.asSpan(skill.cooldown.toString(), 'value')
                 + ' ' + this.SECONDS_LABEL;
+
+
+            const precastSeconds = round(skill.precastTime / 60, 3)
+            const castSeconds = round(skill.castTime / 60, 3)
+            const estimatedRealCooldown = round(precastSeconds + castSeconds + skill.cooldown, 3);
+
+            skill.cooldownDetailsLabel = 'Precast time : ' + precastSeconds + 's (' + skill.precastTime + '/60)'
+                + "\n" + 'Cast time : ' + castSeconds + 's (' + skill.castTime + '/60)' 
+                + "\n" + 'Estimated time between casts : ' + estimatedRealCooldown + 's'
         }
         
         skill.description = this.slormancerTemplateService.formatSkillDescription(skill.template, skill.values);
