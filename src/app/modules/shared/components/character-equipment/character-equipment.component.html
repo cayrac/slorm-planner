@@ -41,7 +41,10 @@
             </app-item-slot>
         </div>
         <div class="character-preview">
-            <div class="actions">
+            <div class="preview-header">
+                <div class="original-version" *ngIf="character.importVersion !== null && character.version !== character.importVersion">
+                    {{character.importVersion}} <mat-icon matTooltip="This build has been made for an older version of the game">info_outline</mat-icon>
+                </div>
                 <app-character-settings-menu *ngIf="!readonly"></app-character-settings-menu>
             </div>
             <app-character-animation [heroClass]="character.heroClass"></app-character-animation>

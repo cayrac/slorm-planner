@@ -101,13 +101,13 @@
 - Added optimize items stats modal on character settings menu
 - It is now possible to have multiple builds
 
-## Release 0.0.12 TBD
-### Changed
+## Release 0.0.12 (2022-01-21)
 ### Fixes
-- Fixed an issue causing the import build on build view to be hidden
+- Fixed an issue causing the import build on the exported build view to be hidden
 ### Added
 - Added save files location on the import save button
 - Added skills estimated time between casts
+- Exported build view now display the build original version if it is not the latest
 
 ## Planned changes
 - Damages computing rework (probably when imbue passives are out)

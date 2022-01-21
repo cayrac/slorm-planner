@@ -67,6 +67,7 @@ export interface Character {
     level: number;
     version: string;
     originalVersion: string;
+    importVersion: string | null;
 
     name: string;
     fullName: string;

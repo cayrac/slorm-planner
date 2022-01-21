@@ -350,6 +350,7 @@ export class JsonConverterService {
             character.level,
             character.version,
             character.originalVersion,
+            null,
             reaper,
             ultimatum,
             character.ancestralLegacies.nodes,

@@ -26,9 +26,27 @@
             background-color: black;
             @include flex(column, center, space-between);
 
-            .actions {
-                @include flex(row, center, flex-end);
+            .preview-header {
+                @include flex(row, top, space-between);
                 width: 100%;
+
+                .original-version {
+                    @include flex(row, top);
+                    @include flex-gap($space-unit);
+
+                    color: $section-title-color;
+
+                    mat-icon {
+                        height: 14px;
+                        width: 14px;
+                        font-size: 14px;
+                        line-height: 14px;
+                    }
+                }
+
+                app-character-settings-menu {
+                    margin-left: auto;
+                }
             }
         }
     }

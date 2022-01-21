@@ -206,7 +206,7 @@ export class SlormancerBinaryCharacterService {
         return result;
     }
 
-    public binaryToCharacter(binary: Bits, originalVersion: string): Character | null {
+    public binaryToCharacter(binary: Bits, importVersion: string): Character | null {
 
         const heroClass: HeroClass = binaryToNumber(takeBitsChunk(binary, 2));
         const level = binaryToNumber(takeBitsChunk(binary, 6));
@@ -238,7 +238,8 @@ export class SlormancerBinaryCharacterService {
             heroClass,
             level,
             GAME_VERSION,
-            originalVersion,
+            importVersion,
+            importVersion,
             reaper,
             ultimatum,
             ancestralData.nodes,

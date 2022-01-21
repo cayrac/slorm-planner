@@ -33,7 +33,9 @@ export class BuildService {
             configuration: DEFAULT_CONFIG
         };
 
-        this.addLayer(build, layerName, this.slormancerCharacterBuilderService.getCharacterClone(character));
+        const clone = this.slormancerCharacterBuilderService.getCharacterClone(character);
+        clone.importVersion = null;
+        this.addLayer(build, layerName, clone);
 
         return build;
     }

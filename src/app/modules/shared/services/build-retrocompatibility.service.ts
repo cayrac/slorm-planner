@@ -64,6 +64,16 @@ export class BuildRetrocompatibilityService {
                 build.name = 'New build'
             }
         },
+        {
+            version: '0.0.12',
+            update: build => {
+                build.version = '0.0.12';
+
+                for (const layer of build.layers) {
+                    layer.character.importVersion = null;
+                }
+            }
+        },
     ];
 
     constructor() { }

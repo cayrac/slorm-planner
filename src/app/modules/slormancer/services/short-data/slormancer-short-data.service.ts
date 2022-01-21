@@ -45,7 +45,9 @@ export class SlormancerShortDataService {
             const version = this.binaryToVersion(bits);
             const originalGameVersion = APP_TO_GAME_VERSION_MAPPER[version];
             character = this.slormancerBinaryService.binaryToCharacter(bits, originalGameVersion ? originalGameVersion : GAME_VERSION);
-        } catch (e) {}
+        } catch (e) {
+            console.error(e)
+        }
 
         return character;
     }
