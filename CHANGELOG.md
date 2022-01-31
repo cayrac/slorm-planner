@@ -112,3 +112,4 @@
 ## Planned changes
 - Damages computing rework (probably when imbue passives are out)
 - copy item as image ?
+- sum of all your other character's level
