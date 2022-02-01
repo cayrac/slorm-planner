@@ -8,6 +8,7 @@ import { HeroClass } from '../../model/content/enum/hero-class';
 import { GameDataReaper } from '../../model/content/game/data/game-data-reaper';
 import { Reaper, ReaperTemplates } from '../../model/content/reaper';
 import { ReaperEffect } from '../../model/content/reaper-effect';
+import { MinMax } from '../../model/minmax';
 import { GameWeapon } from '../../model/parser/game/game-save';
 import { effectValueSynergy, effectValueVariable } from '../../util/effect-value.util';
 import { list } from '../../util/math.util';
@@ -18,11 +19,9 @@ import {
     isEffectValueSynergy,
     isEffectValueVariable,
     isNotNullOrUndefined,
-    lastIndex,
     notEmptyOrNull,
     removeEmptyValues,
     splitData,
-    valueOrDefault,
     valueOrNull,
 } from '../../util/utils';
 import { SlormancerActivableService } from '.././content/slormancer-activable.service';
@@ -51,6 +50,53 @@ export class SlormancerReaperService {
                 private slormancerEffectValueService: SlormancerEffectValueService,
                 private slormancerActivableService: SlormancerActivableService) { }
 
+    private getDamages(level: number, base: MinMax, perLevel: MinMax, multiplier: number): MinMax {
+        const weapon_mult = multiplier;
+        const bminr = base.min;
+        const lminr = perLevel.min;
+        const bmaxr = base.max;
+        const lmaxr = perLevel.max;
+        let mult = 0;
+
+        switch (weapon_mult) {
+            case 0:
+                mult = 0;
+                break
+            case 1:
+                mult = 0.007;
+                break
+            case 2:
+                mult = 0.01;
+                break
+            case 3:
+                mult = 0.016;
+                break
+            case 4:
+                mult = 0.019;
+                break
+            case 5:
+                mult = 0.023;
+                break
+        }
+
+        let prev = bminr;
+        let max_prev = bmaxr;
+        let cminr = bminr;
+        let cmaxr = bmaxr;
+        for (let i = 2; i <= level; i++) {
+            let basic_total = ((prev + lminr) + (mult * prev));
+            let max_basic_total = ((max_prev + lmaxr) + (mult * max_prev));
+            if (i == level)
+            {
+                cminr = basic_total
+                cmaxr = max_basic_total
+            }
+            prev = Math.ceil(basic_total)
+            max_prev = Math.ceil(max_basic_total)
+        }
+
+        return { min: Math.round(cminr), max: Math.round(cmaxr) };
+    }
     
     public getReaperName(template: string, primordial: boolean, heroClass: HeroClass): string {
         const weaponName = this.slormancerTranslateService.translate('weapon_' + heroClass);
@@ -320,8 +366,7 @@ export class SlormancerReaperService {
     }
 
     public getReaper(gameData: GameDataReaper, weaponClass: HeroClass, primordial: boolean, level: number, levelPrimordial: number, kills: number, killsPrimordial: number, bonusLevel: number = 0): Reaper {
-        const damagesRange = this.slormancerDataService.getDataReaperDamages(gameData.REF);
-        
+       
         let result = {
             id: gameData.REF,
             weaponClass,
@@ -339,7 +384,6 @@ export class SlormancerReaperService {
             lore: this.slormancerTemplateService.getReaperLoreTemplate(gameData.EN_LORE),
             templates: this.getReaperTemplates(gameData, weaponClass),
             smith: { id: gameData.BLACKSMITH, name: '' },
-            damagesRange,
             damageType: 'weapon_damage',
             minLevel: this.getReaperMinimumLevel(gameData.REF),
             maxLevel: gameData.MAX_LVL,
@@ -353,7 +397,10 @@ export class SlormancerReaperService {
             primordialInfo: {
                 kills: killsPrimordial,
                 level: Math.min(levelPrimordial, gameData.MAX_LVL)
-            }
+            },
+            damagesBase: { min: gameData.BASE_DMG_MIN, max: gameData.BASE_DMG_MAX },
+            damagesLevel: { min: gameData.MIN_DMG_LVL, max: gameData.MAX_DMG_LVL },
+            damagesMultiplier: gameData.DMG_MULTIPLIER
         } as Reaper;
 
         this.updateReaperModel(result);
@@ -390,15 +437,10 @@ export class SlormancerReaperService {
         reaper.baseLevel = info.level;
         reaper.bonusLevel = Math.max(0, Math.min(this.MAX_REAPER_BONUS, reaper.bonusLevel));
         reaper.level = reaper.baseLevel + reaper.bonusLevel;
-        reaper.maxDamagesWithBonuses = valueOrDefault(reaper.damagesRange[reaper.maxLevelWithBonuses],  {min: 0, max: 0 });
+        reaper.maxDamagesWithBonuses = this.getDamages(reaper.maxLevelWithBonuses, reaper.damagesBase, reaper.damagesLevel, reaper.damagesMultiplier);
         reaper.activables = reaper.templates.activables;
 
-        const lastDamagesIndex = lastIndex(reaper.damagesRange);
-        let damagesIndex = reaper.level;
-        if (lastDamagesIndex !== null) {
-            damagesIndex = Math.min(lastDamagesIndex, damagesIndex)
-        }
-        reaper.damages = valueOrDefault(reaper.damagesRange[damagesIndex],  {min: 0, max: 0 });
+        reaper.damages = this.getDamages(reaper.level, reaper.damagesBase, reaper.damagesLevel, reaper.damagesMultiplier);
 
         for (const reaperEffect of reaper.templates.base) {
             for (const value of reaperEffect.values) {

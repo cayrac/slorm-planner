@@ -42,8 +42,10 @@ export interface Reaper {
     baseInfo: ReaperInfo;
     primordialInfo: ReaperInfo;
     smith: ReaperSmith;
-    damagesRange: { [key: number]: MinMax };
     damageType: string;
+    damagesBase: MinMax;
+    damagesLevel: MinMax;
+    damagesMultiplier: number;
 
     smithLabel: string;
     victimsLabel: string;

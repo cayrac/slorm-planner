@@ -11,7 +11,6 @@ import { DATA_KEYWORD_NAME } from '../../constants/content/data/data-keyword-nam
 import { DATA_LEGENDARY } from '../../constants/content/data/data-legendary';
 import { DATA_LEGENDARY_BASE } from '../../constants/content/data/data-legendary-base';
 import { DATA_REAPER } from '../../constants/content/data/data-reaper';
-import { DATA_REAPER_DAMAGES } from '../../constants/content/data/data-reaper-damages';
 import { DATA_SKILL } from '../../constants/content/data/data-skill';
 import { DATA_SKILL_BUFF } from '../../constants/content/data/data-skill-buff';
 import { DATA_SKILL_CLASS_MECHANIC_ID } from '../../constants/content/data/data-skill-class-mechanic-id';
@@ -39,7 +38,6 @@ import { GameDataSkill } from '../../model/content/game/data/game-data-skill';
 import { GameDataStat } from '../../model/content/game/data/game-data-stat';
 import { GameDataTranslation } from '../../model/content/game/data/game-data-translation';
 import { SkillType } from '../../model/content/skill-type';
-import { MinMax } from '../../model/minmax';
 import { GameAffix } from '../../model/parser/game/game-item';
 import { valueOrDefault, valueOrNull } from '../../util/utils';
 
@@ -88,12 +86,7 @@ export class SlormancerDataService {
 
     public getParentsGameDataReaper(id: number): Array<GameDataReaper> {
         return GAME_DATA.REAPER.filter(stat => stat.EN_NAME !== '' && stat.EVOLVE_IN === id)
-    }
-
-    public getDataReaperDamages(id: number): { [key: number]: MinMax } {
-        const data = DATA_REAPER_DAMAGES[id];
-        return data ? data.damages : { 0: { min: 0, max: 0 } };
-    }    
+    }  
     
     public getGameDataSkill(heroClass: HeroClass, id: number): GameDataSkill | null {
         return valueOrNull(GAME_DATA.SKILL[heroClass].find(skill => skill.REF === id));
