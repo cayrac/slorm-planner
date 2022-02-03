@@ -1,4 +1,5 @@
 node_modules
 .angular/
+.gitconfig
 package-lock.json
 dist
