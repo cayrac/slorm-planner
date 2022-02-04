@@ -5,6 +5,7 @@ import { Activable } from '../../model/content/activable';
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
 import { HeroClass } from '../../model/content/enum/hero-class';
+import { ReaperSmith } from '../../model/content/enum/reaper-smith';
 import { GameDataReaper } from '../../model/content/game/data/game-data-reaper';
 import { Reaper, ReaperTemplates } from '../../model/content/reaper';
 import { ReaperEffect } from '../../model/content/reaper-effect';
@@ -487,7 +488,7 @@ export class SlormancerReaperService {
             this.slormancerActivableService.updateActivableView(activable);
         }
 
-        reaper.smith.name = this.slormancerTranslateService.translate('weapon_reapersmith_' + reaper.smith.id);
+        reaper.smith.name = this.slormancerTranslateService.translate('weapon_reapersmith_' + (reaper.smith.id === ReaperSmith.ReapersmithBrotherhood ? 'all' : reaper.smith.id));
         reaper.smithLabel = this.slormancerTemplateService.replaceAnchor(this.REAPERSMITH_LABEL, reaper.smith.name, this.slormancerTemplateService.TYPE_ANCHOR);
         reaper.victimsLabel = reaper.kills + ' ' + this.VICTIMS_LABEL;
         reaper.levelLabel = this.LEVEL_LABEL + ' : '

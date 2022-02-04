@@ -7,6 +7,7 @@ export enum ReaperSmith {
     Fulgurorn = 5,
     Hagan = 6,
     OhmAgad = 7,
+    ReapersmithBrotherhood = 8,
 }
 
 export const ALL_REAPER_SMITH = [
@@ -18,4 +19,5 @@ export const ALL_REAPER_SMITH = [
     ReaperSmith.Fulgurorn,
     ReaperSmith.Hagan,
     ReaperSmith.OhmAgad,
+    ReaperSmith.ReapersmithBrotherhood,
 ]

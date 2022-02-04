@@ -424,11 +424,13 @@ export class SlormancerStatsExtractorService {
 
         for (const activable of character.reaper.activables) {
             const equiped = equipedActivables.includes(activable);
-            const source = { reaper: character.reaper };
+            const source = { activable };
             for (const effectValue of activable.values) {
                 if (isEffectValueSynergy(effectValue)) {
                     if (!isDamageType(effectValue.stat)) {
                         stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping)));
+                    } else {
+                        stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source));
                     }
                 } else if (equiped) {
                     this.addStat(stats.stats, effectValue.stat, effectValue.value, source);

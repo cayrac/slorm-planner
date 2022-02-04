@@ -103,6 +103,56 @@ export const COST_MAPPING: MergedStatMapping = {
     } 
 };
 
+export const COOLDOWN_MAPPING: MergedStatMapping = {
+    stat: 'cooldown_time',
+    precision: 4,
+    allowMinMax: false,
+    suffix: '',
+    source: {
+        flat: [
+            { stat: 'cooldown_time_add' },
+            { stat: 'orb_arcane_master_cooldown_time_add', condition: (_, stats) => !hasStat(stats, 'disable_orb_arcane_master_maluses') },
+        ],
+        max: [],
+        percent: [],
+        maxPercent: [],
+        multiplier: [
+            { stat: 'turret_syndrome_reduced_cooldown_per_serenity', condition: (config, stats) => config.serenity > 0 && getFirstStat(stats, 'skill_id') === 0, multiplier: config => - config.serenity },
+            { stat: 'cooldown_time_multiplier'},
+            { stat: 'cooldown_time_reduction_multiplier', multiplier: () => -1 },
+            { stat: 'cooldown_time_multiplier_if_tormented', condition: config => config.serenity === 0 },
+            { stat: 'grappling_hook_crest_shield_cooldown_time_reduction_multiplier', condition: (_, stats) => [7, 8].includes(getFirstStat(stats, 'skill_id')), multiplier: () => -1 },
+            {
+                stat: 'quick_silver_cooldown_time_reduction_multiplier',
+                multiplier: (config, stats) => - Math.max(getFirstStat(stats, 'quick_silver_min_cooldown_time_reduction_multiplier'), getFirstStat(stats, 'quick_silver_max_cooldown_time_reduction_multiplier') - config.enemy_bleed_stacks)
+            },
+            { stat: 'cooldown_time_multiplier_if_fortunate_or_perfect', condition: config => config.next_cast_is_perfect || config.next_cast_is_fortunate },
+            { stat: 'cooldown_time_reduction_multiplier_per_temporal_emblem_if_not_temporal', condition: (config, stats) => config.temporal_emblems > 0 && !hasStat(stats, 'skill_is_temporal'), multiplier: config => - config.temporal_emblems },
+            { stat: 'cooldown_time_reduction_multiplier_per_temporal_emblem', condition: config => config.temporal_emblems > 0, multiplier: config => - config.temporal_emblems },
+        ],
+        maxMultiplier: [],
+    } 
+}
+
+export const AOE_INCREASED_SIZE_MAPPING: MergedStatMapping = {
+    stat: 'aoe_increased_size',
+    precision: 1,
+    allowMinMax: false,
+    suffix: '%',
+    source: {
+        flat: [
+            { stat: 'aoe_increased_size_percent' },
+            { stat: 'max_charged_aoe_increased_size_percent', condition: config => config.rift_nova_fully_charged },
+            { stat: 'arcane_breach_collision_stack_aoe_increased_size_percent', condition: config => config.arcane_breach_collision_stacks > 0, multiplier: (config, stats) => Math.min(config.arcane_breach_collision_stacks, getFirstStat(stats, 'breach_collision_max_stacks')) }
+        ],
+        max: [],
+        percent: [],
+        maxPercent: [],
+        multiplier: [],
+        maxMultiplier: [],
+    } 
+}
+
 export const DAMAGES_MAPPING: MergedStatMapping = {
     stat: 'mana_cost',
     precision: 0,
@@ -156,36 +206,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         } 
     },
     COST_MAPPING,
-    {
-        stat: 'cooldown_time',
-        precision: 4,
-        allowMinMax: false,
-        suffix: '',
-        source: {
-            flat: [
-                { stat: 'cooldown_time_add' },
-                { stat: 'orb_arcane_master_cooldown_time_add', condition: (_, stats) => !hasStat(stats, 'disable_orb_arcane_master_maluses') },
-            ],
-            max: [],
-            percent: [],
-            maxPercent: [],
-            multiplier: [
-                { stat: 'turret_syndrome_reduced_cooldown_per_serenity', condition: (config, stats) => config.serenity > 0 && getFirstStat(stats, 'skill_id') === 0, multiplier: config => - config.serenity },
-                { stat: 'cooldown_time_multiplier'},
-                { stat: 'cooldown_time_reduction_multiplier', multiplier: () => -1 },
-                { stat: 'cooldown_time_multiplier_if_tormented', condition: config => config.serenity === 0 },
-                { stat: 'grappling_hook_crest_shield_cooldown_time_reduction_multiplier', condition: (_, stats) => [7, 8].includes(getFirstStat(stats, 'skill_id')), multiplier: () => -1 },
-                {
-                    stat: 'quick_silver_cooldown_time_reduction_multiplier',
-                    multiplier: (config, stats) => - Math.max(getFirstStat(stats, 'quick_silver_min_cooldown_time_reduction_multiplier'), getFirstStat(stats, 'quick_silver_max_cooldown_time_reduction_multiplier') - config.enemy_bleed_stacks)
-                },
-                { stat: 'cooldown_time_multiplier_if_fortunate_or_perfect', condition: config => config.next_cast_is_perfect || config.next_cast_is_fortunate },
-                { stat: 'cooldown_time_reduction_multiplier_per_temporal_emblem_if_not_temporal', condition: (config, stats) => config.temporal_emblems > 0 && !hasStat(stats, 'skill_is_temporal'), multiplier: config => - config.temporal_emblems },
-                { stat: 'cooldown_time_reduction_multiplier_per_temporal_emblem', condition: config => config.temporal_emblems > 0, multiplier: config => - config.temporal_emblems },
-            ],
-            maxMultiplier: [],
-        } 
-    },
+    COOLDOWN_MAPPING,
     {
         stat: 'essence_find',
         precision: 2,
@@ -404,7 +425,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             max: [],
             percent: [],
             maxPercent: [],
-            multiplier: [],
+            multiplier: [{ stat: 'mana_leech_global_mult' }],
             maxMultiplier: [],
         } 
     },
@@ -1420,24 +1441,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxMultiplier: [],
         } 
     },
-    {
-        stat: 'aoe_increased_size',
-        precision: 1,
-        allowMinMax: false,
-        suffix: '%',
-        source: {
-            flat: [
-                { stat: 'aoe_increased_size_percent' },
-                { stat: 'max_charged_aoe_increased_size_percent', condition: config => config.rift_nova_fully_charged },
-                { stat: 'arcane_breach_collision_stack_aoe_increased_size_percent', condition: config => config.arcane_breach_collision_stacks > 0, multiplier: (config, stats) => Math.min(config.arcane_breach_collision_stacks, getFirstStat(stats, 'breach_collision_max_stacks')) },
-            ],
-            max: [],
-            percent: [],
-            maxPercent: [],
-            multiplier: [],
-            maxMultiplier: [],
-        } 
-    },
+    AOE_INCREASED_SIZE_MAPPING,
     {
         stat: 'aoe_increased_effect',
         precision: 1,

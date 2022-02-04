@@ -13,6 +13,17 @@ function overrideValueStat(effects: Array<AbstractEffectValue>, index: number, s
         throw new Error('failed to override effect stat at index ' + index + ' with : ' + stat);
     }
 }
+
+function setValueType(values: Array<AbstractEffectValue>, index: number, valueType: EffectValueValueType) {
+    const value = values[index]
+
+    if (value) {
+        value.valueType = valueType;
+    } else {
+        throw new Error('failed to change valueType for effect value at index ' + index);
+    }
+}
+
 function halveSynergy(effects: Array<AbstractEffectValue>, index: number) {
     const effect = effects[index];
 
@@ -117,6 +128,16 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
         override: values => {
             overrideValueStat(values, 0, 'physical_damage');
             overrideValueStat(values, 1, 'septimius_blade_delay');
+        }
+    },
+    13: {
+        override: values => {
+            console.log('Base values : ', values);
+            overrideValueStat(values, 0, 'weapon_damage');
+            setValueType(values, 0, EffectValueValueType.Damage)
+            overrideValueStat(values, 1, 'duration');
+            setValueType(values, 1, EffectValueValueType.Static)
+            addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'mana_harvest_range');
         }
     }
 }

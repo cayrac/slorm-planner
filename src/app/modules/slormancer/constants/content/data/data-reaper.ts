@@ -187,6 +187,18 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             addConstant(ma, 1, false, EffectValueValueType.Stat, 'cannot_imbue_skills');
         }
     },
+    22: {
+        override: (ba, be, ma) => {
+            console.log('Reaper mana harvest : ');
+            console.log('BA : ', ba);
+            console.log('BE : ', be);
+            console.log('MA : ', ma);
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'aoe_increased_size_multiplier_mana_harvest');
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'garbage_stat');
+            moveValue(ba, 3, be);
+        }
+    },
     40: {
         override: (ba, be, ma, reaperId) => {
             // peut être mal compris comment parser les stats ?

@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { COST_MAPPING } from '../../constants/content/data/data-character-stats-mapping';
+import {
+    COOLDOWN_MAPPING,
+    COST_MAPPING,
+    MergedStatMapping,
+} from '../../constants/content/data/data-character-stats-mapping';
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
 import { CharacterConfig } from '../../model/character-config';
 import { Activable } from '../../model/content/activable';
@@ -19,13 +23,14 @@ import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { Entity } from '../../model/entity';
 import { EntityValue } from '../../model/entity-value';
 import { MinMax } from '../../model/minmax';
-import { add, mult, round } from '../../util/math.util';
+import { add, bankerRound, mult, round } from '../../util/math.util';
 import {
     isDamageType,
     isEffectValueConstant,
     isEffectValueSynergy,
     isEffectValueVariable,
     valueOrDefault,
+    valueOrNull,
 } from '../../util/utils';
 import { SlormancerEffectValueService } from './slormancer-effect-value.service';
 import { SlormancerMergedStatUpdaterService } from './slormancer-merged-stat-updater.service';
@@ -292,6 +297,12 @@ export class SlormancerValueUpdater {
         }
     }
 
+    private getSpecifigStat<T extends number | MinMax>(stats: ExtractedStatMap, mapping: MergedStatMapping, config: CharacterConfig, specificstats: ExtractedStatMap = {}): T {
+        const mergedStat = this.slormancerStatMappingService.buildMergedStat({ ...stats, ...specificstats }, mapping, config);
+        this.slormancerMergedStatUpdaterService.updateStatTotal(mergedStat);
+        return <T>mergedStat.total;
+    }
+
     private getActivableCost(stats: ExtractedStatMap, config: CharacterConfig, source: Activable | AncestralLegacy): number {
         const manaCostAdd: Array<EntityValue<number>> = [];
         const entity: Entity = 'level' in source ? { activable: source } : { ancestralLegacy: source }
@@ -308,15 +319,37 @@ export class SlormancerValueUpdater {
         }
 
         const skillCostStats = {
-            ...stats,
             mana_cost_add: manaCostAdd,
             cost_type: [{ value: ALL_SKILL_COST_TYPES.indexOf(source.costType), source: entity }]
         }
+        
+        return this.getSpecifigStat(stats, COST_MAPPING, config, skillCostStats);
+    }
 
-        const mergedStat = <MergedStat<number>>this.slormancerStatMappingService.buildMergedStat(skillCostStats, COST_MAPPING, config);
-        this.slormancerMergedStatUpdaterService.updateStatTotal(mergedStat);
+    private getActivableCooldown(stats: ExtractedStatMap, config: CharacterConfig, source: Activable | AncestralLegacy, attackSpeed: number): number {
+        let result = 0;
 
-        return <number>mergedStat.total;
+        if (source.baseCooldown !== null) {
+            const cooldownAdd: Array<EntityValue<number>> = [];
+            const entity: Entity = 'level' in source ? { activable: source } : { ancestralLegacy: source }
+            
+            if (stats['cooldown_time_add']) {
+                cooldownAdd.push(...stats['cooldown_time_add']);
+            }
+            if (source.baseCooldown !== null) {
+                if ('activable' in entity) {
+                    cooldownAdd.push({ value: source.baseCooldown, source: entity });
+                } else if (entity.ancestralLegacy.baseCooldown !== null) {
+                    cooldownAdd.push({ value: entity.ancestralLegacy.baseCooldown, source: entity });
+                }
+            }
+
+            const cooldown = this.getSpecifigStat<number>(stats, COOLDOWN_MAPPING, config, { cooldown_time_add: cooldownAdd });
+            
+            result = Math.max(0, round(cooldown * (100 - attackSpeed) / 100, 2));
+        }
+
+        return result;
     }
 
     public updateActivable(character: Character, activable: Activable, statsResult: SkillStatsBuildResult, config: CharacterConfig) {
@@ -333,7 +366,7 @@ export class SlormancerValueUpdater {
         }
 
         activable.cost = this.getActivableCost(statsResult.extractedStats, config, activable);
-        activable.cooldown = activable.baseCooldown === null ? 0 : Math.max(0, round(activable.baseCooldown * (100 - skillStats.attackSpeed.total) / 100, 2));
+        activable.cooldown = this.getActivableCooldown(statsResult.extractedStats, config, activable, skillStats.attackSpeed.total);
         
         for (const value of activable.values) {
             if (isEffectValueSynergy(value)) {
@@ -342,7 +375,18 @@ export class SlormancerValueUpdater {
                 }
             } else if (value.valueType === EffectValueValueType.AreaOfEffect) {
                 value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
-                value.displayValue = round(value.value, 3);
+
+                // Mana harvest increased aoe size multiplier
+                if (activable.id === 13) {
+                    const manaHarvestAoeIncreasedSizeValues = statsResult.extractedStats['aoe_increased_size_multiplier_mana_harvest'];
+                    const manaHarvestAoeIncreasedSize = valueOrNull(manaHarvestAoeIncreasedSizeValues !== undefined ? manaHarvestAoeIncreasedSizeValues[0] : null)
+                    if (manaHarvestAoeIncreasedSize !== null) {
+                        value.value = value.value * (100 + manaHarvestAoeIncreasedSize.value) / 100;
+                    }
+                }
+
+                value.displayValue = bankerRound(value.value, 2);
+
             } else if (value.valueType !== EffectValueValueType.Static)  {
                 const statMultipliers = this.getValidStatMultipliers(activable.genres, skillStats);
                 value.value = isEffectValueVariable(value) ? value.upgradedValue : value.baseValue;
