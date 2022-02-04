@@ -189,14 +189,24 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     22: {
         override: (ba, be, ma) => {
-            console.log('Reaper mana harvest : ');
-            console.log('BA : ', ba);
-            console.log('BE : ', be);
-            console.log('MA : ', ma);
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'aoe_increased_size_multiplier_mana_harvest');
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'garbage_stat');
             moveValue(ba, 3, be);
+        }
+    },
+    23: {
+        override: (ba, be, ma) => {
+            console.log('Reaper inner strength : ');
+            console.log('BA : ', ba);
+            console.log('BE : ', be);
+            console.log('MA : ', ma);
+            overrideSynergySource(ba, 2, 'weapon_damage');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'inner_fire_damage_add_extra');
+            setSynergyAllowMinMax(ba, 2, false);
+            setSynergyPrecision(ba, 2, 0);
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'inner_fire_duration_add');
+            //addConstant(ma, 1, false, EffectValueValueType.Stat, 'skill_damage_lucky');
         }
     },
     40: {

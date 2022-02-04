@@ -1194,7 +1194,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             max: [],
             percent: [{ stat: 'inner_fire_max_number_percent' }],
             maxPercent: [],
-            multiplier: [],
+            multiplier: [{ stat: 'inner_fire_max_number_global_mult' }],
             maxMultiplier: [],
         } 
     },
@@ -1221,6 +1221,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             flat: [
                 { stat: 'inner_fire_damage_add' },
                 { stat: 'overdrive_inner_fire_additional_damage' },
+                { stat: 'inner_fire_damage_add_extra', extra: true },
             ],
             max: [],
             percent: [
