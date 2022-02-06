@@ -136,6 +136,7 @@ export interface CharacterConfig {
     has_shadow_repercussion_buff: boolean;
     has_booster_max_buff: boolean;
     has_electrify_buff: boolean;
+    concentration_buff: boolean;
     distance_with_target: number;
     all_characters_level: number;
     victims_reaper_104: number;

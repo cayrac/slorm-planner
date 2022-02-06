@@ -77,7 +77,8 @@ export class SlormancerStatsExtractorService {
     }
 
     private addDefaultSynergies(character: Character, config: CharacterConfig, extractedStats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
-        const addReaperToElements = extractedStats.stats['reaper_added_to_elements'] !== undefined
+        const addReaperToInnerFire = extractedStats.stats['reaper_added_to_inner_fire'] !== undefined
+        const addReaperToElements = !addReaperToInnerFire && extractedStats.stats['reaper_added_to_elements'] !== undefined
         const overdriveDamageBasedOnSkillDamage = extractedStats.stats['overdrive_damage_based_on_skill_damage'] !== undefined
 
         const percentLockedMana = this.getStatFirstValue(extractedStats.stats, 'percent_locked_mana', 0);
@@ -91,13 +92,7 @@ export class SlormancerStatsExtractorService {
         
         let mapping = mergedStatMapping.find(m => m.stat === 'physical_damage');
         extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'basic_to_physical_damage'), -1, { synergy: 'Basic damages' }, [ { stat: 'physical_damage', mapping } ]));
-        if (addReaperToElements) {
-            let mapping = mergedStatMapping.find(m => m.stat === 'elemental_damage');
-            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_elemental_damage'), -1, { synergy: 'reaper damages' }, [ { stat: 'elemental_damage', mapping } ]));
-        } else {
-            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage'), -1, { synergy: 'reaper damages' }, [ { stat: 'physical_damage', mapping } ]));
-        }
-        
+                
         mapping = mergedStatMapping.find(m => m.stat === 'sum_all_resistances');
         extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'armor', 'sum_all_resistances_add'), 0, { synergy: 'Armor' }, [ { stat: 'sum_all_resistances', mapping } ]));
         extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'dodge', 'sum_all_resistances_add'), 0, { synergy: 'Dodge' }, [ { stat: 'sum_all_resistances', mapping } ]));
@@ -143,6 +138,16 @@ export class SlormancerStatsExtractorService {
             extractedStats.synergies.push(synergyResolveData(effectValueSynergy(RAVENOUS_DAGGER_DAMAGE_PERCENT, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'ravenous_dagger_damage_add'), 0, { synergy: 'Reaper damage' }, [ { stat: 'ravenous_dagger_damage', mapping } ]));
             mapping = mergedStatMapping.find(m => m.stat === 'trap_damage');
             extractedStats.synergies.push(synergyResolveData(effectValueSynergy(TRAP_DAMAGE_PERCENT, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'trap_damage_add'), 0, { synergy: 'Skill damage' }, [ { stat: 'trap_damage', mapping } ]));
+        }
+
+        if (addReaperToInnerFire) {
+            mapping = mergedStatMapping.find(m => m.stat === 'inner_fire_damage');
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'inner_fire_damage_add_extra'), -1, { synergy: 'Reaper damages' }, [ { stat: 'inner_fire_damage', mapping } ]));
+        } else if (addReaperToElements) {
+            let mapping = mergedStatMapping.find(m => m.stat === 'elemental_damage');
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_elemental_damage'), -1, { synergy: 'Reaper damages' }, [ { stat: 'elemental_damage', mapping } ]));
+        } else {
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage'), -1, { synergy: 'Reaper damages' }, [ { stat: 'physical_damage', mapping } ]));
         }
 
         return true;

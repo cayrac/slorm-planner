@@ -1183,7 +1183,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'inner_fire_max_number',
-        precision: 0,
+        precision: 2,
         allowMinMax: false,
         suffix: '',
         source: {
@@ -1214,7 +1214,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'inner_fire_damage',
-        precision: 3,
+        precision: 0,
         allowMinMax: true,
         suffix: '',
         source: {
@@ -1226,6 +1226,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             max: [],
             percent: [
                 { stat: 'inner_fire_damage_percent' },
+                { stat: 'concentration_buff_inner_fire_damage_percent', condition: config => config.concentration_buff },
+                // { stat: 'concentration_buff_inner_fire_damage_percent_on_elite', condition: config => config.concentration_buff },
             ],
             maxPercent: [],
             multiplier: [

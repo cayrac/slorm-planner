@@ -197,16 +197,12 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     23: {
         override: (ba, be, ma) => {
-            console.log('Reaper inner strength : ');
-            console.log('BA : ', ba);
-            console.log('BE : ', be);
-            console.log('MA : ', ma);
             overrideSynergySource(ba, 2, 'weapon_damage');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'inner_fire_damage_add_extra');
             setSynergyAllowMinMax(ba, 2, false);
             setSynergyPrecision(ba, 2, 0);
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'inner_fire_duration_add');
-            //addConstant(ma, 1, false, EffectValueValueType.Stat, 'skill_damage_lucky');
+            addConstant(ma, 1, false, EffectValueValueType.Stat, 'reaper_added_to_inner_fire');
         }
     },
     40: {

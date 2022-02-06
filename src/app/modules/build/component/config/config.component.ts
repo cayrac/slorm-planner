@@ -154,6 +154,13 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Reaper (Concentrated Inner Strength)',
+            condition: character => character.reaper.id === 23,
+            configurations: [
+                { type: 'boolean', key: 'concentration_buff', label: 'Is Concentration active' },
+            ]
+        },
+        {
             title: 'Gold Armor',
             condition: character => this.hasActivable(character, 0),
             configurations: [

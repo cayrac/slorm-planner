@@ -74,6 +74,17 @@ export class BuildRetrocompatibilityService {
                 }
             }
         },
+        {
+            version: '0.0.13',
+            update: build => {
+                build.version = '0.0.12';
+
+                console.log('updating build to 0.0.13');
+                if (build.configuration.concentration_buff === undefined) {
+                    build.configuration.concentration_buff = false;
+                }
+            }
+        },
     ];
 
     constructor() { }

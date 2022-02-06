@@ -21,10 +21,10 @@
             <div class="line data" *ngIf="!value.extra">
                 <div class="label">Flat</div>
                 <div class="value">
-                    {{minValueToString(value.value, mergedStat.suffix, '+')}}
+                    {{minValueToString(value.value, mergedStat.suffix, true)}}
                 </div>
                 <div class="value" *ngIf="mergedStat.allowMinMax">
-                    {{maxValueToString(value.value, mergedStat.suffix, '+')}}
+                    {{maxValueToString(value.value, mergedStat.suffix, true)}}
                 </div>
                 <div class="source">
                     {{getSource(value.source)}}
@@ -84,10 +84,10 @@
         <div class="line data" *ngFor="let value of mergedStat.values.percent">
             <div class="label">Percent</div>
             <div class="value">
-                {{minValueToString(value.value, '%', '+')}}
+                {{minValueToString(value.value, '%', true)}}
             </div>
             <div class="value" *ngIf="mergedStat.allowMinMax">
-                {{maxValueToString(value.value, '%', '+')}}
+                {{maxValueToString(value.value, '%', true)}}
             </div>
             <div class="source">
                 {{getSource(value.source)}}
@@ -113,10 +113,10 @@
         <div class="line total">
             <div class="label">Percent (Total)</div>
             <div class="value">
-                {{minValueToString(getTotalPercent(mergedStat), '%', '+')}}
+                {{minValueToString(getTotalPercent(mergedStat), '%', true)}}
             </div>
             <div class="value" *ngIf="mergedStat.allowMinMax">
-                {{maxValueToString(getTotalPercent(mergedStat), '%', '+')}}
+                {{maxValueToString(getTotalPercent(mergedStat), '%', true)}}
             </div>
             <div class="source">
             </div>
@@ -144,10 +144,10 @@
         <div class="line data" *ngFor="let value of mergedStat.values.multiplier">
             <div class="label">Multiplier</div>
             <div class="value">
-                {{minValueToString(value.value, '%', '+')}}
+                {{minValueToString(value.value, '%', true)}}
             </div>
             <div class="value" *ngIf="mergedStat.allowMinMax">
-                {{maxValueToString(value.value, '%', '+')}}
+                {{maxValueToString(value.value, '%', true)}}
             </div>
             <div class="source">
                 {{getSource(value.source)}}
@@ -193,10 +193,10 @@
             <div class="line data" *ngIf="value.extra">
                 <div class="label">Flat</div>
                 <div class="value">
-                    {{minValueToString(value.value, mergedStat.suffix, '+')}}
+                    {{minValueToString(value.value, mergedStat.suffix, true)}}
                 </div>
                 <div class="value" *ngIf="mergedStat.allowMinMax">
-                    {{maxValueToString(value.value, mergedStat.suffix, '+')}}
+                    {{maxValueToString(value.value, mergedStat.suffix, true)}}
                 </div>
                 <div class="source">
                     {{getSource(value.source)}}

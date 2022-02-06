@@ -132,12 +132,24 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     },
     13: {
         override: values => {
-            console.log('Base values : ', values);
             overrideValueStat(values, 0, 'weapon_damage');
             setValueType(values, 0, EffectValueValueType.Damage)
             overrideValueStat(values, 1, 'duration');
             setValueType(values, 1, EffectValueValueType.Static)
             addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'mana_harvest_range');
+        }
+    },
+    14: {
+        override: values => {
+            overrideValueStat(values, 0, 'garbage_stat');
+        }
+    },
+    15: {
+        override: values => {
+            console.log('Base values (concentration) : ', values);
+            overrideValueStat(values, 0, 'garbage_stat');
+            overrideValueStat(values, 1, 'concentration_buff_inner_fire_damage_percent');
+            overrideValueStat(values, 2, 'concentration_buff_inner_fire_damage_percent_on_elite');
         }
     }
 }

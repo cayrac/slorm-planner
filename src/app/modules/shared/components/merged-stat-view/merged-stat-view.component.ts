@@ -95,12 +95,14 @@ export class MergedStatViewComponent {
         return typeof value === 'number' ? round(value, 5) + suffix : round(value.min, 5) + suffix + '-' + round(value.max, 5) + suffix;
     }
 
-    public minValueToString(value: number | MinMax, suffix: string, prefix: string = ''): string {
-        return (typeof value === 'number' ? prefix + (round(value, 5) + suffix) : prefix + (round(value.min, 5)) + suffix);
+    public minValueToString(value: number | MinMax, suffix: string, showSign: boolean = false): string {
+        const result = round(typeof value === 'number' ? value : value.min, 5)
+        return (result >= 0 && showSign ? '+' : '' ) + result + suffix;
     }
 
-    public maxValueToString(value: number | MinMax, suffix: string, prefix: string = ''): string {
-        return (typeof value === 'number' ? '' : prefix + (round(value.max, 5)) + suffix);
+    public maxValueToString(value: number | MinMax, suffix: string, showSign: boolean = false): string {
+        const result = round(typeof value === 'number' ? value : value.max, 5)
+        return (result >= 0 && showSign ? '+' : '' ) + result + suffix;
     }
 
     public getTotalFlat(mergedStat: MergedStat): number | MinMax {

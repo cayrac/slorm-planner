@@ -85,6 +85,7 @@ export class BuildStorageService {
                 const buildContentData = localStorage.getItem(buildData);
                 if (buildContentData !== null) {
                     this.build = this.jsonConverterService.jsonToBuild(JSON.parse(buildContentData));
+                    this.buildRetrocompatibilityService.updateToLatestVersion(this.build);
                 }
             }
 
