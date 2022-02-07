@@ -580,7 +580,7 @@
         "DMG_TYPE": "",
         "COST": 25,
         "COST_TYPE": "mana_lock",
-        "DESC_VALUE_BASE": "20",
+        "DESC_VALUE_BASE": "5",
         "DESC_VALUE_LEVEL": "",
         "DESC_VALUE_TYPE": "%",
         "DESC_VALUE": "",
@@ -666,7 +666,7 @@
     },
     {
         "REF": 24,
-        "EN_NAME": "Explosed Armor",
+        "EN_NAME": "Exploded Armor",
         "EN_DESCRIPTION": "You deal _ £ to enemies affected by Armor Broken within a @ yard radius. Enemies affected by Explosed Armor lose Armor Broken.",
         "FR_NAME": "Armure Explosée",
         "FR_DESCRIPTION": "Vous infligez _ £ aux ennemis affectés par Armure Brisée dans un rayon de @ mètres. Les ennemis affectés par Armure Explosée perdent Armure Brisée.",

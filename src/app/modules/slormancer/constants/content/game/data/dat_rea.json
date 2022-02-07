@@ -1180,7 +1180,7 @@
         "EN_DESC": "*+@ £*+@ £*+@ £|*You have +_ £.#Evasion is equal to your $.*You have +@ Chance to Evade successfully.*act:216/\n|*You have +_ £.#Evasion is equal to your $.*Successfull Evasions grant you a Dash stack, allowing you dash an additional time during Untouchable, up to @ times./\n|*When Untouchable ends, incoming Damage is increased by @ for the next @ seconds.",
         "EN_LORE": "For those who want to play Tag in a very serious way.",
         "FR_NAME": "$ de l'Intouchable",
-        "FR_DESC": "*+@ £*+@ £*+@ £|*Vous avez +_ £.#L'Evasion est équivalente à vos $.*Vous avez +@ de Chance d'Esquiver.*act:216/\n|*Vous avez +_ £.#L'Evasion est équivalente à vos $Evasion is equal to your Elemental Damage.*Les Esquives réussies vous confèrent un cumul d'Élan, vous permettant de vous élancer une fois supplémentaire durant Intouchable, jusqu'à @ fois./\n|*Quand Intouchable se termine, les Dégâts reçus sont augmentés de @ pour les @ prochaines secondes.",
+        "FR_DESC": "*+@ £*+@ £*+@ £|*Vous avez +_ £.#L'Evasion est équivalente à vos $.*Vous avez +@ de Chance d'Esquiver.*act:216/\n|*Vous avez +_ £.#L'Evasion est équivalente à vos $.*Les Esquives réussies vous confèrent un cumul d'Élan, vous permettant de vous élancer une fois supplémentaire durant Intouchable, jusqu'à @ fois./\n|*Quand Intouchable se termine, les Dégâts reçus sont augmentés de @ pour les @ prochaines secondes.",
         "FR_LORE": "Pour ceux qui veulent jouer à Chat de manière très sérieuse.",
         "CH_NAME": "",
         "CH_DESC": "",
@@ -4264,7 +4264,7 @@
     {
         "REF": 87,
         "EN_NAME": "$ of Deadly Accuracy",
-        "EN_DESC": "*+@ £*+@ £|act:223/\n|*Damage from enemies not affected by Armor Broken is reduced to 0.*You apply Armor Broken to enemies that hits you.*act:224/\n|*Non-Trauma Damage dealt to enemies not affected by Armor Broken is reduced to 0.",
+        "EN_DESC": "*+@ £*+@ £|act:223/\n|*Damage from enemies not affected by Armor Broken is reduced to 0.*You apply Armor Broken to enemies that hit you.*act:224/\n|*Non-Trauma Damage dealt to enemies not affected by Armor Broken is reduced to 0.",
         "EN_LORE": "You can just throw hits in random directions, this Reaper takes care of the rest.",
         "FR_NAME": "$ de Précision Mortelle",
         "FR_DESC": "*+@ £*+@ £|act:223/\n|*Les Dégats provenant d'ennemis qui ne sont pas affectés par Armure Brisée sont réduits à 0.*Vous appliquez Armure Brisée aux ennemis qui vous touchent.*act:224/\n|*Les Dégâts qui ne proviennent pas de Trauma que vous infligez aux ennemis qui ne sont pas affectés par Armure Brisée sont réduits à 0.",
