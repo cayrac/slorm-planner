@@ -197,6 +197,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     23: {
         override: (ba, be, ma) => {
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'garbage_stat');
             overrideSynergySource(ba, 2, 'weapon_damage');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'inner_fire_damage_add_extra');
             setSynergyAllowMinMax(ba, 2, false);
@@ -224,7 +225,6 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     40: {
         override: (ba, be, ma, reaperId) => {
-            // peut être mal compris comment parser les stats ?
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'thornbite_reaper_buff_idle_duration');
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'thorns_global_mult');
 
