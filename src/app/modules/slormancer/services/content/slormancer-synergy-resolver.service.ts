@@ -8,7 +8,7 @@ import {
     SynergyResolveData,
 } from '../../model/content/character-stats';
 import { MinMax } from '../../model/minmax';
-import { round } from '../../util/math.util';
+import { bankerRound } from '../../util/math.util';
 import { isSynergyResolveData } from '../../util/synergy-resolver.util';
 import { SlormancerMergedStatUpdaterService } from './slormancer-merged-stat-updater.service';
 import { SlormancerStatMappingService } from './slormancer-stat-mapping.service';
@@ -118,9 +118,9 @@ export class SlormancerSynergyResolverService {
             resolveData.effect.synergy = newValue;
 
             resolveData.effect.displaySynergy = typeof newValue === 'number'
-                ? round(newValue, precision)
-                : { min: round(newValue.min, precision),
-                    max: round(newValue.max, precision) };
+                ? bankerRound(newValue, precision)
+                : { min: bankerRound(newValue.min, precision),
+                    max: bankerRound(newValue.max, precision) };
         } else {
             const sources = resolveData.sources.map(source => {
                 const stat = characterStats.find(stat => stat.stat === source);

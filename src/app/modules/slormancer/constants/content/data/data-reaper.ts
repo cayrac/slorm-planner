@@ -205,6 +205,23 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             addConstant(ma, 1, false, EffectValueValueType.Stat, 'reaper_added_to_inner_fire');
         }
     },
+    24: {
+        override: (ba, be, ma) => {
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'evade_add');
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'dodge_add');
+            setSynergyAllowMinMax(ba, 4, false);
+            setSynergyPrecision(ba, 4, 0);
+            
+            setSynergyAllowMinMax(ba, 5, false);
+            setSynergyPrecision(ba, 5, 0);
+            moveValue(ba, 5, be);
+
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
+
+            overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'untouchable_end_increased_damage_taken');
+            overrideValueTypeAndStat(ma, 1, EffectValueValueType.Stat, 'untouchable_end_duration');
+        }
+    },
     40: {
         override: (ba, be, ma, reaperId) => {
             // peut être mal compris comment parser les stats ?
