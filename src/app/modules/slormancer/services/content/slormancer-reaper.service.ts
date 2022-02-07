@@ -36,6 +36,7 @@ export class SlormancerReaperService {
 
     private readonly BENEDICTION_LABEL = this.slormancerTranslateService.translate('tt_ancient_bonus');
     private readonly MALEDICTION_LABEL = this.slormancerTranslateService.translate('tt_ancient_malus');
+    private readonly ACTIVABLES_LABEL = this.slormancerTranslateService.translate('tt_unlocked_actives');
     private readonly VICTIMS_LABEL = this.slormancerTranslateService.translate('tt_victims');
     private readonly LEVEL_LABEL = this.slormancerTranslateService.translate('level');
     private readonly REAPERSMITH_LABEL = this.slormancerTranslateService.translate('weapon_reapersmith_light');
@@ -368,7 +369,7 @@ export class SlormancerReaperService {
 
     public getReaper(gameData: GameDataReaper, weaponClass: HeroClass, primordial: boolean, level: number, levelPrimordial: number, kills: number, killsPrimordial: number, bonusLevel: number = 0): Reaper {
        
-        let result = {
+        let result: Reaper = {
             id: gameData.REF,
             weaponClass,
             type: this.slormancerTranslateService.translate('weapon_' + weaponClass),
@@ -382,6 +383,7 @@ export class SlormancerReaperService {
             description: '',
             benediction: null,
             malediction: null,
+            activables: [],
             lore: this.slormancerTemplateService.getReaperLoreTemplate(gameData.EN_LORE),
             templates: this.getReaperTemplates(gameData, weaponClass),
             smith: { id: gameData.BLACKSMITH, name: '' },
@@ -401,8 +403,15 @@ export class SlormancerReaperService {
             },
             damagesBase: { min: gameData.BASE_DMG_MIN, max: gameData.BASE_DMG_MAX },
             damagesLevel: { min: gameData.MIN_DMG_LVL, max: gameData.MAX_DMG_LVL },
-            damagesMultiplier: gameData.DMG_MULTIPLIER
-        } as Reaper;
+            damagesMultiplier: gameData.DMG_MULTIPLIER,
+            benedictionTitleLabel: '',
+            maledictionTitleLabel: '',
+            activablesTitleLabel: '',
+            smithLabel: '',
+            victimsLabel: '',
+            levelLabel: '',
+            damageTypeLabel: '',
+        };
 
         this.updateReaperModel(result);
         this.updateReaperView(result);
@@ -497,5 +506,6 @@ export class SlormancerReaperService {
         reaper.damageTypeLabel = this.slormancerTranslateService.translate(reaper.damageType);
         reaper.benedictionTitleLabel = this.BENEDICTION_LABEL;
         reaper.maledictionTitleLabel = this.MALEDICTION_LABEL;
+        reaper.activablesTitleLabel = this.ACTIVABLES_LABEL;
     }
 }

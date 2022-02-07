@@ -135,6 +135,10 @@ $reaper-desc-details            : rgb(104, 104, 104);
             }
         }
 
+        .bullet div {
+            background-color: white;
+        }
+
         .benediction {
             color: $reaper-bonus-level-color;
 
@@ -152,20 +156,19 @@ $reaper-desc-details            : rgb(104, 104, 104);
         }
 
         .malediction, .benediction {
-
-            .title {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: center;
-                gap: 5px;
-            }
-
             ::ng-deep {
                 .value {
                     color: white;
                 }
             }
+        }
+
+        .title {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
         }
             
         .separator {

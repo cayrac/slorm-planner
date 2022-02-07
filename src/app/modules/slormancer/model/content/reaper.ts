@@ -53,5 +53,6 @@ export interface Reaper {
     damageTypeLabel: string;
     benedictionTitleLabel: string;
     maledictionTitleLabel: string;
+    activablesTitleLabel: string;
 
 }
