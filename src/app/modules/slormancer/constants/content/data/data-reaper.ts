@@ -5,7 +5,7 @@ import { ReaperEffect } from '../../../model/content/reaper-effect';
 import { effectValueConstant, effectValueSynergy } from '../../../util/effect-value.util';
 import { isEffectValueConstant, isEffectValueSynergy, isEffectValueVariable, valueOrNull } from '../../../util/utils';
 
-function overrideValueTypeAndStat(effect: ReaperEffect | null, index: number, valueType: EffectValueValueType, stat: string) {
+function overrideValueTypeAndStat(effect: ReaperEffect | null, index: number, valueType: EffectValueValueType, stat: string | null = null) {
 
     const value = effect !== null ? valueOrNull(effect.values[index]) : null;
 
@@ -222,6 +222,31 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
 
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'untouchable_end_increased_damage_taken');
             overrideValueTypeAndStat(ma, 1, EffectValueValueType.Stat, 'untouchable_end_duration');
+        }
+    },
+    27: {
+        override: (ba, be, ma) => {
+            console.log('Reaper data : ', ba, be, ma);
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat);
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat);
+            addConstant(ba, 1, true, EffectValueValueType.Stat, 'reaper_split_to_physical_and_element');
+
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'alpha_damage_multiplier');
+            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'alpha_speed_size_multiplier');
+            overrideValueTypeAndStat(ba, 6, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 7, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 8, EffectValueValueType.Stat, 'alpha_orbs_count');
+            overrideValueTypeAndStat(ba, 9, EffectValueValueType.Stat, 'physical_damage');
+            overrideValueTypeAndStat(ba, 10, EffectValueValueType.Stat, 'elemental_damage');
+            
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(be, 2, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(be, 3, EffectValueValueType.Stat, 'alpha_omega_orbs_increased_damage');
+
+            addConstant(ba, 1, true, EffectValueValueType.Stat, 'secondary_slot_locked');
         }
     },
     40: {

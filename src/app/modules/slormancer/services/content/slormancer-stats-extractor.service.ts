@@ -78,7 +78,8 @@ export class SlormancerStatsExtractorService {
 
     private addDefaultSynergies(character: Character, config: CharacterConfig, extractedStats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
         const addReaperToInnerFire = extractedStats.stats['reaper_added_to_inner_fire'] !== undefined
-        const addReaperToElements = !addReaperToInnerFire && extractedStats.stats['reaper_added_to_elements'] !== undefined
+        const splitReaperToPhysicalAndElement = extractedStats.stats['reaper_split_to_physical_and_element'] !== undefined
+        const addReaperToElements = extractedStats.stats['reaper_added_to_elements'] !== undefined
         const overdriveDamageBasedOnSkillDamage = extractedStats.stats['overdrive_damage_based_on_skill_damage'] !== undefined
 
         const percentLockedMana = this.getStatFirstValue(extractedStats.stats, 'percent_locked_mana', 0);
@@ -143,10 +144,16 @@ export class SlormancerStatsExtractorService {
         if (addReaperToInnerFire) {
             mapping = mergedStatMapping.find(m => m.stat === 'inner_fire_damage');
             extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'inner_fire_damage_add_extra'), -1, { synergy: 'Reaper damages' }, [ { stat: 'inner_fire_damage', mapping } ]));
+        } else if (splitReaperToPhysicalAndElement) {
+            mapping = mergedStatMapping.find(m => m.stat === 'elemental_damage');
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(50, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_elemental_damage'), -1, { synergy: 'Reaper damages' }, [ { stat: 'elemental_damage', mapping } ]));
+            mapping = mergedStatMapping.find(m => m.stat === 'physical_damage');
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(50, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage'), -1, { synergy: 'Reaper damages' }, [ { stat: 'physical_damage', mapping } ]));
         } else if (addReaperToElements) {
             let mapping = mergedStatMapping.find(m => m.stat === 'elemental_damage');
             extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_elemental_damage'), -1, { synergy: 'Reaper damages' }, [ { stat: 'elemental_damage', mapping } ]));
         } else {
+            let mapping = mergedStatMapping.find(m => m.stat === 'physical_damage');
             extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage'), -1, { synergy: 'Reaper damages' }, [ { stat: 'physical_damage', mapping } ]));
         }
 
@@ -160,6 +167,7 @@ export class SlormancerStatsExtractorService {
 
         const supportSkills = [ character.skills[0], character.skills[1], character.skills[2] ].filter(isNotNullOrUndefined);
         this.addStat(stats.stats, 'total_mastery_support', supportSkills.reduce((total, skill) => total + skill.skill.level, 0), { character })
+        this.addStat(stats.stats, 'mastery_secondary', character.secondarySkill === null ? 0 : character.secondarySkill.level, character.secondarySkill === null ? { character } : { skill: character.secondarySkill })
 
         if (character.heroClass === HeroClass.Mage) {
             const maxedUpgrades = character.skills.map(skill => skill.upgrades).flat().filter(upgrade => upgrade.rank === upgrade.maxRank).length;
