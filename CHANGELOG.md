@@ -109,7 +109,10 @@
 - Added skills estimated time between casts
 - Exported build view now display the build original version if it is not the latest
 
+## Release 0.1.0 TBR
+### Changed
+- Changed all characters level configs to all other characters config and updated the default value
+
 ## Planned changes
 - Damages computing rework (probably when imbue passives are out)
 - copy item as image ?
-- sum of all your other character's level
