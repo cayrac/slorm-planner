@@ -83,6 +83,10 @@ export class BuildRetrocompatibilityService {
                 if (build.configuration.concentration_buff === undefined) {
                     build.configuration.concentration_buff = false;
                 }
+                if ('all_characters_level' in build.configuration) {
+                    (<any>build.configuration).all_characters_level = undefined;
+                    build.configuration.all_other_characters_level = 100;
+                }
             }
         },
     ];

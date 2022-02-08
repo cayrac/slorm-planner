@@ -35,7 +35,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'General',
             condition: () => true,
             configurations: [
-                { type: 'number', key: 'all_characters_level', label: 'Sum of all your character\'s level' },
+                { type: 'number', key: 'all_other_characters_level', label: 'Sum of all your other character\'s level' },
                 { type: 'number', key: 'completed_achievements', label: 'Number of completed achievements' },
                 { type: 'number', key: 'overall_reputation', label: 'Overall reputation' },
                 { type: 'number', key: 'percent_missing_health', label: 'Missing life (%)', info: 'Total locked life will be used instead if higher' },

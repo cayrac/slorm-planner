@@ -179,7 +179,7 @@ export class SlormancerStatsExtractorService {
         const percentMissingMana = lockedManaPercent > config.percent_missing_mana ? lockedManaPercent : config.percent_missing_mana;
         const percentMissingHealth = lockedHealthPercent > config.percent_missing_health ? lockedHealthPercent : config.percent_missing_health;
         
-        this.addStat(stats.stats, 'all_level', config.all_characters_level, { synergy: 'Summ all characters level' });
+        this.addStat(stats.stats, 'all_level', config.all_other_characters_level + character.level, { synergy: 'Summ all other characters level' });
         this.addStat(stats.stats, 'damage_stored', config.damage_stored, { synergy: 'Damage stored' });
         this.addStat(stats.stats, 'victims_reaper_104', config.victims_reaper_104, { synergy: 'Goldfish reaper kill count' });
         this.addStat(stats.stats, 'slormocide_60', config.slormocide_60, { synergy: 'Slorm found recently' });
