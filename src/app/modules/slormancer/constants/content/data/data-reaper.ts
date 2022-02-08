@@ -218,6 +218,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             moveValue(ba, 5, be);
 
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'dodge_add');
 
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'untouchable_end_increased_damage_taken');
             overrideValueTypeAndStat(ma, 1, EffectValueValueType.Stat, 'untouchable_end_duration');

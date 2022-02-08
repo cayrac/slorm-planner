@@ -35,4 +35,5 @@ export interface EffectValueSynergy extends AbstractEffectValue {
     baseSynergy: number | MinMax;
     synergy: number | MinMax;
     displaySynergy: number | MinMax;
+    anchor: string | undefined;
 }

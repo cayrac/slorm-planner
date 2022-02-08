@@ -20,6 +20,7 @@ import {
     isEffectValueVariable,
     isNotNullOrUndefined,
     splitData,
+    valueOrDefault,
 } from '../../util/utils';
 import { SlormancerTranslateService } from './slormancer-translate.service';
 
@@ -166,8 +167,9 @@ export class SlormancerTemplateService {
                 const details = this.getEffectValueDetails(effectValue);
                 const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
                 const value = this.asSpan(this.formatValue(effectValue.value, true), 'value');
+
                 if (typeof effectValue.synergy === 'number') {
-                    template = this.replaceAnchor(template, synergy, this.STAT_ANCHOR);
+                    template = this.replaceAnchor(template, synergy, valueOrDefault(effectValue.anchor, this.STAT_ANCHOR));
                     template = this.replaceAnchor(template, value + details, this.SYNERGY_ANCHOR);
                 } else {
                     template = this.replaceAnchor(template, synergy + details, this.SYNERGY_ANCHOR);

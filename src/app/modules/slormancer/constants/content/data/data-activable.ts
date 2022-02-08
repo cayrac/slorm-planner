@@ -24,6 +24,16 @@ function setValueType(values: Array<AbstractEffectValue>, index: number, valueTy
     }
 }
 
+function setSynergyAnchor(values: Array<AbstractEffectValue>, index: number, anchor: string) {
+    const value = values[index]
+
+    if (value && isEffectValueSynergy(value)) {
+        value.anchor = anchor;
+    } else {
+        throw new Error('failed to change synergy anchor at index ' + index);
+    }
+}
+
 function halveSynergy(effects: Array<AbstractEffectValue>, index: number) {
     const effect = effects[index];
 
@@ -47,6 +57,25 @@ function synergyMultiply100(effects: Array<AbstractEffectValue>, index: number) 
         value.baseValue = value.baseValue * 100;
     } else {
         throw new Error('failed to change value for effect value at index ' + index);
+    }
+}
+function setSynergyAllowMinMax(values: Array<AbstractEffectValue>, index: number, allowMinMax: boolean) {
+    const value = values[index];
+
+    if (value && isEffectValueSynergy(value)) {
+        value.allowMinMax = allowMinMax;
+    } else {
+        throw new Error('failed to update allowMinMax at index ' + index);
+    }
+}
+
+function setSynergyPrecision(values: Array<AbstractEffectValue>, index: number, precision: number) {
+    const value = values[index];
+
+    if (value && isEffectValueSynergy(value)) {
+        value.precision = precision;
+    } else {
+        throw new Error('failed to update precision at index ' + index);
     }
 }
 
@@ -146,10 +175,20 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     },
     15: {
         override: values => {
-            console.log('Base values (concentration) : ', values);
             overrideValueStat(values, 0, 'garbage_stat');
             overrideValueStat(values, 1, 'concentration_buff_inner_fire_damage_percent');
             overrideValueStat(values, 2, 'concentration_buff_inner_fire_damage_percent_on_elite');
+        }
+    },
+    16: {
+        override: values => {
+            console.log('Base values (untouchable) : ', values);
+            overrideValueStat(values, 0, 'garbage_stat');
+            setSynergyAnchor(values, 1, '@');
+            overrideValueStat(values, 1, 'physical_damage');
+            setSynergyAllowMinMax(values, 1, false);
+            setSynergyPrecision(values, 1, 0);
+            overrideValueStat(values, 2, 'garbage_stat');
         }
     }
 }
