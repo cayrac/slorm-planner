@@ -184,12 +184,12 @@ export class MergedStatViewComponent {
                 .join(' * ')
                 + ') * 100';
         } else {
-            formula += this.valueToString(flat, mergedStat.suffix) + [percent, ...multipliers]
+            formula += 'round( ' + this.valueToString(flat, mergedStat.suffix) + [percent, ...multipliers]
                 .filter(v => v !== 0)
                 .map(p => ' * ' + ((p + 100) / 100))
-                .join('');
+                .join('') + ' )';
             if (extra !== 0) {
-                formula += ' + ' + extra;
+                formula += extra > 0 ? (' + ' + extra) : (' - ' + Math.abs(extra));
             }
         }
         
@@ -209,13 +209,13 @@ export class MergedStatViewComponent {
         extra = typeof extra === 'number' ? extra : extra.max;
 
         let formula = round(typeof total === 'number' ? total : total.max, 5) + ' = ';
-        formula += this.valueToString(flat, mergedStat.suffix) + [percent, ...multipliers]
+        formula += 'round( ' + this.valueToString(flat, mergedStat.suffix) + [percent, ...multipliers]
             .filter(v => v !== 0)
             .map(p => ' * ' + ((p + 100) / 100))
-            .join('');  
+            .join('') + ' )'; 
 
         if (extra !== 0) {
-            formula += ' + ' + extra;
+            formula += extra > 0 ? (' + ' + extra) : (' - ' + Math.abs(extra));
         }
 
         return formula;

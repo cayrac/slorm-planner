@@ -122,19 +122,19 @@ export class SlormancerMergedStatUpdaterService {
         return total; 
     }
 
-    public getTotal(mergedStat: MergedStat): number | MinMax {
-        let total = this.getTotalWithoutExtra(mergedStat);
-        let extra = this.getTotalFlatExtra(mergedStat);
+    public getTotal(stat: MergedStat): number | MinMax {
+        let total = this.getTotalWithoutExtra(stat);
+        let extra = this.getTotalFlatExtra(stat);
 
-        if (typeof total === 'number' && mergedStat.allowMinMax && typeof extra !== 'number') {
+        if (typeof total === 'number' && stat.allowMinMax && typeof extra !== 'number') {
             total = { min: total, max: total };
         }
 
         if (typeof total === 'number') {
-            total = total + <number>extra;
+            total = bankerRound(total, stat.precision) + <number>extra;
         } else {
-            total.min = total.min + (typeof extra === 'number' ? extra : extra.min);
-            total.max = total.max + (typeof extra === 'number' ? extra : extra.max);
+            total.min = bankerRound(total.min, stat.precision) + (typeof extra === 'number' ? extra : extra.min);
+            total.max = bankerRound(total.max, stat.precision) + (typeof extra === 'number' ? extra : extra.max);
         }
 
         return total;  
@@ -144,21 +144,10 @@ export class SlormancerMergedStatUpdaterService {
         stat.total = this.getTotal(stat);
 
         if (typeof stat.total === 'number') {
-            stat.total = bankerRound(stat.total, stat.precision);
+            stat.total = stat.total;
         } else {
-            stat.total.min = bankerRound(stat.total.min, stat.precision);
-            stat.total.max = bankerRound(stat.total.max, stat.precision);
-        }
-    }
-
-    public setStatTotal(stat: MergedStat) {
-        stat.total = this.getTotal(stat);
-
-        if (typeof stat.total === 'number') {
-            stat.total = round(stat.total, stat.precision);
-        } else {
-            stat.total.min = round(stat.total.min, stat.precision);
-            stat.total.max = round(stat.total.max, stat.precision);
+            stat.total.min = stat.total.min;
+            stat.total.max = stat.total.max;
         }
     }
 }

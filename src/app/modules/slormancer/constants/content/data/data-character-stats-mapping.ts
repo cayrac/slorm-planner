@@ -26,7 +26,7 @@ function hasCostType(stats: ExtractedStatMap, ...costTypes: Array<SkillCostType>
 
 export interface MergedStatMappingSource {
     stat: string;
-    extra?: boolean
+    extra?: boolean;
     condition?: (config: CharacterConfig, stats: ExtractedStatMap) => boolean
     multiplier?: (config: CharacterConfig, stats: ExtractedStatMap) => number
 };

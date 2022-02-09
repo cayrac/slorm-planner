@@ -226,7 +226,6 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     27: {
         override: (ba, be, ma) => {
-            console.log('Reaper data : ', ba, be, ma);
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat);
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat);
             addConstant(ba, 1, true, EffectValueValueType.Stat, 'reaper_split_to_physical_and_element');
@@ -273,6 +272,14 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     41: {
         override: (ba, be, ma) => { 
+        }
+    },
+    42: {
+        override: (ba, be, ma) => { 
+            console.log('Reaper data : ', ba, be, ma);
+
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat);
+            moveValue(ba, 3, be);
         }
     },
     46: {

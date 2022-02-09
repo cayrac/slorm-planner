@@ -82,7 +82,7 @@ export class SlormancerStatsExtractorService {
         const addReaperToElements = extractedStats.stats['reaper_added_to_elements'] !== undefined
         const overdriveDamageBasedOnSkillDamage = extractedStats.stats['overdrive_damage_based_on_skill_damage'] !== undefined
 
-        const percentLockedMana = this.getStatFirstValue(extractedStats.stats, 'percent_locked_mana', 0);
+        const percentLockedMana = this.getStatFirstValue(extractedStats.stats, 'mana_lock_percent', 0);
         const percentMissingMana = this.getStatFirstValue(extractedStats.stats, 'percent_missing_mana', 0);
         const percentMissingHealth = this.getStatFirstValue(extractedStats.stats, 'percent_missing_health', 0);
 
@@ -149,6 +149,12 @@ export class SlormancerStatsExtractorService {
             extractedStats.synergies.push(synergyResolveData(effectValueSynergy(50, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_elemental_damage'), -1, { synergy: 'Reaper damages' }, [ { stat: 'elemental_damage', mapping } ]));
             mapping = mergedStatMapping.find(m => m.stat === 'physical_damage');
             extractedStats.synergies.push(synergyResolveData(effectValueSynergy(50, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage'), -1, { synergy: 'Reaper damages' }, [ { stat: 'physical_damage', mapping } ]));
+            if (addReaperToElements) {
+                mapping = mergedStatMapping.find(m => m.stat === 'elemental_damage');
+                extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_elemental_damage'), -1, { synergy: 'Reaper damages (bug ?)' }, [ { stat: 'elemental_damage', mapping } ]));
+                mapping = mergedStatMapping.find(m => m.stat === 'physical_damage');
+                extractedStats.synergies.push(synergyResolveData(effectValueSynergy(-50, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage'), -1, { synergy: 'Reaper damages (bug ?)' }, [ { stat: 'physical_damage', mapping } ]));
+            }
         } else if (addReaperToElements) {
             let mapping = mergedStatMapping.find(m => m.stat === 'elemental_damage');
             extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_elemental_damage'), -1, { synergy: 'Reaper damages' }, [ { stat: 'elemental_damage', mapping } ]));
@@ -192,7 +198,7 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'victims_reaper_104', config.victims_reaper_104, { synergy: 'Goldfish reaper kill count' });
         this.addStat(stats.stats, 'slormocide_60', config.slormocide_60, { synergy: 'Slorm found recently' });
         this.addStat(stats.stats, 'goldbane_5', config.goldbane_5, { synergy: 'Gold found recently' });
-        this.addStat(stats.stats, 'percent_locked_mana', lockedManaPercent, { synergy: 'Percent locked mana' });
+        this.addStat(stats.stats, 'mana_lock_percent', lockedManaPercent, { synergy: 'Percent locked mana' });
         this.addStat(stats.stats, 'percent_locked_health', lockedHealthPercent, { synergy: 'Percent locked life' });
         this.addStat(stats.stats, 'percent_missing_mana', percentMissingMana, { synergy: 'Percent missing mana' });
         this.addStat(stats.stats, 'percent_missing_health', percentMissingHealth, { synergy: 'Percent missing health' });

@@ -294,6 +294,14 @@ export class SlormancerValueUpdater {
                 effectValue.synergy = mult(effectValue.synergy, ...aoeEffectMultipliers);
                 effectValue.displaySynergy = round(effectValue.synergy, 0);
             }
+            if (isEffectValueSynergy(effectValue) && isDamageType(effectValue.stat) && 27 === reaper.id) {
+                const alphaOmegaIncreasedDamage = <EffectValueSynergy>effectValues.find(effect => isEffectValueSynergy(effect) && effect.stat === 'alpha_omega_orbs_increased_damage');
+                if (alphaOmegaIncreasedDamage && typeof alphaOmegaIncreasedDamage.synergy === 'number') {
+                    effectValue.synergy = mult(effectValue.synergy, alphaOmegaIncreasedDamage.synergy);
+                    effectValue.displaySynergy = round(effectValue.synergy, 0);
+                }
+
+            }
         }
     }
 
