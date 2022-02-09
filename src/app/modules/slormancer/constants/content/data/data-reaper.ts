@@ -245,7 +245,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(be, 2, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(be, 3, EffectValueValueType.Stat, 'alpha_omega_orbs_increased_damage');
 
-            addConstant(ba, 1, true, EffectValueValueType.Stat, 'secondary_slot_locked');
+            addConstant(ma, 1, true, EffectValueValueType.Stat, 'secondary_slot_locked');
         }
     },
     40: {
