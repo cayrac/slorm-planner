@@ -36,6 +36,7 @@ export interface Skill {
     baseGenres: Array<SkillGenre>;
     genres: Array<SkillGenre>;
     damageTypes: Array<string>;
+    locked: boolean;
 
     nameLabel: string;
     genresLabel: string | null;

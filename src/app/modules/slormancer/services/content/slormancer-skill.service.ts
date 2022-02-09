@@ -155,6 +155,7 @@ export class SlormancerSkillService {
                 baseGenres: <Array<SkillGenre>>splitData(gameDataSkill.GENRE, ','),
                 genres: <Array<SkillGenre>>splitData(gameDataSkill.GENRE, ','),
                 damageTypes: splitData(gameDataSkill.DMG_TYPE, ','),
+                locked: false,
 
                 nameLabel: '',
                 genresLabel: null,

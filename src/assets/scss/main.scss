@@ -39,6 +39,10 @@ html, body {
     color: primary-color(700, true);
 }
 
+img {
+    image-rendering: pixelated;
+}
+
 * {
     font-family: $font-family;
     box-sizing: border-box;

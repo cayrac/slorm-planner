@@ -267,6 +267,14 @@ export class SlormancerCharacterUpdaterService {
             }
         }
 
+        const lockedSkills = [];
+        if (statsResult.extractedStats['primary_slot_locked'] !== undefined && character.primarySkill !== null) {
+            lockedSkills.push(character.primarySkill.id);
+        }
+        if (statsResult.extractedStats['secondary_slot_locked'] !== undefined && character.secondarySkill !== null) {
+            lockedSkills.push(character.secondarySkill.id);
+        }
+
         for (const skillAndUpgrades of character.skills) {
             const result = this.slormancerStatsService.updateSkillStats(character, skillAndUpgrades, config, statsResult);
             this.slormancerValueUpdater.updateSkillAndUpgradeValues(character, skillAndUpgrades, result);
@@ -280,6 +288,9 @@ export class SlormancerCharacterUpdaterService {
                     statsResult.changed.classMechanic.push(classMechanic);
                 }
             }
+
+            skillAndUpgrades.skill.locked = lockedSkills.includes(skillAndUpgrades.skill.id);
+
         }
 
         const activableChanged = this.updateCharacterActivables(character, statsResult, config, additionalItem, false);
@@ -292,6 +303,7 @@ export class SlormancerCharacterUpdaterService {
         if (updateViews) {
             this.updateChangedEntities(statsResult);
         }
+
     }
 
     private removeUnavailableActivables(character: Character) {

@@ -7,7 +7,17 @@
     border: 3px solid rgb(60, 60, 60);
     padding: $space-unit $space-unit;
 
-    .skill-slot-border {
-        border: 3px solid rgb(60, 60, 60);
+    .skill-slot {
+        position: relative;
+        .skill-slot-border {
+            border: 3px solid rgb(60, 60, 60);
+        }
+
+        img.locked {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+        }
     }
 }

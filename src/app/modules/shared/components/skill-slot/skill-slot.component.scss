@@ -29,7 +29,7 @@ $primary-color: mat-color($theme-primary-pallet);
         min-width: 84px;
     }
 
-    img {
+    img:not(.locked) {
         position: absolute;
         width: 100%;
         height: 100%;
