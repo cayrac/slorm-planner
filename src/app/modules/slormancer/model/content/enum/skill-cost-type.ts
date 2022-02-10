@@ -1,11 +1,11 @@
 export enum SkillCostType {
     Life = 'life',
     LifeSecond = 'life_second',
-    LifeLock = 'life_lock',
+    LifeLock = 'life_lock_flat',
     LifePercent = 'life_percent',
     Mana = 'mana',
     ManaSecond = 'mana_second',
-    ManaLock = 'mana_lock',
+    ManaLock = 'mana_lock_flat',
     ManaPercent = 'mana_percent',
     None = 'none'
 }

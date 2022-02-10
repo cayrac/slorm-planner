@@ -24,6 +24,16 @@ function setValueType(values: Array<AbstractEffectValue>, index: number, valueTy
     }
 }
 
+function setBaseValue(values: Array<AbstractEffectValue>, index: number, baseValue: number) {
+    const value = values[index]
+
+    if (value) {
+        value.baseValue = baseValue;
+    } else {
+        throw new Error('failed to change base value for effect value at index ' + index);
+    }
+}
+
 function setSynergyAnchor(values: Array<AbstractEffectValue>, index: number, anchor: string) {
     const value = values[index]
 
@@ -182,13 +192,29 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     },
     16: {
         override: values => {
-            console.log('Base values (untouchable) : ', values);
             overrideValueStat(values, 0, 'garbage_stat');
             setSynergyAnchor(values, 1, '@');
             overrideValueStat(values, 1, 'physical_damage');
             setSynergyAllowMinMax(values, 1, false);
             setSynergyPrecision(values, 1, 0);
             overrideValueStat(values, 2, 'garbage_stat');
+        }
+    },
+    17: {
+        override: values => {
+            console.log('Base values : ', values);
+            setBaseValue(values, 0, 40);
+            overrideValueStat(values, 0, 'physical_damage');
+            setSynergyAnchor(values, 1, '@');
+            overrideValueStat(values, 1, 'skeleton_squire_max_health');
+        }
+    },
+    18: {
+        override: values => {
+            console.log('Base values : ', values);
+            overrideValueStat(values, 0, 'physical_damage');
+            overrideValueStat(values, 1, 'garbage_stat');
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'unstable_bones_aoe_range')
         }
     }
 }

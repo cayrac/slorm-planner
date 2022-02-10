@@ -98,6 +98,7 @@ export const COST_MAPPING: MergedStatMapping = {
             { stat: 'mana_cost_mult_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
             { stat: 'cost_per_second_reduction', condition: (_, stats) => hasCostType(stats, SkillCostType.LifeSecond, SkillCostType.ManaSecond), multiplier: () => -1 },
             { stat: 'cost_lock_reduction', condition: (_, stats) => hasCostType(stats, SkillCostType.LifeLock, SkillCostType.ManaLock), multiplier: () => -1 },
+            { stat: 'summon_skeleton_squire_cost_lock_reduction', condition: (_, stats) => hasCostType(stats, SkillCostType.LifeLock, SkillCostType.ManaLock), multiplier: () => -1 },
         ],
         maxMultiplier: [],
     } 
@@ -1506,7 +1507,9 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             max: [],
             percent: [],
             maxPercent: [],
-            multiplier: [],
+            multiplier: [
+                { stat: 'minion_increased_damage_global_mult' }
+            ],
             maxMultiplier: [],
         } 
     },

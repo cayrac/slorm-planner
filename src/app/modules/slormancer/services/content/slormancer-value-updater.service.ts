@@ -326,9 +326,15 @@ export class SlormancerValueUpdater {
             }
         }
 
-        const skillCostStats = {
+        const skillCostStats: ExtractedStatMap = {
             mana_cost_add: manaCostAdd,
-            cost_type: [{ value: ALL_SKILL_COST_TYPES.indexOf(source.costType), source: entity }]
+            cost_type: [{ value: ALL_SKILL_COST_TYPES.indexOf(source.costType), source: entity }],
+        };
+
+        if ('activable' in entity) {
+            skillCostStats['activable_id'] = [{ value: entity.activable.id, source: entity }];
+        } else {
+            skillCostStats['ancestral_legacy_id'] = [{ value: entity.ancestralLegacy.id, source: entity }];
         }
         
         return this.getSpecifigStat(stats, COST_MAPPING, config, skillCostStats);

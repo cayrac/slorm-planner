@@ -101,7 +101,9 @@ export class BuildStorageService {
                 }
             }
 
-        } catch (e) {}
+        } catch (e) {
+            console.error('Failed to reload build : ', e);
+        }
 
         this.buildChanged.next(this.build);
         this.layerChanged.next(this.layer);
