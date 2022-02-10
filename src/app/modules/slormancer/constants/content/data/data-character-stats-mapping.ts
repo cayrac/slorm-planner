@@ -190,6 +190,25 @@ export const DAMAGES_MAPPING: MergedStatMapping = {
     } 
 };
 
+export const MAX_MANA_MAPPING: MergedStatMapping = {
+    stat: 'max_mana',
+    precision: 0,
+    allowMinMax: false,
+    suffix: '',
+    source: {
+        flat: [{ stat: 'the_max_mana_add' }],
+        max: [],
+        percent: [
+            { stat: 'the_max_mana_percent' },
+            { stat: 'chrono_manamorphosis_stack_the_max_mana_percent', condition: config => config.chrono_manamorphosis_stacks > 0, multiplier: (config, stats) => Math.min(config.chrono_manamorphosis_stacks, getFirstStat(stats, 'chrono_manamorphosis_max_stacks') + getFirstStat(stats, 'increased_max_chrono_stacks')) },
+            { stat: 'the_max_mana_percent_per_enemy_in_breach_range', condition: config => config.enemies_in_breach_range > 0, multiplier: config => config.enemies_in_breach_range },
+        ],
+        maxPercent: [],
+        multiplier: [{ stat: 'the_max_mana_global_mult' }],
+        maxMultiplier: [],
+    } 
+}
+
 export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     // adventure
     {
@@ -373,25 +392,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxMultiplier: [],
         } 
     },
-    // max_mana
-    {
-        stat: 'max_mana',
-        precision: 0,
-        allowMinMax: false,
-        suffix: '',
-        source: {
-            flat: [{ stat: 'the_max_mana_add' }],
-            max: [],
-            percent: [
-                { stat: 'the_max_mana_percent' },
-                { stat: 'chrono_manamorphosis_stack_the_max_mana_percent', condition: config => config.chrono_manamorphosis_stacks > 0, multiplier: (config, stats) => Math.min(config.chrono_manamorphosis_stacks, getFirstStat(stats, 'chrono_manamorphosis_max_stacks') + getFirstStat(stats, 'increased_max_chrono_stacks')) },
-                { stat: 'the_max_mana_percent_per_enemy_in_breach_range', condition: config => config.enemies_in_breach_range > 0, multiplier: config => config.enemies_in_breach_range },
-            ],
-            maxPercent: [],
-            multiplier: [{ stat: 'the_max_mana_global_mult' }],
-            maxMultiplier: [],
-        } 
-    },
+    MAX_MANA_MAPPING,
     {
         stat: 'mana_regeneration',
         precision: 0,

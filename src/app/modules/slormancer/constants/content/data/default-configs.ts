@@ -149,6 +149,8 @@ export const DEFAULT_CONFIG: CharacterConfig = {
     hero_close_to_turret_syndrome: false,
     turret_syndrome_on_cooldown: false,
     projectile_passed_through_wall_of_omen: false,
+    summoned_skeleton_squires: 0,
+    always_summon_maximum_skeleton_squires: false,
 }
 
 export const COMBAT_CONFIG: CharacterConfig = {
@@ -298,4 +300,6 @@ export const COMBAT_CONFIG: CharacterConfig = {
     hero_close_to_turret_syndrome: true,
     turret_syndrome_on_cooldown: true,
     projectile_passed_through_wall_of_omen: true,
+    summoned_skeleton_squires: 0,
+    always_summon_maximum_skeleton_squires: true,
 }

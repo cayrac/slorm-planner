@@ -27,7 +27,7 @@ export class SlormancerStatMappingService {
             .flat();
     }
 
-    public buildMergedStat(stats: ExtractedStatMap, mapping: MergedStatMapping, config: CharacterConfig): MergedStat {
+    public buildMergedStat<T extends number | MinMax>(stats: ExtractedStatMap, mapping: MergedStatMapping, config: CharacterConfig): MergedStat<T> {
         return {
             stat: mapping.stat,
             total: 0,
@@ -42,7 +42,7 @@ export class SlormancerStatMappingService {
                 multiplier: this.getMappingValues(mapping.source.multiplier, stats, config),
                 maxMultiplier: this.getMappingValues(mapping.source.maxMultiplier, stats, config),
             }
-        } as MergedStat;
+        } as MergedStat<T>;
     }
 
     public buildMergedStats(stats: ExtractedStatMap, mappings: Array<MergedStatMapping>, config: CharacterConfig): Array<MergedStat> {

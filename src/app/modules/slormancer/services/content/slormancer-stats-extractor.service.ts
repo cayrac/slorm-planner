@@ -10,7 +10,7 @@ import {
     REMNANT_DAMAGE_REDUCTION,
     TRAP_DAMAGE_PERCENT,
 } from '../../constants/common';
-import { MergedStatMapping } from '../../constants/content/data/data-character-stats-mapping';
+import { MAX_MANA_MAPPING, MergedStatMapping } from '../../constants/content/data/data-character-stats-mapping';
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
 import { CharacterConfig } from '../../model/character-config';
 import { SynergyResolveData } from '../../model/content/character-stats';
@@ -33,6 +33,8 @@ import { EntityValue } from '../../model/entity-value';
 import { effectValueSynergy } from '../../util/effect-value.util';
 import { synergyResolveData } from '../../util/synergy-resolver.util';
 import { isDamageType, isEffectValueSynergy, isNotNullOrUndefined, valueOrDefault } from '../../util/utils';
+import { SlormancerMergedStatUpdaterService } from './slormancer-merged-stat-updater.service';
+import { SlormancerStatMappingService } from './slormancer-stat-mapping.service';
 import { CharacterStatsBuildResult } from './slormancer-stats.service';
 
 export declare type ExtractedStatMap = { [key: string]: Array<EntityValue<number>> }
@@ -45,6 +47,10 @@ export interface ExtractedStats {
 
 @Injectable()
 export class SlormancerStatsExtractorService {
+
+    constructor(private slormancerStatMappingService: SlormancerStatMappingService,
+        private slormancerMergedStatUpdaterService: SlormancerMergedStatUpdaterService,
+        ) { }
 
     private getSynergyStatsItWillUpdate(stat: string, mergedStatMapping: Array<MergedStatMapping>): Array<{ stat: string, mapping?: MergedStatMapping }> {
         let result: Array<{ stat: string, mapping?: MergedStatMapping }> = [];
@@ -183,25 +189,11 @@ export class SlormancerStatsExtractorService {
     
     private addConfigValues(character: Character, config: CharacterConfig, stats: ExtractedStats) {
 
-        const activables = [character.activable1, character.activable2, character.activable3, character.activable4 ].filter(isNotNullOrUndefined);
-
-        const lockedManaPercent = activables.filter(act => act.costType === SkillCostType.ManaLock)
-            .reduce((t, s) => t + valueOrDefault(s.cost, 0), 0);
-        const lockedHealthPercent = activables.filter(act => act.costType === SkillCostType.LifeLock)
-            .reduce((t, s) => t + valueOrDefault(s.cost, 0), 0);
-
-        const percentMissingMana = lockedManaPercent > config.percent_missing_mana ? lockedManaPercent : config.percent_missing_mana;
-        const percentMissingHealth = lockedHealthPercent > config.percent_missing_health ? lockedHealthPercent : config.percent_missing_health;
-        
         this.addStat(stats.stats, 'all_level', config.all_other_characters_level + character.level, { synergy: 'Summ all other characters level' });
         this.addStat(stats.stats, 'damage_stored', config.damage_stored, { synergy: 'Damage stored' });
         this.addStat(stats.stats, 'victims_reaper_104', config.victims_reaper_104, { synergy: 'Goldfish reaper kill count' });
         this.addStat(stats.stats, 'slormocide_60', config.slormocide_60, { synergy: 'Slorm found recently' });
         this.addStat(stats.stats, 'goldbane_5', config.goldbane_5, { synergy: 'Gold found recently' });
-        this.addStat(stats.stats, 'mana_lock_percent', lockedManaPercent, { synergy: 'Percent locked mana' });
-        this.addStat(stats.stats, 'percent_locked_health', lockedHealthPercent, { synergy: 'Percent locked life' });
-        this.addStat(stats.stats, 'percent_missing_mana', percentMissingMana, { synergy: 'Percent missing mana' });
-        this.addStat(stats.stats, 'percent_missing_health', percentMissingHealth, { synergy: 'Percent missing health' });
         this.addStat(stats.stats, 'enemy_percent_missing_health', config.enemy_percent_missing_health, { synergy: 'Enemy percent missing health' });
         this.addStat(stats.stats, 'block_stacks', config.block_stacks, { synergy: 'Block stacks' });
         this.addStat(stats.stats, 'mana_lost_last_second', config.mana_lost_last_second, { synergy: 'Mana lost last second' });
@@ -458,6 +450,63 @@ export class SlormancerStatsExtractorService {
         }
     }
 
+    private getLockedManaPercent(character: Character, config: CharacterConfig, stats: ExtractedStats): number {        
+        const activables = [character.activable1, character.activable2, character.activable3, character.activable4 ].filter(isNotNullOrUndefined);
+
+        let lockedManaPercent = activables.filter(act => act.costType === SkillCostType.ManaPercent)
+            .reduce((t, s) => t + valueOrDefault(s.cost, 0), 0);
+
+        const skeletonSquireSkill = activables.find(activable => activable.id === 17);
+        if (skeletonSquireSkill !== undefined && skeletonSquireSkill.cost !== null) {
+            console.log('Skeleton squire found : ', skeletonSquireSkill.cost, lockedManaPercent);
+
+            const maxMana = this.slormancerStatMappingService.buildMergedStat<number>(stats.stats, MAX_MANA_MAPPING, config);
+            this.slormancerMergedStatUpdaterService.updateStatTotal(maxMana);
+            if (maxMana !== undefined) {
+                const availableMana = maxMana.total * (100 - lockedManaPercent) / 100;
+                const maxPossibleSummon = Math.floor(availableMana / skeletonSquireSkill.cost);
+
+                const summonsCount = config.always_summon_maximum_skeleton_squires ? maxPossibleSummon : Math.min(maxPossibleSummon, config.summoned_skeleton_squires);
+            
+                if (summonsCount > 0) {
+                    lockedManaPercent = lockedManaPercent + (summonsCount * skeletonSquireSkill.cost * 100 / maxMana.total);
+                }
+                console.log('UPDATE SKELETON DATA');
+                console.log('Stats : ', stats.stats, Object.keys(stats.stats).length);
+                console.log('Total mana : ', maxMana);
+                console.log('Avaialble mana : ', availableMana);
+                console.log('Skeleton cost : ', skeletonSquireSkill.cost);
+                console.log('Max possible summons count : ', maxPossibleSummon);
+                console.log('Summons count : ', summonsCount);
+                console.log('Locked mana percent : ', lockedManaPercent);
+            }
+        }
+
+        
+        return lockedManaPercent;
+    }
+
+    private getLockedHealthPercent(character: Character, config: CharacterConfig, stats: ExtractedStats): number {        
+        const activables = [character.activable1, character.activable2, character.activable3, character.activable4 ].filter(isNotNullOrUndefined);
+        
+        return activables.filter(act => act.costType === SkillCostType.LifeLock)
+        .reduce((t, s) => t + valueOrDefault(s.cost, 0), 0);
+    }
+
+    private addDynamicValues(character: Character, config: CharacterConfig, stats: ExtractedStats) {
+
+        const lockedManaPercent = this.getLockedManaPercent(character, config, stats);
+        const lockedHealthPercent = this.getLockedHealthPercent(character, config, stats);
+
+        const percentMissingMana = lockedManaPercent > config.percent_missing_mana ? lockedManaPercent : config.percent_missing_mana;
+        const percentMissingHealth = lockedHealthPercent > config.percent_missing_health ? lockedHealthPercent : config.percent_missing_health;
+        
+        this.addStat(stats.stats, 'mana_lock_percent', lockedManaPercent, { synergy: 'Percent locked mana' });
+        this.addStat(stats.stats, 'percent_locked_health', lockedHealthPercent, { synergy: 'Percent locked life' });
+        this.addStat(stats.stats, 'percent_missing_mana', percentMissingMana, { synergy: 'Percent missing mana' });
+        this.addStat(stats.stats, 'percent_missing_health', percentMissingHealth, { synergy: 'Percent missing health' });
+    }
+
     private addBaseValues(character: Character, stats: ExtractedStats) {
         const baseStats = character.baseStats.map(stat => stat.values.map(value => <[string, number]>[stat.stat, value])).flat();
         for (const baseStat of baseStats) {
@@ -499,7 +548,8 @@ export class SlormancerStatsExtractorService {
         this.addAdditionalItemValues(additionalItem, result, mergedStatMapping);
         this.addInventoryValues(character, result);
         this.addActivableValues(character, result, mergedStatMapping);
-        this.addDefaultSynergies(character, config, result, mergedStatMapping)
+        this.addDefaultSynergies(character, config, result, mergedStatMapping);
+        this.addDynamicValues(character, config, result);
         
         return result;
     }

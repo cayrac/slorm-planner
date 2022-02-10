@@ -147,4 +147,6 @@ export interface CharacterConfig {
     hero_close_to_turret_syndrome: boolean;
     turret_syndrome_on_cooldown: boolean;
     projectile_passed_through_wall_of_omen: boolean;
+    summoned_skeleton_squires: number;
+    always_summon_maximum_skeleton_squires: boolean;
 }

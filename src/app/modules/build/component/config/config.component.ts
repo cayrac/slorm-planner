@@ -182,6 +182,19 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Summon Skeleton Squire',
+            condition: character => this.hasActivable(character, 17),
+            configurations: [
+                { type: 'number', key: 'summoned_skeleton_squires', label: 'Number of summoned skeleton squires' },
+                { 
+                    type: 'boolean',
+                    key: 'always_summon_maximum_skeleton_squires',
+                    label: 'Always summon the maximum number of skeleton squires',
+                    info: 'Based on your available mana after other skills reservation. Override other skeleton summon settings'
+                },
+            ]
+        },
+        {
             title: 'Willpower',
             condition: character => this.isAttributeAllocated(character, Attribute.Willpower),
             configurations: [

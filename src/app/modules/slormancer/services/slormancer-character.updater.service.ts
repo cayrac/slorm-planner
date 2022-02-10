@@ -198,7 +198,7 @@ export class SlormancerCharacterUpdaterService {
         return this.slormancerStatsService.updateCharacterStats(character, config, additionalItem);
     }
 
-    private updateCharacterActivables(character: Character, statsResult: CharacterStatsBuildResult, config: CharacterConfig, additionalItem: EquipableItem | null, auraOnly: boolean): { items: Array<EquipableItem>, ancestralLegacies: Array<AncestralLegacy>, reapers: Array<Reaper> } {
+    private updateCharacterActivables(character: Character, statsResult: CharacterStatsBuildResult, config: CharacterConfig, additionalItem: EquipableItem | null, preComputing: boolean): { items: Array<EquipableItem>, ancestralLegacies: Array<AncestralLegacy>, reapers: Array<Reaper> } {
         const ancestralLegacies = character.ancestralLegacies.ancestralLegacies;
         const items = <Array<EquipableItem>>[...ALL_GEAR_SLOT_VALUES.map(slot => character.gear[slot]), ...character.inventory, ...character.sharedInventory.flat(), additionalItem]
             .filter(item => item !== null && item.legendaryEffect !== null && item.legendaryEffect.activable !== null);
@@ -206,14 +206,14 @@ export class SlormancerCharacterUpdaterService {
         const reapers = character.reaper.activables.length > 0 ? [character.reaper] : [];
 
         for (const ancestralLegacy of ancestralLegacies) {
-            if (ancestralLegacy.genres.includes(SkillGenre.Aura) || !auraOnly) {
+            if (ancestralLegacy.genres.includes(SkillGenre.Aura) || !preComputing) {
                 this.slormancerValueUpdater.updateAncestralLegacyActivable(character, config, ancestralLegacy, statsResult);
                 result.ancestralLegacies.push(ancestralLegacy);
             }
         }
         for (const item of items) {
             const activable = <Activable>item.legendaryEffect?.activable;
-            if (activable.genres.includes(SkillGenre.Aura) || !auraOnly) {
+            if (activable.genres.includes(SkillGenre.Aura) || !preComputing) {
                 this.slormancerValueUpdater.updateActivable(character, activable, statsResult, config);
                 result.items.push(item);
             }
@@ -221,7 +221,7 @@ export class SlormancerCharacterUpdaterService {
 
         for (const reaper of reapers) {
             for (const activable of reaper.activables) {
-                if (activable.genres.includes(SkillGenre.Aura) || !auraOnly) {
+                if (activable.genres.includes(SkillGenre.Aura) || activable.id === 17 || !preComputing) {
                     this.slormancerValueUpdater.updateActivable(character, activable, statsResult, config);
                 }
             }
@@ -230,25 +230,28 @@ export class SlormancerCharacterUpdaterService {
         return { items, ancestralLegacies, reapers };
     }
 
+
     private updateCharacterStats(character: Character, updateViews: boolean, config: CharacterConfig, additionalItem: EquipableItem | null) {
 
-        const statResultPreAura = this.getCharacterStatsResult(character, config, additionalItem)
-        const auraChanged = this.updateCharacterActivables(character, statResultPreAura, config, additionalItem, true);
+        const statResultPreComputing = this.getCharacterStatsResult(character, config, additionalItem);
+
+        const preComputingChanged = this.updateCharacterActivables(character, statResultPreComputing, config, additionalItem, true);
+
         const statsResult = this.getCharacterStatsResult(character, config, additionalItem);
         character.stats = statsResult.stats;
 
-        statsResult.changed.items.push(...auraChanged.items);
-        statsResult.changed.items.push(...statResultPreAura.changed.items);
-        statsResult.changed.ancestralLegacies.push(...auraChanged.ancestralLegacies);
-        statsResult.changed.ancestralLegacies.push(...statResultPreAura.changed.ancestralLegacies);
-        statsResult.changed.activables.push(...statResultPreAura.changed.activables);
-        statsResult.changed.attributes.push(...statResultPreAura.changed.attributes);
-        statsResult.changed.reapers.push(...statResultPreAura.changed.reapers);
-        statsResult.changed.reapers.push(...auraChanged.reapers);
-        statsResult.changed.skills.push(...statResultPreAura.changed.skills);
-        statsResult.changed.upgrades.push(...statResultPreAura.changed.upgrades);
-        statsResult.changed.mechanics.push(...statResultPreAura.changed.mechanics);
-        statsResult.changed.classMechanic.push(...statResultPreAura.changed.classMechanic);
+        statsResult.changed.items.push(...preComputingChanged.items);
+        statsResult.changed.items.push(...statResultPreComputing.changed.items);
+        statsResult.changed.ancestralLegacies.push(...preComputingChanged.ancestralLegacies);
+        statsResult.changed.ancestralLegacies.push(...statResultPreComputing.changed.ancestralLegacies);
+        statsResult.changed.activables.push(...statResultPreComputing.changed.activables);
+        statsResult.changed.attributes.push(...statResultPreComputing.changed.attributes);
+        statsResult.changed.reapers.push(...statResultPreComputing.changed.reapers);
+        statsResult.changed.reapers.push(...preComputingChanged.reapers);
+        statsResult.changed.skills.push(...statResultPreComputing.changed.skills);
+        statsResult.changed.upgrades.push(...statResultPreComputing.changed.upgrades);
+        statsResult.changed.mechanics.push(...statResultPreComputing.changed.mechanics);
+        statsResult.changed.classMechanic.push(...statResultPreComputing.changed.classMechanic);
 
         this.slormancerValueUpdater.updateReaper(character.reaper, statsResult);
 

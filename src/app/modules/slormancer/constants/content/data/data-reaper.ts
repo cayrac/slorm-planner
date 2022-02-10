@@ -286,6 +286,11 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
 
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat);
             moveValue(ba, 3, be);
+
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'minion_increased_damage_percent');
+            setSynergyPrecision(be, 0, 0);
+
+            addConstant(ma, -100, true, EffectValueValueType.Stat, 'mana_leech_global_mult');
         }
     },
     46: {
