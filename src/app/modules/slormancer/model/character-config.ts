@@ -149,4 +149,5 @@ export interface CharacterConfig {
     projectile_passed_through_wall_of_omen: boolean;
     summoned_skeleton_squires: number;
     always_summon_maximum_skeleton_squires: boolean;
+    minimum_unreserved_mana: number;
 }

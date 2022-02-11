@@ -190,7 +190,13 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
                     type: 'boolean',
                     key: 'always_summon_maximum_skeleton_squires',
                     label: 'Always summon the maximum number of skeleton squires',
-                    info: 'Based on your available mana after other skills reservation. Override other skeleton summon settings'
+                    info: 'Based on your available mana after other skills reservation. Override fixed number of summoned skeleton squires'
+                },
+                { 
+                    type: 'number',
+                    key: 'minimum_unreserved_mana',
+                    label: 'Minimum unreserved mana',
+                    info: 'When summoning skeleton squires, will make sure that your mana do not go under this value. When exporting a build, this value is set to your highest skill cost.'
                 },
             ]
         },

@@ -89,6 +89,9 @@ export class BuildRetrocompatibilityService {
                 if (build.configuration.always_summon_maximum_skeleton_squires === undefined) {
                     build.configuration.always_summon_maximum_skeleton_squires = false;
                 }
+                if (build.configuration.minimum_unreserved_mana === undefined) {
+                    build.configuration.minimum_unreserved_mana = 0;
+                }
                 if ('all_characters_level' in build.configuration) {
                     (<any>build.configuration).all_characters_level = undefined;
                     build.configuration.all_other_characters_level = 100;

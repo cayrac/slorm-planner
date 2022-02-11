@@ -463,7 +463,7 @@ export class SlormancerStatsExtractorService {
             const maxMana = this.slormancerStatMappingService.buildMergedStat<number>(stats.stats, MAX_MANA_MAPPING, config);
             this.slormancerMergedStatUpdaterService.updateStatTotal(maxMana);
             if (maxMana !== undefined) {
-                const availableMana = maxMana.total * (100 - lockedManaPercent) / 100;
+                const availableMana = Math.max(0, (maxMana.total * (100 - lockedManaPercent) / 100) - config.minimum_unreserved_mana);
                 const maxPossibleSummon = Math.floor(availableMana / skeletonSquireSkill.cost);
 
                 const summonsCount = config.always_summon_maximum_skeleton_squires ? maxPossibleSummon : Math.min(maxPossibleSummon, config.summoned_skeleton_squires);
@@ -471,14 +471,6 @@ export class SlormancerStatsExtractorService {
                 if (summonsCount > 0) {
                     lockedManaPercent = lockedManaPercent + (summonsCount * skeletonSquireSkill.cost * 100 / maxMana.total);
                 }
-                console.log('UPDATE SKELETON DATA');
-                console.log('Stats : ', stats.stats, Object.keys(stats.stats).length);
-                console.log('Total mana : ', maxMana);
-                console.log('Avaialble mana : ', availableMana);
-                console.log('Skeleton cost : ', skeletonSquireSkill.cost);
-                console.log('Max possible summons count : ', maxPossibleSummon);
-                console.log('Summons count : ', summonsCount);
-                console.log('Locked mana percent : ', lockedManaPercent);
             }
         }
 

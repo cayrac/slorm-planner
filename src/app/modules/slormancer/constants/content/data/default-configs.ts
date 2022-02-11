@@ -151,6 +151,7 @@ export const DEFAULT_CONFIG: CharacterConfig = {
     projectile_passed_through_wall_of_omen: false,
     summoned_skeleton_squires: 0,
     always_summon_maximum_skeleton_squires: false,
+    minimum_unreserved_mana: 0,
 }
 
 export const COMBAT_CONFIG: CharacterConfig = {
@@ -302,4 +303,5 @@ export const COMBAT_CONFIG: CharacterConfig = {
     projectile_passed_through_wall_of_omen: true,
     summoned_skeleton_squires: 0,
     always_summon_maximum_skeleton_squires: true,
+    minimum_unreserved_mana: 0,
 }
