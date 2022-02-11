@@ -1497,7 +1497,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'minion_increased_damage',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         suffix: '%',
         source: {

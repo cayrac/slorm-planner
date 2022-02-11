@@ -385,7 +385,17 @@ export class SlormancerValueUpdater {
         for (const value of activable.values) {
             if (isEffectValueSynergy(value)) {
                 if (isDamageType(value.stat)) {
-                    this.updateDamage(value, activable.genres, skillStats, statsResult, SkillElement.Neutral);
+                    const additionalMultipliers: Array<number> = [];
+
+                    // Unstable bones increase damage multiplier (+ bug precision)
+                    if (activable.id === 18) {
+                        const unstableBonesIncreasedDamages = statsResult.stats.find(stat => stat.stat === 'unstable_bones_increased_damages');
+                        if (unstableBonesIncreasedDamages !== undefined) {
+                            additionalMultipliers.push(...unstableBonesIncreasedDamages.values.flat.map(flat => <number>flat.value));
+                        }
+                    }
+
+                    this.updateDamage(value, activable.genres, skillStats, statsResult, SkillElement.Neutral, false, additionalMultipliers);
                 }
             } else if (value.valueType === EffectValueValueType.AreaOfEffect) {
                 value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;

@@ -276,7 +276,6 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     42: {
         override: (ba, be, ma) => { 
-            console.log('Reaper data : ', ba, be, ma);
 
             if (ba !== null && ba.template !== null && ba.template.startsWith('"')) {
                 ba.template = ba.template.slice(1);
@@ -291,6 +290,14 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             setSynergyPrecision(be, 0, 0);
 
             addConstant(ma, -100, true, EffectValueValueType.Stat, 'mana_leech_global_mult');
+        }
+    },
+    43: {
+        override: (ba, be, ma) => { 
+            console.log('Reaper data : ', ba, be, ma);
+            synergyMultiply100(ba, 0);
+            // setSynergyPrecision(ba, 0, 2);
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'unstable_bones_increased_damages');
         }
     },
     46: {
