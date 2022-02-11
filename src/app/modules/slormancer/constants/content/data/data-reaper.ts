@@ -294,9 +294,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     43: {
         override: (ba, be, ma) => { 
-            console.log('Reaper data : ', ba, be, ma);
             synergyMultiply100(ba, 0);
-            // setSynergyPrecision(ba, 0, 2);
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'unstable_bones_increased_damages');
         }
     },
@@ -312,6 +310,28 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'min_elemental_damage_add');
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'mana_consumed_percent_on_skill_cast');
+        }
+    },
+    53: {
+        override: (ba, be, ma) => {
+            console.log('Reaper data : ', ba, be, ma);
+
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'slorm_hammer_increased_damages');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Damage, 'physical_damage');
+
+            // TODO ajouter configs stacks
+            synergyMultiply100(ba, 4);
+            synergyMultiply100(ba, 6);
+            synergyMultiply100(ba, 7);
+            synergyMultiply100(ba, 8);
+            synergyMultiply100(ba, 9);
+            synergyMultiply100(ba, 10);
+            synergyMultiply100(ba, 11);
+            synergyMultiply100(ba, 12);
+            synergyMultiply100(ba, 13);
         }
     },
     54: {

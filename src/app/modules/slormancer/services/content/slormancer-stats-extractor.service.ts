@@ -22,6 +22,7 @@ import { EffectValueValueType } from '../../model/content/enum/effect-value-valu
 import { EquipableItemBase } from '../../model/content/enum/equipable-item-base';
 import { ALL_GEAR_SLOT_VALUES } from '../../model/content/enum/gear-slot';
 import { HeroClass } from '../../model/content/enum/hero-class';
+import { ALL_REAPER_SMITH } from '../../model/content/enum/reaper-smith';
 import { ALL_SKILL_COST_TYPES, SkillCostType } from '../../model/content/enum/skill-cost-type';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { TraitLevel } from '../../model/content/enum/trait-level';
@@ -313,6 +314,8 @@ export class SlormancerStatsExtractorService {
             .map(slot => character.gear[slot])
             .filter(isNotNullOrUndefined);
 
+        const reaperSmithStats: { [key: number]: number } = { }
+
         this.addStat(stats.stats, 'number_equipped_legendaries', items.filter(item => item.legendaryEffect !== null).length, { synergy: 'Number of equipped legendaries' });
 
         for (const item of items) {
@@ -339,7 +342,19 @@ export class SlormancerStatsExtractorService {
                     this.addStat(stats.stats, effectValue.stat, effectValue.value, { item });
                 }
             }
+
+            if (item.reaperEnchantment !== null) {
+                reaperSmithStats[item.reaperEnchantment.craftedReaperSmith] = item.reaperEnchantment.craftedValue + valueOrDefault(reaperSmithStats[item.reaperEnchantment.craftedReaperSmith], 0);
+            }
         }
+
+        let totalSmithBonus = 0;
+        for (const reaperSmith of ALL_REAPER_SMITH) {
+            const total = valueOrDefault(reaperSmithStats[reaperSmith], 0);
+            totalSmithBonus += total;
+            this.addStat(stats.stats, 'reapersmith_' + reaperSmith, total, { character });
+        }
+        this.addStat(stats.stats, 'reaper_bonus', totalSmithBonus, { character });
     }
 
     private addAdditionalItemValues(additionalItem: EquipableItem | null, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {

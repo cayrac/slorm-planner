@@ -3,7 +3,7 @@
 <mat-menu color="primary" #menu="matMenu" xPosition="after" [overlapTrigger]="true">
     <ng-template matMenuContent>
         <button mat-menu-item color="primary" (click)="editCharacterLevel()">Change hero level</button>
-        <button mat-menu-item color="primary" *ngIf="character !== null && character.reaper !== null && hasItems()" (click)="optimizeReaperEnchantments()">Optimize items for Reaper</button>
+        <button mat-menu-item color="primary" *ngIf="character !== null && canOptimizeReaperEnchantements(character) && hasItems()" (click)="optimizeReaperEnchantments()">Optimize items for Reaper</button>
         <button mat-menu-item color="primary" *ngIf="character !== null && hasItems()" [matMenuTriggerFor]="attributes">Optimize items for Attribute</button>
         <button mat-menu-item color="primary" *ngIf="character !== null && hasItems()" [matMenuTriggerFor]="skills">Optimize items for Skill</button>
         <button mat-menu-item color="primary" *ngIf="character !== null && hasItems()" (click)="optimizeItemsStats()">Optimise items stats</button>

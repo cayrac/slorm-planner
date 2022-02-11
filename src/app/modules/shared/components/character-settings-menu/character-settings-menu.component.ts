@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { takeUntil } from 'rxjs/operators';
+import { ReaperSmith } from 'src/app/modules/slormancer/model/content/enum/reaper-smith';
 
 import { Character } from '../../../slormancer/model/character';
 import { AttributeTraits } from '../../../slormancer/model/content/attribut-traits';
@@ -78,6 +79,10 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
 
     public hasItems(): boolean {
         return this.getGearItems().length > 0;
+    }
+
+    public canOptimizeReaperEnchantements(character: Character): boolean {
+        return character.reaper !== null && character.reaper.smith.id !== ReaperSmith.ReapersmithBrotherhood;
     }
     
     public optimizeReaperEnchantments() {

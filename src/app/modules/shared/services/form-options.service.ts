@@ -187,7 +187,7 @@ export class FormOptionsService {
 
     private initReaperBuffOptions() {
         this.ALL_REAPER_BUFF_OPTIONS_CACHE = ALL_REAPER_SMITH
-            .filter(smith => smith !== ReaperSmith.OhmAgad)
+            .filter(smith => smith !== ReaperSmith.OhmAgad && smith !== ReaperSmith.ReapersmithBrotherhood)
             .map(smith => ({ value: smith, label: this.slormancerTranslateService.translate('weapon_reapersmith_' + smith) }));
     }
 

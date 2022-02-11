@@ -294,13 +294,22 @@ export class SlormancerValueUpdater {
                 effectValue.synergy = mult(effectValue.synergy, ...aoeEffectMultipliers);
                 effectValue.displaySynergy = round(effectValue.synergy, 0);
             }
-            if (isEffectValueSynergy(effectValue) && isDamageType(effectValue.stat) && 27 === reaper.id) {
-                const alphaOmegaIncreasedDamage = <EffectValueSynergy>effectValues.find(effect => isEffectValueSynergy(effect) && effect.stat === 'alpha_omega_orbs_increased_damage');
-                if (alphaOmegaIncreasedDamage && typeof alphaOmegaIncreasedDamage.synergy === 'number') {
-                    effectValue.synergy = mult(effectValue.synergy, alphaOmegaIncreasedDamage.synergy);
-                    effectValue.displaySynergy = round(effectValue.synergy, 0);
-                }
+            if (isEffectValueSynergy(effectValue) && isDamageType(effectValue.stat)) {
 
+                if (reaper.id === 27) {
+                    const alphaOmegaIncreasedDamage = <EffectValueSynergy>effectValues.find(effect => isEffectValueSynergy(effect) && effect.stat === 'alpha_omega_orbs_increased_damage');
+                    if (alphaOmegaIncreasedDamage && typeof alphaOmegaIncreasedDamage.synergy === 'number') {
+                        effectValue.synergy = mult(effectValue.synergy, alphaOmegaIncreasedDamage.synergy);
+                        effectValue.displaySynergy = round(effectValue.synergy, 0);
+                    }
+                }
+                if (reaper.id === 53) {
+                    const slormHammerIncreasedDamage = <EffectValueSynergy>effectValues.find(effect => effect.stat === 'slorm_hammer_increased_damages');
+                    if (slormHammerIncreasedDamage) {
+                        effectValue.synergy = mult(effectValue.synergy, slormHammerIncreasedDamage.displayValue);
+                        effectValue.displaySynergy = round(effectValue.synergy, 0);
+                    }
+                }
             }
         }
     }
