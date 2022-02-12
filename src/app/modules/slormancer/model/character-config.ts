@@ -115,6 +115,7 @@ export interface CharacterConfig {
     enemy_splintered_stacks: number;
     revengeance_stacks: number;
     elemental_spirit_stacks: number;
+    fulgurorn_dedication_stacks: number;
     has_elemental_temper_buff: boolean;
     has_splash_splash_buff: boolean;
     has_soul_bound_buff: boolean;
@@ -151,3 +152,4 @@ export interface CharacterConfig {
     always_summon_maximum_skeleton_squires: boolean;
     minimum_unreserved_mana: number;
 }
+

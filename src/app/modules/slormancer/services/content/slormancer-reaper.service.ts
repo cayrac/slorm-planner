@@ -445,7 +445,7 @@ export class SlormancerReaperService {
         const info = reaper.primordial ? reaper.primordialInfo : reaper.baseInfo;
         reaper.kills = info.kills;
         reaper.baseLevel = info.level;
-        reaper.bonusLevel = Math.max(0, Math.min(this.MAX_REAPER_BONUS, reaper.bonusLevel));
+        reaper.bonusLevel = Math.max(0, reaper.bonusLevel);
         reaper.level = reaper.baseLevel + reaper.bonusLevel;
         reaper.maxDamagesWithBonuses = this.getDamages(reaper.maxLevelWithBonuses, reaper.damagesBase, reaper.damagesLevel, reaper.damagesMultiplier);
         reaper.activables = reaper.templates.activables;

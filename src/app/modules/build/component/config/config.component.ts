@@ -161,6 +161,13 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Reaper (Fate-Crusher)',
+            condition: character => character.reaper.id === 53,
+            configurations: [
+                { type: 'number', key: 'fulgurorn_dedication_stacks', label: 'Fulgurorn\'s Dedication stacks' },
+            ]
+        },
+        {
             title: 'Gold Armor',
             condition: character => this.hasActivable(character, 0),
             configurations: [

@@ -8,10 +8,11 @@ import { Activable } from '../model/content/activable';
 import { AncestralLegacy } from '../model/content/ancestral-legacy';
 import { ALL_ATTRIBUTES, Attribute } from '../model/content/enum/attribute';
 import { ALL_GEAR_SLOT_VALUES } from '../model/content/enum/gear-slot';
+import { ReaperSmith } from '../model/content/enum/reaper-smith';
 import { SkillGenre } from '../model/content/enum/skill-genre';
 import { EquipableItem } from '../model/content/equipable-item';
 import { Reaper } from '../model/content/reaper';
-import { isFirst, isNotNullOrUndefined, valueOrDefault } from '../util/utils';
+import { isEffectValueSynergy, isFirst, isNotNullOrUndefined, valueOrDefault } from '../util/utils';
 import { SlormancerActivableService } from './content/slormancer-activable.service';
 import { SlormancerAncestralLegacyService } from './content/slormancer-ancestral-legacy.service';
 import { SlormancerAttributeService } from './content/slormancer-attribute.service';
@@ -21,7 +22,9 @@ import { SlormancerItemService } from './content/slormancer-item.service';
 import { SlormancerMechanicService } from './content/slormancer-mechanic.service';
 import { SlormancerReaperService } from './content/slormancer-reaper.service';
 import { SlormancerSkillService } from './content/slormancer-skill.service';
+import { ExtractedStatMap } from './content/slormancer-stats-extractor.service';
 import { CharacterStatsBuildResult, SlormancerStatsService } from './content/slormancer-stats.service';
+import { SlormancerSynergyResolverService } from './content/slormancer-synergy-resolver.service';
 import { SlormancerTranslateService } from './content/slormancer-translate.service';
 import { SlormancerValueUpdater } from './content/slormancer-value-updater.service';
 
@@ -42,6 +45,7 @@ export class SlormancerCharacterUpdaterService {
                 private slormancerMechanicService: SlormancerMechanicService,
                 private slormancerClassMechanicService: SlormancerClassMechanicService,
                 private slormancerValueUpdater: SlormancerValueUpdater,
+                private slormancerSynergyResolverService: SlormancerSynergyResolverService,
                 private messageService: MessageService,
         ) { }
 
@@ -52,13 +56,36 @@ export class SlormancerCharacterUpdaterService {
         }
     }
 
-    private applyReaperBonuses(character: Character, reaper: Reaper) {
+    private applyReaperBonuses(character: Character, reaper: Reaper, config: CharacterConfig) {
         const items = ALL_GEAR_SLOT_VALUES.map(slot => character.gear[slot]).filter(isNotNullOrUndefined);
 
         let bonus = 0;
         for (const item of items) {
             if (item.reaperEnchantment !== null && item.reaperEnchantment.craftedReaperSmith == reaper.smith.id) {
                 bonus += item.reaperEnchantment.craftedValue;
+            }
+        }
+
+        // applying fulgurorn's reapre bonuses
+        if (reaper.id === 53) {
+            let fulgurornBonuses = 0;
+            for (const item of items) {
+                if (item.reaperEnchantment !== null && item.reaperEnchantment.craftedReaperSmith == ReaperSmith.Fulgurorn) {
+                    fulgurornBonuses += item.reaperEnchantment.craftedValue;
+                }
+            }
+
+            const maxStacks = reaper.templates.base
+                .map(base => base.values)
+                .flat()
+                .find(stat => stat.stat === 'fulgurorn_dedication_max_stacks');
+
+            if (maxStacks !== undefined && isEffectValueSynergy(maxStacks)) {
+                let extractedStats: ExtractedStatMap = {};
+                extractedStats['reapersmith_5'] = [{ value: fulgurornBonuses, source: { character } }];
+                this.slormancerSynergyResolverService.resolveSyngleSynergy(maxStacks, [], extractedStats, { reaper })
+    
+                bonus += Math.min(<number>maxStacks.displaySynergy, config.fulgurorn_dedication_stacks);
             }
         }
 
@@ -69,7 +96,7 @@ export class SlormancerCharacterUpdaterService {
         }
     }
 
-    private updateBonuses(character: Character) {
+    private updateBonuses(character: Character, config: CharacterConfig) {
         const items = ALL_GEAR_SLOT_VALUES.map(slot => character.gear[slot]).filter(isNotNullOrUndefined);
         const attributeBonuses = {
             [Attribute.Toughness]: 0,
@@ -98,9 +125,7 @@ export class SlormancerCharacterUpdaterService {
             }
         }
 
-        if (character.reaper !== null) {
-            this.applyReaperBonuses(character, character.reaper);
-        }
+        this.applyReaperBonuses(character, character.reaper, config);
 
         for (const attribute of ALL_ATTRIBUTES) {
             if (character.attributes.allocated[attribute].bonusRank !== attributeBonuses[attribute]) {
@@ -349,7 +374,7 @@ export class SlormancerCharacterUpdaterService {
         }
         character.attributes.remainingPoints = character.attributes.maxPoints - allocatedPoints;
 
-        this.updateBonuses(character);
+        this.updateBonuses(character, config);
 
         this.updateCharacterStats(character, updateViews, config, additionalItem);
 

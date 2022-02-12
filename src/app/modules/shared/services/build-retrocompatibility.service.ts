@@ -92,6 +92,9 @@ export class BuildRetrocompatibilityService {
                 if (build.configuration.minimum_unreserved_mana === undefined) {
                     build.configuration.minimum_unreserved_mana = 0;
                 }
+                if (build.configuration.fulgurorn_dedication_stacks === undefined) {
+                    build.configuration.fulgurorn_dedication_stacks = 0;
+                }
                 if ('all_characters_level' in build.configuration) {
                     (<any>build.configuration).all_characters_level = undefined;
                     build.configuration.all_other_characters_level = 100;

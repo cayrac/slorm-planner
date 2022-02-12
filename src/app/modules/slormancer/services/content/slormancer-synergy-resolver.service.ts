@@ -7,9 +7,11 @@ import {
     ResolveDataType,
     SynergyResolveData,
 } from '../../model/content/character-stats';
+import { EffectValueSynergy } from '../../model/content/effect-value';
+import { Entity } from '../../model/entity';
 import { MinMax } from '../../model/minmax';
 import { bankerRound } from '../../util/math.util';
-import { isSynergyResolveData } from '../../util/synergy-resolver.util';
+import { isSynergyResolveData, synergyResolveData } from '../../util/synergy-resolver.util';
 import { SlormancerMergedStatUpdaterService } from './slormancer-merged-stat-updater.service';
 import { SlormancerStatMappingService } from './slormancer-stat-mapping.service';
 import { ExtractedStatMap } from './slormancer-stats-extractor.service';
@@ -80,6 +82,11 @@ export class SlormancerSynergyResolverService {
             }
         }
         return result;
+    }
+
+    public resolveSyngleSynergy(effect: EffectValueSynergy, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap, source: Entity) {
+        const resolveData = synergyResolveData(effect, -1, source);
+        this.updateSynergyValue(resolveData, characterStats, extractedStats);
     }
 
     private updateSynergyValue(resolveData: SynergyResolveData | ExternalSynergyResolveData, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap) {

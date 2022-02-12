@@ -316,6 +316,10 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma) => {
             console.log('Reaper data : ', ba, be, ma);
 
+            if (ba !== null && ba.template !== null) {
+                ba.template = ba.template.replace(/\.<br\/\>([a-zA-Z])/g, '.<br/><br/>$1');
+            }
+            
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'slorm_hammer_increased_damages');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');
@@ -330,6 +334,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             synergyMultiply100(ba, 9);
             synergyMultiply100(ba, 10);
             synergyMultiply100(ba, 11);
+            overrideValueTypeAndStat(ba, 11, EffectValueValueType.Stat, 'fulgurorn_dedication_max_stacks');
             synergyMultiply100(ba, 12);
             synergyMultiply100(ba, 13);
         }
