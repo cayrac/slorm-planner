@@ -51,7 +51,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             configurations: [
                 { type: 'number', key: 'mana_lost_last_second', label: 'Mana lost last second' },
                 { type: 'number', key: 'mana_gained_last_second', label: 'Mana gained last second' },
-                { type: 'number', key: 'active_inner_fire', label: 'Actives inner fire' },
+                { type: 'number', key: 'active_inner_fire', label: 'Active inner fires' },
                 { type: 'number', key: 'hits_taken_recently', label: 'Hits taken recently' },
                 { type: 'number', key: 'skill_cast_recently', label: 'Skills cast recently' },
                 { type: 'number', key: 'ennemies_in_radius', label: 'How much ennemies are close to you' },
@@ -165,6 +165,13 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             condition: character => character.reaper.id === 53,
             configurations: [
                 { type: 'number', key: 'fulgurorn_dedication_stacks', label: 'Fulgurorn\'s Dedication stacks' },
+            ]
+        },
+        {
+            title: 'Reaper (Inner Fireworks)',
+            condition: character => character.reaper.id === 57 || character.reaper.id === 58,
+            configurations: [
+                { type: 'number', key: 'enemy_inner_weakness_stacks', label: 'Inner weakness stacks on enemy', info: 'Effects are applied if "use enemy state" is checked' },
             ]
         },
         {

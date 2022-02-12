@@ -310,6 +310,13 @@ export class SlormancerValueUpdater {
                         effectValue.displaySynergy = round(effectValue.synergy, 0);
                     }
                 }
+                if (reaper.id === 57 || reaper.id === 58) {
+                    const fireworkIncreasedDamage = <EffectValueSynergy>effectValues.find(effect => effect.stat === 'inner_weakness_increased_damage');
+                    if (fireworkIncreasedDamage) {
+                        effectValue.synergy = mult(effectValue.synergy, fireworkIncreasedDamage.displayValue);
+                        effectValue.displaySynergy = round(effectValue.synergy, 0);
+                    }
+                }
             }
         }
     }

@@ -130,6 +130,7 @@ export const COOLDOWN_MAPPING: MergedStatMapping = {
             { stat: 'cooldown_time_multiplier_if_fortunate_or_perfect', condition: config => config.next_cast_is_perfect || config.next_cast_is_fortunate },
             { stat: 'cooldown_time_reduction_multiplier_per_temporal_emblem_if_not_temporal', condition: (config, stats) => config.temporal_emblems > 0 && !hasStat(stats, 'skill_is_temporal'), multiplier: config => - config.temporal_emblems },
             { stat: 'cooldown_time_reduction_multiplier_per_temporal_emblem', condition: config => config.temporal_emblems > 0, multiplier: config => - config.temporal_emblems },
+            { stat: 'cooldown_time_muliplier_per_inner_fire', condition: config => config.active_inner_fire > 0, multiplier: config => config.active_inner_fire },
         ],
         maxMultiplier: [],
     } 
@@ -1233,7 +1234,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             ],
             maxPercent: [],
             multiplier: [
-                { stat: 'inner_fire_damage_mult_if_channeling_whirlwind', condition: (config, stats) => config.is_channeling_whirlwind && !hasStat(stats, 'no_longer_cost_per_second') }
+                { stat: 'inner_fire_damage_mult_if_channeling_whirlwind', condition: (config, stats) => config.is_channeling_whirlwind && !hasStat(stats, 'no_longer_cost_per_second') },
+                { stat: 'inner_weakness_increased_damage', condition: config => config.use_enemy_state && config.enemy_inner_weakness_stacks > 0 , multiplier: (config, stats) => Math.min(config.enemy_inner_weakness_stacks, getFirstStat(stats, 'inner_weakness_max_stacks')) }
             ],
             maxMultiplier: [],
         } 

@@ -116,6 +116,7 @@ export interface CharacterConfig {
     revengeance_stacks: number;
     elemental_spirit_stacks: number;
     fulgurorn_dedication_stacks: number;
+    enemy_inner_weakness_stacks: number;
     has_elemental_temper_buff: boolean;
     has_splash_splash_buff: boolean;
     has_soul_bound_buff: boolean;

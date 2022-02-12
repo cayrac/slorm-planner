@@ -314,8 +314,6 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     53: {
         override: (ba, be, ma) => {
-            console.log('Reaper data : ', ba, be, ma);
-
             if (ba !== null && ba.template !== null) {
                 ba.template = ba.template.replace(/\.<br\/\>([a-zA-Z])/g, '.<br/><br/>$1');
             }
@@ -344,6 +342,31 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             moveValue(ba, 0, be);
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'weapon_damage_mult');
             addConstant(ma, -100, true, EffectValueValueType.Stat, 'elemental_damage_global_mult');
+        }
+    },
+    57: {
+        override: (ba, be, ma) => {
+            console.log('Reaper data : ', ba, be, ma);
+
+            addConstant(ba, 1.499, false, EffectValueValueType.AreaOfEffect, 'inner_firework_radius');
+
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'firework_increased_damage');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'inner_weakness_increased_damage');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'inner_weakness_max_stacks');
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'garbage_stats');
+            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'garbage_stats');
+            overrideValueTypeAndStat(ba, 6, EffectValueValueType.Stat, 'garbage_stats');
+            overrideValueTypeAndStat(ba, 7, EffectValueValueType.Damage, 'elemental_damage');
+
+            overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'cooldown_time_muliplier_per_inner_fire');
+        }
+    },
+    58: {
+        override: (ba, be, ma) => {
+            console.log('Reaper data 58 : ', ba, be, ma);
+
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'increased_aoe_size_per_inner_weakness');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'garbage_stat');
         }
     },
     60: {
