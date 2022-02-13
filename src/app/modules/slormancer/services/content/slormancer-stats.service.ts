@@ -205,6 +205,10 @@ export class SlormancerStatsService {
             }
         }
 
+        if (skillAndUpgrades.skill.id === 3 && config.add_totem_tag_to_prime_totem_skills && [71, 72].includes(character.reaper.id) && !skillAndUpgrades.skill.genres.includes(SkillGenre.Totem)) {
+            skillAndUpgrades.skill.genres.push(SkillGenre.Totem);
+        }
+
         if (extractedStats.stats['no_longer_cost_per_second'] !== undefined) {
             if (skillAndUpgrades.skill.costType === SkillCostType.ManaSecond) {
                 skillAndUpgrades.skill.costType = SkillCostType.Mana;

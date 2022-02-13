@@ -160,6 +160,7 @@ export class SlormancerActivableService {
         }
 
         activable.description = this.slormancerTemplateService.formatActivableDescription(activable.template, activable.values)
-                .replace(/\{weaponClass\}/g, this.slormancerTranslateService.translate('weapon_' + activable.heroClass));
+                .replace(/\{weaponClass\}/g, this.slormancerTranslateService.translate('weapon_' + activable.heroClass))
+                .replace(/\[([a-zA-Z ]+)\/([a-zA-Z ]+)\/([a-zA-Z ]+)\]/g, '$' + (activable.heroClass + 1));
     }
 }

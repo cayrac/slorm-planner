@@ -1484,6 +1484,22 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         } 
     },
     {
+        stat: 'totem_increased_damage',
+        precision: 1,
+        allowMinMax: false,
+        suffix: '%',
+        source: {
+            flat: [
+                { stat: 'totem_increased_damage_percent' },
+            ],
+            max: [],
+            percent: [],
+            maxPercent: [],
+            multiplier: [],
+            maxMultiplier: [],
+        } 
+    },
+    {
         stat: 'aura_increased_effect',
         precision: 1,
         allowMinMax: false,

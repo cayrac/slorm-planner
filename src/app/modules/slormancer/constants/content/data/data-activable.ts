@@ -202,7 +202,6 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     },
     17: {
         override: values => {
-            console.log('Base values : ', values);
             setBaseValue(values, 0, 40);
             overrideValueStat(values, 0, 'physical_damage');
             setSynergyAnchor(values, 1, '@');
@@ -211,10 +210,16 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     },
     18: {
         override: values => {
-            console.log('Base values : ', values);
             overrideValueStat(values, 0, 'physical_damage');
             overrideValueStat(values, 1, 'garbage_stat');
             addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'unstable_bones_aoe_range')
+        }
+    },
+    19: {
+        override: values => {
+            console.log('Base values : ', values);
+            overrideValueStat(values, 0, 'garbage_stat');
+            overrideValueStat(values, 1, 'garbage_stat');
         }
     }
 }

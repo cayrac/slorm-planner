@@ -134,7 +134,6 @@ export class SlormancerAffixService {
         } 
 
         itemAffix.craftedEffect.effect.value = getCraftValue(itemAffix.craftedEffect, itemAffix.craftedEffect.craftedValue);
-        // TODO the round here is necessary on the displayValue to keep the real hidden value
         itemAffix.craftedEffect.effect.displayValue = round(itemAffix.craftedEffect.effect.value, 3);
 
 

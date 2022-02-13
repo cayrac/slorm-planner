@@ -215,6 +215,17 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Summon Prime Totem',
+            condition: character => this.hasActivable(character, 19),
+            configurations: [
+                { 
+                    type: 'boolean',
+                    key: 'add_totem_tag_to_prime_totem_skills',
+                    label: 'Apply totem tags to Wood Sticks / Arrow Shots / Arcane Missiles'
+                }
+            ]
+        },
+        {
             title: 'Willpower',
             condition: character => this.isAttributeAllocated(character, Attribute.Willpower),
             configurations: [

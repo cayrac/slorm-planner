@@ -98,6 +98,9 @@ export class BuildRetrocompatibilityService {
                 if (build.configuration.enemy_inner_weakness_stacks === undefined) {
                     build.configuration.enemy_inner_weakness_stacks = 0;
                 }
+                if (build.configuration.add_totem_tag_to_prime_totem_skills === undefined) {
+                    build.configuration.add_totem_tag_to_prime_totem_skills = false;
+                }
                 if ('all_characters_level' in build.configuration) {
                     (<any>build.configuration).all_characters_level = undefined;
                     build.configuration.all_other_characters_level = 100;

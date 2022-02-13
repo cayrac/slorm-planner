@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { isNotNullOrUndefined } from 'src/app/modules/slormancer/util/utils';
 
 import { BuildStorageService } from '../../../shared/services/build-storage.service';
 import { BuildService } from '../../../shared/services/build.service';
@@ -55,11 +56,22 @@ export class ViewCharacterComponent {
     }
 
     private updateConfiguration() {
-        if (this.combatBuffControl.value) {
-            this.slormancerCharacterUpdaterService.updateCharacter(this.character, COMBAT_CONFIG);
-        } else {
-            this.slormancerCharacterUpdaterService.updateCharacter(this.character, DEFAULT_CONFIG);
-        }
+        let config = this.combatBuffControl.value ? { ...COMBAT_CONFIG } : { ...DEFAULT_CONFIG };
+
+        const highestManaCost = [
+            this.character.primarySkill,
+            this.character.secondarySkill,
+            this.character.activable1,
+            this.character.activable2,
+            this.character.activable3,
+            this.character.activable4
+        ]   .filter(isNotNullOrUndefined)
+            .map(skill => skill.cost)
+            .filter(isNotNullOrUndefined);
+        config.minimum_unreserved_mana = Math.max(...highestManaCost, 0);
+
+        this.slormancerCharacterUpdaterService.updateCharacter(this.character, config);
+
     }
 
     private getStat(stat: string): number | MinMax {

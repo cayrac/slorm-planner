@@ -324,7 +324,6 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Damage, 'physical_damage');
 
-            // TODO ajouter configs stacks
             synergyMultiply100(ba, 4);
             synergyMultiply100(ba, 6);
             synergyMultiply100(ba, 7);
@@ -420,8 +419,27 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     67: {
         override: (ba, be, ma) => {
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Duration, 'vindictive_slam_reaper_effect_stun_duration');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Duration, 'vindictive_slam_reaper_effect_stun_chance');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'vindictive_slam_reaper_effect_stun_chance');
             synergyMultiply100(ba, 1);
+        }
+    },
+    71: {
+        override: (ba, be, ma) => {
+            console.log('Reaper data : ', ba, be, ma);
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'totem_increased_effect_percent');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'totem_increased_damage_percent');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'garbage_stat');
+
+            moveValue(ba, 3, ma);
+            moveValue(ba, 2, be);
+        }
+    },
+    72: {
+        override: (ba, be, ma) => {
+            if (ba !== null && ba.template !== null) {
+                ba.template = '';
+            }
         }
     },
     73: {

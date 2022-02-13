@@ -98,6 +98,10 @@ export class SlormancerValueUpdater {
 
         if (genres.includes(SkillGenre.Totem)) {
             multipliers.push(skillStats.totemIncreasedEffect.total);
+            const totemIncreasedDamage = <MergedStat<number>>stats.stats.find(mergedStat => mergedStat.stat === 'totem_increased_damage');
+            if (totemIncreasedDamage !== undefined) {
+                multipliers.push(totemIncreasedDamage.total);
+            }
         }
 
         if (genres.includes(SkillGenre.Aura)) {
