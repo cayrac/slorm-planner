@@ -145,8 +145,7 @@ export class SlormancerStatsService {
         result.stats = this.slormancerStatMappingService.buildMergedStats(extractedStats.stats, mapping, config);
         
         if (character.ultimatum !== null && !character.ultimatum.locked) {
-            console.log('Applying ultimatum...');
-            this.slormancerStatMappingService.applyUltimatum(result.stats, mapping, character.ultimatum);
+            this.slormancerStatMappingService.applyUltimatum(result.stats, mapping, character.ultimatum, config, result.extractedStats);
         }
 
         for (const stats of result.stats) {

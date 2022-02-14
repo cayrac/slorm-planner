@@ -3,6 +3,7 @@ import { SkillGenre } from './content/enum/skill-genre';
 export interface CharacterConfig {
     attunment_pulse_current_school: SkillGenre;
     completed_achievements: number;
+    elder_slorms: number;
     active_inner_fire: number;
     mana_lost_last_second: number;
     mana_gained_last_second: number;
@@ -139,6 +140,7 @@ export interface CharacterConfig {
     has_booster_max_buff: boolean;
     has_electrify_buff: boolean;
     concentration_buff: boolean;
+    ultima_momentum_buff: boolean;
     distance_with_target: number;
     all_other_characters_level: number;
     victims_reaper_104: number;
@@ -155,5 +157,6 @@ export interface CharacterConfig {
     add_totem_tag_to_prime_totem_skills: boolean;
     highest_slorm_temple_floor: number;
     show_temple_keeper_as_totem: boolean;
+    show_elder_inner_fire_damage: boolean;
 }
 

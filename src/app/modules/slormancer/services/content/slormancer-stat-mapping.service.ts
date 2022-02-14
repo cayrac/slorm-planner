@@ -6,6 +6,7 @@ import { MergedStat } from '../../model/content/character-stats';
 import { Ultimatum } from '../../model/content/ultimatum';
 import { Entity } from '../../model/entity';
 import { MinMax } from '../../model/minmax';
+import { valueOrDefault } from '../../util/utils';
 import { ExtractedStatMap } from './slormancer-stats-extractor.service';
 
 @Injectable()
@@ -13,7 +14,7 @@ export class SlormancerStatMappingService {
 
     constructor() { }
     
-    private getMappingValues(sources: Array<MergedStatMappingSource>, stats: ExtractedStatMap, config: CharacterConfig): Array<{ value: number | MinMax, source: Entity }>  {
+    private getMappingValues(sources: Array<MergedStatMappingSource>, stats: ExtractedStatMap, config: CharacterConfig): Array<{ value: number | MinMax, source: Entity, extra: boolean }>  {
         return sources
             .filter(source => source.condition === undefined || source.condition(config, stats))
             .map(source => {
@@ -22,7 +23,7 @@ export class SlormancerStatMappingService {
                     const mult = source.multiplier(config, stats);
                     result = result.map(entry => ({ source: entry.source, value: entry.value * mult }));
                 }
-                return result ? result : [];
+                return result ? result.map(data => ({ ...data, extra: source.extra === true })) : [];
             })
             .flat();
     }
@@ -49,7 +50,7 @@ export class SlormancerStatMappingService {
         return mappings.map(mapping => this.buildMergedStat(stats, mapping, config));
     }
 
-    public applyUltimatum(stats: Array<MergedStat>, mappings: Array<MergedStatMapping>, ultimatum: Ultimatum) {
+    public applyUltimatum(stats: Array<MergedStat>, mappings: Array<MergedStatMapping>, ultimatum: Ultimatum, config: CharacterConfig, extractedStats: ExtractedStatMap) {
         let stat = stats.find(stat => stat.stat === ultimatum.value.stat);
 
         if (stat === undefined) {
@@ -78,9 +79,16 @@ export class SlormancerStatMappingService {
         if (stat) {
             stat.readonly = true;
             
+            let multipliers: Array<{ extra: boolean, value: number, source: Entity }> = [];
+
+            if (config.ultima_momentum_buff) {
+                const ultimaMultipliers = valueOrDefault(extractedStats['ultimatum_increased_effect'], []);
+                multipliers.push(...ultimaMultipliers.map(mult => ({ ...mult, extra: true })));
+            }
+
             stat.values.flat = [{ value: ultimatum.value.value, extra: false, source: { ultimatum }}],
             stat.values.max = [];
-            stat.values.percent = [];
+            stat.values.percent = multipliers;
             stat.values.maxPercent = [];
             stat.values.multiplier = [];
             stat.values.maxMultiplier = [];

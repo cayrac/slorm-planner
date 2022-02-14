@@ -107,6 +107,15 @@ export class BuildRetrocompatibilityService {
                 if (build.configuration.show_temple_keeper_as_totem === undefined) {
                     build.configuration.show_temple_keeper_as_totem = false;
                 }
+                if (build.configuration.ultima_momentum_buff === undefined) {
+                    build.configuration.ultima_momentum_buff = false;
+                }
+                if (build.configuration.elder_slorms === undefined) {
+                    build.configuration.elder_slorms = 0;
+                }
+                if (build.configuration.show_elder_inner_fire_damage === undefined) {
+                    build.configuration.show_elder_inner_fire_damage = false;
+                }
                 if ('all_characters_level' in build.configuration) {
                     (<any>build.configuration).all_characters_level = undefined;
                     build.configuration.all_other_characters_level = 100;

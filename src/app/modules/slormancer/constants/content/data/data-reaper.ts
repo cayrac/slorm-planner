@@ -550,6 +550,26 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             addConstant(ma, 1, true, EffectValueValueType.Stat, 'disable_ultimatum');
         }
     },
+    85: {
+        override: (ba, be, ma, reaperId) => {
+            console.log('Reaper data : ', ba, be, ma);
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Unknown, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Unknown, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Unknown, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'ultimatum_increased_effect');
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Unknown, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'primary_secondary_skill_additional_damage');
+            overrideValueTypeAndStat(ba, 6, EffectValueValueType.Stat, 'elder_inner_fire_damage_add_extra');
+            moveValue(ba, 6, be);
+
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Unknown, 'garbage_stat');
+
+            overrideValueTypeAndStat(ma, 0, EffectValueValueType.Unknown, 'inner_fire_max_number_add_extra');
+            addConstant(ma, -100, true, EffectValueValueType.Stat, 'inner_fire_max_number_global_mult');
+            
+
+        }
+    },
     98: {
         override: (ba, be, ma, reaperId) => {
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'overdrive_chance_percent_on_critical_strike');

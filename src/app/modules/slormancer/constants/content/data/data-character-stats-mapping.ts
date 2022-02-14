@@ -1192,6 +1192,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'inner_fire_max_number_add' },
+                { stat: 'inner_fire_max_number_add_extra', extra: true },
                 { stat: 'conquest_stack_inner_fire_max_number_add', condition: config => config.conquest_stacks > 0, multiplier: (config, stats) => Math.min(getFirstStat(stats, 'conquest_max_stacks', 0), config.conquest_stacks) }
             ],
             max: [],
@@ -1225,6 +1226,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'inner_fire_damage_add' },
                 { stat: 'overdrive_inner_fire_additional_damage' },
                 { stat: 'inner_fire_damage_add_extra', extra: true },
+                { stat: 'elder_inner_fire_damage_add_extra', extra: true, condition: config => config.show_elder_inner_fire_damage },
             ],
             max: [],
             percent: [

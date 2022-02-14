@@ -5,6 +5,7 @@ import { MAX_HERO_LEVEL } from '../../common';
 export const DEFAULT_CONFIG: CharacterConfig = {
     attunment_pulse_current_school: SkillGenre.Arcanic,
     completed_achievements: 0,
+    elder_slorms: 0,
     active_inner_fire: 0,
     mana_lost_last_second: 0,
     mana_gained_last_second: 0,
@@ -142,6 +143,7 @@ export const DEFAULT_CONFIG: CharacterConfig = {
     has_booster_max_buff: false,
     has_electrify_buff: false,
     concentration_buff: false,
+    ultima_momentum_buff: false,
     all_other_characters_level: 100,
     idle: false,
     damage_stored: 0,
@@ -157,11 +159,13 @@ export const DEFAULT_CONFIG: CharacterConfig = {
     add_totem_tag_to_prime_totem_skills: false,
     highest_slorm_temple_floor: 0,
     show_temple_keeper_as_totem: false,
+    show_elder_inner_fire_damage: false,
 }
 
 export const COMBAT_CONFIG: CharacterConfig = {
     attunment_pulse_current_school: SkillGenre.Arcanic,
     completed_achievements: 0,
+    elder_slorms: 0,
     active_inner_fire: 0,
     mana_lost_last_second: 0,
     mana_gained_last_second: 0,
@@ -299,6 +303,7 @@ export const COMBAT_CONFIG: CharacterConfig = {
     has_booster_max_buff: true,
     has_electrify_buff: true,
     concentration_buff: true,
+    ultima_momentum_buff: true,
     all_other_characters_level: 100,
     idle: true,
     damage_stored: 0,
@@ -314,4 +319,5 @@ export const COMBAT_CONFIG: CharacterConfig = {
     add_totem_tag_to_prime_totem_skills: true,
     highest_slorm_temple_floor: 0,
     show_temple_keeper_as_totem: false,
+    show_elder_inner_fire_damage: true,
 }

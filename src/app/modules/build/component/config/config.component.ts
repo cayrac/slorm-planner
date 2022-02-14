@@ -37,6 +37,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             configurations: [
                 { type: 'number', key: 'all_other_characters_level', label: 'Sum of all your other character\'s level' },
                 { type: 'number', key: 'completed_achievements', label: 'Number of completed achievements' },
+                { type: 'number', key: 'elder_slorms', label: 'Total Elder Slorm' },
                 { type: 'number', key: 'overall_reputation', label: 'Overall reputation' },
                 { type: 'number', key: 'percent_missing_health', label: 'Missing life (%)', info: 'Total locked life will be used instead if higher' },
                 { type: 'number', key: 'percent_missing_mana', label: 'Missing mana (%)', info: 'Total locked mana will be used instead if higher' },
@@ -180,6 +181,14 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             condition: character => character.reaper.id === 84,
             configurations: [
                 { type: 'boolean', key: 'show_temple_keeper_as_totem', label: 'Display temple keeper stats on it\'s totem\'s form' },
+            ]
+        },
+        {
+            title: 'Reaper (Slorm Temple)',
+            condition: character => character.reaper.id === 85,
+            configurations: [
+                { type: 'boolean', key: 'ultima_momentum_buff', label: 'Is Ultima-Momentum active' },
+                { type: 'boolean', key: 'show_elder_inner_fire_damage', label: 'Show inner fire damages as elder' },
             ]
         },
         {
