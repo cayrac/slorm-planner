@@ -79,14 +79,22 @@ export class SlormancerStatMappingService {
         if (stat) {
             stat.readonly = true;
             
-            let multipliers: Array<{ extra: boolean, value: number, source: Entity }> = [];
+            const multipliers: Array<{ extra: boolean, value: number, source: Entity }> = [];
 
             if (config.ultima_momentum_buff) {
                 const ultimaMultipliers = valueOrDefault(extractedStats['ultimatum_increased_effect'], []);
                 multipliers.push(...ultimaMultipliers.map(mult => ({ ...mult, extra: true })));
             }
 
-            stat.values.flat = [{ value: ultimatum.value.value, extra: false, source: { ultimatum }}],
+            // Ultima momentum bug on movement speed
+            stat.values.flat = [];
+            if (stat.stat === 'movement_speed') {
+                stat.values.flat.push({ value: ultimatum.value.value - 2.4, extra: false, source: { ultimatum }});
+                stat.values.flat.push({ value: 2.4, extra: true, source: { ultimatum }});
+                stat.precision = 2;
+            } else {
+                stat.values.flat.push({ value: ultimatum.value.value, extra: false, source: { ultimatum }});
+            }
             stat.values.max = [];
             stat.values.percent = multipliers;
             stat.values.maxPercent = [];
