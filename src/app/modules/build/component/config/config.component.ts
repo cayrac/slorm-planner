@@ -42,6 +42,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
                 { type: 'number', key: 'percent_missing_mana', label: 'Missing mana (%)', info: 'Total locked mana will be used instead if higher' },
                 { type: 'number', key: 'controlled_minions', label: 'Minions under your control', info: 'Totems are not minions' },
                 { type: 'number', key: 'totems_under_control', label: 'Totems under your control', info: 'Minions are not totems' },
+                { type: 'number', key: 'highest_slorm_temple_floor', label: 'Highest Slorm Temple floor' },
                 { type: 'boolean', key: 'idle', label: 'Are you idle ?' },
             ]
         },
@@ -172,6 +173,13 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             condition: character => character.reaper.id === 57 || character.reaper.id === 58,
             configurations: [
                 { type: 'number', key: 'enemy_inner_weakness_stacks', label: 'Inner weakness stacks on enemy', info: 'Effects are applied if "use enemy state" is checked' },
+            ]
+        },
+        {
+            title: 'Reaper (Temple Keeper)',
+            condition: character => character.reaper.id === 84,
+            configurations: [
+                { type: 'boolean', key: 'show_temple_keeper_as_totem', label: 'Display temple keeper stats on it\'s totem\'s form' },
             ]
         },
         {

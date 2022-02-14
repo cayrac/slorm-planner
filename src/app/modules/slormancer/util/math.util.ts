@@ -73,7 +73,7 @@ export function add(a: number | MinMax, b: number | MinMax, forceMinMax: boolean
     return result;
 }
 
-export function mult(base: number | MinMax, ...multipliers: Array<number>): number | MinMax {
+export function mult<T extends number |MinMax>(base: T, ...multipliers: Array<number>): T {
     let result: number | MinMax = typeof base === 'number' ? base : { ...base };
 
     for (const multiplier of multipliers) {
@@ -85,5 +85,5 @@ export function mult(base: number | MinMax, ...multipliers: Array<number>): numb
         }
     }
 
-    return result;
+    return <T>result;
 }

@@ -100,6 +100,23 @@ export class SlormancerStatsService {
         return result;
     }
 
+    private applyReaperSpecialChanges(character: Character, config: CharacterConfig) {
+        if (character.reaper.id === 84) {
+            const activable = character.reaper.activables.find(activable => activable.id === 21);
+            
+            if (activable !== undefined) {
+                const hasTotem = activable.genres.includes(SkillGenre.Totem);
+
+                if (config.show_temple_keeper_as_totem && !hasTotem) {
+                    activable.genres.push(SkillGenre.Totem);
+                } else if (!config.show_temple_keeper_as_totem && hasTotem) {
+                    activable.genres.splice(activable.genres.indexOf(SkillGenre.Totem), 1);
+                }
+
+            }
+        }
+    }
+
     public updateCharacterStats(character: Character, config: CharacterConfig, additionalItem: EquipableItem | null = null): CharacterStatsBuildResult {
         const result: CharacterStatsBuildResult = {
             unlockedAncestralLegacies: [],
@@ -122,6 +139,8 @@ export class SlormancerStatsService {
         const mapping = [...GLOBAL_MERGED_STATS_MAPPING, ...HERO_MERGED_STATS_MAPPING[character.heroClass]];
         const extractedStats = this.slormancerStatsExtractorService.extractCharacterStats(character, config, additionalItem, mapping);
         
+        this.applyReaperSpecialChanges(character, config);
+
         result.extractedStats = extractedStats.stats;
         result.stats = this.slormancerStatMappingService.buildMergedStats(extractedStats.stats, mapping, config);
         if (character.ultimatum !== null) {

@@ -155,6 +155,8 @@ export const DEFAULT_CONFIG: CharacterConfig = {
     always_summon_maximum_skeleton_squires: false,
     minimum_unreserved_mana: 0,
     add_totem_tag_to_prime_totem_skills: false,
+    highest_slorm_temple_floor: 0,
+    show_temple_keeper_as_totem: false,
 }
 
 export const COMBAT_CONFIG: CharacterConfig = {
@@ -310,4 +312,6 @@ export const COMBAT_CONFIG: CharacterConfig = {
     always_summon_maximum_skeleton_squires: true,
     minimum_unreserved_mana: 0,
     add_totem_tag_to_prime_totem_skills: true,
+    highest_slorm_temple_floor: 0,
+    show_temple_keeper_as_totem: false,
 }

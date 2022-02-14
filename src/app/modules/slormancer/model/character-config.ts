@@ -153,5 +153,7 @@ export interface CharacterConfig {
     always_summon_maximum_skeleton_squires: boolean;
     minimum_unreserved_mana: number;
     add_totem_tag_to_prime_totem_skills: boolean;
+    highest_slorm_temple_floor: number;
+    show_temple_keeper_as_totem: boolean;
 }
 

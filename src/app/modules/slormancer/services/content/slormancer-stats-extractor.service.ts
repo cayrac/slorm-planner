@@ -201,6 +201,7 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'mana_gained_last_second', config.mana_gained_last_second, { synergy: 'Mana gained last second' });
         this.addStat(stats.stats, 'completed_achievements', config.completed_achievements, { synergy: 'Completed achievements' });
         this.addStat(stats.stats, 'knight_other_level', config.knight_other_level, { synergy: 'Maximum level of Huntress or Mage' });
+        this.addStat(stats.stats, 'highest_floor', config.highest_slorm_temple_floor, { synergy: 'Highest Slorm Temple floor' });
     }
 
     private addMechanicValues(mechanics: Array<Mechanic>, stats: ExtractedStats) {

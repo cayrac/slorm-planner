@@ -101,6 +101,12 @@ export class BuildRetrocompatibilityService {
                 if (build.configuration.add_totem_tag_to_prime_totem_skills === undefined) {
                     build.configuration.add_totem_tag_to_prime_totem_skills = false;
                 }
+                if (build.configuration.highest_slorm_temple_floor === undefined) {
+                    build.configuration.highest_slorm_temple_floor = 0;
+                }
+                if (build.configuration.show_temple_keeper_as_totem === undefined) {
+                    build.configuration.show_temple_keeper_as_totem = false;
+                }
                 if ('all_characters_level' in build.configuration) {
                     (<any>build.configuration).all_characters_level = undefined;
                     build.configuration.all_other_characters_level = 100;

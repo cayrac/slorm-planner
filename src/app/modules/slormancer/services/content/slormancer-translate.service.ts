@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { SkillCostType } from '../../model/content/enum/skill-cost-type';
 import { strictParseInt } from '../../util/parse.util';
 import { splitData, valueOrNull } from '../../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
@@ -50,7 +51,7 @@ export class SlormancerTranslateService {
     }
 
     public translate(key: string, genre: string | null = null): string {
-        key = key.startsWith('*') ? key.substr(1) : key;
+        key = key.startsWith('*') ? key.slice(1) : key;
         let result = key;
 
         const cache = valueOrNull(this.TRANSLATION_CACHE[key]);
@@ -82,6 +83,10 @@ export class SlormancerTranslateService {
         }
 
         return result;
+    }
+
+    public translateCostType(costType: SkillCostType): string {
+        return this.translate(costType === SkillCostType.ManaLock ? costType : ('tt_' + costType));
     }
 
 }

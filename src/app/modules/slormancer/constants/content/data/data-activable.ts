@@ -217,9 +217,13 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     },
     19: {
         override: values => {
-            console.log('Base values : ', values);
             overrideValueStat(values, 0, 'garbage_stat');
             overrideValueStat(values, 1, 'garbage_stat');
+        }
+    },
+    21: {
+        override: values => {
+            overrideValueStat(values, 0, 'elemental_damage');
         }
     }
 }

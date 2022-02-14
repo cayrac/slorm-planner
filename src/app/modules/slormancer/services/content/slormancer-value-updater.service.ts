@@ -403,7 +403,8 @@ export class SlormancerValueUpdater {
         activable.cooldown = this.getActivableCooldown(statsResult.extractedStats, config, activable, skillStats.attackSpeed.total);
         
         for (const value of activable.values) {
-            if (isEffectValueSynergy(value)) {
+            const isSynergy = isEffectValueSynergy(value);
+            if (isSynergy || activable.id === 21) {
                 if (isDamageType(value.stat)) {
                     const additionalMultipliers: Array<number> = [];
 
@@ -415,7 +416,22 @@ export class SlormancerValueUpdater {
                         }
                     }
 
-                    this.updateDamage(value, activable.genres, skillStats, statsResult, SkillElement.Neutral, false, additionalMultipliers);
+                    // mini keeper increase damage multiplier (+ bug precision)
+                    if (activable.id === 21) {
+                        const miniKeeperIncreasedDamages = statsResult.stats.find(stat => stat.stat === 'mini_keeper_increased_damage');
+                        if (miniKeeperIncreasedDamages !== undefined) {
+                            additionalMultipliers.push(...miniKeeperIncreasedDamages.values.flat.map(flat => <number>flat.value));
+                        }
+                    }
+
+                    if (isSynergy) {
+                        this.updateDamage(value, activable.genres, skillStats, statsResult, SkillElement.Neutral, false, additionalMultipliers);
+                    } else {
+                        // special case mini keeper
+                        const multipliers = this.getValidDamageMultipliers(activable.genres, skillStats, statsResult, value.stat, false);
+                        value.value = mult(value.baseValue, ...multipliers, ...additionalMultipliers);
+                        value.displayValue = bankerRound(value.value, 2);
+                    }
                 }
             } else if (value.valueType === EffectValueValueType.AreaOfEffect) {
                 value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;

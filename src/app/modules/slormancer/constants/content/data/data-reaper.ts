@@ -541,6 +541,15 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             synergyMultiply100(ba, 1);
         }
     },
+    84: {
+        override: (ba, be, ma, reaperId) => {
+            synergyMultiply100(ba, 3);
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'mini_keeper_increased_damage');
+            moveValue(ba, 3, be);
+
+            addConstant(ma, 1, true, EffectValueValueType.Stat, 'disable_ultimatum');
+        }
+    },
     98: {
         override: (ba, be, ma, reaperId) => {
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'overdrive_chance_percent_on_critical_strike');

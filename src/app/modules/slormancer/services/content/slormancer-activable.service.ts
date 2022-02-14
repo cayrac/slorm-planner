@@ -128,8 +128,8 @@ export class SlormancerActivableService {
         activable.cooldown = activable.baseCooldown === null ? 0 : round(activable.baseCooldown, 2);
         activable.cost = activable.baseCost;
 
-        activable.hasLifeCost = activable.costType === SkillCostType.LifeSecond || activable.costType === SkillCostType.LifeLock || activable.costType === SkillCostType.Life;
-        activable.hasManaCost = activable.costType === SkillCostType.ManaSecond || activable.costType === SkillCostType.ManaLock || activable.costType === SkillCostType.Mana;
+        activable.hasLifeCost = activable.costType === SkillCostType.LifeSecond || activable.costType === SkillCostType.LifePercent || activable.costType === SkillCostType.LifeLock || activable.costType === SkillCostType.Life;
+        activable.hasManaCost = activable.costType === SkillCostType.ManaSecond || activable.costType === SkillCostType.ManaPercent || activable.costType === SkillCostType.ManaLock || activable.costType === SkillCostType.Mana;
         activable.hasNoCost = activable.costType === SkillCostType.None;
 
         for (const effectValue of activable.values) {
@@ -149,7 +149,7 @@ export class SlormancerActivableService {
         if (!activable.hasNoCost) {
             activable.costLabel = this.COST_LABEL
                 + ': ' + this.slormancerTemplateService.asSpan(activable.cost.toString(), activable.hasManaCost ? 'value mana' : 'value life')
-                + ' ' + this.slormancerTranslateService.translate(activable.costType);
+                + ' ' + this.slormancerTranslateService.translateCostType(activable.costType);
         }
 
         activable.cooldownLabel = null;

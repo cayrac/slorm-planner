@@ -221,7 +221,7 @@ export class SlormancerSkillService {
         if (!skill.hasNoCost) {
             skill.costLabel = this.COST_LABEL
                 + ': ' + this.slormancerTemplateService.asSpan(skill.cost.toString(), skill.hasManaCost ? 'value mana' : 'value life')
-                + ' ' + this.slormancerTranslateService.translate('tt_' + skill.costType);
+                + ' ' + this.slormancerTranslateService.translateCostType(skill.costType);
         }
 
         skill.cooldownLabel = null;
