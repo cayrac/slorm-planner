@@ -32,6 +32,7 @@ export class SlormancerUltimatumService {
             type,
             level,
             icon: 'ultimatum/' + type,
+            locked: false,
         
             value,
         

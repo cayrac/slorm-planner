@@ -2,7 +2,8 @@
 <div class="background" (click)="!readonly && edit()" [class.readonly]="readonly" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
     <div class="inner-background">
         <div class="ultimatum" *ngIf="ultimatum !== null">
-            <img src="assets/img/icon/{{ultimatum.icon}}.png"/>
+            <img class="icon" [class.disabled]="ultimatum.locked" src="assets/img/icon/{{ultimatum.icon}}.png"/>
+            <img class="locked" *ngIf="ultimatum.locked" src="assets/img/icon/locked.png"/>
             <ng-template cdkConnectedOverlay *ngIf="overlay && showOverlay"
                 [cdkConnectedOverlayOpen]="true"
                 [cdkConnectedOverlayOrigin]="trigger">

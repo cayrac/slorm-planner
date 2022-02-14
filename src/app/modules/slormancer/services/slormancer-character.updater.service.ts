@@ -262,8 +262,13 @@ export class SlormancerCharacterUpdaterService {
 
         const preComputingChanged = this.updateCharacterActivables(character, statResultPreComputing, config, additionalItem, true);
 
+        if (character.ultimatum !== null) {
+            character.ultimatum.locked = statResultPreComputing.extractedStats['disable_ultimatum'] !== undefined;
+        }
+
         const statsResult = this.getCharacterStatsResult(character, config, additionalItem);
         character.stats = statsResult.stats;
+
 
         statsResult.changed.items.push(...preComputingChanged.items);
         statsResult.changed.items.push(...statResultPreComputing.changed.items);

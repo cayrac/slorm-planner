@@ -24,14 +24,27 @@
         height: 100%;
         
         .ultimatum {
+            position: relative;
             width: 0;
             height: 0;
 
             img {
                 transform: translate(-50%, -50%);
-                width: 24px * 3;
-                height: 24px * 3;
                 image-rendering: pixelated;
+                position: absolute;
+                &:not(.locked) {
+                    width: 24px * 3;
+                    height: 24px * 3;
+
+                    &.disabled {
+                        opacity: 0.5;
+                    }
+                }
+                &.locked {
+                    position: absolute;
+                    width: 24px * 3 - $space-unit * 3;
+                    height: 24px * 3 - $space-unit * 3;
+                }
             }
         }
     }

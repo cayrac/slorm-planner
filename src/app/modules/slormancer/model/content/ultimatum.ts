@@ -5,6 +5,7 @@ export interface Ultimatum {
     level: number;
     type: UltimatumType;
     icon: string;
+    locked: boolean;
 
     value: EffectValueVariable;
 

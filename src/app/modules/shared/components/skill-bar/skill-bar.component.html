@@ -3,19 +3,19 @@
         <div class="skill-slot-border">
             <app-skill-slot [skill]="character.primarySkill" (changed)="updatePrimarySkill($event)"></app-skill-slot>
         </div>            
-        <img class="locked" *ngIf="character.primarySkill !== null && character.primarySkill.locked" src="assets/img/icon/skill/locked.png">
+        <img class="locked" *ngIf="character.primarySkill !== null && character.primarySkill.locked" src="assets/img/icon//locked.png">
     </div>
     <div class="skill-slot">
         <div class="skill-slot-border">
             <app-skill-slot [skill]="character.secondarySkill" (changed)="updateSecondarySkill($event)"></app-skill-slot>
         </div>            
-        <img class="locked" *ngIf="character.secondarySkill !== null && character.secondarySkill.locked" src="assets/img/icon/skill/locked.png">
+        <img class="locked" *ngIf="character.secondarySkill !== null && character.secondarySkill.locked" src="assets/img/icon//locked.png">
     </div>
     <div class="skill-slot">
         <div class="skill-slot-border">
             <app-skill-slot [skill]="character.supportSkill" [support]="true" (changed)="updateSupportSkill($event)"></app-skill-slot>
         </div>
-        <img class="locked" *ngIf="character.supportSkill !== null && character.supportSkill.locked" src="assets/img/icon/skill/locked.png">
+        <img class="locked" *ngIf="character.supportSkill !== null && character.supportSkill.locked" src="assets/img/icon//locked.png">
     </div>
     <div class="skill-slot">
         <div class="skill-slot-border">
