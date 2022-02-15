@@ -695,7 +695,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'armor_penetration',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -707,13 +707,13 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             max: [],
             percent: [],
             maxPercent: [],
-            multiplier: [],
+            multiplier: [{ stat: 'armor_penetration_global_mult' }],
             maxMultiplier: [],
         } 
     },
     {
         stat: 'elemental_penetration',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -1706,6 +1706,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 },
                 { stat: 'increased_damage_for_each_yard_with_target', condition: config => config.use_enemy_state && config.distance_with_target > 0, multiplier:  config => config.distance_with_target },
                 { stat: 'primary_secondary_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')},
+                { stat: 'exposed_armor_primary_secondary_skill_increased_damage_mult', condition: config => config.exposed_armor_buff },
                 { stat: 'melee_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee') },
                 { stat: 'lightning_imbued_skill_increased_damage', condition: (_, stats) => hasStat(stats, 'skill_lightning_imbued') },
                 { stat: 'light_imbued_skill_increased_damage', condition: (_, stats) => hasStat(stats, 'skill_light_imbued') },

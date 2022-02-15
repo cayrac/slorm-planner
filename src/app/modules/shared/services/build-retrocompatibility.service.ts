@@ -116,6 +116,9 @@ export class BuildRetrocompatibilityService {
                 if (build.configuration.show_elder_inner_fire_damage === undefined) {
                     build.configuration.show_elder_inner_fire_damage = false;
                 }
+                if (build.configuration.exposed_armor_buff === undefined) {
+                    build.configuration.exposed_armor_buff = false;
+                }
                 if ('all_characters_level' in build.configuration) {
                     (<any>build.configuration).all_characters_level = undefined;
                     build.configuration.all_other_characters_level = 100;

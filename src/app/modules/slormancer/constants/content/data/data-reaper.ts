@@ -552,7 +552,6 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     85: {
         override: (ba, be, ma, reaperId) => {
-            console.log('Reaper data : ', ba, be, ma);
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Unknown, 'garbage_stat');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Unknown, 'garbage_stat');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Unknown, 'garbage_stat');
@@ -568,8 +567,20 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
 
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Unknown, 'inner_fire_max_number_add_extra');
             addConstant(ma, -100, true, EffectValueValueType.Stat, 'inner_fire_max_number_global_mult');
-            
-
+        }
+    },
+    88: {
+        override: (ba, be, ma, reaperId) => {
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Unknown, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Unknown, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Unknown, 'garbage_stat');
+            synergyMultiply100(ba, 2);
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Damage, 'physical_damage');
+        }
+    },
+    89: {
+        override: (ba, be, ma, reaperId) => {
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Unknown, 'garbage_stat');
         }
     },
     98: {

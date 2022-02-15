@@ -243,6 +243,17 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Exposed Armor',
+            condition: character => this.hasActivable(character, 23),
+            configurations: [
+                { 
+                    type: 'boolean',
+                    key: 'exposed_armor_buff',
+                    label: 'Is exposed armor active'
+                }
+            ]
+        },
+        {
             title: 'Willpower',
             condition: character => this.isAttributeAllocated(character, Attribute.Willpower),
             configurations: [

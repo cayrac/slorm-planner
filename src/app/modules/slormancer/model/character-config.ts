@@ -141,6 +141,7 @@ export interface CharacterConfig {
     has_electrify_buff: boolean;
     concentration_buff: boolean;
     ultima_momentum_buff: boolean;
+    exposed_armor_buff: boolean;
     distance_with_target: number;
     all_other_characters_level: number;
     victims_reaper_104: number;

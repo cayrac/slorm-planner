@@ -225,5 +225,20 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
         override: values => {
             overrideValueStat(values, 0, 'elemental_damage');
         }
+    },
+    23: {
+        override: values => {
+            overrideValueStat(values, 0, 'exposed_armor_primary_secondary_skill_increased_damage_mult');
+            synergyMultiply100(values, 0);
+            setSynergyPrecision(values, 0, 0);
+            setSynergyAnchor(values, 0, '@');
+        }
+    },
+    24: {
+        override: values => {
+            console.log('activable : ', values);
+            setBaseValue(values, 0, 50);
+            overrideValueStat(values, 1, 'garbage_stat');
+        }
     }
 }
