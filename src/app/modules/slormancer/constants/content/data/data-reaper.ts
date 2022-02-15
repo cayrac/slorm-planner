@@ -583,6 +583,27 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Unknown, 'garbage_stat');
         }
     },
+    91: {
+        override: (ba, be, ma, reaperId) => {
+            console.log('Bonus reaper 91 : ', ba?.values, be?.values, ma?.values);
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'enfeeble_stack_increased_damage');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'enfeeble_max_stacks');
+
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'cooldown_reduction_global_mult_per_enfeeble_in_radius');
+            overrideValueTypeAndStat(be, 1, EffectValueValueType.Unknown, 'garbage_stat');
+            overrideValueTypeAndStat(be, 2, EffectValueValueType.Unknown, 'garbage_stat');
+
+            addConstant(ma, 1, true, EffectValueValueType.Stat, 'disable_attack_speed_from_gear_stats');
+        }
+    },
+    92: {
+        override: (ba, be, ma, reaperId) => {
+            console.log('Bonus reaper 92 : ', ba?.values, be?.values, ma?.values);
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'apex_predator_stack_increased_damage_on_elite_percent');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Unknown, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'apex_predator_max_stacks');
+        }
+    },
     98: {
         override: (ba, be, ma, reaperId) => {
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'overdrive_chance_percent_on_critical_strike');

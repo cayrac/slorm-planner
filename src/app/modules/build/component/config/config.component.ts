@@ -173,7 +173,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Reaper (Inner Fireworks)',
             condition: character => character.reaper.id === 57 || character.reaper.id === 58,
             configurations: [
-                { type: 'number', key: 'enemy_inner_weakness_stacks', label: 'Inner weakness stacks on enemy', info: 'Effects are applied if "use enemy state" is checked' },
+                { type: 'number', key: 'enemy_inner_weakness_stacks', label: 'Inner weakness stacks on enemy', info: 'Effect is applied if "use enemy state" is checked' },
             ]
         },
         {
@@ -189,6 +189,15 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             configurations: [
                 { type: 'boolean', key: 'ultima_momentum_buff', label: 'Is Ultima-Momentum active' },
                 { type: 'boolean', key: 'show_elder_inner_fire_damage', label: 'Show inner fire damages as elder' },
+            ]
+        },
+        {
+            title: 'Reaper (Giant Slayer)',
+            condition: character => character.reaper.id === 91 ||character.reaper.id === 92,
+            configurations: [
+                { type: 'number', key: 'enemy_enfeeble_stacks', label: 'Enemy enfeeble stacks', info: 'Effect is applied if "use enemy state" is checked' },
+                { type: 'number', key: 'apex_predator_stacks', label: 'Apex predator stacks' },
+                { type: 'number', key: 'enfeeble_stacks_in_radius', label: 'Enfeeble stacks on enemies around you' },
             ]
         },
         {

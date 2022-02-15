@@ -315,13 +315,18 @@ export class SlormancerStatsExtractorService {
         const items = ALL_GEAR_SLOT_VALUES
             .map(slot => character.gear[slot])
             .filter(isNotNullOrUndefined);
+        const statsToIgnore: Array<string> = [];
+        if (stats.stats['disable_attack_speed_from_gear_stats'] !== undefined) {
+            statsToIgnore.push('cooldown_reduction_global_mult');
+        }
 
         const reaperSmithStats: { [key: number]: number } = { }
 
         this.addStat(stats.stats, 'number_equipped_legendaries', items.filter(item => item.legendaryEffect !== null).length, { synergy: 'Number of equipped legendaries' });
 
         for (const item of items) {
-            const affixEffectValues = item.affixes.map(affix => affix.craftedEffect.effect);
+            const affixEffectValues = item.affixes.map(affix => affix.craftedEffect.effect)
+                .filter(affix => !statsToIgnore.includes(affix.stat));
             const effectValues = [
                     ...affixEffectValues,
                     ...(item.legendaryEffect !== null ? item.legendaryEffect.effects.map(c => c.effect) : []),

@@ -65,6 +65,7 @@ export interface CharacterConfig {
     negative_effects_on_ennemies_in_radius: number;
     ennemies_in_radius: number;
     elites_in_radius: number;
+    enfeeble_stacks_in_radius: number;
     poison_enemies: number;
     trap_triggered_recently: boolean;
     took_elemental_damage_recently: boolean;
@@ -107,6 +108,7 @@ export interface CharacterConfig {
     chrono_speed_stacks: number,
     enemy_bleed_stacks: number;
     enemy_traumatized_stacks: number;
+    enemy_enfeeble_stacks: number;
     arcane_flux_stacks: number;
     arcane_breach_collision_stacks: number;
     temporal_breach_collision_stacks: number;
@@ -118,6 +120,7 @@ export interface CharacterConfig {
     elemental_spirit_stacks: number;
     fulgurorn_dedication_stacks: number;
     enemy_inner_weakness_stacks: number;
+    apex_predator_stacks: number;
     has_elemental_temper_buff: boolean;
     has_splash_splash_buff: boolean;
     has_soul_bound_buff: boolean;

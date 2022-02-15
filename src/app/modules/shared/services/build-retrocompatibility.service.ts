@@ -119,6 +119,15 @@ export class BuildRetrocompatibilityService {
                 if (build.configuration.exposed_armor_buff === undefined) {
                     build.configuration.exposed_armor_buff = false;
                 }
+                if (build.configuration.apex_predator_stacks === undefined) {
+                    build.configuration.apex_predator_stacks = 0;
+                }
+                if (build.configuration.enemy_enfeeble_stacks === undefined) {
+                    build.configuration.enemy_enfeeble_stacks = 0;
+                }
+                if (build.configuration.enfeeble_stacks_in_radius === undefined) {
+                    build.configuration.enfeeble_stacks_in_radius = 0;
+                }
                 if ('all_characters_level' in build.configuration) {
                     (<any>build.configuration).all_characters_level = undefined;
                     build.configuration.all_other_characters_level = 100;

@@ -538,6 +538,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'arcane_clone_cooldown_reduction_global_mult_if_in_breach', condition: (config, stats) => hasStat(stats, 'cast_by_clone') && config.clone_is_in_breach_range },
                 { stat: 'chrono_speed_stack_cooldown_reduction_global_mult', condition: config => config.chrono_speed_stacks > 0, multiplier: (config, stats) => Math.min(config.chrono_speed_stacks, getFirstStat(stats, 'chrono_speed_max_stacks') + getFirstStat(stats, 'increased_max_chrono_stacks')) },
                 { stat: 'arcane_flux_stack_cooldown_reduction_global_mult', condition: config => config.arcane_flux_stacks > 0, multiplier: (config, stats) => Math.min(config.arcane_flux_stacks, getFirstStat(stats, 'arcane_flux_max_stacks')) },
+                { stat: 'cooldown_reduction_global_mult_per_enfeeble_in_radius', condition: config => config.enfeeble_stacks_in_radius > 0, multiplier: config => config.enfeeble_stacks_in_radius },
             ],
             maxMultiplier: [],
         } 
@@ -747,7 +748,13 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'increased_damage_on_elite_percent' },
-                { stat: 'increased_damage_on_elite_percent_for_each_elite', condition: config => config.elites_in_radius > 0 , multiplier: config => config.elites_in_radius }
+                { stat: 'increased_damage_on_elite_percent_for_each_elite', condition: config => config.elites_in_radius > 0 , multiplier: config => config.elites_in_radius },
+                { 
+                    stat: 'apex_predator_stack_increased_damage_on_elite_percent',
+                    condition: config => config.apex_predator_stacks > 0,
+                    multiplier: (config, stats) => Math.min(config.apex_predator_stacks, valueOrDefault(getFirstStat(stats, 'apex_predator_max_stacks'), 0))
+                }
+                 
             ],
             max: [],
             percent: [],
@@ -1706,7 +1713,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 },
                 { stat: 'increased_damage_for_each_yard_with_target', condition: config => config.use_enemy_state && config.distance_with_target > 0, multiplier:  config => config.distance_with_target },
                 { stat: 'primary_secondary_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')},
-                { stat: 'exposed_armor_primary_secondary_skill_increased_damage_mult', condition: config => config.exposed_armor_buff },
+                { stat: 'exposed_armor_primary_secondary_skill_increased_damage_mult', condition: (config, stats) => config.exposed_armor_buff && (hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')) },
                 { stat: 'melee_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee') },
                 { stat: 'lightning_imbued_skill_increased_damage', condition: (_, stats) => hasStat(stats, 'skill_lightning_imbued') },
                 { stat: 'light_imbued_skill_increased_damage', condition: (_, stats) => hasStat(stats, 'skill_light_imbued') },
@@ -1737,6 +1744,12 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'remnant_increased_damage_mult', condition: config => config.is_remnant },
                 { stat: 'remnant_vulnerability_remnant_increased_damage_mult', condition: config => config.is_remnant && config.target_has_remnant_vulnerability },
                 { stat: 'increased_damage_mult_per_inner_fire', condition: config => config.active_inner_fire > 0, multiplier: config => config.active_inner_fire },
+                { stat: 'increased_damage_mult_per_inner_fire', condition: config => config.active_inner_fire > 0, multiplier: config => config.active_inner_fire },
+                { 
+                    stat: 'enfeeble_stack_increased_damage',
+                    condition: config => config.enemy_enfeeble_stacks > 0 && config.use_enemy_state,
+                    multiplier: (config, stats) => Math.min(config.enemy_enfeeble_stacks, valueOrDefault(getFirstStat(stats, 'enfeeble_max_stacks'), 0))
+                }
             ],
             maxMultiplier: [
             ],
