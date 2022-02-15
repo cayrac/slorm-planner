@@ -116,6 +116,7 @@
 ### Fixes
 - Item and skill icons are no longer blurry
 - Fixed an issue causing activables to be removed from the skillbar
+- Reaper description overlay should no longer hide the reaper slot
 ### Added
 - Added an icon to show locked skills and ultimatum
 

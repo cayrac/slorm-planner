@@ -1,5 +1,6 @@
 
-<div class="reaper" cdkOverlayOrigin #trigger="cdkOverlayOrigin" (click)="edit()" *ngIf="character !== null" [class.readonly]="readonly">
+<div class="reaper" (click)="edit()" *ngIf="character !== null" [class.readonly]="readonly">
+    <div class="overlay-position" cdkOverlayOrigin #trigger="cdkOverlayOrigin"></div>
     <div class="inner-slot"></div>
     <ng-container>
         <img [src]="character.reaper.icon" [class.primordial-effect]="character.reaper.primordial">

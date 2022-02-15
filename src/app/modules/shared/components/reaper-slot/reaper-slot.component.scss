@@ -11,6 +11,12 @@
         cursor: pointer;
     }
 
+    .overlay-position {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+
     .inner-slot {
         width: $space-unit * 20;
         height: $space-unit * 20;
