@@ -75,11 +75,10 @@ export class BuildRetrocompatibilityService {
             }
         },
         {
-            version: '0.0.13',
+            version: '0.1.0',
             update: build => {
-                build.version = '0.0.12';
+                build.version = '0.1.0';
 
-                console.log('updating build to 0.0.13');
                 if (build.configuration.concentration_buff === undefined) {
                     build.configuration.concentration_buff = false;
                 }

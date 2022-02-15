@@ -109,16 +109,17 @@
 - Added skills estimated time between casts
 - Exported build view now display the build original version if it is not the latest
 
-## Release 0.1.0 TBR
+## Release 0.1.0 (2022-02-15)
 ### Changed
 - Changed 'all characters level' configs to 'all other characters level' config and updated the default value
 - Added the 20 new reapers (19 obtainable + 1 implemented) with the help of Blãcksad, Wiffle and Legrems
 ### Fixes
 - Item and skill icons are no longer blurry
-- Fixed an issue causing activables to be removed from the skillbar
+- Fixed an issue causing activables to be unexpectedly removed from the skillbar
 - Reaper description overlay should no longer hide the reaper slot
 ### Added
 - Added an icon to show locked skills and ultimatum
+- Build view now show an icon if the build has been made for an older version of the game
 
 ## Planned changes
 - Damages computing rework (probably when imbue passives are out)

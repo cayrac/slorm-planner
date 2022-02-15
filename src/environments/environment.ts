@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  version: '0.0.12',
+  version: '0.1.0',
   githublink: 'https://github.com/cayrac/slorm-planner',
   gameLink: 'http://www.slormitestudios.com'
 };

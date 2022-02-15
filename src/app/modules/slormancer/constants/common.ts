@@ -17,7 +17,7 @@ export const MAXIMUM_ANCESTRAL_LEGACY_POINTS = 7;
 
 export const DELIGHTED_VALUE = 12;
 
-export const GAME_VERSION = '0.3.015';
+export const GAME_VERSION = '0.3.1071';
 
 export const POISON_DAMAGE_PERCENT = 200;
 export const RAVENOUS_DAGGER_DAMAGE_PERCENT = 100;
@@ -42,5 +42,6 @@ export const APP_TO_GAME_VERSION_MAPPER: { [key: string]: string } = {
     '0.0.9': '0.3.015',
     '0.0.10': '0.3.015',
     '0.0.11': '0.3.015',
-    '0.0.12': '0.3.015'
+    '0.0.12': '0.3.015',
+    '0.1.0': '0.3.1071'
 }
