@@ -123,7 +123,7 @@
 
 ## Release 0.1.1 (2022-02-15)
 ### Fixes
-- Save parser service now set number to Number.MAX_SAFE_INTEGER if the parsed number is larger
+- Save parser service now set numbers to Number.MAX_SAFE_INTEGER when parsing a number larger to this value
 - Added a missing bracer icon
 
 ## Planned changes
