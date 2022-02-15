@@ -585,7 +585,6 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     91: {
         override: (ba, be, ma, reaperId) => {
-            console.log('Bonus reaper 91 : ', ba?.values, be?.values, ma?.values);
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'enfeeble_stack_increased_damage');
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'enfeeble_max_stacks');
 
@@ -598,7 +597,6 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     92: {
         override: (ba, be, ma, reaperId) => {
-            console.log('Bonus reaper 92 : ', ba?.values, be?.values, ma?.values);
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'apex_predator_stack_increased_damage_on_elite_percent');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Unknown, 'garbage_stat');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'apex_predator_max_stacks');
@@ -608,13 +606,19 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma, reaperId) => {
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'overdrive_chance_percent_on_critical_strike');
 
-            addConstant(be, 1, true, EffectValueValueType.Stat, 'overdrive_damage_based_on_skill_damage')
-            addConstant(ma, -100, true, EffectValueValueType.Stat, 'melee_skill_increased_damage_mult')
+            addConstant(be, 1, true, EffectValueValueType.Stat, 'overdrive_damage_based_on_skill_damage');
+            addConstant(ma, -100, true, EffectValueValueType.Stat, 'melee_skill_increased_damage_mult');
         }
     },
     104: {
         override: (ba, be, ma, reaperId) => {
             addConstant(ma, 1, true, EffectValueValueType.Stat, 'disable_greater_traits')
+        }
+    },
+    110: {
+        override: (ba, be, ma, reaperId) => {
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Unknown, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'retaliate_additional_damage');
         }
     },
     111: {

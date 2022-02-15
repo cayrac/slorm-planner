@@ -111,12 +111,13 @@
 
 ## Release 0.1.0 TBR
 ### Changed
-- Changed all characters level configs to all other characters config and updated the default value
-- Added the 20 new reapers (19 obtainable + 1 implemented)
+- Changed 'all characters level' configs to 'all other characters level' config and updated the default value
+- Added the 20 new reapers (19 obtainable + 1 implemented) with the help of Blãcksad, Wiffle and Legrems
 ### Fixes
 - Item and skill icons are no longer blurry
+- Fixed an issue causing activables to be removed from the skillbar
 ### Added
-- Added an icon to show locked skill slots
+- Added an icon to show locked skills and ultimatum
 
 ## Planned changes
 - Damages computing rework (probably when imbue passives are out)

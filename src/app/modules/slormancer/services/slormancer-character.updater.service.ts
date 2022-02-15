@@ -340,22 +340,23 @@ export class SlormancerCharacterUpdaterService {
     }
 
     private removeUnavailableActivables(character: Character) {
-        const availableActivables: Array<Activable | AncestralLegacy | null> = [
+        const availableActivables: Array<number> = [
             ...character.reaper.activables,
             ...character.ancestralLegacies.ancestralLegacies.filter(ancestralLegacy => ancestralLegacy.isActivable && character.ancestralLegacies.activeAncestralLegacies.includes(ancestralLegacy.id)),
             ...ALL_GEAR_SLOT_VALUES.map(slot => character.gear[slot]?.legendaryEffect?.activable)
-        ].filter(isNotNullOrUndefined);
+        ].filter(isNotNullOrUndefined)
+            .map(activable => activable.id);
 
-        if (!availableActivables.includes(character.activable1)) {
+        if (character.activable1 !== null && !availableActivables.includes(character.activable1.id)) {
             character.activable1 = null;
         }
-        if (!availableActivables.includes(character.activable2)) {
+        if (character.activable2 !== null && !availableActivables.includes(character.activable2.id)) {
             character.activable2 = null;
         }
-        if (!availableActivables.includes(character.activable3)) {
+        if (character.activable3 !== null && !availableActivables.includes(character.activable3.id)) {
             character.activable3 = null;
         }
-        if (!availableActivables.includes(character.activable4)) {
+        if (character.activable4 !== null && !availableActivables.includes(character.activable4.id)) {
             character.activable4 = null;
         }
     }

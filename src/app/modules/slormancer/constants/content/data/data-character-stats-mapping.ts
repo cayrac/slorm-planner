@@ -936,7 +936,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'retaliate',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -951,7 +951,9 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             max: [],
             percent: [],
             maxPercent: [],
-            multiplier: [],
+            multiplier: [
+                { stat: 'retaliate_global_mult' }
+            ],
             maxMultiplier: [],
         } 
     },
