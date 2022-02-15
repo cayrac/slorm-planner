@@ -131,10 +131,10 @@ export class SlormancerMergedStatUpdaterService {
         }
 
         if (typeof total === 'number') {
-            total = bankerRound(total, stat.precision) + <number>extra;
+            total = bankerRound(total + <number>extra, stat.precision);
         } else {
-            total.min = bankerRound(total.min, stat.precision) + (typeof extra === 'number' ? extra : extra.min);
-            total.max = bankerRound(total.max, stat.precision) + (typeof extra === 'number' ? extra : extra.max);
+            total.min = bankerRound(total.min + (typeof extra === 'number' ? extra : extra.min), stat.precision);
+            total.max = bankerRound(total.max + (typeof extra === 'number' ? extra : extra.max), stat.precision);
         }
 
         return total;  

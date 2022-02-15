@@ -6,6 +6,7 @@ import { MergedStat } from '../../model/content/character-stats';
 import { Ultimatum } from '../../model/content/ultimatum';
 import { Entity } from '../../model/entity';
 import { MinMax } from '../../model/minmax';
+import { round } from '../../util/math.util';
 import { valueOrDefault } from '../../util/utils';
 import { ExtractedStatMap } from './slormancer-stats-extractor.service';
 
@@ -89,7 +90,7 @@ export class SlormancerStatMappingService {
             // Ultima momentum bug on movement speed
             stat.values.flat = [];
             if (stat.stat === 'movement_speed') {
-                stat.values.flat.push({ value: ultimatum.value.value - 2.4, extra: false, source: { ultimatum }});
+                stat.values.flat.push({ value: round(ultimatum.value.value - 2.4, 2), extra: false, source: { ultimatum }});
                 stat.values.flat.push({ value: 2.4, extra: true, source: { ultimatum }});
                 stat.precision = 2;
             } else {
