@@ -121,6 +121,11 @@
 - Added an icon to show locked skills and ultimatum
 - Build view now show an icon if the build has been made for an older version of the game
 
+## Release 0.1.1 (2022-02-15)
+### Fixes
+- Save parser service now set number to Number.MAX_SAFE_INTEGER if the parsed number is larger
+- Added a missing bracer icon
+
 ## Planned changes
 - Damages computing rework (probably when imbue passives are out)
 - copy item as image ?

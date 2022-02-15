@@ -61,9 +61,16 @@ export function toFloatArray(data: string, separator = ',', expected: number | n
 }
 
 export function strictParseInt(data: string): number {
+    if (data.length > 10) {
+        console.log('strict parse int : ', data);
+    }
+
     data = data.replace(/^0*([0-9]+.+?)$/, '$1');
-    const value = parseInt(data, 10);
-    if (data !== value.toString()) {
+    let value = parseInt(data, 10);
+
+    if (value > Number.MAX_SAFE_INTEGER) {
+        value = Number.MAX_SAFE_INTEGER;
+    } else if (data !== value.toString()) {
         throw new Error('Int parse error : expected "' + data + '" but got "' + value + '"');
     }
     return value;
@@ -77,10 +84,12 @@ export function parseIntOrdefault<T>(data: string, defaultValue: T): number | T 
 export function strictParseFloat(data: string): number {
     data = data.replace(/^0*([0-9]+.+?)0*$/, '$1');
     if (data.endsWith('.')) {
-        data = data.substr(0, data.length - 1);
+        data = data.slice(0, data.length - 1);
     }
-    const value = parseFloat(data);
-    if (data !== value.toString()) {
+    let value = parseFloat(data);
+    if (value > Number.MAX_SAFE_INTEGER) {
+        value = Number.MAX_SAFE_INTEGER;
+    } if (data !== value.toString()) {
         throw new Error('Float parse error : expected "' + data + '" but got "' + value + '"');
     }
     return value;

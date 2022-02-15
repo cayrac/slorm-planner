@@ -18,7 +18,7 @@ main {
             @include flex(column, stretch);
             @include flex-gap($space-unit * 5);
 
-            width: 340px;
+            width: 380px;
             padding: 0 60px;
 
             h3 {
