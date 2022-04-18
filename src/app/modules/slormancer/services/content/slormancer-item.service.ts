@@ -303,11 +303,7 @@ export class SlormancerItemService {
         const affixes = item.affixes
             .filter(affix => affix.rarity !== 'L')
             .map(affix => this.slormancerItemAffixService.getAffix(affix, item.level, item.reinforcment))
-            .filter(isNotNullOrUndefined)
-            .sort((a, b) => {
-                const rarity = compareRarities(a.rarity, b.rarity);
-                return rarity === 0 ? compareString(a.statLabel, b.statLabel) : rarity;
-            });
+            .filter(isNotNullOrUndefined);
         const legendaryAffix = item.affixes.find(affix => affix.rarity === 'L');        
         const reaperEnchantment = item.enchantments.find(c => c.target === 'RP');
         const skillEnchantment = item.enchantments.find(c => c.target === 'MA');
@@ -381,6 +377,10 @@ export class SlormancerItemService {
         for (const affix of item.affixes) {
             this.slormancerItemAffixService.updateAffix(affix);
         }
+        item.affixes.sort((a, b) => {
+            const rarity = compareRarities(a.rarity, b.rarity);
+            return rarity === 0 ? compareString(a.statLabel, b.statLabel) : rarity;
+        });;
 
         if (item.legendaryEffect !== null) {
             this.slormancerLegendaryEffectService.updateLegendaryEffectView(item.legendaryEffect);
