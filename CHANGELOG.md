@@ -127,8 +127,12 @@
 - Added a missing bracer icon
 
 ## Release 0.1.2 TBR
+### Changed
+- Raised max level to 60
+- Item affixes are now shown in the correct order
 
 ## TODO
+ - ancestral legacies
  - mana regen pas bonne
  - precision overdrive
  - selector stat plus visible

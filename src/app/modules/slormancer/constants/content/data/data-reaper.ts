@@ -159,14 +159,14 @@ function setSynergyPrecision(effect: ReaperEffect | null, index: number, precisi
 export const DATA_REAPER: { [key: number]: DataReaper } = {
     1: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'health_restored_on_breach_close');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'adam_blessing_buff_cooldown_reduction_global_mult');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Duration, 'adam_blessing_buff_duration');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Duration, 'adam_blessing_buff_duration_per_monster');
         }
     },
     2: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'adam_blessing_buff_cooldown_reduction_global_mult');
-            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Duration, 'adam_blessing_buff_duration');
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Duration, 'adam_blessing_buff_duration_per_monster');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'health_restored_on_breach_close');
         }
     },
     3: {
