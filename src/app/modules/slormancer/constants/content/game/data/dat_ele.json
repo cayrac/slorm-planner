@@ -1108,7 +1108,7 @@
     {
         "REF": 27,
         "EN_NAME": "Winds of Winter",
-        "EN_DESCRIPTION": "You have a <Temperature> counter (Some would say a Thermometer).#The Temperature rises continually but is lowered by ¥ every time you <Chill>or <Freeze> an enemy or by ¥ every time you use an Active Ice Skill.#The colder it gets, the stronger Ice Effects are:#<Frostbolts>, <Frozen Arrow>, <Cone of Ice>, <Icicles> and <Pillar of Ice> deal up to @ £ (µ + µ per rank).#<Chill> reduces the Movement Speed down to @ (µ + µ per rank).#<Frost Turrets> have up to @ additional <Frostbolts> (µ + µ per rank).",
+        "EN_DESCRIPTION": "You have a <Temperature> counter (Some would say a Thermometer).#The Temperature rises continually but is lowered by ¥ every time you <Chill> or <Freeze> an enemy or by ¥ every time you use an Active Ice Skill.#The colder it gets, the stronger Ice Effects are:#<Frostbolts>, <Frozen Arrow>, <Cone of Ice>, <Icicles> and <Pillar of Ice> deal up to @ £ (µ + µ per rank).#<Chill> reduces the Movement Speed down to @ (µ + µ per rank).#<Frost Turrets> have up to @ additional <Frostbolts> (µ + µ per rank).",
         "FR_NAME": "Les Vents de l'Hiver",
         "FR_DESCRIPTION": "Vous avez un compteur de <Température> (certains diraient un thermomètre).#La température augmente continuellement mais est réduite de ¥° chaque fois que vous <Glacez> ou <Congelez> un ennemi ou de ¥° chaque fois que vous utilisez une Compétence de Glace. #Plus il fait froid, plus les effets de Glace sont forts : #<Traits de Givre>, <Flèche de Givrée>, <Cône de Froid>, <Glacons Perçants> et <Piliers de Glace> infligent jusqu'à @ de £ (µ + µ par rang). #<Glacé> réduit la vitesse de déplacement de @ (µ + µ par rang).#Les <Sentinelle de Glace> tirent jusqu'à @ <Traits de Givres> supplémentaires (µ + µ par rang).",
         "CH_NAME": "凛冬的寒风",
@@ -6018,7 +6018,7 @@
         "COST": 0,
         "COST_LEVEL": 0,
         "COST_TYPE": "none",
-        "DESC_VALUE": "essence_find_percent|xp_find_percent|scroll_find_percent|reaper_find_percent",
+        "DESC_VALUE": "essence_find_percent|xp_find_percent|mf_qual_percent|mf_find_percent",
         "DESC_VALUE_BASE": "0|0|0|0",
         "DESC_VALUE_PER_LVL": "0.5|0.5|1|1",
         "DESC_VALUE_TYPE": "%|%|%|%",

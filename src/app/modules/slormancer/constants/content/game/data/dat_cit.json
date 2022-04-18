@@ -612,7 +612,7 @@
         "SPRITE": "enrique",
         "XX": 1632,
         "YY": 432,
-        "UNLOCK": 99
+        "UNLOCK": 29
     },
     {
         "REF": 22,
@@ -638,8 +638,8 @@
         "PT_NAME": "",
         "PT_DESCRIPTION": "",
         "SPRITE": "archmage",
-        "XX": 1328,
-        "YY": 1216,
+        "XX": 1424,
+        "YY": 1186,
         "UNLOCK": 24
     },
     {
@@ -725,5 +725,33 @@
         "XX": 1190,
         "YY": 708,
         "UNLOCK": -1
+    },
+    {
+        "REF": 26,
+        "EN_NAME": "Cory Ironbender",
+        "EN_DESCRIPTION": "Retired Reapersmith",
+        "GENRE": "M",
+        "FR_NAME": "Cory Ironbender",
+        "FR_DESCRIPTION": "Reapergeron à la Retraite",
+        "CH_NAME": "",
+        "CH_DESCRIPTION": "",
+        "TW_NAME": "",
+        "TW_DESCRIPTION": "",
+        "JP_NAME": "",
+        "JP_DESCRIPTION": "",
+        "DE_NAME": "",
+        "DE_DESCRIPTION": "",
+        "ES_NAME": "",
+        "ES_DESCRIPTION": "",
+        "IT_NAME": "",
+        "IT_DESCRIPTION": "",
+        "RU_NAME": "",
+        "RU_DESCRIPTION": "",
+        "PT_NAME": "",
+        "PT_DESCRIPTION": "",
+        "SPRITE": "reapersmith",
+        "XX": 1790,
+        "YY": 602,
+        "UNLOCK": 35
     }
 ]
