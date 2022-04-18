@@ -128,6 +128,11 @@
 
 ## Release 0.1.2 TBR
 
+## TODO
+ - mana regen pas bonne
+ - precision overdrive
+ - selector stat plus visible
+
 ## Planned changes
 - Damages computing rework (probably when imbue passives are out)
 - copy item as image ?
