@@ -126,6 +126,8 @@
 - Save parser service now set numbers to Number.MAX_SAFE_INTEGER when parsing a number larger to this value
 - Added a missing bracer icon
 
+## Release 0.1.2 TBR
+
 ## Planned changes
 - Damages computing rework (probably when imbue passives are out)
 - copy item as image ?

@@ -151,6 +151,10 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         // layer 5
         this.addZoneShapes([41, 42, 45, 46, 49, 50, 53, 54, 57, 58], -90 + 360 / 20, 204);
         this.addNodeShapes([87, 89, 92, 94, 97, 99, 102, 104, 107, 109], -90 + 360 / 20, 181);
+
+        // layer 6
+        this.addZoneShapes(list(100, 104), -90, 250);
+        // this.addNodeShapes([87, 89, 92, 94, 97, 99, 102, 104, 107, 109], -90 + 360 / 20, 181);
     }
 
     private updateMap() {

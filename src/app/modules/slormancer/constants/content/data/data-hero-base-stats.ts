@@ -213,6 +213,7 @@ export const DATA_HERO_BASE_STATS: GameHeroesData<HeroBaseStats> = {
             48: [ { stat: 'min_elemental_damage_add', value: 275.592 }, { stat: 'max_elemental_damage_add', value: round(364.456 - 275.592, 3) } ],
             49: [ { stat: 'min_elemental_damage_add', value: 283.248 }, { stat: 'max_elemental_damage_add', value: round(374.664 - 283.248, 3) } ],
             50: [ { stat: 'min_elemental_damage_add', value: 291 }, { stat: 'max_elemental_damage_add', value: round(385 - 291, 3) } ],
+            51: [ { stat: 'min_elemental_damage_add', value: 298.848 }, { stat: 'max_elemental_damage_add', value: round(395.464 - 298.848, 3) } ],
         },
     }
 };
