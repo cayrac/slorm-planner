@@ -2,6 +2,14 @@
 @import "../../../../../assets/scss/abstracts/variables";
 @import "../../../../../assets/scss/abstracts/color";
 
+:host {
+    @include flex-grow();
+}
+
+mat-card {
+    height: 100%;
+}
+
 .skills {
     @include flex(row);
     @include flex-gap($space-unit * 2);

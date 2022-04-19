@@ -29,7 +29,7 @@ interface LineShape {
 
 interface ZoneShape {
     style: { [key: string]: string };
-    large: boolean;
+    size: number;
     realmId: number;
     color: number;
     ancestralLegacies: Array<number>;
@@ -55,9 +55,9 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
     @Output()
     public selectedAncestralLegacyChange = new EventEmitter<AncestralLegacy>()
 
-    private readonly BOUNDS_X: MinMax = { min: -200, max: 200 };
+    private readonly BOUNDS_X: MinMax = { min: -500, max: 500 };
     
-    private readonly BOUNDS_Y: MinMax = { min: -200, max: 200 };
+    private readonly BOUNDS_Y: MinMax = { min: -500, max: 500 };
 
     private availableNodes: Array<number> = [];
 
@@ -135,7 +135,7 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         this.addZoneShapes(list(10, 19), -90 + 360 / 10, 112);
         
         // layer 3
-        this.addZoneShapes(list(20, 29), -90 + 360 / 20, 150, true);
+        this.addZoneShapes(list(20, 29), -90 + 360 / 20, 150, 2);
         this.addLineShapes(10, -90 + 360 / 20, 106, 16);
         this.addNodeShapes(list(0, 9).map(i => 31 + i * 3), -90 + 360 / 20, 120);
         this.addNodeShapes(list(10, 19).map(i => i * 3), -90 + 360 / 40, 127);
@@ -149,12 +149,40 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         this.addLineShapes(5, -90, 140, 10);
 
         // layer 5
-        this.addZoneShapes([41, 42, 45, 46, 49, 50, 53, 54, 57, 58], -90 + 360 / 20, 204);
+        this.addZoneShapes([41, 45, 49, 53, 57], -90 + 1 + 360 / 20, 204);
+        this.addZoneShapes([42, 46, 50, 54, 58], -1 - 360 / 10, 204);
         this.addNodeShapes([87, 89, 92, 94, 97, 99, 102, 104, 107, 109], -90 + 360 / 20, 181);
 
         // layer 6
-        this.addZoneShapes(list(100, 104), -90, 250);
-        // this.addNodeShapes([87, 89, 92, 94, 97, 99, 102, 104, 107, 109], -90 + 360 / 20, 181);
+        this.addZoneShapes(list(10, 14).map(i => i * 4 + 3), -0.5 - 360 / 15, 216);
+        this.addNodeShapes([90, 95, 100, 105, 85], 2 - 360 / 15, 194);
+        this.addNodeShapes([115, 121, 127, 133, 139], -6.5 - 360 / 15, 209);
+        this.addZoneShapes(list(10, 14).map(i => i * 4), -90 + 1.5 + 360 / 70, 216);
+        this.addNodeShapes([86, 91, 96, 101, 106], -90 + -1.5 + 360 / 70, 194);
+        this.addNodeShapes([112, 118, 124, 130, 136], -90 + 7.5 + 360 / 70, 209);
+
+        // layer 7
+        this.addZoneShapes(list(60, 64), -90 + 360 / 10, 238, 3);
+        this.addNodeShapes([88, 93, 98, 103, 108], -90 + 360 / 10, 198);
+        
+        // layer 8
+        this.addZoneShapes(list(22, 26).map(i => i * 3), -90 + 360 / 10 + 2 - 360 / 20, 258, 2);
+        this.addNodeShapes([113, 119, 125, 131, 137], -90 + 360 / 10 + 1.5 - 360 / 20, 228);
+        this.addZoneShapes(list(22, 26).map(i => i * 3 + 1), -90 + 360 / 10 - 2 + 360 / 20, 258, 2);
+        this.addNodeShapes([114, 120, 126, 132, 138], -90 + 360 / 10 - 1.5 + 360 / 20, 228);
+
+        /*
+        { nodes: [86, 112], realm: 40 },   // Optimal Path
+        { nodes: [90, 115], realm: 43 },   // Burning Rage
+        { nodes: [91, 118], realm: 44 },   // Elemental Sorcerer
+        { nodes: [95, 121], realm: 47 },   // Tower Defense
+        { nodes: [96, 124], realm: 48 },   // Relentless
+        { nodes: [100, 127], realm: 51 },  // Kah Rooj's Power Plant
+        { nodes: [101, 130], realm: 52 },  // Shield of the Champion of Light
+        { nodes: [105, 133], realm: 55 },  // Glittering Silence
+        { nodes: [106, 136], realm: 56 },  // Ancestral Backlash
+        { nodes: [85, 139], realm: 59 },   // Shadow Spawn
+        */
     }
 
     private updateMap() {
@@ -245,7 +273,7 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
             .map(i => ({ style: { width: length + 'px', transform: 'translate(-50%, -50%) rotate(' + (baseAngle + i * angle) + 'deg) translateX(' + distance + 'px)' } })));
     }
 
-    private addZoneShapes(realms: Array<number>, baseAngle: number, distance: number, large: boolean = false) {
+    private addZoneShapes(realms: Array<number>, baseAngle: number, distance: number, size: number = 1) {
         const angle = 360 / realms.length;
 
         this.zoneShapes.push(...realms
@@ -257,7 +285,7 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
                 return {
                     style: { transform: 'translate(-50%, -50%) rotate(' + finalAngle + 'deg) translateX(' + distance + 'px)' },
                     iconStyle: { transform: 'rotate(' + -finalAngle + 'deg)' },
-                    large,
+                    size,
                     realmId,
                     ancestralLegacies,
                     color

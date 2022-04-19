@@ -131,12 +131,21 @@ $color-node-selected: rgb(193, 57, 7);
                 box-shadow: inset 0px 0px 6px 2px rgb(103, 62, 23);
             }
 
-            &.large {
+            &.size-2 {
                 width: 62px;
                 height: 62px;
                 .zone-inner {
                     width: 56px;
                     height: 56px;
+                }
+            }
+
+            &.size-3 {
+                width: 82px;
+                height: 82px;
+                .zone-inner {
+                    width: 76px;
+                    height: 76px;
                 }
             }
         }

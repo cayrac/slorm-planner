@@ -133,6 +133,9 @@
 
 ## TODO
  - ancestral legacies
+ - reaper untouchable
+ - maj armor of illusion
+ - Mana Harvesting Reaper 
  - mana regen pas bonne
  - precision overdrive
  - selector stat plus visible

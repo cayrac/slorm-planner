@@ -37,25 +37,53 @@ export const ANCESTRAL_LEGACY_REALMS: Array<DataAncestralLegacyRealm> = [
     { nodes: [54, 55, 56, 82, 83, 107], realm: 28 },// Soul Bond
     { nodes: [57, 58, 59, 60, 84, 109], realm: 29 },// Elemental Boost
 
-    { nodes: [60, 61, 62], realm: 30 },     // Auramancer
-    { nodes: [63, 64], realm: 31 },         // Ardent Strike
-    { nodes: [65, 66, 67], realm: 32 },     // Focus
-    { nodes: [68, 69], realm: 33 },         // Elusive Dancer
-    { nodes: [70, 71, 72], realm: 34 },     // Shaman's Herald
-    { nodes: [73, 74], realm: 35 },         // Twitching Warp
-    { nodes: [75, 76, 77], realm: 36 },     // Elemental Spirit
-    { nodes: [78, 79], realm: 37 },         // Regenerative Strike
-    { nodes: [80, 81, 82], realm: 38 },     // Balance of the Manabender
-    { nodes: [83, 84], realm: 39 },         // Bastion
+    { nodes: [60, 61, 62, 85, 86], realm: 30 },     // Auramancer
+    { nodes: [63, 64, 88], realm: 31 },             // Ardent Strike
+    { nodes: [65, 66, 67, 90, 91], realm: 32 },     // Focus
+    { nodes: [68, 69, 93], realm: 33 },             // Elusive Dancer
+    { nodes: [70, 71, 72, 95, 96], realm: 34 },     // Shaman's Herald
+    { nodes: [73, 74, 98], realm: 35 },             // Twitching Warp
+    { nodes: [75, 76, 77, 100, 101], realm: 36 },   // Elemental Spirit
+    { nodes: [78, 79, 103], realm: 37 },            // Regenerative Strike
+    { nodes: [80, 81, 82, 105, 106], realm: 38 },   // Balance of the Manabender
+    { nodes: [83, 84, 108], realm: 39 },            // Bastion
     
-    { nodes: [87], realm: 41 },     // Scorching Area
-    { nodes: [89], realm: 42 },     // Arming the Bomb
-    { nodes: [92], realm: 45 },     // Exceptional Accuracy
-    { nodes: [94], realm: 46 },     // Elemental Resources
-    { nodes: [97], realm: 49 },     // Power Surge
-    { nodes: [99], realm: 50 },     // Electrify
-    { nodes: [102], realm: 53 },    // Light Powder
-    { nodes: [104], realm: 54 },    // Light Wave
-    { nodes: [107], realm: 57 },    // The Reaper
-    { nodes: [109], realm: 58 },    // Elemental Reward
+    { nodes: [87, 112, 113], realm: 41 },     // Scorching Area
+    { nodes: [89, 114, 115], realm: 42 },     // Arming the Bomb
+    { nodes: [92, 118, 119], realm: 45 },     // Exceptional Accuracy
+    { nodes: [94, 120, 121], realm: 46 },     // Elemental Resources
+    { nodes: [97, 124, 125], realm: 49 },     // Power Surge
+    { nodes: [99, 126, 127], realm: 50 },     // Electrify
+    { nodes: [102, 130, 131], realm: 53 },    // Light Powder
+    { nodes: [104, 132, 133], realm: 54 },    // Light Wave
+    { nodes: [107, 136, 137], realm: 57 },    // The Reaper
+    { nodes: [109, 138, 139], realm: 58 },    // Elemental Reward
+
+    { nodes: [86, 112], realm: 40 },   // Optimal Path
+    { nodes: [90, 115], realm: 43 },   // Burning Rage
+    { nodes: [91, 118], realm: 44 },   // Elemental Sorcerer
+    { nodes: [95, 121], realm: 47 },   // Tower Defense
+    { nodes: [96, 124], realm: 48 },   // Relentless
+    { nodes: [100, 127], realm: 51 },  // Kah Rooj's Power Plant
+    { nodes: [101, 130], realm: 52 },  // Shield of the Champion of Light
+    { nodes: [105, 133], realm: 55 },  // Glittering Silence
+    { nodes: [106, 136], realm: 56 },  // Ancestral Backlash
+    { nodes: [85, 139], realm: 59 },   // Shadow Spawn
+
+    { nodes: [88], realm: 60 },    // Fire Resistance / Fiery Weapons
+    { nodes: [93], realm: 61 },    // Ice Resistance / Icy Weapons
+    { nodes: [98], realm: 62 },    // Lightning Resistance / Electric Overcharge
+    { nodes: [103], realm: 63 },   // Aegis of Light
+    { nodes: [108], realm: 64 },   // Dark Ritual
+
+    { nodes: [113], realm: 66 },   // Elemental Aura
+    { nodes: [114], realm: 67 },   // Crawling Disaster
+    { nodes: [119], realm: 69 },   // Frost Spikes
+    { nodes: [120], realm: 70 },   // Icy Veins
+    { nodes: [125], realm: 72 },   // Elemental Boost
+    { nodes: [126], realm: 73 },   // Lightning Rod
+    { nodes: [131], realm: 75 },   // Aurelon's Teachings
+    { nodes: [132], realm: 76 },   // Elemental Synergy / Diamond Skin
+    { nodes: [137], realm: 78 },   // Glyph of Darkness
+    { nodes: [138], realm: 79 },   // Obscure Retribution / Elemental Warrior
 ]

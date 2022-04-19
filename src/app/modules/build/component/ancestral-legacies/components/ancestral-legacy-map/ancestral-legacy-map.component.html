@@ -7,9 +7,8 @@
                 </div>
             </div>
         </div>
-        <div class="zone absolute color-{{zoneShape.color}}" *ngFor="let zoneShape of zoneShapes"
+        <div class="zone absolute color-{{zoneShape.color}} size-{{zoneShape.size}}" *ngFor="let zoneShape of zoneShapes"
             [style]="zoneShape.style"
-            [class.large]="zoneShape.large"
             [class.active]="isRealmActive(zoneShape.realmId)">
             <div class="zone-inner">
                 <app-ancestral-legacy-slot *ngFor="let ancestralLegacy of zoneShape.ancestralLegacies"

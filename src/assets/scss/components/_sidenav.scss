@@ -3,7 +3,7 @@ mat-sidenav-container.mat-sidenav-container {
     height: 100%;
     z-index: unset;
 }
-mat-sidenav-content {
+mat-sidenav-content.mat-drawer-content {
     @include flex(column, stretch);
     @include flex-grow();
     @include spacing();
