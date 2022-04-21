@@ -4,6 +4,7 @@ import { DATA_MECHANIC } from '../../constants/content/data/data-mechanic';
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { MechanicType } from '../../model/content/enum/mechanic-type';
 import { Mechanic } from '../../model/content/mechanic';
+import { SkillElement } from '../../model/content/skill-element';
 import { isDamageType, valueOrDefault } from '../../util/utils';
 import { SlormancerTemplateService } from './slormancer-template.service';
 import { SlormancerTranslateService } from './slormancer-translate.service';
@@ -19,7 +20,7 @@ export class SlormancerMechanicService {
         
         if (type === MechanicType.WalkingBomb) {
             key = 'tt_' + type;
-        } else if (type === MechanicType.ShieldGlobe || type === MechanicType.Fireball || type === MechanicType.Dart) {
+        } else if (type === MechanicType.ShieldGlobe || type === MechanicType.Fireball || type === MechanicType.Dart || type === MechanicType.Frostbolt || type === MechanicType.LightningRod) {
             key = 'tt_mechanic_' + type;
         } else {
             key = 'tt_' + type + '_name';
@@ -32,7 +33,7 @@ export class SlormancerMechanicService {
 
         if (type === MechanicType.WalkingBomb) {
             key = 'tt_' + type + '_effect';
-        } else if (type === MechanicType.ShieldGlobe || type === MechanicType.Fireball || type === MechanicType.Dart) {
+        } else if (type === MechanicType.ShieldGlobe || type === MechanicType.Fireball || type === MechanicType.Dart || type === MechanicType.Frostbolt || type === MechanicType.LightningRod) {
             key = 'tt_mechanic_' + type + '_effect';
         } else {
             key = 'tt_help_' + type + '_effect';
@@ -53,6 +54,7 @@ export class SlormancerMechanicService {
     public getMechanic(type: MechanicType): Mechanic {
         const values = valueOrDefault(DATA_MECHANIC[<string>type]?.values, []);
         const genres = valueOrDefault(DATA_MECHANIC[<string>type]?.genres, []);
+        const element = valueOrDefault(DATA_MECHANIC[<string>type]?.element, SkillElement.Neutral);
         const mechanic: Mechanic = {
             name: this.getName(type),
             type,
@@ -61,6 +63,7 @@ export class SlormancerMechanicService {
             genres, 
             template: this.getDescription(type, values),
             values: values.map(value => ({ ...value })),
+            element
         };
 
         this.updateMechanicView(mechanic);

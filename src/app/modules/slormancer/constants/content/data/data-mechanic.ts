@@ -3,6 +3,7 @@ import { EffectValueUpgradeType } from '../../../model/content/enum/effect-value
 import { EffectValueValueType } from '../../../model/content/enum/effect-value-value-type';
 import { MechanicType } from '../../../model/content/enum/mechanic-type';
 import { SkillGenre } from '../../../model/content/enum/skill-genre';
+import { SkillElement } from '../../../model/content/skill-element';
 import { effectValueConstant, effectValueSynergy } from '../../../util/effect-value.util';
 import { SHIELD_DURATION } from '../../common';
 
@@ -46,5 +47,20 @@ export const DATA_MECHANIC: { [key: string]:  DataMechanic} = {
             effectValueSynergy(25, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat),
             effectValueConstant(25, false, 'garbage_stat', EffectValueValueType.Stat),
         ]
+    },
+    [MechanicType.Frostbolt]: {
+        values: [
+            effectValueSynergy(80, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat, undefined, 1),
+            effectValueConstant(80, false, 'garbage_stat', EffectValueValueType.Stat),
+        ]
+    },
+    [MechanicType.LightningRod]: {
+        values: [
+            effectValueConstant(7, false, 'duration', EffectValueValueType.Duration),
+            effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat, undefined, 1),
+            effectValueConstant(100, false, 'garbage_stat', EffectValueValueType.Stat),
+        ],
+        genres: [SkillGenre.Totem],
+        element: SkillElement.Lightning
     },
 }

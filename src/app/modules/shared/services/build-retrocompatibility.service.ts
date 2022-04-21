@@ -143,6 +143,10 @@ export class BuildRetrocompatibilityService {
             version: '0.1.2',
             update: build => {
                 build.version = '0.1.2';
+
+                if (build.configuration.chilled_enemy_nearby === undefined) {
+                    build.configuration.chilled_enemy_nearby = DEFAULT_CONFIG.chilled_enemy_nearby;
+                }
             }
         },
     ];

@@ -59,9 +59,20 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
             setStat(values, 0, 'elemental_damage');
         }
     },
+    21: {
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'primary_secondary_skill_ice_imbued');
+            addConstant(values, 6, false, EffectValueValueType.Duration, 'garbage_stat');
+        }
+    },
     24: {
         override: values => {
             setStat(values, 0, 'elemental_damage');
+        }
+    },
+    29: {
+        override: values => {
+            setStat(values, 0, 'mana_cost_reduction_mult_per_frozen_or_chilled_enemy_nearby');
         }
     },
     32: {
@@ -73,6 +84,11 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
         override: values => {
             addConstant(values, 7, false, EffectValueValueType.Duration, 'electrify_duration');
             setStat(values, 0, 'electrify_increased_lightning_damage');
+        }
+    },
+    38: {
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'primary_secondary_skill_lightning_imbued');
         }
     },
     41: {

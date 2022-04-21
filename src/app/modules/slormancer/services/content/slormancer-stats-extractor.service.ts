@@ -622,8 +622,10 @@ export class SlormancerStatsExtractorService {
             result.stats[stat] = (<Array<EntityValue<number>>>characterStats.extractedStats[stat]).slice(0);
         }
 
-        this.addSkillValues(skillAndUpgrades, result, mergedStatMapping)
-        this.addUpgradeValues(skillAndUpgrades, result, mergedStatMapping)
+        this.addSkillValues(skillAndUpgrades, result, mergedStatMapping);
+        this.addUpgradeValues(skillAndUpgrades, result, mergedStatMapping);
+
+        result.stats['skill_elements'] = skillAndUpgrades.skill.elements.map(element => ({ value: element, source: { skill: skillAndUpgrades.skill } }));
         
         return result;
     }

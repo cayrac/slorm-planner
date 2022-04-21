@@ -9,7 +9,6 @@ import { Character, CharacterSkillAndUpgrades } from '../../model/character';
 import { CharacterConfig } from '../../model/character-config';
 import { Activable } from '../../model/content/activable';
 import { AncestralLegacy } from '../../model/content/ancestral-legacy';
-import { SkillElement } from '../../model/content/ancestral-legacy-element';
 import { MergedStat } from '../../model/content/character-stats';
 import { ClassMechanic } from '../../model/content/class-mechanic';
 import { AbstractEffectValue, EffectValueSynergy } from '../../model/content/effect-value';
@@ -19,6 +18,7 @@ import { ALL_SKILL_COST_TYPES } from '../../model/content/enum/skill-cost-type';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { Mechanic } from '../../model/content/mechanic';
 import { Reaper } from '../../model/content/reaper';
+import { SkillElement } from '../../model/content/skill-element';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { Entity } from '../../model/entity';
 import { EntityValue } from '../../model/entity-value';
@@ -246,15 +246,48 @@ export class SlormancerValueUpdater {
         }
     }
 
-    public updateMechanic(mechanic: Mechanic, statsResult: SkillStatsBuildResult) {
-        if (mechanic.genres.includes(SkillGenre.AreaOfEffect)) {
-            const aoeSizes = mechanic.values.filter(value => value.valueType === EffectValueValueType.AreaOfEffect);
-            if (aoeSizes.length > 0) {
-                const aoeSizeStat = <MergedStat<number>>this.getStatValueOrDefault(statsResult.stats, 'aoe_increased_size');
-                for (const aoeSize of aoeSizes) {
-                    aoeSize.value = aoeSize.baseValue * (100 + aoeSizeStat.total) / 100;
-                    aoeSize.displayValue = round(aoeSize.value, 2);
+    public updateMechanic(mechanic: Mechanic, character: Character, statsResult: SkillStatsBuildResult) {
+
+        const skillStats = this.getSkillStats(statsResult, character);
+
+        for (const value of mechanic.values) {
+            value.value = value.baseValue;
+            if (value.valueType === EffectValueValueType.AreaOfEffect) {
+                const aoeMultipliers = this.getValidStatMultipliers(mechanic.genres, skillStats);
+                value.value = isEffectValueVariable(value) ? value.upgradedValue : value.baseValue;
+                if (value.percent) {
+                    let sumMultiplier = 100;
+                    for (const multiplier of aoeMultipliers) {
+                        sumMultiplier += multiplier;
+                    }
+                    value.value = value.value * sumMultiplier / 100;
+                } else {
+                    for (const multiplier of aoeMultipliers) {
+                        value.value = value.value * (100 + multiplier) / 100;
+                    }
                 }
+                value.displayValue = round(value.value, 3);
+            }
+
+            if (value.valueType === EffectValueValueType.Duration) {
+                const durationMultipliers = this.getValidStatMultipliers(mechanic.genres, skillStats);
+                value.value = isEffectValueVariable(value) ? value.upgradedValue : value.baseValue;
+                if (value.percent) {
+                    let sumMultiplier = 100;
+                    for (const multiplier of durationMultipliers) {
+                        sumMultiplier += multiplier;
+                    }
+                    value.value = value.value * sumMultiplier / 100;
+                } else {
+                    for (const multiplier of durationMultipliers) {
+                        value.value = value.value * (100 + multiplier) / 100;
+                    }
+                }
+                value.displayValue = round(value.value, 3);
+            }
+
+            if (isEffectValueSynergy(value) && isDamageType(value.stat)) {
+                this.updateDamage(value, mechanic.genres, skillStats, statsResult, mechanic.element, false);
             }
         }
     }
@@ -357,7 +390,7 @@ export class SlormancerValueUpdater {
             skillCostStats['ancestral_legacy_id'] = [{ value: entity.ancestralLegacy.id, source: entity }];
         }
         
-        return this.getSpecifigStat(stats, COST_MAPPING, config, skillCostStats);
+        return Math.max(0, this.getSpecifigStat(stats, COST_MAPPING, config, skillCostStats));
     }
 
     private getActivableCooldown(stats: ExtractedStatMap, config: CharacterConfig, source: Activable | AncestralLegacy, attackSpeed: number): number {
@@ -537,13 +570,13 @@ export class SlormancerValueUpdater {
         }
     }
 
-    private updateDamage(damage: EffectValueSynergy, genres: Array<SkillGenre>, skillStats: SkillStats, statsResult: SkillStatsBuildResult, element: SkillElement, isSkill: boolean = false, addntionalMultipliers: Array<number> = []) {
+    private updateDamage(damage: EffectValueSynergy, genres: Array<SkillGenre>, skillStats: SkillStats, statsResult: SkillStatsBuildResult, element: SkillElement, isSkill: boolean = false, additionalMultipliers: Array<number> = []) {
         const multipliers = this.getValidDamageMultipliers(genres, skillStats, statsResult, damage.stat, isSkill, element);
         if (typeof damage.synergy === 'number') {
             for (const multiplier of multipliers) {
                 damage.synergy = damage.synergy * (100 + multiplier) / 100;
             }            
-            for (const multiplier of addntionalMultipliers) {
+            for (const multiplier of additionalMultipliers) {
                 damage.synergy = damage.synergy * (100 + multiplier) / 100;
             }
             damage.displaySynergy = round(damage.synergy, 0);
@@ -552,7 +585,7 @@ export class SlormancerValueUpdater {
                 damage.synergy.min = damage.synergy.min * (100 + multiplier) / 100;
                 damage.synergy.max = damage.synergy.max * (100 + multiplier) / 100;
             }         
-            for (const multiplier of addntionalMultipliers) {
+            for (const multiplier of additionalMultipliers) {
                 damage.synergy.min = damage.synergy.min * (100 + multiplier) / 100;
                 damage.synergy.max = damage.synergy.max * (100 + multiplier) / 100;
             }
@@ -566,8 +599,8 @@ export class SlormancerValueUpdater {
                 damage.synergy.min = 1;
             }
             damage.displaySynergy = {
-                min: round(damage.synergy.min, 0),
-                max: round(damage.synergy.max, 0),
+                min: round(damage.synergy.min, valueOrDefault(damage.precision, 0)),
+                max: round(damage.synergy.max, valueOrDefault(damage.precision, 0)),
             };
         }
     }
@@ -647,7 +680,7 @@ export class SlormancerValueUpdater {
                 const aoeMultipliers = valueOrDefault(statsResult.extractedStats['aoe_increased_size_percent_mult'], []);
                 for (const value of aoeValues) {
                     value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
-                    value.value  = aoeMultipliers.reduce((t, v) => t * (100 + v.value) / 100, value.value);
+                    value.value = aoeMultipliers.reduce((t, v) => t * (100 + v.value) / 100, value.value);
                     value.displayValue = round(value.value, 3);
                 }
             }

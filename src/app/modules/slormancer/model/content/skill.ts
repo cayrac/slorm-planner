@@ -2,6 +2,7 @@ import { AbstractEffectValue } from './effect-value';
 import { HeroClass } from './enum/hero-class';
 import { SkillCostType } from './enum/skill-cost-type';
 import { SkillGenre } from './enum/skill-genre';
+import { SkillElement } from './skill-element';
 import { SkillType } from './skill-type';
 
 export interface Skill {
@@ -37,6 +38,7 @@ export interface Skill {
     genres: Array<SkillGenre>;
     damageTypes: Array<string>;
     locked: boolean;
+    elements: Array<SkillElement>;
 
     nameLabel: string;
     genresLabel: string | null;

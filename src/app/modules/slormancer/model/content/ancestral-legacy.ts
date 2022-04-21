@@ -1,10 +1,10 @@
-import { SkillElement } from './ancestral-legacy-element';
 import { AncestralLegacyType } from './ancestral-legacy-type';
 import { Buff } from './buff';
 import { AbstractEffectValue } from './effect-value';
 import { SkillCostType } from './enum/skill-cost-type';
 import { SkillGenre } from './enum/skill-genre';
 import { Mechanic } from './mechanic';
+import { SkillElement } from './skill-element';
 
 export interface AncestralLegacy {
     id: number;

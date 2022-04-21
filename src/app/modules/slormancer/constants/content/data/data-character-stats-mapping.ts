@@ -1,5 +1,6 @@
 import { CharacterConfig } from '../../../model/character-config';
 import { ALL_SKILL_COST_TYPES, SkillCostType } from '../../../model/content/enum/skill-cost-type';
+import { SkillElement } from '../../../model/content/skill-element';
 import { GameHeroesData } from '../../../model/parser/game/game-save';
 import { ExtractedStatMap } from '../../../services/content/slormancer-stats-extractor.service';
 import { valueOrDefault } from '../../../util/utils';
@@ -17,6 +18,11 @@ function getMaxStat(stats: ExtractedStatMap, stat: string): number {
 
 function hasStat(stats: ExtractedStatMap, stat: string): boolean {
     return stats[stat] !== undefined;
+}
+
+function statHasValue(stats: ExtractedStatMap, stat: string, value: number): boolean {
+    const extractedStat = stats[stat];
+    return extractedStat !== undefined && extractedStat.some(entityValue => entityValue.value === value);
 }
 
 function hasCostType(stats: ExtractedStatMap, ...costTypes: Array<SkillCostType>): boolean {
@@ -95,6 +101,7 @@ export const COST_MAPPING: MergedStatMapping = {
             { stat: 'cost_reduction_mult_per_arcanic_emblem_if_not_arcanic', condition: (config, stats) => config.arcanic_emblems > 0 && !hasStat(stats, 'skill_is_arcanic'), multiplier: config => - config.arcanic_emblems },
             { stat: 'mana_cost_mult_if_low_mana', condition: (config, stats) => (100 - config.percent_missing_mana) < getFirstStat(stats, 'mana_cost_mult_if_low_mana_treshold') },
             { stat: 'mana_cost_reduction_mult_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => - config.arcanic_emblems },
+            { stat: 'mana_cost_reduction_mult_per_frozen_or_chilled_enemy_nearby', condition: config => config.chilled_enemy_nearby > 0, multiplier: config => - config.chilled_enemy_nearby },
             { stat: 'mana_cost_mult_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
             { stat: 'cost_per_second_reduction', condition: (_, stats) => hasCostType(stats, SkillCostType.LifeSecond, SkillCostType.ManaSecond), multiplier: () => -1 },
             { stat: 'cost_lock_reduction', condition: (_, stats) => hasCostType(stats, SkillCostType.LifeLock, SkillCostType.ManaLock), multiplier: () => -1 },
@@ -813,7 +820,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'fire_resistance',
-        precision: 0,
+        precision: 1,
         allowMinMax: false,
         suffix: '',
         source: {
@@ -827,7 +834,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'ice_resistance',
-        precision: 0,
+        precision: 1,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -841,7 +848,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'lightning_resistance',
-        precision: 0,
+        precision: 1,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -855,7 +862,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'light_resistance',
-        precision: 0,
+        precision: 1,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -869,7 +876,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'shadow_resistance',
-        precision: 0,
+        precision: 1,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -1717,7 +1724,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'primary_secondary_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')},
                 { stat: 'exposed_armor_primary_secondary_skill_increased_damage_mult', condition: (config, stats) => config.exposed_armor_buff && (hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')) },
                 { stat: 'melee_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee') },
-                { stat: 'lightning_imbued_skill_increased_damage', condition: (_, stats) => hasStat(stats, 'skill_lightning_imbued') },
+                { stat: 'lightning_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Lightning) },
                 { stat: 'light_imbued_skill_increased_damage', condition: (_, stats) => hasStat(stats, 'skill_light_imbued') },
                 { stat: 'light_arrow_increased_damage' },
                 { stat: 'isolated_target_increased_damage', condition: config => config.use_enemy_state && config.target_is_isolated },

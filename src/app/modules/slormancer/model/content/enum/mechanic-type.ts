@@ -5,5 +5,7 @@ export enum MechanicType {
     ShieldGlobe = 'shield_globe',
     Fireball = 'fireball',
     WalkingBomb = 'walking_bomb',
-    Dart = 'dart'
+    Dart = 'dart',
+    Frostbolt = 'frostbolt',
+    LightningRod = 'rod',
 }

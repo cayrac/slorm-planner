@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { ANCESTRAL_LEGACY_REALMS, INITIAL_NODES } from '../../constants/content/data/data-ancestral-legacy-realms';
 import { AncestralLegacy } from '../../model/content/ancestral-legacy';
-import { SkillElement } from '../../model/content/ancestral-legacy-element';
 import { AncestralLegacyType } from '../../model/content/ancestral-legacy-type';
 import { Buff } from '../../model/content/buff';
 import { AbstractEffectValue } from '../../model/content/effect-value';
@@ -13,6 +12,7 @@ import { SkillCostType } from '../../model/content/enum/skill-cost-type';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { GameDataAncestralLegacy } from '../../model/content/game/data/game-data-ancestral-legacy';
 import { Mechanic } from '../../model/content/mechanic';
+import { SkillElement } from '../../model/content/skill-element';
 import { effectValueSynergy, effectValueVariable } from '../../util/effect-value.util';
 import { list } from '../../util/math.util';
 import {
@@ -219,7 +219,7 @@ export class SlormancerAncestralLegacyService {
         ancestralLegacy.hasManaCost = ancestralLegacy.costType === SkillCostType.ManaPercent || ancestralLegacy.costType === SkillCostType.ManaSecond || ancestralLegacy.costType === SkillCostType.ManaLock || ancestralLegacy.costType === SkillCostType.Mana;
         ancestralLegacy.hasNoCost = ancestralLegacy.costType === SkillCostType.None || ancestralLegacy.cost === 0;
 
-        ancestralLegacy.isActivable = !ancestralLegacy.hasNoCost || ancestralLegacy.baseCooldown !== null || ancestralLegacy.genres.includes(SkillGenre.Aura);
+        ancestralLegacy.isActivable = ancestralLegacy.baseCooldown !== null || ancestralLegacy.genres.includes(SkillGenre.Aura);
     }
 
     public updateAncestralLegacyView(ancestralLegacy: AncestralLegacy) {

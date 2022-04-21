@@ -58,6 +58,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
                 { type: 'number', key: 'skill_cast_recently', label: 'Skills cast recently' },
                 { type: 'number', key: 'ennemies_in_radius', label: 'How much ennemies are close to you' },
                 { type: 'number', key: 'elites_in_radius', label: 'How much elites are close to you' },
+                { type: 'number', key: 'chilled_enemy_nearby', label: 'How much frozen or chilled enemies are close to you' },
                 { type: 'boolean', key: 'cast_support_before_next_cast', label: 'Did you cast a support skill recently' },
                 { type: 'boolean', key: 'took_elemental_damage_recently', label: 'Did you take elemental damage recently' },
                 { type: 'boolean', key: 'took_physical_damage_recently', label: 'Did you take physical damage recently' },

@@ -131,6 +131,7 @@
 - Raised max level to 60
 - Item affixes are now shown in the correct order
 
+
 ## TODO
  - ancestral legacies
  - reaper untouchable
@@ -139,6 +140,10 @@
  - mana regen pas bonne
  - precision overdrive
  - selector stat plus visible
+
+
+ - bug butterfly met le cooldown des ancestral legacy à 86s
+ - bug lightning rod displayed damage
 
 ## Planned changes
 - Damages computing rework (probably when imbue passives are out)

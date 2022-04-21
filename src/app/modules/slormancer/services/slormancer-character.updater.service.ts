@@ -12,6 +12,7 @@ import { ReaperSmith } from '../model/content/enum/reaper-smith';
 import { SkillGenre } from '../model/content/enum/skill-genre';
 import { EquipableItem } from '../model/content/equipable-item';
 import { Reaper } from '../model/content/reaper';
+import { SkillElement } from '../model/content/skill-element';
 import { isEffectValueSynergy, isFirst, isNotNullOrUndefined, valueOrDefault } from '../util/utils';
 import { SlormancerActivableService } from './content/slormancer-activable.service';
 import { SlormancerAncestralLegacyService } from './content/slormancer-ancestral-legacy.service';
@@ -255,6 +256,21 @@ export class SlormancerCharacterUpdaterService {
         return { items, ancestralLegacies, reapers };
     }
 
+    private updateSkillsElements(character: Character, stats: CharacterStatsBuildResult, config: CharacterConfig) {
+        console.log('stats : ', stats);
+        for (const skillAndUpgrades of character.skills) {
+            skillAndUpgrades.skill.elements = [];
+
+            if (character.primarySkill === skillAndUpgrades.skill || character.secondarySkill === skillAndUpgrades.skill) {
+                if (stats.extractedStats['primary_secondary_skill_ice_imbued'] !== undefined) {
+                    skillAndUpgrades.skill.elements.push(SkillElement.Ice);
+                }
+                if (stats.extractedStats['primary_secondary_skill_lightning_imbued'] !== undefined) {
+                    skillAndUpgrades.skill.elements.push(SkillElement.Lightning);
+                }
+            }
+        }
+    }
 
     private updateCharacterStats(character: Character, updateViews: boolean, config: CharacterConfig, additionalItem: EquipableItem | null) {
 
@@ -296,7 +312,8 @@ export class SlormancerCharacterUpdaterService {
             }
 
             for (const mechanic of ancestralLegacy.relatedMechanics) {
-                this.slormancerValueUpdater.updateMechanic(mechanic, statsResult);
+                this.slormancerValueUpdater.updateMechanic(mechanic, character, statsResult);
+                statsResult.changed.mechanics.push(mechanic);
             }
         }
 
@@ -307,6 +324,8 @@ export class SlormancerCharacterUpdaterService {
         if (statsResult.extractedStats['secondary_slot_locked'] !== undefined && character.secondarySkill !== null) {
             lockedSkills.push(character.secondarySkill.id);
         }
+
+        this.updateSkillsElements(character, statsResult, config);
 
         for (const skillAndUpgrades of character.skills) {
             const result = this.slormancerStatsService.updateSkillStats(character, skillAndUpgrades, config, statsResult);
