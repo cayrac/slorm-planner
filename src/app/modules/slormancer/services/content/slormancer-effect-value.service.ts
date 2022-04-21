@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
-import { round } from '../../util/math.util';
+import { bankerRound } from '../../util/math.util';
 import { isEffectValueSynergy, isEffectValueVariable } from '../../util/utils';
 
 @Injectable()
@@ -25,7 +25,7 @@ export class SlormancerEffectValueService {
             }
 
             effectValue.value = value
-            effectValue.displayValue = round(value, 3);
+            effectValue.displayValue = bankerRound(value, 3);
             if (isEffectValueVariable(effectValue)) {
                 effectValue.upgradedValue = value;
             }

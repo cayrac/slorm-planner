@@ -142,8 +142,9 @@
  - selector stat plus visible
 
 
- - bug butterfly met le cooldown des ancestral legacy à 86s
- - bug lightning rod displayed damage
+ - bug shield of champion of light aura is always level 10
+ - arondi en .5 inconsistant (exemple light wave et glittering silence avec Area Increased Effect 21.5%)  => probablement changement de bankerRound en round
+ - walking bomb has it's aoe size affected by aoe increased size but it's aoe damage not affected by aoe increased effect
 
 ## Planned changes
 - Damages computing rework (probably when imbue passives are out)

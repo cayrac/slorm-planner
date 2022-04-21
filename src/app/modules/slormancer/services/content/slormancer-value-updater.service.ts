@@ -14,6 +14,7 @@ import { ClassMechanic } from '../../model/content/class-mechanic';
 import { AbstractEffectValue, EffectValueSynergy } from '../../model/content/effect-value';
 import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
 import { HeroClass } from '../../model/content/enum/hero-class';
+import { MechanicType } from '../../model/content/enum/mechanic-type';
 import { ALL_SKILL_COST_TYPES } from '../../model/content/enum/skill-cost-type';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { Mechanic } from '../../model/content/mechanic';
@@ -253,20 +254,10 @@ export class SlormancerValueUpdater {
         for (const value of mechanic.values) {
             value.value = value.baseValue;
             if (value.valueType === EffectValueValueType.AreaOfEffect) {
-                const aoeMultipliers = this.getValidStatMultipliers(mechanic.genres, skillStats);
+                const aoeSizeMultipliers = skillStats.aoeIncreasedSize.total;
                 value.value = isEffectValueVariable(value) ? value.upgradedValue : value.baseValue;
-                if (value.percent) {
-                    let sumMultiplier = 100;
-                    for (const multiplier of aoeMultipliers) {
-                        sumMultiplier += multiplier;
-                    }
-                    value.value = value.value * sumMultiplier / 100;
-                } else {
-                    for (const multiplier of aoeMultipliers) {
-                        value.value = value.value * (100 + multiplier) / 100;
-                    }
-                }
-                value.displayValue = round(value.value, 3);
+                value.value = value.value * (100 + aoeSizeMultipliers) / 100;
+                value.displayValue = round(value.value, 2);
             }
 
             if (value.valueType === EffectValueValueType.Duration) {
@@ -286,7 +277,9 @@ export class SlormancerValueUpdater {
                 value.displayValue = round(value.value, 3);
             }
 
-            if (isEffectValueSynergy(value) && isDamageType(value.stat)) {
+            // BUG : walking bomb damages is not affected by aoe increased effects ingame
+            const isWalkingBomb = mechanic.type === MechanicType.WalkingBomb;
+            if (isEffectValueSynergy(value) && isDamageType(value.stat) && !isWalkingBomb) {
                 this.updateDamage(value, mechanic.genres, skillStats, statsResult, mechanic.element, false);
             }
         }
@@ -516,7 +509,7 @@ export class SlormancerValueUpdater {
                 }
             } else if (value.valueType === EffectValueValueType.AreaOfEffect) {
                 value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
-                value.displayValue = round(value.value, 3);
+                value.displayValue = round(value.value, 2);
             } else if (value.valueType !== EffectValueValueType.Static) {
                 const statMultipliers = this.getValidStatMultipliers(ancestralLegacy.genres, skillStats);
                 value.value = isEffectValueVariable(value) ? value.upgradedValue : value.baseValue;

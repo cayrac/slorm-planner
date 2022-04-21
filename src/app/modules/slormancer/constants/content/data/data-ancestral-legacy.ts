@@ -36,6 +36,16 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
             setStat(values, 0, 'elemental_damage');
         }
     },
+    2: {
+        override: values => {
+            addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
+        }
+    },
+    8: {
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'primary_secondary_skill_fire_imbued');
+        }
+    },
     5: {
         override: values => {
             addConstant(values, 3, false, EffectValueValueType.Duration, 'scorching_area_duration');
@@ -101,14 +111,48 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
             addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'light_wave_aoe');
         }
     },
+    47: {
+        override: values => {
+            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
+        }
+    },
+    49: {
+        override: values => {
+            addConstant(values, 20, false, EffectValueValueType.Duration, 'garbage_stat');
+            addConstant(values, 2, false, EffectValueValueType.Duration, 'garbage_stat');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'primary_secondary_skill_light_imbued');
+        }
+    },
+    52: {
+        override: values => {
+            setStat(values, 0, 'shield_increased_value_mult');
+        }
+    },
     55: {
         override: values => {
             addConstant(values, 6, false, EffectValueValueType.Duration, 'agent_of_shield_duration');
         }
     },
+    56: {
+        override: values => {
+            addConstant(values, 6, false, EffectValueValueType.Duration, 'garbage_stat');
+            addConstant(values, 2, false, EffectValueValueType.Duration, 'garbage_stat');
+        }
+    },
+    61: {
+        override: values => {
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'primary_secondary_skill_shadow_imbued');
+            setStat(values, 0, 'shadow_imbued_skill_increased_damage');
+        }
+    },
     72: {
         override: values => {
             setStat(values, 0, 'soul_bound_buff_soul_bound_on_hit_max');
+        }
+    },
+    73: {
+        override: values => {
+            addConstant(values, 5, false, EffectValueValueType.Duration, 'garbage_stat');
         }
     },
     80: {
@@ -170,6 +214,11 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
             setStat(values, 0, 'elemental_spirit_stack_elemental_damage_percent');
             addConstant(values, 10, false, EffectValueValueType.Duration, 'elemental_spirit_stack_duration');
             addConstant(values, 3, false, EffectValueValueType.Stat, 'elemental_spirit_max_stacks');
+        }
+    },
+    107: {
+        override: values => {
+            setStat(values, 0, 'elemental_damage_percent_per_active_aura');
         }
     },
     114: {

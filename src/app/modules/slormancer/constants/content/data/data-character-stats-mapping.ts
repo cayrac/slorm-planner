@@ -822,7 +822,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         stat: 'fire_resistance',
         precision: 1,
         allowMinMax: false,
-        suffix: '',
+        suffix: '%',
         source: {
             flat: [{ stat: 'fire_resistance_percent' }],
             max: [],
@@ -1260,7 +1260,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'shield_globe_value',
-        precision: 3,
+        precision: 2,
         allowMinMax: true,
         suffix: '',
         source: {
@@ -1272,6 +1272,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             ],
             maxPercent: [],
             multiplier: [
+                { stat: 'shield_increased_value_mult' },
             ],
             maxMultiplier: [],
         } 
@@ -1573,6 +1574,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'elemental_damage_percent_for_each_negative_effect_on_ennemies', condition: config => config.negative_effects_on_ennemies_in_radius > 0, multiplier: config => config.negative_effects_on_ennemies_in_radius },
                 { stat: 'invigorate_stack_elemental_damage_percent', condition: config => config.invigorate_stacks > 0, multiplier: (config, stats) => Math.min(config.invigorate_stacks, getFirstStat(stats, 'invigorate_max_stacks'))},
                 { stat: 'elemental_spirit_stack_elemental_damage_percent', condition: config => config.elemental_spirit_stacks > 0, multiplier: (config, stats) => Math.min(config.elemental_spirit_stacks, getFirstStat(stats, 'elemental_spirit_max_stacks'))},
+                { stat: 'elemental_damage_percent_per_active_aura', condition: (config, stats) => getFirstStat(stats, 'active_aura_count') > 0, multiplier: (config, stats) => getFirstStat(stats, 'active_aura_count') },
             ],
             maxPercent: [],
             multiplier: [
@@ -1725,7 +1727,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'exposed_armor_primary_secondary_skill_increased_damage_mult', condition: (config, stats) => config.exposed_armor_buff && (hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')) },
                 { stat: 'melee_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee') },
                 { stat: 'lightning_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Lightning) },
-                { stat: 'light_imbued_skill_increased_damage', condition: (_, stats) => hasStat(stats, 'skill_light_imbued') },
+                { stat: 'light_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Light) },
+                { stat: 'shadow_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Shadow) },
                 { stat: 'light_arrow_increased_damage' },
                 { stat: 'isolated_target_increased_damage', condition: config => config.use_enemy_state && config.target_is_isolated },
                 { stat: 'negative_effect_target_increased_damage', condition: config => config.use_enemy_state && config.target_has_negative_effect },

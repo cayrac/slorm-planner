@@ -18,7 +18,7 @@ export class SlormancerMechanicService {
     private getName(type: MechanicType): string {
         let key;
         
-        if (type === MechanicType.WalkingBomb) {
+        if (type === MechanicType.WalkingBomb || type === MechanicType.SoulBound || type === MechanicType.Burn) {
             key = 'tt_' + type;
         } else if (type === MechanicType.ShieldGlobe || type === MechanicType.Fireball || type === MechanicType.Dart || type === MechanicType.Frostbolt || type === MechanicType.LightningRod) {
             key = 'tt_mechanic_' + type;
@@ -31,7 +31,7 @@ export class SlormancerMechanicService {
     private getDescription(type: MechanicType, values: Array<AbstractEffectValue>): string {
         let key;
 
-        if (type === MechanicType.WalkingBomb) {
+        if (type === MechanicType.WalkingBomb || type === MechanicType.SoulBound || type === MechanicType.Burn) {
             key = 'tt_' + type + '_effect';
         } else if (type === MechanicType.ShieldGlobe || type === MechanicType.Fireball || type === MechanicType.Dart || type === MechanicType.Frostbolt || type === MechanicType.LightningRod) {
             key = 'tt_mechanic_' + type + '_effect';

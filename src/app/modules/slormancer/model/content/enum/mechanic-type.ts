@@ -8,4 +8,6 @@ export enum MechanicType {
     Dart = 'dart',
     Frostbolt = 'frostbolt',
     LightningRod = 'rod',
+    SoulBound = 'soul_bound',
+    Burn = 'burn',
 }

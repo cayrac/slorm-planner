@@ -63,4 +63,19 @@ export const DATA_MECHANIC: { [key: string]:  DataMechanic} = {
         genres: [SkillGenre.Totem],
         element: SkillElement.Lightning
     },
+    [MechanicType.SoulBound]: {
+        values: [
+            effectValueSynergy(15, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'basic_damage', EffectValueValueType.Stat, undefined, 2),
+            effectValueConstant(15, false, 'garbage_stat', EffectValueValueType.Stat),
+            effectValueConstant(10, false, 'garbage_stat', EffectValueValueType.Stat),
+        ]
+    },
+    [MechanicType.Burn]: {
+        values: [
+            effectValueSynergy(200, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat, undefined, 2),
+            effectValueConstant(200, false, 'garbage_stat', EffectValueValueType.Stat),
+            effectValueConstant(7, false, 'garbage_stat', EffectValueValueType.Stat),
+        ],
+        genres: [SkillGenre.DamageOverTime],
+    },
 }

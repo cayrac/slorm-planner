@@ -226,7 +226,7 @@ export class SlormancerAncestralLegacyService {
         ancestralLegacy.genresLabel =  null;
         if (ancestralLegacy.genres.length > 0) {
             ancestralLegacy.genresLabel = ancestralLegacy.genres
-                .map(genre => this.slormancerTranslateService.translate(genre))
+                .map(genre => this.slormancerTranslateService.translate('atk_' + genre))
                 .join(' ');
         }
         

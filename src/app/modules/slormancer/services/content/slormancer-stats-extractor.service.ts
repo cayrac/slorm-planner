@@ -181,6 +181,10 @@ export class SlormancerStatsExtractorService {
         const supportSkills = [ character.skills[0], character.skills[1], character.skills[2] ].filter(isNotNullOrUndefined);
         this.addStat(stats.stats, 'total_mastery_support', supportSkills.reduce((total, skill) => total + skill.skill.level, 0), { character })
         this.addStat(stats.stats, 'mastery_secondary', character.secondarySkill === null ? 0 : character.secondarySkill.level, character.secondarySkill === null ? { character } : { skill: character.secondarySkill })
+        const auraSkills = [ character.activable1, character.activable2, character.activable3, character.activable4 ]
+            .filter(isNotNullOrUndefined)
+            .filter(skill => skill.genres.includes(SkillGenre.Aura));
+        this.addStat(stats.stats, 'active_aura_count', auraSkills.length, { character })
 
         if (character.heroClass === HeroClass.Mage) {
             const maxedUpgrades = character.skills.map(skill => skill.upgrades).flat().filter(upgrade => upgrade.rank === upgrade.maxRank).length;
