@@ -4,28 +4,27 @@ mat-slider {
         min-width: 64px;
     }
 
-    &[color="primary"] {
+    &.mat-primary[color="primary"] {
         .mat-slider-ticks, .mat-slider-thumb, .mat-slider-track-fill, .mat-slider-focus-ring {
-            background-color: primary-color(700, 1);
+            background-color: primary-color(700, true);
         }
 
-        &.mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
-            border-color: primary-color(700, 1);
-            background-color: primary-color(200);
+        &.mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb, .mat-slider-thumb {
+            border-color: primary-color(700, true);
+            background-color: primary-color(700, true);
         }
 
         .mat-slider-track-background {
-            background-color: primary-color(100);
+            background-color: primary-color(200);
 
         }
 
         &:hover .mat-slider-track-background {
             background-color: primary-color(50);
-
         }
     }
 
-    &[color="accent"] {
+    &.mat-accent[color="accent"] {
         .mat-slider-ticks, .mat-slider-thumb, .mat-slider-track-fill, .mat-slider-focus-ring {
             background-color: accent-color(500);
         }
