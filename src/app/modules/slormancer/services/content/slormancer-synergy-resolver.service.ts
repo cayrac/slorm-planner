@@ -22,22 +22,81 @@ export class SlormancerSynergyResolverService {
     constructor(private slormancerStatUpdaterService: SlormancerMergedStatUpdaterService,
                 private slormancerStatMappingService: SlormancerStatMappingService) { }
 
+    private resolveSynergy(synergy: SynergyResolveData | ExternalSynergyResolveData, resolved: Array<SynergyResolveData>, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap, config: CharacterConfig) {
+        this.updateSynergyValue(synergy, characterStats, extractedStats);
+        this.applySynergyToStats(synergy, characterStats, extractedStats, config);
+        if ('originalValue' in synergy) {
+            resolved.push(synergy);
+        }
+    }
+
+    private resolveSynergyLoops(synergies: Array<SynergyResolveData | ExternalSynergyResolveData>, resolved: Array<SynergyResolveData>, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap, config: CharacterConfig): boolean {
+        console.log('resolveSynergyLoops : ', synergies);
+        let loopResolved = false;
+
+        // Untouchable loop
+        // min raw => evasion (reaper) => mana (evasive magic) => max raw (savagery 45)
+        /*const untouchableReaperSynergy = synergies
+            .find(synergy => 'reaper' in synergy.objectSource && synergy.objectSource.reaper.id === 24 && synergy.statsItWillUpdate.some(stat => stat.stat === 'dodge'));
+        const evasiveMagicSynergy = synergies
+            .find(synergy => 'upgrade' in synergy.objectSource && synergy.objectSource.upgrade.id === 134);
+        const savagerySynergy = synergies
+            .find(synergy => 'attribute' in synergy.objectSource && synergy.objectSource.attribute.attribute === 1 && synergy.statsItWillUpdate.some(stat => stat.stat === 'basic_damage'));
+        console.log(evasiveMagicSynergy, untouchableReaperSynergy, savagerySynergy);
+        if (evasiveMagicSynergy && untouchableReaperSynergy && savagerySynergy) {
+            
+            let index = synergies.indexOf(untouchableReaperSynergy);
+            if (index !== -1) {
+                synergies.splice(index, 1);
+            }
+            index = synergies.indexOf(evasiveMagicSynergy);
+            if (index !== -1) {
+                synergies.splice(index, 1);
+            }
+            index = synergies.indexOf(savagerySynergy);
+            if (index !== -1) {
+                synergies.splice(index, 1);
+            }
+
+            this.resolveSynergy(untouchableReaperSynergy, resolved, characterStats, extractedStats, config);
+            this.resolveSynergy(evasiveMagicSynergy, resolved, characterStats, extractedStats, config);
+            this.resolveSynergy(savagerySynergy, resolved, characterStats, extractedStats, config);
+
+            console.log('Untouchable evasion bonus : ', (<SynergyResolveData>untouchableReaperSynergy).effect.synergy);
+            console.log('Evasive magic bonus : ', (<SynergyResolveData>evasiveMagicSynergy).effect.synergy);
+            console.log('Savagery bonus : ', (<SynergyResolveData>savagerySynergy).effect.synergy);
+
+            loopResolved = true;
+        }*/
+
+        // Armor of illusion loop
+
+        // Mana harvesting loop
+
+        return loopResolved;
+    }
+
     public resolveSynergies(synergies: Array<SynergyResolveData | ExternalSynergyResolveData>, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap, config: CharacterConfig): { resolved: Array<SynergyResolveData>, unresolved: Array<SynergyResolveData> }  {
         const remainingSynergies = [ ...synergies];
         const resolved: Array<SynergyResolveData> = []
         
         this.addExternalSynergies(remainingSynergies);
 
-        let next: SynergyResolveData | ExternalSynergyResolveData | null;
-        while (remainingSynergies.length > 0 && (next = this.takeNextSynergy(remainingSynergies)) !== null) {
-            this.updateSynergyValue(next, characterStats, extractedStats);
-            this.applySynergyToStats(next, characterStats, extractedStats, config);
-            if ('originalValue' in next) {
-                resolved.push(next);
+        let loopResolveFailed = false;
+
+        while (remainingSynergies.length > 0 && !loopResolveFailed) {
+
+            let next: SynergyResolveData | ExternalSynergyResolveData | null;
+            while (remainingSynergies.length > 0 && (next = this.takeNextSynergy(remainingSynergies)) !== null) {
+                this.resolveSynergy(next, resolved, characterStats, extractedStats, config);
+            }
+    
+            if (remainingSynergies.length > 0) {
+                loopResolveFailed = !this.resolveSynergyLoops(remainingSynergies, resolved, characterStats, extractedStats, config);
             }
         }
 
-        // TODO ajouter gestion boucles
+        console.log('Synergies remaining : ', remainingSynergies);
 
         return { unresolved: remainingSynergies.filter(isSynergyResolveData), resolved };
     }
@@ -52,17 +111,7 @@ export class SlormancerSynergyResolverService {
         resolveDatas.push({
             type: ResolveDataType.ExternalSynergy,
             value: 0,
-            method: (basic) => {
-                return typeof basic === 'number' ? basic : basic.min;
-            },
-            objectSource: { synergy: 'Minimum basic damage'},
-            sources: ['basic_damage'],
-            stat: 'min_basic_damage',
-            statsItWillUpdate: [ { stat: 'min_basic_damage' } ]
-        });
-        resolveDatas.push({
-            type: ResolveDataType.ExternalSynergy,
-            value: 0,
+            precision: 3,
             method: (basic, elemental) => {
                 const basicMin = typeof basic === 'number' ? basic : basic.min;
                 const elementalMin = typeof elemental === 'number' ? elemental : elemental.min;
@@ -155,8 +204,18 @@ export class SlormancerSynergyResolverService {
         for (const statToUpdate of synergyResolveData.statsItWillUpdate) {
             let foundStat: MergedStat | undefined = stats.find(stat => stat.stat === statToUpdate.stat);
             if (foundStat === undefined) {
+
+                let precision = 0;
+                if ('effect' in synergyResolveData && synergyResolveData.effect.precision !== null) {
+                    precision = synergyResolveData.effect.precision;
+                } else if ('precision' in synergyResolveData && synergyResolveData.precision !== null) {
+                    precision = synergyResolveData.precision;
+                } else if (statToUpdate.mapping) {
+                    precision = statToUpdate.mapping.precision;
+                }
+
                 foundStat = {
-                    precision:  statToUpdate.mapping ? statToUpdate.mapping.precision : 0,
+                    precision,
                     stat: statToUpdate.stat,
                     total: 0,
                     allowMinMax: true,

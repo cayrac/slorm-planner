@@ -21,6 +21,7 @@ export interface ExternalSynergyResolveData {
     sources: Array<string>;
     value: number | MinMax;
     objectSource: Entity;
+    precision: number | null;
     method: ((...values: Array<number | MinMax>) => number | MinMax);
     statsItWillUpdate: Array<{ stat: string, mapping?: MergedStatMapping }>;
 }

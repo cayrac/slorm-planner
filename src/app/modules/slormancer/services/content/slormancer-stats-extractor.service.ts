@@ -503,10 +503,10 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'percent_missing_mana', percentMissingMana, { synergy: 'Percent missing mana' });
         this.addStat(stats.stats, 'percent_missing_health', percentMissingHealth, { synergy: 'Percent missing health' });
 
-        stats.synergies.push(synergyResolveData(effectValueSynergy(100 - percentMissingMana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'current_mana'), -1, { synergy: 'Current mana' }, [ { stat: 'current_mana' } ]));
-        stats.synergies.push(synergyResolveData(effectValueSynergy(percentMissingMana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'missing_mana'), -1, { synergy: 'Missing mana' }, [ { stat: 'missing_mana' } ]));
-        stats.synergies.push(synergyResolveData(effectValueSynergy(lockedManaPercent, 0, EffectValueUpgradeType.None, false, 'max_mana', 'mana_lock_flat'), -1, { synergy: 'Locked mana' }, [ { stat: 'mana_lock_flat' } ]));
-        stats.synergies.push(synergyResolveData(effectValueSynergy(percentMissingHealth, 0, EffectValueUpgradeType.None, false, 'max_health', 'missing_health'), -1, { synergy: 'Missing health' }, [ { stat: 'missing_health' } ]));
+        stats.synergies.push(synergyResolveData(effectValueSynergy(100 - percentMissingMana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'current_mana', EffectValueValueType.Stat, undefined, 3), -1, { synergy: 'Current mana' }, [ { stat: 'current_mana' } ]));
+        stats.synergies.push(synergyResolveData(effectValueSynergy(percentMissingMana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'missing_mana', EffectValueValueType.Stat, undefined, 3), -1, { synergy: 'Missing mana' }, [ { stat: 'missing_mana' } ]));
+        stats.synergies.push(synergyResolveData(effectValueSynergy(lockedManaPercent, 0, EffectValueUpgradeType.None, false, 'max_mana', 'mana_lock_flat', EffectValueValueType.Stat, undefined, 3), -1, { synergy: 'Locked mana' }, [ { stat: 'mana_lock_flat' } ]));
+        stats.synergies.push(synergyResolveData(effectValueSynergy(percentMissingHealth, 0, EffectValueUpgradeType.None, false, 'max_health', 'missing_health', EffectValueValueType.Stat, undefined, 3), -1, { synergy: 'Missing health' }, [ { stat: 'missing_health' } ]));
         
         
     }

@@ -1,5 +1,6 @@
 import { DataAttribute } from '../../../model/content/data/data-attribute';
 import { Trait } from '../../../model/content/trait';
+import { isEffectValueSynergy } from '../../../util/utils';
 
 
 function setStat(trait: Trait, index: number, stat: string) {
@@ -7,6 +8,16 @@ function setStat(trait: Trait, index: number, stat: string) {
 
     if (value) {
         value.stat = stat;
+    }
+}
+
+function setSynergyPrecision(trait: Trait, index: number, precision: number) {
+    const value = trait.values[index];
+
+    if (value && isEffectValueSynergy(value)) {
+        value.precision = precision;
+    } else {
+        throw new Error('failed to update precision at index ' + index);
     }
 }
 
@@ -44,6 +55,16 @@ export const DATA_ATTRIBUTE: { [key: number]: DataAttribute } = {
         override: trait => {
             setStat(trait, 0, 'health_leech_percent_on_low_life');
             setStat(trait, 1, 'health_leech_percent_on_low_life_treshold');
+        }
+    },
+    25: {
+        override: trait => {
+            setSynergyPrecision(trait, 0, 3);
+        }
+    },
+    28: {
+        override: trait => {
+            setSynergyPrecision(trait, 0, 3);
         }
     },
     31: {
