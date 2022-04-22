@@ -130,22 +130,18 @@
 ### Changed
 - Raised max level to 60
 - Item affixes are now shown in the correct order
+- Added new ancestral legacies
+- Item edit stat sliders are now more visible
+- Skill / Ancestral legacies / Attributes tab now take all the page's height
 
 
 ## TODO
  - reaper untouchable
  - maj armor of illusion
  - Mana Harvesting Reaper 
- - precision overdrive
- - selector stat plus visible
 
  - tester precisions
 
 
- - bug shield of champion of light aura is always level 10
- - arondi en .5 inconsistant (exemple light wave et glittering silence avec Area Increased Effect 21.5%)  => probablement changement de bankerRound en round
- - walking bomb has it's aoe size affected by aoe increased size but it's aoe damage not affected by aoe increased effect
-
 ## Planned changes
-- Damages computing rework (probably when imbue passives are out)
 - copy item as image ?

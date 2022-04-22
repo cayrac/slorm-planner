@@ -37,6 +37,8 @@ export class SlormancerSynergyResolverService {
             }
         }
 
+        // TODO ajouter gestion boucles
+
         return { unresolved: remainingSynergies.filter(isSynergyResolveData), resolved };
     }
 
@@ -47,6 +49,17 @@ export class SlormancerSynergyResolverService {
     }
 
     private addExternalSynergies(resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>) {
+        resolveDatas.push({
+            type: ResolveDataType.ExternalSynergy,
+            value: 0,
+            method: (basic) => {
+                return typeof basic === 'number' ? basic : basic.min;
+            },
+            objectSource: { synergy: 'Minimum basic damage'},
+            sources: ['basic_damage'],
+            stat: 'min_basic_damage',
+            statsItWillUpdate: [ { stat: 'min_basic_damage' } ]
+        });
         resolveDatas.push({
             type: ResolveDataType.ExternalSynergy,
             value: 0,

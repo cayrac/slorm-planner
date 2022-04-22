@@ -72,32 +72,12 @@ export class SlormancerStatsExtractorService {
         return result;
     }
 
-    private getStatFirstValue(stats: ExtractedStatMap, stat: string, defaultValue: number): number {
-        let result = defaultValue;
-        const foundStat = stats[stat];
-
-        if (foundStat && foundStat[0]) {
-            result = foundStat[0].value
-        }
-
-        return result;
-    }
-
     private addDefaultSynergies(character: Character, config: CharacterConfig, extractedStats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
         const addReaperToInnerFire = extractedStats.stats['reaper_added_to_inner_fire'] !== undefined
         const splitReaperToPhysicalAndElement = extractedStats.stats['reaper_split_to_physical_and_element'] !== undefined
         const addReaperToElements = extractedStats.stats['reaper_added_to_elements'] !== undefined
         const overdriveDamageBasedOnSkillDamage = extractedStats.stats['overdrive_damage_based_on_skill_damage'] !== undefined
 
-        const percentLockedMana = this.getStatFirstValue(extractedStats.stats, 'mana_lock_percent', 0);
-        const percentMissingMana = this.getStatFirstValue(extractedStats.stats, 'percent_missing_mana', 0);
-        const percentMissingHealth = this.getStatFirstValue(extractedStats.stats, 'percent_missing_health', 0);
-
-        extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100 - percentMissingMana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'current_mana'), -1, { synergy: 'Current mana' }, [ { stat: 'current_mana' } ]));
-        extractedStats.synergies.push(synergyResolveData(effectValueSynergy(percentMissingMana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'missing_mana'), -1, { synergy: 'Missing mana' }, [ { stat: 'missing_mana' } ]));
-        extractedStats.synergies.push(synergyResolveData(effectValueSynergy(percentLockedMana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'mana_lock_flat'), -1, { synergy: 'Locked mana' }, [ { stat: 'mana_lock_flat' } ]));
-        extractedStats.synergies.push(synergyResolveData(effectValueSynergy(percentMissingHealth, 0, EffectValueUpgradeType.None, false, 'max_health', 'missing_health'), -1, { synergy: 'Missing health' }, [ { stat: 'missing_health' } ]));
-        
         let mapping = mergedStatMapping.find(m => m.stat === 'physical_damage');
         extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'basic_to_physical_damage'), -1, { synergy: 'Basic damages' }, [ { stat: 'physical_damage', mapping } ]));
                 
@@ -484,7 +464,6 @@ export class SlormancerStatsExtractorService {
 
         const skeletonSquireSkill = activables.find(activable => activable.id === 17);
         if (skeletonSquireSkill !== undefined && skeletonSquireSkill.cost !== null) {
-            console.log('Skeleton squire found : ', skeletonSquireSkill.cost, lockedManaPercent);
 
             const maxMana = this.slormancerStatMappingService.buildMergedStat<number>(stats.stats, MAX_MANA_MAPPING, config);
             this.slormancerMergedStatUpdaterService.updateStatTotal(maxMana);
@@ -523,6 +502,13 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'percent_locked_health', lockedHealthPercent, { synergy: 'Percent locked life' });
         this.addStat(stats.stats, 'percent_missing_mana', percentMissingMana, { synergy: 'Percent missing mana' });
         this.addStat(stats.stats, 'percent_missing_health', percentMissingHealth, { synergy: 'Percent missing health' });
+
+        stats.synergies.push(synergyResolveData(effectValueSynergy(100 - percentMissingMana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'current_mana'), -1, { synergy: 'Current mana' }, [ { stat: 'current_mana' } ]));
+        stats.synergies.push(synergyResolveData(effectValueSynergy(percentMissingMana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'missing_mana'), -1, { synergy: 'Missing mana' }, [ { stat: 'missing_mana' } ]));
+        stats.synergies.push(synergyResolveData(effectValueSynergy(lockedManaPercent, 0, EffectValueUpgradeType.None, false, 'max_mana', 'mana_lock_flat'), -1, { synergy: 'Locked mana' }, [ { stat: 'mana_lock_flat' } ]));
+        stats.synergies.push(synergyResolveData(effectValueSynergy(percentMissingHealth, 0, EffectValueUpgradeType.None, false, 'max_health', 'missing_health'), -1, { synergy: 'Missing health' }, [ { stat: 'missing_health' } ]));
+        
+        
     }
 
     private addBaseValues(character: Character, stats: ExtractedStats) {
