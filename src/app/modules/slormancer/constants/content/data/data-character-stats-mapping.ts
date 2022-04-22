@@ -198,6 +198,32 @@ export const DAMAGES_MAPPING: MergedStatMapping = {
     } 
 };
 
+// stat similaire à basic_damage avec uniquement le min de correct, mais sans dépendances au max
+export const MIN_BASIC_DAMAGE: MergedStatMapping = {
+    stat: 'min_basic_damage',
+    precision: 0,
+    allowMinMax: true,
+    suffix: '',
+    source: {
+        flat: [
+            { stat: 'min_basic_damage_add' },
+            { stat: 'merchant_stack_min_basic_damage_add', condition: config => config.merchant_stacks > 0, multiplier: (config, stats) => Math.min(getFirstStat(stats, 'merchant_stack_max_stack', 0), config.merchant_stacks) }
+        ],
+        max: [],
+        percent: [
+            { stat: 'basic_damage_percent' },
+            { stat: 'burning_shadow_buff_basic_damage_percent', condition: config => config.has_burning_shadow_buff }
+        ],
+        maxPercent: [],
+        multiplier: [
+            { stat: 'basic_damage_percent_mult' },
+            { stat: 'basic_damage_percent_global_mult' },
+            { stat: 'basic_damage_global_mult' },
+        ],
+        maxMultiplier: [],
+    } 
+} 
+
 export const MAX_MANA_MAPPING: MergedStatMapping = {
     stat: 'max_mana',
     precision: 0,
@@ -1594,48 +1620,15 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         allowMinMax: true,
         suffix: '',
         source: {
-            flat: [
-                { stat: 'min_basic_damage_add' },
-                { stat: 'merchant_stack_min_basic_damage_add', condition: config => config.merchant_stacks > 0, multiplier: (config, stats) => Math.min(getFirstStat(stats, 'merchant_stack_max_stack', 0), config.merchant_stacks) }
-            ],
+            flat: MIN_BASIC_DAMAGE.source.flat,
             max: [{ stat: 'max_basic_damage_add' }],
-            percent: [
-                { stat: 'basic_damage_percent' },
-                { stat: 'burning_shadow_buff_basic_damage_percent', condition: config => config.has_burning_shadow_buff }
-            ],
+            percent: MIN_BASIC_DAMAGE.source.percent,
             maxPercent: [{ stat: 'max_basic_damage_percent' }],
-            multiplier: [
-                { stat: 'basic_damage_percent_mult' },
-                { stat: 'basic_damage_percent_global_mult' },
-                { stat: 'basic_damage_global_mult' },
-            ],
+            multiplier: MIN_BASIC_DAMAGE.source.multiplier,
             maxMultiplier: [],
         } 
     },
-    { // stat similaire à basic_damage avec uniquement le min de correct, mais sans dépendances au max
-        stat: 'min_basic_damage',
-        precision: 0,
-        allowMinMax: true,
-        suffix: '',
-        source: {
-            flat: [
-                { stat: 'min_basic_damage_add' },
-                { stat: 'merchant_stack_min_basic_damage_add', condition: config => config.merchant_stacks > 0, multiplier: (config, stats) => Math.min(getFirstStat(stats, 'merchant_stack_max_stack', 0), config.merchant_stacks) }
-            ],
-            max: [],
-            percent: [
-                { stat: 'basic_damage_percent' },
-                { stat: 'burning_shadow_buff_basic_damage_percent', condition: config => config.has_burning_shadow_buff }
-            ],
-            maxPercent: [],
-            multiplier: [
-                { stat: 'basic_damage_percent_mult' },
-                { stat: 'basic_damage_percent_global_mult' },
-                { stat: 'basic_damage_global_mult' },
-            ],
-            maxMultiplier: [],
-        } 
-    },
+    MIN_BASIC_DAMAGE,
     {
         stat: 'weapon_damage',
         precision: 0,

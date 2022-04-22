@@ -30,73 +30,16 @@ export class SlormancerSynergyResolverService {
         }
     }
 
-    private resolveSynergyLoops(synergies: Array<SynergyResolveData | ExternalSynergyResolveData>, resolved: Array<SynergyResolveData>, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap, config: CharacterConfig): boolean {
-        console.log('resolveSynergyLoops : ', synergies);
-        let loopResolved = false;
-
-        // Untouchable loop
-        // min raw => evasion (reaper) => mana (evasive magic) => max raw (savagery 45)
-        /*const untouchableReaperSynergy = synergies
-            .find(synergy => 'reaper' in synergy.objectSource && synergy.objectSource.reaper.id === 24 && synergy.statsItWillUpdate.some(stat => stat.stat === 'dodge'));
-        const evasiveMagicSynergy = synergies
-            .find(synergy => 'upgrade' in synergy.objectSource && synergy.objectSource.upgrade.id === 134);
-        const savagerySynergy = synergies
-            .find(synergy => 'attribute' in synergy.objectSource && synergy.objectSource.attribute.attribute === 1 && synergy.statsItWillUpdate.some(stat => stat.stat === 'basic_damage'));
-        console.log(evasiveMagicSynergy, untouchableReaperSynergy, savagerySynergy);
-        if (evasiveMagicSynergy && untouchableReaperSynergy && savagerySynergy) {
-            
-            let index = synergies.indexOf(untouchableReaperSynergy);
-            if (index !== -1) {
-                synergies.splice(index, 1);
-            }
-            index = synergies.indexOf(evasiveMagicSynergy);
-            if (index !== -1) {
-                synergies.splice(index, 1);
-            }
-            index = synergies.indexOf(savagerySynergy);
-            if (index !== -1) {
-                synergies.splice(index, 1);
-            }
-
-            this.resolveSynergy(untouchableReaperSynergy, resolved, characterStats, extractedStats, config);
-            this.resolveSynergy(evasiveMagicSynergy, resolved, characterStats, extractedStats, config);
-            this.resolveSynergy(savagerySynergy, resolved, characterStats, extractedStats, config);
-
-            console.log('Untouchable evasion bonus : ', (<SynergyResolveData>untouchableReaperSynergy).effect.synergy);
-            console.log('Evasive magic bonus : ', (<SynergyResolveData>evasiveMagicSynergy).effect.synergy);
-            console.log('Savagery bonus : ', (<SynergyResolveData>savagerySynergy).effect.synergy);
-
-            loopResolved = true;
-        }*/
-
-        // Armor of illusion loop
-
-        // Mana harvesting loop
-
-        return loopResolved;
-    }
-
     public resolveSynergies(synergies: Array<SynergyResolveData | ExternalSynergyResolveData>, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap, config: CharacterConfig): { resolved: Array<SynergyResolveData>, unresolved: Array<SynergyResolveData> }  {
         const remainingSynergies = [ ...synergies];
         const resolved: Array<SynergyResolveData> = []
         
         this.addExternalSynergies(remainingSynergies);
 
-        let loopResolveFailed = false;
-
-        while (remainingSynergies.length > 0 && !loopResolveFailed) {
-
-            let next: SynergyResolveData | ExternalSynergyResolveData | null;
-            while (remainingSynergies.length > 0 && (next = this.takeNextSynergy(remainingSynergies)) !== null) {
-                this.resolveSynergy(next, resolved, characterStats, extractedStats, config);
-            }
-    
-            if (remainingSynergies.length > 0) {
-                loopResolveFailed = !this.resolveSynergyLoops(remainingSynergies, resolved, characterStats, extractedStats, config);
-            }
+        let next: SynergyResolveData | ExternalSynergyResolveData | null;
+        while (remainingSynergies.length > 0 && (next = this.takeNextSynergy(remainingSynergies)) !== null) {
+            this.resolveSynergy(next, resolved, characterStats, extractedStats, config);
         }
-
-        console.log('Synergies remaining : ', remainingSynergies);
 
         return { unresolved: remainingSynergies.filter(isSynergyResolveData), resolved };
     }

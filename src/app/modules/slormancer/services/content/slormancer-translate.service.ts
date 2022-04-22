@@ -12,9 +12,12 @@ export class SlormancerTranslateService {
     private readonly REGEXP_KEEP_GENRE = /.*\((MS|MP|FS|FP)\)$/g;
 
     private readonly TRANSLATION_CACHE: { [key: string]: string } = {
-        atk_temporal: 'Temporal',
-        atk_arcanic: 'Arcanic',
-        atk_obliteration: 'Obliteration',
+    };
+
+    private readonly TRANSLATION_KEY_MAPPING: { [key: string]: string } = {
+        armor_of_illusion: 'armor',
+        training_lance_additional_damage_add: 'physical_damage',
+        damage_taken_to_mana: 'damage',
     };
 
     constructor(private slormancerDataService: SlormancerDataService) { }
@@ -59,10 +62,9 @@ export class SlormancerTranslateService {
         if (cache !== null) {
             result = cache;
         } else {
-            if (key === 'training_lance_additional_damage_add') {
-                key = 'physical_damage';
-            } else if (key === 'damage_taken_to_mana') {
-                key = 'damage';
+            const replacment = this.TRANSLATION_KEY_MAPPING[key];
+            if (replacment) {
+                key = replacment;
             }
 
             const gameData = this.slormancerDataService.getTranslation(key);

@@ -136,12 +136,10 @@
 
 
 ## TODO
- - reaper untouchable
- - maj armor of illusion
- - Mana Harvesting Reaper 
-
  - tester precisions
 
+
+ - good crop loop fix do not work if your elemental damage is over your raw damage and result into having a negative amount of reaper damage from savagery 60
 
 ## Planned changes
 - copy item as image ?
