@@ -503,8 +503,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     42: {
         masteryRequired: 2,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'mana_cost_reduction_skill_per_bleed');
-            addConstant(values, 7, false, EffectValueValueType.Upgrade, 'mana_cost_reduction_skill_per_bleed_distance');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'cost_reduction_skill_per_bleed');
+            addConstant(values, 7, false, EffectValueValueType.Upgrade, 'cost_reduction_skill_per_bleed_distance');
         },
         additionalClassMechanics: []
     },

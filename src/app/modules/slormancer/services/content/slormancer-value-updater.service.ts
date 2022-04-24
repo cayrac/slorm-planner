@@ -641,19 +641,19 @@ export class SlormancerValueUpdater {
             cost_type: [{ value: ALL_SKILL_COST_TYPES.indexOf(skillAndUpgrades.skill.manaCostType), source: entity }],
         };
         skillAndUpgrades.skill.manaCost = Math.max(0, this.getSpecifigStat(statsResult.extractedStats, MANA_COST_MAPPING, config, manaExtraStats));
-
         
         lifeCostAdd.push({ value: Math.max(0, skillStats.life.total), source: entity });
 
+        const expectdLifeCostType = skillAndUpgrades.skill.manaCostType === SkillCostType.Mana ? SkillCostType.Life : SkillCostType.LifeSecond;
         const lifeExtraStats: ExtractedStatMap = {
             life_cost_add: lifeCostAdd,
-            cost_type: [{ value: ALL_SKILL_COST_TYPES.indexOf(skillAndUpgrades.skill.lifeCostType), source: entity }],
+            cost_type: [{ value: ALL_SKILL_COST_TYPES.indexOf(expectdLifeCostType), source: entity }],
         };
         skillAndUpgrades.skill.lifeCost = Math.max(0, this.getSpecifigStat(statsResult.extractedStats, LIFE_COST_MAPPING, config, lifeExtraStats));
         
         if (skillAndUpgrades.skill.lifeCost > 0) {
             skillAndUpgrades.skill.hasLifeCost = skillAndUpgrades.skill.lifeCost > 0;
-            skillAndUpgrades.skill.lifeCostType = skillAndUpgrades.skill.manaCostType === SkillCostType.Mana ? SkillCostType.Life : SkillCostType.LifeSecond;
+            skillAndUpgrades.skill.lifeCostType = expectdLifeCostType;
         }
     }
 

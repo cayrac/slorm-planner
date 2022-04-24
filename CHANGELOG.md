@@ -132,6 +132,7 @@
 - Item affixes are now shown in the correct order
 - Ancestral legacies map now show the new ancestral legacies
 - Skill / Ancestral legacies / Attributes tab now take all the page's height
+- Skills can now have a mana and life cost
 
 ### Fixes
 - Item edit stat sliders are now more visible
@@ -150,6 +151,7 @@
 ## a remonter
  - comandeer rend le sort gratuit par défaut et augmente le coût en vie même s'il indique qu'il n'augmente que le coût en mana
  - multi-breaches upgrade augmente aussi le coût en vie même si ça précise bien que ça n'augmente que le coût en mana
+ - blood donation affecte aussi le coût en vie
 
 
 ## Planned changes

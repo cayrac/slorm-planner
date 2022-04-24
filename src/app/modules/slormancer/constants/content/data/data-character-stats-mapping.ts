@@ -83,7 +83,6 @@ export const SKILL_MANA_COST_MAPPING: MergedStatMapping = {
         flat: [
             { stat: 'mana_cost_add_skill' },
             { stat: 'mana_cost_add_skill_imbue', condition: (_, stats) => !hasStat(stats, 'skill_is_support') , extra: true },
-            { stat: 'mana_cost_reduction_skill_per_bleed', condition: config => config.enemy_bleed_stacks > 0, multiplier: config => config.enemy_bleed_stacks },
         ],
         max: [],
         percent: [],
@@ -122,7 +121,7 @@ export const MANA_COST_MAPPING: MergedStatMapping = {
     source: {
         flat: [
             { stat: 'mana_cost_add' },
-            { stat: 'mana_cost_reduction_per_bleed', condition: config => config.enemy_bleed_stacks > 0, multiplier: config => config.enemy_bleed_stacks },
+            { stat: 'cost_reduction_skill_per_bleed', condition: config => config.enemy_bleed_stacks > 0, multiplier: config => - config.enemy_bleed_stacks },
         ],
         max: [],
         percent: [],
@@ -155,6 +154,7 @@ export const LIFE_COST_MAPPING: MergedStatMapping = {
     source: {
         flat: [
             { stat: 'life_cost_add' },
+            { stat: 'cost_reduction_skill_per_bleed', condition: config => config.enemy_bleed_stacks > 0, multiplier: config => - config.enemy_bleed_stacks },
         ],
         max: [],
         percent: [],

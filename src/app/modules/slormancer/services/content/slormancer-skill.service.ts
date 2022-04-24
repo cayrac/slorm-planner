@@ -240,7 +240,7 @@ export class SlormancerSkillService {
                 }
 
                 if (costs.length > 0) {
-                    skill.costLabel = this.COST_LABEL + ': ' + costs.join('<br/>');
+                    skill.costLabel = this.COST_LABEL + ': <div>' + costs.join('<br/>')  + '</div>';
                 }
         }
 
@@ -334,7 +334,6 @@ export class SlormancerSkillService {
                 genresLabel: null,
                 costLabel: null,
 
-                // prévoir de déplacer ça dans upgrade quand je ferais refonte templates
                 relatedClassMechanics: this.extractSkillMechanics(gameDataSkill.EN_DESCRIPTION, heroClass, dataSkill === null ? [] : dataSkill.additionalClassMechanics),
                 relatedMechanics: [],
                 relatedBuffs: this.extractBuffs(gameDataSkill.EN_DESCRIPTION),

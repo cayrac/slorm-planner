@@ -77,6 +77,14 @@ $bravery-color         : rgb(191, 60, 89);
     &.mag::ng-deep {
         .value, .rank .current {
             color: $magical-color-text;
+
+            &.mana {
+                color: $mana-color;
+            }
+
+            &.life {
+                color: $life-color;
+            }
         } 
     }   
     
