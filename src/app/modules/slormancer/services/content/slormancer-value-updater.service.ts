@@ -614,10 +614,6 @@ export class SlormancerValueUpdater {
     }
 
     private updateSkillValues(skillAndUpgrades: CharacterSkillAndUpgrades, skillStats: SkillStats, statsResult: SkillStatsBuildResult) {
-
-        if (skillAndUpgrades.skill.id === 3) {
-            console.log(skillStats.mana.values.flat.map(v => v.value));
-        }
         skillAndUpgrades.skill.cost = Math.max(0, skillStats.mana.total);
         skillAndUpgrades.skill.cooldown = Math.max(0, round(skillStats.cooldown.total * (100 - skillStats.attackSpeed.total) / 100, 2));
 
@@ -663,6 +659,21 @@ export class SlormancerValueUpdater {
                         }
                     }
                 }
+
+                if (damageValue.stat === 'elemental_damage') {
+                    const elementalMultipliers = statsResult.extractedStats['skill_elemental_damage_mult'];
+                    if (elementalMultipliers) {
+                        additionamMultipliers.push(...elementalMultipliers.map(v => v.value));
+                    }
+                }
+
+                if (damageValue.stat === 'physical_damage') {
+                    const physicalMultipliers = statsResult.extractedStats['skill_physical_damage_mult'];
+                    if (physicalMultipliers) {
+                        additionamMultipliers.push(...physicalMultipliers.map(v => v.value));
+                    }
+                }
+
                 this.updateDamage(damageValue, skillAndUpgrades.skill.genres, skillStats, statsResult, SkillElement.Neutral, true, additionamMultipliers);
             }
         }

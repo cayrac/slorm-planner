@@ -2620,7 +2620,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'increased_damage_mult');
             setAsUpgrade(values, 0);
-            addConstant(values, -100, true, EffectValueValueType.Upgrade, 'elemental_damage_mult');
+            addConstant(values, -100, true, EffectValueValueType.Upgrade, 'skill_elemental_damage_mult');
         },
         additionalClassMechanics: []
     },
@@ -2688,7 +2688,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     103: {
         masteryRequired: 2,
         override: values => {
-            setSource(values, 0, 'movement_speed');
+            setSource(values, 0, 'movement_speed_percent');
             setStat(values, 0, 'increased_damage_mult');
             synergyMultiply100(values, 0);
             setAsUpgrade(values, 0);
@@ -4540,7 +4540,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'skill_increased_damage_mult');
             setAsUpgrade(values, 0);
-            addConstant(values, -100, false, EffectValueValueType.Upgrade, 'physical_damage_mult');
+            addConstant(values, -100, false, EffectValueValueType.Upgrade, 'skill_physical_damage_mult');
         },
         additionalClassMechanics: []
     },

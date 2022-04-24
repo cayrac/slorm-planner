@@ -130,16 +130,22 @@
 ### Changed
 - Raised max level to 60
 - Item affixes are now shown in the correct order
-- Added new ancestral legacies
-- Item edit stat sliders are now more visible
+- Ancestral legacies map now show the new ancestral legacies
 - Skill / Ancestral legacies / Attributes tab now take all the page's height
+
+### Fixes
+- Item edit stat sliders are now more visible
 - Fixed some rounding issues
+- "My finess pal" finesse upgrade now correctly synergise with movement speed percent instead of movement speed
+- Fixed a damage computing issue with Savagery 60 and Void Arrow's "Netherfire from the void" / Orb of the arcane master's "ancestral orb"
+- Fixed some skill upgrade values not being updated based on their tags
 
 
 ## TODO
- - tester precisions
- - aoe précision sur upgrades (pas les même précision partout)
- - Fixed some skill upgrade values not being updated based on their tags
+ - skill cooldowns precision
+ - ajouter mana / life cost sur skill
+ - tester effet des coûts sur les skills imbued
+ - stash
 
 
  - good crop loop fix do not work if your elemental damage is over your raw damage and result into having a negative amount of reaper damage from savagery 60

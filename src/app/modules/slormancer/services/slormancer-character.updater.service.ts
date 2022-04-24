@@ -215,7 +215,10 @@ export class SlormancerCharacterUpdaterService {
     private getCharacterStatsResult(character: Character, config: CharacterConfig, additionalItem: EquipableItem | null): CharacterStatsBuildResult {
         const stats = DATA_HERO_BASE_STATS[character.heroClass];
         
-        character.baseStats = stats.baseStats.map(baseStat => ({ stat: baseStat.stat, values: [ Math.round(baseStat.base + character.level * baseStat.perLevel) ] }));
+        character.baseStats = stats.baseStats.map(baseStat => ({
+            stat: baseStat.stat,
+            values: [ baseStat.perLevel !== 0 ? Math.round(baseStat.base + character.level * baseStat.perLevel) : baseStat.base ]
+        }));
         const levelStats = valueOrDefault(stats.levelonlyStat[character.level], []);
         for (const levelStat of levelStats) {
             character.baseStats.push({ stat: levelStat.stat, values: [levelStat.value]});
