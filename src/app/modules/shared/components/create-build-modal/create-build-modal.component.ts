@@ -11,7 +11,6 @@ export class CreateBuildModalComponent {
     constructor(private dialog: MatDialogRef<CreateBuildModalComponent>) {}
     
     public created() {
-        console.log('CreateBuildModalComponent created')
         this.dialog.close();
     }
 }

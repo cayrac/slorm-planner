@@ -61,10 +61,6 @@ export function toFloatArray(data: string, separator = ',', expected: number | n
 }
 
 export function strictParseInt(data: string): number {
-    if (data.length > 10) {
-        console.log('strict parse int : ', data);
-    }
-
     data = data.replace(/^0*([0-9]+.+?)$/, '$1');
     let value = parseInt(data, 10);
 

@@ -166,12 +166,12 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
     
                 if (selectedUpgrade.baseRank === 0) {
                     selectedUpgrade.baseRank = 1;
-                    this.slormancerSkillService.updateUpgrade(selectedUpgrade);
+                    this.slormancerSkillService.updateUpgradeModel(selectedUpgrade);
                 }
                 this.buildStorageService.saveLayer();
             } else if (!selectionChanged && selectedUpgrade.baseRank < selectedUpgrade.maxRank) {
                 selectedUpgrade.baseRank++;
-                this.slormancerSkillService.updateUpgrade(selectedUpgrade);
+                this.slormancerSkillService.updateUpgradeModel(selectedUpgrade);
                 this.buildStorageService.saveLayer();
             }
             console.log(selectedUpgrade);
@@ -192,7 +192,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
                 this.buildStorageService.saveLayer();
             } else if (!selectionChanged && selectedUpgrade.baseRank > 1) {
                 selectedUpgrade.baseRank--;
-                this.slormancerSkillService.updateUpgrade(selectedUpgrade);
+                this.slormancerSkillService.updateUpgradeModel(selectedUpgrade);
                 this.buildStorageService.saveLayer();
             }
             console.log(selectedUpgrade);

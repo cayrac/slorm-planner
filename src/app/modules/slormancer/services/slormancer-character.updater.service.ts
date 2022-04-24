@@ -164,7 +164,7 @@ export class SlormancerCharacterUpdaterService {
             this.slormancerSkillService.updateSkillView(skill);
         }
         for (const upgrade of statsResult.changed.upgrades.filter(isFirst)) {
-            this.slormancerSkillService.updateUpgrade(upgrade);
+            this.slormancerSkillService.updateUpgradeView(upgrade);
         }
         for (const attribute of statsResult.changed.attributes.filter(isFirst)) {
             this.slormancerAttributeService.updateAttributeTraits(attribute);
@@ -215,7 +215,7 @@ export class SlormancerCharacterUpdaterService {
     private getCharacterStatsResult(character: Character, config: CharacterConfig, additionalItem: EquipableItem | null): CharacterStatsBuildResult {
         const stats = DATA_HERO_BASE_STATS[character.heroClass];
         
-        character.baseStats = stats.baseStats.map(baseStat => ({ stat: baseStat.stat, values: [ baseStat.base + character.level * baseStat.perLevel] }));
+        character.baseStats = stats.baseStats.map(baseStat => ({ stat: baseStat.stat, values: [ Math.round(baseStat.base + character.level * baseStat.perLevel) ] }));
         const levelStats = valueOrDefault(stats.levelonlyStat[character.level], []);
         for (const levelStat of levelStats) {
             character.baseStats.push({ stat: levelStat.stat, values: [levelStat.value]});
@@ -257,7 +257,6 @@ export class SlormancerCharacterUpdaterService {
     }
 
     private updateSkillsElements(character: Character, stats: CharacterStatsBuildResult, config: CharacterConfig) {
-        console.log('stats : ', stats);
         for (const skillAndUpgrades of character.skills) {
             skillAndUpgrades.skill.elements = [];
 

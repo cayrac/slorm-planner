@@ -41,6 +41,7 @@ export interface MergedStatMapping {
     stat: string;
     precision: number;
     allowMinMax: boolean;
+    displayPrecision?: number;
     suffix: '%' | 's' | '';
     source: {
         flat: Array<MergedStatMappingSource>;
@@ -81,6 +82,7 @@ export const COST_MAPPING: MergedStatMapping = {
     source: {
         flat: [
             { stat: 'mana_cost_add' },
+            { stat: 'mana_cost_add_imbue', condition: (_, stats) => hasStat(stats, 'skill_id'), extra: true },
             { stat: 'mana_cost_reduction_per_bleed', condition: config => config.enemy_bleed_stacks > 0, multiplier: config => config.enemy_bleed_stacks },
         ],
         max: [],
@@ -429,7 +431,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     MAX_MANA_MAPPING,
     {
         stat: 'mana_regeneration',
-        precision: 0,
+        precision: 2,
+        displayPrecision: 0,
         allowMinMax: false,
         suffix: '',
         source: {

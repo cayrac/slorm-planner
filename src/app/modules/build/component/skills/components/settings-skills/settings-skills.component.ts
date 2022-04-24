@@ -56,7 +56,7 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
             this.slormancerSkillService.updateSkillModel(skill.skill);
             for (const upgrade of skill.upgrades) {
                 upgrade.baseRank = upgrade.maxRank;
-                this.slormancerSkillService.updateUpgrade(upgrade);
+                this.slormancerSkillService.updateUpgradeModel(upgrade);
             }
 
             this.buildStorageService.saveLayer();

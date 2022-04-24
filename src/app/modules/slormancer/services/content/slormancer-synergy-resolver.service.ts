@@ -149,18 +149,22 @@ export class SlormancerSynergyResolverService {
             if (foundStat === undefined) {
 
                 let precision = 0;
+                let displayPrecision: number | undefined = undefined;
                 if ('effect' in synergyResolveData && synergyResolveData.effect.precision !== null) {
                     precision = synergyResolveData.effect.precision;
                 } else if ('precision' in synergyResolveData && synergyResolveData.precision !== null) {
                     precision = synergyResolveData.precision;
                 } else if (statToUpdate.mapping) {
                     precision = statToUpdate.mapping.precision;
+                    displayPrecision = statToUpdate.mapping.displayPrecision;
                 }
 
                 foundStat = {
                     precision,
+                    displayPrecision,
                     stat: statToUpdate.stat,
                     total: 0,
+                    totalDisplayed: 0,
                     allowMinMax: true,
                     readonly: false,
                     suffix: '',

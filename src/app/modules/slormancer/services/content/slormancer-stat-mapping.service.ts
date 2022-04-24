@@ -34,6 +34,7 @@ export class SlormancerStatMappingService {
             stat: mapping.stat,
             total: 0,
             precision: mapping.precision,
+            displayPrecision: mapping.displayPrecision,
             allowMinMax: mapping.allowMinMax,
             suffix: mapping.suffix,
             values: {
@@ -60,7 +61,9 @@ export class SlormancerStatMappingService {
                 stat = {
                     stat: mapping.stat,
                     total: 0,
+                    totalDisplayed: 0,
                     precision: mapping.precision,
+                    displayPrecision: mapping.displayPrecision,
                     allowMinMax: mapping.allowMinMax,
                     readonly: false,
                     suffix: mapping.suffix,

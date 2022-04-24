@@ -262,4 +262,17 @@
         <div class="source-name">
         </div>
     </div>
+    <div class="line total" *ngIf="hasDisplayPrecision(mergedStat)">
+        <div class="label">Total (shown in stats)</div>
+        <div class="value">
+            {{minValueToString(mergedStat.totalDisplayed, mergedStat.suffix)}}
+        </div>
+        <div class="value" *ngIf="mergedStat.allowMinMax">
+            {{maxValueToString(mergedStat.totalDisplayed, mergedStat.suffix)}}
+        </div>
+        <div class="source">
+        </div>
+        <div class="source-name">
+        </div>
+    </div>
 </div>

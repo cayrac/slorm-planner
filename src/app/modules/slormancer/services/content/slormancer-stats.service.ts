@@ -70,8 +70,10 @@ export class SlormancerStatsService {
                 allowMinMax: false,
                 readonly: false,
                 precision: 0,
+                displayPrecision: undefined,
                 stat: 'based_on_mastery_' + sau.skill.id,
                 total: sau.skill.level,
+                totalDisplayed: sau.skill.level,
                 suffix: '',
                 values: {
                     flat: [ { value: sau.skill.level, extra: false, source: { skill: sau.skill }  }],

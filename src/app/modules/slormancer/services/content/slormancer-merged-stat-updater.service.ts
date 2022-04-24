@@ -131,10 +131,10 @@ export class SlormancerMergedStatUpdaterService {
         }
 
         if (typeof total === 'number') {
-            total = bankerRound(total + <number>extra, stat.precision);
+            total = round(bankerRound(total, stat.precision) + <number>extra, 3);
         } else {
-            total.min = bankerRound(total.min + (typeof extra === 'number' ? extra : extra.min), stat.precision);
-            total.max = bankerRound(total.max + (typeof extra === 'number' ? extra : extra.max), stat.precision);
+            total.min = round(bankerRound(total.min, stat.precision) + round(typeof extra === 'number' ? extra : extra.min), 3);
+            total.max = round(bankerRound(total.max, stat.precision) + (typeof extra === 'number' ? extra : extra.max), 3);
         }
 
         return total;  
@@ -148,6 +148,19 @@ export class SlormancerMergedStatUpdaterService {
         } else {
             stat.total.min = stat.total.min;
             stat.total.max = stat.total.max;
+        }
+
+        if (stat.displayPrecision !== undefined) {
+            if (typeof stat.total === 'number') {
+                stat.totalDisplayed = bankerRound(stat.total, stat.displayPrecision);
+            } else {
+                stat.totalDisplayed =  {
+                    min: bankerRound(stat.total.min, stat.displayPrecision),
+                    max: bankerRound(stat.total.max, stat.displayPrecision),
+                }
+            }
+        } else {
+            stat.totalDisplayed = stat.total;
         }
     }
 }

@@ -74,8 +74,10 @@ export class SlormancerValueUpdater {
                 readonly: false,
                 suffix: '',
                 precision: 0,
+                displayPrecision: undefined,
                 stat,
                 total: 0,
+                totalDisplayed: 0,
                 values: { flat: [], maxPercent: [], max: [], multiplier: [], percent: [], maxMultiplier: [] }
             };
         }
@@ -572,7 +574,7 @@ export class SlormancerValueUpdater {
             for (const multiplier of additionalMultipliers) {
                 damage.synergy = damage.synergy * (100 + multiplier) / 100;
             }
-            damage.displaySynergy = round(damage.synergy, 0);
+            damage.displaySynergy = bankerRound(damage.synergy, 0);
         } else {
             for (const multiplier of multipliers) {
                 damage.synergy.min = damage.synergy.min * (100 + multiplier) / 100;
@@ -592,8 +594,8 @@ export class SlormancerValueUpdater {
                 damage.synergy.min = 1;
             }
             damage.displaySynergy = {
-                min: round(damage.synergy.min, valueOrDefault(damage.precision, 0)),
-                max: round(damage.synergy.max, valueOrDefault(damage.precision, 0)),
+                min: bankerRound(damage.synergy.min, valueOrDefault(damage.precision, 0)),
+                max: bankerRound(damage.synergy.max, valueOrDefault(damage.precision, 0)),
             };
         }
     }
@@ -608,11 +610,14 @@ export class SlormancerValueUpdater {
             duration.value = duration.value * (100 + multiplier) / 100;
         }
         duration.value = Math.max(0, duration.value);
-        duration.displayValue = round(duration.value, 2);
+        duration.displayValue = bankerRound(duration.value, 2);
     }
 
     private updateSkillValues(skillAndUpgrades: CharacterSkillAndUpgrades, skillStats: SkillStats, statsResult: SkillStatsBuildResult) {
 
+        if (skillAndUpgrades.skill.id === 3) {
+            console.log(skillStats.mana.values.flat.map(v => v.value));
+        }
         skillAndUpgrades.skill.cost = Math.max(0, skillStats.mana.total);
         skillAndUpgrades.skill.cooldown = Math.max(0, round(skillStats.cooldown.total * (100 - skillStats.attackSpeed.total) / 100, 2));
 
@@ -674,7 +679,7 @@ export class SlormancerValueUpdater {
                 for (const value of aoeValues) {
                     value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
                     value.value = aoeMultipliers.reduce((t, v) => t * (100 + v.value) / 100, value.value);
-                    value.displayValue = round(value.value, 3);
+                    value.displayValue = round(value.value, 2);
                 }
             }
         }
@@ -737,10 +742,20 @@ export class SlormancerValueUpdater {
         }
 
         if (upgrade.genres.includes(SkillGenre.AreaOfEffect)) {
+
             const aoeValues = upgrade.values.filter(value => value.valueType === EffectValueValueType.AreaOfEffect);
             for (const value of aoeValues) {
-                value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
-                value.displayValue = round(value.value, 3);
+                let base;
+                let precision;
+                if (isEffectValueVariable(value)) {
+                    base = value.upgradedValue;
+                    precision = 3;
+                } else {
+                    base = value.baseValue;
+                    precision = 2;
+                }
+                value.value = base * (100 + skillStats.aoeIncreasedSize.total) / 100;
+                value.displayValue = round(value.value, precision);
             }
         }
     }

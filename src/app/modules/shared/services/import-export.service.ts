@@ -50,12 +50,10 @@ export class ImportExportService {
             const url = new URL(path);
             const fragments = url.pathname.split('/');
             key = valueOrNull(fragments[fragments.length - 1]);
-            console.log('parse url fragment : ', key);
         } catch (e) { }
 
         if (key !== null) {
            result = this.importFromShortData(key);
-           console.log('parsed from url : ', result);
         }
 
         return result;

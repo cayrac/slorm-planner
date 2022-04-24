@@ -219,6 +219,12 @@ export class SlormancerStatsExtractorService {
                 }
             }
 
+            if (active && !ancestralLegacy.isActivable) {
+                if (ancestralLegacy.hasManaCost && ancestralLegacy.cost !== null) {
+                    this.addStat(stats.stats, 'mana_cost_add_imbue', ancestralLegacy.cost, { ancestralLegacy });
+                }
+            }
+
             this.addMechanicValues(ancestralLegacy.relatedMechanics, stats);
         }
     }
@@ -614,6 +620,8 @@ export class SlormancerStatsExtractorService {
 
         this.addSkillValues(skillAndUpgrades, result, mergedStatMapping);
         this.addUpgradeValues(skillAndUpgrades, result, mergedStatMapping);
+
+
 
         result.stats['skill_elements'] = skillAndUpgrades.skill.elements.map(element => ({ value: element, source: { skill: skillAndUpgrades.skill } }));
         

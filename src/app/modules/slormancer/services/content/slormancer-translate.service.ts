@@ -18,6 +18,9 @@ export class SlormancerTranslateService {
         armor_of_illusion: 'armor',
         training_lance_additional_damage_add: 'physical_damage',
         damage_taken_to_mana: 'damage',
+        atk_arcanic: 'school_0',
+        atk_temporal: 'school_1',
+        atk_obliteration: 'school_2',
     };
 
     constructor(private slormancerDataService: SlormancerDataService) { }

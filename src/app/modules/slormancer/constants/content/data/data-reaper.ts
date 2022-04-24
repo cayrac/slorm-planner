@@ -345,8 +345,6 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     57: {
         override: (ba, be, ma) => {
-            console.log('Reaper data : ', ba, be, ma);
-
             addConstant(ba, 1.499, false, EffectValueValueType.AreaOfEffect, 'inner_firework_radius');
 
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'firework_increased_damage');
@@ -362,8 +360,6 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     58: {
         override: (ba, be, ma) => {
-            console.log('Reaper data 58 : ', ba, be, ma);
-
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'increased_aoe_size_per_inner_weakness');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'garbage_stat');
         }
@@ -425,7 +421,6 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     71: {
         override: (ba, be, ma) => {
-            console.log('Reaper data : ', ba, be, ma);
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'totem_increased_effect_percent');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'totem_increased_damage_percent');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');

@@ -88,12 +88,16 @@ function setSource(values: Array<AbstractEffectValue>, index: number, source: st
 }
 
 function setAsUpgrade(values: Array<AbstractEffectValue>, index: number) {
+    setValueType(values, index, EffectValueValueType.Upgrade);
+}
+
+function setValueType(values: Array<AbstractEffectValue>, index: number, valueType: EffectValueValueType) {
     const value = <EffectValueVariable | EffectValueConstant>values[index];
 
     if (value) {
-        value.valueType = EffectValueValueType.Upgrade;
+        value.valueType = valueType;
     } else {
-        throw new Error('failed to set an effect as upgrade at index ' + index);
+        throw new Error('failed to set an effect value type at index ' + index);
     }
 }
 
@@ -2435,7 +2439,6 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
             setStat(values, 0, 'physical_damage');
             addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'homing_bolt_aoe');
             setAsUpgrade(values, 0);
-            setAsUpgrade(values, 1);
         },
         additionalClassMechanics: []
     },
@@ -2615,8 +2618,9 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     94: {
         masteryRequired: 5,
         override: values => {
+            setStat(values, 0, 'increased_damage_mult');
+            setAsUpgrade(values, 0);
             addConstant(values, -100, true, EffectValueValueType.Upgrade, 'elemental_damage_mult');
-            addConstant(values, 150, true, EffectValueValueType.Upgrade, 'increased_damage_mult');
         },
         additionalClassMechanics: []
     },
@@ -3421,7 +3425,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setStat(values, 0, 'duration');
             setAsUpgrade(values, 0)
             addConstant(values, 40, false, EffectValueValueType.Upgrade, 'slow_percent');
-            addConstant(values, 6, false, EffectValueValueType.Upgrade, 'slow_duration');
+            addConstant(values, 6, false, EffectValueValueType.Duration, 'slow_duration');
             addConstant(values, -90, false, EffectValueValueType.Upgrade, 'projectile_slow_percent');
         },
         additionalClassMechanics: [],
@@ -3505,7 +3509,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 4);
             setAsUpgrade(values, 0);
-            setStat(values, 0, 'elemental_damage');
+            setStat(values, 1, 'elemental_damage');
             setUpgrade(values, 1, 2);
             setAsUpgrade(values, 1);
         },
@@ -3647,7 +3651,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 9,
         override: values => {
             setStat(values, 0, 'lost_in_time_aoe');
-            setAsUpgrade(values, 0);
+            setValueType(values, 0, EffectValueValueType.AreaOfEffect);
         },
         additionalClassMechanics: []
     },
@@ -3982,6 +3986,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 6,
         override: values => {
             setStat(values, 0, 'skill_increased_damage_mult');
+            setSynergyPrecision(values, 0, 0);
             synergyMultiply100(values, 0);
             setAsUpgrade(values, 0);
         },

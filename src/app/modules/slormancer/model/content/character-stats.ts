@@ -29,9 +29,11 @@ export interface ExternalSynergyResolveData {
 export interface MergedStat<T = number | MinMax> {
     stat: string;
     total: T;
+    totalDisplayed: T;
     allowMinMax: boolean;
     readonly: boolean;
     precision: number;
+    displayPrecision?: number;
     suffix: 's' | '%' | '';
     values: {
         flat: Array<{ value: number | MinMax, extra: boolean, source: Entity }>;

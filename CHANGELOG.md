@@ -133,10 +133,13 @@
 - Added new ancestral legacies
 - Item edit stat sliders are now more visible
 - Skill / Ancestral legacies / Attributes tab now take all the page's height
+- Fixed some rounding issues
 
 
 ## TODO
  - tester precisions
+ - aoe précision sur upgrades (pas les même précision partout)
+ - Fixed some skill upgrade values not being updated based on their tags
 
 
  - good crop loop fix do not work if your elemental damage is over your raw damage and result into having a negative amount of reaper damage from savagery 60

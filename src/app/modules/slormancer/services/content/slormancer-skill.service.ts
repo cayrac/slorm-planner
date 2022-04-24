@@ -328,7 +328,8 @@ export class SlormancerSkillService {
 
             upgrade.relatedMechanics = this.extractMechanics(gameDataSkill.EN_DESCRIPTION, values, dataSkill !== null && dataSkill.additionalMechanics ? dataSkill.additionalMechanics : []);
     
-            this.updateUpgrade(upgrade);
+            this.updateUpgradeModel(upgrade);
+            this.updateUpgradeView(upgrade);
         }
 
         return upgrade;
@@ -369,7 +370,7 @@ export class SlormancerSkillService {
             .map(type => this.slormancerMechanicService.getMechanic(type));
     }
 
-    public updateUpgrade(upgrade: SkillUpgrade) {
+    public updateUpgradeModel(upgrade: SkillUpgrade) {
         upgrade.rank = Math.min(upgrade.maxRank, upgrade.baseRank);
         upgrade.baseCost = upgrade.initialCost + upgrade.perLevelCost * Math.max(upgrade.rank, 1);
         upgrade.cost = upgrade.baseCost;
@@ -381,7 +382,9 @@ export class SlormancerSkillService {
         for (const effectValue of upgrade.values) {
             this.slormancerEffectValueService.updateEffectValue(effectValue, upgrade.rank);
         }
-        
+    }
+
+    public updateUpgradeView(upgrade: SkillUpgrade) {
         upgrade.masteryLabel =  this.MASTERY_LABEL + ' ' + upgrade.masteryRequired;
         upgrade.rankLabel =  this.RANK_LABEL + ': ' + this.slormancerTemplateService.asSpan(upgrade.rank.toString(), 'current') + '/' + upgrade.maxRank;
         

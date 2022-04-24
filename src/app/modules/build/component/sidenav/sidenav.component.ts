@@ -201,9 +201,7 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
                     if (confirm) {
                         this.buildStorageService.deleteBuild();
 
-                        console.log(this.buildStorageService.getBuilds());
                         if (this.buildStorageService.getBuilds().length === 0) {
-                            console.log('navigate');
                             this.router.navigate(['/create']);
                         }
                     }
@@ -235,7 +233,6 @@ export class SidenavComponent extends AbstractUnsubscribeComponent implements On
     }
 
     public trackbyBuildPreview(index: number, preview: BuildPreview): string {
-        console.log('trackbyBuildPreview : ', index, preview);
         return preview.storageKey;
     }
 }

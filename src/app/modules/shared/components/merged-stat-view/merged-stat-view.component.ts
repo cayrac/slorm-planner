@@ -220,4 +220,8 @@ export class MergedStatViewComponent {
 
         return formula;
     }
+
+    public hasDisplayPrecision(mergedStat: MergedStat): boolean {
+        return mergedStat.totalDisplayed !== mergedStat.total;
+    }
 }

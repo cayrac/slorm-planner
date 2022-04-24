@@ -670,9 +670,6 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
     public ngOnInit() {
         this.config = this.generateConfigurationForm();
 
-        const build = this.buildStorageService.getBuild();
-        console.log(build === null ? null : build.configuration);
-
         this.config.valueChanges
             .subscribe(() => this.updateConfiguration())
     }

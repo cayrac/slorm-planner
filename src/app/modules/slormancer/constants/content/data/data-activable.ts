@@ -236,7 +236,6 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     },
     24: {
         override: values => {
-            console.log('activable : ', values);
             setBaseValue(values, 0, 50);
             overrideValueStat(values, 1, 'garbage_stat');
         }
