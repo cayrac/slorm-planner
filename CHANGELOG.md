@@ -139,10 +139,10 @@
 - "My finess pal" finesse upgrade now correctly synergise with movement speed percent instead of movement speed
 - Fixed a damage computing issue with Savagery 60 and Void Arrow's "Netherfire from the void" / Orb of the arcane master's "ancestral orb"
 - Fixed some skill upgrade values not being updated based on their tags
+- sleepy butterfly reaper now correctly set cooldowns to a minimum of 2s and 120s for ancestral legacies (ingame bug)
 
 
 ## TODO
- - skill cooldowns precision
  - ajouter mana / life cost sur skill
  - tester effet des coûts sur les skills imbued
  - stash

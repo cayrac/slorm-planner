@@ -406,7 +406,13 @@ export class SlormancerValueUpdater {
                 }
             }
 
-            const cooldown = this.getSpecifigStat<number>(stats, COOLDOWN_MAPPING, config, { cooldown_time_add: cooldownAdd });
+            let minCooldown = 0;
+            const minCooldownStat = stats['min_cooldown_time'];
+            if (minCooldownStat !== undefined && minCooldownStat.length > 0) {
+                minCooldown = Math.min(...minCooldownStat.map(v => v.value));
+            }
+
+            const cooldown = Math.max(minCooldown, this.getSpecifigStat<number>(stats, COOLDOWN_MAPPING, config, { cooldown_time_add: cooldownAdd }));
             
             result = Math.max(0, round(cooldown * (100 - attackSpeed) / 100, 2));
         }
@@ -501,7 +507,14 @@ export class SlormancerValueUpdater {
             ancestralLegacy.cost = this.getActivableCost(statsResult.extractedStats, config, ancestralLegacy);
         }
         if (ancestralLegacy.baseCooldown !== null) {
-            ancestralLegacy.cooldown = Math.max(0, round(ancestralLegacy.baseCooldown * (100 - skillStats.attackSpeed.total) / 100, 2));
+
+            let minCooldown = 0;
+            const minCooldownStat = statsResult.extractedStats['min_cooldown_time'];
+            if (minCooldownStat !== undefined && minCooldownStat.length > 0) {
+                minCooldown = Math.min(...minCooldownStat.map(v => v.value * 60));
+            }
+
+            ancestralLegacy.cooldown = Math.max(0, round(Math.max(minCooldown, ancestralLegacy.baseCooldown) * (100 - skillStats.attackSpeed.total) / 100, 2));
         }
 
         for (const value of ancestralLegacy.values) {
@@ -615,7 +628,14 @@ export class SlormancerValueUpdater {
 
     private updateSkillValues(skillAndUpgrades: CharacterSkillAndUpgrades, skillStats: SkillStats, statsResult: SkillStatsBuildResult) {
         skillAndUpgrades.skill.cost = Math.max(0, skillStats.mana.total);
-        skillAndUpgrades.skill.cooldown = Math.max(0, round(skillStats.cooldown.total * (100 - skillStats.attackSpeed.total) / 100, 2));
+
+        let minCooldown = 0;
+        const minCooldownStat = statsResult.extractedStats['min_cooldown_time'];
+        if (minCooldownStat !== undefined && minCooldownStat.length > 0) {
+            minCooldown = Math.min(...minCooldownStat.map(v => v.value));
+        }
+
+        skillAndUpgrades.skill.cooldown = Math.max(0, round(Math.max(minCooldown, skillStats.cooldown.total) * (100 - skillStats.attackSpeed.total) / 100, 2));
 
         const damageValues = skillAndUpgrades.skill.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
 
