@@ -188,8 +188,8 @@ export class SlormancerStatsService {
         return result;
     }
 
-    private applySkillSpecialChanges(character: Character, skillAndUpgrades: CharacterSkillAndUpgrades, config: CharacterConfig, extractedStats: ExtractedStats) {
-        skillAndUpgrades.skill.costType = skillAndUpgrades.skill.baseCostType;
+    private applySkillSpecialChanges(character: Character, skillAndUpgrades: CharacterSkillAndUpgrades, config: CharacterConfig, extractedStats: ExtractedStats, result: SkillStatsBuildResult) {
+        skillAndUpgrades.skill.manaCostType = skillAndUpgrades.skill.baseCostType;
         skillAndUpgrades.skill.genres = skillAndUpgrades.skill.baseGenres.slice(0);
         
         if (character.heroClass === HeroClass.Huntress && skillAndUpgrades.skill.id === 4) {
@@ -203,6 +203,30 @@ export class SlormancerStatsService {
                 damageValue.stat = physicalDamage ? 'physical_damage' : 'elemental_damage';
                 damageValue.source = physicalDamage ? 'physical_damage' : 'elemental_damage';
             }
+        }  
+
+        let skillHasNoCost = false;
+        
+        if (extractedStats.stats['last_cast_tormented_remove_cost'] !== undefined && config.last_cast_tormented) {
+            skillHasNoCost = true;
+        }
+        if (extractedStats.stats['no_cost_if_tormented'] !== undefined && config.serenity === 0) {
+            skillHasNoCost = true;
+        }
+        if (extractedStats.stats['skill_has_no_cost_if_low_mana'] !== undefined && config.serenity === 0) {
+            const treshold = extractedStats.stats['skill_has_no_cost_if_low_mana_treshold'];
+            if (treshold !== undefined && treshold.length > 0) {
+                const firstTreshold = treshold.map(v => v.value)[0];
+                if (firstTreshold !== undefined && (100 - config.percent_missing_mana) < firstTreshold) {
+                    skillHasNoCost = true;
+                }
+            }
+        }
+
+        if (skillHasNoCost) {
+            skillAndUpgrades.skill.hasNoCost = true;
+        } else {
+            skillAndUpgrades.skill.hasNoCost = !skillAndUpgrades.skill.hasManaCost && !skillAndUpgrades.skill.hasLifeCost;
         }
 
         if (character.heroClass === HeroClass.Mage) {
@@ -232,10 +256,11 @@ export class SlormancerStatsService {
         }
 
         if (extractedStats.stats['no_longer_cost_per_second'] !== undefined) {
-            if (skillAndUpgrades.skill.costType === SkillCostType.ManaSecond) {
-                skillAndUpgrades.skill.costType = SkillCostType.Mana;
-            } else if (skillAndUpgrades.skill.costType === SkillCostType.LifeSecond) {
-                skillAndUpgrades.skill.costType = SkillCostType.Life;
+            if (skillAndUpgrades.skill.manaCostType === SkillCostType.ManaSecond) {
+                skillAndUpgrades.skill.manaCostType = SkillCostType.Mana;
+            }
+            if (skillAndUpgrades.skill.lifeCostType === SkillCostType.LifeSecond) {
+                skillAndUpgrades.skill.lifeCostType = SkillCostType.Life;
             }
         }
     }
@@ -252,7 +277,7 @@ export class SlormancerStatsService {
         }
         const mapping = [...GLOBAL_MERGED_STATS_MAPPING, ...HERO_MERGED_STATS_MAPPING[character.heroClass], ...valueOrDefault(SKILL_MERGED_STATS_MAPPING[character.heroClass][skillAndUpgrades.skill.id], []) ];
         const extractedStats = this.slormancerStatsExtractorService.extractSkillStats(skillAndUpgrades, characterStats, mapping);
-        this.applySkillSpecialChanges(character, skillAndUpgrades, config, extractedStats);
+        this.applySkillSpecialChanges(character, skillAndUpgrades, config, extractedStats, result);
         this.slormancerStatsExtractorService.extractSkillInfoStats(character, skillAndUpgrades, extractedStats);
 
         result.extractedStats = extractedStats.stats;

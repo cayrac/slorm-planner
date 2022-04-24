@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 
 import {
     COOLDOWN_MAPPING,
-    COST_MAPPING,
+    LIFE_COST_MAPPING,
+    MANA_COST_MAPPING,
     MergedStatMapping,
 } from '../../constants/content/data/data-character-stats-mapping';
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
@@ -15,7 +16,7 @@ import { AbstractEffectValue, EffectValueSynergy } from '../../model/content/eff
 import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
 import { HeroClass } from '../../model/content/enum/hero-class';
 import { MechanicType } from '../../model/content/enum/mechanic-type';
-import { ALL_SKILL_COST_TYPES } from '../../model/content/enum/skill-cost-type';
+import { ALL_SKILL_COST_TYPES, SkillCostType } from '../../model/content/enum/skill-cost-type';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { Mechanic } from '../../model/content/mechanic';
 import { Reaper } from '../../model/content/reaper';
@@ -41,6 +42,7 @@ import { SkillStatsBuildResult } from './slormancer-stats.service';
 
 interface SkillStats {
     mana: MergedStat<number>;
+    life: MergedStat<number>;
     cooldown: MergedStat<number>;
     attackSpeed: MergedStat<number>;
     increasedDamage: MergedStat<number>;
@@ -186,7 +188,8 @@ export class SlormancerValueUpdater {
 
     private getSkillStats(stats: SkillStatsBuildResult, character: Character): SkillStats {
         return {
-            mana: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'mana_cost'),
+            mana: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'skill_mana_cost'),
+            life: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'skill_life_cost'),
             cooldown: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'cooldown_time'),
             attackSpeed: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'attack_speed'),
             skillIncreasedDamage: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'skill_increased_damages'),
@@ -385,7 +388,7 @@ export class SlormancerValueUpdater {
             skillCostStats['ancestral_legacy_id'] = [{ value: entity.ancestralLegacy.id, source: entity }];
         }
         
-        return Math.max(0, this.getSpecifigStat(stats, COST_MAPPING, config, skillCostStats));
+        return Math.max(0, this.getSpecifigStat(stats, MANA_COST_MAPPING, config, skillCostStats));
     }
 
     private getActivableCooldown(stats: ExtractedStatMap, config: CharacterConfig, source: Activable | AncestralLegacy, attackSpeed: number): number {
@@ -544,10 +547,10 @@ export class SlormancerValueUpdater {
         }
     }
 
-    public updateSkillAndUpgradeValues(character: Character, skillAndUpgrades: CharacterSkillAndUpgrades, stats: SkillStatsBuildResult): Array<SkillUpgrade> {
+    public updateSkillAndUpgradeValues(character: Character, skillAndUpgrades: CharacterSkillAndUpgrades, stats: SkillStatsBuildResult, config: CharacterConfig): Array<SkillUpgrade> {
         const skillStats = this.getSkillStats(stats, character);
 
-        this.updateSkillValues(skillAndUpgrades, skillStats, stats);
+        this.updateSkillValues(skillAndUpgrades, skillStats, stats, config);
 
         // hack to add multiply and conquer bug
         if (skillAndUpgrades.skill.heroClass === HeroClass.Huntress && skillAndUpgrades.skill.id === 5 && skillAndUpgrades.selectedUpgrades.includes(45) && skillAndUpgrades.selectedUpgrades.includes(52)) {
@@ -626,8 +629,37 @@ export class SlormancerValueUpdater {
         duration.displayValue = bankerRound(duration.value, 2);
     }
 
-    private updateSkillValues(skillAndUpgrades: CharacterSkillAndUpgrades, skillStats: SkillStats, statsResult: SkillStatsBuildResult) {
-        skillAndUpgrades.skill.cost = Math.max(0, skillStats.mana.total);
+    private updateSkillCost(skillAndUpgrades: CharacterSkillAndUpgrades, skillStats: SkillStats, statsResult: SkillStatsBuildResult, config: CharacterConfig) {
+        const manaCostAdd: Array<EntityValue<number>> = [];
+        const lifeCostAdd: Array<EntityValue<number>> = [];
+        const entity: Entity = { skill: skillAndUpgrades.skill };
+        
+        manaCostAdd.push({ value: Math.max(0, skillStats.mana.total), source: entity });
+
+        const manaExtraStats: ExtractedStatMap = {
+            mana_cost_add: manaCostAdd,
+            cost_type: [{ value: ALL_SKILL_COST_TYPES.indexOf(skillAndUpgrades.skill.manaCostType), source: entity }],
+        };
+        skillAndUpgrades.skill.manaCost = Math.max(0, this.getSpecifigStat(statsResult.extractedStats, MANA_COST_MAPPING, config, manaExtraStats));
+
+        
+        lifeCostAdd.push({ value: Math.max(0, skillStats.life.total), source: entity });
+
+        const lifeExtraStats: ExtractedStatMap = {
+            life_cost_add: lifeCostAdd,
+            cost_type: [{ value: ALL_SKILL_COST_TYPES.indexOf(skillAndUpgrades.skill.lifeCostType), source: entity }],
+        };
+        skillAndUpgrades.skill.lifeCost = Math.max(0, this.getSpecifigStat(statsResult.extractedStats, LIFE_COST_MAPPING, config, lifeExtraStats));
+        
+        if (skillAndUpgrades.skill.lifeCost > 0) {
+            skillAndUpgrades.skill.hasLifeCost = skillAndUpgrades.skill.lifeCost > 0;
+            skillAndUpgrades.skill.lifeCostType = skillAndUpgrades.skill.manaCostType === SkillCostType.Mana ? SkillCostType.Life : SkillCostType.LifeSecond;
+        }
+    }
+
+    private updateSkillValues(skillAndUpgrades: CharacterSkillAndUpgrades, skillStats: SkillStats, statsResult: SkillStatsBuildResult, config: CharacterConfig) {
+
+        this.updateSkillCost(skillAndUpgrades, skillStats, statsResult, config);
 
         let minCooldown = 0;
         const minCooldownStat = statsResult.extractedStats['min_cooldown_time'];

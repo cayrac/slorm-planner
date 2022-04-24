@@ -82,7 +82,7 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
     },
     29: {
         override: values => {
-            setStat(values, 0, 'mana_cost_reduction_mult_per_frozen_or_chilled_enemy_nearby');
+            setStat(values, 0, 'cost_reduction_mult_per_frozen_or_chilled_enemy_nearby');
         }
     },
     32: {
@@ -189,7 +189,7 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
     93: {
         override: values => {
             setStat(values, 0, 'aura_elemental_swap_elemental_damage_percent');
-            addConstant(values, 100, true, EffectValueValueType.Static, 'aura_elemental_swap_mana_cost_increase');
+            addConstant(values, 100, true, EffectValueValueType.Static, 'aura_elemental_swap_cost_increase');
         }
     },
     94: {

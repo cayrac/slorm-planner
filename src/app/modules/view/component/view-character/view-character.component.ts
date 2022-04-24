@@ -66,7 +66,7 @@ export class ViewCharacterComponent {
             this.character.activable3,
             this.character.activable4
         ]   .filter(isNotNullOrUndefined)
-            .map(skill => skill.cost)
+            .map(skill => 'manaCost' in skill ? skill.manaCost : skill.cost)
             .filter(isNotNullOrUndefined);
         config.minimum_unreserved_mana = Math.max(...highestManaCost, 0);
 

@@ -220,8 +220,11 @@ export class SlormancerStatsExtractorService {
             }
 
             if (active && !ancestralLegacy.isActivable) {
-                if (ancestralLegacy.hasManaCost && ancestralLegacy.cost !== null) {
-                    this.addStat(stats.stats, 'mana_cost_add_imbue', ancestralLegacy.cost, { ancestralLegacy });
+                if (ancestralLegacy.hasManaCost && ancestralLegacy.currentRankCost !== null) {
+                    this.addStat(stats.stats, 'mana_cost_add_skill_imbue', ancestralLegacy.currentRankCost, { ancestralLegacy });
+                }
+                if (ancestralLegacy.hasLifeCost && ancestralLegacy.currentRankCost !== null) {
+                    this.addStat(stats.stats, 'life_cost_add_skill_imbue', ancestralLegacy.currentRankCost, { ancestralLegacy });
                 }
             }
 
@@ -596,7 +599,7 @@ export class SlormancerStatsExtractorService {
             }
 
             if (equipped && upgrade.cost !== 0) {
-                this.addStat(extractedStats.stats, 'mana_cost_add', upgrade.cost, { upgrade });
+                this.addStat(extractedStats.stats, 'mana_cost_add_skill', upgrade.cost, { upgrade });
             }
         }
     }
@@ -664,8 +667,8 @@ export class SlormancerStatsExtractorService {
         }
 
         this.addStat(extractedStats.stats, 'skill_id', skillAndUpgrades.skill.id, { skill: skillAndUpgrades.skill });
-        this.addStat(extractedStats.stats, 'mana_cost_add', skillAndUpgrades.skill.initialCost, { skill: skillAndUpgrades.skill });
-        this.addStat(extractedStats.stats, 'cost_type', ALL_SKILL_COST_TYPES.indexOf(skillAndUpgrades.skill.costType), { skill: skillAndUpgrades.skill });
+        this.addStat(extractedStats.stats, 'mana_cost_add_skill', skillAndUpgrades.skill.initialManaCost, { skill: skillAndUpgrades.skill });
+        this.addStat(extractedStats.stats, 'cost_type', ALL_SKILL_COST_TYPES.indexOf(skillAndUpgrades.skill.manaCostType), { skill: skillAndUpgrades.skill });
         this.addStat(extractedStats.stats, 'cooldown_time_add', skillAndUpgrades.skill.baseCooldown, { skill: skillAndUpgrades.skill });
         if (character.supportSkill) {
             this.addStat(extractedStats.stats, 'support_skill', character.supportSkill.id, { skill: skillAndUpgrades.skill });

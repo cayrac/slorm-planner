@@ -147,8 +147,10 @@
  - tester effet des coûts sur les skills imbued
  - stash
 
+## a remonter
+ - comandeer rend le sort gratuit par défaut et augmente le coût en vie même s'il indique qu'il n'augmente que le coût en mana
+ - multi-breaches upgrade augmente aussi le coût en vie même si ça précise bien que ça n'augmente que le coût en mana
 
- - good crop loop fix do not work if your elemental damage is over your raw damage and result into having a negative amount of reaper damage from savagery 60
 
 ## Planned changes
 - copy item as image ?

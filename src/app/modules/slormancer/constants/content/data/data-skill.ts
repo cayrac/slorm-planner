@@ -431,7 +431,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 7,
         override: values => { 
             addConstant(values, 0, false, EffectValueValueType.Stat, 'garbage_stat');
-            addConstant(values, -100, false, EffectValueValueType.Upgrade, 'mana_cost_mult');
+            addConstant(values, -100, false, EffectValueValueType.Upgrade, 'mana_cost_mult_skill');
         },
         additionalClassMechanics: []
     },
@@ -503,8 +503,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     42: {
         masteryRequired: 2,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'mana_cost_reduction_per_bleed');
-            addConstant(values, 7, false, EffectValueValueType.Upgrade, 'mana_cost_reduction_per_bleed_distance');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'mana_cost_reduction_skill_per_bleed');
+            addConstant(values, 7, false, EffectValueValueType.Upgrade, 'mana_cost_reduction_skill_per_bleed_distance');
         },
         additionalClassMechanics: []
     },
@@ -813,7 +813,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setStat(values, 1, 'enemy_under_control_attack_speed');
             setAsUpgrade(values, 0);
             
-            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'mana_cost_mult_per_enemy_under_control');
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'cost_mult_skill_per_enemy_under_control');
         },
         additionalClassMechanics: []
     },
@@ -901,7 +901,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         override: values => { 
             setStat(values, 0, 'cooldown_time_reduction_multiplier');
             setAsUpgrade(values, 0);
-            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'mana_cost_mult');
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'mana_cost_mult_skill');
         },
         additionalClassMechanics: []
     },
@@ -2224,7 +2224,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 2,
         override: values => {
             setStat(values, 0, 'increased_damage_mult');
-            setStat(values, 1, 'mana_cost_mult');
+            setStat(values, 1, 'mana_cost_mult_skill');
             setAsUpgrade(values, 0);
             setAsUpgrade(values, 1);
         },
@@ -2602,7 +2602,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     92: {
         masteryRequired: 3,
         override: values => {
-            setStat(values, 0, 'mana_cost_reduction_mult');
+            setStat(values, 0, 'mana_cost_reduction_skill_mult');
             setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
@@ -2720,7 +2720,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 3,
         override: values => {
             addConstant(values, 0, false, EffectValueValueType.Upgrade, 'cost_and_cooldown');
-            addConstant(values, -100, false, EffectValueValueType.Upgrade, 'mana_cost_mult_if_tormented');
+            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'no_cost_if_tormented');
             addConstant(values, -100, false, EffectValueValueType.Upgrade, 'cooldown_time_multiplier_if_tormented');
         },
         additionalClassMechanics: []
@@ -3143,7 +3143,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     166: {
         masteryRequired: 3,
         override: values => {
-            addConstant(values, -100, false, EffectValueValueType.Stat, 'last_cast_tormented_increased_cost');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'last_cast_tormented_remove_cost');
         },
         additionalClassMechanics: []
     },
@@ -3544,9 +3544,9 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     11: {
         masteryRequired: 2,
         override: values => {
-            setStat(values, 0, 'mana_cost_mult_if_low_mana_treshold');
+            setStat(values, 0, 'skill_has_no_cost_if_low_mana_treshold');
             setAsUpgrade(values, 0);
-            addConstant(values, -100, false, EffectValueValueType.Upgrade, 'mana_cost_mult_if_low_mana');
+            addConstant(values, -100, false, EffectValueValueType.Upgrade, 'skill_has_no_cost_if_low_mana');
         },
         additionalClassMechanics: []
     },
@@ -3906,7 +3906,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'cooldown_time_reduction_multiplier_per_temporal_emblem');
             setAsUpgrade(values, 0);
-            setStat(values, 1, 'mana_cost_reduction_mult_per_arcanic_emblem');
+            setStat(values, 1, 'cost_reduction_mult_skill_per_arcanic_emblem');
             setAsUpgrade(values, 1);
         },
         additionalClassMechanics: []
@@ -4356,7 +4356,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'cooldown_time_reduction_multiplier');
             setAsUpgrade(values, 0);
-            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'mana_cost_mult_per_arcanic_emblem');
+            addConstant(values, 100, false, EffectValueValueType.Upgrade, 'cost_mult_skill_per_arcanic_emblem');
         },
         additionalClassMechanics: []
     },
@@ -4771,7 +4771,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     164: {
         masteryRequired: 8,
         override: values => {
-            setStat(values, 0, 'cost_reduction_mult_per_arcanic_emblem_if_not_arcanic');
+            setStat(values, 0, 'cost_reduction_mult_skill_per_arcanic_emblem_if_not_arcanic');
             setStat(values, 1, 'cooldown_time_reduction_multiplier_per_temporal_emblem_if_not_temporal');
             setStat(values, 2, 'increased_damage_mult_per_obliteration_emblem_if_not_obliteration');
         },

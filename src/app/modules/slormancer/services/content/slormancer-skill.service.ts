@@ -106,8 +106,12 @@ export class SlormancerSkillService {
         if (overrideData !== null) {
             overrideData.override(skill.values);
 
-            if (overrideData.costTypeOverride && (<Skill | SkillUpgrade>skill).costType) {
-                (<Skill | SkillUpgrade>skill).costType = overrideData.costTypeOverride;
+            if (overrideData.costTypeOverride) {
+                if ('costType' in skill) {
+                    skill.costType = overrideData.costTypeOverride;
+                } else if ('manaCostType' in skill) {
+                    skill.manaCostType = overrideData.costTypeOverride
+                }
             }
 
             if (overrideData.additionalGenres && 'genres' in skill && 'baseGenres' in skill) {
@@ -143,12 +147,15 @@ export class SlormancerSkillService {
                 cooldown: 0,
                 precastTime: gameDataSkill.PRECAST_TIME,
                 castTime: gameDataSkill.CAST_TIME,
-                initialCost: gameDataSkill.COST,
-                perLevelCost: gameDataSkill.COST_LEVEL,
-                baseCost: 0,
-                cost: 0,
+                initialManaCost: gameDataSkill.COST,
+                perLevelManaCost: gameDataSkill.COST_LEVEL,
+                baseManaCost: 0,
+                manaCost: 0,
+                baseLifeCost: 0,
+                lifeCost: 0,
                 baseCostType: <SkillCostType>gameDataSkill.COST_TYPE,
-                costType: <SkillCostType>gameDataSkill.COST_TYPE,
+                manaCostType: <SkillCostType>gameDataSkill.COST_TYPE,
+                lifeCostType: SkillCostType.None,
                 hasLifeCost: false,
                 hasManaCost: false,
                 hasNoCost: false,
@@ -189,14 +196,16 @@ export class SlormancerSkillService {
     public updateSkillModel(skill: Skill) {
         skill.level = Math.min(skill.maxLevel, skill.baseLevel) + skill.bonusLevel;
         skill.cooldown = skill.baseCooldown;
-        skill.baseCost = skill.initialCost + skill.perLevelCost * skill.level;
+        skill.baseManaCost = skill.initialManaCost + skill.perLevelManaCost * skill.level;
 
-        skill.hasLifeCost = skill.costType === SkillCostType.LifeSecond || skill.costType === SkillCostType.LifeLock || skill.costType === SkillCostType.Life;
-        skill.hasManaCost = skill.costType === SkillCostType.ManaSecond || skill.costType === SkillCostType.ManaLock || skill.costType === SkillCostType.Mana;
-        skill.hasNoCost = skill.costType === SkillCostType.None;
-        skill.costType = skill.baseCostType;
-        skill.genres = skill.baseGenres.slice(0);
+        skill.manaCostType = skill.baseCostType;
+        skill.lifeCostType = SkillCostType.None;
         
+        skill.hasLifeCost = false;
+        skill.hasManaCost = skill.manaCostType === SkillCostType.ManaSecond || skill.manaCostType === SkillCostType.ManaLock || skill.manaCostType === SkillCostType.Mana;
+        skill.hasNoCost = skill.manaCostType === SkillCostType.None;
+        skill.genres = skill.baseGenres.slice(0);
+
         for (const effectValue of skill.values) {
             this.slormancerEffectValueService.updateEffectValue(effectValue, skill.level);
         }
@@ -220,9 +229,19 @@ export class SlormancerSkillService {
         
         skill.costLabel = null;
         if (!skill.hasNoCost) {
-            skill.costLabel = this.COST_LABEL
-                + ': ' + this.slormancerTemplateService.asSpan(skill.cost.toString(), skill.hasManaCost ? 'value mana' : 'value life')
-                + ' ' + this.slormancerTranslateService.translateCostType(skill.costType);
+            const costs: Array<string> = [];
+                if (skill.hasManaCost) {
+                    costs.push(this.slormancerTemplateService.asSpan(skill.manaCost.toString(), 'value mana')
+                        + ' ' + this.slormancerTranslateService.translateCostType(skill.manaCostType));
+                }
+                if (skill.hasLifeCost) {
+                    costs.push(this.slormancerTemplateService.asSpan(skill.lifeCost.toString(), 'value life')
+                        + ' ' + this.slormancerTranslateService.translateCostType(skill.lifeCostType));
+                }
+
+                if (costs.length > 0) {
+                    skill.costLabel = this.COST_LABEL + ': ' + costs.join('<br/>');
+                }
         }
 
         skill.cooldownLabel = null;

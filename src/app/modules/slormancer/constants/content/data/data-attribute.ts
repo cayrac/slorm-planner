@@ -133,8 +133,8 @@ export const DATA_ATTRIBUTE: { [key: number]: DataAttribute } = {
     },
     67: {
         override: trait => {
-            setStat(trait, 0, 'all_skill_mana_cost_reduction_per_cast');
-            setStat(trait, 1, 'all_skill_mana_cost_reduction_per_cast_duration');
+            setStat(trait, 0, 'all_skill_cost_reduction_per_cast');
+            setStat(trait, 1, 'all_skill_cost_reduction_per_cast_duration');
         }
     },
     73: {

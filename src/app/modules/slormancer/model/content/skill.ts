@@ -25,20 +25,24 @@ export interface Skill {
     precastTime: number;
     castTime: number;
     cooldown: number;
-    initialCost: number;
-    perLevelCost: number;
-    baseCost: number;
-    cost: number;
-    baseCostType: SkillCostType;
-    costType: SkillCostType;
-    hasLifeCost: boolean;
-    hasManaCost: boolean;
-    hasNoCost: boolean;
     baseGenres: Array<SkillGenre>;
     genres: Array<SkillGenre>;
     damageTypes: Array<string>;
     locked: boolean;
     elements: Array<SkillElement>;
+
+    initialManaCost: number;
+    perLevelManaCost: number;
+    baseManaCost: number;
+    manaCost: number;
+    baseLifeCost: number;
+    lifeCost: number;
+    baseCostType: SkillCostType;
+    manaCostType: SkillCostType;
+    lifeCostType: SkillCostType;
+    hasLifeCost: boolean;
+    hasManaCost: boolean;
+    hasNoCost: boolean;
 
     nameLabel: string;
     genresLabel: string | null;
