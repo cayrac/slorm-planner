@@ -140,16 +140,11 @@
 - "My finess pal" finesse upgrade now correctly synergise with movement speed percent instead of movement speed
 - Fixed a damage computing issue with Savagery 60 and Void Arrow's "Netherfire from the void" / Orb of the arcane master's "ancestral orb"
 - Fixed some skill upgrade values not being updated based on their tags
-- sleepy butterfly reaper now correctly set cooldowns to a minimum of 2s
+- Sleepy butterfly reaper now correctly set cooldowns to a minimum of 2s
+- Stash are no longer loaded from a game save with the material tabs causing items to be incorrectly placed (older builds will not be updated)
 
 ## TODO
- - mettre à jour avec le patch
  - tester effet des coûts sur les skills imbued
- - stash
-
-à remonter
-- emplacement des mechanics moins bien
-- ivy veins reduction amount isn't affected by aoe increased effect even if it has the AOE tag
 
 ## Planned changes
 - slorm-reapers / slorm-legendaries ?

@@ -146,8 +146,12 @@ export class SlormancerSaveParserService {
         return data;
     }
 
-    private parseSharedInventory(data: string): GameSharedInventory {        
-        return  data.split(';').map(item => this.slormancerItemService.parseItem(item));
+    private parseSharedInventory(data: string): GameSharedInventory {
+        const items = data.split(';').map(item => this.slormancerItemService.parseItem(item));
+        return {
+            materials: items.splice(0, 31),
+            items
+        };
     }
 
     private parseFirstHero(data: string): string {        
@@ -347,6 +351,8 @@ export class SlormancerSaveParserService {
         const parsedData = this.parseKeys(bytes);
 
         this.normalizeSave(parsedData);
+
+        console.log('shared_inventory : ', this.parseSharedInventory(this.getOrFail(parsedData, 'shared_inventory')))
 
         return {
             stats_fetched: this.parseStatsFetched(this.getOrFail(parsedData, 'stats_fetched')),

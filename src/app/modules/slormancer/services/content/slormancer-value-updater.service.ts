@@ -15,7 +15,6 @@ import { ClassMechanic } from '../../model/content/class-mechanic';
 import { AbstractEffectValue, EffectValueSynergy } from '../../model/content/effect-value';
 import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
 import { HeroClass } from '../../model/content/enum/hero-class';
-import { MechanicType } from '../../model/content/enum/mechanic-type';
 import { ALL_SKILL_COST_TYPES, SkillCostType } from '../../model/content/enum/skill-cost-type';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { Mechanic } from '../../model/content/mechanic';
@@ -273,8 +272,6 @@ export class SlormancerValueUpdater {
         for (const value of mechanic.values) {
             value.value = value.baseValue;
 
-            const isWalkingBomb = mechanic.type === MechanicType.WalkingBomb;
-
             if (value.valueType === EffectValueValueType.AreaOfEffect) {
                 const aoeSizeMultipliers = skillStats.aoeIncreasedSize.total;
                 value.value = isEffectValueVariable(value) ? value.upgradedValue : value.baseValue;
@@ -299,11 +296,6 @@ export class SlormancerValueUpdater {
                 value.displayValue = round(value.value, 3);
             }
             if (isEffectValueSynergy(value) && isDamageType(value.stat)) {
-
-                if (isWalkingBomb) {
-                    console.log('walking bomb value : ', value, value.synergy, value.precision);
-                }
-                
                 this.updateDamage(value, mechanic.genres, skillStats, statsResult, mechanic.element, false);
             }
         }
@@ -605,11 +597,6 @@ export class SlormancerValueUpdater {
     private updateDamage(damage: EffectValueSynergy, genres: Array<SkillGenre>, skillStats: SkillStats, statsResult: SkillStatsBuildResult, element: SkillElement, isSkill: boolean = false, additionalMultipliers: Array<number> = []) {
         const multipliers = this.getValidDamageMultipliers(genres, skillStats, statsResult, damage.stat, isSkill, element);
 
-        if (damage.stat === 'bleed_damage') {
-            console.log('Bleed update damage : ', typeof damage.displaySynergy === 'number' ? damage.displaySynergy : damage.displaySynergy.min + '-' + damage.displaySynergy.max)
-            console.log('multipliers : ', multipliers.join(', '));
-        }
-
         if (typeof damage.synergy === 'number') {
             for (const multiplier of multipliers) {
                 damage.synergy = damage.synergy * (100 + multiplier) / 100;
@@ -751,10 +738,6 @@ export class SlormancerValueUpdater {
                     if (physicalMultipliers) {
                         additionamMultipliers.push(...physicalMultipliers.map(v => v.value));
                     }
-                }
-
-                if (skillAndUpgrades.skill.id === 5) {
-                    console.log('Damage stats : ', damageValue, additionamMultipliers);
                 }
 
                 this.updateDamage(damageValue, skillAndUpgrades.skill.genres, skillStats, statsResult, SkillElement.Neutral, true, additionamMultipliers);

@@ -198,7 +198,7 @@ export class SlormancerCharacterBuilderService {
 
     private getSharedInventory(sharedInventory: GameSharedInventory, heroClass: HeroClass): Array<Array<EquipableItem | null>> {
         const result: Array<Array<EquipableItem | null>> = [];
-        const items = sharedInventory.map(item => this.getItem(item, heroClass))
+        const items = sharedInventory.items.map(item => this.getItem(item, heroClass))
 
         for (let i = 0, length = items.length; i < length; i += STASH_SIZE) {
             const stash = items.slice(i, i + STASH_SIZE);
