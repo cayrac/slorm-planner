@@ -86,12 +86,26 @@ export class SlormancerValueUpdater {
         return result
     }
 
+    private isValidBleedingMultipluer(entity: Entity): boolean {
+        let valid = true;
+
+        if ('ancestralLegacy' in entity && entity.ancestralLegacy.id === 61) {
+            valid = false;
+        } else if ('reaper' in entity && [117, 118].includes(entity.reaper.id)) {
+            valid = false;
+        }
+
+        return valid;
+    }
+
     private getValidDamageMultipliers(genres: Array<SkillGenre>, skillStats: SkillStats, stats: SkillStatsBuildResult, stat: string, isSkill: boolean, element: SkillElement = SkillElement.Neutral): Array<number> {
         const multipliers: Array<number> = [];
-        const isDot = stat === 'bleed_damage';
+        const isBleeding = stat === 'bleed_damage';
 
         multipliers.push(skillStats.increasedDamage.values.percent.reduce((t, v) => t + v.value, 0));
-        multipliers.push(...skillStats.increasedDamage.values.multiplier.map(v => v.value));
+        multipliers.push(...skillStats.increasedDamage.values.multiplier
+            .filter(v => !isBleeding || this.isValidBleedingMultipluer(v.source))
+            .map(v => v.value));
 
         if (isSkill) {
             multipliers.push(...skillStats.skillIncreasedDamage.values.multiplier.map(v => v.value))
@@ -117,11 +131,11 @@ export class SlormancerValueUpdater {
             multipliers.push(skillStats.minionIncreasedDamage.total);
         }
 
-        if (genres.includes(SkillGenre.Projectile) && !isDot) {
+        if (genres.includes(SkillGenre.Projectile) && !isBleeding) {
             multipliers.push(-Math.min(skillStats.characterAdditionalProjectiles.total, 9) * 10);
         }
 
-        if (isDot || genres.includes(SkillGenre.DamageOverTime)) {
+        if (isBleeding || genres.includes(SkillGenre.DamageOverTime)) {
             multipliers.push(skillStats.dotIncreasedDamage.total);
         }
 
@@ -583,6 +597,12 @@ export class SlormancerValueUpdater {
 
     private updateDamage(damage: EffectValueSynergy, genres: Array<SkillGenre>, skillStats: SkillStats, statsResult: SkillStatsBuildResult, element: SkillElement, isSkill: boolean = false, additionalMultipliers: Array<number> = []) {
         const multipliers = this.getValidDamageMultipliers(genres, skillStats, statsResult, damage.stat, isSkill, element);
+
+        if (damage.stat === 'bleed_damage') {
+            console.log('Bleed update damage : ', typeof damage.displaySynergy === 'number' ? damage.displaySynergy : damage.displaySynergy.min + '-' + damage.displaySynergy.max)
+            console.log('multipliers : ', multipliers.join(', '));
+        }
+
         if (typeof damage.synergy === 'number') {
             for (const multiplier of multipliers) {
                 damage.synergy = damage.synergy * (100 + multiplier) / 100;
@@ -724,6 +744,10 @@ export class SlormancerValueUpdater {
                     if (physicalMultipliers) {
                         additionamMultipliers.push(...physicalMultipliers.map(v => v.value));
                     }
+                }
+
+                if (skillAndUpgrades.skill.id === 5) {
+                    console.log('Damage stats : ', damageValue, additionamMultipliers);
                 }
 
                 this.updateDamage(damageValue, skillAndUpgrades.skill.genres, skillStats, statsResult, SkillElement.Neutral, true, additionamMultipliers);

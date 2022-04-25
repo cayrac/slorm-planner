@@ -3,7 +3,7 @@ import { valueOrDefault } from './utils';
 
 export function bankerRound(value: number, decimals: number = 0): number {
     const decal = valueOrDefault(POW_10[decimals], 1);
-    const valueToRound = round(value * decal, 3);
+    const valueToRound = round(value * decal, 6);
     var r = Math.round(valueToRound);
     return ( ( ( ( (valueToRound > 0) ? valueToRound : -valueToRound ) %1 ) === 0.5 ) ? ( ( (0 === (r%2) ) ) ? r : (r-1) ) : r) / decal;
 }

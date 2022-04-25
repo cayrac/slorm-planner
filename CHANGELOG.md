@@ -142,17 +142,14 @@
 - Fixed some skill upgrade values not being updated based on their tags
 - sleepy butterfly reaper now correctly set cooldowns to a minimum of 2s and 120s for ancestral legacies (ingame bug)
 
-
 ## TODO
- - ajouter mana / life cost sur skill
+ - mettre à jour avec le patch
  - tester effet des coûts sur les skills imbued
  - stash
 
-## a remonter
- - comandeer rend le sort gratuit par défaut et augmente le coût en vie même s'il indique qu'il n'augmente que le coût en mana
- - multi-breaches upgrade augmente aussi le coût en vie même si ça précise bien que ça n'augmente que le coût en mana
- - blood donation affecte aussi le coût en vie
-
+à remonter
+emplacement des mechanics moins bien
 
 ## Planned changes
+- slorm-reapers / slorm-legendaries ?
 - copy item as image ?
