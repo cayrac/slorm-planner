@@ -6,4 +6,5 @@ export interface DataMechanic {
     values: Array<AbstractEffectValue>;
     genres?: Array<SkillGenre>;
     element?: SkillElement;
+    template?: (template: string) => string;
 }

@@ -36,7 +36,7 @@ export const DATA_MECHANIC: { [key: string]:  DataMechanic} = {
     [MechanicType.WalkingBomb]: {
         values: [
             effectValueConstant(2, false, 'duration', EffectValueValueType.Stat),
-            effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat),
+            effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat, undefined, 2),
             effectValueConstant(100, false, 'garbage_stat', EffectValueValueType.Stat),
             effectValueConstant(1, false, 'walking_bomb_aoe', EffectValueValueType.AreaOfEffect),
         ],
@@ -61,7 +61,8 @@ export const DATA_MECHANIC: { [key: string]:  DataMechanic} = {
             effectValueConstant(100, false, 'garbage_stat', EffectValueValueType.Stat),
         ],
         genres: [SkillGenre.Totem],
-        element: SkillElement.Lightning
+        element: SkillElement.Lightning,
+        template: template => template.replace('between 1 and ', '')
     },
     [MechanicType.SoulBound]: {
         values: [

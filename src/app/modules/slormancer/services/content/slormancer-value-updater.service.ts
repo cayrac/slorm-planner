@@ -272,6 +272,9 @@ export class SlormancerValueUpdater {
 
         for (const value of mechanic.values) {
             value.value = value.baseValue;
+
+            const isWalkingBomb = mechanic.type === MechanicType.WalkingBomb;
+
             if (value.valueType === EffectValueValueType.AreaOfEffect) {
                 const aoeSizeMultipliers = skillStats.aoeIncreasedSize.total;
                 value.value = isEffectValueVariable(value) ? value.upgradedValue : value.baseValue;
@@ -295,10 +298,12 @@ export class SlormancerValueUpdater {
                 }
                 value.displayValue = round(value.value, 3);
             }
+            if (isEffectValueSynergy(value) && isDamageType(value.stat)) {
 
-            // BUG : walking bomb damages is not affected by aoe increased effects ingame
-            const isWalkingBomb = mechanic.type === MechanicType.WalkingBomb;
-            if (isEffectValueSynergy(value) && isDamageType(value.stat) && !isWalkingBomb) {
+                if (isWalkingBomb) {
+                    console.log('walking bomb value : ', value, value.synergy, value.precision);
+                }
+                
                 this.updateDamage(value, mechanic.genres, skillStats, statsResult, mechanic.element, false);
             }
         }
@@ -528,11 +533,13 @@ export class SlormancerValueUpdater {
             let minCooldown = 0;
             const minCooldownStat = statsResult.extractedStats['min_cooldown_time'];
             if (minCooldownStat !== undefined && minCooldownStat.length > 0) {
-                minCooldown = Math.min(...minCooldownStat.map(v => v.value * 60));
+                minCooldown = Math.min(...minCooldownStat.map(v => v.value));
             }
 
             ancestralLegacy.cooldown = Math.max(0, round(Math.max(minCooldown, ancestralLegacy.baseCooldown) * (100 - skillStats.attackSpeed.total) / 100, 2));
         }
+
+        const isIcyVeins = ancestralLegacy.id === 29;
 
         for (const value of ancestralLegacy.values) {
             if (isEffectValueSynergy(value)) {
@@ -542,7 +549,7 @@ export class SlormancerValueUpdater {
             } else if (value.valueType === EffectValueValueType.AreaOfEffect) {
                 value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
                 value.displayValue = round(value.value, 2);
-            } else if (value.valueType !== EffectValueValueType.Static) {
+            } else if (value.valueType !== EffectValueValueType.Static && !isIcyVeins) {
                 const statMultipliers = this.getValidStatMultipliers(ancestralLegacy.genres, skillStats);
                 value.value = isEffectValueVariable(value) ? value.upgradedValue : value.baseValue;
                 if (value.percent) {
@@ -610,7 +617,7 @@ export class SlormancerValueUpdater {
             for (const multiplier of additionalMultipliers) {
                 damage.synergy = damage.synergy * (100 + multiplier) / 100;
             }
-            damage.displaySynergy = bankerRound(damage.synergy, 0);
+            damage.displaySynergy = bankerRound(damage.synergy, valueOrDefault(damage.precision, 0));
         } else {
             for (const multiplier of multipliers) {
                 damage.synergy.min = damage.synergy.min * (100 + multiplier) / 100;

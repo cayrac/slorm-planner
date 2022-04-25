@@ -49,8 +49,7 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
     5: {
         override: values => {
             addConstant(values, 3, false, EffectValueValueType.Duration, 'scorching_area_duration');
-        },
-        additionalMechanics: [MechanicType.Fireball]
+        }
     },
     15: {
         override: values => {
@@ -83,6 +82,7 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
     29: {
         override: values => {
             setStat(values, 0, 'cost_reduction_mult_per_frozen_or_chilled_enemy_nearby');
+            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
         }
     },
     32: {

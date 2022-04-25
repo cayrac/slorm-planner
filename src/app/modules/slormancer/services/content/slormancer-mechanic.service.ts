@@ -5,7 +5,7 @@ import { AbstractEffectValue } from '../../model/content/effect-value';
 import { MechanicType } from '../../model/content/enum/mechanic-type';
 import { Mechanic } from '../../model/content/mechanic';
 import { SkillElement } from '../../model/content/skill-element';
-import { isDamageType, valueOrDefault } from '../../util/utils';
+import { isDamageType, valueOrDefault, valueOrNull } from '../../util/utils';
 import { SlormancerTemplateService } from './slormancer-template.service';
 import { SlormancerTranslateService } from './slormancer-translate.service';
 
@@ -55,13 +55,20 @@ export class SlormancerMechanicService {
         const values = valueOrDefault(DATA_MECHANIC[<string>type]?.values, []);
         const genres = valueOrDefault(DATA_MECHANIC[<string>type]?.genres, []);
         const element = valueOrDefault(DATA_MECHANIC[<string>type]?.element, SkillElement.Neutral);
+        const templateUpdate = valueOrNull(DATA_MECHANIC[<string>type]?.template);
+
+        let template = this.getDescription(type, values);
+        if (templateUpdate !== null) {
+            template = templateUpdate(template);
+        }
+
         const mechanic: Mechanic = {
             name: this.getName(type),
             type,
             description: '',
             icon: 'mechanic/' + type,
             genres, 
-            template: this.getDescription(type, values),
+            template,
             values: values.map(value => ({ ...value })),
             element
         };

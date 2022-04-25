@@ -213,9 +213,8 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             setSynergyAllowMinMax(ba, 4, false);
             setSynergyPrecision(ba, 4, 0);
             
-            setSynergyAllowMinMax(ba, 5, false);
-            setSynergyPrecision(ba, 5, 0);
-            moveValue(ba, 5, be);
+            setSynergyAllowMinMax(be, 1, false);
+            setSynergyPrecision(be, 1, 0);
 
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'dodge_add');
