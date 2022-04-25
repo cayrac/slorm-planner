@@ -135,7 +135,7 @@ export class SlormancerAncestralLegacyService {
     }
 
 
-    public getAncestralLegacy(ref: number, rank: number, bonusRank: number = 0): AncestralLegacy | null {
+    public getAncestralLegacy(ref: number, baseRank: number, bonusRank: number = 0): AncestralLegacy | null {
         const gameData = this.slormancerDataService.getGameDataAncestralLegacy(ref);
         let ancestralLegacy: AncestralLegacy | null = null;
 
@@ -161,7 +161,7 @@ export class SlormancerAncestralLegacyService {
                 costPerRank: gameData.COST_LEVEL,
                 costType: <SkillCostType>gameData.COST_TYPE,
                 rank: 0,
-                baseRank: rank,
+                baseRank: baseRank,
                 bonusRank: bonusRank,
                 baseMaxRank: gameData.UPGRADE_NUMBER,
                 maxRank: 0,
@@ -188,16 +188,16 @@ export class SlormancerAncestralLegacyService {
                 data.override(ancestralLegacy.values);
             }
 
-            this.updateAncestralLegacyModel(ancestralLegacy, rank, bonusRank);
+            this.updateAncestralLegacyModel(ancestralLegacy, baseRank, bonusRank);
             this.updateAncestralLegacyView(ancestralLegacy);
         }
 
         return ancestralLegacy;
     }
 
-    public updateAncestralLegacyModel(ancestralLegacy: AncestralLegacy, rank: number, bonusRank: number = ancestralLegacy.bonusRank) {
+    public updateAncestralLegacyModel(ancestralLegacy: AncestralLegacy, baseRank: number, bonusRank: number = ancestralLegacy.bonusRank) {
         const applyBonus = ancestralLegacy.baseMaxRank > 1 && ancestralLegacy.types.includes(AncestralLegacyType.Stat);
-        ancestralLegacy.baseRank = Math.min(ancestralLegacy.baseMaxRank, Math.max(0, rank));
+        ancestralLegacy.baseRank = Math.min(ancestralLegacy.baseMaxRank, Math.max(0, baseRank));
         ancestralLegacy.bonusRank = Math.max(0, bonusRank);
         
         ancestralLegacy.rank = ancestralLegacy.baseRank + (applyBonus ? ancestralLegacy.bonusRank : 0);

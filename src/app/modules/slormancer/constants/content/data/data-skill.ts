@@ -456,6 +456,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     36: {
         masteryRequired: 5,
         override: values => {
+            setStat(values, 0, 'skill_increased_damage_mult');
             setAsUpgrade(values, 0);
         },
         additionalClassMechanics: []
@@ -1096,7 +1097,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     113: {
         masteryRequired: 7,
         override: values => { 
-            setStat(values, 0, 'skill_increased_damage_mult_while_channeling_whirlwind');
+            setStat(values, 0, 'skill_increased_damage_mult');
             setAsUpgrade(values, 0);
             addConstant(values, -25, false, EffectValueValueType.Stat, 'res_mag_global_mult_while_channeling_whirlwind');
         },
@@ -1779,7 +1780,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     205: {
         masteryRequired: 6,
         override: values => {
-            addConstant(values, -35, false, EffectValueValueType.Stat, 'the_speed_percent');
+            addConstant(values, -35, false, EffectValueValueType.Stat, 'the_speed_percent_in_combat');
         },
         additionalClassMechanics: []
     },
@@ -1808,7 +1809,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     209: {
         masteryRequired: 7,
         override: values => {
-            setStat(values, 0, 'increased_damage_mult')
+            setStat(values, 0, 'skill_increased_damage_mult')
         },
         additionalClassMechanics: []
     },

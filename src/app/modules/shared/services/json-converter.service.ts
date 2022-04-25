@@ -87,7 +87,7 @@ export class JsonConverterService {
     private ancestralLegacyToJson(ancestralLegacy: AncestralLegacy): JsonAncestralLegacy {
         return  {
             id: ancestralLegacy.id,
-            rank: ancestralLegacy.rank
+            rank: ancestralLegacy.baseRank
         };
     }
 

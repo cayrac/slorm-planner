@@ -147,6 +147,9 @@ export class BuildRetrocompatibilityService {
                 if (build.configuration.chilled_enemy_nearby === undefined) {
                     build.configuration.chilled_enemy_nearby = DEFAULT_CONFIG.chilled_enemy_nearby;
                 }
+                if (build.configuration.in_combat === undefined) {
+                    build.configuration.in_combat = DEFAULT_CONFIG.in_combat;
+                }
             }
         },
     ];

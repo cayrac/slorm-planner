@@ -243,7 +243,8 @@ export const MIN_BASIC_DAMAGE: MergedStatMapping = {
         max: [],
         percent: [
             { stat: 'basic_damage_percent' },
-            { stat: 'burning_shadow_buff_basic_damage_percent', condition: config => config.has_burning_shadow_buff }
+            { stat: 'burning_shadow_buff_basic_damage_percent', condition: config => config.has_burning_shadow_buff },
+            { stat: 'booster_max_basic_damage_percent_percent', condition: config => config.has_booster_max_buff },
         ],
         maxPercent: [],
         multiplier: [
@@ -552,7 +553,9 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'speed_gate_buff_the_speed_percent', condition: config => config.has_speed_gate_buff },
             ],
             maxPercent: [],
-            multiplier: [],
+            multiplier: [
+                { stat: 'the_speed_percent_in_combat', condition: config => config.in_combat },
+            ],
             maxMultiplier: [],
         } 
     },
@@ -605,6 +608,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'chrono_speed_stack_cooldown_reduction_global_mult', condition: config => config.chrono_speed_stacks > 0, multiplier: (config, stats) => Math.min(config.chrono_speed_stacks, getFirstStat(stats, 'chrono_speed_max_stacks') + getFirstStat(stats, 'increased_max_chrono_stacks')) },
                 { stat: 'arcane_flux_stack_cooldown_reduction_global_mult', condition: config => config.arcane_flux_stacks > 0, multiplier: (config, stats) => Math.min(config.arcane_flux_stacks, getFirstStat(stats, 'arcane_flux_max_stacks')) },
                 { stat: 'cooldown_reduction_global_mult_per_enfeeble_in_radius', condition: config => config.enfeeble_stacks_in_radius > 0, multiplier: config => config.enfeeble_stacks_in_radius },
+                { stat: 'booster_max_cooldown_reduction_global_mult', condition: config => config.has_booster_max_buff },
             ],
             maxMultiplier: [],
         } 
@@ -1634,6 +1638,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'invigorate_stack_elemental_damage_percent', condition: config => config.invigorate_stacks > 0, multiplier: (config, stats) => Math.min(config.invigorate_stacks, getFirstStat(stats, 'invigorate_max_stacks'))},
                 { stat: 'elemental_spirit_stack_elemental_damage_percent', condition: config => config.elemental_spirit_stacks > 0, multiplier: (config, stats) => Math.min(config.elemental_spirit_stacks, getFirstStat(stats, 'elemental_spirit_max_stacks'))},
                 { stat: 'elemental_damage_percent_per_active_aura', condition: (config, stats) => getFirstStat(stats, 'active_aura_count') > 0, multiplier: (config, stats) => getFirstStat(stats, 'active_aura_count') },
+                { stat: 'booster_max_elemental_damage_percent', condition: config => config.has_booster_max_buff },
             ],
             maxPercent: [],
             multiplier: [
@@ -1776,9 +1781,6 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'primary_secondary_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')},
                 { stat: 'exposed_armor_primary_secondary_skill_increased_damage_mult', condition: (config, stats) => config.exposed_armor_buff && (hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')) },
                 { stat: 'melee_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee') },
-                { stat: 'lightning_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Lightning) },
-                { stat: 'light_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Light) },
-                { stat: 'shadow_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Shadow) },
                 { stat: 'light_arrow_increased_damage' },
                 { stat: 'isolated_target_increased_damage', condition: config => config.use_enemy_state && config.target_is_isolated },
                 { stat: 'negative_effect_target_increased_damage', condition: config => config.use_enemy_state && config.target_has_negative_effect },
@@ -1860,6 +1862,9 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'skill_increased_damage_mult_per_obliteration_emblem', condition: config => config.obliteration_emblems > 0, multiplier: config => config.obliteration_emblems },
                 { stat: 'orb_arcane_master_skill_decreased_damage_mult', condition: (_, stats) => !hasStat(stats, 'disable_orb_arcane_master_maluses'), multiplier: () => -1 },
                 { stat: 'skill_decreased_damage_mult_if_only_obliteration', condition: config => config.temporal_emblems === 0 && config.arcanic_emblems === 0 },
+                { stat: 'lightning_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Lightning) },
+                { stat: 'light_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Light) },
+                { stat: 'shadow_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Shadow) },
             ],
             maxMultiplier: [
                 { stat: 'skill_increased_max_damage_mult' },

@@ -251,11 +251,11 @@ export class SlormancerStatsExtractorService {
                             this.addStat(stats.stats, effectValue.stat, effectValue.value, source);                           
                         }
                     }
+                }
     
-                    for (const effectValue of trait.cumulativeValues) {
-                        if (trait.unlocked) { 
-                            this.addStat(stats.stats, effectValue.stat, effectValue.value, source);                           
-                        }
+                for (const effectValue of trait.cumulativeValues) {
+                    if (trait.unlocked) { 
+                        this.addStat(stats.stats, effectValue.stat, effectValue.value, source);                           
                     }
                 }
             }

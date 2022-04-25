@@ -133,6 +133,7 @@
 - Ancestral legacies map now show the new ancestral legacies
 - Skill / Ancestral legacies / Attributes tab now take all the page's height
 - Skills can now have a mana and life cost
+- Goldfish primordial malediction no longer disable cumulative values on greater traits despite it's description
 
 ### Fixes
 - Item edit stat sliders are now more visible
@@ -142,9 +143,22 @@
 - Fixed some skill upgrade values not being updated based on their tags
 - Sleepy butterfly reaper now correctly set cooldowns to a minimum of 2s
 - Stash are no longer loaded from a game save with the material tabs causing items to be incorrectly placed (older builds will not be updated)
+- Booster max effect is no longer applied if the booster max buff is unchecked in configuration
+- Ancestral champion's present no longer cause ancestral legacies rank to change unexpectedly
+- Sigil of boldness no longer increase upgrade damages
+- Reckless now correctly apply it's damage bonus
+- Vengeful hurricane is no longer affected by Full Plate Armor
 
 ## TODO
- - tester effet des coûts sur les skills imbued
+ - tester bonus degats sur les sorts 
+
+à remonter
+- emplacement des mechanics moins bien
+- ivy veins reduction amount isn't affected by aoe increased effect even if it has the AOE tag
+- goldfish malediction do not disable cumulative values from greater traits
+- skill bonus levels are no longer shown and are directly added to the skill level
+- petite typo ancestral champion
+- Sigil of boldness do not increase upgrade damages despite it's description
 
 ## Planned changes
 - slorm-reapers / slorm-legendaries ?

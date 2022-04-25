@@ -120,10 +120,10 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     },
     6: {
         override: values => {
-            overrideValueStat(values, 0, 'cooldown_reduction_global_mult');
-            overrideValueStat(values, 1, 'elemental_damage_mult');
-            overrideValueStat(values, 2, 'basic_damage_percent_mult');
-            overrideValueStat(values, 3, 'duration');
+            overrideValueStat(values, 0, 'booster_max_cooldown_reduction_global_mult');
+            overrideValueStat(values, 1, 'booster_max_elemental_damage_percent');
+            overrideValueStat(values, 2, 'booster_max_basic_damage_percent_percent');
+            overrideValueStat(values, 3, 'garbage_stat');
         }
     },
     7: {

@@ -163,5 +163,6 @@ export interface CharacterConfig {
     show_temple_keeper_as_totem: boolean;
     show_elder_inner_fire_damage: boolean;
     chilled_enemy_nearby: number;
+    in_combat: boolean;
 }
 

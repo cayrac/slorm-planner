@@ -165,6 +165,7 @@ export const DEFAULT_CONFIG: CharacterConfig = {
     show_temple_keeper_as_totem: false,
     show_elder_inner_fire_damage: false,
     chilled_enemy_nearby: 0,
+    in_combat: false,
 }
 
 export const COMBAT_CONFIG: CharacterConfig = {
@@ -330,4 +331,5 @@ export const COMBAT_CONFIG: CharacterConfig = {
     show_temple_keeper_as_totem: false,
     show_elder_inner_fire_damage: true,
     chilled_enemy_nearby: 0,
+    in_combat: true
 }

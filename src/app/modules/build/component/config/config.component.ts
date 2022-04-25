@@ -64,6 +64,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
                 { type: 'boolean', key: 'took_physical_damage_recently', label: 'Did you take physical damage recently' },
                 { type: 'boolean', key: 'crit_recently', label: 'Did you deal a critical strike recently' },
                 { type: 'boolean', key: 'dodge_recently', label: 'Did you dodge recently' },
+                { type: 'boolean', key: 'in_combat', label: 'Are you in combat' },
             ]
         },
         {
