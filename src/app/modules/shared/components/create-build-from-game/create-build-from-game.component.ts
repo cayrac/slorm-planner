@@ -8,6 +8,8 @@ import { HeroClass } from '../../../slormancer/model/content/enum/hero-class';
 import { GameHeroesData } from '../../../slormancer/model/parser/game/game-save';
 import { SlormancerSaveParserService } from '../../../slormancer/services/parser/slormancer-save-parser.service';
 import { SlormancerCharacterBuilderService } from '../../../slormancer/services/slormancer-character-builder.service';
+import { ClipboardService } from '../../services/clipboard.service';
+import { ImportExportService } from '../../services/import-export.service';
 
 @Component({
     selector: 'app-create-build-from-game',
@@ -32,7 +34,9 @@ export class CreateBuildFromGameComponent {
                 private buildStorageService: BuildStorageService,
                 private buildService: BuildService,
                 private slormancerSaveParserService: SlormancerSaveParserService,
-                private slormancerCharacterBuilderService: SlormancerCharacterBuilderService) {}
+                private slormancerCharacterBuilderService: SlormancerCharacterBuilderService,
+                private importExportService: ImportExportService,
+                private clipboardService: ClipboardService) {}
     
     public parseGameSave(content: string) {
         try {
@@ -64,6 +68,17 @@ export class CreateBuildFromGameComponent {
             const build = this.buildService.createBuildWithCharacter(this.name, 'New layer', this.characters[this.selectedClass]);
             this.buildStorageService.addBuild(build);
             this.created.emit();
+        }
+    }
+
+    public copyExternalLink() {
+        if (this.selectedClass !== null && this.characters !== null) {
+            const link = this.importExportService.exportCharacterAsLink(this.characters[this.selectedClass]);
+            if (this.clipboardService.copyToClipboard(link)) {
+                this.messageService.message('Link copied to clipboard');
+            } else {
+                this.messageService.error('Failed to copy link to clipboard');
+            }
         }
     }
 }

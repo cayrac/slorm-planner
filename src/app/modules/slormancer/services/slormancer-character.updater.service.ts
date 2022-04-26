@@ -263,21 +263,23 @@ export class SlormancerCharacterUpdaterService {
         for (const skillAndUpgrades of character.skills) {
             skillAndUpgrades.skill.elements = [];
 
-            if (stats.extractedStats['primary_secondary_skill_ice_imbued'] !== undefined) {
-                skillAndUpgrades.skill.elements.push(SkillElement.Ice);
-            }
-            if (stats.extractedStats['primary_secondary_skill_lightning_imbued'] !== undefined) {
-                skillAndUpgrades.skill.elements.push(SkillElement.Lightning);
-            }
-            if (stats.extractedStats['primary_secondary_skill_light_imbued'] !== undefined) {
-                skillAndUpgrades.skill.elements.push(SkillElement.Light);
-            }
-            if (stats.extractedStats['primary_secondary_skill_shadow_imbued'] !== undefined) {
-                console.log('Adding shadow imbue to ', skillAndUpgrades.skill.name);
-                skillAndUpgrades.skill.elements.push(SkillElement.Shadow);
-            }
-            if (stats.extractedStats['primary_secondary_skill_fire_imbued'] !== undefined) {
-                skillAndUpgrades.skill.elements.push(SkillElement.Fire);
+            if (skillAndUpgrades.skill.specialization === null) {
+                if (stats.extractedStats['primary_secondary_skill_ice_imbued'] !== undefined) {
+                    skillAndUpgrades.skill.elements.push(SkillElement.Ice);
+                }
+                if (stats.extractedStats['primary_secondary_skill_lightning_imbued'] !== undefined) {
+                    skillAndUpgrades.skill.elements.push(SkillElement.Lightning);
+                }
+                if (stats.extractedStats['primary_secondary_skill_light_imbued'] !== undefined) {
+                    skillAndUpgrades.skill.elements.push(SkillElement.Light);
+                }
+                if (stats.extractedStats['primary_secondary_skill_shadow_imbued'] !== undefined) {
+                    console.log('Adding shadow imbue to ', skillAndUpgrades.skill.name);
+                    skillAndUpgrades.skill.elements.push(SkillElement.Shadow);
+                }
+                if (stats.extractedStats['primary_secondary_skill_fire_imbued'] !== undefined) {
+                    skillAndUpgrades.skill.elements.push(SkillElement.Fire);
+                }
             }
         }
     }

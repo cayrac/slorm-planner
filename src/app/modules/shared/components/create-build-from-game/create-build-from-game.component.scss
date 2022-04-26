@@ -75,4 +75,13 @@
             }
         }
     }
+
+    .actions {
+        @include flex(row, center);
+        @include flex-gap($space-unit);
+
+        .create {
+            @include flex-grow();
+        }
+    }
 }

@@ -11,5 +11,8 @@
             </div>
         </div>
     </div>
-    <button mat-flat-button color="primary" [disabled]="characters === null || selectedClass === null" (click)="createBuild()">Create build</button>
+    <div class="actions">
+        <button mat-flat-button class="create" color="primary" [disabled]="characters === null || selectedClass === null" (click)="createBuild()">Create build</button>
+        <button mat-icon-button [disabled]="characters === null || selectedClass === null" (click)="copyExternalLink()" matTooltip="General an external link of this build"><mat-icon>share</mat-icon></button>
+    </div>
 </div>
