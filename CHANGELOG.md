@@ -147,6 +147,7 @@
 - "Sigil of boldness" no longer increase upgrade damages
 - "Reckless" now correctly apply it's damage bonus
 - "Vengeful hurricane" is no longer affected by "Full Plate Armor"
+- Changing the hero level now correctly update it's level
 ### Added
 - Added an export link on the create build component
 

@@ -61,6 +61,7 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
             .afterClosed().subscribe(level => {
                 if (level && this.character !== null) {
                     this.character.level = level;
+                    this.buildStorageService.saveLayer();
                 }
             });
         }
