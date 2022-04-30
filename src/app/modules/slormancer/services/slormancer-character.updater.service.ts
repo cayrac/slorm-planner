@@ -274,7 +274,6 @@ export class SlormancerCharacterUpdaterService {
                     skillAndUpgrades.skill.elements.push(SkillElement.Light);
                 }
                 if (stats.extractedStats['primary_secondary_skill_shadow_imbued'] !== undefined) {
-                    console.log('Adding shadow imbue to ', skillAndUpgrades.skill.name);
                     skillAndUpgrades.skill.elements.push(SkillElement.Shadow);
                 }
                 if (stats.extractedStats['primary_secondary_skill_fire_imbued'] !== undefined) {

@@ -151,7 +151,17 @@
 ### Added
 - Added an export link on the create build component
 
+## Release 0.1.3 (2022-04-26)
+
+### Known issues
+ - switching layers on attribute tabs to not update attributes
+ - burn / poison description is incorrect
+ - it is possible to have an item with epic stats but no rare
+ - remove all past.ee code / retrocompatibility
+ - create build page is not clear enough
+ - it's hard to navigate throw large selects
+ - missing ancestral name (based on unlocked realms)
+
 ## Planned changes
 - slorm-reapers / slorm-legendaries ?
 - copy item as image ?
-- search reaper select

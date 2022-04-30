@@ -94,8 +94,6 @@ export class SlormancerValueUpdater {
             valid = false;
         }
 
-        console.log('is valid bleeding multiplier : ', entity, valid);
-
         return valid;
     }
 
@@ -600,8 +598,6 @@ export class SlormancerValueUpdater {
     private updateDamage(damage: EffectValueSynergy, genres: Array<SkillGenre>, skillStats: SkillStats, statsResult: SkillStatsBuildResult, element: SkillElement, isSkill: boolean = false, additionalMultipliers: Array<number> = []) {
         const multipliers = this.getValidDamageMultipliers(genres, skillStats, statsResult, damage.stat, isSkill, element);
 
-        console.log('mults : ', multipliers.join(', '));
-
         if (typeof damage.synergy === 'number') {
             for (const multiplier of multipliers) {
                 damage.synergy = damage.synergy * (100 + multiplier) / 100;
@@ -815,7 +811,6 @@ export class SlormancerValueUpdater {
     private updateUpgradeValues(upgrade: SkillUpgrade, skillStats: SkillStats, statsResult: SkillStatsBuildResult) {  
         const damageValues = upgrade.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
         for (const damageValue of damageValues) {
-            console.log('Updating upgrade ' + upgrade.name, statsResult.extractedStats);
             this.updateDamage(damageValue, upgrade.genres, skillStats, statsResult, SkillElement.Neutral);
         }
     
