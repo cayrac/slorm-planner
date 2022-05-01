@@ -151,10 +151,11 @@
 ### Added
 - Added an export link on the create build component
 
-## Release 0.1.3 (2022-04-26)
+## Release 0.1.3 TBR
+### Fixes
+- Fixed some performance issues with attribute tab and it should now correctly update when changing layer
 
 ### Known issues
- - switching layers on attribute tabs to not update attributes
  - burn / poison description is incorrect
  - it is possible to have an item with epic stats but no rare
  - remove all past.ee code / retrocompatibility

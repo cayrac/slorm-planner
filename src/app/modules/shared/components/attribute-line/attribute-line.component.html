@@ -11,7 +11,7 @@
         (mouseleave)="nodeLeave()"
         (click)="nodeClick()">
     </div>
-    <app-trait *ngFor="let trait of attribute.traits; let i = index"
+    <app-trait *ngFor="let trait of attribute.traits; let i = index; trackBy:trackByTrait"
         [trait]="trait"
         [first]="i === 0"
         [last]="i === (attribute.traits.length - 1)"

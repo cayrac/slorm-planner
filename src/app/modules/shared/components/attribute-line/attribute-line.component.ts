@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Trait } from 'src/app/modules/slormancer/model/content/trait';
 
 import { AttributeTraits } from '../../../slormancer/model/content/attribut-traits';
 import { MinMax } from '../../../slormancer/model/minmax';
@@ -10,7 +11,7 @@ import { BuildStorageService } from '../../services/build-storage.service';
   templateUrl: './attribute-line.component.html',
   styleUrls: ['./attribute-line.component.scss']
 })
-export class AttributeLineComponent implements OnInit {
+export class AttributeLineComponent implements OnInit, OnChanges {
 
     @Input()
     public readonly attribute: AttributeTraits | null = null;
@@ -36,6 +37,8 @@ export class AttributeLineComponent implements OnInit {
     public cappedCursor: number = 0;
 
     public showSummary = false;
+
+    public cursorIndex: number | null = null;
     
     constructor(private slormancerAttributeService: SlormancerAttributeService,
                 private buildStorageService: BuildStorageService) { }
@@ -44,18 +47,22 @@ export class AttributeLineComponent implements OnInit {
         this.updateCursor();
     }
 
-    private updateCursor(index: number | null = null) {
+    public ngOnChanges() {
+        this.updateCursor();
+    }
+
+    private updateCursor() {
         if (this.attribute !== null) {
-            if (index === null) {
+            if (this.cursorIndex === null) {
                 this.cappedCursor = this.attribute.rank;
                 this.highlightRange = { min: 0, max: 0 };
                 this.unlockedRange = { min: 0, max: this.attribute.rank };
                 this.bonusRange = { min: this.attribute.rank, max: this.attribute.rank + this.attribute.bonusRank };
             } else {
-                this.cappedCursor = Math.min(this.attribute.rank + this.remainingPoints, index + 1);
+                this.cappedCursor = Math.min(this.attribute.rank + this.remainingPoints, this.cursorIndex + 1);
                 this.bonusRange = { min: Math.max(this.cappedCursor, this.attribute.rank), max: this.attribute.rank + this.attribute.bonusRank };
-                if (index < this.attribute.rank) {
-                    this.highlightRange = { min: index + 1, max: Math.max(this.attribute.rank, index + 1) };
+                if (this.cursorIndex < this.attribute.rank) {
+                    this.highlightRange = { min: this.cursorIndex + 1, max: Math.max(this.attribute.rank, this.cursorIndex + 1) };
                 } else {
                     this.highlightRange = { min: this.attribute.rank, max: this.cappedCursor };
                 }
@@ -64,10 +71,12 @@ export class AttributeLineComponent implements OnInit {
     }
 
     public nodeEnter(index: number) {
-        this.updateCursor(index);
+        this.cursorIndex = index;
+        this.updateCursor();
     }
 
     public nodeLeave() {
+        this.cursorIndex = null;
         this.updateCursor();
     }
 
@@ -108,5 +117,9 @@ export class AttributeLineComponent implements OnInit {
         if (this.attribute !== null && this.attribute.rank > 0) {
             this.setRank(this.attribute.rank - Math.min(this.attribute.rank, event.shiftKey ? 10 : 1));
         }
+    }
+
+    public trackByTrait(index: number, trait: Trait): number {
+        return index;
     }
 }
