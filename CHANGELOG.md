@@ -154,9 +154,9 @@
 ## Release 0.1.3 TBR
 ### Fixes
 - Fixed some performance issues with attribute tab and it should now correctly update when changing layer
+- Fixed some cases of variables not being correctly injected in templates
 
 ### Known issues
- - burn / poison description is incorrect
  - it is possible to have an item with epic stats but no rare
  - remove all past.ee code / retrocompatibility
  - create build page is not clear enough

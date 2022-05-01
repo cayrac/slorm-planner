@@ -32,6 +32,7 @@ export class SlormancerTemplateService {
     public readonly STAT_ANCHOR = '£';
     public readonly TYPE_ANCHOR = '$';
     public readonly VALUE_ANCHOR = '@';
+    public readonly SPECLAL_DAMAGE_ANCHOR = 'µ';
     public readonly CONSTANT_ANCHORS = ['¤', '~', '§', '¥'];
     public readonly SYNERGY_ANCHOR = '_';
     public readonly MINMAX_ANCHOR = '_';
@@ -332,7 +333,7 @@ export class SlormancerTemplateService {
                     template = this.replaceAnchor(template, value, anchor);
                 }
             } else if (isEffectValueSynergy(effectValue)) {
-                const anchor = findFirst(template, [this.TYPE_ANCHOR, this.VALUE_ANCHOR]);
+                const anchor = findFirst(template, [this.TYPE_ANCHOR, this.VALUE_ANCHOR, this.SPECLAL_DAMAGE_ANCHOR]);
                 if (anchor !== null) {
                     const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
                     template = this.replaceAnchor(template, synergy, anchor);
@@ -402,8 +403,7 @@ export class SlormancerTemplateService {
     }
 
     public prepareMechanicTemplate(template: string, stats: Array<string>): string { 
-        return this.parseTemplate(template, stats)
-            .replace(/\µ/g, '@');   
+        return this.parseTemplate(template, stats);   
     }
 
     public prepareBuffTemplate(template: string): string { 
