@@ -1,5 +1,6 @@
-import { Attribute } from '../../../slormancer/model/content/enum/attribute';
-import { HeroClass } from '../../../slormancer/model/content/enum/hero-class';
+import { Attribute } from '@slormancer/model/content/enum/attribute';
+import { HeroClass } from '@slormancer/model/content/enum/hero-class';
+
 import { JsonAncestralLegacy } from './json-ancestral-legacy';
 import { JsonItem } from './json-item';
 import { JsonReaper } from './json-reaper';

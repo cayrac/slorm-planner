@@ -1,15 +1,14 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-import { Character } from '../../../slormancer/model/character';
-import { CharacterConfig } from '../../../slormancer/model/character-config';
-import { CharacterStatDifference } from '../../../slormancer/model/character-stat-differences';
-import { GearSlot } from '../../../slormancer/model/content/enum/gear-slot';
-import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
-import { SlormancerItemService } from '../../../slormancer/services/content/slormancer-item.service';
-import { SlormancerCharacterBuilderService } from '../../../slormancer/services/slormancer-character-builder.service';
-import { SlormancerCharacterComparatorService } from '../../../slormancer/services/slormancer-character-comparator.service';
-import { SlormancerCharacterUpdaterService } from '../../../slormancer/services/slormancer-character.updater.service';
+import { Character } from '@slormancer/model/character';
+import { CharacterConfig } from '@slormancer/model/character-config';
+import { CharacterStatDifference } from '@slormancer/model/character-stat-differences';
+import { GearSlot } from '@slormancer/model/content/enum/gear-slot';
+import { EquipableItem } from '@slormancer/model/content/equipable-item';
+import { SlormancerItemService } from '@slormancer/services/content/slormancer-item.service';
+import { SlormancerCharacterBuilderService } from '@slormancer/services/slormancer-character-builder.service';
+import { SlormancerCharacterComparatorService } from '@slormancer/services/slormancer-character-comparator.service';
+import { SlormancerCharacterUpdaterService } from '@slormancer/services/slormancer-character.updater.service';
 
 export interface CompareItemModalData {
     character: Character;

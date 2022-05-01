@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
+import { ALL_ATTRIBUTES } from '@slormancer/model/content/enum/attribute';
+import { EQUIPABLE_ITEM_BASE_VALUES, EquipableItemBase } from '@slormancer/model/content/enum/equipable-item-base';
+import { HeroClass } from '@slormancer/model/content/enum/hero-class';
+import { Rarity } from '@slormancer/model/content/enum/rarity';
+import { ALL_REAPER_SMITH, ReaperSmith } from '@slormancer/model/content/enum/reaper-smith';
+import { ALL_ULTIMATUM_TYPES, UltimatumType } from '@slormancer/model/content/enum/ultimatum-type';
+import { GameDataStat } from '@slormancer/model/content/game/data/game-data-stat';
+import { GameHeroesData } from '@slormancer/model/parser/game/game-save';
+import { SlormancerDataService } from '@slormancer/services/content/slormancer-data.service';
+import { SlormancerReaperService } from '@slormancer/services/content/slormancer-reaper.service';
+import { SlormancerTranslateService } from '@slormancer/services/content/slormancer-translate.service';
+import { compareString, valueOrDefault } from '@slormancer/util/utils';
 
-import { ALL_ATTRIBUTES } from '../../slormancer/model/content/enum/attribute';
-import { EQUIPABLE_ITEM_BASE_VALUES, EquipableItemBase } from '../../slormancer/model/content/enum/equipable-item-base';
-import { HeroClass } from '../../slormancer/model/content/enum/hero-class';
-import { Rarity } from '../../slormancer/model/content/enum/rarity';
-import { ALL_REAPER_SMITH, ReaperSmith } from '../../slormancer/model/content/enum/reaper-smith';
-import { ALL_ULTIMATUM_TYPES, UltimatumType } from '../../slormancer/model/content/enum/ultimatum-type';
-import { GameDataStat } from '../../slormancer/model/content/game/data/game-data-stat';
-import { GameHeroesData } from '../../slormancer/model/parser/game/game-save';
-import { SlormancerDataService } from '../../slormancer/services/content/slormancer-data.service';
-import { SlormancerReaperService } from '../../slormancer/services/content/slormancer-reaper.service';
-import { SlormancerTranslateService } from '../../slormancer/services/content/slormancer-translate.service';
-import { compareString, valueOrDefault } from '../../slormancer/util/utils';
 import { SelectOption } from '../model/select-option';
 
 @Injectable({ providedIn: 'root' })

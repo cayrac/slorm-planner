@@ -1,0 +1,108 @@
+@import "~src/assets/scss/abstracts/flex";
+@import "~src/assets/scss/abstracts/variables";
+@import "~src/assets/scss/abstracts/color";
+
+:host {
+    @include flex-grow();
+}
+
+mat-card {
+    height: 100%;
+}
+
+.skills {
+    @include flex(row);
+    @include flex-gap($space-unit * 2);
+    height: $space-content * 3;
+
+    .skill-option {
+        transition: padding-top .1s linear;
+        padding-top: 0;
+
+        &.selected {
+            padding-top: $space-unit * 2;
+        }
+
+        img {
+            border-color: primary-color(300);
+            cursor: pointer;
+    
+            &.equipped {
+                border-color: #edd371;
+            }
+        }
+    }
+}
+
+.skill {
+    @include flex(row, stretch);
+    @include flex-gap($space-content);
+    @include flex-grow($space-content);
+
+    .selected-upgrade, .selected-skill {
+        position: relative;
+        min-width: 350px;
+        width: 350px;
+
+        app-skill-view, app-skill-upgrade-view {
+            @include flex-grow();
+        }
+
+        app-settings-skills {
+            position: absolute;
+            top: $space-unit * 4;
+            right: $space-unit * 4;
+            z-index: 1;
+        }
+
+    }
+
+    .upgrades > .inner-box {
+        @include flex(column, stretch);
+        @include flex-gap($space-unit * 3);
+
+        .line {
+            @include flex(row, center);
+
+            .number {
+                @include flex(row, center, center);
+                position: relative;
+                width: $space-unit * 7;
+                height: $space-unit * 7;
+                border: 2px solid black;
+                border-radius: $space-unit * 3.5 + 3;
+                
+                &:before {
+                    content: ' ';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    border: 2px solid primary-color(400);
+                    border-radius: $space-unit * 3.5 + 1;
+                }
+            }
+
+            .line-upgrades {
+                @include flex(row, center);
+                @include flex-gap($space-unit * 3);
+                position: relative;
+                padding-left: $space-unit * 5;
+
+                &:before {
+                    content: ' ';
+                    position: absolute;
+                    left: -2px;
+                    right: 1px;
+                    height: 2px;
+                    width: 100%;
+                    background-color: primary-color(400);
+                    border: 2px solid black;
+                    border-left: 0;
+                    border-right: 0;
+                }
+            }
+        }
+    }
+}

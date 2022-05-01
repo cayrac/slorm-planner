@@ -1,0 +1,30 @@
+@import "~src/assets/scss/abstracts/flex";
+@import "~src/assets/scss/abstracts/variables";
+@import "~src/assets/scss/abstracts/color";
+@import "~src/assets/scss/abstracts/flex";
+@import "~src/assets/scss/abstracts/spacing";
+@import "~src/assets/scss/abstracts/color";
+
+$section-color  : rgb(206, 70, 7);
+
+
+main {
+    @include flex-row-to-column('tablet', stretch, space-between);
+    @include flex-gap($space-content);
+    overflow-x: auto;
+
+    .stats {
+        max-width: 300px;
+    }
+
+    @include respond-to('tablet') {
+        height: auto;
+        .stats {
+            max-width: unset;
+        }
+    }
+
+    mat-card {
+        @include flex-grow(1, true);
+    }
+}

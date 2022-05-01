@@ -1,6 +1,6 @@
-@import "../../../../../assets/scss/abstracts/flex";
-@import "../../../../../assets/scss/abstracts/variables";
-@import "../../../../../assets/scss/theme/theme";
+@import "~src/assets/scss/abstracts/flex";
+@import "~src/assets/scss/abstracts/variables";
+@import "~src/assets/scss/theme/theme";
 @import '~@angular/material/theming';
 
 $theme-accent-pallet: map-get($theme, accent);

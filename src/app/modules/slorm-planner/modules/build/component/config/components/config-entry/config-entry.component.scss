@@ -1,0 +1,16 @@
+@import "~src/assets/scss/abstracts/flex";
+@import "~src/assets/scss/abstracts/color";
+
+mat-form-field, mat-checkbox {
+    width: 100%;
+}
+
+mat-checkbox label {
+    @include flex(row, center);
+    white-space: initial;
+    width: 100%;
+
+    mat-icon {
+        margin-left: $space-unit;
+    }
+}

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Character } from '@slormancer/model/character';
+import { Activable } from '@slormancer/model/content/activable';
+import { AncestralLegacy } from '@slormancer/model/content/ancestral-legacy';
+import { Skill } from '@slormancer/model/content/skill';
 import { takeUntil } from 'rxjs/operators';
 import {
-    SlormancerCharacterModifierService,
+  SlormancerCharacterModifierService,
 } from 'src/app/modules/slormancer/services/slormancer-character.modifier.service';
 
-import { Character } from '../../../slormancer/model/character';
-import { Activable } from '../../../slormancer/model/content/activable';
-import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
-import { Skill } from '../../../slormancer/model/content/skill';
 import { BuildStorageService } from '../../services/build-storage.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 

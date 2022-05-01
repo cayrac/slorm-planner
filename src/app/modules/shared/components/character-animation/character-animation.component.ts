@@ -1,6 +1,5 @@
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
-
-import { HeroClass } from '../../../slormancer/model/content/enum/hero-class';
+import { HeroClass } from '@slormancer/model/content/enum/hero-class';
 
 
 @Component({

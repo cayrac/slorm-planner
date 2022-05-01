@@ -1,0 +1,150 @@
+@import "~src/assets/scss/abstracts/flex";
+@import "~src/assets/scss/abstracts/variables";
+@import "~src/assets/scss/abstracts/color";
+@import "~src/assets/scss/abstracts/spacing";
+
+main {
+    @include flex-row-to-column('tablet', stretch, center);
+    @include flex-gap($space-content);
+    @include spacing($space-content, true);
+    overflow-x: auto;
+
+    @include respond-to('tablet') {
+        height: auto;
+    }
+
+    .equipment {
+        min-width: 490px;
+        max-width: 490px;
+        width: 490px;
+
+        @include respond-to('tablet') {
+            width: auto;
+            max-width: initial;
+        }
+    
+        h3 {
+            text-align: center;
+            margin-bottom: $space-unit;
+        }
+
+        .weapon {
+            @include flex(column, center, center);
+            margin: $space-content;
+            padding: $space-content;
+            background-color: rgb(22, 20, 18);
+            border: 3px solid rgb(60, 60, 60);
+        }
+
+        mat-checkbox {
+            margin-right: auto;
+        }
+    }
+
+    .summary, .stats {
+        width: 490px;
+
+        @include respond-to('tablet') {
+            width: auto;
+            max-width: initial;
+        }
+
+        mat-card-content {
+            @include flex(column, stretch);
+            @include flex-gap($space-unit * 5);
+            h4 {
+                font-weight: normal;
+            }
+
+            .stats-summary {
+                @include flex(column, stretch);
+                @include flex-gap($space-unit);
+
+                .damages, .defenses, .ressources {
+                    @include flex(row, center, space-between);
+                    @include flex-gap($space-unit);
+                    font-size: large;
+        
+                    .cell {
+                        @include flex(row, center, space-between);
+                        @include flex-gap($space-unit);
+                        @include flex-grow(1, true);
+                        border-radius: $space-unit * 4;
+                        border: $space-unit solid black;
+                        background-color: primary-color(400); 
+                        height: $space-unit * 14;
+                        padding: $space-unit * 2;
+    
+                        .value {
+                            @include flex-grow(1);
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+
+            h4 {
+                margin: 0;
+            }
+
+            .skill-line {
+                @include flex(row, center, space-between);
+                @include flex-gap($space-unit * 4);
+                min-height: $space-content * 3;
+
+                .skill {
+                    width: 80px;
+                }
+
+                .upgrades {
+                    @include flex-grow(1);
+
+                    .upgrade {
+                        padding: $space-unit;
+                        float: left;
+                    }
+                }
+            }
+
+            .activables-ancestral-legacies {
+                @include flex(row, center, space-between);
+                @include flex-gap($space-unit * 4);
+
+                .activables, .ancestral-legacies {
+                    @include flex(column, stretch);
+                    @include flex-gap($space-unit * 2);
+                    @include flex-grow(1);
+
+                    .slots {
+                        @include flex(row, center);
+                        min-height: $space-content * 3;
+
+                        .slot {
+                            padding: $space-unit;
+                        }
+                    }
+                }
+            }
+
+            .attributes {
+                padding: $space-unit;
+                
+                app-attribute-line {
+                    float: left;
+                }
+            }
+        }
+    }
+
+    .stats {
+        mat-card-content {
+            height: 725px;
+            padding-right: $space-unit * 4;
+            overflow: auto;
+
+            @include respond-to('tablet') {
+                height: auto;
+            }
+        }
+    }
+}

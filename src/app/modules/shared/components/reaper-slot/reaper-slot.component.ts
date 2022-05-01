@@ -1,9 +1,9 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Character } from '@slormancer/model/character';
+import { Reaper } from '@slormancer/model/content/reaper';
 import { SlormancerCharacterBuilderService } from 'src/app/modules/slormancer/services/slormancer-character-builder.service';
 
-import { Character } from '../../../slormancer/model/character';
-import { Reaper } from '../../../slormancer/model/content/reaper';
 import { ItemMoveService } from '../../services/item-move.service';
 import { ReaperEditModalComponent, ReaperEditModalData } from '../reaper-edit-modal/reaper-edit-modal.component';
 

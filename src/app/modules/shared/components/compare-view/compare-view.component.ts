@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
-
-import { CharacterStatDifference } from '../../../slormancer/model/character-stat-differences';
-import { MinMax } from '../../../slormancer/model/minmax';
+import { CharacterStatDifference } from '@slormancer/model/character-stat-differences';
+import { MinMax } from '@slormancer/model/minmax';
 
 
 @Component({

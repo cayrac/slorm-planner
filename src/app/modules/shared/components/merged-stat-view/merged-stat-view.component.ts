@@ -1,13 +1,10 @@
 import { Component, Input } from '@angular/core';
-
-import { MergedStat } from '../../../slormancer/model/content/character-stats';
-import { Entity } from '../../../slormancer/model/entity';
-import { MinMax } from '../../../slormancer/model/minmax';
-import {
-    SlormancerMergedStatUpdaterService,
-} from '../../../slormancer/services/content/slormancer-merged-stat-updater.service';
-import { SlormancerTranslateService } from '../../../slormancer/services/content/slormancer-translate.service';
-import { round } from '../../../slormancer/util/math.util';
+import { MergedStat } from '@slormancer/model/content/character-stats';
+import { Entity } from '@slormancer/model/entity';
+import { MinMax } from '@slormancer/model/minmax';
+import { SlormancerMergedStatUpdaterService } from '@slormancer/services/content/slormancer-merged-stat-updater.service';
+import { SlormancerTranslateService } from '@slormancer/services/content/slormancer-translate.service';
+import { round } from '@slormancer/util/math.util';
 
 @Component({
   selector: 'app-merged-stat-view',

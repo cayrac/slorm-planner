@@ -1,6 +1,11 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "@assets/*": [ "src/assets/*" ],
+      "@shared/*": [ "src/app/modules/shared/*" ],
+      "@slormancer/*": [ "src/app/modules/slormancer/*" ],
+    },
     "resolveJsonModule": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
@@ -28,7 +33,7 @@
     "noImplicitAny": true,
     "alwaysStrict": true,
     "noImplicitThis": true,
-    // "noImplicitOverride": true,
+    "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,

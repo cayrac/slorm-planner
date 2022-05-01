@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
+import { AncestralLegacy } from '@slormancer/model/content/ancestral-legacy';
+import { EquipableItem } from '@slormancer/model/content/equipable-item';
+import { SkillUpgrade } from '@slormancer/model/content/skill-upgrade';
+import { Trait } from '@slormancer/model/content/trait';
+import { isNotNullOrUndefined } from '@slormancer/util/utils';
 import { BehaviorSubject } from 'rxjs';
-
-import { AncestralLegacy } from '../../slormancer/model/content/ancestral-legacy';
-import { EquipableItem } from '../../slormancer/model/content/equipable-item';
-import { SkillUpgrade } from '../../slormancer/model/content/skill-upgrade';
-import { Trait } from '../../slormancer/model/content/trait';
-import { isNotNullOrUndefined } from '../../slormancer/util/utils';
 
 @Injectable({ providedIn: 'root' })
 export class SearchService {

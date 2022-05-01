@@ -1,0 +1,74 @@
+@import "~src/assets/scss/abstracts/flex";
+@import "~src/assets/scss/abstracts/color";
+
+:host {
+    @include flex-grow();
+}
+
+mat-card {
+    height: 100%;
+
+    mat-card-content {
+        @include flex(column, stretch);
+        @include flex-gap($space-content);
+    
+        .actions {
+            @include flex(row, center, space-between);
+    
+            .avaialble-points {
+                @include flex(row);
+                @include flex-gap($space-unit * 2);
+    
+                .point {
+                    border: 2px solid primary-color(300);
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background-color: primary-color(300);
+    
+                    &.unlocked {
+                        background-color: unset;
+                    }
+                }
+            }
+    
+            mat-icon {
+                cursor: pointer;
+                color: primary-color(300);
+            }
+        }
+    
+        .content {
+            @include flex-row-to-column('tablet', stretch);
+            @include flex-gap($space-content);
+            @include flex-grow();
+    
+            .map {
+                @include flex(column, stretch);
+                @include flex-gap($space-unit * 3);
+                @include flex-grow();
+        
+                app-ancestral-legacy-map {
+                    height: 100%;
+        
+                    @include respond-to('tablet') {
+                        height: 550px;
+                    }
+                }
+            }
+        
+            .selected {
+                @include flex(column, center);
+                overflow-y: auto;
+                min-height: 500px;
+                min-width: 350px;
+                width: 350px;
+        
+                @include respond-to('tablet') {
+                    min-width: unset;
+                    width: auto;
+                }
+            }
+        }
+    }
+}

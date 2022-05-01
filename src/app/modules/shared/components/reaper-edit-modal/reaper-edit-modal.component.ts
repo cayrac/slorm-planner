@@ -1,12 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DEFAULT_CONFIG } from '@slormancer/constants/content/data/default-configs';
+import { Character } from '@slormancer/model/character';
+import { Reaper } from '@slormancer/model/content/reaper';
+import { SlormancerReaperService } from '@slormancer/services/content/slormancer-reaper.service';
+import { SlormancerCharacterUpdaterService } from '@slormancer/services/slormancer-character.updater.service';
 
-import { DEFAULT_CONFIG } from '../../../slormancer/constants/content/data/default-configs';
-import { Character } from '../../../slormancer/model/character';
-import { Reaper } from '../../../slormancer/model/content/reaper';
-import { SlormancerReaperService } from '../../../slormancer/services/content/slormancer-reaper.service';
-import { SlormancerCharacterUpdaterService } from '../../../slormancer/services/slormancer-character.updater.service';
 import { SelectOption } from '../../model/select-option';
 import { BuildStorageService } from '../../services/build-storage.service';
 import { FormOptionsService } from '../../services/form-options.service';

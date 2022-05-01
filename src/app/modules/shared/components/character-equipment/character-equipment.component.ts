@@ -1,10 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-
-import { Character } from '../../../slormancer/model/character';
-import { EquipableItemBase } from '../../../slormancer/model/content/enum/equipable-item-base';
-import { GearSlot } from '../../../slormancer/model/content/enum/gear-slot';
-import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
-import { Ultimatum } from '../../../slormancer/model/content/ultimatum';
+import { Character } from '@slormancer/model/character';
+import { EquipableItemBase } from '@slormancer/model/content/enum/equipable-item-base';
+import { GearSlot } from '@slormancer/model/content/enum/gear-slot';
+import { EquipableItem } from '@slormancer/model/content/equipable-item';
+import { Ultimatum } from '@slormancer/model/content/ultimatum';
 
 
 @Component({

@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
-@import "../../../../../assets/scss/abstracts/flex";
-@import "../../../../../assets/scss/abstracts/spacing";
-@import "../../../../../assets/scss/abstracts/color";
+@import "~src/assets/scss/abstracts/flex";
+@import "~src/assets/scss/abstracts/spacing";
+@import "~src/assets/scss/abstracts/color";
 
 .import-game {
     @include flex(column, stretch);

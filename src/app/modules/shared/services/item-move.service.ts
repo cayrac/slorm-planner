@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { EquipableItemBase } from '@slormancer/model/content/enum/equipable-item-base';
+import { EquipableItem } from '@slormancer/model/content/equipable-item';
 import { BehaviorSubject } from 'rxjs';
 
-import { EquipableItemBase } from '../../slormancer/model/content/enum/equipable-item-base';
-import { EquipableItem } from '../../slormancer/model/content/equipable-item';
 import { BuildStorageService } from './build-storage.service';
 
 export declare type DragCallback = (itemReplaced: boolean, item: EquipableItem | null) => void;

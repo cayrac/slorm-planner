@@ -1,0 +1,19 @@
+@import "~src/assets/scss/abstracts/flex";
+@import "~src/assets/scss/abstracts/color";
+
+:host {
+    @include flex-grow();
+}
+
+mat-card {
+    height: 100%;
+
+    mat-card-content {
+        @include flex(column, center);
+        padding: $space-unit;
+    
+        p {
+            color: rgb(200, 68, 7);
+        }
+    }
+}

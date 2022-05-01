@@ -1,4 +1,4 @@
-import { UltimatumType } from '../../../slormancer/model/content/enum/ultimatum-type';
+import { UltimatumType } from '@slormancer/model/content/enum/ultimatum-type';
 
 export interface JsonUltimatum {
     level: number;

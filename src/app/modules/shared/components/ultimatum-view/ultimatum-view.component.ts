@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-
-import { Ultimatum } from '../../../slormancer/model/content/ultimatum';
+import { Ultimatum } from '@slormancer/model/content/ultimatum';
 
 @Component({
   selector: 'app-ultimatum-view',

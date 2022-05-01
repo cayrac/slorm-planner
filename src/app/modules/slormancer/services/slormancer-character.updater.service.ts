@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { MessageService } from '@shared/services/message.service';
 
-import { MessageService } from '../../shared/services/message.service';
 import { DATA_HERO_BASE_STATS } from '../constants/content/data/data-hero-base-stats';
 import { Character } from '../model/character';
 import { CharacterConfig } from '../model/character-config';

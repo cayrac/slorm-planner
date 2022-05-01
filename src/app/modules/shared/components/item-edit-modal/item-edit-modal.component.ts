@@ -1,22 +1,22 @@
 import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAX_EPIC_STATS, MAX_ITEM_LEVEL, MAX_MAGIC_STATS, MAX_RARE_STATS } from '@slormancer/constants/common';
+import { DEFAULT_CONFIG } from '@slormancer/constants/content/data/default-configs';
+import { Affix } from '@slormancer/model/content/affix';
+import { Attribute } from '@slormancer/model/content/enum/attribute';
+import { Rarity } from '@slormancer/model/content/enum/rarity';
+import { ReaperSmith } from '@slormancer/model/content/enum/reaper-smith';
+import { EquipableItem } from '@slormancer/model/content/equipable-item';
+import { LegendaryEffect } from '@slormancer/model/content/legendary-effect';
+import { SlormancerAffixService } from '@slormancer/services/content/slormancer-affix.service';
+import { SlormancerDataService } from '@slormancer/services/content/slormancer-data.service';
+import { SlormancerItemService } from '@slormancer/services/content/slormancer-item.service';
+import { SlormancerLegendaryEffectService } from '@slormancer/services/content/slormancer-legendary-effect.service';
+import { valueOrNull } from '@slormancer/util/utils';
 import { Character } from 'src/app/modules/slormancer/model/character';
 import { SlormancerCharacterUpdaterService } from 'src/app/modules/slormancer/services/slormancer-character.updater.service';
 
-import { MAX_EPIC_STATS, MAX_ITEM_LEVEL, MAX_MAGIC_STATS, MAX_RARE_STATS } from '../../../slormancer/constants/common';
-import { DEFAULT_CONFIG } from '../../../slormancer/constants/content/data/default-configs';
-import { Affix } from '../../../slormancer/model/content/affix';
-import { Attribute } from '../../../slormancer/model/content/enum/attribute';
-import { Rarity } from '../../../slormancer/model/content/enum/rarity';
-import { ReaperSmith } from '../../../slormancer/model/content/enum/reaper-smith';
-import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
-import { LegendaryEffect } from '../../../slormancer/model/content/legendary-effect';
-import { SlormancerAffixService } from '../../../slormancer/services/content/slormancer-affix.service';
-import { SlormancerDataService } from '../../../slormancer/services/content/slormancer-data.service';
-import { SlormancerItemService } from '../../../slormancer/services/content/slormancer-item.service';
-import { SlormancerLegendaryEffectService } from '../../../slormancer/services/content/slormancer-legendary-effect.service';
-import { valueOrNull } from '../../../slormancer/util/utils';
 import { BuildStorageService } from '../../services/build-storage.service';
 import { FormOptionsService } from '../../services/form-options.service';
 

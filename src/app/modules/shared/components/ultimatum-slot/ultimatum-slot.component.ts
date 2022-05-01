@@ -1,7 +1,7 @@
 import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Ultimatum } from '@slormancer/model/content/ultimatum';
 
-import { Ultimatum } from '../../../slormancer/model/content/ultimatum';
 import { ItemMoveService } from '../../services/item-move.service';
 import { UltimatumEditModalComponent, UltimatumEditModalData } from '../ultimatum-edit-modal/ultimatum-edit-modal.component';
 

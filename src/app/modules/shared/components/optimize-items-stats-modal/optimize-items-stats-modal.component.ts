@@ -1,12 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Rarity } from '@slormancer/model/content/enum/rarity';
+import { EquipableItem } from '@slormancer/model/content/equipable-item';
+import { SlormancerAffixService } from '@slormancer/services/content/slormancer-affix.service';
+import { SlormancerDataService } from '@slormancer/services/content/slormancer-data.service';
+import { SlormancerItemService } from '@slormancer/services/content/slormancer-item.service';
 
-import { Rarity } from '../../../slormancer/model/content/enum/rarity';
-import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
-import { SlormancerAffixService } from '../../../slormancer/services/content/slormancer-affix.service';
-import { SlormancerDataService } from '../../../slormancer/services/content/slormancer-data.service';
-import { SlormancerItemService } from '../../../slormancer/services/content/slormancer-item.service';
 import { SelectOption } from '../../model/select-option';
 import { FormOptionsService } from '../../services/form-options.service';
 

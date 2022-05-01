@@ -1,11 +1,10 @@
 import { Component, Input } from '@angular/core';
-
-import { Buff } from '../../../slormancer/model/content/buff';
-import { ClassMechanic } from '../../../slormancer/model/content/class-mechanic';
-import { Mechanic } from '../../../slormancer/model/content/mechanic';
-import { SkillType } from '../../../slormancer/model/content/skill-type';
-import { SkillUpgrade } from '../../../slormancer/model/content/skill-upgrade';
-import { SlormancerTranslateService } from '../../../slormancer/services/content/slormancer-translate.service';
+import { Buff } from '@slormancer/model/content/buff';
+import { ClassMechanic } from '@slormancer/model/content/class-mechanic';
+import { Mechanic } from '@slormancer/model/content/mechanic';
+import { SkillType } from '@slormancer/model/content/skill-type';
+import { SkillUpgrade } from '@slormancer/model/content/skill-upgrade';
+import { SlormancerTranslateService } from '@slormancer/services/content/slormancer-translate.service';
 
 @Component({
   selector: 'app-skill-upgrade-view',

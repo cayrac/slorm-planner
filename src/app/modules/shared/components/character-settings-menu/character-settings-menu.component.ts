@@ -1,25 +1,25 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { Character } from '@slormancer/model/character';
+import { AttributeTraits } from '@slormancer/model/content/attribut-traits';
+import { ALL_ATTRIBUTES } from '@slormancer/model/content/enum/attribute';
+import { ALL_GEAR_SLOT_VALUES } from '@slormancer/model/content/enum/gear-slot';
+import { EquipableItem } from '@slormancer/model/content/equipable-item';
+import { Skill } from '@slormancer/model/content/skill';
+import { SlormancerItemService } from '@slormancer/services/content/slormancer-item.service';
+import { isNotNullOrUndefined } from '@slormancer/util/utils';
 import { takeUntil } from 'rxjs/operators';
 import { ReaperSmith } from 'src/app/modules/slormancer/model/content/enum/reaper-smith';
 
-import { Character } from '../../../slormancer/model/character';
-import { AttributeTraits } from '../../../slormancer/model/content/attribut-traits';
-import { ALL_ATTRIBUTES } from '../../../slormancer/model/content/enum/attribute';
-import { ALL_GEAR_SLOT_VALUES } from '../../../slormancer/model/content/enum/gear-slot';
-import { EquipableItem } from '../../../slormancer/model/content/equipable-item';
-import { Skill } from '../../../slormancer/model/content/skill';
-import { SlormancerItemService } from '../../../slormancer/services/content/slormancer-item.service';
-import { isNotNullOrUndefined } from '../../../slormancer/util/utils';
 import { BuildStorageService } from '../../services/build-storage.service';
 import { MessageService } from '../../services/message.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 import { CharacterLevelEditModalComponent } from '../character-level-edit-modal/character-level-edit-modal.component';
 import { ItemReinforcmentEditModalComponent } from '../item-reinforcment-edit-modal/item-reinforcment-edit-modal.component';
 import {
-    OptimizeItemsStatsModalComponent,
-    OptimizeItemsStatsModalData,
+  OptimizeItemsStatsModalComponent,
+  OptimizeItemsStatsModalData,
 } from '../optimize-items-stats-modal/optimize-items-stats-modal.component';
 
 @Component({

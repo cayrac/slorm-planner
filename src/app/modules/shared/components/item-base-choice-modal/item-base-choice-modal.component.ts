@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-
-import { EQUIPABLE_ITEM_BASE_VALUES, EquipableItemBase } from '../../../slormancer/model/content/enum/equipable-item-base';
+import { EQUIPABLE_ITEM_BASE_VALUES, EquipableItemBase } from '@slormancer/model/content/enum/equipable-item-base';
 
 @Component({
   selector: 'app-item-base-choice-modal',

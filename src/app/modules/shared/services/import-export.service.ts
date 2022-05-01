@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Character } from '@slormancer/model/character';
+import { HeroClass } from '@slormancer/model/content/enum/hero-class';
+import { SlormancerSaveParserService } from '@slormancer/services/parser/slormancer-save-parser.service';
+import { SlormancerShortDataService } from '@slormancer/services/short-data/slormancer-short-data.service';
+import { SlormancerCharacterBuilderService } from '@slormancer/services/slormancer-character-builder.service';
+import { valueOrNull } from '@slormancer/util/utils';
 
-import { Character } from '../../slormancer/model/character';
-import { HeroClass } from '../../slormancer/model/content/enum/hero-class';
-import { SlormancerSaveParserService } from '../../slormancer/services/parser/slormancer-save-parser.service';
-import { SlormancerShortDataService } from '../../slormancer/services/short-data/slormancer-short-data.service';
-import { SlormancerCharacterBuilderService } from '../../slormancer/services/slormancer-character-builder.service';
-import { valueOrNull } from '../../slormancer/util/utils';
 import { Build } from '../model/build';
 import { Layer } from '../model/layer';
 import { SharedData } from '../model/shared-data';
@@ -29,7 +29,7 @@ export class ImportExportService {
                 baseHref = href;
             }
         }
-        this.VIEW_BUILD_PATH = window.origin + baseHref + 'view/build/';
+        this.VIEW_BUILD_PATH = window.origin + baseHref + 'slorm-planner/view/build/';
     }
 
     private parseSaveData(content: string, heroClass: HeroClass): Character {

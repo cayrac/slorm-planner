@@ -154,6 +154,7 @@
 ## Release 0.1.3 TBR
 ### Changed
 - Removed paste.ee support for old exported builds
+- Updated website navigation and modules organisation
 ### Fixes
 - Fixed some performance issues with attribute tab and it should now correctly update when changing layer
 - Fixed some cases of variables not being correctly injected in templates

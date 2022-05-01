@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { GAME_VERSION } from '@slormancer/constants/common';
+import { DEFAULT_CONFIG } from '@slormancer/constants/content/data/default-configs';
+import { compareVersions } from '@slormancer/util/utils';
 
-import { GAME_VERSION } from '../../slormancer/constants/common';
-import { DEFAULT_CONFIG } from '../../slormancer/constants/content/data/default-configs';
-import { compareVersions } from '../../slormancer/util/utils';
 import { Build } from '../model/build';
 
 @Injectable({ providedIn: 'root' })

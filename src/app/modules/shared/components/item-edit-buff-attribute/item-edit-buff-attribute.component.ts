@@ -1,9 +1,9 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSliderChange } from '@angular/material/slider';
+import { AttributeEnchantment } from '@slormancer/model/content/attribute-enchantment';
+import { valueOrDefault } from '@slormancer/util/utils';
 
-import { AttributeEnchantment } from '../../../slormancer/model/content/attribute-enchantment';
-import { valueOrDefault } from '../../../slormancer/util/utils';
 import { SelectOption } from '../../model/select-option';
 import { FormOptionsService } from '../../services/form-options.service';
 

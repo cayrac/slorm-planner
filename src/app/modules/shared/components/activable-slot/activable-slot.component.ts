@@ -1,9 +1,9 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { Activable } from '@slormancer/model/content/activable';
+import { AncestralLegacy } from '@slormancer/model/content/ancestral-legacy';
+import { compare, isFirst, isNotNullOrUndefined } from '@slormancer/util/utils';
 
-import { Activable } from '../../../slormancer/model/content/activable';
-import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
-import { compare, isFirst, isNotNullOrUndefined } from '../../../slormancer/util/utils';
 import { BuildStorageService } from '../../services/build-storage.service';
 import { ItemMoveService } from '../../services/item-move.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';

@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-
-import { Skill } from '../../../slormancer/model/content/skill';
+import { Skill } from '@slormancer/model/content/skill';
 
 @Component({
   selector: 'app-skill-view',

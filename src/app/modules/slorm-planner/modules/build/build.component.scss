@@ -1,0 +1,44 @@
+@use '@angular/material' as mat;
+@import "~src/assets/scss/abstracts/flex";
+@import "~src/assets/scss/abstracts/spacing";
+@import "~src/assets/scss/abstracts/color";
+
+:host {
+    height: 100%;
+    @include flex(column, stretch);
+}
+
+.header {
+    @include flex(row, center);
+    z-index: 2;
+
+    background-color: primary-color(700);
+    @include mat.elevation(4, primary-color(100));
+
+    .tools {
+        @include flex(row, center);
+        width: 48px;
+        min-width: 48px;
+        cursor: pointer;
+
+        mat-icon {
+            margin: auto;
+        }
+    }
+
+    nav {
+        @include flex-grow();
+    }
+}
+
+#drag-image, #drag-background {
+    z-index: 1;
+    position: fixed;
+    pointer-events: none;
+    &:not(.dragging) {
+        display: none;
+    }
+}
+#drag-background {
+    opacity: 0.6;
+}

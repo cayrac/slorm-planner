@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Character } from '@slormancer/model/character';
+import { SlormancerCharacterUpdaterService } from '@slormancer/services/slormancer-character.updater.service';
+import { valueOrDefault, valueOrNull } from '@slormancer/util/utils';
 import { BehaviorSubject, debounceTime, Subject } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
-import { Character } from '../../slormancer/model/character';
-import { SlormancerCharacterUpdaterService } from '../../slormancer/services/slormancer-character.updater.service';
-import { valueOrDefault, valueOrNull } from '../../slormancer/util/utils';
 import { Build } from '../model/build';
 import { BuildPreview } from '../model/build-preview';
 import { Layer } from '../model/layer';

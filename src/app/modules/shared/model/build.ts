@@ -1,5 +1,6 @@
-import { CharacterConfig } from '../../slormancer/model/character-config';
-import { HeroClass } from '../../slormancer/model/content/enum/hero-class';
+import { CharacterConfig } from '@slormancer/model/character-config';
+import { HeroClass } from '@slormancer/model/content/enum/hero-class';
+
 import { Layer } from './layer';
 
 export interface Build {

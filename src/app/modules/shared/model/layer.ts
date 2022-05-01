@@ -1,4 +1,4 @@
-import { Character } from '../../slormancer/model/character';
+import { Character } from '@slormancer/model/character';
 
 export interface Layer {
     name: string;

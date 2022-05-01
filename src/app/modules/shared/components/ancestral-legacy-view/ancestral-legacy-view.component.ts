@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
-
-import { AncestralLegacy } from '../../../slormancer/model/content/ancestral-legacy';
-import { SlormancerTranslateService } from '../../../slormancer/services/content/slormancer-translate.service';
+import { AncestralLegacy } from '@slormancer/model/content/ancestral-legacy';
+import { SlormancerTranslateService } from '@slormancer/services/content/slormancer-translate.service';
 
 @Component({
   selector: 'app-ancestral-legacy-view',

@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-
-import { SharedData } from '../../../shared/model/shared-data';
-import { BuildStorageService } from '../../../shared/services/build-storage.service';
-import { BuildService } from '../../../shared/services/build.service';
+import { SharedData } from '@shared/model/shared-data';
+import { BuildStorageService } from '@shared/services/build-storage.service';
+import { BuildService } from '@shared/services/build.service';
 
 @Component({
     selector: 'app-create-build-from-export',

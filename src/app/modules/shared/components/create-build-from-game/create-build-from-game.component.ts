@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { BuildStorageService } from '@shared/services/build-storage.service';
+import { BuildService } from '@shared/services/build.service';
+import { MessageService } from '@shared/services/message.service';
+import { Character } from '@slormancer/model/character';
+import { HeroClass } from '@slormancer/model/content/enum/hero-class';
+import { GameHeroesData } from '@slormancer/model/parser/game/game-save';
+import { SlormancerSaveParserService } from '@slormancer/services/parser/slormancer-save-parser.service';
+import { SlormancerCharacterBuilderService } from '@slormancer/services/slormancer-character-builder.service';
 
-import { BuildStorageService } from '../../../shared/services/build-storage.service';
-import { BuildService } from '../../../shared/services/build.service';
-import { MessageService } from '../../../shared/services/message.service';
-import { Character } from '../../../slormancer/model/character';
-import { HeroClass } from '../../../slormancer/model/content/enum/hero-class';
-import { GameHeroesData } from '../../../slormancer/model/parser/game/game-save';
-import { SlormancerSaveParserService } from '../../../slormancer/services/parser/slormancer-save-parser.service';
-import { SlormancerCharacterBuilderService } from '../../../slormancer/services/slormancer-character-builder.service';
 import { ClipboardService } from '../../services/clipboard.service';
 import { ImportExportService } from '../../services/import-export.service';
 
