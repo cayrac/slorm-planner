@@ -152,13 +152,14 @@
 - Added an export link on the create build component
 
 ## Release 0.1.3 TBR
+### Changed
+- Removed paste.ee support for old exported builds
 ### Fixes
 - Fixed some performance issues with attribute tab and it should now correctly update when changing layer
 - Fixed some cases of variables not being correctly injected in templates
 
 ### Known issues
  - it is possible to have an item with epic stats but no rare
- - remove all past.ee code / retrocompatibility
  - create build page is not clear enough
  - it's hard to navigate throw large selects
  - missing ancestral name (based on unlocked realms)
