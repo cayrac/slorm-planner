@@ -26,6 +26,12 @@ export class OptimizeItemsStatsModalComponent {
     public options: Array<SelectOption<string>> = this.formOptionsService.getAllStatsoptions();
 
     public readonly selectedStats: Array<SelectOption<string>> = [];
+	
+	public selectedRarities: Array<Rarity> = [];
+
+	public readonly rarities: [Rarity.Normal, Rarity.Magic, Rarity.Rare, Rarity.Epic] = [Rarity.Normal, Rarity.Magic, Rarity.Rare, Rarity.Epic];
+
+	public readonly rarityControl = new FormControl();
 
     public readonly statControl = new FormControl();
 
@@ -44,6 +50,18 @@ export class OptimizeItemsStatsModalComponent {
                 this.statControl.setValue(null);
             }
         });
+		
+		this.rarityControl.valueChanges.subscribe((value: Rarity | null) => {
+            if (value !== null) {
+				this.selectedRarities = []
+                for(const rarity of this.rarities){
+					this.selectedRarities.push(rarity);
+					if(value == rarity){
+						break;
+					}
+				}
+            }
+        });
     }
 
     private updateOptions() {
@@ -51,7 +69,7 @@ export class OptimizeItemsStatsModalComponent {
     }
 
     private applyStatsToItem(item: EquipableItem) {
-        const rarities: [Rarity.Normal, Rarity.Magic, Rarity.Rare, Rarity.Epic] = [Rarity.Normal, Rarity.Magic, Rarity.Rare, Rarity.Epic];
+        
         const maxStats = {
             [Rarity.Normal]: this.slormancerDataService.getBaseMaxBasicStat(item.base),
             [Rarity.Magic]: 1,
@@ -68,7 +86,10 @@ export class OptimizeItemsStatsModalComponent {
         item.affixes = [];
 
         for (const stat of this.selectedStats) {
-            for (const rarity of rarities) {
+            for (const rarity of this.rarities) {
+				if(!this.selectedRarities.includes(rarity)){
+				    break;
+				}
                 const hasRoomForMoreAffixes = item.affixes.filter(affix => affix.rarity === rarity).length < maxStats[rarity];
                 const availableOptions = options[rarity];
 
