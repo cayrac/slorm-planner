@@ -44,8 +44,8 @@ import { MainStatsComponent } from './components/main-stats/main-stats.component
 import { MechanicsViewComponent } from './components/mechanics-view/mechanics-view.component';
 import { MergedStatViewComponent } from './components/merged-stat-view/merged-stat-view.component';
 import {
-    OptimizeItemsStatsModalComponent,
-} from './components/optimize-items-stats-modal/optimize-items-stats-modal.component';
+    OptimizeItemsAffixesModalComponent,
+} from './components/optimize-items-affixes-modal/optimize-items-affixes-modal.component';
 import { ReaperEditModalComponent } from './components/reaper-edit-modal/reaper-edit-modal.component';
 import { ReaperSlotComponent } from './components/reaper-slot/reaper-slot.component';
 import { ReaperViewComponent } from './components/reaper-view/reaper-view.component';
@@ -110,7 +110,7 @@ import { MaterialModule } from './material.module';
         UltimatumSlotComponent,
         UltimatumViewComponent,
         UltimatumEditModalComponent,
-        OptimizeItemsStatsModalComponent,
+        OptimizeItemsAffixesModalComponent,
         CreateBuildFromGameComponent,
         CreateBuildFromExportComponent,
         CreateBuildEmptyComponent,

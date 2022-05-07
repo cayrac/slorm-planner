@@ -18,9 +18,9 @@ import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-u
 import { CharacterLevelEditModalComponent } from '../character-level-edit-modal/character-level-edit-modal.component';
 import { ItemReinforcmentEditModalComponent } from '../item-reinforcment-edit-modal/item-reinforcment-edit-modal.component';
 import {
-  OptimizeItemsStatsModalComponent,
-  OptimizeItemsStatsModalData,
-} from '../optimize-items-stats-modal/optimize-items-stats-modal.component';
+    OptimizeItemsAffixesModalComponent,
+    OptimizeItemsAffixesModalData,
+} from '../optimize-items-affixes-modal/optimize-items-affixes-modal.component';
 
 @Component({
   selector: 'app-character-settings-menu',
@@ -202,10 +202,10 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
         }
     }
 
-    public optimizeItemsStats() {
+    public optimizeItemsAffixes() {
         if (this.character !== null) {
-            const data: OptimizeItemsStatsModalData = { items: this.getGearItems() };
-            this.dialog.open(OptimizeItemsStatsModalComponent, { data })
+            const data: OptimizeItemsAffixesModalData = { items: this.getGearItems() };
+            this.dialog.open(OptimizeItemsAffixesModalComponent, { data })
             .afterClosed().subscribe(changed => {
                 if (changed) {
                     this.buildStorageService.saveLayer();

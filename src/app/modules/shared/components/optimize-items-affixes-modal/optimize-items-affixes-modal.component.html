@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Choose the affixes you want for your items</h2>
+<mat-dialog-content>
+    <form id="form" (submit)="submit()" [formGroup]="form">
+        <p>Each affix below will be applied in order to the {{items.length > 1 ? items.length + ' selected items' : 'selected item'}} (at maximum crafting value) using the first available affix slot.</p>
+        <p>Items will lose their affixes before being updated.</p>
+        <mat-form-field appearance="outline" color="primary" class="no-error-padding">
+            <mat-label>Highest rarity to allow</mat-label>
+            <mat-select formControlName="rarity">
+                <mat-option *ngFor="let rarity of RARITY_OPTIONS" [value]="rarity.value">{{rarity.label}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <p>
+        <p *ngFor="let stat of selectedAffixes; let i = index" class="stat" (click)="removeStat(i)">#{{i + 1}} : {{stat.label}}</p>
+        <mat-form-field appearance="outline" color="primary" class="no-error-padding">
+            <mat-label>{{selectedAffixes.length > 0 ? 'Add another affix' : 'Choose an affix'}}</mat-label>
+            <mat-select formControlName="affix">
+                <mat-option *ngFor="let option of AFFIX_OPTIONS" [value]="option">{{option.label}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-flat-button type="button" color="primary" [mat-dialog-close]="false">Cancel</button>
+    <button mat-flat-button type="submit" color="primary" form="form" [disabled]="selectedAffixes.length === 0 || !form.valid">Apply</button>
+</mat-dialog-actions>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ALL_ATTRIBUTES } from '@slormancer/model/content/enum/attribute';
 import { EQUIPABLE_ITEM_BASE_VALUES, EquipableItemBase } from '@slormancer/model/content/enum/equipable-item-base';
 import { HeroClass } from '@slormancer/model/content/enum/hero-class';
-import { Rarity } from '@slormancer/model/content/enum/rarity';
+import { ALL_RARITIES, Rarity } from '@slormancer/model/content/enum/rarity';
 import { ALL_REAPER_SMITH, ReaperSmith } from '@slormancer/model/content/enum/reaper-smith';
 import { ALL_ULTIMATUM_TYPES, UltimatumType } from '@slormancer/model/content/enum/ultimatum-type';
 import { GameDataStat } from '@slormancer/model/content/game/data/game-data-stat';
@@ -23,6 +23,8 @@ export class FormOptionsService {
 
     private ALL_STATS_OPTIONS_CACHE: Array<SelectOption<string>> = [];
 
+    private ALL_RARITIES_OPTIONS_CACHE: Array<SelectOption<Rarity>> = [];
+
     private ALL_REAPER_BUFF_OPTIONS_CACHE: Array<SelectOption<number>> = [];
 
     private ALL_SKILL_BUFF_OPTIONS_CACHE: GameHeroesData<Array<SelectOption<number>>> = { 0: [], 1: [], 2: [] };
@@ -40,6 +42,7 @@ export class FormOptionsService {
                 private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerReaperService: SlormancerReaperService
                 ) {
+        this.initRarityOptionsCache();
         this.initStatOptionsCache();
         this.initLegendaryOptionsCache();
         this.initReaperBuffOptions();
@@ -55,6 +58,10 @@ export class FormOptionsService {
 
     public getAllStatsoptions(): Array<SelectOption<string>> {
         return this.ALL_STATS_OPTIONS_CACHE;
+    }
+
+    public getAllRaritiesOptions(): Array<SelectOption<Rarity>> {
+        return this.ALL_RARITIES_OPTIONS_CACHE;
     }
 
     public getStatsOptions(base: EquipableItemBase, rarity: Rarity): Array<SelectOption<string>> {
@@ -101,6 +108,13 @@ export class FormOptionsService {
 
     private getBaseKey(base: EquipableItemBase): keyof GameDataStat {
         return <keyof GameDataStat>(base === EquipableItemBase.Body ? 'ARMOR' : base.toUpperCase());
+    }
+
+    private initRarityOptionsCache() {
+        this.ALL_RARITIES_OPTIONS_CACHE = ALL_RARITIES.map(rarity => ({
+            label: this.slormancerTranslateService.translate('RAR_loot_' + rarity),
+            value: rarity
+        }));
     }
 
     private initStatOptionsCache() {

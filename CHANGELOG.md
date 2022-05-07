@@ -155,15 +155,19 @@
 ### Changed
 - Removed paste.ee support for old exported builds
 - Updated website navigation and modules organisation
+- Added a maximum rarity option to optimize item affixes (by uilman)
 ### Fixes
-- Fixed some performance issues with attribute tab and it should now correctly update when changing layer
-- Fixed some cases of variables not being correctly injected in templates
+- Attribute tab now correctly update when changing layer
+- Fixed some cases of variables not being correctly injected in mechanic templates
+- optimize item affixes should no longer create impossible items
 
 ### Known issues
- - it is possible to have an item with epic stats but no rare
  - create build page is not clear enough
  - it's hard to navigate throw large selects
  - missing ancestral name (based on unlocked realms)
+ - manabender additional damage is no longer working
+ - build preview peut avoir une scrollbar
+ - item edit reset button is not working
 
 ## Planned changes
 - slorm-reapers / slorm-legendaries ?
