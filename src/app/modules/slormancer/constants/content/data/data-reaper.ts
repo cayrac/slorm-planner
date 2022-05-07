@@ -456,7 +456,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             addConstant(be, 1, false, EffectValueValueType.AreaOfEffect, 'manabender_buff_detonation_radius');
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'life_percent_removed_on_cast');
             
-            duplicateVariableAsSynergy(ba, 1, EffectValueValueType.Stat, 'mana_cost', 'primary_secondary_skill_additional_damage')
+            duplicateVariableAsSynergy(ba, 1, EffectValueValueType.Stat, 'skill_mana_cost', 'primary_secondary_skill_additional_damage')
         }
     },
     75: {

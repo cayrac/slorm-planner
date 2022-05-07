@@ -160,12 +160,12 @@
 - Attribute tab now correctly update when changing layer
 - Fixed some cases of variables not being correctly injected in mechanic templates
 - optimize item affixes should no longer create impossible items
+- Manabender now correctly increase skill damages based on it's cost
 
 ### Known issues
  - create build page is not clear enough
  - it's hard to navigate throw large selects
  - missing ancestral name (based on unlocked realms)
- - manabender additional damage is no longer working
  - build preview peut avoir une scrollbar
  - item edit reset button is not working
 
