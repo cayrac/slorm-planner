@@ -166,7 +166,6 @@
  - create build page is not clear enough
  - it's hard to navigate throw large selects
  - missing ancestral name (based on unlocked realms)
- - build preview peut avoir une scrollbar
  - item edit reset button is not working
 
 ## Planned changes
