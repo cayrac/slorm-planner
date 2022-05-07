@@ -107,22 +107,43 @@ main {
             }
 
             .activables-ancestral-legacies {
-                @include flex(row, center, space-between);
+                @include flex-row-to-column('tablet', stretch, space-between);
                 @include flex-gap($space-unit * 4);
 
-                .activables, .ancestral-legacies {
+                .activables {
                     @include flex(column, stretch);
                     @include flex-gap($space-unit * 2);
-                    @include flex-grow(1);
 
                     .slots {
                         @include flex(row, center);
-                        min-height: $space-content * 3;
-
+    
                         .slot {
                             padding: $space-unit;
                         }
                     }
+                }
+
+                .ancestral-legacies {
+                    @include flex(column, stretch);
+                    @include flex-gap($space-unit * 2);
+                    @include flex-grow(1);
+                    .slots {
+                        .slot {
+                            padding: $space-unit;
+                            display: block;
+                            float: left;
+                        }
+                    }
+                }
+
+                .slots {
+                    min-height: $space-content * 3;
+                    @include flex-grow(1);
+
+                    .slot {
+                        padding: $space-unit;
+                    }
+
                 }
             }
 
