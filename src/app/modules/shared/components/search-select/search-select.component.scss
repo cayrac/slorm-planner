@@ -1,0 +1,10 @@
+@import "~src/assets/scss/abstracts/flex.scss";
+@import "~src/assets/scss/abstracts/variables.scss";
+
+:host {
+    display: block;
+}
+
+mat-form-field {
+    width: 100%;
+}

@@ -25,26 +25,60 @@ mat-select.mat-select {
 }
 
 .mat-select-panel {
+
+    &.has-search::before {
+        content: '';
+    }
+
     &.mat-primary {
         @include mat.elevation(4, primary-color(400));
     
         background-color: primary-color(400);
 
-        mat-option {
-            background-color: primary-color(400);
-
-            &.mat-option.mat-selected:not(.mat-option-multiple), &:hover {
-                background-color: primary-color(300);
-            }
-
+        mat-option.mat-option {
             .mat-option-text {
                 color: $text-color;
             }
-            &.mat-option-disabled .mat-option-text {
-                color: rgba($text-color, 0.5);
+
+            &[role="option"] {
+                background-color: primary-color(400);
+
+                &.mat-selected:not(.mat-option-multiple), &:hover {
+                    background-color: primary-color(300);
+                }
+                &.mat-active:not(.mat-option-multiple) {
+                    background-color: primary-color(200);
+                }
+                &.mat-option-disabled .mat-option-text {
+                    color: rgba($text-color, 0.5);
+                }
+                
+                &.filtered {
+                    display: none;
+                }
             }
 
+            &[role="search"] {
+                position: sticky;
+                top: 0;
+                z-index: 1;
+                background-color: primary-color(300);
             
+                border-bottom: 1px solid primary-color(400, true);
+            
+                input { 
+                    caret-color: auto;
+                    &::placeholder {
+                        color: $text-color;
+                    }
+                }
+            }
+
+            &[role="no-result"] {
+                .mat-option-text {
+                    @include flex(column, center);
+                }
+            }
         }
     }
 }

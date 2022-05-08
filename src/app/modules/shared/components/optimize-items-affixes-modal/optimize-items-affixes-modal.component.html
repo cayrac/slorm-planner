@@ -10,13 +10,12 @@
             </mat-select>
         </mat-form-field>
         <p>
-        <p *ngFor="let stat of selectedAffixes; let i = index" class="stat" (click)="removeStat(i)">#{{i + 1}} : {{stat.label}}</p>
-        <mat-form-field appearance="outline" color="primary" class="no-error-padding">
-            <mat-label>{{selectedAffixes.length > 0 ? 'Add another affix' : 'Choose an affix'}}</mat-label>
-            <mat-select formControlName="affix">
-                <mat-option *ngFor="let option of AFFIX_OPTIONS" [value]="option">{{option.label}}</mat-option>
-            </mat-select>
-        </mat-form-field>
+        <p *ngFor="let affix of selectedAffixes; let i = index" class="stat" (click)="removeStat(i)">#{{i + 1}} : {{affix.label}}</p>
+        <app-search-select [label]="selectedAffixes.length > 0 ? 'Add another affix' : 'Choose an affix'"
+            [control]="form.get('affix')"
+            [options]="AFFIX_OPTIONS"
+            [noErrorPadding]="true">
+        </app-search-select>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions>

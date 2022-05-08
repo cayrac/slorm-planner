@@ -46,9 +46,10 @@ export class OptimizeItemsAffixesModalComponent {
             affix: affixControl
         });
 
-        affixControl.valueChanges.subscribe((value: SelectOption<string> | null) => {
-            if (value !== null) {
-                this.selectedAffixes.push(value);
+        affixControl.valueChanges.subscribe((value: string | null) => {
+            const affixOption = this.AFFIX_OPTIONS.find(option => option.value === value)
+            if (affixOption !== undefined) {
+                this.selectedAffixes.push(affixOption);
                 this.updateOptions();
                 affixControl.setValue(null);
             }

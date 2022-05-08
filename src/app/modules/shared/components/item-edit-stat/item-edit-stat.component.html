@@ -1,13 +1,10 @@
 <div class="stat-line" [formGroup]="form"  *ngIf="form !== null && affix !== null">
     <div class="select">
-        <mat-form-field appearance="outline" color="primary" class="no-error-padding">
-            <mat-label>Stat</mat-label>
-            <mat-select formControlName="stat" color="primary">
-                <mat-option *ngFor="let option of options" [disabled]="isOptionDisabled(option.value)" [value]="option.value">
-                    <span [innerHTML]="option.label"></span>
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+        <app-search-select label="Stat"
+            [control]="form.get('stat')"
+            [options]="options"
+            [optionDisable]="optionDisableMethod">
+        </app-search-select>
     </div>
     <div class="slider">
         <mat-slider *ngIf="!affix.isPure"

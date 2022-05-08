@@ -1,0 +1,15 @@
+<mat-form-field appearance="outline" color="primary" [class.no-error-padding]="noErrorPadding" *ngIf="control !== null && options.length > 0">
+    <mat-label *ngIf="label !== null">{{label}}</mat-label>
+    <mat-select [formControl]="control" color="primary" (openedChange)="opened($event, searchInput)">
+        <mat-option disabled role="search">
+            <input matInput [formControl]="search" #searchInput type="text" (keydown.space)="handleSearchSpace($event)" placeholder="Rechercher...">
+        </mat-option>
+        <mat-option role="no-result" disabled *ngIf="noResult">
+            No results
+        </mat-option>
+        <mat-option *ngFor="let filteredOption of filteredOptions; trackBy: trackBy"
+            [value]="filteredOption.option.value" [disabled]="filteredOption.filtered || optionDisable(filteredOption.option)" [class.filtered]="filteredOption.filtered">
+            <span [innerHTML]="filteredOption.option.label"></span>
+        </mat-option>
+    </mat-select>
+</mat-form-field>

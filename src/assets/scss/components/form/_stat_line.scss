@@ -6,10 +6,10 @@ form .stat-line {
         @include flex-gap(0);
     }
 
-    .select, mat-form-field {
+    .select, mat-form-field, app-search-select {
         @include flex-grow(3, true);
 
-        mat-form-field {
+        mat-form-field, app-search-select {
             width: 100%;
         }
     }

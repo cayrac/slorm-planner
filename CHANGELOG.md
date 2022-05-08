@@ -152,6 +152,8 @@
 - Added an export link on the create build component
 
 ## Release 0.1.3 TBR
+### Added
+- select options for reapers or affixes can now be filtered
 ### Changed
 - Removed paste.ee support for old exported builds
 - Updated website navigation and modules organisation
@@ -164,7 +166,6 @@
 
 ### Known issues
  - create build page is not clear enough
- - it's hard to navigate throw large selects
  - missing ancestral name (based on unlocked realms)
  - item edit reset button is not working
 

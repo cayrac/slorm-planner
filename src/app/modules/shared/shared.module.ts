@@ -50,6 +50,7 @@ import { ReaperEditModalComponent } from './components/reaper-edit-modal/reaper-
 import { ReaperSlotComponent } from './components/reaper-slot/reaper-slot.component';
 import { ReaperViewComponent } from './components/reaper-view/reaper-view.component';
 import { RemoveConfirmModalComponent } from './components/remove-confirm-modal/remove-confirm-modal.component';
+import { SearchSelectComponent } from './components/search-select/search-select.component';
 import { SkillBarComponent } from './components/skill-bar/skill-bar.component';
 import { SkillSlotComponent } from './components/skill-slot/skill-slot.component';
 import { SkillUpgradeViewComponent } from './components/skill-upgrade-view/skill-upgrade-view.component';
@@ -117,6 +118,7 @@ import { MaterialModule } from './material.module';
         CreateBuildComponent,
         CreateBuildModalComponent,
         EditBuildModalComponent,
+        SearchSelectComponent,
     ],
     imports: [
         CommonModule,
@@ -168,7 +170,8 @@ import { MaterialModule } from './material.module';
         UltimatumEditModalComponent,
         CreateBuildComponent,
         CreateBuildModalComponent,
-        EditBuildModalComponent
+        EditBuildModalComponent,
+        SearchSelectComponent,
     ],
     providers: [
     ],

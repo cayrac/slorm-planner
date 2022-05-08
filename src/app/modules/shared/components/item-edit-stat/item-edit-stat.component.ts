@@ -38,6 +38,8 @@ export class ItemEditStatComponent implements OnChanges {
 
     public displayedValue: string = '';
 
+    public readonly optionDisableMethod = (option: SelectOption<string>) => this.isOptionDisabled(option);
+
     constructor(private itemFormService: FormOptionsService) { }
 
     public ngOnChanges() {
@@ -52,8 +54,8 @@ export class ItemEditStatComponent implements OnChanges {
         }
     }
 
-    public isOptionDisabled(stat: string): boolean {
-        return this.alreadyUsedStats.indexOf(stat) !== -1 && this.affix !== null && stat !== this.affix.craftedEffect.effect.stat
+    private isOptionDisabled(option: SelectOption<string>): boolean {
+        return this.alreadyUsedStats.indexOf(option.value) !== -1 && this.affix !== null && option.value !== this.affix.craftedEffect.effect.stat
     }
 
     public purityChanged(change: MatCheckboxChange) {
