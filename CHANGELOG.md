@@ -151,9 +151,9 @@
 ### Added
 - Added an export link on the create build component
 
-## Release 0.1.3 TBR
+## Release 0.1.3 (2022-05-12)
 ### Added
-- select options for reapers or affixes can now be filtered
+- Select options for reapers or affixes can now be filtered
 ### Changed
 - Removed paste.ee support for old exported builds
 - Updated website navigation and modules organisation
@@ -162,7 +162,7 @@
 ### Fixes
 - Attribute tab now correctly update when changing layer
 - Fixed some cases of variables not being correctly injected in mechanic templates
-- optimize item affixes should no longer create impossible items
+- Optimize item affixes should no longer create impossible items
 - Manabender now correctly increase skill damages based on it's cost
 - Item edit modal reset's button now correctly reset item to it's original value
 
