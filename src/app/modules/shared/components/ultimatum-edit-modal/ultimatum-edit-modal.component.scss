@@ -16,6 +16,6 @@ mat-dialog-content {
         padding: $space-unit * 2 0;
         @include flex(column, stretch);
         @include flex-grow();
-        width: 200px;
+        width: 240px;
     }
 }

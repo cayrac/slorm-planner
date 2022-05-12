@@ -62,8 +62,8 @@ export class ItemEditModalComponent {
         this.originalItem = data.item;
         this.maxLevel = data.maxLevel;
 
+        this.item = this.slormancerItemService.getEquipableItemClone(this.originalItem);
         this.character = data.character;
-        this.item = data.item;
         this.reset();
 
         // TODO
@@ -77,7 +77,7 @@ export class ItemEditModalComponent {
     }
     
     public reset() {
-        this.item = this.slormancerItemService.getEquipableItemClone(this.originalItem);
+        Object.assign(this.item, this.slormancerItemService.getEquipableItemClone(this.originalItem));
         this.form = this.buildForm();
     }
 
