@@ -26,7 +26,7 @@ export class UltimatumEditModalComponent {
 
     public readonly options: Array<SelectOption<number>> = [];
 
-    public ultimatum: Ultimatum;
+    public ultimatum!: Ultimatum;
 
     public form!: FormGroup;
 
@@ -38,13 +38,12 @@ export class UltimatumEditModalComponent {
         this.originalUltimatum = data.ultimatum === null
             ? this.slormancerUltimatumService.getUltimatum(UltimatumType.AdamantAbundance, 1)
             : this.slormancerUltimatumService.getUltimatumClone(data.ultimatum);
-        this.ultimatum = this.originalUltimatum;
         this.options = this.formOptionsService.getUltimatumOptions();
         this.reset();
     }
     
     public reset() {
-        Object.assign(this.ultimatum, this.originalUltimatum);
+        this.ultimatum = this.slormancerUltimatumService.getUltimatumClone(this.originalUltimatum);
         this.form = this.buildForm();
     }
 
@@ -59,6 +58,10 @@ export class UltimatumEditModalComponent {
             const value = form.value;
             this.ultimatum = this.slormancerUltimatumService.getUltimatum(value.type, value.level);
         }
+    }
+
+    public getTypeControl(): FormControl | null {
+        return this.form.get('type') as FormControl;
     }
 
     private buildForm(): FormGroup {      

@@ -14,7 +14,7 @@
             </div>
             <div class="stat-line">
                 <app-search-select label="Ultimatum type"
-                    [control]="form.get('type')"
+                    [control]="getTypeControl()"
                     [options]="options"
                     [noErrorPadding]="true">
                 </app-search-select>

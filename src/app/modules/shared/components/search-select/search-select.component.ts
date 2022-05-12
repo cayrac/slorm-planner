@@ -74,7 +74,7 @@ export class SearchSelectComponent extends AbstractUnsubscribeComponent implemen
         return filtedOption.option.value;
     }
 
-    public handleSearchSpace(event: KeyboardEvent) {
+    public handleSearchSpace(event: Event) {
         event.stopPropagation();
     }
 }

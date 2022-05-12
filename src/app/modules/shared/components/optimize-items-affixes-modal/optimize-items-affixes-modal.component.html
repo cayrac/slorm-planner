@@ -12,7 +12,7 @@
         <p>
         <p *ngFor="let affix of selectedAffixes; let i = index" class="stat" (click)="removeStat(i)">#{{i + 1}} : {{affix.label}}</p>
         <app-search-select [label]="selectedAffixes.length > 0 ? 'Add another affix' : 'Choose an affix'"
-            [control]="form.get('affix')"
+            [control]="getAffixControl()"
             [options]="AFFIX_OPTIONS"
             [noErrorPadding]="true">
         </app-search-select>

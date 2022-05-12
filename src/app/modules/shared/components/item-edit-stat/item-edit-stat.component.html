@@ -1,7 +1,7 @@
 <div class="stat-line" [formGroup]="form"  *ngIf="form !== null && affix !== null">
     <div class="select">
         <app-search-select label="Stat"
-            [control]="form.get('stat')"
+            [control]="getStatControl()"
             [options]="options"
             [optionDisable]="optionDisableMethod">
         </app-search-select>

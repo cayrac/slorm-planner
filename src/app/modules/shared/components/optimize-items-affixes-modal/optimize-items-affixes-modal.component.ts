@@ -126,6 +126,10 @@ export class OptimizeItemsAffixesModalComponent {
         this.updateOptions();
     }
 
+    public getAffixControl(): FormControl | null {
+        return this.form.get('affix') as FormControl;
+    }
+
     public submit() {
         this.form.markAllAsTouched();
         if (this.selectedAffixes.length > 0 && this.form.valid) {

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSliderChange } from '@angular/material/slider';
 import { Affix } from '@slormancer/model/content/affix';
@@ -52,6 +52,10 @@ export class ItemEditStatComponent implements OnChanges {
                 this.setStatLabel(this.affix.craftedEffect.craftedValue);
             }
         }
+    }
+
+    public getStatControl(): FormControl | null {
+        return this.form === null ? null : this.form.get('stat') as FormControl;
     }
 
     private isOptionDisabled(option: SelectOption<string>): boolean {

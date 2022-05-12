@@ -32,7 +32,7 @@
             </div>
             <div class="stat-line">
                 <app-search-select label="Reaper base"
-                    [control]="form.get('reaper')"
+                    [control]="getReaperControl()"
                     [options]="options"
                     [noErrorPadding]="true">
                 </app-search-select>

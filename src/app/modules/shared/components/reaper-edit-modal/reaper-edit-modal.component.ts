@@ -47,6 +47,7 @@ export class ReaperEditModalComponent {
     }
     
     public reset() {
+        this.reaper =
         Object.assign(this.reaper, this.originalReaper);
         this.form = this.buildForm();
     }
@@ -55,6 +56,10 @@ export class ReaperEditModalComponent {
         if (this.form.valid) {
             this.dialogRef.close(this.reaper);
         }
+    }
+
+    public getReaperControl(): FormControl | null {
+        return this.form.get('reaper') as FormControl;
     }
 
     private updatePreview(form: FormGroup) {
