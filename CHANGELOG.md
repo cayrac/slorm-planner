@@ -163,11 +163,11 @@
 - Fixed some cases of variables not being correctly injected in mechanic templates
 - optimize item affixes should no longer create impossible items
 - Manabender now correctly increase skill damages based on it's cost
+- Item edit modal reset's button now correctly reset item to it's original value
 
 ### Known issues
- - create build page is not clear enough
- - missing ancestral name (based on unlocked realms)
- - item edit reset button is not working
+- create build page is not clear enough
+- missing ancestral name (based on unlocked realms)
 
 ## Planned changes
 - slorm-reapers / slorm-legendaries ?

@@ -77,7 +77,7 @@ export class ItemEditModalComponent {
     }
     
     public reset() {
-        Object.assign(this.item, this.slormancerItemService.getEquipableItemClone(this.originalItem));
+        this.item = this.slormancerItemService.getEquipableItemClone(this.originalItem);
         this.form = this.buildForm();
     }
 
