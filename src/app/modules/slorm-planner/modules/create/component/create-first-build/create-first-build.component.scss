@@ -17,9 +17,9 @@ main {
         mat-card-content {
             @include flex(column, stretch);
             @include flex-gap($space-unit * 5);
+            @include spacing($space-content);
 
             width: 380px;
-            padding: 0 60px;
 
             h3 {
                 width: 100%;

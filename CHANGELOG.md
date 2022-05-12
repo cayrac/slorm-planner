@@ -158,6 +158,7 @@
 - Removed paste.ee support for old exported builds
 - Updated website navigation and modules organisation
 - Added a maximum rarity option to optimize item affixes (by uilman)
+- Reworked a bit build creation modal
 ### Fixes
 - Attribute tab now correctly update when changing layer
 - Fixed some cases of variables not being correctly injected in mechanic templates
@@ -166,7 +167,6 @@
 - Item edit modal reset's button now correctly reset item to it's original value
 
 ### Known issues
-- create build page is not clear enough
 - missing ancestral name (based on unlocked realms)
 
 ## Planned changes
