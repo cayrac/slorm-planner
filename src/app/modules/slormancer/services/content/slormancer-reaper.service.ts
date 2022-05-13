@@ -392,7 +392,9 @@ export class SlormancerReaperService {
             maxLevel: gameData.MAX_LVL,
             maxLevelWithBonuses: gameData.MAX_LVL + this.MAX_REAPER_BONUS,
             damages: { min: 0, max: 0 },
+            damagesLabel: '',
             maxDamagesWithBonuses: { min: 0, max: 0 },
+            maxDamagesWithBonusesLabel: '',
             baseInfo: {
                 kills: kills,
                 level: Math.min(level, gameData.MAX_LVL)
@@ -482,6 +484,9 @@ export class SlormancerReaperService {
     public updateReaperView(reaper: Reaper) {
         reaper.icon = 'assets/img/reaper/' + reaper.weaponClass + '/' + reaper.id + (reaper.primordial ? '_p' : '') + '.png';
         reaper.name = this.buildReaperName(reaper.type, reaper.templates.name, reaper.primordial);
+
+        reaper.damagesLabel = reaper.damages.min + '-' + reaper.damages.max;
+        reaper.maxDamagesWithBonusesLabel = reaper.maxDamagesWithBonuses.min + '-' + reaper.maxDamagesWithBonuses.max + ' at level ' + reaper.maxLevelWithBonuses;
 
         reaper.description = this.formatTemplate(reaper.templates.base);
 

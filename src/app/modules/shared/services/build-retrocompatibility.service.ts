@@ -158,6 +158,12 @@ export class BuildRetrocompatibilityService {
                 build.version = '0.1.3';
             }
         },
+        {
+            version: '0.1.4',
+            update: build => {
+                build.version = '0.1.4';
+            }
+        },
     ];
 
     constructor() { }

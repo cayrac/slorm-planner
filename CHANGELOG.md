@@ -166,8 +166,13 @@
 - Manabender now correctly increase skill damages based on it's cost
 - Item edit modal reset's button now correctly reset item to it's original value
 
+## Release 0.1.4 (2022-05-13)
+### Added
+- Added a slorm-reaper list page
+
 ### Known issues
 - missing ancestral name (based on unlocked realms)
+- search select do not have a fixed width
 
 ## Planned changes
 - slorm-reapers / slorm-legendaries ?

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Activable } from '@slormancer/model/content/activable';
 import { AncestralLegacy } from '@slormancer/model/content/ancestral-legacy';
 import { EquipableItem } from '@slormancer/model/content/equipable-item';
+import { Reaper } from '@slormancer/model/content/reaper';
 import { SkillUpgrade } from '@slormancer/model/content/skill-upgrade';
 import { Trait } from '@slormancer/model/content/trait';
 import { isNotNullOrUndefined } from '@slormancer/util/utils';
@@ -107,6 +109,36 @@ export class SearchService {
             ancestralLegacy.typeLabel,
             ancestralLegacy.genresLabel,
             ancestralLegacy.costLabel
+        ]);
+    }
+
+    public reaperMatchSearch(reaper: Reaper): boolean {
+        return this.stringsMatchSearch([
+            reaper.name,
+            reaper.description,
+            reaper.benediction,
+            reaper.malediction,
+            reaper.smith.name,
+            reaper.smithLabel,
+            reaper.victimsLabel,
+            reaper.levelLabel,
+            reaper.damageTypeLabel,
+            reaper.benediction !== null ? reaper.benedictionTitleLabel : '',
+            reaper.malediction !== null ? reaper.maledictionTitleLabel : '',
+            reaper.activables.length !== 0 ? reaper.activablesTitleLabel : '',
+            reaper.damagesLabel,
+            reaper.maxDamagesWithBonusesLabel,
+            reaper.lore,
+        ]) || reaper.activables.some(activable => this.activableMatchSearch(activable));
+    }
+
+    public activableMatchSearch(activable: Activable): boolean {
+        return this.stringsMatchSearch([
+            activable.name,
+            activable.genresLabel,
+            activable.cooldownLabel,
+            activable.costLabel,
+            activable.description,
         ]);
     }
 

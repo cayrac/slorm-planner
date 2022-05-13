@@ -34,7 +34,9 @@ export interface Reaper {
     activables: Array<Activable>,
     lore: string;
     damages: MinMax;
+    damagesLabel: string;
     maxDamagesWithBonuses: MinMax;
+    maxDamagesWithBonusesLabel: string;
     maxLevelWithBonuses: number;
     minLevel: number;
     maxLevel: number;

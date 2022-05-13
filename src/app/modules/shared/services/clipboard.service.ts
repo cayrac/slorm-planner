@@ -28,6 +28,15 @@ export class ClipboardService {
         return false;
     }
 
+    public copyImageToClipboard(blob: Blob): boolean {
+        try {
+            navigator.clipboard.write([ new ClipboardItem({ 'image/png': blob }) ]);
+            return true;
+        } catch (_) { }
+
+        return false;
+    }
+
     public async getClipboardText(): Promise<string | null> {
         let text: string | null = null;
 
