@@ -1,43 +1,23 @@
-<div class="content">
-    <mat-card class="header">
-        <mat-card-content>
-            <form [formGroup]="form">
-                <div class="options">
-                    <div class="classes">
-                        <div class="head" *ngFor="let heroClass of HERO_CLASSES" [class.selected]="isSelectedClass(heroClass)" (click)="selectClass(heroClass)">
-                            <img src="assets/img/character/icon/{{heroClass}}/head.png" />
-                        </div>
-                    </div>
-                    <div class="flags">
-                        <mat-checkbox color="primary" formControlName="primordial">Primordial</mat-checkbox>
-                        <mat-checkbox color="primary" formControlName="maxLevel">Max. level</mat-checkbox>
-                    </div>
-                </div>
-                <div class="search">
-                    <mat-form-field appearance="outline" color="primary" class="no-error-padding">
-                        <mat-label>Search</mat-label>
-                        <input matInput type="text" formControlName="search" autocomplete="off"/>
-                        <mat-icon matSuffix *ngIf="hasSearch()" (click)="removeSearch()">close</mat-icon>
-                    </mat-form-field>
-                </div>
-            </form>
-        </mat-card-content>
-    </mat-card>
-    
-    <mat-card class="reapers">
 
-        <mat-card-content>
-            <div class="reaper" *ngFor="let reaper of filteredReapers">
-                <div class="reaper-container">
-                    <div class="actions">
-                        <mat-icon class="warn" *ngIf="isNotAvailable(reaper)" matTooltip="This reaper is not available in game yet">warning</mat-icon>
-                        <mat-icon class="button" (click)="convert(reaperDom)" matTooltip="Copy reaper as image to clipboard">photo</mat-icon>
-                    </div>
-                    <div class="reaper-window" #reaperDom>
-                        <app-reaper-view [reaper]="reaper"></app-reaper-view>
-                    </div>
-                </div>
-            </div>
-        </mat-card-content>
-    </mat-card>
+<div class="header">
+    <div class="tools">
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    </div>
+    <nav mat-tab-nav-bar color="primary">
+        <a mat-tab-link *ngFor="let route of ROUTES; let i = index"
+            [routerLink]="route.route"
+            routerLinkActive #rla="routerLinkActive"
+            [active]="rla.isActive">
+            <span translate>{{ route.name }}</span>
+        </a>
+    </nav>
 </div>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav>
+        <app-reaper-sidenav></app-reaper-sidenav>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <app-reaper-list></app-reaper-list>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+

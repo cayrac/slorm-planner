@@ -170,9 +170,20 @@
 ### Added
 - Added a slorm-reaper list page
 
+## Release 0.1.5 TBD
+
+## TODO
+ - changer de titre en fonction de la page build
+ - ajouter page par défaut
+ - fixes
+ - mise à jour fichiers du jeu
+
+
 ### Known issues
 - missing ancestral name (based on unlocked realms)
 - search select do not have a fixed width
+- armor of obliteration bonus is not applied while channeling ray of obliteration
+- copy reaper does not work on firefox
 
 ## Planned changes
 - slorm-reapers / slorm-legendaries ?

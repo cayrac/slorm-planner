@@ -26,11 +26,15 @@ import { takeUntil } from 'rxjs';
 import { environment } from '../../../../../../../environments/environment';
 
 @Component({
-  selector: 'app-sidenav',
-  templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.scss']
+  selector: 'app-build-sidenav',
+  templateUrl: './build-sidenav.component.html',
+  styleUrls: ['./build-sidenav.component.scss']
 })
-export class SidenavComponent extends AbstractUnsubscribeComponent implements OnInit {
+export class BuildSidenavComponent extends AbstractUnsubscribeComponent implements OnInit {
+
+    public readonly SHORTCUTS: Array<{ link: string, icon: string, label: string }> = [
+        { link: '/slorm-reaper', icon: 'assets/img/reaper/0/0.png', label: 'Slorm reapers' }
+    ];
 
     public readonly VERSION = environment.version;
 

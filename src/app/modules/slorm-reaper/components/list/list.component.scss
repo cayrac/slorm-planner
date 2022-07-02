@@ -4,144 +4,29 @@
 @import "~src/assets/scss/abstracts/color";
 
 :host {
-    display: block;
     height: 100%;
+    @include flex(column, stretch);
 }
 
-.content {
-    @include spacing();
-    @include flex(column, stretch, stretch);
-    @include flex-gap($space-content);
-    height: 100%;
+.header {
+    @include flex(row, center);
+    z-index: 2;
 
-    .header {
-        padding-top: $space-unit;
-        padding-bottom: $space-unit;
+    background-color: primary-color(700);
+    @include mat.elevation(4, primary-color(100));
 
-        mat-card-content {
-            @include spacing($space-unit);
-            form {
-                @include flex-row-to-column('tablet', stretch, space-between);
-                @include flex-gap($space-unit * 3);
-
-                .options {
-                    @include flex-row-to-column('mobile', stretch, flex-start);
-                    @include flex-gap($space-unit * 3);
-
-                    .flags {
-                        @include flex(row, center, space-between);
-                        @include flex-gap($space-unit * 3);
-                    }
-                }
-
-                .search {
-                    width: 250px;
-
-                    mat-form-field {
-                        width: 100%;
-                    }
-                }
-
-                @include respond-to('mobile') {
-                    .search {
-                        width: 100%;
-                    }
-                }
-            }
-        }
-
-    }
-
-    .reapers {
-        @include flex-grow(1);
-        overflow: auto;
-
-        mat-card-content {
-            display: grid;
-            grid-gap: 10px;
-            grid-auto-rows: minmax(auto, auto);
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-
-            .reaper {
-                @include flex(column, flex-start);
-
-                .reaper-container {
-                    @include flex(column, flex-end);
-                    @include flex-gap($space-unit * 2);
-
-                    &:not(:hover) .actions {
-                        opacity: 0;
-                    }
-    
-                    .actions {
-                        @include flex(row, center, flex-end);
-                        @include flex-gap($space-unit * 2);
-                        
-                        &, mat-icon {
-                            -webkit-transition: opacity 0.2s ease-in-out;
-                            -moz-transition: opacity 0.2s ease-in-out;
-                            transition: opacity 0.2s ease-in-out;
-                        }
-
-                        mat-icon {
-                            opacity: 0.3;
-    
-                            &:hover {
-                                opacity: 0.8;
-                            }
-
-                            &.warn {
-                                color: $warn-color;
-                            }
-
-                            &.button {
-                                cursor: pointer;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-
-.classes {
-    @include flex(row, center, space-around);
-    @include flex-gap($space-unit);
-
-    .head {
-        position: relative;
-        border: 4px solid black;
-        width: 40px;
-        height: 40px;
+    .tools {
+        @include flex(row, center);
+        width: 48px;
+        min-width: 48px;
         cursor: pointer;
 
-        &.selected {
-            border-color: primary-color(100);
+        mat-icon {
+            margin: auto;
         }
+    }
 
-        img {
-            width: 100%;
-            height: 100%;
-            image-rendering: pixelated;
-            transition: opacity 0.5s;
-        }
-
-        .level {
-            position: absolute;
-            bottom: $space-unit * -5;
-            width: $space-unit * 4;
-            height: $space-unit * 4;
-            line-height: 14px;
-            text-align: center;
-            border: 2px solid black;
-            padding: $space-unit;
-            border-radius: 20% 20% 50% 50%;
-            background-color: primary-color(300);
-            transition: opacity 0.5s;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+    nav {
+        @include flex-grow();
     }
 }

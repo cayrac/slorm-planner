@@ -1,0 +1,12 @@
+
+<input autocomplete="false" name="hidden" type="text" style="display:none;">
+<div class="sidenav">
+    <div class="shortcuts">
+        <span>Other tools :</span>
+        <a *ngFor="let shortcut of SHORTCUTS" [routerLink]="shortcut.link"><img [src]="shortcut.icon" [matTooltip]="shortcut.label"/></a>
+    </div>
+
+    <div class="info">
+        Slorm Reaper {{VERSION}} - <a target="blank" [href]="GITHUB_LINK">Github</a> - <a target="blank" [href]="GAME_LINK">The Slormancer</a>
+    </div>
+</div>

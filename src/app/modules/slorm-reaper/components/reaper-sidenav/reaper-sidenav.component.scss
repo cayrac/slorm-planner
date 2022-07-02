@@ -1,0 +1,28 @@
+@import "~src/assets/scss/abstracts/flex";
+@import "~src/assets/scss/abstracts/variables";
+@import "~src/assets/scss/abstracts/color";
+
+.sidenav {
+    @include flex(column, stretch);
+    @include flex-gap($space-unit * 5);
+    height: 100%;
+
+    .shortcuts {
+        @include flex(row, center);
+        @include flex-gap($space-unit * 4);
+        padding: $space-unit;
+        
+        a {
+            outline: 0;
+            img {
+                height: 20px;
+            }
+        }
+    }
+
+    .info {
+        color: primary-color(200);
+        margin-top: auto;
+        text-align: right;
+    }
+}

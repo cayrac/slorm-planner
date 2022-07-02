@@ -10,6 +10,7 @@ import {
 } from './component/ancestral-legacies/components/ancestral-legacy-map/ancestral-legacy-map.component';
 import { AttributesComponent } from './component/attributes/attributes.component';
 import { BuildHeaderComponent } from './component/build-header/build-header.component';
+import { BuildSidenavComponent } from './component/build-sidenav/build-sidenav.component';
 import { CalcsComponent } from './component/calcs/calcs.component';
 import { DefenseCalcComponent } from './component/calcs/components/defense-calc/defense-calc.component';
 import {
@@ -19,7 +20,6 @@ import { CompareComponent } from './component/compare/compare.component';
 import { ConfigEntryComponent } from './component/config/components/config-entry/config-entry.component';
 import { ConfigComponent } from './component/config/config.component';
 import { InventoryComponent } from './component/inventory/inventory.component';
-import { SidenavComponent } from './component/sidenav/sidenav.component';
 import { SettingsSkillsComponent } from './component/skills/components/settings-skills/settings-skills.component';
 import { SkillsComponent } from './component/skills/skills.component';
 import { StatsComponent } from './component/stats/stats.component';
@@ -35,7 +35,7 @@ import { StatsComponent } from './component/stats/stats.component';
         SettingsSkillsComponent,
         AncestralLegacyMapComponent,
         AttributesComponent,
-        SidenavComponent,
+        BuildSidenavComponent,
         StatsComponent,
         ConfigComponent,
         ConfigEntryComponent,
