@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GAME_LINK, GITHUB_PROJECT_LINK } from '@shared/constants';
 
 import { environment } from '../../../../../environments/environment';
 
@@ -15,9 +16,9 @@ export class ReaperSidenavComponent {
 
     public readonly VERSION = environment.version;
 
-    public readonly GITHUB_LINK = environment.githublink;
+    public readonly GITHUB_PROJECT_LINK = GITHUB_PROJECT_LINK;
 
-    public readonly GAME_LINK = environment.gameLink;
+    public readonly GAME_LINK = GAME_LINK;
 
     constructor() { }
 }

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { APP_TO_GAME_VERSION_MAPPER } from '@shared/constants';
 
 import { environment } from '../../../../../environments/environment';
-import { APP_TO_GAME_VERSION_MAPPER, GAME_VERSION } from '../../constants/common';
+import { GAME_VERSION } from '../../constants/common';
 import { Character } from '../../model/character';
 import { Bits } from '../../model/export/bits';
 import { binaryToNumber, numberToBinary, takeBitsChunk } from '../../util/bits.util';

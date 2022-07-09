@@ -11,6 +11,7 @@ import {
 } from '@shared/components/delete-build-modal/delete-build-modal.component';
 import { EditBuildModalComponent, EditBuildModalData } from '@shared/components/edit-build-modal/edit-build-modal.component';
 import { EditLayerModalComponent, EditLayerModalData } from '@shared/components/edit-layer-modal/edit-layer-modal.component';
+import { GAME_LINK, GITHUB_PROJECT_LINK } from '@shared/constants';
 import { BuildPreview } from '@shared/model/build-preview';
 import { Layer } from '@shared/model/layer';
 import { SharedData } from '@shared/model/shared-data';
@@ -39,9 +40,9 @@ export class BuildSidenavComponent extends AbstractUnsubscribeComponent implemen
 
     public readonly VERSION = environment.version;
 
-    public readonly GITHUB_LINK = environment.githublink;
+    public readonly GITHUB_PROJECT_LINK = GITHUB_PROJECT_LINK;
 
-    public readonly GAME_LINK = environment.gameLink;
+    public readonly GAME_LINK = GAME_LINK;
 
     @Input()
     private sidenav: MatSidenav | null = null;

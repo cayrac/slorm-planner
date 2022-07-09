@@ -17,8 +17,6 @@ export const MAXIMUM_ANCESTRAL_LEGACY_POINTS = 7;
 
 export const DELIGHTED_VALUE = 12;
 
-export const GAME_VERSION = '0.4.191';
-
 export const POISON_DAMAGE_PERCENT = 200;
 export const RAVENOUS_DAGGER_DAMAGE_PERCENT = 100;
 export const TRAP_DAMAGE_PERCENT = 200;
@@ -38,15 +36,4 @@ export const POISON_DURATION = 7;
 export const ARCANE_BOND_DURATION = 7;
 export const TIME_LOCK_DURATION = 3;
 
-export const APP_TO_GAME_VERSION_MAPPER: { [key: string]: string } = {
-    '0.0.9': '0.3.015',
-    '0.0.10': '0.3.015',
-    '0.0.11': '0.3.015',
-    '0.0.12': '0.3.015',
-    '0.1.0': '0.3.1071',
-    '0.1.1': '0.3.1071',
-    '0.1.2': '0.4.191',
-    '0.1.3': '0.4.191',
-    '0.1.4': '0.4.191',
-    '0.1.5': '0.4.21',
-}
+export const GAME_VERSION = '0.4.21';
