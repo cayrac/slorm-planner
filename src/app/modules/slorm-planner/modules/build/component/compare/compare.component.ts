@@ -22,7 +22,7 @@ export class CompareComponent extends AbstractUnsubscribeComponent implements On
 
     public config: FormGroup | null = null;
 
-    public readonly layerControl = new FormControl(0);
+    public readonly layerControl = new FormControl<Layer | null>(null);
 
     constructor(private buildStorageService: BuildStorageService,
                 private slormancerCharacterComparatorService: SlormancerCharacterComparatorService) {
@@ -31,7 +31,7 @@ export class CompareComponent extends AbstractUnsubscribeComponent implements On
             .pipe(takeUntil(this.unsubscribe))
             .subscribe(build => {
                 this.layers = build === null ? [] : build.layers;
-                this.layerControl.setValue(this.layers[0]);
+                this.layerControl.setValue(this.layers[0] ?? null);
             });
         this.buildStorageService.layerChanged
             .pipe(takeUntil(this.unsubscribe))
@@ -41,7 +41,7 @@ export class CompareComponent extends AbstractUnsubscribeComponent implements On
                     const layerIndex = this.layers.indexOf(layer);
                     if (layerIndex !== -1) {
                         const newCompareToIndex = layerIndex === 0 && this.layers.length > 1 ? 1 : 0;
-                        this.layerControl.setValue(this.layers[newCompareToIndex]);
+                        this.layerControl.setValue(this.layers[newCompareToIndex] ?? null);
                         this.updateDifferences()
                     }
                 }

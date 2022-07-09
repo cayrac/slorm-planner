@@ -29,7 +29,7 @@ export class ImportDataComponent {
 
     public sharedData: SharedData | null = null;
 
-    public importContent = new FormControl(null, Validators.maxLength(this.MAX_UPLOAD_FILE_SIZE));
+    public importContent = new FormControl<string | null>(null, Validators.maxLength(this.MAX_UPLOAD_FILE_SIZE));
     
     constructor(private importExportService: ImportExportService) {
         this.importContent.valueChanges.subscribe(content => {

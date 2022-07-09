@@ -12,7 +12,8 @@ import { SelectOption } from '@shared/model/select-option';
 import { BuildStorageService } from '@shared/services/build-storage.service';
 import { BuildService } from '@shared/services/build.service';
 import { SearchService } from '@shared/services/search.service';
-import { takeUntil } from 'rxjs/operators';
+import { isNotNullOrUndefined } from '@slormancer/util/utils';
+import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-build-header',
@@ -21,8 +22,8 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class BuildHeaderComponent extends AbstractUnsubscribeComponent implements OnInit {
 
-    public readonly searchControl = new FormControl('');
-    public readonly layerControl = new FormControl(null);
+    public readonly searchControl = new FormControl<string>('');
+    public readonly layerControl = new FormControl<Layer | null>(null);
 
     public layerOptions: Array<SelectOption<Layer>> = [];
 
@@ -48,7 +49,9 @@ export class BuildHeaderComponent extends AbstractUnsubscribeComponent implement
 
         this.layerControl.setValue(this.buildStorageService.getLayer(), { emitEvent: false });
 
-        this.layerControl.valueChanges.subscribe(layer => this.buildStorageService.loadLayer(layer));
+        this.layerControl.valueChanges
+            .pipe(filter(isNotNullOrUndefined))
+            .subscribe(layer => this.buildStorageService.loadLayer(layer));
         this.searchControl.valueChanges.subscribe(search => this.searchService.setSearch(search));
     }
 

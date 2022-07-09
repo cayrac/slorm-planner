@@ -11,6 +11,13 @@ import { SlormancerReaperService } from '@slormancer/services/content/slormancer
 import { toBlob } from 'html-to-image';
 import { combineLatest, takeUntil } from 'rxjs';
 
+interface ReaperListForm {
+    search: FormControl<string>;
+    heroClass: FormControl<HeroClass>;
+    primordial: FormControl<boolean>;
+    maxLevel: FormControl<boolean>;
+}
+
 @Component({
   selector: 'app-reaper-list',
   templateUrl: './reaper-list.component.html',
@@ -27,11 +34,11 @@ export class ReaperListComponent extends AbstractUnsubscribeComponent implements
     public heroClass: HeroClass = HeroClass.Huntress;
     public primordial: boolean = false;
 
-    public readonly form = new FormGroup({
-        search: new FormControl(''),
-        heroClass: new FormControl(HeroClass.Huntress),
-        primordial: new FormControl(false),
-        maxLevel: new FormControl(false)
+    public readonly form = new FormGroup<ReaperListForm>({
+        search: new FormControl<string>('', { nonNullable: true }),
+        heroClass: new FormControl<HeroClass>(HeroClass.Huntress, { nonNullable: true }),
+        primordial: new FormControl<boolean>(false, { nonNullable: true }),
+        maxLevel: new FormControl<boolean>(false, { nonNullable: true })
     });
 
     constructor(private slormancerDataService: SlormancerDataService,
@@ -46,13 +53,12 @@ export class ReaperListComponent extends AbstractUnsubscribeComponent implements
             search.valueChanges.subscribe(value => this.searchService.setSearch(value));
         }
 
-        const heroClass = this.form.get('heroClass');
-        const primordial = this.form.get('primordial');
-        const maxLevel = this.form.get('maxLevel');
-        if (heroClass !== null && primordial !== null && maxLevel !== null) {
-            combineLatest([ heroClass.valueChanges, primordial.valueChanges, maxLevel.valueChanges ])
-            .subscribe(([heroClass, primordial, maxLevel]) => this.buildReaperList(heroClass, primordial, maxLevel));
-        }
+        combineLatest([
+            this.form.controls.heroClass.valueChanges,
+            this.form.controls.primordial.valueChanges,
+            this.form.controls.maxLevel.valueChanges
+        ])
+        .subscribe(([heroClass, primordial, maxLevel]) => this.buildReaperList(heroClass, primordial, maxLevel));
 
         this.searchService.searchChanged
             .pipe(takeUntil(this.unsubscribe))

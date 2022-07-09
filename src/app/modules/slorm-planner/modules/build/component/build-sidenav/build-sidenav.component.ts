@@ -21,7 +21,8 @@ import { DownloadService } from '@shared/services/download.service';
 import { ImportExportService } from '@shared/services/import-export.service';
 import { MessageService } from '@shared/services/message.service';
 import { HeroClass } from '@slormancer/model/content/enum/hero-class';
-import { takeUntil } from 'rxjs';
+import { isNotNullOrUndefined } from '@slormancer/util/utils';
+import { filter, takeUntil } from 'rxjs';
 
 import { environment } from '../../../../../../../environments/environment';
 
@@ -59,7 +60,7 @@ export class BuildSidenavComponent extends AbstractUnsubscribeComponent implemen
                 private dialog: MatDialog) {
         super();
         this.buildControl.valueChanges
-            .pipe(takeUntil(this.unsubscribe))
+            .pipe(takeUntil(this.unsubscribe), filter(isNotNullOrUndefined))
             .subscribe(preview => this.buildStorageService.loadBuild(preview));
         this.buildStorageService.buildChanged
             .pipe(takeUntil(this.unsubscribe))
