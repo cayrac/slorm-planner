@@ -1595,7 +1595,7 @@
         "REF": 41,
         "ITEM": "bracer",
         "EN_NAME": "Echoes of Vilinis",
-        "EN_DESC": "Critical Strikes apply Echoes of Vilinis to the enemy hit.#After @ seconds, Echoes of Vilinis triggers, deals Physical Damage equal to @ of the Initial Damage and has @ £ to apply Echoes of Vilinis again.",
+        "EN_DESC": "Critical Strikes apply Echoes of Vilinis to the enemy hit.#After @ seconds, Echoes of Vilinis triggers, deals Skill Damage equal to @ of the Initial Damage and has @ £ to apply Echoes of Vilinis again.",
         "FR_NAME": "Echos de Vilinis",
         "FR_DESC": "Les Coups Critiques appliquent Echos de Vilinis à l'ennemi touché.#Après @ secondes, Echos de Vilinis se déclenche et inflige des Dégâts Physiques équivalents à @ des Dégâts Initiaux et a @ de £ de réappliquer Echos de Vilinis.",
         "CH_NAME": "威利尼斯的回声",

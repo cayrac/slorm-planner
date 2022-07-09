@@ -704,9 +704,9 @@
     {
         "REF": 25,
         "EN_NAME": "Sight of Vengeance",
-        "EN_DESCRIPTION": "You deal Retaliation Damage to the enemy closest to target area as if he just dealt damage to you.",
+        "EN_DESCRIPTION": "You deal Retaliation Damage to the enemy closest to target area within a ~ yard radius as if he just dealt damage to you.",
         "FR_NAME": "Vision de Vengeance",
-        "FR_DESCRIPTION": "Vous infligez des Dégâts de Représailles à l'ennemi le plus proche de la zone ciblée comme s'il venait de vous infliger des dégâts.",
+        "FR_DESCRIPTION": "Vous infligez des Dégâts de Représailles à l'ennemi le plus proche de la zone ciblée dans un rayon de ~ mètres comme s'il venait de vous infliger des dégâts.",
         "CH_NAME": "",
         "CH_DESCRIPTION": "",
         "TW_NAME": "",

@@ -5174,10 +5174,10 @@
     },
     {
         "REF": "tt_chill_effect",
-        "EN": "-@% Movement Speed",
-        "FR": "-@% Vitesse de Déplacement",
-        "CH": "-@%移动速度",
-        "TW": "-@%移動速度",
+        "EN": "-@% Movement Speed.",
+        "FR": "-@% Vitesse de Déplacement.",
+        "CH": "-@%移动速度 。",
+        "TW": "-@%移動速度 。",
         "JP": "",
         "DE": "",
         "ES": "",
@@ -24206,7 +24206,7 @@
     },
     {
         "REF": "run_mode_1_ultimatum_unknown",
-        "EN": "Unknow Artifact",
+        "EN": "Unknown Artifact",
         "FR": "Artefact Inconnu",
         "CH": "未知神器",
         "TW": "未知神器",
@@ -26508,7 +26508,7 @@
     {
         "REF": "story_name_21_18",
         "EN": "Reobwer, The Red Butcher",
-        "FR": "Reobwer, The Boucher Pourpre",
+        "FR": "Reobwer, Le Boucher Pourpre",
         "CH": "里欧沃，红屠夫",
         "TW": "里歐沃，紅屠夫",
         "JP": "",

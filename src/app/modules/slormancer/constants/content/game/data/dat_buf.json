@@ -7653,7 +7653,7 @@
         "VISUAL": "none",
         "FLOAT_TEXT": "",
         "IS_TICKING": null,
-        "KEEP_ON_HUB": null
+        "KEEP_ON_HUB": true
     },
     {
         "REF": "legendary_neriya_frenzy",
@@ -8239,7 +8239,7 @@
         "SPRITE": "spr_buffs",
         "INDEX": 125,
         "BUFF_OR_DEBUFF": "debuff",
-        "VISUAL": "burn",
+        "VISUAL": "none",
         "FLOAT_TEXT": "",
         "IS_TICKING": null,
         "KEEP_ON_HUB": null

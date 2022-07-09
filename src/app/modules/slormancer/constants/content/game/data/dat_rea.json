@@ -295,7 +295,7 @@
   {
     "REF": 6,
     "EN_NAME": "Big Fury $",
-    "EN_DESC": "*+@ £*+@ £*+@ £|*Your Skill Damages are <Lucky>./\n*+@ £|*You have +_% £.#Elemental Penetration is equal to your $./\n|*Skills cannot be Imbued.",
+    "EN_DESC": "*+@ £*+@ £*+@ £|*Your Skill Damage are <Lucky>./\n*+@ £|*You have +_% £.#Elemental Penetration is equal to your $./\n|*Skills cannot be Imbued.",
     "EN_LORE": "\"That's my secret Captain...#\nI'm always Angry !\"",
     "FR_NAME": "$ d'Immense Fureur",
     "FR_DESC": "*+@ £*+@ £*+@ £|*Les Dégâts Physiques sont <Chanceux>./\n*+@ £|*Vous avez +_% de £.#Cette Pénétration Élémentaire est équivalente à votre $./\n|*Vos Compétences ne peuvent plus être Imprégnées.",
@@ -4313,10 +4313,10 @@
   {
     "REF": 88,
     "EN_NAME": "Superior $ of Deadly Accuracy",
-    "EN_DESC": "|*Whenever you deal damage to an enemy affected by Armor Broken, you have _% Chance to apply Trauma. Chance is equal to your Armor Penetration.*Trauma deals _ £ over @ seconds..",
+    "EN_DESC": "|*Whenever you deal damage to an enemy affected by Armor Broken, you have _% Chance to apply Trauma. Chance is equal to your Armor Penetration.*Trauma deals _ £ over @ seconds.",
     "EN_LORE": "What doesn't kill you kills you later.",
     "FR_NAME": "$ Supérieur de Précision Mortelle/$ Supérieure de Précision Mortelle",
-    "FR_DESC": "|*Lorsque vous infligez des Dégats à un ennemi affecté par Armure Brisée, vous avez _% de Chance de lui appliquer Trauma. Cette Chance est équivalente à votre Pénétration d'Armure.*Trauma inflige _ de £ en@ seconds..",
+    "FR_DESC": "|*Lorsque vous infligez des Dégats à un ennemi affecté par Armure Brisée, vous avez _% de Chance de lui appliquer Trauma. Cette Chance est équivalente à votre Pénétration d'Armure.*Trauma inflige _ de £ en @ seconds.",
     "FR_LORE": "Ce qui ne vous tue pas vous tue plus tard.",
     "CH_NAME": "",
     "CH_DESC": "",
