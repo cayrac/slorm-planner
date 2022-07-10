@@ -3669,9 +3669,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 2,
         override: values => {
             setStat(values, 0, 'res_phy_percent_if_channeling_ray_of_obliteration');
-            setAsUpgrade(values, 0);
             setStat(values, 1, 'res_mag_percent_if_channeling_ray_of_obliteration');
-            setAsUpgrade(values, 1);
         },
         additionalClassMechanics: []
     },

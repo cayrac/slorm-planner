@@ -175,6 +175,8 @@
 - Title is now dinamically updated
 - Updated game data files
 - Added a default page
+### Fixes
+- Armor of Obliteration now correctly increase armor and elemental resistance if you are channeling Ray of Obliteration
 
 ## TODO
  - fixes
@@ -182,7 +184,6 @@
 
 ### Known issues
 - missing ancestral name (based on unlocked realms)
-- search select do not have a fixed width
 - armor of obliteration bonus is not applied while channeling ray of obliteration
 - copy reaper does not work on firefox
 
