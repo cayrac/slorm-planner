@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { SlormToolsComponent } from './core/components/slorm-tools/slorm-tools.component';
+
+
 const appRoutes: Routes = [
     {
         path: 'slorm-planner',
@@ -13,9 +16,14 @@ const appRoutes: Routes = [
         data: { title: 'Slorm-Reaper' }
     },
     {
+        path: '',
+        component: SlormToolsComponent,
+        data: { title: 'Slorm-Tools' }
+    },
+    {
         path: '**',
         pathMatch: 'full',
-        redirectTo: 'slorm-planner'
+        redirectTo: '/'
     }
 ];
 

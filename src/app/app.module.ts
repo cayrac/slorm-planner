@@ -5,12 +5,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SlormToolsComponent } from './core/components/slorm-tools/slorm-tools.component';
 import { MaterialModule } from './modules/shared/material.module';
 import { SlormancerModule } from './modules/slormancer';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        SlormToolsComponent
     ],
     imports: [
         BrowserModule,

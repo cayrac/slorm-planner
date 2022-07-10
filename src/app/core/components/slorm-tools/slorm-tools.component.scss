@@ -1,0 +1,65 @@
+@use '@angular/material' as mat;
+@import "~src/assets/scss/abstracts/flex";
+@import "~src/assets/scss/abstracts/spacing";
+@import "~src/assets/scss/abstracts/color";
+
+.content {
+    @include flex(column, stretch);
+    @include flex-gap($space-content);
+    @include spacing($space-content);
+
+    mat-card {
+        .dialog {
+            @include flex(row, center);
+            @include flex-gap($space-unit * 2);
+            padding: $space-unit * 2;
+        }
+
+        img {
+            cursor: pointer;
+        }
+    }
+
+    .choices {
+        @include flex-row-to-column('mobile', stretch);
+        @include flex-gap($space-content);
+
+        mat-card {
+            @include flex-grow();
+
+            mat-card-content {
+                @include flex(row, center);
+                @include flex-gap($space-unit * 2);
+                img {
+                    height: $space-unit * 8;
+                }
+
+                .info {
+                    @include flex(column, stretch);
+                    @include flex-gap($space-unit * 2);
+                    .name {
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.mc-ripped {
+    height: 30px;
+    image-rendering: pixelated;
+    animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+	0% {
+		transform: translatey(2px);
+	}
+	50% {
+		transform: translatey(-2px);
+	}
+	100% {
+		transform: translatey(2px);
+	}
+}

@@ -173,11 +173,11 @@
 ## Release 0.1.5 TBD
 ### Added
 - Title is now dinamically updated
+- Updated game data files
+- Added a default page
 
 ## TODO
- - ajouter page par défaut
  - fixes
- - mise à jour fichiers du jeu
 
 
 ### Known issues

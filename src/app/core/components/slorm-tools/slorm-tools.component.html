@@ -1,0 +1,24 @@
+<div class="content">
+    <mat-card>
+        <mat-card-content>
+            <div class="dialog">
+                <img class="mc-ripped" (click)="newMcRippedDialog()" src="assets/img/icon/message/success.png"/>
+                <p>{{dialog}}</p>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <div class="choices">
+        <mat-card *ngFor="let tool of TOOLS">
+            <mat-card-content>
+                <img [src]="tool.icon" />
+                <div class="info">
+                    <span class="name">{{tool.name}}</span>
+                    <span class="info">{{tool.info}}</span>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-flat-button type="button" color="primary" [routerLink]="tool.link">{{tool.action}}</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
