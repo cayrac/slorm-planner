@@ -179,15 +179,13 @@
 - reaper image copy is no longer available on firefox (image copy is not supported yet)
 ### Fixes
 - Armor of Obliteration now correctly increase armor and elemental resistance if you are channeling Ray of Obliteration
+- Fixed Ultra Canon and Manabender activable description
 
 ## TODO
  - fixes
 
 
 ### Known issues
-- missing ancestral name (based on unlocked realms)
-- armor of obliteration bonus is not applied while channeling ray of obliteration
-- copy reaper does not work on firefox
 
 ## Planned changes
 - slorm-legendaries ?
