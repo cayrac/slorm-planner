@@ -102,7 +102,7 @@ export class ReaperListComponent extends AbstractUnsubscribeComponent implements
         return control !== null && control.value === heroClass;
     }
 
-    public convert(reaperDom: HTMLElement) {
+    public copy(reaperDom: HTMLElement) {
         toBlob(reaperDom).then(
             value => {
                 const copySuccess = value !== null && this.clipboardService.copyImageToClipboard(value);
@@ -119,6 +119,10 @@ export class ReaperListComponent extends AbstractUnsubscribeComponent implements
 
     public isNotAvailable(reaper: Reaper): boolean {
         return reaper.id === 53;
+    }
+
+    public isCopyable(): boolean {
+        return this.clipboardService.canCopyImage();
     }
 
 }

@@ -175,6 +175,8 @@
 - Title is now dinamically updated
 - Updated game data files
 - Added a default page
+### Changed
+- reaper image copy is no longer available on firefox (image copy is not supported yet)
 ### Fixes
 - Armor of Obliteration now correctly increase armor and elemental resistance if you are channeling Ray of Obliteration
 

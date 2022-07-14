@@ -31,7 +31,7 @@
                 <div class="reaper-container">
                     <div class="actions">
                         <mat-icon class="warn" *ngIf="isNotAvailable(reaper)" matTooltip="This reaper is not available in game yet">warning</mat-icon>
-                        <mat-icon class="button" (click)="convert(reaperDom)" matTooltip="Copy reaper as image to clipboard">photo</mat-icon>
+                        <mat-icon class="button" *ngIf="isCopyable()" (click)="copy(reaperDom)" matTooltip="Copy reaper as image to clipboard">photo</mat-icon>
                     </div>
                     <div class="reaper-window" #reaperDom>
                         <app-reaper-view [reaper]="reaper"></app-reaper-view>

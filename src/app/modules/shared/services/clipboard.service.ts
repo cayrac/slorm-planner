@@ -49,4 +49,8 @@ export class ClipboardService {
 
         return text;
     }
+
+    public canCopyImage(): boolean {
+        return typeof ClipboardItem !== 'undefined';
+    }
 }
