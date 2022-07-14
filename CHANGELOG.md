@@ -170,7 +170,7 @@
 ### Added
 - Added a slorm-reaper list page
 
-## Release 0.1.5 TBD
+## Release 0.1.5 (2022-07-14)
 ### Added
 - Title is now dinamically updated
 - Updated game data files
@@ -180,10 +180,6 @@
 ### Fixes
 - Armor of Obliteration now correctly increase armor and elemental resistance if you are channeling Ray of Obliteration
 - Fixed Ultra Canon and Manabender activable description
-
-## TODO
- - fixes
-
 
 ### Known issues
 
