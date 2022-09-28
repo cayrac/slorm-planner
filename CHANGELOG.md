@@ -182,6 +182,14 @@
 - Fixed Ultra Canon and Manabender activable description
 
 ### Known issues
+- pure values always have 2 !!
+
+### TODO
+- fix save loading
+- affinity (avec max 50)
+- check traductions
+- reaper runes
+
 
 ## Planned changes
 - slorm-legendaries ?

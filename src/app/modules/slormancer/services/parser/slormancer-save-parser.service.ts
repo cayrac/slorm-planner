@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ReaperSmith } from '@slormancer/model/content/enum/reaper-smith';
 
 import { GAME_VERSION } from '../../constants/common';
 import {
@@ -22,7 +23,9 @@ import {
     PROFILE,
     PURE_SLORM,
     QUEST_LIST,
+    REAPER_AFFINITY,
     REAPER_PITY,
+    REAPER_RUNES,
     REPUTATION,
     SHARED_INVENTORY,
     SKILL_EQUIP,
@@ -56,6 +59,9 @@ import {
     GameInventory,
     GameMissions,
     GameProfile,
+    GameReaperAffinities,
+    GameReaperRune,
+    GameReaperRunes,
     GameSave,
     GameSharedInventory,
     GameSkillEquip,
@@ -69,12 +75,13 @@ import {
     GameWeaponEquipped,
     GameXp,
 } from '../../model/parser/game/game-save';
-import { bytesFindPositions, bytesToString, slice, toBytes } from '../../util/bytes.util';
+import { bytesFindPositions, bytesToString, byteToChar, slice, toBytes } from '../../util/bytes.util';
 import {
     mapHeroesArray,
     splitHeroesData,
     strictParseFloat,
     strictParseInt,
+    strictSplit,
     toFloatArray,
     toHeroes,
     toNumberArray,
@@ -130,6 +137,8 @@ export class SlormancerSaveParserService {
         PROFILE,
         ENEMY_LEVEL,
         PURE_SLORM,
+        REAPER_AFFINITY,
+        REAPER_RUNES
     ];
 
     constructor(private slormancerItemService: SlormancerItemParserService) { }
@@ -149,7 +158,7 @@ export class SlormancerSaveParserService {
     private parseSharedInventory(data: string): GameSharedInventory {
         const items = data.split(';').map(item => this.slormancerItemService.parseItem(item));
         return {
-            materials: items.splice(0, 31),
+            materials: items.splice(0, 38),
             items
         };
     }
@@ -245,12 +254,27 @@ export class SlormancerSaveParserService {
         };
     }
 
+    private parseReaperRune(reaperRune: string): GameReaperRune {
+        const [obtained, level, equippedWarrior, equippedHuntress, equippedMage] = <[ number, number, number, number, number ]>toNumberArray(reaperRune, ',', 5);
+
+        return { 
+            obtained: obtained === 1,
+            level,
+            equipped: {
+                [HeroClass.Warrior]: equippedWarrior === 1,
+                [HeroClass.Huntress]: equippedHuntress === 1,
+                [HeroClass.Mage]: equippedMage === 1
+            }
+        };
+    }
+
     private parseInventory(data: string): GameInventory {
         return toHeroes(mapHeroesArray(splitHeroesData(data), v => this.parseHeroInventory(v.split(';'))));
     }
 
     private parseSlorm(data: string): GameHeroesData<number> {
-        return toHeroes(mapHeroesArray(splitHeroesData(data), strictParseInt));
+        console.log('parseSlorm  : ', data);
+        return toHeroes(mapHeroesArray(splitHeroesData(data), parseInt));
     }
 
     private parseInfluence(data: string): GameInfluence {
@@ -295,6 +319,23 @@ export class SlormancerSaveParserService {
 
     private parseUltimatums(data: string): GameUltimatums {        
         return splitData(data, '|').map(v => this.parseUltimatum(v));
+    }
+
+    private parseReaperAffinities(data: string): GameReaperAffinities {
+        const affinities = strictSplit(data, '|', 7).map(strictParseInt);
+        return {
+            [ReaperSmith.Astorias]: <number>affinities[ReaperSmith.Astorias],
+            [ReaperSmith.Adrianne]: <number>affinities[ReaperSmith.Adrianne],
+            [ReaperSmith.Beigarth]: <number>affinities[ReaperSmith.Beigarth],
+            [ReaperSmith.CoryIronbender]: <number>affinities[ReaperSmith.CoryIronbender],
+            [ReaperSmith.Smaloron]: <number>affinities[ReaperSmith.Smaloron],
+            [ReaperSmith.Fulgurorn]: <number>affinities[ReaperSmith.Fulgurorn],
+            [ReaperSmith.Hagan]: <number>affinities[ReaperSmith.Hagan]
+        }
+    }
+
+    private parseReaperRunes(data: string): GameReaperRunes {        
+        return splitData(data, '|').map(v => this.parseReaperRune(v));
     }
 
     private parseKeys(bytes: Bytes): { [key: string]: string } {
@@ -344,15 +385,15 @@ export class SlormancerSaveParserService {
     }
 
     public parseSaveFile(content: string): GameSave {
-        const [data, hash] = content.split('#', 2);
+        const [ data, hash ] = content.split('#', 2) as [string, string];
         
         const bytes = toBytes(<string>data);
+
+        console.log(bytes.map(byteToChar).join(''));
 
         const parsedData = this.parseKeys(bytes);
 
         this.normalizeSave(parsedData);
-
-        console.log('shared_inventory : ', this.parseSharedInventory(this.getOrFail(parsedData, 'shared_inventory')))
 
         return {
             stats_fetched: this.parseStatsFetched(this.getOrFail(parsedData, 'stats_fetched')),
@@ -373,6 +414,8 @@ export class SlormancerSaveParserService {
             skill_rank: this.parseSkillRank(this.getOrFail(parsedData, 'skill_rank')),
             ultimatums: this.parseUltimatums(this.getOrFail(parsedData, 'ultimatums')),
             reaper_pity: this.parseReaperPity(this.getOrFail(parsedData, 'reaper_pity')),
+            reaper_affinity: this.parseReaperAffinities(this.getOrFail(parsedData, 'reaper_affinity')),
+            reaper_runes: this.parseReaperRunes(this.getOrFail(parsedData, 'reaper_runes')),
             gold: this.parseGold(this.getOrFail(parsedData, 'gold')),
             xp: this.parseXp(this.getOrFail(parsedData, 'xp')),
             inventory: this.parseInventory(this.getOrFail(parsedData, 'inventory')),

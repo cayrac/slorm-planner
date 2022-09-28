@@ -31,6 +31,8 @@ export const WRATH: Bytes = stringToBytes('wrath');
 
 export const SKILL_RANK: Bytes = stringToBytes('skill_rank');
 export const REAPER_PITY: Bytes = stringToBytes('reaper_pity');
+export const REAPER_AFFINITY: Bytes = stringToBytes('reaper_affinity');
+export const REAPER_RUNES: Bytes = stringToBytes('reaper_runes');
 export const GOLD: Bytes = stringToBytes('gold');
 export const XP: Bytes = stringToBytes('xp');
 export const INVENTORY: Bytes = stringToBytes('inventory');

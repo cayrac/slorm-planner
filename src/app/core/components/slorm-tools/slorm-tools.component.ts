@@ -13,7 +13,7 @@ export class SlormToolsComponent {
             link: '/slorm-planner',
             icon: 'assets/img/character/icon/1/head.png',
             name: 'Slorm Planner',
-            info: 'A tool made for loading, testing a sharing builds',
+            info: 'A tool made for loading, testing and sharing builds',
             action: 'Load Slorm Planner'
         },
         {

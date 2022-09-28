@@ -1,3 +1,5 @@
+import { ReaperSmith } from '@slormancer/model/content/enum/reaper-smith';
+
 import { GameItem } from './game-item';
 
 export interface GameSave {
@@ -19,6 +21,8 @@ export interface GameSave {
     skill_rank: GameSkillRank,
     ultimatums: GameUltimatums,
     reaper_pity: GameHeroesData<number>,
+    reaper_affinity: GameReaperAffinities,
+    reaper_runes: GameReaperRunes,
     gold: string,
     xp: GameXp,
     inventory: GameInventory,
@@ -53,11 +57,28 @@ export declare type GameWeaponData = GameHeroesData<Array<GameWeapon>>;
 export declare type GameXp = GameHeroesData<number>;
 export declare type GameWeaponEquipped = GameHeroesData<number>;
 export declare type GameUltimatums = Array<GameUltimatum>;
+export declare type GameReaperRunes = Array<GameReaperRune>;
 
 export interface GameHeroesData<T> {
     0: T,
     1: T
     2: T,
+}
+
+export interface GameReaperAffinities {
+    [ReaperSmith.Adrianne]: number;
+    [ReaperSmith.Astorias]: number;
+    [ReaperSmith.Beigarth]: number;
+    [ReaperSmith.CoryIronbender]: number;
+    [ReaperSmith.Fulgurorn]: number;
+    [ReaperSmith.Hagan]: number;
+    [ReaperSmith.Smaloron]: number;
+}
+
+export interface GameReaperRune {
+    obtained: boolean;
+    level: number;
+    equipped: GameHeroesData<boolean>;
 }
 
 export interface GameHeroInventory {
