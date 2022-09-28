@@ -127,7 +127,8 @@ export class SearchService {
             reaper.malediction !== null ? reaper.maledictionTitleLabel : '',
             reaper.activables.length !== 0 ? reaper.activablesTitleLabel : '',
             reaper.damagesLabel,
-            reaper.maxDamagesWithBonusesLabel,
+            reaper.maxDamagesLabel,
+            reaper.affinityLabel,
             reaper.lore,
         ]) || reaper.activables.some(activable => this.activableMatchSearch(activable));
     }

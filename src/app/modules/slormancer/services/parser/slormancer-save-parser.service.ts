@@ -330,7 +330,10 @@ export class SlormancerSaveParserService {
             [ReaperSmith.CoryIronbender]: <number>affinities[ReaperSmith.CoryIronbender],
             [ReaperSmith.Smaloron]: <number>affinities[ReaperSmith.Smaloron],
             [ReaperSmith.Fulgurorn]: <number>affinities[ReaperSmith.Fulgurorn],
-            [ReaperSmith.Hagan]: <number>affinities[ReaperSmith.Hagan]
+            [ReaperSmith.Hagan]: <number>affinities[ReaperSmith.Hagan],
+            [ReaperSmith.OhmAgad]: 0,
+            [ReaperSmith.ReapersmithBrotherhood]: 0,
+
         }
     }
 

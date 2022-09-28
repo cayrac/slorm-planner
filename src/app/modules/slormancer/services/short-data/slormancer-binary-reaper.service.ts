@@ -16,7 +16,7 @@ export class SlormancerBinaryReaperService {
 
         result.push(...numberToBinary(reaper.id, 10));
         result.push(...booleanToBinary(reaper.primordial));
-        result.push(...numberToBinary(reaper.baseLevel, 7))
+        result.push(...numberToBinary(reaper.level, 7))
         // result.push(...numberToBinary(reaper.kills, 20))
 
         return result;

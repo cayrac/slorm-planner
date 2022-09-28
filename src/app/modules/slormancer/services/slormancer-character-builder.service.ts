@@ -79,11 +79,16 @@ export class SlormancerCharacterBuilderService {
 
         if (reaperData !== null) {
             result = this.slormancerReaperService.getReaperFromGameWeapon(reaperData, heroClass, primordial);
+
         }
 
         if (result === null) {
             throw new Error('failed to parse reaper');
         }
+
+        result.baseAffinity = save.reaper_affinity[result.smith.id];
+        this.slormancerReaperService.updateReaperModel(result);
+        this.slormancerReaperService.updateReaperView(result);
 
         return result;
     }

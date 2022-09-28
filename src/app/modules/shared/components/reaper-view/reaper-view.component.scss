@@ -1,3 +1,5 @@
+@import "~src/assets/scss/abstracts/flex.scss";
+
 $border-color                   : rgb(121, 183, 164);
 $reaper-bg-color                : rgb(9,9,9);
 $reaper-icon-outer-border-color : rgb(59, 56, 49);
@@ -88,6 +90,28 @@ $reaper-desc-details            : rgb(104, 104, 104);
                 text-align: left;
                 gap: 10px;
                 font-size: 16px;
+
+                .affinity {
+                    width: 32px;
+                    height: 32px;
+                    position: absolute;
+                    top: 0;
+                    right: 4px;
+                    text-align: center;
+
+                    @include flex(row, center, center);
+
+                    &::before {
+                        content: "";
+                        border: 3px solid $reaper-icon-outer-border-color;
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        left: -3px;
+                        top: -3px;
+                        transform: rotate(45deg);
+                    }
+                }
 
                 .base .type {
                     text-transform: uppercase;

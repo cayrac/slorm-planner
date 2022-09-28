@@ -73,6 +73,8 @@ export interface GameReaperAffinities {
     [ReaperSmith.Fulgurorn]: number;
     [ReaperSmith.Hagan]: number;
     [ReaperSmith.Smaloron]: number;
+    [ReaperSmith.OhmAgad]: number;
+    [ReaperSmith.ReapersmithBrotherhood]: number;
 }
 
 export interface GameReaperRune {

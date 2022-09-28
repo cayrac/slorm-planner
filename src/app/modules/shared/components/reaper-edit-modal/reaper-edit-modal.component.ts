@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAX_REAPER_AFFINITY_BASE } from '@slormancer/constants/common';
 import { DEFAULT_CONFIG } from '@slormancer/constants/content/data/default-configs';
 import { Character } from '@slormancer/model/character';
 import { Reaper } from '@slormancer/model/content/reaper';
@@ -22,6 +23,8 @@ export interface ReaperEditModalData {
   styleUrls: ['./reaper-edit-modal.component.scss']
 })
 export class ReaperEditModalComponent {
+
+    public readonly MAX_REAPER_AFFINITY_BASE = MAX_REAPER_AFFINITY_BASE;
 
     private readonly originalReaper: Reaper;
 
@@ -73,8 +76,9 @@ export class ReaperEditModalComponent {
                 this.reaper.primordialInfo.level = value.primordialLevel;
                 this.reaper.baseInfo.kills = value.baseKills;
                 this.reaper.primordialInfo.kills = value.primordialKills;
+                this.reaper.baseAffinity = value.affinity;
             } else {
-                const newReaper = this.slormancerReaperService.getReaperById(value.reaper, this.reaper.weaponClass, value.primordial, value.baseLevel, value.primordialLevel, value.baseKills, value.primordialKills, this.reaper.bonusLevel);
+                const newReaper = this.slormancerReaperService.getReaperById(value.reaper, this.reaper.weaponClass, value.primordial, value.baseLevel, value.primordialLevel, value.baseKills, value.primordialKills, this.reaper.baseAffinity, this.reaper.bonusAffinity);
                 if (newReaper !== null) {
                     Object.assign(this.reaper, newReaper);
                 }
@@ -107,6 +111,7 @@ export class ReaperEditModalComponent {
             primordialLevel: new FormControl(this.reaper.primordialInfo.level, [Validators.required, Validators.min(1), this.getReaperMaxLevelValidator()]),
             primordialKills: new FormControl(this.reaper.primordialInfo.kills, [Validators.required, Validators.min(0)]),
             primordial: new FormControl(this.reaper.primordial, Validators.required),
+            affinity: new FormControl(this.reaper.baseAffinity, [Validators.required, Validators.min(0), Validators.max(MAX_REAPER_AFFINITY_BASE)]),
             reaper: new FormControl(this.reaper.id, Validators.required),
         });
         

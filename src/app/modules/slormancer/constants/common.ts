@@ -30,6 +30,8 @@ export const ARCANE_CLONE_ATTACK_SPEED_REDUCTION = -35;
 export const ARCANE_BOND_DAMAGE_FROM_MANA_SPENT = 100;
 export const MAX_EMBLEMS = 3;
 export const REMNANT_DAMAGE_REDUCTION = 50;
+export const MAX_REAPER_AFFINITY_BONUS = 50;
+export const MAX_REAPER_AFFINITY_BASE = 100;
 
 export const SHIELD_DURATION = 3;
 export const POISON_DURATION = 7;

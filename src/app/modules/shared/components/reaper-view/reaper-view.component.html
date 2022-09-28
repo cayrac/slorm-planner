@@ -7,6 +7,8 @@
                 <div class="background-outer"><div class="background"></div></div>
             </div>
             <div class="summary">
+                <div class="affinity" *ngIf="reaper.affinityLabel !== null" [innerHTML]="reaper.affinityLabel">
+                </div>
                 <div class="base">
                     <div class="type">{{reaper.type}}</div>
                     <div class="builder" [innerHTML]="reaper.smithLabel"></div>
@@ -14,7 +16,7 @@
                 <div class="damages">
                     <div class="current-damage">{{reaper.damagesLabel}}</div>
                     <div class="type" [innerHTML]="reaper.damageTypeLabel"></div>
-                    <div class="max-damage">{{reaper.maxDamagesWithBonusesLabel}}</div>
+                    <div class="max-damage">{{reaper.maxDamagesLabel}}</div>
                 </div>
                 <div class="stats">
                     <div class="victim" [innerHTML]="reaper.victimsLabel"></div>

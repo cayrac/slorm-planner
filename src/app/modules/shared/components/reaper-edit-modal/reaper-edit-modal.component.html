@@ -31,12 +31,19 @@
                 </mat-form-field>
             </div>
             <div class="stat-line">
+                <mat-form-field appearance="outline">
+                    <mat-label>Raper base affinity</mat-label>
+                    <input matInput type="number" step="1" formControlName="affinity">
+                    <mat-error>Base affinity must be between 1 and {{MAX_REAPER_AFFINITY_BASE}}</mat-error>
+                </mat-form-field>
+                <mat-checkbox color="primary" formControlName="primordial">Primordial</mat-checkbox>
+            </div>
+            <div class="stat-line">
                 <app-search-select label="Reaper base"
                     [control]="getReaperControl()"
                     [options]="options"
                     [noErrorPadding]="true">
                 </app-search-select>
-                <mat-checkbox color="primary" formControlName="primordial">Primordial</mat-checkbox>
             </div>
         </div>
     </mat-dialog-content>

@@ -1,4 +1,6 @@
+import { ReaperSmith } from './enum/reaper-smith';
+
 export interface ReaperBuilder {
-    id: number;
+    id: ReaperSmith;
     name: string;
 }

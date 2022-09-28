@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MessageService } from '@shared/services/message.service';
+import { MAX_REAPER_AFFINITY_BONUS } from '@slormancer/constants/common';
 
 import { DATA_HERO_BASE_STATS } from '../constants/content/data/data-hero-base-stats';
 import { Character } from '../model/character';
@@ -57,17 +58,21 @@ export class SlormancerCharacterUpdaterService {
         }
     }
 
-    private applyReaperBonuses(character: Character, reaper: Reaper, config: CharacterConfig) {
+    private applyReaperAffinities(character: Character, reaper: Reaper, config: CharacterConfig) {
         const items = ALL_GEAR_SLOT_VALUES.map(slot => character.gear[slot]).filter(isNotNullOrUndefined);
 
-        let bonus = 0;
+        let bonusAffinity = 0;
         for (const item of items) {
             if (item.reaperEnchantment !== null && item.reaperEnchantment.craftedReaperSmith == reaper.smith.id) {
-                bonus += item.reaperEnchantment.craftedValue;
+                bonusAffinity += item.reaperEnchantment.craftedValue;
             }
         }
 
-        // applying fulgurorn's reapre bonuses
+        if (bonusAffinity > MAX_REAPER_AFFINITY_BONUS) {
+            bonusAffinity = MAX_REAPER_AFFINITY_BONUS;
+        }
+
+        // applying fulgurorn's reaper bonuses
         if (reaper.id === 53) {
             let fulgurornBonuses = 0;
             for (const item of items) {
@@ -86,12 +91,12 @@ export class SlormancerCharacterUpdaterService {
                 extractedStats['reapersmith_5'] = [{ value: fulgurornBonuses, source: { character } }];
                 this.slormancerSynergyResolverService.resolveSyngleSynergy(maxStacks, [], extractedStats, { reaper })
     
-                bonus += Math.min(<number>maxStacks.displaySynergy, config.fulgurorn_dedication_stacks);
+                bonusAffinity += Math.min(<number>maxStacks.displaySynergy, config.fulgurorn_dedication_stacks);
             }
         }
 
-        if (reaper.bonusLevel !== bonus) {
-            reaper.bonusLevel = bonus;
+        if (reaper.bonusAffinity !== bonusAffinity) {
+            reaper.bonusAffinity = bonusAffinity;
             this.slormancerReaperService.updateReaperModel(reaper);
             this.slormancerReaperService.updateReaperView(reaper);
         }
@@ -126,7 +131,7 @@ export class SlormancerCharacterUpdaterService {
             }
         }
 
-        this.applyReaperBonuses(character, character.reaper, config);
+        this.applyReaperAffinities(character, character.reaper, config);
 
         for (const attribute of ALL_ATTRIBUTES) {
             if (character.attributes.allocated[attribute].bonusRank !== attributeBonuses[attribute]) {

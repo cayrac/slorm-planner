@@ -1,7 +1,7 @@
 import { MinMax } from '../minmax';
 import { Activable } from './activable';
 import { HeroClass } from './enum/hero-class';
-import { ReaperBuilder as ReaperSmith } from './reaper-builder';
+import { ReaperBuilder } from './reaper-builder';
 import { ReaperEffect } from './reaper-effect';
 
 export interface ReaperInfo {
@@ -24,8 +24,9 @@ export interface Reaper {
     primordial: boolean;
     icon: string;
     level: number;
-    baseLevel: number;
-    bonusLevel: number;
+    baseAffinity: number;
+    bonusAffinity: number;
+    affinity: number;
     kills: number;
     name: string;
     description: string;
@@ -35,15 +36,14 @@ export interface Reaper {
     lore: string;
     damages: MinMax;
     damagesLabel: string;
-    maxDamagesWithBonuses: MinMax;
-    maxDamagesWithBonusesLabel: string;
-    maxLevelWithBonuses: number;
+    maxDamages: MinMax;
+    maxDamagesLabel: string;
     minLevel: number;
     maxLevel: number;
     templates: ReaperTemplates;
     baseInfo: ReaperInfo;
     primordialInfo: ReaperInfo;
-    smith: ReaperSmith;
+    smith: ReaperBuilder;
     damageType: string;
     damagesBase: MinMax;
     damagesLevel: MinMax;
@@ -53,6 +53,7 @@ export interface Reaper {
     victimsLabel: string;
     levelLabel: string;
     damageTypeLabel: string;
+    affinityLabel: string | null;
     benedictionTitleLabel: string;
     maledictionTitleLabel: string;
     activablesTitleLabel: string;
