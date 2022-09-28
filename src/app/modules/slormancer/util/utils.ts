@@ -170,6 +170,12 @@ export function isDamageType(stat: string): boolean {
         || stat === 'damage';
 }
 
+/**
+ * 
+ * @param a:  version as string
+ * @param b:  version as string
+ * @returns > 0 if a > b, 0 if a and b are equal, < 0 if a < b
+ */
 export function compareVersions(a: string, b: string): number {
     const regExStrip0 = /(\.0+)+$/;
     const segmentsA = a.replace(regExStrip0, '').split('.');

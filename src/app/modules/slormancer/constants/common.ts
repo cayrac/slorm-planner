@@ -38,4 +38,4 @@ export const POISON_DURATION = 7;
 export const ARCANE_BOND_DURATION = 7;
 export const TIME_LOCK_DURATION = 3;
 
-export const GAME_VERSION = '0.4.21';
+export const GAME_VERSION = '0.4.51';

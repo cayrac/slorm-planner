@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GAME_VERSION } from '@slormancer/constants/common';
+import { GAME_VERSION, MAX_REAPER_AFFINITY_BASE } from '@slormancer/constants/common';
 import { DEFAULT_CONFIG } from '@slormancer/constants/content/data/default-configs';
 import { compareVersions } from '@slormancer/util/utils';
 
@@ -168,6 +168,17 @@ export class BuildRetrocompatibilityService {
             version: '0.1.5',
             update: build => {
                 build.version = '0.1.5';
+            }
+        },
+        {
+            version: '0.2.0',
+            update: build => {
+                build.version = '0.2.0';
+
+                for (const layer of build.layers) {
+                    layer.character.reaper.baseAffinity = MAX_REAPER_AFFINITY_BASE;
+                    layer.character.reaper.bonusAffinity = 0
+                }
             }
         },
     ];

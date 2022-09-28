@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { APP_TO_GAME_VERSION_MAPPER } from '@shared/constants';
 
 import { environment } from '../../../../../environments/environment';
-import { GAME_VERSION } from '../../constants/common';
 import { Character } from '../../model/character';
 import { Bits } from '../../model/export/bits';
 import { binaryToNumber, numberToBinary, takeBitsChunk } from '../../util/bits.util';
@@ -44,8 +42,7 @@ export class SlormancerShortDataService {
         try {
             const bits = this.slormancerCompressorService.decompressBinary(data);
             const version = this.binaryToVersion(bits);
-            const originalGameVersion = APP_TO_GAME_VERSION_MAPPER[version];
-            character = this.slormancerBinaryService.binaryToCharacter(bits, originalGameVersion ? originalGameVersion : GAME_VERSION);
+            character = this.slormancerBinaryService.binaryToCharacter(bits, version);
         } catch (e) {
             console.error(e)
         }

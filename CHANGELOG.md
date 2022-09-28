@@ -181,6 +181,8 @@
 - Armor of Obliteration now correctly increase armor and elemental resistance if you are channeling Ray of Obliteration
 - Fixed Ultra Canon and Manabender activable description
 
+## Release 0.2.0 (TBD)
+
 ### Known issues
 - pure values always have 2 !!
 

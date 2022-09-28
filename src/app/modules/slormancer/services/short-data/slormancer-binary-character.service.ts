@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { APP_TO_GAME_VERSION_MAPPER } from '@shared/constants';
 
 import { GAME_VERSION } from '../../constants/common';
 import { Character, CharacterAncestralLegacies, CharacterGear, CharacterSkillAndUpgrades } from '../../model/character';
@@ -206,12 +207,14 @@ export class SlormancerBinaryCharacterService {
         return result;
     }
 
-    public binaryToCharacter(binary: Bits, importVersion: string): Character | null {
+    public binaryToCharacter(binary: Bits, version: string): Character | null {
 
+        const originalGameVersion = APP_TO_GAME_VERSION_MAPPER[version];
+        const importVersion = originalGameVersion ? originalGameVersion : GAME_VERSION;
         const heroClass: HeroClass = binaryToNumber(takeBitsChunk(binary, 2));
         const level = binaryToNumber(takeBitsChunk(binary, 6));
 
-        const reaper = this.slormancerBinaryReaperService.binaryToReaper(binary, heroClass)
+        const reaper = this.slormancerBinaryReaperService.binaryToReaper(binary, heroClass, version)
         
         const ancestralData = this.binaryToAncestralLegacies(binary);
 
