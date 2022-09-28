@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MAX_REAPER_AFFINITY_BASE } from '@slormancer/constants/common';
 import { Character, CharacterSkillAndUpgrades } from '@slormancer/model/character';
 import { Activable } from '@slormancer/model/content/activable';
 import { AncestralLegacy } from '@slormancer/model/content/ancestral-legacy';
@@ -17,7 +18,7 @@ import { SlormancerReaperService } from '@slormancer/services/content/slormancer
 import { SlormancerUltimatumService } from '@slormancer/services/content/slormancer-ultimatum.service';
 import { SlormancerCharacterBuilderService } from '@slormancer/services/slormancer-character-builder.service';
 import { round } from '@slormancer/util/math.util';
-import { isNotNullOrUndefined, valueOrDefault } from '@slormancer/util/utils';
+import { compareVersions, isNotNullOrUndefined, valueOrDefault } from '@slormancer/util/utils';
 
 import { Build } from '../model/build';
 import { JsonAncestralLegacy } from '../model/json/json-ancestral-legacy';
@@ -95,6 +96,7 @@ export class JsonConverterService {
         return {
             id: reaper.id,
             level: reaper.baseInfo.level,
+            affinity: reaper.baseAffinity,
             primordialLevel: reaper.primordialInfo.level,
             kills: reaper.baseInfo.kills,
             primordialKills: reaper.primordialInfo.kills,
@@ -301,6 +303,9 @@ export class JsonConverterService {
             character.originalVersion = character.version;
             character.ultimatum = null;
         }
+        if (compareVersions(character.version, '0.2.0') < 0) {
+            character.reaper.affinity = MAX_REAPER_AFFINITY_BASE;
+        }
     }
 
     public jsonToCharacter(character: JsonCharacter): Character {
@@ -312,7 +317,8 @@ export class JsonConverterService {
             character.reaper.level,
             character.reaper.primordialLevel,
             character.reaper.kills,
-            character.reaper.primordialKills);
+            character.reaper.primordialKills,
+            character.reaper.affinity);
 
         const ultimatum = character.ultimatum === null
             ? null
