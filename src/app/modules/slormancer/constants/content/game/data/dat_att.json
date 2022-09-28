@@ -479,7 +479,7 @@
         "ADDITIVE": null,
         "LEVEL": 45,
         "VALUE": "100",
-        "TYPE": "synergy:missing_mana",
+        "TYPE": "synergy:missing_health",
         "STAT": "max_basic_damage_add",
         "EN_TEXT": "You have +_ £.#Max. Raw Damage is equal to your $.",
         "FR_TEXT": "Vous avez +_ £.#Ces Dégats Bruts Max. sont équivalents à votre $.",

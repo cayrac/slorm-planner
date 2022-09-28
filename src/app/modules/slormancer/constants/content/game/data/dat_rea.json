@@ -45,7 +45,11 @@
     "DMG_MULTIPLIER": 2,
     "LOOTABLE": null,
     "MAX_LVL": 5,
-    "EVOLVE_IN": 1
+    "EVOLVE_IN": 1,
+    "100": "1148 - 1666",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "1148 - 1666",
+    "OLD 100": "1148 - 1666"
   },
   {
     "REF": 1,
@@ -94,7 +98,11 @@
     "DMG_MULTIPLIER": 3,
     "LOOTABLE": null,
     "MAX_LVL": 12,
-    "EVOLVE_IN": 2
+    "EVOLVE_IN": 2,
+    "100": "1655 - 2392",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "1655 - 2392",
+    "OLD 100": "1655 - 2392"
   },
   {
     "REF": 2,
@@ -143,7 +151,11 @@
     "DMG_MULTIPLIER": 4,
     "LOOTABLE": null,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "1999 - 2898",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "1999 - 2898",
+    "OLD 100": "1999 - 2898"
   },
   {
     "REF": 3,
@@ -185,14 +197,18 @@
     "VALUE_LEVEL": "rl|\nrln|rl|\n",
     "VALUE_STAT": "xp_find_percent|chance|additional_damage|\nxp_find_percent|xp_find_global_mult|min_weapon_damage_add|",
     "VALUE_REAL": "synergy:level:1|synergy:xp_find_percent:10|\nsynergy:all_level:1|",
-    "BASE_DMG_MIN": 7,
-    "BASE_DMG_MAX": 13,
+    "BASE_DMG_MIN": 77,
+    "BASE_DMG_MAX": 143,
     "MIN_DMG_LVL": 0,
     "MAX_DMG_LVL": 0,
     "DMG_MULTIPLIER": 0,
     "LOOTABLE": 1,
     "MAX_LVL": 1000,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "77 - 143",
+    "AURE V2 %": "1000,00%",
+    "NEW 100 WANTED": "77 - 143",
+    "OLD 100": "7 - 13"
   },
   {
     "REF": 4,
@@ -241,7 +257,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 5,
@@ -290,7 +310,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 6,
@@ -332,14 +356,18 @@
     "VALUE_LEVEL": "rl|rl|rl|\nrl|",
     "VALUE_STAT": "min_basic_damage_add|max_basic_damage_add|basic_damage_global_mult|\nmax_basic_damage_percent|elemental_penetration_percent",
     "VALUE_REAL": "synergy:armor_penetration:1",
-    "BASE_DMG_MIN": 29,
-    "BASE_DMG_MAX": 36,
-    "MIN_DMG_LVL": 7,
-    "MAX_DMG_LVL": 10,
+    "BASE_DMG_MIN": 26,
+    "BASE_DMG_MAX": 32,
+    "MIN_DMG_LVL": 6,
+    "MAX_DMG_LVL": 9,
     "DMG_MULTIPLIER": 4,
     "LOOTABLE": 1,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "2032 - 2920",
+    "AURE V2 %": "-10,00%",
+    "NEW 100 WANTED": "2111 - 2928",
+    "OLD 100": "2333 - 3248"
   },
   {
     "REF": 7,
@@ -388,7 +416,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 36,
-    "EVOLVE_IN": 8
+    "EVOLVE_IN": 8,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 8,
@@ -437,7 +469,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 52,
-    "EVOLVE_IN": 9
+    "EVOLVE_IN": 9,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 9,
@@ -486,7 +522,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 10,
@@ -535,7 +575,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 44,
-    "EVOLVE_IN": 11
+    "EVOLVE_IN": 11,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 11,
@@ -584,7 +628,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 12,
@@ -633,7 +681,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 36,
-    "EVOLVE_IN": 13
+    "EVOLVE_IN": 13,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 13,
@@ -682,7 +734,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 52,
-    "EVOLVE_IN": 14
+    "EVOLVE_IN": 14,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 14,
@@ -731,7 +787,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 15,
@@ -780,7 +840,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 44,
-    "EVOLVE_IN": 16
+    "EVOLVE_IN": 16,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 16,
@@ -829,7 +893,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 17,
@@ -878,7 +946,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 18,
@@ -927,7 +999,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 19,
@@ -976,7 +1052,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 36,
-    "EVOLVE_IN": 20
+    "EVOLVE_IN": 20,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 20,
@@ -1025,7 +1105,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 52,
-    "EVOLVE_IN": 21
+    "EVOLVE_IN": 21,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 21,
@@ -1074,7 +1158,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 22,
@@ -1116,14 +1204,18 @@
     "VALUE_LEVEL": "rl|rl|rl|\n|",
     "VALUE_STAT": "mana_leech_percent|mana_leech_global_mult|physical_damage",
     "VALUE_REAL": "damage:physical_damage:300",
-    "BASE_DMG_MIN": 13,
-    "BASE_DMG_MAX": 17,
-    "MIN_DMG_LVL": 2,
-    "MAX_DMG_LVL": 5,
+    "BASE_DMG_MIN": 26,
+    "BASE_DMG_MAX": 34,
+    "MIN_DMG_LVL": 4,
+    "MAX_DMG_LVL": 10,
     "DMG_MULTIPLIER": 2,
     "LOOTABLE": 1,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "824 - 1847",
+    "AURE V2 %": "100,00%",
+    "NEW 100 WANTED": "824 - 1847",
+    "OLD 100": "454 - 969"
   },
   {
     "REF": 23,
@@ -1172,7 +1264,11 @@
     "DMG_MULTIPLIER": 3,
     "LOOTABLE": 2,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "1392 - 1649",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "1392 - 1649",
+    "OLD 100": "1392 - 1649"
   },
   {
     "REF": 24,
@@ -1214,14 +1310,18 @@
     "VALUE_LEVEL": "rl|rl|rl||\n||\n|",
     "VALUE_STAT": "dodge_add|dodge_percent|dodge_global_mult|dodge_add|\ndodge_add",
     "VALUE_REAL": "synergy:min_basic_damage:100|\nsynergy:elemental_damage:100",
-    "BASE_DMG_MIN": 3,
-    "BASE_DMG_MAX": 7,
-    "MIN_DMG_LVL": 4,
-    "MAX_DMG_LVL": 7,
+    "BASE_DMG_MIN": 5,
+    "BASE_DMG_MAX": 12,
+    "MIN_DMG_LVL": 7,
+    "MAX_DMG_LVL": 12,
     "DMG_MULTIPLIER": 2,
     "LOOTABLE": 2,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "1272 - 2133",
+    "AURE V2 %": "75,00%",
+    "NEW 100 WANTED": "1272 - 2172",
+    "OLD 100": "765 - 1279"
   },
   {
     "REF": 25,
@@ -1270,7 +1370,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 26,
@@ -1319,7 +1423,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 27,
@@ -1368,7 +1476,11 @@
     "DMG_MULTIPLIER": 5,
     "LOOTABLE": 2,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "1430 - 2207",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "1430 - 2207",
+    "OLD 100": "1430 - 2207"
   },
   {
     "REF": 28,
@@ -1417,7 +1529,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 44,
-    "EVOLVE_IN": 29
+    "EVOLVE_IN": 29,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 29,
@@ -1466,7 +1582,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 30,
@@ -1515,7 +1635,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 44,
-    "EVOLVE_IN": 31
+    "EVOLVE_IN": 31,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 31,
@@ -1564,7 +1688,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 32,
@@ -1613,7 +1741,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 36,
-    "EVOLVE_IN": 33
+    "EVOLVE_IN": 33,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 33,
@@ -1662,7 +1794,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 52,
-    "EVOLVE_IN": 34
+    "EVOLVE_IN": 34,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 34,
@@ -1711,7 +1847,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 35,
@@ -1760,7 +1900,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 36,
@@ -1809,7 +1953,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 37,
@@ -1858,7 +2006,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 36,
-    "EVOLVE_IN": 38
+    "EVOLVE_IN": 38,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 38,
@@ -1907,7 +2059,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 52,
-    "EVOLVE_IN": 39
+    "EVOLVE_IN": 39,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 39,
@@ -1956,7 +2112,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 40,
@@ -1964,7 +2124,7 @@
     "EN_DESC": "*+@ £*+@ £|*When Idle for at least @ seconds:#+@ £##You also gain <Thornbite Protection> that shields you from the next _ Incoming Damage.#Thornbite Protection is equal to @ of the sum of your Armor, Elemental Resistance and Evasion, has a @ seconds Cooldown and disappears when you move./\n|*Thorns Damage have _% £.#Critical Strike Chance is equal to yours.*When Idle for at least @ seconds:#Thorns Damage have @ £./\n|*Non-Thorns Damage can no longer deal Critical Strikes.",
     "EN_LORE": "Careful, it stings.",
     "FR_NAME": "$ en Mordépine",
-    "FR_DESC": "*+@ £*+@ £|*Lorsque vous restez Immobile pour au moins @ secondes :#+@ £##Vous gagnez également <Protection en Mordépine>, prévenant les _ prochains Dégâts reçus.#Protection en Mordépine est équivalente à @ de la somme de votre Armure,  de votre Résistance Élémentaire et d'Évasion, a un Temps de Recharge de @ secondes et disparaît lorsque vous vous déplacez./\n|*Les Dégâts d'Épines ont _% de £.#Cette Chance de Coup Critique est équivalente à la vôtre.*Lorsque vous restez Immobile pour au moins @ secondes :#Les Dégâts d'Épines ont @ de £./\n|*Les Dégâts non-Épines ne peuvent plus infliger de Coups Critiques.",
+    "FR_DESC": "*+@ £*+@ £|*Lorsque vous restez Immobile pour au moins @ secondes :#+@ £##Vous gagnez également <Protection en Mordépine>, prévenant les _ prochains Dégâts reçus.#Protection en Mordépine est équivalente à @ de la somme de votre Armure, de votre Résistance Élémentaire et d'Évasion, a un Temps de Recharge de @ secondes et disparaît lorsque vous vous déplacez./\n|*Les Dégâts d'Épines ont _% de £.#Cette Chance de Coup Critique est équivalente à la vôtre.*Lorsque vous restez Immobile pour au moins @ secondes :#Les Dégâts d'Épines ont @ de £./\n|*Les Dégâts non-Épines ne peuvent plus infliger de Coups Critiques.",
     "FR_LORE": "Attention, ça pique.",
     "CH_NAME": "棘刺 $",
     "CH_DESC": "*+@£*+@£|*站立不动@秒后：#+@£##同时获得<Thornbite Protection>，可抵御_伤害。#棘刺防护等于护甲、元素抗性、闪避总和的@，有@秒冷却时间，在移动时消失。/\n|*荆棘伤害获得_%£。#暴击率等于你的。*站立不动@秒后：#荆棘伤害获得@£。/\n|*非荆棘伤害无法暴击。",
@@ -1998,14 +2158,18 @@
     "VALUE_LEVEL": "rl|rl||rl|||\n|rl|",
     "VALUE_STAT": "thorns_add|thorns_percent|thorns_global_mult|\ncrit_chance_percent|crit_chance_global_mult",
     "VALUE_REAL": "synergy:sum_all_resistances:10|\nsynergy:crit_chance:1",
-    "BASE_DMG_MIN": 1,
-    "BASE_DMG_MAX": 2,
-    "MIN_DMG_LVL": 1,
-    "MAX_DMG_LVL": 1,
+    "BASE_DMG_MIN": 6,
+    "BASE_DMG_MAX": 12,
+    "MIN_DMG_LVL": 6,
+    "MAX_DMG_LVL": 6,
     "DMG_MULTIPLIER": 1,
     "LOOTABLE": 1,
     "MAX_LVL": 52,
-    "EVOLVE_IN": 41
+    "EVOLVE_IN": 41,
+    "100": "939 - 951",
+    "AURE V2 %": "500,00%",
+    "NEW 100 WANTED": "939 - 951",
+    "OLD 100": "227 - 228"
   },
   {
     "REF": 41,
@@ -2047,14 +2211,18 @@
     "VALUE_LEVEL": "",
     "VALUE_STAT": "thorns_add",
     "VALUE_REAL": "synergy:physical_damage:100",
-    "BASE_DMG_MIN": 1,
-    "BASE_DMG_MAX": 2,
-    "MIN_DMG_LVL": 1,
-    "MAX_DMG_LVL": 1,
+    "BASE_DMG_MIN": 6,
+    "BASE_DMG_MAX": 12,
+    "MIN_DMG_LVL": 6,
+    "MAX_DMG_LVL": 6,
     "DMG_MULTIPLIER": 1,
     "LOOTABLE": null,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "939 - 951",
+    "AURE V2 %": "500,00%",
+    "NEW 100 WANTED": "939 - 951",
+    "OLD 100": "227 - 228"
   },
   {
     "REF": 42,
@@ -2096,14 +2264,18 @@
     "VALUE_LEVEL": "rl|rl|rl",
     "VALUE_STAT": "minion_increased_damage_percent|minion_increased_damage_global_mult|\nminion_increased_damage_percent",
     "VALUE_REAL": "synergy:mana_lock_percent:100",
-    "BASE_DMG_MIN": 9,
-    "BASE_DMG_MAX": 14,
-    "MIN_DMG_LVL": 2,
-    "MAX_DMG_LVL": 3,
+    "BASE_DMG_MIN": 27,
+    "BASE_DMG_MAX": 42,
+    "MIN_DMG_LVL": 6,
+    "MAX_DMG_LVL": 9,
     "DMG_MULTIPLIER": 1,
     "LOOTABLE": 2,
     "MAX_LVL": 36,
-    "EVOLVE_IN": 43
+    "EVOLVE_IN": 43,
+    "100": "978 - 1429",
+    "AURE V2 %": "200,00%",
+    "NEW 100 WANTED": "978 - 1429",
+    "OLD 100": "378 - 528"
   },
   {
     "REF": 43,
@@ -2145,14 +2317,18 @@
     "VALUE_LEVEL": "",
     "VALUE_STAT": "increased_damage",
     "VALUE_REAL": "synergy:minion_increased_damage:1",
-    "BASE_DMG_MIN": 10,
-    "BASE_DMG_MAX": 15,
-    "MIN_DMG_LVL": 2,
-    "MAX_DMG_LVL": 3,
+    "BASE_DMG_MIN": 30,
+    "BASE_DMG_MAX": 45,
+    "MIN_DMG_LVL": 6,
+    "MAX_DMG_LVL": 9,
     "DMG_MULTIPLIER": 1,
     "LOOTABLE": null,
     "MAX_LVL": 52,
-    "EVOLVE_IN": 44
+    "EVOLVE_IN": 44,
+    "100": "981 - 1441",
+    "AURE V2 %": "200,00%",
+    "NEW 100 WANTED": "981 - 1441",
+    "OLD 100": "379 - 530"
   },
   {
     "REF": 44,
@@ -2194,14 +2370,18 @@
     "VALUE_LEVEL": "",
     "VALUE_STAT": "",
     "VALUE_REAL": "",
-    "BASE_DMG_MIN": 11,
-    "BASE_DMG_MAX": 16,
-    "MIN_DMG_LVL": 2,
-    "MAX_DMG_LVL": 3,
+    "BASE_DMG_MIN": 33,
+    "BASE_DMG_MAX": 48,
+    "MIN_DMG_LVL": 6,
+    "MAX_DMG_LVL": 9,
     "DMG_MULTIPLIER": 1,
     "LOOTABLE": null,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "990 - 1444",
+    "AURE V2 %": "200,00%",
+    "NEW 100 WANTED": "990 - 1444",
+    "OLD 100": "382 - 531"
   },
   {
     "REF": 45,
@@ -2250,7 +2430,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 46,
@@ -2299,7 +2483,11 @@
     "DMG_MULTIPLIER": 2,
     "LOOTABLE": 1,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "1319 - 2005",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "1319 - 2005",
+    "OLD 100": "1319 - 2005"
   },
   {
     "REF": 47,
@@ -2348,7 +2536,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 48,
@@ -2397,7 +2589,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 36,
-    "EVOLVE_IN": 49
+    "EVOLVE_IN": 49,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 49,
@@ -2446,7 +2642,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 52,
-    "EVOLVE_IN": 50
+    "EVOLVE_IN": 50,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 50,
@@ -2495,7 +2695,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 51,
@@ -2544,7 +2748,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 52,
@@ -2593,15 +2801,19 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 53,
     "EN_NAME": "Fate-Crusher, $ of the Seven",
-    "EN_DESC": "|*A Forge Hammer has _% Chance to spawn near you every second. Chance to spawn is equal to your total Slorm Reaper bonuses.*Picking up the Forge Hammer triggers a Slorm Hammer, dealing _ Skill Damage to a random enemy nearby.*The Slorm Hammer deals @ Increased Damage.*Astorias' Chain:#When the Slorm Hammer hits an enemy, it has _% Chance to target a new random enemy nearby.*Adrianne's Division:#When the Slorm Hammer hits an enemy, it has _% Chance to create a new Slorm Hammer, once.*Beighart's Alchimy:#When the Slorm Hammer ends, it has _% Chance to create a new Forge Hammer.*Cory's Ingeniosity:#Forge Hammers have _% Chance to trigger themselves.*Smaloron's Might:#Slorm Hammers deal _% Increased Damage for every enemy hit.*Fulgurorn's Dedication:#Triggering a Forge Hammer grants you Fulgurorn's Dedication increasing the Level of this Reaper by @ for the next @ seconds. Fulgurorn's Dedication can stack up to _ times.*Hagan's Heroism:#Slorm Hammers have +_% Increased Critical Strike Damage and have _% Chance to Stun for the next @ seconds./\n|*Picking up a Forge Hammer triggers a second Slorm Hammer./\n|*Only Slorm Hammers can kill enemies.",
+    "EN_DESC": "|*A Forge Hammer has _% Chance to spawn near you every second. Chance to spawn is equal to the total of Affinity Levels on your Equipment.*Picking up the Forge Hammer triggers a Slorm Hammer, dealing _ Skill Damage to a random enemy nearby.*The Slorm Hammer deals @ Increased Damage.*Astorias' Chain:#When the Slorm Hammer hits an enemy, it has _% Chance to target a new random enemy nearby.*Adrianne's Division:#When the Slorm Hammer hits an enemy, it has _% Chance to create a new Slorm Hammer, once.*Beighart's Alchimy:#When the Slorm Hammer ends, it has _% Chance to create a new Forge Hammer.*Cory's Ingeniosity:#Forge Hammers have _% Chance to trigger themselves.*Smaloron's Might:#Slorm Hammers deal _% Increased Damage for every enemy hit.*Fulgurorn's Dedication:#Triggering a Forge Hammer grants you Fulgurorn's Dedication increasing the Level of this Reaper by @ for the next @ seconds. Fulgurorn's Dedication can stack up to _ times.*Hagan's Heroism:#Slorm Hammers have +_% Increased Critical Strike Damage and have _% Chance to Stun for the next @ seconds./\n|*Picking up a Forge Hammer triggers a second Slorm Hammer./\n|*Only Slorm Hammers can kill enemies.",
     "EN_LORE": "Wrought by the Seven Reapersmiths to defeat HIM.",
     "FR_NAME": "Renverse-Destin, $ des Sept",
-    "FR_DESC": "|*Un Marteau de Forge a _% de Chance d'apparaître près de vous chaque seconde. Cette Chance est équivalente au total de vos bonus d'équipement de Slorm Reapers.*Ramasser un Marteau de Forge déclenche un Marteau de Slorm, infligeant _ Dégats Physiques à un ennemi aléatoire proche.*Le Marteau de Slorm inflige @ de Dégâts Supplémentaires.*Liens d'Astorias :#Lorsque le Marteau de Slorm touche un ennemi, il a _% de Chance de cibler un nouvel ennemi aléatoire proche.*Division d'Adrianne :#Lorsque le Marteau de Slorm touche un ennemi, il a _% de Chance de créer un autre Marteau de Slorm, une seule fois.*Alchimie de Beighart :#Lorsqu'un Marteau de Slorm se termine, il a _% de Chance de créer un nouveau Marteau de Forge.*Ingéniosité de Cory :#Les Marteaux de Forge ont _% de Chance de se déclencher tout seuls.*Puissance de Smaloron :#Les Marteaux de Slorm infligent _% de Dégats Supplémentaires par ennemi touché.*Dévouement de Fulgurorn :#Déclencher un Marteau de Forge vous confère Dévouement de Fulgurorn, augmentant le niveau de ce Slorm Reaper de @ pour les @ prochaines secondes. Dévouement de Fulgurorn peut se cumuler jusqu'à _ fois.*Héroïsme d'Hagan :#Les Marteaux de Slorm ont +_% de Dégâts de Coup Critique et ont _% de Chance d'Étourdir les ennemis touchés pour les @ prochaines secondes./\n|*Ramasser un Marteau de Forge déclenche un second Marteau de Slorm./\n|*Seuls les Marteaux de Slorm peuvent tuer les ennemis.",
+    "FR_DESC": "|*Un Marteau de Forge a _% de Chance d'apparaître près de vous chaque seconde. Cette Chance est équivalente au total de vos bonus d'Affinité sur votre équipement.*Ramasser un Marteau de Forge déclenche un Marteau de Slorm, infligeant _ Dégats Physiques à un ennemi aléatoire proche.*Le Marteau de Slorm inflige @ de Dégâts Supplémentaires.*Liens d'Astorias :#Lorsque le Marteau de Slorm touche un ennemi, il a _% de Chance de cibler un nouvel ennemi aléatoire proche.*Division d'Adrianne :#Lorsque le Marteau de Slorm touche un ennemi, il a _% de Chance de créer un autre Marteau de Slorm, une seule fois.*Alchimie de Beighart :#Lorsqu'un Marteau de Slorm se termine, il a _% de Chance de créer un nouveau Marteau de Forge.*Ingéniosité de Cory :#Les Marteaux de Forge ont _% de Chance de se déclencher tout seuls.*Puissance de Smaloron :#Les Marteaux de Slorm infligent _% de Dégats Supplémentaires par ennemi touché.*Dévouement de Fulgurorn :#Déclencher un Marteau de Forge vous confère Dévouement de Fulgurorn, augmentant le niveau de ce Slorm Reaper de @ pour les @ prochaines secondes. Dévouement de Fulgurorn peut se cumuler jusqu'à _ fois.*Héroïsme d'Hagan :#Les Marteaux de Slorm ont +_% de Dégâts de Coup Critique et ont _% de Chance d'Étourdir les ennemis touchés pour les @ prochaines secondes./\n|*Ramasser un Marteau de Forge déclenche un second Marteau de Slorm./\n|*Seuls les Marteaux de Slorm peuvent tuer les ennemis.",
     "FR_LORE": "Créé par les sept Reapergerons afin de le vaincre. Lui.",
     "CH_NAME": "",
     "CH_DESC": "",
@@ -2635,14 +2847,18 @@
     "VALUE_LEVEL": "rl|||",
     "VALUE_STAT": "",
     "VALUE_REAL": "synergy:reaper_bonus:1|damage:physical_damage:75|synergy:reapersmith_0:3|synergy:reapersmith_1:4|synergy:reapersmith_2:2|synergy:reapersmith_3:10|synergy:reapersmith_4:1|synergy:reapersmith_5:3|synergy:reapersmith_6:2|synergy:reapersmith_6:1|\n\n",
-    "BASE_DMG_MIN": 24,
-    "BASE_DMG_MAX": 31,
-    "MIN_DMG_LVL": 6,
-    "MAX_DMG_LVL": 9,
-    "DMG_MULTIPLIER": 4,
+    "BASE_DMG_MIN": 12,
+    "BASE_DMG_MAX": 16,
+    "MIN_DMG_LVL": 2,
+    "MAX_DMG_LVL": 4,
+    "DMG_MULTIPLIER": 3,
     "LOOTABLE": null,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "654 - 1150",
+    "AURE V2 %": "100,00%",
+    "NEW 100 WANTED": "654 - 1150",
+    "OLD 100": "388 - 631"
   },
   {
     "REF": 54,
@@ -2684,14 +2900,18 @@
     "VALUE_LEVEL": "rl|",
     "VALUE_STAT": "weapon_damage_mult",
     "VALUE_REAL": "",
-    "BASE_DMG_MIN": 40,
-    "BASE_DMG_MAX": 54,
-    "MIN_DMG_LVL": 8,
-    "MAX_DMG_LVL": 13,
+    "BASE_DMG_MIN": 22,
+    "BASE_DMG_MAX": 30,
+    "MIN_DMG_LVL": 4,
+    "MAX_DMG_LVL": 7,
     "DMG_MULTIPLIER": 5,
     "LOOTABLE": 1,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "1866 - 3058",
+    "AURE V2 %": "-45%",
+    "NEW 100 WANTED": "2020 - 3110",
+    "OLD 100": "3524 - 5503"
   },
   {
     "REF": 55,
@@ -2740,7 +2960,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 56,
@@ -2789,7 +3013,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 57,
@@ -2831,14 +3059,18 @@
     "VALUE_LEVEL": "|rl|rl|||||\n|\n",
     "VALUE_STAT": "inner_fire_chance_percent|elemental_damage|\ninner_fire_chance_percent|",
     "VALUE_REAL": "damage:elemental_damage:100",
-    "BASE_DMG_MIN": 11,
-    "BASE_DMG_MAX": 15,
-    "MIN_DMG_LVL": 3,
-    "MAX_DMG_LVL": 6,
+    "BASE_DMG_MIN": 22,
+    "BASE_DMG_MAX": 30,
+    "MIN_DMG_LVL": 6,
+    "MAX_DMG_LVL": 12,
     "DMG_MULTIPLIER": 2,
     "LOOTABLE": 1,
     "MAX_LVL": 44,
-    "EVOLVE_IN": 58
+    "EVOLVE_IN": 58,
+    "100": "1148 - 2175",
+    "AURE V2 %": "100,00%",
+    "NEW 100 WANTED": "1148 - 2175",
+    "OLD 100": "616 - 1130"
   },
   {
     "REF": 58,
@@ -2880,14 +3112,18 @@
     "VALUE_LEVEL": "|",
     "VALUE_STAT": "",
     "VALUE_REAL": "",
-    "BASE_DMG_MIN": 11,
-    "BASE_DMG_MAX": 15,
-    "MIN_DMG_LVL": 4,
-    "MAX_DMG_LVL": 7,
+    "BASE_DMG_MIN": 22,
+    "BASE_DMG_MAX": 30,
+    "MIN_DMG_LVL": 8,
+    "MAX_DMG_LVL": 14,
     "DMG_MULTIPLIER": 2,
     "LOOTABLE": null,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "1486 - 2514",
+    "AURE V2 %": "100,00%",
+    "NEW 100 WANTED": "1486 - 2514",
+    "OLD 100": "787 - 1299"
   },
   {
     "REF": 59,
@@ -2936,7 +3172,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 60,
@@ -2978,14 +3218,18 @@
     "VALUE_LEVEL": "rl|rl|rl|||\n|rl\n",
     "VALUE_STAT": "weapon_damage_mult|armor_penetration|elemental_penetration|additional_projectile_add|\nadditional_projectile_global_mult",
     "VALUE_REAL": "",
-    "BASE_DMG_MIN": 16,
-    "BASE_DMG_MAX": 20,
-    "MIN_DMG_LVL": 3,
-    "MAX_DMG_LVL": 5,
+    "BASE_DMG_MIN": 28,
+    "BASE_DMG_MAX": 35,
+    "MIN_DMG_LVL": 5,
+    "MAX_DMG_LVL": 9,
     "DMG_MULTIPLIER": 2,
     "LOOTABLE": 1,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "994 - 1688",
+    "AURE V2 %": "75,00%",
+    "NEW 100 WANTED": "1037 - 1642",
+    "OLD 100": "627 - 976"
   },
   {
     "REF": 61,
@@ -3027,14 +3271,18 @@
     "VALUE_LEVEL": "rl|\nrl|",
     "VALUE_STAT": "thorns_add|the_max_health_add",
     "VALUE_REAL": "synergy:thorns:100|\nsynergy:thorns:1*rl",
-    "BASE_DMG_MIN": 4,
-    "BASE_DMG_MAX": 6,
-    "MIN_DMG_LVL": 1,
-    "MAX_DMG_LVL": 2,
+    "BASE_DMG_MIN": 24,
+    "BASE_DMG_MAX": 36,
+    "MIN_DMG_LVL": 6,
+    "MAX_DMG_LVL": 12,
     "DMG_MULTIPLIER": 1,
     "LOOTABLE": 1,
     "MAX_LVL": 60,
-    "EVOLVE_IN": 62
+    "EVOLVE_IN": 62,
+    "100": "972 - 1845",
+    "AURE V2 %": "500,00%",
+    "NEW 100 WANTED": "972 - 1845",
+    "OLD 100": "231 - 373"
   },
   {
     "REF": 62,
@@ -3076,14 +3324,18 @@
     "VALUE_LEVEL": "",
     "VALUE_STAT": "thorns_percent",
     "VALUE_REAL": "synergy:retaliate:1",
-    "BASE_DMG_MIN": 5,
-    "BASE_DMG_MAX": 7,
-    "MIN_DMG_LVL": 2,
-    "MAX_DMG_LVL": 3,
+    "BASE_DMG_MIN": 30,
+    "BASE_DMG_MAX": 42,
+    "MIN_DMG_LVL": 12,
+    "MAX_DMG_LVL": 18,
     "DMG_MULTIPLIER": 1,
     "LOOTABLE": null,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "1837 - 2711",
+    "AURE V2 %": "500,00%",
+    "NEW 100 WANTED": "1837 - 2711",
+    "OLD 100": "372 - 516"
   },
   {
     "REF": 63,
@@ -3132,7 +3384,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": 64
+    "EVOLVE_IN": 64,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 64,
@@ -3181,7 +3437,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 65,
@@ -3223,14 +3483,18 @@
     "VALUE_LEVEL": "rl|rl||\n|",
     "VALUE_STAT": "health_regen_add|the_max_health_add|elemental_damage|\nelemental_damage",
     "VALUE_REAL": "synergy:max_health:0.3|damage:elemental_damage:5*rl|\ndamage:elemental_damage:30",
-    "BASE_DMG_MIN": 11,
-    "BASE_DMG_MAX": 14,
-    "MIN_DMG_LVL": 2,
-    "MAX_DMG_LVL": 4,
+    "BASE_DMG_MIN": 17,
+    "BASE_DMG_MAX": 21,
+    "MIN_DMG_LVL": 3,
+    "MAX_DMG_LVL": 6,
     "DMG_MULTIPLIER": 2,
     "LOOTABLE": 1,
     "MAX_LVL": 24,
-    "EVOLVE_IN": 66
+    "EVOLVE_IN": 66,
+    "100": "634 - 1145",
+    "AURE V2 %": "50,00%",
+    "NEW 100 WANTED": "627 - 1145",
+    "OLD 100": "452 - 790"
   },
   {
     "REF": 66,
@@ -3272,14 +3536,18 @@
     "VALUE_LEVEL": "|",
     "VALUE_STAT": "",
     "VALUE_REAL": "synergy:armor:0.3|synergy:elemental_resist:0.3",
-    "BASE_DMG_MIN": 12,
-    "BASE_DMG_MAX": 15,
-    "MIN_DMG_LVL": 3,
-    "MAX_DMG_LVL": 5,
+    "BASE_DMG_MIN": 18,
+    "BASE_DMG_MAX": 23,
+    "MIN_DMG_LVL": 5,
+    "MAX_DMG_LVL": 8,
     "DMG_MULTIPLIER": 2,
     "LOOTABLE": null,
     "MAX_LVL": 40,
-    "EVOLVE_IN": 67
+    "EVOLVE_IN": 67,
+    "100": "971 - 1488",
+    "AURE V2 %": "50,00%",
+    "NEW 100 WANTED": "883 - 1403",
+    "OLD 100": "617 - 963"
   },
   {
     "REF": 67,
@@ -3321,14 +3589,18 @@
     "VALUE_LEVEL": "",
     "VALUE_STAT": "",
     "VALUE_REAL": "synergy:sum_reduced_resistances:1",
-    "BASE_DMG_MIN": 13,
-    "BASE_DMG_MAX": 16,
-    "MIN_DMG_LVL": 4,
-    "MAX_DMG_LVL": 6,
+    "BASE_DMG_MIN": 20,
+    "BASE_DMG_MAX": 24,
+    "MIN_DMG_LVL": 6,
+    "MAX_DMG_LVL": 9,
     "DMG_MULTIPLIER": 2,
     "LOOTABLE": null,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "1143 - 1659",
+    "AURE V2 %": "50,00%",
+    "NEW 100 WANTED": "1142 - 1659",
+    "OLD 100": "789 - 1133"
   },
   {
     "REF": 68,
@@ -3377,7 +3649,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 36,
-    "EVOLVE_IN": 69
+    "EVOLVE_IN": 69,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 69,
@@ -3426,7 +3702,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 52,
-    "EVOLVE_IN": 70
+    "EVOLVE_IN": 70,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 70,
@@ -3475,7 +3755,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 71,
@@ -3517,14 +3801,18 @@
     "VALUE_LEVEL": "rl|rl||",
     "VALUE_STAT": "totem_increased_effect_percent",
     "VALUE_REAL": "",
-    "BASE_DMG_MIN": 6,
-    "BASE_DMG_MAX": 10,
-    "MIN_DMG_LVL": 1,
-    "MAX_DMG_LVL": 3,
+    "BASE_DMG_MIN": 18,
+    "BASE_DMG_MAX": 30,
+    "MIN_DMG_LVL": 3,
+    "MAX_DMG_LVL": 9,
     "DMG_MULTIPLIER": 1,
     "LOOTABLE": 2,
     "MAX_LVL": 44,
-    "EVOLVE_IN": 72
+    "EVOLVE_IN": 72,
+    "100": "535 - 1408",
+    "AURE V2 %": "200,00%",
+    "NEW 100 WANTED": "535 - 1408",
+    "OLD 100": "234 - 521"
   },
   {
     "REF": 72,
@@ -3566,14 +3854,18 @@
     "VALUE_LEVEL": "",
     "VALUE_STAT": "",
     "VALUE_REAL": "",
-    "BASE_DMG_MIN": 6,
-    "BASE_DMG_MAX": 10,
-    "MIN_DMG_LVL": 2,
-    "MAX_DMG_LVL": 4,
+    "BASE_DMG_MIN": 18,
+    "BASE_DMG_MAX": 30,
+    "MIN_DMG_LVL": 6,
+    "MAX_DMG_LVL": 12,
     "DMG_MULTIPLIER": 1,
     "LOOTABLE": null,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "963 - 1837",
+    "AURE V2 %": "200,00%",
+    "NEW 100 WANTED": "963 - 1837",
+    "OLD 100": "373 - 663"
   },
   {
     "REF": 73,
@@ -3615,23 +3907,27 @@
     "VALUE_LEVEL": "rl|rl|rl|\nrl|",
     "VALUE_STAT": "the_max_health_percent|\nthe_max_health_add|\nmana_regen_global_mult",
     "VALUE_REAL": "synergy:damage_stored:100|synergy:damage_stored:1*rl",
-    "BASE_DMG_MIN": 14,
-    "BASE_DMG_MAX": 16,
-    "MIN_DMG_LVL": 3,
-    "MAX_DMG_LVL": 4,
+    "BASE_DMG_MIN": 42,
+    "BASE_DMG_MAX": 48,
+    "MIN_DMG_LVL": 9,
+    "MAX_DMG_LVL": 12,
     "DMG_MULTIPLIER": 2,
     "LOOTABLE": 1,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "1705 - 2223",
+    "AURE V2 %": "200,00%",
+    "NEW 100 WANTED": "1705 - 2223",
+    "OLD 100": "625 - 799"
   },
   {
     "REF": 74,
     "EN_NAME": "$ of the Manabender",
     "EN_DESC": "*+@ £|*Skills in your Primary and Secondary Slots deal Additional Damage equal to @ of their Mana cost.*You have +_ £.#Raw Damage is equal to @ of your $.*act:202*The Cooldown Time of Manabender is equal to your Max Mana divided by your Mana Regeneration./\n|*While Manabender is active, Critical Strikes from your Primary and Secondary Skill create a Mana Detonation, dealing their Additional Damage as Elemental Damage to enemies within a ~ yard radius./\n|*Whenever you cast a Skill, @ of your Life is consumed.",
-    "EN_LORE": "\"Mana is like good wine. When it runs out... It runs out.\" - Innkeeper's Memoirs, by Karanos",
+    "EN_LORE": "\"Mana is like good wine. When it runs out... It runs out.\" -Innkeeper's Memoirs, by Karanos",
     "FR_NAME": "$ de l'Artisan de Mana",
     "FR_DESC": "*+@ £|*Les Compétences dans vos Emplacements Primaires et Secondaires infligent des Dégâts Additionnels équivalents à @ de leur Coût en Mana.*Vous avez +_ de £.#Ces Dégâts Bruts sont équivalents à @ de votre $.*act:202*Le Temps de Recharge d'Artisan de Mana est équivalent à votre Mana Max divisé par votre Régénération de Mana./\n|*Tant qu'Artisan de Mana est actif, les Coups Critiques de votre Compétence Primaire et de votre Compétence Secondaire créent une Détonation de Mana, infligeant leurs Dégâts Additionnels en tant que Dégâts Élémentaires aux ennemis dans un rayon de ~ mètres./\n|*Lorsque vous lancez une Compétence, @ de votre Vie est consumée.",
-    "FR_LORE": "\"Le Mana, c'est comme le bon vin. Quand y en a plus... Y en a plus.\" - Mémoires d'aubergiste, par Karanos",
+    "FR_LORE": "\"Le Mana, c'est comme le bon vin. Quand y en a plus... Y en a plus.\" -Mémoires d'aubergiste, par Karanos",
     "CH_NAME": "法力掌控者$",
     "CH_DESC": "*+@£|*主技能或副技能造成额外伤害，数值相当于其法力消耗的@。*获得+_£。#原始伤害等于你的$的@。*act:202*法力掌控者的冷却时间等于最大法力除以法力再生。/\n|*激活法力掌控者时，主技能或副技能的暴击会引发一次法力爆破，对~码半径内的敌人造成额外伤害（元素伤害）。/\n|*施放技能时，消耗生命的@。",
     "CH_LORE": "“法力就像美酒。喝完了……那就真完了。”- 《旅店往事》，卡拉诺斯著",
@@ -3664,14 +3960,18 @@
     "VALUE_LEVEL": "rl|rl|rl|",
     "VALUE_STAT": "mana_regen_add|min_basic_damage_add",
     "VALUE_REAL": "synergy:mana_regeneration:1*rl",
-    "BASE_DMG_MIN": 13,
-    "BASE_DMG_MAX": 17,
-    "MIN_DMG_LVL": 2,
-    "MAX_DMG_LVL": 5,
+    "BASE_DMG_MIN": 20,
+    "BASE_DMG_MAX": 26,
+    "MIN_DMG_LVL": 3,
+    "MAX_DMG_LVL": 8,
     "DMG_MULTIPLIER": 2,
     "LOOTABLE": 1,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "637 - 1495",
+    "AURE V2 %": "50,00%",
+    "NEW 100 WANTED": "636 - 1409",
+    "OLD 100": "454 - 969"
   },
   {
     "REF": 75,
@@ -3720,7 +4020,11 @@
     "DMG_MULTIPLIER": 3,
     "LOOTABLE": 1,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "2127 - 2894",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "2127 - 2894",
+    "OLD 100": "2127 - 2894"
   },
   {
     "REF": 76,
@@ -3769,7 +4073,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 77,
@@ -3818,7 +4126,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 78,
@@ -3867,7 +4179,11 @@
     "DMG_MULTIPLIER": 0,
     "LOOTABLE": 2,
     "MAX_LVL": 18,
-    "EVOLVE_IN": 79
+    "EVOLVE_IN": 79,
+    "100": "1 - 1",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "1 - 1",
+    "OLD 100": "1 - 1"
   },
   {
     "REF": 79,
@@ -3910,13 +4226,17 @@
     "VALUE_STAT": "elemental_damage_percent",
     "VALUE_REAL": "",
     "BASE_DMG_MIN": 1,
-    "BASE_DMG_MAX": 1,
+    "BASE_DMG_MAX": 2,
     "MIN_DMG_LVL": 0,
     "MAX_DMG_LVL": 0,
     "DMG_MULTIPLIER": 0,
     "LOOTABLE": null,
     "MAX_LVL": 36,
-    "EVOLVE_IN": 80
+    "EVOLVE_IN": 80,
+    "100": "1 - 2",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "1 - 2",
+    "OLD 100": "1 - 2"
   },
   {
     "REF": 80,
@@ -3965,7 +4285,11 @@
     "DMG_MULTIPLIER": 3,
     "LOOTABLE": null,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "1880 - 2622",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "#ERROR!",
+    "OLD 100": "1880 - 2622"
   },
   {
     "REF": 81,
@@ -4007,14 +4331,18 @@
     "VALUE_LEVEL": "rl||\n|",
     "VALUE_STAT": "elemental_damage_percent",
     "VALUE_REAL": "damage:elemental_damage:100",
-    "BASE_DMG_MIN": 13,
-    "BASE_DMG_MAX": 17,
-    "MIN_DMG_LVL": 2,
-    "MAX_DMG_LVL": 3,
+    "BASE_DMG_MIN": 26,
+    "BASE_DMG_MAX": 34,
+    "MIN_DMG_LVL": 4,
+    "MAX_DMG_LVL": 6,
     "DMG_MULTIPLIER": 1,
     "LOOTABLE": 1,
     "MAX_LVL": 48,
-    "EVOLVE_IN": 82
+    "EVOLVE_IN": 82,
+    "100": "691 - 991",
+    "AURE V2 %": "100,00%",
+    "NEW 100 WANTED": "691 - 991",
+    "OLD 100": "384 - 532"
   },
   {
     "REF": 82,
@@ -4056,14 +4384,18 @@
     "VALUE_LEVEL": "",
     "VALUE_STAT": "brut_chance_percent",
     "VALUE_REAL": "",
-    "BASE_DMG_MIN": 13,
-    "BASE_DMG_MAX": 17,
-    "MIN_DMG_LVL": 2,
-    "MAX_DMG_LVL": 3,
+    "BASE_DMG_MIN": 26,
+    "BASE_DMG_MAX": 34,
+    "MIN_DMG_LVL": 4,
+    "MAX_DMG_LVL": 6,
     "DMG_MULTIPLIER": 2,
     "LOOTABLE": null,
     "MAX_LVL": 72,
-    "EVOLVE_IN": 83
+    "EVOLVE_IN": 83,
+    "100": "824 - 1179",
+    "AURE V2 %": "100,00%",
+    "NEW 100 WANTED": "824 - 1179",
+    "OLD 100": "454 - 634"
   },
   {
     "REF": 83,
@@ -4105,14 +4437,18 @@
     "VALUE_LEVEL": "",
     "VALUE_STAT": "elemental_damage_global_mult",
     "VALUE_REAL": "synergy:crit_chance:1",
-    "BASE_DMG_MIN": 13,
-    "BASE_DMG_MAX": 17,
-    "MIN_DMG_LVL": 2,
-    "MAX_DMG_LVL": 3,
+    "BASE_DMG_MIN": 26,
+    "BASE_DMG_MAX": 34,
+    "MIN_DMG_LVL": 4,
+    "MAX_DMG_LVL": 6,
     "DMG_MULTIPLIER": 3,
     "LOOTABLE": null,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "1196 - 1704",
+    "AURE V2 %": "100,00%",
+    "NEW 100 WANTED": "1196 - 1704",
+    "OLD 100": "656 - 912"
   },
   {
     "REF": 84,
@@ -4161,7 +4497,11 @@
     "DMG_MULTIPLIER": 2,
     "LOOTABLE": null,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "1307 - 1825",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "1307 - 1825",
+    "OLD 100": "1307 - 1825"
   },
   {
     "REF": 85,
@@ -4210,7 +4550,11 @@
     "DMG_MULTIPLIER": 3,
     "LOOTABLE": null,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "1629 - 2363",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "1629 - 2363",
+    "OLD 100": "1629 - 2363"
   },
   {
     "REF": 86,
@@ -4259,7 +4603,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 87,
@@ -4301,14 +4649,18 @@
     "VALUE_LEVEL": "rl|rl|",
     "VALUE_STAT": "armor_penetration_percent|armor_penetration_global_mult",
     "VALUE_REAL": "",
-    "BASE_DMG_MIN": 21,
-    "BASE_DMG_MAX": 27,
-    "MIN_DMG_LVL": 5,
-    "MAX_DMG_LVL": 9,
+    "BASE_DMG_MIN": 18,
+    "BASE_DMG_MAX": 23,
+    "MIN_DMG_LVL": 4,
+    "MAX_DMG_LVL": 8,
     "DMG_MULTIPLIER": 4,
     "LOOTABLE": 1,
     "MAX_LVL": 36,
-    "EVOLVE_IN": 88
+    "EVOLVE_IN": 88,
+    "100": "1404 - 2585",
+    "AURE V2 %": "-15,00%",
+    "NEW 100 WANTED": "1474 - 2491",
+    "OLD 100": "1713 - 2898"
   },
   {
     "REF": 88,
@@ -4350,14 +4702,18 @@
     "VALUE_LEVEL": "|rl",
     "VALUE_STAT": "physical_damage",
     "VALUE_REAL": "synergy:armor_penetration:1|damage:physical_damage:3*rl",
-    "BASE_DMG_MIN": 21,
-    "BASE_DMG_MAX": 27,
-    "MIN_DMG_LVL": 6,
-    "MAX_DMG_LVL": 10,
+    "BASE_DMG_MIN": 18,
+    "BASE_DMG_MAX": 23,
+    "MIN_DMG_LVL": 5,
+    "MAX_DMG_LVL": 9,
     "DMG_MULTIPLIER": 4,
     "LOOTABLE": null,
     "MAX_LVL": 52,
-    "EVOLVE_IN": 89
+    "EVOLVE_IN": 89,
+    "100": "1691 - 2864",
+    "AURE V2 %": "-15,00%",
+    "NEW 100 WANTED": "1714 - 2735",
+    "OLD 100": "1993 - 3187"
   },
   {
     "REF": 89,
@@ -4399,14 +4755,18 @@
     "VALUE_LEVEL": "",
     "VALUE_STAT": "",
     "VALUE_REAL": "",
-    "BASE_DMG_MIN": 21,
-    "BASE_DMG_MAX": 27,
-    "MIN_DMG_LVL": 7,
-    "MAX_DMG_LVL": 11,
+    "BASE_DMG_MIN": 18,
+    "BASE_DMG_MAX": 23,
+    "MIN_DMG_LVL": 6,
+    "MAX_DMG_LVL": 9,
     "DMG_MULTIPLIER": 4,
     "LOOTABLE": null,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "1986 - 2864",
+    "AURE V2 %": "-15,00%",
+    "NEW 100 WANTED": "1963 - 2966",
+    "OLD 100": "2282 - 3456"
   },
   {
     "REF": 90,
@@ -4455,7 +4815,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 91,
@@ -4504,7 +4868,11 @@
     "DMG_MULTIPLIER": 3,
     "LOOTABLE": 2,
     "MAX_LVL": 68,
-    "EVOLVE_IN": 92
+    "EVOLVE_IN": 92,
+    "100": "1184 - 1695",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "1184 - 1695",
+    "OLD 100": "1184 - 1695"
   },
   {
     "REF": 92,
@@ -4553,7 +4921,11 @@
     "DMG_MULTIPLIER": 3,
     "LOOTABLE": null,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "1196 - 1696",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "1196 - 1696",
+    "OLD 100": "1196 - 1696"
   },
   {
     "REF": 93,
@@ -4602,7 +4974,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 36,
-    "EVOLVE_IN": 94
+    "EVOLVE_IN": 94,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 94,
@@ -4651,7 +5027,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 52,
-    "EVOLVE_IN": 95
+    "EVOLVE_IN": 95,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 95,
@@ -4700,7 +5080,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 96,
@@ -4749,7 +5133,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": 44,
-    "EVOLVE_IN": 97
+    "EVOLVE_IN": 97,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 97,
@@ -4798,7 +5186,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 98,
@@ -4840,14 +5232,18 @@
     "VALUE_LEVEL": "|rl||\nrl",
     "VALUE_STAT": "overdrive_bounce_number_add|overdrive_chance_percent|overdrive_chance_percent|\noverdrive_damage_percent",
     "VALUE_REAL": "",
-    "BASE_DMG_MIN": 22,
-    "BASE_DMG_MAX": 28,
-    "MIN_DMG_LVL": 6,
-    "MAX_DMG_LVL": 7,
+    "BASE_DMG_MIN": 28,
+    "BASE_DMG_MAX": 35,
+    "MIN_DMG_LVL": 8,
+    "MAX_DMG_LVL": 9,
     "DMG_MULTIPLIER": 2,
     "LOOTABLE": 1,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "1497 - 1688",
+    "AURE V2 %": "25,00%",
+    "NEW 100 WANTED": "1415 - 1642",
+    "OLD 100": "1148 - 1331"
   },
   {
     "REF": 99,
@@ -4896,7 +5292,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 100,
@@ -4945,7 +5345,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 101,
@@ -4994,7 +5398,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 102,
@@ -5043,7 +5451,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 103,
@@ -5092,7 +5504,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 104,
@@ -5141,7 +5557,11 @@
     "DMG_MULTIPLIER": 0,
     "LOOTABLE": 2,
     "MAX_LVL": 58,
-    "EVOLVE_IN": 105
+    "EVOLVE_IN": 105,
+    "100": "0 - 0",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "0 - 0",
+    "OLD 100": "0 - 0"
   },
   {
     "REF": 105,
@@ -5190,7 +5610,11 @@
     "DMG_MULTIPLIER": 4,
     "LOOTABLE": null,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "2308 - 4361",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "2308 - 4361",
+    "OLD 100": "2308 - 4361"
   },
   {
     "REF": 106,
@@ -5239,7 +5663,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 107,
@@ -5288,7 +5716,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 108,
@@ -5337,7 +5769,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 109,
@@ -5386,12 +5822,16 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 110,
     "EN_NAME": "$ of Retaliating Foresight",
-    "EN_DESC": "*+@ £*+@ £|*The first time an enemy should apply a debuff to you, ignore it.* _ Damage is added to your Retaliation Damage.#Added Damage is equal to your Armor.*Whenever you get within a @ yard radius of an enemy for the first time, you trigger a Sight of Vengeance targetting him.*act:225/\n|*Sight of Vengeance applies Foresight of Vengeance.*You now deal Retaliation Damage to enemies affected by Foresight of Vengeance whenever they start their attack./\n|*You no longer deal Retaliation Damage when being hit.",
+    "EN_DESC": "*+@ £*+@ £|*The first time an enemy should apply a debuff to you, ignore it.* _ Damage is added to your Retaliation Damage.#Added Damage is equal to your Armor.*Whenever you get within a @ yard radius of an enemy for the first time, you trigger a Sight of Vengeance targetting them.*act:225/\n|*Sight of Vengeance applies Foresight of Vengeance.*You now deal Retaliation Damage to enemies affected by Foresight of Vengeance whenever they start their attack./\n|*You no longer deal Retaliation Damage when being hit.",
     "EN_LORE": "Revenge is a dish best served before it's ready.",
     "FR_NAME": "$ de Revanche Anticipée",
     "FR_DESC": "*+@ £*+@ £|*La première fois qu'un ennemi devrait vous appliquer un Effet Négatif, ignorez le.*_  Dégâts sont ajoutés à vos Dégâts de Représailles.#Les Dégâts ajoutés sont équivalents à votre Armure.*Lorsque vous êtes à moins de @ mètres d'un ennemi pour la première fois, vous déclenchez une Vision de Vengeance, le ciblant.*act:225/\n|*Vision de Vengeance applique Prescience de Vengeance.*Vous infligez désormais vos Dégâts de Représailles au moment où les ennemis affectés par Prescience de Vengeance commencent leurs attaques./\n|*Vous n'infligez plus vos Dégâts de Représailles lorsque vous êtes touchés.",
@@ -5428,14 +5868,18 @@
     "VALUE_LEVEL": "rl|rl|",
     "VALUE_STAT": "retaliate_percent|retaliate_global_mult",
     "VALUE_REAL": "synergy:armor:100",
-    "BASE_DMG_MIN": 12,
-    "BASE_DMG_MAX": 16,
-    "MIN_DMG_LVL": 2,
-    "MAX_DMG_LVL": 3,
+    "BASE_DMG_MIN": 36,
+    "BASE_DMG_MAX": 48,
+    "MIN_DMG_LVL": 6,
+    "MAX_DMG_LVL": 9,
     "DMG_MULTIPLIER": 1,
     "LOOTABLE": 2,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "993 - 1444",
+    "AURE V2 %": "200,00%",
+    "NEW 100 WANTED": "993 - 1444",
+    "OLD 100": "383 - 531"
   },
   {
     "REF": 111,
@@ -5484,7 +5928,11 @@
     "DMG_MULTIPLIER": 2,
     "LOOTABLE": 2,
     "MAX_LVL": 50,
-    "EVOLVE_IN": 113
+    "EVOLVE_IN": 113,
+    "100": "453 - 626",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "453 - 626",
+    "OLD 100": "453 - 626"
   },
   {
     "REF": 112,
@@ -5533,7 +5981,11 @@
     "DMG_MULTIPLIER": 2,
     "LOOTABLE": 2,
     "MAX_LVL": 50,
-    "EVOLVE_IN": 113
+    "EVOLVE_IN": 113,
+    "100": "447 - 624",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "447 - 624",
+    "OLD 100": "447 - 624"
   },
   {
     "REF": 113,
@@ -5582,7 +6034,11 @@
     "DMG_MULTIPLIER": 3,
     "LOOTABLE": null,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "891 - 1135",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "891 - 1135",
+    "OLD 100": "891 - 1135"
   },
   {
     "REF": 114,
@@ -5631,7 +6087,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 115,
@@ -5680,7 +6140,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 116,
@@ -5729,7 +6193,11 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   },
   {
     "REF": 117,
@@ -5778,7 +6246,11 @@
     "DMG_MULTIPLIER": 3,
     "LOOTABLE": 3,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "142 - 2488",
+    "AURE V2 %": "0,00%",
+    "NEW 100 WANTED": "142 - 2488",
+    "OLD 100": "142 - 2488"
   },
   {
     "REF": 118,
@@ -5820,14 +6292,18 @@
     "VALUE_LEVEL": "rl|rl|rl|rl|\nrl|",
     "VALUE_STAT": "light_resistance_percent|shield_globe_value|increased_damage|\n|",
     "VALUE_REAL": "synergy:elemental_damage:1*rl",
-    "BASE_DMG_MIN": 26,
-    "BASE_DMG_MAX": 32,
-    "MIN_DMG_LVL": 5,
-    "MAX_DMG_LVL": 7,
+    "BASE_DMG_MIN": 52,
+    "BASE_DMG_MAX": 64,
+    "MIN_DMG_LVL": 10,
+    "MAX_DMG_LVL": 14,
     "DMG_MULTIPLIER": 1,
     "LOOTABLE": 3,
     "MAX_LVL": 100,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "1591 - 2187",
+    "AURE V2 %": "100,00%",
+    "NEW 100 WANTED": "1591 - 2187",
+    "OLD 100": "834 - 1128"
   },
   {
     "REF": 119,
@@ -5876,6 +6352,10 @@
     "DMG_MULTIPLIER": null,
     "LOOTABLE": null,
     "MAX_LVL": null,
-    "EVOLVE_IN": null
+    "EVOLVE_IN": null,
+    "100": "",
+    "AURE V2 %": "",
+    "NEW 100 WANTED": "",
+    "OLD 100": ""
   }
 ]
