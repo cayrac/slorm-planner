@@ -129,7 +129,7 @@ export class SlormancerReaperService {
             runeIcon: '',
             smithLabel: '',
             template: this.slormancerTemplateService.getRuneDescriptionTemplate(data),
-            typeLabel: '',
+            typeLabel: this.BENEDICTION_LABEL,
             values: this.parseEffectValues(data, EffectValueUpgradeType.RuneLevel)
         };
 
@@ -160,6 +160,6 @@ export class SlormancerReaperService {
     }
 
     public updateRuneView(rune: Rune) {
-        // TODO
+        rune.runeIcon = 'assets/img/reaper/' + rune.id + '.png';
     }
 }
