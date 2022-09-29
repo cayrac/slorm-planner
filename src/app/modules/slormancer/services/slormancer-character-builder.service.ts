@@ -391,6 +391,12 @@ export class SlormancerCharacterBuilderService {
             fullName: '',
         
             reaper,
+
+            runes: {
+                activation: null,
+                effect: null,
+                enhancement: null,
+            },
         
             ancestralLegacies: {
                 ancestralLegacies: this.getAncestralLegacies(ancestralRanks),

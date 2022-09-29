@@ -124,6 +124,11 @@ export class SlormancerActivableService {
         return gameDataActivable === null ? null : this.buildActivable(gameDataActivable, EffectValueUpgradeType.Reinforcment, 0, heroClass);
     }
 
+    public getRuneActivable(id: number, heroClass: HeroClass): Activable | null {
+        const gameDataActivable = this.slormancerDataService.getGameDataActivable(id);
+        return gameDataActivable === null ? null : this.buildActivable(gameDataActivable, EffectValueUpgradeType.RuneLevel, 0, heroClass);
+    }
+
     public updateActivableModel(activable: Activable) {
         activable.cooldown = activable.baseCooldown === null ? 0 : round(activable.baseCooldown, 2);
         activable.cost = activable.baseCost;

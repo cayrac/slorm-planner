@@ -178,6 +178,11 @@ export class BuildRetrocompatibilityService {
                 for (const layer of build.layers) {
                     layer.character.reaper.baseAffinity = MAX_REAPER_AFFINITY_BASE;
                     layer.character.reaper.bonusAffinity = 0
+                    layer.character.runes = {
+                        effect: null,
+                        enhancement: null,
+                        activation: null
+                    }
                 }
             }
         },

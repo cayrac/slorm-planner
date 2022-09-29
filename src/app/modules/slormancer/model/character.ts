@@ -13,6 +13,7 @@ import { Reaper } from './content/reaper';
 import { Skill } from './content/skill';
 import { SkillUpgrade } from './content/skill-upgrade';
 import { Ultimatum } from './content/ultimatum';
+import { RunesCombination } from './runes-combination';
 
 export interface CharacterSkillAndUpgrades {
     skill: Skill;
@@ -73,6 +74,8 @@ export interface Character {
     fullName: string;
 
     reaper: Reaper;
+
+    runes: RunesCombination;
 
     ancestralLegacies: CharacterAncestralLegacies;
     skills: Array<CharacterSkillAndUpgrades>;

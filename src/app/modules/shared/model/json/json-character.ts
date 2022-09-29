@@ -4,6 +4,7 @@ import { HeroClass } from '@slormancer/model/content/enum/hero-class';
 import { JsonAncestralLegacy } from './json-ancestral-legacy';
 import { JsonItem } from './json-item';
 import { JsonReaper } from './json-reaper';
+import { JsonRunes } from './json-runes';
 import { JsonSkill } from './json-skill';
 import { JsonUltimatum } from './json-ultimatum';
 
@@ -37,6 +38,8 @@ export interface JsonCharacter {
     }
 
     reaper: JsonReaper;
+
+    runes: JsonRunes;
 
     skills: Array<JsonSkill>;
 

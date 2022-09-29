@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { GameDataRune } from '@slormancer/model/content/game/data/game-data-rune';
 
 import { Affix } from '../../model/content/affix';
 import { CraftableEffect } from '../../model/content/craftable-effect';
@@ -364,6 +365,15 @@ export class SlormancerTemplateService {
         const stats = splitData(data.DESC_VALUE).filter(value => !value.startsWith('*'))
             .map(stat => isDamageType(stat) ? '{damageType}' : stat);
         const types = splitData(data.DESC_VALUE_REAL);
+        
+        const template = data.EN_DESCRIPTION.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
+        return this.parseTemplate(template, stats, types);
+    }
+
+    public getRuneDescriptionTemplate(data: GameDataRune): string {
+        const stats = splitData(data.VALUE_STAT).filter(value => !value.startsWith('*'))
+            .map(stat => isDamageType(stat) ? '{damageType}' : stat);
+        const types = splitData(data.VALUE_REAL);
         
         const template = data.EN_DESCRIPTION.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
         return this.parseTemplate(template, stats, types);

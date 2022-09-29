@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { GameDataRune } from '@slormancer/model/content/game/data/game-data-rune';
 
 import { DATA_ACTIVABLE } from '../../constants/content/data/data-activable';
 import { DATA_ANCESTRAL_LEGACY } from '../../constants/content/data/data-ancestral-legacy';
@@ -148,6 +149,14 @@ export class SlormancerDataService {
     public getGameDataLegendaries(): Array<GameDataLegendary> {
         return GAME_DATA.LEGENDARY;
     }
+
+    public getGameDataRune(id: number): GameDataRune | null {
+        return valueOrNull(GAME_DATA.RUNE.find(rune => rune.REF === id));
+    }
+
+    public getGameDataRunes(): Array<GameDataRune> {
+        return GAME_DATA.RUNE;
+    }
     
     public getAncestralRealmColor(realm: number): number {
         const gameData = valueOrNull(GAME_DATA.ANCESTRAL_LEGACY
@@ -214,6 +223,10 @@ export class SlormancerDataService {
     public getGameDataReaperActivableBasedOn(id: number, primordial: boolean): Array<GameDataActivable> {
         return GAME_DATA.ACTIVABLE
             .filter(activable => activable.BASED_ON === 'reaper' && activable.ID_BASED_ON === id && activable.ON_REAPER_PRIMORDIAL === primordial);
+    }
+
+    public getGameDataActivable(id: number): GameDataActivable | null {
+        return valueOrNull(GAME_DATA.ACTIVABLE.find(activable => activable.REF === id));
     }
 
     public getDataActivable(id: number): DataActivable | null {

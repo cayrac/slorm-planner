@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { JsonRunes } from '@shared/model/json/json-runes';
 import { MAX_REAPER_AFFINITY_BASE } from '@slormancer/constants/common';
 import { Character, CharacterSkillAndUpgrades } from '@slormancer/model/character';
 import { Activable } from '@slormancer/model/content/activable';
@@ -10,6 +11,7 @@ import { Rarity } from '@slormancer/model/content/enum/rarity';
 import { EquipableItem } from '@slormancer/model/content/equipable-item';
 import { Reaper } from '@slormancer/model/content/reaper';
 import { Ultimatum } from '@slormancer/model/content/ultimatum';
+import { RunesCombination } from '@slormancer/model/runes-combination';
 import { SlormancerAffixService } from '@slormancer/services/content/slormancer-affix.service';
 import { SlormancerDataService } from '@slormancer/services/content/slormancer-data.service';
 import { SlormancerItemService } from '@slormancer/services/content/slormancer-item.service';
@@ -104,6 +106,17 @@ export class JsonConverterService {
         };
     }
 
+    private runesToJson(runes: RunesCombination): JsonRunes {
+        return {
+            activationId: runes.activation === null ? null : runes.activation.id,
+            activationLevel: runes.activation === null ? 0 : runes.activation.level,
+            effectId: runes.effect === null ? null : runes.effect.id,
+            effectLevel: runes.effect === null ? 0 : runes.effect.level,
+            enhancementId: runes.enhancement === null ? null : runes.enhancement.id,
+            enhancementLevel: runes.enhancement === null ? 0 : runes.enhancement.level,
+        };
+    }
+
     private ultimatumToJson(ultimatum: Ultimatum | null): JsonUltimatum | null {
         let result: JsonUltimatum | null = null;
 
@@ -172,6 +185,8 @@ export class JsonConverterService {
             },
                 
             reaper: this.reaperToJson(character.reaper),
+
+            runes: this.runesToJson(character.runes),
         
             skills: character.skills.map(skill => this.skillToJson(skill)),
         
@@ -229,6 +244,8 @@ export class JsonConverterService {
             },
                 
             reaper: this.reaperToJson(character.reaper),
+
+            runes: this.runesToJson(character.runes),
         
             skills: character.skills
                 .filter(skill => skill.skill === character.supportSkill || skill.skill === character.primarySkill || skill.skill === character.secondarySkill)
