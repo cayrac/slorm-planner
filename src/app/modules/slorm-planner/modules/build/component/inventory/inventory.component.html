@@ -3,7 +3,6 @@
         <h3>{{character.fullName}}</h3>
         <mat-card-content>
             <app-character-equipment [character]="character" (changed)="gearChanged()"></app-character-equipment>
-            <hr/>
             <div class="weapon">
                 <app-reaper-slot
                     [character]="character"

@@ -1,0 +1,50 @@
+@import "~src/assets/scss/abstracts/flex.scss";
+@import "~src/assets/scss/abstracts/variables.scss";
+
+.reaper {
+    @include flex(column, center, center);
+    min-width: 124px;
+    min-height: 124px;
+    position: relative;
+
+    &:not(.readonly) {
+        cursor: pointer;
+    }
+
+    .overlay-position {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+    }
+
+    .inner-slot {
+        width: $space-unit * 20;
+        height: $space-unit * 20;
+        background-color: rgb(30, 30, 30);
+        border: 3px solid rgb(60, 60, 60);
+    }
+
+    img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-top: -12.5%;
+        margin-left: -12.5%;
+        image-rendering: pixelated;
+        -moz-transform: scale(4);
+        -ms-transform: scale(4);
+        -o-transform: scale(4);
+        -webkit-transform: scale(4);
+        transform: scale(4);
+    }
+}
+
+.reaper-level {
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+app-reaper-view {
+    width: 350px;
+}

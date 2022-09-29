@@ -1,13 +1,13 @@
 
-<div class="reaper" (click)="edit()" *ngIf="character !== null" [class.readonly]="readonly">
+<div class="rune" *ngIf="rune !== null">
     <div class="overlay-position" cdkOverlayOrigin #trigger="cdkOverlayOrigin"></div>
     <div class="inner-slot"></div>
     <ng-container>
-        <img [src]="character.reaper.icon" [class.primordial-effect]="character.reaper.primordial">
+        <img [src]="rune.runeIcon">
         <ng-template cdkConnectedOverlay
             [cdkConnectedOverlayOpen]="showOverlay"
             [cdkConnectedOverlayOrigin]="trigger">
-            <app-reaper-view [reaper]="character.reaper"></app-reaper-view>
+            TODO
         </ng-template>
     </ng-container>
 </div>
