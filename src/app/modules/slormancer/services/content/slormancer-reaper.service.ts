@@ -313,13 +313,13 @@ export class SlormancerReaperService {
         }
     }
 
-    private formatTemplate(reaperEffects: Array<ReaperEffect>): string {
+    private formatTemplate(reaperEffects: Array<ReaperEffect>, affinityMultiplier: number): string {
         let contents: Array<string> = [];
         let stats: Array<string> = [];
         let effects: Array<string> = [];
         for (let reaperEffect of reaperEffects) {
             if (reaperEffect.template !== null) {
-                const template = this.slormancerTemplateService.formatReaperTemplate(reaperEffect.template, reaperEffect.values);
+                const template = this.slormancerTemplateService.formatReaperTemplate(reaperEffect.template, reaperEffect.values, affinityMultiplier);
                 const [stat, effect] = splitData(template);
                 stats.push(<string>stat);
                 effects.push(<string>effect);
@@ -436,8 +436,10 @@ export class SlormancerReaperService {
     private updateEffectValue(value: AbstractEffectValue, reaper: Reaper) {
         let upgradeValue = reaper.level;
         if ((isEffectValueVariable(value) || isEffectValueSynergy(value)) && value.upgradeType === EffectValueUpgradeType.NonPrimordialReaperLevel) {
-            upgradeValue = reaper.baseInfo.level; // ajouter affinity
+            upgradeValue = reaper.baseInfo.level;
         }
+
+        upgradeValue = upgradeValue * (1 + reaper.affinity / 200)
         this.slormancerEffectValueService.updateEffectValue(value, upgradeValue);
     }
 
@@ -490,11 +492,13 @@ export class SlormancerReaperService {
         reaper.damagesLabel = reaper.damages.min + '-' + reaper.damages.max;
         reaper.maxDamagesLabel = reaper.maxDamages.min + '-' + reaper.maxDamages.max + ' at level ' + reaper.maxLevel;
 
-        reaper.description = this.formatTemplate(reaper.templates.base);
+        const affinityMultiplier = 1 + reaper.affinity / 200;
+
+        reaper.description = this.formatTemplate(reaper.templates.base, affinityMultiplier);
 
         if (reaper.primordial) {
-            reaper.benediction = this.formatTemplate(reaper.templates.benediction);
-            reaper.malediction = this.formatTemplate(reaper.templates.malediction);
+            reaper.benediction = this.formatTemplate(reaper.templates.benediction, affinityMultiplier);
+            reaper.malediction = this.formatTemplate(reaper.templates.malediction, affinityMultiplier);
         } else {
             reaper.benediction = null;
             reaper.malediction = null;

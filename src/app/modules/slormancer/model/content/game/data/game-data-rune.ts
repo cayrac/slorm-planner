@@ -1,0 +1,35 @@
+export interface GameDataRune {
+    REF: number;
+    SPRITE: number;
+    EN_NAME: string;
+    EN_DESCRIPTION: string;
+    FR_NAME: string;
+    FR_DESCRIPTION: string;
+    CH_NAME: string;
+    CH_DESCRIPTION: string;
+    TW_NAME: string;
+    TW_DESCRIPTION: string;
+    JP_NAME: string;
+    JP_DESCRIPTION: string;
+    DE_NAME: string;
+    DE_DESCRIPTION: string;
+    ES_NAME: string;
+    ES_DESCRIPTION: string;
+    IT_NAME: string;
+    IT_DESCRIPTION: string;
+    RU_NAME: string;
+    RU_DESCRIPTION: string;
+    PT_NAME: string;
+    PT_DESCRIPTION: string;
+    VALUE_BASE: string;
+    VALUE_PER_LEVEL: string;
+    VALUE_TYPE: string;
+    VALUE_LEVEL: string;
+    VALUE_STAT: string;
+    VALUE_REAL: string;
+    REAPER: number | null;
+    DURATION_BASE: number | null;
+    DURATION_LEVEL: number | null;
+    POWER: number | null;
+    BLACKSMITH: number;
+}

@@ -187,10 +187,9 @@
 - pure values always have 2 !!
 
 ### TODO
-- fix save loading
-- affinity (avec max 50)
-- check traductions
 - reaper runes
+- check traductions
+- tester et retirer flag "non présent" sur fate crusher
 
 
 ## Planned changes
