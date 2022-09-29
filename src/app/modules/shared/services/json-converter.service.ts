@@ -17,6 +17,7 @@ import { SlormancerDataService } from '@slormancer/services/content/slormancer-d
 import { SlormancerItemService } from '@slormancer/services/content/slormancer-item.service';
 import { SlormancerLegendaryEffectService } from '@slormancer/services/content/slormancer-legendary-effect.service';
 import { SlormancerReaperService } from '@slormancer/services/content/slormancer-reaper.service';
+import { SlormancerRuneService } from '@slormancer/services/content/slormancer-rune.service';
 import { SlormancerUltimatumService } from '@slormancer/services/content/slormancer-ultimatum.service';
 import { SlormancerCharacterBuilderService } from '@slormancer/services/slormancer-character-builder.service';
 import { round } from '@slormancer/util/math.util';
@@ -54,6 +55,7 @@ export class JsonConverterService {
                 private slormancerLegendaryService: SlormancerLegendaryEffectService,
                 private slormancerAffixService: SlormancerAffixService,
                 private slormancerReaperService: SlormancerReaperService,
+                private slormancerRunesService: SlormancerRuneService,
                 private slormancerUltimatumService: SlormancerUltimatumService) {
         this.STAT_MAPPING = {};
         this.REVERSE_STAT_MAPPING = {};
@@ -114,6 +116,14 @@ export class JsonConverterService {
             effectLevel: runes.effect === null ? 0 : runes.effect.level,
             enhancementId: runes.enhancement === null ? null : runes.enhancement.id,
             enhancementLevel: runes.enhancement === null ? 0 : runes.enhancement.level,
+        };
+    }
+
+    private jsonToRunes(runes: JsonRunes, heroClass: HeroClass, reaperId: number | null): RunesCombination {
+        return {
+            activation: runes.activationId === null ? null : this.slormancerRunesService.getRuneById(runes.activationId, heroClass, runes.activationLevel, reaperId),
+            effect: runes.effectId === null ? null : this.slormancerRunesService.getRuneById(runes.effectId, heroClass, runes.effectLevel, reaperId),
+            enhancement: runes.enhancementId === null ? null : this.slormancerRunesService.getRuneById(runes.enhancementId, heroClass, runes.enhancementLevel, reaperId),
         };
     }
 
@@ -375,6 +385,7 @@ export class JsonConverterService {
             character.originalVersion,
             null,
             reaper,
+            this.jsonToRunes(character.runes, character.heroClass, reaper === null ? null : reaper.id),
             ultimatum,
             character.ancestralLegacies.nodes,
             ancestralRanks,

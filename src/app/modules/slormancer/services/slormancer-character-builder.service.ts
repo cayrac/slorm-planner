@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { ActivationRune, EffectRune, EnhancementRune } from '@slormancer/model/content/rune';
+import { RuneType } from '@slormancer/model/content/rune-type';
+import { RunesCombination } from '@slormancer/model/runes-combination';
 
 import { HeroClass } from '..//model/content/enum/hero-class';
 import { GAME_VERSION, INVENTORY_SIZE, MAX_HERO_LEVEL, STASH_SIZE } from '../constants/common';
@@ -19,6 +22,7 @@ import { SlormancerAttributeService } from './content/slormancer-attribute.servi
 import { SlormancerDataService } from './content/slormancer-data.service';
 import { SlormancerItemService } from './content/slormancer-item.service';
 import { SlormancerReaperService } from './content/slormancer-reaper.service';
+import { SlormancerRuneService } from './content/slormancer-rune.service';
 import { SlormancerSkillService } from './content/slormancer-skill.service';
 import { SlormancerUltimatumService } from './content/slormancer-ultimatum.service';
 
@@ -28,6 +32,7 @@ export class SlormancerCharacterBuilderService {
     constructor(private slormancerItemservice: SlormancerItemService,
                 private slormancerReaperService: SlormancerReaperService,
                 private slormancerDataService: SlormancerDataService,
+                private slormancerRuneService: SlormancerRuneService,
                 private slormancerSkillService: SlormancerSkillService,
                 private slormancerAttributeService: SlormancerAttributeService,
                 private slormancerAncestralLegacyService: SlormancerAncestralLegacyService,
@@ -89,6 +94,30 @@ export class SlormancerCharacterBuilderService {
         result.baseAffinity = save.reaper_affinity[result.smith.id];
         this.slormancerReaperService.updateReaperModel(result);
         this.slormancerReaperService.updateReaperView(result);
+
+        return result;
+    }
+
+    private getRunesCombination(save: GameSave, heroClass: HeroClass, reaperId: number): RunesCombination {
+        let result: RunesCombination = { activation: null, effect: null, enhancement: null };
+
+        for (let i = 0; i < save.reaper_runes.length ; i++) {
+            const saveRune = save.reaper_runes[i];
+
+            if (saveRune && saveRune.obtained && saveRune.equipped[heroClass]) {
+                const rune = this.slormancerRuneService.getRuneById(i, heroClass, saveRune.level, reaperId);
+
+                if (rune !== null) {
+                    if (rune.type === RuneType.Activation) {
+                        result.activation = <ActivationRune>rune;
+                    } else if (rune.type === RuneType.Effect) {
+                        result.effect = <EffectRune>rune;
+                    } else if (rune.type === RuneType.Enhancement) {
+                        result.enhancement = <EnhancementRune>rune;
+                    }
+                }
+            }
+        }
 
         return result;
     }
@@ -219,6 +248,11 @@ export class SlormancerCharacterBuilderService {
         const result: Character = {
             ...character,
             reaper: this.slormancerReaperService.getReaperClone(character.reaper),
+            runes: {
+                activation: character.runes.activation === null ? null : this.slormancerRuneService.getRuneClone(character.runes.activation),
+                effect: character.runes.effect === null ? null : this.slormancerRuneService.getRuneClone(character.runes.effect),
+                enhancement: character.runes.enhancement === null ? null : this.slormancerRuneService.getRuneClone(character.runes.enhancement),
+            },
         
             ancestralLegacies: {
                 ancestralLegacies: character.ancestralLegacies.ancestralLegacies.map(ancestralLegacy => this.slormancerAncestralLegacyService.getAncestralLegacyClone(ancestralLegacy)),
@@ -288,13 +322,16 @@ export class SlormancerCharacterBuilderService {
         const traits = save.traits[heroClass];
         const auras = save.auras[heroClass];
         const xp = save.xp[heroClass];
+
+        const reaper = this.getEquippedReaper(save, heroClass);
         
         const character = this.getCharacter(heroClass,
             this.getHeroLevel(xp),
             save.version,
             save.original_version,
             null,
-            this.getEquippedReaper(save, heroClass),
+            reaper,
+            this.getRunesCombination(save, heroClass, reaper.id),
             this.getEquippedUltimatum(save, heroClass),
             this.getActiveNodes(save.element_equip[heroClass]),
             element_rank,
@@ -341,6 +378,7 @@ export class SlormancerCharacterBuilderService {
                         originalVersion: string = GAME_VERSION,
                         importVersion: string | null = null,
                         reaper: Reaper | null = null,
+                        runes: RunesCombination = { activation: null, effect: null, enhancement: null },
                         ultimatum: Ultimatum | null = null,
                         activeAncestralNodes: Array<number> = [],
                         ancestralRanks: Array<number> = [],
@@ -392,11 +430,7 @@ export class SlormancerCharacterBuilderService {
         
             reaper,
 
-            runes: {
-                activation: null,
-                effect: null,
-                enhancement: null,
-            },
+            runes,
         
             ancestralLegacies: {
                 ancestralLegacies: this.getAncestralLegacies(ancestralRanks),

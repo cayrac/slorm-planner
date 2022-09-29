@@ -91,7 +91,7 @@ export class SlormancerTranslateService {
     }
 
     public translateCostType(costType: SkillCostType): string {
-        return this.translate(costType === SkillCostType.ManaLock ? costType : ('tt_' + costType));
+        return this.translate(costType === SkillCostType.ManaLockFlat ? costType : ('tt_' + costType));
     }
 
 }

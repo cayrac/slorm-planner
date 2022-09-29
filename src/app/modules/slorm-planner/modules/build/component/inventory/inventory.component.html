@@ -8,6 +8,7 @@
                     [character]="character"
                     (changed)="updateReaper($event)">
                 </app-reaper-slot>
+                <app-runes-slot [character]="character" (changed)="updateRunes($event)"></app-runes-slot>
             </div>
             <div class="skills">
                 <app-skill-bar></app-skill-bar>

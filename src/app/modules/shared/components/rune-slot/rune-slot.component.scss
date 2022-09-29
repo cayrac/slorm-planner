@@ -1,15 +1,19 @@
 @import "~src/assets/scss/abstracts/flex.scss";
 @import "~src/assets/scss/abstracts/variables.scss";
 
-.reaper {
-    @include flex(column, center, center);
-    min-width: 124px;
-    min-height: 124px;
-    position: relative;
+$smith-color-0: rgb(227, 97, 16);
+$smith-color-1: rgb(175, 245, 60);
+$smith-color-2: rgb(191, 159, 16);
+$smith-color-3: rgb(207, 19, 44);
+$smith-color-4: rgb(170, 54, 191);
+$smith-color-5: rgb(35, 174, 247);
+$smith-color-6: rgb(84, 246, 178);
 
-    &:not(.readonly) {
-        cursor: pointer;
-    }
+.rune {
+    @include flex(column, center, center);
+    position: relative;
+    width: 48px;
+    height: 48px;
 
     .overlay-position {
         position: absolute;
@@ -17,34 +21,71 @@
         bottom: 0;
     }
 
-    .inner-slot {
-        width: $space-unit * 20;
-        height: $space-unit * 20;
-        background-color: rgb(30, 30, 30);
-        border: 3px solid rgb(60, 60, 60);
+    &::before {
+        content: "";
+        border: 3px solid rgb(59, 56, 49);
+        width: 28px;
+        height: 28px;
+        position: absolute;
+        left: 8px;
+        top: 8px;
+        transform: rotate(45deg);
     }
 
-    img {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        margin-top: -12.5%;
-        margin-left: -12.5%;
+    img.rune-icon, img.rune-level {
         image-rendering: pixelated;
+        position: absolute;
+        pointer-events: none;
         -moz-transform: scale(4);
         -ms-transform: scale(4);
         -o-transform: scale(4);
         -webkit-transform: scale(4);
         transform: scale(4);
+
+        &.aura {
+
+            &.smith {
+                &-0 {
+                    -webkit-filter: drop-shadow(0 0 2px rgba($smith-color-0, 0.5));
+                    filter: drop-shadow(0 0 2px rgba($smith-color-0, 0.5));
+                }
+                &-1 {
+                    -webkit-filter: drop-shadow(0 0 2px rgba($smith-color-1, 0.5));
+                    filter: drop-shadow(0 0 2px rgba($smith-color-1, 0.5));
+                }
+                &-2 {
+                    -webkit-filter: drop-shadow(0 0 2px rgba($smith-color-2, 0.5));
+                    filter: drop-shadow(0 0 2px rgba($smith-color-2, 0.5));
+                }
+                &-3 {
+                    -webkit-filter: drop-shadow(0 0 2px rgba($smith-color-3, 0.5));
+                    filter: drop-shadow(0 0 2px rgba($smith-color-3, 0.5));
+                }
+                &-4 {
+                    -webkit-filter: drop-shadow(0 0 2px rgba($smith-color-4, 0.5));
+                    filter: drop-shadow(0 0 2px rgba($smith-color-4, 0.5));
+                }
+                &-5 {
+                    -webkit-filter: drop-shadow(0 0 2px rgba($smith-color-5, 0.5));
+                    filter: drop-shadow(0 0 2px rgba($smith-color-5, 0.5));
+                }
+                &-6 {
+                    -webkit-filter: drop-shadow(0 0 2px rgba($smith-color-6, 0.4));
+                    filter: drop-shadow(0 0 2px rgba($smith-color-6, 0.4));
+                }
+            }
+        }
+    }
+
+    img.rune-icon {
+        bottom: 60%;
+    }
+
+    img.rune-level {
+        bottom: 40%;
     }
 }
 
-.reaper-level {
-    color: white;
-    text-align: center;
-    text-transform: uppercase;
-}
-
-app-reaper-view {
+app-rune-view {
     width: 350px;
 }

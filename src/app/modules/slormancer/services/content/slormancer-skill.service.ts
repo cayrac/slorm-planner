@@ -202,7 +202,7 @@ export class SlormancerSkillService {
         skill.lifeCostType = SkillCostType.None;
         
         skill.hasLifeCost = false;
-        skill.hasManaCost = skill.manaCostType === SkillCostType.ManaSecond || skill.manaCostType === SkillCostType.ManaLock || skill.manaCostType === SkillCostType.Mana;
+        skill.hasManaCost = skill.manaCostType === SkillCostType.ManaSecond || skill.manaCostType === SkillCostType.ManaLockFlat || skill.manaCostType === SkillCostType.Mana;
         skill.hasNoCost = skill.manaCostType === SkillCostType.None;
         skill.genres = skill.baseGenres.slice(0);
 
@@ -393,8 +393,8 @@ export class SlormancerSkillService {
         upgrade.baseCost = upgrade.initialCost + upgrade.perLevelCost * Math.max(upgrade.rank, 1);
         upgrade.cost = upgrade.baseCost;
 
-        upgrade.hasLifeCost = upgrade.costType === SkillCostType.LifeSecond || upgrade.costType === SkillCostType.LifeLock || upgrade.costType === SkillCostType.Life;
-        upgrade.hasManaCost = upgrade.costType === SkillCostType.ManaSecond || upgrade.costType === SkillCostType.ManaLock || upgrade.costType === SkillCostType.Mana;
+        upgrade.hasLifeCost = upgrade.costType === SkillCostType.LifeSecond || upgrade.costType === SkillCostType.LifeLockFlat || upgrade.costType === SkillCostType.Life;
+        upgrade.hasManaCost = upgrade.costType === SkillCostType.ManaSecond || upgrade.costType === SkillCostType.ManaLockFlat || upgrade.costType === SkillCostType.Mana;
         upgrade.hasNoCost = upgrade.costType === SkillCostType.None || upgrade.baseCost === 0;
 
         for (const effectValue of upgrade.values) {

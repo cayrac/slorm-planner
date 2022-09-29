@@ -12,6 +12,7 @@ import { binaryToBoolean, binaryToNumber, booleanToBinary, numberToBinary, takeB
 import { SlormancerCharacterBuilderService } from '../slormancer-character-builder.service';
 import { SlormancerBinaryItemService } from './slormancer-binary-item.service';
 import { SlormancerBinaryReaperService } from './slormancer-binary-reaper.service';
+import { SlormancerBinaryRuneService } from './slormancer-binary-rune.service';
 import { SlormancerBinaryUltimatumService } from './slormancer-binary-ultimatum.service';
 
 @Injectable()
@@ -21,6 +22,7 @@ export class SlormancerBinaryCharacterService {
                 private slormancerBinaryReaperService: SlormancerBinaryReaperService,
                 private slormancerBinaryUltimatumService: SlormancerBinaryUltimatumService,
                 private slormancerCharacterBuilderService: SlormancerCharacterBuilderService,
+                private slormancerBinaryRuneService: SlormancerBinaryRuneService,
                 ) {
                 }
 
@@ -172,6 +174,8 @@ export class SlormancerBinaryCharacterService {
 
         result.push(...this.slormancerBinaryReaperService.reaperToBinary(character.reaper));
 
+        result.push(...this.slormancerBinaryRuneService.runesCombinationToBinary(character.runes));
+
         result.push(...this.ancestralLegaciesToBinary(character.ancestralLegacies));
 
         result.push(...this.skillsToBinary(character.skills,
@@ -208,13 +212,14 @@ export class SlormancerBinaryCharacterService {
     }
 
     public binaryToCharacter(binary: Bits, version: string): Character | null {
-
         const originalGameVersion = APP_TO_GAME_VERSION_MAPPER[version];
         const importVersion = originalGameVersion ? originalGameVersion : GAME_VERSION;
         const heroClass: HeroClass = binaryToNumber(takeBitsChunk(binary, 2));
         const level = binaryToNumber(takeBitsChunk(binary, 6));
 
-        const reaper = this.slormancerBinaryReaperService.binaryToReaper(binary, heroClass, version)
+        const reaper = this.slormancerBinaryReaperService.binaryToReaper(binary, heroClass, version);
+
+        const runes = this.slormancerBinaryRuneService.binaryToRunesCombination(binary, heroClass, version, reaper.id);
         
         const ancestralData = this.binaryToAncestralLegacies(binary);
 
@@ -244,6 +249,7 @@ export class SlormancerBinaryCharacterService {
             importVersion,
             importVersion,
             reaper,
+            runes,
             ultimatum,
             ancestralData.nodes,
             ancestralData.ancestralLegacyLevels,

@@ -468,7 +468,7 @@ export class SlormancerStatsExtractorService {
     private getLockedManaPercent(character: Character, config: CharacterConfig, stats: ExtractedStats): number {        
         const activables = [character.activable1, character.activable2, character.activable3, character.activable4 ].filter(isNotNullOrUndefined);
 
-        let lockedManaPercent = activables.filter(act => act.costType === SkillCostType.ManaPercent)
+        let lockedManaPercent = activables.filter(act => act.costType === SkillCostType.ManaLockFlat)
             .reduce((t, s) => t + valueOrDefault(s.cost, 0), 0);
 
         const skeletonSquireSkill = activables.find(activable => activable.id === 17);
@@ -495,7 +495,7 @@ export class SlormancerStatsExtractorService {
     private getLockedHealthPercent(character: Character, config: CharacterConfig, stats: ExtractedStats): number {        
         const activables = [character.activable1, character.activable2, character.activable3, character.activable4 ].filter(isNotNullOrUndefined);
         
-        return activables.filter(act => act.costType === SkillCostType.LifeLock)
+        return activables.filter(act => act.costType === SkillCostType.LifeLockFlat)
         .reduce((t, s) => t + valueOrDefault(s.cost, 0), 0);
     }
 

@@ -15,6 +15,7 @@ import { SlormancerMechanicService } from './services/content/slormancer-mechani
 import { SlormancerMergedStatUpdaterService } from './services/content/slormancer-merged-stat-updater.service';
 import { SlormancerReaperValueService } from './services/content/slormancer-reaper-value.service';
 import { SlormancerReaperService } from './services/content/slormancer-reaper.service';
+import { SlormancerRuneService } from './services/content/slormancer-rune.service';
 import { SlormancerSkillService } from './services/content/slormancer-skill.service';
 import { SlormancerStatMappingService } from './services/content/slormancer-stat-mapping.service';
 import { SlormancerStatsExtractorService } from './services/content/slormancer-stats-extractor.service';
@@ -29,6 +30,7 @@ import { SlormancerSaveParserService } from './services/parser/slormancer-save-p
 import { SlormancerBinaryCharacterService } from './services/short-data/slormancer-binary-character.service';
 import { SlormancerBinaryItemService } from './services/short-data/slormancer-binary-item.service';
 import { SlormancerBinaryReaperService } from './services/short-data/slormancer-binary-reaper.service';
+import { SlormancerBinaryRuneService } from './services/short-data/slormancer-binary-rune.service';
 import { SlormancerBinaryUltimatumService } from './services/short-data/slormancer-binary-ultimatum.service';
 import { SlormancerCompressorService } from './services/short-data/slormancer-compressor.service';
 import { SlormancerShortDataService } from './services/short-data/slormancer-short-data.service';
@@ -80,6 +82,8 @@ import { SlormancerDpsService } from './services/slormancer-dps-service';
     SlormancerBinaryReaperService,
     SlormancerBinaryItemService,
     SlormancerBinaryUltimatumService,
+    SlormancerRuneService,
+    SlormancerBinaryRuneService,
   ],
   bootstrap: []
 })

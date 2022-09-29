@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Character } from '@slormancer/model/character';
 import { Reaper } from '@slormancer/model/content/reaper';
+import { RunesCombination } from '@slormancer/model/runes-combination';
 import { SlormancerCharacterBuilderService } from 'src/app/modules/slormancer/services/slormancer-character-builder.service';
 
 import { ReaperEditModalComponent, ReaperEditModalData } from '../reaper-edit-modal/reaper-edit-modal.component';
@@ -20,7 +21,7 @@ export class RunesSlotComponent implements OnInit {
     public readonly readonly: boolean = false;
 
     @Output()
-    public readonly changed = new EventEmitter<Reaper>();
+    public readonly changed = new EventEmitter<RunesCombination>();
     
     constructor(private dialog: MatDialog,
                 private slormancerCharacterBuilderService: SlormancerCharacterBuilderService) { }
@@ -34,7 +35,7 @@ export class RunesSlotComponent implements OnInit {
             this.dialog.open(ReaperEditModalComponent, { data })
             .afterClosed().subscribe((reaper: Reaper | null | undefined) => {
                 if (reaper) {
-                    this.changed.emit(reaper);
+                    // this.changed.emit(reaper);
                 }
             });
         }

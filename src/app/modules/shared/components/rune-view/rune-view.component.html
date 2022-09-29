@@ -1,0 +1,11 @@
+<div class="rune" *ngIf="rune !== null">
+    <div class="head" [innerHTML]="rune.name"></div>
+    <div class="content">
+        <div class="main">
+            <div class="separator"></div>
+        </div>
+        <app-activable-view *ngIf="rune.activable !== null"
+            [activable]="rune.activable"
+            [reinforcment]="rune.level"></app-activable-view>
+    </div>
+</div>

@@ -18,7 +18,7 @@ import { SlormancerTemplateService } from './slormancer-template.service';
 import { SlormancerTranslateService } from './slormancer-translate.service';
 
 @Injectable()
-export class SlormancerReaperService {
+export class SlormancerRuneService {
 
     private readonly BENEDICTION_LABEL = this.slormancerTranslateService.translate('tt_ancient_bonus');
 
@@ -97,18 +97,18 @@ export class SlormancerReaperService {
     }
 
     
-    public getRuneById(id: number, heroClass: HeroClass, level: number, reaperId: number | null = null): Rune | null {
+    public getRuneById<T extends Rune>(id: number, heroClass: HeroClass, level: number, reaperId: number | null = null): T | null {
         const data = this.slormancerDataService.getGameDataRune(id);
-        let result: Rune | null = null;
+        let result: T | null = null;
 
         if (data !== null)  {
-            result = this.getRune(data, heroClass, level, reaperId);
+            result = this.getRune<T>(data, heroClass, level, reaperId);
         }
 
         return result;
     }
 
-    public getRune(data: GameDataRune, heroClass: HeroClass, level: number, reaperId: number | null = null): Rune {
+    public getRune<T extends Rune>(data: GameDataRune, heroClass: HeroClass, level: number, reaperId: number | null = null): T {
         const rune = {
             id: data.REF,
             heroClass,
@@ -136,10 +136,10 @@ export class SlormancerReaperService {
         this.updateRuneModel(rune, reaperId);
         this.updateRuneView(rune);
 
-        return rune;
+        return <T>rune;
     }
 
-    public getRuneClone(rune: Rune): Rune {
+    public getRuneClone<T extends Rune>(rune: T): T {
         return {
             ...rune,
             activable: rune.activable === null ? null : this.slormancerActivableService.getActivableClone(rune.activable),
@@ -160,6 +160,8 @@ export class SlormancerReaperService {
     }
 
     public updateRuneView(rune: Rune) {
-        rune.runeIcon = 'assets/img/reaper/' + rune.id + '.png';
+        rune.runeIcon = 'assets/img/icon/rune/' + rune.id + '.png';
+        rune.levelBorder = 'assets/img/icon/level/rune/' + rune.level + '.png';
+        rune.levelIcon = 'assets/img/icon/level/' + rune.id + '.png';
     }
 }

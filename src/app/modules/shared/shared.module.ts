@@ -51,6 +51,7 @@ import { ReaperSlotComponent } from './components/reaper-slot/reaper-slot.compon
 import { ReaperViewComponent } from './components/reaper-view/reaper-view.component';
 import { RemoveConfirmModalComponent } from './components/remove-confirm-modal/remove-confirm-modal.component';
 import { RuneSlotComponent } from './components/rune-slot/rune-slot.component';
+import { RuneViewComponent } from './components/rune-view/rune-view.component';
 import { RunesSlotComponent } from './components/runes-slot/runes-slot.component';
 import { SearchSelectComponent } from './components/search-select/search-select.component';
 import { SkillBarComponent } from './components/skill-bar/skill-bar.component';
@@ -123,6 +124,7 @@ import { MaterialModule } from './material.module';
         SearchSelectComponent,
         RunesSlotComponent,
         RuneSlotComponent,
+        RuneViewComponent,
     ],
     imports: [
         CommonModule,
@@ -178,6 +180,7 @@ import { MaterialModule } from './material.module';
         SearchSelectComponent,
         RunesSlotComponent,
         RuneSlotComponent,
+        RuneViewComponent,
     ],
     providers: [
     ],

@@ -215,8 +215,8 @@ export class SlormancerAncestralLegacyService {
 
         ancestralLegacy.cooldown = ancestralLegacy.baseCooldown;
 
-        ancestralLegacy.hasLifeCost = ancestralLegacy.costType === SkillCostType.LifePercent || ancestralLegacy.costType === SkillCostType.LifeSecond || ancestralLegacy.costType === SkillCostType.LifeLock || ancestralLegacy.costType === SkillCostType.Life;
-        ancestralLegacy.hasManaCost = ancestralLegacy.costType === SkillCostType.ManaPercent || ancestralLegacy.costType === SkillCostType.ManaSecond || ancestralLegacy.costType === SkillCostType.ManaLock || ancestralLegacy.costType === SkillCostType.Mana;
+        ancestralLegacy.hasLifeCost = ancestralLegacy.costType === SkillCostType.LifeLock || ancestralLegacy.costType === SkillCostType.LifeSecond || ancestralLegacy.costType === SkillCostType.LifeLockFlat || ancestralLegacy.costType === SkillCostType.Life || ancestralLegacy.costType === SkillCostType.LifePercent;
+        ancestralLegacy.hasManaCost = ancestralLegacy.costType === SkillCostType.ManaLock || ancestralLegacy.costType === SkillCostType.ManaSecond || ancestralLegacy.costType === SkillCostType.ManaLockFlat || ancestralLegacy.costType === SkillCostType.Mana || ancestralLegacy.costType === SkillCostType.ManaPercent;
         ancestralLegacy.hasNoCost = ancestralLegacy.costType === SkillCostType.None || ancestralLegacy.cost === 0;
 
         ancestralLegacy.isActivable = ancestralLegacy.baseCooldown !== null || ancestralLegacy.genres.includes(SkillGenre.Aura);

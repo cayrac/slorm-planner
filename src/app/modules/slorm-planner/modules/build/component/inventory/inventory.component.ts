@@ -5,6 +5,7 @@ import { ItemMoveService as ItemMoveService } from '@shared/services/item-move.s
 import { Character } from '@slormancer/model/character';
 import { EquipableItem } from '@slormancer/model/content/equipable-item';
 import { Reaper } from '@slormancer/model/content/reaper';
+import { RunesCombination } from '@slormancer/model/runes-combination';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -58,6 +59,13 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
     public updateReaper(reaper: Reaper) {
         if (this.character !== null) {
             this.character.reaper = reaper;
+            this.buildStorageService.saveLayer();
+        }
+    }
+
+    public updateRunes(runes: RunesCombination) {
+        if (this.character !== null) {
+            this.character.runes = runes;
             this.buildStorageService.saveLayer();
         }
     }
