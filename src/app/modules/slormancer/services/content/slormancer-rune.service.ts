@@ -7,6 +7,7 @@ import { HeroClass } from '@slormancer/model/content/enum/hero-class';
 import { GameDataRune } from '@slormancer/model/content/game/data/game-data-rune';
 import { Rune } from '@slormancer/model/content/rune';
 import { RuneType } from '@slormancer/model/content/rune-type';
+import { RunesCombination } from '@slormancer/model/runes-combination';
 import { effectValueSynergy, effectValueVariable } from '@slormancer/util/effect-value.util';
 import { list } from '@slormancer/util/math.util';
 import { emptyStringToNull, splitData, splitFloatData, valueOrDefault, valueOrNull } from '@slormancer/util/utils';
@@ -97,9 +98,9 @@ export class SlormancerRuneService {
     private getActivableById(id: number, heroClass: HeroClass): Activable | null {
         let activable: Activable | null = null;
 
-        if (id <= 4) {
+        if (id === 4) {
             activable = this.slormancerActivableService.getRuneActivable(26, heroClass);
-        } else if (id >= 26) {
+        } else if (id === 26) {
             activable = this.slormancerActivableService.getRuneActivable(27, heroClass);
         }
 
@@ -116,6 +117,11 @@ export class SlormancerRuneService {
         }
 
         return result;
+    }
+
+    public getRunes(heroClass: HeroClass, level: number, reaperId: number | null): Array<Rune> {
+        return this.slormancerDataService.getGameDataRunes()
+            .map(data => this.getRune(data, heroClass, level, reaperId));
     }
 
     public getRune<T extends Rune>(data: GameDataRune, heroClass: HeroClass, level: number, reaperId: number | null = null): T {
@@ -156,6 +162,26 @@ export class SlormancerRuneService {
         };
     }
 
+    public getRunesCombinationClone(runes: RunesCombination): RunesCombination {
+        return {
+            activation: runes.activation === null ? null : this.getRuneClone(runes.activation),
+            effect: runes.effect === null ? null : this.getRuneClone(runes.effect),
+            enhancement: runes.enhancement === null ? null : this.getRuneClone(runes.enhancement),
+        };
+    }
+
+    public updateRunesModel(runes: RunesCombination, reaperId: number | null) {
+        if (runes.activation !== null) {
+            this.updateRuneModel(runes.activation, reaperId);
+        }
+        if (runes.effect !== null) {
+            this.updateRuneModel(runes.effect, reaperId);
+        }
+        if (runes.enhancement !== null) {
+            this.updateRuneModel(runes.enhancement, reaperId);
+        }
+    }
+
     public updateRuneModel(rune: Rune, reaperId: number | null) {
         rune.enabled = rune.reaper === null || rune.reaper !== reaperId; 
         
@@ -166,6 +192,18 @@ export class SlormancerRuneService {
         if (rune.activable !== null) {
             rune.activable.level = rune.level;
             this.slormancerActivableService.updateActivableModel(rune.activable);
+        }
+    }
+
+    public updateRunesView(runes: RunesCombination) {
+        if (runes.activation !== null) {
+            this.updateRuneView(runes.activation);
+        }
+        if (runes.effect !== null) {
+            this.updateRuneView(runes.effect);
+        }
+        if (runes.enhancement !== null) {
+            this.updateRuneView(runes.enhancement);
         }
     }
 
@@ -186,7 +224,11 @@ export class SlormancerRuneService {
             flavorTexts.push(this.RUNE_FLAVOR_ACTIVATION_POWER);
         } else if (rune.type === RuneType.Effect) {
             flavorTexts.push(this.RUNE_FLAVOR_EFFECT);
-            flavorTexts.push(this.slormancerTemplateService.asSpan(this.RUNE_FLAVOR_EFFECT_PREVENT, 'disabled'));
+            if (rune.enabled) {
+                flavorTexts.push(this.RUNE_FLAVOR_EFFECT_PREVENT);
+            } else {
+                flavorTexts.push(this.slormancerTemplateService.asSpan(this.RUNE_FLAVOR_EFFECT_PREVENT, 'disabled'));
+            }
         } else {
             flavorTexts.push(this.RUNE_FLAVOR_ENHANCEMENT);
         }

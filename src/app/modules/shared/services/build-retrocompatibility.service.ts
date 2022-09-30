@@ -184,6 +184,10 @@ export class BuildRetrocompatibilityService {
                         activation: null
                     }
                 }
+
+                if (build.configuration.is_rune_active === undefined) {
+                    build.configuration.is_rune_active = false;
+                }
             }
         },
     ];

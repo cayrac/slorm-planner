@@ -1,0 +1,40 @@
+@import "~src/assets/scss/abstracts/flex";
+@import "~src/assets/scss/abstracts/variables";
+
+$item-gray             : rgb(104, 104, 104);
+
+mat-dialog-content {
+    @include flex-row-to-column('tablet', stretch);
+    @include flex-gap($space-content * 2);
+    @include flex-grow(1);
+
+    .runes {
+        @include flex(column, stretch);
+
+        .rune-line {
+            @include flex(row, center, center);
+            @include flex-gap($space-unit * 2);
+
+            app-rune-slot {
+                cursor: pointer;
+            }
+        }            
+        
+        .separator {
+            background-color: $item-gray;
+            margin: $space-unit * 3 30px;
+            height: 4px;
+        }
+    }
+
+    .form {
+        padding: $space-unit * 2 0;
+        @include flex(column, stretch);
+        @include flex-grow();
+
+        .stat-line {
+            @include flex(row);
+            @include flex-gap($space-unit * 2);
+        }
+    }
+}

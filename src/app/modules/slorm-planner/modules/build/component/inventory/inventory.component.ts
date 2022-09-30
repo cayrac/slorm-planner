@@ -6,6 +6,7 @@ import { Character } from '@slormancer/model/character';
 import { EquipableItem } from '@slormancer/model/content/equipable-item';
 import { Reaper } from '@slormancer/model/content/reaper';
 import { RunesCombination } from '@slormancer/model/runes-combination';
+import { SlormancerRuneService } from '@slormancer/services/content/slormancer-rune.service';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -24,6 +25,7 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
     public itemGroupDragDropPossible: boolean = false;
 
     constructor(private buildStorageService: BuildStorageService,
+                private slormancerRuneService: SlormancerRuneService,
                 private itemMoveService: ItemMoveService) {
         super();
         this.itemMoveService.draggingItem
@@ -59,6 +61,10 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
     public updateReaper(reaper: Reaper) {
         if (this.character !== null) {
             this.character.reaper = reaper;
+            if (this.character.runes.effect !== null) {
+                this.slormancerRuneService.updateRuneModel(this.character.runes.effect, reaper.id);
+                this.slormancerRuneService.updateRuneView(this.character.runes.effect);
+            }
             this.buildStorageService.saveLayer();
         }
     }

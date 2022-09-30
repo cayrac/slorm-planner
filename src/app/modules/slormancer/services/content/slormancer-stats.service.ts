@@ -121,7 +121,7 @@ export class SlormancerStatsService {
         }
     }
 
-    public updateCharacterStats(character: Character, config: CharacterConfig, additionalItem: EquipableItem | null = null): CharacterStatsBuildResult {
+    public updateCharacterStats(character: Character, config: CharacterConfig, additionalItem: EquipableItem | null = null, additionalRunes: Array<Rune> = []): CharacterStatsBuildResult {
         const result: CharacterStatsBuildResult = {
             unlockedAncestralLegacies: [],
             unresolvedSynergies: [],
@@ -142,7 +142,7 @@ export class SlormancerStatsService {
             }
         }
         const mapping = [...GLOBAL_MERGED_STATS_MAPPING, ...HERO_MERGED_STATS_MAPPING[character.heroClass]];
-        const extractedStats = this.slormancerStatsExtractorService.extractCharacterStats(character, config, additionalItem, mapping);
+        const extractedStats = this.slormancerStatsExtractorService.extractCharacterStats(character, config, additionalItem, additionalRunes, mapping);
         
         this.applyReaperSpecialChanges(character, config);
 

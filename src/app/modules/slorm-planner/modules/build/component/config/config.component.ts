@@ -43,6 +43,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
                 { type: 'number', key: 'totems_under_control', label: 'Totems under your control', info: 'Minions are not totems' },
                 { type: 'number', key: 'highest_slorm_temple_floor', label: 'Highest Slorm Temple floor' },
                 { type: 'boolean', key: 'idle', label: 'Are you idle ?' },
+                { type: 'boolean', key: 'is_rune_active', label: 'Is your effect rune active ?' },
             ]
         },
         {

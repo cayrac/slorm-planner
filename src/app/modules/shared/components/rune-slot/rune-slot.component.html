@@ -1,8 +1,8 @@
 
-<div class="rune" *ngIf="rune !== null">
+<div class="rune">
     <div class="overlay-position" cdkOverlayOrigin #trigger="cdkOverlayOrigin"></div>
     <div class="inner-slot"></div>
-    <ng-container>
+    <ng-container *ngIf="rune !== null">
         <img class="rune-icon" class="smith-{{rune.reapersmith}}" [class.aura]="hasAura(rune)" [src]="rune.runeIcon">
         <img class="rune-level" [src]="rune.levelBorder" *ngIf="showLevel">
         <ng-template cdkConnectedOverlay

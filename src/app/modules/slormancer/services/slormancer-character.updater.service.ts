@@ -225,7 +225,7 @@ export class SlormancerCharacterUpdaterService {
         }
     }
 
-    private getCharacterStatsResult(character: Character, config: CharacterConfig, additionalItem: EquipableItem | null): CharacterStatsBuildResult {
+    private getCharacterStatsResult(character: Character, config: CharacterConfig, additionalItem: EquipableItem | null, additionalRunes: Array<Rune> = []): CharacterStatsBuildResult {
         const stats = DATA_HERO_BASE_STATS[character.heroClass];
         
         character.baseStats = stats.baseStats.map(baseStat => ({
@@ -237,10 +237,10 @@ export class SlormancerCharacterUpdaterService {
             character.baseStats.push({ stat: levelStat.stat, values: [levelStat.value]});
         }
 
-        return this.slormancerStatsService.updateCharacterStats(character, config, additionalItem);
+        return this.slormancerStatsService.updateCharacterStats(character, config, additionalItem, additionalRunes);
     }
 
-    private updateCharacterActivables(character: Character, statsResult: CharacterStatsBuildResult, config: CharacterConfig, additionalItem: EquipableItem | null, preComputing: boolean): { items: Array<EquipableItem>, ancestralLegacies: Array<AncestralLegacy>, reapers: Array<Reaper>, runes: Array<Rune> } {
+    private updateCharacterActivables(character: Character, statsResult: CharacterStatsBuildResult, config: CharacterConfig, additionalItem: EquipableItem | null, additionalRunes: Array<Rune> = [], preComputing: boolean): { items: Array<EquipableItem>, ancestralLegacies: Array<AncestralLegacy>, reapers: Array<Reaper>, runes: Array<Rune> } {
         const ancestralLegacies = character.ancestralLegacies.ancestralLegacies;
         const items = <Array<EquipableItem>>[...ALL_GEAR_SLOT_VALUES.map(slot => character.gear[slot]), ...character.inventory, ...character.sharedInventory.flat(), additionalItem]
             .filter(item => item !== null && item.legendaryEffect !== null && item.legendaryEffect.activable !== null);
@@ -305,17 +305,17 @@ export class SlormancerCharacterUpdaterService {
         }
     }
 
-    private updateCharacterStats(character: Character, updateViews: boolean, config: CharacterConfig, additionalItem: EquipableItem | null) {
+    private updateCharacterStats(character: Character, updateViews: boolean, config: CharacterConfig, additionalItem: EquipableItem | null, additionalRunes: Array<Rune> = []) {
 
-        const statResultPreComputing = this.getCharacterStatsResult(character, config, additionalItem);
+        const statResultPreComputing = this.getCharacterStatsResult(character, config, additionalItem, additionalRunes);
 
-        const preComputingChanged = this.updateCharacterActivables(character, statResultPreComputing, config, additionalItem, true);
+        const preComputingChanged = this.updateCharacterActivables(character, statResultPreComputing, config, additionalItem, additionalRunes, true);
 
         if (character.ultimatum !== null) {
             character.ultimatum.locked = statResultPreComputing.extractedStats['disable_ultimatum'] !== undefined;
         }
 
-        const statsResult = this.getCharacterStatsResult(character, config, additionalItem);
+        const statsResult = this.getCharacterStatsResult(character, config, additionalItem, additionalRunes);
         character.stats = statsResult.stats;
 
 
@@ -380,7 +380,7 @@ export class SlormancerCharacterUpdaterService {
 
         }
 
-        const activableChanged = this.updateCharacterActivables(character, statsResult, config, additionalItem, false);
+        const activableChanged = this.updateCharacterActivables(character, statsResult, config, additionalItem, additionalRunes, false);
         statsResult.changed.items.push(...activableChanged.items);
         statsResult.changed.ancestralLegacies.push(...activableChanged.ancestralLegacies);
         statsResult.changed.reapers.push(...activableChanged.reapers);
@@ -418,7 +418,7 @@ export class SlormancerCharacterUpdaterService {
         }
     }
 
-    public updateCharacter(character: Character, config: CharacterConfig, updateViews: boolean = true, additionalItem: EquipableItem | null = null) {
+    public updateCharacter(character: Character, config: CharacterConfig, updateViews: boolean = true, additionalItem: EquipableItem | null = null, additionalRunes: Array<Rune> = []) {
         character.ancestralLegacies.activeAncestralLegacies = this.slormancerDataService.getAncestralSkillIdFromNodes(character.ancestralLegacies.activeNodes);
 
         this.removeUnavailableActivables(character);
@@ -439,7 +439,7 @@ export class SlormancerCharacterUpdaterService {
 
         this.updateBonuses(character, config);
 
-        this.updateCharacterStats(character, updateViews, config, additionalItem);
+        this.updateCharacterStats(character, updateViews, config, additionalItem, additionalRunes);
 
         console.log(character);
     }

@@ -6,6 +6,7 @@ import { DEFAULT_CONFIG } from '@slormancer/constants/content/data/default-confi
 import { Character } from '@slormancer/model/character';
 import { Reaper } from '@slormancer/model/content/reaper';
 import { SlormancerReaperService } from '@slormancer/services/content/slormancer-reaper.service';
+import { SlormancerRuneService } from '@slormancer/services/content/slormancer-rune.service';
 import { SlormancerCharacterUpdaterService } from '@slormancer/services/slormancer-character.updater.service';
 
 import { SelectOption } from '../../model/select-option';
@@ -38,6 +39,7 @@ export class ReaperEditModalComponent {
 
     constructor(private dialogRef: MatDialogRef<ReaperEditModalComponent>,
                 private slormancerReaperService: SlormancerReaperService,
+                private slormancerRuneService: SlormancerRuneService,
                 private slormancerCharacterUpdaterService: SlormancerCharacterUpdaterService,
                 private formOptionsService: FormOptionsService,
                 private buildStorageService: BuildStorageService,
@@ -86,6 +88,9 @@ export class ReaperEditModalComponent {
 
             const build = this.buildStorageService.getBuild();
             this.slormancerReaperService.updateReaperModel(this.reaper);
+            if (this.character.runes.effect !== null) {
+                this.slormancerRuneService.updateRuneModel(this.character.runes.effect, this.reaper.id);
+            }
             this.slormancerCharacterUpdaterService.updateCharacter(this.character, build !== null ? build.configuration : DEFAULT_CONFIG, false);
             this.slormancerReaperService.updateReaperView(this.reaper);
             

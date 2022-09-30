@@ -4,4 +4,6 @@
 .runes {
     @include flex(row, center, center);
     @include flex-gap($space-unit * 4);
+    
+    cursor: pointer;
 }

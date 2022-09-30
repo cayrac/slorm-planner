@@ -164,5 +164,6 @@ export interface CharacterConfig {
     show_elder_inner_fire_damage: boolean;
     chilled_enemy_nearby: number;
     in_combat: boolean;
+    is_rune_active: boolean;
 }
 

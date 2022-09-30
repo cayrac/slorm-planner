@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Rune } from '@slormancer/model/content/rune';
+import { RuneType } from '@slormancer/model/content/rune-type';
 
 import {
     ARCANE_BOND_DAMAGE_FROM_MANA_SPENT as ARCANE_BOND_DAMAGE_FROM_MANA_LOST,
@@ -288,6 +290,27 @@ export class SlormancerStatsExtractorService {
         }
     }
 
+    private addRunesValues(character: Character, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>, config: CharacterConfig) {
+        const runes: Array<Rune> = [character.runes.activation, character.runes.effect, character.runes.enhancement].filter(isNotNullOrUndefined);
+        for (const rune of runes) {
+            const source = { rune };
+
+            for (const effectValue of rune.values) {
+                const applyEffect = rune.type !== RuneType.Effect || config.is_rune_active;
+
+                if (isEffectValueSynergy(effectValue)) {
+                    if (isDamageType(effectValue.stat) || !applyEffect) {
+                        stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, { reaper: character.reaper }));
+                    } else {
+                        stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, { reaper: character.reaper }, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping)));
+                    }
+                } else if (applyEffect) {
+                    this.addStat(stats.stats, effectValue.stat, effectValue.value, source);
+                }
+            }
+        }
+    }
+
     private addInventoryValues(character: Character, stats: ExtractedStats) {
         const items = [...character.inventory, ...character.sharedInventory.flat()]
             .filter(isNotNullOrUndefined)
@@ -368,6 +391,20 @@ export class SlormancerStatsExtractorService {
             
             for (const synergy of effectValues) {            
                 stats.isolatedSynergies.push(synergyResolveData(synergy, synergy.displaySynergy, { item: additionalItem }, this.getSynergyStatsItWillUpdate(synergy.stat, mergedStatMapping)));
+            }
+        }
+    }
+
+    private addAdditionalRuneValues(additionalRunes: Array<Rune>, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
+        for (const additionalRune of additionalRunes) {
+            const effectValues = [
+                    ...additionalRune.values,
+                    ...(additionalRune.activable !== null ? additionalRune.activable.values : [])
+                ]
+                .filter(isEffectValueSynergy);
+            
+            for (const synergy of effectValues) {            
+                stats.isolatedSynergies.push(synergyResolveData(synergy, synergy.displaySynergy, { rune: additionalRune }, this.getSynergyStatsItWillUpdate(synergy.stat, mergedStatMapping)));
             }
         }
     }
@@ -543,7 +580,7 @@ export class SlormancerStatsExtractorService {
         }
     }
 
-    public extractCharacterStats(character: Character, config: CharacterConfig, additionalItem: EquipableItem | null = null, mergedStatMapping: Array<MergedStatMapping>): ExtractedStats {
+    public extractCharacterStats(character: Character, config: CharacterConfig, additionalItem: EquipableItem | null = null, additionalRunes: Array<Rune> = [], mergedStatMapping: Array<MergedStatMapping>): ExtractedStats {
         const result: ExtractedStats = {
             synergies:  [],
             isolatedSynergies:  [],
@@ -554,11 +591,13 @@ export class SlormancerStatsExtractorService {
         this.addConfigValues(character, config, result);
         this.addSkillPassiveValues(character, result, mergedStatMapping);
         this.addReaperValues(character, result, mergedStatMapping);
+        this.addRunesValues(character, result, mergedStatMapping, config);
         this.addBaseValues(character, result);
         this.addAncestralLegacyValues(character, result, mergedStatMapping);
         this.addAttributesValues(character, result, mergedStatMapping);
         this.addGearValues(character, result, mergedStatMapping);
         this.addAdditionalItemValues(additionalItem, result, mergedStatMapping);
+        this.addAdditionalRuneValues(additionalRunes, result, mergedStatMapping);
         this.addInventoryValues(character, result);
         this.addActivableValues(character, result, mergedStatMapping);
         this.addDefaultSynergies(character, config, result, mergedStatMapping);

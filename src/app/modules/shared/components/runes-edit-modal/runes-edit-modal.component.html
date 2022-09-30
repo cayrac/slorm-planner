@@ -1,0 +1,83 @@
+
+<form [formGroup]="form" (submit)="submit()" autocomplete="off">
+    <input autocomplete="false" name="hidden" type="text" style="display:none;">
+    <mat-dialog-content>
+        <div class="runes">
+            <div class="rune-line">
+                <app-rune-slot (click)="selectRune(getRune(0))" [rune]="getRune(0)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(1))" [rune]="getRune(1)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(2))" [rune]="getRune(2)"></app-rune-slot>
+            </div>
+            <div class="rune-line">
+                <app-rune-slot (click)="selectRune(getRune(3))" [rune]="getRune(3)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(4))" [rune]="getRune(4)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(5))" [rune]="getRune(5)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(6))" [rune]="getRune(6)"></app-rune-slot>
+            </div>
+            <div class="separator"></div>
+            <div class="rune-line">
+                <app-rune-slot (click)="selectRune(getRune(7))" [rune]="getRune(7)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(8))" [rune]="getRune(8)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(9))" [rune]="getRune(9)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(10))" [rune]="getRune(10)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(11))" [rune]="getRune(11)"></app-rune-slot>
+            </div>
+            <div class="rune-line">
+                <app-rune-slot (click)="selectRune(getRune(12))" [rune]="getRune(12)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(13))" [rune]="getRune(13)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(14))" [rune]="getRune(14)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(15))" [rune]="getRune(15)"></app-rune-slot>
+            </div>
+            <div class="rune-line">
+                <app-rune-slot (click)="selectRune(getRune(16))" [rune]="getRune(16)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(17))" [rune]="getRune(17)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(18))" [rune]="getRune(18)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(19))" [rune]="getRune(19)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(20))" [rune]="getRune(20)"></app-rune-slot>
+            </div>
+            <div class="separator"></div>
+            <div class="rune-line">
+                <app-rune-slot (click)="selectRune(getRune(21))" [rune]="getRune(21)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(22))" [rune]="getRune(22)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(23))" [rune]="getRune(23)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(24))" [rune]="getRune(24)"></app-rune-slot>
+            </div>
+            <div class="rune-line">
+                <app-rune-slot (click)="selectRune(getRune(25))" [rune]="getRune(25)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(26))" [rune]="getRune(26)"></app-rune-slot>
+                <app-rune-slot (click)="selectRune(getRune(27))" [rune]="getRune(27)"></app-rune-slot>
+            </div>
+        </div>
+        <div class="form">
+            <div class="stat-line">
+                <app-rune-slot [rune]="character.runes.activation"></app-rune-slot>
+                <mat-form-field appearance="outline">
+                    <mat-label>Activation rune level</mat-label>
+                    <input matInput type="number" step="1" formControlName="activationLevel">
+                    <mat-error>Rune level must be between 1 and 15</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="stat-line">
+                <app-rune-slot [rune]="character.runes.effect"></app-rune-slot>
+                <mat-form-field appearance="outline">
+                    <mat-label>Effect rune level</mat-label>
+                    <input matInput type="number" step="1" formControlName="effectLevel">
+                    <mat-error>Rune level must be between 1 and 15</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="stat-line">
+                <app-rune-slot [rune]="character.runes.enhancement"></app-rune-slot>
+                <mat-form-field appearance="outline">
+                    <mat-label>Enhancement rune level</mat-label>
+                    <input matInput type="number" step="1" formControlName="enhancementLevel">
+                    <mat-error>Rune level must be between 1 and 15</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-flat-button type="button" color="primary" [mat-dialog-close]="">Cancel</button>
+        <button mat-flat-button type="button" color="primary" (click)="reset()">Reset</button>
+        <button mat-flat-button type="submit" color="primary">Apply</button>
+    </mat-dialog-actions>
+</form>
