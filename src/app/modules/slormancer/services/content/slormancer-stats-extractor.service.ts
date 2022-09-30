@@ -189,6 +189,7 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'completed_achievements', config.completed_achievements, { synergy: 'Completed achievements' });
         this.addStat(stats.stats, 'knight_other_level', config.knight_other_level, { synergy: 'Maximum level of Huntress or Mage' });
         this.addStat(stats.stats, 'highest_floor', config.highest_slorm_temple_floor, { synergy: 'Highest Slorm Temple floor' });
+        this.addStat(stats.stats, 'rune_affinity', config.effect_rune_affinity, { synergy: 'Effect rune affinity' });
     }
 
     private addMechanicValues(mechanics: Array<Mechanic>, stats: ExtractedStats) {
@@ -553,6 +554,7 @@ export class SlormancerStatsExtractorService {
         stats.synergies.push(synergyResolveData(effectValueSynergy(percentMissingMana, 0, EffectValueUpgradeType.None, false, 'max_mana', 'missing_mana', EffectValueValueType.Stat, undefined, 3), -1, { synergy: 'Missing mana' }, [ { stat: 'missing_mana' } ]));
         stats.synergies.push(synergyResolveData(effectValueSynergy(lockedManaPercent, 0, EffectValueUpgradeType.None, false, 'max_mana', 'mana_lock_flat', EffectValueValueType.Stat, undefined, 3), -1, { synergy: 'Locked mana' }, [ { stat: 'mana_lock_flat' } ]));
         stats.synergies.push(synergyResolveData(effectValueSynergy(percentMissingHealth, 0, EffectValueUpgradeType.None, false, 'max_health', 'missing_health', EffectValueValueType.Stat, undefined, 3), -1, { synergy: 'Missing health' }, [ { stat: 'missing_health' } ]));
+        stats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'max_health', 'max_health_shield', EffectValueValueType.Stat, undefined, 3), -1, { synergy: 'Max health and shield' }, [ { stat: 'max_health_shield' } ]));
         
         
     }

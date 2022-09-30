@@ -188,6 +188,9 @@ export class BuildRetrocompatibilityService {
                 if (build.configuration.is_rune_active === undefined) {
                     build.configuration.is_rune_active = false;
                 }
+                if (build.configuration.effect_rune_affinity === undefined) {
+                    build.configuration.effect_rune_affinity = 100;
+                }
             }
         },
     ];

@@ -18,7 +18,7 @@ export class SlormancerEffectValueService {
     public updateEffectValue(effectValue: AbstractEffectValue, upgradeMultiplier: number): AbstractEffectValue {
         if (isEffectValueSynergy(effectValue) || isEffectValueVariable(effectValue)) {
             let value = effectValue.baseValue;
-            if (effectValue.upgradeType === EffectValueUpgradeType.Every3) {
+            if (effectValue.upgradeType === EffectValueUpgradeType.Every3 || effectValue.upgradeType === EffectValueUpgradeType.Every3RuneLevel) {
                 value = Math.max(value, effectValue.upgrade * Math.ceil((upgradeMultiplier + 1) / 3));
             } else {
                 value += effectValue.upgrade * upgradeMultiplier;

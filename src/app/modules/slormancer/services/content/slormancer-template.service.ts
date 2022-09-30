@@ -105,7 +105,7 @@ export class SlormancerTemplateService {
                 result = this.asSpan('(+' + effectValue.max + percent + ' ' + this.MAX_LABEL + ')', 'details');
             }
         } else {
-            const showUpgrade = effectValue.upgrade > 0;
+            const showUpgrade = effectValue.upgrade !== 0;
             const showBase = (isEffectValueSynergy(effectValue) && isDamageType(effectValue.source)) && !hideBase && effectValue.value !== 0;
             const hasDetails = showUpgrade || showBase;
 
@@ -125,6 +125,8 @@ export class SlormancerTemplateService {
                         result += upgrade + ' per rank';
                     } else if (effectValue.upgradeType === EffectValueUpgradeType.Every3) {
                         result += upgrade + ' every third mastery level';
+                    } else if (effectValue.upgradeType === EffectValueUpgradeType.Every3RuneLevel) {
+                        result += upgrade + ' every 3 levels';
                     } else if (effectValue.upgradeType === EffectValueUpgradeType.ReaperLevel) {
                         result += upgrade + ' per Level';
                     } else if (effectValue.upgradeType === EffectValueUpgradeType.NonPrimordialReaperLevel) {
@@ -171,10 +173,10 @@ export class SlormancerTemplateService {
                 const value = this.asSpan(this.formatValue(effectValue.value, true), 'value');
 
                 if (typeof effectValue.synergy === 'number') {
-                    template = this.replaceAnchor(template, synergy, valueOrDefault(effectValue.anchor, this.VALUE_ANCHOR));
-                    template = this.replaceAnchor(template, value + details, this.SYNERGY_ANCHOR);
+                    template = this.replaceAnchor(template, synergy, valueOrDefault(effectValue.anchor, this.SYNERGY_ANCHOR));
+                    template = this.replaceAnchor(template, value + details, this.VALUE_ANCHOR);
                 } else {
-                    template = this.replaceAnchor(template, synergy + details, this.SYNERGY_ANCHOR);
+                    template = this.replaceAnchor(template, synergy + details, this.VALUE_ANCHOR);
                 }
             }
         }

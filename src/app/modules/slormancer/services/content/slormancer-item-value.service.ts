@@ -217,7 +217,7 @@ export class SlormancerItemValueService {
 
     public computeEffectVariableDetails(effect: EffectValueVariable, itemValue: number, reinforcment: number): ComputedEffectValue {
 
-        const upgradeMultiplier = effect.upgradeType === EffectValueUpgradeType.Every3 ? Math.floor(reinforcment / 3) : reinforcment;
+        const upgradeMultiplier = (effect.upgradeType === EffectValueUpgradeType.Every3 ||effect.upgradeType === EffectValueUpgradeType.Every3RuneLevel) ? Math.floor(reinforcment / 3) : reinforcment;
 
         const result: ComputedEffectValue = {
             value: 0,
@@ -241,7 +241,7 @@ export class SlormancerItemValueService {
 
     public computeEffectSynergyDetails(effect: EffectValueSynergy, itemValue: number, reinforcment: number): ComputedEffectValue {
 
-        const upgradeMultiplier = effect.upgradeType === EffectValueUpgradeType.Every3 ? Math.floor(reinforcment / 3) : reinforcment;
+        const upgradeMultiplier = (effect.upgradeType === EffectValueUpgradeType.Every3 || effect.upgradeType === EffectValueUpgradeType.Every3RuneLevel) ? Math.floor(reinforcment / 3) : reinforcment;
 
         const result: ComputedEffectValue = {
             value: 0,

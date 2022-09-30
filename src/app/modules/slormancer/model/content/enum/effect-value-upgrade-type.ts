@@ -7,6 +7,7 @@ export enum EffectValueUpgradeType {
     RanksAfterInThisTrait = 'rank_after_in_this_trait',
     ReaperLevel = 'rl',
     RuneLevel = 'rl',
+    Every3RuneLevel = 'rl3',
     NonPrimordialReaperLevel = 'rln',
     None = '',
 }

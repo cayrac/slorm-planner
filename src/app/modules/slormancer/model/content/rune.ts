@@ -1,5 +1,5 @@
 import { Activable } from './activable';
-import { AbstractEffectValue } from './effect-value';
+import { AbstractEffectValue, EffectValueVariable } from './effect-value';
 import { HeroClass } from './enum/hero-class';
 import { ReaperSmith } from './enum/reaper-smith';
 import { RuneType } from './rune-type';
@@ -32,6 +32,7 @@ export interface Rune {
 
     template: string;
     values: Array<AbstractEffectValue>;
+    duration: EffectValueVariable | null;
 
     activable: Activable | null;
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Activable } from '@slormancer/model/content/activable';
-import { AbstractEffectValue } from '@slormancer/model/content/effect-value';
+import { AbstractEffectValue, EffectValueVariable } from '@slormancer/model/content/effect-value';
 import { EffectValueUpgradeType } from '@slormancer/model/content/enum/effect-value-upgrade-type';
 import { EffectValueValueType } from '@slormancer/model/content/enum/effect-value-value-type';
 import { HeroClass } from '@slormancer/model/content/enum/hero-class';
@@ -32,6 +32,8 @@ export class SlormancerRuneService {
     private readonly RUNE_FLAVOR_ENHANCEMENT = this.slormancerTranslateService.translate('tt_rune_2_help');
 
     private readonly CONSTRAINT = this.slormancerTranslateService.translate('rune_power');
+    
+    private readonly DURATION_DESCRIPTION = this.slormancerTranslateService.translate('tt_rune_effect');
 
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormancerTemplateService: SlormancerTemplateService,
@@ -42,12 +44,23 @@ export class SlormancerRuneService {
 
     private isDamageStat(stat: string): boolean {
         return stat === 'physical_damage' || stat === 'elemental_damage' || stat === 'bleed_damage';
-    }       
+    }    
+    
+    private parseDurationPerLevelvalue(data: GameDataRune): EffectValueVariable | null {
+        let result: EffectValueVariable | null = null;
+
+        if (data.DURATION_BASE !== null && data.DURATION_BASE !== 0) {
+            result = effectValueVariable(data.DURATION_BASE, valueOrDefault(data.DURATION_LEVEL, 0), EffectValueUpgradeType.RuneLevel, false, 'duration', EffectValueValueType.Duration);
+        }
+
+        return result;
+    }
                 
     private parseEffectValues(data: GameDataRune, upgradeType: EffectValueUpgradeType): Array<AbstractEffectValue> {
         const valueBases = splitFloatData(data.VALUE_BASE);
         const valuePerLevels = splitFloatData(data.VALUE_PER_LEVEL);
         const valueTypes = emptyStringToNull(splitData(data.VALUE_TYPE));
+        const valueLevels = emptyStringToNull(splitData(data.VALUE_LEVEL));
         const valueReals = emptyStringToNull(splitData(data.VALUE_REAL));
         const stats = emptyStringToNull(splitData(data.VALUE_STAT));
 
@@ -55,7 +68,8 @@ export class SlormancerRuneService {
 
         let result: Array<AbstractEffectValue> = [];
         for (let i of list(max)) {
-            const type = valueOrNull(valueReals[i]);
+            const real = valueOrNull(valueReals[i]);
+            const level = valueOrNull(valueLevels[i]);
             const percent = valueOrNull(valueTypes[i]) === '%';
             const value = valueOrDefault(valueBases[i], 0);
             const upgrade = valueOrDefault(valuePerLevels[i], 0);
@@ -63,19 +77,19 @@ export class SlormancerRuneService {
 
             if (stat !== null && this.isDamageStat(stat)) {
                 result.push(effectValueSynergy(value, upgrade, upgradeType, false, stat, EffectValueValueType.Damage));
-            } else if (type === null) {
+            } else if (real === null) {
                 result.push(effectValueVariable(value, upgrade, upgradeType, percent, stat, EffectValueValueType.Stat));
-            } else if (type === 'negative') {
+            } else if (level === 'negative') {
                 result.push(effectValueVariable(value, -upgrade, upgradeType, percent, stat, EffectValueValueType.Stat));
-            } else if (type === 'every_3') {
-                result.push(effectValueVariable(value, upgrade, EffectValueUpgradeType.Every3, percent, stat, EffectValueValueType.Stat));
+            } else if (level === 'rl3') {
+                result.push(effectValueVariable(value, upgrade, EffectValueUpgradeType.Every3RuneLevel, percent, stat, EffectValueValueType.Stat));
             } else {
-                const typeValues = splitData(type, ':');
-                const source = <string>typeValues[1];
-                if (typeValues[0] === 'based_on_mastery') {
-                    result.push(effectValueSynergy(value * 100, 0, upgradeType, percent, 'based_on_mastery_' + source, stat));
+                const realValues = splitData(real, ':');
+                const source = <string>realValues[1];
+                if (realValues[0] === 'based_on_mastery') {
+                    result.push(effectValueSynergy(value * 100, 0, upgradeType, false, 'based_on_mastery_' + source, stat));
                 } else {
-                    result.push(effectValueSynergy(value, upgrade, upgradeType, percent, source, stat));
+                    result.push(effectValueSynergy(value, upgrade, upgradeType, false, source, stat));
                 }
             }
         }
@@ -145,7 +159,8 @@ export class SlormancerRuneService {
             smithLabel: '',
             template: this.slormancerTemplateService.getRuneDescriptionTemplate(data),
             typeLabel: '',
-            values: this.parseEffectValues(data, EffectValueUpgradeType.RuneLevel)
+            values: this.parseEffectValues(data, EffectValueUpgradeType.RuneLevel),
+            duration: this.parseDurationPerLevelvalue(data)
         };
 
         this.updateRuneModel(rune, reaperId);
@@ -216,6 +231,10 @@ export class SlormancerRuneService {
         rune.smithLabel = this.REAPERSMITH_BY.replace('$', this.slormancerTranslateService.translate('weapon_reapersmith_' + rune.reapersmith));
         rune.typeLabel = this.slormancerTranslateService.translate('rune_' + rune.type);
         rune.constraintLabel = rune.constraint === null ? null : this.CONSTRAINT + ' : ' + this.slormancerTemplateService.asSpan(rune.constraint.toString(), 'power value') + ' %';
+
+        if (rune.duration !== null) {
+            rune.description += '<br/><br/>' + this.slormancerTemplateService.formatRuneDescription(this.DURATION_DESCRIPTION, [rune.duration]);
+        }
 
         const flavorTexts: Array<string> = [];
 

@@ -165,5 +165,6 @@ export interface CharacterConfig {
     chilled_enemy_nearby: number;
     in_combat: boolean;
     is_rune_active: boolean;
+    effect_rune_affinity: number;
 }
 

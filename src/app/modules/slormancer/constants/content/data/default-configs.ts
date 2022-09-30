@@ -167,6 +167,7 @@ export const DEFAULT_CONFIG: CharacterConfig = {
     chilled_enemy_nearby: 0,
     in_combat: false,
     is_rune_active: false,
+    effect_rune_affinity: 100,
 }
 
 export const COMBAT_CONFIG: CharacterConfig = {
@@ -334,4 +335,5 @@ export const COMBAT_CONFIG: CharacterConfig = {
     chilled_enemy_nearby: 0,
     in_combat: true,
     is_rune_active: true,
+    effect_rune_affinity: 100,
 }
