@@ -6,6 +6,7 @@ import { ClassMechanic } from './content/class-mechanic';
 import { EquipableItem } from './content/equipable-item';
 import { Mechanic } from './content/mechanic';
 import { Reaper } from './content/reaper';
+import { Rune } from './content/rune';
 import { Skill } from './content/skill';
 import { SkillUpgrade } from './content/skill-upgrade';
 import { Ultimatum } from './content/ultimatum';
@@ -22,4 +23,5 @@ export declare type Entity =
     { activable: Activable } |
     { mechanic: Mechanic } |
     { classMechanic: ClassMechanic } |
-    { ultimatum: Ultimatum };
+    { ultimatum: Ultimatum } |
+    { rune: Rune };

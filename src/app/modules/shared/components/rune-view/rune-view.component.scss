@@ -1,17 +1,16 @@
-$normal-color-text     : rgb(137, 137, 137);
-$normal-color-bg       : rgb(89, 81, 60);
-$magic-color-text      : rgb(46, 135, 38);
-$magic-color-bg        : rgb(97, 70, 45);
-$rare-color-text       : rgb(23, 106, 177);
-$rare-color-bg         : rgb(119, 145, 161);
-$epic-color-text       : rgb(198, 141, 32);
-$epic-color-bg         : rgb(239, 198, 92);
-$legendary-color-text  : rgb(206, 70, 7);
-$legendary-color-bg    : rgb(245, 178, 80);
-$item-bg               : rgb(21,20,18);
+@import "~src/assets/scss/abstracts/flex";
+@import "~src/assets/scss/abstracts/slormancer_tooltip";
+
 $item-gray             : rgb(104, 104, 104);
-$item-value-color      : white;
+$rune-border           : rgb(60, 57, 49);
+$value-color           : rgb(206, 70, 7);
 $item-range-color      : $item-gray;
+$disabled-color-text   : rgb(206, 70, 7);
+$constraint-color-text : rgb(206, 70, 7);
+
+
+
+$item-bg               : rgb(21,20,18);
 $legendary-border-gray : rgb(46, 44, 37);
 $activable-gold-border : rgb(190, 135, 31);
 $mana-color            : rgb(51, 151, 221);
@@ -30,28 +29,15 @@ $dexterity-color       : rgb(205, 112, 40);
 $bravery-color         : rgb(191, 60, 89); 
 $pure-color            : rgb(70, 231, 176);
 
-.equipped, .rarity, .split, .base, .head, .legendary-effect .description {
-    .rune.normal & {
-        color: $normal-color-text;
-    }
-}
-
-.head, .content {
-    .rune.normal & {
-        border-color: $normal-color-bg;
-    }
-}
-
 .rune {
-    background-color: $item-bg;
+    @include slormancer-tooltip-color($rune-border);
+    @include flex(column);
     color: white;
-    border: 2px solid black;
-    min-width: 350px;
 
     ::ng-deep {
         .description {
             .value {
-                color: $item-value-color;
+                color: $value-color;
             }
     
             .range, .details, .formula, .pure-info {
@@ -65,207 +51,50 @@ $pure-color            : rgb(70, 231, 176);
                 white-space: nowrap;
             }
         }
+
+        .power.value {
+            color: $constraint-color-text;
+        }
+
+        .flavor .disabled {
+            color: $disabled-color-text;
+        }
     }
 
-    > .head, > .content {
-        border: 2px solid;
-    }
-
-    > .head {
+    .head {
         margin-bottom: 2px;
         text-align: center;
-        padding: 10px 50px;
+        padding: 10px 30px;
         text-transform: uppercase;
         font-size: 17px;
     }
 
-    > .content {
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        padding: 15px 10px;
-        gap: 15px;
-    
-        .equipped {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            text-transform: capitalize;
-        }
+    .content {
+        @include flex(column);
+        @include flex-gap($space-unit * 4);
+        padding: $space-unit * 4;
 
-        .main {
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
+        .info {
+            @include flex(row, flex-start, space-between);
     
-            .info {
-                min-width: 80px;
-                width: 80px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-        
-                .rarity, .base, .level {
-                    text-transform: capitalize;
-                    text-align: center;
-                }
-
-                .icon {
-                    min-width: 56px;
-                    min-height: 56px;
-                    width: 56px;
-                    height: 56px;
-                    border: 4px solid black;
-                    margin-bottom: 10px;
-                    position: relative;
-                
-                    img {
-                        position: absolute;
-                        width: 100%;
-                        height: 100%;
-                    }
+            .main {
+                @include flex(column, center);
+                .type {
+                    text-transform: uppercase;
                 }
     
-            }
-    
-            .separator {
-                background-color: $item-gray;
-                min-width: 2px;
-            }
-    
-            .stats {
-                flex-grow: 1;
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-    
-                .affixes {
-                    .title {
-                        color: $item-gray;
-                    }
-                    ul {
-                        margin: 0;
-                        list-style: disc inside;
-                        padding-left: 0;
-    
-                        li {
-                            list-style: none;
-                            display: flex;
-                            flex-direction: row;
-                            padding-left: 5px;
-                            gap: 5px;
-
-                            &.pure {
-                                color: $pure-color;
-                                background: linear-gradient(90deg, rgba($pure-color,0.3) 0%, rgba($pure-color,0) 100%);
-                                .name:after {
-                                    content : ' !!'  
-                                }
-                            }
-    
-                            .name {
-                                flex-grow: 1;
-                            }
-                        }
-                    }
-                }
-                
-            }
-        }
-
-        .legendary-effect.outer-border {
-            border: 3px solid black;
-            .border {
-                border: 2px solid $legendary-border-gray;
-                .inner-border {
-                    border: 3px solid black;
-                }
-            }
-        }
-        .legendary-description {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 10px 30px;
-            gap: 5px;
-
-            .title {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                gap: 5px;
-                color: $item-gray;
-            }
-
-            .description {
-                text-align: center;
-            }
-
-            .icon {
-                margin-top: 5px;
-                min-width: 36px;
-                min-height: 36px;
-                width: 36px;
-                height: 36px;
-                border: 3px solid black;
-                padding: 2px;
-                background-color: $legendary-border-gray;
-            
-                img {
-                    width: 100%;
-                    height: 100%;
+                .constraint {
+                    margin-top: $space-unit;
                 }
             }
         }
 
-        .buff {
-            border: 3px solid $buff-border-color;
-            padding: 5px 36px;
+        .description, .flavor {
             text-align: center;
-            position: relative;
+        }
 
-            img {
-                position: absolute;
-                left: -6px;
-                top: 50%;
-                margin-top: -22px;
-            }
-
-            &.reaper {
-                color: $reaper-buff-color;
-            }
-
-            &.skill {
-                color: $skill-buff-color;
-            }
-
-            &.attribute {
-                &.atr-0 {
-                    color: $toughness-color;
-                }
-                &.atr-1 {
-                    color: $savagery-color;
-                }
-                &.atr-2 {
-                    color: $fury-color;
-                }
-                &.atr-3 {
-                    color: $determination-color;
-                }
-                &.atr-4 {
-                    color: $zeal-color;
-                }
-                &.atr-5 {
-                    color: $willpower-color;
-                }
-                &.atr-6 {
-                    color: $dexterity-color;
-                }
-                &.atr-7 {
-                    color: $bravery-color;
-                }
-            }
+        .flavor {
+            color: $item-gray;
         }
     }
 }

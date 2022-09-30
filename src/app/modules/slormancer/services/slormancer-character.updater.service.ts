@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MessageService } from '@shared/services/message.service';
 import { MAX_REAPER_AFFINITY_BONUS } from '@slormancer/constants/common';
+import { Rune } from '@slormancer/model/content/rune';
 
 import { DATA_HERO_BASE_STATS } from '../constants/content/data/data-hero-base-stats';
 import { Character } from '../model/character';
@@ -23,6 +24,7 @@ import { SlormancerDataService } from './content/slormancer-data.service';
 import { SlormancerItemService } from './content/slormancer-item.service';
 import { SlormancerMechanicService } from './content/slormancer-mechanic.service';
 import { SlormancerReaperService } from './content/slormancer-reaper.service';
+import { SlormancerRuneService } from './content/slormancer-rune.service';
 import { SlormancerSkillService } from './content/slormancer-skill.service';
 import { ExtractedStatMap } from './content/slormancer-stats-extractor.service';
 import { CharacterStatsBuildResult, SlormancerStatsService } from './content/slormancer-stats.service';
@@ -46,6 +48,7 @@ export class SlormancerCharacterUpdaterService {
                 private slormancerActivableService: SlormancerActivableService,
                 private slormancerMechanicService: SlormancerMechanicService,
                 private slormancerClassMechanicService: SlormancerClassMechanicService,
+                private slormancerRuneService: SlormancerRuneService,
                 private slormancerValueUpdater: SlormancerValueUpdater,
                 private slormancerSynergyResolverService: SlormancerSynergyResolverService,
                 private messageService: MessageService,
@@ -183,6 +186,9 @@ export class SlormancerCharacterUpdaterService {
         for (const classMechanic of statsResult.changed.classMechanic) {
             this.slormancerClassMechanicService.updateClassMechanicView(classMechanic);
         }
+        for (const rune of statsResult.changed.runes) {
+            this.slormancerRuneService.updateRuneView(rune);
+        }
     }
 
     private displaySynergyLoopError(statsResult: CharacterStatsBuildResult) {
@@ -209,6 +215,8 @@ export class SlormancerCharacterUpdaterService {
                         result = unresolvedSynergy.objectSource.mechanic.name;
                     } else if ('classMechanic' in unresolvedSynergy.objectSource) {
                         result = unresolvedSynergy.objectSource.classMechanic.name;
+                    } else if ('rune' in unresolvedSynergy.objectSource) {
+                        result = unresolvedSynergy.objectSource.rune.name;
                     }
 
                     return result;
@@ -232,10 +240,13 @@ export class SlormancerCharacterUpdaterService {
         return this.slormancerStatsService.updateCharacterStats(character, config, additionalItem);
     }
 
-    private updateCharacterActivables(character: Character, statsResult: CharacterStatsBuildResult, config: CharacterConfig, additionalItem: EquipableItem | null, preComputing: boolean): { items: Array<EquipableItem>, ancestralLegacies: Array<AncestralLegacy>, reapers: Array<Reaper> } {
+    private updateCharacterActivables(character: Character, statsResult: CharacterStatsBuildResult, config: CharacterConfig, additionalItem: EquipableItem | null, preComputing: boolean): { items: Array<EquipableItem>, ancestralLegacies: Array<AncestralLegacy>, reapers: Array<Reaper>, runes: Array<Rune> } {
         const ancestralLegacies = character.ancestralLegacies.ancestralLegacies;
         const items = <Array<EquipableItem>>[...ALL_GEAR_SLOT_VALUES.map(slot => character.gear[slot]), ...character.inventory, ...character.sharedInventory.flat(), additionalItem]
             .filter(item => item !== null && item.legendaryEffect !== null && item.legendaryEffect.activable !== null);
+        const runes = [character.runes.activation, character.runes.effect, character.runes.enhancement]
+            .filter(isNotNullOrUndefined)
+            .filter(rune => rune.activable !== null)
         const result: { items: Array<EquipableItem>, ancestralLegacies: Array<AncestralLegacy> } = { items: [], ancestralLegacies: [] };
         const reapers = character.reaper.activables.length > 0 ? [character.reaper] : [];
 
@@ -260,8 +271,14 @@ export class SlormancerCharacterUpdaterService {
                 }
             }
         }
+
+        for (const rune of runes) {
+            if (rune !== null && rune.activable !== null && !preComputing) {
+                this.slormancerValueUpdater.updateActivable(character, rune.activable, statsResult, config);
+            }
+        }
         
-        return { items, ancestralLegacies, reapers };
+        return { items, ancestralLegacies, reapers, runes };
     }
 
     private updateSkillsElements(character: Character, stats: CharacterStatsBuildResult, config: CharacterConfig) {
@@ -314,6 +331,8 @@ export class SlormancerCharacterUpdaterService {
         statsResult.changed.upgrades.push(...statResultPreComputing.changed.upgrades);
         statsResult.changed.mechanics.push(...statResultPreComputing.changed.mechanics);
         statsResult.changed.classMechanic.push(...statResultPreComputing.changed.classMechanic);
+        statsResult.changed.runes.push(...statResultPreComputing.changed.runes);
+        statsResult.changed.runes.push(...preComputingChanged.runes);
 
         this.slormancerValueUpdater.updateReaper(character.reaper, statsResult);
 
@@ -365,6 +384,7 @@ export class SlormancerCharacterUpdaterService {
         statsResult.changed.items.push(...activableChanged.items);
         statsResult.changed.ancestralLegacies.push(...activableChanged.ancestralLegacies);
         statsResult.changed.reapers.push(...activableChanged.reapers);
+        statsResult.changed.runes.push(...activableChanged.runes);
 
         this.displaySynergyLoopError(statsResult)
 
@@ -376,6 +396,8 @@ export class SlormancerCharacterUpdaterService {
 
     private removeUnavailableActivables(character: Character) {
         const availableActivables: Array<number> = [
+            ...[character.runes.activation, character.runes.effect, character.runes.enhancement]
+                .map(rune => rune === null ? null : rune.activable),
             ...character.reaper.activables,
             ...character.ancestralLegacies.ancestralLegacies.filter(ancestralLegacy => ancestralLegacy.isActivable && character.ancestralLegacies.activeAncestralLegacies.includes(ancestralLegacy.id)),
             ...ALL_GEAR_SLOT_VALUES.map(slot => character.gear[slot]?.legendaryEffect?.activable)

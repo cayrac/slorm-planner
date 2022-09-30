@@ -150,6 +150,37 @@ export class SlormancerTemplateService {
         ? (roundValues ? round(value) : value) + (percent ? '%' : '')
         : ((roundValues ? round(value.min) : value.min) + ' - ' + (roundValues ? round(value.max) : value.max));
     }
+    
+    public formatRuneDescription(template: string, effectValues: Array<AbstractEffectValue>): string {
+        for (let effectValue of effectValues) {
+            const percent = effectValue.percent ? '%' : '';
+
+            if (isEffectValueVariable(effectValue)) {
+                const value = this.asSpan(effectValue.displayValue.toString(), 'value') + percent;
+                const details = this.getEffectValueDetails(effectValue);
+                template = this.replaceAnchor(template, value + ' ' + details, this.VALUE_ANCHOR);
+            } else if (isEffectValueConstant(effectValue)) {
+                const anchor = findFirst(template, this.CONSTANT_ANCHORS);
+                if (anchor !== null) {
+                    const value = this.asSpan(effectValue.displayValue.toString(), 'value') + percent;
+                    template = this.replaceAnchor(template, value, anchor);
+                }
+            } else if (isEffectValueSynergy(effectValue)) {
+                const details = this.getEffectValueDetails(effectValue);
+                const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
+                const value = this.asSpan(this.formatValue(effectValue.value, true), 'value');
+
+                if (typeof effectValue.synergy === 'number') {
+                    template = this.replaceAnchor(template, synergy, valueOrDefault(effectValue.anchor, this.VALUE_ANCHOR));
+                    template = this.replaceAnchor(template, value + details, this.SYNERGY_ANCHOR);
+                } else {
+                    template = this.replaceAnchor(template, synergy + details, this.SYNERGY_ANCHOR);
+                }
+            }
+        }
+
+        return template;
+    }
 
     public formatActivableDescription(template: string, effectValues: Array<AbstractEffectValue>): string {
         for (let effectValue of effectValues) {

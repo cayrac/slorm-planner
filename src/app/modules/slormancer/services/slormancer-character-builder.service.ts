@@ -197,11 +197,17 @@ export class SlormancerCharacterBuilderService {
                     .find(activable => activable !== null && activable.id === realId);
                 if (activable) {
                     result = activable;
-                } else if (character.reaper !== null) {
-                    activable = character.reaper.activables
-                        .find(activable => activable !== null && activable.id === realId);
-                    if (activable) {
-                        result = activable;
+                } else {
+                    const otherActivables = [
+                        character.runes.activation?.activable,
+                        character.runes.effect?.activable,
+                        character.runes.enhancement?.activable,
+                        ...character.reaper.activables]
+                        .filter(isNotNullOrUndefined);
+
+                    const foundActivable = otherActivables.find(activable => activable.id === realId);
+                    if (foundActivable) {
+                        result = foundActivable;
                     }
                 }
             } else if (character.ancestralLegacies.activeAncestralLegacies.indexOf(activableId) !== -1) {
@@ -212,6 +218,11 @@ export class SlormancerCharacterBuilderService {
                 }
             }
         }
+
+        if (result === null) {
+            console.log('no activable found for ' + activableId);
+        }
+
 
         return result;
     }

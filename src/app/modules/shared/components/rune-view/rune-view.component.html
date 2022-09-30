@@ -1,11 +1,24 @@
-<div class="rune" *ngIf="rune !== null">
-    <div class="head" [innerHTML]="rune.name"></div>
-    <div class="content">
-        <div class="main">
-            <div class="separator"></div>
+<div class="rune slormancer-tooltip" *ngIf="rune !== null">
+    <div class="head inner-box" [innerHTML]="rune.name"></div>
+    <div class="content inner-box">
+        <div class="info">
+            <div class="icon left"><app-rune-slot [rune]="rune"></app-rune-slot></div>
+            <div class="main">
+                <div class="type" [innerHTML]="rune.typeLabel"></div>
+                <div class="smith" [innerHTML]="rune.smithLabel"></div>
+                <div class="constraint" *ngIf="rune.constraintLabel !== null" [innerHTML]="rune.constraintLabel"></div>
+            </div>
+            <div class="icon right"><app-rune-slot [rune]="rune"></app-rune-slot></div>
         </div>
+        <div class="separator"></div>
+        <div class="description" [innerHTML]="rune.description"></div>
         <app-activable-view *ngIf="rune.activable !== null"
             [activable]="rune.activable"
             [reinforcment]="rune.level"></app-activable-view>
+        <div class="separator"></div>
+        <div class="flavor" [innerHTML]="rune.flavor"></div>
+        <div class="bottom-level">
+            <img [src]="rune.levelIcon"/>
+        </div>
     </div>
 </div>

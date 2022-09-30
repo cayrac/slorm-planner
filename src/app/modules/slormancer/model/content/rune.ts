@@ -43,5 +43,4 @@ export interface Rune {
     constraintLabel: string | null;
     description: string;
     flavor: string | null;
-    disabledFlavor: string | null;
 }

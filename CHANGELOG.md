@@ -182,13 +182,19 @@
 - Fixed Ultra Canon and Manabender activable description
 
 ## Release 0.2.0 (TBD)
+### Added
+- Added runes
+### Changed
+- Updated game data
+- Replaced reaper bonus level by affinity
+- 
 
 ### Known issues
 - pure values always have 2 !!
 
 ### TODO
-- reaper runes
-- check traductions
+- modale edition runes
+- tester runes + config rune active
 - tester et retirer flag "non présent" sur fate crusher
 
 

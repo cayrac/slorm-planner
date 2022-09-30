@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Rune } from '@slormancer/model/content/rune';
 
 import {
     GLOBAL_MERGED_STATS_MAPPING,
@@ -43,6 +44,7 @@ export interface CharacterStatsBuildResult {
         activables: Array<Activable>;
         mechanics: Array<Mechanic>;
         classMechanic: Array<ClassMechanic>;
+        runes: Array<Rune>;
     }
 }
 
@@ -136,6 +138,7 @@ export class SlormancerStatsService {
                 activables: [],
                 mechanics: [],
                 classMechanic: [],
+                runes: [],
             }
         }
         const mapping = [...GLOBAL_MERGED_STATS_MAPPING, ...HERO_MERGED_STATS_MAPPING[character.heroClass]];
@@ -181,6 +184,8 @@ export class SlormancerStatsService {
                     result.changed.mechanics.push(synergy.objectSource.mechanic);
                 } else if ('classMechanic' in synergy.objectSource) {
                     result.changed.classMechanic.push(synergy.objectSource.classMechanic);
+                } else if ('rune' in synergy.objectSource) {
+                    result.changed.runes.push(synergy.objectSource.rune);
                 }
             }
         }

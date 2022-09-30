@@ -1,5 +1,6 @@
 $physical-color-text  : rgb(206, 70, 7);
-$bonus-border-color  : rgb(190, 135, 31);
+$bonus-border-color   : rgb(190, 135, 31);
+$separator-color      : rgb(104, 104, 104);
 
 .slormancer-tooltip {
     @include flex(column, stretch);
@@ -34,6 +35,12 @@ $bonus-border-color  : rgb(190, 135, 31);
             bottom: 0;
             border: 3px solid black;
             pointer-events: none;
+        }
+    
+        .separator {
+            background-color: primary-color(300);
+            height: 4px;
+            margin: 0 45px;
         }
 
         .bottom-level {

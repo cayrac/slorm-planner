@@ -96,6 +96,9 @@ export class ActivableSlotComponent extends AbstractUnsubscribeComponent impleme
                 .sort((a, b) => -compare(a.level, b.level))
                 .filter((value, index, values) => isFirst(value, index, values, (a, b) => a.id === b.id));
             const reaperActivables = layer.character.reaper === null ? [] : layer.character.reaper.activables;
+            const runeActivables = [layer.character.runes.activation, layer.character.runes.effect, layer.character.runes.enhancement]
+                .map(rune => rune === null ? null : rune.activable)
+                .filter(isNotNullOrUndefined);
             const ancestralLegacies = layer.character.ancestralLegacies.activeAncestralLegacies
                 .map(ancestralLegacy => layer.character.ancestralLegacies.ancestralLegacies[ancestralLegacy])
                 .filter(isNotNullOrUndefined)
@@ -103,6 +106,7 @@ export class ActivableSlotComponent extends AbstractUnsubscribeComponent impleme
 
             result = [
                 ...legendaryActivables,
+                ...runeActivables,
                 ...reaperActivables,
                 ...ancestralLegacies
             ];

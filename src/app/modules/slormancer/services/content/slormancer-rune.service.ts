@@ -20,7 +20,17 @@ import { SlormancerTranslateService } from './slormancer-translate.service';
 @Injectable()
 export class SlormancerRuneService {
 
-    private readonly BENEDICTION_LABEL = this.slormancerTranslateService.translate('tt_ancient_bonus');
+    private readonly REAPERSMITH_BY = this.slormancerTranslateService.translate('weapon_reapersmith_light');
+
+    private readonly RUNE_FLAVOR_ACTIVATION = this.slormancerTranslateService.translate('tt_rune_0_help');
+    private readonly RUNE_FLAVOR_ACTIVATION_POWER = this.slormancerTranslateService.translate('tt_rune_0_help_power');
+
+    private readonly RUNE_FLAVOR_EFFECT = this.slormancerTranslateService.translate('tt_rune_1_help');
+    private readonly RUNE_FLAVOR_EFFECT_PREVENT = this.slormancerTranslateService.translate('tt_rune_1_prevent_reaper');
+
+    private readonly RUNE_FLAVOR_ENHANCEMENT = this.slormancerTranslateService.translate('tt_rune_2_help');
+
+    private readonly CONSTRAINT = this.slormancerTranslateService.translate('rune_power');
 
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormancerTemplateService: SlormancerTemplateService,
@@ -109,7 +119,7 @@ export class SlormancerRuneService {
     }
 
     public getRune<T extends Rune>(data: GameDataRune, heroClass: HeroClass, level: number, reaperId: number | null = null): T {
-        const rune = {
+        const rune: Rune = {
             id: data.REF,
             heroClass,
             level,
@@ -118,7 +128,6 @@ export class SlormancerRuneService {
             constraint: data.POWER,
             constraintLabel: null,
             description: '',
-            disabledFlavor: null,
             enabled: true,
             flavor: null,
             levelBorder: '',
@@ -129,7 +138,7 @@ export class SlormancerRuneService {
             runeIcon: '',
             smithLabel: '',
             template: this.slormancerTemplateService.getRuneDescriptionTemplate(data),
-            typeLabel: this.BENEDICTION_LABEL,
+            typeLabel: '',
             values: this.parseEffectValues(data, EffectValueUpgradeType.RuneLevel)
         };
 
@@ -155,13 +164,38 @@ export class SlormancerRuneService {
         }
 
         if (rune.activable !== null) {
-            // TODO
+            rune.activable.level = rune.level;
+            this.slormancerActivableService.updateActivableModel(rune.activable);
         }
     }
 
     public updateRuneView(rune: Rune) {
         rune.runeIcon = 'assets/img/icon/rune/' + rune.id + '.png';
         rune.levelBorder = 'assets/img/icon/level/rune/' + rune.level + '.png';
-        rune.levelIcon = 'assets/img/icon/level/' + rune.id + '.png';
+        rune.levelIcon = 'assets/img/icon/level/' + rune.level + '.png';
+
+        rune.description = this.slormancerTemplateService.formatRuneDescription(rune.template, rune.values);
+        rune.smithLabel = this.REAPERSMITH_BY.replace('$', this.slormancerTranslateService.translate('weapon_reapersmith_' + rune.reapersmith));
+        rune.typeLabel = this.slormancerTranslateService.translate('rune_' + rune.type);
+        rune.constraintLabel = rune.constraint === null ? null : this.CONSTRAINT + ' : ' + this.slormancerTemplateService.asSpan(rune.constraint.toString(), 'power value') + ' %';
+
+        const flavorTexts: Array<string> = [];
+
+        if (rune.type === RuneType.Activation) {
+            flavorTexts.push(this.RUNE_FLAVOR_ACTIVATION);
+            flavorTexts.push(this.RUNE_FLAVOR_ACTIVATION_POWER);
+        } else if (rune.type === RuneType.Effect) {
+            flavorTexts.push(this.RUNE_FLAVOR_EFFECT);
+            flavorTexts.push(this.slormancerTemplateService.asSpan(this.RUNE_FLAVOR_EFFECT_PREVENT, 'disabled'));
+        } else {
+            flavorTexts.push(this.RUNE_FLAVOR_ENHANCEMENT);
+        }
+
+        rune.flavor = flavorTexts.join('<br/><br/>');
+
+        if (rune.activable !== null) {
+            this.slormancerActivableService.updateActivableView(rune.activable);
+        }
+
     }
 }
