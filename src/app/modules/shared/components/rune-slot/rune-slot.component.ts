@@ -15,6 +15,9 @@ export class RuneSlotComponent {
     @Input()
     public readonly showLevel: boolean = true;
 
+    @Input()
+    public readonly selected: boolean = false;
+
     public showOverlay = false;
 
     @HostListener('mouseenter')

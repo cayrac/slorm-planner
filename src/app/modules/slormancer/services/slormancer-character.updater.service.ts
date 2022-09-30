@@ -244,7 +244,7 @@ export class SlormancerCharacterUpdaterService {
         const ancestralLegacies = character.ancestralLegacies.ancestralLegacies;
         const items = <Array<EquipableItem>>[...ALL_GEAR_SLOT_VALUES.map(slot => character.gear[slot]), ...character.inventory, ...character.sharedInventory.flat(), additionalItem]
             .filter(item => item !== null && item.legendaryEffect !== null && item.legendaryEffect.activable !== null);
-        const runes = [character.runes.activation, character.runes.effect, character.runes.enhancement]
+        const runes = [character.runes.activation, character.runes.effect, character.runes.enhancement, ...additionalRunes]
             .filter(isNotNullOrUndefined)
             .filter(rune => rune.activable !== null)
         const result: { items: Array<EquipableItem>, ancestralLegacies: Array<AncestralLegacy> } = { items: [], ancestralLegacies: [] };

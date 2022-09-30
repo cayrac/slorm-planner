@@ -191,6 +191,7 @@
 
 ### Known issues
 - pure values always have 2 !!
+- fix immortal arrow instructions count
 
 ### TODO
 - modale edition runes

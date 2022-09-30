@@ -35,6 +35,8 @@ export class SlormancerRuneService {
     
     private readonly DURATION_DESCRIPTION = this.slormancerTranslateService.translate('tt_rune_effect');
 
+    private TRIGGER_EFFECT_RUNE_BASE_COOLDOWN: number = 0;
+
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerTranslateService: SlormancerTranslateService,
@@ -75,14 +77,14 @@ export class SlormancerRuneService {
             const upgrade = valueOrDefault(valuePerLevels[i], 0);
             const stat = valueOrDefault(stats[i], null);
 
+            if (level === 'rl3') {
+                upgradeType = EffectValueUpgradeType.Every3RuneLevel;
+            }
+
             if (stat !== null && this.isDamageStat(stat)) {
                 result.push(effectValueSynergy(value, upgrade, upgradeType, false, stat, EffectValueValueType.Damage));
             } else if (real === null) {
                 result.push(effectValueVariable(value, upgrade, upgradeType, percent, stat, EffectValueValueType.Stat));
-            } else if (level === 'negative') {
-                result.push(effectValueVariable(value, -upgrade, upgradeType, percent, stat, EffectValueValueType.Stat));
-            } else if (level === 'rl3') {
-                result.push(effectValueVariable(value, upgrade, EffectValueUpgradeType.Every3RuneLevel, percent, stat, EffectValueValueType.Stat));
             } else {
                 const realValues = splitData(real, ':');
                 const source = <string>realValues[1];
@@ -163,6 +165,16 @@ export class SlormancerRuneService {
             duration: this.parseDurationPerLevelvalue(data)
         };
 
+        if (data.REF === 4 && rune.activable !== null && rune.activable.baseCooldown !== null) {
+            this.TRIGGER_EFFECT_RUNE_BASE_COOLDOWN = rune.activable.baseCooldown;
+        }
+        
+        const dataRune = this.slormancerDataService.getDataRune(data.REF);
+
+        if (dataRune !== null) {
+            dataRune.override(rune);
+        }
+
         this.updateRuneModel(rune, reaperId);
         this.updateRuneView(rune);
 
@@ -200,11 +212,23 @@ export class SlormancerRuneService {
     public updateRuneModel(rune: Rune, reaperId: number | null) {
         rune.enabled = rune.reaper === null || rune.reaper !== reaperId; 
         
+        if (rune.duration !== null) {
+            this.slormancerEffectValueService.updateEffectValue(rune.duration, rune.level);
+        }
+
         for (const effectValue of rune.values) {
             this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level);
         }
 
         if (rune.activable !== null) {
+            if (rune.id === 4) {
+                const durationReduction = rune.values[0];
+
+                if (durationReduction) {
+                    rune.activable.baseCooldown = this.TRIGGER_EFFECT_RUNE_BASE_COOLDOWN - durationReduction.value;
+                }
+            }
+
             rune.activable.level = rune.level;
             this.slormancerActivableService.updateActivableModel(rune.activable);
         }

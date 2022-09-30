@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { DATA_RUNE } from '@slormancer/constants/content/data/data-rune';
+import { DataRune } from '@slormancer/model/content/data/data-rune';
 import { GameDataRune } from '@slormancer/model/content/game/data/game-data-rune';
 
 import { DATA_ACTIVABLE } from '../../constants/content/data/data-activable';
@@ -203,6 +205,10 @@ export class SlormancerDataService {
 
     public getDataReaper(id: number): DataReaper | null {
         return valueOrNull(DATA_REAPER[id]);
+    }
+
+    public getDataRune(id: number): DataRune | null {
+        return valueOrNull(DATA_RUNE[id]);
     }
 
     public getDataSkill(heroClass: HeroClass, id: number): DataSkill | null {

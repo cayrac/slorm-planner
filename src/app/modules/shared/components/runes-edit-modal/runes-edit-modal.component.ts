@@ -82,7 +82,13 @@ export class RunesEditModalComponent {
         return valueOrNull(this.runes[index]);
     }
 
+    public isSelected(index: number): boolean {
+        const formValue = this.form.value;
+        return formValue.activationId === index || formValue.effectId === index || formValue.enhancementId === index;
+    }
+
     public selectRune(rune: Rune | null) {
+        console.log('SELECT RUNE : ', rune);
         if (rune !== null) {
             if (rune.type === RuneType.Activation) {
                 const activationId = this.form.value.activationId === rune.id ? null : rune.id;

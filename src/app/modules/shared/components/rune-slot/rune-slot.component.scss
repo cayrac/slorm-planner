@@ -1,6 +1,8 @@
 @import "~src/assets/scss/abstracts/flex.scss";
 @import "~src/assets/scss/abstracts/variables.scss";
 
+$selected-color : rgb(206, 70, 7);
+
 $smith-color-0: rgb(227, 97, 16);
 $smith-color-1: rgb(175, 245, 60);
 $smith-color-2: rgb(191, 159, 16);
@@ -30,6 +32,10 @@ $smith-color-6: rgb(84, 246, 178);
         left: 8px;
         top: 8px;
         transform: rotate(45deg);
+    }
+
+    &.selected::before {
+        border: 3px solid $selected-color;
     }
 
     img.rune-icon, img.rune-level {

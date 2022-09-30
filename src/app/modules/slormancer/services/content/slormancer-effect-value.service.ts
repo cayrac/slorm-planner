@@ -19,9 +19,13 @@ export class SlormancerEffectValueService {
         if (isEffectValueSynergy(effectValue) || isEffectValueVariable(effectValue)) {
             let value = effectValue.baseValue;
             if (effectValue.upgradeType === EffectValueUpgradeType.Every3 || effectValue.upgradeType === EffectValueUpgradeType.Every3RuneLevel) {
-                value = Math.max(value, effectValue.upgrade * Math.ceil((upgradeMultiplier + 1) / 3));
+                value += effectValue.upgrade * Math.floor((upgradeMultiplier) / 3);
             } else {
                 value += effectValue.upgrade * upgradeMultiplier;
+            }
+
+            if (effectValue.upgradeType === EffectValueUpgradeType.Every3RuneLevel && effectValue.baseValue === 7) {
+                console.log('updateEffectValue every 3', effectValue, ' - ', effectValue.baseValue, effectValue.upgrade, upgradeMultiplier, value);
             }
 
             effectValue.value = value
