@@ -19,9 +19,9 @@ export class SlormancerEffectValueService {
         if (isEffectValueSynergy(effectValue) || isEffectValueVariable(effectValue)) {
             let value = effectValue.baseValue;
             if (effectValue.upgradeType === EffectValueUpgradeType.Every3 || effectValue.upgradeType === EffectValueUpgradeType.Every3RuneLevel) {
-                value += effectValue.upgrade * Math.floor((upgradeMultiplier) / 3);
-            } if (effectValue.upgradeType === EffectValueUpgradeType.Every5RuneLevel ) {
-                value += effectValue.upgrade * Math.floor((upgradeMultiplier) / 5);
+                value += effectValue.upgrade * Math.floor(upgradeMultiplier / 3);
+            } else if (effectValue.upgradeType === EffectValueUpgradeType.Every5RuneLevel ) {
+                value += effectValue.upgrade * Math.floor(upgradeMultiplier / 5);
             } else {
                 value += effectValue.upgrade * upgradeMultiplier;
             }

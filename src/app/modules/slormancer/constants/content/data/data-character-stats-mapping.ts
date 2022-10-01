@@ -1865,6 +1865,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'lightning_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Lightning) },
                 { stat: 'light_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Light) },
                 { stat: 'shadow_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Shadow) },
+                { stat: 'primary_skill_increased_damage', condition: (_, stats) => hasStat(stats, 'skill_is_equipped_primary')},
             ],
             maxMultiplier: [
                 { stat: 'skill_increased_max_damage_mult' },

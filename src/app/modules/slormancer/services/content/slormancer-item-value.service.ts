@@ -219,7 +219,7 @@ export class SlormancerItemValueService {
 
 
         let upgradeMultiplier = reinforcment;
-        if (effect.upgradeType === EffectValueUpgradeType.Every3 ||effect.upgradeType === EffectValueUpgradeType.Every3RuneLevel) {
+        if (effect.upgradeType === EffectValueUpgradeType.Every3 || effect.upgradeType === EffectValueUpgradeType.Every3RuneLevel) {
             upgradeMultiplier = Math.floor(upgradeMultiplier / 3);
         } else if (effect.upgradeType === EffectValueUpgradeType.Every5RuneLevel) {
             upgradeMultiplier = Math.floor(upgradeMultiplier / 5);

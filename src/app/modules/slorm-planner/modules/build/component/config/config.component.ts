@@ -44,7 +44,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
                 { type: 'number', key: 'highest_slorm_temple_floor', label: 'Highest Slorm Temple floor' },
                 { type: 'boolean', key: 'idle', label: 'Are you idle ?' },
                 { type: 'boolean', key: 'is_rune_active', label: 'Is your effect rune active ?' },
-                { type: 'number', key: 'effect_rune_affinity', label: 'Affinity of your effect rune' },
+                { type: 'number', key: 'effect_rune_affinity', label: 'Affinity of your effect rune', info: 'Used if rune and reaper smith are differents' },
             ]
         },
         {

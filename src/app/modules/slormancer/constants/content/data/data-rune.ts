@@ -37,6 +37,16 @@ function setUpgrade(rune: Rune, index: number, upgrade: number) {
     }
 }
 
+function setUpgradeType(rune: Rune, index: number, upgradeType: EffectValueUpgradeType) {
+    const value = rune.values[index]
+
+    if (value && (isEffectValueVariable(value) || isEffectValueSynergy(value))) {
+        value.upgradeType = upgradeType;
+    } else {
+        throw new Error('failed to update stat for rune value at index ' + index);
+    }
+}
+
 function setType(rune: Rune, index: number, type: EffectValueType) {
     const value = rune.values[index]
 
@@ -102,9 +112,41 @@ function addSynergy(rune: Rune, value: number, upgrade: number, source: string, 
 }
 
 export const DATA_RUNE: { [key: number]: DataRune } = {
+    0: {
+        override: rune => {
+            setStat(rune, 0, 'garbage_stat');
+        }
+    },
+    1: {
+        override: rune => {
+            setStat(rune, 0, 'garbage_stat');
+        }
+    },
+    2: {
+        override: rune => {
+            setStat(rune, 0, 'garbage_stat');
+            setStat(rune, 1, 'garbage_stat');
+        }
+    },
+    3: {
+        override: rune => {
+            setStat(rune, 0, 'garbage_stat');
+        }
+    },
     4: {
         override: rune => {
             setStat(rune, 0, 'trigger_effect_rune_cooldown_reduction');
+        }
+    },
+    5: {
+        override: rune => {
+            setStat(rune, 0, 'garbage_stat');
+            setStat(rune, 1, 'garbage_stat');
+        }
+    },
+    6: {
+        override: rune => {
+            setStat(rune, 0, 'garbage_stat');
         }
     },
     8: {
@@ -116,10 +158,32 @@ export const DATA_RUNE: { [key: number]: DataRune } = {
             addVariable(rune, 20, 3, 'firework_trigger_chance', EffectValueValueType.Stat);
         }
     },
+    10: {
+        override: rune => {
+            setStat(rune, 4, 'primary_skill_increased_damage');
+        }
+    },
+    11: {
+        override: rune => {
+            setStat(rune, 0, 'garbage_stat');
+            setStat(rune, 1, 'garbage_stat');
+        }
+    },
+    12: {
+        override: rune => {
+            setStat(rune, 0, 'garbage_stat');
+        }
+    },
     13: {
         override: rune => {
             setStat(rune, 1, 'elemental_damage');
             setType(rune, 2, EffectValueType.Variable);
+            setStat(rune, 3, 'garbage_stat');
+        }
+    },
+    14: {
+        override: rune => {
+            setStat(rune, 0, 'ultimatum_increased_effect');
         }
     },
     15: {
@@ -141,6 +205,13 @@ export const DATA_RUNE: { [key: number]: DataRune } = {
             addSynergy(rune, 100, 0, 'victims_current_reaper', 'elemental_damage')
         }
     },
+    17: {
+        override: rune => {
+            setStat(rune, 0, 'garbage_stat');
+            setStat(rune, 1, 'garbage_stat');
+            setStat(rune, 2, 'garbage_stat');
+        }
+    },
     18: {
         override: rune => {
             setValue(rune, 0, 200);
@@ -149,11 +220,63 @@ export const DATA_RUNE: { [key: number]: DataRune } = {
             addConstant(rune, 1.5, 'garbage_stat', EffectValueValueType.AreaOfEffect);
         }
     },
+    19: {
+        override: rune => {
+            setStat(rune, 1, 'garbage_stat');
+            setStat(rune, 2, 'garbage_stat');
+        }
+    },
     20: {
         override: rune => {
             rune.values.unshift(effectValueVariable(1, 1, EffectValueUpgradeType.Every5RuneLevel, false, 'max_skeleton_count'));
             setValue(rune, 1, 40);
             setUpgrade(rune, 1, 0);
+        }
+    },
+    21: {
+        override: rune => {
+            setType(rune, 0, EffectValueType.Variable);
+            setStat(rune, 0, 'effect_rune_reduced_power');
+            setPercent(rune, 0, true);
+            addSynergy(rune, 100, 0, 'reaper_affinity', 'enhancement_rune_increased_effect');
+        }
+    },
+    22: {
+        override: rune => {
+            setStat(rune, 0, 'garbage_stat');
+            setStat(rune, 1, 'garbage_stat');
+        }
+    },
+    23: {
+        override: rune => {
+            setStat(rune, 0, 'effect_rune_increased_effect_per_effective_rune_stack');
+            setStat(rune, 1, 'effect_rune_increased_effect_per_effective_rune_stack_max');
+        }
+    },
+    24: {
+        override: rune => {
+            setUpgradeType(rune, 1, EffectValueUpgradeType.RuneLevel);
+            setStat(rune, 0, 'enhancement_rune_stack_max');
+            setStat(rune, 1, 'effect_rune_duration_increased_per_enhancement_rune_stack');
+            setStat(rune, 2, 'garbage_stat');
+        }
+    },
+    25: {
+        override: rune => {
+            setUpgradeType(rune, 1, EffectValueUpgradeType.RuneLevel);
+            setStat(rune, 0, 'garbage_stat');
+            setStat(rune, 1, 'rune_power_override');
+        }
+    },
+    26: {
+        override: rune => {
+            setStat(rune, 0, 'garbage_stat');
+        }
+    },
+    27: {
+        override: rune => {
+            setStat(rune, 0, 'effect_rune_increased_effect');
+            setStat(rune, 1, 'effect_rune_increased_power');
         }
     }
 }

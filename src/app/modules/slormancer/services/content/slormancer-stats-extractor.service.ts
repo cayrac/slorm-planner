@@ -189,7 +189,12 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'completed_achievements', config.completed_achievements, { synergy: 'Completed achievements' });
         this.addStat(stats.stats, 'knight_other_level', config.knight_other_level, { synergy: 'Maximum level of Huntress or Mage' });
         this.addStat(stats.stats, 'highest_floor', config.highest_slorm_temple_floor, { synergy: 'Highest Slorm Temple floor' });
-        this.addStat(stats.stats, 'rune_affinity', config.effect_rune_affinity, { synergy: 'Effect rune affinity' });
+
+        let rune_affinity = config.effect_rune_affinity;
+        if (character.runes.effect !== null && character.runes.effect.reapersmith === character.reaper.smith.id) {
+            rune_affinity = character.reaper.affinity;
+        }
+        this.addStat(stats.stats, 'rune_affinity', rune_affinity, { synergy: 'Effect rune affinity' });
     }
 
     private addMechanicValues(mechanics: Array<Mechanic>, stats: ExtractedStats) {
@@ -271,6 +276,7 @@ export class SlormancerStatsExtractorService {
             this.addStat(stats.stats, 'min_weapon_damage_add', character.reaper.damages.min, source);
             this.addStat(stats.stats, 'max_weapon_damage_add', character.reaper.damages.max - character.reaper.damages.min, source);        
             this.addStat(stats.stats, 'victims_current_reaper', character.reaper.kills, { synergy: 'Current reaper victims' });
+            this.addStat(stats.stats, 'reaper_affinity', character.reaper.affinity, { synergy: 'Current reaper affinity' });
 
 
             const effectValues: Array<AbstractEffectValue> = character.reaper.templates.base.map(effect => effect.values).flat();
