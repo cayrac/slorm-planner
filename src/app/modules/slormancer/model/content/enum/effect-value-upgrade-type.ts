@@ -8,6 +8,7 @@ export enum EffectValueUpgradeType {
     ReaperLevel = 'rl',
     RuneLevel = 'rl',
     Every3RuneLevel = 'rl3',
+    Every5RuneLevel = 'rl5',
     NonPrimordialReaperLevel = 'rln',
     None = '',
 }

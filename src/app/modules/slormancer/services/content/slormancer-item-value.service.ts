@@ -217,7 +217,13 @@ export class SlormancerItemValueService {
 
     public computeEffectVariableDetails(effect: EffectValueVariable, itemValue: number, reinforcment: number): ComputedEffectValue {
 
-        const upgradeMultiplier = (effect.upgradeType === EffectValueUpgradeType.Every3 ||effect.upgradeType === EffectValueUpgradeType.Every3RuneLevel) ? Math.floor(reinforcment / 3) : reinforcment;
+
+        let upgradeMultiplier = reinforcment;
+        if (effect.upgradeType === EffectValueUpgradeType.Every3 ||effect.upgradeType === EffectValueUpgradeType.Every3RuneLevel) {
+            upgradeMultiplier = Math.floor(upgradeMultiplier / 3);
+        } else if (effect.upgradeType === EffectValueUpgradeType.Every5RuneLevel) {
+            upgradeMultiplier = Math.floor(upgradeMultiplier / 5);
+        }
 
         const result: ComputedEffectValue = {
             value: 0,

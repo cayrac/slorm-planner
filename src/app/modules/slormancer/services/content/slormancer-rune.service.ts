@@ -80,6 +80,9 @@ export class SlormancerRuneService {
             if (level === 'rl3') {
                 upgradeType = EffectValueUpgradeType.Every3RuneLevel;
             }
+            if (level === 'rl5') {
+                upgradeType = EffectValueUpgradeType.Every5RuneLevel;
+            }
 
             if (stat !== null && this.isDamageStat(stat)) {
                 result.push(effectValueSynergy(value, upgrade, upgradeType, false, stat, EffectValueValueType.Damage));
@@ -251,7 +254,8 @@ export class SlormancerRuneService {
         rune.levelBorder = 'assets/img/icon/level/rune/' + rune.level + '.png';
         rune.levelIcon = 'assets/img/icon/level/' + rune.level + '.png';
 
-        rune.description = this.slormancerTemplateService.formatRuneDescription(rune.template, rune.values);
+        rune.description = this.slormancerTemplateService.formatRuneDescription(rune.template, rune.values)
+            .replace(/\[([a-zA-Z ]+)\/([a-zA-Z ]+)\/([a-zA-Z ]+)\]/g, '$' + (rune.heroClass + 1));
         rune.smithLabel = this.REAPERSMITH_BY.replace('$', this.slormancerTranslateService.translate('weapon_reapersmith_' + rune.reapersmith));
         rune.typeLabel = this.slormancerTranslateService.translate('rune_' + rune.type);
         rune.constraintLabel = rune.constraint === null ? null : this.CONSTRAINT + ' : ' + this.slormancerTemplateService.asSpan(rune.constraint.toString(), 'power value') + ' %';

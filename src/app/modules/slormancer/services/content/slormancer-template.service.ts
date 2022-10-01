@@ -127,6 +127,8 @@ export class SlormancerTemplateService {
                         result += upgrade + ' every third mastery level';
                     } else if (effectValue.upgradeType === EffectValueUpgradeType.Every3RuneLevel) {
                         result += upgrade + ' every 3 levels';
+                    } else if (effectValue.upgradeType === EffectValueUpgradeType.Every5RuneLevel) {
+                        result += upgrade + ' every 5 levels';
                     } else if (effectValue.upgradeType === EffectValueUpgradeType.ReaperLevel) {
                         result += upgrade + ' per Level';
                     } else if (effectValue.upgradeType === EffectValueUpgradeType.NonPrimordialReaperLevel) {
@@ -172,11 +174,15 @@ export class SlormancerTemplateService {
                 const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
                 const value = this.asSpan(this.formatValue(effectValue.value, true), 'value');
 
-                if (typeof effectValue.synergy === 'number') {
+                if (typeof effectValue.synergy === 'number' && !isDamageType(effectValue.source)) {
                     template = this.replaceAnchor(template, synergy, valueOrDefault(effectValue.anchor, this.SYNERGY_ANCHOR));
                     template = this.replaceAnchor(template, value + details, this.VALUE_ANCHOR);
                 } else {
-                    template = this.replaceAnchor(template, synergy + details, this.VALUE_ANCHOR);
+                    template = this.replaceAnchor(template, synergy + details, this.SYNERGY_ANCHOR);
+                }
+
+                if (isDamageType(effectValue.stat)) { // à retirer une fois les synergies fix probablement
+                    template = this.replaceAnchor(template, this.slormancerTranslateService.translate(effectValue.stat), '{damageType}');
                 }
             }
         }
@@ -407,8 +413,9 @@ export class SlormancerTemplateService {
         const stats = splitData(data.VALUE_STAT).filter(value => !value.startsWith('*'))
             .map(stat => isDamageType(stat) ? '{damageType}' : stat);
         const types = splitData(data.VALUE_REAL);
-        
+
         const template = data.EN_DESCRIPTION.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
+
         return this.parseTemplate(template, stats, types);
     }
 

@@ -269,7 +269,9 @@ export class SlormancerStatsExtractorService {
         if (character.reaper !== null) {
             const source = { reaper: character.reaper };
             this.addStat(stats.stats, 'min_weapon_damage_add', character.reaper.damages.min, source);
-            this.addStat(stats.stats, 'max_weapon_damage_add', character.reaper.damages.max - character.reaper.damages.min, source);
+            this.addStat(stats.stats, 'max_weapon_damage_add', character.reaper.damages.max - character.reaper.damages.min, source);        
+            this.addStat(stats.stats, 'victims_current_reaper', character.reaper.kills, { synergy: 'Current reaper victims' });
+
 
             const effectValues: Array<AbstractEffectValue> = character.reaper.templates.base.map(effect => effect.values).flat();
             if (character.reaper.primordial) {

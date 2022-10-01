@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Rune } from '@slormancer/model/content/rune';
 
 import {
     COOLDOWN_MAPPING,
@@ -580,6 +581,18 @@ export class SlormancerValueUpdater {
         }
 
         return [];
+    }
+
+    public updateRuneValues(character: Character, rune: Rune, stats: SkillStatsBuildResult, config: CharacterConfig) {
+        const skillStats = this.getSkillStats(stats, character);
+
+        for (const effectValue of rune.values) {
+            if (effectValue.valueType === EffectValueValueType.AreaOfEffect) {
+                const aoeMultiplier = skillStats.aoeIncreasedSize.total
+                effectValue.value = effectValue.baseValue * (100 + aoeMultiplier) / 100;
+                effectValue.displayValue = bankerRound(effectValue.value, 2);
+            }
+        }
     }
 
     private spreadAdditionalDamages(damages: Array<EffectValueSynergy>, additional: number | MinMax) {
