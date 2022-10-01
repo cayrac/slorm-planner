@@ -238,7 +238,7 @@ export const DATA_RUNE: { [key: number]: DataRune } = {
             setType(rune, 0, EffectValueType.Variable);
             setStat(rune, 0, 'effect_rune_reduced_power');
             setPercent(rune, 0, true);
-            addSynergy(rune, 100, 0, 'reaper_affinity', 'enhancement_rune_increased_effect');
+            addSynergy(rune, 100, 0, 'rune_affinity', 'enhancement_rune_increased_effect');
         }
     },
     22: {

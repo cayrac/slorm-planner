@@ -380,10 +380,7 @@ export class SlormancerCharacterUpdaterService {
 
         }
 
-        const runes = [character.runes.activation, character.runes.effect, character.runes.enhancement, ...additionalRunes].filter(isNotNullOrUndefined);
-        for (const rune of runes) {
-            this.slormancerValueUpdater.updateRuneValues(character, rune, statsResult, config);
-        }
+       this.slormancerValueUpdater.updateRuneValues(character, additionalRunes, statsResult, config);
 
         const activableChanged = this.updateCharacterActivables(character, statsResult, config, additionalItem, additionalRunes, false);
         statsResult.changed.items.push(...activableChanged.items);

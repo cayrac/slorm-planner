@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Rune } from '@slormancer/model/content/rune';
+import { EffectRune, Rune } from '@slormancer/model/content/rune';
+import { RuneType } from '@slormancer/model/content/rune-type';
 
 import {
     COOLDOWN_MAPPING,
@@ -31,6 +32,7 @@ import {
     isEffectValueConstant,
     isEffectValueSynergy,
     isEffectValueVariable,
+    isNotNullOrUndefined,
     valueOrDefault,
     valueOrNull,
 } from '../../util/utils';
@@ -583,14 +585,42 @@ export class SlormancerValueUpdater {
         return [];
     }
 
-    public updateRuneValues(character: Character, rune: Rune, stats: SkillStatsBuildResult, config: CharacterConfig) {
+    public updateRuneValues(character: Character, additionalRunes: Array<Rune>, stats: SkillStatsBuildResult, config: CharacterConfig) {
         const skillStats = this.getSkillStats(stats, character);
+        const allRunes = [character.runes.activation, character.runes.effect, character.runes.enhancement, ...additionalRunes].filter(isNotNullOrUndefined);
 
-        for (const effectValue of rune.values) {
-            if (effectValue.valueType === EffectValueValueType.AreaOfEffect) {
-                const aoeMultiplier = skillStats.aoeIncreasedSize.total
-                effectValue.value = effectValue.baseValue * (100 + aoeMultiplier) / 100;
-                effectValue.displayValue = bankerRound(effectValue.value, 2);
+        let reduced_power = stats.extractedStats['effect_rune_reduced_power'] ? valueOrNull(stats.extractedStats['effect_rune_reduced_power'][0]?.value) : null;
+        // utiliser effect_rune_increased_power une fois le bug corrigé
+        const increased_power = stats.extractedStats['effect_rune_increased_effect'] ? valueOrNull(stats.extractedStats['effect_rune_increased_effect'][0]?.value) : null;
+        const power_override = stats.extractedStats['rune_power_override'] ? valueOrNull(stats.extractedStats['rune_power_override'][0]?.value) : null;
+        
+        if (reduced_power !== null) {
+            let enhancement_rune_increased_effect = stats.stats.find(stat => stat.stat === 'enhancement_rune_increased_effect');
+            if (enhancement_rune_increased_effect) {
+                reduced_power = reduced_power * (100 + (<MergedStat<number>>enhancement_rune_increased_effect).total) / 100;
+            }
+        }
+
+        for (const rune of allRunes) {
+            if (rune.type === RuneType.Effect) {
+                if (reduced_power !== null) {
+                    rune.constraint = (<EffectRune>rune).baseConstraint * (100 - reduced_power) / 100;
+                } else if (increased_power !== null) {
+                    rune.constraint = (<EffectRune>rune).baseConstraint * (100 + increased_power) / 100;
+                } else if (power_override !== null) {
+                    rune.constraint = power_override;
+                }
+            }
+        }
+        
+
+        for (const rune of allRunes) {
+            for (const effectValue of rune.values) {
+                if (effectValue.valueType === EffectValueValueType.AreaOfEffect) {
+                    const aoeMultiplier = skillStats.aoeIncreasedSize.total
+                    effectValue.value = effectValue.baseValue * (100 + aoeMultiplier) / 100;
+                    effectValue.displayValue = bankerRound(effectValue.value, 2);
+                }
             }
         }
     }

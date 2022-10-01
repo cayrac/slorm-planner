@@ -6,16 +6,19 @@ import { RuneType } from './rune-type';
 
 export interface ActivationRune extends Rune {
     type: RuneType.Activation;
+    baseConstraint: null;
     constraint: null;
 }
 
 export interface EffectRune extends Rune {
     type: RuneType.Effect;
+    baseConstraint: number;
     constraint: number;
 }
 
 export interface EnhancementRune extends Rune {
     type: RuneType.Enhancement;
+    baseConstraint: null;
     constraint: null;
 }
 
@@ -28,6 +31,7 @@ export interface Rune {
     reaper: number | null;
     enabled: boolean;
     type: RuneType;
+    baseConstraint: null | number;
     constraint: null | number;
 
     template: string;

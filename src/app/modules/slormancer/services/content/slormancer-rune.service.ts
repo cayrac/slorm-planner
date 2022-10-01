@@ -150,6 +150,7 @@ export class SlormancerRuneService {
             level,
             type: this.idToType(data.REF),
             activable: this.getActivableById(data.REF, heroClass),
+            baseConstraint: data.POWER,
             constraint: data.POWER,
             constraintLabel: null,
             description: '',
@@ -214,6 +215,7 @@ export class SlormancerRuneService {
 
     public updateRuneModel(rune: Rune, reaperId: number | null) {
         rune.enabled = rune.reaper === null || rune.reaper !== reaperId; 
+        rune.constraint = rune.baseConstraint;
         
         if (rune.duration !== null) {
             this.slormancerEffectValueService.updateEffectValue(rune.duration, rune.level);
