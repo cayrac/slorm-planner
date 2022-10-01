@@ -121,6 +121,7 @@ export interface CharacterConfig {
     fulgurorn_dedication_stacks: number;
     enemy_inner_weakness_stacks: number;
     apex_predator_stacks: number;
+    effective_rune_stacks: number;
     has_elemental_temper_buff: boolean;
     has_splash_splash_buff: boolean;
     has_soul_bound_buff: boolean;

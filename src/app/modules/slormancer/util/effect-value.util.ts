@@ -25,6 +25,7 @@ export function effectValueVariable(value: number, upgrade: number, upgradeType:
         displayValue: value,
         max,
         baseValue: value,
+        baseUpgrade: upgrade,
         upgrade,
         upgradedValue: value,
         upgradeType
@@ -41,6 +42,7 @@ export function effectValueSynergy(value: number, upgrade: number, upgradeType: 
         displayValue: value,
         max,
         baseValue: value,
+        baseUpgrade: upgrade,
         upgrade,
         upgradeType,
         source,

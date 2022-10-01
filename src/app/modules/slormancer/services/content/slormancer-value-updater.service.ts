@@ -585,8 +585,7 @@ export class SlormancerValueUpdater {
         return [];
     }
 
-    public updateRuneValues(character: Character, additionalRunes: Array<Rune>, stats: SkillStatsBuildResult, config: CharacterConfig) {
-        const skillStats = this.getSkillStats(stats, character);
+    public precomputeRunePowerAndEffect(character: Character, additionalRunes: Array<Rune>, stats: SkillStatsBuildResult, config: CharacterConfig) {
         const allRunes = [character.runes.activation, character.runes.effect, character.runes.enhancement, ...additionalRunes].filter(isNotNullOrUndefined);
 
         let reduced_power = stats.extractedStats['effect_rune_reduced_power'] ? valueOrNull(stats.extractedStats['effect_rune_reduced_power'][0]?.value) : null;
@@ -612,8 +611,73 @@ export class SlormancerValueUpdater {
                 }
             }
         }
-        
 
+        const power = character.runes.effect !== null ? character.runes.effect.constraint : 100;
+        const powerMultiplier = power / 100;
+        const effectMultiplier = (100 + <number>valueOrDefault(stats.stats.find(stat => stat.stat === 'effect_rune_effect')?.total, 100)) / 100;
+        const ignoredEffectMultiplierStats = [
+            'inner_fire_chance_percent',
+            'firework_trigger_chance',
+            'brut_chance_percent',
+            'crit_chance_percent',
+            'unrelenting_stacks_max',
+            'min_basic_damage_add',
+            'afflict_chance',
+            'afflict_duration',
+            'alpha_omega_mana_treshold',
+            'alpha_omega_increased_damage',
+            'alpha_omega_increased_size',
+            'prime_totem_shoot_count',
+            'prime_totem_duration',
+            'mana_harvest_duration',
+            'cooldown_reduction_per_walk',
+            'cooldown_reduction_per_walk_distance',
+            'max_skeleton_count',
+        ];
+
+        for (const rune of allRunes) {
+            if (rune.activable !== null && rune.id === 4 && rune.activable.baseCooldown !== null) {
+                const durationReduction = rune.values[0];
+
+                if (durationReduction) {
+                    rune.activable.baseCooldown = (rune.activable.baseCooldown - durationReduction.value) * powerMultiplier;
+                }
+            }
+
+            if (rune.type === RuneType.Activation) {
+                for (const effectValue of rune.values) {
+                    if ((isEffectValueVariable(effectValue) || isEffectValueSynergy(effectValue))) {
+                        this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level, powerMultiplier, 0);
+                    }
+                }
+            }
+
+            if (rune.type === RuneType.Effect) {
+                for (const effectValue of rune.values) {
+                    if (isEffectValueVariable(effectValue) || isEffectValueSynergy(effectValue)) {
+                        if (!ignoredEffectMultiplierStats.includes(effectValue.stat) && (!isEffectValueSynergy(effectValue) || (effectValue.source !== 'victims_current_reaper' && effectValue.source !== 'max_mana'))) {
+                            this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level, effectMultiplier, 3);
+                        }
+                    }
+                }
+            }
+
+            if (rune.id === 22) {
+                for (const effectValue of rune.values) {
+                    if (isEffectValueVariable(effectValue) && effectValue.stat === 'effect_rune_trigger_chance') {
+                        const triggerMultiplier =  1 + (100 - power) / 200;
+                        console.log('power : ', power, triggerMultiplier);
+                        this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level, triggerMultiplier, 3);
+                    }
+                }
+            }
+        } 
+    }
+
+    public updateRuneValues(character: Character, additionalRunes: Array<Rune>, stats: SkillStatsBuildResult, config: CharacterConfig) {
+        const skillStats = this.getSkillStats(stats, character);
+        const allRunes = [character.runes.activation, character.runes.effect, character.runes.enhancement, ...additionalRunes].filter(isNotNullOrUndefined);
+                
         for (const rune of allRunes) {
             for (const effectValue of rune.values) {
                 if (effectValue.valueType === EffectValueValueType.AreaOfEffect) {

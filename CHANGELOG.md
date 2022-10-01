@@ -194,6 +194,9 @@
 - fix immortal arrow instructions count
 
 ### TODO
+- précalcul rune effect + power
+
+- ajouter recherche sur rune / ultimatum / reaper
 - modale edition runes
 - tester runes + config rune active
 - tester et retirer flag "non présent" sur fate crusher

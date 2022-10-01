@@ -16,6 +16,7 @@ export interface AbstractEffectValue {
 
 export interface EffectValueVariable extends AbstractEffectValue {
     type: EffectValueType.Variable;
+    baseUpgrade: number;
     upgrade: number;
     upgradedValue: number;
     upgradeType: EffectValueUpgradeType;
@@ -27,6 +28,7 @@ export interface EffectValueConstant extends AbstractEffectValue {
 
 export interface EffectValueSynergy extends AbstractEffectValue {
     type: EffectValueType.Synergy;
+    baseUpgrade: number;
     upgrade: number;
     upgradeType: EffectValueUpgradeType;
     source: string;

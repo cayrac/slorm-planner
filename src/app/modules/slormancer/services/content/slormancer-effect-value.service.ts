@@ -15,11 +15,22 @@ export class SlormancerEffectValueService {
     }
 
     // TODO update effect value model / view
-    public updateEffectValue(effectValue: AbstractEffectValue, upgradeMultiplier: number): AbstractEffectValue {
+    public updateEffectValue(effectValue: AbstractEffectValue, upgradeMultiplier: number, globalMultiplier: number | null = null, globalMultiplierPrecision: number | null = null): AbstractEffectValue {
         if (isEffectValueSynergy(effectValue) || isEffectValueVariable(effectValue)) {
             let value = effectValue.baseValue;
-            if (effectValue.upgradeType === EffectValueUpgradeType.Every3 || effectValue.upgradeType === EffectValueUpgradeType.Every3RuneLevel) {
+            if (globalMultiplier !== null && globalMultiplierPrecision !== null) {
+                value = bankerRound(value * globalMultiplier, globalMultiplierPrecision);
+                effectValue.upgrade = bankerRound(effectValue.baseUpgrade * globalMultiplier, globalMultiplierPrecision);
+            }
+            if (effectValue.upgradeType === EffectValueUpgradeType.Every3) {
                 value += effectValue.upgrade * Math.floor(upgradeMultiplier / 3);
+            } else if (effectValue.upgradeType === EffectValueUpgradeType.Every3RuneLevel) {
+                // activation rune every 3 bug
+                if (globalMultiplier !== null && globalMultiplier !== 1) {
+                    value += Math.ceil(effectValue.upgrade * upgradeMultiplier / 3);
+                } else {
+                    value += effectValue.upgrade * Math.floor(upgradeMultiplier / 3);
+                }
             } else if (effectValue.upgradeType === EffectValueUpgradeType.Every5RuneLevel ) {
                 value += effectValue.upgrade * Math.floor(upgradeMultiplier / 5);
             } else {

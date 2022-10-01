@@ -315,7 +315,6 @@ export class SlormancerStatsExtractorService {
                         stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, { reaper: character.reaper }, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping)));
                     }
                 } else if (applyEffect) {
-                    console.log('add stat ', effectValue.stat)
                     this.addStat(stats.stats, effectValue.stat, effectValue.value, source);
                 }
             }

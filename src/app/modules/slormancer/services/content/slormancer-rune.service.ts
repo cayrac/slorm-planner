@@ -10,7 +10,15 @@ import { RuneType } from '@slormancer/model/content/rune-type';
 import { RunesCombination } from '@slormancer/model/runes-combination';
 import { effectValueSynergy, effectValueVariable } from '@slormancer/util/effect-value.util';
 import { list } from '@slormancer/util/math.util';
-import { emptyStringToNull, splitData, splitFloatData, valueOrDefault, valueOrNull } from '@slormancer/util/utils';
+import {
+    emptyStringToNull,
+    isEffectValueSynergy,
+    isEffectValueVariable,
+    splitData,
+    splitFloatData,
+    valueOrDefault,
+    valueOrNull,
+} from '@slormancer/util/utils';
 
 import { SlormancerActivableService } from '.././content/slormancer-activable.service';
 import { SlormancerEffectValueService } from '.././content/slormancer-effect-value.service';
@@ -222,19 +230,19 @@ export class SlormancerRuneService {
         }
 
         for (const effectValue of rune.values) {
+            if (isEffectValueSynergy(effectValue) || isEffectValueVariable(effectValue)) {
+                effectValue.upgrade = effectValue.baseUpgrade;
+            }
             this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level);
         }
 
         if (rune.activable !== null) {
             if (rune.id === 4) {
-                const durationReduction = rune.values[0];
-
-                if (durationReduction) {
-                    rune.activable.baseCooldown = this.TRIGGER_EFFECT_RUNE_BASE_COOLDOWN - durationReduction.value;
-                }
+                rune.activable.baseCooldown = this.TRIGGER_EFFECT_RUNE_BASE_COOLDOWN;
             }
-
+    
             rune.activable.level = rune.level;
+            
             this.slormancerActivableService.updateActivableModel(rune.activable);
         }
     }

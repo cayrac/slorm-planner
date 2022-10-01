@@ -311,6 +311,8 @@ export class SlormancerCharacterUpdaterService {
 
         const preComputingChanged = this.updateCharacterActivables(character, statResultPreComputing, config, additionalItem, additionalRunes, true);
 
+        this.slormancerValueUpdater.precomputeRunePowerAndEffect(character, additionalRunes, statResultPreComputing, config);
+
         if (character.ultimatum !== null) {
             character.ultimatum.locked = statResultPreComputing.extractedStats['disable_ultimatum'] !== undefined;
         }

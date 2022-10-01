@@ -191,6 +191,9 @@ export class BuildRetrocompatibilityService {
                 if (build.configuration.effect_rune_affinity === undefined) {
                     build.configuration.effect_rune_affinity = 100;
                 }
+                if (build.configuration.effective_rune_stacks === undefined) {
+                    build.configuration.effective_rune_stacks = 225;
+                }
             }
         },
     ];

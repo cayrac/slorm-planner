@@ -203,6 +203,13 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Rune (Enhancement of Hagan)',
+            condition: character => character.runes.enhancement !== null && character.runes.enhancement.id === 23,
+            configurations: [
+                { type: 'number', key: 'effective_rune_stacks', label: 'Effective rune stacks' },
+            ]
+        },
+        {
             title: 'Gold Armor',
             condition: character => this.hasActivable(character, 0),
             configurations: [

@@ -276,6 +276,27 @@ export const MAX_MANA_MAPPING: MergedStatMapping = {
 }
 
 export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
+    {
+        stat: 'effect_rune_effect',
+        precision: 0,
+        allowMinMax: false,
+        suffix: '',
+        source: {
+            flat: [
+                { stat: 'effect_rune_increased_effect' },
+                { 
+                    stat: 'effect_rune_increased_effect_per_effective_rune_stack',
+                    multiplier: (config, stats) => Math.min(config.effective_rune_stacks, getFirstStat(stats, 'effect_rune_increased_effect_per_effective_rune_stack_max')),
+                    condition: (config) => config.effective_rune_stacks > 0
+                }
+            ],
+            max: [],
+            percent: [],
+            maxPercent: [],
+            multiplier: [],
+            maxMultiplier: [],
+        } 
+    },
     // adventure
     {
         stat: 'level',

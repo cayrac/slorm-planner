@@ -31,6 +31,7 @@ function setUpgrade(rune: Rune, index: number, upgrade: number) {
     const value = rune.values[index]
 
     if (value && (isEffectValueVariable(value) || isEffectValueSynergy(value))) {
+        value.baseUpgrade = upgrade;
         value.upgrade = upgrade;
     } else {
         throw new Error('failed to update stat for rune value at index ' + index);
@@ -166,7 +167,7 @@ export const DATA_RUNE: { [key: number]: DataRune } = {
     11: {
         override: rune => {
             setStat(rune, 0, 'garbage_stat');
-            setStat(rune, 1, 'garbage_stat');
+            setStat(rune, 1, 'unrelenting_stacks_max');
         }
     },
     12: {
@@ -177,8 +178,15 @@ export const DATA_RUNE: { [key: number]: DataRune } = {
     13: {
         override: rune => {
             setStat(rune, 1, 'elemental_damage');
+            rune.values[1] = effectValueVariable(10, 5, EffectValueUpgradeType.RuneLevel, true, 'afflict_chance');
             setType(rune, 2, EffectValueType.Variable);
-            setStat(rune, 3, 'garbage_stat');
+            setStat(rune, 2, 'afflict_duration');
+            rune.values[3] = effectValueSynergy(75, 0, EffectValueUpgradeType.RuneLevel, false, 'current_mana', 'elemental_damage');
+
+            setUpgrade(rune, 1, 5);
+
+            
+            setValue(rune, 1, 10);
         }
     },
     14: {
@@ -191,9 +199,9 @@ export const DATA_RUNE: { [key: number]: DataRune } = {
             setStat(rune, 0, 'physical_damage');
             setStat(rune, 1, 'elemental_damage');
             setValue(rune, 1, 50);
-            rune.values[2] = effectValueVariable(50, 0, EffectValueUpgradeType.RuneLevel, true, 'garbage_stat');
-            rune.values[3] = effectValueVariable(75, 0, EffectValueUpgradeType.RuneLevel, true, 'garbage_stat');
-            rune.values[4] = effectValueVariable(0, 5, EffectValueUpgradeType.RuneLevel, true, 'garbage_stat');
+            rune.values[2] = effectValueVariable(50, 0, EffectValueUpgradeType.RuneLevel, true, 'alpha_omega_mana_treshold');
+            rune.values[3] = effectValueVariable(75, 0, EffectValueUpgradeType.RuneLevel, true, 'alpha_omega_increased_damage');
+            rune.values[4] = effectValueVariable(0, 5, EffectValueUpgradeType.RuneLevel, true, 'alpha_omega_increased_size');
         }
     },
     16: {
@@ -208,22 +216,22 @@ export const DATA_RUNE: { [key: number]: DataRune } = {
     17: {
         override: rune => {
             setStat(rune, 0, 'garbage_stat');
-            setStat(rune, 1, 'garbage_stat');
-            setStat(rune, 2, 'garbage_stat');
+            setStat(rune, 1, 'prime_totem_shoot_count');
+            setStat(rune, 2, 'prime_totem_duration');
         }
     },
     18: {
         override: rune => {
             setValue(rune, 0, 200);
             setUpgrade(rune, 0, 0);
-            addVariable(rune, 5, 1, 'duration', EffectValueValueType.Duration, false);
+            addVariable(rune, 5, 1, 'mana_harvest_duration', EffectValueValueType.Duration, false);
             addConstant(rune, 1.5, 'garbage_stat', EffectValueValueType.AreaOfEffect);
         }
     },
     19: {
         override: rune => {
-            setStat(rune, 1, 'garbage_stat');
-            setStat(rune, 2, 'garbage_stat');
+            setStat(rune, 1, 'cooldown_reduction_per_walk');
+            setStat(rune, 2, 'cooldown_reduction_per_walk_distance');
         }
     },
     20: {
@@ -243,7 +251,7 @@ export const DATA_RUNE: { [key: number]: DataRune } = {
     },
     22: {
         override: rune => {
-            setStat(rune, 0, 'garbage_stat');
+            setStat(rune, 0, 'effect_rune_trigger_chance');
             setStat(rune, 1, 'garbage_stat');
         }
     },
@@ -259,6 +267,7 @@ export const DATA_RUNE: { [key: number]: DataRune } = {
             setStat(rune, 0, 'enhancement_rune_stack_max');
             setStat(rune, 1, 'effect_rune_duration_increased_per_enhancement_rune_stack');
             setStat(rune, 2, 'garbage_stat');
+            setUpgradeType(rune, 2, EffectValueUpgradeType.RuneLevel);
         }
     },
     25: {

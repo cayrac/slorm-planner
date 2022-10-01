@@ -34,7 +34,7 @@ mat-dialog-content {
 
         .stat-line {
             @include flex(row);
-            @include flex-gap($space-unit * 2);
+            @include flex-gap($space-unit * 3);
         }
     }
 }
