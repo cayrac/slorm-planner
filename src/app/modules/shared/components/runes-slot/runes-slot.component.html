@@ -1,9 +1,6 @@
 
 <div class="runes" (click)="edit()" *ngIf="character !== null" [class.readonly]="readonly">
-    <div class="inner-slot"></div>
-    <ng-container>
-        <app-rune-slot [showLevel]="false" [rune]="character.runes.activation"></app-rune-slot>
-        <app-rune-slot [showLevel]="false" [rune]="character.runes.effect"></app-rune-slot>
-        <app-rune-slot [showLevel]="false" [rune]="character.runes.enhancement"></app-rune-slot>
-    </ng-container>
+    <app-rune-slot [showLevel]="false" [rune]="character.runes.activation"></app-rune-slot>
+    <app-rune-slot [showLevel]="false" [rune]="character.runes.effect"></app-rune-slot>
+    <app-rune-slot [showLevel]="false" [rune]="character.runes.enhancement"></app-rune-slot>
 </div>

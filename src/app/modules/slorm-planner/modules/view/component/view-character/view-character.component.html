@@ -3,12 +3,12 @@
         <mat-card-content>
             <h3>{{character.fullName}}</h3>
             <app-character-equipment [character]="character" [readonly]="true"></app-character-equipment>
-            <hr/>
             <div class="weapon">
                 <app-reaper-slot
                     [readonly]="true"
                     [character]="character">
                 </app-reaper-slot>
+                <app-runes-slot [character]="character" [readonly]="true"></app-runes-slot>
             </div>
         </mat-card-content>
         <mat-card-actions>

@@ -20,6 +20,7 @@ main {
 
         @include respond-to('tablet') {
             width: auto;
+            min-width: auto;
             max-width: initial;
         }
     
@@ -30,8 +31,9 @@ main {
 
         .weapon {
             @include flex(column, center, center);
-            margin: $space-content;
-            padding: $space-content;
+            @include flex-gap($space-unit * 12);
+            margin: $space-unit $space-content $space-content $space-content;
+            padding: $space-unit * 3 $space-unit * 3;
             background-color: rgb(22, 20, 18);
             border: 3px solid rgb(60, 60, 60);
         }
