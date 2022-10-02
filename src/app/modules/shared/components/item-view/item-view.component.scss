@@ -214,8 +214,23 @@ $pure-color            : rgb(70, 231, 176);
                             &.pure {
                                 color: $pure-color;
                                 background: linear-gradient(90deg, rgba($pure-color,0.3) 0%, rgba($pure-color,0) 100%);
-                                .name:after {
-                                    content : ' !!'  
+
+                                &.marks {
+                                    &-1 {
+                                        .name:after {
+                                            content : ' !'  
+                                        }
+                                    }
+                                    &-2 {
+                                        .name:after {
+                                            content : ' !!'  
+                                        }
+                                    }
+                                    &-3 {
+                                        .name:after {
+                                            content : ' !!!'  
+                                        }
+                                    }
                                 }
                             }
     

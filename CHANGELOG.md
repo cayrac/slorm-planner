@@ -190,19 +190,13 @@
 - Removed unavailable flag on fate crusher
 ### Fixes
 - Ancestral legacy reaper now correctly convert reaper damage to elemental damage with non primordial version
-- fixed a round issue on ancestral legacy aoe size
+- Fixed a round issue on ancestral legacy aoe size
 - Immortal arrow instructions count is now correctly computed
-
-### Known issues
-- pure values always have 2 !!
+- Pure stats now show the correct number of !
 
 ### TODO
-- précalcul rune effect + power
-
 - ajouter recherche sur rune / ultimatum / reaper
-- tester runes + config rune active
-- tester et retirer flag "non présent" sur fate crusher
-
+- mettre à jour version
 
 ## Planned changes
 - slorm-legendaries ?

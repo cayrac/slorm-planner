@@ -549,7 +549,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Unknown, 'garbage_stat');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Unknown, 'garbage_stat');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Unknown, 'garbage_stat');
-            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'ultimatum_increased_effect');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'ultimatum_increased_effect_momentum_buff');
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Unknown, 'garbage_stat');
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'primary_secondary_skill_additional_damage');
             setSynergyPrecision(ba, 5, 0);

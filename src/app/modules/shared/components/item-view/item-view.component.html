@@ -18,7 +18,7 @@
                 <div class="affixes" *ngIf="getNormalAffixes().length > 0">
                     <div class="title">Base Stats:</div>
                     <ul>
-                        <li *ngFor="let affix of getNormalAffixes()"  [class.pure]="affix.isPure">
+                        <li *ngFor="let affix of getNormalAffixes()"  [class.pure]="affix.isPure" class="marks-{{affix.pureMarks}}">
                             <div class="bullet"><div class="{{affix.rarity}}"></div></div>
                             <div class="value" [innerHTML]="affix.valueLabel"></div>
                             <div class="name" [innerHTML]="affix.statLabel"></div>
@@ -28,7 +28,7 @@
                 <div class="affixes" *ngIf="getMagicAffixes().length > 0">
                     <div class="title">Magic Stats:</div>
                     <ul>
-                        <li *ngFor="let affix of getMagicAffixes()"  [class.pure]="affix.isPure">
+                        <li *ngFor="let affix of getMagicAffixes()"  [class.pure]="affix.isPure" class="marks-{{affix.pureMarks}}">
                             <div class="bullet"><div class="{{affix.rarity}}"></div></div>
                             <div class="value" [innerHTML]="affix.valueLabel"></div>
                             <div class="name" [innerHTML]="affix.statLabel"></div>
@@ -38,7 +38,7 @@
                 <div class="affixes" *ngIf="getRareAffixes().length > 0">
                     <div class="title">Rare Stats:</div>
                     <ul>
-                        <li *ngFor="let affix of getRareAffixes()"  [class.pure]="affix.isPure">
+                        <li *ngFor="let affix of getRareAffixes()"  [class.pure]="affix.isPure" class="marks-{{affix.pureMarks}}">
                             <div class="bullet"><div class="{{affix.rarity}}"></div></div>
                             <div class="value" [innerHTML]="affix.valueLabel"></div>
                             <div class="name" [innerHTML]="affix.statLabel"></div>
@@ -48,7 +48,7 @@
                 <div class="affixes" *ngIf="getEpicAffixes().length > 0">
                     <div class="title">Epic Stats:</div>
                     <ul>
-                        <li *ngFor="let affix of getEpicAffixes()"  [class.pure]="affix.isPure">
+                        <li *ngFor="let affix of getEpicAffixes()"  [class.pure]="affix.isPure" class="marks-{{affix.pureMarks}}">
                             <div class="bullet"><div class="{{affix.rarity}}"></div></div>
                             <div class="value" [innerHTML]="affix.valueLabel"></div>
                             <div class="name" [innerHTML]="affix.statLabel"></div>

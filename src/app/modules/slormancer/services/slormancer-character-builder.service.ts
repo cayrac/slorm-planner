@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ReaperSmith } from '@slormancer/model/content/enum/reaper-smith';
 import { ActivationRune, EffectRune, EnhancementRune } from '@slormancer/model/content/rune';
 import { RuneType } from '@slormancer/model/content/rune-type';
 import { RunesCombination } from '@slormancer/model/runes-combination';
@@ -91,7 +92,20 @@ export class SlormancerCharacterBuilderService {
             throw new Error('failed to parse reaper');
         }
 
-        result.baseAffinity = save.reaper_affinity[result.smith.id];
+        if (result.smith.id === ReaperSmith.ReapersmithBrotherhood) {
+            result.baseAffinity = Math.max(
+                save.reaper_affinity[ReaperSmith.Adrianne],
+                save.reaper_affinity[ReaperSmith.Astorias],
+                save.reaper_affinity[ReaperSmith.Beigarth],
+                save.reaper_affinity[ReaperSmith.CoryIronbender],
+                save.reaper_affinity[ReaperSmith.Fulgurorn],
+                save.reaper_affinity[ReaperSmith.Hagan],
+                save.reaper_affinity[ReaperSmith.Smaloron]
+            );
+        } else {
+            result.baseAffinity = save.reaper_affinity[result.smith.id];
+        }
+
         this.slormancerReaperService.updateReaperModel(result);
         this.slormancerReaperService.updateReaperView(result);
 

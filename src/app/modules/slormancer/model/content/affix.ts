@@ -14,6 +14,8 @@ export interface Affix {
     craftedEffect: CraftableEffect<EffectValueConstant>;
 
     isPure: boolean;
+    pureMarks: number;
+
     valueLabel: string;
     statLabel: string;
 }

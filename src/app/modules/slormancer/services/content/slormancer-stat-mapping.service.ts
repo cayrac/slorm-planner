@@ -85,9 +85,10 @@ export class SlormancerStatMappingService {
             
             const multipliers: Array<{ extra: boolean, value: number, source: Entity }> = [];
 
+            multipliers.push(...valueOrDefault(extractedStats['ultimatum_increased_effect'], []).map(mult => ({ ...mult, extra: true })));
+
             if (config.ultima_momentum_buff) {
-                const ultimaMultipliers = valueOrDefault(extractedStats['ultimatum_increased_effect'], []);
-                multipliers.push(...ultimaMultipliers.map(mult => ({ ...mult, extra: true })));
+                multipliers.push(...valueOrDefault(extractedStats['ultimatum_increased_effect_momentum_buff'], []).map(mult => ({ ...mult, extra: true })));
             }
 
             // Ultima momentum bug on movement speed

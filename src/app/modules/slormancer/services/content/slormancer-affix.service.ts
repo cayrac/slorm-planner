@@ -57,6 +57,7 @@ export class SlormancerAffixService {
             locked,
             pure,
             isPure: false,
+            pureMarks: 0,
             minLevel: stat.MIN_LEVEL,
 
             craftedEffect: {
@@ -114,6 +115,7 @@ export class SlormancerAffixService {
     public updateAffix(itemAffix: Affix) {
 
         itemAffix.isPure = itemAffix.pure > 100;
+        itemAffix.pureMarks = itemAffix.isPure ? (itemAffix.pure <= 150 ? 1 : (itemAffix.pure <= 190 ? 2 : 3)) : 0
 
         if (itemAffix.isPure) {
             itemAffix.craftedEffect.craftedValue = itemAffix.craftedEffect.maxPossibleCraftedValue;
