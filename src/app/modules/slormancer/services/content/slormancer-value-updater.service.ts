@@ -544,7 +544,7 @@ export class SlormancerValueUpdater {
                 }
             } else if (value.valueType === EffectValueValueType.AreaOfEffect) {
                 value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
-                value.displayValue = round(value.value, 2);
+                value.displayValue = bankerRound(value.value, 2);
             } else if (value.valueType !== EffectValueValueType.Static && !isIcyVeins) {
                 const statMultipliers = this.getValidStatMultipliers(ancestralLegacy.genres, skillStats);
                 value.value = isEffectValueVariable(value) ? value.upgradedValue : value.baseValue;

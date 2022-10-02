@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Character } from '@slormancer/model/character';
 import { RunesCombination } from '@slormancer/model/runes-combination';
@@ -11,7 +11,7 @@ import { RunesEditModalComponent, RunesEditModalData } from '../runes-edit-modal
   templateUrl: './runes-slot.component.html',
   styleUrls: ['./runes-slot.component.scss']
 })
-export class RunesSlotComponent implements OnInit {
+export class RunesSlotComponent {
 
     @Input()
     public readonly character: Character | null = null;
@@ -24,8 +24,6 @@ export class RunesSlotComponent implements OnInit {
     
     constructor(private dialog: MatDialog,
                 private slormancerCharacterBuilderService: SlormancerCharacterBuilderService) { }
-
-    public ngOnInit() { this.edit(); }
 
     public edit() {
         if (this.character !== null && !this.readonly) {

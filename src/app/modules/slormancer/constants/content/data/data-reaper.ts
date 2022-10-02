@@ -509,7 +509,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma, reaperId) => {
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'power_crystal_count');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Damage, 'elemental_damage');
-            addConstant(be, 1, false, EffectValueValueType.Stat, 'reaper_added_to_elements');
+            addConstant(ba, 1, false, EffectValueValueType.Stat, 'reaper_added_to_elements');
 
             if (reaperId === 82 && ba !== null) {
                 changeValue(ba, 1, 2);
