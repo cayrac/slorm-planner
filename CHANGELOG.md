@@ -181,19 +181,19 @@
 - Armor of Obliteration now correctly increase armor and elemental resistance if you are channeling Ray of Obliteration
 - Fixed Ultra Canon and Manabender activable description
 
-## Release 0.2.0 (TBD)
+## Release 0.2.0 (2022-10-02)
 ### Added
 - Added runes
+- Added Reaper affinity
 - Added search for ultimatum, reaper and runes
 ### Changed
 - Updated game data
-- Replaced reaper bonus level by affinity
 - Removed unavailable flag on fate crusher
 ### Fixes
-- Ancestral legacy reaper now correctly convert reaper damage to elemental damage with non primordial version
-- Fixed a round issue on ancestral legacy aoe size
-- Immortal arrow instructions count is now correctly computed
-- Pure stats now show the correct number of !
+- Ancestral legacy reaper now correctly convert reaper damage to elemental damage with non primordial versions
+- Fixed a rounding issue on ancestral legacy aoe size
+- Fixed Immortal Arrow instructions count
+- Fixed pure stats always showing 2 !
 
 ## Planned changes
 - slorm-legendaries ?
