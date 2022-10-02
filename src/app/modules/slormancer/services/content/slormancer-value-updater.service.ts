@@ -666,7 +666,6 @@ export class SlormancerValueUpdater {
                 for (const effectValue of rune.values) {
                     if (isEffectValueVariable(effectValue) && effectValue.stat === 'effect_rune_trigger_chance') {
                         const triggerMultiplier =  1 + (100 - power) / 200;
-                        console.log('power : ', power, triggerMultiplier);
                         this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level, triggerMultiplier, 3);
                     }
                 }
@@ -674,19 +673,23 @@ export class SlormancerValueUpdater {
         } 
     }
 
-    public updateRuneValues(character: Character, additionalRunes: Array<Rune>, stats: SkillStatsBuildResult, config: CharacterConfig) {
+    public updateRuneValues(character: Character, additionalRunes: Array<Rune>, stats: SkillStatsBuildResult, config: CharacterConfig): Array<Rune> {
         const skillStats = this.getSkillStats(stats, character);
         const allRunes = [character.runes.activation, character.runes.effect, character.runes.enhancement, ...additionalRunes].filter(isNotNullOrUndefined);
-                
+        const changedRunes: Array<Rune> = [];        
+
         for (const rune of allRunes) {
             for (const effectValue of rune.values) {
                 if (effectValue.valueType === EffectValueValueType.AreaOfEffect) {
                     const aoeMultiplier = skillStats.aoeIncreasedSize.total
                     effectValue.value = effectValue.baseValue * (100 + aoeMultiplier) / 100;
                     effectValue.displayValue = bankerRound(effectValue.value, 2);
+                    changedRunes.push(rune);
                 }
             }
         }
+
+        return changedRunes;
     }
 
     private spreadAdditionalDamages(damages: Array<EffectValueSynergy>, additional: number | MinMax) {

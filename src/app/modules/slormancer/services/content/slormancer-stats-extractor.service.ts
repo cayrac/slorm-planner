@@ -310,9 +310,9 @@ export class SlormancerStatsExtractorService {
 
                 if (isEffectValueSynergy(effectValue)) {
                     if (isDamageType(effectValue.stat) || !applyEffect) {
-                        stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, { reaper: character.reaper }));
+                        stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source));
                     } else {
-                        stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, { reaper: character.reaper }, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping)));
+                        stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping)));
                     }
                 } else if (applyEffect) {
                     this.addStat(stats.stats, effectValue.stat, effectValue.value, source);
