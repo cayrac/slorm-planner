@@ -14,6 +14,10 @@
     &:not(.readonly) {
         cursor: pointer;
     }
+    
+    &.hidden-search {
+        opacity: 0.2;
+    }
 
     .inner-background {
         @include flex(row, center, center);

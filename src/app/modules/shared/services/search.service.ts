@@ -3,8 +3,10 @@ import { Activable } from '@slormancer/model/content/activable';
 import { AncestralLegacy } from '@slormancer/model/content/ancestral-legacy';
 import { EquipableItem } from '@slormancer/model/content/equipable-item';
 import { Reaper } from '@slormancer/model/content/reaper';
+import { Rune } from '@slormancer/model/content/rune';
 import { SkillUpgrade } from '@slormancer/model/content/skill-upgrade';
 import { Trait } from '@slormancer/model/content/trait';
+import { Ultimatum } from '@slormancer/model/content/ultimatum';
 import { isNotNullOrUndefined } from '@slormancer/util/utils';
 import { BehaviorSubject } from 'rxjs';
 
@@ -78,6 +80,29 @@ export class SearchService {
             item.reaperEnchantment !== null ? this.removeHtmlTags(item.reaperEnchantment.label, ['details']) : null,
             item.skillEnchantment !== null ? this.removeHtmlTags(item.skillEnchantment.label, ['details']) : null,
             item.attributeEnchantment !== null ? this.removeHtmlTags(item.attributeEnchantment.label, ['details']) : null
+        ]) || (item.legendaryEffect !== null && item.legendaryEffect.activable !== null && this.activableMatchSearch(item.legendaryEffect.activable));
+    }
+
+    public runeMatchSearch(rune: Rune): boolean {
+        return this.stringsMatchSearch([
+            rune.level.toString(),
+            rune.name,
+            this.removeHtmlTags(rune.constraintLabel),
+            this.removeHtmlTags(rune.description),
+            rune.flavor,
+            rune.smithLabel,
+            rune.typeLabel
+        ]);
+    }
+
+    public ultimatumMatchSearch(ultimatum: Ultimatum): boolean {
+        return this.stringsMatchSearch([
+            ultimatum.title,
+            ultimatum.levelLabel,
+            ultimatum.bonusTitle,
+            this.removeHtmlTags(ultimatum.bonusLabel),
+            ultimatum.malusTitle,
+            ultimatum.malusLabel
         ]);
     }
     

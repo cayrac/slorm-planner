@@ -1,5 +1,5 @@
 
-<div class="rune" [class.selected]="selected">
+<div class="rune" [class.selected]="selected" [class.hidden-search]="hiddenBySearch">
     <div class="overlay-position" cdkOverlayOrigin #trigger="cdkOverlayOrigin"></div>
     <div class="inner-slot"></div>
     <ng-container *ngIf="rune !== null">

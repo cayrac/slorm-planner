@@ -1,5 +1,5 @@
 
-<div class="reaper" (click)="edit()" *ngIf="character !== null" [class.readonly]="readonly">
+<div class="reaper" (click)="edit()" *ngIf="character !== null" [class.readonly]="readonly" [class.hidden-search]="hiddenBySearch">
     <div class="overlay-position" cdkOverlayOrigin #trigger="cdkOverlayOrigin"></div>
     <div class="inner-slot"></div>
     <ng-container>

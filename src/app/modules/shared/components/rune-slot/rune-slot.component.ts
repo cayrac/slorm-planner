@@ -1,13 +1,17 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener, Input, OnChanges } from '@angular/core';
+import { SearchService } from '@shared/services/search.service';
 import { Rune } from '@slormancer/model/content/rune';
 import { RuneType } from '@slormancer/model/content/rune-type';
+import { takeUntil } from 'rxjs';
+
+import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 
 @Component({
   selector: 'app-rune-slot',
   templateUrl: './rune-slot.component.html',
   styleUrls: ['./rune-slot.component.scss']
 })
-export class RuneSlotComponent {
+export class RuneSlotComponent extends AbstractUnsubscribeComponent implements OnChanges {
 
     @Input()
     public readonly rune: Rune | null = null;
@@ -20,6 +24,8 @@ export class RuneSlotComponent {
 
     public showOverlay = false;
 
+    public hiddenBySearch = false;
+
     @HostListener('mouseenter')
     public onOver() {
         this.showOverlay = true;
@@ -30,7 +36,20 @@ export class RuneSlotComponent {
         this.showOverlay = false;
     }
     
-    constructor() { }
+    constructor(private searchService: SearchService) {
+        super()
+        this.searchService.searchChanged
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(() => this.updateSearch());
+    }
+
+    public ngOnChanges() {
+        this.updateSearch();
+    }
+
+    private updateSearch() {
+        this.hiddenBySearch = this.rune !== null && this.searchService.hasSearch() && !this.searchService.runeMatchSearch(this.rune)
+    }
 
     public hasAura(rune: Rune) {
         return rune.type === RuneType.Effect;

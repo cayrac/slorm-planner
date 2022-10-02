@@ -11,6 +11,10 @@
         cursor: pointer;
     }
 
+    &.hidden-search {
+        opacity: 0.2;
+    }
+
     .overlay-position {
         position: absolute;
         right: 0;
