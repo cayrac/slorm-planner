@@ -11,7 +11,7 @@ import { GameDataAttribute } from '../../model/content/game/data/game-data-attri
 import { GameDataLegendary } from '../../model/content/game/data/game-data-legendary';
 import { GameDataSkill } from '../../model/content/game/data/game-data-skill';
 import { MinMax } from '../../model/minmax';
-import { round } from '../../util/math.util';
+import { bankerRound, round } from '../../util/math.util';
 import {
     findFirst,
     getCraftValue,
@@ -112,7 +112,7 @@ export class SlormancerTemplateService {
             if (hasDetails) {
                 const sign = showBase ? effectValue.upgrade < 0 ? '- ' : '+ ' : effectValue.upgrade < 0 ? '-' : '+';
                 const base = showBase ? (effectValue.displayValue) + percent + ' ': '';
-                const upgrade = showUpgrade ? sign + Math.abs(effectValue.upgrade * upgradeMultiplier) + percent : '';
+                const upgrade = showUpgrade ? sign + bankerRound(Math.abs(effectValue.upgrade * upgradeMultiplier), 2) + percent : '';
 
                 result = base;
 

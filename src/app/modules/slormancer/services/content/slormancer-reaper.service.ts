@@ -50,6 +50,10 @@ export class SlormancerReaperService {
                 private slormancerEffectValueService: SlormancerEffectValueService,
                 private slormancerActivableService: SlormancerActivableService) { }
 
+    private getAffinityMultiplier(affinity: number): number {
+        return 1 + affinity / 200;
+    }
+
     private getDamages(level: number, base: MinMax, perLevel: MinMax, multiplier: number, affinity: number): MinMax {
         const weapon_mult = multiplier;
         const bminr = base.min;
@@ -95,7 +99,7 @@ export class SlormancerReaperService {
             max_prev = Math.ceil(max_basic_total)
         }
 
-        const affinityMultiplier =  1 + affinity / 200;
+        const affinityMultiplier =  this.getAffinityMultiplier(affinity);
 
         return { min: Math.round(cminr * affinityMultiplier), max: Math.round(cmaxr * affinityMultiplier) };
     }
@@ -433,14 +437,32 @@ export class SlormancerReaperService {
         return result;
     }
 
-    private updateEffectValue(value: AbstractEffectValue, reaper: Reaper) {
+    private updateEffectValue(value: AbstractEffectValue, reaper: Reaper, affinityMultiplier: number) {
         let upgradeValue = reaper.level;
         if ((isEffectValueVariable(value) || isEffectValueSynergy(value)) && value.upgradeType === EffectValueUpgradeType.NonPrimordialReaperLevel) {
             upgradeValue = reaper.baseInfo.level;
         }
 
-        upgradeValue = upgradeValue * (1 + reaper.affinity / 200)
-        this.slormancerEffectValueService.updateEffectValue(value, upgradeValue);
+        this.slormancerEffectValueService.updateEffectValue(value, upgradeValue * affinityMultiplier);
+    }
+
+    /*private applyRoundBug(value: AbstractEffectValue) {
+        console.log('rounded ', value.stat , ' from ', value.displayValue , ' to ' ,  bankerRound(value.displayValue));
+        value.value = round(value.value);
+        value.displayValue = round(value.displayValue);
+    }*/
+
+    private findBuggedValuesToRound(reaper: Reaper, value: AbstractEffectValue) {
+        /*if (reaper.id === 80) {
+            if (value.stat === 'the_speed_percent' || value.stat === 'elemental_damage_global_mult') {
+                this.applyRoundBug(value);
+            }
+        }
+        if (reaper.id === 73) {
+            if (value.stat === 'the_max_health_percent') {
+                this.applyRoundBug(value);
+            }
+        }*/
     }
 
     public updateReaperModel(reaper: Reaper) {
@@ -458,19 +480,24 @@ export class SlormancerReaperService {
 
         reaper.damages = this.getDamages(reaper.level, reaper.damagesBase, reaper.damagesLevel, reaper.damagesMultiplier, reaper.affinity);
 
+        const affinityMultiplier =  this.getAffinityMultiplier(reaper.affinity);
+
         for (const reaperEffect of reaper.templates.base) {
             for (const value of reaperEffect.values) {
-                this.updateEffectValue(value, reaper);
+                this.updateEffectValue(value, reaper, affinityMultiplier);
+                this.findBuggedValuesToRound(reaper, value);
             }
         }
         for (const reaperEffect of reaper.templates.benediction) {
             for (const value of reaperEffect.values) {
-                this.updateEffectValue(value, reaper);
+                this.updateEffectValue(value, reaper, affinityMultiplier);
+                this.findBuggedValuesToRound(reaper, value);
             }
         }
         for (const reaperEffect of reaper.templates.malediction) {
             for (const value of reaperEffect.values) {
-                this.updateEffectValue(value, reaper);
+                this.updateEffectValue(value, reaper, affinityMultiplier);
+                this.findBuggedValuesToRound(reaper, value);
             }
         }
 
@@ -492,7 +519,7 @@ export class SlormancerReaperService {
         reaper.damagesLabel = reaper.damages.min + '-' + reaper.damages.max;
         reaper.maxDamagesLabel = reaper.maxDamages.min + '-' + reaper.maxDamages.max + ' at level ' + reaper.maxLevel;
 
-        const affinityMultiplier = 1 + reaper.affinity / 200;
+        const affinityMultiplier =  this.getAffinityMultiplier(reaper.affinity);
 
         reaper.description = this.formatTemplate(reaper.templates.base, affinityMultiplier);
 

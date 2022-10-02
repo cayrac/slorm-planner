@@ -118,7 +118,7 @@ export class ReaperListComponent extends AbstractUnsubscribeComponent implements
     }
 
     public isNotAvailable(reaper: Reaper): boolean {
-        return reaper.id === 53;
+        return false;
     }
 
     public isCopyable(): boolean {
