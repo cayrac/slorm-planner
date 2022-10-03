@@ -198,10 +198,8 @@
 ## Release 0.2.1 (2022-10-03)
 ### Fixes
 - Fixed an issue when loading a saved build from previous version
+- Fixed an issue preventing mana and life lock synergies from working
 
-### known issues
-mana / life lock percent ignored for missing / lock mana / life effects
-bug import
 
 ## Planned changes
 - slorm-legendaries ?
