@@ -195,5 +195,14 @@
 - Fixed Immortal Arrow instructions count
 - Fixed pure stats always showing 2 !
 
+## Release 0.2.1 (2022-10-03)
+### Fixes
+- Fixed an issue when loading a saved build from previous version
+
+### known issues
+mana / life lock percent ignored for missing / lock mana / life effects
+bug import
+
 ## Planned changes
 - slorm-legendaries ?
+

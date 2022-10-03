@@ -119,12 +119,26 @@ export class JsonConverterService {
         };
     }
 
-    private jsonToRunes(runes: JsonRunes, heroClass: HeroClass, reaperId: number | null): RunesCombination {
-        return {
-            activation: runes.activationId === null ? null : this.slormancerRunesService.getRuneById(runes.activationId, heroClass, runes.activationLevel, reaperId),
-            effect: runes.effectId === null ? null : this.slormancerRunesService.getRuneById(runes.effectId, heroClass, runes.effectLevel, reaperId),
-            enhancement: runes.enhancementId === null ? null : this.slormancerRunesService.getRuneById(runes.enhancementId, heroClass, runes.enhancementLevel, reaperId),
+    private jsonToRunes(runes: JsonRunes | undefined, heroClass: HeroClass, reaperId: number | null): RunesCombination {
+        let result: RunesCombination = {
+            activation: null,
+            effect: null,
+            enhancement: null,
         };
+
+        if (runes !== undefined) {
+            if (runes.activationId !== null) {
+                result.activation = this.slormancerRunesService.getRuneById(runes.activationId, heroClass, runes.activationLevel, reaperId);
+            }
+            if (runes.effectId !== null) {
+                result.effect = this.slormancerRunesService.getRuneById(runes.effectId, heroClass, runes.effectLevel, reaperId);
+            }
+            if (runes.enhancementId !== null) {
+                result.enhancement = this.slormancerRunesService.getRuneById(runes.enhancementId, heroClass, runes.enhancementLevel, reaperId);
+            }
+        }
+        
+        return result;
     }
 
     private ultimatumToJson(ultimatum: Ultimatum | null): JsonUltimatum | null {

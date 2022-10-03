@@ -39,7 +39,7 @@ export interface JsonCharacter {
 
     reaper: JsonReaper;
 
-    runes: JsonRunes;
+    runes: JsonRunes | undefined;
 
     skills: Array<JsonSkill>;
 
