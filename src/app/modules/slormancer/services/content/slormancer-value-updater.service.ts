@@ -14,7 +14,7 @@ import { Activable } from '../../model/content/activable';
 import { AncestralLegacy } from '../../model/content/ancestral-legacy';
 import { MergedStat } from '../../model/content/character-stats';
 import { ClassMechanic } from '../../model/content/class-mechanic';
-import { AbstractEffectValue, EffectValueSynergy } from '../../model/content/effect-value';
+import { AbstractEffectValue, EffectValueSynergy, EffectValueVariable } from '../../model/content/effect-value';
 import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
 import { HeroClass } from '../../model/content/enum/hero-class';
 import { ALL_SKILL_COST_TYPES, SkillCostType } from '../../model/content/enum/skill-cost-type';
@@ -40,7 +40,7 @@ import { SlormancerEffectValueService } from './slormancer-effect-value.service'
 import { SlormancerMergedStatUpdaterService } from './slormancer-merged-stat-updater.service';
 import { SlormancerStatMappingService } from './slormancer-stat-mapping.service';
 import { ExtractedStatMap } from './slormancer-stats-extractor.service';
-import { SkillStatsBuildResult } from './slormancer-stats.service';
+import { CharacterStatsBuildResult, SkillStatsBuildResult } from './slormancer-stats.service';
 
 interface SkillStats {
     mana: MergedStat<number>;
@@ -585,7 +585,7 @@ export class SlormancerValueUpdater {
         return [];
     }
 
-    public precomputeRunePowerAndEffect(character: Character, additionalRunes: Array<Rune>, stats: SkillStatsBuildResult, config: CharacterConfig) {
+    public precomputeRunePowerAndEffect(character: Character, additionalRunes: Array<Rune>, stats: CharacterStatsBuildResult, config: CharacterConfig) {
         const allRunes = [character.runes.activation, character.runes.effect, character.runes.enhancement, ...additionalRunes].filter(isNotNullOrUndefined);
 
         let reduced_power = stats.extractedStats['effect_rune_reduced_power'] ? valueOrNull(stats.extractedStats['effect_rune_reduced_power'][0]?.value) : null;
@@ -603,12 +603,13 @@ export class SlormancerValueUpdater {
         for (const rune of allRunes) {
             if (rune.type === RuneType.Effect) {
                 if (reduced_power !== null) {
-                    rune.constraint = (<EffectRune>rune).baseConstraint * (100 - reduced_power) / 100;
+                    rune.constraint = bankerRound((<EffectRune>rune).baseConstraint * (100 - reduced_power) / 100);
                 } else if (increased_power !== null) {
-                    rune.constraint = (<EffectRune>rune).baseConstraint * (100 + increased_power) / 100;
+                    rune.constraint = bankerRound((<EffectRune>rune).baseConstraint * (100 + increased_power) / 100);
                 } else if (power_override !== null) {
                     rune.constraint = power_override;
                 }
+                stats.changed.runes.push(rune);
             }
         }
 
@@ -636,11 +637,14 @@ export class SlormancerValueUpdater {
         ];
 
         for (const rune of allRunes) {
+            let changed = false;
+
             if (rune.activable !== null && rune.id === 4 && rune.activable.baseCooldown !== null) {
                 const durationReduction = rune.values[0];
 
                 if (durationReduction) {
                     rune.activable.baseCooldown = (rune.activable.baseCooldown - durationReduction.value) * powerMultiplier;
+                    changed = true;
                 }
             }
 
@@ -648,6 +652,7 @@ export class SlormancerValueUpdater {
                 for (const effectValue of rune.values) {
                     if ((isEffectValueVariable(effectValue) || isEffectValueSynergy(effectValue))) {
                         this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level, powerMultiplier, 0);
+                        changed = true;
                     }
                 }
             }
@@ -657,6 +662,7 @@ export class SlormancerValueUpdater {
                     if (isEffectValueVariable(effectValue) || isEffectValueSynergy(effectValue)) {
                         if (!ignoredEffectMultiplierStats.includes(effectValue.stat) && (!isEffectValueSynergy(effectValue) || (effectValue.source !== 'victims_current_reaper' && effectValue.source !== 'max_mana'))) {
                             this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level, effectMultiplier, 3);
+                            changed = true;
                         }
                     }
                 }
@@ -667,29 +673,47 @@ export class SlormancerValueUpdater {
                     if (isEffectValueVariable(effectValue) && effectValue.stat === 'effect_rune_trigger_chance') {
                         const triggerMultiplier =  1 + (100 - power) / 200;
                         this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level, triggerMultiplier, 3);
+                        changed = true;
                     }
                 }
             }
-        } 
+
+            if (changed) {
+                stats.changed.runes.push(rune);
+            }
+        }
     }
 
-    public updateRuneValues(character: Character, additionalRunes: Array<Rune>, stats: SkillStatsBuildResult, config: CharacterConfig): Array<Rune> {
+    public updateRuneValues(character: Character, additionalRunes: Array<Rune>, stats: CharacterStatsBuildResult, config: CharacterConfig) {
         const skillStats = this.getSkillStats(stats, character);
         const allRunes = [character.runes.activation, character.runes.effect, character.runes.enhancement, ...additionalRunes].filter(isNotNullOrUndefined);
-        const changedRunes: Array<Rune> = [];        
 
         for (const rune of allRunes) {
+            let changed = false;
             for (const effectValue of rune.values) {
                 if (effectValue.valueType === EffectValueValueType.AreaOfEffect) {
                     const aoeMultiplier = skillStats.aoeIncreasedSize.total
                     effectValue.value = effectValue.baseValue * (100 + aoeMultiplier) / 100;
                     effectValue.displayValue = bankerRound(effectValue.value, 2);
-                    changedRunes.push(rune);
+                    changed = true;
                 }
             }
-        }
 
-        return changedRunes;
+            if (rune.id === 16) {
+                const canonDamage = <EffectValueSynergy | undefined>rune.values[1];
+                const maxCanonDamage = <EffectValueVariable | undefined>rune.values[0];
+
+                if (canonDamage && maxCanonDamage) {
+
+                    canonDamage.displaySynergy = Math.min(<number>canonDamage.displaySynergy, maxCanonDamage.displayValue);
+                    changed = true;
+                }
+            }
+
+            if (changed) {
+                stats.changed.runes.push(rune);
+            }
+        }
     }
 
     private spreadAdditionalDamages(damages: Array<EffectValueSynergy>, additional: number | MinMax) {

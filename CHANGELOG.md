@@ -200,6 +200,12 @@
 - Fixed an issue when loading a saved build from previous version
 - Fixed an issue preventing mana and life lock synergies from working
 
+## Release 0.2.2 (2022-10-05)
+### Fixes
+- Fixed runes templates not being correctly updated on change
+- Fixed rune of the Magnificient Leviathan damage limit not being applied
+- Legendaries list now correctly update affinity and level when "max level and affinity" is checked
+- Fixed typo
 
 ## Planned changes
 - slorm-legendaries ?

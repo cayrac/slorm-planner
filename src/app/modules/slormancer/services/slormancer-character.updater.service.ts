@@ -382,7 +382,7 @@ export class SlormancerCharacterUpdaterService {
 
         }
 
-        statsResult.changed.runes.push(...this.slormancerValueUpdater.updateRuneValues(character, additionalRunes, statsResult, config));
+        this.slormancerValueUpdater.updateRuneValues(character, additionalRunes, statsResult, config);
 
         const activableChanged = this.updateCharacterActivables(character, statsResult, config, additionalItem, additionalRunes, false);
         statsResult.changed.items.push(...activableChanged.items);
