@@ -1,5 +1,5 @@
-@import "~src/assets/scss/abstracts/flex";
-@import "~src/assets/scss/abstracts/variables";
+@import "src/assets/scss/abstracts/flex";
+@import "src/assets/scss/abstracts/variables";
 
 .import {
     @include flex(column, stretch);

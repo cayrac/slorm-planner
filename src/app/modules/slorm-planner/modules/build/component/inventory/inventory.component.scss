@@ -1,7 +1,7 @@
 @use 'sass:math';
-@import "~src/assets/scss/abstracts/flex";
-@import "~src/assets/scss/abstracts/variables";
-@import "~src/assets/scss/abstracts/color";
+@import "src/assets/scss/abstracts/flex";
+@import "src/assets/scss/abstracts/variables";
+@import "src/assets/scss/abstracts/color";
 
 $theme-accent-pallet: map-get($theme, accent);
 $theme-warn-pallet: map-get($theme, warn);

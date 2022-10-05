@@ -1,5 +1,5 @@
-@import "~src/assets/scss/abstracts/flex";
-@import "~src/assets/scss/abstracts/variables";
+@import "src/assets/scss/abstracts/flex";
+@import "src/assets/scss/abstracts/variables";
 
 mat-dialog-content {
     @include flex-row-to-column('tablet', stretch);

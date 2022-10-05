@@ -1,7 +1,7 @@
-@import "~src/assets/scss/abstracts/flex";
-@import "~src/assets/scss/abstracts/variables";
-@import "~src/assets/scss/theme/theme";
-@import '~@angular/material/theming';
+@import "src/assets/scss/abstracts/flex";
+@import "src/assets/scss/abstracts/variables";
+@import "src/assets/scss/theme/theme";
+@import '@angular/material/theming';
 
 $theme-accent-pallet: map-get($theme, accent);
 $theme-warn-pallet: map-get($theme, warn);

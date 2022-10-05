@@ -1,5 +1,5 @@
-@import "~src/assets/scss/abstracts/flex.scss";
-@import "~src/assets/scss/abstracts/variables.scss";
+@import "src/assets/scss/abstracts/flex.scss";
+@import "src/assets/scss/abstracts/variables.scss";
 
 .skill-bar {
     @include flex(row);

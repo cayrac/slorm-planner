@@ -1,9 +1,9 @@
-@import "~src/assets/scss/abstracts/flex";
-@import "~src/assets/scss/abstracts/variables";
-@import "~src/assets/scss/abstracts/color";
-@import "~src/assets/scss/abstracts/flex";
-@import "~src/assets/scss/abstracts/spacing";
-@import "~src/assets/scss/abstracts/color";
+@import "src/assets/scss/abstracts/flex";
+@import "src/assets/scss/abstracts/variables";
+@import "src/assets/scss/abstracts/color";
+@import "src/assets/scss/abstracts/flex";
+@import "src/assets/scss/abstracts/spacing";
+@import "src/assets/scss/abstracts/color";
 
 .sections {
     @include flex(column, stretch);
