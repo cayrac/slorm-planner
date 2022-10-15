@@ -313,4 +313,10 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
             setStat(effect, 0, 'ancestral_rank_add');
         }
     },
+    81: {
+        override: (effect) => {
+            console.log(effect, effect.template.indexOf('|'), effect.template.split('|'));
+            effect.template = effect.template.substring(0, effect.template.indexOf('|'));
+        }
+    },
 }

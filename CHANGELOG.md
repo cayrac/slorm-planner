@@ -207,7 +207,7 @@
 - Legendaries list now correctly update affinity and level when "max level and affinity" is checked
 - Fixed typo
 
-## Release 0.2.3 TBD
+## Release 0.2.3 (2022-10-15)
 ### Changed
 - Fate-crusher no longer benefit from item's affinity
 ### Fixes
@@ -215,9 +215,9 @@
 - Ancestral Legacy reaper malediction no longer reduce skill damages from upgrades to 0
 - Fixed a rounding issue on activation runes with constraint
 - Fixed a skill level parsing issue causing exported url to be corrupted
+- Fixed Doubtful Sock legendary not being correctly loaded
 
 ## known issues
-- doubtfull sock
 
 ## Planned changes
 - slorm-legendaries ?
