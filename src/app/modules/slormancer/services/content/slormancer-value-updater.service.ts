@@ -651,7 +651,7 @@ export class SlormancerValueUpdater {
             if (rune.type === RuneType.Activation) {
                 for (const effectValue of rune.values) {
                     if ((isEffectValueVariable(effectValue) || isEffectValueSynergy(effectValue))) {
-                        this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level, powerMultiplier, 0);
+                        this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level, powerMultiplier, 1);
                         changed = true;
                     }
                 }

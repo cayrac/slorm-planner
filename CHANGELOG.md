@@ -213,10 +213,9 @@
 ### Fixes
 - Fixed an issue with ultimatum not being applied to stats
 - Ancestral Legacy reaper malediction no longer reduce skill damages from upgrades to 0
-
+- Fixed a rounding issue on activation runes with constraint
 
 ## known issues
-- check rune
 - fix sauvegarde buguée
 
 ## Planned changes
