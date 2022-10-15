@@ -214,9 +214,10 @@
 - Fixed an issue with ultimatum not being applied to stats
 - Ancestral Legacy reaper malediction no longer reduce skill damages from upgrades to 0
 - Fixed a rounding issue on activation runes with constraint
+- Fixed a skill level parsing issue causing exported url to be corrupted
 
 ## known issues
-- fix sauvegarde buguée
+- doubtfull sock
 
 ## Planned changes
 - slorm-legendaries ?

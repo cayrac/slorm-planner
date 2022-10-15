@@ -55,7 +55,7 @@ export class SlormancerSkillService {
 
     public getSkillLevelFromXp(heroClass: HeroClass, skill: number, experience: number): number {
         // TODO
-        return Math.min(15, experience);
+        return 15;
     }
 
     private isDamageStat(stat: string): boolean {
