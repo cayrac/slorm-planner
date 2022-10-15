@@ -1799,7 +1799,6 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                     multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getFirstStat(stats, 'nimble_champion_max_stacks'), 0))
                 },
                 { stat: 'increased_damage_for_each_yard_with_target', condition: config => config.use_enemy_state && config.distance_with_target > 0, multiplier:  config => config.distance_with_target },
-                { stat: 'primary_secondary_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')},
                 { stat: 'exposed_armor_primary_secondary_skill_increased_damage_mult', condition: (config, stats) => config.exposed_armor_buff && (hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')) },
                 { stat: 'melee_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee') },
                 { stat: 'light_arrow_increased_damage' },
@@ -1855,6 +1854,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'skill_decreased_damage_mult', multiplier: () => -1 },
                 { stat: 'skill_increased_damage_mult' },
                 { stat: 'skill_and_enemy_under_control_increased_damage_mult' },
+                { stat: 'primary_secondary_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')},
                 { stat: 'skill_increased_damage_mult_against_broken_armor', condition: config => config.use_enemy_state && config.target_has_broken_armor },
                 { stat: 'skill_increased_damage_mult_while_channeling_whirlwind', condition: config => config.is_channeling_whirlwind },
                 { stat: 'skill_increased_damage_mult_per_second_while_channeling_whirlwind',

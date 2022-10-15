@@ -233,10 +233,6 @@ export class SlormancerCharacterBuilderService {
             }
         }
 
-        if (result === null) {
-            console.log('no activable found for ' + activableId);
-        }
-
 
         return result;
     }

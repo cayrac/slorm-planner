@@ -11,7 +11,7 @@ import { list } from '@slormancer/util/math.util';
 import { isFirst, valueOrDefault, valueOrNull } from '@slormancer/util/utils';
 import { takeUntil } from 'rxjs/operators';
 import {
-  SlormancerCharacterModifierService,
+    SlormancerCharacterModifierService,
 } from 'src/app/modules/slormancer/services/slormancer-character.modifier.service';
 
 
@@ -249,7 +249,6 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
     }
 
     public selectAncestralLegacy(ancestralLegacy: AncestralLegacy) {            
-        console.log(ancestralLegacy);
         this.selectedAncestralLegacyChange.emit(ancestralLegacy);
     }
 

@@ -37,7 +37,7 @@ export class SlormancerEffectValueService {
                 value += effectValue.upgrade * upgradeMultiplier;
             }
 
-            effectValue.value = value
+            effectValue.value = value;
             effectValue.displayValue = bankerRound(value, 3);
             if (isEffectValueVariable(effectValue)) {
                 effectValue.upgradedValue = value;

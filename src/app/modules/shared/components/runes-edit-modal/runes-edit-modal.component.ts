@@ -88,7 +88,6 @@ export class RunesEditModalComponent {
     }
 
     public selectRune(rune: Rune | null) {
-        console.log('SELECT RUNE : ', rune);
         if (rune !== null) {
             if (rune.type === RuneType.Activation) {
                 const activationId = this.form.value.activationId === rune.id ? null : rune.id;

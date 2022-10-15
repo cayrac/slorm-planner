@@ -207,6 +207,18 @@
 - Legendaries list now correctly update affinity and level when "max level and affinity" is checked
 - Fixed typo
 
+## Release 0.2.3 TBD
+### Changed
+- Fate-crusher no longer benefit from item's affinity
+### Fixes
+- Fixed an issue with ultimatum not being applied to stats
+- Ancestral Legacy reaper malediction no longer reduce skill damages from upgrades to 0
+
+
+## known issues
+- check rune
+- fix sauvegarde buguée
+
 ## Planned changes
 - slorm-legendaries ?
 

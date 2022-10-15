@@ -192,7 +192,6 @@ export class SlormancerStatsExtractorService {
 
         let rune_affinity = config.effect_rune_affinity;
         if (character.runes.effect !== null && character.runes.effect.reapersmith === character.reaper.smith.id) {
-            console.log('same reaper smith')
             rune_affinity = character.reaper.affinity;
         }
         this.addStat(stats.stats, 'rune_affinity', rune_affinity, { synergy: 'Effect rune affinity' });

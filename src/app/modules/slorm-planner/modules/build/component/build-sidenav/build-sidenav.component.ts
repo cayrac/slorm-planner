@@ -200,7 +200,6 @@ export class BuildSidenavComponent extends AbstractUnsubscribeComponent implemen
                         this.buildStorageService.deleteBuild();
 
                         if (this.buildStorageService.getBuilds().length === 0) {
-                            console.log('redirection : ');
                             this.router.navigate(['slorm-planner', 'create']);
                         }
                     }

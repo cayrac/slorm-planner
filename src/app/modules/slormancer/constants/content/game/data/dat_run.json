@@ -654,7 +654,7 @@
         "VALUE_BASE": "5",
         "VALUE_PER_LEVEL": "1",
         "VALUE_TYPE": "",
-        "VALUE_LEVEL": "",
+        "VALUE_LEVEL": "rl",
         "VALUE_STAT": "physical_damage",
         "VALUE_REAL": "damage:weapon_damage:200",
         "REAPER": 22,

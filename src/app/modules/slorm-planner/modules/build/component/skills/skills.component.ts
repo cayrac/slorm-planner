@@ -8,7 +8,7 @@ import { SlormancerSkillService } from '@slormancer/services/content/slormancer-
 import { isFirst, valueOrNull } from '@slormancer/util/utils';
 import { takeUntil } from 'rxjs/operators';
 import {
-  SlormancerCharacterModifierService,
+    SlormancerCharacterModifierService,
 } from 'src/app/modules/slormancer/services/slormancer-character.modifier.service';
 
 @Component({
@@ -108,7 +108,6 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
                 skill.skill.baseLevel++;
                 this.slormancerSkillService.updateSkillModel(skill.skill);
                 this.buildStorageService.saveLayer();
-                console.log(skill);
             }
         } else {
             this.selectSkill(skill);
@@ -122,7 +121,6 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
                 skill.skill.baseLevel--;
                 this.slormancerSkillService.updateSkillModel(skill.skill);
                 this.buildStorageService.saveLayer();
-                console.log(skill);
             }
         } else {
             this.selectSkill(skill);
@@ -171,7 +169,6 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
                 this.slormancerSkillService.updateUpgradeModel(selectedUpgrade);
                 this.buildStorageService.saveLayer();
             }
-            console.log(selectedUpgrade);
         }
         return false;
     }
@@ -192,7 +189,6 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
                 this.slormancerSkillService.updateUpgradeModel(selectedUpgrade);
                 this.buildStorageService.saveLayer();
             }
-            console.log(selectedUpgrade);
         }
         return false;
     }

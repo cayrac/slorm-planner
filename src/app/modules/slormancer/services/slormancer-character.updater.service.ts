@@ -66,7 +66,7 @@ export class SlormancerCharacterUpdaterService {
 
         let bonusAffinity = 0;
         for (const item of items) {
-            if (item.reaperEnchantment !== null && (item.reaperEnchantment.craftedReaperSmith == reaper.smith.id || reaper.smith.id === ReaperSmith.ReapersmithBrotherhood)) {
+            if (item.reaperEnchantment !== null && item.reaperEnchantment.craftedReaperSmith == reaper.smith.id) {
                 bonusAffinity += item.reaperEnchantment.craftedValue;
             }
         }

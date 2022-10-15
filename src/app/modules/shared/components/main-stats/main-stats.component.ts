@@ -195,7 +195,6 @@ export class MainStatsComponent extends AbstractUnsubscribeComponent implements 
         const found = characterStats.find(characterStat => characterStat.stat === format.stat);
 
         if (found) {
-            console.log(found);
             this.selectedMergedStat = found;
             this.selected.emit(found);
         }

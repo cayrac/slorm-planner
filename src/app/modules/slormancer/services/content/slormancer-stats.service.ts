@@ -288,7 +288,11 @@ export class SlormancerStatsService {
         result.extractedStats = extractedStats.stats;
         result.stats = this.slormancerStatMappingService.buildMergedStats(extractedStats.stats, mapping, config);
         this.addSkillStats(result.stats, character.skills);
-
+        
+        if (character.ultimatum !== null && !character.ultimatum.locked) {
+            this.slormancerStatMappingService.applyUltimatum(result.stats, mapping, character.ultimatum, config, result.extractedStats);
+        }
+        
         for (const stats of result.stats) {
             this.slormancerStatUpdaterService.updateStatTotal(stats);
         }

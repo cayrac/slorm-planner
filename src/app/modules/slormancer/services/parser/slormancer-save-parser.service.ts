@@ -75,7 +75,7 @@ import {
     GameWeaponEquipped,
     GameXp,
 } from '../../model/parser/game/game-save';
-import { bytesFindPositions, bytesToString, byteToChar, slice, toBytes } from '../../util/bytes.util';
+import { bytesFindPositions, bytesToString, slice, toBytes } from '../../util/bytes.util';
 import {
     mapHeroesArray,
     splitHeroesData,
@@ -273,7 +273,6 @@ export class SlormancerSaveParserService {
     }
 
     private parseSlorm(data: string): GameHeroesData<number> {
-        console.log('parseSlorm  : ', data);
         return toHeroes(mapHeroesArray(splitHeroesData(data), parseInt));
     }
 
@@ -391,8 +390,6 @@ export class SlormancerSaveParserService {
         const [ data, hash ] = content.split('#', 2) as [string, string];
         
         const bytes = toBytes(<string>data);
-
-        console.log(bytes.map(byteToChar).join(''));
 
         const parsedData = this.parseKeys(bytes);
 

@@ -446,25 +446,6 @@ export class SlormancerReaperService {
         this.slormancerEffectValueService.updateEffectValue(value, upgradeValue * affinityMultiplier);
     }
 
-    /*private applyRoundBug(value: AbstractEffectValue) {
-        console.log('rounded ', value.stat , ' from ', value.displayValue , ' to ' ,  bankerRound(value.displayValue));
-        value.value = round(value.value);
-        value.displayValue = round(value.displayValue);
-    }*/
-
-    private findBuggedValuesToRound(reaper: Reaper, value: AbstractEffectValue) {
-        /*if (reaper.id === 80) {
-            if (value.stat === 'the_speed_percent' || value.stat === 'elemental_damage_global_mult') {
-                this.applyRoundBug(value);
-            }
-        }
-        if (reaper.id === 73) {
-            if (value.stat === 'the_max_health_percent') {
-                this.applyRoundBug(value);
-            }
-        }*/
-    }
-
     public updateReaperModel(reaper: Reaper) {
         reaper.primordialInfo.level = Math.min(reaper.maxLevel, Math.max(reaper.primordialInfo.level, reaper.minLevel));
         reaper.baseInfo.level = Math.min(reaper.maxLevel, Math.max(reaper.baseInfo.level, reaper.minLevel));
@@ -485,19 +466,16 @@ export class SlormancerReaperService {
         for (const reaperEffect of reaper.templates.base) {
             for (const value of reaperEffect.values) {
                 this.updateEffectValue(value, reaper, affinityMultiplier);
-                this.findBuggedValuesToRound(reaper, value);
             }
         }
         for (const reaperEffect of reaper.templates.benediction) {
             for (const value of reaperEffect.values) {
                 this.updateEffectValue(value, reaper, affinityMultiplier);
-                this.findBuggedValuesToRound(reaper, value);
             }
         }
         for (const reaperEffect of reaper.templates.malediction) {
             for (const value of reaperEffect.values) {
                 this.updateEffectValue(value, reaper, affinityMultiplier);
-                this.findBuggedValuesToRound(reaper, value);
             }
         }
 

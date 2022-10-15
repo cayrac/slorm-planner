@@ -43,7 +43,6 @@ export class ImportDataComponent {
 
     private parseExportedData(content: string) {
         this.sharedData = this.importExportService.import(content, this.heroClass);
-        console.log('parse exported data : ', this.sharedData);
     }
 
     public hasValidSharedData(): boolean {

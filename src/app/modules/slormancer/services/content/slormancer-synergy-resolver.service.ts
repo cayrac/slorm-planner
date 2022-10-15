@@ -144,6 +144,10 @@ export class SlormancerSynergyResolverService {
 
     private applySynergyToStats(synergyResolveData: SynergyResolveData | ExternalSynergyResolveData, stats: Array<MergedStat>, extractedStats: ExtractedStatMap, config: CharacterConfig) {
 
+        if ('effect' in synergyResolveData && synergyResolveData.statsItWillUpdate.some(stat => stat.stat === 'sum_reduced_resistances')) {
+            // console.log('Updating synergy for slam with value (' + synergyResolveData.effect.value + ') : ', synergyResolveData);
+        }
+
         for (const statToUpdate of synergyResolveData.statsItWillUpdate) {
             let foundStat: MergedStat | undefined = stats.find(stat => stat.stat === statToUpdate.stat);
             if (foundStat === undefined) {
