@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { BuildStorageService } from '@shared/services/build-storage.service';
-import { MergedStat } from '@slormancer/model/content/character-stats';
 import { takeUntil } from 'rxjs/operators';
+import { MergedStat } from 'slormancer-api';
 
 @Component({
   selector: 'app-stats',

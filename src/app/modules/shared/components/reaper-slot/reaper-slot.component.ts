@@ -1,10 +1,8 @@
 import { Component, EventEmitter, HostListener, Input, OnChanges, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SearchService } from '@shared/services/search.service';
-import { Character } from '@slormancer/model/character';
-import { Reaper } from '@slormancer/model/content/reaper';
 import { takeUntil } from 'rxjs';
-import { SlormancerCharacterBuilderService } from 'src/app/modules/slormancer/services/slormancer-character-builder.service';
+import { Character, Reaper, SlormancerCharacterBuilderService } from 'slormancer-api';
 
 import { ItemMoveService } from '../../services/item-move.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';

@@ -1,8 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { AttributeTraits } from '@slormancer/model/content/attribut-traits';
-import { MinMax } from '@slormancer/model/minmax';
-import { SlormancerAttributeService } from '@slormancer/services/content/slormancer-attribute.service';
-import { Trait } from 'src/app/modules/slormancer/model/content/trait';
+import { AttributeTraits, MinMax, SlormancerAttributeService, Trait } from 'slormancer-api';
 
 import { BuildStorageService } from '../../services/build-storage.service';
 

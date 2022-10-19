@@ -1,8 +1,8 @@
 import { Component, EventEmitter, HostListener, Input, OnChanges, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SearchService } from '@shared/services/search.service';
-import { Ultimatum } from '@slormancer/model/content/ultimatum';
 import { takeUntil } from 'rxjs';
+import { Ultimatum } from 'slormancer-api';
 
 import { ItemMoveService } from '../../services/item-move.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';

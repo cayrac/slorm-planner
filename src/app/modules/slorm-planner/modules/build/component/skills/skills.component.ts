@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { BuildStorageService } from '@shared/services/build-storage.service';
-import { Character, CharacterSkillAndUpgrades } from '@slormancer/model/character';
-import { SkillType } from '@slormancer/model/content/skill-type';
-import { SkillUpgrade } from '@slormancer/model/content/skill-upgrade';
-import { SlormancerSkillService } from '@slormancer/services/content/slormancer-skill.service';
-import { isFirst, valueOrNull } from '@slormancer/util/utils';
 import { takeUntil } from 'rxjs/operators';
 import {
+    Character,
+    CharacterSkillAndUpgrades,
+    isFirst,
+    SkillType,
+    SkillUpgrade,
     SlormancerCharacterModifierService,
-} from 'src/app/modules/slormancer/services/slormancer-character.modifier.service';
+    SlormancerSkillService,
+    valueOrNull,
+} from 'slormancer-api';
 
 @Component({
   selector: 'app-skills',

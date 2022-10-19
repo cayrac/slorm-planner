@@ -4,7 +4,6 @@
     "paths": {
       "@assets/*": [ "src/assets/*" ],
       "@shared/*": [ "src/app/modules/shared/*" ],
-      "@slormancer/*": [ "src/app/modules/slormancer/*" ],
     },
     "resolveJsonModule": true,
     "baseUrl": "./",

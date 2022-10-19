@@ -1,9 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSliderChange } from '@angular/material/slider';
-import { HeroClass } from '@slormancer/model/content/enum/hero-class';
-import { SkillEnchantment } from '@slormancer/model/content/skill-enchantment';
-import { valueOrDefault } from '@slormancer/util/utils';
+import { HeroClass, SkillEnchantment, valueOrDefault } from 'slormancer-api';
 
 import { SelectOption } from '../../model/select-option';
 import { FormOptionsService } from '../../services/form-options.service';

@@ -1,27 +1,32 @@
 import { Injectable } from '@angular/core';
 import { JsonRunes } from '@shared/model/json/json-runes';
-import { MAX_REAPER_AFFINITY_BASE } from '@slormancer/constants/common';
-import { Character, CharacterSkillAndUpgrades } from '@slormancer/model/character';
-import { Activable } from '@slormancer/model/content/activable';
-import { AncestralLegacy } from '@slormancer/model/content/ancestral-legacy';
-import { Attribute } from '@slormancer/model/content/enum/attribute';
-import { EquipableItemBase } from '@slormancer/model/content/enum/equipable-item-base';
-import { HeroClass } from '@slormancer/model/content/enum/hero-class';
-import { Rarity } from '@slormancer/model/content/enum/rarity';
-import { EquipableItem } from '@slormancer/model/content/equipable-item';
-import { Reaper } from '@slormancer/model/content/reaper';
-import { Ultimatum } from '@slormancer/model/content/ultimatum';
-import { RunesCombination } from '@slormancer/model/runes-combination';
-import { SlormancerAffixService } from '@slormancer/services/content/slormancer-affix.service';
-import { SlormancerDataService } from '@slormancer/services/content/slormancer-data.service';
-import { SlormancerItemService } from '@slormancer/services/content/slormancer-item.service';
-import { SlormancerLegendaryEffectService } from '@slormancer/services/content/slormancer-legendary-effect.service';
-import { SlormancerReaperService } from '@slormancer/services/content/slormancer-reaper.service';
-import { SlormancerRuneService } from '@slormancer/services/content/slormancer-rune.service';
-import { SlormancerUltimatumService } from '@slormancer/services/content/slormancer-ultimatum.service';
-import { SlormancerCharacterBuilderService } from '@slormancer/services/slormancer-character-builder.service';
-import { round } from '@slormancer/util/math.util';
-import { compareVersions, isNotNullOrUndefined, valueOrDefault } from '@slormancer/util/utils';
+import {
+    Activable,
+    AncestralLegacy,
+    Attribute,
+    Character,
+    CharacterSkillAndUpgrades,
+    compareVersions,
+    EquipableItem,
+    EquipableItemBase,
+    HeroClass,
+    isNotNullOrUndefined,
+    MAX_REAPER_AFFINITY_BASE,
+    Rarity,
+    Reaper,
+    round,
+    RunesCombination,
+    SlormancerAffixService,
+    SlormancerCharacterBuilderService,
+    SlormancerDataService,
+    SlormancerItemService,
+    SlormancerLegendaryEffectService,
+    SlormancerReaperService,
+    SlormancerRuneService,
+    SlormancerUltimatumService,
+    Ultimatum,
+    valueOrDefault,
+} from 'slormancer-api';
 
 import { Build } from '../model/build';
 import { JsonAncestralLegacy } from '../model/json/json-ancestral-legacy';

@@ -1,5 +1,4 @@
-import { CharacterConfig } from '@slormancer/model/character-config';
-import { HeroClass } from '@slormancer/model/content/enum/hero-class';
+import { CharacterConfig, HeroClass } from 'slormancer-api';
 
 import { JsonLayer } from './json-layer';
 

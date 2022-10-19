@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Affix } from '@slormancer/model/content/affix';
-import { Rarity } from '@slormancer/model/content/enum/rarity';
-import { EquipableItem } from '@slormancer/model/content/equipable-item';
+import { Affix, EquipableItem, Rarity } from 'slormancer-api';
 
 @Component({
   selector: 'app-item-view',

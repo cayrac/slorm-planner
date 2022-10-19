@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Character } from '@slormancer/model/character';
+import { Character } from 'slormancer-api';
 
 @Component({
   selector: 'app-turret-syndrome-calc',

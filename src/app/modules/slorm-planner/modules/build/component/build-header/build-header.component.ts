@@ -12,8 +12,8 @@ import { SelectOption } from '@shared/model/select-option';
 import { BuildStorageService } from '@shared/services/build-storage.service';
 import { BuildService } from '@shared/services/build.service';
 import { SearchService } from '@shared/services/search.service';
-import { isNotNullOrUndefined } from '@slormancer/util/utils';
 import { filter, takeUntil } from 'rxjs/operators';
+import { isNotNullOrUndefined } from 'slormancer-api';
 
 @Component({
   selector: 'app-build-header',

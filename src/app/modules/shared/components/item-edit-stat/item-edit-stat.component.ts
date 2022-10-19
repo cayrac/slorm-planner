@@ -2,9 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSliderChange } from '@angular/material/slider';
-import { Affix } from '@slormancer/model/content/affix';
-import { EquipableItemBase } from '@slormancer/model/content/enum/equipable-item-base';
-import { getCraftValue } from '@slormancer/util/utils';
+import { Affix, EquipableItemBase, getCraftValue } from 'slormancer-api';
 
 import { SelectOption } from '../../model/select-option';
 import { FormOptionsService } from '../../services/form-options.service';

@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DEFAULT_CONFIG } from '@slormancer/constants/content/data/default-configs';
-import { Character } from '@slormancer/model/character';
-import { HeroClass } from '@slormancer/model/content/enum/hero-class';
-import { SlormancerCharacterBuilderService } from '@slormancer/services/slormancer-character-builder.service';
+import { Character, DEFAULT_CONFIG, HeroClass, SlormancerCharacterBuilderService } from 'slormancer-api';
 
 import { environment } from '../../../../environments/environment';
 import { Build } from '../model/build';

@@ -1,10 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSliderChange } from '@angular/material/slider';
-import { EquipableItemBase } from '@slormancer/model/content/enum/equipable-item-base';
-import { HeroClass } from '@slormancer/model/content/enum/hero-class';
-import { LegendaryEffect } from '@slormancer/model/content/legendary-effect';
-import { getCraftValue } from '@slormancer/util/utils';
+import { EquipableItemBase, getCraftValue, HeroClass, LegendaryEffect } from 'slormancer-api';
 
 import { SelectOption } from '../../model/select-option';
 import { FormOptionsService } from '../../services/form-options.service';

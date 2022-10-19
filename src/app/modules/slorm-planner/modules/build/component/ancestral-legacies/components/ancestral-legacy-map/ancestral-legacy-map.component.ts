@@ -1,18 +1,21 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { BuildStorageService } from '@shared/services/build-storage.service';
-import { UNLOCKED_ANCESTRAL_LEGACY_POINTS } from '@slormancer/constants/common';
-import { ANCESTRAL_LEGACY_REALMS, INITIAL_NODES } from '@slormancer/constants/content/data/data-ancestral-legacy-realms';
-import { Character } from '@slormancer/model/character';
-import { AncestralLegacy } from '@slormancer/model/content/ancestral-legacy';
-import { MinMax } from '@slormancer/model/minmax';
-import { SlormancerDataService } from '@slormancer/services/content/slormancer-data.service';
-import { list } from '@slormancer/util/math.util';
-import { isFirst, valueOrDefault, valueOrNull } from '@slormancer/util/utils';
 import { takeUntil } from 'rxjs/operators';
 import {
+    ANCESTRAL_LEGACY_REALMS,
+    AncestralLegacy,
+    Character,
+    INITIAL_NODES,
+    isFirst,
+    list,
+    MinMax,
     SlormancerCharacterModifierService,
-} from 'src/app/modules/slormancer/services/slormancer-character.modifier.service';
+    SlormancerDataService,
+    UNLOCKED_ANCESTRAL_LEGACY_POINTS,
+    valueOrDefault,
+    valueOrNull,
+} from 'slormancer-api';
 
 
 interface Position { x: number; y: number; }

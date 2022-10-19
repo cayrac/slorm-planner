@@ -3,17 +3,21 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BuildStorageService } from '@shared/services/build-storage.service';
 import { BuildService } from '@shared/services/build.service';
-import { COMBAT_CONFIG, DEFAULT_CONFIG } from '@slormancer/constants/content/data/default-configs';
-import { Character } from '@slormancer/model/character';
-import { AncestralLegacy } from '@slormancer/model/content/ancestral-legacy';
-import { ALL_ATTRIBUTES, Attribute } from '@slormancer/model/content/enum/attribute';
-import { Skill } from '@slormancer/model/content/skill';
-import { SkillUpgrade } from '@slormancer/model/content/skill-upgrade';
-import { MinMax } from '@slormancer/model/minmax';
-import { SlormancerTranslateService } from '@slormancer/services/content/slormancer-translate.service';
-import { SlormancerCharacterUpdaterService } from '@slormancer/services/slormancer-character.updater.service';
-import { SlormancerDpsService } from '@slormancer/services/slormancer-dps-service';
-import { isNotNullOrUndefined } from 'src/app/modules/slormancer/util/utils';
+import {
+    ALL_ATTRIBUTES,
+    AncestralLegacy,
+    Attribute,
+    Character,
+    COMBAT_CONFIG,
+    DEFAULT_CONFIG,
+    isNotNullOrUndefined,
+    MinMax,
+    Skill,
+    SkillUpgrade,
+    SlormancerCharacterUpdaterService,
+    SlormancerDpsService,
+    SlormancerTranslateService,
+} from 'slormancer-api';
 
 // TODO
 // trouver formules réductions défenses

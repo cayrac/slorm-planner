@@ -21,9 +21,8 @@ import { ClipboardService } from '@shared/services/clipboard.service';
 import { DownloadService } from '@shared/services/download.service';
 import { ImportExportService } from '@shared/services/import-export.service';
 import { MessageService } from '@shared/services/message.service';
-import { HeroClass } from '@slormancer/model/content/enum/hero-class';
-import { isNotNullOrUndefined } from '@slormancer/util/utils';
 import { filter, takeUntil } from 'rxjs';
+import { HeroClass, isNotNullOrUndefined } from 'slormancer-api';
 
 import { environment } from '../../../../../../../environments/environment';
 

@@ -1,4 +1,4 @@
-import { HeroClass } from '@slormancer/model/content/enum/hero-class';
+import { HeroClass } from 'slormancer-api';
 
 export interface BuildPreview {
     name: string;

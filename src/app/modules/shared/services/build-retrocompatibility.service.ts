@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GAME_VERSION, MAX_REAPER_AFFINITY_BASE } from '@slormancer/constants/common';
-import { DEFAULT_CONFIG } from '@slormancer/constants/content/data/default-configs';
-import { compareVersions } from '@slormancer/util/utils';
+import { compareVersions, DEFAULT_CONFIG, GAME_VERSION, MAX_REAPER_AFFINITY_BASE } from 'slormancer-api';
 
 import { Build } from '../model/build';
 

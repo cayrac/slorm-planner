@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { ImportExportService } from '@shared/services/import-export.service';
 import { MessageService } from '@shared/services/message.service';
-import { Character } from '@slormancer/model/character';
-import { valueOrNull } from '@slormancer/util/utils';
+import { Character, valueOrNull } from 'slormancer-api';
 
 @Injectable()
 export class CharacterPathResolver implements Resolve<Character> {

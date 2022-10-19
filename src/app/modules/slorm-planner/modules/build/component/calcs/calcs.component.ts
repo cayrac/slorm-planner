@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { BuildStorageService } from '@shared/services/build-storage.service';
-import { Character } from '@slormancer/model/character';
 import { takeUntil } from 'rxjs/operators';
+import { Character } from 'slormancer-api';
 
 enum CalcPage {
     Defense,

@@ -1,15 +1,17 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MAX_REAPER_AFFINITY_BASE } from '@slormancer/constants/common';
-import { DEFAULT_CONFIG } from '@slormancer/constants/content/data/default-configs';
-import { Character } from '@slormancer/model/character';
-import { Rune } from '@slormancer/model/content/rune';
-import { RuneType } from '@slormancer/model/content/rune-type';
-import { RunesCombination } from '@slormancer/model/runes-combination';
-import { SlormancerRuneService } from '@slormancer/services/content/slormancer-rune.service';
-import { SlormancerCharacterUpdaterService } from '@slormancer/services/slormancer-character.updater.service';
-import { valueOrNull } from '@slormancer/util/utils';
+import {
+    Character,
+    DEFAULT_CONFIG,
+    MAX_REAPER_AFFINITY_BASE,
+    Rune,
+    RunesCombination,
+    RuneType,
+    SlormancerCharacterUpdaterService,
+    SlormancerRuneService,
+    valueOrNull,
+} from 'slormancer-api';
 
 import { BuildStorageService } from '../../services/build-storage.service';
 

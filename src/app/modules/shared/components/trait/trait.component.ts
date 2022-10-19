@@ -1,7 +1,6 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
-import { TraitLevel } from '@slormancer/model/content/enum/trait-level';
-import { Trait } from '@slormancer/model/content/trait';
 import { takeUntil } from 'rxjs/operators';
+import { Trait, TraitLevel } from 'slormancer-api';
 
 import { SearchService } from '../../services/search.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';

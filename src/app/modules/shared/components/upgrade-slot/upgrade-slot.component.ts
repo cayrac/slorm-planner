@@ -1,7 +1,6 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
-import { SkillType } from '@slormancer/model/content/skill-type';
-import { SkillUpgrade } from '@slormancer/model/content/skill-upgrade';
 import { takeUntil } from 'rxjs/operators';
+import { SkillType, SkillUpgrade } from 'slormancer-api';
 
 import { SearchService } from '../../services/search.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';

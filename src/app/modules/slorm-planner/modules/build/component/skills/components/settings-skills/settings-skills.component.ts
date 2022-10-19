@@ -3,12 +3,12 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { BuildStorageService } from '@shared/services/build-storage.service';
 import { MessageService } from '@shared/services/message.service';
-import { CharacterSkillAndUpgrades } from '@slormancer/model/character';
-import { SkillType } from '@slormancer/model/content/skill-type';
-import { SlormancerSkillService } from '@slormancer/services/content/slormancer-skill.service';
 import {
-  SlormancerCharacterModifierService,
-} from 'src/app/modules/slormancer/services/slormancer-character.modifier.service';
+    CharacterSkillAndUpgrades,
+    SkillType,
+    SlormancerCharacterModifierService,
+    SlormancerSkillService,
+} from 'slormancer-api';
 
 
 @Component({

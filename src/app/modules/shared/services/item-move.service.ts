@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { EquipableItemBase } from '@slormancer/model/content/enum/equipable-item-base';
-import { EquipableItem } from '@slormancer/model/content/equipable-item';
 import { BehaviorSubject } from 'rxjs';
+import { EquipableItem, EquipableItemBase } from 'slormancer-api';
 
 import { BuildStorageService } from './build-storage.service';
 

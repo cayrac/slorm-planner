@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Reaper } from '@slormancer/model/content/reaper';
+import { Reaper } from 'slormancer-api';
 
 @Component({
   selector: 'app-reaper-view',

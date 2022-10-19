@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Activable } from '@slormancer/model/content/activable';
-import { AncestralLegacy } from '@slormancer/model/content/ancestral-legacy';
-import { EquipableItem } from '@slormancer/model/content/equipable-item';
-import { Reaper } from '@slormancer/model/content/reaper';
-import { Rune } from '@slormancer/model/content/rune';
-import { SkillUpgrade } from '@slormancer/model/content/skill-upgrade';
-import { Trait } from '@slormancer/model/content/trait';
-import { Ultimatum } from '@slormancer/model/content/ultimatum';
-import { isNotNullOrUndefined } from '@slormancer/util/utils';
 import { BehaviorSubject } from 'rxjs';
+import {
+    Activable,
+    AncestralLegacy,
+    EquipableItem,
+    isNotNullOrUndefined,
+    Reaper,
+    Rune,
+    SkillUpgrade,
+    Trait,
+    Ultimatum,
+} from 'slormancer-api';
 
 @Injectable({ providedIn: 'root' })
 export class SearchService {

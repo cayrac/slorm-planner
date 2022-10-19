@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Rune } from '@slormancer/model/content/rune';
+import { Rune } from 'slormancer-api';
 
 @Component({
   selector: 'app-rune-view',

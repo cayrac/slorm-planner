@@ -1,10 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ULTIMATUM_MAX_LEVEL } from '@slormancer/constants/common';
-import { UltimatumType } from '@slormancer/model/content/enum/ultimatum-type';
-import { Ultimatum } from '@slormancer/model/content/ultimatum';
-import { SlormancerUltimatumService } from '@slormancer/services/content/slormancer-ultimatum.service';
+import { SlormancerUltimatumService, Ultimatum, ULTIMATUM_MAX_LEVEL, UltimatumType } from 'slormancer-api';
 
 import { SelectOption } from '../../model/select-option';
 import { FormOptionsService } from '../../services/form-options.service';

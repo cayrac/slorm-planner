@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MergedStat } from '@slormancer/model/content/character-stats';
-import { MinMax } from '@slormancer/model/minmax';
-import { SlormancerTranslateService } from '@slormancer/services/content/slormancer-translate.service';
+import { MergedStat, MinMax, SlormancerTranslateService } from 'slormancer-api';
 
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 

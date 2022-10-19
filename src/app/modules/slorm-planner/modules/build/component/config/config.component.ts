@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { BuildStorageService } from '@shared/services/build-storage.service';
-import { DEFAULT_CONFIG } from '@slormancer/constants/content/data/default-configs';
-import { Character } from '@slormancer/model/character';
-import { Attribute } from '@slormancer/model/content/enum/attribute';
-import { ALL_GEAR_SLOT_VALUES } from '@slormancer/model/content/enum/gear-slot';
-import { HeroClass } from '@slormancer/model/content/enum/hero-class';
-import { SkillGenre } from '@slormancer/model/content/enum/skill-genre';
-import { isNotNullOrUndefined, valueOrDefault } from '@slormancer/util/utils';
+import {
+    ALL_GEAR_SLOT_VALUES,
+    Attribute,
+    Character,
+    DEFAULT_CONFIG,
+    HeroClass,
+    isNotNullOrUndefined,
+    SkillGenre,
+    valueOrDefault,
+} from 'slormancer-api';
 
 import { ConfigEntry, ConfigGroup } from './config';
 

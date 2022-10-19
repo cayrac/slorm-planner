@@ -1,4 +1,4 @@
-import { EquipableItemBase } from '@slormancer/model/content/enum/equipable-item-base';
+import { EquipableItemBase } from 'slormancer-api';
 
 export interface JsonItem {
     base: EquipableItemBase | null;
