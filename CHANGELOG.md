@@ -217,8 +217,13 @@
 - Fixed a skill level parsing issue causing exported url to be corrupted
 - Fixed Doubtful Sock legendary not being correctly loaded
 
-## known issues
+## Release 0.2.5 (2022-15-19)
+### Added
+- Added epic stats restrictions
+- Now use slormancer-api package 0.2.5
+
 
 ## Planned changes
 - slorm-legendaries ?
+- slorm stats ?
 

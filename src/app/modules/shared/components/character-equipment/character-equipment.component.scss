@@ -28,9 +28,10 @@
 
             .preview-header {
                 @include flex(row, top, space-between);
+                @include flex-gap($space-unit);
                 width: 100%;
 
-                .original-version {
+                .original-version, .issue {
                     @include flex(row, top);
                     @include flex-gap($space-unit);
 

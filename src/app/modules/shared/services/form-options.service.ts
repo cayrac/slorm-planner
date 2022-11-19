@@ -24,7 +24,7 @@ import { SelectOption } from '../model/select-option';
 @Injectable({ providedIn: 'root' })
 export class FormOptionsService {
 
-    private STATS_OPTIONS_CACHE: { [key: string]: { P: Array<SelectOption<string>>, S: Array<SelectOption<string>> } } = {};
+    private STATS_OPTIONS_CACHE: { [key: string]: { P: Array<SelectOption<string>>, S: Array<SelectOption<string>>, E: Array<SelectOption<string>> } } = {};
 
     private LEGENDARY_OPTIONS_CACHE: { [key: string]: GameHeroesData<Array<SelectOption<number>>> } = {};
 
@@ -80,6 +80,8 @@ export class FormOptionsService {
                 result = valueOrDefault(baseStats['P'], []);
             } else if (rarity === Rarity.Magic || rarity === Rarity.Rare) {
                 result = valueOrDefault(baseStats['S'], []);
+            } else if (rarity === Rarity.Epic) {
+                result = valueOrDefault(baseStats['E'], []);
             }
         }
 
@@ -147,7 +149,8 @@ export class FormOptionsService {
                     if (statBase === undefined) {
                         statBase = {
                             P: [],
-                            S: []
+                            S: [],
+                            E: []
                         };
                         this.STATS_OPTIONS_CACHE[base] = statBase;
                     }
@@ -158,6 +161,10 @@ export class FormOptionsService {
 
                     if (rarity === 'P' ||rarity === 'S') {
                         statBase.S.push(option);
+                    }
+
+                    if (rarity === 'E') {
+                        statBase.E.push(option);
                     }
                 }
             }
