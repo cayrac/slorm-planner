@@ -1,6 +1,6 @@
 {
     "name": "slorm-tools",
-    "version": "0.2.5",
+    "version": "0.2.5.1",
     "scripts": {
         "ng": "ng",
         "start": "ng serve --configuration=development",

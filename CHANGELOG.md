@@ -222,6 +222,10 @@
 - Added epic stats restrictions
 - Now use slormancer-api package 0.2.5
 
+## Release 0.2.5.1 (2023-22-01)
+## Fixes
+- Item edition epic stats no longer show incorrect options
+
 
 ## Planned changes
 - slorm-legendaries ?

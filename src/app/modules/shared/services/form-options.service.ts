@@ -145,21 +145,21 @@ export class FormOptionsService {
                 const rarity = stat[statKey];
 
                 if (rarity !== '') {
-                    let statBase = this.STATS_OPTIONS_CACHE[base];
+                    let statBase = this.STATS_OPTIONS_CACHE[statKey];
                     if (statBase === undefined) {
                         statBase = {
                             P: [],
                             S: [],
                             E: []
                         };
-                        this.STATS_OPTIONS_CACHE[base] = statBase;
+                        this.STATS_OPTIONS_CACHE[statKey] = statBase;
                     }
 
                     if (rarity === 'P') {
                         statBase.P.push(option);
                     }
 
-                    if (rarity === 'P' ||rarity === 'S') {
+                    if (rarity === 'P' || rarity === 'S') {
                         statBase.S.push(option);
                     }
 
@@ -171,20 +171,13 @@ export class FormOptionsService {
         }
 
         for (const base of EQUIPABLE_ITEM_BASE_VALUES) {
-            const key = this.getBaseKey(base);
+            const statKey = this.getBaseKey(base);
             
-            const baseOptions = this.STATS_OPTIONS_CACHE[key];
+            const baseOptions = this.STATS_OPTIONS_CACHE[statKey];
             if (baseOptions) {
-
-                const primaryOptions = baseOptions['P'];
-                const secondaryOptions = baseOptions['S'];
-
-                if (primaryOptions) {
-                    primaryOptions.sort((a, b) => compareString(a.label, b.label));
-                }
-                if (secondaryOptions) {
-                    secondaryOptions.sort((a, b) => compareString(a.label, b.label));
-                }
+                baseOptions.P.sort((a, b) => compareString(a.label, b.label));
+                baseOptions.S.sort((a, b) => compareString(a.label, b.label));
+                baseOptions.E.sort((a, b) => compareString(a.label, b.label));
             }
         }
 
