@@ -226,6 +226,10 @@
 ## Fixes
 - Item edition epic stats no longer show incorrect options
 
+## Release 0.2.5.2 (2023-22-01)
+## Fixes
+- Item edition epic stats no longer show incorrect options (again)
+
 
 ## Planned changes
 - slorm-legendaries ?

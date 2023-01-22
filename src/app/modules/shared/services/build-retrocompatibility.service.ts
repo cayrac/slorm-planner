@@ -224,6 +224,12 @@ export class BuildRetrocompatibilityService {
                 build.version = '0.2.5.1';
             }
         },
+        {
+            version: '0.2.5.2',
+            update: build => {
+                build.version = '0.2.5.2';
+            }
+        },
     ];
 
     constructor() { }

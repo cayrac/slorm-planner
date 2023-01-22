@@ -73,8 +73,9 @@ export class FormOptionsService {
 
     public getStatsOptions(base: EquipableItemBase, rarity: Rarity): Array<SelectOption<string>> {
         let result = this.ALL_STATS_OPTIONS_CACHE;
+        const statKey = this.getBaseKey(base);
 
-        const baseStats = this.STATS_OPTIONS_CACHE[base];
+        const baseStats = this.STATS_OPTIONS_CACHE[statKey];
         if (baseStats) {
             if (rarity === Rarity.Normal) {
                 result = valueOrDefault(baseStats['P'], []);
@@ -157,10 +158,13 @@ export class FormOptionsService {
 
                     if (rarity === 'P') {
                         statBase.P.push(option);
+                        statBase.S.push(option);
+                        statBase.E.push(option);
                     }
 
-                    if (rarity === 'P' || rarity === 'S') {
+                    if (rarity === 'S') {
                         statBase.S.push(option);
+                        statBase.E.push(option);
                     }
 
                     if (rarity === 'E') {
