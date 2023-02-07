@@ -72,7 +72,7 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
 
     public position: Position = { x: 0, y: 0 };
 
-    public scale: number = 2;
+    public scale: number = 1;
 
     public grabbed = false;
 
@@ -160,26 +160,46 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
 
         // layer 7
         this.addZoneShapes(list(60, 64), -90 + 360 / 10, 238, 3);
+
         this.addNodeShapes([88, 93, 98, 103, 108], -90 + 360 / 10, 198);
+        this.addNodeShapes([154, 142, 145, 148, 151], -116.5, 246);
+        this.addNodeShapes([141, 144, 147, 150, 153], -90 + 360 / 10, 279.5);
+        this.addNodeShapes([140, 143, 146, 149, 152], -63.5, 246);
         
         // layer 8
         this.addZoneShapes(list(22, 26).map(i => i * 3), -90 + 360 / 10 + 2 - 360 / 20, 258, 2);
         this.addNodeShapes([113, 119, 125, 131, 137], -90 + 360 / 10 + 1.5 - 360 / 20, 228);
         this.addZoneShapes(list(22, 26).map(i => i * 3 + 1), -90 + 360 / 10 - 2 + 360 / 20, 258, 2);
         this.addNodeShapes([114, 120, 126, 132, 138], -90 + 360 / 10 - 1.5 + 360 / 20, 228);
+        
+        this.addNodeShapes([157, 168, 178, 190, 201], -104.5, 277);
+        this.addNodeShapes([155, 166, 177, 188, 199], -109.5, 290);
+        this.addNodeShapes([163, 174, 185, 196, 207], -75.5, 277);
+        this.addNodeShapes([165, 176, 187, 198, 209], -69.8, 289);
 
-        /*
-        { nodes: [86, 112], realm: 40 },   // Optimal Path
-        { nodes: [90, 115], realm: 43 },   // Burning Rage
-        { nodes: [91, 118], realm: 44 },   // Elemental Sorcerer
-        { nodes: [95, 121], realm: 47 },   // Tower Defense
-        { nodes: [96, 124], realm: 48 },   // Relentless
-        { nodes: [100, 127], realm: 51 },  // Kah Rooj's Power Plant
-        { nodes: [101, 130], realm: 52 },  // Shield of the Champion of Light
-        { nodes: [105, 133], realm: 55 },  // Glittering Silence
-        { nodes: [106, 136], realm: 56 },  // Ancestral Backlash
-        { nodes: [85, 139], realm: 59 },   // Shadow Spawn
-        */
+        // layer 9
+        this.addZoneShapes([65, 68, 71, 74, 77], -90, 256);
+        this.addZoneShapes([83, 86, 89, 92, 80], -4.8 - 360 / 15, 293);
+        this.addZoneShapes([82, 85, 88, 91, 94], -90 + 5.8 + 360 / 70, 293);
+
+        this.addLineShapes(5, -100, 252, 37);
+        this.addWeldinghapes(5, -99.7, 234.2, 1.5);
+        
+        this.addLineShapes(5, -80, 252, 37);
+        this.addWeldinghapes(5, -80.3, 234.2, 1.5);
+        
+        this.addNodeShapes([110, 116, 122, 128, 134], -93, 236);
+        this.addNodeShapes([111, 117, 123, 129, 135], -87, 236);
+
+        this.addNodeShapes([158, 169, 180, 191, 202], -100, 270);
+        this.addNodeShapes([162, 173, 183, 195, 206], -80, 270);
+
+        // layer 10
+        this.addZoneShapes([96, 99, 102, 105, 108], -90 + 360 / 10, 310, 2);
+
+        // layer 11
+        this.addZoneShapes([95, 98, 101, 104, 107], -90 + 360 / 10 + 2 - 360 / 20, 320, 2);
+        this.addZoneShapes([97, 100, 103, 106, 109], -90 + 360 / 10 - 2 + 360 / 20, 320, 2);
     }
 
     private updateMap() {

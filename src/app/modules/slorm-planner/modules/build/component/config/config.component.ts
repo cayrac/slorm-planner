@@ -81,6 +81,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
                 { type: 'boolean', key: 'target_is_isolated', label: 'Is isolated' },
                 { type: 'boolean', key: 'target_has_broken_armor', label: 'Has broken armor' },
                 { type: 'boolean', key: 'target_has_negative_effect', label: 'Has any negative effect' },
+                { type: 'boolean', key: 'target_is_burning', label: 'Is burning' },
             ]
         },
     ];
@@ -333,6 +334,41 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Living inferno',
+            condition: character => this.isAncestralLegacyEquipped(character, 14),
+            configurations: [
+                { type: 'boolean', key: 'has_living_inferno_buff', label: 'Is Living inferno active' },
+            ]
+        },
+        {
+            title: 'Shadow Shield',
+            condition: character => this.isAncestralLegacyEquipped(character, 65),
+            configurations: [
+                { type: 'boolean', key: 'has_shadow_shield_buff', label: 'Is Shadow Shield active' },
+            ]
+        },
+        {
+            title: 'Flawless Defense',
+            condition: character => this.isAncestralLegacyEquipped(character, 83),
+            configurations: [
+                { type: 'boolean', key: 'has_flawless_defense_buff', label: 'Is Flawless Defense active' },
+            ]
+        },
+        {
+            title: 'Shadow Bargain',
+            condition: character => this.isAncestralLegacyEquipped(character, 74),
+            configurations: [
+                { type: 'boolean', key: 'has_shadow_bargain_buff', label: 'Is Shadow Bargain active' },
+            ]
+        },
+        {
+            title: 'Frostfire Armor',
+            condition: character => this.isAncestralLegacyEquipped(character, 76),
+            configurations: [
+                { type: 'boolean', key: 'has_frostfire_buff', label: 'Is Frostfire Armor active' },
+            ]
+        },
+        {
             title: 'Faith of the Ancients',
             condition: character => this.hasLegendaryEffect(character, 31),
             configurations: [
@@ -393,6 +429,27 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             condition: character => this.hasLegendaryEffect(character, 76),
             configurations: [
                 { type: 'number', key: 'enlightenment_stacks', label: 'How many enlightenment stacks do you have' },
+            ]
+        },
+        {
+            title: 'Aurelon\'s Bargain',
+            condition: character => this.isAncestralLegacyEquipped(character, 78),
+            configurations: [
+                { type: 'number', key: 'aurelon_bargain_stacks', label: 'How many Aurelon\'s stacks do you have' },
+            ]
+        },
+        {
+            title: 'Cleansing Surge',
+            condition: character => this.isAncestralLegacyEquipped(character, 37),
+            configurations: [
+                { type: 'number', key: 'cleansing_surge_stacks', label: 'How many Cleansing surge stacks do you have' },
+            ]
+        },
+        {
+            title: 'Charging up!',
+            condition: character => this.isAncestralLegacyEquipped(character, 39),
+            configurations: [
+                { type: 'number', key: 'overcharged_stacks', label: 'How many Overcharged stacks do you have' },
             ]
         },
         {

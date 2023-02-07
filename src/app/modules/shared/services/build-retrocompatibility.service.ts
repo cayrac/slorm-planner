@@ -230,6 +230,24 @@ export class BuildRetrocompatibilityService {
                 build.version = '0.2.5.2';
             }
         },
+        {
+            version: '0.3.0',
+            update: build => {
+                build.version = '0.3.0';
+                build.configuration.has_living_inferno_buff = false;
+                build.configuration.has_shadow_shield_buff = false;
+                build.configuration.has_shadow_bargain_buff = false;
+                build.configuration.has_flawless_defense_buff = false;
+                build.configuration.aurelon_bargain_stacks = 0;
+                build.configuration.cleansing_surge_stacks = 0;
+                build.configuration.overcharged_stacks = 0;
+                build.configuration.has_frostfire_buff = false;
+                build.configuration.target_is_burning = false;
+                if (build.configuration.all_other_characters_level === 100) {
+                    build.configuration.all_other_characters_level = 140;
+                }
+            }
+        },
     ];
 
     constructor() { }
