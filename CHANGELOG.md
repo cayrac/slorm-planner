@@ -237,6 +237,9 @@
 ## Fixes
 - Cooldown reduction is now correctly applied to ancestral legacy activables
 
+## Release 0.3.1 (2023-08-02)
+## Fixes
+- Fixed ancestral legacy realms not being correctly mapped
 
 ## Planned changes
 - slorm-legendaries ?
