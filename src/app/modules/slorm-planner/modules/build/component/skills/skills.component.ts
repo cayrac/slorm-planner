@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import {
     Character,
     CharacterSkillAndUpgrades,
+    compare,
     isFirst,
     SkillType,
     SkillUpgrade,
@@ -134,7 +135,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
         let result: Array<SkillUpgrade> = [];
 
         if (this.selectedSkill !== null) {
-            result = this.selectedSkill.upgrades.filter(passive => passive.line === line);
+            result = this.selectedSkill.upgrades.filter(passive => passive.line === line).sort((a, b) => compare(a.order, b.order));
         }
 
         return result;

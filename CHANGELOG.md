@@ -241,6 +241,21 @@
 ## Fixes
 - Fixed ancestral legacy realms not being correctly mapped
 
+## Release 0.4.0 TBD
+### Added
+- Raised max level to 80
+- Added new legendaries data
+- Added reinforcment cap to legendaries
+- Ancestral legacies map now show all ancestral legacies
+## Fixes
+- Fixed Replenish description
+
+## TODO
+ancestral legacies
+slorm legendaries ?
+parsing loadouts
+resplenish n'est pas affiché dans le bon ordre
+
 ## Planned changes
 - slorm-legendaries ?
 - slorm stats ?
