@@ -179,8 +179,8 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
 
         // layer 9
         this.addZoneShapes([65, 68, 71, 74, 77], -90, 256);
-        this.addZoneShapes([83, 86, 89, 92, 80], -4.8 - 360 / 15, 293);
-        this.addZoneShapes([82, 85, 88, 91, 94], -90 + 5.8 + 360 / 70, 293);
+        this.addZoneShapes([83, 86, 89, 92, 80], -4 - 360 / 15, 293);
+        this.addZoneShapes([82, 85, 88, 91, 94], -90 + 5 + 360 / 70, 293);
 
         this.addLineShapes(5, -100, 252, 37);
         this.addWeldinghapes(5, -99.7, 234.2, 1.5);
@@ -192,15 +192,40 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         this.addNodeShapes([111, 117, 123, 129, 135], -87, 236);
 
         this.addNodeShapes([158, 169, 180, 191, 202], -100, 270);
-        this.addNodeShapes([162, 173, 184, 195, 206], -80, 270);
+        this.addNodeShapes([162, 173, 183, 195, 206], -80, 266);
 
         // layer 10
         this.addZoneShapes([96, 99, 102, 105, 108], -90 + 360 / 10, 310, 2);
 
         // layer 11
-        this.addZoneShapes([95, 98, 101, 104, 107], -90 + 360 / 10 + 2 - 360 / 20, 320, 2);
-        this.addZoneShapes([97, 100, 103, 106, 109], -90 + 360 / 10 - 2 + 360 / 20, 320, 2);
+        this.addZoneShapes([95, 98, 101, 104, 107]  , -90 + 360 / 10 + 2 - 360 / 20, 320, 2);
+        this.addNodeShapes([164, 175, 186, 197, 208], -90 + 360 / 10 - 3 - 360 / 20, 304);
+        this.addZoneShapes([97, 100, 103, 106, 109] , -90 + 360 / 10 - 2 + 360 / 20, 320, 2);
+        this.addNodeShapes([167, 179, 189, 200, 156], -90 + 360 / 10 + 360 / 20 + 3.5, 304);
+
+        // layer 12
+        this.addZoneShapes([81, 84, 87, 90, 93], -90, 304, 1);
+        this.addNodeShapes([160, 171, 182, 193, 204], -90, 280);
+        this.addNodeShapes([161, 172, 184, 194, 205], -85, 300);
+        this.addNodeShapes([159, 170, 181, 192, 203], -95, 300);
+
+        // layer 13
+        this.addZoneShapes([110, 111, 112, 113, 114], -90, 370, 3);
+        this.addNodeShapes([300, 301, 302, 303, 304], -90, 329);
+
+        // layer 14 / Permanent Overload / Renewal of Justice / Blorm Up! / Heat Wave / Shattering Ice
+        this.addZoneShapes([117, 122, 127, 132, 137], -90 + 360 / 10, 366, 1);
+        this.addNodeShapes([10, 23, 40, 51, 63], -90 + 360 / 10, 340);
     }
+
+    /*
+    
+    { nodes: [40], realm: 127 },   // Permanent Overload
+    { nodes: [51], realm: 132 },   // Renewal of Justice
+    { nodes: [63], realm: 137 },   // Blorm Up!
+    { nodes: [10], realm: 117 },   // Heat Wave
+    { nodes: [23], realm: 122 },   // Shattering Ice
+    */
 
     private updateMap() {
         
@@ -217,6 +242,7 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
 
             this.activeRealms = activeRealms.map(realm => realm.realm);
 
+            console.log('nodes : ', this.character.ancestralLegacies.activeNodes);
         }
     }
 
@@ -251,6 +277,7 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
     }
 
     public toggleNode(nodeId: number) {
+        console.log('Click on ', nodeId);
 
         if (this.character !== null) {
             let changed = false;
@@ -271,7 +298,8 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         return false;
     }
 
-    public selectAncestralLegacy(ancestralLegacy: AncestralLegacy) {            
+    public selectAncestralLegacy(ancestralLegacy: AncestralLegacy) {   
+        console.log(ancestralLegacy);       
         this.selectedAncestralLegacyChange.emit(ancestralLegacy);
     }
 
