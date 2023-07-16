@@ -210,22 +210,44 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         this.addNodeShapes([159, 170, 181, 192, 203], -95, 300);
 
         // layer 13
-        this.addZoneShapes([110, 111, 112, 113, 114], -90, 370, 3);
+        this.addZoneShapes([110, 111, 112, 113, 114], -90, 361, 2);
         this.addNodeShapes([300, 301, 302, 303, 304], -90, 329);
 
         // layer 14 / Permanent Overload / Renewal of Justice / Blorm Up! / Heat Wave / Shattering Ice
-        this.addZoneShapes([117, 122, 127, 132, 137], -90 + 360 / 10, 366, 1);
-        this.addNodeShapes([10, 23, 40, 51, 63], -90 + 360 / 10, 340);
+        this.addZoneShapes([117, 122, 127, 132, 137], -90 + 360 / 10, 370, 1);
+        this.addNodeShapes([215, 225, 235, 245, 255], -90 + 360 / 10, 343);
+
+        // layer 15 / Blazing Fireball / Winds of Winter / Consistency is Key / The Judge of Light / Avatar of Shadow
+        this.addZoneShapes([118, 123, 128, 133, 138], -90 + 360 / 10 + 11, 370, 1);
+        this.addNodeShapes([216, 226, 236, 246, 256], -90 + 360 / 10 + 7, 370);
+        this.addNodeShapes([217, 227, 237, 247, 257], -90 + 360 / 10 + 13, 348);
+
+        // layer 16 / Lowey's Gratitude / Frozen Arrows / Static Shock / Light Diffusion / Elemental Pact
+        this.addZoneShapes([116, 121, 126, 131, 136], -90 + 360 / 10 - 11, 370, 1);
+        this.addNodeShapes([214, 224, 234, 244, 254], -90 + 360 / 10 - 7, 370);
+        this.addNodeShapes([213, 223, 233, 243, 253], -90 + 360 / 10 - 13, 348);
+
+        // layer 17 / Warlock's Ascendancy / Elemental Rogue / Ancestral Instability / Wrath of Kings / Blorm Empire
+        this.addZoneShapes([119, 124, 129, 134, 139], -90 + 360 / 5 - 15, 370, 1);
+        this.addNodeShapes([218, 228, 238, 248, 258], -90 + 360 / 5 - 17, 347);
+        this.addNodeShapes([305, 306, 307, 308, 309], -90 + 360 / 5 - 11, 370);
+
+        // layer 18 / Lowey's Creation / Frost Sentinel / Gift of Ancestral Speed / Last Stand / Black Pact
+        this.addZoneShapes([115, 120, 125, 130, 135], -90 + 15, 370, 1);
+        this.addNodeShapes([212, 222, 232, 242, 252], -90 + 17, 347);
+        this.addNodeShapes([310, 311, 312, 313, 314], -90 + 11, 370);
+
+
+
+        /*
+    { nodes: [212, 310], realm: 115 },   // Lowey's Creation
+    { nodes: [222, 311], realm: 120 },   // Frost Sentinel
+    { nodes: [232, 312], realm: 125 },   // Gift of Ancestral Speed
+    { nodes: [242, 313], realm: 130 },   // Last Stand
+    { nodes: [252, 314], realm: 135 },   // Black Pact
+        */
     }
 
-    /*
-    
-    { nodes: [40], realm: 127 },   // Permanent Overload
-    { nodes: [51], realm: 132 },   // Renewal of Justice
-    { nodes: [63], realm: 137 },   // Blorm Up!
-    { nodes: [10], realm: 117 },   // Heat Wave
-    { nodes: [23], realm: 122 },   // Shattering Ice
-    */
 
     private updateMap() {
         
