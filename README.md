@@ -16,12 +16,6 @@ Run `npm install`
 
 Run `npm run start` to start the server on http://localhost:4200/
 
-### Build and run docker image
-
-Build docker image :  `docker build -t slormplanner-image .`
-
-Run docker image :  `docker run -d -p 4200:8080 --name=slormplanner slormplanner-image`
-
 ## Removing white background from pngs
 `
 for file in *.png; do convert "$file" -transparent white "$file"; done
