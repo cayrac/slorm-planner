@@ -37,6 +37,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             condition: () => true,
             configurations: [
                 { type: 'number', key: 'all_other_characters_level', label: 'Sum of all your other character\'s level' },
+                { type: 'number', key: 'highest_same_type_reaper_level', label: 'Highest level among reapers of the same type of equipped reaper' },
                 { type: 'number', key: 'completed_achievements', label: 'Number of completed achievements' },
                 { type: 'number', key: 'elder_slorms', label: 'Total Elder Slorm' },
                 { type: 'number', key: 'overall_reputation', label: 'Overall reputation' },
@@ -474,6 +475,28 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
                 { type: 'boolean', key: 'frostbolt_shot_recently', label: 'Frostbolt shot recently' },
             ]
         },
+        {
+            title: 'Ancestral Instability',
+            condition: character => this.isAncestralLegacyEquipped(character, 91),
+            configurations: [
+                { type: 'boolean', key: 'has_ancestral_instability_buff', label: 'Is ancestral instability active' },
+                { type: 'number', key: 'ancestral_instability_buff_duration', label: 'Ancestral instability duration (in seconds)' },
+            ]
+        },
+        {
+            title: 'Efficiency',
+            condition: character => this.isAncestralLegacyEquipped(character, 84),
+            configurations: [
+                { type: 'boolean', key: 'efficiency_buff', label: 'Is efficiency active' },
+            ]
+        },
+        {
+            title: 'Avatar of Shadow',
+            condition: character => this.isAncestralLegacyEquipped(character, 70),
+            configurations: [
+                { type: 'boolean', key: 'has_avatar_of_shadow_buff', label: 'Is avatar of shadow active' },
+            ]
+        }
 
     ];
 

@@ -254,6 +254,18 @@ export class BuildRetrocompatibilityService {
                 build.version = '0.3.1';
             }
         },
+        {
+            version: '0.4.0',
+            update: build => {
+                build.version = '0.4.0';
+                build.configuration.has_ancestral_instability_buff = false;
+                build.configuration.ancestral_instability_buff_duration = 0;
+                build.configuration.target_negative_effects = 0;
+                build.configuration.efficiency_buff = false;
+                build.configuration.has_avatar_of_shadow_buff = false;
+                build.configuration.highest_same_type_reaper_level = 100;
+            }
+        },
     ];
 
     constructor() { }

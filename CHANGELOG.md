@@ -241,22 +241,19 @@
 ## Fixes
 - Fixed ancestral legacy realms not being correctly mapped
 
-## Release 0.4.0 TBD
+## Release 0.4.0 (2023-19-07)
 ### Added
 - Raised max level to 80
 - Added new legendaries data
 - Added reinforcment cap to legendaries
 - Ancestral legacies map now show all ancestral legacies
 ## Fixes
-- Fixed Replenish description
+- Fixed Replenish upgrade order 
+- Lightning minimum damage is now correctly computed
+- Fixed an issue causing ancestral legacy active effects to be applied twice
+- Fixed an issue causing exported build above level 64 to have an incorrect level
 
 ## TODO
-ancestral legacies
-slorm legendaries ?
-parsing loadouts
-resplenish n'est pas affiché dans le bon ordre
-
-## Planned changes
-- slorm-legendaries ?
-- slorm stats ?
+slorm legendaries
+affichage export
 

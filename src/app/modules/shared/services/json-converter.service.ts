@@ -361,6 +361,7 @@ export class JsonConverterService {
             character.heroClass,
             character.reaper.primordial === 1,
             character.reaper.level,
+            0,
             character.reaper.primordialLevel,
             character.reaper.kills,
             character.reaper.primordialKills,
