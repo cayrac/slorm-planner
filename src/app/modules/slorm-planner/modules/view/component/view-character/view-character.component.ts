@@ -150,8 +150,7 @@ export class ViewCharacterComponent {
 
     public showAttribute(attribute: Attribute): boolean {
         const traits = this.character.attributes.allocated[attribute];
-
-        return traits.rank > 0 || traits.bonusRank > 0;
+        return traits.rank > 0;
     }
 
     public import() {

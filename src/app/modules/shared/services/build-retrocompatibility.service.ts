@@ -266,6 +266,12 @@ export class BuildRetrocompatibilityService {
                 build.configuration.highest_same_type_reaper_level = 100;
             }
         },
+        {
+            version: '0.4.1',
+            update: build => {
+                build.version = '0.4.1';
+            }
+        },
     ];
 
     constructor() { }

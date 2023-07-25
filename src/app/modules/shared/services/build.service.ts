@@ -32,6 +32,7 @@ export class BuildService {
 
         const clone = this.slormancerCharacterBuilderService.getCharacterClone(character);
         clone.importVersion = null;
+        clone.fromCorrupted = false;
         this.addLayer(build, layerName, clone);
 
         return build;

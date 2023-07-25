@@ -251,7 +251,13 @@
 - Fixed Replenish upgrade order 
 - Lightning minimum damage is now correctly computed
 - Fixed an issue causing ancestral legacy active effects to be applied twice
-- Fixed an issue causing exported build above level 64 to have an incorrect level
+- Fixed an issue causing exported build with character level above 64 to have an incorrect level
+
+## Release 0.4.1 (2023-25-07)
+## Fixes
+- Fixed an issue causing exported build with item level above 64 to have an incorrect level
+- Fixed an issue causing exported build with an attribute rank above 64 to have an incorrect rank
+- it is no longer possible to allocate more than 75 points into an attribute
 
 ## TODO
 slorm legendaries

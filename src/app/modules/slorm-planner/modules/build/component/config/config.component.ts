@@ -812,7 +812,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
 
     public isAttributeAllocated(character: Character, attribute: Attribute): boolean {
         const att = character.attributes.allocated[attribute];
-        return att.rank > 0 || att.bonusRank > 0;
+        return att.rank > 0;
     }
 
     public isAncestralLegacyEquipped(character: Character, ancestralLegacy: number): boolean {
