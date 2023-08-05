@@ -81,7 +81,7 @@ export class ReaperListComponent extends AbstractUnsubscribeComponent implements
 
     private buildReaperList(heroClass: HeroClass, primordial: boolean, maxLevelAndAffinity: boolean) {
         this.allReapers = this.slormancerDataService.getGameDataAvailableReaper()
-            .map(reaperData => this.slormancerReaperService.getReaper(reaperData, heroClass, primordial, maxLevelAndAffinity ? valueOrDefault(reaperData.MAX_LVL, 0) : 1, maxLevelAndAffinity ? valueOrDefault(reaperData.MAX_LVL, 0) : 1, 0, 0, maxLevelAndAffinity ? MAX_REAPER_AFFINITY_BASE : 0, maxLevelAndAffinity ? MAX_REAPER_AFFINITY_BONUS : 0));
+            .map(reaperData => this.slormancerReaperService.getReaper(reaperData, heroClass, primordial, maxLevelAndAffinity ? valueOrDefault(reaperData.MAX_LVL, 0) : 1, 0, maxLevelAndAffinity ? valueOrDefault(reaperData.MAX_LVL, 0) : 1, 0, 0, maxLevelAndAffinity ? MAX_REAPER_AFFINITY_BASE : 0, maxLevelAndAffinity ? MAX_REAPER_AFFINITY_BONUS : 0));
             
         this.filterReaperList();
     }

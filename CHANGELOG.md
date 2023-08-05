@@ -259,6 +259,10 @@
 - Fixed an issue causing exported build with an attribute rank above 64 to have an incorrect rank
 - it is no longer possible to allocate more than 75 points into an attribute
 
+## Release 0.4.2 (2023-05-08)
+## Fixes
+- Fixed an issue when displaying slorm reapers list with maximum level and affinity
+
 ## TODO
 slorm legendaries
 affichage export
