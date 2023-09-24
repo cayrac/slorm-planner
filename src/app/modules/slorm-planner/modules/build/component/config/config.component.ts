@@ -708,6 +708,13 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Book Smash',
+            condition: character => this.isSkillEquipped(character, HeroClass.Mage, 5),
+            configurations: [
+                { type: 'boolean', key: 'is_triggered_by_book_smash', label: 'Is inner fire and overdrive triggered by book smash' },
+            ]
+        },
+        {
             title: 'Rift Nova',
             condition: character => this.isSkillEquipped(character, HeroClass.Mage, 6),
             configurations: [

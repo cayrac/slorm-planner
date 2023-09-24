@@ -6,6 +6,7 @@ $border-style: 1px solid black;
 
 $color-gold: rgb(213, 173, 72);
 $color-node-selected: rgb(193, 57, 7);
+$color-first-node-selected: rgb(39, 203, 174);
 
 .frame {
     @include flex(row, center, center);
@@ -167,12 +168,33 @@ $color-node-selected: rgb(193, 57, 7);
                 border-radius: 50%;
             }
 
-            &.available:not(.active) {
+            &.available:not(.active):not(.first-active) {
                 background-color: $color-gold;
             }
 
             &.active .node-inner {
                 background-color: $color-node-selected;
+            }
+
+            &.first-active .node-inner {
+                background-color: $color-first-node-selected;
+            }
+
+            .node-preview {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+            }
+
+            &:not(.active):hover {
+                
+                &.available .node-preview { 
+                    background-color: rgba($color-node-selected, 0.6);
+                }
+
+                &.first-available:not(.available) .node-preview { 
+                    background-color: rgba($color-first-node-selected, 0.6);
+                }
             }
         }
     }

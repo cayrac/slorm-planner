@@ -6,6 +6,7 @@ import {
     ANCESTRAL_LEGACY_REALMS,
     AncestralLegacy,
     Character,
+    DataAncestralLegacyRealm,
     INITIAL_NODES,
     isFirst,
     list,
@@ -237,29 +238,33 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         this.addNodeShapes([212, 222, 232, 242, 252], -90 + 17, 347);
         this.addNodeShapes([310, 311, 312, 313, 314], -90 + 11, 370);
 
+        this.addLineShapes(5, -49.5, 354, 47, 45);
+        this.addWeldinghapes(5, -52.1, 337, 1.5);
+        this.addLineShapes(5, 85.5, 354, 47, -45);
+        this.addWeldinghapes(5, 88.1, 337, 1.5);
 
-
-        /*
-    { nodes: [212, 310], realm: 115 },   // Lowey's Creation
-    { nodes: [222, 311], realm: 120 },   // Frost Sentinel
-    { nodes: [232, 312], realm: 125 },   // Gift of Ancestral Speed
-    { nodes: [242, 313], realm: 130 },   // Last Stand
-    { nodes: [252, 314], realm: 135 },   // Black Pact
-        */
+        this.addLineShapes(5, -11, 343.1, 66, 45);
+        this.addWeldinghapes(5, -15, 320, 2);
+        this.addLineShapes(5, -25, 343.1, 66, -45);
+        this.addWeldinghapes(5, -21, 320, 2);
     }
-
 
     private updateMap() {
         
         this.availableNodes = [];
         this.activeRealms = [];
         if (this.character !== null) {
-            const selectedNodes = this.character !== null ? this.character.ancestralLegacies.activeNodes : [];
+            const activeRealmIds = this.slormancerDataService.getAncestralRealmsFromNodes(
+                this.character.ancestralLegacies.activeNodes,
+                this.character.ancestralLegacies.activeFirstNode);
             const activeRealms = ANCESTRAL_LEGACY_REALMS
-                .filter(realm => realm.nodes.find(node => selectedNodes.indexOf(node) !== -1) !== undefined);
-                
+                .filter(realm => activeRealmIds.includes(realm.realm));
+            
             if (this.character.ancestralLegacies.activeNodes.length < UNLOCKED_ANCESTRAL_LEGACY_POINTS) {
-                this.availableNodes = [...INITIAL_NODES, ...activeRealms.map(realm => realm.nodes).flat()].filter(isFirst);
+                this.availableNodes = [
+                    ...INITIAL_NODES,
+                    ...activeRealms.filter(realm => this.isConnectedToStart(realm, activeRealms)).map(realm => realm.nodes).flat()
+                ].filter(isFirst);
             }
 
             this.activeRealms = activeRealms.map(realm => realm.realm);
@@ -268,8 +273,21 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         }
     }
 
+    private isConnectedToStart(realm: DataAncestralLegacyRealm, realms: DataAncestralLegacyRealm[], visitedRealms: DataAncestralLegacyRealm[] = []): boolean {
+        visitedRealms = [ ...visitedRealms, realm ];
+        return realm.nodes.some(node => INITIAL_NODES.includes(node)) ||
+            realms
+            .filter(connectedRealm => !visitedRealms.includes(connectedRealm))
+            .filter(connectedRealm => connectedRealm.nodes.some(node => realm.nodes.includes(node)))
+            .some(connectedRealms => this.isConnectedToStart(connectedRealms, realms, visitedRealms));
+    }
+
     public isNodeActive(nodeId: number): boolean {
         return this.character !== null && this.character.ancestralLegacies.activeNodes.indexOf(nodeId) !== -1;
+    }
+
+    public isFirstNodeActive(nodeId: number): boolean {
+        return this.character !== null && this.character.ancestralLegacies.activeFirstNode === nodeId;
     }
 
     public isRealmActive(realmId: number): boolean {
@@ -278,6 +296,10 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
 
     public isNodeAvailable(nodeId: number): boolean {
         return this.availableNodes.indexOf(nodeId) !== -1;
+    }
+
+    public isFirstNodeAvailable(): boolean {
+        return this.character !== null && this.character.ancestralLegacies.activeFirstNode === null;
     }
 
     public isNodeSelected(nodeId: number): boolean {
@@ -304,9 +326,9 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         if (this.character !== null) {
             let changed = false;
 
-            if (this.isNodeActive(nodeId)) {
+            if (this.isNodeActive(nodeId) || this.isFirstNodeActive(nodeId)) {
                 changed = this.slormancerCharacterModifierService.disableAncestralLegacyNode(this.character, nodeId);
-            } else {
+            } else if (this.isNodeAvailable(nodeId) || this.isFirstNodeAvailable()){
                 changed = this.slormancerCharacterModifierService.activateAncestralLegacyNode(this.character, nodeId);
             }
             this.buildStorageService.saveLayer();
@@ -325,11 +347,11 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         this.selectedAncestralLegacyChange.emit(ancestralLegacy);
     }
 
-    private addLineShapes(quantity: number, baseAngle: number, distance: number, length: number) {
+    private addLineShapes(quantity: number, baseAngle: number, distance: number, length: number, rotation: number = 0) {
         const angle = 360 / quantity;
 
         this.lineShapes.push(...list(quantity)
-            .map(i => ({ style: { width: length + 'px', transform: 'translate(-50%, -50%) rotate(' + (baseAngle + i * angle) + 'deg) translateX(' + distance + 'px)' } })));
+            .map(i => ({ style: { width: length + 'px', transform: 'translate(-50%, -50%) rotate(' + (baseAngle + i * angle) + 'deg) translateX(' + distance + 'px) rotate(' + rotation + 'deg)' } })));
     }
 
     private addWeldinghapes(quantity: number, baseAngle: number, distance: number, length: number) {

@@ -28,8 +28,12 @@
             (click)="toggleNode(nodeShape.nodeId)"
             [style]="nodeShape.style"
             [class.active]="isNodeActive(nodeShape.nodeId)"
-            [class.available]="isNodeAvailable(nodeShape.nodeId)">
-            <div class="node-inner"></div>
+            [class.first-active]="isFirstNodeActive(nodeShape.nodeId)"
+            [class.available]="isNodeAvailable(nodeShape.nodeId)"
+            [class.first-available]="isFirstNodeAvailable()">
+            <div class="node-inner">
+                <div class="node-preview"></div>
+            </div>
         </div>
     </div>
 </div>

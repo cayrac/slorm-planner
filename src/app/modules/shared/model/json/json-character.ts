@@ -34,6 +34,7 @@ export interface JsonCharacter {
     ancestralLegacies: {
         ancestralLegacies: Array<JsonAncestralLegacy>;
         nodes: Array<number>;
+        firstNode: number | null;
     }
 
     reaper: JsonReaper;

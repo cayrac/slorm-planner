@@ -278,6 +278,18 @@ export class BuildRetrocompatibilityService {
                 build.version = '0.4.2';
             }
         },
+        {
+            version: '0.5.0',
+            update: build => {
+                build.version = '0.5.0';
+
+                build.configuration.is_triggered_by_book_smash = false;
+
+                for (const layer of build.layers) {
+                    layer.character.ancestralLegacies.activeFirstNode = null;
+                }
+            }
+        },
     ];
 
     constructor() { }

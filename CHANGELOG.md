@@ -263,6 +263,20 @@
 ## Fixes
 - Fixed an issue when displaying slorm reapers list with maximum level and affinity
 
+## Release 0.5.0 (2023-24-09)
+### Added
+- Increased ancestral stone max and added the first stone
+- Added a "triggered by book smash" config option for Embittered author
+## Fixes
+- Fixed Judge of Light incorrect % value
+- Fixed Ancestral Instability incorrect % value
+- Consistency is key minimum damage can no longer be below 1% of maximum
+- Elemental reward max rank is now correctly affected by Ancestral champion's present
+
+## known issues
+- switching between builds on the planner do not correctly change the class
+- signet ring of the Mc ripped require a reload to be updated in the skill bar
+
 ## TODO
 slorm legendaries
 affichage export

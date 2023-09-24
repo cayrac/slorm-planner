@@ -210,7 +210,8 @@ export class JsonConverterService {
 
             ancestralLegacies: {
                 ancestralLegacies: character.ancestralLegacies.ancestralLegacies.map(ancestralLegacy => this.ancestralLegacyToJson(ancestralLegacy)),
-                nodes: character.ancestralLegacies.activeNodes
+                nodes: character.ancestralLegacies.activeNodes,
+                firstNode: character.ancestralLegacies.activeFirstNode
             },
                 
             reaper: this.reaperToJson(character.reaper),
@@ -269,7 +270,8 @@ export class JsonConverterService {
                 ancestralLegacies: character.ancestralLegacies.ancestralLegacies
                     .filter(ancestralLegacy => character.ancestralLegacies.activeAncestralLegacies.indexOf(ancestralLegacy.id) !== -1)
                     .map(ancestralLegacy => this.ancestralLegacyToJson(ancestralLegacy)),
-                nodes: character.ancestralLegacies.activeNodes
+                nodes: character.ancestralLegacies.activeNodes,
+                firstNode: character.ancestralLegacies.activeFirstNode,
             },
                 
             reaper: this.reaperToJson(character.reaper),
@@ -352,6 +354,9 @@ export class JsonConverterService {
         if (compareVersions(character.version, '0.2.0') < 0) {
             character.reaper.affinity = MAX_REAPER_AFFINITY_BASE;
         }
+        if (compareVersions(character.version, '0.5.0') < 0) {
+            character.ancestralLegacies.firstNode = null;
+        }
     }
 
     public jsonToCharacter(character: JsonCharacter): Character {
@@ -408,6 +413,7 @@ export class JsonConverterService {
             this.jsonToRunes(character.runes, character.heroClass, reaper === null ? null : reaper.id),
             ultimatum,
             character.ancestralLegacies.nodes,
+            character.ancestralLegacies.firstNode,
             ancestralRanks,
             skillEquipped,
             skillRanks,
