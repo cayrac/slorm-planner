@@ -290,6 +290,12 @@ export class BuildRetrocompatibilityService {
                 }
             }
         },
+        {
+            version: '0.5.1',
+            update: build => {
+                build.version = '0.5.1';
+            }
+        },
     ];
 
     constructor() { }

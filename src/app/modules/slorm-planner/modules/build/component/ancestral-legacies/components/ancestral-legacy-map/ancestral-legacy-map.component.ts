@@ -328,8 +328,10 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
 
             if (this.isNodeActive(nodeId) || this.isFirstNodeActive(nodeId)) {
                 changed = this.slormancerCharacterModifierService.disableAncestralLegacyNode(this.character, nodeId);
-            } else if (this.isNodeAvailable(nodeId) || this.isFirstNodeAvailable()){
+            } else if (this.isNodeAvailable(nodeId)) {
                 changed = this.slormancerCharacterModifierService.activateAncestralLegacyNode(this.character, nodeId);
+            } else if (this.isFirstNodeAvailable()) {
+                changed = this.slormancerCharacterModifierService.activateFirstAncestralLegacyNode(this.character, nodeId);
             }
             this.buildStorageService.saveLayer();
     
