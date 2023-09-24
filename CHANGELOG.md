@@ -273,6 +273,10 @@
 - Consistency is key minimum damage can no longer be below 1% of maximum
 - Elemental reward max rank is now correctly affected by Ancestral champion's present
 
+## Release 0.5.1 (2023-24-09)
+## Fixes
+- Fixed an issue when adding the first stone while not all ancestral nodes are present
+
 ## known issues
 - switching between builds on the planner do not correctly change the class
 - signet ring of the Mc ripped require a reload to be updated in the skill bar
