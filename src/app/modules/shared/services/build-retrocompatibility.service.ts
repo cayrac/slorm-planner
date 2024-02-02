@@ -296,6 +296,14 @@ export class BuildRetrocompatibilityService {
                 build.version = '0.5.1';
             }
         },
+        {
+            version: '0.6.0',
+            update: build => {
+                build.version = '0.6.0';
+                build.configuration.indirect_defense_stacks = 0;
+                build.configuration.other_characters_mastery_total = 30;
+            }
+        },
     ];
 
     constructor() { }

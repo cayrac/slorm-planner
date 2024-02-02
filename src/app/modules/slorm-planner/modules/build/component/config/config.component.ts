@@ -49,6 +49,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
                 { type: 'boolean', key: 'idle', label: 'Are you idle ?' },
                 { type: 'boolean', key: 'is_rune_active', label: 'Is your effect rune active ?' },
                 { type: 'number', key: 'effect_rune_affinity', label: 'Affinity of your effect rune', info: 'Used if rune and reaper smith are differents' },
+                { type: 'number', key: 'other_characters_mastery_total', label: 'Total mastery of other characters', info: 'Computed value is currently wrong in game, so the result based on this config may be different' },
             ]
         },
         {
@@ -60,9 +61,9 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
                 { type: 'number', key: 'active_inner_fire', label: 'Active inner fires' },
                 { type: 'number', key: 'hits_taken_recently', label: 'Hits taken recently' },
                 { type: 'number', key: 'skill_cast_recently', label: 'Skills cast recently' },
-                { type: 'number', key: 'ennemies_in_radius', label: 'How much ennemies are close to you' },
-                { type: 'number', key: 'elites_in_radius', label: 'How much elites are close to you' },
-                { type: 'number', key: 'chilled_enemy_nearby', label: 'How much frozen or chilled enemies are close to you' },
+                { type: 'number', key: 'ennemies_in_radius', label: 'How many ennemies are close to you' },
+                { type: 'number', key: 'elites_in_radius', label: 'How many elites are close to you' },
+                { type: 'number', key: 'chilled_enemy_nearby', label: 'How many frozen or chilled enemies are close to you' },
                 { type: 'boolean', key: 'cast_support_before_next_cast', label: 'Did you cast a support skill recently' },
                 { type: 'boolean', key: 'took_elemental_damage_recently', label: 'Did you take elemental damage recently' },
                 { type: 'boolean', key: 'took_physical_damage_recently', label: 'Did you take physical damage recently' },
@@ -93,6 +94,13 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             condition: character => character.reaper.id === 2,
             configurations: [
                 { type: 'boolean', key: 'has_adam_blessing_buff', label: 'Do you have adam\'s blessing' },
+            ]
+        },
+        {
+            title: 'Reaper (Relentless Transferance)',
+            condition: character => character.reaper.id === 5,
+            configurations: [
+                { type: 'number', key: 'indirect_defense_stacks', label: 'How many indirect defense stacks do you have' },
             ]
         },
         {
@@ -636,7 +644,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             condition: character => this.isSkillEquipped(character, HeroClass.Huntress, 4),
             configurations: [
                 { type: 'number', key: 'delightful_rain_stacks', label: 'How many delightful rain stacks do you have' },
-                { type: 'number', key: 'enemies_in_rain_of_arrow', label: 'How much enemies are inside your rain of arrow' },
+                { type: 'number', key: 'enemies_in_rain_of_arrow', label: 'How many enemies are inside your rain of arrow' },
                 { type: 'boolean', key: 'is_last_volley', label: 'Is it the last volley' },
             ]
         },
