@@ -104,6 +104,13 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Reaper (Master)',
+            condition: character => character.reaper.id === 12 || character.reaper.id === 13 || character.reaper.id === 14,
+            configurations: [
+                { type: 'number', key: 'support_streak_stacks', label: 'How many support streak stacks do you have' },
+            ]
+        },
+        {
             title: 'Reaper (Manificient Leviathan)',
             condition: character => character.reaper.id === 105,
             configurations: [
@@ -601,7 +608,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
                 { type: 'number', key: 'serenity', label: 'What is your serenity level' },
                 { type: 'number', key: 'traps_nearby', label: 'How many traps are nearby' },
                 { type: 'number', key: 'poison_enemies', label: 'How many poisoned enemies are nearby' },
-                { type: 'number', key: 'trap_triggered_recently', label: 'How many traps did you trigger recently' },
+                { type: 'boolean', key: 'trap_triggered_recently', label: 'Did you trigger a trap recently' },
                 { type: 'boolean', key: 'last_cast_tormented', label: 'Was your last cast tormented' },
                 { type: 'boolean', key: 'last_cast_delighted', label: 'Was your last cast delighted' },
                 { type: 'boolean', key: 'enemy_is_poisoned', label: 'Is your target poisoned' },
@@ -611,7 +618,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Turret Syndrome',
             condition: character => this.isSkillEquipped(character, HeroClass.Huntress, 0),
             configurations: [
-                { type: 'number', key: 'turret_syndrome_on_cooldown', label: 'Is turret syndrome on cooldown' },
+                { type: 'boolean', key: 'turret_syndrome_on_cooldown', label: 'Is turret syndrome on cooldown' },
                 { type: 'boolean', key: 'hero_close_to_turret_syndrome', label: 'Are you close to your turret' },
             ]
         },

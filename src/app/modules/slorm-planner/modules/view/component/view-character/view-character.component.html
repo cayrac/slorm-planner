@@ -54,6 +54,22 @@
                     </div>
                 </div>
             </div>
+            <div class="skill-info" *ngIf="hasExtraPassives()">
+                <h4>Extra passives</h4>
+                <div class="skill-line">
+                    <div class="upgrades">
+                        <div class="upgrade" *ngFor="let upgrade of getExtraPassives()">
+                            <app-upgrade-slot
+                                [upgrade]="upgrade"
+                                [readonly]="true"
+                                [overlay]="true"
+                                [equipped]="false"
+                                [selected]="false">
+                            </app-upgrade-slot>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="skill-info">
                 <h4>Primary Skill</h4>
                 <div class="skill-line">

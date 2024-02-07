@@ -13,6 +13,7 @@ import {
     isNotNullOrUndefined,
     MinMax,
     Skill,
+    SkillType,
     SkillUpgrade,
     SlormancerCharacterUpdaterService,
     SlormancerDpsService,
@@ -137,10 +138,20 @@ export class ViewCharacterComponent {
 
         const skillAndUpgrades = this.character.skills.find(s => s.skill === skill);
         if (skillAndUpgrades) {
-            upgrades = skillAndUpgrades.upgrades.filter(upgrade => skillAndUpgrades.selectedUpgrades.includes(upgrade.id));
+            upgrades = skillAndUpgrades.upgrades.filter(upgrade => skillAndUpgrades.activeUpgrades.includes(upgrade.id));
         }
 
         return upgrades;
+    }
+
+    public hasExtraPassives(): boolean {
+        return this.getExtraPassives().length > 0;
+    }
+
+    public getExtraPassives(): Array<SkillUpgrade>  {
+        return this.character.skills.filter(skill => skill.skill.type === SkillType.Support && skill.skill !== this.character.supportSkill)
+            .map(skill => skill.upgrades.filter(upgrade => skill.activeUpgrades.includes(upgrade.id)))
+            .flat();
     }
 
     public getAncestralLegacies(): Array<AncestralLegacy> {
