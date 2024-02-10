@@ -303,6 +303,8 @@ export class BuildRetrocompatibilityService {
                 build.configuration.indirect_defense_stacks = 0;
                 build.configuration.other_characters_mastery_total = 30;
                 build.configuration.support_streak_stacks = 0;
+                build.configuration.victims_combo = 0;
+                build.configuration.enemy_horrified_stacks = 0;
             }
         },
     ];
