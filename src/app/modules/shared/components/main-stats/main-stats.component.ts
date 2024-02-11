@@ -169,7 +169,7 @@ export class MainStatsComponent extends AbstractUnsubscribeComponent implements 
         let result: string;
 
         if (typeof value === 'number') {
-            result = (value < 0 ? '-' : (sign ? '+' : '')) + value + suffix;
+            result = (value < 0 ? '' : (sign ? '+' : '')) + value + suffix;
         } else {
             result = (value.min < 0 ? '' : (sign ? '+' : '')) + value.min + suffix
              + ' - ' + (value.max < 0 ? '' : (sign ? '+' : '')) + value.max + suffix;
