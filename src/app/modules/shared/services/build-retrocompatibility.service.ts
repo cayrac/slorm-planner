@@ -305,6 +305,8 @@ export class BuildRetrocompatibilityService {
                 build.configuration.support_streak_stacks = 0;
                 build.configuration.victims_combo = 0;
                 build.configuration.enemy_horrified_stacks = 0;
+                build.configuration.bloodthirst_stacks = 0;
+                build.configuration.has_blood_frenzy_buff = false;
             }
         },
     ];

@@ -115,7 +115,15 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Reaper (Spectral Shapeshifter)',
             condition: character => character.reaper.id === 19 || character.reaper.id === 20 || character.reaper.id === 21,
             configurations: [
-                { type: 'number', key: 'enemy_horrified_stacks', label: 'Number of horrified stacks', info: 'This is an enemy state' },
+                { type: 'number', key: 'bloodthirst_stacks', label: 'Number of bloodthirst stacks' },
+            ]
+        },
+        {
+            title: 'Reaper (Bloodthirsty)',
+            condition: character => character.reaper.id === 36,
+            configurations: [
+                { type: 'number', key: 'bloodthirst_stacks', label: 'Number of bloodthirst stacks' },
+                { type: 'boolean', key: 'has_blood_frenzy_buff', label: 'Is blood frenzy active' },
             ]
         },
         {
@@ -610,7 +618,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
-            title: 'huntress',
+            title: 'Huntress',
             condition: character => character.heroClass === HeroClass.Huntress,
             configurations: [
                 { type: 'number', key: 'serenity', label: 'What is your serenity level' },
