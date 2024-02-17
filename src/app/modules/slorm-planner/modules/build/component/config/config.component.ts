@@ -127,6 +127,13 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Reaper (Elemental Overload)',
+            condition: character => character.reaper.id === 32 || character.reaper.id === 33 ||character.reaper.id === 34,
+            configurations: [
+                { type: 'number', key: 'elemental_fury_stacks', label: 'Number of elemental fury stacks' },
+            ]
+        },
+        {
             title: 'Reaper (Manificient Leviathan)',
             condition: character => character.reaper.id === 105,
             configurations: [

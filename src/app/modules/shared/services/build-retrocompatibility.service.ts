@@ -307,6 +307,7 @@ export class BuildRetrocompatibilityService {
                 build.configuration.enemy_horrified_stacks = 0;
                 build.configuration.bloodthirst_stacks = 0;
                 build.configuration.has_blood_frenzy_buff = false;
+                build.configuration.elemental_fury_stacks = 0;
             }
         },
     ];
