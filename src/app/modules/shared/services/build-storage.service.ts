@@ -125,7 +125,6 @@ export class BuildStorageService {
 
     public saveBuild() {
         if (this.build !== null) {
-            // TODO bouger update
             for (const layer of this.build.layers) {
                 this.slormancerCharacterUpdaterService.updateCharacter(layer.character, this.build.configuration);
             }
@@ -154,7 +153,6 @@ export class BuildStorageService {
 
     public saveLayer() {
         if (this.build !== null && this.layer !== null) {
-            // TODO bouger update
             this.slormancerCharacterUpdaterService.updateCharacter(this.layer.character, this.build.configuration);
             this.saveTrigger.next();
         }

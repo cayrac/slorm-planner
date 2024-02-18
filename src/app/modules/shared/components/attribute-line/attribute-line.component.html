@@ -30,10 +30,10 @@
         [cdkConnectedOverlayOrigin]="trigger">
         <app-attribute-summary-view [attributeTraits]="attribute" ></app-attribute-summary-view>
     </ng-template>
-    <button mat-icon-button color="primary" (click)="addPoint($event)" [disabled]="remainingPoints === 0 || attribute.baseRank === MAX_RANK" *ngIf="!readonly">
+    <button mat-icon-button color="primary" (click)="addPoint($event)" [disabled]="remainingPoints <= 0 || attribute.baseRank === MAX_RANK" *ngIf="!readonly">
         <mat-icon>add</mat-icon>
     </button>
-    <button mat-icon-button color="primary" (click)="removePoint($event)" [disabled]="attribute.baseRank === 0" *ngIf="!readonly">
+    <button mat-icon-button color="primary" (click)="removePoint($event)" [disabled]="attribute.baseRank <= 0" *ngIf="!readonly">
         <mat-icon>remove</mat-icon>
     </button>
 </div>
