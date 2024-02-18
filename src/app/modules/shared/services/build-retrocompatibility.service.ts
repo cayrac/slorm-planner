@@ -308,6 +308,8 @@ export class BuildRetrocompatibilityService {
                 build.configuration.bloodthirst_stacks = 0;
                 build.configuration.has_blood_frenzy_buff = false;
                 build.configuration.elemental_fury_stacks = 0;
+                build.configuration.fighter_bane_stacks = 0;
+                build.configuration.mage_bane_stacks = 0;
             }
         },
     ];

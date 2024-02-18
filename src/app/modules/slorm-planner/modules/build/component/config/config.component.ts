@@ -61,9 +61,9 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
                 { type: 'number', key: 'active_inner_fire', label: 'Active inner fires' },
                 { type: 'number', key: 'hits_taken_recently', label: 'Hits taken recently' },
                 { type: 'number', key: 'skill_cast_recently', label: 'Skills cast recently' },
-                { type: 'number', key: 'ennemies_in_radius', label: 'How many ennemies are close to you' },
-                { type: 'number', key: 'elites_in_radius', label: 'How many elites are close to you' },
-                { type: 'number', key: 'chilled_enemy_nearby', label: 'How many frozen or chilled enemies are close to you' },
+                { type: 'number', key: 'ennemies_in_radius', label: 'Number of ennemies close to you' },
+                { type: 'number', key: 'elites_in_radius', label: 'Number of elites close to you' },
+                { type: 'number', key: 'chilled_enemy_nearby', label: 'Number of frozen or chilled enemies close to you' },
                 { type: 'number', key: 'victims_combo', label: 'Current combo counter' },
                 { type: 'boolean', key: 'cast_support_before_next_cast', label: 'Did you cast a support skill recently' },
                 { type: 'boolean', key: 'took_elemental_damage_recently', label: 'Did you take elemental damage recently' },
@@ -101,14 +101,14 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Reaper (Relentless Transferance)',
             condition: character => character.reaper.id === 5,
             configurations: [
-                { type: 'number', key: 'indirect_defense_stacks', label: 'How many indirect defense stacks do you have' },
+                { type: 'number', key: 'indirect_defense_stacks', label: 'Number of indirect defense stacks' },
             ]
         },
         {
             title: 'Reaper (Master)',
             condition: character => character.reaper.id === 12 || character.reaper.id === 13 || character.reaper.id === 14,
             configurations: [
-                { type: 'number', key: 'support_streak_stacks', label: 'How many support streak stacks do you have' },
+                { type: 'number', key: 'support_streak_stacks', label: 'Number of support streak stacks' },
             ]
         },
         {
@@ -131,6 +131,14 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             condition: character => character.reaper.id === 32 || character.reaper.id === 33 ||character.reaper.id === 34,
             configurations: [
                 { type: 'number', key: 'elemental_fury_stacks', label: 'Number of elemental fury stacks' },
+            ]
+        },
+        {
+            title: 'Reaper (Recurring Nightmare)',
+            condition: character => character.reaper.id === 45,
+            configurations: [
+                { type: 'number', key: 'mage_bane_stacks', label: 'Number of mage bane stacks' },
+                { type: 'number', key: 'fighter_bane_stacks', label: 'Number of figher bane stacks' },
             ]
         },
         {
@@ -325,16 +333,16 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Dexterity',
             condition: character => this.isAttributeAllocated(character, Attribute.Dexterity),
             configurations: [
-                { type: 'number', key: 'totem_dexterity_stacks', label: 'How many totem dexterity stacks do you have' },
+                { type: 'number', key: 'totem_dexterity_stacks', label: 'Number of totem dexterity stacks' },
             ]
         },
         {
             title: 'Bravery',
             condition: character => this.isAttributeAllocated(character, Attribute.Bravery),
             configurations: [
-                { type: 'number', key: 'greed_stacks', label: 'How many greed stacks do you have' },
-                { type: 'number', key: 'strider_stacks', label: 'How many strider stacks do you have' },
-                { type: 'number', key: 'merchant_stacks', label: 'How many merchant stacks do you have' },
+                { type: 'number', key: 'greed_stacks', label: 'Number of greed stacks' },
+                { type: 'number', key: 'strider_stacks', label: 'Number of strider stacks' },
+                { type: 'number', key: 'merchant_stacks', label: 'Number of merchant stacks' },
             ]
         },
         {
@@ -362,7 +370,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Elemental Spirit',
             condition: character => this.isAncestralLegacyEquipped(character, 106),
             configurations: [
-                { type: 'number', key: 'elemental_spirit_stacks', label: 'How many elemental spirit stacks do you have' },
+                { type: 'number', key: 'elemental_spirit_stacks', label: 'Number of elemental spirit stacks' },
             ]
         },
         {
@@ -425,7 +433,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'The Voltaroid',
             condition: character => this.hasLegendaryEffect(character, 75),
             configurations: [
-                { type: 'number', key: 'high_voltage_stacks', label: 'How many high voltage stacks do you have' },
+                { type: 'number', key: 'high_voltage_stacks', label: 'Number of high voltage stacks' },
             ]
         },
         {
@@ -439,56 +447,56 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Gazloka\'s Conquest',
             condition: character => this.hasLegendaryEffect(character, 26),
             configurations: [
-                { type: 'number', key: 'conquest_stacks', label: 'How many conquest stacks do you have' },
+                { type: 'number', key: 'conquest_stacks', label: 'Number of conquest stacks' },
             ]
         },
         {
             title: 'Wizard\'s Catalyst',
             condition: character => this.hasLegendaryEffect(character, 63),
             configurations: [
-                { type: 'number', key: 'elemental_weakness_stacks', label: 'How many elemental weakness stacks does your target have' },
+                { type: 'number', key: 'elemental_weakness_stacks', label: 'Number of elemental weakness stacks on your target' },
             ]
         },
         {
             title: 'Greaves of Stability',
             condition: character => this.hasLegendaryEffect(character, 16),
             configurations: [
-                { type: 'number', key: 'stability_stacks', label: 'How many stability stacks do you have' },
+                { type: 'number', key: 'stability_stacks', label: 'Number of stability stacks' },
             ]
         },
         {
             title: 'Art of Retribution',
             condition: character => this.hasLegendaryEffect(character, 16),
             configurations: [
-                { type: 'number', key: 'revengeance_stacks', label: 'How many reveangence stacks do you have' },
+                { type: 'number', key: 'revengeance_stacks', label: 'Number of reveangence stacks' },
             ]
         },
         {
             title: 'Enlightening Journey',
             condition: character => this.hasLegendaryEffect(character, 76),
             configurations: [
-                { type: 'number', key: 'enlightenment_stacks', label: 'How many enlightenment stacks do you have' },
+                { type: 'number', key: 'enlightenment_stacks', label: 'Number of enlightenment stacks' },
             ]
         },
         {
             title: 'Aurelon\'s Bargain',
             condition: character => this.isAncestralLegacyEquipped(character, 78),
             configurations: [
-                { type: 'number', key: 'aurelon_bargain_stacks', label: 'How many Aurelon\'s stacks do you have' },
+                { type: 'number', key: 'aurelon_bargain_stacks', label: 'Number of Aurelon\'s stacks' },
             ]
         },
         {
             title: 'Cleansing Surge',
             condition: character => this.isAncestralLegacyEquipped(character, 37),
             configurations: [
-                { type: 'number', key: 'cleansing_surge_stacks', label: 'How many Cleansing surge stacks do you have' },
+                { type: 'number', key: 'cleansing_surge_stacks', label: 'Number of Cleansing surge stacks' },
             ]
         },
         {
             title: 'Charging up!',
             condition: character => this.isAncestralLegacyEquipped(character, 39),
             configurations: [
-                { type: 'number', key: 'overcharged_stacks', label: 'How many Overcharged stacks do you have' },
+                { type: 'number', key: 'overcharged_stacks', label: 'Number of Overcharged stacks' },
             ]
         },
         {
@@ -496,7 +504,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             condition: character => this.hasLegendaryEffect(character, 32),
             configurations: [
                 { type: 'boolean', key: 'overdrive_last_bounce', label: 'Is it the last bounce' },
-                { type: 'number', key: 'overdrive_bounces_left', label: 'How many bounce left' },
+                { type: 'number', key: 'overdrive_bounces_left', label: 'Number of bounces left' },
             ]
         },
         {
@@ -544,7 +552,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             condition: character => character.heroClass === HeroClass.Warrior,
             configurations: [
                 { type: 'number', key: 'knight_other_level', label: 'Highest level between Mage and Huntress' },
-                { type: 'number', key: 'block_stacks', label: 'How many block stacks do you have' },
+                { type: 'number', key: 'block_stacks', label: 'Number of block stacks' },
                 { type: 'boolean', key: 'next_cast_is_fortunate', label: 'Is your next cast fortunate' },
                 { type: 'boolean', key: 'next_cast_is_perfect', label: 'Is your next cast perfect' },
                 { type: 'boolean', key: 'is_hit_blocked', label: 'Are you blocking a hit', info: 'Used to computed additional effects on block (like thorn or retaliate)' },
@@ -555,7 +563,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Banner of War',
             condition: character => this.isSkillEquipped(character, HeroClass.Warrior, 0),
             configurations: [
-                { type: 'number', key: 'banners_nearby', label: 'How many banners are under your control' },
+                { type: 'number', key: 'banners_nearby', label: 'Number of banners are under your control' },
                 { type: 'boolean', key: 'has_banner_regeneration_buff', label: 'Is banner of regeneration active' },
                 { type: 'boolean', key: 'has_banner_haste_buff', label: 'Is banner of haste active' },
             ]
@@ -571,23 +579,23 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Mighty Swing',
             condition: character => this.isSkillEquipped(character, HeroClass.Warrior, 3),
             configurations: [
-                { type: 'number', key: 'frenzy_stacks', label: 'How many frenzy stacks do you have' },
+                { type: 'number', key: 'frenzy_stacks', label: 'Number of frenzy stacks' },
             ]
         },
         {
             title: 'Wood Stick',
             condition: character => this.isSkillEquipped(character, HeroClass.Warrior, 4),
             configurations: [
-                { type: 'number', key: 'oak_bark_armor_stacks', label: 'How many oak-bark armor stacks do you have' },
-                { type: 'number', key: 'enemy_splintered_stacks', label: 'How many splintered stacks are on your target' },
+                { type: 'number', key: 'oak_bark_armor_stacks', label: 'Number of oak-bark armor stacks' },
+                { type: 'number', key: 'enemy_splintered_stacks', label: 'Number of splintered stacks on your target' },
             ]
         },
         {
             title: 'Throwing sword',
             condition: character => this.isSkillEquipped(character, HeroClass.Warrior, 5),
             configurations: [
-                { type: 'number', key: 'enemy_bleed_stacks', label: 'How many bleed stacks are on enemies around you' },
-                { type: 'number', key: 'enemy_splintered_stacks', label: 'How many splintered stacks are on the target' },
+                { type: 'number', key: 'enemy_bleed_stacks', label: 'Number of bleed stacks on enemies around you' },
+                { type: 'number', key: 'enemy_splintered_stacks', label: 'Number of splintered stacks on your target' },
             ]
         },
         {
@@ -601,12 +609,12 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Grappling Hook',
             condition: character => this.isSkillEquipped(character, HeroClass.Warrior, 7),
             configurations: [
-                { type: 'number', key: 'enemy_under_command', label: 'How many enemies are under your control' },
-                { type: 'number', key: 'elite_under_command', label: 'How many elites are under your control' },
-                { type: 'number', key: 'melee_defense_stacks', label: 'How many melee defense stacks do you have' },
-                { type: 'number', key: 'projectile_defense_stacks', label: 'How many projectile defense stacks do you have' },
-                { type: 'number', key: 'aoe_defense_stacks', label: 'How many aoe defense stacks do you have' },
-                { type: 'number', key: 'vitality_stacks', label: 'How many vitality stacks do you have' },
+                { type: 'number', key: 'enemy_under_command', label: 'Number of enemies under your control' },
+                { type: 'number', key: 'elite_under_command', label: 'Number of elites under your control' },
+                { type: 'number', key: 'melee_defense_stacks', label: 'Number of melee defense stacks' },
+                { type: 'number', key: 'projectile_defense_stacks', label: 'Number of projectile defense stacks' },
+                { type: 'number', key: 'aoe_defense_stacks', label: 'Number of aoe defense stacks' },
+                { type: 'number', key: 'vitality_stacks', label: 'Number of vitality stacks' },
             ]
         },
         {
@@ -621,7 +629,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Elder Lance',
             condition: character => this.isSkillEquipped(character, HeroClass.Warrior, 10),
             configurations: [
-                { type: 'number', key: 'cosmic_stacks', label: 'How many cosmic stacks do you have' }
+                { type: 'number', key: 'cosmic_stacks', label: 'Number of cosmic stacks' }
             ]
         },
         {
@@ -629,8 +637,8 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             condition: character => character.heroClass === HeroClass.Huntress,
             configurations: [
                 { type: 'number', key: 'serenity', label: 'What is your serenity level' },
-                { type: 'number', key: 'traps_nearby', label: 'How many traps are nearby' },
-                { type: 'number', key: 'poison_enemies', label: 'How many poisoned enemies are nearby' },
+                { type: 'number', key: 'traps_nearby', label: 'Number of traps nearby' },
+                { type: 'number', key: 'poison_enemies', label: 'Number of poisoned enemies nearby' },
                 { type: 'boolean', key: 'trap_triggered_recently', label: 'Did you trigger a trap recently' },
                 { type: 'boolean', key: 'last_cast_tormented', label: 'Was your last cast tormented' },
                 { type: 'boolean', key: 'last_cast_delighted', label: 'Was your last cast delighted' },
@@ -663,8 +671,8 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Arrow Shot',
             condition: character => this.isSkillEquipped(character, HeroClass.Huntress, 3),
             configurations: [
-                { type: 'number', key: 'rebounds_before_hit', label: 'How many rebounds did arrow shot do' },
-                { type: 'number', key: 'pierces_before_hit', label: 'How many enemies did arrow shot pierced' },
+                { type: 'number', key: 'rebounds_before_hit', label: 'Number of rebounds before hit' },
+                { type: 'number', key: 'pierces_before_hit', label: 'Number of enemies pierced before hit' },
                 { type: 'boolean', key: 'is_first_arrow_shot_hit', label: 'Is arrow shot hiting for the first time', info: 'Used to compute effects on first hit and before the first hit' },
                 { type: 'boolean', key: 'target_is_tracked', label: 'Is your target tracked' },
             ]
@@ -673,8 +681,8 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Rain of Arrows',
             condition: character => this.isSkillEquipped(character, HeroClass.Huntress, 4),
             configurations: [
-                { type: 'number', key: 'delightful_rain_stacks', label: 'How many delightful rain stacks do you have' },
-                { type: 'number', key: 'enemies_in_rain_of_arrow', label: 'How many enemies are inside your rain of arrow' },
+                { type: 'number', key: 'delightful_rain_stacks', label: 'Number of delightful rain stacks' },
+                { type: 'number', key: 'enemies_in_rain_of_arrow', label: 'Number of enemies inside your rain of arrow' },
                 { type: 'boolean', key: 'is_last_volley', label: 'Is it the last volley' },
             ]
         },
@@ -689,8 +697,8 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Fist of the wild',
             condition: character => this.isSkillEquipped(character, HeroClass.Huntress, 7),
             configurations: [
-                { type: 'number', key: 'target_latent_storm_stacks', label: 'How many latent storms are on your target' },
-                { type: 'number', key: 'enemies_affected_by_latent_storm', label: 'How many enemies are affected by latent storm' },
+                { type: 'number', key: 'target_latent_storm_stacks', label: 'Number of latent storms on your target' },
+                { type: 'number', key: 'enemies_affected_by_latent_storm', label: 'Number of enemies affected by latent storm' },
             ]
         },
         {
@@ -704,8 +712,8 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Immortal Arrow',
             condition: character => this.isSkillEquipped(character, HeroClass.Huntress, 9),
             configurations: [
-                { type: 'number', key: 'exhilerating_senses_stacks', label: 'How many exhilerating sense stacks do you have' },
-                { type: 'number', key: 'impatient_arrow_stacks', label: 'How many impatient arrow stacks do you have' },
+                { type: 'number', key: 'exhilerating_senses_stacks', label: 'Number of exhilerating sense stacks' },
+                { type: 'number', key: 'impatient_arrow_stacks', label: 'Number of impatient arrow stacks' },
             ]
         },
         {
@@ -724,7 +732,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Wall of Omen',
             condition: character => this.isSkillEquipped(character, HeroClass.Mage, 0),
             configurations: [
-                { type: 'number', key: 'invigorate_stacks', label: 'How many invigorate stacks do you have' },
+                { type: 'number', key: 'invigorate_stacks', label: 'Number of invigorate stacks' },
                 { type: 'boolean', key: 'projectile_passed_through_wall_of_omen', label: 'Did your projectile passed through Wall of Omen' },
                 { type: 'boolean', key: 'has_speed_gate_buff', label: 'Did your hero passed through Wall of Omen' },
             ]
@@ -740,7 +748,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Ray of Obliteration',
             condition: character => this.isSkillEquipped(character, HeroClass.Mage, 4),
             configurations: [
-                { type: 'number', key: 'ray_of_obliteration_grow_stacks', label: 'How many time did Ray of Obliteration grow' },
+                { type: 'number', key: 'ray_of_obliteration_grow_stacks', label: 'Number of Ray of Obliteration grow stacks' },
                 { type: 'boolean', key: 'is_channeling_ray_of_obliteration', label: 'Are you channeling Ray of Obliteration' },
                 { type: 'boolean', key: 'ray_of_obliteration_is_short', label: 'Are you casting a short ray' },
             ]
@@ -756,7 +764,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Rift Nova',
             condition: character => this.isSkillEquipped(character, HeroClass.Mage, 6),
             configurations: [
-                { type: 'boolean', key: 'high_spirit_stacks', label: 'How many spirit stacks do you have' },
+                { type: 'boolean', key: 'high_spirit_stacks', label: 'Number of spirit stacks' },
                 { type: 'boolean', key: 'rift_nova_fully_charged', label: 'Is Rift Nova fully charged' },
                 { type: 'boolean', key: 'target_has_remnant_vulnerability', label: 'Is your target affected by remnant vulnerability' },
             ]
@@ -765,11 +773,11 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Chrono-Puncture',
             condition: character => this.isSkillEquipped(character, HeroClass.Mage, 7),
             configurations: [
-                { type: 'number', key: 'chrono_manamorphosis_stacks', label: 'How many chrono manamorphosis stacks do you have' },
-                { type: 'number', key: 'chrono_armor_stacks', label: 'How many chrono armor stacks do you have' },
-                { type: 'number', key: 'chrono_empower_stacks', label: 'How many chrono empower stacks do you have' },
-                { type: 'number', key: 'chrono_speed_stacks', label: 'How many chrono speed stacks do you have' },
-                { type: 'number', key: 'enemy_traumatized_stacks', label: 'How many traumatized stacks does your target have' },
+                { type: 'number', key: 'chrono_manamorphosis_stacks', label: 'Number of chrono manamorphosis stacks' },
+                { type: 'number', key: 'chrono_armor_stacks', label: 'Number of chrono armor stacks' },
+                { type: 'number', key: 'chrono_empower_stacks', label: 'Number of chrono empower stacks' },
+                { type: 'number', key: 'chrono_speed_stacks', label: 'Number of chrono speed stacks' },
+                { type: 'number', key: 'enemy_traumatized_stacks', label: 'Number of traumatized stacks on your target' },
             ]
         },
         {
@@ -786,11 +794,11 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Arcane Breach',
             condition: character => this.isSkillEquipped(character, HeroClass.Mage, 9),
             configurations: [
-                { type: 'number', key: 'enemies_in_breach_range', label: 'How many enemies are in your breachs' },
-                { type: 'number', key: 'arcane_flux_stacks', label: 'How many arcane flux stacks do you have' },
-                { type: 'number', key: 'arcane_breach_collision_stacks', label: 'How many arcane skills collided with your breach' },
-                { type: 'number', key: 'temporal_breach_collision_stacks', label: 'How many temporal skills collided with your breach' },
-                { type: 'number', key: 'obliteration_breach_collision_stacks', label: 'How many obliteration skills collided with your breach' },
+                { type: 'number', key: 'enemies_in_breach_range', label: 'Number of enemies in your breachs' },
+                { type: 'number', key: 'arcane_flux_stacks', label: 'Number of arcane flux stacks' },
+                { type: 'number', key: 'arcane_breach_collision_stacks', label: 'Number of arcane skills that collided with your breach' },
+                { type: 'number', key: 'temporal_breach_collision_stacks', label: 'Number of temporal skills that collided with your breach' },
+                { type: 'number', key: 'obliteration_breach_collision_stacks', label: 'Number of obliteration skills that collided with your breach' },
                 { type: 'boolean', key: 'clone_is_in_breach_range', label: 'Is your clone inside a breach' },
                 { type: 'boolean', key: 'target_is_in_breach_range', label: 'Is your target inside a breach' },
             ]
