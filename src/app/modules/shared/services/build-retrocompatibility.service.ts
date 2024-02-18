@@ -310,6 +310,9 @@ export class BuildRetrocompatibilityService {
                 build.configuration.elemental_fury_stacks = 0;
                 build.configuration.fighter_bane_stacks = 0;
                 build.configuration.mage_bane_stacks = 0;
+                build.configuration.moonlight_stacks = 0;
+                build.configuration.sunlight_stacks = 0;
+                build.configuration.moonlight_side = true;
             }
         },
     ];

@@ -142,6 +142,15 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Reaper (Sun and Moon)',
+            condition: character => character.reaper.id === 96,
+            configurations: [
+                { type: 'number', key: 'moonlight_stacks', label: 'Number of moonlight stacks' },
+                { type: 'number', key: 'sunlight_stacks', label: 'Number of sunlight stacks' },
+                { type: 'boolean', key: 'moonlight_side', label: 'Is the reaper on the moonlight side' },
+            ]
+        },
+        {
             title: 'Reaper (Manificient Leviathan)',
             condition: character => character.reaper.id === 105,
             configurations: [
