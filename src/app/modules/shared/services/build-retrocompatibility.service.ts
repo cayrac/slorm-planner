@@ -313,6 +313,7 @@ export class BuildRetrocompatibilityService {
                 build.configuration.moonlight_stacks = 0;
                 build.configuration.sunlight_stacks = 0;
                 build.configuration.moonlight_side = true;
+                build.configuration.life_orbs_count = 0;
             }
         },
     ];

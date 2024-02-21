@@ -268,8 +268,6 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
             }
 
             this.activeRealms = activeRealms.map(realm => realm.realm);
-
-            console.log('nodes : ', this.character.ancestralLegacies.activeNodes);
         }
     }
 

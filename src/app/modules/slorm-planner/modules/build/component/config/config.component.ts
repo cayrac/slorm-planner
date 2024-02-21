@@ -151,6 +151,13 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Reaper (of the Many)',
+            condition: character => character.reaper.id === 103,
+            configurations: [
+                { type: 'number', key: 'life_orbs_count', label: 'Number of life orbs' }
+            ]
+        },
+        {
             title: 'Reaper (Manificient Leviathan)',
             condition: character => character.reaper.id === 105,
             configurations: [
