@@ -3,17 +3,13 @@ import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubs
 import { BuildStorageService } from '@shared/services/build-storage.service';
 import { takeUntil } from 'rxjs/operators';
 import {
-    ANCESTRAL_LEGACY_REALMS,
     AncestralLegacy,
     Character,
-    DataAncestralLegacyRealm,
-    INITIAL_NODES,
-    isFirst,
     list,
     MinMax,
+    SlormancerAncestralLegacyNodesService,
     SlormancerCharacterModifierService,
     SlormancerDataService,
-    UNLOCKED_ANCESTRAL_LEGACY_POINTS,
     valueOrDefault,
     valueOrNull,
 } from 'slormancer-api';
@@ -104,7 +100,8 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
 
     constructor(private buildStorageService: BuildStorageService,
                 private slormancerDataService: SlormancerDataService,
-                private slormancerCharacterModifierService: SlormancerCharacterModifierService) {
+                private slormancerCharacterModifierService: SlormancerCharacterModifierService,
+                private slormancerAncestralLegacyNodesService: SlormancerAncestralLegacyNodesService) {
         super();
         this.drawMap();
     }
@@ -250,34 +247,13 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
     }
 
     private updateMap() {
-        
         this.availableNodes = [];
         this.activeRealms = [];
         if (this.character !== null) {
-            const activeRealmIds = this.slormancerDataService.getAncestralRealmsFromNodes(
-                this.character.ancestralLegacies.activeNodes,
-                this.character.ancestralLegacies.activeFirstNode);
-            const activeRealms = ANCESTRAL_LEGACY_REALMS
-                .filter(realm => activeRealmIds.includes(realm.realm));
-            
-            if (this.character.ancestralLegacies.activeNodes.length < UNLOCKED_ANCESTRAL_LEGACY_POINTS) {
-                this.availableNodes = [
-                    ...INITIAL_NODES,
-                    ...activeRealms.filter(realm => this.isConnectedToStart(realm, activeRealms)).map(realm => realm.nodes).flat()
-                ].filter(isFirst);
-            }
-
-            this.activeRealms = activeRealms.map(realm => realm.realm);
+            this.availableNodes = this.slormancerAncestralLegacyNodesService.getAvailableEmptyNodes(this.character);
+            this.activeRealms = this.slormancerAncestralLegacyNodesService.getActiveRealms(this.character)
+                .map(realm => realm.realm);
         }
-    }
-
-    private isConnectedToStart(realm: DataAncestralLegacyRealm, realms: DataAncestralLegacyRealm[], visitedRealms: DataAncestralLegacyRealm[] = []): boolean {
-        visitedRealms = [ ...visitedRealms, realm ];
-        return realm.nodes.some(node => INITIAL_NODES.includes(node)) ||
-            realms
-            .filter(connectedRealm => !visitedRealms.includes(connectedRealm))
-            .filter(connectedRealm => connectedRealm.nodes.some(node => realm.nodes.includes(node)))
-            .some(connectedRealms => this.isConnectedToStart(connectedRealms, realms, visitedRealms));
     }
 
     public isNodeActive(nodeId: number): boolean {
@@ -324,22 +300,13 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         if (this.character !== null) {
             let changed = false;
 
-            if (this.isNodeActive(nodeId) || this.isFirstNodeActive(nodeId)) {
-                changed = this.slormancerCharacterModifierService.disableAncestralLegacyNode(this.character, nodeId);
-            } else if (this.isNodeAvailable(nodeId)) {
-                changed = this.slormancerCharacterModifierService.activateAncestralLegacyNode(this.character, nodeId);
-            } else if (this.isFirstNodeAvailable()) {
-                changed = this.slormancerCharacterModifierService.activateFirstAncestralLegacyNode(this.character, nodeId);
-            }
+            changed = this.slormancerCharacterModifierService.toggleAncestralLegacyNode(this.character, nodeId);
             this.buildStorageService.saveLayer();
     
             if (changed) {
                 this.updateMap();
             }
         }
-
-
-        return false;
     }
 
     public selectAncestralLegacy(ancestralLegacy: AncestralLegacy) {   
@@ -367,7 +334,7 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         this.zoneShapes.push(...realms
             .map((realmId, index) => {
                 const color = this.slormancerDataService.getAncestralRealmColor(realmId);
-                const ancestralLegacies = this.slormancerDataService.getAncestralLegacyIdsFromRealm(realmId);
+                const ancestralLegacies = this.slormancerAncestralLegacyNodesService.getAncestralLegacyIdsFromRealm(realmId);
                 const finalAngle = baseAngle + index * angle;
                 
                 return {

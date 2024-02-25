@@ -314,6 +314,7 @@ export class BuildRetrocompatibilityService {
                 build.configuration.sunlight_stacks = 0;
                 build.configuration.moonlight_side = true;
                 build.configuration.life_orbs_count = 0;
+                build.configuration.ancestral_wrath_stacks = 0;
             }
         },
     ];
