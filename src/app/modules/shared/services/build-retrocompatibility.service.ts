@@ -316,6 +316,7 @@ export class BuildRetrocompatibilityService {
                 build.configuration.life_orbs_count = 0;
                 build.configuration.ancestral_wrath_stacks = 0;
                 build.configuration.is_curving_time_or_time_shifting = false;
+                build.configuration.ancestral_preparation_stacks = 0;
             }
         },
     ];

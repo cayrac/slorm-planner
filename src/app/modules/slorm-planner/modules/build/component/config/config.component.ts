@@ -156,6 +156,13 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Reaper (Ancestral Harmony)',
+            condition: character => character.reaper.id === 86,
+            configurations: [
+                { type: 'number', key: 'ancestral_preparation_stacks', label: 'Number of ancestral preparation stacks' },
+            ]
+        },
+        {
             title: 'Reaper (Sun and Moon)',
             condition: character => character.reaper.id === 96,
             configurations: [
