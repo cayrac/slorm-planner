@@ -142,6 +142,13 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Reaper (TimeShifter)',
+            condition: character => character.reaper.id === 76,
+            configurations: [
+                { type: 'boolean', key: 'is_curving_time_or_time_shifting', label: 'Are you curving time or time shifting' },
+            ]
+        },
+        {
             title: 'Reaper (Ancestral Wrath)',
             condition: character => character.reaper.id === 77,
             configurations: [
