@@ -7,6 +7,13 @@
         </div>
         <div class="form">
             <div class="stat-line">
+                <app-search-select label="Reaper base"
+                    [control]="getReaperControl()"
+                    [options]="options"
+                    [noErrorPadding]="true">
+                </app-search-select>
+            </div>
+            <div class="stat-line">
                 <mat-form-field appearance="outline">
                     <mat-label>Reaper level (base)</mat-label>
                     <input matInput type="number" step="1" formControlName="baseLevel">
@@ -33,17 +40,18 @@
             <div class="stat-line">
                 <mat-form-field appearance="outline">
                     <mat-label>Reaper base affinity</mat-label>
-                    <input matInput type="number" step="1" formControlName="affinity">
+                    <input matInput type="number" step="1" formControlName="reaperAffinity">
                     <mat-error>Base affinity must be between 0 and {{MAX_REAPER_AFFINITY_BASE}}</mat-error>
                 </mat-form-field>
-                <mat-checkbox color="primary" formControlName="primordial">Primordial</mat-checkbox>
+                <mat-form-field appearance="outline" *ngIf="useDifferentAffinityForEffects(reaper)">
+                    <mat-label>Reaper effects base affinity</mat-label>
+                    <input matInput type="number" step="1" formControlName="effectAffinity">
+                    <mat-icon matSuffix matTooltip="This reaper use a different affinity value for it's effects">info</mat-icon>
+                    <mat-error>Base effect affinity must be between 0 and {{MAX_EFFECT_AFFINITY_BASE}}</mat-error>
+                </mat-form-field>
             </div>
             <div class="stat-line">
-                <app-search-select label="Reaper base"
-                    [control]="getReaperControl()"
-                    [options]="options"
-                    [noErrorPadding]="true">
-                </app-search-select>
+                <mat-checkbox color="primary" formControlName="primordial">Primordial</mat-checkbox>
             </div>
         </div>
     </mat-dialog-content>

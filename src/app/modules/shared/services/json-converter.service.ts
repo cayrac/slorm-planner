@@ -105,7 +105,8 @@ export class JsonConverterService {
         return {
             id: reaper.id,
             level: reaper.baseInfo.level,
-            affinity: reaper.baseAffinity,
+            affinity: reaper.baseReaperAffinity,
+            effectAffinity: reaper.baseEffectAffinity,
             primordialLevel: reaper.primordialInfo.level,
             kills: reaper.baseInfo.kills,
             primordialKills: reaper.primordialInfo.kills,
@@ -370,7 +371,8 @@ export class JsonConverterService {
             character.reaper.primordialLevel,
             character.reaper.kills,
             character.reaper.primordialKills,
-            character.reaper.affinity);
+            character.reaper.affinity,
+            character.reaper.effectAffinity);
 
         const ultimatum = character.ultimatum === null
             ? null

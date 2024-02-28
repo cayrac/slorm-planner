@@ -163,6 +163,13 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Reaper (Havoc)',
+            condition: character => character.reaper.id === 90,
+            configurations: [
+                { type: 'number', key: 'wreak_havoc_stacks', label: 'Number of wreak havoc stacks' },
+            ]
+        },
+        {
             title: 'Reaper (Sun and Moon)',
             condition: character => character.reaper.id === 96,
             configurations: [

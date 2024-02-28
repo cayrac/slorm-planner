@@ -17,12 +17,12 @@ mat-dialog-content {
         @include flex(column, stretch);
         @include flex-grow();
 
-        .stat-line > * {
-            @include flex-grow(1, true);
+        app-search-select {
+            padding-bottom: $space-unit * 4;
         }
 
-        mat-checkbox {
-            padding: $space-unit * 2 0;
+        .stat-line > * {
+            @include flex-grow(1, true);
         }
     }
 }

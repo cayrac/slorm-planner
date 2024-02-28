@@ -174,7 +174,7 @@ export class BuildRetrocompatibilityService {
                 build.version = '0.2.0';
 
                 for (const layer of build.layers) {
-                    layer.character.reaper.baseAffinity = MAX_REAPER_AFFINITY_BASE;
+                    (layer.character.reaper as any).baseAffinity = MAX_REAPER_AFFINITY_BASE;
                     layer.character.reaper.bonusAffinity = 0
                     layer.character.runes = {
                         effect: null,
@@ -317,6 +317,12 @@ export class BuildRetrocompatibilityService {
                 build.configuration.ancestral_wrath_stacks = 0;
                 build.configuration.is_curving_time_or_time_shifting = false;
                 build.configuration.ancestral_preparation_stacks = 0;
+
+                for (const layer of build.layers) {
+                    const baseAffinity = (layer.character.reaper as any).baseAffinity as number;
+                    layer.character.reaper.baseReaperAffinity = baseAffinity;
+                    layer.character.reaper.baseEffectAffinity = baseAffinity;
+                }
             }
         },
     ];
