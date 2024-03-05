@@ -472,6 +472,7 @@ export class JsonConverterService {
     public jsonToSharedData(json: JsonBuild | JsonLayer | JsonCharacter): SharedData {
         return {
             character: json.type === 'c' ? this.jsonToCharacter(json) : null,
+            configuration: null,
             layer: json.type === 'l' ? this.jsonToLayer(json) : null,
             planner: json.type === 'p' ? this.jsonToBuild(json) : null
         };

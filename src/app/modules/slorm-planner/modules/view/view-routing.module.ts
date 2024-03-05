@@ -5,7 +5,7 @@ import { ViewCharacterComponent } from './component/view-character/view-characte
 import { CharacterPathResolver } from './resolver/character-path.resolver';
 
 const routes: Routes = [
-    { path: 'build/:key', component: ViewCharacterComponent, resolve: { character: CharacterPathResolver } }
+    { path: 'build/:key', component: ViewCharacterComponent, resolve: { sharedData: CharacterPathResolver } }
 ];
 
 @NgModule({

@@ -174,10 +174,10 @@ export class BuildSidenavComponent extends AbstractUnsubscribeComponent implemen
 
     public copyExternalLink() {
         const layer = this.buildStorageService.getLayer();
+        const build = this.buildStorageService.getBuild();
 
-        if (layer !== null) {
-            // this.generatingLink = true;
-            const link = this.importExportService.exportCharacterAsLink(layer.character);
+        if (layer !== null && build !== null) {
+            const link = this.importExportService.exportCharacterAsLink(layer.character, build.configuration);
             if (this.clipboardService.copyToClipboard(link)) {
                 this.messageService.message('Link copied to clipboard');
             } else {

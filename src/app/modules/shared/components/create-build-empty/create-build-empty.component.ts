@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BuildStorageService } from '@shared/services/build-storage.service';
 import { BuildService } from '@shared/services/build.service';
-import { HeroClass } from 'slormancer-api';
+import { DEFAULT_CONFIG, HeroClass } from 'slormancer-api';
 
 @Component({
     selector: 'app-create-build-empty',
@@ -25,7 +25,7 @@ export class CreateBuildEmptyComponent {
 
     public createBuild() {
         if (this.selectedClass !== null) {
-            const build = this.buildService.createBuild(this.selectedClass, this.name);
+            const build = this.buildService.createBuild(this.selectedClass, this.name, DEFAULT_CONFIG);
             this.buildService.addLayer(build, this.name);
             this.buildStorageService.addBuild(build);
             this.created.emit();

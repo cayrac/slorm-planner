@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Character, DEFAULT_CONFIG, HeroClass, SlormancerCharacterBuilderService } from 'slormancer-api';
+import { Character, CharacterConfig, HeroClass, SlormancerCharacterBuilderService } from 'slormancer-api';
 
 import { environment } from '../../../../environments/environment';
 import { Build } from '../model/build';
@@ -11,23 +11,23 @@ export class BuildService {
     constructor(private slormancerCharacterBuilderService: SlormancerCharacterBuilderService) {
     }
 
-    public createBuild(heroClass: HeroClass, name: string): Build {
+    public createBuild(heroClass: HeroClass, name: string, configuration: CharacterConfig): Build {
         return {
             version: environment.version,
             name,
             heroClass,
             layers: [],
-            configuration: DEFAULT_CONFIG
+            configuration
         };
     }
 
-    public createBuildWithCharacter(buildName: string, layerName: string, character: Character): Build {
+    public createBuildWithCharacter(buildName: string, layerName: string, character: Character, configuration: CharacterConfig): Build {
         const build: Build = {
             version: environment.version,
             name: buildName,
             heroClass: character.heroClass,
             layers: [],
-            configuration: DEFAULT_CONFIG
+            configuration
         };
 
         const clone = this.slormancerCharacterBuilderService.getCharacterClone(character);

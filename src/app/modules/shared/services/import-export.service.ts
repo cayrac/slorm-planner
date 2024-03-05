@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
     Character,
+    CharacterConfig,
     HeroClass,
     SlormancerCharacterBuilderService,
     SlormancerSaveParserService,
@@ -34,14 +35,20 @@ export class ImportExportService {
         this.VIEW_BUILD_PATH = window.origin + baseHref + 'slorm-planner/view/build/';
     }
 
-    private parseSaveData(content: string, heroClass: HeroClass): Character {
+    private parseSaveData(content: string, heroClass: HeroClass): SharedData {
         const save = this.slormancerSaveParserService.parseSaveFile(content);
-        return this.slormancerCharacterBuilderService.getCharacterFromSave(save, heroClass);
+        return {
+            character: this.slormancerCharacterBuilderService.getCharacterFromSave(save, heroClass),
+            configuration: this.slormancerCharacterBuilderService.getConfigFromSave(save),
+            layer: null,
+            planner: null
+        }
     }
 
     private parseUrlData(path: string): SharedData {
         let result: SharedData = {
             character: null,
+            configuration: null,
             layer: null,
             planner: null
         }
@@ -69,13 +76,14 @@ export class ImportExportService {
     public import(content: string, heroClass: HeroClass | null = null): SharedData {
         let data: SharedData = {
             character: null,
+            configuration: null,
             layer: null,
             planner: null
         };
 
         if (heroClass !== null) {
             try {
-                data.character = this.parseSaveData(content, heroClass);
+                data = this.parseSaveData(content, heroClass);
                 return data;
             } catch (e) {
                 console.error('Error when parsing save file : ', e);
@@ -114,14 +122,14 @@ export class ImportExportService {
         return btoa(JSON.stringify(this.jsonConverterService.buildToJson(build)));
     }
 
-    public exportCharacterAsLink(character: Character): string {
-        const content = this.slormancerShortDataService.characterToShortData(character);
+    public exportCharacterAsLink(character: Character, config: CharacterConfig): string {
+        const content = this.slormancerShortDataService.characterToShortData(character, config);
         return this.VIEW_BUILD_PATH + content
     }
 
     public importFromShortData(key: string): SharedData {
         return {
-            character: this.slormancerShortDataService.shortDataToCharacter(key),
+            ...this.slormancerShortDataService.shortDataToCharacter(key),
             layer: null,
             planner: null
         }

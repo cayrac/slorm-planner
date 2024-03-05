@@ -4,6 +4,8 @@ import { BuildService } from '@shared/services/build.service';
 import { MessageService } from '@shared/services/message.service';
 import {
     Character,
+    CharacterConfig,
+    DEFAULT_CONFIG,
     GameHeroesData,
     HeroClass,
     SlormancerCharacterBuilderService,
@@ -30,6 +32,8 @@ export class CreateBuildFromGameComponent {
     
     public characters: GameHeroesData<Character> | null = null;
 
+    public config: Partial<CharacterConfig> | null = null;
+
     public selectedClass: HeroClass | null = null;
 
     constructor(private messageService: MessageService,
@@ -48,6 +52,7 @@ export class CreateBuildFromGameComponent {
                 [HeroClass.Huntress] : this.slormancerCharacterBuilderService.getCharacterFromSave(gameSave, HeroClass.Huntress),
                 [HeroClass.Mage] : this.slormancerCharacterBuilderService.getCharacterFromSave(gameSave, HeroClass.Mage)
             }
+            this.config = this.slormancerCharacterBuilderService.getConfigFromSave(gameSave);
             this.selectedClass = null;
         } catch (e) {
             console.error(e);
@@ -67,7 +72,8 @@ export class CreateBuildFromGameComponent {
 
     public createBuild() {
         if (this.selectedClass !== null && this.characters !== null) {
-            const build = this.buildService.createBuildWithCharacter(this.name, 'New layer', this.characters[this.selectedClass]);
+            const config = this.config === null ? DEFAULT_CONFIG : { ...DEFAULT_CONFIG, ...this.config };
+            const build = this.buildService.createBuildWithCharacter(this.name, 'New layer', this.characters[this.selectedClass], config);
             this.buildStorageService.addBuild(build);
             this.created.emit();
         }
@@ -75,7 +81,11 @@ export class CreateBuildFromGameComponent {
 
     public copyExternalLink() {
         if (this.selectedClass !== null && this.characters !== null) {
-            const link = this.importExportService.exportCharacterAsLink(this.characters[this.selectedClass]);
+            let configuration = DEFAULT_CONFIG;
+            if (this.config !== null) {
+                configuration = { ...configuration, ...this.config }
+            }
+            const link = this.importExportService.exportCharacterAsLink(this.characters[this.selectedClass], configuration);
             if (this.clipboardService.copyToClipboard(link)) {
                 this.messageService.message('Link copied to clipboard');
             } else {

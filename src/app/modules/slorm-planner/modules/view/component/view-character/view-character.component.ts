@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SharedData } from '@shared/model/shared-data';
 import { BuildStorageService } from '@shared/services/build-storage.service';
 import { BuildService } from '@shared/services/build.service';
 import {
@@ -8,6 +9,7 @@ import {
     AncestralLegacy,
     Attribute,
     Character,
+    CharacterConfig,
     COMBAT_CONFIG,
     DEFAULT_CONFIG,
     isNotNullOrUndefined,
@@ -42,6 +44,10 @@ export class ViewCharacterComponent {
 
     public readonly character: Character;
 
+    public readonly defaultConfig: CharacterConfig;
+
+    public readonly combatConfig: CharacterConfig;
+
     public showSummary: boolean = true;
 
     public readonly combatBuffControl = new FormControl(false);
@@ -53,14 +59,25 @@ export class ViewCharacterComponent {
                 private slormancerCharacterUpdaterService: SlormancerCharacterUpdaterService,
                 private slormancerDpsService: SlormancerDpsService,
                 private slormancerTranslateService: SlormancerTranslateService) {
-        this.character = activatedRoute.snapshot.data['character'];
+        const sharedData = activatedRoute.snapshot.data['sharedData'] as SharedData;
+        this.character = sharedData.character as Character;
+
+        this.defaultConfig = { ...DEFAULT_CONFIG };
+        this.combatConfig = { ...COMBAT_CONFIG };
+
+        if (sharedData.configuration !== null) {
+            this.defaultConfig = { ...this.defaultConfig, ...sharedData.configuration };
+            this.combatConfig = { ...this.combatConfig, ...sharedData.configuration };
+        }
+
+        console.log(this.defaultConfig);
 
         this.combatBuffControl.valueChanges.subscribe(() => this.updateConfiguration());
         this.updateConfiguration();
     }
 
     private updateConfiguration() {
-        let config = this.combatBuffControl.value ? { ...COMBAT_CONFIG } : { ...DEFAULT_CONFIG };
+        let config = this.combatBuffControl.value ? { ...this.combatConfig } : { ...this.defaultConfig };
 
         const highestManaCost = [
             this.character.primarySkill,
@@ -165,7 +182,8 @@ export class ViewCharacterComponent {
     }
 
     public import() {
-        const build = this.buildService.createBuildWithCharacter('Imported build', 'Imported layer', this.character);
+        console.log('TODO récupérer config depuis url : ');
+        const build = this.buildService.createBuildWithCharacter('Imported build', 'Imported layer', this.character, DEFAULT_CONFIG);
 
         this.buildStorageService.addBuild(build);
         
