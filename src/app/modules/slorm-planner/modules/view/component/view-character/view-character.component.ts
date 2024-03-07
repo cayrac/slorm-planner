@@ -52,6 +52,8 @@ export class ViewCharacterComponent {
 
     public readonly combatBuffControl = new FormControl(false);
 
+    private config: CharacterConfig;
+
     constructor(activatedRoute: ActivatedRoute,
                 private router: Router,
                 private buildStorageService: BuildStorageService,
@@ -70,14 +72,14 @@ export class ViewCharacterComponent {
             this.combatConfig = { ...this.combatConfig, ...sharedData.configuration };
         }
 
-        console.log(this.defaultConfig);
+        this.config = this.defaultConfig;
 
         this.combatBuffControl.valueChanges.subscribe(() => this.updateConfiguration());
         this.updateConfiguration();
     }
 
     private updateConfiguration() {
-        let config = this.combatBuffControl.value ? { ...this.combatConfig } : { ...this.defaultConfig };
+        this.config = this.combatBuffControl.value ? { ...this.combatConfig } : { ...this.defaultConfig };
 
         const highestManaCost = [
             this.character.primarySkill,
@@ -89,9 +91,9 @@ export class ViewCharacterComponent {
         ]   .filter(isNotNullOrUndefined)
             .map(skill => 'manaCost' in skill ? skill.manaCost : skill.cost)
             .filter(isNotNullOrUndefined);
-        config.minimum_unreserved_mana = Math.max(...highestManaCost, 0);
+        this.config.minimum_unreserved_mana = Math.max(...highestManaCost, 0);
 
-        this.slormancerCharacterUpdaterService.updateCharacter(this.character, config);
+        this.slormancerCharacterUpdaterService.updateCharacter(this.character, this.config);
 
     }
 
@@ -182,8 +184,7 @@ export class ViewCharacterComponent {
     }
 
     public import() {
-        console.log('TODO récupérer config depuis url : ');
-        const build = this.buildService.createBuildWithCharacter('Imported build', 'Imported layer', this.character, DEFAULT_CONFIG);
+        const build = this.buildService.createBuildWithCharacter('Imported build', 'Imported layer', this.character, this.config);
 
         this.buildStorageService.addBuild(build);
         
