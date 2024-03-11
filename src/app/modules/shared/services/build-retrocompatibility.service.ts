@@ -353,6 +353,7 @@ export class BuildRetrocompatibilityService {
                 build.configuration.unity_level_2_50_p = 0;
                 build.configuration.unity_level_2_51_p = 0;
                 build.configuration.unity_level_2_52_p = 0;
+                build.configuration.has_life_bargain_buff = false;
 
                 for (const layer of build.layers) {
                     const baseAffinity = (layer.character.reaper as any).baseAffinity as number;

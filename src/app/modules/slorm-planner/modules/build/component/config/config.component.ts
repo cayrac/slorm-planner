@@ -341,6 +341,13 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Reaper (Warlock)',
+            condition: character => character.reaper.id === 106 ||character.reaper.id === 107,
+            configurations: [
+                { type: 'boolean', key: 'has_life_bargain_buff', label: 'Is life bargain active' },
+            ]
+        },
+        {
             title: 'Rune (Enhancement of Hagan)',
             condition: character => character.runes.enhancement !== null && character.runes.enhancement.id === 23,
             configurations: [
