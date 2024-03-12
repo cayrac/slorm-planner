@@ -737,6 +737,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
                 { type: 'boolean', key: 'last_cast_tormented', label: 'Was your last cast tormented' },
                 { type: 'boolean', key: 'last_cast_delighted', label: 'Was your last cast delighted' },
                 { type: 'boolean', key: 'enemy_is_poisoned', label: 'Is your target poisoned' },
+                { type: 'boolean', key: 'enemy_is_chill_or_frozen', label: 'Is your target chilled or frozen' },
             ]
         },
         {

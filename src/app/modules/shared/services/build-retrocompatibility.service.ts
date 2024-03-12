@@ -354,6 +354,7 @@ export class BuildRetrocompatibilityService {
                 build.configuration.unity_level_2_51_p = 0;
                 build.configuration.unity_level_2_52_p = 0;
                 build.configuration.has_life_bargain_buff = false;
+                build.configuration.enemy_is_chill_or_frozen = false;
 
                 for (const layer of build.layers) {
                     const baseAffinity = (layer.character.reaper as any).baseAffinity as number;
