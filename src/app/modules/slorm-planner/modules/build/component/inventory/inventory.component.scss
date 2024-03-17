@@ -27,6 +27,8 @@ main {
 
         @include respond-to('tablet') {
             width: auto;
+            height: auto;
+            min-width: auto;
             max-width: initial;
         }
 

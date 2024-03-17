@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Reaper } from 'slormancer-api';
 
 @Component({
@@ -11,5 +11,20 @@ export class ReaperViewComponent {
     @Input()
     public readonly reaper: Reaper | null = null;
 
+    @Input()
+    public readonly maxHeight: string | null = null;
+
+    @Input()
+    public readonly tooltip: boolean = false;
+
+    @ViewChild('content')
+    private content: ElementRef<HTMLElement> | null = null; 
+
     constructor() { }
+
+    public scroll(event: WheelEvent) {
+        if (this.content) {
+            this.content.nativeElement.scrollTop += event.deltaY;
+        }
+    }
 }

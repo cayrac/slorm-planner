@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnChanges, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SearchService } from '@shared/services/search.service';
 import { takeUntil } from 'rxjs';
@@ -7,6 +7,7 @@ import { Character, Reaper, SlormancerCharacterBuilderService } from 'slormancer
 import { ItemMoveService } from '../../services/item-move.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 import { ReaperEditModalComponent, ReaperEditModalData } from '../reaper-edit-modal/reaper-edit-modal.component';
+import { ReaperViewComponent } from '../reaper-view/reaper-view.component';
 
 @Component({
   selector: 'app-reaper-slot',
@@ -20,6 +21,9 @@ export class ReaperSlotComponent extends AbstractUnsubscribeComponent implements
 
     @Input()
     public readonly readonly: boolean = false;
+
+    @ViewChild('reaperView')
+    private reaperView: ReaperViewComponent | null = null; 
 
     @Output()
     public readonly changed = new EventEmitter<Reaper>();
@@ -75,6 +79,13 @@ export class ReaperSlotComponent extends AbstractUnsubscribeComponent implements
                 }
             });
         }
+    }
+
+    public handlescroll(event: WheelEvent): boolean {
+        if (this.reaperView) {
+            this.reaperView.scroll(event);
+        }
+        return false;
     }
     
 }

@@ -1,40 +1,44 @@
 <div class="skill-bar" *ngIf="character !== null">
-    <div class="skill-slot">
-        <div class="skill-slot-border">
-            <app-skill-slot [skill]="character.primarySkill" (changed)="updatePrimarySkill($event)"></app-skill-slot>
-        </div>            
-        <img class="locked" *ngIf="character.primarySkill !== null && character.primarySkill.locked" src="assets/img/icon//locked.png">
-    </div>
-    <div class="skill-slot">
-        <div class="skill-slot-border">
-            <app-skill-slot [skill]="character.secondarySkill" (changed)="updateSecondarySkill($event)"></app-skill-slot>
-        </div>            
-        <img class="locked" *ngIf="character.secondarySkill !== null && character.secondarySkill.locked" src="assets/img/icon//locked.png">
-    </div>
-    <div class="skill-slot">
-        <div class="skill-slot-border">
-            <app-skill-slot [skill]="character.supportSkill" [support]="true" (changed)="updateSupportSkill($event)"></app-skill-slot>
+    <div class="skill-group">
+        <div class="skill-slot">
+            <div class="skill-slot-border">
+                <app-skill-slot [skill]="character.primarySkill" (changed)="updatePrimarySkill($event)"></app-skill-slot>
+            </div>            
+            <img class="locked" *ngIf="character.primarySkill !== null && character.primarySkill.locked" src="assets/img/icon//locked.png">
         </div>
-        <img class="locked" *ngIf="character.supportSkill !== null && character.supportSkill.locked" src="assets/img/icon//locked.png">
-    </div>
-    <div class="skill-slot">
-        <div class="skill-slot-border">
-            <app-activable-slot [activable]="character.activable1" (changed)="updateActivable1($event)"></app-activable-slot>
+        <div class="skill-slot">
+            <div class="skill-slot-border">
+                <app-skill-slot [skill]="character.secondarySkill" (changed)="updateSecondarySkill($event)"></app-skill-slot>
+            </div>            
+            <img class="locked" *ngIf="character.secondarySkill !== null && character.secondarySkill.locked" src="assets/img/icon//locked.png">
+        </div>
+        <div class="skill-slot">
+            <div class="skill-slot-border">
+                <app-skill-slot [skill]="character.supportSkill" [support]="true" (changed)="updateSupportSkill($event)"></app-skill-slot>
+            </div>
+            <img class="locked" *ngIf="character.supportSkill !== null && character.supportSkill.locked" src="assets/img/icon//locked.png">
         </div>
     </div>
-    <div class="skill-slot">
-        <div class="skill-slot-border">
-            <app-activable-slot [activable]="character.activable2" (changed)="updateActivable2($event)"></app-activable-slot>
+    <div class="skill-group">
+        <div class="skill-slot">
+            <div class="skill-slot-border">
+                <app-activable-slot [activable]="character.activable1" (changed)="updateActivable1($event)"></app-activable-slot>
+            </div>
         </div>
-    </div>
-    <div class="skill-slot">
-        <div class="skill-slot-border">
-            <app-activable-slot [activable]="character.activable3" (changed)="updateActivable3($event)"></app-activable-slot>
+        <div class="skill-slot">
+            <div class="skill-slot-border">
+                <app-activable-slot [activable]="character.activable2" (changed)="updateActivable2($event)"></app-activable-slot>
+            </div>
         </div>
-    </div>
-    <div class="skill-slot">
-        <div class="skill-slot-border">
-            <app-activable-slot [activable]="character.activable4" (changed)="updateActivable4($event)"></app-activable-slot>
+        <div class="skill-slot">
+            <div class="skill-slot-border">
+                <app-activable-slot [activable]="character.activable3" (changed)="updateActivable3($event)"></app-activable-slot>
+            </div>
+        </div>
+        <div class="skill-slot">
+            <div class="skill-slot-border">
+                <app-activable-slot [activable]="character.activable4" (changed)="updateActivable4($event)"></app-activable-slot>
+            </div>
         </div>
     </div>
 </div>

@@ -19,6 +19,16 @@ $reaper-desc-details            : rgb(104, 104, 104);
     color: white;
     border: 2px solid black;
     width: 350px;
+    display: flex;
+    flex-direction: column;
+
+    &.mobile-view {
+        @include respond-to('tablet') {
+            position: fixed;
+            top: 5%;
+            left: 5%;
+        }
+    }
     
     > .head, > .content {
         border: 2px solid $border-color;
@@ -30,6 +40,10 @@ $reaper-desc-details            : rgb(104, 104, 104);
         padding: 10px 50px;
         text-transform: uppercase;
         font-size: 17px;
+    }
+
+    > .content {
+        overflow-y: auto;
     }
 
     > .content {

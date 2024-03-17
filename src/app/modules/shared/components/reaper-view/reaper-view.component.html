@@ -1,6 +1,6 @@
-<div *ngIf="reaper !== null" class="reaper">
+<div *ngIf="reaper !== null" class="reaper" [style.maxHeight]="maxHeight" [class.mobile-view]="tooltip">
     <div class="head">{{reaper.name}}</div>
-    <div class="content">
+    <div class="content" #content>
         <div class="info">
             <div class="icon">
                 <img [src]="reaper.icon" [class.primordial-effect]="reaper.primordial"/>

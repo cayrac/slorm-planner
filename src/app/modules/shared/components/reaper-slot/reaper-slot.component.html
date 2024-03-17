@@ -3,11 +3,11 @@
     <div class="overlay-position" cdkOverlayOrigin #trigger="cdkOverlayOrigin"></div>
     <div class="inner-slot"></div>
     <ng-container>
-        <img [src]="character.reaper.icon" [class.primordial-effect]="character.reaper.primordial">
+        <img [src]="character.reaper.icon" [class.primordial-effect]="character.reaper.primordial" (wheel)="handlescroll($event)">
         <ng-template cdkConnectedOverlay
             [cdkConnectedOverlayOpen]="showOverlay"
             [cdkConnectedOverlayOrigin]="trigger">
-            <app-reaper-view [reaper]="character.reaper"></app-reaper-view>
+            <app-reaper-view [reaper]="character.reaper" maxHeight="700px" #reaperView [tooltip]="true"></app-reaper-view>
         </ng-template>
     </ng-container>
 </div>
