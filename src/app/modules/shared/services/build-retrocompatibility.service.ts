@@ -356,6 +356,7 @@ export class BuildRetrocompatibilityService {
                 build.configuration.has_life_bargain_buff = false;
                 build.configuration.enemy_is_chill_or_frozen = false;
                 build.configuration.absorbed_damage_wrath = 0;
+                build.configuration.add_skeletons_to_controlled_minions = false;
 
                 for (const layer of build.layers) {
                     const baseAffinity = (layer.character.reaper as any).baseAffinity as number;

@@ -389,6 +389,12 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
                     info: 'Based on your available mana after other skills reservation. Override fixed number of summoned skeleton squires'
                 },
                 { 
+                    type: 'boolean',
+                    key: 'add_skeletons_to_controlled_minions',
+                    label: 'Add summoned skeletons to controlled minions',
+                    info: 'Added to minions under your control config'
+                },
+                { 
                     type: 'number',
                     key: 'minimum_unreserved_mana',
                     label: 'Minimum unreserved mana',

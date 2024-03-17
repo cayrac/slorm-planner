@@ -287,12 +287,9 @@
 - signet ring of the Mc ripped require a reload to be updated in the skill bar
 
 
-
-- Hey salut, pour une raison que j'ignore Oak Bark Armor n'est plus ajouté dans les calculs d'armure sur le planner
-- mauvais calcul sur personal development magazine
 - ajouter scroll sur description de reaper
-- interaction foireuse avec skeleton et evasive magic : https://cayrac.github.io/slorm-planner/view/build/bqwGfNjKGVMpRVL33dGYgO_eiaqhub8bDqU_l0drq0_nTd8riusTwad7enreurPKHrkcs0e0roQalWbpag9ijkaJWcVam7a6Wepas7bt3JTvGOb5GiMqcMzbcrbiuKeYQkbB1_bdigGhQaIzacrKeuKeGgqtkOOfVBqcSGQbKGaHK4acjKejeeHsqrB1_hlioGzkakzacjKedeeGwqtkyOfVBqmSHkbKOaHK4acjKecKeIUqtkyOfVBqjSHAaEWcjKaugqqKqsfjbmQIGYMkbB1_aaaAGhQaKzbcjbiuKeYQkdkyOfVBqBmH5aEOcrKeiKeHsqtkOOmPIGw8TcEYiOb5GjgqqIqsfjbmQIGYMkbB1_aaaMGhKaIzbkPbfVBqomIQaEGcjKeuKeIQqtkyOfVBqhSGNGdyGaawGaaaGibzPI7cbQa
-- summon max skeleton : il faudrait une option pour que les skeleton invoqué soient ajouté à la stats minions under control
+
+
 ## TODO
 slorm legendaries
 affichage export
