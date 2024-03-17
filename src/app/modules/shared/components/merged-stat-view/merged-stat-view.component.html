@@ -161,7 +161,7 @@
             <div class="value">
             </div>
             <div class="value">
-                +{{value.value}}%
+                {{maxValueToString(value.value, '%', true)}}
             </div>
             <div class="source">
                 {{getSource(value.source)}}
@@ -236,26 +236,78 @@
             </div>
         </div>
     </ng-container>
+    <ng-container *ngIf="hasMultipliersExtraValues(mergedStat)">
+        <h3 class="section">{{translate(mergedStat.stat)}} - Flat extra multipliers</h3>
+        <div class="line head">
+            <div class="label">Type</div>
+            <div class="value">
+                Value<span *ngIf="mergedStat.allowMinMax"> (min)</span>
+            </div>
+            <div class="value" *ngIf="mergedStat.allowMinMax">
+                Value<span> (max)</span>
+            </div>
+            <div class="source">
+                Source
+            </div>
+            <div class="source-name">
+                Source name
+            </div>
+        </div>
+        <ng-container *ngFor="let value of mergedStat.values.multiplier">
+            <div class="line data" *ngIf="value.extra">
+                <div class="label">Multiplier</div>
+                <div class="value">
+                    {{minValueToString(value.value, '%', true)}}
+                </div>
+                <div class="value" *ngIf="mergedStat.allowMinMax">
+                    {{maxValueToString(value.value, '%', true)}}
+                </div>
+                <div class="source">
+                    {{getSource(value.source)}}
+                </div>
+                <div class="source-name">
+                    {{getSourceName(value.source)}}
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngFor="let value of mergedStat.values.maxMultiplier">
+            <div class="line data" *ngIf="value.extra">
+                <div class="label">Multiplier</div>
+                <div class="value">
+                </div>
+                <div class="value">
+                    {{maxValueToString(value.value, '%', true)}}
+                </div>
+                <div class="source">
+                    {{getSource(value.source)}}
+                </div>
+                <div class="source-name">
+                    {{getSourceName(value.source)}}
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+
     <h3 class="section">{{translate(mergedStat.stat)}} - Total</h3>
     <div class="line total" *ngIf="showFormula(mergedStat)">
         <div class="label">Formula<span *ngIf="totalHasMinMax(mergedStat)"> (Min)</span></div>
         <div class="formula">
-            {{getMinFormula(mergedStat)}}
+            {{suroundWitMmax(mergedStat, getMinFormula(mergedStat))}}
         </div>
     </div>
     <div class="line total" *ngIf="showFormula(mergedStat) && totalHasMinMax(mergedStat)">
         <div class="label">Formula (Max)</div>
         <div class="formula">
-            {{getMaxFormula(mergedStat)}}
+            {{suroundWitMmax(mergedStat, getMaxFormula(mergedStat))}}
         </div>
     </div>
     <div class="line total">
         <div class="label">Total</div>
         <div class="value">
-            {{minValueToString(mergedStat.total, mergedStat.suffix)}}
+            {{suroundWitMmax(mergedStat, minValueToString(mergedStat.total, mergedStat.suffix))}}
         </div>
         <div class="value" *ngIf="mergedStat.allowMinMax">
-            {{maxValueToString(mergedStat.total, mergedStat.suffix)}}
+            {{suroundWitMmax(mergedStat, maxValueToString(mergedStat.total, mergedStat.suffix))}}
         </div>
         <div class="source">
         </div>
@@ -265,10 +317,10 @@
     <div class="line total" *ngIf="hasDisplayPrecision(mergedStat)">
         <div class="label">Total (shown in stats)</div>
         <div class="value">
-            {{minValueToString(mergedStat.totalDisplayed, mergedStat.suffix)}}
+            {{suroundWitMmax(mergedStat, minValueToString(mergedStat.totalDisplayed, mergedStat.suffix))}}
         </div>
         <div class="value" *ngIf="mergedStat.allowMinMax">
-            {{maxValueToString(mergedStat.totalDisplayed, mergedStat.suffix)}}
+            {{suroundWitMmax(mergedStat, maxValueToString(mergedStat.totalDisplayed, mergedStat.suffix))}}
         </div>
         <div class="source">
         </div>

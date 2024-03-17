@@ -1,42 +1,60 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSliderChange } from '@angular/material/slider';
-import { ReaperEnchantment, valueOrDefault } from 'slormancer-api';
+import { ReaperEnchantment, ReaperSmith, SlormancerItemService } from 'slormancer-api';
 
 import { SelectOption } from '../../model/select-option';
 import { FormOptionsService } from '../../services/form-options.service';
+import { ItemReaperFormGroup } from '../item-edit-modal/item-edit-modal.component';
+import { takeUntil } from 'rxjs';
+import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 
 @Component({
   selector: 'app-item-edit-buff-reaper',
   templateUrl: './item-edit-buff-reaper.component.html',
   styleUrls: ['./item-edit-buff-reaper.component.scss']
 })
-export class ItemEditBuffReaperComponent implements OnChanges {
+export class ItemEditBuffReaperComponent extends AbstractUnsubscribeComponent implements OnChanges {
 
     @Input()
-    public readonly reaperEnchantment: ReaperEnchantment | null = null;
-
-    @Input()
-    public readonly form: FormGroup | null = null;
+    public readonly form: FormGroup<ItemReaperFormGroup> | null = null;
 
     public options: Array<SelectOption<number>> = [];
 
     public displayedValue: string = '';
 
-    constructor(private itemFormService: FormOptionsService) { }
+    public reaperEnchantment: ReaperEnchantment | null = null;
 
-    public ngOnChanges() {
-        this.options = this.itemFormService.getReaperBuffOptions();
-        if (this.reaperEnchantment !== null) {
-            this.updateReaperEnchantmentValueLabel(this.reaperEnchantment.effect.value);
-        }
+    constructor(private itemFormService: FormOptionsService,
+                private slormancerItemService: SlormancerItemService) {
+        super();
     }
 
-    public updateReaperEnchantmentValueLabel(value: number) {
+    public ngOnChanges(changes: SimpleChanges) {
+        if (this.form !== null) {
+            if ('form' in changes) {
+                this.form.valueChanges
+                    .pipe(takeUntil(this.unsubscribe))
+                    .subscribe(reaperEnchantment => {
+                        this.updateReaperEnchantment(reaperEnchantment.smith ?? null, reaperEnchantment.value ?? 0);
+                    });
+            }
+
+            this.updateReaperEnchantment(this.form.controls.smith.value, this.form.controls.value.value);
+        }
+
+        this.options = this.itemFormService.getReaperBuffOptions();
+    }
+
+    public updateReaperEnchantment(smith: ReaperSmith | null, value: number) {
         this.displayedValue = '';
 
-        if (this.reaperEnchantment !== null && value !== null) {
-            this.displayedValue = '+' + valueOrDefault(this.reaperEnchantment.craftableValues[value], 0);
+        this.reaperEnchantment = smith === null ? null
+            : this.slormancerItemService.getReaperEnchantment(smith, value);
+
+        if (this.reaperEnchantment !== null) {
+            console.log(this.reaperEnchantment);
+            this.displayedValue = '+' + this.reaperEnchantment.craftedValue;
         }
     }
 
@@ -45,7 +63,7 @@ export class ItemEditBuffReaperComponent implements OnChanges {
 
         const value = change.value;
         if (this.reaperEnchantment !== null && value !== null) {
-            this.updateReaperEnchantmentValueLabel(value);
+            this.updateReaperEnchantment(this.reaperEnchantment.craftedReaperSmith, value);
         }
     }
 

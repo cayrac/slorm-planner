@@ -29,7 +29,6 @@ export class CreateBuildFromExportComponent {
         }
 
         if (sharedData.character !== null) {
-            console.log('TODO récupérer config');
             const build = this.buildService.createBuildWithCharacter(this.name, 'Imported layer', sharedData.character, config);
             this.buildStorageService.addBuild(build);
             this.created.emit();

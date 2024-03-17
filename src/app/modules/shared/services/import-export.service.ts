@@ -105,8 +105,6 @@ export class ImportExportService {
             data = this.parseUrlData(content);
         }
 
-        console.log('data parsed : ', data);
-
         return data;
     }
 

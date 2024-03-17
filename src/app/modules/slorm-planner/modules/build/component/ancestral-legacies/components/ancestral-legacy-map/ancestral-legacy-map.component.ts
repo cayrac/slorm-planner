@@ -295,8 +295,6 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
     }
 
     public toggleNode(nodeId: number) {
-        console.log('Click on ', nodeId);
-
         if (this.character !== null) {
             let changed = false;
 
@@ -310,7 +308,6 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
     }
 
     public selectAncestralLegacy(ancestralLegacy: AncestralLegacy) {   
-        console.log(ancestralLegacy);       
         this.selectedAncestralLegacyChange.emit(ancestralLegacy);
     }
 

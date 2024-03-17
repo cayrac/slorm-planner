@@ -8,8 +8,9 @@
             No results
         </mat-option>
         <mat-option *ngFor="let filteredOption of filteredOptions; trackBy: trackBy"
-            [value]="filteredOption.option.value" [disabled]="filteredOption.filtered || optionDisable(filteredOption.option)" [class.filtered]="filteredOption.filtered">
+            [value]="filteredOption.option.value" [disabled]="filteredOption.filtered || filteredOption.disabled" [class.filtered]="filteredOption.filtered">
             <span [innerHTML]="filteredOption.option.label"></span>
         </mat-option>
     </mat-select>
+    <mat-hint *ngIf="control.value !== null && !isStatInOptions(control.value) && notFoundMessage !== null">{{notFoundMessage}}</mat-hint>
 </mat-form-field>

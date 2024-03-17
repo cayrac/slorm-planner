@@ -8,6 +8,7 @@ import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-u
 interface FilteredSelectOption<T> {
     option: SelectOption<T>;
     filtered: boolean;
+    disabled: boolean;
 }
 
 @Component({
@@ -30,7 +31,10 @@ export class SearchSelectComponent extends AbstractUnsubscribeComponent implemen
     public readonly noErrorPadding: boolean = false;
 
     @Input()
-    public readonly optionDisable: (option: SelectOption<any>) => boolean = () => false;
+    public readonly disabledOptions: Array<any> = [];
+
+    @Input()
+    public readonly notFoundMessage: string | null = null;
 
     public filteredOptions: Array<FilteredSelectOption<any>> = [];
 
@@ -66,7 +70,11 @@ export class SearchSelectComponent extends AbstractUnsubscribeComponent implemen
 
     public filter() {
         const search: string = this.search.value.toLowerCase().trim();
-        this.filteredOptions = this.options.map(option => ({ option, filtered: option.label.toLowerCase().indexOf(search) === -1 }));
+        this.filteredOptions = this.options.map(option => ({
+            option,
+            filtered: option.label.toLowerCase().indexOf(search) === -1,
+            disabled: this.disabledOptions.includes(option.value)
+        }));
         this.noResult = !this.filteredOptions.some(filteredOption => !filteredOption.filtered)
     }
 
@@ -76,6 +84,10 @@ export class SearchSelectComponent extends AbstractUnsubscribeComponent implemen
 
     public handleSearchSpace(event: Event) {
         event.stopPropagation();
+    }
+
+    public isStatInOptions(stat: string): boolean {
+        return this.options.some(option => option.value === stat);
     }
 }
     

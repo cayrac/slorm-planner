@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
     Affix,
@@ -7,7 +7,6 @@ import {
     Character,
     DEFAULT_CONFIG,
     EquipableItem,
-    LegendaryEffect,
     MAX_EPIC_STATS,
     MAX_ITEM_LEVEL,
     MAX_MAGIC_STATS,
@@ -16,9 +15,11 @@ import {
     ReaperSmith,
     SlormancerAffixService,
     SlormancerCharacterUpdaterService,
-    SlormancerDataService,
     SlormancerItemService,
     SlormancerLegendaryEffectService,
+    SlormancerTranslateService,
+    compareString,
+    isNotNullOrUndefined,
     valueOrNull,
 } from 'slormancer-api';
 
@@ -29,6 +30,82 @@ export interface ItemEditModalData {
     character: Character,
     item: EquipableItem;
     maxLevel: number;
+}
+
+export interface ItemAffixFormGroup {
+    purity: FormControl<number>;
+    value: FormControl<number>;
+    stat: FormControl<string>;
+    rarity: FormControl<Rarity>;
+    pure: FormControl<boolean>;
+}
+
+export interface ItemAffixFormData {
+    purity: number;
+    value: number;
+    stat: string;
+    rarity: Rarity;
+    pure: boolean;
+}
+
+export interface ItemLegendaryEffectFormGroup {
+    id: FormControl<number | null>;
+    value: FormControl<number>;
+}
+
+export interface ItemLegendaryEffectFormData {
+    id: number | null;
+    value: number;
+}
+
+export interface ItemReaperFormGroup {
+    smith: FormControl<ReaperSmith | null>;
+    value: FormControl<number>;
+}
+
+export interface ItemReaperFormData {
+    smith: ReaperSmith | null;
+    value: number;
+}
+
+export interface ItemAttributeFormGroup {
+    attribute: FormControl<Attribute | null>;
+    value: FormControl<number>;
+}
+
+export interface ItemAttributeFormData {
+    attribute: Attribute | null;
+    value: number;
+}
+
+export interface ItemSkillFormGroup {
+    skill: FormControl<number | null>;
+    value: FormControl<number>;
+}
+
+export interface ItemSkillFormData {
+    skill: number | null;
+    value: number;
+}
+
+export interface ItemFormGroup {
+    level: FormControl<number>,
+    reinforcment: FormControl<number>,
+    affixes: FormArray<FormGroup<ItemAffixFormGroup>>;
+    legendary: FormGroup<ItemLegendaryEffectFormGroup>;
+    reaper: FormGroup<ItemReaperFormGroup>;
+    attribute: FormGroup<ItemAttributeFormGroup>;
+    skill: FormGroup<ItemSkillFormGroup>;
+}
+
+export interface ItemFormData {
+    level: number,
+    reinforcment: number,
+    affixes: ItemAffixFormData[];
+    legendary: ItemLegendaryEffectFormData;
+    reaper: ItemReaperFormData;
+    attribute: ItemAttributeFormData;
+    skill: ItemSkillFormData;
 }
 
 @Component({
@@ -50,16 +127,36 @@ export class ItemEditModalComponent {
 
     private character: Character;
 
-    public item: EquipableItem;
+    public item!: EquipableItem;
 
-    public form!: FormGroup;
+    public form: FormGroup<ItemFormGroup> = new FormGroup({
+        level: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(1), Validators.max(this.MAX_ITEM_LEVEL), Validators.pattern(/^[0-9]+$/)] }),
+        reinforcment: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(0), Validators.pattern(/^[0-9]+$/)] }),
+        affixes: new FormArray<FormGroup<ItemAffixFormGroup>>([]),
+        legendary: new FormGroup({
+            id: new FormControl<number | null>(null),
+            value: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(0), Validators.pattern(/^[0-9]+$/)] })
+        }),
+        reaper: new FormGroup({
+            smith: new FormControl<number | null>(null),
+            value: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(0), Validators.pattern(/^[0-9]+$/)] })
+        }),
+        attribute: new FormGroup({
+            attribute: new FormControl<number | null>(null),
+            value: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(0), Validators.pattern(/^[0-9]+$/)] })
+        }),
+        skill: new FormGroup({
+            skill: new FormControl<number | null>(null),
+            value: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(0), Validators.pattern(/^[0-9]+$/)] })
+        }),
+    });
 
     constructor(private dialogRef: MatDialogRef<ItemEditModalComponent>,
                 private slormancerCharacterUpdaterService: SlormancerCharacterUpdaterService,
                 private slormancerItemService: SlormancerItemService,
-                private slormancerDataService: SlormancerDataService,
                 private slormancerAffixService: SlormancerAffixService,
                 private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
+                private slormancerTranslationService: SlormancerTranslateService,
                 private formOptionsService: FormOptionsService,
                 private buildStorageService: BuildStorageService,
                 @Inject(MAT_DIALOG_DATA) data: ItemEditModalData
@@ -67,23 +164,57 @@ export class ItemEditModalComponent {
         this.originalItem = data.item;
         this.maxLevel = data.maxLevel;
 
-        this.item = this.slormancerItemService.getEquipableItemClone(this.originalItem);
+        this.form.valueChanges.subscribe(() => {
+            this.updatePreview();
+            this.alreadyUsedStats = this.form.controls.affixes.getRawValue().map(affix => affix.stat);
+        });
+
+        this.form.controls.affixes.valueChanges.subscribe(() => {
+            this.sortAffixes();
+        });
+
         this.character = data.character;
         this.reset();
-
-        // TODO
-        
-        // reflechir composant pour gérer stat par rareté
-        // rajouter minLevel sur EffectValue et minLevel sur item
-        // et du coup rajouter stats par level
-        // mettre css no error padding sur champs pour gagner de la place
-
-        // mettre en hint le niveau minimum
     }
-    
+
     public reset() {
-        Object.assign(this.item, this.slormancerItemService.getEquipableItemClone(this.originalItem));
-        this.form = this.buildForm();
+        this.item = this.slormancerItemService.getEquipableItemClone(this.originalItem);
+
+        this.form.controls.affixes.clear({ emitEvent: false });
+        for (const _ of this.item.affixes) {
+            this.form.controls.affixes.push(this.getAffixForm(), { emitEvent: false });
+        }
+
+        this.form.reset({
+            level: this.item.level,
+            reinforcment: this.item.reinforcment,
+            affixes: this.item.affixes.map(affix => ({
+                pure: affix.isPure,
+                purity: affix.pure,
+                rarity: affix.rarity,
+                stat: affix.craftedEffect.effect.stat,
+                value: affix.craftedEffect.craftedValue
+            })),
+            legendary: {
+                id: this.item.legendaryEffect === null ? null : this.item.legendaryEffect.id,
+                value: this.item.legendaryEffect === null ? 0 : this.item.legendaryEffect.value,
+            },
+            attribute: {
+                attribute: this.item.attributeEnchantment === null ? null : this.item.attributeEnchantment.craftedAttribute,
+                value: this.item.attributeEnchantment === null ? 0 : this.item.attributeEnchantment.craftedValue
+            },
+            reaper: {
+                smith: this.item.reaperEnchantment === null ? null : this.item.reaperEnchantment.craftedReaperSmith,
+                value: this.item.reaperEnchantment === null ? 0 : this.item.reaperEnchantment.craftedValue
+            },
+            skill: {
+                skill: this.item.skillEnchantment === null ? null : this.item.skillEnchantment.craftedSkill,
+                value: this.item.skillEnchantment === null ? 0 : this.item.skillEnchantment.craftedValue
+            }
+        });
+
+        this.sortAffixes();
+        this.updatePreview();
     }
 
     public submit() {
@@ -92,98 +223,29 @@ export class ItemEditModalComponent {
         }
     }
 
-    private updatePreview(form: FormGroup) {
+    private updatePreview() {
         const item = this.item;
-        if (form.valid) {
-            const value = form.value;
+        if (this.form.valid) {
+            const value = this.form.getRawValue();
             item.level = value.level;
             item.reinforcment = value.reinforcment;
 
-            item.affixes.forEach((affix, index) => {
-                const control = <FormGroup | null>form.get('affixes.' + index);
-
-                if (control !== null) {
-                    const purity = (<FormControl>control.get('purity')).value;
-                    const val = (<FormControl>control.get('value')).value;
-                    const stat =(<FormControl>control.get('stat')).value;
-                    const rarity = (<FormControl>control.get('rarity')).value;
-
-                    if (affix.craftedEffect.effect.stat !== stat) {
-                        const newAffix = this.slormancerAffixService.getAffixFromStat(stat, item.level, item.reinforcment, rarity, val);
-                        if (newAffix !== null) {
-                            item.affixes[index] = newAffix;
-                            affix = newAffix;
-                        }
-                    }
-
-                    affix.craftedEffect.craftedValue = val;
-                    affix.pure = purity;                   
-                }
-            });
-
-            if (value.legendaryEffect !== null) {
-                const id: number | null = value.legendaryEffect.id;
-                const val: number = value.legendaryEffect.value;
-
-                if (id === null) {
-                    item.legendaryEffect = null;
-                } else {
-                    if (item.legendaryEffect === null || item.legendaryEffect.id !== id) {
-                        item.legendaryEffect = this.slormancerLegendaryEffectService.getLegendaryEffectById(id, val, item.reinforcment, item.heroClass);
-                    } else {
-                        item.legendaryEffect.value = val;
-                    }
-                }
-            }
+            item.affixes = value.affixes
+                .map(affix =>  this.slormancerAffixService.getAffixFromStat(affix.stat, item.level, item.reinforcment, affix.rarity, affix.value, affix.pure ? affix.purity : 0))
+                .filter(isNotNullOrUndefined);
             
-            if (value.reaper !== null) {
-                const smith: ReaperSmith | null = value.reaper.smith;
-                const val: number = value.reaper.value;
+            item.legendaryEffect = value.legendary.id === null ? null
+                : this.slormancerLegendaryEffectService.getLegendaryEffectById(value.legendary.id, value.legendary.value, item.reinforcment, item.heroClass);
 
-                if (smith === null) {
-                    item.reaperEnchantment = null;
-                } else {
-                    if (item.reaperEnchantment === null || item.reaperEnchantment.craftedReaperSmith !== smith) {
-                        item.reaperEnchantment = this.slormancerItemService.getReaperEnchantment(smith, val);
-                    } else {
-                        item.reaperEnchantment.craftedValue = val;
-                    }
-                }
-            }
+            item.reaperEnchantment = value.reaper.smith === null ? null
+                : this.slormancerItemService.getReaperEnchantment(value.reaper.smith, value.reaper.value);
             
-            if (value.skill !== null) {
-                const skillId: number | null = value.skill.skill;
-                const val: number = value.skill.value;
-
-                if (skillId === null) {
-                    item.skillEnchantment = null;
-                } else {
-                    if (item.skillEnchantment === null || item.skillEnchantment.craftedSkill !== skillId) {
-                        item.skillEnchantment = this.slormancerItemService.getSkillEnchantment(skillId, val);
-                    } else {
-                        item.skillEnchantment.craftedValue = val;
-                    }
-                }
-            }
+            item.skillEnchantment = value.skill.skill === null ? null
+                : this.slormancerItemService.getSkillEnchantment(value.skill.skill, value.skill.value);
             
-            if (value.attribute !== null) {
-                const attribute: Attribute | null = value.attribute.attribute;
-                const val: number = value.attribute.value;
-
-                if (attribute === null) {
-                    item.attributeEnchantment = null;
-                } else {
-                    if (item.attributeEnchantment === null || item.attributeEnchantment.craftedAttribute !== attribute) {
-                        item.attributeEnchantment = this.slormancerItemService.getAttributeEnchantment(attribute, val);
-                    } else {
-                        item.attributeEnchantment.craftedValue = val;
-                    }
-                }
-            }
-
-
-            this.alreadyUsedStats = item.affixes.map(affix => affix.craftedEffect.effect.stat);
-
+            item.attributeEnchantment = value.attribute.attribute === null ? null
+                : this.slormancerItemService.getAttributeEnchantment(value.attribute.attribute, value.attribute.value);
+            
             this.slormancerItemService.updateEquipableItemModel(item);
             
             const build = this.buildStorageService.getBuild();
@@ -193,140 +255,101 @@ export class ItemEditModalComponent {
         }
     }
 
-    private affixToForm(affix: Affix): FormGroup {
+    private sortAffixes() {
+        this.form.controls.affixes.controls
+            .sort((a, b) => compareString(this.slormancerTranslationService.translate(a.controls.stat.value), this.slormancerTranslationService.translate(b.controls.stat.value)))
+    }
+
+    private getAffixForm(): FormGroup<ItemAffixFormGroup> {
         return new FormGroup({
-            rarity: new FormControl(affix.rarity),
-            value: new FormControl(affix.craftedEffect.craftedValue),
-            purity: new FormControl(affix.pure),
-            stat: new FormControl(affix.craftedEffect.effect.stat)
+            pure: new FormControl<boolean>(false, { nonNullable: true, validators: Validators.required }),
+            purity: new FormControl<number>(0, { nonNullable: true, validators: Validators.required }),
+            rarity: new FormControl<Rarity>(Rarity.Normal, { nonNullable: true, validators: Validators.required }),
+            stat: new FormControl<string>('', { nonNullable: true, validators: Validators.required }),
+            value: new FormControl<number>(0, { nonNullable: true, validators: Validators.required })
         })
     }
 
-    private legendaryEffectToForm(legendaryEffect: LegendaryEffect | null): FormGroup {
-        return new FormGroup({
-            id: new FormControl(legendaryEffect === null ? null : legendaryEffect.id),
-            value: new FormControl(legendaryEffect === null ? 100 : legendaryEffect.value)
+    private affixToForm(affix: Affix): FormGroup<ItemAffixFormGroup> {
+        const form = this.getAffixForm();
+        form.reset({
+            pure: affix.isPure,
+            purity: affix.pure,
+            rarity: affix.rarity,
+            stat: affix.craftedEffect.effect.stat,
+            value: affix.craftedEffect.craftedValue
         })
-    }
-
-    private buildForm(): FormGroup {
-        let form: FormGroup | null = null;
-        
-        const newForm = new FormGroup({
-            level: new FormControl(this.item.level, [Validators.required, Validators.min(1), Validators.max(this.MAX_ITEM_LEVEL), Validators.pattern(/^[0-9]+$/)]),
-            reinforcment: new FormControl(this.item.reinforcment, [Validators.required, Validators.min(0), Validators.pattern(/^[0-9]+$/)]),
-            affixes: new FormArray(this.item.affixes.map(affix => this.affixToForm(affix))),
-            legendaryEffect: this.legendaryEffectToForm(this.item.legendaryEffect),
-            reaper: new FormGroup({
-                smith: new FormControl(this.item.reaperEnchantment === null ? null : this.item.reaperEnchantment.craftedReaperSmith),
-                value: new FormControl(this.item.reaperEnchantment === null ? 5 : this.item.reaperEnchantment.craftedValue)
-            }),
-            skill: new FormGroup({
-                skill: new FormControl(this.item.skillEnchantment === null ? null : this.item.skillEnchantment.craftedSkill),
-                value: new FormControl(this.item.skillEnchantment === null ? 2 : this.item.skillEnchantment.craftedValue)
-            }),
-            attribute: new FormGroup({
-                attribute: new FormControl(this.item.attributeEnchantment === null ? null : this.item.attributeEnchantment.craftedAttribute),
-                value: new FormControl(this.item.attributeEnchantment === null ? 2 : this.item.attributeEnchantment.craftedValue)
-            })
-        });
-
-        newForm.valueChanges.subscribe(() => {
-            this.updatePreview(newForm);
-        });
-        this.updatePreview(newForm);
-
-        this.maxBasicStats = this.slormancerDataService.getBaseMaxBasicStat(this.item.base);
-
-        form = newForm;
-
         return form;
     }
 
-    public getAffixControls(): Array<FormGroup> {
-        const affixes = <FormArray | null>this.form.get('affixes');
-        return affixes !== null ? <Array<FormGroup>>affixes.controls : [];
-    }
-
-    public isBasicStat(affixForm: AbstractControl): boolean {
-        const control = affixForm.get('rarity');
-        return control !== null && control.value === Rarity.Normal;
-    }
-
     public hasBasicStats(): boolean {
-        return this.getAffixControls().filter(control => this.isBasicStat(control)).length > 0
+        return this.form.controls.affixes.controls.filter(control => this.isBasicStat(control)).length > 0
     }
 
     public hasMaximumBasicStats(): boolean {
-        return this.getAffixControls().filter(control => this.isBasicStat(control)).length >= this.maxBasicStats;
-    }
-
-    public isMagicStat(affixForm: AbstractControl): boolean {
-        const control = affixForm.get('rarity');
-        return control !== null && control.value === Rarity.Magic;
+        return this.form.controls.affixes.controls.filter(control => this.isBasicStat(control)).length >= this.maxBasicStats;
     }
 
     public hasMagicStats(): boolean {
-        return this.getAffixControls().filter(control => this.isMagicStat(control)).length > 0
+        return this.form.controls.affixes.controls.filter(control => this.isMagicStat(control)).length > 0
     }
 
     public hasMaximumMagicStats(): boolean {
-        return this.getAffixControls().filter(control => this.isMagicStat(control)).length >= MAX_MAGIC_STATS;
+        return this.form.controls.affixes.controls.filter(control => this.isMagicStat(control)).length >= MAX_MAGIC_STATS;
     }
 
-    public isRareStat(affixForm: AbstractControl): boolean {
-        const control = affixForm.get('rarity');
-        return control !== null && control.value === Rarity.Rare;
+    public isBasicStat(control: FormGroup<ItemAffixFormGroup>): boolean {
+        return control.controls.rarity.value === Rarity.Normal;
+    }
+
+    public isMagicStat(control: FormGroup<ItemAffixFormGroup>): boolean {
+        return control.controls.rarity.value === Rarity.Magic;
+    }
+
+    public isRareStat(control: FormGroup<ItemAffixFormGroup>): boolean {
+        return control.controls.rarity.value === Rarity.Rare;
+    }
+
+    public isEpicStat(control: FormGroup<ItemAffixFormGroup>): boolean {
+        return control.controls.rarity.value === Rarity.Epic;
     }
 
     public hasRareStats(): boolean {
-        return this.getAffixControls().filter(control => this.isRareStat(control)).length > 0
+        return this.form.controls.affixes.controls.filter(control => this.isRareStat(control)).length > 0
     }
 
     public hasMaximumRareStats(): boolean {
-        return this.getAffixControls().filter(control => this.isRareStat(control)).length >= MAX_RARE_STATS;
-    }
-
-    public isEpicStat(affixForm: AbstractControl): boolean {
-        const control = affixForm.get('rarity');
-        return control !== null && control.value === Rarity.Epic;
+        return this.form.controls.affixes.controls.filter(control => this.isRareStat(control)).length >= MAX_RARE_STATS;
     }
 
     public hasEpicStats(): boolean {
-        return this.getAffixControls().filter(control => this.isEpicStat(control)).length > 0
+        return this.form.controls.affixes.controls.filter(control => this.isEpicStat(control)).length > 0
     }
 
     public hasMaximumEpicStats(): boolean {
-        return this.getAffixControls().filter(control => this.isEpicStat(control)).length >= MAX_EPIC_STATS;
+        return this.form.controls.affixes.controls.filter(control => this.isEpicStat(control)).length >= MAX_EPIC_STATS;
     }
 
     public getAffix(index: number): Affix | null {
         return this.item === null ? null : valueOrNull(this.item.affixes[index]);
     }
 
-    public removeAffix(index: number) {
-        const formAffixes = <FormArray | null>(this.form.get('affixes'));
-        if (formAffixes !== null) {
-            formAffixes.removeAt(index);
-            this.item.affixes.splice(index, 1);
-            this.updatePreview(this.form);
-        }
+    public removeAffix(affix: FormGroup<ItemAffixFormGroup>) {
+        this.form.controls.affixes.removeAt(this.form.controls.affixes.controls.indexOf(affix));
+        this.updatePreview();
     }
 
     private addAffix(rarity: Rarity) {
-        const formAffixes = <FormArray | null>this.form.get('affixes');
         const possibleStats = this.formOptionsService.getStatsOptions(this.item.base, rarity)
             .filter(option => this.alreadyUsedStats.indexOf(option.value) === -1);
 
         const stat = possibleStats[0];
-        if (stat && formAffixes !== null) {
+        if (stat) {
             const affix = this.slormancerAffixService.getAffixFromStat(stat.value, this.item.level, this.item.reinforcment, rarity, 1000);
 
             if (affix !== null) {
-                this.item.affixes.push(affix);
-                formAffixes.push(this.affixToForm(affix));
-
-                this.updatePreview(this.form);
+                this.form.controls.affixes.push(this.affixToForm(affix))
+                this.updatePreview();
             }
         }
     }
@@ -345,21 +368,5 @@ export class ItemEditModalComponent {
 
     public addEpicAffix() {
         this.addAffix(Rarity.Epic);
-    }
-
-    public getLegendaryEffectForm(): FormGroup | null {
-        return <FormGroup | null>(this.form === null ? null : this.form.get('legendaryEffect'));
-    }
-
-    public getReaperEnchantmentForm(): FormGroup | null {
-        return <FormGroup | null>(this.form === null ? null : this.form.get('reaper'));
-    }
-
-    public getSkillEnchantmentForm(): FormGroup | null {
-        return <FormGroup | null>(this.form === null ? null : this.form.get('skill'));
-    }
-
-    public getAttributeEnchantmentForm(): FormGroup | null {
-        return <FormGroup | null>(this.form === null ? null : this.form.get('attribute'));
     }
 }

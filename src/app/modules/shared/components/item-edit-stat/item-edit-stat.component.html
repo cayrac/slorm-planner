@@ -1,13 +1,14 @@
 <div class="stat-line" [formGroup]="form"  *ngIf="form !== null && affix !== null">
     <div class="select">
         <app-search-select label="Stat"
-            [control]="getStatControl()"
+            [control]="form.controls.stat"
             [options]="options"
-            [optionDisable]="optionDisableMethod">
+            [disabledOptions]="alreadyUsedStats"
+            notFoundMessage="This stat is not longer available">
         </app-search-select>
     </div>
     <div class="slider">
-        <mat-slider *ngIf="!affix.isPure"
+        <mat-slider *ngIf="!form.controls.pure.value"
             color="primary"
             [min]="affix.craftedEffect.minPossibleCraftedValue"
             [max]="affix.craftedEffect.maxPossibleCraftedValue"
@@ -15,7 +16,7 @@
             formControlName="value"
             (input)="updateSliderStat($event)">
         </mat-slider>
-        <mat-slider *ngIf="affix.isPure"
+        <mat-slider *ngIf="form.controls.pure.value"
             color="accent"
             [min]="101"
             [max]="200"
@@ -25,10 +26,8 @@
         </mat-slider>
     </div>
     <div class="additional">
-        <div class="value" [class.pure]="affix.isPure">
-            {{displayedValue}}
-        </div>
-        <mat-checkbox color="primary" (change)="purityChanged($event)" [checked]="affix.isPure">Pure</mat-checkbox>
+        <div class="value" [class.pure]="form.controls.pure.value">{{displayedValue}}</div>
+        <mat-checkbox color="primary" formControlName="pure">Pure</mat-checkbox>
         <button mat-icon-button color="primary" type="button" [disabled]="!removable" (click)="removeStat()">
             <mat-icon>delete</mat-icon>
         </button>

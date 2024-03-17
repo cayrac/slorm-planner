@@ -1,42 +1,58 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSliderChange } from '@angular/material/slider';
-import { AttributeEnchantment, valueOrDefault } from 'slormancer-api';
+import { Attribute, AttributeEnchantment, SlormancerItemService, valueOrDefault } from 'slormancer-api';
 
 import { SelectOption } from '../../model/select-option';
 import { FormOptionsService } from '../../services/form-options.service';
+import { ItemAttributeFormGroup } from '../item-edit-modal/item-edit-modal.component';
+import { takeUntil } from 'rxjs';
+import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 
 @Component({
   selector: 'app-item-edit-buff-attribute',
   templateUrl: './item-edit-buff-attribute.component.html',
   styleUrls: ['./item-edit-buff-attribute.component.scss']
 })
-export class ItemEditBuffAttributeComponent implements OnChanges {
+export class ItemEditBuffAttributeComponent extends AbstractUnsubscribeComponent implements OnChanges {
 
     @Input()
-    public readonly attributeEnchantment: AttributeEnchantment | null = null;
-
-    @Input()
-    public readonly form: FormGroup | null = null;
+    public readonly form: FormGroup<ItemAttributeFormGroup> | null = null;
 
     public options: Array<SelectOption<number>> = [];
 
     public displayedValue: string = '';
 
-    constructor(private itemFormService: FormOptionsService) { }
+    public attributeEnchantment: AttributeEnchantment | null = null;
 
-    public ngOnChanges() {
+    constructor(private itemFormService: FormOptionsService,
+                private slormancerItemService: SlormancerItemService) {
+        super();
+    }
+
+    public ngOnChanges(changes: SimpleChanges) {
         this.options = this.itemFormService.getAttributeBuffOptions();
-        if (this.attributeEnchantment !== null) {
-            this.updateAttributeEnchantmentValueLabel(this.attributeEnchantment.effect.value);
+
+        if (this.form !== null) {
+            if ('form' in changes) {
+                this.form.valueChanges
+                    .pipe(takeUntil(this.unsubscribe))
+                    .subscribe(attributeEnchantment => {
+                        this.updateAttributeEnchantment(attributeEnchantment.attribute ?? null, attributeEnchantment.value ?? 0);
+                    });
+            }
+
+            this.updateAttributeEnchantment(this.form.controls.attribute.value, this.form.controls.value.value);
         }
     }
 
-    public updateAttributeEnchantmentValueLabel(value: number) {
-        this.displayedValue = '';
+    public updateAttributeEnchantment(attribute: Attribute | null, value: number) {
+        this.attributeEnchantment = attribute === null ? null
+            : this.slormancerItemService.getAttributeEnchantment(attribute, value);
 
-        if (this.attributeEnchantment !== null && value !== null) {
-            this.displayedValue = '+' + valueOrDefault(this.attributeEnchantment.craftableValues[value], 0);
+        this.displayedValue = '';
+        if (this.attributeEnchantment !== null) {
+            this.displayedValue = '+' + valueOrDefault(this.attributeEnchantment.craftableValues[this.attributeEnchantment.craftedValue], 0);
         }
     }
 
@@ -45,7 +61,7 @@ export class ItemEditBuffAttributeComponent implements OnChanges {
 
         const value = change.value;
         if (this.attributeEnchantment !== null && value !== null) {
-            this.updateAttributeEnchantmentValueLabel(value);
+            this.updateAttributeEnchantment(this.attributeEnchantment.craftedValue, value);
         }
     }
 

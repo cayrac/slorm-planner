@@ -8,12 +8,12 @@
             <div class="form-line">
                 <mat-form-field appearance="outline">
                     <mat-label>Item level</mat-label>
-                    <input matInput type="number" step="1" formControlName="level">
+                    <input matInput type="number" step="1" min="1" [max]="MAX_ITEM_LEVEL" formControlName="level">
                     <mat-error>Level must be between 1 and {{MAX_ITEM_LEVEL}}</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Item reinforcment</mat-label>
-                    <input matInput type="number" step="1" formControlName="reinforcment">
+                    <input matInput type="number" step="1" min="0" formControlName="reinforcment">
                     <mat-error>Reinforcment must be >= 0</mat-error>
                 </mat-form-field>
             </div>
@@ -26,14 +26,15 @@
                 </div>
             </div>
             <ng-container *ngIf="hasBasicStats()">
-                <ng-container *ngFor="let affixControl of getAffixControls(); let i = index">
+                <ng-container *ngFor="let affixControl of form.controls.affixes.controls; let i = index">
                     <app-item-edit-stat *ngIf="isBasicStat(affixControl)"
                         [form]="affixControl"
-                        [base]="item.base"
+                        [itemBase]="item.base"
+                        [itemLevel]="item.level"
+                        [itemReinforcment]="item.reinforcment"
                         [alreadyUsedStats]="alreadyUsedStats"
-                        [affix]="getAffix(i)"
                         [removable]="false"
-                        (remove)="removeAffix(i)">
+                        (remove)="removeAffix(affixControl)">
                     </app-item-edit-stat>
                 </ng-container>
             </ng-container>
@@ -45,14 +46,15 @@
                     <button mat-icon-button type="button" color="primary" (click)="addMagicAffix()"><mat-icon>add</mat-icon></button>
                 </div>
             </div>
-            <ng-container *ngFor="let affixControl of getAffixControls(); let i = index">
+            <ng-container *ngFor="let affixControl of form.controls.affixes.controls; let i = index">
                 <app-item-edit-stat *ngIf="isMagicStat(affixControl)"
                     [form]="affixControl"
-                    [base]="item.base"
+                    [itemBase]="item.base"
+                    [itemLevel]="item.level"
+                    [itemReinforcment]="item.reinforcment"
                     [alreadyUsedStats]="alreadyUsedStats"
-                    [affix]="getAffix(i)"
                     [removable]="!hasRareStats() && !hasEpicStats()"
-                    (remove)="removeAffix(i)">
+                    (remove)="removeAffix(affixControl)">
                 </app-item-edit-stat>
             </ng-container>
             <div class="form-info" *ngIf="hasMagicStats()">
@@ -63,14 +65,15 @@
                     <button mat-icon-button type="button" color="primary" (click)="addRareAffix()"><mat-icon>add</mat-icon></button>
                 </div>
             </div>
-            <ng-container *ngFor="let affixControl of getAffixControls(); let i = index">
+            <ng-container *ngFor="let affixControl of form.controls.affixes.controls; let i = index">
                 <app-item-edit-stat *ngIf="isRareStat(affixControl)"
                     [form]="affixControl"
-                    [base]="item.base"
+                    [itemBase]="item.base"
+                    [itemLevel]="item.level"
+                    [itemReinforcment]="item.reinforcment"
                     [alreadyUsedStats]="alreadyUsedStats"
-                    [affix]="getAffix(i)"
                     [removable]="!hasEpicStats()"
-                    (remove)="removeAffix(i)">
+                    (remove)="removeAffix(affixControl)">
                 </app-item-edit-stat>
             </ng-container>
             <div class="form-info" *ngIf="hasRareStats()">
@@ -81,35 +84,32 @@
                     <button mat-icon-button type="button" color="primary" (click)="addEpicAffix()"><mat-icon>add</mat-icon></button>
                 </div>
             </div>
-            <ng-container *ngFor="let affixControl of getAffixControls(); let i = index">
+            <ng-container *ngFor="let affixControl of form.controls.affixes.controls">
                 <app-item-edit-stat *ngIf="isEpicStat(affixControl)"
                     [form]="affixControl"
-                    [base]="item.base"
+                    [itemBase]="item.base"
+                    [itemLevel]="item.level"
+                    [itemReinforcment]="item.reinforcment"
                     [alreadyUsedStats]="alreadyUsedStats"
-                    [affix]="getAffix(i)"
                     [removable]="true"
-                    (remove)="removeAffix(i)">
+                    (remove)="removeAffix(affixControl)">
                 </app-item-edit-stat>
             </ng-container>
             <app-item-edit-legendary-effect
                 [base]="item.base"
-                [reinforcment]="item.reinforcment"
+                [itemReinforcment]="item.reinforcment"
                 [heroClass]="item.heroClass"
-                [legendaryEffect]="item.legendaryEffect"
-                [form]="getLegendaryEffectForm()">
+                [form]="form.controls.legendary">
             </app-item-edit-legendary-effect>
             <app-item-edit-buff-reaper
-                [reaperEnchantment]="item.reaperEnchantment"
-                [form]="getReaperEnchantmentForm()">
+                [form]="form.controls.reaper">
             </app-item-edit-buff-reaper>
             <app-item-edit-buff-skill
                 [heroClass]="item.heroClass"
-                [skillEnchantment]="item.skillEnchantment"
-                [form]="getSkillEnchantmentForm()">
+                [form]="form.controls.skill">
             </app-item-edit-buff-skill>
             <app-item-edit-buff-attribute
-                [attributeEnchantment]="item.attributeEnchantment"
-                [form]="getAttributeEnchantmentForm()">
+                [form]="form.controls.attribute">
             </app-item-edit-buff-attribute>
         </div>
     </mat-dialog-content>

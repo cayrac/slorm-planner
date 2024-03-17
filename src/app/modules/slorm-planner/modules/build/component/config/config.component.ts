@@ -141,6 +141,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             configurations: [
                 { type: 'number', key: 'mage_bane_stacks', label: 'Number of mage bane stacks' },
                 { type: 'number', key: 'fighter_bane_stacks', label: 'Number of figher bane stacks' },
+                { type: 'number', key: 'absorbed_damage_wrath', label: 'Sum of Armor and Elemental Resistance at this Wrath Level', info: 'I\'m still looking for the formula' },
             ]
         },
         {
