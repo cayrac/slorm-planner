@@ -298,6 +298,10 @@
 - Switching to another reaper now change the current reaper level if the previous value is not allowed
 - Fixed multiple item modal edition issues
 
+## Release 0.6.2 (2024-03-23)
+### Added
+- Updated game files
+
 ## known issues
 - switching between builds on the planner do not correctly change the class
 - signet ring of the Mc ripped require a reload to be updated in the skill bar

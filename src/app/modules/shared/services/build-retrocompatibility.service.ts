@@ -365,6 +365,18 @@ export class BuildRetrocompatibilityService {
                 }
             }
         },
+        {
+            version: '0.6.1',
+            update: build => {
+                build.version = '0.6.1';
+            }
+        },
+        {
+            version: '0.6.2',
+            update: build => {
+                build.version = '0.6.2';
+            }
+        },
     ];
 
     constructor() { }
