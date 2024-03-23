@@ -281,6 +281,7 @@
 ### Added
 - Added all new available reapers
 - Summon skeleton squire now has a config to add the number of summoned skeletons to minions under your control
+- Reaper description tooltip now have a scroll bar if the content is too large
 ## Fixes
 - Personal Development Magazine damage multiplier is no longer applied twice
 - Reaper primordial data are no longer lost when parsed from a save file
@@ -300,9 +301,6 @@
 ## known issues
 - switching between builds on the planner do not correctly change the class
 - signet ring of the Mc ripped require a reload to be updated in the skill bar
-
-
-- ajouter scroll sur description de reaper
 
 
 ## TODO
