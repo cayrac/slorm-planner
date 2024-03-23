@@ -277,8 +277,23 @@
 ## Fixes
 - Fixed an issue when adding the first stone while not all ancestral nodes are present
 
-## Release 0.6.0 (TBD)
+## Release 0.6.0 (2024-03-23)
+### Added
+- Added all new available reapers
+- Summon skeleton squire now has a config to add the number of summoned skeletons to minions under your control
 ## Fixes
+- Personal Development Magazine damage multiplier is no longer applied twice
+- Reaper primordial data are no longer lost when parsed from a save file
+- Attributes now allow invalid values on save parsing to avoid issues with corrupted saves
+- Ancestral legacy nodes should no longer allow impossible configurations
+- Blorm damages is now correctly based on skill damage
+- Determination synergy is now based on 100% tenacity instead of 1%
+- Tenacity is now correctly capped at 100%
+- Waste Not is no longer affected by Area Increased Size
+- Inner fire and overdrive multipliers are now applied after additional damages
+- Oak-Bark Armor stacks are now correctly applied to stats
+- Personal development magazine damage bonus is no longer applied to upgrades
+- Fixed a save parsing error with profile values
 - Switching to another reaper now change the current reaper level if the previous value is not allowed
 - Fixed multiple item modal edition issues
 

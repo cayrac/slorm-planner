@@ -1,7 +1,7 @@
 <div class="activable" *ngIf="activable !== null">
     <div class="activable-head">
         <div class="icon">
-            <img [src]="activable.icon" />
+            <img [src]="activable.icon" loading="lazy" />
         </div>
         <div class="info">
             <div class="name">{{activable.name}}</div>
