@@ -359,7 +359,7 @@ export class BuildRetrocompatibilityService {
                 build.configuration.add_skeletons_to_controlled_minions = false;
 
                 for (const layer of build.layers) {
-                    const baseAffinity = (layer.character.reaper as any).baseAffinity as number;
+                    const baseAffinity = (layer.character.reaper as any).affinity as number;
                     layer.character.reaper.baseReaperAffinity = baseAffinity;
                     layer.character.reaper.baseEffectAffinity = baseAffinity;
                 }
@@ -377,6 +377,17 @@ export class BuildRetrocompatibilityService {
                 build.version = '0.6.2';
             }
         },
+        {
+            version: '0.6.3',
+            update: build => {
+                build.version = '0.6.3';
+
+                for (const layer of build.layers) {
+                    layer.character.reaper.baseReaperAffinity = Number.isInteger(layer.character.reaper.baseReaperAffinity) ? layer.character.reaper.baseReaperAffinity : 100;
+                    layer.character.reaper.baseEffectAffinity = Number.isInteger(layer.character.reaper.baseEffectAffinity) ? layer.character.reaper.baseEffectAffinity : 100;
+                }
+            }
+        },
     ];
 
     constructor() { }
@@ -389,7 +400,9 @@ export class BuildRetrocompatibilityService {
         }
 
         for (let change of this.CHANGES) {
+            console.log('compareVersions', change.version, build.version, compareVersions(change.version, build.version));
             if (compareVersions(change.version, build.version) > 0) {
+                console.log('triggering an update');
                 change.update(build);
             }
         }

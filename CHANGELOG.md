@@ -302,6 +302,11 @@
 ### Added
 - Updated game files
 
+## Release 0.6.3 (2024-03-23)
+### Fixes
+- Fixed an issue when updating reaper data (0.6.2 builds will have their affinity set to 100)
+- Reaper list now show the correct reapers for max level and affinity
+
 ## known issues
 - switching between builds on the planner do not correctly change the class
 - signet ring of the Mc ripped require a reload to be updated in the skill bar
