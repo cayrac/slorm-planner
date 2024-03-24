@@ -53,7 +53,6 @@ export class ItemEditBuffReaperComponent extends AbstractUnsubscribeComponent im
             : this.slormancerItemService.getReaperEnchantment(smith, value);
 
         if (this.reaperEnchantment !== null) {
-            console.log(this.reaperEnchantment);
             this.displayedValue = '+' + this.reaperEnchantment.craftedValue;
         }
     }

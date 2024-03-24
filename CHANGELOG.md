@@ -311,6 +311,16 @@
 - switching between builds on the planner do not correctly change the class
 - signet ring of the Mc ripped require a reload to be updated in the skill bar
 
+## Release 0.6.4 (2024-03-24)
+### Changed
+- Auras no longer have to be in the skill bar to be active
+### Fixes
+- Mana is Overrated chance is no longer affected by aura increased effect
+- Fixed a synergy loop with the ungifted reaper
+- Fixed an issue causing skills to not be affected by area increased size stat
+- Mana harvesting rune damage is now based on reaper damage
+- Total mastery count no longer ignore the last skill mastery
+- Unkillable berzerker reaper additional damage multiplier is now correctly applied
 
 ## TODO
 slorm legendaries

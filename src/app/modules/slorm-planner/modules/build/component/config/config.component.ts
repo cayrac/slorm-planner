@@ -954,9 +954,11 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
     }
 
     public hasActivable(character: Character, id: number): boolean {
-        return [character.activable1, character.activable2, character.activable3, character.activable4]
-            .filter(isNotNullOrUndefined)
-            .some(activable => !('element' in activable) && activable.id === id);
+        const activables = [
+            ...character.reaper.activables,
+            ...ALL_GEAR_SLOT_VALUES.map(slot => character.gear[slot]?.legendaryEffect?.activable).filter(isNotNullOrUndefined)
+        ]
+        return activables.some(activable => activable.id === id);
     }
 
     public isSkillEquipped(character: Character, heroClass: HeroClass, id: number): boolean {

@@ -388,6 +388,12 @@ export class BuildRetrocompatibilityService {
                 }
             }
         },
+        {
+            version: '0.6.4',
+            update: build => {
+                build.version = '0.6.4';
+            }
+        },
     ];
 
     constructor() { }
@@ -400,9 +406,7 @@ export class BuildRetrocompatibilityService {
         }
 
         for (let change of this.CHANGES) {
-            console.log('compareVersions', change.version, build.version, compareVersions(change.version, build.version));
             if (compareVersions(change.version, build.version) > 0) {
-                console.log('triggering an update');
                 change.update(build);
             }
         }
