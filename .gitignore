@@ -3,3 +3,4 @@ node_modules
 .gitconfig
 package-lock.json
 dist
+*.bat
