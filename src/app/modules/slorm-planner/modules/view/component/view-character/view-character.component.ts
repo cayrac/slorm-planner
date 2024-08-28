@@ -184,7 +184,11 @@ export class ViewCharacterComponent {
     }
 
     public import() {
-        const build = this.buildService.createBuildWithCharacter('Imported build', 'Imported layer', this.character, this.config);
+        const config: CharacterConfig = {
+            ...this.config,
+            maxed_upgrades: null
+        }
+        const build = this.buildService.createBuildWithCharacter('Imported build', 'Imported layer', this.character, config);
 
         this.buildStorageService.addBuild(build);
         

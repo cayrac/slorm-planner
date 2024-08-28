@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { BuildStorageService } from '@shared/services/build-storage.service';
 import {
@@ -31,6 +31,8 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
         nimble_champion_stacks: [Validators.max(200)],
         nimble_chaserenitympion_stacks: [Validators.max(12)]
     }
+
+    private NON_REQUIRED_CONFIGURATION: string[] = [ 'maxed_upgrades' ];
 
     public readonly GENERAL_CONFIG_GROUPS: Array<ConfigGroup> = [
         {
@@ -94,7 +96,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
     public readonly EQUIPMENT_CONFIG_GROUPS: Array<ConfigGroup> = [
         {
             title: 'Reaper (Adam Nostrus)',
-            condition: character => character.reaper.id === 2,
+            condition: character => character.reaper.id === 1 || character.reaper.id === 2,
             configurations: [
                 { type: 'boolean', key: 'has_adam_blessing_buff', label: 'Do you have adam\'s blessing' },
             ]
@@ -354,6 +356,13 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             condition: character => character.runes.enhancement !== null && character.runes.enhancement.id === 23,
             configurations: [
                 { type: 'number', key: 'effective_rune_stacks', label: 'Effective rune stacks' },
+            ]
+        },
+        {
+            title: 'Rune (Retaliating foresight)',
+            condition: character => character.runes.effect !== null && character.runes.effect.id === 11,
+            configurations: [
+                { type: 'number', key: 'unrelenting_stacks', label: 'Number of unrelenting stacks' },
             ]
         },
         {
@@ -777,6 +786,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
                 { type: 'number', key: 'pierces_before_hit', label: 'Number of enemies pierced before hit' },
                 { type: 'boolean', key: 'is_first_arrow_shot_hit', label: 'Is arrow shot hiting for the first time', info: 'Used to compute effects on first hit and before the first hit' },
                 { type: 'boolean', key: 'target_is_tracked', label: 'Is your target tracked' },
+                { type: 'boolean', key: 'recent_delighted_arrow_shot', label: 'Did you cast arrow shot while delighted recently' },
             ]
         },
         {
@@ -812,7 +822,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
         },
         {
             title: 'Immortal Arrow',
-            condition: character => this.isSkillEquipped(character, HeroClass.Huntress, 9),
+            condition: character => this.isSkillEquipped(character, HeroClass.Huntress, 10),
             configurations: [
                 { type: 'number', key: 'exhilerating_senses_stacks', label: 'Number of exhilerating sense stacks' },
                 { type: 'number', key: 'impatient_arrow_stacks', label: 'Number of impatient arrow stacks' },
@@ -850,7 +860,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Ray of Obliteration',
             condition: character => this.isSkillEquipped(character, HeroClass.Mage, 4),
             configurations: [
-                { type: 'number', key: 'ray_of_obliteration_grow_stacks', label: 'Number of Ray of Obliteration grow stacks' },
+                { type: 'number', key: 'ray_of_obliteration_power', label: 'Number of Ray of Obliteration power' },
                 { type: 'boolean', key: 'is_channeling_ray_of_obliteration', label: 'Are you channeling Ray of Obliteration' },
                 { type: 'boolean', key: 'ray_of_obliteration_is_short', label: 'Are you casting a short ray' },
             ]
@@ -866,7 +876,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Rift Nova',
             condition: character => this.isSkillEquipped(character, HeroClass.Mage, 6),
             configurations: [
-                { type: 'boolean', key: 'high_spirit_stacks', label: 'Number of spirit stacks' },
+                { type: 'number', key: 'high_spirit_stacks', label: 'Number of high spirit stacks' },
                 { type: 'boolean', key: 'rift_nova_fully_charged', label: 'Is Rift Nova fully charged' },
                 { type: 'boolean', key: 'target_has_remnant_vulnerability', label: 'Is your target affected by remnant vulnerability' },
             ]
@@ -926,17 +936,32 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
         const build = this.buildStorageService.getBuild();
         const configEntries = Object.entries(build !== null ? build.configuration : DEFAULT_CONFIG);
         for (const entry of configEntries) {
-            let validators = [Validators.required, ...valueOrDefault(this.EXTRA_VALIDATORS[entry[0]], [])];
-            if (entry[1] === 'number') {
+            const [ name, value ] = entry;
+            let validators = [...valueOrDefault(this.EXTRA_VALIDATORS[name], [])];
+            if (!this.NON_REQUIRED_CONFIGURATION.includes(name)) {
+                validators.push(Validators.required);
+            }
+            if (typeof value === 'number') {
                 validators.push(Validators.min(0));
             }
-            formData[entry[0]] = new FormControl(entry[1], validators);
+            formData[name] = new FormControl(value, validators);
         }
 
         return new FormGroup(formData);
     }
 
     private updateConfiguration() {
+        if (this.config !== null) {
+            Object.keys(this.config.controls).forEach(key => {
+                const controlErrors: ValidationErrors | null = ((this.config as FormGroup).get(key) as FormControl).errors;
+                if (controlErrors != null) {
+                  Object.keys(controlErrors).forEach(keyError => {
+                   console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
+                  });
+                }
+              });
+        }
+
         const build = this.buildStorageService.getBuild();
         if (this.config !== null && build !== null && this.config.valid) {
             build.configuration = this.config.value;

@@ -106,6 +106,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
     }
 
     public incrementSkill(skill: CharacterSkillAndUpgrades): boolean {
+        console.log(skill.skill);
         if (this.selectedSkill === skill) {
             if (skill.skill.baseLevel < skill.skill.maxLevel) {
                 skill.skill.baseLevel++;
@@ -152,6 +153,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
     }
 
     public incrementUpgrade(selectedUpgrade: SkillUpgrade): boolean {
+        console.log(selectedUpgrade);
         if (this.selectedSkill !== null && this.character !== null) {
             let selectionChanged = false;
             if (this.selectedUpgrade !== selectedUpgrade) {
@@ -177,6 +179,7 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
     }
 
     public decrementUpgrade(selectedUpgrade: SkillUpgrade): boolean {
+        console.log(selectedUpgrade);
         if (this.selectedSkill !== null && this.character !== null) {
             let selectionChanged = false;
             if (this.selectedUpgrade !== selectedUpgrade) {

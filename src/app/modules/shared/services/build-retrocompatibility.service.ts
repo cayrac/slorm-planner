@@ -394,6 +394,16 @@ export class BuildRetrocompatibilityService {
                 build.version = '0.6.4';
             }
         },
+        {
+            version: '0.7.0',
+            update: build => {
+                build.version = '0.7.0';
+                
+                build.configuration.ray_of_obliteration_power = (build.configuration as any)['ray_of_obliteration_grow_stacks'];
+                build.configuration.recent_delighted_arrow_shot = false;
+                build.configuration.unrelenting_stacks = 0;
+            }
+        },
     ];
 
     constructor() { }

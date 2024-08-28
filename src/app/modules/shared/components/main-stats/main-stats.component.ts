@@ -61,6 +61,7 @@ export class MainStatsComponent extends AbstractUnsubscribeComponent implements 
         {
             section: this.slormancerTranslateService.translate('cat_attack'),
             stats: [
+                { name: this.slormancerTranslateService.translate('cooldown_reduction'), stat: 'cooldown_reduction', sign: false },
                 { name: this.slormancerTranslateService.translate('attack_speed'), stat: 'attack_speed', sign: false },
                 { name: this.slormancerTranslateService.translate('basic_damage'), stat: 'basic_damage', sign: false },
                 { name: this.slormancerTranslateService.translate('weapon_damage'), stat: 'weapon_damage', sign: false },
