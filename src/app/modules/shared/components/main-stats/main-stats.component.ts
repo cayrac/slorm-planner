@@ -199,26 +199,6 @@ export class MainStatsComponent extends AbstractUnsubscribeComponent implements 
         }
     }
 
-    public getTooltip(characterStats: Array<MergedStat>, format: StatFormat): string {
-        const found = characterStats.find(characterStat => characterStat.stat === format.stat);
-        let result = 'No details found';
-
-        if (found) {
-            const isMinMax = typeof found.total !== 'number';
-            result =  'Flat: ' + found.values.flat.map(v => this.valueToString(v.value, false, found.suffix)).join(', ') + '\n';
-            if (isMinMax) {
-                result += 'Flat (max): ' + found.values.max.map(v => this.valueToString(v.value, false, found.suffix)).join(', ') + '\n';
-            }
-            result += 'Percent: ' + found.values.percent.map(v => this.valueToString(v.value, false, '%')).join(', ') + '\n';
-            if (isMinMax) {
-                result += 'Percent (max) : ' + found.values.maxPercent.map(v => this.valueToString(v.value, false, '%')).join(', ') + '\n';
-            }
-            result += 'Multiplier: ' + found.values.multiplier.map(v => this.valueToString(v.value, false, '%')).join(', ');
-        }
-
-        return result;
-    }
-
     public translate(key: string): string {
         return this.slormancerTranslateService.translate(key);
     }

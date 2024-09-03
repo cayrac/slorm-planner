@@ -18,7 +18,7 @@
             </div>
         </div>
         <ng-container *ngFor="let value of mergedStat.values.flat">
-            <div class="line data" *ngIf="!value.extra">
+            <div class="line data" *ngIf="!value.extra && !value.synergy">
                 <div class="label">Flat</div>
                 <div class="value">
                     {{minValueToString(value.value, mergedStat.suffix, true)}}
@@ -286,6 +286,71 @@
                 </div>
             </div>
         </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="hasFlatSynergyValues(mergedStat)">
+        <h3 class="section">{{translate(mergedStat.stat)}} - Gained from conversion</h3>
+        <div class="line head">
+            <div class="label">Type</div>
+            <div class="value">
+                Value<span *ngIf="mergedStat.allowMinMax"> (min)</span>
+            </div>
+            <div class="value" *ngIf="mergedStat.allowMinMax">
+                Value<span> (max)</span>
+            </div>
+            <div class="source">
+                Source
+            </div>
+            <div class="source-name">
+                Source name
+            </div>
+        </div>
+        <ng-container *ngFor="let value of mergedStat.values.flat">
+            <div class="line data" *ngIf="value.synergy">
+                <div class="label">Flat</div>
+                <div class="value">
+                    {{minValueToString(value.value, mergedStat.suffix, true)}}
+                </div>
+                <div class="value" *ngIf="mergedStat.allowMinMax">
+                    {{maxValueToString(value.value, mergedStat.suffix, true)}}
+                </div>
+                <div class="source">
+                    {{getSource(value.source)}}
+                </div>
+                <div class="source-name">
+                    {{getSourceName(value.source)}}
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngFor="let value of mergedStat.values.max">
+            <div class="line data" *ngIf="value.synergy">
+                <div class="label">Flat</div>
+                <div class="value">
+                </div>
+                <div class="value">
+                    +{{valueToString(value.value, mergedStat.suffix)}}
+                </div>
+                <div class="source">
+                    {{getSource(value.source)}}
+                </div>
+                <div class="source-name">
+                    {{getSourceName(value.source)}}
+                </div>
+            </div>
+        </ng-container>
+        <div class="line total">
+            <div class="label">Flat (Total)</div>
+            <div class="value">
+                {{minValueToString(getTotalFlatSynergy(mergedStat), mergedStat.suffix)}}
+            </div>
+            <div class="value" *ngIf="mergedStat.allowMinMax">
+                {{maxValueToString(getTotalFlatSynergy(mergedStat), mergedStat.suffix)}}
+            </div>
+            <div class="source">
+            </div>
+            <div class="source-name">
+            </div>
+        </div>
     </ng-container>
 
     <h3 class="section">{{translate(mergedStat.stat)}} - Total</h3>

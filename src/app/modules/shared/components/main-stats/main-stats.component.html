@@ -3,7 +3,7 @@
         <h3 class="section">{{section.section}}</h3>
         <div class="stat" *ngFor="let stat of section.stats" (click)="select(stats, stat)" [class.selected]="isSelected(stat)">
             <div class="label">{{stat.name}}</div>
-            <div class="value" [matTooltip]="getTooltip(stats, stat)">{{getValue(stats, stat)}}</div>
+            <div class="value">{{getValue(stats, stat)}}</div>
         </div>
     </ng-container>
 </div>

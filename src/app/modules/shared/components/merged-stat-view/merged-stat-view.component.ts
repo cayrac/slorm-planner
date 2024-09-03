@@ -116,6 +116,10 @@ export class MergedStatViewComponent {
         return this.slormancerStatUpdaterService.getTotalFlatExtra(mergedStat);
     }
 
+    public getTotalFlatSynergy(mergedStat: MergedStat): number | MinMax {
+        return this.slormancerStatUpdaterService.getTotalFlatSynergy(mergedStat);
+    }
+
     public getTotalPercent(mergedStat: MergedStat): number | MinMax {
         const total = this.slormancerStatUpdaterService.addNumberValues(mergedStat.values.percent.map(v => v.value));
         const totalMax = total + this.slormancerStatUpdaterService.addNumberValues(mergedStat.values.maxPercent.map(v => v.value));
@@ -129,16 +133,20 @@ export class MergedStatViewComponent {
     }
 
     public getTotal(mergedStat: MergedStat): string {
-        const total = this.slormancerStatUpdaterService.getTotal(mergedStat);
+        const total = this.slormancerStatUpdaterService.getTotal(mergedStat, true);
         return this.valueToString(total, mergedStat.suffix);
     }
 
     public hasFlatValues(mergedStat: MergedStat): boolean {
-        return mergedStat.values.flat.filter(v => !v.extra).length > 0 || mergedStat.values.max.filter(v => !v.extra).length > 0;
+        return mergedStat.values.flat.filter(v => !v.extra && !v.synergy).length > 0 || mergedStat.values.max.filter(v => !v.extra).length > 0;
     }
 
     public hasFlatExtraValues(mergedStat: MergedStat): boolean {
         return mergedStat.values.flat.filter(v => v.extra).length > 0 || mergedStat.values.max.filter(v => v.extra).length > 0;
+    }
+
+    public hasFlatSynergyValues(mergedStat: MergedStat): boolean {
+        return mergedStat.values.flat.filter(v => v.synergy).length > 0;
     }
 
     public hasMultiplierValues(mergedStat: MergedStat): boolean {
@@ -156,6 +164,7 @@ export class MergedStatViewComponent {
     public showFormula(mergedStat: MergedStat): boolean {
         return (this.hasFlatValues(mergedStat) ? 1 : 0)
             + (this.hasFlatExtraValues(mergedStat) ? 1 : 0)
+            + (this.hasFlatSynergyValues(mergedStat) ? 1 : 0)
             + (this.hasPercentValues(mergedStat) ? 1 : 0)
             + (this.hasMultiplierValues(mergedStat) ? 1 : 0)
             + (this.hasMultipliersExtraValues(mergedStat) ? 1 : 0)
@@ -174,17 +183,19 @@ export class MergedStatViewComponent {
     }
 
     public getMinFormula(mergedStat: MergedStat): string {
-        let total = this.slormancerStatUpdaterService.getTotal(mergedStat);
+        let total = this.slormancerStatUpdaterService.getTotal(mergedStat, false);
         
         let flat = this.slormancerStatUpdaterService.getTotalFlat(mergedStat);
         let percent = this.slormancerStatUpdaterService.getTotalPercent(mergedStat);
         let multipliers = mergedStat.values.multiplier.filter(mult => !mult.extra).map(mult => mult.value)
         let extraMultipliers = mergedStat.values.multiplier.filter(mult => mult.extra).map(mult => mult.value)
         let extra = this.slormancerStatUpdaterService.getTotalFlatExtra(mergedStat);
+        let synergy = this.slormancerStatUpdaterService.getTotalFlatSynergy(mergedStat);
 
         flat = typeof flat === 'number' ? flat : flat.min;
         percent = typeof percent === 'number' ? percent : percent.min;
         extra = typeof extra === 'number' ? extra : extra.min;
+        synergy = typeof synergy === 'number' ? synergy : synergy.min;
 
         let result = round(typeof total === 'number' ? total : total.min, 5) + ' = ';
         if (this.slormancerStatUpdaterService.hasDiminishingResult(mergedStat.stat)) {
@@ -202,6 +213,9 @@ export class MergedStatViewComponent {
             if (extraMultipliers.length > 0) {
                 formula = '( ' + formula + ' )' + this.toMultipliersFormula(extraMultipliers);
             }
+            if (synergy !== 0) {
+                formula = '( ' + formula + ' ) ' + (synergy > 0 ? ('+ ' + synergy) : ('- ' + Math.abs(synergy)));
+            }
 
             result += 'round( ' + formula + ' )';
         }
@@ -210,17 +224,19 @@ export class MergedStatViewComponent {
     }
 
     public getMaxFormula(mergedStat: MergedStat): string {
-        let total = this.slormancerStatUpdaterService.getTotal(mergedStat);
+        let total = this.slormancerStatUpdaterService.getTotal(mergedStat, true);
         
         let flat = this.slormancerStatUpdaterService.getTotalFlat(mergedStat);
         let percent = this.slormancerStatUpdaterService.getTotalPercent(mergedStat);
         let extra = this.slormancerStatUpdaterService.getTotalFlatExtra(mergedStat);
+        let synergy = this.slormancerStatUpdaterService.getTotalFlatSynergy(mergedStat);
         const multipliers = mergedStat.values.multiplier.filter(mult => !mult.extra).map(mult => mult.value)
         let extraMultipliers = mergedStat.values.multiplier.filter(mult => mult.extra).map(mult => mult.value)
 
         flat = typeof flat === 'number' ? flat : flat.max;
         percent = typeof percent === 'number' ? percent : percent.max;
         extra = typeof extra === 'number' ? extra : extra.max;
+        synergy = typeof synergy === 'number' ? synergy : synergy.max;
 
         let result = round(typeof total === 'number' ? total : total.max, 5) + ' = ';
         
@@ -231,6 +247,9 @@ export class MergedStatViewComponent {
         }
         if (extraMultipliers.length > 0) {
             formula = '( ' + formula + ' )' + this.toMultipliersFormula(extraMultipliers);
+        }
+        if (synergy !== 0) {
+            formula = '( ' + formula + ' ) ' + (synergy > 0 ? ('+ ' + synergy) : ('- ' + Math.abs(synergy)));
         }
 
         result += 'round( ' + formula + ' )';
