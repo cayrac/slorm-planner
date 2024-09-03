@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SlormToolsComponent } from './core/components/slorm-tools/slorm-tools.component';
 import { MaterialModule } from './modules/shared/material.module';
+import { CustomSlormancerItemValueService } from './custom-slormancer-item-value.service';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,7 @@ import { MaterialModule } from './modules/shared/material.module';
         MaterialModule,
         HttpClientModule,
     ],
-    providers: [],
+    providers: [ CustomSlormancerItemValueService ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
