@@ -31,7 +31,7 @@
         "node": "18.10.0",
         "rxjs": "7.5.7",
         "sass": "1.55.0",
-        "slormancer-api": "0.6.4",
+        "slormancer-api": "file:../slormancer-api/slormancer-api-0.7.0.tgz",
         "tslib": "2.4.0",
         "zone.js": "0.11.8"
     },

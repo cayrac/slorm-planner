@@ -9,7 +9,7 @@ import {
     list,
     MAXIMUM_ANCESTRAL_LEGACY_POINTS,
     SlormancerAncestralLegacyService,
-    UNLOCKED_ANCESTRAL_LEGACY_POINTS,
+    SlormancerTranslateService,
     valueOrNull,
 } from 'slormancer-api';
 
@@ -20,6 +20,8 @@ import {
 })
 export class AncestralLegaciesComponent extends AbstractUnsubscribeComponent implements OnInit {
 
+    public readonly MIGHT_MESSAGE: string; 
+
     public readonly ANCESTRAL_LEGACY_POINTS = list(MAXIMUM_ANCESTRAL_LEGACY_POINTS);
 
     public character: Character | null = null;
@@ -28,8 +30,10 @@ export class AncestralLegaciesComponent extends AbstractUnsubscribeComponent imp
 
     constructor(private buildStorageService: BuildStorageService,
                 private slormancerAncestralLegacyService: SlormancerAncestralLegacyService,
-                private messageService: MessageService) {
+                private messageService: MessageService,
+                private slormancerTranslateService: SlormancerTranslateService) {
         super();
+        this.MIGHT_MESSAGE = this.slormancerTranslateService.translate('bonus_elemental_damage');
     }
 
     public ngOnInit() {
@@ -56,10 +60,6 @@ export class AncestralLegaciesComponent extends AbstractUnsubscribeComponent imp
         }
     }
 
-    public isPointUnlock(index: number): boolean {
-        return index < UNLOCKED_ANCESTRAL_LEGACY_POINTS;
-    }
-
     public optimizeAncestralLegacies() {
         if (this.character !== null) {
             for (const ancestralLegacy of this.character.ancestralLegacies.ancestralLegacies) {
@@ -70,5 +70,14 @@ export class AncestralLegaciesComponent extends AbstractUnsubscribeComponent imp
             this.buildStorageService.saveLayer();
             this.messageService.message('All ancestral legacies ranks set to maximum');
         }
+    }
+
+    public isStoneUsed(index: number): boolean {
+        const usedStones = this.character === null ? 0 : this.character.ancestralLegacies.activeNodes.length;
+        return MAXIMUM_ANCESTRAL_LEGACY_POINTS - index <= usedStones;
+    }
+
+    public isAncestralStoneUsed(): boolean {
+        return this.character !== null && this.character.ancestralLegacies.activeFirstNode !== null;
     }
 }

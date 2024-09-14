@@ -1,8 +1,23 @@
 <mat-card>
     <mat-card-content>
         <div class="actions">
-            <div class="avaialble-points">
-                <div class="point" [class.unlocked]="isPointUnlock(index)" *ngFor="let index of ANCESTRAL_LEGACY_POINTS"></div>
+            <div class="info">
+                <div class="avaialble-points">
+                    <div class="stone-border" *ngFor="let index of ANCESTRAL_LEGACY_POINTS">
+                        <div class="stone" [class.used]="isStoneUsed(index)">
+    
+                        </div>
+                    </div>
+                    <div class="stone-border">
+                        <div class="stone ancestral" [class.used]="isAncestralStoneUsed()">
+                        </div>
+                    </div>
+                </div>
+                <div class="might" *ngIf="character !== null">
+                    {{MIGHT_MESSAGE}} :
+                    <span class="value">{{character.might.ancestral}}</span>
+                    <img src="assets/img/icon/stat/magical.png">
+                </div>
             </div>
             <mat-icon matTooltip="Set all ancestral legacies to max rank" (click)="optimizeAncestralLegacies()">vertical_align_top</mat-icon>
         </div>

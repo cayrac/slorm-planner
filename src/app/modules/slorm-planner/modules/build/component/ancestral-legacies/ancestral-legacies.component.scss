@@ -5,6 +5,10 @@
     @include flex-grow();
 }
 
+
+$ancestral-stone-color : rgb(70, 231, 176);
+$ancestral-might-text  : rgb(206, 70, 7);
+
 mat-card {
     height: 100%;
 
@@ -13,21 +17,61 @@ mat-card {
         @include flex-gap($space-content);
     
         .actions {
-            @include flex(row, center, space-between);
+            @include flex-row-to-column('tablet', center, space-between);
+            @include respond-to('tablet') {
+                align-items: flex-start;
+            }
+            gap: $space-content;
+            
+            .info {
+                @include flex-row-to-column('tablet', center, flex-start);
+                @include respond-to('tablet') {
+                    align-items: flex-start;
+                }
+                gap: $space-content;
     
-            .avaialble-points {
-                @include flex(row);
-                @include flex-gap($space-unit * 2);
+                .avaialble-points {
+                    @include flex(row, center, center);
+                    @include flex-gap($space-unit * 2);
+        
+                    .stone-border {
+                        @include flex(row, center, center);
+                        border: 2px solid black;
+                        width: 26px;
+                        min-width: 26px;
+                        height: 26px;
+                        min-height: 26px;
+                        border-radius: 50%;
+                        background-color: primary-color(200);
     
-                .point {
-                    border: 2px solid primary-color(300);
-                    width: 20px;
-                    height: 20px;
-                    border-radius: 50%;
-                    background-color: primary-color(300);
-    
-                    &.unlocked {
-                        background-color: unset;
+                        .stone {
+                            border: 2px solid black;
+                            width: 18px;
+                            height: 18px;
+                            border-radius: 50%;
+                            
+                            background-color: $section-title-color;
+                            &.ancestral {
+                                background-color: $ancestral-stone-color;
+                            }
+                            &.used {
+                                background-color: primary-color(400);
+                            }
+                        }
+                    }
+                }
+
+                .might {
+                    @include flex(row, center, flex-start);
+                    gap: $space-unit;
+
+                    .value {
+                        color: $ancestral-might-text;
+                    }
+
+                    img {
+                        height: 20px;
+                        image-rendering: pixelated;
                     }
                 }
             }
