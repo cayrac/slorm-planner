@@ -15,6 +15,11 @@
                 (click)="incrementSkill(skill)"
                 (contextmenu)="decrementSkill(skill)"/>
             </div>
+            <div class="might">
+                {{MIGHT_MESSAGE}} :
+                <span class="value">{{character.might.skill}}</span>
+                <img src="assets/img/icon/stat/physical.png">
+            </div>
         </div>
         <div class="skill" *ngIf="selectedSkill !== null">
             <div class="selected-skill">

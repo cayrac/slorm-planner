@@ -1,13 +1,12 @@
 @import "src/assets/scss/abstracts/flex";
 @import "src/assets/scss/abstracts/color";
 
+$ancestral-stone-color : rgb(70, 231, 176);
+$ancestral-might-text  : rgb(206, 70, 7);
+
 :host {
     @include flex-grow();
 }
-
-
-$ancestral-stone-color : rgb(70, 231, 176);
-$ancestral-might-text  : rgb(206, 70, 7);
 
 mat-card {
     height: 100%;

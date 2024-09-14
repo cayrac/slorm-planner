@@ -11,6 +11,7 @@ import {
     SkillUpgrade,
     SlormancerCharacterModifierService,
     SlormancerSkillService,
+    SlormancerTranslateService,
     valueOrNull,
 } from 'slormancer-api';
 
@@ -20,6 +21,8 @@ import {
   styleUrls: ['./skills.component.scss']
 })
 export class SkillsComponent extends AbstractUnsubscribeComponent implements OnInit {
+
+    public readonly MIGHT_MESSAGE: string; 
 
     public character: Character | null = null;
 
@@ -31,8 +34,10 @@ export class SkillsComponent extends AbstractUnsubscribeComponent implements OnI
 
     constructor(private buildStorageService: BuildStorageService,
                 private slormancerSkillService: SlormancerSkillService,
-                private slormancerCharacterModifierService: SlormancerCharacterModifierService) {
+                private slormancerCharacterModifierService: SlormancerCharacterModifierService,
+                private slormancerTranslateService: SlormancerTranslateService) {
         super();
+        this.MIGHT_MESSAGE = this.slormancerTranslateService.translate('bonus_raw_damage');
     }
 
     public ngOnInit() {

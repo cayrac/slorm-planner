@@ -2,6 +2,8 @@
 @import "src/assets/scss/abstracts/variables";
 @import "src/assets/scss/abstracts/color";
 
+$ancestral-might-text  : rgb(206, 70, 7);
+
 :host {
     @include flex-grow();
 }
@@ -32,6 +34,21 @@ mat-card {
             }
         }
     }
+
+    .might {
+        @include flex(row, center, flex-start);
+        gap: $space-unit;
+        padding-bottom: $space-unit * 3;
+
+        .value {
+            color: $ancestral-might-text;
+        }
+
+        img {
+            height: 20px;
+            image-rendering: pixelated;
+        }
+    }
 }
 
 .skill {
@@ -50,8 +67,8 @@ mat-card {
 
         app-settings-skills {
             position: absolute;
-            top: $space-unit * 4;
-            right: $space-unit * 4;
+            top: $space-unit * 3;
+            right: $space-unit * 3;
             z-index: 1;
         }
 
