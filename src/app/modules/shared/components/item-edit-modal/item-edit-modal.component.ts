@@ -7,6 +7,7 @@ import {
     Character,
     DEFAULT_CONFIG,
     EquipableItem,
+    MAX_DEFENSIVE_STATS,
     MAX_EPIC_STATS,
     MAX_ITEM_LEVEL,
     MAX_MAGIC_STATS,
@@ -290,6 +291,14 @@ export class ItemEditModalComponent {
         return this.form.controls.affixes.controls.filter(control => this.isBasicStat(control)).length >= this.maxBasicStats;
     }
 
+    public hasDefensiveStats(): boolean {
+        return this.form.controls.affixes.controls.filter(control => this.isDefensiveStat(control)).length > 0
+    }
+
+    public hasMaximumDefensiveStats(): boolean {
+        return this.form.controls.affixes.controls.filter(control => this.isDefensiveStat(control)).length >= MAX_DEFENSIVE_STATS;
+    }
+
     public hasMagicStats(): boolean {
         return this.form.controls.affixes.controls.filter(control => this.isMagicStat(control)).length > 0
     }
@@ -300,6 +309,10 @@ export class ItemEditModalComponent {
 
     public isBasicStat(control: FormGroup<ItemAffixFormGroup>): boolean {
         return control.controls.rarity.value === Rarity.Normal;
+    }
+
+    public isDefensiveStat(control: FormGroup<ItemAffixFormGroup>): boolean {
+        return control.controls.rarity.value === Rarity.Defensive;
     }
 
     public isMagicStat(control: FormGroup<ItemAffixFormGroup>): boolean {

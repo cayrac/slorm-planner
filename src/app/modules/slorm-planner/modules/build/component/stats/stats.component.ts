@@ -28,6 +28,7 @@ export class StatsComponent extends AbstractUnsubscribeComponent implements OnIn
     }
 
     public selectMergedStat(mergedStat: MergedStat) {
+        console.log('selectMergedStat : ', mergedStat);
         this.selectedMergedStat = mergedStat;
     }
 }

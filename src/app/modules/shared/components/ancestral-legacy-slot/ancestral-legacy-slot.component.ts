@@ -59,6 +59,7 @@ export class AncestralLegacySlotComponent extends AbstractUnsubscribeComponent i
     }
 
     private setRank(ancestralLegacy: AncestralLegacy, newRank: number) {
+        console.log('Ancestral id : ', ancestralLegacy.id)
         if (ancestralLegacy.baseRank !== newRank && this.selected) {
             this.slormancerAncestralLegacyService.updateAncestralLegacyModel(ancestralLegacy, newRank);
             this.slormancerAncestralLegacyService.updateAncestralLegacyView(ancestralLegacy);

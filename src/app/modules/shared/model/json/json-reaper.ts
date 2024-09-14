@@ -3,7 +3,6 @@ export interface JsonReaper {
     level: number;
     affinity: number;
     effectAffinity: number;
-    primordialLevel: number;
     kills: number;
     primordialKills: number;
     primordial: number

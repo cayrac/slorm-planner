@@ -51,7 +51,8 @@ export class JsonConverterService {
         { rarity: Rarity.Magic, mapping: 1 },
         { rarity: Rarity.Rare, mapping: 2 },
         { rarity: Rarity.Epic, mapping: 3 },
-        { rarity: Rarity.Legendary, mapping: 4 }
+        { rarity: Rarity.Legendary, mapping: 4 },
+        { rarity: Rarity.Defensive, mapping: 5 }
     ];
 
     constructor(private slormancerDataService: SlormancerDataService,
@@ -104,12 +105,11 @@ export class JsonConverterService {
     private reaperToJson(reaper: Reaper): JsonReaper {
         return {
             id: reaper.id,
-            level: reaper.baseInfo.level,
+            level: reaper.baseLevel,
             affinity: reaper.baseReaperAffinity,
             effectAffinity: reaper.baseEffectAffinity,
-            primordialLevel: reaper.primordialInfo.level,
-            kills: reaper.baseInfo.kills,
-            primordialKills: reaper.primordialInfo.kills,
+            kills: reaper.baseKills,
+            primordialKills: reaper.primordialKills,
             primordial: reaper.primordial ? 1 : 0
         };
     }
@@ -368,7 +368,7 @@ export class JsonConverterService {
             character.reaper.primordial === 1,
             character.reaper.level,
             0,
-            character.reaper.primordialLevel,
+            '',
             character.reaper.kills,
             character.reaper.primordialKills,
             character.reaper.affinity,

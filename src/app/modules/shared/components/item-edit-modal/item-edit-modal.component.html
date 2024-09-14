@@ -40,6 +40,25 @@
             </ng-container>
             <div class="form-info" *ngIf="hasBasicStats()">
                 <div class="label">
+                    Defensive Stats :
+                </div>
+                <div class="add" *ngIf="hasBasicStats() && !hasMaximumDefensiveStats()">
+                    <button mat-icon-button type="button" color="primary" (click)="addMagicAffix()"><mat-icon>add</mat-icon></button>
+                </div>
+            </div>
+            <ng-container *ngFor="let affixControl of form.controls.affixes.controls; let i = index">
+                <app-item-edit-stat *ngIf="isDefensiveStat(affixControl)"
+                    [form]="affixControl"
+                    [itemBase]="item.base"
+                    [itemLevel]="item.level"
+                    [itemReinforcment]="item.reinforcment"
+                    [alreadyUsedStats]="alreadyUsedStats"
+                    [removable]="!hasRareStats() && !hasEpicStats() && !hasMagicStats()"
+                    (remove)="removeAffix(affixControl)">
+                </app-item-edit-stat>
+            </ng-container>
+            <div class="form-info" *ngIf="hasBasicStats()">
+                <div class="label">
                     Magic Stats :
                 </div>
                 <div class="add" *ngIf="hasBasicStats() && !hasMaximumMagicStats()">

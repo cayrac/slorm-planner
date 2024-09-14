@@ -88,7 +88,7 @@ export class ReaperListComponent extends AbstractUnsubscribeComponent implements
                 primordial,
                 maxLevelAndAffinity ? valueOrDefault(reaperData.MAX_LVL, 0) : 1,
                 0,
-                maxLevelAndAffinity ? valueOrDefault(reaperData.MAX_LVL, 0) : 1,
+                '',
                 0,
                 0,
                 1000,

@@ -57,6 +57,8 @@ export class MergedStatViewComponent {
             result = 'Ultimatum';
         } else if ('rune' in entity) {
             result = 'Rune';
+        } else if ('might' in entity) {
+            result = 'Might';
         }
 
         return result;
@@ -89,6 +91,8 @@ export class MergedStatViewComponent {
             result = entity.ultimatum.title;
         } else if ('rune' in entity) {
             result = entity.rune.name;
+        } else if ('might' in entity) {
+            result = entity.might;
         }
 
         return result;

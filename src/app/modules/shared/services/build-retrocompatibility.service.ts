@@ -402,8 +402,13 @@ export class BuildRetrocompatibilityService {
                 build.configuration.ray_of_obliteration_power = (build.configuration as any)['ray_of_obliteration_grow_stacks'];
                 build.configuration.recent_delighted_arrow_shot = false;
                 build.configuration.unrelenting_stacks = 0;
-                build.configuration.skill_might = 0;
-                build.configuration.ancestral_might = 0;
+
+                for (const layer of build.layers) {
+                    layer.character.reaper.primordialKills = (layer.character.reaper as any).primordialInfo.kills;
+                    layer.character.reaper.baseKills = (layer.character.reaper as any).baseKills.kills;
+                    delete (layer.character.reaper as any).primordialInfo;
+                    delete (layer.character.reaper as any).baseInfo;
+                }
             }
         },
     ];

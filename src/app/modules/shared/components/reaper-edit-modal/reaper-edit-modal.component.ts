@@ -24,7 +24,6 @@ export interface ReaperEditModalData {
 interface ReaperForm {
     baseLevel: FormControl<number | null>;
     baseKills: FormControl<number | null>;
-    primordialLevel: FormControl<number | null>;
     primordialKills: FormControl<number | null>;
     reaperAffinity: FormControl<number | null>;
     effectAffinity: FormControl<number | null>;
@@ -36,7 +35,6 @@ interface ReaperFormData {
     reaper: number;
     primordial: boolean;
     baseLevel: number;
-    primordialLevel: number;
     baseKills: number;
     primordialKills: number;
     reaperAffinity: number;
@@ -65,7 +63,6 @@ export class ReaperEditModalComponent {
     public form: FormGroup<ReaperForm> = new FormGroup({
         baseLevel: new FormControl<number | null>(null, [Validators.required, Validators.min(1), this.getReaperMaxLevelValidator()]),
         baseKills: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
-        primordialLevel: new FormControl<number | null>(null, [Validators.required, Validators.min(1), this.getReaperMaxLevelValidator()]),
         primordialKills: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
         reaperAffinity: new FormControl<number | null>(null, [Validators.required, Validators.min(0), Validators.max(MAX_REAPER_AFFINITY_BASE)]),
         effectAffinity: new FormControl<number | null>(null, [Validators.required, Validators.min(0), Validators.max(MAX_EFFECT_AFFINITY_BASE)]),
@@ -101,13 +98,12 @@ export class ReaperEditModalComponent {
         if (this.reaper !== null) {
             this.reaper = Object.assign(this.reaper, this.originalReaper);
             this.form.reset({
-                baseKills: this.reaper.baseInfo.kills,
+                baseKills: this.reaper.baseKills,
                 baseLevel: this.reaper.baseLevel,
                 effectAffinity: this.reaper.baseEffectAffinity,
                 reaperAffinity: this.reaper.baseReaperAffinity,
                 primordial: this.reaper.primordial,
-                primordialKills: this.reaper.primordialInfo.kills,
-                primordialLevel: this.reaper.primordialInfo.level,
+                primordialKills: this.reaper.primordialKills,
                 reaper: this.reaper.id
             });
         }
@@ -135,14 +131,13 @@ export class ReaperEditModalComponent {
             if (value.reaper === this.reaper.id) {
                 this.reaper.id = value.reaper;
                 this.reaper.primordial = value.primordial;
-                this.reaper.baseInfo.level = value.baseLevel;
-                this.reaper.primordialInfo.level = value.primordialLevel;
-                this.reaper.baseInfo.kills = value.baseKills;
-                this.reaper.primordialInfo.kills = value.primordialKills;
+                this.reaper.baseLevel = value.baseLevel;
+                this.reaper.kills = value.baseKills;
+                this.reaper.primordialKills = value.primordialKills;
                 this.reaper.baseReaperAffinity = value.reaperAffinity;
                 this.reaper.baseEffectAffinity = value.effectAffinity;
             } else {
-                const newReaper = this.slormancerReaperService.getReaperById(value.reaper, this.reaper.weaponClass, value.primordial, value.baseLevel, this.reaper.bonusLevel, value.primordialLevel, value.baseKills, value.primordialKills, value.reaperAffinity, value.effectAffinity, this.reaper.bonusAffinity);
+                const newReaper = this.slormancerReaperService.getReaperById(value.reaper, this.reaper.weaponClass, value.primordial, value.baseLevel, this.reaper.bonusLevel, 'TOREMOVE', value.baseKills, value.primordialKills, value.reaperAffinity, value.effectAffinity, this.reaper.bonusAffinity);
                 if (newReaper !== null) {
                     Object.assign(this.reaper, newReaper);
                 }
@@ -161,11 +156,8 @@ export class ReaperEditModalComponent {
             this.slormancerCharacterUpdaterService.updateCharacter(this.character, build !== null ? build.configuration : DEFAULT_CONFIG, false);
             this.slormancerReaperService.updateReaperView(this.reaper);
 
-            if (value.baseLevel !== this.reaper.baseInfo.level) {
-                this.form.patchValue({ baseLevel: this.reaper.baseInfo.level }, { emitEvent: false });
-            }
-            if (value.primordialLevel !== this.reaper.primordialInfo.level) {
-                this.form.patchValue({ primordialLevel: this.reaper.primordialInfo.level }, { emitEvent: false });
+            if (value.baseLevel !== this.reaper.baseLevel) {
+                this.form.patchValue({ baseLevel: this.reaper.baseLevel }, { emitEvent: false });
             }
         }
     }

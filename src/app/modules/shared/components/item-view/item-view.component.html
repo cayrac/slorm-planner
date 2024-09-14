@@ -25,6 +25,16 @@
                         </li>
                     </ul>
                 </div>
+                <div class="affixes" *ngIf="getDefensiveAffixes().length > 0">
+                    <div class="title">Defensive Stats:</div>
+                    <ul>
+                        <li *ngFor="let affix of getDefensiveAffixes()"  [class.pure]="affix.isPure" class="marks-{{affix.pureMarks}}">
+                            <div class="bullet"><div class="{{affix.rarity}}"></div></div>
+                            <div class="value" [innerHTML]="affix.valueLabel"></div>
+                            <div class="name" [innerHTML]="affix.statLabel"></div>
+                        </li>
+                    </ul>
+                </div>
                 <div class="affixes" *ngIf="getMagicAffixes().length > 0">
                     <div class="title">Magic Stats:</div>
                     <ul>

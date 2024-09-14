@@ -71,6 +71,7 @@ export class OptimizeItemsAffixesModalComponent {
 
         const maxStats: { [key in Rarity]: number } = {
             [Rarity.Normal]: this.slormancerDataService.getBaseMaxBasicStat(item.base),
+            [Rarity.Defensive]: 1,
             [Rarity.Magic]: 1,
             [Rarity.Rare]: 1,
             [Rarity.Epic]: 3,
@@ -78,6 +79,7 @@ export class OptimizeItemsAffixesModalComponent {
         }
         const options: { [key in Rarity]: Array<SelectOption<string>> } = {
             [Rarity.Normal]: this.formOptionsService.getStatsOptions(item.base, Rarity.Normal),
+            [Rarity.Defensive]: this.formOptionsService.getStatsOptions(item.base, Rarity.Defensive),
             [Rarity.Magic]: this.formOptionsService.getStatsOptions(item.base, Rarity.Magic),
             [Rarity.Rare]: this.formOptionsService.getStatsOptions(item.base, Rarity.Rare),
             [Rarity.Epic]: this.formOptionsService.getStatsOptions(item.base, Rarity.Epic),

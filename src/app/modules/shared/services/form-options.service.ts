@@ -24,7 +24,7 @@ import { SelectOption } from '../model/select-option';
 @Injectable({ providedIn: 'root' })
 export class FormOptionsService {
 
-    private STATS_OPTIONS_CACHE: { [key: string]: { P: Array<SelectOption<string>>, S: Array<SelectOption<string>>, E: Array<SelectOption<string>> } } = {};
+    private STATS_OPTIONS_CACHE: { [key: string]: { P: Array<SelectOption<string>>, S: Array<SelectOption<string>>, E: Array<SelectOption<string>>, D: Array<SelectOption<string>> } } = {};
 
     private LEGENDARY_OPTIONS_CACHE: { [key: string]: GameHeroesData<Array<SelectOption<number>>> } = {};
 
@@ -83,6 +83,8 @@ export class FormOptionsService {
                 result = valueOrDefault(baseStats['S'], []);
             } else if (rarity === Rarity.Epic) {
                 result = valueOrDefault(baseStats['E'], []);
+            } else if (rarity === Rarity.Defensive) {
+                result = valueOrDefault(baseStats['D'], []);
             }
         }
 
@@ -144,6 +146,7 @@ export class FormOptionsService {
             for (const base of EQUIPABLE_ITEM_BASE_VALUES) {
                 const statKey = this.getBaseKey(base);
                 const rarity = stat[statKey];
+                
 
                 if (rarity !== '') {
                     let statBase = this.STATS_OPTIONS_CACHE[statKey];
@@ -151,7 +154,8 @@ export class FormOptionsService {
                         statBase = {
                             P: [],
                             S: [],
-                            E: []
+                            E: [],
+                            D: [],
                         };
                         this.STATS_OPTIONS_CACHE[statKey] = statBase;
                     }
@@ -169,6 +173,10 @@ export class FormOptionsService {
 
                     if (rarity === 'E') {
                         statBase.E.push(option);
+                    }
+
+                    if (stat.CATEGORY === 'defensive') {
+                        statBase.D.push(option);
                     }
                 }
             }

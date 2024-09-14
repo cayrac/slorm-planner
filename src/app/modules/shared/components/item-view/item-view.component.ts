@@ -23,6 +23,10 @@ export class ItemViewComponent {
         return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === Rarity.Normal);
     }
 
+    public getDefensiveAffixes(): Array<Affix> {
+        return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === Rarity.Defensive);
+    }
+
     public getMagicAffixes(): Array<Affix> {
         return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === Rarity.Magic);
     }

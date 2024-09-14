@@ -39,8 +39,6 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'General',
             condition: () => true,
             configurations: [
-                { type: 'number', key: 'skill_might', label: 'Total raw damage from skill might' },
-                { type: 'number', key: 'ancestral_might', label: 'Total elemental damage from ancestral might' },
                 { type: 'number', key: 'all_other_characters_level', label: 'Sum of all your other character\'s level' },
                 { type: 'number', key: 'highest_same_type_reaper_level', label: 'Highest level among reapers of the same type of equipped reaper' },
                 { type: 'number', key: 'completed_achievements', label: 'Number of completed achievements' },
