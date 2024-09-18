@@ -13,6 +13,7 @@ $reaper-malus-level-color       : rgb(293, 71, 34);
 $reaper-bonus-bullet-color      : rgb(97, 247, 183);
 $reaper-malus-bullet-color      : rgb(209, 48, 1);
 $reaper-desc-details            : rgb(104, 104, 104);
+$reaper-mastery-color           : rgb(206, 70, 7);
 
 .reaper {
     background-color: $reaper-bg-color;
@@ -131,8 +132,19 @@ $reaper-desc-details            : rgb(104, 104, 104);
                     text-transform: uppercase;
                 }
 
-                .current-damage {
-                    font-size: 30px;
+                .damages {
+                    
+                    &.mastery {
+                        color: $reaper-mastery-color;
+                    }
+
+                    .current-damage {
+                        font-size: 30px;
+                    }
+
+                    .max-damage {
+                        color: $reaper-max-damages-color;
+                    }
                 }
                 .level {
                     font-size: 20px;
@@ -140,10 +152,6 @@ $reaper-desc-details            : rgb(104, 104, 104);
                     .bonus {
                         color: $reaper-bonus-level-color;
                     }
-                }
-
-                .max-damage {
-                    color: $reaper-max-damages-color;
                 }
             }
         }

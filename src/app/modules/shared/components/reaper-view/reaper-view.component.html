@@ -13,9 +13,10 @@
                     <div class="type">{{reaper.type}}</div>
                     <div class="builder" [innerHTML]="reaper.smithLabel"></div>
                 </div>
-                <div class="damages">
+                <div class="damages" [class.mastery]="reaper.masteryLabel !== null">
                     <div class="current-damage">{{reaper.damagesLabel}}</div>
                     <div class="type" [innerHTML]="reaper.damageTypeLabel"></div>
+                    <div *ngIf="reaper.masteryLabel !== null" class="mastery-level" [innerHTML]="reaper.masteryLabel"></div>
                     <div class="max-damage">{{reaper.maxDamagesLabel}}</div>
                 </div>
                 <div class="stats">

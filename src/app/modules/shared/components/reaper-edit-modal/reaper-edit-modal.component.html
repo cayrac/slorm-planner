@@ -19,6 +19,11 @@
                     <input matInput type="number" step="1" formControlName="baseLevel">
                     <mat-error>Level must be between 1 and {{reaper.maxLevel}}</mat-error>
                 </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Reaper mastery level</mat-label>
+                    <input matInput type="number" step="0" formControlName="masteryLevel">
+                    <mat-error>Level must be between 0 and {{MAX_REAPER_LEVEL}}</mat-error>
+                </mat-form-field>
             </div>
             <div class="stat-line">
                 <mat-form-field appearance="outline">

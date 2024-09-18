@@ -13,6 +13,7 @@
                     <span [innerHTML]="skill.cooldownLabel"></span>
                     <mat-icon *ngIf="skill.cooldownDetailsLabel !== null"  [matTooltip]="skill.cooldownDetailsLabel">info_outline</mat-icon>
                 </div>
+                <div class="fast" *ngIf="skill.fastLabel !== null" [innerHTML]="skill.fastLabel"></div>
                 <div class="cost" *ngIf="skill.costLabel !== null" [innerHTML]="skill.costLabel"></div>
             </div>
         </div>

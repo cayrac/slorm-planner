@@ -36,7 +36,7 @@ export class MainStatsComponent extends AbstractUnsubscribeComponent implements 
             section: this.slormancerTranslateService.translate('cat_health'),
             stats: [
                 { name: this.slormancerTranslateService.translate('max_health'), stat: 'max_health', sign: false },
-                { name: this.slormancerTranslateService.translate('health_regeneration'), stat: 'health_regeneration', sign: true },
+                { name: this.slormancerTranslateService.translate('health_regeneration'), stat: 'health_regeneration', sign: false },
                 { name: this.slormancerTranslateService.translate('health_leech_percent'), stat: 'health_leech_percent', sign: false },
                 { name: this.slormancerTranslateService.translate('life_on_hit'), stat: 'life_on_hit', sign: true },
                 { name: this.slormancerTranslateService.translate('life_on_kill'), stat: 'life_on_kill', sign: true }
@@ -46,7 +46,7 @@ export class MainStatsComponent extends AbstractUnsubscribeComponent implements 
             section: this.slormancerTranslateService.translate('cat_mana'),
             stats: [
                 { name: this.slormancerTranslateService.translate('max_mana'), stat: 'max_mana', sign: false },
-                { name: this.slormancerTranslateService.translate('mana_regeneration'), stat: 'mana_regeneration', sign: true },
+                { name: this.slormancerTranslateService.translate('mana_regeneration'), stat: 'mana_regeneration', sign: false },
                 { name: this.slormancerTranslateService.translate('mana_leech_percent'), stat: 'mana_leech_percent', sign: false },
                 { name: this.slormancerTranslateService.translate('mana_on_hit'), stat: 'mana_on_hit', sign: true },
                 { name: this.slormancerTranslateService.translate('mana_on_kill'), stat: 'mana_on_kill', sign: true }

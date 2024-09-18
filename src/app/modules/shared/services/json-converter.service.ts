@@ -110,7 +110,8 @@ export class JsonConverterService {
             effectAffinity: reaper.baseEffectAffinity,
             kills: reaper.baseKills,
             primordialKills: reaper.primordialKills,
-            primordial: reaper.primordial ? 1 : 0
+            primordial: reaper.primordial ? 1 : 0,
+            mastery: reaper.masteryLevel,
         };
     }
 
@@ -358,6 +359,9 @@ export class JsonConverterService {
         if (compareVersions(character.version, '0.5.0') < 0) {
             character.ancestralLegacies.firstNode = null;
         }
+        if (compareVersions(character.version, '0.7.0') < 0) {
+            character.reaper.mastery = 0;
+        }
     }
 
     public jsonToCharacter(character: JsonCharacter): Character {
@@ -372,7 +376,9 @@ export class JsonConverterService {
             character.reaper.kills,
             character.reaper.primordialKills,
             character.reaper.affinity,
-            character.reaper.effectAffinity);
+            character.reaper.effectAffinity,
+            0,
+            character.reaper.mastery);
 
         const ultimatum = character.ultimatum === null
             ? null

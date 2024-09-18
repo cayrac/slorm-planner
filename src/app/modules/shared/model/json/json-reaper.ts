@@ -5,5 +5,6 @@ export interface JsonReaper {
     effectAffinity: number;
     kills: number;
     primordialKills: number;
-    primordial: number
+    primordial: number;
+    mastery: number;
 }

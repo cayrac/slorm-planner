@@ -406,6 +406,7 @@ export class BuildRetrocompatibilityService {
                 for (const layer of build.layers) {
                     layer.character.reaper.primordialKills = (layer.character.reaper as any).primordialInfo.kills;
                     layer.character.reaper.baseKills = (layer.character.reaper as any).baseKills.kills;
+                    layer.character.reaper.masteryLevel = 0;
                     delete (layer.character.reaper as any).primordialInfo;
                     delete (layer.character.reaper as any).baseInfo;
                 }

@@ -6,6 +6,7 @@ import {
     DEFAULT_CONFIG,
     MAX_EFFECT_AFFINITY_BASE,
     MAX_REAPER_AFFINITY_BASE,
+    MAX_REAPER_LEVEL,
     Reaper,
     SlormancerCharacterUpdaterService,
     SlormancerReaperService,
@@ -23,6 +24,7 @@ export interface ReaperEditModalData {
 
 interface ReaperForm {
     baseLevel: FormControl<number | null>;
+    masteryLevel: FormControl<number | null>;
     baseKills: FormControl<number | null>;
     primordialKills: FormControl<number | null>;
     reaperAffinity: FormControl<number | null>;
@@ -35,6 +37,7 @@ interface ReaperFormData {
     reaper: number;
     primordial: boolean;
     baseLevel: number;
+    masteryLevel: number;
     baseKills: number;
     primordialKills: number;
     reaperAffinity: number;
@@ -48,8 +51,8 @@ interface ReaperFormData {
 })
 export class ReaperEditModalComponent {
 
+    public readonly MAX_REAPER_LEVEL = MAX_REAPER_LEVEL;
     public readonly MAX_REAPER_AFFINITY_BASE = MAX_REAPER_AFFINITY_BASE;
-
     public readonly MAX_EFFECT_AFFINITY_BASE = MAX_EFFECT_AFFINITY_BASE;
 
     private readonly originalReaper: Reaper;
@@ -62,13 +65,14 @@ export class ReaperEditModalComponent {
 
     public form: FormGroup<ReaperForm> = new FormGroup({
         baseLevel: new FormControl<number | null>(null, [Validators.required, Validators.min(1), this.getReaperMaxLevelValidator()]),
+        masteryLevel: new FormControl<number | null>(null, [Validators.required, Validators.min(0), Validators.max(MAX_REAPER_LEVEL)]),
         baseKills: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
         primordialKills: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
         reaperAffinity: new FormControl<number | null>(null, [Validators.required, Validators.min(0), Validators.max(MAX_REAPER_AFFINITY_BASE)]),
         effectAffinity: new FormControl<number | null>(null, [Validators.required, Validators.min(0), Validators.max(MAX_EFFECT_AFFINITY_BASE)]),
         primordial: new FormControl<boolean | null>(null, Validators.required),
         reaper: new FormControl<number | null>(null, Validators.required),
-    })
+    });
 
     constructor(private dialogRef: MatDialogRef<ReaperEditModalComponent>,
                 private slormancerReaperService: SlormancerReaperService,
@@ -100,6 +104,7 @@ export class ReaperEditModalComponent {
             this.form.reset({
                 baseKills: this.reaper.baseKills,
                 baseLevel: this.reaper.baseLevel,
+                masteryLevel: this.reaper.masteryLevel,
                 effectAffinity: this.reaper.baseEffectAffinity,
                 reaperAffinity: this.reaper.baseReaperAffinity,
                 primordial: this.reaper.primordial,
@@ -132,6 +137,7 @@ export class ReaperEditModalComponent {
                 this.reaper.id = value.reaper;
                 this.reaper.primordial = value.primordial;
                 this.reaper.baseLevel = value.baseLevel;
+                this.reaper.masteryLevel = value.masteryLevel;
                 this.reaper.kills = value.baseKills;
                 this.reaper.primordialKills = value.primordialKills;
                 this.reaper.baseReaperAffinity = value.reaperAffinity;
