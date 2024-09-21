@@ -65,6 +65,18 @@ function nullifySynergyUpgrade(effect: ReaperEffect | null, index: number) {
     }
 }
 
+function copySynergyUpgradeFrom(effect: ReaperEffect | null, index: number, indexSource: number) {
+
+    const value = effect !== null ? valueOrNull(effect.values[index]) : null;
+    const valueSource = effect !== null ? valueOrNull(effect.values[indexSource]) : null;
+
+    if (value !== null && valueSource !== null && isEffectValueSynergy(value) && isEffectValueVariable(valueSource)) {
+        value.upgrade = valueSource.upgrade;
+    } else {
+        throw new Error('failed to copy synergy upgrade from variable at index ' + index);
+    }
+}
+
 function changeValue(effect: ReaperEffect | null, index: number, newValue: number) {
 
     const value = effect !== null ? valueOrNull(effect.values[index]) : null;
@@ -1203,6 +1215,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma) => {
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'primary_skill_increased_damage');
+            copySynergyUpgradeFrom(ba, 1, 0)
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'mana_cost_free_treshold');
 
             if (ba) {

@@ -75,14 +75,14 @@ export class SlormancerStatsExtractorService {
                 private slormancerSkillService: SlormancerSkillService
         ) { }
 
-    private getSynergyStatsItWillUpdate(stat: string, mergedStatMapping: Array<MergedStatMapping>): Array<{ stat: string, mapping?: MergedStatMapping }> {
+    private getSynergyStatsItWillUpdate(stat: string, mergedStatMapping: Array<MergedStatMapping>, config: CharacterConfig, stats: ExtractedStatMap): Array<{ stat: string, mapping?: MergedStatMapping }> {
         let result: Array<{ stat: string, mapping?: MergedStatMapping }> = [];
 
         for (const mapping of mergedStatMapping) {
-            if (mapping.source.flat.some(s => s.stat === stat)
-            || mapping.source.max.some(s => s.stat === stat)
-            || mapping.source.percent.some(s => s.stat === stat)
-            || mapping.source.multiplier.some(s => s.stat === stat)) {
+            if (mapping.source.flat.some(s => s.stat === stat && (s.condition === undefined || s.condition(config, stats)) )
+            || mapping.source.max.some(s => s.stat === stat && (s.condition === undefined || s.condition(config, stats)))
+            || mapping.source.percent.some(s => s.stat === stat && (s.condition === undefined || s.condition(config, stats)))
+            || mapping.source.multiplier.some(s => s.stat === stat && (s.condition === undefined || s.condition(config, stats)))) {
                 result.push({ stat: mapping.stat, mapping });
             }
         }
@@ -287,14 +287,14 @@ export class SlormancerStatsExtractorService {
         }
     }
 
-    private addAncestralLegacyValues(character: Character, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
+    private addAncestralLegacyValues(character: Character, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>, config: CharacterConfig) {
         for (const ancestralLegacy of character.ancestralLegacies.ancestralLegacies) {
             const active = ancestralLegacy.rank > 0 && character.ancestralLegacies.activeAncestralLegacies.indexOf(ancestralLegacy.id) !== -1;
 
             for (const effectValue of ancestralLegacy.values) {
                 if (isEffectValueSynergy(effectValue)) {
                     if (active && !isDamageType(effectValue.stat)) {
-                        stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, { ancestralLegacy }, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping)));
+                        stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, { ancestralLegacy }, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping, config, stats.stats)));
                     } else {                        
                         stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, { ancestralLegacy }));
                     }
@@ -321,7 +321,7 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'equipped_imbues', equipedImbues, { reaper: character.reaper });
     }
 
-    private addAttributesValues(character: Character, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
+    private addAttributesValues(character: Character, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>, config: CharacterConfig) {
         const disableGreaterTraits = stats.stats['disable_greater_traits'] !== undefined;
         for (const attribute of ALL_ATTRIBUTES) {
             const attributeTraits = character.attributes.allocated[attribute];
@@ -334,7 +334,7 @@ export class SlormancerStatsExtractorService {
                             if (!trait.unlocked || isDamageType(effectValue.stat)) {                            
                                 stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source));
                             } else {
-                                stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping)));
+                                stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping, config, stats.stats)));
                             }
                         } else if (trait.unlocked) { 
                             this.addStat(stats.stats, effectValue.stat, effectValue.value, source);                           
@@ -373,7 +373,7 @@ export class SlormancerStatsExtractorService {
                 if (isDamageType(effectValue.stat)) {
                     stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, { reaper: character.reaper }));
                 } else {
-                    stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, { reaper: character.reaper }, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping)));
+                    stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, { reaper: character.reaper }, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping, config, stats.stats)));
                 }
             } else {
                 this.addStat(stats.stats, effectValue.stat, effectValue.value, source);
@@ -452,7 +452,7 @@ export class SlormancerStatsExtractorService {
                     if (isDamageType(effectValue.stat) || !applyEffect) {
                         stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source));
                     } else {
-                        stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping)));
+                        stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping, config, stats.stats)));
                     }
                 } else if (applyEffect) {
                     this.addStat(stats.stats, effectValue.stat, effectValue.value, source);
@@ -476,7 +476,7 @@ export class SlormancerStatsExtractorService {
         }
     }
 
-    private addGearValues(character: Character, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
+    private addGearValues(character: Character, stats: ExtractedStats, config: CharacterConfig, mergedStatMapping: Array<MergedStatMapping>) {
         const addChestTwice = stats.stats['add_chest_stats_twice'] !== undefined;
         const ignorePhysicalElementalStats = stats.stats['ignore_physical_elemental_stats'] !== undefined;
         const items = ALL_GEAR_SLOT_VALUES
@@ -510,7 +510,7 @@ export class SlormancerStatsExtractorService {
                     if (isDamageType(effectValue.stat)) {
                         stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, { item }));
                     } else {
-                        stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, { item }, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping)));
+                        stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, { item }, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping, config, stats.stats)));
                     }
                 } else {
                     if (!ignorePhysicalElementalStats || !this.PHYSICAL_ELEMENTAL_STATS.includes(effectValue.stat)) {
@@ -533,7 +533,7 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'reaper_bonus', totalSmithBonus, { character });
     }
 
-    private addAdditionalItemValues(additionalItem: EquipableItem | null, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
+    private addAdditionalItemValues(additionalItem: EquipableItem | null, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>, config: CharacterConfig) {
         if (additionalItem !== null) {
             const effectValues = [
                     ...(additionalItem.legendaryEffect !== null ? additionalItem.legendaryEffect.effects.map(c => c.effect) : []),
@@ -543,12 +543,12 @@ export class SlormancerStatsExtractorService {
                 .filter(isEffectValueSynergy);
             
             for (const synergy of effectValues) {            
-                stats.isolatedSynergies.push(synergyResolveData(synergy, synergy.displaySynergy, { item: additionalItem }, this.getSynergyStatsItWillUpdate(synergy.stat, mergedStatMapping)));
+                stats.isolatedSynergies.push(synergyResolveData(synergy, synergy.displaySynergy, { item: additionalItem }, this.getSynergyStatsItWillUpdate(synergy.stat, mergedStatMapping, config, stats.stats)));
             }
         }
     }
 
-    private addAdditionalRuneValues(additionalRunes: Array<Rune>, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
+    private addAdditionalRuneValues(additionalRunes: Array<Rune>, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>, config: CharacterConfig) {
         for (const additionalRune of additionalRunes) {
             const effectValues = [
                     ...additionalRune.values,
@@ -557,7 +557,7 @@ export class SlormancerStatsExtractorService {
                 .filter(isEffectValueSynergy);
             
             for (const synergy of effectValues) {            
-                stats.isolatedSynergies.push(synergyResolveData(synergy, synergy.displaySynergy, { rune: additionalRune }, this.getSynergyStatsItWillUpdate(synergy.stat, mergedStatMapping)));
+                stats.isolatedSynergies.push(synergyResolveData(synergy, synergy.displaySynergy, { rune: additionalRune }, this.getSynergyStatsItWillUpdate(synergy.stat, mergedStatMapping, config, stats.stats)));
             }
         }
     }
@@ -583,7 +583,7 @@ export class SlormancerStatsExtractorService {
                     if (upgradeValue.valueType !== EffectValueValueType.Upgrade) {
                         if (isEffectValueSynergy(upgradeValue)) {
                             if (upgradeActive && !isDamageType(upgradeValue.stat)) {
-                                stats.synergies.push(synergyResolveData(upgradeValue, upgradeValue.displaySynergy, { upgrade }, this.getSynergyStatsItWillUpdate(upgradeValue.stat, mergedStatMapping)));
+                                stats.synergies.push(synergyResolveData(upgradeValue, upgradeValue.displaySynergy, { upgrade }, this.getSynergyStatsItWillUpdate(upgradeValue.stat, mergedStatMapping, config, stats.stats)));
                             } else {
                                 stats.isolatedSynergies.push(synergyResolveData(upgradeValue, upgradeValue.displaySynergy, { upgrade }));
                             }
@@ -606,7 +606,7 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'poison_upgrades', poisonUpgrades, { character });
     }
 
-    public addActivableValues(character: Character, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
+    public addActivableValues(character: Character, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>, config: CharacterConfig) {
         const activables = this.getAllActiveActivables(character);
 
         for (const ancestralLegacy of character.ancestralLegacies.ancestralLegacies) {
@@ -616,7 +616,7 @@ export class SlormancerStatsExtractorService {
                 for (const effectValue of ancestralLegacy.values) {
                     if (isEffectValueSynergy(effectValue)) {
                         if (!isDamageType(effectValue.stat)) {
-                            stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping)));
+                            stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping, config, stats.stats)));
                         }
                     } else if (equiped) {
                         this.addStat(stats.stats, effectValue.stat, effectValue.value, source);
@@ -636,7 +636,7 @@ export class SlormancerStatsExtractorService {
                 for (const effectValue of item.legendaryEffect.activable.values) {
                     if (isEffectValueSynergy(effectValue)) {
                         if (!isDamageType(effectValue.stat)) {
-                            stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping)));
+                            stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping, config, stats.stats)));
                         }
                     } else if (equiped) {
                         this.addStat(stats.stats, effectValue.stat, effectValue.value, source);
@@ -651,7 +651,7 @@ export class SlormancerStatsExtractorService {
             for (const effectValue of activable.values) {
                 if (isEffectValueSynergy(effectValue)) {
                     if (!isDamageType(effectValue.stat)) {
-                        stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping)));
+                        stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping, config, stats.stats)));
                     } else {
                         stats.isolatedSynergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, source));
                     }
@@ -826,24 +826,24 @@ export class SlormancerStatsExtractorService {
         this.addReaperValues(character, result, mergedStatMapping, config);
         this.addRunesValues(character, result, mergedStatMapping, config);
         this.addBaseValues(character, result);
-        this.addAncestralLegacyValues(character, result, mergedStatMapping);
-        this.addAttributesValues(character, result, mergedStatMapping);
-        this.addGearValues(character, result, mergedStatMapping);
-        this.addAdditionalItemValues(additionalItem, result, mergedStatMapping);
-        this.addAdditionalRuneValues(additionalRunes, result, mergedStatMapping);
+        this.addAncestralLegacyValues(character, result, mergedStatMapping, config);
+        this.addAttributesValues(character, result, mergedStatMapping, config);
+        this.addGearValues(character, result, config, mergedStatMapping);
+        this.addAdditionalItemValues(additionalItem, result, mergedStatMapping, config);
+        this.addAdditionalRuneValues(additionalRunes, result, mergedStatMapping, config);
         this.addInventoryValues(character, result);
-        this.addActivableValues(character, result, mergedStatMapping);
+        this.addActivableValues(character, result, mergedStatMapping, config);
         this.addDefaultSynergies(character, config, result, mergedStatMapping);
         this.addDynamicValues(character, config, result);
         
         return result;
     }
 
-    private addSkillValues(skillAndUpgrades: CharacterSkillAndUpgrades, extractedStats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
+    private addSkillValues(skillAndUpgrades: CharacterSkillAndUpgrades, extractedStats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>, config: CharacterConfig) {
         for (const skillValue of skillAndUpgrades.skill.values) {
             if (isEffectValueSynergy(skillValue)) {
                 if (!isDamageType(skillValue.stat) && skillValue.valueType !== EffectValueValueType.Upgrade) {
-                    extractedStats.synergies.push(synergyResolveData(skillValue, skillValue.displaySynergy, { skill: skillAndUpgrades.skill }, this.getSynergyStatsItWillUpdate(skillValue.stat, mergedStatMapping)));
+                    extractedStats.synergies.push(synergyResolveData(skillValue, skillValue.displaySynergy, { skill: skillAndUpgrades.skill }, this.getSynergyStatsItWillUpdate(skillValue.stat, mergedStatMapping, config, extractedStats.stats)));
                 } else {
                     extractedStats.isolatedSynergies.push(synergyResolveData(skillValue, skillValue.displaySynergy, { skill: skillAndUpgrades.skill }));
                 }
@@ -853,14 +853,14 @@ export class SlormancerStatsExtractorService {
         }
     }
 
-    private addUpgradeValues(skillAndUpgrades: CharacterSkillAndUpgrades, extractedStats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
+    private addUpgradeValues(skillAndUpgrades: CharacterSkillAndUpgrades, extractedStats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>, config: CharacterConfig) {
         for (const upgrade of skillAndUpgrades.upgrades) {
             const equipped = skillAndUpgrades.activeUpgrades.includes(upgrade.id);
             for (const upgradeValue of upgrade.values) {
                 if (upgradeValue.valueType === EffectValueValueType.Upgrade) {
                     if (isEffectValueSynergy(upgradeValue)) {
                         if (equipped && !isDamageType(upgradeValue.stat)) {
-                            extractedStats.synergies.push(synergyResolveData(upgradeValue, upgradeValue.displaySynergy, { upgrade }, this.getSynergyStatsItWillUpdate(upgradeValue.stat, mergedStatMapping)));
+                            extractedStats.synergies.push(synergyResolveData(upgradeValue, upgradeValue.displaySynergy, { upgrade }, this.getSynergyStatsItWillUpdate(upgradeValue.stat, mergedStatMapping, config, extractedStats.stats)));
                         } else {
                             extractedStats.isolatedSynergies.push(synergyResolveData(upgradeValue, upgradeValue.displaySynergy, { upgrade }));
                         }
@@ -876,25 +876,25 @@ export class SlormancerStatsExtractorService {
         }
     }
 
-    public extractSkillStats(skillAndUpgrades: CharacterSkillAndUpgrades, characterStats: CharacterStatsBuildResult, mergedStatMapping: Array<MergedStatMapping>): ExtractedStats {
+    public extractSkillStats(skillAndUpgrades: CharacterSkillAndUpgrades, characterStats: CharacterStatsBuildResult, mergedStatMapping: Array<MergedStatMapping>, config: CharacterConfig): ExtractedStats {
         const result: ExtractedStats = {
             synergies:  [],
             isolatedSynergies:  [],
             stats: {},
         }
 
-        const characterSynergies = [...characterStats.resolvedSynergies, ...characterStats.unresolvedSynergies];
-        for (const synergy of characterSynergies) {
-            synergy.statsItWillUpdate = this.getSynergyStatsItWillUpdate(synergy.effect.stat, mergedStatMapping);
-        }
-        result.synergies = characterSynergies;
-
         for (const stat in characterStats.extractedStats) {
             result.stats[stat] = (<Array<EntityValue<number>>>characterStats.extractedStats[stat]).slice(0);
         }
 
-        this.addSkillValues(skillAndUpgrades, result, mergedStatMapping);
-        this.addUpgradeValues(skillAndUpgrades, result, mergedStatMapping);
+        const characterSynergies = [...characterStats.resolvedSynergies, ...characterStats.unresolvedSynergies];
+        for (const synergy of characterSynergies) {
+            synergy.statsItWillUpdate = this.getSynergyStatsItWillUpdate(synergy.effect.stat, mergedStatMapping, config, result.stats);
+        }
+        result.synergies = characterSynergies;
+
+        this.addSkillValues(skillAndUpgrades, result, mergedStatMapping, config);
+        this.addUpgradeValues(skillAndUpgrades, result, mergedStatMapping, config);
 
         result.stats['skill_elements'] = skillAndUpgrades.skill.elements.map(element => ({ value: element, source: { skill: skillAndUpgrades.skill } }));
         

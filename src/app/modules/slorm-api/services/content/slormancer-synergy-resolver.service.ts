@@ -81,17 +81,11 @@ export class SlormancerSynergyResolverService {
     private statHasNoDependency(resolveData: SynergyResolveData | ExternalSynergyResolveData, resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>, debug = false): boolean {
         return resolveDatas
             .find(s => s.statsItWillUpdate.find(statItWillUpdate => {
-                let found = false; 
+                let found = false;
                 if (resolveData.type === ResolveDataType.Synergy) {
                     found = statItWillUpdate.stat === resolveData.effect.source;
-                    if (debug && found) {
-                        console.log('Dependency found for synergy', resolveData, ' over ', statItWillUpdate);
-                    }
                 } else {
                     found = resolveData.sources.some(source => statItWillUpdate.stat === source);
-                    if (debug && found) {
-                        console.log('Dependency found for external synergy', resolveData, ' over ', statItWillUpdate);
-                    }
                 }
                 return found;
             }) !== undefined) === undefined

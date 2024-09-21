@@ -25,10 +25,10 @@ import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { MinMax } from '../../model/minmax';
 import { isDamageType, isEffectValueSynergy, isNotNullOrUndefined, valueOrDefault } from '../../util/utils';
 import { SlormancerMergedStatUpdaterService } from './slormancer-merged-stat-updater.service';
+import { SlormancerReaperService } from './slormancer-reaper.service';
 import { SlormancerStatMappingService } from './slormancer-stat-mapping.service';
 import { ExtractedStatMap, ExtractedStats, SlormancerStatsExtractorService } from './slormancer-stats-extractor.service';
 import { SlormancerSynergyResolverService } from './slormancer-synergy-resolver.service';
-import { SlormancerReaperService } from './slormancer-reaper.service';
 
 export interface CharacterStatsBuildResult {
     unlockedAncestralLegacies: Array<number>;
@@ -261,7 +261,7 @@ export class SlormancerStatsService {
             }
         };
         const mapping = this.getStatsMapping(character, skillAndUpgrades);
-        const extractedStats = this.slormancerStatsExtractorService.extractSkillStats(skillAndUpgrades, characterStats, mapping);
+        const extractedStats = this.slormancerStatsExtractorService.extractSkillStats(skillAndUpgrades, characterStats, mapping, config);
         this.applySkillSpecialChanges(character, skillAndUpgrades, config, extractedStats, result);
         this.slormancerStatsExtractorService.extractSkillInfoStats(character, skillAndUpgrades, extractedStats);
 
