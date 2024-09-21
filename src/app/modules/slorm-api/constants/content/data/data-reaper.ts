@@ -865,22 +865,28 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'melee_brut_chance_global_mult');
 
             overrideSynergySource(ma, 0, 'critical_chance');
-            overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'crit_chance_melee');
             synergyMultiply100(ma, 0);
             overrideSynergySource(ma, 1, 'recast_chance');
             overrideValueTypeAndStat(ma, 1, EffectValueValueType.Stat, 'garbage_stat');
-            synergyMultiply100(ma, 1);
             overrideSynergySource(ma, 2, 'ancestral_chance');
-            overrideValueTypeAndStat(ma, 2, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ma, 2, EffectValueValueType.Stat, 'ancestral_chance_melee');
             synergyMultiply100(ma, 2);
             overrideSynergySource(ma, 3, 'recast_chance');
             overrideValueTypeAndStat(ma, 3, EffectValueValueType.Stat, 'garbage_stat');
-            synergyMultiply100(ma, 3);
 
             if (ma) {
                 ma.values.push(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'recast_chance_minus_100', 'crit_chance_global_mult', EffectValueValueType.Stat, undefined, 3))
                 ma.values.push(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'recast_chance_minus_100', 'brut_chance_global_mult', EffectValueValueType.Stat, undefined, 3))
             }
+        }
+    },
+    64: {
+        override: (ba, be, ma) => {
+            overrideSynergySource(ba, 0, 'critical_chance');
+            synergyMultiply100(ba, 0);
+            overrideSynergySource(ba, 1, 'ancestral_chance');
+            synergyMultiply100(ba, 1);
         }
     },
     65: {
@@ -1003,7 +1009,9 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'imbued_skills_and_ancestral_beam_increased_damage_per_imbue');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'ancestral_wrath_max_stacks');
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'physical_damage');
+            allowSynergyToCascade(ba, 3);
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'elemental_damage');
+            allowSynergyToCascade(ba, 4);
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'garbage_stat');
             synergyMultiply100(ba, 5);
             
