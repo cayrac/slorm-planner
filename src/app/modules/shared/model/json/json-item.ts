@@ -1,4 +1,4 @@
-import { EquipableItemBase } from 'slormancer-api';
+import { EquipableItemBase } from '@slorm-api';
 
 export interface JsonItem {
     base: EquipableItemBase | null;

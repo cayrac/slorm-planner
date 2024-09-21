@@ -1,18 +1,18 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { BuildStorageService } from '@shared/services/build-storage.service';
-import { takeUntil } from 'rxjs/operators';
 import {
-    AncestralLegacy,
-    Character,
-    list,
-    MinMax,
-    SlormancerAncestralLegacyNodesService,
-    SlormancerCharacterModifierService,
-    SlormancerDataService,
-    valueOrDefault,
-    valueOrNull,
-} from 'slormancer-api';
+  AncestralLegacy,
+  Character,
+  list,
+  MinMax,
+  SlormancerAncestralLegacyNodesService,
+  SlormancerCharacterModifierService,
+  SlormancerDataService,
+  valueOrDefault,
+  valueOrNull,
+} from '@slorm-api';
+import { takeUntil } from 'rxjs/operators';
 
 
 interface Position { x: number; y: number; }

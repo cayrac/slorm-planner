@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import {
-    ALL_ATTRIBUTES,
-    ALL_RARITIES,
-    ALL_REAPER_SMITH,
-    ALL_ULTIMATUM_TYPES,
-    compareString,
-    EQUIPABLE_ITEM_BASE_VALUES,
-    EquipableItemBase,
-    GameDataStat,
-    GameHeroesData,
-    HeroClass,
-    Rarity,
-    ReaperSmith,
-    SlormancerDataService,
-    SlormancerReaperService,
-    SlormancerTranslateService,
-    UltimatumType,
-    valueOrDefault,
-} from 'slormancer-api';
+  ALL_ATTRIBUTES,
+  ALL_RARITIES,
+  ALL_REAPER_SMITH,
+  ALL_ULTIMATUM_TYPES,
+  compareString,
+  EQUIPABLE_ITEM_BASE_VALUES,
+  EquipableItemBase,
+  GameDataStat,
+  GameHeroesData,
+  HeroClass,
+  Rarity,
+  ReaperSmith,
+  SlormancerDataService,
+  SlormancerReaperService,
+  SlormancerTranslateService,
+  UltimatumType,
+  valueOrDefault,
+} from '@slorm-api';
 
 import { SelectOption } from '../model/select-option';
 

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { Activable, AncestralLegacy, compare, isFirst, isNotNullOrUndefined } from 'slormancer-api';
+import { Activable, AncestralLegacy, compare, isFirst, isNotNullOrUndefined } from '@slorm-api';
 
 import { BuildStorageService } from '../../services/build-storage.service';
 import { ItemMoveService } from '../../services/item-move.service';

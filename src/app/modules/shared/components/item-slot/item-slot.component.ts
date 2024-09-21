@@ -1,16 +1,16 @@
 import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { takeUntil } from 'rxjs/operators';
 import {
-    ALL_GEAR_SLOT_VALUES,
-    Character,
-    EquipableItem,
-    EquipableItemBase,
-    GearSlot,
-    SlormancerCharacterBuilderService,
-    SlormancerItemService,
-} from 'slormancer-api';
+  ALL_GEAR_SLOT_VALUES,
+  Character,
+  EquipableItem,
+  EquipableItemBase,
+  GearSlot,
+  SlormancerCharacterBuilderService,
+  SlormancerItemService,
+} from '@slorm-api';
+import { takeUntil } from 'rxjs/operators';
 
 import { BuildStorageService } from '../../services/build-storage.service';
 import { ItemMoveService } from '../../services/item-move.service';

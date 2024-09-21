@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import {
-    Activable,
-    AncestralLegacy,
-    EquipableItem,
-    isNotNullOrUndefined,
-    Reaper,
-    Rune,
-    SkillUpgrade,
-    Trait,
-    Ultimatum,
-} from 'slormancer-api';
+  Activable,
+  AncestralLegacy,
+  EquipableItem,
+  isNotNullOrUndefined,
+  Reaper,
+  Rune,
+  SkillUpgrade,
+  Trait,
+  Ultimatum,
+} from '@slorm-api';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class SearchService {

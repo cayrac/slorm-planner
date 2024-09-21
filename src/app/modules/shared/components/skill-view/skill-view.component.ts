@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Skill } from 'slormancer-api';
+import { Skill } from '@slorm-api';
 
 @Component({
   selector: 'app-skill-view',

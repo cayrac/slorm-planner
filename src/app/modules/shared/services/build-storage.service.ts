@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Character, SlormancerCharacterUpdaterService, valueOrDefault, valueOrNull } from '@slorm-api';
 import { BehaviorSubject, debounceTime, Subject } from 'rxjs';
-import { Character, SlormancerCharacterUpdaterService, valueOrDefault, valueOrNull } from 'slormancer-api';
 
 import { environment } from '../../../../environments/environment';
 import { Build } from '../model/build';

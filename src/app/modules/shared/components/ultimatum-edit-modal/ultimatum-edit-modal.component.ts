@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { SlormancerUltimatumService, Ultimatum, ULTIMATUM_MAX_LEVEL, UltimatumType } from 'slormancer-api';
+import { SlormancerUltimatumService, Ultimatum, ULTIMATUM_MAX_LEVEL, UltimatumType } from '@slorm-api';
 
 import { SelectOption } from '../../model/select-option';
 import { FormOptionsService } from '../../services/form-options.service';

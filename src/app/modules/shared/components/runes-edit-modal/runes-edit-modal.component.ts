@@ -2,16 +2,16 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
-    Character,
-    DEFAULT_CONFIG,
-    MAX_REAPER_AFFINITY_BASE,
-    Rune,
-    RunesCombination,
-    RuneType,
-    SlormancerCharacterUpdaterService,
-    SlormancerRuneService,
-    valueOrNull,
-} from 'slormancer-api';
+  Character,
+  DEFAULT_CONFIG,
+  MAX_REAPER_AFFINITY_BASE,
+  Rune,
+  RunesCombination,
+  RuneType,
+  SlormancerCharacterUpdaterService,
+  SlormancerRuneService,
+  valueOrNull,
+} from '@slorm-api';
 
 import { BuildStorageService } from '../../services/build-storage.service';
 

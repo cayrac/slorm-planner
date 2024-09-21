@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { CreateBuildModalComponent } from '@shared/components/create-build-modal/create-build-modal.component';
 import {
-    DeleteBuildModalComponent,
-    DeleteBuildModalData,
+  DeleteBuildModalComponent,
+  DeleteBuildModalData,
 } from '@shared/components/delete-build-modal/delete-build-modal.component';
 import { EditBuildModalComponent, EditBuildModalData } from '@shared/components/edit-build-modal/edit-build-modal.component';
 import { EditLayerModalComponent, EditLayerModalData } from '@shared/components/edit-layer-modal/edit-layer-modal.component';
@@ -21,8 +21,8 @@ import { ClipboardService } from '@shared/services/clipboard.service';
 import { DownloadService } from '@shared/services/download.service';
 import { ImportExportService } from '@shared/services/import-export.service';
 import { MessageService } from '@shared/services/message.service';
+import { HeroClass, isNotNullOrUndefined } from '@slorm-api';
 import { filter, takeUntil } from 'rxjs';
-import { HeroClass, isNotNullOrUndefined } from 'slormancer-api';
 
 import { environment } from '../../../../../../../environments/environment';
 

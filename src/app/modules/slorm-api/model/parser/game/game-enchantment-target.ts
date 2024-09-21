@@ -1,0 +1,1 @@
+export declare type GameEnchantmentTarget = 'MA' | 'AT' | 'RP';

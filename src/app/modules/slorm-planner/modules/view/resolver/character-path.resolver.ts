@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { SharedData } from '@shared/model/shared-data';
 import { ImportExportService } from '@shared/services/import-export.service';
 import { MessageService } from '@shared/services/message.service';
-import { valueOrNull } from 'slormancer-api';
+import { valueOrNull } from '@slorm-api';
 
 @Injectable()
 export class CharacterPathResolver implements Resolve<SharedData> {

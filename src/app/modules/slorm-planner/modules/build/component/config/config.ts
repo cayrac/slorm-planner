@@ -1,4 +1,4 @@
-import { Character } from 'slormancer-api';
+import { Character } from '@slorm-api';
 
 export interface ConfigEntryNumber {
     type: 'number';

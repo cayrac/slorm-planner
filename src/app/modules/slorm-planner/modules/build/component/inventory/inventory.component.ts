@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { BuildStorageService } from '@shared/services/build-storage.service';
-import { ItemMoveService as ItemMoveService } from '@shared/services/item-move.service';
+import { ItemMoveService } from '@shared/services/item-move.service';
+import { Character, EquipableItem, Reaper, RunesCombination, SlormancerRuneService } from '@slorm-api';
 import { takeUntil } from 'rxjs/operators';
-import { Character, EquipableItem, Reaper, RunesCombination, SlormancerRuneService } from 'slormancer-api';
 
 @Component({
   selector: 'app-inventory',

@@ -3,14 +3,14 @@ import { BuildStorageService } from '@shared/services/build-storage.service';
 import { BuildService } from '@shared/services/build.service';
 import { MessageService } from '@shared/services/message.service';
 import {
-    Character,
-    CharacterConfig,
-    DEFAULT_CONFIG,
-    GameHeroesData,
-    HeroClass,
-    SlormancerCharacterBuilderService,
-    SlormancerSaveParserService,
-} from 'slormancer-api';
+  Character,
+  CharacterConfig,
+  DEFAULT_CONFIG,
+  GameHeroesData,
+  HeroClass,
+  SlormancerCharacterBuilderService,
+  SlormancerSaveParserService,
+} from '@slorm-api';
 
 import { ClipboardService } from '../../services/clipboard.service';
 import { ImportExportService } from '../../services/import-export.service';

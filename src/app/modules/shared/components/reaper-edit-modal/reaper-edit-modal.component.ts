@@ -2,16 +2,16 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
-    Character,
-    DEFAULT_CONFIG,
-    MAX_EFFECT_AFFINITY_BASE,
-    MAX_REAPER_AFFINITY_BASE,
-    MAX_REAPER_LEVEL,
-    Reaper,
-    SlormancerCharacterUpdaterService,
-    SlormancerReaperService,
-    SlormancerRuneService,
-} from 'slormancer-api';
+  Character,
+  DEFAULT_CONFIG,
+  MAX_EFFECT_AFFINITY_BASE,
+  MAX_REAPER_AFFINITY_BASE,
+  MAX_REAPER_LEVEL,
+  Reaper,
+  SlormancerCharacterUpdaterService,
+  SlormancerReaperService,
+  SlormancerRuneService,
+} from '@slorm-api';
 
 import { SelectOption } from '../../model/select-option';
 import { BuildStorageService } from '../../services/build-storage.service';

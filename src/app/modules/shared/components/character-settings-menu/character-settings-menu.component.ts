@@ -1,18 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { takeUntil } from 'rxjs/operators';
 import {
-    ALL_ATTRIBUTES,
-    ALL_GEAR_SLOT_VALUES,
-    AttributeTraits,
-    Character,
-    EquipableItem,
-    isNotNullOrUndefined,
-    ReaperSmith,
-    Skill,
-    SlormancerItemService,
-} from 'slormancer-api';
+  ALL_ATTRIBUTES,
+  ALL_GEAR_SLOT_VALUES,
+  AttributeTraits,
+  Character,
+  EquipableItem,
+  isNotNullOrUndefined,
+  ReaperSmith,
+  Skill,
+  SlormancerItemService,
+} from '@slorm-api';
+import { takeUntil } from 'rxjs/operators';
 
 import { BuildStorageService } from '../../services/build-storage.service';
 import { MessageService } from '../../services/message.service';
@@ -20,8 +20,8 @@ import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-u
 import { CharacterLevelEditModalComponent } from '../character-level-edit-modal/character-level-edit-modal.component';
 import { ItemReinforcmentEditModalComponent } from '../item-reinforcment-edit-modal/item-reinforcment-edit-modal.component';
 import {
-    OptimizeItemsAffixesModalComponent,
-    OptimizeItemsAffixesModalData,
+  OptimizeItemsAffixesModalComponent,
+  OptimizeItemsAffixesModalData,
 } from '../optimize-items-affixes-modal/optimize-items-affixes-modal.component';
 
 @Component({

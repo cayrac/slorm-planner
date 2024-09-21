@@ -1,12 +1,12 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSliderChange } from '@angular/material/slider';
-import { HeroClass, SkillEnchantment, SlormancerItemService, valueOrDefault } from 'slormancer-api';
+import { HeroClass, SkillEnchantment, SlormancerItemService, valueOrDefault } from '@slorm-api';
 
+import { takeUntil } from 'rxjs';
 import { SelectOption } from '../../model/select-option';
 import { FormOptionsService } from '../../services/form-options.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
-import { takeUntil } from 'rxjs';
 import { ItemSkillFormGroup } from '../item-edit-modal/item-edit-modal.component';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BuildStorageService } from '@shared/services/build-storage.service';
 import { BuildService } from '@shared/services/build.service';
-import { DEFAULT_CONFIG, HeroClass } from 'slormancer-api';
+import { DEFAULT_CONFIG, HeroClass } from '@slorm-api';
 
 @Component({
     selector: 'app-create-build-empty',

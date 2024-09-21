@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { AttributeTraits, MinMax, SlormancerAttributeService, Trait } from 'slormancer-api';
+import { AttributeTraits, MinMax, SlormancerAttributeService, Trait } from '@slorm-api';
 
 import { BuildStorageService } from '../../services/build-storage.service';
 

@@ -3,8 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { Layer } from '@shared/model/layer';
 import { BuildStorageService } from '@shared/services/build-storage.service';
+import { CharacterStatDifference, SlormancerCharacterComparatorService } from '@slorm-api';
 import { takeUntil } from 'rxjs/operators';
-import { CharacterStatDifference, SlormancerCharacterComparatorService } from 'slormancer-api';
 
 @Component({
   selector: 'app-compare',

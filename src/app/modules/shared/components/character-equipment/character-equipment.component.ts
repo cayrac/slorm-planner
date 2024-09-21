@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Character, EquipableItem, EquipableItemBase, GearSlot, Ultimatum } from 'slormancer-api';
+import { Character, EquipableItem, EquipableItemBase, GearSlot, Ultimatum } from '@slorm-api';
 
 
 @Component({

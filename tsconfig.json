@@ -4,6 +4,7 @@
     "paths": {
       "@assets/*": [ "src/assets/*" ],
       "@shared/*": [ "src/app/modules/shared/*" ],
+      "@slorm-api": [ "src/app/modules/slorm-api" ],
     },
     "resolveJsonModule": true,
     "baseUrl": "./",

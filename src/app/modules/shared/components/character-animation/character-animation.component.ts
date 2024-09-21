@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
-import { HeroClass } from 'slormancer-api';
+import { HeroClass } from '@slorm-api';
 
 
 @Component({

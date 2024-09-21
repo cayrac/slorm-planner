@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MAX_HERO_LEVEL } from 'slormancer-api';
+import { MAX_HERO_LEVEL } from '@slorm-api';
 
 export interface ItemReinforcmentEditData {
     reinforcment: number;   

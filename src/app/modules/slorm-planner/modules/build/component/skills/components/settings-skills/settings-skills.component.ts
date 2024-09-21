@@ -4,11 +4,11 @@ import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubs
 import { BuildStorageService } from '@shared/services/build-storage.service';
 import { MessageService } from '@shared/services/message.service';
 import {
-    CharacterSkillAndUpgrades,
-    SkillType,
-    SlormancerCharacterModifierService,
-    SlormancerSkillService,
-} from 'slormancer-api';
+  CharacterSkillAndUpgrades,
+  SkillType,
+  SlormancerCharacterModifierService,
+  SlormancerSkillService,
+} from '@slorm-api';
 
 
 @Component({

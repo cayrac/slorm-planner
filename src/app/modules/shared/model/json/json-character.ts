@@ -1,4 +1,4 @@
-import { Attribute, HeroClass } from 'slormancer-api';
+import { Attribute, HeroClass } from '@slorm-api';
 
 import { JsonAncestralLegacy } from './json-ancestral-legacy';
 import { JsonItem } from './json-item';

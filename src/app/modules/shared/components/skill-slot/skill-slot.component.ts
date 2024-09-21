@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { Skill, SKILL_MAX_MASTERY, SkillType, SlormancerTranslateService } from 'slormancer-api';
+import { Skill, SKILL_MAX_MASTERY, SkillType, SlormancerTranslateService } from '@slorm-api';
 
 import { BuildStorageService } from '../../services/build-storage.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';

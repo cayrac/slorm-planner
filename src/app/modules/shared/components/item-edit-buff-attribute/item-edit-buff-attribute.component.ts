@@ -1,13 +1,13 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSliderChange } from '@angular/material/slider';
-import { Attribute, AttributeEnchantment, SlormancerItemService, valueOrDefault } from 'slormancer-api';
+import { Attribute, AttributeEnchantment, SlormancerItemService, valueOrDefault } from '@slorm-api';
 
+import { takeUntil } from 'rxjs';
 import { SelectOption } from '../../model/select-option';
 import { FormOptionsService } from '../../services/form-options.service';
-import { ItemAttributeFormGroup } from '../item-edit-modal/item-edit-modal.component';
-import { takeUntil } from 'rxjs';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
+import { ItemAttributeFormGroup } from '../item-edit-modal/item-edit-modal.component';
 
 @Component({
   selector: 'app-item-edit-buff-attribute',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { EquipableItem, EquipableItemBase } from '@slorm-api';
 import { BehaviorSubject } from 'rxjs';
-import { EquipableItem, EquipableItemBase } from 'slormancer-api';
 
 import { BuildStorageService } from './build-storage.service';
 

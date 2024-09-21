@@ -4,18 +4,18 @@ import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubs
 import { ClipboardService } from '@shared/services/clipboard.service';
 import { MessageService } from '@shared/services/message.service';
 import { SearchService } from '@shared/services/search.service';
+import {
+  HeroClass,
+  MAX_EFFECT_AFFINITY_BASE,
+  MAX_REAPER_AFFINITY_BASE,
+  MAX_REAPER_AFFINITY_BONUS,
+  Reaper,
+  SlormancerDataService,
+  SlormancerReaperService,
+  valueOrDefault,
+} from '@slorm-api';
 import { toBlob } from 'html-to-image';
 import { combineLatest, takeUntil } from 'rxjs';
-import {
-    HeroClass,
-    MAX_EFFECT_AFFINITY_BASE,
-    MAX_REAPER_AFFINITY_BASE,
-    MAX_REAPER_AFFINITY_BONUS,
-    Reaper,
-    SlormancerDataService,
-    SlormancerReaperService,
-    valueOrDefault,
-} from 'slormancer-api';
 
 interface ReaperListForm {
     search: FormControl<string>;

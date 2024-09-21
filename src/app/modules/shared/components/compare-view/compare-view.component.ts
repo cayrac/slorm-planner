@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CharacterStatDifference, MinMax } from 'slormancer-api';
+import { CharacterStatDifference, MinMax } from '@slorm-api';
 
 
 @Component({

@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSliderChange } from '@angular/material/slider';
-import { Affix, EquipableItemBase, SlormancerAffixService, getCraftValue } from 'slormancer-api';
+import { Affix, EquipableItemBase, SlormancerAffixService, getCraftValue } from '@slorm-api';
 
+import { takeUntil } from 'rxjs';
 import { SelectOption } from '../../model/select-option';
 import { FormOptionsService } from '../../services/form-options.service';
-import { ItemAffixFormGroup } from '../item-edit-modal/item-edit-modal.component';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
-import { takeUntil } from 'rxjs';
+import { ItemAffixFormGroup } from '../item-edit-modal/item-edit-modal.component';
 
 @Component({
   selector: 'app-item-edit-stat',

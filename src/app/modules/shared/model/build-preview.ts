@@ -1,4 +1,4 @@
-import { HeroClass } from 'slormancer-api';
+import { HeroClass } from '@slorm-api';
 
 export interface BuildPreview {
     name: string;

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Rune } from 'slormancer-api';
+import { Rune } from '@slorm-api';
 
 @Component({
   selector: 'app-rune-view',

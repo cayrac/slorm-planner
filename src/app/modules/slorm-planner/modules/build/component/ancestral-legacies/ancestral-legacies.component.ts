@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { BuildStorageService } from '@shared/services/build-storage.service';
 import { MessageService } from '@shared/services/message.service';
-import { takeUntil } from 'rxjs/operators';
 import {
-    AncestralLegacy,
-    Character,
-    list,
-    MAXIMUM_ANCESTRAL_LEGACY_POINTS,
-    SlormancerAncestralLegacyService,
-    SlormancerTranslateService,
-    valueOrNull,
-} from 'slormancer-api';
+  AncestralLegacy,
+  Character,
+  list,
+  MAXIMUM_ANCESTRAL_LEGACY_POINTS,
+  SlormancerAncestralLegacyService,
+  SlormancerTranslateService,
+  valueOrNull,
+} from '@slorm-api';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-ancestral-legacies',

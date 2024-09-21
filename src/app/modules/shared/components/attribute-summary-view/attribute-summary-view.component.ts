@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AttributeTraits } from 'slormancer-api';
+import { AttributeTraits } from '@slorm-api';
 
 @Component({
   selector: 'app-attribute-summary-view',

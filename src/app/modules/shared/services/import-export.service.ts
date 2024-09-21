@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import {
-    Character,
-    CharacterConfig,
-    HeroClass,
-    SlormancerCharacterBuilderService,
-    SlormancerSaveParserService,
-    SlormancerShortDataService,
-    valueOrNull,
-} from 'slormancer-api';
+  Character,
+  CharacterConfig,
+  HeroClass,
+  SlormancerCharacterBuilderService,
+  SlormancerSaveParserService,
+  SlormancerShortDataService,
+  valueOrNull,
+} from '@slorm-api';
 
 import { Build } from '../model/build';
 import { Layer } from '../model/layer';

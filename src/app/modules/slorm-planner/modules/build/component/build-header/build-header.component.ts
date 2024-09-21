@@ -3,8 +3,8 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import {
-    DeleteLayerModalComponent,
-    DeleteLayerModalData,
+  DeleteLayerModalComponent,
+  DeleteLayerModalData,
 } from '@shared/components/delete-layer-modal/delete-layer-modal.component';
 import { EditLayerModalComponent, EditLayerModalData } from '@shared/components/edit-layer-modal/edit-layer-modal.component';
 import { Layer } from '@shared/model/layer';
@@ -12,8 +12,8 @@ import { SelectOption } from '@shared/model/select-option';
 import { BuildStorageService } from '@shared/services/build-storage.service';
 import { BuildService } from '@shared/services/build.service';
 import { SearchService } from '@shared/services/search.service';
+import { isNotNullOrUndefined } from '@slorm-api';
 import { filter, takeUntil } from 'rxjs/operators';
-import { isNotNullOrUndefined } from 'slormancer-api';
 
 @Component({
   selector: 'app-build-header',

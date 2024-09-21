@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Trait } from 'slormancer-api';
+import { Trait } from '@slorm-api';
 
 @Component({
   selector: 'app-trait-view',

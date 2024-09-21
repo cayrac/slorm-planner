@@ -1,4 +1,4 @@
-import { CharacterConfig, HeroClass } from 'slormancer-api';
+import { CharacterConfig, HeroClass } from '@slorm-api';
 
 import { Layer } from './layer';
 

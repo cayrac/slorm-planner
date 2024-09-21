@@ -5,22 +5,22 @@ import { SharedData } from '@shared/model/shared-data';
 import { BuildStorageService } from '@shared/services/build-storage.service';
 import { BuildService } from '@shared/services/build.service';
 import {
-    ALL_ATTRIBUTES,
-    AncestralLegacy,
-    Attribute,
-    Character,
-    CharacterConfig,
-    COMBAT_CONFIG,
-    DEFAULT_CONFIG,
-    isNotNullOrUndefined,
-    MinMax,
-    Skill,
-    SkillType,
-    SkillUpgrade,
-    SlormancerCharacterUpdaterService,
-    SlormancerDpsService,
-    SlormancerTranslateService,
-} from 'slormancer-api';
+  ALL_ATTRIBUTES,
+  AncestralLegacy,
+  Attribute,
+  Character,
+  CharacterConfig,
+  COMBAT_CONFIG,
+  DEFAULT_CONFIG,
+  isNotNullOrUndefined,
+  MinMax,
+  Skill,
+  SkillType,
+  SkillUpgrade,
+  SlormancerCharacterUpdaterService,
+  SlormancerDpsService,
+  SlormancerTranslateService,
+} from '@slorm-api';
 
 // TODO
 // trouver formules réductions défenses

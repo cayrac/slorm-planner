@@ -1,13 +1,13 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSliderChange } from '@angular/material/slider';
-import { EquipableItemBase, getCraftValue, HeroClass, LegendaryEffect, SlormancerLegendaryEffectService } from 'slormancer-api';
+import { EquipableItemBase, getCraftValue, HeroClass, LegendaryEffect, SlormancerLegendaryEffectService } from '@slorm-api';
 
+import { takeUntil } from 'rxjs';
 import { SelectOption } from '../../model/select-option';
 import { FormOptionsService } from '../../services/form-options.service';
-import { ItemLegendaryEffectFormGroup } from '../item-edit-modal/item-edit-modal.component';
-import { takeUntil } from 'rxjs';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
+import { ItemLegendaryEffectFormGroup } from '../item-edit-modal/item-edit-modal.component';
 
 @Component({
   selector: 'app-item-edit-legendary-effect',

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { valueOrNull } from 'slormancer-api';
+import { valueOrNull } from '@slorm-api';
 
 import { MessageService } from '../../services/message.service';
 

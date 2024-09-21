@@ -3,16 +3,16 @@ import { FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } fro
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { BuildStorageService } from '@shared/services/build-storage.service';
 import {
-    ALL_GEAR_SLOT_VALUES,
-    Attribute,
-    Character,
-    DEFAULT_CONFIG,
-    HeroClass,
-    isNotNullOrUndefined,
-    SkillGenre,
-    UNITY_REAPERS,
-    valueOrDefault,
-} from 'slormancer-api';
+  ALL_GEAR_SLOT_VALUES,
+  Attribute,
+  Character,
+  DEFAULT_CONFIG,
+  HeroClass,
+  isNotNullOrUndefined,
+  SkillGenre,
+  UNITY_REAPERS,
+  valueOrDefault,
+} from '@slorm-api';
 
 import { ConfigEntry, ConfigGroup } from './config';
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Character, CharacterConfig, HeroClass, SlormancerCharacterBuilderService } from 'slormancer-api';
+import { Character, CharacterConfig, HeroClass, SlormancerCharacterBuilderService } from '@slorm-api';
 
 import { environment } from '../../../../environments/environment';
 import { Build } from '../model/build';

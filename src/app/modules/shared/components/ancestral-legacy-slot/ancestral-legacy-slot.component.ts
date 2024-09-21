@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { AncestralLegacy, SlormancerAncestralLegacyService } from '@slorm-api';
 import { takeUntil } from 'rxjs/operators';
-import { AncestralLegacy, SlormancerAncestralLegacyService } from 'slormancer-api';
 
 import { BuildStorageService } from '../../services/build-storage.service';
 import { SearchService } from '../../services/search.service';

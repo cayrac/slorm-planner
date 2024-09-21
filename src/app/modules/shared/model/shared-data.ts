@@ -1,4 +1,4 @@
-import { Character, CharacterConfig } from 'slormancer-api';
+import { Character, CharacterConfig } from '@slorm-api';
 
 import { Build } from './build';
 import { Layer } from './layer';

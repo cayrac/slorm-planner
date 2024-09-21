@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import {
-    Entity,
-    MergedStat,
-    MinMax,
-    round,
-    SlormancerMergedStatUpdaterService,
-    SlormancerTranslateService,
-} from 'slormancer-api';
+  Entity,
+  MergedStat,
+  MinMax,
+  round,
+  SlormancerMergedStatUpdaterService,
+  SlormancerTranslateService,
+} from '@slorm-api';
 
 @Component({
   selector: 'app-merged-stat-view',

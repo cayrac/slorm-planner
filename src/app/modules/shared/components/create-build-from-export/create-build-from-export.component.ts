@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SharedData } from '@shared/model/shared-data';
 import { BuildStorageService } from '@shared/services/build-storage.service';
 import { BuildService } from '@shared/services/build.service';
-import { DEFAULT_CONFIG } from 'slormancer-api';
+import { DEFAULT_CONFIG } from '@slorm-api';
 
 @Component({
     selector: 'app-create-build-from-export',

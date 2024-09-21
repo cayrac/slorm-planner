@@ -1,7 +1,7 @@
 import { Component, HostListener, Input, OnChanges } from '@angular/core';
 import { SearchService } from '@shared/services/search.service';
+import { Rune, RuneType } from '@slorm-api';
 import { takeUntil } from 'rxjs';
-import { Rune, RuneType } from 'slormancer-api';
 
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 

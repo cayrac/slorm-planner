@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Character, RunesCombination, SlormancerCharacterBuilderService } from 'slormancer-api';
+import { Character, RunesCombination, SlormancerCharacterBuilderService } from '@slorm-api';
 
 import { RunesEditModalComponent, RunesEditModalData } from '../runes-edit-modal/runes-edit-modal.component';
 

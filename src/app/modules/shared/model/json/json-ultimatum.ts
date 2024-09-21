@@ -1,4 +1,4 @@
-import { UltimatumType } from 'slormancer-api';
+import { UltimatumType } from '@slorm-api';
 
 export interface JsonUltimatum {
     level: number;

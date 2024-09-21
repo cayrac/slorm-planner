@@ -1,16 +1,16 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
-    Character,
-    CharacterConfig,
-    CharacterStatDifference,
-    EquipableItem,
-    GearSlot,
-    SlormancerCharacterBuilderService,
-    SlormancerCharacterComparatorService,
-    SlormancerCharacterUpdaterService,
-    SlormancerItemService,
-} from 'slormancer-api';
+  Character,
+  CharacterConfig,
+  CharacterStatDifference,
+  EquipableItem,
+  GearSlot,
+  SlormancerCharacterBuilderService,
+  SlormancerCharacterComparatorService,
+  SlormancerCharacterUpdaterService,
+  SlormancerItemService,
+} from '@slorm-api';
 
 export interface CompareItemModalData {
     character: Character;

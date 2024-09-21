@@ -2,27 +2,27 @@ import { Component, Inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
-    Affix,
-    Attribute,
-    Character,
-    DEFAULT_CONFIG,
-    EquipableItem,
-    MAX_DEFENSIVE_STATS,
-    MAX_EPIC_STATS,
-    MAX_ITEM_LEVEL,
-    MAX_MAGIC_STATS,
-    MAX_RARE_STATS,
-    Rarity,
-    ReaperSmith,
-    SlormancerAffixService,
-    SlormancerCharacterUpdaterService,
-    SlormancerItemService,
-    SlormancerLegendaryEffectService,
-    SlormancerTranslateService,
-    compareString,
-    isNotNullOrUndefined,
-    valueOrNull,
-} from 'slormancer-api';
+  Affix,
+  Attribute,
+  Character,
+  DEFAULT_CONFIG,
+  EquipableItem,
+  MAX_DEFENSIVE_STATS,
+  MAX_EPIC_STATS,
+  MAX_ITEM_LEVEL,
+  MAX_MAGIC_STATS,
+  MAX_RARE_STATS,
+  Rarity,
+  ReaperSmith,
+  SlormancerAffixService,
+  SlormancerCharacterUpdaterService,
+  SlormancerItemService,
+  SlormancerLegendaryEffectService,
+  SlormancerTranslateService,
+  compareString,
+  isNotNullOrUndefined,
+  valueOrNull,
+} from '@slorm-api';
 
 import { BuildStorageService } from '../../services/build-storage.service';
 import { FormOptionsService } from '../../services/form-options.service';

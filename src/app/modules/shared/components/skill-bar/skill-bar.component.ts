@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Activable, AncestralLegacy, Character, Skill, SlormancerCharacterModifierService } from '@slorm-api';
 import { takeUntil } from 'rxjs/operators';
-import { Activable, AncestralLegacy, Character, Skill, SlormancerCharacterModifierService } from 'slormancer-api';
 
 import { BuildStorageService } from '../../services/build-storage.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';

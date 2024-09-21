@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { HeroClass } from 'slormancer-api';
+import { HeroClass } from '@slorm-api';
 
 import { SharedData } from '../../model/shared-data';
 import { ImportExportService } from '../../services/import-export.service';

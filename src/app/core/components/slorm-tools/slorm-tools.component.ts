@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SlormancerTranslateService } from 'slormancer-api';
+import { SlormancerTranslateService } from '@slorm-api';
 
 @Component({
     selector: 'app-slorm-tools',

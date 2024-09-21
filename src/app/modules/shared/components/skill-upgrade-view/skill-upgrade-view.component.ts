@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Buff, ClassMechanic, Mechanic, SkillType, SkillUpgrade, SlormancerTranslateService } from 'slormancer-api';
+import { Buff, ClassMechanic, Mechanic, SkillType, SkillUpgrade, SlormancerTranslateService } from '@slorm-api';
 
 @Component({
   selector: 'app-skill-upgrade-view',

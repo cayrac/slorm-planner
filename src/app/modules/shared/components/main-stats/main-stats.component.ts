@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MergedStat, MinMax, SlormancerTranslateService } from 'slormancer-api';
+import { MergedStat, MinMax, SlormancerTranslateService } from '@slorm-api';
 
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 

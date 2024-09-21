@@ -1,6 +1,6 @@
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { Component, Input } from '@angular/core';
-import { Buff, ClassMechanic, Mechanic } from 'slormancer-api';
+import { Buff, ClassMechanic, Mechanic } from '@slorm-api';
 
 @Component({
   selector: 'app-mechanics-view',

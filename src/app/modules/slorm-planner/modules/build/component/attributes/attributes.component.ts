@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { BuildStorageService } from '@shared/services/build-storage.service';
+import { ALL_ATTRIBUTES, CharacterAttributes } from '@slorm-api';
 import { takeUntil } from 'rxjs/operators';
-import { ALL_ATTRIBUTES, CharacterAttributes } from 'slormancer-api';
 
 @Component({
   selector: 'app-attributes',

@@ -2,13 +2,13 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
-    ALL_RARITIES,
-    EquipableItem,
-    Rarity,
-    SlormancerAffixService,
-    SlormancerDataService,
-    SlormancerItemService,
-} from 'slormancer-api';
+  ALL_RARITIES,
+  EquipableItem,
+  Rarity,
+  SlormancerAffixService,
+  SlormancerDataService,
+  SlormancerItemService,
+} from '@slorm-api';
 
 import { SelectOption } from '../../model/select-option';
 import { FormOptionsService } from '../../services/form-options.service';

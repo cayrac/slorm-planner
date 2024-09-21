@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Activable } from 'slormancer-api';
+import { Activable } from '@slorm-api';
 
 @Component({
   selector: 'app-activable-view',
