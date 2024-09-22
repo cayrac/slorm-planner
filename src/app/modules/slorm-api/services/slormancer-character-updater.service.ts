@@ -195,35 +195,49 @@ export class SlormancerCharacterUpdaterService {
     private updateIssues(character: Character, statsResult: CharacterStatsBuildResult) {
         character.issues = [];
         if (statsResult.unresolvedSynergies.length > 1) {
-            const names = statsResult.unresolvedSynergies
-                .map(unresolvedSynergy => {
-                    let result: string | null = null;
+            let issue: string | null = null;
+            const hasSavagery60 = statsResult.unresolvedSynergies
+                .some(resolveData => 'attribute' in resolveData.objectSource && resolveData.objectSource.attribute.attribute === Attribute.Savagery && resolveData.objectSource.attribute.rank >= 60);
+            const convertReaperToElemental = statsResult.unresolvedSynergies
+                .some(resolveData => ['weapon_to_elemental_damage'].includes(resolveData.effect.stat));
+            if (hasSavagery60 && convertReaperToElemental) {
+                issue = 'Your build is using the Savagery rank 60 trait and convert reaper damage to elemental damage leading to a synergy loop.'
+            } else {
+                const names = statsResult.unresolvedSynergies
+                    .map(unresolvedSynergy => {
+                        let result: string | null = null;
+    
+                        if ('activable' in unresolvedSynergy.objectSource) {
+                            result = unresolvedSynergy.objectSource.activable.name;
+                        } else if ('ancestralLegacy' in unresolvedSynergy.objectSource) {
+                            result = unresolvedSynergy.objectSource.ancestralLegacy.name;
+                        } else if ('attribute' in unresolvedSynergy.objectSource) {
+                            result = unresolvedSynergy.objectSource.attribute.attributeName;
+                        } else if ('item' in unresolvedSynergy.objectSource) {
+                            result = unresolvedSynergy.objectSource.item.name;
+                        } else if ('reaper' in unresolvedSynergy.objectSource) {
+                            result = unresolvedSynergy.objectSource.reaper.name;
+                        } else if ('skill' in unresolvedSynergy.objectSource) {
+                            result = unresolvedSynergy.objectSource.skill.name;
+                        } else if ('upgrade' in unresolvedSynergy.objectSource) {
+                            result = unresolvedSynergy.objectSource.upgrade.name;
+                        } else if ('mechanic' in unresolvedSynergy.objectSource) {
+                            result = unresolvedSynergy.objectSource.mechanic.name;
+                        } else if ('classMechanic' in unresolvedSynergy.objectSource) {
+                            result = unresolvedSynergy.objectSource.classMechanic.name;
+                        } else if ('rune' in unresolvedSynergy.objectSource) {
+                            result = unresolvedSynergy.objectSource.rune.name;
+                        }
+    
+                        return result;
+                    }).filter(isNotNullOrUndefined)
+                      .filter(isFirst);
+                issue = 'Your build contain an unresolved synergy loop between : ' + names.join(', ')
+            }
 
-                    if ('activable' in unresolvedSynergy.objectSource) {
-                        result = unresolvedSynergy.objectSource.activable.name;
-                    } else if ('ancestralLegacy' in unresolvedSynergy.objectSource) {
-                        result = unresolvedSynergy.objectSource.ancestralLegacy.name;
-                    } else if ('attribute' in unresolvedSynergy.objectSource) {
-                        result = unresolvedSynergy.objectSource.attribute.attributeName;
-                    } else if ('item' in unresolvedSynergy.objectSource) {
-                        result = unresolvedSynergy.objectSource.item.name;
-                    } else if ('reaper' in unresolvedSynergy.objectSource) {
-                        result = unresolvedSynergy.objectSource.reaper.name;
-                    } else if ('skill' in unresolvedSynergy.objectSource) {
-                        result = unresolvedSynergy.objectSource.skill.name;
-                    } else if ('upgrade' in unresolvedSynergy.objectSource) {
-                        result = unresolvedSynergy.objectSource.upgrade.name;
-                    } else if ('mechanic' in unresolvedSynergy.objectSource) {
-                        result = unresolvedSynergy.objectSource.mechanic.name;
-                    } else if ('classMechanic' in unresolvedSynergy.objectSource) {
-                        result = unresolvedSynergy.objectSource.classMechanic.name;
-                    } else if ('rune' in unresolvedSynergy.objectSource) {
-                        result = unresolvedSynergy.objectSource.rune.name;
-                    }
-
-                    return result;
-                }).filter(isNotNullOrUndefined);
-            character.issues.push('Your build contain an unresolved synergy loop between : ' + names.join(', '));
+            if (issue !== null) {
+                character.issues.push(issue + "\n\n" + 'Stats from synergy loops cannot be statically computed.');
+            }
         }
 
         if (character.fromCorrupted) {
@@ -572,6 +586,13 @@ export class SlormancerCharacterUpdaterService {
 
     private updateAncestralLegacySkills(character: Character) {
         character.ancestralLegacies.activeAncestralLegacies = this.slormancerAncestralLegacyNodesService.getAncestralLegacyIds(character);
+
+        for (const ancestralLegacy of character.ancestralLegacies.ancestralLegacies) {
+            if (ancestralLegacy.forcedRank !== null) {
+                this.slormancerAncestralLegacyService.updateAncestralLegacyModel(ancestralLegacy, ancestralLegacy.baseRank, ancestralLegacy.bonusRank);
+                this.slormancerAncestralLegacyService.updateAncestralLegacyView(ancestralLegacy);
+            }
+        }
 
         if (character.reaper.id === 77 && character.reaper.primordial) {
             const activeImbues = character.ancestralLegacies.ancestralLegacies

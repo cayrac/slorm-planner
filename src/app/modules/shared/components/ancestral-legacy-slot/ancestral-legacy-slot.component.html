@@ -2,7 +2,7 @@
 <div class="ancestral-legacy" *ngIf="ancestralLegacy !== null"
     (click)="increasesRank()"
     (contextmenu)="decreasesRank()"
-    [class.ranked]="ancestralLegacy.baseRank > 0"
+    [class.ranked]="ancestralLegacy.rank > 0"
     [class.equipped]="equipped"
     [class.selected]="selected"
     [class.readonly]="readonly"

@@ -16,7 +16,7 @@ import {
     UNITY_REAPERS,
 } from '../../constants/common';
 import { MAX_MANA_MAPPING, MergedStatMapping } from '../../constants/content/data/data-character-stats-mapping';
-import { Activable, AncestralLegacy, AncestralLegacyType, MinMax } from '../../model';
+import { Activable, AncestralLegacy, AncestralLegacyType, GameHeroesData, MinMax } from '../../model';
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
 import { CharacterConfig } from '../../model/character-config';
 import { SynergyResolveData } from '../../model/content/character-stats';
@@ -165,29 +165,29 @@ export class SlormancerStatsExtractorService {
 
         if (addReaperToSkillAndElements) {
             mapping = mergedStatMapping.find(m => m.stat === 'elemental_damage');
-            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_elemental_damage', EffectValueValueType.Unknown, undefined, null, true, true, true, true), -1, { synergy: 'Reaper damages' }, [ { stat: 'elemental_damage', mapping } ], true));
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_elemental_damage', EffectValueValueType.Unknown, undefined, null, true, true, true, true), -1, { synergy: 'Reaper damages' }, [ { stat: 'elemental_damage', mapping } ]));
             mapping = mergedStatMapping.find(m => m.stat === 'physical_damage');
-            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage', EffectValueValueType.Unknown, undefined, null, true, true, true, true), -1, { synergy: 'Reaper damages' }, [ { stat: 'physical_damage', mapping } ], true));
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage', EffectValueValueType.Unknown, undefined, null, true, true, true, true), -1, { synergy: 'Reaper damages' }, [ { stat: 'physical_damage', mapping } ]));
         } else if (addReaperToInnerFire) {
             mapping = mergedStatMapping.find(m => m.stat === 'inner_fire_damage');
-            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'inner_fire_damage_add_extra', EffectValueValueType.Unknown, undefined, null, true, true, true, true), -1, { synergy: 'Reaper damages' }, [ { stat: 'inner_fire_damage', mapping } ], true));
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'inner_fire_damage_add_extra', EffectValueValueType.Unknown, undefined, null, true, true, true, true), -1, { synergy: 'Reaper damages' }, [ { stat: 'inner_fire_damage', mapping } ]));
         } else if (splitReaperToPhysicalAndElement) {
             mapping = mergedStatMapping.find(m => m.stat === 'elemental_damage');
-            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(50, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_elemental_damage', EffectValueValueType.Unknown, undefined, null, true, true, true, true), -1, { synergy: 'Reaper damages' }, [ { stat: 'elemental_damage', mapping } ], true));
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(50, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_elemental_damage', EffectValueValueType.Unknown, undefined, null, true, true, true, true), -1, { synergy: 'Reaper damages' }, [ { stat: 'elemental_damage', mapping } ]));
             mapping = mergedStatMapping.find(m => m.stat === 'physical_damage');
-            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(50, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage', EffectValueValueType.Unknown, undefined, null, true, true, true, true), -1, { synergy: 'Reaper damages' }, [ { stat: 'physical_damage', mapping } ], true));
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(50, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage', EffectValueValueType.Unknown, undefined, null, true, true, true, true), -1, { synergy: 'Reaper damages' }, [ { stat: 'physical_damage', mapping } ]));
             if (addReaperToElements) {
                 mapping = mergedStatMapping.find(m => m.stat === 'elemental_damage');
-                extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_elemental_damage', EffectValueValueType.Unknown, undefined, null, true, true, true, true), -1, { synergy: 'Reaper damages (bug ?)' }, [ { stat: 'elemental_damage', mapping } ], true));
+                extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_elemental_damage', EffectValueValueType.Unknown, undefined, null, true, true, true, true), -1, { synergy: 'Reaper damages (bug ?)' }, [ { stat: 'elemental_damage', mapping } ]));
                 mapping = mergedStatMapping.find(m => m.stat === 'physical_damage');
-                extractedStats.synergies.push(synergyResolveData(effectValueSynergy(-50, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage', EffectValueValueType.Unknown, undefined, null, true, true, true, true), -1, { synergy: 'Reaper damages (bug ?)' }, [ { stat: 'physical_damage', mapping } ], true));
+                extractedStats.synergies.push(synergyResolveData(effectValueSynergy(-50, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage', EffectValueValueType.Unknown, undefined, null, true, true, true, true), -1, { synergy: 'Reaper damages (bug ?)' }, [ { stat: 'physical_damage', mapping } ]));
             }
         } else if (addReaperToElements) {
             let mapping = mergedStatMapping.find(m => m.stat === 'elemental_damage');
-            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_elemental_damage', EffectValueValueType.Unknown, undefined, null, true, true, true, true), -1, { synergy: 'Reaper damages' }, [ { stat: 'elemental_damage', mapping } ], true));
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_elemental_damage', EffectValueValueType.Unknown, undefined, null, true, true, true, true), -1, { synergy: 'Reaper damages' }, [ { stat: 'elemental_damage', mapping } ]));
         } else {
             let mapping = mergedStatMapping.find(m => m.stat === 'physical_damage');
-            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage', EffectValueValueType.Unknown, undefined, null, true, true, true, true), -1, { synergy: 'Reaper damages' }, [ { stat: 'physical_damage', mapping } ], true));
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'weapon_to_physical_damage', EffectValueValueType.Unknown, undefined, null, true, true, true, true), -1, { synergy: 'Reaper damages' }, [ { stat: 'physical_damage', mapping } ]));
         }
 
         return true;
@@ -390,40 +390,30 @@ export class SlormancerStatsExtractorService {
                     const minLevel = this.slormancerReaperService.getReaperMinimumLevel(reaperId);
                     const maxLevel = reaperData.MAX_LVL ?? 100;
 
-                    const levelsMapping = {
-                        base: {
-                            [HeroClass.Warrior]: (config as any)['unity_level_0_' + reaperId],
-                            [HeroClass.Huntress]: (config as any)['unity_level_1_' + reaperId],
-                            [HeroClass.Mage]: (config as any)['unity_level_2_' + reaperId],
-                        },
-                        primordial: {
-                            [HeroClass.Warrior]: (config as any)['unity_level_0_' + reaperId + '_p'],
-                            [HeroClass.Huntress]: (config as any)['unity_level_1_' + reaperId + '_p'],
-                            [HeroClass.Mage]: (config as any)['unity_level_2_' + reaperId + '_p'],
-                        }
+                    const levelsMapping: GameHeroesData<number> = {
+                        [HeroClass.Warrior]: (config as any)['unity_level_0_' + reaperId],
+                        [HeroClass.Huntress]: (config as any)['unity_level_1_' + reaperId],
+                        [HeroClass.Mage]: (config as any)['unity_level_2_' + reaperId],
                     }
 
                     if (character.reaper.id === reaperId) {
                         if (character.reaper.primordial) {
-                            levelsMapping.primordial[character.heroClass] = character.reaper.level;
+                            levelsMapping[character.heroClass] = character.reaper.level;
                         } else {
-                            levelsMapping.base[character.heroClass] = character.reaper.level;
+                            levelsMapping[character.heroClass] = character.reaper.level;
                         }
                     }
                     
                     const levels = [
-                        levelsMapping.base[HeroClass.Warrior],
-                        levelsMapping.base[HeroClass.Huntress],
-                        levelsMapping.base[HeroClass.Mage],
-                        levelsMapping.primordial[HeroClass.Warrior],
-                        levelsMapping.primordial[HeroClass.Huntress],
-                        levelsMapping.primordial[HeroClass.Mage],
+                        levelsMapping[HeroClass.Warrior],
+                        levelsMapping[HeroClass.Huntress],
+                        levelsMapping[HeroClass.Mage],
                     ].map(level => level === 0 ? 0 : Math.min(maxLevel, Math.max(minLevel, level)));
 
                     for(const level of levels) {
                         if (level > 0) {
                             totalLevel += level;
-                            const reaper = this.slormancerReaperService.getReaperById(reaperId, character.heroClass, false, level, 0, 'TOREMOVE', 0, 0, character.reaper.reaperAffinity, character.reaper.effectAffinity, character.reaper.bonusAffinity);
+                            const reaper = this.slormancerReaperService.getReaperById(reaperId, character.heroClass, false, level, 0, 'TOREMOVE', 0, 0, character.reaper.reaperAffinity, character.reaper.effectAffinity, character.reaper.bonusAffinity, character.reaper.masteryLevel);
                             if (reaper !== null) {
                                 totalDamage = add(totalDamage, reaper.damages) as MinMax;
                             }
@@ -434,6 +424,8 @@ export class SlormancerStatsExtractorService {
                 }
 
             }
+
+            console.log(totalDamage);
 
             this.addStat(stats.stats, 'legion_level_all', totalLevel, { synergy: 'Total level of legion reapers' });
             this.addStat(stats.stats, 'legion_reaper_dmg', round((totalDamage.min + totalDamage.max) / 2, 0), { synergy: 'Total damage of legion reapers' });

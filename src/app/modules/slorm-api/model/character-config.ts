@@ -223,24 +223,6 @@ export interface CharacterConfig {
     unity_level_2_50: number;
     unity_level_2_51: number;
     unity_level_2_52: number;
-    unity_level_0_47_p: number;
-    unity_level_0_48_p: number;
-    unity_level_0_49_p: number;
-    unity_level_0_50_p: number;
-    unity_level_0_51_p: number;
-    unity_level_0_52_p: number;
-    unity_level_1_47_p: number;
-    unity_level_1_48_p: number;
-    unity_level_1_49_p: number;
-    unity_level_1_50_p: number;
-    unity_level_1_51_p: number;
-    unity_level_1_52_p: number;
-    unity_level_2_47_p: number;
-    unity_level_2_48_p: number;
-    unity_level_2_49_p: number;
-    unity_level_2_50_p: number;
-    unity_level_2_51_p: number;
-    unity_level_2_52_p: number;
     absorbed_damage_wrath: number;
     maxed_upgrades: number | null;
 }

@@ -964,7 +964,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'crit_damage_percent_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
                 { stat: 'crit_damage_percent_per_obliteration_emblem', condition: config => config.obliteration_emblems > 0, multiplier: config => config.obliteration_emblems },
                 { stat: 'crit_damage_percent_while_curving_time_or_time_shifting', condition: config => config.is_curving_time_or_time_shifting },
-                { stat: 'isoperimetry_crit_damage_percent_extra', extra: true, condition: (_, stats) => hasStat(stats, 'critical_chance_equal_ancestral_chance') },
+                { stat: 'isoperimetry_crit_damage_percent_extra', condition: (_, stats) => hasStat(stats, 'critical_chance_equal_ancestral_chance') },
             ],
             max: [],
             percent: [],
@@ -981,7 +981,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'brut_chance_percent' },
-                { stat: 'brut_chance_percent_extra', extra: true },
+                { stat: 'brut_chance_percent_ancestral_harmony' },
                 { stat: 'ancestral_legacy_stack_brut_chance_percent',
                     condition: config => config.ancestral_legacy_stacks > 0,
                     multiplier: (config, stats) => config.ancestral_legacy_stacks

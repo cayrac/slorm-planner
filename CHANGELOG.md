@@ -322,6 +322,37 @@
 - Total mastery count no longer ignore the last skill mastery
 - Unkillable berzerker reaper additional damage multiplier is now correctly applied
 
+## Release 0.7.0 (TBD)
+### Fixes
+- Skill upgrades are no longer ignored when not in the skill bar
+- Skill levels are no longer lost when reloading the
+## TODO
+- calcul du cooldown sans passer par attack speed
+
+## bugs : 
+- Maybe that's an oversight from @Cayrac idk. But it indeed displays the values from a base 100 affinity without displaying the affinity on the top right corner of the Reapers.
+- vérifier arcane bond damage
+- book smash passive synergy attack speed / cooldown
+## changes
+- convertion crit damage en brut damage
+- Ajouter affichage / edition defensive stat
+- export / import defensive stat
+
+TODO
+sword of the masterful => le calcul du niveau n'est pas bon
+ => théorie : xp ajouté depuis une préforme ? => c'est forcément lié
+ => exception sur unity reaper : problème de calcul aussi alors que ça ne devrait pas
+ => édition défense
+
+EXPORT : 
+===>>>>> important : il faut checker le reaper dans l'export + mise à jour depuis ancienne version
+=> prendre en compte la suppression des legion primordiaux des configs
+
+## TODO
+- mise à jour packages
+- parsing loadouts
+- formule resistance / armure
+-
 ## TODO
 slorm legendaries
 affichage export

@@ -45,9 +45,7 @@ export class SlormancerSynergyResolverService {
             const synergyes = remainingSynergies.filter(isSynergyResolveData);
             console.log('### There are unresolved synergies');
             for (const synergy of synergyes) {
-                if (synergy.cascadeSynergy) {
-                    console.log(synergy.effect.source + ' => ' + synergy.effect.stat);
-                }
+                console.log(synergy.effect.source + ' => ' + synergy.effect.stat + (synergy.cascadeSynergy ? '(cascading)' : ''), synergy);
             }
         }
 
@@ -95,7 +93,21 @@ export class SlormancerSynergyResolverService {
         // Take the first synergy with no stat used by another synergy
         let indexFound = resolveDatas.findIndex(resolveData => this.statHasNoDependency(resolveData, resolveDatas));
 
-        // TODO ça ne résoudra pas les boucles, à réfléchir plus tard
+        if (indexFound === -1) {
+            // savagery 60 + infinite time and deep and space
+            const savagery60 = resolveDatas.findIndex(resolveData => resolveData.type === ResolveDataType.ExternalSynergy && resolveData.stat === 'raw_elem_diff');
+            const weaponUpdateElementalAndPhysical = resolveDatas.find(resolveData => resolveData.type === ResolveDataType.Synergy && resolveData.effect.stat === 'weapon_to_elemental_damage') !== undefined
+                && resolveDatas.find(resolveData => resolveData.type === ResolveDataType.Synergy && resolveData.effect.stat === 'weapon_to_physical_damage') !== undefined
+            if (savagery60 !== -1 && weaponUpdateElementalAndPhysical) {
+                indexFound = savagery60;
+            }
+
+            const critDamageToAncestramDamage = resolveDatas.find(resolveData => resolveData.type === ResolveDataType.Synergy && resolveData.effect.stat === 'brut_damage_percent' && resolveData.effect.source === 'critical_damage');
+            const isoperimetry = resolveDatas.findIndex(resolveData => resolveData.type === ResolveDataType.Synergy && resolveData.effect.stat === 'isoperimetry_crit_damage_percent_extra');
+            if (critDamageToAncestramDamage&& isoperimetry !== -1 ) {
+                indexFound = isoperimetry;
+            }
+        }
 
         // if all cascading synergies are resolved, take the first non cascading synergy
         if (indexFound === -1 && !resolveDatas.some(s => s.cascadeSynergy)) {

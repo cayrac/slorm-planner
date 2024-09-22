@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
+import { UNITY_REAPERS } from '../../constants';
+import { CharacterConfig, HeroClass } from '../../model';
 import { Character } from '../../model/character';
 import { Bits } from '../../model/export/bits';
-import { binaryToNumber, numberToBinary, takeBitsChunk } from '../../util/bits.util';
-import { CharacterConfig, HeroClass } from '../../model';
-import { UNITY_REAPERS } from '../../constants';
 import { compareVersions } from '../../util';
+import { binaryToNumber, numberToBinary, takeBitsChunk } from '../../util/bits.util';
 import { SlormancerSkillService } from '../content';
 
 @Injectable()
@@ -41,6 +41,10 @@ export class SlormancerBinaryConfigurationService {
         return result;
     }
 
+    private hasLegionPrimordialLevels(character: Character, version: string): boolean {
+        return compareVersions(version, '0.7.0') < 0;
+    }
+
     public configurationToBinary(config: CharacterConfig, character: Character, version: string): Bits {
         let result: Bits = [];
 
@@ -63,24 +67,6 @@ export class SlormancerBinaryConfigurationService {
             result.push(...numberToBinary(config.unity_level_2_50, 7));
             result.push(...numberToBinary(config.unity_level_2_51, 7));
             result.push(...numberToBinary(config.unity_level_2_52, 7));
-            result.push(...numberToBinary(config.unity_level_0_47_p, 7));
-            result.push(...numberToBinary(config.unity_level_0_48_p, 7));
-            result.push(...numberToBinary(config.unity_level_0_49_p, 7));
-            result.push(...numberToBinary(config.unity_level_0_50_p, 7));
-            result.push(...numberToBinary(config.unity_level_0_51_p, 7));
-            result.push(...numberToBinary(config.unity_level_0_52_p, 7));
-            result.push(...numberToBinary(config.unity_level_1_47_p, 7));
-            result.push(...numberToBinary(config.unity_level_1_48_p, 7));
-            result.push(...numberToBinary(config.unity_level_1_49_p, 7));
-            result.push(...numberToBinary(config.unity_level_1_50_p, 7));
-            result.push(...numberToBinary(config.unity_level_1_51_p, 7));
-            result.push(...numberToBinary(config.unity_level_1_52_p, 7));
-            result.push(...numberToBinary(config.unity_level_2_47_p, 7));
-            result.push(...numberToBinary(config.unity_level_2_48_p, 7));
-            result.push(...numberToBinary(config.unity_level_2_49_p, 7));
-            result.push(...numberToBinary(config.unity_level_2_50_p, 7));
-            result.push(...numberToBinary(config.unity_level_2_51_p, 7));
-            result.push(...numberToBinary(config.unity_level_2_52_p, 7));
         }
 
         if (this.requireNumberOfMaxedUpgrades(character, version)) {
@@ -117,24 +103,9 @@ export class SlormancerBinaryConfigurationService {
             config.unity_level_2_50 = binaryToNumber(takeBitsChunk(bits, 7));
             config.unity_level_2_51 = binaryToNumber(takeBitsChunk(bits, 7));
             config.unity_level_2_52 = binaryToNumber(takeBitsChunk(bits, 7));
-            config.unity_level_0_47_p = binaryToNumber(takeBitsChunk(bits, 7));
-            config.unity_level_0_48_p = binaryToNumber(takeBitsChunk(bits, 7));
-            config.unity_level_0_49_p = binaryToNumber(takeBitsChunk(bits, 7));
-            config.unity_level_0_50_p = binaryToNumber(takeBitsChunk(bits, 7));
-            config.unity_level_0_51_p = binaryToNumber(takeBitsChunk(bits, 7));
-            config.unity_level_0_52_p = binaryToNumber(takeBitsChunk(bits, 7));
-            config.unity_level_1_47_p = binaryToNumber(takeBitsChunk(bits, 7));
-            config.unity_level_1_48_p = binaryToNumber(takeBitsChunk(bits, 7));
-            config.unity_level_1_49_p = binaryToNumber(takeBitsChunk(bits, 7));
-            config.unity_level_1_50_p = binaryToNumber(takeBitsChunk(bits, 7));
-            config.unity_level_1_51_p = binaryToNumber(takeBitsChunk(bits, 7));
-            config.unity_level_1_52_p = binaryToNumber(takeBitsChunk(bits, 7));
-            config.unity_level_2_47_p = binaryToNumber(takeBitsChunk(bits, 7));
-            config.unity_level_2_48_p = binaryToNumber(takeBitsChunk(bits, 7));
-            config.unity_level_2_49_p = binaryToNumber(takeBitsChunk(bits, 7));
-            config.unity_level_2_50_p = binaryToNumber(takeBitsChunk(bits, 7));
-            config.unity_level_2_51_p = binaryToNumber(takeBitsChunk(bits, 7));
-            config.unity_level_2_52_p = binaryToNumber(takeBitsChunk(bits, 7));
+            if (this.hasLegionPrimordialLevels(character, version)) {
+                takeBitsChunk(bits, 7 * 18);
+            }
         }
 
         if (this.requireNumberOfMaxedUpgrades(character, version)) {

@@ -686,7 +686,9 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'physical_damage');
+            allowSynergyToCascade(ba, 2);
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'vigilant_blade_additional_damage');
+            allowSynergyToCascade(ba, 3);
             synergyMultiply100(ba, 3);
             
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'min_weapon_damage_add');
@@ -1058,6 +1060,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma, reaperId) => {
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'power_crystal_count');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Damage, 'elemental_damage');
+            allowSynergyToCascade(ba, 2)
             addConstant(ba, 1, false, EffectValueValueType.Stat, 'reaper_added_to_elements');
 
             if (reaperId === 82 && ba !== null) {
@@ -1116,7 +1119,8 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma, reaperId) => {
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');
-            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'brut_chance_percent_extra');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'brut_chance_percent_ancestral_harmony');
+            allowSynergyToCascade(ba, 3);
             synergyMultiply100(ba, 3);
             setSynergyPrecision(ba, 3, 0);
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'brut_damage_percent_per_ancestral_preparation_stack');
@@ -1145,6 +1149,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 6, EffectValueValueType.Stat, 'garbage_stat');
+            allowSynergyToCascade(ba, 6);
 
             moveValue(be, 0, ma);
             moveValue(be, 0, ma);
@@ -1328,6 +1333,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'physical_damage');
+            allowSynergyToCascade(ba, 4);
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'light_blorm_increased_damage');
             synergyMultiply100(ba, 5);
 

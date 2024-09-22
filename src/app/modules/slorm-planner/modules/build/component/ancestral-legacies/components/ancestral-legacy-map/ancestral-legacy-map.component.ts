@@ -2,15 +2,15 @@ import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@a
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { BuildStorageService } from '@shared/services/build-storage.service';
 import {
-  AncestralLegacy,
-  Character,
-  list,
-  MinMax,
-  SlormancerAncestralLegacyNodesService,
-  SlormancerCharacterModifierService,
-  SlormancerDataService,
-  valueOrDefault,
-  valueOrNull,
+    AncestralLegacy,
+    Character,
+    list,
+    MinMax,
+    SlormancerAncestralLegacyNodesService,
+    SlormancerCharacterModifierService,
+    SlormancerDataService,
+    valueOrDefault,
+    valueOrNull,
 } from '@slorm-api';
 import { takeUntil } from 'rxjs/operators';
 
