@@ -257,6 +257,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'indirect_crit_chance_percent');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Damage, 'indirect_crit_additional_damage');
             setSynergyAllowMinMax(ba, 2, false);
+            allowSynergyToCascade(ba, 2);
 
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'indirect_defense_max_stacks');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'garbage_stat');
@@ -1374,11 +1375,15 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Duration, 'goldscourge_reaper_addition_damage_gold_duration');
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Damage, 'primary_secondary_skill_additional_damage');
             synergyMultiply100(ba, 3);
-            moveValue(ba, 4, be);
+            // moveValue(ba, 4, be);
 
-            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'golden_overdrive_damage_percent');
-            overrideSynergySource(be, 0, 'gold_find');
-            synergyMultiply100(be, 0);
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'garbage_stat');
+            synergyMultiply100(be, 2);
+            synergyMultiply100(be, 3);
+            // overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'golden_overdrive_damage_percent');
+            // overrideSynergySource(be, 0, 'gold_find');
+            // synergyMultiply100(be, 0);
 
             addConstant(ma, 1, false, EffectValueValueType.Stat, 'overdrive_bounce_number_set');
         }
