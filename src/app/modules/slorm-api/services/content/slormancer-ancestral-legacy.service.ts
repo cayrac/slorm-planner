@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { DATA_SLORM_COST } from '../../constants/content/data/data-slorm-cost';
 import { AncestralLegacy } from '../../model/content/ancestral-legacy';
 import { AncestralLegacyType } from '../../model/content/ancestral-legacy-type';
 import { Buff } from '../../model/content/buff';
@@ -31,7 +32,6 @@ import { SlormancerEffectValueService } from './slormancer-effect-value.service'
 import { SlormancerMechanicService } from './slormancer-mechanic.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 import { SlormancerTranslateService } from './slormancer-translate.service';
-import { DATA_SLORM_COST } from '../../constants/content/data/data-slorm-cost';
 
 @Injectable()
 export class SlormancerAncestralLegacyService {
@@ -241,13 +241,12 @@ export class SlormancerAncestralLegacyService {
         return ancestralLegacy;
     }
 
-    public updateAncestralLegacyModel(ancestralLegacy: AncestralLegacy, baseRank: number, bonusRank: number = ancestralLegacy.bonusRank, forcedRank: number | null = null) {
-        const applyBonus = ancestralLegacy.types.includes(AncestralLegacyType.Stat);
+    public updateAncestralLegacyModel(ancestralLegacy: AncestralLegacy, baseRank: number = ancestralLegacy.baseRank, bonusRank: number = ancestralLegacy.bonusRank, forcedRank: number | null = ancestralLegacy.forcedRank) {
         ancestralLegacy.forcedRank = forcedRank;
         ancestralLegacy.baseRank = Math.min(ancestralLegacy.baseMaxRank, Math.max(0, baseRank));
         ancestralLegacy.bonusRank = Math.max(0, bonusRank);
-        ancestralLegacy.rank = ancestralLegacy.forcedRank !== null ? ancestralLegacy.forcedRank : ancestralLegacy.baseRank + (applyBonus ? ancestralLegacy.bonusRank : 0);
-        ancestralLegacy.maxRank = ancestralLegacy.baseMaxRank + (applyBonus ? ancestralLegacy.bonusRank : 0);
+        ancestralLegacy.rank = ancestralLegacy.forcedRank !== null ? ancestralLegacy.forcedRank : ancestralLegacy.baseRank + ancestralLegacy.bonusRank;
+        ancestralLegacy.maxRank = ancestralLegacy.baseMaxRank;
 
         for (const effectValue of ancestralLegacy.values) {
             this.slormancerEffectValueService.updateEffectValue(effectValue, Math.max(1, ancestralLegacy.rank));

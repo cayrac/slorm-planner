@@ -181,22 +181,17 @@ export class SlormancerMergedStatUpdaterService {
         if (synergy) {
             total = this.applySynergyToTotal(total, stat);
         }
+        
+        if (typeof stat.maximum === 'number') {
+            total = typeof total === 'number' ? Math.min(stat.maximum, total) : { min: Math.min(stat.maximum, total.min), max: Math.min(stat.maximum, total.max) };
+        }
 
         return bankerRound(total, stat.precision);  
     }
 
     public updateStatTotal(stat: MergedStat, roundTotal: boolean = true) {
         stat.total = this.getTotal(stat, true);
-        stat.totalWithoutSynergy = this.hasSynergy(stat) ? this.getTotal(stat, false) : stat.total;       
-
-        if (typeof stat.maximum === 'number') {
-            if (typeof stat.total === 'number') {
-                stat.total = Math.min(stat.maximum, stat.total);
-            }
-            if (typeof stat.totalWithoutSynergy === 'number') {
-                stat.totalWithoutSynergy = Math.min(stat.maximum, stat.totalWithoutSynergy);
-            }
-        }
+        stat.totalWithoutSynergy = this.hasSynergy(stat) ? this.getTotal(stat, false) : stat.total;
 
         stat.totalDisplayed = stat.total;
         if (stat.displayPrecision !== undefined && roundTotal) {

@@ -3263,7 +3263,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'skill_has_no_cost_if_low_mana_treshold');
             setAsUpgrade(values, 0);
-            setStat(values, 1, 'skill_increased_damage_if_mana_full');
+            setStat(values, 1, 'garbage_stat');
             setAsUpgrade(values, 1);
             addConstant(values, -100, false, EffectValueValueType.Upgrade, 'skill_has_no_cost_if_low_mana');
         }
@@ -3521,6 +3521,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'physical_damage');
             setAsUpgrade(values, 0);
+            allowSynergyToCascade(values, 0);
             addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'smash_aoe');
         }
     },
@@ -3753,6 +3754,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setAsUpgrade(values, 0);
             setStat(values, 1, 'elemental_damage');
             setAsUpgrade(values, 1);
+            allowSynergyToCascade(values, 1);
         }
     },
     77: {
@@ -3776,7 +3778,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         line: 2,
         override: values => {
             setStat(values, 0, 'chrono_armor_max_stacks');
-            addConstant(values, 2, false, EffectValueValueType.Stat, 'chrono_armor_stack_res_phy_percent');
+            addConstant(values, 3, false, EffectValueValueType.Stat, 'chrono_armor_stack_res_phy_percent');
             addConstant(values, 5, false, EffectValueValueType.Stat, 'chrono_armor_stack_duration');
         }
     },
@@ -3785,7 +3787,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         line: 2,
         override: values => {
             setStat(values, 0, 'chrono_empower_max_stacks');
-            addConstant(values, 2, false, EffectValueValueType.Stat, 'chrono_empower_stack_duration');
+            addConstant(values, 5, false, EffectValueValueType.Stat, 'chrono_empower_stack_duration');
             addConstant(values, 5, false, EffectValueValueType.Stat, 'chrono_empower_stack_skill_increased_damage_mult');
         }
     },
@@ -3957,7 +3959,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         order: 100,
         line: 3,
         override: values => {
-            addConstant(values, 1, false, EffectValueValueType.Upgrade, 'remnant_cast_if_same_emblem');
+            addConstant(values, 3, false, EffectValueValueType.Upgrade, 'remnant_cast_if_same_emblem');
         }
     },
     102: {
@@ -4027,6 +4029,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             synergyMultiply100(values, 0);
             setSynergyPrecision(values, 0, 0);
             setAsUpgrade(values, 0);
+            allowSynergyToCascade(values, 0);
         }
     },
     111: {
@@ -4174,7 +4177,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'cooldown_time_reduction_multiplier');
             setAsUpgrade(values, 0);
-            addConstant(values, 30, false, EffectValueValueType.Upgrade, 'orb_arcane_master_skill_decreased_damage_mult');
+            addConstant(values, 50, false, EffectValueValueType.Upgrade, 'orb_arcane_master_skill_decreased_damage_mult');
         }
     },
     128: {
@@ -4359,7 +4362,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'invigorate_stack_elemental_damage_percent');
             setStat(values, 1, 'invigorate_max_stacks');
-            addConstant(values, 4, false, EffectValueValueType.Duration, 'invigorate_stack_duration');
+            addConstant(values, 6, false, EffectValueValueType.Duration, 'invigorate_stack_duration');
         }
     },
     155: {
@@ -4377,7 +4380,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     157: {
         masteryRequired: 6,
         override: values => {
-            addConstant(values, 20, false, EffectValueValueType.Stat, 'remnant_rift_nova_cast_if_low_life_treshold');
+            addConstant(values, 35, false, EffectValueValueType.Stat, 'remnant_rift_nova_cast_if_low_life_treshold');
         }
     },
     158: {
@@ -4417,9 +4420,10 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     164: {
         masteryRequired: 8,
         override: values => {
-            setStat(values, 0, 'cost_reduction_mult_skill_per_arcanic_emblem_if_not_arcanic');
-            setStat(values, 1, 'cooldown_time_reduction_multiplier_per_temporal_emblem_if_not_temporal');
-            setStat(values, 2, 'increased_damage_mult_per_obliteration_emblem_if_not_obliteration');
+            setStat(values, 0, 'attack_speed_per_arcanic_emblem');
+            setStat(values, 1, 'cooldown_reduction_per_temporal_emblem');
+            setStat(values, 2, 'damage_per_obliteration_emblem');
+            setStat(values, 3, 'garbage_stat');
         }
     },
     165: {
@@ -4551,7 +4555,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'elemental_damage');
             addConstant(values, 4, false, EffectValueValueType.Stat, 'remnant_cloud_max_grow');
-            addConstant(values, 1, false, EffectValueValueType.Duration, 'remnant_cloud_explosion_delay');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'remnant_cloud_explosion_delay');
             addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'remnant_cloud_explosion_aoe');
         }
     },
@@ -4612,13 +4616,14 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     199: {
         masteryRequired: 4,
         override: values => {
-            setStat(values, 0, 'arcane_clone_attack_speed_global_mult')
+            setStat(values, 0, 'arcane_clone_cooldown_reduction')
         }
     },
     200: {
         masteryRequired: 4,
         override: values => {
             setStat(values, 0, 'elemental_damage');
+            allowSynergyToCascade(values, 0);
         }
     },
     201: {
@@ -4639,7 +4644,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     204: {
         masteryRequired: 6,
         override: values => {
-            addConstant(values, 3, false, EffectValueValueType.Upgrade, 'cast_by_clone');
+            addConstant(values, 3, false, EffectValueValueType.Upgrade, 'cooldown_time_add');
+            addConstant(values, 0, false, EffectValueValueType.Upgrade, 'cast_by_clone');
         },
         additionalClassMechanics: [218]
     },
@@ -4653,6 +4659,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 6,
         override: values => {
             synergyMultiply100(values, 0);
+            allowSynergyToCascade(values, 0);
         }
     },
     207: {
@@ -4664,12 +4671,15 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setStat(values, 0, 'skill_melee_increased_damage_mult');
             setSource(values, 0, 'reduced_on_melee');
             synergyMultiply100(values, 0);
+            allowSynergyToCascade(values, 0);
             setStat(values, 1, 'skill_projectile_increased_damage_mult');
             setSource(values, 1, 'reduced_on_projectile');
             synergyMultiply100(values, 1);
+            allowSynergyToCascade(values, 1);
             setStat(values, 2, 'skill_aoe_increased_damage_mult');
             setSource(values, 2, 'reduced_on_area');
             synergyMultiply100(values, 2);
+            allowSynergyToCascade(values, 2);
         }
     },
     209: {

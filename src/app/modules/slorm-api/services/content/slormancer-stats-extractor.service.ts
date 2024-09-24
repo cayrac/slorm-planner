@@ -6,8 +6,11 @@ import {
     ARCANE_CLONE_ATTACK_SPEED_REDUCTION,
     ASTRAL_METEOR_DAMAGE_PERCENT,
     ASTRAL_RETRIBUTION_DAMAGE_PERCENT,
+    ATTACK_SPEED_PER_ARCANIC_EMBLEM,
     ATTACK_SPEED_PER_DELIGHTED_STACK,
     COOLDOWN_REDUCTION_PER_DELIGHTED_STACK,
+    COOLDOWN_REDUCTION_PER_TEMPORAL_EMBLEM,
+    DAMAGE_PER_OBLITERATION_EMBLEM,
     DELIGHTED_VALUE,
     POISON_DAMAGE_PERCENT,
     RAVENOUS_DAGGER_DAMAGE_PERCENT,
@@ -225,6 +228,10 @@ export class SlormancerStatsExtractorService {
                 ? config.maxed_upgrades
                 : this.slormancerSkillService.getNumberOfMaxedUpgrades(character);
             this.addStat(stats.stats, 'maxed_upgrades', maxedUpgrades, { synergy: 'Number of maxed upgrades' });
+
+            this.addStat(stats.stats, 'base_attack_speed_per_arcanic_emblem', ATTACK_SPEED_PER_ARCANIC_EMBLEM, { synergy: 'Arcanic emblem' });
+            this.addStat(stats.stats, 'base_cooldown_reduction_per_temporal_emblem', COOLDOWN_REDUCTION_PER_TEMPORAL_EMBLEM, { synergy: 'Temporal emblem' });
+            this.addStat(stats.stats, 'base_damage_per_obliteration_emblem', DAMAGE_PER_OBLITERATION_EMBLEM, { synergy: 'Obliteration emblem' });
         }
 
         if (character.heroClass === HeroClass.Huntress) {
@@ -506,6 +513,9 @@ export class SlormancerStatsExtractorService {
                     }
                 } else {
                     if (!ignorePhysicalElementalStats || !this.PHYSICAL_ELEMENTAL_STATS.includes(effectValue.stat)) {
+                        if (effectValue.stat === null) {
+                            console.log('null stat item found', item)
+                        }
                         this.addStat(stats.stats, effectValue.stat, effectValue.value, { item });
                     }
                 }
@@ -570,7 +580,7 @@ export class SlormancerStatsExtractorService {
             }
 
             for (const upgrade of sau.upgrades) {
-                const upgradeActive = sau.activeUpgrades.includes(upgrade.id);
+                const upgradeActive = skillEquiped && sau.activeUpgrades.includes(upgrade.id);
                 for (const upgradeValue of upgrade.values) {
                     if (upgradeValue.valueType !== EffectValueValueType.Upgrade) {
                         if (isEffectValueSynergy(upgradeValue)) {

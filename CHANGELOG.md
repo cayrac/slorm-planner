@@ -323,9 +323,15 @@
 - Unkillable berzerker reaper additional damage multiplier is now correctly applied
 
 ## Release 0.7.0 (TBD)
+### Added
+- Added all the changes from the balance update
+### Changed
+- Improved the ancestral nodes display to show the remaining stones
 ### Fixes
 - Skill upgrades are no longer ignored when not in the skill bar
-- Skill levels are no longer lost when reloading the
+- Skill levels are no longer lost when reloading the page
+- Ancestral gift base ranks are no longer randomly increased or lowered with ancestral champion's present
+- Fixed incorrect ancestral legacy nodes mapping
 ## TODO
 - calcul du cooldown sans passer par attack speed
 

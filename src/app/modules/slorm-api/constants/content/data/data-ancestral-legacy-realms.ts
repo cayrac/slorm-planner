@@ -121,17 +121,17 @@ export const ANCESTRAL_LEGACY_REALMS: Array<DataAncestralLegacyRealm> = [
     { nodes: [208, 209, 252, 253], realm: 107 },  // Shadow Bargain
     { nodes: [155, 156, 257, 258], realm: 109 },  // Armor of Kings / Sturdy Blorms
 
-    { nodes: [159, 160, 161, 300, 309, 310], realm: 81 },  // Soul of the Wizard
-    { nodes: [170, 171, 172, 301, 305, 311], realm: 84 },  // Playful Weapons
-    { nodes: [181, 182, 184, 302, 306, 312], realm: 87 },  // Unstoppable Force
-    { nodes: [192, 193, 194, 303, 307, 313], realm: 90 },  // Greater Quiver
-    { nodes: [203, 204, 205, 304, 308, 314], realm: 93 },  // Elemental Champion
+    { nodes: [159, 160, 161, 210, 259, 211], realm: 81 },  // Soul of the Wizard --
+    { nodes: [170, 171, 172, 220, 219, 221], realm: 84 },  // Playful Weapons
+    { nodes: [181, 182, 184, 230, 229, 231], realm: 87 },  // Unstoppable Force
+    { nodes: [192, 193, 194, 240, 239, 241], realm: 90 },  // Greater Quiver
+    { nodes: [203, 204, 205, 250, 249, 251], realm: 93 },  // Elemental Champion
 
-    { nodes: [300], realm: 110 },   // Blood Rite
-    { nodes: [301], realm: 111 },   // Waste Not
-    { nodes: [302], realm: 112 },   // Elemental Inversion
-    { nodes: [303], realm: 113 },   // One last round
-    { nodes: [304], realm: 114 },   // Efficiency
+    { nodes: [210], realm: 110 },   // Blood Rite
+    { nodes: [220], realm: 111 },   // Waste Not
+    { nodes: [230], realm: 112 },   // Elemental Inversion
+    { nodes: [240], realm: 113 },   // One last round
+    { nodes: [250], realm: 114 },   // Efficiency
 
     { nodes: [215], realm: 117 },   // Heat Wave
     { nodes: [225], realm: 122 },   // Shattering Ice
@@ -151,15 +151,15 @@ export const ANCESTRAL_LEGACY_REALMS: Array<DataAncestralLegacyRealm> = [
     { nodes: [243, 244], realm: 131 },   // Light Diffusion
     { nodes: [253, 254], realm: 136 },   // Elemental Pact
 
-    { nodes: [218, 305], realm: 119 },   // Warlock's Ascendancy
-    { nodes: [228, 306], realm: 124 },   // Elemental Rogue
-    { nodes: [238, 307], realm: 129 },   // Ancestral Instability
-    { nodes: [248, 308], realm: 134 },   // Wrath of Kings
-    { nodes: [258, 309], realm: 139 },   // Blorm Empire
+    { nodes: [218, 219], realm: 119 },   // Warlock's Ascendancy
+    { nodes: [228, 229], realm: 124 },   // Elemental Rogue
+    { nodes: [238, 239], realm: 129 },   // Ancestral Instability
+    { nodes: [248, 249], realm: 134 },   // Wrath of Kings
+    { nodes: [258, 259], realm: 139 },   // Blorm Empire
 
-    { nodes: [212, 310], realm: 115 },   // Lowey's Creation
-    { nodes: [222, 311], realm: 120 },   // Frost Sentinel
-    { nodes: [232, 312], realm: 125 },   // Gift of Ancestral Speed
-    { nodes: [242, 313], realm: 130 },   // Last Stand
-    { nodes: [252, 314], realm: 135 },   // Black Pact
+    { nodes: [212, 211], realm: 115 },   // Lowey's Creation
+    { nodes: [222, 221], realm: 120 },   // Frost Sentinel
+    { nodes: [232, 231], realm: 125 },   // Gift of Ancestral Speed
+    { nodes: [242, 241], realm: 130 },   // Last Stand
+    { nodes: [252, 251], realm: 135 },   // Black Pact
 ]

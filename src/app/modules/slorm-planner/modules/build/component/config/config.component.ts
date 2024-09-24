@@ -41,7 +41,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             configurations: [
                 { type: 'number', key: 'all_other_characters_level', label: 'Sum of all your other character\'s level' },
                 { type: 'number', key: 'highest_same_type_reaper_level', label: 'Highest level among reapers of the same type of equipped reaper' },
-                { type: 'number', key: 'completed_achievements', label: 'Number of completed achievements' },
+                { type: 'number', key: 'completed_achievements', label: '% of completed achievements' },
                 { type: 'number', key: 'elder_slorms', label: 'Total Elder Slorm' },
                 { type: 'number', key: 'overall_reputation', label: 'Overall reputation' },
                 { type: 'number', key: 'percent_missing_health', label: 'Missing life (%)', info: 'Total locked life will be used instead if higher' },

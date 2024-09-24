@@ -480,7 +480,6 @@ export class SlormancerValueUpdaterService {
                     effectValue.upgradedValue = effectValue.upgradedValue * (100 + pierceMult.value) / 100;
                     effectValue.value = effectValue.value * (100 + pierceMult.value) / 100;
                     effectValue.displayValue = round(effectValue.value, 3);
-                    console.log('updating drum 2 cast', effectValue.displayValue);
                 }
             }
 
@@ -490,7 +489,6 @@ export class SlormancerValueUpdaterService {
                     effectValue.upgradedValue = effectValue.upgradedValue * (100 + forkMult.value) / 100;
                     effectValue.value = effectValue.value * (100 + forkMult.value) / 100;
                     effectValue.displayValue = round(effectValue.value, 3);
-                    console.log('updating drum 3 cast', effectValue.displayValue);
                 }
             }
         }
@@ -990,6 +988,7 @@ export class SlormancerValueUpdaterService {
 
     private updateDamage(damage: EffectValueSynergy, genres: Array<SkillGenre>, skillStats: SkillStats, statsResult: SkillStatsBuildResult, element: SkillElement, isSkill: boolean = false, additionalMultipliers: Array<number> = [], addedFlatDamage = 0) {
         const multipliers = this.getValidDamageMultipliers(genres, skillStats, statsResult, damage.stat, isSkill, element);
+
 
         if (addedFlatDamage > 0) {
             for (const multiplier of multipliers) {

@@ -112,7 +112,7 @@ export class SlormancerCharacterUpdaterService {
             [Attribute.Bravery]: 0,
         };
         const skillBonuses: {[key: number]: number} = {};
-        let ancestralLegacyBonuses = 0;
+        let ancestralGiftBonus = 0;
 
         for (const item of items) {
             if (item.attributeEnchantment !== null) {
@@ -122,7 +122,7 @@ export class SlormancerCharacterUpdaterService {
                 skillBonuses[item.skillEnchantment.craftedSkill] = valueOrDefault(skillBonuses[item.skillEnchantment.craftedSkill], 0) + item.skillEnchantment.craftedValue;
             }
             if (item.legendaryEffect !== null) {
-                ancestralLegacyBonuses += item.legendaryEffect.effects
+                ancestralGiftBonus += item.legendaryEffect.effects
                     .filter(effect => effect.effect.stat === 'ancestral_rank_add')
                     .reduce((total, effect) => total + effect.effect.value, 0);
             }
@@ -152,9 +152,10 @@ export class SlormancerCharacterUpdaterService {
             }
         }
 
-        const ancestralLegaciesToUpdate = character.ancestralLegacies.ancestralLegacies.filter(al => al.bonusRank !== ancestralLegacyBonuses);
-        for (const ancestralLegacy of ancestralLegaciesToUpdate) {
-            this.slormancerAncestralLegacyService.updateAncestralLegacyModel(ancestralLegacy, ancestralLegacy.rank, ancestralLegacyBonuses);
+        const ancestralGifts = character.ancestralLegacies.ancestralLegacies
+            .filter(ancestralLegacy => ancestralLegacy.types.includes(AncestralLegacyType.Stat))
+        for (const ancestralLegacy of ancestralGifts) {
+            this.slormancerAncestralLegacyService.updateAncestralLegacyModel(ancestralLegacy, ancestralLegacy.baseRank, ancestralGiftBonus);
             this.slormancerAncestralLegacyService.updateAncestralLegacyView(ancestralLegacy);
         }
     }
@@ -589,7 +590,7 @@ export class SlormancerCharacterUpdaterService {
 
         for (const ancestralLegacy of character.ancestralLegacies.ancestralLegacies) {
             if (ancestralLegacy.forcedRank !== null) {
-                this.slormancerAncestralLegacyService.updateAncestralLegacyModel(ancestralLegacy, ancestralLegacy.baseRank, ancestralLegacy.bonusRank);
+                this.slormancerAncestralLegacyService.updateAncestralLegacyModel(ancestralLegacy);
                 this.slormancerAncestralLegacyService.updateAncestralLegacyView(ancestralLegacy);
             }
         }
@@ -707,15 +708,6 @@ export class SlormancerCharacterUpdaterService {
         }
     }
 
-    private updateInvestedSlorm(character: Character) {
-        character.skillInvestedSlorm = 0;
-        for(const skill of character.skills) {
-            for (const upgrade of skill.upgrades) {
-                character.skillInvestedSlorm += upgrade.investedSlorm;
-            }
-        }
-    }
-
     public updateCharacter(character: Character, config: CharacterConfig, updateViews: boolean = true, additionalItem: EquipableItem | null = null, additionalRunes: Array<Rune> = [], forcedMight: CharacterMight | null = null) {
         character.issues = [];
 
@@ -731,14 +723,6 @@ export class SlormancerCharacterUpdaterService {
 
         this.slormancerAncestralLegacyNodesService.stabilize(character);
 
-        if (forcedMight === null) {
-            this.slormancerMightService.updateMight(character);
-        } else {
-            this.slormancerMightService.forceMight(character, forcedMight);
-        }
-
-        this.updateInvestedSlorm(character);
-
         this.updateAncestralLegacySkills(character);
 
         this.removeUnavailableActivables(character);
@@ -746,6 +730,12 @@ export class SlormancerCharacterUpdaterService {
         this.updateActiveSkillUpgrades(character);
 
         this.updateEquipmentBonuses(character, config);
+
+        if (forcedMight === null) {
+            this.slormancerMightService.updateMight(character);
+        } else {
+            this.slormancerMightService.forceMight(character, forcedMight);
+        }
 
         this.updateCharacterStats(character, updateViews, config, additionalItem, additionalRunes);
 

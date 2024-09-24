@@ -3,13 +3,13 @@ import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubs
 import { BuildStorageService } from '@shared/services/build-storage.service';
 import { MessageService } from '@shared/services/message.service';
 import {
-  AncestralLegacy,
-  Character,
-  list,
-  MAXIMUM_ANCESTRAL_LEGACY_POINTS,
-  SlormancerAncestralLegacyService,
-  SlormancerTranslateService,
-  valueOrNull,
+    AncestralLegacy,
+    Character,
+    list,
+    MAXIMUM_ANCESTRAL_LEGACY_POINTS,
+    SlormancerAncestralLegacyService,
+    SlormancerTranslateService,
+    valueOrNull,
 } from '@slorm-api';
 import { takeUntil } from 'rxjs/operators';
 
@@ -64,7 +64,7 @@ export class AncestralLegaciesComponent extends AbstractUnsubscribeComponent imp
         if (this.character !== null) {
             for (const ancestralLegacy of this.character.ancestralLegacies.ancestralLegacies) {
                 ancestralLegacy.baseRank = ancestralLegacy.baseMaxRank;
-                this.slormancerAncestralLegacyService.updateAncestralLegacyModel(ancestralLegacy, ancestralLegacy.baseMaxRank);
+                this.slormancerAncestralLegacyService.updateAncestralLegacyModel(ancestralLegacy, ancestralLegacy.baseMaxRank, ancestralLegacy.bonusRank, ancestralLegacy.forcedRank);
                 this.slormancerAncestralLegacyService.updateAncestralLegacyView(ancestralLegacy);
             }
             this.buildStorageService.saveLayer();

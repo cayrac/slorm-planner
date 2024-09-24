@@ -59,6 +59,11 @@ function allowSynergyToCascade(effect: LegendaryEffect, index: number) {
 }*/
 
 export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
+    12: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+        }
+    },
     13: {
         override: (effect) => {
             setStat(effect, 0, 'coward_effect_cooldown');

@@ -234,6 +234,7 @@ export const COOLDOWN_REDUCTION_MAPPING: MergedStatMapping =
     precision: 3,
     allowMinMax: false,
     suffix: '%',
+    maximum: 75,
     source: {
         flat: [
             { stat: 'cooldown_reduction_percent' }
@@ -247,6 +248,11 @@ export const COOLDOWN_REDUCTION_MAPPING: MergedStatMapping =
             { stat: 'delightful_rain_stack_cooldown_reduction_global_mult', condition: config => config.delightful_rain_stacks > 0, duplicate: (config, stats) => minAndMax(0, config.delightful_rain_stacks, getMaxStacks(stats, 'delightful_rain_max_stacks'))  },
             // this is a bug, it should increase attack speed instead
             { stat: 'exhilerating_senses_stack_attack_speed_global_mult', condition: config => config.exhilerating_senses_stacks > 0, multiplier: config => config.exhilerating_senses_stacks },
+            { stat: 'arcane_clone_cooldown_reduction', condition: (_, stats) => hasStat(stats, 'cast_by_clone' ) },
+            { stat: 'chrono_speed_stack_cooldown_reduction_global_mult', condition: config => config.chrono_speed_stacks > 0, multiplier: (config, stats) => Math.min(config.chrono_speed_stacks, getMaxStacks(stats, 'chrono_speed_max_stacks') + getFirstStat(stats, 'increased_max_chrono_stacks')) },
+
+            { stat: 'base_cooldown_reduction_per_temporal_emblem', condition: (config, stats) => !hasStat(stats, 'cooldown_reduction_per_temporal_emblem') && config.temporal_emblems > 0, multiplier: config => config.temporal_emblems },
+            { stat: 'cooldown_reduction_per_temporal_emblem', condition: config => config.temporal_emblems > 0, multiplier: config => config.temporal_emblems },
 
         ],
         maxMultiplier: [],
@@ -276,10 +282,12 @@ export const ATTACK_SPEED_MAPPING: MergedStatMapping =
             { stat: 'frenzy_stack_attack_speed_global_mult', condition: config => config.frenzy_stacks > 0, duplicate: (config, stats) => minAndMax(0, config.frenzy_stacks, getMaxStacks(stats, 'frenzy_max_stacks')) },
             { stat: 'arcane_clone_attack_speed_global_mult', condition: (_, stats) => hasStat(stats, 'cast_by_clone' )},
             { stat: 'arcane_clone_attack_speed_global_mult_if_in_breach', condition: (config, stats) => hasStat(stats, 'cast_by_clone') && config.clone_is_in_breach_range },
+            { stat: 'base_attack_speed_per_arcanic_emblem', condition: (config, stats) => !hasStat(stats, 'attack_speed_per_arcanic_emblem') && config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
+            { stat: 'attack_speed_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
+            
 
             // retrouver chaque stat et la replacer là ou il faut
             // il faudrait mettre à jour les fichiers js
-            { stat: 'chrono_speed_stack_cooldown_reduction_global_mult', condition: config => config.chrono_speed_stacks > 0, multiplier: (config, stats) => Math.min(config.chrono_speed_stacks, getMaxStacks(stats, 'chrono_speed_max_stacks') + getFirstStat(stats, 'increased_max_chrono_stacks')) },
             { stat: 'arcane_flux_stack_cooldown_reduction_global_mult', condition: config => config.arcane_flux_stacks > 0, multiplier: (config, stats) => Math.min(config.arcane_flux_stacks, getMaxStacks(stats, 'arcane_flux_max_stacks')) },
             { stat: 'cooldown_reduction_global_mult_per_enfeeble_in_radius', condition: config => config.enfeeble_stacks_in_radius > 0, multiplier: config => config.enfeeble_stacks_in_radius },
             { stat: 'booster_max_cooldown_reduction_global_mult', condition: config => config.has_booster_max_buff },
@@ -408,6 +416,9 @@ export const MIN_BASIC_DAMAGE: MergedStatMapping = {
             { stat: 'basic_damage_percent_mult' },
             { stat: 'basic_damage_percent_global_mult' },
             { stat: 'basic_damage_global_mult' },
+            { stat: 'base_damage_per_obliteration_emblem', condition: (config, stats) => !hasStat(stats, 'damage_per_obliteration_emblem') && config.obliteration_emblems > 0, multiplier: config => config.obliteration_emblems },
+            { stat: 'damage_per_obliteration_emblem', condition: config => config.obliteration_emblems > 0, multiplier: config => config.obliteration_emblems },
+
         ],
         maxMultiplier: [],
     } 
@@ -1956,6 +1967,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'elemental_weakness_stack_elemental_damage_mult',
                     condition: (config, stats) => config.elemental_weakness_stacks > 0 && hasStat(stats, 'skill_id') && [getFirstStat(stats, 'primary_skill'), getFirstStat(stats, 'secondary_skill')].includes(4),
                     multiplier: (config, stats) => Math.min(config.elemental_weakness_stacks, getFirstStat(stats, 'elemental_weakness_max_stacks')) },
+                { stat: 'base_damage_per_obliteration_emblem', condition: (config, stats) => !hasStat(stats, 'damage_per_obliteration_emblem') && config.obliteration_emblems > 0, multiplier: config => config.obliteration_emblems },
+                { stat: 'damage_per_obliteration_emblem', condition: config => config.obliteration_emblems > 0, multiplier: config => config.obliteration_emblems },
             ],
             maxMultiplier: [],
         } 
@@ -2144,7 +2157,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 },
                 { stat: 'non_projectile_increased_damage_mult', condition: (_, stats) => !hasStat(stats, 'skill_is_projectile'), multiplier: () => -1 },
                 { stat: 'increased_damage_while_curving_time_or_time_shifting', condition: config => config.is_curving_time_or_time_shifting },
-                { stat: 'skill_increased_damage_if_mana_full', condition: (_, stats) => getFirstStat(stats, 'percent_missing_mana', 0) === 0  },
+                // non pris en compte { stat: 'skill_increased_damage_if_mana_full', condition: (_, stats) => getFirstStat(stats, 'percent_missing_mana', 0) === 0  },
                 { stat: 'increased_damage_per_poison_upgrade', condition: (_, stats) => getFirstStat(stats, 'poison_upgrades', 0) > 0, multiplier: (_, stats) => getFirstStat(stats, 'poison_upgrades', 0)  },
             ],
             maxMultiplier: [

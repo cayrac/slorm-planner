@@ -357,22 +357,22 @@
     <div class="line total" *ngIf="showFormula(mergedStat)">
         <div class="label">Formula<span *ngIf="totalHasMinMax(mergedStat)"> (Min)</span></div>
         <div class="formula">
-            {{suroundWitMmax(mergedStat, getMinFormula(mergedStat))}}
+            {{getMinFormula(mergedStat)}}
         </div>
     </div>
     <div class="line total" *ngIf="showFormula(mergedStat) && totalHasMinMax(mergedStat)">
         <div class="label">Formula (Max)</div>
         <div class="formula">
-            {{suroundWitMmax(mergedStat, getMaxFormula(mergedStat))}}
+            {{getMaxFormula(mergedStat)}}
         </div>
     </div>
     <div class="line total">
         <div class="label">Total</div>
         <div class="value">
-            {{suroundWitMmax(mergedStat, minValueToString(mergedStat.total, mergedStat.suffix))}}
+            {{minValueToString(mergedStat.total, mergedStat.suffix)}}
         </div>
         <div class="value" *ngIf="mergedStat.allowMinMax">
-            {{suroundWitMmax(mergedStat, maxValueToString(mergedStat.total, mergedStat.suffix))}}
+            {{maxValueToString(mergedStat.total, mergedStat.suffix)}}
         </div>
         <div class="source">
         </div>
@@ -382,10 +382,10 @@
     <div class="line total" *ngIf="hasDisplayPrecision(mergedStat)">
         <div class="label">Total (shown in stats)</div>
         <div class="value">
-            {{suroundWitMmax(mergedStat, minValueToString(mergedStat.totalDisplayed, mergedStat.suffix))}}
+            {{minValueToString(mergedStat.totalDisplayed, mergedStat.suffix)}}
         </div>
         <div class="value" *ngIf="mergedStat.allowMinMax">
-            {{suroundWitMmax(mergedStat, maxValueToString(mergedStat.totalDisplayed, mergedStat.suffix))}}
+            {{maxValueToString(mergedStat.totalDisplayed, mergedStat.suffix)}}
         </div>
         <div class="source">
         </div>

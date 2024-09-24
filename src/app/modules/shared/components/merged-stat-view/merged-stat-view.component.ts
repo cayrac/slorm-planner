@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 import {
-  Entity,
-  MergedStat,
-  MinMax,
-  round,
-  SlormancerMergedStatUpdaterService,
-  SlormancerTranslateService,
+    Entity,
+    MergedStat,
+    MinMax,
+    round,
+    SlormancerMergedStatUpdaterService,
+    SlormancerTranslateService,
 } from '@slorm-api';
 
 @Component({
@@ -104,12 +104,12 @@ export class MergedStatViewComponent {
 
     public minValueToString(value: number | MinMax, suffix: string, showSign: boolean = false): string {
         const result = round(typeof value === 'number' ? value : value.min, 5)
-        return (result >= 0 && showSign ? '+' : '' ) + result + suffix;
+        return (result >= 0 && showSign ? '+' : '') + result + suffix;
     }
 
     public maxValueToString(value: number | MinMax, suffix: string, showSign: boolean = false): string {
         const result = round(typeof value === 'number' ? value : value.max, 5)
-        return (result >= 0 && showSign ? '+' : '' ) + result + suffix;
+        return (result >= 0 && showSign ? '+' : '') + result + suffix;
     }
 
     public getTotalFlat(mergedStat: MergedStat): number | MinMax {
@@ -201,29 +201,33 @@ export class MergedStatViewComponent {
         extra = typeof extra === 'number' ? extra : extra.min;
         synergy = typeof synergy === 'number' ? synergy : synergy.min;
 
-        let result = round(typeof total === 'number' ? total : total.min, 5) + ' = ';
+        let formula: string;
         if (this.slormancerStatUpdaterService.hasDiminishingResult(mergedStat.stat)) {
-            result += '( 1 - ' + [flat, percent, ...multipliers, ...extraMultipliers]
+            formula = '( 1 - ' + [flat, percent, ...multipliers, ...extraMultipliers]
                 .filter(v => v !== 0)
                 .map(p => Math.max(0, 100 - p) / 100)
                 .join(' * ')
-                + ' ) * 100';
+                + ') * 100';
         } else {
-            let formula = this.valueToString(flat, mergedStat.suffix) +  this.toMultipliersFormula([percent, ...multipliers])
+            formula = this.valueToString(flat, mergedStat.suffix) +  this.toMultipliersFormula([percent, ...multipliers])
 
             if (extra !== 0) {
-                formula = '( ' + formula + ' ) ' + (extra > 0 ? ('+ ' + extra) : ('- ' + Math.abs(extra)));
+                formula = '(' + formula + ') ' + (extra > 0 ? ('+ ' + extra) : ('- ' + Math.abs(extra)));
             }
             if (extraMultipliers.length > 0) {
-                formula = '( ' + formula + ' )' + this.toMultipliersFormula(extraMultipliers);
+                formula = '(' + formula + ')' + this.toMultipliersFormula(extraMultipliers);
             }
             if (synergy !== 0) {
-                formula = '( ' + formula + ' ) ' + (synergy > 0 ? ('+ ' + synergy) : ('- ' + Math.abs(synergy)));
+                formula = '(' + formula + ') ' + (synergy > 0 ? ('+ ' + synergy) : ('- ' + Math.abs(synergy)));
             }
 
-            result += 'round( ' + formula + ' )';
+            formula = 'round(' + formula + ')';
         }
-        
+
+        let result = round(typeof total === 'number' ? total : total.min, 5) + ' = ' + this.suroundWitMmax(mergedStat, formula);
+        if (mergedStat.stat === 'cooldown_reduction') {
+            console.log('result : ', result);
+        }
         return result;
     }
 
@@ -247,16 +251,16 @@ export class MergedStatViewComponent {
         let formula = this.valueToString(flat, mergedStat.suffix) +  this.toMultipliersFormula([percent, ...multipliers])
 
         if (extra !== 0) {
-            formula = '( ' + formula + ' ) ' + (extra > 0 ? ('+ ' + extra) : ('- ' + Math.abs(extra)));
+            formula = '(' + formula + ') ' + (extra > 0 ? ('+ ' + extra) : ('- ' + Math.abs(extra)));
         }
         if (extraMultipliers.length > 0) {
-            formula = '( ' + formula + ' )' + this.toMultipliersFormula(extraMultipliers);
+            formula = '(' + formula + ')' + this.toMultipliersFormula(extraMultipliers);
         }
         if (synergy !== 0) {
-            formula = '( ' + formula + ' ) ' + (synergy > 0 ? ('+ ' + synergy) : ('- ' + Math.abs(synergy)));
+            formula = '(' + formula + ') ' + (synergy > 0 ? ('+ ' + synergy) : ('- ' + Math.abs(synergy)));
         }
 
-        result += 'round( ' + formula + ' )';
+        result += this.suroundWitMmax(mergedStat, 'round(' + formula + ')');
 
         return result;
     }
@@ -265,9 +269,9 @@ export class MergedStatViewComponent {
         return mergedStat.totalDisplayed !== mergedStat.total;
     }
 
-    public suroundWitMmax(mergedStat: MergedStat, value: string): string {
+    private suroundWitMmax(mergedStat: MergedStat, value: string): string {
         if (typeof mergedStat.maximum === 'number') {
-            value = 'min( ' + mergedStat.maximum + mergedStat.suffix + ', ' + value + ' )';
+            value = 'min(' + mergedStat.maximum + ', ' + value + ')';
         }
         return value;
     }

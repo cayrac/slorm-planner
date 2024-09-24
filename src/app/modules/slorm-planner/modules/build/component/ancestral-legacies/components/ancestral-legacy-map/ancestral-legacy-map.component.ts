@@ -209,7 +209,7 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
 
         // layer 13
         this.addZoneShapes([110, 111, 112, 113, 114], -90, 361, 2);
-        this.addNodeShapes([300, 301, 302, 303, 304], -90, 329);
+        this.addNodeShapes([210, 220, 230, 240, 250], -90, 329);
 
         // layer 14 / Permanent Overload / Renewal of Justice / Blorm Up! / Heat Wave / Shattering Ice
         this.addZoneShapes([117, 122, 127, 132, 137], -90 + 360 / 10, 370, 1);
@@ -228,12 +228,12 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         // layer 17 / Warlock's Ascendancy / Elemental Rogue / Ancestral Instability / Wrath of Kings / Blorm Empire
         this.addZoneShapes([119, 124, 129, 134, 139], -90 + 360 / 5 - 15, 370, 1);
         this.addNodeShapes([218, 228, 238, 248, 258], -90 + 360 / 5 - 17, 347);
-        this.addNodeShapes([305, 306, 307, 308, 309], -90 + 360 / 5 - 11, 370);
+        this.addNodeShapes([219, 229, 239, 249, 259], -90 + 360 / 5 - 11, 370);
 
         // layer 18 / Lowey's Creation / Frost Sentinel / Gift of Ancestral Speed / Last Stand / Black Pact
         this.addZoneShapes([115, 120, 125, 130, 135], -90 + 15, 370, 1);
         this.addNodeShapes([212, 222, 232, 242, 252], -90 + 17, 347);
-        this.addNodeShapes([310, 311, 312, 313, 314], -90 + 11, 370);
+        this.addNodeShapes([211, 221, 231, 241, 251], -90 + 11, 370);
 
         this.addLineShapes(5, -49.5, 354, 47, 45);
         this.addWeldinghapes(5, -52.1, 337, 1.5);
