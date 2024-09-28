@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { BuildStorageService } from '@shared/services/build-storage.service';
-import { MessageService } from '@shared/services/message.service';
 import {
     AncestralLegacy,
     Character,
@@ -30,7 +29,6 @@ export class AncestralLegaciesComponent extends AbstractUnsubscribeComponent imp
 
     constructor(private buildStorageService: BuildStorageService,
                 private slormancerAncestralLegacyService: SlormancerAncestralLegacyService,
-                private messageService: MessageService,
                 private slormancerTranslateService: SlormancerTranslateService) {
         super();
         this.MIGHT_MESSAGE = this.slormancerTranslateService.translate('bonus_elemental_damage');
@@ -68,7 +66,6 @@ export class AncestralLegaciesComponent extends AbstractUnsubscribeComponent imp
                 this.slormancerAncestralLegacyService.updateAncestralLegacyView(ancestralLegacy);
             }
             this.buildStorageService.saveLayer();
-            this.messageService.message('All ancestral legacies ranks set to maximum');
         }
     }
 

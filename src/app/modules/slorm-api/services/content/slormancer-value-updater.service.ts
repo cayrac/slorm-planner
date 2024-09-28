@@ -603,7 +603,6 @@ export class SlormancerValueUpdaterService {
         if (skill.baseCooldown !== null) {
             
             const extraStats: ExtractedStatMap = {};
-            
 
             extraStats['cost_type'] = [
                 { value: ALL_SKILL_COST_TYPES.indexOf(skill.manaCostType), source: { skill } },
@@ -1166,6 +1165,19 @@ export class SlormancerValueUpdaterService {
                 }
             }
 
+            if (skillAndUpgrades.skill.heroClass === HeroClass.Huntress && skillAndUpgrades.skill.id === 7) {
+                const swiftAsTheWind = skillAndUpgrades.upgrades.find(upgrade => upgrade.id === 84);
+                if (swiftAsTheWind && skillAndUpgrades.activeUpgrades.includes(swiftAsTheWind.id)) {
+                    const latentStormAdditionalDamage = swiftAsTheWind.values
+                        .filter(isEffectValueSynergy)
+                        .find(value => value.stat === 'latent_storm_additional_damage');
+                    if (latentStormAdditionalDamage) {
+                        const latentStormDamage = <EffectValueSynergy>skillAndUpgrades.skill.values[1];
+                        this.spreadAdditionalDamages([latentStormDamage], latentStormAdditionalDamage.synergy);
+                    }
+                }
+            }
+
             for (const damageValue of damageValues) {
                 const additionamMultipliers: Array<number> = [];
                 if (skillAndUpgrades.skill.heroClass == HeroClass.Warrior && skillAndUpgrades.skill.id === 6 && damageValues.indexOf(damageValue) === 0) {
@@ -1211,7 +1223,9 @@ export class SlormancerValueUpdaterService {
             if (aoeValues.length > 0) {
                 for (const value of aoeValues) {
                     value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
-                    value.value = value.value * (100 + skillStats.skillIncreasedAoe.total) / 100;
+                    for (const multiplier of skillStats.skillIncreasedAoe.values.multiplier) {
+                        value.value = value.value * (100 + multiplier.value) / 100;
+                    }
                     value.displayValue = round(value.value, 2);
                 }
             }

@@ -185,9 +185,6 @@ export class SlormancerCharacterUpdaterService {
         for (const mechanic of statsResult.changed.mechanics) {
             this.slormancerMechanicService.updateMechanicView(mechanic);
         }
-        for (const classMechanic of statsResult.changed.classMechanic) {
-            this.slormancerClassMechanicService.updateClassMechanicView(classMechanic);
-        }
         for (const rune of statsResult.changed.runes) {
             this.slormancerRuneService.updateRuneView(rune);
         }
@@ -483,7 +480,6 @@ export class SlormancerCharacterUpdaterService {
         statsResult.changed.skills.push(...statResultPreComputing.changed.skills);
         statsResult.changed.upgrades.push(...statResultPreComputing.changed.upgrades);
         statsResult.changed.mechanics.push(...statResultPreComputing.changed.mechanics);
-        statsResult.changed.classMechanic.push(...statResultPreComputing.changed.classMechanic);
         statsResult.changed.runes.push(...statResultPreComputing.changed.runes);
         statsResult.changed.runes.push(...preComputingChanged.runes);
 
@@ -523,18 +519,16 @@ export class SlormancerCharacterUpdaterService {
             statsResult.changed.upgrades.push(...skillAndUpgrades.upgrades);
             skillAndUpgrades.stats = statsResult.stats;
 
-            for (const upgrade of skillAndUpgrades.upgrades) {
-                for (const classMechanic of upgrade.relatedClassMechanics) {
-                    this.slormancerValueUpdater.updateClassMechanic(classMechanic, statsResult);
-                    statsResult.changed.classMechanic.push(classMechanic);
-                }
-            }
-
             skillAndUpgrades.skill.locked = lockedSkills.includes(skillAndUpgrades.skill.id);
 
         }
 
         this.slormancerValueUpdater.updateRuneValues(character, additionalRunes, statsResult, config);
+
+        const classMechanics = this.slormancerClassMechanicService.getClassMechanics(character.heroClass);
+        for (const classMechanic of classMechanics) {
+            this.slormancerValueUpdater.updateClassMechanic(classMechanic, statsResult);
+        }
 
         const activableChanged = this.updateCharacterActivables(character, statsResult, config, additionalItem, additionalRunes, false);
         statsResult.changed.items.push(...activableChanged.items);
@@ -546,6 +540,7 @@ export class SlormancerCharacterUpdaterService {
 
         if (updateViews) {
             this.updateChangedEntities(statsResult);
+            this.slormancerClassMechanicService.updateClassMechanicViews(character.heroClass);
         }
 
     }
@@ -740,6 +735,5 @@ export class SlormancerCharacterUpdaterService {
         this.updateCharacterStats(character, updateViews, config, additionalItem, additionalRunes);
 
         console.log(character);
-        console.log(character.reaper.templates);
     }
 }

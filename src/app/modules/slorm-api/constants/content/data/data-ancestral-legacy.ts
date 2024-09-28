@@ -3,7 +3,7 @@ import { AbstractEffectValue } from '../../../model/content/effect-value';
 import { EffectValueValueType } from '../../../model/content/enum/effect-value-value-type';
 import { MechanicType } from '../../../model/content/enum/mechanic-type';
 import { effectValueConstant } from '../../../util/effect-value.util';
-import { isEffectValueSynergy, isEffectValueVariable } from '../../../util/utils';
+import { isEffectValueSynergy } from '../../../util/utils';
 
 function setStat(values: Array<AbstractEffectValue>, index: number, stat: string) {
     const value = values[index]
@@ -15,32 +15,8 @@ function setStat(values: Array<AbstractEffectValue>, index: number, stat: string
     }
 }
 
-function setValueToUpgrade(values: Array<AbstractEffectValue>, index: number, upgrade: number) {
-    const value = values[index]
-
-    if (value && (isEffectValueVariable(value) || isEffectValueSynergy(value))) {
-        value.baseUpgrade = value.baseValue;
-        value.baseValue = 0;
-        value.upgrade = value.baseUpgrade;
-        value.value = value.baseValue;
-    } else {
-        throw new Error('failed to change upgrade for effect value at index ' + index);
-    }
-}
-
 function addConstant(values: Array<AbstractEffectValue>, value: number, percent: boolean, valueType: EffectValueValueType, stat: string | null = null) {
     values.push(effectValueConstant(value, percent, stat, valueType))
-}
-
-function synergyMultiply100(values: Array<AbstractEffectValue>, index: number) {
-    const value = values[index];
-
-    if (value && (isEffectValueVariable(value) || isEffectValueSynergy(value))) {
-        value.baseValue = value.upgrade * 100;
-        value.upgrade = 0;
-    } else {
-        throw new Error('failed to change value for effect value at index ' + index);
-    }
 }
 
 function setSource(values: Array<AbstractEffectValue>, index: number, source: string) {
@@ -50,6 +26,16 @@ function setSource(values: Array<AbstractEffectValue>, index: number, source: st
         value.source = source;
     } else {
         throw new Error('failed to update source at index ' + index);
+    }
+}
+
+function allowSynergyToCascade(values: Array<AbstractEffectValue>, index: number) {
+    const value = values[index]
+
+    if (value && isEffectValueSynergy(value)) {
+        value.cascadeSynergy = true;
+    } else {
+        throw new Error('failed to change synergy cascade at index ' + index);
     }
 }
 
@@ -426,10 +412,29 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
             setStat(values, 0, 'elemental_damage_percent_per_active_aura');
         }
     },
-    114: {
+    108: {
         override: values => {
-            synergyMultiply100(values, 0);
-            setValueToUpgrade(values, 0, 100);
+            allowSynergyToCascade(values, 0)
+        }
+    },
+    109: {
+        override: values => {
+            allowSynergyToCascade(values, 0)
+        }
+    },
+    110: {
+        override: values => {
+            allowSynergyToCascade(values, 0)
+        }
+    },
+    111: {
+        override: values => {
+            allowSynergyToCascade(values, 0)
+        }
+    },
+    112: {
+        override: values => {
+            allowSynergyToCascade(values, 0)
         }
     }
 }

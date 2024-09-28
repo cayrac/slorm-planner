@@ -2,12 +2,11 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { BuildStorageService } from '@shared/services/build-storage.service';
-import { MessageService } from '@shared/services/message.service';
 import {
-  CharacterSkillAndUpgrades,
-  SkillType,
-  SlormancerCharacterModifierService,
-  SlormancerSkillService,
+    CharacterSkillAndUpgrades,
+    SkillType,
+    SlormancerCharacterModifierService,
+    SlormancerSkillService,
 } from '@slorm-api';
 
 
@@ -25,7 +24,6 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
     private menu: MatMenuTrigger | null = null;
 
     constructor(private buildStorageService: BuildStorageService,
-                private messageService: MessageService,
                 private slormancerSkillService: SlormancerSkillService,
                 private slormancerCharacterModifierService: SlormancerCharacterModifierService
                 ) {
@@ -57,8 +55,6 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
             }
 
             this.buildStorageService.saveLayer();
-
-            this.messageService.message('Skill and upgrades set to max rank for <img src="assets/img/icon/' + skill.skill.icon + '.png"/> ' + skill.skill.name);
         }
     }
 
@@ -66,7 +62,6 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
         const layer = this.buildStorageService.getLayer();
         if (layer !== null) {
             if (this.slormancerCharacterModifierService.setSupportSkill(layer.character, skill.skill)) {
-                this.messageService.message('Skill equipped as support : <img src="assets/img/icon/' + skill.skill.icon + '.png"/> ' + skill.skill.name);
                 this.buildStorageService.saveLayer();
             }
         }
@@ -76,7 +71,6 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
         const layer = this.buildStorageService.getLayer();
         if (layer !== null) {
             if (this.slormancerCharacterModifierService.setPrimarySkill(layer.character, skill.skill)) {
-                this.messageService.message('Skill equipped as primary : <img src="assets/img/icon/' + skill.skill.icon + '.png"/> ' + skill.skill.name);
                 this.buildStorageService.saveLayer();
             }
         }
@@ -86,7 +80,6 @@ export class SettingsSkillsComponent extends AbstractUnsubscribeComponent implem
         const layer = this.buildStorageService.getLayer();
         if (layer !== null) {
             if (this.slormancerCharacterModifierService.setSecondarySkill(layer.character, skill.skill)) {
-                this.messageService.message('Skill equipped as secondary : <img src="assets/img/icon/' + skill.skill.icon + '.png"/> ' + skill.skill.name);
                 this.buildStorageService.saveLayer();
             }
         }

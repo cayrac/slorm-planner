@@ -23,7 +23,6 @@ import { Activable, AncestralLegacy, AncestralLegacyType, GameHeroesData, MinMax
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
 import { CharacterConfig } from '../../model/character-config';
 import { SynergyResolveData } from '../../model/content/character-stats';
-import { ClassMechanic } from '../../model/content/class-mechanic';
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { ALL_ATTRIBUTES } from '../../model/content/enum/attribute';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
@@ -46,6 +45,7 @@ import { add, round } from '../../util';
 import { effectValueSynergy } from '../../util/effect-value.util';
 import { synergyResolveData } from '../../util/synergy-resolver.util';
 import { isDamageType, isEffectValueSynergy, isNotNullOrUndefined, minAndMax, valueOrDefault } from '../../util/utils';
+import { SlormancerClassMechanicService } from './slormancer-class-mechanic.service';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerMergedStatUpdaterService } from './slormancer-merged-stat-updater.service';
 import { SlormancerReaperService } from './slormancer-reaper.service';
@@ -75,7 +75,8 @@ export class SlormancerStatsExtractorService {
                 private slormancerMergedStatUpdaterService: SlormancerMergedStatUpdaterService,
                 private slormancerDataService: SlormancerDataService,
                 private slormancerReaperService: SlormancerReaperService,
-                private slormancerSkillService: SlormancerSkillService
+                private slormancerSkillService: SlormancerSkillService,
+                private slormancerClassMechanicService: SlormancerClassMechanicService,
         ) { }
 
     private getSynergyStatsItWillUpdate(stat: string, mergedStatMapping: Array<MergedStatMapping>, config: CharacterConfig, stats: ExtractedStatMap): Array<{ stat: string, mapping?: MergedStatMapping }> {
@@ -287,7 +288,8 @@ export class SlormancerStatsExtractorService {
         }
     }
 
-    private addClassMechanicValues(classMechanics: Array<ClassMechanic>, stats: ExtractedStats) {
+    private addClassMechanicValues(heroClass: HeroClass, stats: ExtractedStats) {
+        const classMechanics = this.slormancerClassMechanicService.getClassMechanics(heroClass);
         for (const classMechanic of classMechanics) {
             stats.isolatedSynergies.push(...classMechanic.values.filter(isEffectValueSynergy)
                 .map(synergy => synergyResolveData(synergy, synergy.displaySynergy, { classMechanic })));
@@ -431,8 +433,6 @@ export class SlormancerStatsExtractorService {
                 }
 
             }
-
-            console.log(totalDamage);
 
             this.addStat(stats.stats, 'legion_level_all', totalLevel, { synergy: 'Total level of legion reapers' });
             this.addStat(stats.stats, 'legion_reaper_dmg', round((totalDamage.min + totalDamage.max) / 2, 0), { synergy: 'Total damage of legion reapers' });
@@ -596,7 +596,6 @@ export class SlormancerStatsExtractorService {
                 }
 
                 this.addMechanicValues(upgrade.relatedMechanics, stats);
-                this.addClassMechanicValues(upgrade.relatedClassMechanics, stats);
 
                 if (upgradeActive && upgrade.relatedClassMechanics.some(classMechanic => classMechanic.id === 211)) {
                     poisonUpgrades++;
@@ -837,6 +836,7 @@ export class SlormancerStatsExtractorService {
         this.addActivableValues(character, result, mergedStatMapping, config);
         this.addDefaultSynergies(character, config, result, mergedStatMapping);
         this.addDynamicValues(character, config, result);
+        this.addClassMechanicValues(character.heroClass, result)
         
         return result;
     }
@@ -897,6 +897,7 @@ export class SlormancerStatsExtractorService {
 
         this.addSkillValues(skillAndUpgrades, result, mergedStatMapping, config);
         this.addUpgradeValues(skillAndUpgrades, result, mergedStatMapping, config);
+        this.addClassMechanicValues(skillAndUpgrades.skill.heroClass, result);
 
         result.stats['skill_elements'] = skillAndUpgrades.skill.elements.map(element => ({ value: element, source: { skill: skillAndUpgrades.skill } }));
         

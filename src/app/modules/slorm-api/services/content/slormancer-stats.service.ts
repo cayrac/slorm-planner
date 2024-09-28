@@ -13,7 +13,6 @@ import { Activable } from '../../model/content/activable';
 import { AncestralLegacy } from '../../model/content/ancestral-legacy';
 import { AttributeTraits } from '../../model/content/attribute-traits';
 import { MergedStat, SynergyResolveData } from '../../model/content/character-stats';
-import { ClassMechanic } from '../../model/content/class-mechanic';
 import { HeroClass } from '../../model/content/enum/hero-class';
 import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { EquipableItem } from '../../model/content/equipable-item';
@@ -45,7 +44,6 @@ export interface CharacterStatsBuildResult {
         attributes: Array<AttributeTraits>;
         activables: Array<Activable>;
         mechanics: Array<Mechanic>;
-        classMechanic: Array<ClassMechanic>;
         runes: Array<Rune>;
     }
 }
@@ -117,7 +115,6 @@ export class SlormancerStatsService {
                 attributes: [],
                 activables: [],
                 mechanics: [],
-                classMechanic: [],
                 runes: [],
             }
         }
@@ -162,8 +159,6 @@ export class SlormancerStatsService {
                     result.changed.activables.push(synergy.objectSource.activable);
                 } else if ('mechanic' in synergy.objectSource) {
                     result.changed.mechanics.push(synergy.objectSource.mechanic);
-                } else if ('classMechanic' in synergy.objectSource) {
-                    result.changed.classMechanic.push(synergy.objectSource.classMechanic);
                 } else if ('rune' in synergy.objectSource) {
                     result.changed.runes.push(synergy.objectSource.rune);
                 }

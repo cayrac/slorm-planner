@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { CraftableEffect } from '../model/content/craftable-effect';
 import {
     AbstractEffectValue,
@@ -169,7 +170,13 @@ export function isDamageType(stat: string): boolean {
         || stat === 'basic_damage'
         || stat === 'weapon_damage'
         || stat === 'bleed_damage'
-        || stat === 'damage';
+        || stat === 'damage'
+        || stat === 'astral_retribution_damage'
+        || stat === 'astral_meteor_damage'
+        || stat === 'ravenous_dagger_damage'
+        || stat === 'trap_damage'
+        || stat === 'poison_damage'
+    ;
 }
 
 /**
@@ -196,4 +203,10 @@ export function compareVersions(a: string, b: string): number {
 
 export function minAndMax(min: number, value: number, max: number): number {
     return Math.max(Math.min(max, value), min);
+}
+
+export function warnIfEqual(a: any, b: any, ...message: any[]) {
+    if (a === b && environment.debug) {
+        console.warn(...message);
+    }
 }

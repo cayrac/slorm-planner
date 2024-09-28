@@ -3,7 +3,7 @@ import { EffectValueUpgradeType } from '../../../model/content/enum/effect-value
 import { EffectValueValueType } from '../../../model/content/enum/effect-value-value-type';
 import { ReaperEffect } from '../../../model/content/reaper-effect';
 import { effectValueConstant, effectValueSynergy, effectValueVariable } from '../../../util/effect-value.util';
-import { isEffectValueConstant, isEffectValueSynergy, isEffectValueVariable, valueOrNull } from '../../../util/utils';
+import { isEffectValueConstant, isEffectValueSynergy, isEffectValueVariable, valueOrNull, warnIfEqual } from '../../../util/utils';
 import { BASE_MOVEMENT_SPEED } from '../../common';
 
 function overrideValueTypeAndStat(effect: ReaperEffect | null, index: number, valueType: EffectValueValueType, stat: string | null = null) {
@@ -11,8 +11,10 @@ function overrideValueTypeAndStat(effect: ReaperEffect | null, index: number, va
     const value = effect !== null ? valueOrNull(effect.values[index]) : null;
 
     if (value !== null) {
+        warnIfEqual(value.valueType, valueType, 'reaper overrideValueTypeAndStat at index ' + index + ' did not changed anthing', effect);
         value.valueType = valueType;
         if (stat !== null) {
+            warnIfEqual(value.stat, stat, 'reaper overrideValueTypeAndStat at index ' + index + ' did not changed anthing', effect);
             value.stat = stat;
         }
     } else {
@@ -25,6 +27,7 @@ function overrideSynergySource(effect: ReaperEffect | null, index: number, sourc
     const value = effect !== null ? valueOrNull(effect.values[index]) : null;
 
     if (value !== null && isEffectValueSynergy(value)) {
+        warnIfEqual(value.source, source, 'reaper overrideSynergySource at index ' + index + ' did not changed anthing', effect);
         value.source = source;
     } else {
         throw new Error('failed to override synergy source at index ' + index + ' with : ' + source);
@@ -36,6 +39,7 @@ function overrideSynergyPercent(effect: ReaperEffect | null, index: number, perc
     const value = effect !== null ? valueOrNull(effect.values[index]) : null;
 
     if (value !== null && isEffectValueSynergy(value)) {
+        warnIfEqual(value.percent, percent, 'reaper overrideSynergyPercent at index ' + index + ' did not changed anthing', effect);
         value.percent = percent;
     } else {
         throw new Error('failed to override synergy percent at index ' + index + ' with : ' + percent);
@@ -59,6 +63,7 @@ function nullifySynergyUpgrade(effect: ReaperEffect | null, index: number) {
     const value = effect !== null ? valueOrNull(effect.values[index]) : null;
 
     if (value !== null && isEffectValueSynergy(value)) {
+        warnIfEqual(value.upgrade, 0, 'reaper nullifySynergyUpgrade at index ' + index + ' did not changed anthing', effect);
         value.upgrade = 0;
     } else {
         throw new Error('failed to negate effect value at index ' + index);
@@ -71,6 +76,7 @@ function copySynergyUpgradeFrom(effect: ReaperEffect | null, index: number, inde
     const valueSource = effect !== null ? valueOrNull(effect.values[indexSource]) : null;
 
     if (value !== null && valueSource !== null && isEffectValueSynergy(value) && isEffectValueVariable(valueSource)) {
+        warnIfEqual(value.upgrade, valueSource.upgrade, 'reaper copySynergyUpgradeFrom at index ' + index + ' did not changed anthing', effect);
         value.upgrade = valueSource.upgrade;
     } else {
         throw new Error('failed to copy synergy upgrade from variable at index ' + index);
@@ -82,6 +88,7 @@ function changeValue(effect: ReaperEffect | null, index: number, newValue: numbe
     const value = effect !== null ? valueOrNull(effect.values[index]) : null;
 
     if (value !== null && (isEffectValueVariable(value) || isEffectValueSynergy(value))) {
+        warnIfEqual(value.baseValue, newValue, 'reaper copySynergyUpgradeFrom at index ' + index + ' did not changed anthing', effect);
         value.baseValue = newValue;
     } else {
         throw new Error('failed to change value for effect value at index ' + index);
@@ -170,6 +177,7 @@ function setSynergyAllowMinMax(effect: ReaperEffect | null, index: number, allow
         const value = effect.values[index];
     
         if (value && isEffectValueSynergy(value)) {
+            warnIfEqual(value.allowMinMax, allowMinMax, 'reaper setSynergyAllowMinMax at index ' + index + ' did not changed anthing', effect);
             value.allowMinMax = allowMinMax;
         } else {
             throw new Error('failed to update allowMinMax at index ' + index);
@@ -184,6 +192,7 @@ function setSynergyDetailOnSynergy(effect: ReaperEffect | null, index: number, d
         const value = effect.values[index];
     
         if (value && isEffectValueSynergy(value)) {
+            warnIfEqual(value.detailOnSynergy, detailOnSynergy, 'reaper setSynergyDetailOnSynergy at index ' + index + ' did not changed anthing', effect);
             value.detailOnSynergy = detailOnSynergy;
         } else {
             throw new Error('failed to update detailOnSynergy at index ' + index);
@@ -198,6 +207,7 @@ function setSynergyPrecision(effect: ReaperEffect | null, index: number, precisi
         const value = effect.values[index];
     
         if (value && isEffectValueSynergy(value)) {
+            warnIfEqual(value.precision, precision, 'reaper setSynergyPrecision at index ' + index + ' did not changed anthing', effect);
             value.precision = precision;
         } else {
             throw new Error('failed to update precision at index ' + index);
@@ -212,6 +222,7 @@ function allowSynergyToCascade(effect: ReaperEffect | null, index: number) {
         const value = effect.values[index];
     
         if (value && isEffectValueSynergy(value)) {
+            warnIfEqual(value.cascadeSynergy, true, 'reaper allowSynergyToCascade at index ' + index + ' did not changed anthing', effect);
             value.cascadeSynergy = true;
         } else {
             throw new Error('failed to change synergy cascade at index ' + index);

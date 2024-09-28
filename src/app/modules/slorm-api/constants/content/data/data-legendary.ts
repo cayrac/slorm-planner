@@ -2,13 +2,14 @@ import { DataLegendary } from '../../../model/content/data/data-legendary';
 import { EffectValueValueType } from '../../../model/content/enum/effect-value-value-type';
 import { LegendaryEffect } from '../../../model/content/legendary-effect';
 import { effectValueConstant } from '../../../util/effect-value.util';
-import { isEffectValueSynergy } from '../../../util/utils';
+import { isEffectValueSynergy, warnIfEqual } from '../../../util/utils';
 
 
 function setStat(effect: LegendaryEffect, index: number, stat: string) {
     const value = effect.effects[index]
 
     if (value) {
+        warnIfEqual(value.effect.stat, stat, 'legendary setStat at index ' + index + ' did not changed anthing', effect);
         value.effect.stat = stat;
     } else {
         throw new Error('failed to update stat for legendary effect at index ' + index);
@@ -29,6 +30,7 @@ function synergySetAllowMinMax(effect: LegendaryEffect, index: number, allowMinM
     const value = effect.effects[index]
 
     if (value && isEffectValueSynergy(value.effect)) {
+        warnIfEqual(value.effect.allowMinMax, allowMinMaw, 'legendary synergySetAllowMinMax at index ' + index + ' did not changed anthing', effect);
         value.effect.allowMinMax = allowMinMaw;
     } else {
         throw new Error('failed to update allow min max at index ' + index);
@@ -183,7 +185,6 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     38: {
         override: (effect) => {
             setStat(effect, 0, 'slorm_reaper_copy_chance');
-            setStat(effect, 1, 'physical_damage');
         }
     },
     39: {

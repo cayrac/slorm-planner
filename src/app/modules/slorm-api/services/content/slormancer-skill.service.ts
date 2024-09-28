@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { DATA_SLORM_COST } from '../../constants/content/data/data-slorm-cost';
+import { Character } from '../../model';
 import { Buff } from '../../model/content/buff';
 import { ClassMechanic } from '../../model/content/class-mechanic';
 import { DataSkill } from '../../model/content/data/data-skill';
@@ -34,8 +36,6 @@ import { SlormancerEffectValueService } from './slormancer-effect-value.service'
 import { SlormancerMechanicService } from './slormancer-mechanic.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 import { SlormancerTranslateService } from './slormancer-translate.service';
-import { DATA_SLORM_COST } from '../../constants/content/data/data-slorm-cost';
-import { Character } from '../../model';
 
 @Injectable()
 export class SlormancerSkillService {
@@ -328,13 +328,6 @@ export class SlormancerSkillService {
         skill.levelIcon = 'level/' + Math.max(1, skill.baseLevel);
     }
 
-    public getClassMechanicClone(mechanic: ClassMechanic): ClassMechanic {
-        return {
-            ...mechanic,
-            values: mechanic.values.map(value => this.slormancerEffectValueService.getEffectValueClone(value))
-        };
-    }
-
     public getMechanicClone(mechanic: Mechanic): Mechanic {
         return { ...mechanic };
     }
@@ -349,7 +342,7 @@ export class SlormancerSkillService {
             genres: [...upgrade.genres],
             damageTypes: [...upgrade.damageTypes],
 
-            relatedClassMechanics: upgrade.relatedClassMechanics.map(mechanic => this.slormancerClassMechanicService.getClassMechanicClone(mechanic)),
+            relatedClassMechanics: [ ...upgrade.relatedClassMechanics ],
             relatedMechanics: upgrade.relatedMechanics.map(mechanic => this.slormancerMechanicService.getMechanicClone(mechanic)),
             relatedBuffs: upgrade.relatedBuffs.map(buff => this.getBuffClone(buff)),
         
@@ -404,7 +397,7 @@ export class SlormancerSkillService {
                 genresLabel: null,
                 costLabel: null,
 
-                relatedClassMechanics: dataSkill === null || dataSkill.additionalClassMechanics === undefined ? [] : this.extractSkillMechanics(gameDataSkill.EN_DESCRIPTION, heroClass, dataSkill.additionalClassMechanics),
+                relatedClassMechanics: this.extractSkillMechanics(gameDataSkill.EN_DESCRIPTION, heroClass, dataSkill === null || dataSkill.additionalClassMechanics === undefined ? [] : dataSkill.additionalClassMechanics, gameDataSkill.REF),
                 relatedMechanics: [],
                 relatedBuffs: this.extractBuffs(gameDataSkill.EN_DESCRIPTION),
             
@@ -432,9 +425,14 @@ export class SlormancerSkillService {
             .filter(isNotNullOrUndefined);
     }
     
-    private extractSkillMechanics(template: string, heroClass: HeroClass, additionalSkillMechanics: Array<number>): Array<ClassMechanic> {
+    private extractSkillMechanics(template: string, heroClass: HeroClass, additionalSkillMechanics: Array<number>, id: number): Array<ClassMechanic> {
         const ids = valueOrDefault<string[]>(template.match(/<(.*?)>/g), [])
             .map(m => this.slormancerDataService.getDataSkillClassMechanicIdByName(heroClass, m));
+
+        if (ids.some(id => id !== null && additionalSkillMechanics.includes(id))) {
+            console.warn('useless added class mechanics for ' + id + ' : ', template, ids, additionalSkillMechanics);
+        }
+
         return [ ...ids, ...additionalSkillMechanics ]
             .filter(isNotNullOrUndefined)
             .filter(isFirst)
@@ -451,6 +449,10 @@ export class SlormancerSkillService {
         const synergyMechanics = values
             .filter(isEffectValueSynergy)
             .map(value => this.slormancerDataService.getDataAttributeMechanic(value.source))
+
+        if ([...attributeMechanics, ...synergyMechanics, ...templateMechanics].some(mechanic => mechanic !== null && additional.includes(mechanic))) {
+            console.warn('Useless additional mechanic found for ', template, additional);
+        }
 
         return [ ...attributeMechanics, ...synergyMechanics, ...templateMechanics, ...additional ]
             .filter(isNotNullOrUndefined)

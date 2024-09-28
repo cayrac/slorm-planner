@@ -12,12 +12,13 @@ import { SkillCostType } from '../../../model/content/enum/skill-cost-type';
 import { SkillGenre } from '../../../model/content/enum/skill-genre';
 import { GameHeroesData } from '../../../model/parser/game/game-save';
 import { effectValueConstant, effectValueSynergy } from '../../../util/effect-value.util';
-import { isEffectValueSynergy, isEffectValueVariable } from '../../../util/utils';
+import { isEffectValueSynergy, isEffectValueVariable, warnIfEqual } from '../../../util/utils';
 
 function setUpgrade(values: Array<AbstractEffectValue>, index: number, upgrade: number) {
     const value = <EffectValueVariable | EffectValueSynergy>values[index];
 
     if (value && typeof value.upgrade === 'number') {
+        warnIfEqual(value.upgrade, upgrade, 'skill setUpgrade at index ' + index + ' did not changed anthing', values);
         value.upgrade = upgrade;
     } else {
         throw new Error('failed to update upgrade at index ' + index);
@@ -28,7 +29,9 @@ function setValue(values: Array<AbstractEffectValue>, index: number, newValue: n
     const value = <EffectValueVariable | EffectValueConstant>values[index];
 
     if (value && typeof value.value === 'number') {
+        warnIfEqual(value.value, newValue, 'skill setValue at index ' + index + ' did not changed anthing', values);
         value.value = newValue;
+        warnIfEqual(value.baseValue, newValue, 'skill setValue at index ' + index + ' did not changed anthing', values);
         value.baseValue = newValue;
     } else {
         throw new Error('failed to update value at index ' + index);
@@ -39,8 +42,7 @@ function setStat(values: Array<AbstractEffectValue>, index: number, stat: string
     const value = <EffectValueVariable | EffectValueConstant | EffectValueSynergy>values[index];
 
     if (value) {
-        if (stat === 'skill_increased_damage_mult' && 'source' in value && value.source === 'the_speed_percent') {
-        }
+        warnIfEqual(value.stat, stat, 'skill setStat at index ' + index + ' did not changed anthing', values);
         value.stat = stat;
     } else {
         throw new Error('failed to update stat at index ' + index);
@@ -51,6 +53,7 @@ function setSynergyPrecision(values: Array<AbstractEffectValue>, index: number, 
     const value = values[index];
 
     if (value && isEffectValueSynergy(value)) {
+        warnIfEqual(value.precision, precision, 'skill setSynergyPrecision at index ' + index + ' did not changed anthing', values);
         value.precision = precision;
     } else {
         throw new Error('failed to update precision at index ' + index);
@@ -61,6 +64,7 @@ function setSynergyAllowMinMax(values: Array<AbstractEffectValue>, index: number
     const value = values[index];
 
     if (value && isEffectValueSynergy(value)) {
+        warnIfEqual(value.allowMinMax, allowMinMax, 'skill setSynergyAllowMinMax at index ' + index + ' did not changed anthing', values);
         value.allowMinMax = allowMinMax;
     } else {
         throw new Error('failed to update allowMinMax at index ' + index);
@@ -71,6 +75,7 @@ function setSource(values: Array<AbstractEffectValue>, index: number, source: st
     const value = <AbstractEffectValue>values[index];
 
     if (isEffectValueSynergy(value)) {
+        warnIfEqual(value.source, source, 'skill setSource at index ' + index + ' did not changed anthing', values);
         value.source = source;
     } else {
         throw new Error('failed to update source at index ' + index);
@@ -85,6 +90,7 @@ function setValueType(values: Array<AbstractEffectValue>, index: number, valueTy
     const value = <EffectValueVariable | EffectValueConstant>values[index];
 
     if (value) {
+        warnIfEqual(value.valueType, valueType, 'skill setValueType at index ' + index + ' did not changed anthing', values);
         value.valueType = valueType;
     } else {
         throw new Error('failed to set an effect value type at index ' + index);
@@ -1769,7 +1775,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: null,
         override: values => {
             setStat(values, 0, 'physical_damage');
-            setUpgrade(values, 0, 8);
+            setUpgrade(values, 0, 6);
             addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'skill_radius');
             addConstant(values, 10, false, EffectValueValueType.Flat, 'increased_damage_mult_per_second');
         }
@@ -1808,10 +1814,11 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: null,
         override: values => {
             setStat(values, 0, 'physical_damage');
-            setUpgrade(values, 0, 7);
-            setStat(values, 1, 'instructions');
+            setUpgrade(values, 0, 5);
             setAsUpgrade(values, 1);
             setValue(values, 1, 2);
+            setStat(values, 2, 'physical_damage');
+            setUpgrade(values, 2, 4);
             addConstant(values, 4, false, EffectValueValueType.Upgrade, 'garbage_stat');
             addConstant(values, 50, false, EffectValueValueType.Upgrade, 'garbage_stat');
         },
@@ -1823,6 +1830,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
             setAsUpgrade(values, 0);
             setUpgrade(values, 0, 100);
             setStat(values, 0, 'increased_damage_mult');
+            allowSynergyToCascade(values, 0);
         }
     },
     12: {
@@ -1998,7 +2006,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     35: {
         masteryRequired: 6,
         override: values => { 
-            addConstant(values, -25, false, EffectValueValueType.Flat, 'aoe_increased_size_percent_mult');
+            addConstant(values, -25, false, EffectValueValueType.Flat, 'skill_aoe_increased_size_percent_mult');
             setStat(values, 0, 'additional_volleys');
             setAsUpgrade(values, 0);
             setAsUpgrade(values, 1);
@@ -2016,7 +2024,6 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
             setStat(values, 0, 'slow_on_hit_percent');
             setAsUpgrade(values, 0);
             addConstant(values, 5, false, EffectValueValueType.Upgrade, 'slow_on_hit_duration');
-            setAsUpgrade(values, 1);
         }
     },
     38: {
@@ -2093,8 +2100,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 3,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'garbage_stat');
-        },
-        additionalClassMechanics: [ 211 ]
+        }
     },
     48: {
         masteryRequired: 4,
@@ -2102,7 +2108,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'increased_damage_per_poison_upgrade');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [ 211 ]
     },
     49: {
         masteryRequired: 4,
@@ -2110,6 +2117,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'physical_damage');
             setAsUpgrade(values, 0);
+            allowSynergyToCascade(values, 0);
         }
     },
     50: {
@@ -2145,8 +2153,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'garbage_stat');
             setAsUpgrade(values, 0);
-        },
-        additionalClassMechanics: [ 211 ]
+        }
     },
     55: {
         masteryRequired: 8,
@@ -2230,13 +2237,12 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 5,
         override: values => {
             addConstant(values, 5, false, EffectValueValueType.Upgrade, 'poison_on_hit');
-        },
-        additionalClassMechanics: [ 211 ]
+        }
     },
     67: {
         masteryRequired: 5,
         override: values => {
-            setStat(values, 0, 'aoe_increased_size_percent_mult');
+            setStat(values, 0, 'skill_aoe_increased_size_percent_mult');
             setAsUpgrade(values, 0);
         }
     },
@@ -2267,8 +2273,9 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         line: 5,
         override: values => {
             setStat(values, 0, 'physical_damage');
-            addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'homing_bolt_aoe');
+            allowSynergyToCascade(values, 0);
             setAsUpgrade(values, 0);
+            addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'homing_bolt_aoe');
         }
     },
     72: {
@@ -2334,6 +2341,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         line: 2,
         override: values => {
             setStat(values, 0, 'elemental_damage');
+            allowSynergyToCascade(values, 0);
             addConstant(values, 0.5, false, EffectValueValueType.AreaOfEffect, 'shearing_winds_aoe');
         }
     },
@@ -2358,6 +2366,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         line: 3,
         override: values => {
             setStat(values, 0, 'elemental_damage');
+            allowSynergyToCascade(values, 0);
             addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'skill_explosion_aoe');
         }
     },
@@ -2365,7 +2374,9 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 5,
         line: 4,
         override: values => {
-            setAsUpgrade(values, 0);
+            setStat(values, 0, 'latent_storm_additional_damage');
+            //setAsUpgrade(values, 0);
+            allowSynergyToCascade(values, 0);
         }
     },
     85: {
@@ -2409,6 +2420,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'increased_damage_mult');
             synergyMultiply100(values, 0);
+            allowSynergyToCascade(values, 0);
             setAsUpgrade(values, 0);
         }
     },
@@ -2417,6 +2429,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'increased_damage_mult');
             synergyMultiply100(values, 0);
+            allowSynergyToCascade(values, 0);
             setAsUpgrade(values, 0);
         }
     },
@@ -2441,6 +2454,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         line: 3,
         override: values => {
             setStat(values, 0, 'elemental_damage');
+            allowSynergyToCascade(values, 0);
             setAsUpgrade(values, 0);
         }
     },
@@ -2464,6 +2478,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         line: 4,
         override: values => {
             setStat(values, 0, 'physical_damage');
+            allowSynergyToCascade(values, 0);
         }
     },
     98: {
@@ -2472,7 +2487,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => {
             addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
         },
-        additionalGenres: [ SkillGenre.AreaOfEffect ]
+        additionalGenres: [ SkillGenre.AreaOfEffect ],
+        additionalClassMechanics: [ 210 ]
     },
     99: {
         masteryRequired: 6,
@@ -2609,9 +2625,6 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     118: {
         masteryRequired: 1,
         override: values => {
-            setStat(values, 0, 'physical_damage');
-            setAsUpgrade(values, 0);
-            addConstant(values, 4, false, EffectValueValueType.AreaOfEffect, 'wandering_arrow_range');
         }
     },
     119: {
@@ -2657,6 +2670,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         line: 2,
         override: values => {
             setStat(values, 0, 'physical_damage');
+            allowSynergyToCascade(values, 0);
             setAsUpgrade(values, 0);
         }
     },
@@ -2712,6 +2726,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => {
             setAsUpgrade(values, 0);
             setStat(values, 1, 'physical_damage');
+            allowSynergyToCascade(values, 1);
             setAsUpgrade(values, 1);
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'impatient_arrow_stack_per_second');
             addConstant(values, 5, false, EffectValueValueType.Upgrade, 'impatient_arrow_stack_shockwave_chance');
@@ -2754,8 +2769,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 3,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'garbage_stat');
-        },
-        additionalClassMechanics: [ 211 ]
+        }
     },
     141: {
         masteryRequired: 3,
@@ -2788,8 +2802,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 5,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'garbage_stat');
-        },
-        additionalClassMechanics: [ 211 ]
+        }
     },
     147: {
         masteryRequired: 5,
@@ -2810,7 +2823,10 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         }
     },
     150: {
-        masteryRequired: 6
+        masteryRequired: 6,
+        override: values => { 
+            allowSynergyToCascade(values, 0);
+        }
     },
     151: {
         masteryRequired: 6,
@@ -2894,8 +2910,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 3,
         override: values => { 
             setStat(values, 0, 'poisoned_enemy_increased_damage');
-        },
-        additionalClassMechanics: [ 211 ]
+        }
     },
     166: {
         masteryRequired: 3,
@@ -3065,8 +3080,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => { 
             setStat(values, 0, 'poison_increased_damage_per_poisoned_enemy');
             addConstant(values, 5, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
-        },
-        additionalClassMechanics: [ 211 ]
+        }
     },
     198: {
         masteryRequired: 5,
@@ -3096,8 +3110,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'garbage_stat');
         },
-        additionalMechanics: [MechanicType.InnerFire],
-        additionalClassMechanics: [ 211 ]
+        additionalMechanics: [MechanicType.InnerFire]
     },
     203: {
         masteryRequired: 7
@@ -3106,15 +3119,13 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 7,
         override: values => {
             setStat(values, 0, 'poison_increased_damage');
-        },
-        additionalClassMechanics: [ 211 ]
+        }
     },
     205: {
         masteryRequired: 8,
         override: values => {
             setStat(values, 0, 'garbage_stat');
-        },
-        additionalClassMechanics: [ 211 ]
+        }
     },
     206: {
         masteryRequired: 8,
@@ -3126,6 +3137,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 8,
         override: values => {
             setStat(values, 0, 'cooldown_time_reduction_multiplier');
+            setAsUpgrade(values, 0);
         }
     },
     218: {
@@ -3136,7 +3148,10 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     },
     219: {
         masteryRequired: 8,
-        line: 5
+        line: 5,
+        override: values => {
+            addConstant(values, 10, false, EffectValueValueType.Upgrade, 'garbage_stat');
+        }
     },
     220: {
         masteryRequired: 7,

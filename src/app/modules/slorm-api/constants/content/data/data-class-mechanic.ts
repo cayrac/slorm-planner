@@ -30,9 +30,9 @@ export const DATA_CLASS_MECHANIC: GameHeroesData<{ [key: number]:  DataClassMech
         },
         217: {
             values: [
-                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'astral_retribution_damage', 'weapon_damage', EffectValueValueType.Stat, undefined, 3),
+                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'astral_retribution_damage', EffectValueValueType.Stat, undefined, 3, undefined, undefined, undefined, true),
                 effectValueConstant(ASTRAL_RETRIBUTION_DAMAGE_PERCENT, false, 'garbage_stat', EffectValueValueType.Stat),
-                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'astral_meteor_damage', 'skill_damage', EffectValueValueType.Stat, undefined, 3),
+                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'skill_damage', 'astral_meteor_damage', EffectValueValueType.Stat, undefined, 3, undefined, undefined, undefined, true),
                 effectValueConstant(ASTRAL_METEOR_DAMAGE_PERCENT, false, 'garbage_stat', EffectValueValueType.Stat),
                 effectValueConstant(ASTRAL_METEOR_AOE, false, 'astral_meteor_aoe', EffectValueValueType.AreaOfEffect),
             ]
@@ -46,25 +46,25 @@ export const DATA_CLASS_MECHANIC: GameHeroesData<{ [key: number]:  DataClassMech
     [HeroClass.Huntress]: {
         209: {
             values: [
-                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'ravenous_dagger_damage', 'physical_damage', EffectValueValueType.Stat, undefined, 3),
+                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'ravenous_dagger_damage', EffectValueValueType.Stat, undefined, 3, undefined, undefined, undefined, true),
                 effectValueConstant(RAVENOUS_DAGGER_DAMAGE_PERCENT, false, 'garbage_stat', EffectValueValueType.Stat),
             ],
             genres: [ SkillGenre.AreaOfEffect ]
         },
         210: {
             values: [
-                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'trap_damage', 'physical_damage', EffectValueValueType.Stat, undefined, 3),
+                effectValueSynergy(TRAP_DAMAGE_PERCENT, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'trap_damage', EffectValueValueType.Stat, undefined, 3, undefined, undefined, undefined, true),
                 effectValueConstant(TRAP_DAMAGE_PERCENT, false, 'garbage_stat', EffectValueValueType.Stat),
                 effectValueConstant(TRAP_AOE, false, 'trap_aoe', EffectValueValueType.AreaOfEffect),
                 effectValueConstant(TRAP_STUN_DURATION, false, 'trap_stun_duration', EffectValueValueType.Duration),
-                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'trap_arm_time', 'arm_time', EffectValueValueType.Stat, undefined, 3),
+                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'trap_arm_time', 'garbage_stat', EffectValueValueType.Stat, undefined, 3, false),
             ],
             genres: [ SkillGenre.AreaOfEffect ],
             templateOverride: template => template.replace('£', '$')
         },
         211: {
             values: [
-                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'poison_damage', 'physical_damage', EffectValueValueType.Stat, undefined, 3),
+                effectValueSynergy(POISON_DAMAGE_PERCENT, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'poison_damage', EffectValueValueType.Stat, undefined, 3, undefined, undefined, undefined, true),
                 effectValueConstant(POISON_DAMAGE_PERCENT, false, 'garbage_stat', EffectValueValueType.Stat),
                 effectValueConstant(POISON_DURATION, false, 'duration', EffectValueValueType.Stat),
             ],
@@ -85,7 +85,7 @@ export const DATA_CLASS_MECHANIC: GameHeroesData<{ [key: number]:  DataClassMech
         },
         216: {
             values: [                
-                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'arcane_bond_damage', 'garbage_stat', EffectValueValueType.Stat, undefined, 3),
+                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'arcane_bond_damage', 'garbage_stat', EffectValueValueType.Stat, undefined, 3, undefined, undefined, undefined, true),
                 effectValueConstant(ARCANE_BOND_DAMAGE_FROM_MANA_SPENT, false, 'garbage_stat', EffectValueValueType.Stat),
                 effectValueConstant(ARCANE_BOND_DAMAGE_FROM_MAX_MANA, false, 'garbage_stat', EffectValueValueType.Stat),
                 effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'arcane_bond_duration', 'duration', EffectValueValueType.Stat, undefined, 3),
@@ -94,7 +94,7 @@ export const DATA_CLASS_MECHANIC: GameHeroesData<{ [key: number]:  DataClassMech
         },
         217: {
             values: [
-                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'remnant_decreased_damage', 'garbage_stat', EffectValueValueType.Stat, undefined, 3),
+                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'remnant_decreased_damage', 'garbage_stat', EffectValueValueType.Stat, undefined, 3, undefined, undefined, undefined, true),
             ]
         },
         218: {

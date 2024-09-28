@@ -244,7 +244,6 @@ export const COOLDOWN_REDUCTION_MAPPING: MergedStatMapping =
         maxPercent: [],
         multiplier: [
             { stat: 'cooldown_reduction_global_mult' },
-            // this is a bug, it should increase attack speed instead
             { stat: 'delightful_rain_stack_cooldown_reduction_global_mult', condition: config => config.delightful_rain_stacks > 0, duplicate: (config, stats) => minAndMax(0, config.delightful_rain_stacks, getMaxStacks(stats, 'delightful_rain_max_stacks'))  },
             // this is a bug, it should increase attack speed instead
             { stat: 'exhilerating_senses_stack_attack_speed_global_mult', condition: config => config.exhilerating_senses_stacks > 0, multiplier: config => config.exhilerating_senses_stacks },
@@ -326,7 +325,7 @@ export const COOLDOWN_MAPPING: MergedStatMapping = {
         percent: [],
         maxPercent: [],
         multiplier: [
-            { stat: 'turret_syndrome_reduced_cooldown_per_serenity', condition: (config, stats) => config.serenity > 0 && getFirstStat(stats, 'skill_id') === 0, multiplier: config => - minAndMax(0, config.serenity, DELIGHTED_VALUE) },
+            //{ stat: 'turret_syndrome_reduced_cooldown_per_serenity', condition: (config, stats) => config.serenity > 0 && getFirstStat(stats, 'skill_id') === 0, multiplier: config => - minAndMax(0, config.serenity, DELIGHTED_VALUE) },
             { stat: 'cooldown_time_multiplier'},
             { stat: 'cooldown_time_reduction_multiplier', multiplier: () => -1 },
             { stat: 'cooldown_time_multiplier_if_tormented', condition: config => config.serenity <= 0 },
@@ -381,7 +380,7 @@ export const SKILL_AOE_INCREASED_SIZE_MAPPING: MergedStatMapping = {
         percent: [],
         maxPercent: [],
         multiplier: [
-            { stat: 'aoe_increased_size_percent_mult' },
+            { stat: 'skill_aoe_increased_size_percent_mult' },
             {
                 stat: 'suport_streak_increased_aoe',
                 condition: (config, stats) => hasStat(stats, 'skill_is_equipped_support'),

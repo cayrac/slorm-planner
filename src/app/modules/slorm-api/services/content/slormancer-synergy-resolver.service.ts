@@ -76,9 +76,8 @@ export class SlormancerSynergyResolverService {
         });
     }
 
-    private statHasNoDependency(resolveData: SynergyResolveData | ExternalSynergyResolveData, resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>, debug = false): boolean {
-        return resolveDatas
-            .find(s => s.statsItWillUpdate.find(statItWillUpdate => {
+    private sourceHasNoDependency(resolveData: SynergyResolveData | ExternalSynergyResolveData, resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>, debug = false): boolean {
+        return resolveDatas.find(s => s.statsItWillUpdate.find(statItWillUpdate => {
                 let found = false;
                 if (resolveData.type === ResolveDataType.Synergy) {
                     found = statItWillUpdate.stat === resolveData.effect.source;
@@ -89,9 +88,16 @@ export class SlormancerSynergyResolverService {
             }) !== undefined) === undefined
     }
 
+    private sourceWontBeChanged(sources: string[], cascading: boolean, resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>, debug = false): boolean {
+        // a non cascading synergy can ignore another non cascading synergy that modify it's source
+        return !resolveDatas
+            .filter(s => cascading || s.cascadeSynergy)
+            .some(s => s.statsItWillUpdate.find(statItWillUpdate => sources.some(source => statItWillUpdate.stat === source)));
+    }
+
     private takeNextSynergy(resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>): SynergyResolveData | ExternalSynergyResolveData | null {
         // Take the first synergy with no stat used by another synergy
-        let indexFound = resolveDatas.findIndex(resolveData => this.statHasNoDependency(resolveData, resolveDatas));
+        let indexFound = resolveDatas.findIndex(resolveData => this.sourceHasNoDependency(resolveData, resolveDatas));
 
         if (indexFound === -1) {
             // savagery 60 + infinite time and deep and space
@@ -109,6 +115,11 @@ export class SlormancerSynergyResolverService {
             }
         }
 
+        if (indexFound === -1) {
+            // take the first synergy that won't be changed by another synergy (experimental)
+            indexFound = resolveDatas.findIndex(resolveData => this.sourceWontBeChanged('sources' in resolveData ? resolveData.sources : [resolveData.effect.source], resolveData.cascadeSynergy, resolveDatas));
+        }
+
         // if all cascading synergies are resolved, take the first non cascading synergy
         if (indexFound === -1 && !resolveDatas.some(s => s.cascadeSynergy)) {
             indexFound = 0;
@@ -123,7 +134,7 @@ export class SlormancerSynergyResolverService {
         }
 
         if (result === null) {
-            resolveDatas.findIndex(resolveData => this.statHasNoDependency(resolveData, resolveDatas, true))
+            resolveDatas.findIndex(resolveData => this.sourceHasNoDependency(resolveData, resolveDatas, true))
         }
 
         return result;

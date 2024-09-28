@@ -16,6 +16,7 @@ export const DATA_SKILL_CLASS_MECHANIC_ID: GameHeroesData<{ [key: string]: numbe
         '<ravenous dagger>': 209,
         '<ravenous daggers>': 209,
         '<trap>': 210,
+        '<traps>': 210,
         '<tormented>': 212,
         '<delighted>': 213,
     },

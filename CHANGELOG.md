@@ -331,7 +331,11 @@
 - Skill upgrades are no longer ignored when not in the skill bar
 - Skill levels are no longer lost when reloading the page
 - Ancestral gift base ranks are no longer randomly increased or lowered with ancestral champion's present
-- Fixed incorrect ancestral legacy nodes mapping
+- Fixed some incorrect ancestral legacy nodes mapping
+- Fixed an issue causing skill related class mechanics to not be shown
+- Fixed an issue causing class mechanics to not be uptated
+- Fixed many old and new skills interactions
+
 ## TODO
 - calcul du cooldown sans passer par attack speed
 
