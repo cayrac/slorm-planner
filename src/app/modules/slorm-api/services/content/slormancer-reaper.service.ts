@@ -18,7 +18,6 @@ import { strictParseFloat } from '../../util/parse.util';
 import {
     compare,
     emptyStringToNull,
-    isEffectValueVariable,
     isNotNullOrUndefined,
     notEmptyOrNull,
     removeEmptyValues,
@@ -467,9 +466,6 @@ export class SlormancerReaperService {
         */
         
         this.slormancerEffectValueService.updateEffectValue(value, upgradeValue, { globalMultiplier: 5, affinityMultiplier });
-        if (isEffectValueVariable(value)) {
-            console.log('updateEffectValue', value.value, upgradeValue, affinityMultiplier, value);
-        }
     }
 
     public useDifferentAffinityForEffects(reaper: Reaper): boolean {
@@ -523,7 +519,7 @@ export class SlormancerReaperService {
 
         for (const activable of reaper.activables) {
             activable.level = reaper.level;
-            this.slormancerActivableService.updateActivableModel(activable);
+            this.slormancerActivableService.updateActivableModel(activable, { affinityMultiplier: effectAffinityMultiplier });
         }
     }
 

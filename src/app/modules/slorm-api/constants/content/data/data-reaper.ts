@@ -344,9 +344,9 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'support_streak_increased_effect_per_stack');
             overrideValueTypeAndStat(ba, 6, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 7, EffectValueValueType.Stat, 'garbage_stat');
-            overrideValueTypeAndStat(ba, 8, EffectValueValueType.Damage, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 8, EffectValueValueType.Damage, 'damage');
             allowSynergyToCascade(ba, 8);
-            addConstant(ba, 5, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
+            addConstant(ba, 3, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
             addConstant(be, 1, false, EffectValueValueType.Stat, 'add_other_non_equipped_spec_passives');
             addConstant(ma, 1, false, EffectValueValueType.Stat, 'remove_equipped_spec_passives');
         }
@@ -355,6 +355,8 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma) => {
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'garbage_stat');
+            allowSynergyToCascade(ba, 1);
+            synergyMultiply100(ba, 1);
         }
     },
     14: {
@@ -365,9 +367,10 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     15: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Damage, 'garbage_stat');
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Damage, 'garbage_stat');
+            allowSynergyToCascade(ba, 3);
             addConstant(ba, 2, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
         }
     },
@@ -389,10 +392,13 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     18: {
         override: (ba, be, ma) => {
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 6, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 7, EffectValueValueType.Stat, 'garbage_stat');
             overrideSynergySource(ba, 8, 'critical_chance');
+            synergyMultiply100(ba, 8);
+            allowSynergyToCascade(ba, 8);
 
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'overflowing_the_max_mana_add_extra');
             addConstant(ma, -100, false, EffectValueValueType.Stat, 'overflowing_the_max_mana_global_mult');
@@ -405,6 +411,8 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             addConstant(ma, -100, false, EffectValueValueType.Stat, 'spectral_shape_cooldown_time_override');
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'spectral_shape_mana_cost_percent');
             addConstant(ma, -100, false, EffectValueValueType.Stat, 'spectral_shape_mana_cost_override');
+            moveValue(ba, 2, be);
+            allowSynergyToCascade(be, 1);
         }
     },
     20: {
@@ -419,6 +427,8 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'garbage_stat');
             moveValue(ba, 3, be);
+            overrideValueTypeAndStat(be, 2, EffectValueValueType.Damage, 'damage');
+            allowSynergyToCascade(be, 2);
         }
     },
     23: {
@@ -427,6 +437,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideSynergySource(ba, 2, 'weapon_damage');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'inner_fire_damage_add_extra');
             setSynergyAllowMinMax(ba, 2, false);
+            allowSynergyToCascade(ba, 2);
             setSynergyPrecision(ba, 2, 0);
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'inner_fire_duration_add');
             addConstant(ma, 1, false, EffectValueValueType.Stat, 'reaper_added_to_inner_fire');

@@ -204,9 +204,11 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     13: {
         override: values => {
             overrideValueStat(values, 0, 'weapon_damage');
-            setValueType(values, 0, EffectValueValueType.Damage)
+            setValueType(values, 0, EffectValueValueType.Damage);
+            allowSynergyToCascade(values, 0);
             overrideValueStat(values, 1, 'duration');
             setValueType(values, 1, EffectValueValueType.Static)
+            overrideValueStat(values, 2, 'garbage_stat');
             addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'mana_harvest_range');
         }
     },
@@ -300,6 +302,7 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
             synergyMultiply100(values, 1);
             setSynergyShowValue(values, 1, false);
             setValueType(values, 2, EffectValueValueType.Damage);
+            allowSynergyToCascade(values, 2);
             overrideValueStat(values, 2, 'physical_damage');
             addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
         }
@@ -309,6 +312,9 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
             overrideValueStat(values, 0, 'garbage_stat');
             setValueType(values, 0, EffectValueValueType.Duration);
             overrideValueStat(values, 1, 'physical_damage');
+            setValueType(values, 1, EffectValueValueType.Static);
+            setBaseValue(values, 1, 150);
+            allowSynergyToCascade(values, 1);
             addConstant(values, 2.5, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
         }
     },

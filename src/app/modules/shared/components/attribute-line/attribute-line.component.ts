@@ -88,9 +88,10 @@ export class AttributeLineComponent implements OnInit, OnChanges {
         }
     }
 
-    public nodeClick() {
+    public nodeClick(index: number) {
         if (this.attribute !== null) {
             this.setRank(this.cappedCursor);
+            console.log(this.attribute.traits[index]);
         }
     }
 

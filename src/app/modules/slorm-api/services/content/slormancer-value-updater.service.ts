@@ -382,6 +382,14 @@ export class SlormancerValueUpdaterService {
                 if (typeof aoeSizeStat.total === 'number') {
                     aoeSizeMultipliers.push(aoeSizeStat.total);
                 }
+
+                if ([12, 13, 14].includes(reaper.id)) {
+                    const suportstreakIncreasedAoe = <EffectValueSynergy>effectValues.find(effect => effect.stat === 'suport_streak_increased_aoe');
+                    if (suportstreakIncreasedAoe) {
+                        aoeSizeMultipliers.push(suportstreakIncreasedAoe.value);
+                    }
+                }
+
                 if (reaper.id === 29) {
                     aoeSizeMultipliers = [];
                     const auraIncreasedEffect = <MergedStat<number>>this.getStatValueOrDefault(statsResult.stats, 'aura_increased_effect');
@@ -463,6 +471,14 @@ export class SlormancerValueUpdaterService {
                         effectValue.displaySynergy = round(effectValue.synergy, 0);
                     }
                     
+                }
+
+                if ([12, 13, 14].includes(reaper.id)) {
+                    const suportStreakIncreasedDamage = <EffectValueSynergy>effectValues.find(effect => effect.stat === 'suport_streak_increased_damage');
+                    if (suportStreakIncreasedDamage) {
+                        effectValue.synergy = mult(effectValue.synergy, suportStreakIncreasedDamage.value);
+                        effectValue.displaySynergy = round(effectValue.synergy, 0);
+                    }
                 }
             }
             

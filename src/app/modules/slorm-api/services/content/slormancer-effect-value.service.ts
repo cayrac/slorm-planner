@@ -51,7 +51,6 @@ export class SlormancerEffectValueService {
                     displayValue += effectValue.upgrade * context.affinityMultiplier * upgradeMultiplier;
                     effectValue.upgrade = bankerRound(effectValue.baseUpgrade * context.affinityMultiplier, 2);
                     value += effectValue.upgrade * upgradeMultiplier;
-                    console.log('reaper affinity value : ', value, displayValue, effectValue.upgrade)
                 } else {
                     value += effectValue.upgrade * upgradeMultiplier;
                     displayValue = value;
@@ -59,7 +58,7 @@ export class SlormancerEffectValueService {
             }
 
             effectValue.value = round(value, 5);
-            effectValue.displayValue = round(displayValue, 3);
+            effectValue.displayValue = bankerRound(displayValue, 3);
             if (isEffectValueVariable(effectValue)) {
                 effectValue.upgradedValue = effectValue.value;
             }

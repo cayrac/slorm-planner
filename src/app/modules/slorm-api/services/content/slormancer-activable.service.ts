@@ -12,7 +12,7 @@ import { effectValueSynergy, effectValueVariable } from '../../util/effect-value
 import { list, round } from '../../util/math.util';
 import { emptyStringToNull, splitData, splitFloatData, valueOrDefault, valueOrNull } from '../../util/utils';
 import { SlormancerDataService } from './slormancer-data.service';
-import { SlormancerEffectValueService } from './slormancer-effect-value.service';
+import { SlormancerEffectValueService, UpdateEffectValueContext } from './slormancer-effect-value.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 import { SlormancerTranslateService } from './slormancer-translate.service';
 
@@ -130,12 +130,12 @@ export class SlormancerActivableService {
         return gameDataActivable === null ? null : this.buildActivable(gameDataActivable, EffectValueUpgradeType.RuneLevel, 0, heroClass);
     }
 
-    public updateActivableModel(activable: Activable) {
+    public updateActivableModel(activable: Activable, context: UpdateEffectValueContext = {}) {
         activable.cooldown = activable.baseCooldown === null ? 0 : round(activable.baseCooldown, 2);
         this.updateActivableCost(activable);
 
         for (const effectValue of activable.values) {
-            this.slormancerEffectValueService.updateEffectValue(effectValue, activable.level);
+            this.slormancerEffectValueService.updateEffectValue(effectValue, activable.level, context);
         }
     }
 

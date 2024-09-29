@@ -9,7 +9,7 @@
     <div class="pre-bar"
         (mouseenter)="nodeEnter(-1)"
         (mouseleave)="nodeLeave()"
-        (click)="nodeClick()">
+        (click)="nodeClick(0)">
     </div>
     <app-trait *ngFor="let trait of attribute.traits; let i = index; trackBy:trackByTrait"
         [trait]="trait"
@@ -20,7 +20,7 @@
         [unlocked]="isUnlocked(i)"
         (mouseenter)="nodeEnter(i)"
         (mouseleave)="nodeLeave()"
-        (click)="nodeClick()">
+        (click)="nodeClick(i)">
     </app-trait>
     <div class="total">
         +{{attribute.rank}} {{attribute.attributeName}}

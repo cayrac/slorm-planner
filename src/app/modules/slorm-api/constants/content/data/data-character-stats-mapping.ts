@@ -166,7 +166,7 @@ export const MANA_COST_MAPPING: MergedStatMapping = {
         flat: [
             { stat: 'mana_cost_add' },
             { stat: 'cost_reduction_skill_per_bleed', condition: config => config.enemy_bleed_stacks > 0, multiplier: config => - config.enemy_bleed_stacks },
-            { stat: 'spectral_shape_mana_cost_percent', extra: true },
+            { stat: 'spectral_shape_mana_cost_percent', extra: true, condition: (_, stats) => getFirstStat(stats, 'activable_id') === 32 },
         ],
         max: [],
         percent: [],
@@ -188,7 +188,7 @@ export const MANA_COST_MAPPING: MergedStatMapping = {
             { stat: 'cost_reduction_mult_skill_per_arcanic_emblem_if_not_arcanic', condition: (config, stats) => config.arcanic_emblems > 0 && !hasStat(stats, 'skill_is_arcanic'), multiplier: config => - config.arcanic_emblems },
             { stat: 'cost_mult_skill_per_enemy_under_control', multiplier: config => -1 + config.enemy_under_command + config.elite_under_command * 10 },
             { stat: 'efficiency_skill_reduction_skill_mult', condition: config => config.efficiency_buff, multiplier: () => -1 },
-            { stat: 'spectral_shape_mana_cost_override' },
+            { stat: 'spectral_shape_mana_cost_override', condition: (_, stats) => getFirstStat(stats, 'activable_id') === 32 },
             { stat: 'mana_cost_mult', condition: (_, stats) => hasCostType(stats, SkillCostType.Mana, SkillCostType.ManaSecond) },
         ],
         maxMultiplier: [],
@@ -1607,7 +1607,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             flat: [
                 { stat: 'inner_fire_damage_add' },
                 { stat: 'overdrive_inner_fire_additional_damage_when_triggered_by_book_smash', extra: true, condition: config => config.is_triggered_by_book_smash },
-                { stat: 'inner_fire_damage_add_extra', extra: true },
+                { stat: 'inner_fire_damage_add_extra' },
                 { stat: 'elder_inner_fire_damage_add_extra', extra: true, condition: config => config.show_elder_inner_fire_damage },
             ],
             max: [],
@@ -1849,7 +1849,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'aoe_increased_effect_percent' },
-                { stat: 'aoe_increased_effect_percent_on_low_mana', condition: (config, stats) => getFirstStat(stats, 'percent_missing_mana', 0) > (100 - getFirstStat(stats, 'aoe_increased_effect_percent_on_low_mana_treshold', 0))  }
+                { stat: 'aoe_increased_effect_percent_on_low_mana', condition: (_, stats) => getFirstStat(stats, 'percent_missing_mana', 0) > (100 - getFirstStat(stats, 'aoe_increased_effect_percent_on_low_mana_treshold', 0)) }
             ],
             max: [],
             percent: [],
