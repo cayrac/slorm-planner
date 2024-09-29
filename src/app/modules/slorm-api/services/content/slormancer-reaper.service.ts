@@ -18,11 +18,12 @@ import { strictParseFloat } from '../../util/parse.util';
 import {
     compare,
     emptyStringToNull,
+    isEffectValueVariable,
     isNotNullOrUndefined,
     notEmptyOrNull,
     removeEmptyValues,
     splitData,
-    valueOrNull,
+    valueOrNull
 } from '../../util/utils';
 import { SlormancerActivableService } from '.././content/slormancer-activable.service';
 import { SlormancerEffectValueService } from '.././content/slormancer-effect-value.service';
@@ -336,13 +337,13 @@ export class SlormancerReaperService {
         }
     }
 
-    private formatTemplate(reaperEffects: Array<ReaperEffect>, affinityMultiplier: number): string {
+    private formatTemplate(reaperEffects: Array<ReaperEffect>): string {
         let contents: Array<string> = [];
         let stats: Array<string> = [];
         let effects: Array<string> = [];
         for (let reaperEffect of reaperEffects) {
             if (reaperEffect.template !== null) {
-                const template = this.slormancerTemplateService.formatReaperTemplate(reaperEffect.template, reaperEffect.values, affinityMultiplier);
+                const template = this.slormancerTemplateService.formatReaperTemplate(reaperEffect.template, reaperEffect.values);
                 const [stat, effect] = splitData(template);
                 stats.push(<string>stat);
                 effects.push(<string>effect);
@@ -389,7 +390,7 @@ export class SlormancerReaperService {
 
     public getReaper(gameData: GameDataReaper, weaponClass: HeroClass, primordial: boolean, baseLevel: number, bonusLevel: number, TOREMOVE: string, baseKills: number, primordialKills: number, baseReaperAffinity: number = 0, baseEffectAffinity: number = 0, bonusAffinity: number = 0, masteryLevel = 0): Reaper {
         
-        const maxLevel = gameData.MAX_LVL ?? 100
+        const maxLevel = gameData.MAX_LVL ?? 100;
 
         let result: Reaper = {
             id: gameData.REF,
@@ -464,8 +465,11 @@ export class SlormancerReaperService {
             upgradeValue = reaper.baseInfo.level;
         }
         */
-
-        this.slormancerEffectValueService.updateEffectValue(value, upgradeValue * affinityMultiplier, 5);
+        
+        this.slormancerEffectValueService.updateEffectValue(value, upgradeValue, { globalMultiplier: 5, affinityMultiplier });
+        if (isEffectValueVariable(value)) {
+            console.log('updateEffectValue', value.value, upgradeValue, affinityMultiplier, value);
+        }
     }
 
     public useDifferentAffinityForEffects(reaper: Reaper): boolean {
@@ -530,13 +534,11 @@ export class SlormancerReaperService {
         reaper.damagesLabel = reaper.damages.min + '-' + reaper.damages.max;
         reaper.maxDamagesLabel = reaper.maxDamages.min + '-' + reaper.maxDamages.max + ' at level ' + reaper.maxLevel;
 
-        const effectAffinityMultiplier =  this.getAffinityMultiplier(reaper.effectAffinity);
-
-        reaper.description = this.formatTemplate(reaper.templates.base, effectAffinityMultiplier);
+        reaper.description = this.formatTemplate(reaper.templates.base);
 
         if (reaper.primordial) {
-            reaper.benediction = this.formatTemplate(reaper.templates.benediction, effectAffinityMultiplier);
-            reaper.malediction = this.formatTemplate(reaper.templates.malediction, effectAffinityMultiplier);
+            reaper.benediction = this.formatTemplate(reaper.templates.benediction);
+            reaper.malediction = this.formatTemplate(reaper.templates.malediction);
         } else {
             reaper.benediction = null;
             reaper.malediction = null;

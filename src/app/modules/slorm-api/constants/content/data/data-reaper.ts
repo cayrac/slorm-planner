@@ -322,9 +322,12 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             if (ba !== null) {   
                 overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'garbage_stat');
                 overrideValueTypeAndStat(ba, 5, EffectValueValueType.Damage, 'garbage_stat');
+                allowSynergyToCascade(ba, 5);
                 overrideSynergySource(ba, 6, 'aoe_increased_effect');
                 overrideValueTypeAndStat(ba, 6, EffectValueValueType.Stat, 'area_projectile_increased_damage');
                 synergyMultiply100(ba, 6);
+                allowSynergyToCascade(ba, 6);
+                setSynergyPrecision(ba, 6, 2);
 
                 changeValue(ma, 0, -100);
                 overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'aoe_primary_secondary_support_damage_mult');
@@ -342,6 +345,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 6, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 7, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 8, EffectValueValueType.Damage, 'garbage_stat');
+            allowSynergyToCascade(ba, 8);
             addConstant(ba, 5, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
             addConstant(be, 1, false, EffectValueValueType.Stat, 'add_other_non_equipped_spec_passives');
             addConstant(ma, 1, false, EffectValueValueType.Stat, 'remove_equipped_spec_passives');
@@ -447,6 +451,12 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     25: {
         override: (ba, be, ma) => {
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'physical_damage');
+            allowSynergyToCascade(ba, 4);
             addConstant(ba, 3, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
         }
     },

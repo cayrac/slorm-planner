@@ -907,7 +907,7 @@ export class SlormancerValueUpdaterService {
             if (rune.type === RuneType.Activation) {
                 for (const effectValue of rune.values) {
                     if ((isEffectValueVariable(effectValue) || isEffectValueSynergy(effectValue))) {
-                        this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level, powerMultiplier, 1);
+                        this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level, { globalMultiplier: powerMultiplier, globalMultiplierPrecision: 1 });
                         changed = true;
                     }
                 }
@@ -917,7 +917,7 @@ export class SlormancerValueUpdaterService {
                 for (const effectValue of rune.values) {
                     if (isEffectValueVariable(effectValue) || isEffectValueSynergy(effectValue)) {
                         if (!ignoredEffectMultiplierStats.includes(effectValue.stat) && (!isEffectValueSynergy(effectValue) || (effectValue.source !== 'victims_current_reaper' && effectValue.source !== 'max_mana'))) {
-                            this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level, effectMultiplier, 3);
+                            this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level, { globalMultiplier: effectMultiplier, globalMultiplierPrecision: 3 });
                             changed = true;
                         }
                     }
@@ -928,7 +928,7 @@ export class SlormancerValueUpdaterService {
                 for (const effectValue of rune.values) {
                     if (isEffectValueVariable(effectValue) && effectValue.stat === 'effect_rune_trigger_chance') {
                         const triggerMultiplier =  1 + (100 - power) / 200;
-                        this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level, triggerMultiplier, 3);
+                        this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level, { globalMultiplier: triggerMultiplier, globalMultiplierPrecision: 3 });
                         changed = true;
                     }
                 }

@@ -111,6 +111,16 @@ function setSynergyPrecision(values: Array<AbstractEffectValue>, index: number, 
     }
 }
 
+function allowSynergyToCascade(values: Array<AbstractEffectValue>, index: number) {
+    const value = values[index];
+
+    if (value && isEffectValueSynergy(value)) {
+        value.cascadeSynergy = true;
+    } else {
+        throw new Error('failed to change synergy cascade at index ' + index);
+    }
+}
+
 export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     0: {
         override: values => {
@@ -305,8 +315,10 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     33: {
         override: values => {
             overrideValueStat(values, 0, 'physical_damage');
+            allowSynergyToCascade(values, 0);
             setSynergyShowValue(values, 0, false);
             overrideValueStat(values, 1, 'elemental_damage');
+            allowSynergyToCascade(values, 1);
             setSynergyAnchor(values, 1, '_');
             setSynergyShowValue(values, 1, false);
             addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');

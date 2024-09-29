@@ -96,7 +96,7 @@ export class SlormancerTemplateService {
         return template;
     }
 
-    private getEffectValueDetails(effectValue: EffectValueVariable | EffectValueSynergy, hideBase: boolean = false, upgradeMultiplier: number = 1): string {
+    private getEffectValueDetails(effectValue: EffectValueVariable | EffectValueSynergy, hideBase: boolean = false): string {
         let result = '';
         const percent = (effectValue.percent || isEffectValueSynergy(effectValue)) ? '%' : '';
 
@@ -112,7 +112,7 @@ export class SlormancerTemplateService {
             if (hasDetails) {
                 const sign = showBase ? effectValue.upgrade < 0 ? '- ' : '+ ' : effectValue.upgrade < 0 ? '-' : '+';
                 const base = showBase ? (effectValue.displayValue) + percent + ' ': '';
-                const upgrade = showUpgrade ? sign + bankerRound(Math.abs(effectValue.upgrade * upgradeMultiplier), 2) + percent : '';
+                const upgrade = showUpgrade ? sign + bankerRound(Math.abs(effectValue.upgrade), 2) + percent : '';
 
                 result = base;
 
@@ -336,13 +336,13 @@ export class SlormancerTemplateService {
         return template;
     }
 
-    public formatReaperTemplate(template: string, effectValues: Array<AbstractEffectValue>, perLevelMultiplier: number): string {
+    public formatReaperTemplate(template: string, effectValues: Array<AbstractEffectValue>): string {
         for (let effectValue of effectValues) {
             const percent = effectValue.percent ? '%' : '';
 
             if (isEffectValueVariable(effectValue)) {
                 const value = this.asSpan(effectValue.displayValue.toString() + percent, 'value');
-                const details = this.getEffectValueDetails(effectValue, false, perLevelMultiplier);
+                const details = this.getEffectValueDetails(effectValue, false);
                 template = this.replaceAnchor(template, value + ' ' + details, this.VALUE_ANCHOR);
             } else if (isEffectValueConstant(effectValue)) {
                 const anchor = findFirst(template, this.CONSTANT_ANCHORS);
@@ -353,7 +353,7 @@ export class SlormancerTemplateService {
             } else if (isEffectValueSynergy(effectValue)) {
                 let synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
                 if (effectValue.detailOnSynergy) {
-                    synergy += this.getEffectValueDetails(effectValue, false, perLevelMultiplier)
+                    synergy += this.getEffectValueDetails(effectValue, false)
                 }
                 template = this.replaceAnchor(template, synergy, this.SYNERGY_ANCHOR);
                 template = this.replaceAnchor(template, this.slormancerTranslateService.translate(effectValue.source), this.TYPE_ANCHOR);

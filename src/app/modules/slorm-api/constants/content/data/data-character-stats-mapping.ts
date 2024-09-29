@@ -1843,7 +1843,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     AOE_INCREASED_SIZE_MAPPING,
     {
         stat: 'aoe_increased_effect',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -2158,6 +2158,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'increased_damage_while_curving_time_or_time_shifting', condition: config => config.is_curving_time_or_time_shifting },
                 // non pris en compte { stat: 'skill_increased_damage_if_mana_full', condition: (_, stats) => getFirstStat(stats, 'percent_missing_mana', 0) === 0  },
                 { stat: 'increased_damage_per_poison_upgrade', condition: (_, stats) => getFirstStat(stats, 'poison_upgrades', 0) > 0, multiplier: (_, stats) => getFirstStat(stats, 'poison_upgrades', 0)  },
+                { stat: 'area_projectile_increased_damage', condition: (_, stats) => hasStat(stats, 'skill_is_aoe') && hasStat(stats, 'skill_is_projectile')  },
             ],
             maxMultiplier: [
             ],
