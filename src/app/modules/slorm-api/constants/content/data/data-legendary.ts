@@ -49,7 +49,7 @@ function addConstant(effect: LegendaryEffect, value: number, stat: string, value
     });
 }
 
-/*
+
 function allowSynergyToCascade(effect: LegendaryEffect, index: number) {
     const value = effect.effects[index];
 
@@ -58,7 +58,7 @@ function allowSynergyToCascade(effect: LegendaryEffect, index: number) {
     } else {
         throw new Error('failed to update synergy cascading at index ' + index);
     }
-}*/
+}
 
 export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     12: {
@@ -116,6 +116,7 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
         override: (effect) => {
             setStat(effect, 2, 'buff_indomptable_mountain_def_phy_mult');
             setStat(effect, 3, 'buff_indomptable_mountain_def_phy_duration');
+            allowSynergyToCascade(effect, 1);
         }
     },
     24: {

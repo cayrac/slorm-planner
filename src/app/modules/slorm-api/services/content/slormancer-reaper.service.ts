@@ -25,7 +25,7 @@ import {
     valueOrNull
 } from '../../util/utils';
 import { SlormancerActivableService } from '.././content/slormancer-activable.service';
-import { SlormancerEffectValueService } from '.././content/slormancer-effect-value.service';
+import { SlormancerEffectValueService, UpdateEffectValueContext } from '.././content/slormancer-effect-value.service';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 import { SlormancerTranslateService } from './slormancer-translate.service';
@@ -457,6 +457,7 @@ export class SlormancerReaperService {
     }
 
     private updateEffectValue(value: AbstractEffectValue, reaper: Reaper, affinityMultiplier: number) {
+        const context: UpdateEffectValueContext = { globalMultiplier: 5, affinityMultiplier };
         let upgradeValue = reaper.level;
         /*
         // It's probably a good idea to keep it here in case of
@@ -464,8 +465,11 @@ export class SlormancerReaperService {
             upgradeValue = reaper.baseInfo.level;
         }
         */
-        
-        this.slormancerEffectValueService.updateEffectValue(value, upgradeValue, { globalMultiplier: 5, affinityMultiplier });
+        if (value.stat === 'aura_equipped_per_aura_active_add') {
+            context.useOldAffinityFormula = true;
+        }
+
+        this.slormancerEffectValueService.updateEffectValue(value, upgradeValue, context);
     }
 
     public useDifferentAffinityForEffects(reaper: Reaper): boolean {

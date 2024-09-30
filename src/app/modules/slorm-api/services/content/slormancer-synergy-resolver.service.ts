@@ -22,6 +22,24 @@ export class SlormancerSynergyResolverService {
     constructor(private slormancerStatUpdaterService: SlormancerMergedStatUpdaterService,
                 private slormancerStatMappingService: SlormancerStatMappingService) { }
 
+    private applyCascadingChanges(synergies: Array<SynergyResolveData | ExternalSynergyResolveData>) {
+        const localSynergies = synergies.filter(isSynergyResolveData);
+        // Armor of Illusion + Indomitable Mountain
+        const indomitableMountain = localSynergies.find(resolveData => resolveData.effect.source === 'dodge' && resolveData.effect.stat === 'res_phy_add');
+        const armorOfIllusion = localSynergies.find(resolveData => resolveData.effect.source === 'armor' && resolveData.effect.stat === 'dodge_add');
+        if (indomitableMountain && armorOfIllusion) {
+            indomitableMountain.cascadeSynergy = false;
+            indomitableMountain.effect.cascadeSynergy = false;
+        }
+
+        const untouchableOne = localSynergies.find(resolveData => resolveData.effect.source === 'elemental_damage' && resolveData.effect.stat === 'dodge_add');
+        const evasiveMagic = localSynergies.find(resolveData => resolveData.effect.source === 'dodge' && resolveData.effect.stat === 'the_max_mana_add');
+        if (untouchableOne && evasiveMagic) {
+            untouchableOne.cascadeSynergy = false;
+            untouchableOne.effect.cascadeSynergy = false;
+        }
+    }
+
     private resolveSynergy(synergy: SynergyResolveData | ExternalSynergyResolveData, resolved: Array<SynergyResolveData>, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap, config: CharacterConfig) {
         this.updateSynergyValue(synergy, characterStats, extractedStats);
         this.applySynergyToStats(synergy, characterStats, extractedStats, config);
@@ -33,6 +51,8 @@ export class SlormancerSynergyResolverService {
     public resolveSynergies(synergies: Array<SynergyResolveData | ExternalSynergyResolveData>, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap, config: CharacterConfig): { resolved: Array<SynergyResolveData>, unresolved: Array<SynergyResolveData> }  {
         const remainingSynergies = [ ...synergies];
         const resolved: Array<SynergyResolveData> = [];
+
+        this.applyCascadingChanges(remainingSynergies);
         
         this.addExternalSynergies(remainingSynergies);
 
@@ -99,6 +119,7 @@ export class SlormancerSynergyResolverService {
         // Take the first synergy with no stat used by another synergy
         let indexFound = resolveDatas.findIndex(resolveData => this.sourceHasNoDependency(resolveData, resolveDatas));
 
+        // TODO check if it could be moved to applyCascadingChanges
         if (indexFound === -1) {
             // savagery 60 + infinite time and deep and space
             const savagery60 = resolveDatas.findIndex(resolveData => resolveData.type === ResolveDataType.ExternalSynergy && resolveData.stat === 'raw_elem_diff');
@@ -110,7 +131,7 @@ export class SlormancerSynergyResolverService {
 
             const critDamageToAncestramDamage = resolveDatas.find(resolveData => resolveData.type === ResolveDataType.Synergy && resolveData.effect.stat === 'brut_damage_percent' && resolveData.effect.source === 'critical_damage');
             const isoperimetry = resolveDatas.findIndex(resolveData => resolveData.type === ResolveDataType.Synergy && resolveData.effect.stat === 'isoperimetry_crit_damage_percent_extra');
-            if (critDamageToAncestramDamage&& isoperimetry !== -1 ) {
+            if (critDamageToAncestramDamage && isoperimetry !== -1 ) {
                 indexFound = isoperimetry;
             }
         }

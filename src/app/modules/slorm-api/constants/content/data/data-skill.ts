@@ -143,9 +143,6 @@ function allowSynergyToCascade(values: Array<AbstractEffectValue>, index: number
     }
 }
 
-// TODO rajouter cascade synergy pour tous les damages
-allowSynergyToCascade
-
 export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     0: {
         masteryRequired: null,

@@ -64,6 +64,8 @@ function nullifySynergyUpgrade(effect: ReaperEffect | null, index: number) {
 
     if (value !== null && isEffectValueSynergy(value)) {
         warnIfEqual(value.upgrade, 0, 'reaper nullifySynergyUpgrade at index ' + index + ' did not changed anthing', effect);
+        warnIfEqual(value.baseUpgrade, 0, 'reaper nullifySynergyUpgrade at index ' + index + ' did not changed anthing', effect);
+        value.baseUpgrade = 0
         value.upgrade = 0;
     } else {
         throw new Error('failed to negate effect value at index ' + index);
@@ -448,10 +450,13 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'evade_add');
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'dodge_add');
             setSynergyAllowMinMax(ba, 4, false);
+            allowSynergyToCascade(ba, 4);
             setSynergyPrecision(ba, 4, 0);
             
             setSynergyAllowMinMax(be, 1, false);
+            allowSynergyToCascade(be, 1);
             setSynergyPrecision(be, 1, 0);
+            setSynergyDetailOnSynergy(be, 1, false);
 
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'dodge_add');
@@ -593,10 +598,11 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'health_on_kill_global_mult');
-            synergyMultiply100(ba, 5);
+            // (ba, 5);
 
             overrideSynergySource(be, 0, 'life_on_kill');
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'blood_frenzy_min_weapon_damage_add');
+            allowSynergyToCascade(be, 0);
         }
     },
     37: {

@@ -419,7 +419,7 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
     },
     109: {
         override: values => {
-            allowSynergyToCascade(values, 0)
+            // allowSynergyToCascade(values, 0)
         }
     },
     110: {

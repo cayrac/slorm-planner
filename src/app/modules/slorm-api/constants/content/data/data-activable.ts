@@ -231,6 +231,7 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
             overrideValueStat(values, 1, 'physical_damage');
             setSynergyAllowMinMax(values, 1, false);
             setSynergyPrecision(values, 1, 0);
+            allowSynergyToCascade(values, 1);
             overrideValueStat(values, 2, 'garbage_stat');
         }
     },
@@ -351,6 +352,7 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     },
     38: {
         override: values => {
+            allowSynergyToCascade(values, 0);
             addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
         }
     },

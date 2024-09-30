@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
+import { UNLOCKED_ANCESTRAL_LEGACY_POINTS } from '../../constants';
 import { ANCESTRAL_LEGACY_REALMS, INITIAL_NODES } from '../../constants/content/data/data-ancestral-legacy-realms';
 import { Character, DataAncestralLegacyRealm } from '../../model';
 import { isFirst, isNotNullOrUndefined } from '../../util';
 import { SlormancerDataService } from './slormancer-data.service';
-import { UNLOCKED_ANCESTRAL_LEGACY_POINTS } from '../../constants';
 
 @Injectable()
 export class SlormancerAncestralLegacyNodesService {

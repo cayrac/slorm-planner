@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HeroClass } from '..//model/content/enum/hero-class';
 import { GAME_VERSION, INVENTORY_SIZE, MAX_HERO_LEVEL, STASH_SIZE, UNITY_REAPERS } from '../constants/common';
+import { CharacterConfig } from '../model';
 import { Character, CharacterSkillAndUpgrades } from '../model/character';
 import { Activable } from '../model/content/activable';
 import { AncestralLegacy } from '../model/content/ancestral-legacy';
@@ -18,6 +19,7 @@ import { GameSave, GameSharedInventory, GameUltimatum } from '../model/parser/ga
 import { RunesCombination } from '../model/runes-combination';
 import { list } from '../util/math.util';
 import { isNotNullOrUndefined, valueOrDefault, valueOrNull } from '../util/utils';
+import { SlormancerAncestralLegacyNodesService } from './content';
 import { SlormancerAncestralLegacyService } from './content/slormancer-ancestral-legacy.service';
 import { SlormancerAttributeService } from './content/slormancer-attribute.service';
 import { SlormancerDataService } from './content/slormancer-data.service';
@@ -26,8 +28,6 @@ import { SlormancerReaperService } from './content/slormancer-reaper.service';
 import { SlormancerRuneService } from './content/slormancer-rune.service';
 import { SlormancerSkillService } from './content/slormancer-skill.service';
 import { SlormancerUltimatumService } from './content/slormancer-ultimatum.service';
-import { SlormancerAncestralLegacyNodesService } from './content';
-import { CharacterConfig } from '../model';
 
 @Injectable()
 export class SlormancerCharacterBuilderService {

@@ -2819,7 +2819,7 @@ export const REAPER_STATS_MAPPING: { [key: number]: Array<MergedStatMapping>} = 
     28: [
         {
             stat: 'aura_equipped_per_aura_active',
-            precision: 0,
+            precision: 1,
             allowMinMax: false,
             suffix: '',
             source: {

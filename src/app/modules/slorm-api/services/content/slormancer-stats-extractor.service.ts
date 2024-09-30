@@ -665,7 +665,7 @@ export class SlormancerStatsExtractorService {
 
     private getAllActiveActivables(character: Character): (Activable | AncestralLegacy)[] {
         const ancestralLegacyActivables = character.ancestralLegacies.ancestralLegacies
-            .filter(ancestralLegacy => character.ancestralLegacies.activeAncestralLegacies.includes(ancestralLegacy.id) && ancestralLegacy.isActivable);
+            .filter(ancestralLegacy => character.ancestralLegacies.activeAncestralLegacies.includes(ancestralLegacy.id) && ancestralLegacy.isActivable && ancestralLegacy.rank > 0);
         const itemActivables = ALL_GEAR_SLOT_VALUES
             .map(slot => character.gear[slot]?.legendaryEffect?.activable)
             .filter(isNotNullOrUndefined);

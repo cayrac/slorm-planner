@@ -9,6 +9,7 @@ export interface UpdateEffectValueContext {
     globalMultiplier?: number;
     globalMultiplierPrecision?: number;
     affinityMultiplier?: number;
+    useOldAffinityFormula?: boolean;
 }
 
 @Injectable()
@@ -47,10 +48,17 @@ export class SlormancerEffectValueService {
                 displayValue = value;
             } else {
                 if (context.affinityMultiplier !== undefined) {
-                    effectValue.upgrade = effectValue.baseUpgrade;
-                    displayValue += effectValue.upgrade * context.affinityMultiplier * upgradeMultiplier;
-                    effectValue.upgrade = bankerRound(effectValue.baseUpgrade * context.affinityMultiplier, 2);
-                    value += effectValue.upgrade * upgradeMultiplier;
+                    if (context.useOldAffinityFormula === true) {
+                        effectValue.upgrade = effectValue.baseUpgrade;
+                        displayValue += effectValue.upgrade * context.affinityMultiplier * upgradeMultiplier;
+                        value += effectValue.upgrade * context.affinityMultiplier * upgradeMultiplier;
+                        effectValue.upgrade = bankerRound(effectValue.baseUpgrade * context.affinityMultiplier, 2);
+                    } else {
+                        effectValue.upgrade = effectValue.baseUpgrade;
+                        displayValue += effectValue.upgrade * context.affinityMultiplier * upgradeMultiplier;
+                        effectValue.upgrade = bankerRound(effectValue.baseUpgrade * context.affinityMultiplier, 2);
+                        value += effectValue.upgrade * upgradeMultiplier;
+                    }
                 } else {
                     value += effectValue.upgrade * upgradeMultiplier;
                     displayValue = value;
