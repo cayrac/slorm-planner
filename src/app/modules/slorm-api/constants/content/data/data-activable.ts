@@ -340,13 +340,20 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     35: {
         override: values => {
             setBaseValue(values, 0, 200);
+            overrideValueStat(values, 0, 'physical_damage');
+            overrideValueStat(values, 1, 'garbage_stat');
+            allowSynergyToCascade(values, 0);
             addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
         }
     },
     36: {
         override: values => {
             setBaseValue(values, 0, 150);
-            setUpgradeValue(values, 2, 1.5);
+            overrideValueStat(values, 0, 'physical_damage');
+            allowSynergyToCascade(values, 0);
+            overrideValueStat(values, 1, 'garbage_stat');
+            overrideValueStat(values, 2, 'garbage_stat');
+            //setUpgradeValue(values, 2, 1.5);
             addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
         }
     },

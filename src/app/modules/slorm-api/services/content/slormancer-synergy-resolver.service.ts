@@ -29,14 +29,12 @@ export class SlormancerSynergyResolverService {
         const armorOfIllusion = localSynergies.find(resolveData => resolveData.effect.source === 'armor' && resolveData.effect.stat === 'dodge_add');
         if (indomitableMountain && armorOfIllusion) {
             indomitableMountain.cascadeSynergy = false;
-            indomitableMountain.effect.cascadeSynergy = false;
         }
 
         const untouchableOne = localSynergies.find(resolveData => resolveData.effect.source === 'elemental_damage' && resolveData.effect.stat === 'dodge_add');
         const evasiveMagic = localSynergies.find(resolveData => resolveData.effect.source === 'dodge' && resolveData.effect.stat === 'the_max_mana_add');
         if (untouchableOne && evasiveMagic) {
             untouchableOne.cascadeSynergy = false;
-            untouchableOne.effect.cascadeSynergy = false;
         }
     }
 
@@ -170,7 +168,7 @@ export class SlormancerSynergyResolverService {
         if (isSynergyResolveData(resolveData)) {
             const source = characterStats.find(stat => stat.stat === resolveData.effect.source);
             const allowMinMax = resolveData.statsItWillUpdate.reduce((t, c) => (c.mapping === undefined || c.mapping.allowMinMax) && t, resolveData.effect.allowMinMax);
-            const cascadeSynergies = 'effect' in resolveData ? resolveData.effect.cascadeSynergy : false;
+            const cascadeSynergies = 'effect' in resolveData ? resolveData.cascadeSynergy : false;
 
             let precision = resolveData.effect.precision;
             if (precision === null) {
