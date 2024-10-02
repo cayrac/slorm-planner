@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
+import { BASE_MOVEMENT_SPEED } from '../../constants';
 import { MergedStatMapping, MergedStatMappingSource } from '../../constants/content/data/data-character-stats-mapping';
+import { EntityValue } from '../../model';
 import { CharacterConfig } from '../../model/character-config';
 import { MergedStat, MergedStatValue } from '../../model/content/character-stats';
 import { Ultimatum } from '../../model/content/ultimatum';
@@ -9,8 +11,6 @@ import { MinMax } from '../../model/minmax';
 import { round } from '../../util/math.util';
 import { valueOrDefault } from '../../util/utils';
 import { ExtractedStatMap } from './slormancer-stats-extractor.service';
-import { BASE_MOVEMENT_SPEED } from '../../constants';
-import { EntityValue } from '../../model';
 
 @Injectable()
 export class SlormancerStatMappingService {
@@ -123,6 +123,7 @@ export class SlormancerStatMappingService {
         if (!mergedStat.readonly) {
             if (mappingSource = mapping.source.flat.find(v => v.stat === stat)) {
                 array = mergedStat.values.flat;
+                synergy = 'addAsNonConvertion' in mappingSource ? !mappingSource.addAsNonConvertion : synergy;
             } else if (mappingSource = mapping.source.max.find(v => v.stat === stat)) {
                 array = mergedStat.values.max;
             } else if (mappingSource = mapping.source.percent.find(v => v.stat === stat)) {

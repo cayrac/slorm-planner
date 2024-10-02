@@ -8,6 +8,10 @@ export function isSynergyResolveData(resolveData: SynergyResolveData | ExternalS
     return resolveData.type === ResolveDataType.Synergy
 }
 
+export function isExternalSynergyResolveData(resolveData: SynergyResolveData | ExternalSynergyResolveData): resolveData is ExternalSynergyResolveData {
+    return resolveData.type === ResolveDataType.ExternalSynergy
+}
+
 export function synergyResolveData(effect: EffectValueSynergy, originalValue: number | MinMax, objectSource: Entity, statsItWillUpdate: Array<{ stat: string, mapping?: MergedStatMapping }> = [], addAsFlat: boolean = false): SynergyResolveData {
     return { type: ResolveDataType.Synergy, effect, originalValue, objectSource, statsItWillUpdate, cascadeSynergy: effect.cascadeSynergy, addAsFlat };
 }

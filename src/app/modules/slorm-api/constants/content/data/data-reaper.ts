@@ -642,22 +642,26 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'thornbite_reaper_buff_cooldown');
             overrideValueTypeAndStat(ba, 6, EffectValueValueType.Stat, 'idle_shield');
+            allowSynergyToCascade(ba, 6);
 
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Duration, 'thornbite_reaper_benediction_buff_idle_duration');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'idle_thorn_crit_chance_global_mult');
             overrideValueTypeAndStat(be, 2, EffectValueValueType.Stat, 'thorn_crit_chance_percent');
             synergyMultiply100(be, 2);
             overrideSynergySource(be, 2, 'critical_chance');
+            allowSynergyToCascade(be, 2);
 
             addConstant(ma, 1, false, EffectValueValueType.Stat, 'non_thorn_cannot_crit');
 
             if (reaperId === 41) {
-                duplicateSynergy(ba, 6, 'thorns_add');
+                duplicateSynergy(ba, 6, 'thorns_add_if_idle');
+                allowSynergyToCascade(ba, 7);
             }
         }
     },
     41: {
         override: (ba, be, ma) => { 
+            allowSynergyToCascade(ba, 0);
         }
     },
     42: {

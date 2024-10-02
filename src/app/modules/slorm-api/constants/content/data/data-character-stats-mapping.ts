@@ -55,6 +55,7 @@ function hasCostType(stats: ExtractedStatMap, ...costTypes: Array<SkillCostType>
 export interface MergedStatMappingSource {
     stat: string;
     extra?: boolean;
+    addAsNonConvertion?: boolean;
     condition?: (config: CharacterConfig, stats: ExtractedStatMap) => boolean
     multiplier?: (config: CharacterConfig, stats: ExtractedStatMap) => number
     duplicate?: (config: CharacterConfig, stats: ExtractedStatMap) => number
@@ -1276,7 +1277,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         allowMinMax: false,
         suffix: '',
         source: {
-            flat: [{ stat: 'thorns_add' }],
+            flat: [
+                { stat: 'thorns_add' },
+                { stat: 'thorns_add_if_idle', condition: config => config.idle, addAsNonConvertion: true }
+            ],
             max: [],
             percent: [
                 { stat: 'thorns_percent' },

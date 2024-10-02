@@ -23,19 +23,38 @@ export class SlormancerSynergyResolverService {
                 private slormancerStatMappingService: SlormancerStatMappingService) { }
 
     private applyCascadingChanges(synergies: Array<SynergyResolveData | ExternalSynergyResolveData>) {
+        // const externalSynergies = synergies.filter(isExternalSynergyResolveData);
         const localSynergies = synergies.filter(isSynergyResolveData);
         // Armor of Illusion + Indomitable Mountain
         const indomitableMountain = localSynergies.find(resolveData => resolveData.effect.source === 'dodge' && resolveData.effect.stat === 'res_phy_add');
         const armorOfIllusion = localSynergies.find(resolveData => resolveData.effect.source === 'armor' && resolveData.effect.stat === 'dodge_add');
         if (indomitableMountain && armorOfIllusion) {
             indomitableMountain.cascadeSynergy = false;
+            console.log('Cascading changes : Armor of Illusion + Indomitable Mountain');
         }
 
+        // Evase Magic + Untouchable One Reaper
         const untouchableOne = localSynergies.find(resolveData => resolveData.effect.source === 'elemental_damage' && resolveData.effect.stat === 'dodge_add');
         const evasiveMagic = localSynergies.find(resolveData => resolveData.effect.source === 'dodge' && resolveData.effect.stat === 'the_max_mana_add');
         if (untouchableOne && evasiveMagic) {
             untouchableOne.cascadeSynergy = false;
+            console.log('Cascading changes : Evase Magic + Untouchable One Reaper');
         }
+
+        // Savagery 60 + Alpha and Omega
+        /*const savagery60 = externalSynergies.find(resolveData => resolveData.stat === 'raw_elem_diff');
+        const weaponToElementalDamage = localSynergies.find(resolveData => resolveData.effect.stat === 'weapon_to_elemental_damage');
+        console.log(externalSynergies, savagery60, weaponToElementalDamage);
+        if (weaponToElementalDamage && savagery60 && weaponToElementalDamage.effect.value === 50) {
+            weaponToElementalDamage.cascadeSynergy = false;
+        }*/
+
+        /*
+        TODO  savagery 60 + infinite time and deep and space à refaire
+        const savagery60 = resolveDatas.findIndex(resolveData => resolveData.type === ResolveDataType.ExternalSynergy && resolveData.stat === 'raw_elem_diff');
+        const weaponUpdateElementalAndPhysical = resolveDatas.find(resolveData => resolveData.type === ResolveDataType.Synergy && resolveData.effect.stat === 'weapon_to_elemental_damage') !== undefined
+
+        */
     }
 
     private resolveSynergy(synergy: SynergyResolveData | ExternalSynergyResolveData, resolved: Array<SynergyResolveData>, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap, config: CharacterConfig) {
@@ -49,10 +68,10 @@ export class SlormancerSynergyResolverService {
     public resolveSynergies(synergies: Array<SynergyResolveData | ExternalSynergyResolveData>, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap, config: CharacterConfig): { resolved: Array<SynergyResolveData>, unresolved: Array<SynergyResolveData> }  {
         const remainingSynergies = [ ...synergies];
         const resolved: Array<SynergyResolveData> = [];
-
-        this.applyCascadingChanges(remainingSynergies);
         
         this.addExternalSynergies(remainingSynergies);
+
+        this.applyCascadingChanges(remainingSynergies);
 
         let next: SynergyResolveData | ExternalSynergyResolveData | null;
         while (remainingSynergies.length > 0 && (next = this.takeNextSynergy(remainingSynergies)) !== null) {
@@ -61,7 +80,7 @@ export class SlormancerSynergyResolverService {
 
         if (remainingSynergies.filter(isSynergyResolveData).length > 0) {
             const synergyes = remainingSynergies.filter(isSynergyResolveData);
-            console.log('### There are unresolved synergies');
+            console.log('### There are ' + synergyes.length + ' unresolved synergies');
             for (const synergy of synergyes) {
                 console.log(synergy.effect.source + ' => ' + synergy.effect.stat + (synergy.cascadeSynergy ? '(cascading)' : ''), synergy);
             }
@@ -94,7 +113,7 @@ export class SlormancerSynergyResolverService {
         });
     }
 
-    private sourceHasNoDependency(resolveData: SynergyResolveData | ExternalSynergyResolveData, resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>, debug = false): boolean {
+    /*private sourceHasNoDependency(resolveData: SynergyResolveData | ExternalSynergyResolveData, resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>, debug = false): boolean {
         return resolveDatas.find(s => s.statsItWillUpdate.find(statItWillUpdate => {
                 let found = false;
                 if (resolveData.type === ResolveDataType.Synergy) {
@@ -104,39 +123,28 @@ export class SlormancerSynergyResolverService {
                 }
                 return found;
             }) !== undefined) === undefined
-    }
+    }*/
 
-    private sourceWontBeChanged(sources: string[], cascading: boolean, resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>, debug = false): boolean {
+    private sourceWontBeChanged(sources: string[], ignoreCascading: boolean, resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>): boolean {
         // a non cascading synergy can ignore another non cascading synergy that modify it's source
         return !resolveDatas
-            .filter(s => cascading || s.cascadeSynergy)
-            .some(s => s.statsItWillUpdate.find(statItWillUpdate => sources.some(source => statItWillUpdate.stat === source)));
+            .filter(s => s.cascadeSynergy)
+            .some(s => s.statsItWillUpdate.some(statItWillUpdate => sources.includes(statItWillUpdate.stat)));
     }
 
     private takeNextSynergy(resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>): SynergyResolveData | ExternalSynergyResolveData | null {
         // Take the first synergy with no stat used by another synergy
-        let indexFound = resolveDatas.findIndex(resolveData => this.sourceHasNoDependency(resolveData, resolveDatas));
+        //let indexFound = resolveDatas.findIndex(resolveData => this.sourceHasNoDependency(resolveData, resolveDatas));
+
+        let indexFound = resolveDatas.findIndex(resolveData => this.sourceWontBeChanged('sources' in resolveData ? resolveData.sources : [resolveData.effect.source], true, resolveDatas));
 
         // TODO check if it could be moved to applyCascadingChanges
         if (indexFound === -1) {
-            // savagery 60 + infinite time and deep and space
-            const savagery60 = resolveDatas.findIndex(resolveData => resolveData.type === ResolveDataType.ExternalSynergy && resolveData.stat === 'raw_elem_diff');
-            const weaponUpdateElementalAndPhysical = resolveDatas.find(resolveData => resolveData.type === ResolveDataType.Synergy && resolveData.effect.stat === 'weapon_to_elemental_damage') !== undefined
-                && resolveDatas.find(resolveData => resolveData.type === ResolveDataType.Synergy && resolveData.effect.stat === 'weapon_to_physical_damage') !== undefined
-            if (savagery60 !== -1 && weaponUpdateElementalAndPhysical) {
-                indexFound = savagery60;
-            }
-
             const critDamageToAncestramDamage = resolveDatas.find(resolveData => resolveData.type === ResolveDataType.Synergy && resolveData.effect.stat === 'brut_damage_percent' && resolveData.effect.source === 'critical_damage');
             const isoperimetry = resolveDatas.findIndex(resolveData => resolveData.type === ResolveDataType.Synergy && resolveData.effect.stat === 'isoperimetry_crit_damage_percent_extra');
             if (critDamageToAncestramDamage && isoperimetry !== -1 ) {
                 indexFound = isoperimetry;
             }
-        }
-
-        if (indexFound === -1) {
-            // take the first synergy that won't be changed by another synergy (experimental)
-            indexFound = resolveDatas.findIndex(resolveData => this.sourceWontBeChanged('sources' in resolveData ? resolveData.sources : [resolveData.effect.source], resolveData.cascadeSynergy, resolveDatas));
         }
 
         // if all cascading synergies are resolved, take the first non cascading synergy
@@ -152,9 +160,9 @@ export class SlormancerSynergyResolverService {
             }
         }
 
-        if (result === null) {
+        /*if (result === null) {
             resolveDatas.findIndex(resolveData => this.sourceHasNoDependency(resolveData, resolveDatas, true))
-        }
+        }*/
 
         return result;
     }
@@ -200,6 +208,10 @@ export class SlormancerSynergyResolverService {
 
             resolveData.effect.synergy = newValue;
 
+            //const debugStat = resolveData.statsItWillUpdate.map(s => s.stat).join(', ');
+            //console.log((typeof newValue === 'number' ? newValue : newValue.min + '-' + newValue.max) + ' ' + (debugStat.length === 0 ? '#' + resolveData.effect.stat : debugStat)
+            //    + ' from ' + (typeof sourceValue === 'number' ? sourceValue : sourceValue.min + '-' + sourceValue.max) + ' ' + resolveData.effect.source);
+
             resolveData.effect.displaySynergy = typeof newValue === 'number'
                 ? bankerRound(newValue, precision)
                 : { min: bankerRound(newValue.min, precision),
@@ -210,6 +222,9 @@ export class SlormancerSynergyResolverService {
                 return  stat ? stat.total : 0;
             });
             resolveData.value = resolveData.method(...sources);
+            //const debugStat = resolveData.statsItWillUpdate.map(s => s.stat).join(', ');
+            //console.log(resolveData.value + ' ' + (debugStat.length === 0 ? '#' + resolveData.stat : debugStat)
+            //+ ' from ' + sources.map(source => typeof source === 'number' ? source : source.min + '-' + source.max).join(', ') + ' ' + resolveData.sources.join(', '));
         }
     }
 
