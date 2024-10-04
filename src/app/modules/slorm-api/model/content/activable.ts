@@ -11,6 +11,7 @@ export interface Activable {
     cooldown: number;
     baseCost: number;
     cost: number;
+    unbuffedCost?: number; // special case for computing summonable skeleton squires
     baseCostType: SkillCostType;
     costType: SkillCostType;
     hasLifeCost: boolean;

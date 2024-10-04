@@ -335,6 +335,7 @@
 - Fixed an issue causing skill related class mechanics to not be shown
 - Fixed an issue causing class mechanics to not be uptated
 - Fixed many old and new skills interactions
+- Summon maximum possible skeletons config should now correctly work with evasive magic
 
 ## TODO
 - calcul du cooldown sans passer par attack speed

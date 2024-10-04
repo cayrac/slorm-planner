@@ -465,7 +465,7 @@ export class SlormancerReaperService {
             upgradeValue = reaper.baseInfo.level;
         }
         */
-        if (value.stat === 'aura_equipped_per_aura_active_add') {
+        if (['summon_skeleton_squire_cost_lock_reduction', 'aura_equipped_per_aura_active_add'].includes(value.stat)) {
             context.useOldAffinityFormula = true;
         }
 

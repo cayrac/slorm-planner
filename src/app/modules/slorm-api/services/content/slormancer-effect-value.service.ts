@@ -56,7 +56,7 @@ export class SlormancerEffectValueService {
                     } else {
                         effectValue.upgrade = effectValue.baseUpgrade;
                         displayValue += effectValue.upgrade * context.affinityMultiplier * upgradeMultiplier;
-                        effectValue.upgrade = bankerRound(effectValue.baseUpgrade * context.affinityMultiplier, 2);
+                        effectValue.upgrade = round(effectValue.baseUpgrade * context.affinityMultiplier, 2);
                         value += effectValue.upgrade * upgradeMultiplier;
                     }
                 } else {

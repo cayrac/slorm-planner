@@ -239,13 +239,19 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
         override: values => {
             setBaseValue(values, 0, 40);
             overrideValueStat(values, 0, 'physical_damage');
+            allowSynergyToCascade(values, 0);
             setSynergyAnchor(values, 1, '@');
             overrideValueStat(values, 1, 'skeleton_squire_max_health');
+            allowSynergyToCascade(values, 1);
+            overrideValueStat(values, 2, 'increased_mana_cost_per_skeleton');
+            setValueType(values, 2, EffectValueValueType.Static);
+            setUpgradeValue(values, 2, 0);
         }
     },
     18: {
         override: values => {
             overrideValueStat(values, 0, 'physical_damage');
+            allowSynergyToCascade(values, 0);
             overrideValueStat(values, 1, 'garbage_stat');
             addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'unstable_bones_aoe_range')
         }

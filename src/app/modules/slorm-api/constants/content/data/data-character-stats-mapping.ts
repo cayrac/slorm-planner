@@ -29,7 +29,7 @@ function getMaxStacks(stats: ExtractedStatMap, stat: string, defaultValue: numbe
 }
 
 function getMinionsUnderYourControl(stats: ExtractedStatMap, config: CharacterConfig): number {
-    return config.controlled_minions + getSumStats(stats, 'additional_controlled_minions', 0);
+    return config.controlled_minions + getSumStats(stats, 'summoned_skeleton_squires', 0);
 }
 
 function getMaxStat(stats: ExtractedStatMap, stat: string): number {
@@ -191,6 +191,11 @@ export const MANA_COST_MAPPING: MergedStatMapping = {
             { stat: 'efficiency_skill_reduction_skill_mult', condition: config => config.efficiency_buff, multiplier: () => -1 },
             { stat: 'spectral_shape_mana_cost_override', condition: (_, stats) => getFirstStat(stats, 'activable_id') === 32 },
             { stat: 'mana_cost_mult', condition: (_, stats) => hasCostType(stats, SkillCostType.Mana, SkillCostType.ManaSecond) },
+            {
+                stat: 'increased_mana_cost_per_skeleton',
+                condition: (_, stats) => !hasStat(stats, 'no_skeletons') && getFirstStat(stats, 'activable_id') === 17 && getFirstStat(stats, 'summoned_skeleton_squires', 0) > 0,
+                multiplier: (_, stats) => getFirstStat(stats, 'summoned_skeleton_squires', 0)
+            },
         ],
         maxMultiplier: [],
     } 
@@ -1923,6 +1928,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'minion_increased_damage_percent' },
+                { stat: 'minion_increased_damage_percent_necromancy', addAsNonConvertion: true },
                 { stat: 'minion_increased_damage_percent_per_controlled_minion', condition: (config, stats) => getMinionsUnderYourControl(stats, config) > 0, multiplier: (config, stats) => getMinionsUnderYourControl(stats, config) },
             ],
             max: [],

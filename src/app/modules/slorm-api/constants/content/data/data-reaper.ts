@@ -675,7 +675,8 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat);
             moveValue(ba, 3, be);
 
-            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'minion_increased_damage_percent');
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'minion_increased_damage_percent_necromancy');
+            allowSynergyToCascade(be, 0);
             setSynergyPrecision(be, 0, 0);
 
             addConstant(ma, -100, true, EffectValueValueType.Stat, 'mana_leech_global_mult');
@@ -685,6 +686,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma) => { 
             synergyMultiply100(ba, 0);
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'unstable_bones_increased_damages');
+            allowSynergyToCascade(ba, 0);
         }
     },
     45: {

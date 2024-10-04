@@ -41,7 +41,7 @@ import { RuneType } from '../../model/content/rune-type';
 import { SkillType } from '../../model/content/skill-type';
 import { Entity } from '../../model/entity';
 import { EntityValue } from '../../model/entity-value';
-import { add, round } from '../../util';
+import { add, bankerRound, round } from '../../util';
 import { effectValueSynergy } from '../../util/effect-value.util';
 import { synergyResolveData } from '../../util/synergy-resolver.util';
 import { isDamageType, isEffectValueSynergy, isNotNullOrUndefined, minAndMax, valueOrDefault } from '../../util/utils';
@@ -682,31 +682,85 @@ export class SlormancerStatsExtractorService {
                            || activable.genres.includes(SkillGenre.Aura));
     }
 
-    private getLockedManaPercent(activables: (Activable | AncestralLegacy)[], config: CharacterConfig, stats: ExtractedStats): number {        
+    private getTotalSkeletonsReservedMana(summonSkeleton: Activable, summoned: number): number {
+        const increaseManaCostPerSkeleton = summonSkeleton.values[2];
+        const baseCost = summonSkeleton.unbuffedCost;
+        let reservedMana = 0;
+
+        if (increaseManaCostPerSkeleton && baseCost) {
+
+            for (let i = 0 ; i < summoned ; i++) {
+                reservedMana += this.getSkeletonsReservedMana(baseCost, increaseManaCostPerSkeleton.value, i);
+            }
+        }
+
+        return reservedMana;
+    }
+    
+    private getSkeletonsReservedMana(baseCost: number, increasePerSummonedSkeleton: number, summonedSkeletons: number): number {
+        return bankerRound(baseCost * (100 + increasePerSummonedSkeleton * summonedSkeletons) / 100);
+    }
+
+    private getMaximumSkeletons(summonSkeleton: Activable, availableMana: number): number {
+        let remainingMana = availableMana;
+        let maximum = 0;
+
+        if (summonSkeleton.unbuffedCost && summonSkeleton.values[2]) {
+            const increaseManaCostPerSkeleton = summonSkeleton.values[2].value;
+            const baseCost = summonSkeleton.unbuffedCost;
+            let cost = baseCost;
+
+            while (remainingMana > cost) {
+                remainingMana -= cost;
+                maximum++;
+                cost = this.getSkeletonsReservedMana(baseCost, increaseManaCostPerSkeleton, maximum);
+            }
+        }
+
+        return maximum;
+    }
+
+    private getLockedManaPercent(activables: (Activable | AncestralLegacy)[], config: CharacterConfig, stats: ExtractedStats, character: Character): number {        
         let lockedManaPercent = activables.filter(act => act.costType === SkillCostType.ManaLock)
             .reduce((t, s) => t + valueOrDefault(s.cost, 0), 0);
 
         const skeletonSquireSkill = activables.find(activable => activable.id === 17);
-        if (skeletonSquireSkill !== undefined && skeletonSquireSkill.cost !== null) {
+        if (skeletonSquireSkill !== undefined && skeletonSquireSkill.cost !== null && 'unbuffedCost' in skeletonSquireSkill) {
 
             const maxMana = this.slormancerStatMappingService.buildMergedStat<number>(stats.stats, MAX_MANA_MAPPING, config);
             this.slormancerMergedStatUpdaterService.updateStatTotal(maxMana);
             if (maxMana !== undefined) {
-                const availableMana = Math.max(0, (maxMana.total * (100 - lockedManaPercent) / 100) - config.minimum_unreserved_mana);
-                const maxPossibleSummon = Math.floor(availableMana / skeletonSquireSkill.cost);
+                // synergies are not added here, we hack the evasive magic value
+                if (character.heroClass === HeroClass.Huntress) {
+                    const architectOfDeath = character.skills[0];
+                    if (architectOfDeath && architectOfDeath.activeUpgrades.includes(134)) {
+                        const evasiveMagic = architectOfDeath.upgrades.find(upgrade => upgrade.id === 134);
+                        if (evasiveMagic) {
+                            const manaValue = evasiveMagic.values[0];
+                            if (manaValue && isEffectValueSynergy(manaValue)) {
+                                maxMana.total += manaValue.synergy as number;
+                            }
+                        }
+                    }
+                }
 
-                const summonsCount = config.always_summon_maximum_skeleton_squires ? maxPossibleSummon : Math.min(maxPossibleSummon, config.summoned_skeleton_squires);
-            
+                const availableMana = Math.max(0, (maxMana.total * (100 - lockedManaPercent) / 100) - config.minimum_unreserved_mana);
+
+                const maximum = this.getMaximumSkeletons(skeletonSquireSkill, availableMana);
+
+                const summonsCount = config.always_summon_maximum_skeleton_squires ? maximum : Math.min(maximum, config.summoned_skeleton_squires);
+                
+                const summonsReservedMana = this.getTotalSkeletonsReservedMana(skeletonSquireSkill, summonsCount);
+
                 if (summonsCount > 0) {
-                    lockedManaPercent = lockedManaPercent + (summonsCount * skeletonSquireSkill.cost * 100 / maxMana.total);
+                    lockedManaPercent = lockedManaPercent + (summonsReservedMana * 100 / maxMana.total);
 
                     if (config.add_skeletons_to_controlled_minions) {
-                        this.addStat(stats.stats, 'additional_controlled_minions', summonsCount, { synergy: 'Skeletons under your control' });
+                        this.addStat(stats.stats, 'summoned_skeleton_squires', summonsCount, { synergy: 'Skeletons under your control' });
                     }
                 }
             }
         }
-
         
         return lockedManaPercent;
     }
@@ -719,7 +773,7 @@ export class SlormancerStatsExtractorService {
     private addDynamicValues(character: Character, config: CharacterConfig, stats: ExtractedStats) {
         const activables = this.getAllActiveActivables(character);
 
-        const lockedManaPercent = this.getLockedManaPercent(activables, config, stats);
+        const lockedManaPercent = this.getLockedManaPercent(activables, config, stats, character);
         const lockedHealthPercent = this.getLockedHealthPercent(activables, config, stats);
 
         const percentMissingMana = lockedManaPercent > config.percent_missing_mana ? lockedManaPercent : config.percent_missing_mana;

@@ -571,6 +571,12 @@ export class SlormancerValueUpdaterService {
         const mapping = source.hasLifeCost ? LIFE_COST_MAPPING : MANA_COST_MAPPING;
         
         source.cost = Math.max(0, this.getSpecificStat(stats, mapping, config, skillCostStats));
+
+        // Saving mana cost without skeleton for total squires computing
+        if (source.id === 17 && 'level' in source) {
+            skillCostStats['no_skeletons'] = [{ value: 1, source: entity }];
+            source.unbuffedCost = Math.max(0, this.getSpecificStat(stats, mapping, config, skillCostStats));
+        }
     }
 
     private getActivableCooldown(stats: ExtractedStatMap, config: CharacterConfig, source: Activable | AncestralLegacy, cooldownReduction: number): number {
