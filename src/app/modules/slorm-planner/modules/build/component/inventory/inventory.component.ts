@@ -74,6 +74,7 @@ export class InventoryComponent extends AbstractUnsubscribeComponent implements 
 
     public updateIventoryItem(index: number, item: EquipableItem | null) {
         if (this.character !== null) {
+            console.log('updateIventoryItem : ', index, item);
             this.character.inventory[index] = item;
             this.buildStorageService.saveLayer();
         }

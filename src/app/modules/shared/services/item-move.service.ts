@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { EquipableItem, EquipableItemBase } from '@slorm-api';
+import { Character, EquipableItem, EquipableItemBase, GearSlot } from '@slorm-api';
 import { BehaviorSubject } from 'rxjs';
 
 import { BuildStorageService } from './build-storage.service';
 
 export declare type DragCallback = (itemReplaced: boolean, item: EquipableItem | null) => void;
+
+export declare type EquipCallback = (itemReplaced: boolean, item: EquipableItem | null, gearSlot: GearSlot) => void;
 
 @Injectable({ providedIn: 'root' })
 export class ItemMoveService {
@@ -19,6 +21,8 @@ export class ItemMoveService {
 
     private callback: null | DragCallback = null;
 
+    private equipCallback: null | EquipCallback = null;
+
     constructor(private buildStorageService: BuildStorageService) {
     }
 
@@ -27,6 +31,10 @@ export class ItemMoveService {
         this.item = item;
         this.requiredBase = requiredBase;
         this.callback = callback;
+    }
+
+    public setEquipCallback(equipCallback: EquipCallback | null) {
+        this.equipCallback = equipCallback;
     }
 
     public startDragging() {
@@ -107,44 +115,14 @@ export class ItemMoveService {
         const layer = this.buildStorageService.getLayer();
         if (layer !== null && layer.character !== null) {
             const requiredBase = item.base;
+            const compatibleGearSlot = this.getCompatibleGearSlot(layer.character, item);
             this.hold(item, requiredBase, callbackTarget);
-    
-            switch(requiredBase) {
-                case EquipableItemBase.Amulet :
-                    this.swap(layer.character.gear.amulet, requiredBase, (s, item) => s ? layer.character.gear.amulet = item : null);
-                    break;
-                case EquipableItemBase.Belt :
-                    this.swap(layer.character.gear.belt, requiredBase, (s, item) => s ? layer.character.gear.belt = item : null);
-                    break;
-                case EquipableItemBase.Body :
-                    this.swap(layer.character.gear.body, requiredBase, (s, item) => s ? layer.character.gear.body = item : null);
-                    break;
-                case EquipableItemBase.Boot :
-                    this.swap(layer.character.gear.boot, requiredBase, (s, item) => s ? layer.character.gear.boot = item : null);
-                    break;
-                case EquipableItemBase.Bracer :
-                    this.swap(layer.character.gear.bracer, requiredBase, (s, item) => s ? layer.character.gear.bracer = item : null);
-                    break;
-                case EquipableItemBase.Cape :
-                    this.swap(layer.character.gear.cape, requiredBase, (s, item) => s ? layer.character.gear.cape = item : null);
-                    break;
-                case EquipableItemBase.Glove :
-                    this.swap(layer.character.gear.glove, requiredBase, (s, item) => s ? layer.character.gear.glove = item : null);
-                    break;
-                case EquipableItemBase.Helm :
-                    this.swap(layer.character.gear.helm, requiredBase, (s, item) => s ? layer.character.gear.helm = item : null);
-                    break;
-                case EquipableItemBase.Shoulder :
-                    this.swap(layer.character.gear.shoulder, requiredBase, (s, item) => s ? layer.character.gear.shoulder = item : null);
-                    break;
-                case EquipableItemBase.Ring :
-                    if (layer.character.gear.ring_r === null) {
-                        this.swap(layer.character.gear.ring_r, requiredBase, (s, item) => s ? layer.character.gear.ring_r = item : null);
-                    } else {
-                        this.swap(layer.character.gear.ring_l, requiredBase, (s, item) => s ? layer.character.gear.ring_l = item : null);
-                    }
-                    break;
-            }
+
+            this.swap(layer.character.gear[compatibleGearSlot], requiredBase, (itemReplaced: boolean, swapedItem: EquipableItem | null) => {
+                if (this.equipCallback !== null) {
+                    this.equipCallback(itemReplaced, swapedItem, compatibleGearSlot)
+                }
+            });
         }
     }
 
@@ -161,5 +139,47 @@ export class ItemMoveService {
                 this.moveDraggedItemToItemGroup(firstValidItemGroup);
             }
         }
+    }
+
+    private getCompatibleGearSlot(character: Character, item: EquipableItem): GearSlot {
+        let result: GearSlot;
+        switch(item.base) {
+            case EquipableItemBase.Amulet :
+                result = GearSlot.Amulet;
+                break;
+            case EquipableItemBase.Belt :
+                result = GearSlot.Belt;
+                break;
+            case EquipableItemBase.Body :
+                result = GearSlot.Body;
+                break;
+            case EquipableItemBase.Boot :
+                result = GearSlot.Boot;
+                break;
+            case EquipableItemBase.Bracer :
+                result = GearSlot.Bracer;
+                break;
+            case EquipableItemBase.Cape :
+                result = GearSlot.Cape;
+                break;
+            case EquipableItemBase.Glove :
+                result = GearSlot.Glove;
+                break;
+            case EquipableItemBase.Helm :
+                result = GearSlot.Helm;
+                break;
+            case EquipableItemBase.Shoulder :
+                result = GearSlot.Shoulder;
+                break;
+            case EquipableItemBase.Ring :
+                if (character.gear.ring_r === null) {
+                    result = GearSlot.RightRing;
+                } else {
+                    result = GearSlot.LeftRing;
+                }
+                break;
+        }
+
+        return result;
     }
 }

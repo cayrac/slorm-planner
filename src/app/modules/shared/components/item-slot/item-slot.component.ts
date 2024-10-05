@@ -2,18 +2,18 @@ import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import {
-  ALL_GEAR_SLOT_VALUES,
-  Character,
-  EquipableItem,
-  EquipableItemBase,
-  GearSlot,
-  SlormancerCharacterBuilderService,
-  SlormancerItemService,
+    ALL_GEAR_SLOT_VALUES,
+    Character,
+    EquipableItem,
+    EquipableItemBase,
+    GearSlot,
+    SlormancerCharacterBuilderService,
+    SlormancerItemService,
 } from '@slorm-api';
 import { takeUntil } from 'rxjs/operators';
 
 import { BuildStorageService } from '../../services/build-storage.service';
-import { ItemMoveService } from '../../services/item-move.service';
+import { DragCallback, ItemMoveService } from '../../services/item-move.service';
 import { SearchService } from '../../services/search.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 import { CompareItemModalComponent, CompareItemModalData } from '../compare-item-modal/compare-item-modal.component';
@@ -82,7 +82,7 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
     public onMouseUp(event: MouseEvent) {
         if (event.button === 0 && !this.readonly) {
             if (this.isDragging) {
-                this.itemMoveService.swap(this.item, this.base, (success, item) => this.moveCallback(success, item));
+                this.itemMoveService.swap(this.item, this.base, ((success, item) => this.moveCallback(success, item)) as DragCallback);
             } else {
                 this.edit();
             }

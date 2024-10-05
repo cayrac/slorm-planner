@@ -336,7 +336,8 @@
 - Fixed an issue causing class mechanics to not be uptated
 - Fixed many old and new skills interactions
 - Summon maximum possible skeletons config should now correctly work with evasive magic
-- Reaper affinity show now apply it's value to stats the same way the game does
+- Reaper affinity should now apply it's value to stats the same way the game does
+- Equiping an item using the context menu now correctly update the current layer
 
 ## TODO
 - calcul du cooldown sans passer par attack speed

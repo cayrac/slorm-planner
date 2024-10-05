@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ItemMoveService } from '@shared/services/item-move.service';
 import { Character, EquipableItem, EquipableItemBase, GearSlot, Ultimatum } from '@slorm-api';
 
 
@@ -7,7 +8,7 @@ import { Character, EquipableItem, EquipableItemBase, GearSlot, Ultimatum } from
   templateUrl: './character-equipment.component.html',
   styleUrls: ['./character-equipment.component.scss']
 })
-export class CharacterEquipmentComponent {
+export class CharacterEquipmentComponent implements OnInit, OnDestroy {
 
     public readonly gearSlot = GearSlot;
 
@@ -22,7 +23,24 @@ export class CharacterEquipmentComponent {
     @Output()
     public changed = new EventEmitter<Character>();
 
-    constructor() {
+    constructor(private itemMoveService: ItemMoveService) { 
+    }
+
+    public ngOnInit() {
+        const equipCallback = (itemReplaced: boolean, item: EquipableItem | null, gearSlot: GearSlot) => this.updateItemCallback(itemReplaced, item, gearSlot);
+        this.itemMoveService.setEquipCallback(equipCallback);
+    }
+
+    public ngOnDestroy() {
+        this.itemMoveService.setEquipCallback(null);
+    }
+
+    private updateItemCallback(itemReplaced: boolean, item: EquipableItem | null, gearSlot: GearSlot | null) {
+        if (item !== null && this.character !== null) {
+            if (gearSlot !== null) {
+                this.updateItem(gearSlot, item);
+            }
+        }
     }
         
     public updateItem(slot: GearSlot, item: EquipableItem | null) {

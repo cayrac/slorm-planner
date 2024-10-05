@@ -11,10 +11,9 @@ function overrideValueTypeAndStat(effect: ReaperEffect | null, index: number, va
     const value = effect !== null ? valueOrNull(effect.values[index]) : null;
 
     if (value !== null) {
-        warnIfEqual(value.valueType, valueType, 'reaper overrideValueTypeAndStat at index ' + index + ' did not changed anthing', effect);
+        warnIfEqual(value.valueType + value.stat, valueType + stat, 'reaper overrideValueTypeAndStat at index ' + index + ' did not changed anthing', effect);
         value.valueType = valueType;
         if (stat !== null) {
-            warnIfEqual(value.stat, stat, 'reaper overrideValueTypeAndStat at index ' + index + ' did not changed anthing', effect);
             value.stat = stat;
         }
     } else {
@@ -835,6 +834,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'garbage_stats');
             overrideValueTypeAndStat(ba, 6, EffectValueValueType.Stat, 'garbage_stats');
             overrideValueTypeAndStat(ba, 7, EffectValueValueType.Damage, 'elemental_damage');
+            allowSynergyToCascade(ba, 7);
 
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'cooldown_time_muliplier_per_inner_fire');
         }
@@ -855,7 +855,9 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 9, EffectValueValueType.Stat, 'garbage_stat');
 
             overrideValueTypeAndStat(ba, 10, EffectValueValueType.Stat, 'physical_damage');
+            allowSynergyToCascade(ba, 10);
             overrideValueTypeAndStat(ba, 11, EffectValueValueType.Stat, 'physical_damage');
+            allowSynergyToCascade(ba, 11);
 
             addConstant(ba, 2, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
 
@@ -866,6 +868,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(be, 2, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(be, 3, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(be, 4, EffectValueValueType.Stat, 'physical_damage');
+            allowSynergyToCascade(be, 4);
 
         }
     },
@@ -887,15 +890,18 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma) => {
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'additional_damage_add');
+            setSynergyPrecision(be, 1, 0);
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'no_gold_armor_buff_increased_damage_taken_mult');
         }
     },
     62: {
         override: (ba, be, ma) => {
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Unknown, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Unknown, 'garbage_stat');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'thorns_percent');
-            changeValue(ba, 2, 1);
-            synergyMultiply100(ba, 2);
+            allowSynergyToCascade(ba, 2);
+            changeValue(ba, 2, 25);
+            setSynergyPrecision(ba, 2, 2);
         }
     },
     63: {
