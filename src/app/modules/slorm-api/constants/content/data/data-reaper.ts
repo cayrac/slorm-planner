@@ -705,9 +705,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'primary_secondary_skill_increased_damage_mult');
             synergyMultiply100(be, 1);
 
-            if (ma) {
-                ma.values.push(effectValueVariable(0, 0, EffectValueUpgradeType.None, false, 'garbage_stat'));
-            }
+            addConstant(ma, 1, false, EffectValueValueType.Stat, 'half_equipment_damage_stat');
         }
     },
     46: {

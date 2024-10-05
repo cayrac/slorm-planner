@@ -478,6 +478,7 @@ export class SlormancerStatsExtractorService {
     private addGearValues(character: Character, stats: ExtractedStats, config: CharacterConfig, mergedStatMapping: Array<MergedStatMapping>) {
         const addChestTwice = stats.stats['add_chest_stats_twice'] !== undefined;
         const ignorePhysicalElementalStats = stats.stats['ignore_physical_elemental_stats'] !== undefined;
+        const halfEquipmentDamageStats = stats.stats['half_equipment_damage_stat'] !== undefined;
         const items = ALL_GEAR_SLOT_VALUES
             .map(slot => character.gear[slot])
             .filter(isNotNullOrUndefined);
@@ -512,10 +513,13 @@ export class SlormancerStatsExtractorService {
                         stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, { item }, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping, config, stats.stats)));
                     }
                 } else {
-                    if (!ignorePhysicalElementalStats || !this.PHYSICAL_ELEMENTAL_STATS.includes(effectValue.stat)) {
-                        if (effectValue.stat === null) {
-                            console.log('null stat item found', item)
+                    if (this.PHYSICAL_ELEMENTAL_STATS.includes(effectValue.stat)) {
+                        if (halfEquipmentDamageStats) {
+                            this.addStat(stats.stats, effectValue.stat, Math.floor(effectValue.value / 2), { item });
+                        } else if (!ignorePhysicalElementalStats) {
+                            this.addStat(stats.stats, effectValue.stat, effectValue.value, { item });
                         }
+                    } else {
                         this.addStat(stats.stats, effectValue.stat, effectValue.value, { item });
                     }
                 }
