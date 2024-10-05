@@ -465,7 +465,15 @@ export class SlormancerReaperService {
             upgradeValue = reaper.baseInfo.level;
         }
         */
-        if (['summon_skeleton_squire_cost_lock_reduction', 'aura_equipped_per_aura_active_add'].includes(value.stat)) {
+        const statsUsingrealValues = [
+            'summon_skeleton_squire_cost_lock_reduction',
+            'aura_equipped_per_aura_active_add',
+            'sun_effect_health_regen_global_mult',
+            'moon_effect_health_on_hit_global_mult',
+            'righteous_sunlight_damage',
+        ]
+
+        if (statsUsingrealValues.includes(value.stat)) {
             context.useOldAffinityFormula = true;
         }
 

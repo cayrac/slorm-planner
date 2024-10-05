@@ -784,7 +784,7 @@ export class SlormancerStatsExtractorService {
         const percentMissingHealth = lockedHealthPercent > config.percent_missing_health ? lockedHealthPercent : config.percent_missing_health;
         
         this.addStat(stats.stats, 'mana_lock_percent', lockedManaPercent, { synergy: 'Percent locked mana' });
-        this.addStat(stats.stats, 'mana_lock_percent_ungift', lockedManaPercent, { synergy: 'Percent locked mana' });
+        this.addStat(stats.stats, 'mana_lock_percent_ungift', lockedManaPercent, { synergy: 'Percent locked mana (ungifted)' });
         this.addStat(stats.stats, 'percent_locked_health', lockedHealthPercent, { synergy: 'Percent locked life' });
         this.addStat(stats.stats, 'percent_missing_mana', percentMissingMana, { synergy: 'Percent missing mana' });
         this.addStat(stats.stats, 'percent_missing_health', percentMissingHealth, { synergy: 'Percent missing health' });
@@ -835,13 +835,13 @@ export class SlormancerStatsExtractorService {
 
         if (character.reaper.id === 96) {
             stats.synergies.push(synergyResolveData(
-                effectValueSynergy(100 * config.moonlight_stacks, 0, EffectValueUpgradeType.None, false, 'health_regeneration', 'health_regeneration_per_moonlight_stack', EffectValueValueType.Stat, undefined, 3),
+                effectValueSynergy(100 * config.moonlight_stacks, 0, EffectValueUpgradeType.None, false, 'health_regeneration', 'health_regeneration_per_moonlight_stack', EffectValueValueType.Stat, undefined, 3, false, undefined, undefined, true),
                 -1,
                 { synergy: 'Health regeneration per moonlight stack' },
                 [{ stat: 'health_regeneration_per_moonlight_stack' }]
             ));
             stats.synergies.push(synergyResolveData(
-                effectValueSynergy(100 * config.sunlight_stacks, 0, EffectValueUpgradeType.None, false, 'life_on_hit', 'life_on_hit_per_sunlight_stack', EffectValueValueType.Stat, undefined, 3),
+                effectValueSynergy(100 * config.sunlight_stacks, 0, EffectValueUpgradeType.None, false, 'life_on_hit', 'life_on_hit_per_sunlight_stack', EffectValueValueType.Stat, undefined, 3, false, undefined, undefined, true),
                 -1,
                 { synergy: 'Life on hit per sunlight stack' },
                 [{ stat: 'life_on_hit_per_sunlight_stack' }]

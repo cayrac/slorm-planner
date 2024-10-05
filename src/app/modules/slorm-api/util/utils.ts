@@ -176,6 +176,7 @@ export function isDamageType(stat: string): boolean {
         || stat === 'ravenous_dagger_damage'
         || stat === 'trap_damage'
         || stat === 'poison_damage'
+        || stat === 'righteous_sunlight_damage'
     ;
 }
 

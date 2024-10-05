@@ -2850,5 +2850,21 @@ export const REAPER_STATS_MAPPING: { [key: number]: Array<MergedStatMapping>} = 
                 maxMultiplier: [],
             } 
         },
+    ],
+    97: [
+        {
+            stat: 'ungifted_skill_increased_damage',
+            precision: 0,
+            allowMinMax: false,
+            suffix: '',
+            source: {
+                flat: [{ stat: 'mana_lock_percent_ungift' }],
+                max: [],
+                percent: [],
+                maxPercent: [],
+                multiplier: [{ stat: 'ungifted_skill_increased_damage_mult' }],
+                maxMultiplier: [],
+            } 
+        },
     ]
 }

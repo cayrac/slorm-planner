@@ -436,14 +436,16 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     54: {
         override: values => {
             overrideValueStat(values, 0, 'the_max_mana_add');
+            allowSynergyToCascade(values, 0);
         }
     },
     55: {
         override: values => {
-            setUpgradeValue(values, 0, 0);
             overrideValueStat(values, 0, 'garbage_stat');
-            setValueType(values, 0, EffectValueValueType.Static);
+            setUpgradeValue(values, 0, 0);
             overrideValueStat(values, 1, 'garbage_stat');
+            allowSynergyToCascade(values, 1);
+            setSynergyAllowMinMax(values, 1, false);
         }
     },
     57: {

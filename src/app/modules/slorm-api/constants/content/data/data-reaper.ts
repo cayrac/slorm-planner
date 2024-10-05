@@ -715,11 +715,13 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 6, EffectValueValueType.Stat, 'min_basic_damage_add');
+            allowSynergyToCascade(ba, 6);
             overrideValueTypeAndStat(ba, 7, EffectValueValueType.Damage, 'elemental_damage');
             
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'min_elemental_damage_add');
-            overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'mana_consumed_percent_on_skill_cast');
+            allowSynergyToCascade(be, 1);
+            overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'garbage_stat');
         }
     },
     47: {
@@ -779,6 +781,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Damage, 'physical_damage');
+            allowSynergyToCascade(ba, 5);
 
             synergyMultiply100(ba, 4);
             synergyMultiply100(ba, 6);
@@ -1252,16 +1255,24 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma, reaperId) => {
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'sun_effect_health_regen_global_mult');
-            overrideValueTypeAndStat(ba, 8, EffectValueValueType.Damage, 'physical_damage');
-            addConstant(ba, 2, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
-            overrideValueTypeAndStat(ba, 9, EffectValueValueType.Damage, 'righteous_sunlight_additional_damage');
-            overrideSynergySource(ba, 9, 'health_regeneration_per_moonlight_stack');
-            overrideValueTypeAndStat(ba, 10, EffectValueValueType.Stat, 'moon_effect_primary_secondary_skill_additional_damage');
-            overrideSynergySource(ba, 10, 'life_on_hit_per_sunlight_stack');
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Stat, 'moon_effect_health_on_hit_global_mult');
             overrideValueTypeAndStat(ba, 6, EffectValueValueType.Stat, 'moon_effect_health_regen_global_mult');
             overrideValueTypeAndStat(ba, 7, EffectValueValueType.Stat, 'garbage_stat');
+
+
+            overrideValueTypeAndStat(ba, 8, EffectValueValueType.Damage, 'righteous_sunlight_damage');
+            allowSynergyToCascade(ba, 8);
+            overrideValueTypeAndStat(ba, 9, EffectValueValueType.Damage, 'righteous_sunlight_additional_damage');
+            overrideSynergySource(ba, 9, 'health_regeneration_per_moonlight_stack');
+            allowSynergyToCascade(ba, 9);
+            setSynergyAllowMinMax(ba, 9, false);
+            overrideValueTypeAndStat(ba, 10, EffectValueValueType.Stat, 'moon_effect_primary_secondary_skill_additional_damage');
+            overrideSynergySource(ba, 10, 'life_on_hit_per_sunlight_stack');
+            allowSynergyToCascade(ba, 10);
+            setSynergyAllowMinMax(ba, 10, false);
+
+            addConstant(ba, 2, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
 
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
 
@@ -1269,9 +1280,10 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     97: {
         override: (ba, be, ma) => {
-            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'ungifted_skill_increased_damage_mult');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'primary_skill_increased_damage');
-            copySynergyUpgradeFrom(ba, 1, 0)
+            overrideSynergySource(ba, 1, 'ungifted_skill_increased_damage');
+            copySynergyUpgradeFrom(ba, 1, 0);
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'mana_cost_free_treshold');
 
             if (ba) {
@@ -1345,6 +1357,8 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
 
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'max_life_orb');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'missing_life_orb_life_projectile_increased_damage');
+            overrideValueTypeAndStat(be, 2, EffectValueValueType.Stat, 'physical_damage');
+            allowSynergyToCascade(be, 2);
 
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'garbage_stat');
         }

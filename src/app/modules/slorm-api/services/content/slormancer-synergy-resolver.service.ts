@@ -172,7 +172,7 @@ export class SlormancerSynergyResolverService {
         this.updateSynergyValue(resolveData, characterStats, extractedStats);
     }
 
-    private updateSynergyValue(resolveData: SynergyResolveData | ExternalSynergyResolveData, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap) {
+    private updateSynergyValue(resolveData: SynergyResolveData | ExternalSynergyResolveData, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap) {       
         if (isSynergyResolveData(resolveData)) {
             const source = characterStats.find(stat => stat.stat === resolveData.effect.source);
             const allowMinMax = resolveData.statsItWillUpdate.reduce((t, c) => (c.mapping === undefined || c.mapping.allowMinMax) && t, resolveData.effect.allowMinMax);
@@ -208,10 +208,12 @@ export class SlormancerSynergyResolverService {
 
             resolveData.effect.synergy = newValue;
 
-            //const debugStat = resolveData.statsItWillUpdate.map(s => s.stat).join(', ');
-            //console.log((typeof newValue === 'number' ? newValue : newValue.min + '-' + newValue.max) + ' ' + (debugStat.length === 0 ? '#' + resolveData.effect.stat : debugStat)
-            //    + ' from ' + (typeof sourceValue === 'number' ? sourceValue : sourceValue.min + '-' + sourceValue.max) + ' ' + resolveData.effect.source);
-
+            /*
+            const debugStat = resolveData.statsItWillUpdate.map(s => s.stat).join(', ');
+            if (['max_mana', 'max_health', 'life_lock_flat'].includes(resolveData.effect.stat) || ['max_mana', 'max_health', 'life_lock_flat'].includes(resolveData.effect.source) )
+            console.log((typeof newValue === 'number' ? newValue : newValue.min + '-' + newValue.max) + ' ' + (debugStat.length === 0 ? '#' + resolveData.effect.stat : debugStat)
+                + ' from ' + (typeof sourceValue === 'number' ? sourceValue : sourceValue.min + '-' + sourceValue.max) + ' ' + resolveData.effect.source + (resolveData.cascadeSynergy ? ' (cascading)' : ''));
+            //*/
             resolveData.effect.displaySynergy = typeof newValue === 'number'
                 ? bankerRound(newValue, precision)
                 : { min: bankerRound(newValue.min, precision),
