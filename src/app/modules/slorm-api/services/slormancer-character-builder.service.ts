@@ -425,7 +425,7 @@ export class SlormancerCharacterBuilderService {
         let level = 0;
 
         if (reaperData !== null) {
-            const experience = primordial ? reaperData.primordial.experience : reaperData.basic.experience;
+            const experience = reaperData.primordial.experience + reaperData.basic.experience;
             level = this.slormancerReaperService.getReaperLevel(experience);
         }
         

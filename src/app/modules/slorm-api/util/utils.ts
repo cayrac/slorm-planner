@@ -177,6 +177,7 @@ export function isDamageType(stat: string): boolean {
         || stat === 'trap_damage'
         || stat === 'poison_damage'
         || stat === 'righteous_sunlight_damage'
+        || stat === 'butterfly_elemental_damage'
     ;
 }
 
@@ -210,4 +211,8 @@ export function warnIfEqual(a: any, b: any, ...message: any[]) {
     if (a === b && environment.debug) {
         console.warn(...message);
     }
+}
+
+export function numberToString(value: number): string {
+    return value.toLocaleString().replace(/(\s)/g, '$1$1');
 }

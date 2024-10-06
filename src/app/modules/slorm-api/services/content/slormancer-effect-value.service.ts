@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { EffectValueValueType } from '../../model';
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
 import { bankerRound, round } from '../../util/math.util';
@@ -48,15 +49,16 @@ export class SlormancerEffectValueService {
                 displayValue = value;
             } else {
                 if (context.affinityMultiplier !== undefined) {
+                    const affinityMultiplier = effectValue.valueType === EffectValueValueType.Static ? 1 : context.affinityMultiplier;
                     if (context.useOldAffinityFormula === true) {
                         effectValue.upgrade = effectValue.baseUpgrade;
-                        displayValue += effectValue.upgrade * context.affinityMultiplier * upgradeMultiplier;
-                        value += effectValue.upgrade * context.affinityMultiplier * upgradeMultiplier;
-                        effectValue.upgrade = bankerRound(effectValue.baseUpgrade * context.affinityMultiplier, 2);
+                        displayValue += effectValue.upgrade * affinityMultiplier * upgradeMultiplier;
+                        value += effectValue.upgrade * affinityMultiplier * upgradeMultiplier;
+                        effectValue.upgrade = bankerRound(effectValue.baseUpgrade * affinityMultiplier, 2);
                     } else {
                         effectValue.upgrade = effectValue.baseUpgrade;
-                        displayValue += effectValue.upgrade * context.affinityMultiplier * upgradeMultiplier;
-                        effectValue.upgrade = round(effectValue.baseUpgrade * context.affinityMultiplier, 2);
+                        displayValue += effectValue.upgrade * affinityMultiplier * upgradeMultiplier;
+                        effectValue.upgrade = bankerRound(effectValue.baseUpgrade * affinityMultiplier, 2);
                         value += effectValue.upgrade * upgradeMultiplier;
                     }
                 } else {

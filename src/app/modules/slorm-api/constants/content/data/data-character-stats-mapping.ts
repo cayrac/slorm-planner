@@ -80,7 +80,7 @@ export interface MergedStatMapping {
 
 const CHANCE_TO_PIERCE: MergedStatMapping = {
     stat: 'chance_to_pierce',
-    precision: 1,
+    precision: 3,
     allowMinMax: false,
     suffix: '%',
     source: {
@@ -917,7 +917,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'critical_chance',
-        precision: 1,
+        precision: 3,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -944,6 +944,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'crit_chance_percent_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
                 { stat: 'crit_chance_percent_against_burning', condition: config => config.target_is_burning && config.use_enemy_state },
                 { stat: 'academician_critical_chance_extra', extra: true },
+                { stat: 'crit_chance_percent_while_curving_time_or_time_shifting', condition: config => config.is_curving_time_or_time_shifting },
             ],
             max: [],
             percent: [],
@@ -991,7 +992,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'ancestral_chance',
-        precision: 1,
+        precision: 3,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -1067,7 +1068,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             max: [],
             percent: [],
             maxPercent: [],
-            multiplier: [{ stat: 'armor_penetration_global_mult' }, { stat: 'academician_armor_penetration_mult' }],
+            multiplier: [
+                { stat: 'armor_penetration_global_mult' },
+                { stat: 'academician_armor_penetration_mult' }
+            ],
             maxMultiplier: [],
         } 
     },
@@ -1559,7 +1563,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'inner_fire_chance',
-        precision: 1,
+        precision: 3,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -1654,7 +1658,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'overdrive_chance',
-        precision: 1,
+        precision: 3,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -1773,7 +1777,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     CHANCE_TO_PIERCE,
     {
         stat: 'fork_chance',
-        precision: 1,
+        precision: 3,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -1792,7 +1796,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'chance_to_rebound',
-        precision: 1,
+        precision: 3,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -1952,7 +1956,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'weapon_to_elemental_damage' },
                 { stat: 'elemental_emergency_min_elemental_damage_add_on_low_life', condition: (config, stats) => getFirstStat(stats, 'percent_missing_health', 0) > (100 - getFirstStat(stats, 'elemental_emergency_min_elemental_damage_add_on_low_life_treshold', 0)) },
                 { stat: 'elemental_resources_min_elemental_damage_add_on_low_mana', condition: (config, stats) => getFirstStat(stats, 'percent_missing_mana', 0) > (100 - getFirstStat(stats, 'elemental_resources_min_elemental_damage_add_on_low_mana_treshold', 0)) },
-                { stat: 'enligntment_stack_min_elemental_damage_add', condition: config => config.enlightenment_stacks > 0, multiplier: config => Math.min(config.enlightenment_stacks, 999) }
+                { stat: 'enligntment_stack_min_elemental_damage_add', addAsNonConvertion: true }
             ],
             max: [{ stat: 'max_elemental_damage_add' }],
             percent: [

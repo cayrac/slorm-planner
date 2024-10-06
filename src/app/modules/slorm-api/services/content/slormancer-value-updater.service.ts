@@ -356,6 +356,8 @@ export class SlormancerValueUpdaterService {
             ...reaper.templates.malediction.map(effect => effect.values).flat()
         ];
 
+        const dotIncreasedDamage = <MergedStat<number>>this.getStatValueOrDefault(statsResult.stats, 'dot_increased_damage')
+
         if (reaper.id === 96) {
             const righteousSunlightAdditionalDamage = <EffectValueSynergy>effectValues.find(effect => effect.stat === 'righteous_sunlight_additional_damage');
             if (righteousSunlightAdditionalDamage) {
@@ -479,6 +481,13 @@ export class SlormancerValueUpdaterService {
                         effectValue.synergy = mult(effectValue.synergy, suportStreakIncreasedDamage.value);
                         effectValue.displaySynergy = round(effectValue.synergy, 0);
                     }
+                }
+
+                // deadly accuracy damage over time
+                if ([87, 88, 89].includes(reaper.id)) {
+                    console.log('deadly accuracy damage over time', effectValue);
+                    effectValue.synergy = mult(effectValue.synergy, dotIncreasedDamage.total);
+                    effectValue.displaySynergy = round(effectValue.synergy, 0);
                 }
             }
             
@@ -1099,6 +1108,7 @@ export class SlormancerValueUpdaterService {
         const lifeCostAdd: Array<EntityValue<number>> = [];
         const entity: Entity = { skill: skillAndUpgrades.skill };
         const convertManaToLifeCost = statsResult.extractedStats['mana_cost_to_life_cost'] && config.has_life_bargain_buff;
+        const addManaCostToLifeCost = statsResult.extractedStats['add_life_cost_to_mana_cost'];
         const noLongerCostPersecond = statsResult.extractedStats['no_longer_cost_per_second'] !== undefined;
         let skillHasNoCost = (statsResult.extractedStats['last_cast_tormented_remove_cost'] !== undefined && config.last_cast_tormented)
             || (statsResult.extractedStats['no_cost_if_tormented'] !== undefined && config.serenity <= 0);
@@ -1114,6 +1124,16 @@ export class SlormancerValueUpdaterService {
                 skillAndUpgrades.skill.manaCostType = SkillCostType.Mana;
             }
             if (skillAndUpgrades.skill.lifeCostType === SkillCostType.LifeSecond) {
+                skillAndUpgrades.skill.lifeCostType = SkillCostType.Life;
+            }
+        }
+
+        if (addManaCostToLifeCost) {
+            lifeCostAdd.push({ value: Math.max(0, skillStats.mana.total), source: entity });
+            if (skillAndUpgrades.skill.manaCostType === SkillCostType.ManaPercent) {
+                skillAndUpgrades.skill.lifeCostType = SkillCostType.LifePercent;
+            }
+            if (skillAndUpgrades.skill.manaCostType === SkillCostType.Mana) {
                 skillAndUpgrades.skill.lifeCostType = SkillCostType.Life;
             }
         }

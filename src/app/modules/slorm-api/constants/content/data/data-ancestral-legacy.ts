@@ -235,6 +235,7 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
     61: {
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'primary_secondary_skill_shadow_imbued');
+            addConstant(values, 1, false, EffectValueValueType.Stat, 'add_life_cost_to_mana_cost');
             setStat(values, 0, 'shadow_imbued_skill_increased_damage');
         }
     },
@@ -415,11 +416,6 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
     108: {
         override: values => {
             allowSynergyToCascade(values, 0)
-        }
-    },
-    109: {
-        override: values => {
-            // allowSynergyToCascade(values, 0)
         }
     },
     110: {

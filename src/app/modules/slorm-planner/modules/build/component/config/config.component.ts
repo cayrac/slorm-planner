@@ -225,7 +225,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Reaper (Lifebender)',
             condition: character => character.reaper.id === 73,
             configurations: [
-                { type: 'number', key: 'damage_stored', label: 'Last damage received' },
+                { type: 'number', key: 'damage_stored', label: 'Highest damage taken' },
             ]
         },
         {
@@ -568,7 +568,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Enlightening Journey',
             condition: character => this.hasLegendaryEffect(character, 76),
             configurations: [
-                { type: 'number', key: 'enlightenment_stacks', label: 'Number of enlightenment stacks' },
+                { type: 'number', key: 'enlightenment_stacks', label: 'Shield globes picked up recently' },
             ]
         },
         {

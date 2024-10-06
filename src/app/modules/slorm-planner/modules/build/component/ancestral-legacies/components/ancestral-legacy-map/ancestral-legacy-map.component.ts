@@ -307,7 +307,8 @@ export class AncestralLegacyMapComponent extends AbstractUnsubscribeComponent im
         }
     }
 
-    public selectAncestralLegacy(ancestralLegacy: AncestralLegacy) {   
+    public selectAncestralLegacy(ancestralLegacy: AncestralLegacy) {
+        console.log(ancestralLegacy);   
         this.selectedAncestralLegacyChange.emit(ancestralLegacy);
     }
 

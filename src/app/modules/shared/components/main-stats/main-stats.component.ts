@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MergedStat, MinMax, SlormancerTranslateService } from '@slorm-api';
+import { MergedStat, MinMax, numberToString, SlormancerTranslateService } from '@slorm-api';
 
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 
@@ -170,10 +170,10 @@ export class MainStatsComponent extends AbstractUnsubscribeComponent implements 
         let result: string;
 
         if (typeof value === 'number') {
-            result = (value < 0 ? '' : (sign ? '+' : '')) + value + suffix;
+            result = (value < 0 ? '' : (sign ? '+' : '')) + numberToString(value) + suffix;
         } else {
-            result = (value.min < 0 ? '' : (sign ? '+' : '')) + value.min + suffix
-             + ' - ' + (value.max < 0 ? '' : (sign ? '+' : '')) + value.max + suffix;
+            result = (value.min < 0 ? '' : (sign ? '+' : '')) + numberToString(value.min) + suffix
+             + ' - ' + (value.max < 0 ? '' : (sign ? '+' : '')) + numberToString(value.max) + suffix;
         }
 
         return result;

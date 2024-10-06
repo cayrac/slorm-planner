@@ -3,6 +3,7 @@ import {
     Entity,
     MergedStat,
     MinMax,
+    numberToString,
     round,
     SlormancerMergedStatUpdaterService,
     SlormancerTranslateService,
@@ -99,17 +100,17 @@ export class MergedStatViewComponent {
     }
 
     public valueToString(value: number | MinMax, suffix: string): string {
-        return typeof value === 'number' ? round(value, 5) + suffix : round(value.min, 5) + suffix + '-' + round(value.max, 5) + suffix;
+        return typeof value === 'number' ? numberToString(round(value, 5)) + suffix : numberToString(round(value.min, 5)) + suffix + '-' + numberToString(round(value.max, 5)) + suffix;
     }
 
     public minValueToString(value: number | MinMax, suffix: string, showSign: boolean = false): string {
         const result = round(typeof value === 'number' ? value : value.min, 5)
-        return (result >= 0 && showSign ? '+' : '') + result + suffix;
+        return (result >= 0 && showSign ? '+' : '') + numberToString(result) + suffix;
     }
 
     public maxValueToString(value: number | MinMax, suffix: string, showSign: boolean = false): string {
         const result = round(typeof value === 'number' ? value : value.max, 5)
-        return (result >= 0 && showSign ? '+' : '') + result + suffix;
+        return (result >= 0 && showSign ? '+' : '') + numberToString(result) + suffix;
     }
 
     public getTotalFlat(mergedStat: MergedStat): number | MinMax {
@@ -225,9 +226,6 @@ export class MergedStatViewComponent {
         }
 
         let result = round(typeof total === 'number' ? total : total.min, 5) + ' = ' + this.suroundWitMmax(mergedStat, formula);
-        if (mergedStat.stat === 'cooldown_reduction') {
-            console.log('result : ', result);
-        }
         return result;
     }
 

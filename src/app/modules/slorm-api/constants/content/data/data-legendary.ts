@@ -9,10 +9,10 @@ function setStat(effect: LegendaryEffect, index: number, stat: string) {
     const value = effect.effects[index]
 
     if (value) {
-        warnIfEqual(value.effect.stat, stat, 'legendary setStat at index ' + index + ' did not changed anthing', effect);
+        warnIfEqual(value.effect.stat, stat, 'legendary(' + effect.id + ') setStat at index ' + index + ' did not changed anthing', effect);
         value.effect.stat = stat;
     } else {
-        throw new Error('failed to update stat for legendary effect at index ' + index);
+        throw new Error('failed to update stat for legendary(' + effect.id + ') effect at index ' + index);
     }
 }
 
@@ -22,7 +22,7 @@ function valueMultiply100(effect: LegendaryEffect, index: number) {
     if (value) {
         value.score = value.score * 100;
     } else {
-        throw new Error('failed to multiply synergy percent at index ' + index);
+        throw new Error('failed to multiply legendary(' + effect.id + ') synergy percent at index ' + index);
     }
 }
 
@@ -30,10 +30,10 @@ function synergySetAllowMinMax(effect: LegendaryEffect, index: number, allowMinM
     const value = effect.effects[index]
 
     if (value && isEffectValueSynergy(value.effect)) {
-        warnIfEqual(value.effect.allowMinMax, allowMinMaw, 'legendary synergySetAllowMinMax at index ' + index + ' did not changed anthing', effect);
+        warnIfEqual(value.effect.allowMinMax, allowMinMaw, 'legendary(' + effect.id + ') synergySetAllowMinMax at index ' + index + ' did not changed anthing', effect);
         value.effect.allowMinMax = allowMinMaw;
     } else {
-        throw new Error('failed to update allow min max at index ' + index);
+        throw new Error('failed to update legendary(' + effect.id + ') allow min max at index ' + index);
     }
 }
 
@@ -56,7 +56,7 @@ function allowSynergyToCascade(effect: LegendaryEffect, index: number) {
     if (value && isEffectValueSynergy(value.effect)) {
         value.effect.cascadeSynergy = true;
     } else {
-        throw new Error('failed to update synergy cascading at index ' + index);
+        throw new Error('failed to update legendary(' + effect.id + ') synergy cascading at index ' + index);
     }
 }
 
@@ -321,9 +321,9 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     },
     76: {
         override: (effect) => {
-            setStat(effect, 0, 'enligntment_stack_gain_min');
-            setStat(effect, 1, 'enligntment_stack_gain_max');
-            setStat(effect, 2, 'enligntment_stack_min_elemental_damage_add');
+            setStat(effect, 0, 'enligntment_stack_min_elemental_damage_add');
+            setStat(effect, 1, 'garbage_stat');
+            
         }
     },
     78: {

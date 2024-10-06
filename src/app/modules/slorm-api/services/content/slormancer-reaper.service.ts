@@ -465,15 +465,16 @@ export class SlormancerReaperService {
             upgradeValue = reaper.baseInfo.level;
         }
         */
-        const statsUsingrealValues = [
+        const statsUsingRealValues = [
             'summon_skeleton_squire_cost_lock_reduction',
             'aura_equipped_per_aura_active_add',
             'sun_effect_health_regen_global_mult',
             'moon_effect_health_on_hit_global_mult',
             'righteous_sunlight_damage',
+            'butterfly_elemental_damage',
         ]
 
-        if (statsUsingrealValues.includes(value.stat)) {
+        if (statsUsingRealValues.includes(value.stat)) {
             context.useOldAffinityFormula = true;
         }
 

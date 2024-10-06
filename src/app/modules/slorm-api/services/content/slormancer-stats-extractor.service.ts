@@ -273,7 +273,8 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'absorbed_damage_wrath', config.absorbed_damage_wrath, { synergy: 'Absorbed damage wrath' });
         this.addStat(stats.stats, 'moonlight_stacks', config.moonlight_stacks, { synergy: 'Moonlight stacks' });
         this.addStat(stats.stats, 'sunlight_stacks', config.sunlight_stacks, { synergy: 'Sunlight stacks' });
-
+        this.addStat(stats.stats, 'enlight_10', config.enlightenment_stacks * 100, { synergy: 'Shield globes picked up recently' });
+        
         let rune_affinity = config.effect_rune_affinity;
         if (character.runes.effect !== null && character.runes.effect.reapersmith === character.reaper.smith.id) {
             rune_affinity = character.reaper.reaperAffinity;
