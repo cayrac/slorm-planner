@@ -135,7 +135,6 @@ export const SKILL_MANA_COST_MAPPING: MergedStatMapping = {
             { stat: 'mana_cost_reduction_skill_mult', multiplier: () => -1 }, // void arrow discount void 
             { stat: 'efficiency_skill_reduction_skill_mult', condition: config => config.efficiency_buff , multiplier: () => -1 },
             { stat: 'skill_has_no_cost_if_low_mana', condition: (_, stats) => (100 - getFirstStat(stats, 'percent_missing_mana', 0)) < getFirstStat(stats, 'skill_has_no_cost_if_low_mana_treshold', 0) },
-            // skill_has_no_cost_if_low_mana_treshold
         ],
         maxMultiplier: [],
     } 
@@ -255,10 +254,19 @@ export const COOLDOWN_REDUCTION_MAPPING: MergedStatMapping =
             { stat: 'exhilerating_senses_stack_attack_speed_global_mult', condition: config => config.exhilerating_senses_stacks > 0, multiplier: config => config.exhilerating_senses_stacks },
             { stat: 'arcane_clone_cooldown_reduction', condition: (_, stats) => hasStat(stats, 'cast_by_clone' ) },
             { stat: 'chrono_speed_stack_cooldown_reduction_global_mult', condition: config => config.chrono_speed_stacks > 0, multiplier: (config, stats) => Math.min(config.chrono_speed_stacks, getMaxStacks(stats, 'chrono_speed_max_stacks') + getFirstStat(stats, 'increased_max_chrono_stacks')) },
-
             { stat: 'base_cooldown_reduction_per_temporal_emblem', condition: (config, stats) => !hasStat(stats, 'cooldown_reduction_per_temporal_emblem') && config.temporal_emblems > 0, multiplier: config => config.temporal_emblems },
             { stat: 'cooldown_reduction_per_temporal_emblem', condition: config => config.temporal_emblems > 0, multiplier: config => config.temporal_emblems },
-
+            { stat: 'cooldown_reduction_global_mult_per_enfeeble_in_radius', condition: config => config.enfeeble_stacks_in_radius > 0, multiplier: config => config.enfeeble_stacks_in_radius },
+            { stat: 'shadow_bargain_cooldown_reduction_global_mult', condition: config => config.has_shadow_bargain_buff },
+            { stat: 'aurelon_bargain_stack_increased_attack_speed', condition: config => config.aurelon_bargain_stacks > 0,  multiplier: (config, stats) => Math.min(config.aurelon_bargain_stacks, getMaxStacks(stats, 'aurelon_bargain_max_stacks')) },
+            { stat: 'overcharged_stack_cooldown_reduction_global_mult', condition: config => config.overcharged_stacks > 0,  multiplier: config => config.overcharged_stacks },
+            { stat: 'cooldown_reduction_global_mult_on_combo', condition: config => config.victims_combo > 0 },
+            { stat: 'cooldown_reduction_global_mult_while_curving_time_or_time_shifting', condition: config => config.is_curving_time_or_time_shifting },
+            { stat: 'cooldown_reduction_global_mult_while_not_curving_time_or_time_shifting', condition: config => !config.is_curving_time_or_time_shifting },
+            {
+                stat: 'wreak_havoc_cooldown_reduction_global_mult',
+                multiplier: (config, stats) => - getFirstStat(stats, 'wreak_havoc_max_stacks') + Math.max(0, Math.min(config.wreak_havoc_stacks, getFirstStat(stats, 'wreak_havoc_max_stacks')))
+            }
         ],
         maxMultiplier: [],
     } 
@@ -289,28 +297,17 @@ export const ATTACK_SPEED_MAPPING: MergedStatMapping =
             { stat: 'arcane_clone_attack_speed_global_mult_if_in_breach', condition: (config, stats) => hasStat(stats, 'cast_by_clone') && config.clone_is_in_breach_range },
             { stat: 'base_attack_speed_per_arcanic_emblem', condition: (config, stats) => !hasStat(stats, 'attack_speed_per_arcanic_emblem') && config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
             { stat: 'attack_speed_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
-            
+            { stat: 'arcane_flux_stack_cooldown_reduction_global_mult', condition: config => config.arcane_flux_stacks > 0, multiplier: (config, stats) => Math.min(config.arcane_flux_stacks, getMaxStacks(stats, 'arcane_flux_max_stacks')) },
+            { stat: 'booster_max_cooldown_reduction_global_mult', condition: config => config.has_booster_max_buff },
+
 
             // retrouver chaque stat et la replacer là ou il faut
             // il faudrait mettre à jour les fichiers js
-            { stat: 'arcane_flux_stack_cooldown_reduction_global_mult', condition: config => config.arcane_flux_stacks > 0, multiplier: (config, stats) => Math.min(config.arcane_flux_stacks, getMaxStacks(stats, 'arcane_flux_max_stacks')) },
-            { stat: 'cooldown_reduction_global_mult_per_enfeeble_in_radius', condition: config => config.enfeeble_stacks_in_radius > 0, multiplier: config => config.enfeeble_stacks_in_radius },
-            { stat: 'booster_max_cooldown_reduction_global_mult', condition: config => config.has_booster_max_buff },
-            { stat: 'shadow_bargain_cooldown_reduction_global_mult', condition: config => config.has_shadow_bargain_buff },
-            { stat: 'aurelon_bargain_stack_increased_attack_speed', condition: config => config.aurelon_bargain_stacks > 0,  multiplier: (config, stats) => Math.min(config.aurelon_bargain_stacks, getMaxStacks(stats, 'aurelon_bargain_max_stacks')) },
-            { stat: 'overcharged_stack_cooldown_reduction_global_mult', condition: config => config.overcharged_stacks > 0,  multiplier: config => config.overcharged_stacks },
-            { stat: 'cooldown_reduction_global_mult_on_combo', condition: config => config.victims_combo > 0 },
-            { stat: 'cooldown_reduction_global_mult_while_curving_time_or_time_shifting', condition: config => config.is_curving_time_or_time_shifting },
-            { stat: 'cooldown_reduction_global_mult_while_not_curving_time_or_time_shifting', condition: config => !config.is_curving_time_or_time_shifting },
             /*{ // Disabled due to the bloodthirst attack speed bug
                 stat: 'cooldown_reduction_global_mult_per_bloodthirst_stack',
                 condition: config => config.bloodthirst_stacks > 0 && config.has_blood_frenzy_buff,
                 multiplier: (config, stats) => Math.max(0, Math.min(config.bloodthirst_stacks, getMaxStacks(stats, 'bloodthirst_max_stacks')))
             },*/
-            {
-                stat: 'wreak_havoc_cooldown_reduction_global_mult',
-                multiplier: (config, stats) => - getFirstStat(stats, 'wreak_havoc_max_stacks') + Math.max(0, Math.min(config.wreak_havoc_stacks, getFirstStat(stats, 'wreak_havoc_max_stacks')))
-            }
         ],
         maxMultiplier: [],
     } 
