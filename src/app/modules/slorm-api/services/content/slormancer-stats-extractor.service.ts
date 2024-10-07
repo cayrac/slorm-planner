@@ -255,7 +255,7 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'all_level', config.all_other_characters_level + character.level, { synergy: 'Summ all other characters level' });
         this.addStat(stats.stats, 'corrupted_slorm', config.elder_slorms, { synergy: 'Total Elder Slorm' });
         this.addStat(stats.stats, 'damage_stored', config.damage_stored, { synergy: 'Damage stored' });
-        this.addStat(stats.stats, 'victims_reaper_104', config.victims_reaper_104, { synergy: 'Goldfish reaper kill count' });
+        this.addStat(stats.stats, 'victims_reaper_104', Math.min(config.victims_reaper_104, 99999), { synergy: 'Goldfish reaper kill count' });
         this.addStat(stats.stats, 'slormocide_60', config.slormocide_60, { synergy: 'Slorm found recently' });
         this.addStat(stats.stats, 'goldbane_5', config.goldbane_5, { synergy: 'Gold found recently' });
         this.addStat(stats.stats, 'enemy_percent_missing_health', config.enemy_percent_missing_health, { synergy: 'Enemy percent missing health' });

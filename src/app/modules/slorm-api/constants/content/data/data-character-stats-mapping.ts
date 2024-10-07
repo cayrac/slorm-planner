@@ -1465,7 +1465,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'gold_find',
-        precision: 1,
+        precision: 3,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -1672,7 +1672,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             max: [],
             percent: [],
             maxPercent: [],
-            multiplier: [{ stat: 'academician_overdrive_chance_mult' }],
+            multiplier: [
+                { stat: 'academician_overdrive_chance_mult' },
+                { stat: 'overdrive_chance_multiplier' }
+            ],
             maxMultiplier: [],
         } 
     },
@@ -1683,11 +1686,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         suffix: '',
         source: {
             flat: [
-                { stat: 'overdrive_bounce_number_add', condition: (config, stats) => stats['overdrive_bounce_number_set'] === undefined },
-                { stat: 'overdrive_bounce_number_set' }
+                { stat: 'overdrive_bounce_number_add' }
             ],
             max: [],
-            percent: [{ stat: 'overdrive_bounce_number_percent', condition: (config, stats) => stats['overdrive_bounce_number_set'] === undefined }],
+            percent: [{ stat: 'overdrive_bounce_number_percent'}],
             maxPercent: [],
             multiplier: [{ stat: 'overdrive_bounce_number_global_mult' }],
             maxMultiplier: [],
@@ -1704,10 +1706,13 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'overdrive_inner_fire_additional_damage_when_triggered_by_book_smash', extra: true, condition: config => config.is_triggered_by_book_smash },
             ],
             max: [],
-            percent: [{ stat: 'overdrive_damage_percent' }],
+            percent: [
+                { stat: 'overdrive_damage_percent' },
+                { stat: 'overdriving_overdrive_damage_percent' }
+            ],
             maxPercent: [],
             multiplier: [
-                { stat: 'overdrive_damage_global_mult', extra: true },
+                { stat: 'overdrive_damage_global_mult' },
                 { stat: 'overdrive_damage_global_mult_per_bounce_left', extra: true, condition: config => config.overdrive_bounces_left > 0, multiplier: config => config.overdrive_bounces_left },
                 { stat: 'overdrive_damage_global_mult_last_bounce', extra: true, condition: config => config.overdrive_last_bounce }
             ],
@@ -1909,7 +1914,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'aura_increased_effect',
-        precision: 1,
+        precision: 3,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -2118,6 +2123,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'increased_damage_for_each_yard_with_target', condition: config => config.use_enemy_state && config.distance_with_target > 0, multiplier:  config => config.distance_with_target },
                 { stat: 'exposed_armor_primary_secondary_skill_increased_damage_mult', condition: (config, stats) => config.exposed_armor_buff && (hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')) },
                 { stat: 'melee_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee') },
+                { stat: 'melee_skill_decreased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee'), multiplier: () => -1 },
                 { stat: 'light_arrow_increased_damage' },
                 { stat: 'isolated_target_increased_damage', condition: config => config.use_enemy_state && config.target_is_isolated },
                 { stat: 'negative_effect_target_increased_damage', condition: config => config.use_enemy_state && config.target_negative_effects > 0 },

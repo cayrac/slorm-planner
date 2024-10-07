@@ -1333,10 +1333,10 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     98: {
         override: (ba, be, ma, reaperId) => {
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'overdrive_chance_percent_on_critical_strike');
-
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'overdriving_overdrive_damage_percent');
             addConstant(be, 1, true, EffectValueValueType.Stat, 'overdrive_damage_based_on_skill_damage');
-            addConstant(ma, -100, true, EffectValueValueType.Stat, 'melee_skill_increased_damage_mult');
+
+            overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'melee_skill_decreased_damage_mult');
         }
     },
     100: {
@@ -1406,6 +1406,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'garbage_stat');
 
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'cooldown_time_reduction_if_life_cost');
 
@@ -1447,7 +1448,9 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     110: {
         override: (ba, be, ma, reaperId) => {
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Unknown, 'garbage_stat');
-            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'retaliate_additional_damage');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Unknown, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'retaliate_additional_damage');
+            allowSynergyToCascade(ba, 4);
         }
     },
     111: {
@@ -1463,17 +1466,17 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Duration, 'goldscourge_reaper_addition_damage_gold_duration');
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Damage, 'primary_secondary_skill_additional_damage');
             synergyMultiply100(ba, 3);
-            // moveValue(ba, 4, be);
+            allowSynergyToCascade(ba, 3);
 
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'garbage_stat');
+            overrideSynergySource(be, 2, 'gold_find')
             synergyMultiply100(be, 2);
+            allowSynergyToCascade(be, 2);
             synergyMultiply100(be, 3);
-            // overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'golden_overdrive_damage_percent');
-            // overrideSynergySource(be, 0, 'gold_find');
-            // synergyMultiply100(be, 0);
+            allowSynergyToCascade(be, 3);
 
-            addConstant(ma, 1, false, EffectValueValueType.Stat, 'overdrive_bounce_number_set');
+            addConstant(ma, -100, false, EffectValueValueType.Stat, 'overdrive_chance_multiplier');
         }
     },
     115: {

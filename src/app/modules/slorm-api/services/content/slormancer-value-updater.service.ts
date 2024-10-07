@@ -147,10 +147,6 @@ export class SlormancerValueUpdaterService {
             multipliers.push(skillStats.minionIncreasedDamage.total);
         }
 
-        if (genres.includes(SkillGenre.Projectile) && !isBleeding) {
-            multipliers.push(-Math.min(skillStats.characterAdditionalProjectiles.total, 9) * 10);
-        }
-
         if (isBleeding || genres.includes(SkillGenre.DamageOverTime)) {
             multipliers.push(skillStats.dotIncreasedDamage.total);
         }
@@ -341,10 +337,20 @@ export class SlormancerValueUpdaterService {
                     const blormIncreasedDamage = statsResult.extractedStats['blorm_increased_damage'];
                     if (blormIncreasedDamage) {
                         additionalDamageMultipliers.push((<EntityValue<number>>blormIncreasedDamage[0]).value);
+                        console.log('blorm increased damage : ', blormIncreasedDamage);
                     }
                 }
 
+                let blorm = mechanic.type === MechanicType.Blorm;
+
+                if (blorm) {
+                    console.log('blorm base damage : ', value.synergy);
+                }
+
                 this.updateDamage(value, mechanic.genres, skillStats, statsResult, mechanic.element, false, additionalDamageMultipliers);
+                if (blorm) {
+                    console.log('blorm updated damage : ', value.synergy);
+                }
             }
         }
     }

@@ -13,7 +13,7 @@ import { ReaperEffect } from '../../model/content/reaper-effect';
 import { MinMax } from '../../model/minmax';
 import { GameWeapon } from '../../model/parser/game/game-save';
 import { effectValueSynergy, effectValueVariable } from '../../util/effect-value.util';
-import { bankerRound, list } from '../../util/math.util';
+import { bankerRound, list, round } from '../../util/math.util';
 import { strictParseFloat } from '../../util/parse.util';
 import {
     compare,
@@ -472,6 +472,7 @@ export class SlormancerReaperService {
             'moon_effect_health_on_hit_global_mult',
             'righteous_sunlight_damage',
             'butterfly_elemental_damage',
+            'overdriving_overdrive_damage_percent'
         ]
 
         if (statsUsingRealValues.includes(value.stat)) {
@@ -479,6 +480,14 @@ export class SlormancerReaperService {
         }
 
         this.slormancerEffectValueService.updateEffectValue(value, upgradeValue, context);
+
+        const statsRounded = [
+            'overdriving_overdrive_damage_percent'
+        ];
+
+        if (statsRounded.includes(value.stat)) {
+            value.value = round(value.value);
+        }
     }
 
     public useDifferentAffinityForEffects(reaper: Reaper): boolean {

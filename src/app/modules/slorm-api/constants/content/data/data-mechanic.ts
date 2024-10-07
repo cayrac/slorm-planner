@@ -11,7 +11,7 @@ export const DATA_MECHANIC: { [key: string]:  DataMechanic} = {
     [MechanicType.InnerFire]: {
         values: [
             effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'inner_fire_duration', 'duration', EffectValueValueType.Stat),
-            effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'inner_fire_damage', 'basic_damage', EffectValueValueType.Stat),
+            effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'inner_fire_damage', 'basic_damage', EffectValueValueType.Stat, undefined, undefined, undefined, undefined, undefined, true),
             effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'inner_fire_max_number', 'max', EffectValueValueType.Stat),
         ]
     },
@@ -24,19 +24,19 @@ export const DATA_MECHANIC: { [key: string]:  DataMechanic} = {
     [MechanicType.Overdrive]: {
         values: [
             effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'overdrive_bounce_number', 'bounces', EffectValueValueType.Stat),
-            effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'overdrive_damage', 'basic_damage', EffectValueValueType.Stat),
+            effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'overdrive_damage', 'basic_damage', EffectValueValueType.Stat, undefined, undefined, undefined, undefined, undefined, true),
         ]
     },
     [MechanicType.Fireball]: {
         values: [
-            effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat),
+            effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat, undefined, undefined, undefined, undefined, undefined, true),
             effectValueConstant(100, false, 'garbage_stat', EffectValueValueType.Stat),
         ]
     },
     [MechanicType.WalkingBomb]: {
         values: [
             effectValueConstant(2, false, 'duration', EffectValueValueType.Stat),
-            effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat, undefined, 2),
+            effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat, undefined, 2, undefined, undefined, undefined, true),
             effectValueConstant(100, false, 'garbage_stat', EffectValueValueType.Stat),
             effectValueConstant(1, false, 'walking_bomb_aoe', EffectValueValueType.AreaOfEffect),
         ],
@@ -44,20 +44,20 @@ export const DATA_MECHANIC: { [key: string]:  DataMechanic} = {
     },
     [MechanicType.Dart]: {
         values: [
-            effectValueSynergy(25, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat),
+            effectValueSynergy(25, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat, undefined, undefined, undefined, undefined, undefined, true),
             effectValueConstant(25, false, 'garbage_stat', EffectValueValueType.Stat),
         ]
     },
     [MechanicType.Frostbolt]: {
         values: [
-            effectValueSynergy(80, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat, undefined, 1),
+            effectValueSynergy(80, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat, undefined, 1, undefined, undefined, undefined, true),
             effectValueConstant(80, false, 'garbage_stat', EffectValueValueType.Stat),
         ]
     },
     [MechanicType.LightningRod]: {
         values: [
             effectValueConstant(7, false, 'duration', EffectValueValueType.Duration),
-            effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat, undefined, 1),
+            effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat, undefined, 1, undefined, undefined, undefined, true),
             effectValueConstant(100, false, 'garbage_stat', EffectValueValueType.Stat),
         ],
         genres: [SkillGenre.Totem],
@@ -66,15 +66,15 @@ export const DATA_MECHANIC: { [key: string]:  DataMechanic} = {
     },
     [MechanicType.SoulBound]: {
         values: [
-            effectValueSynergy(15, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'basic_damage', EffectValueValueType.Stat, undefined, 2),
+            effectValueSynergy(15, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'basic_damage', EffectValueValueType.Stat, undefined, 2, undefined, undefined, undefined, true),
             effectValueConstant(15, false, 'garbage_stat', EffectValueValueType.Stat),
             effectValueConstant(10, false, 'garbage_stat', EffectValueValueType.Stat),
         ]
     },
     [MechanicType.Burn]: {
         values: [
-            effectValueSynergy(200, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat, undefined, 2),
-            effectValueConstant(200, false, 'garbage_stat', EffectValueValueType.Stat),
+            effectValueSynergy(300, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat, undefined, 2, undefined, undefined, undefined, true),
+            effectValueConstant(300, false, 'garbage_stat', EffectValueValueType.Stat),
             effectValueConstant(7, false, 'garbage_stat', EffectValueValueType.Stat),
         ],
         genres: [SkillGenre.DamageOverTime],
@@ -82,7 +82,7 @@ export const DATA_MECHANIC: { [key: string]:  DataMechanic} = {
     [MechanicType.Blorm]: {
         values: [
             effectValueConstant(10, false, 'garbage_stat', EffectValueValueType.Stat),
-            effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'physical_damage', EffectValueValueType.Stat, undefined, 3),
+            effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'physical_damage', EffectValueValueType.Stat, undefined, 3, undefined, undefined, undefined, true),
             effectValueConstant(100, false, 'garbage_stat', EffectValueValueType.Stat),
         ],
         genres: [SkillGenre.Minion],

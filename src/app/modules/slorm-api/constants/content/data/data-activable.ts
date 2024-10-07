@@ -147,7 +147,15 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     },
     4: {
         override: values => {
+            overrideValueStat(values, 0, 'garbage_stat');
             synergyMultiply100(values, 0);
+            allowSynergyToCascade(values, 0);
+            overrideValueStat(values, 1, 'ultra_cannon_max');
+        }
+    },
+    5: {
+        override: values => {
+            overrideValueStat(values, 0, 'mega_heal_heal');
         }
     },
     6: {
