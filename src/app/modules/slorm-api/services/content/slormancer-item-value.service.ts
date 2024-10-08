@@ -24,8 +24,8 @@ export class SlormancerItemValueService {
 
     private readonly REINFORCMENT_CACHE: { [key: number]: number } = {}; 
 
-    private readonly AFFIX_MIN_MAX: { [key: string]: { [key: string]: { [key: number]: MinMax }}} = {
-        'normal': {
+    private readonly AFFIX_MIN_MAX: { [key in Rarity]: { [key: string]: { [key: number]: MinMax }}} = {
+        [Rarity.Normal]: {
             '': {
                 1: { min: 70, max: 100 },
                 2: { min: 70, max: 100 },
@@ -41,7 +41,7 @@ export class SlormancerItemValueService {
                 5: { min: 70, max: 100 },
             }
         },
-        'magic': {
+        [Rarity.Defensive]: {
             '': {
                 1: { min: 45, max: 65 },
                 2: { min: 45, max: 65 },
@@ -57,7 +57,7 @@ export class SlormancerItemValueService {
                 5: { min: 45, max: 65 },
             }
         },
-        'rare': {
+        [Rarity.Magic]: {
             '': {
                 1: { min: 45, max: 65 },
                 2: { min: 45, max: 65 },
@@ -73,7 +73,23 @@ export class SlormancerItemValueService {
                 5: { min: 45, max: 65 },
             }
         },
-        'epic': {
+        [Rarity.Rare]: {
+            '': {
+                1: { min: 45, max: 65 },
+                2: { min: 45, max: 65 },
+                3: { min: 45, max: 65 },
+                4: { min: 45, max: 65 },
+                5: { min: 45, max: 65 },
+            },
+            '%': {
+                1: { min: 9,  max: 13 },
+                2: { min: 18, max: 26 },
+                3: { min: 27, max: 39 },
+                4: { min: 36, max: 52 },
+                5: { min: 45, max: 65 },
+            }
+        },
+        [Rarity.Epic]: {
             '': {
                 1: { min: 20, max: 40 },
                 2: { min: 20, max: 40 },
@@ -89,7 +105,7 @@ export class SlormancerItemValueService {
                 5: { min: 20, max: 40 },
             }
         },
-        'legendary': {
+        [Rarity.Legendary]: {
             '': {
                 1: { min: 75, max: 100 },
                 2: { min: 75, max: 100 },

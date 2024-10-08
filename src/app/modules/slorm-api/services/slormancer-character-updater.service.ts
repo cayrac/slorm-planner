@@ -735,7 +735,5 @@ export class SlormancerCharacterUpdaterService {
         this.updateCharacterStats(character, updateViews, config, additionalItem, additionalRunes);
 
         console.log(character);
-        console.log(character.reaper.templates);
-        console.log(character.reaper.id);
     }
 }

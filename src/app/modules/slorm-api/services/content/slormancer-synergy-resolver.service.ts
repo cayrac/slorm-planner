@@ -30,7 +30,7 @@ export class SlormancerSynergyResolverService {
         const armorOfIllusion = localSynergies.find(resolveData => resolveData.effect.source === 'armor' && resolveData.effect.stat === 'dodge_add');
         if (indomitableMountain && armorOfIllusion) {
             indomitableMountain.cascadeSynergy = false;
-            console.log('Cascading changes : Armor of Illusion + Indomitable Mountain');
+            //console.log('Cascading changes : Armor of Illusion + Indomitable Mountain');
         }
 
         // Evase Magic + Untouchable One Reaper
@@ -38,23 +38,8 @@ export class SlormancerSynergyResolverService {
         const evasiveMagic = localSynergies.find(resolveData => resolveData.effect.source === 'dodge' && resolveData.effect.stat === 'the_max_mana_add');
         if (untouchableOne && evasiveMagic) {
             untouchableOne.cascadeSynergy = false;
-            console.log('Cascading changes : Evase Magic + Untouchable One Reaper');
+            //console.log('Cascading changes : Evase Magic + Untouchable One Reaper');
         }
-
-        // Savagery 60 + Alpha and Omega
-        /*const savagery60 = externalSynergies.find(resolveData => resolveData.stat === 'raw_elem_diff');
-        const weaponToElementalDamage = localSynergies.find(resolveData => resolveData.effect.stat === 'weapon_to_elemental_damage');
-        console.log(externalSynergies, savagery60, weaponToElementalDamage);
-        if (weaponToElementalDamage && savagery60 && weaponToElementalDamage.effect.value === 50) {
-            weaponToElementalDamage.cascadeSynergy = false;
-        }*/
-
-        /*
-        TODO  savagery 60 + infinite time and deep and space à refaire
-        const savagery60 = resolveDatas.findIndex(resolveData => resolveData.type === ResolveDataType.ExternalSynergy && resolveData.stat === 'raw_elem_diff');
-        const weaponUpdateElementalAndPhysical = resolveDatas.find(resolveData => resolveData.type === ResolveDataType.Synergy && resolveData.effect.stat === 'weapon_to_elemental_damage') !== undefined
-
-        */
     }
 
     private resolveSynergy(synergy: SynergyResolveData | ExternalSynergyResolveData, resolved: Array<SynergyResolveData>, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap, config: CharacterConfig) {
@@ -78,13 +63,13 @@ export class SlormancerSynergyResolverService {
             this.resolveSynergy(next, resolved, characterStats, extractedStats, config);
         }
 
-        if (remainingSynergies.filter(isSynergyResolveData).length > 0) {
+        /*if (remainingSynergies.filter(isSynergyResolveData).length > 0) {
             const synergyes = remainingSynergies.filter(isSynergyResolveData);
             console.log('### There are ' + synergyes.length + ' unresolved synergies');
             for (const synergy of synergyes) {
                 console.log(synergy.effect.source + ' => ' + synergy.effect.stat + (synergy.cascadeSynergy ? '(cascading)' : ''), synergy);
             }
-        }
+        }*/
 
         return { unresolved: remainingSynergies.filter(isSynergyResolveData), resolved };
     }

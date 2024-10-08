@@ -1,28 +1,45 @@
 import { Injectable } from '@angular/core';
 import {
-  ALL_ATTRIBUTES,
-  ALL_RARITIES,
-  ALL_REAPER_SMITH,
-  ALL_ULTIMATUM_TYPES,
-  compareString,
-  EQUIPABLE_ITEM_BASE_VALUES,
-  EquipableItemBase,
-  GameDataStat,
-  GameHeroesData,
-  HeroClass,
-  Rarity,
-  ReaperSmith,
-  SlormancerDataService,
-  SlormancerReaperService,
-  SlormancerTranslateService,
-  UltimatumType,
-  valueOrDefault,
+    ALL_ATTRIBUTES,
+    ALL_RARITIES,
+    ALL_REAPER_SMITH,
+    ALL_ULTIMATUM_TYPES,
+    compareString,
+    EQUIPABLE_ITEM_BASE_VALUES,
+    EquipableItemBase,
+    GameDataStat,
+    GameHeroesData,
+    HeroClass,
+    Rarity,
+    ReaperSmith,
+    SlormancerDataService,
+    SlormancerReaperService,
+    SlormancerTranslateService,
+    UltimatumType,
+    valueOrDefault,
 } from '@slorm-api';
 
 import { SelectOption } from '../model/select-option';
 
 @Injectable({ providedIn: 'root' })
 export class FormOptionsService {
+
+    private DEFENSIVE_STATS: string[] = [
+        'reduced_damage_from_all_percent',
+        'reduced_damage_from_area_percent',
+        'reduced_damage_from_melee_percent',
+        'reduced_damage_from_projectile_percent',
+        'reduced_damage_on_elite_percent',
+        'res_phy_add',
+        'res_phy_percent',
+        'res_mag_add',
+        'res_mag_percent',
+        'dodge_add',
+        'dodge_percent',
+        'the_max_health_add',
+        'the_max_health_percent',
+        'tenacity_percent',
+    ];
 
     private STATS_OPTIONS_CACHE: { [key: string]: { P: Array<SelectOption<string>>, S: Array<SelectOption<string>>, E: Array<SelectOption<string>>, D: Array<SelectOption<string>> } } = {};
 
@@ -164,19 +181,23 @@ export class FormOptionsService {
                         statBase.P.push(option);
                         statBase.S.push(option);
                         statBase.E.push(option);
+
+                        if (this.DEFENSIVE_STATS.includes(stat.REF)) {
+                            statBase.D.push(option);
+                        }
                     }
 
                     if (rarity === 'S') {
                         statBase.S.push(option);
                         statBase.E.push(option);
+
+                        if (this.DEFENSIVE_STATS.includes(stat.REF)) {
+                            statBase.D.push(option);
+                        }
                     }
 
                     if (rarity === 'E') {
                         statBase.E.push(option);
-                    }
-
-                    if (stat.CATEGORY === 'defensive') {
-                        statBase.D.push(option);
                     }
                 }
             }

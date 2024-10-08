@@ -337,20 +337,10 @@ export class SlormancerValueUpdaterService {
                     const blormIncreasedDamage = statsResult.extractedStats['blorm_increased_damage'];
                     if (blormIncreasedDamage) {
                         additionalDamageMultipliers.push((<EntityValue<number>>blormIncreasedDamage[0]).value);
-                        console.log('blorm increased damage : ', blormIncreasedDamage);
                     }
                 }
 
-                let blorm = mechanic.type === MechanicType.Blorm;
-
-                if (blorm) {
-                    console.log('blorm base damage : ', value.synergy);
-                }
-
                 this.updateDamage(value, mechanic.genres, skillStats, statsResult, mechanic.element, false, additionalDamageMultipliers);
-                if (blorm) {
-                    console.log('blorm updated damage : ', value.synergy);
-                }
             }
         }
     }
@@ -491,7 +481,6 @@ export class SlormancerValueUpdaterService {
 
                 // deadly accuracy damage over time
                 if ([87, 88, 89].includes(reaper.id)) {
-                    console.log('deadly accuracy damage over time', effectValue);
                     effectValue.synergy = mult(effectValue.synergy, dotIncreasedDamage.total);
                     effectValue.displaySynergy = round(effectValue.synergy, 0);
                 }

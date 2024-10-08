@@ -78,6 +78,9 @@ $pure-color            : rgb(70, 231, 176);
         &.normal {
             background-color: $normal-color-text;
         }
+        &.defensive {
+            background-color: $normal-color-text;
+        }
         &.magic {
             background-color: $magic-color-text;
         }

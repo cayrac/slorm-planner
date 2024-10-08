@@ -43,7 +43,7 @@
                     Defensive Stats :
                 </div>
                 <div class="add" *ngIf="hasBasicStats() && !hasMaximumDefensiveStats()">
-                    <button mat-icon-button type="button" color="primary" (click)="addMagicAffix()"><mat-icon>add</mat-icon></button>
+                    <button mat-icon-button type="button" color="primary" (click)="addDefensiveAffix()"><mat-icon>add</mat-icon></button>
                 </div>
             </div>
             <ng-container *ngFor="let affixControl of form.controls.affixes.controls; let i = index">
