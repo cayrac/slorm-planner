@@ -3574,7 +3574,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 5,
         line: 3,
         override: values => {
-            setStat(values, 0, 'cooldown_time_reduction_multiplier');
+            setStat(values, 0, 'attack_speed_percent');
             synergyMultiply100(values, 0);
             setAsUpgrade(values, 0);
         }
