@@ -22,8 +22,8 @@ import { ALL_SKILL_COST_TYPES, SkillCostType } from '../../model/content/enum/sk
 import { SkillGenre } from '../../model/content/enum/skill-genre';
 import { Mechanic } from '../../model/content/mechanic';
 import { Reaper } from '../../model/content/reaper';
-import { EffectRune, Rune } from '../../model/content/rune';
-import { RuneType } from '../../model/content/rune-type';
+import { Rune } from '../../model/content/rune';
+import { isEffectRune, RuneType } from '../../model/content/rune-type';
 import { SkillElement } from '../../model/content/skill-element';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { Entity } from '../../model/entity';
@@ -870,24 +870,33 @@ export class SlormancerValueUpdaterService {
     public precomputeRunePowerAndEffect(character: Character, additionalRunes: Array<Rune>, stats: CharacterStatsBuildResult, config: CharacterConfig) {
         const allRunes = [character.runes.activation, character.runes.effect, character.runes.enhancement, ...additionalRunes].filter(isNotNullOrUndefined);
 
+        // trouver pourquoi ça déconne ici
         let reduced_power = stats.extractedStats['effect_rune_reduced_power'] ? valueOrNull(stats.extractedStats['effect_rune_reduced_power'][0]?.value) : null;
         // utiliser effect_rune_increased_power une fois le bug corrigé
         const increased_power = stats.extractedStats['effect_rune_increased_effect'] ? valueOrNull(stats.extractedStats['effect_rune_increased_effect'][0]?.value) : null;
         const power_override = stats.extractedStats['rune_power_override'] ? valueOrNull(stats.extractedStats['rune_power_override'][0]?.value) : null;
         
+        const rps = stats.extractedStats['effect_rune_reduced_power'];
+        if (rps) {
+            console.log(rps, rps[0], rps[0]?.value, reduced_power);
+        }
+        console.log('power : ', character.runes.effect?.constraint);
         if (reduced_power !== null) {
             let enhancement_rune_increased_effect = stats.stats.find(stat => stat.stat === 'enhancement_rune_increased_effect');
             if (enhancement_rune_increased_effect) {
+                console.log((<MergedStat<number>>enhancement_rune_increased_effect));
                 reduced_power = reduced_power * (100 + (<MergedStat<number>>enhancement_rune_increased_effect).total) / 100;
             }
         }
+        console.log('power 2 : ', character.runes.effect?.constraint, reduced_power, increased_power);
 
         for (const rune of allRunes) {
-            if (rune.type === RuneType.Effect) {
+            if (isEffectRune(rune)) {
                 if (reduced_power !== null) {
-                    rune.constraint = bankerRound((<EffectRune>rune).baseConstraint * (100 - reduced_power) / 100);
+                    rune.constraint = bankerRound(rune.baseConstraint * (100 - reduced_power) / 100, 2);
+                    console.log(rune.baseConstraint, reduced_power, rune.constraint)
                 } else if (increased_power !== null) {
-                    rune.constraint = bankerRound((<EffectRune>rune).baseConstraint * (100 + increased_power) / 100);
+                    rune.constraint = bankerRound(rune.baseConstraint * (100 + increased_power) / 100, 2);
                 } else if (power_override !== null) {
                     rune.constraint = power_override;
                 }
@@ -896,6 +905,8 @@ export class SlormancerValueUpdaterService {
         }
 
         const power = character.runes.effect !== null ? character.runes.effect.constraint : 100;
+
+        console.log('power 3 : ', character.runes.effect?.constraint, power);
         const powerMultiplier = power / 100;
         const effectMultiplier = (100 + <number>valueOrDefault(stats.stats.find(stat => stat.stat === 'effect_rune_effect')?.total, 100)) / 100;
         const ignoredEffectMultiplierStats = [
@@ -933,7 +944,7 @@ export class SlormancerValueUpdaterService {
             if (rune.type === RuneType.Activation) {
                 for (const effectValue of rune.values) {
                     if ((isEffectValueVariable(effectValue) || isEffectValueSynergy(effectValue))) {
-                        this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level, { globalMultiplier: powerMultiplier, globalMultiplierPrecision: 1 });
+                        this.slormancerEffectValueService.updateRuneEffectValue(effectValue, rune.level,powerMultiplier);
                         changed = true;
                     }
                 }
@@ -943,7 +954,9 @@ export class SlormancerValueUpdaterService {
                 for (const effectValue of rune.values) {
                     if (isEffectValueVariable(effectValue) || isEffectValueSynergy(effectValue)) {
                         if (!ignoredEffectMultiplierStats.includes(effectValue.stat) && (!isEffectValueSynergy(effectValue) || (effectValue.source !== 'victims_current_reaper' && effectValue.source !== 'max_mana'))) {
-                            this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level, { globalMultiplier: effectMultiplier, globalMultiplierPrecision: 3 });
+                            // thornbite only has 75% of the effect it should have
+                            const thornbiteBugMultiplier = rune.id === 12 ? 0.75 : 1;
+                            this.slormancerEffectValueService.updateRuneEffectValue(effectValue, rune.level, effectMultiplier * thornbiteBugMultiplier);
                             changed = true;
                         }
                     }
@@ -954,7 +967,7 @@ export class SlormancerValueUpdaterService {
                 for (const effectValue of rune.values) {
                     if (isEffectValueVariable(effectValue) && effectValue.stat === 'effect_rune_trigger_chance') {
                         const triggerMultiplier =  1 + (100 - power) / 200;
-                        this.slormancerEffectValueService.updateEffectValue(effectValue, rune.level, { globalMultiplier: triggerMultiplier, globalMultiplierPrecision: 3 });
+                        this.slormancerEffectValueService.updateRuneEffectValue(effectValue, rune.level,triggerMultiplier);
                         changed = true;
                     }
                 }

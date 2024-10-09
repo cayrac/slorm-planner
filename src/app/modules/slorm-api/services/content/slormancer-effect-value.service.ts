@@ -19,6 +19,41 @@ export class SlormancerEffectValueService {
     public getEffectValueClone<T extends AbstractEffectValue>(effectValue: T): T {
         return { ...effectValue };
     }
+    // TODO update effect value model / view
+    public updateRuneEffectValue(effectValue: AbstractEffectValue, upgradeMultiplier: number, effectMultiplier: number): AbstractEffectValue {
+        if (isEffectValueSynergy(effectValue) || isEffectValueVariable(effectValue)) {
+            let value = effectValue.baseValue;
+            let displayValue = effectValue.baseValue;
+            let precision = 3;
+
+            console.log('update rune effect value', effectValue.value, upgradeMultiplier, effectMultiplier);
+
+            value = bankerRound(value * effectMultiplier, precision);
+            displayValue = value;
+            const realUpgrade = effectValue.baseUpgrade * effectMultiplier
+            effectValue.upgrade = bankerRound(effectValue.baseUpgrade * effectMultiplier, precision);
+            
+            if (effectValue.upgradeType === EffectValueUpgradeType.Every3RuneLevel) {
+                value += realUpgrade * Math.floor(upgradeMultiplier / 3);
+                displayValue = value;
+            } else if (effectValue.upgradeType === EffectValueUpgradeType.Every5RuneLevel ) {
+                value += realUpgrade * Math.floor(upgradeMultiplier / 5);
+                displayValue = value;
+            } else {
+                value += realUpgrade * upgradeMultiplier;
+                displayValue = value;
+            }
+
+            effectValue.value = round(value, 5);
+            effectValue.displayValue = bankerRound(displayValue, 3);
+            if (isEffectValueVariable(effectValue)) {
+                effectValue.upgradedValue = effectValue.value;
+            }
+        }
+
+        console.log('update rune effect result', effectValue.value);
+        return effectValue;
+    }
 
     // TODO update effect value model / view
     public updateEffectValue(effectValue: AbstractEffectValue, upgradeMultiplier: number, context: UpdateEffectValueContext = {}): AbstractEffectValue {

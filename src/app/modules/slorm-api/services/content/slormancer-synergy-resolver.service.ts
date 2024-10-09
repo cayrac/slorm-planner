@@ -195,9 +195,9 @@ export class SlormancerSynergyResolverService {
 
             /*
             const debugStat = resolveData.statsItWillUpdate.map(s => s.stat).join(', ');
-            if (['max_mana', 'max_health', 'life_lock_flat'].includes(resolveData.effect.stat) || ['max_mana', 'max_health', 'life_lock_flat'].includes(resolveData.effect.source) )
+            // if (['armor', 'res_mag_add'].includes(resolveData.effect.stat) || ['armor', 'res_mag_add'].includes(resolveData.effect.source) )
             console.log((typeof newValue === 'number' ? newValue : newValue.min + '-' + newValue.max) + ' ' + (debugStat.length === 0 ? '#' + resolveData.effect.stat : debugStat)
-                + ' from ' + (typeof sourceValue === 'number' ? sourceValue : sourceValue.min + '-' + sourceValue.max) + ' ' + resolveData.effect.source + (resolveData.cascadeSynergy ? ' (cascading)' : ''));
+                + ' from ' + (typeof sourceValue === 'number' ? sourceValue : sourceValue.min + '-' + sourceValue.max) + ' ' + resolveData.effect.source + (resolveData.cascadeSynergy ? ' (cascading)' : ''), source);
             //*/
             resolveData.effect.displaySynergy = typeof newValue === 'number'
                 ? bankerRound(newValue, precision)

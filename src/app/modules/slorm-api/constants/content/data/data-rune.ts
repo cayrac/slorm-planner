@@ -4,13 +4,14 @@ import { EffectValueUpgradeType } from '../../../model/content/enum/effect-value
 import { EffectValueValueType } from '../../../model/content/enum/effect-value-value-type';
 import { Rune } from '../../../model/content/rune';
 import { effectValueConstant, effectValueSynergy, effectValueVariable } from '../../../util/effect-value.util';
-import { isEffectValueSynergy, isEffectValueVariable } from '../../../util/utils';
+import { isEffectValueSynergy, isEffectValueVariable, warnIfEqual } from '../../../util/utils';
 
 
 function setStat(rune: Rune, index: number, stat: string) {
     const value = rune.values[index]
 
     if (value) {
+        warnIfEqual(value.stat, stat, 'rune setStat at index ' + index + ' did not changed anthing', value);
         value.stat = stat;
     } else {
         throw new Error('failed to update stat for rune value at index ' + index);
@@ -21,6 +22,7 @@ function setValue(rune: Rune, index: number, newValue: number) {
     const value = rune.values[index]
 
     if (value) {
+        warnIfEqual(value.baseValue, newValue, 'rune setValue at index ' + index + ' did not changed anthing', value);
         value.baseValue = newValue;
     } else {
         throw new Error('failed to update stat for rune value at index ' + index);
@@ -31,6 +33,7 @@ function setUpgrade(rune: Rune, index: number, upgrade: number) {
     const value = rune.values[index]
 
     if (value && (isEffectValueVariable(value) || isEffectValueSynergy(value))) {
+        warnIfEqual(value.upgradeType + value.upgrade, upgrade + upgrade, 'rune setUpgrade at index ' + index + ' did not changed anthing', value);
         value.baseUpgrade = upgrade;
         value.upgrade = upgrade;
     } else {
@@ -42,6 +45,7 @@ function setUpgradeType(rune: Rune, index: number, upgradeType: EffectValueUpgra
     const value = rune.values[index]
 
     if (value && (isEffectValueVariable(value) || isEffectValueSynergy(value))) {
+        warnIfEqual(value.upgradeType, upgradeType, 'rune setUpgradeType at index ' + index + ' did not changed anthing', value);
         value.upgradeType = upgradeType;
     } else {
         throw new Error('failed to update stat for rune value at index ' + index);
@@ -52,6 +56,7 @@ function setType(rune: Rune, index: number, type: EffectValueType) {
     const value = rune.values[index]
 
     if (value) {
+        warnIfEqual(value.type, type, 'rune setType at index ' + index + ' did not changed anthing', value);
         value.type = type;
     } else {
         throw new Error('failed to update stat for rune value at index ' + index);
@@ -62,6 +67,7 @@ function setPercent(rune: Rune, index: number, percent: boolean) {
     const value = rune.values[index]
 
     if (value) {
+        warnIfEqual(value.percent, percent, 'rune setPercent at index ' + index + ' did not changed anthing', value);
         value.percent = percent;
     } else {
         throw new Error('failed to update stat for rune value at index ' + index);
@@ -72,33 +78,23 @@ function setSource(rune: Rune, index: number, source: string) {
     const value = rune.values[index]
 
     if (value && isEffectValueSynergy(value)) {
+        warnIfEqual(value.source, source, 'rune setSource at index ' + index + ' did not changed anthing', value);
         value.source = source;
     } else {
         throw new Error('failed to update stat for rune value at index ' + index);
     }
 }
 
-/*
+function allowSynergyToCascade(rune: Rune, index: number) {
+    const value = rune.values[index];
 
-function valueMultiply100(effect: LegendaryEffect, index: number) {
-    const value = effect.effects[index]
-
-    if (value) {
-        value.score = value.score * 100;
+    if (value && isEffectValueSynergy(value)) {
+        warnIfEqual(value.cascadeSynergy, true, 'rune allowSynergyToCascade at index ' + index + ' did not changed anthing', rune);
+        value.cascadeSynergy = true;
     } else {
-        throw new Error('failed to multiply synergy percent at index ' + index);
+        throw new Error('failed to change rune synergy cascade at index ' + index);
     }
 }
-
-function synergySetAllowMinMax(effect: LegendaryEffect, index: number, allowMinMaw: boolean) {
-    const value = effect.effects[index]
-
-    if (value && isEffectValueSynergy(value.effect)) {
-        value.effect.allowMinMax = allowMinMaw;
-    } else {
-        throw new Error('failed to update allow min max at index ' + index);
-    }
-}*/
 
 function addConstant(rune: Rune, value: number, stat: string, valueType: EffectValueValueType) {
     rune.values.push(effectValueConstant(value, false, stat, valueType));
@@ -154,7 +150,7 @@ export const DATA_RUNE: { [key: number]: DataRune } = {
         override: rune => {
             setType(rune, 0, EffectValueType.Variable);
             setPercent(rune, 0, true);
-            rune.values[1] = effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage');
+            rune.values[1] = effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', undefined, undefined, undefined, undefined, undefined, undefined, true);
             addConstant(rune, 1.5, 'garbage_stat', EffectValueValueType.AreaOfEffect);
             addVariable(rune, 20, 3, 'firework_trigger_chance', EffectValueValueType.Stat);
         }
@@ -174,15 +170,19 @@ export const DATA_RUNE: { [key: number]: DataRune } = {
     12: {
         override: rune => {
             setStat(rune, 0, 'garbage_stat');
+            allowSynergyToCascade(rune, 0);
+            setStat(rune, 1, 'garbage_stat');
+                allowSynergyToCascade(rune, 1);
         }
     },
     13: {
         override: rune => {
             setStat(rune, 1, 'elemental_damage');
+            allowSynergyToCascade(rune, 1);
             rune.values[1] = effectValueVariable(10, 5, EffectValueUpgradeType.RuneLevel, true, 'afflict_chance');
             setType(rune, 2, EffectValueType.Variable);
             setStat(rune, 2, 'afflict_duration');
-            rune.values[3] = effectValueSynergy(75, 0, EffectValueUpgradeType.RuneLevel, false, 'current_mana', 'elemental_damage');
+            rune.values[3] = effectValueSynergy(75, 0, EffectValueUpgradeType.RuneLevel, false, 'current_mana', 'elemental_damage', undefined, undefined, undefined, undefined, undefined, undefined, true);
 
             setUpgrade(rune, 1, 5);
 
@@ -198,7 +198,9 @@ export const DATA_RUNE: { [key: number]: DataRune } = {
     15: {
         override: rune => {
             setStat(rune, 0, 'physical_damage');
+            allowSynergyToCascade(rune, 0);
             setStat(rune, 1, 'elemental_damage');
+            allowSynergyToCascade(rune, 1);
             setValue(rune, 1, 50);
             rune.values[2] = effectValueVariable(50, 0, EffectValueUpgradeType.RuneLevel, true, 'alpha_omega_mana_treshold');
             rune.values[3] = effectValueVariable(75, 0, EffectValueUpgradeType.RuneLevel, true, 'alpha_omega_increased_damage');
@@ -224,6 +226,8 @@ export const DATA_RUNE: { [key: number]: DataRune } = {
     18: {
         override: rune => {
             setValue(rune, 0, 200);
+            setValue(rune, 1, 10);
+            setUpgrade(rune, 1, 0);
             setSource(rune, 0, 'weapon_damage');
             setUpgrade(rune, 0, 0);
             addVariable(rune, 5, 1, 'mana_harvest_duration', EffectValueValueType.Duration, false);

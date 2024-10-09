@@ -269,7 +269,6 @@ export class SlormancerRuneService {
         rune.smithLabel = this.REAPERSMITH_BY.replace('$', this.slormancerTranslateService.translate('weapon_reapersmith_' + rune.reapersmith));
         rune.typeLabel = this.slormancerTranslateService.translate('rune_' + rune.type);
         rune.constraintLabel = rune.constraint === null ? null : this.CONSTRAINT + ' : ' + this.slormancerTemplateService.asSpan(rune.constraint.toString(), 'power value') + ' %';
-
         if (rune.duration !== null) {
             rune.description += '<br/><br/>' + this.slormancerTemplateService.formatRuneDescription(this.DURATION_DESCRIPTION, [rune.duration]);
         }

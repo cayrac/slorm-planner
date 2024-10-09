@@ -194,6 +194,11 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
             // valueMultiply100(effect, 0);
         }
     },
+    40: {
+        override: (effect) => {
+            allowSynergyToCascade(effect, 0);
+        }
+    },
     41: {
         override: (effect) => {
             setStat(effect, 0, 'vilinis_delay');

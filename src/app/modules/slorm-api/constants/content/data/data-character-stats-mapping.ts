@@ -2341,6 +2341,22 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxMultiplier: [],
         } 
     },
+    {
+        stat: 'enhancement_rune_increased_effect',
+        precision: 0,
+        allowMinMax: false,
+        suffix: '',
+        source: {
+            flat: [
+                { stat: 'enhancement_rune_increased_effect' }
+            ],
+            max: [],
+            percent: [],
+            maxPercent: [],
+            multiplier: [],
+            maxMultiplier: [],
+        } 
+    },
     ...SKILL_MASTERY_LEVEL_MAPPING
 ];
 
