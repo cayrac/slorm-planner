@@ -338,24 +338,16 @@
 - Summon maximum possible skeletons config should now correctly work with evasive magic
 - Reaper affinity should now apply it's value to stats the same way the game does
 - Equiping an item using the context menu now correctly update the current layer
+- Reaper list no longer show reapers with a base affinity of 100
+- Fixed an issue causing reaper affinity to be hidden
 
-## TODO
-- calcul du cooldown sans passer par attack speed
 
 ## bugs : 
 - Maybe that's an oversight from @Cayrac idk. But it indeed displays the values from a base 100 affinity without displaying the affinity on the top right corner of the Reapers.
 - vérifier arcane bond damage
 - book smash passive synergy attack speed / cooldown
 ## changes
-- convertion crit damage en brut damage
-- Ajouter affichage / edition defensive stat
 - export / import defensive stat
-
-TODO
-sword of the masterful => le calcul du niveau n'est pas bon
- => théorie : xp ajouté depuis une préforme ? => c'est forcément lié
- => exception sur unity reaper : problème de calcul aussi alors que ça ne devrait pas
- => édition défense
 
 EXPORT : 
 ===>>>>> important : il faut checker le reaper dans l'export + mise à jour depuis ancienne version

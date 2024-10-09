@@ -2,15 +2,15 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
-  Character,
-  DEFAULT_CONFIG,
-  MAX_EFFECT_AFFINITY_BASE,
-  MAX_REAPER_AFFINITY_BASE,
-  MAX_REAPER_LEVEL,
-  Reaper,
-  SlormancerCharacterUpdaterService,
-  SlormancerReaperService,
-  SlormancerRuneService,
+    Character,
+    DEFAULT_CONFIG,
+    MAX_EFFECT_AFFINITY_BASE,
+    MAX_REAPER_AFFINITY_BASE,
+    MAX_REAPER_LEVEL,
+    Reaper,
+    SlormancerCharacterUpdaterService,
+    SlormancerReaperService,
+    SlormancerRuneService,
 } from '@slorm-api';
 
 import { SelectOption } from '../../model/select-option';
@@ -143,7 +143,7 @@ export class ReaperEditModalComponent {
                 this.reaper.baseReaperAffinity = value.reaperAffinity;
                 this.reaper.baseEffectAffinity = value.effectAffinity;
             } else {
-                const newReaper = this.slormancerReaperService.getReaperById(value.reaper, this.reaper.weaponClass, value.primordial, value.baseLevel, this.reaper.bonusLevel, 'TOREMOVE', value.baseKills, value.primordialKills, value.reaperAffinity, value.effectAffinity, this.reaper.bonusAffinity);
+                const newReaper = this.slormancerReaperService.getReaperById(value.reaper, this.reaper.weaponClass, value.primordial, value.baseLevel, this.reaper.bonusLevel, value.baseKills, value.primordialKills, value.reaperAffinity, value.effectAffinity, this.reaper.bonusAffinity);
                 if (newReaper !== null) {
                     Object.assign(this.reaper, newReaper);
                 }

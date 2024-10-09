@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { MAX_EFFECT_AFFINITY_BASE, MAX_REAPER_AFFINITY_BASE, UNITY_REAPERS } from '../../constants';
+import { MAX_EFFECT_AFFINITY_BASE, MAX_REAPER_AFFINITY_BASE, MAX_REAPER_LEVEL, UNITY_REAPERS } from '../../constants';
 import { DATA_REAPER_LEVEL } from '../../constants/content/data/data-reaper-level';
 import { Activable } from '../../model/content/activable';
 import { AbstractEffectValue } from '../../model/content/effect-value';
@@ -355,7 +355,7 @@ export class SlormancerReaperService {
 
     public getReaperFromGameWeapon(data: GameWeapon, weaponClass: HeroClass, primordial: boolean): Reaper | null {
         const level = this.getReaperLevel(data.basic.experience + data.primordial.experience);
-        return this.getReaperById(data.id, weaponClass, primordial, level, 0, 'TOREMOVE', data.basic.kills, data.primordial.kills, 0, 0, 0);
+        return this.getReaperById(data.id, weaponClass, primordial, level, 0, data.basic.kills, data.primordial.kills, 0, 0, 0);
     }
 
     private getReaperEffectClone(reaperEffect: ReaperEffect): ReaperEffect {
@@ -384,10 +384,10 @@ export class SlormancerReaperService {
 
     public getDefaultReaper(weaponClass: HeroClass) {
         const defaultGameData = <GameDataReaper>this.slormancerDataService.getGameDataAvailableReaper()[0];
-        return this.getReaper(defaultGameData, weaponClass, false, 1, 0, 'TOREMOVE', 0, 0, 0);
+        return this.getReaper(defaultGameData, weaponClass, false, 1, 0, 0, 0, 0);
     }
 
-    public getReaper(gameData: GameDataReaper, weaponClass: HeroClass, primordial: boolean, baseLevel: number, bonusLevel: number, TOREMOVE: string, baseKills: number, primordialKills: number, baseReaperAffinity: number = 0, baseEffectAffinity: number = 0, bonusAffinity: number = 0, masteryLevel = 0): Reaper {
+    public getReaper(gameData: GameDataReaper, weaponClass: HeroClass, primordial: boolean, baseLevel: number, bonusLevel: number, baseKills: number, primordialKills: number, baseReaperAffinity: number = 0, baseEffectAffinity: number = 0, bonusAffinity: number = 0, masteryLevel = 0): Reaper {
         
         const maxLevel = gameData.MAX_LVL ?? 100;
 
@@ -445,12 +445,12 @@ export class SlormancerReaperService {
         return result;
     }
 
-    public getReaperById(id: number, weaponClass: HeroClass, primordial: boolean, baseLevel: number, bonusLevel: number, TOREMOVE: string, kills: number, killsPrimordial: number, reaperAffinity: number = 0, effectAffinity: number = 0, bonusAffinity: number = 0, masteryLevel = 0): Reaper | null {
+    public getReaperById(id: number, weaponClass: HeroClass, primordial: boolean, baseLevel: number, bonusLevel: number, kills: number, killsPrimordial: number, reaperAffinity: number = 0, effectAffinity: number = 0, bonusAffinity: number = 0, masteryLevel = 0): Reaper | null {
         const gameData = this.slormancerDataService.getGameDataReaper(id);
         let result: Reaper | null = null;
 
         if (gameData !== null) {
-            result = this.getReaper(gameData, weaponClass, primordial, baseLevel, bonusLevel, TOREMOVE, kills, killsPrimordial, reaperAffinity, effectAffinity, bonusAffinity, masteryLevel);
+            result = this.getReaper(gameData, weaponClass, primordial, baseLevel, bonusLevel, kills, killsPrimordial, reaperAffinity, effectAffinity, bonusAffinity, masteryLevel);
         }
 
         return result;
@@ -550,7 +550,7 @@ export class SlormancerReaperService {
         reaper.name = this.buildReaperName(reaper.type, reaper.templates.name, reaper.primordial);
 
         reaper.damagesLabel = reaper.damages.min + '-' + reaper.damages.max;
-        reaper.maxDamagesLabel = reaper.maxDamages.min + '-' + reaper.maxDamages.max + ' at level ' + reaper.maxLevel;
+        reaper.maxDamagesLabel = reaper.maxDamages.min + '-' + reaper.maxDamages.max + ' at level ' + Math.max(reaper.maxLevel, MAX_REAPER_LEVEL);
 
         reaper.description = this.formatTemplate(reaper.templates.base);
 
@@ -573,7 +573,7 @@ export class SlormancerReaperService {
             + (reaper.maxLevel === reaper.baseLevel ? 'Max(' + reaper.baseLevel + ')' : reaper.baseLevel);
         reaper.bonusLevelLabel = reaper.bonusLevel === 0 ? null : '+' + reaper.bonusLevel;
         reaper.damageTypeLabel = this.slormancerTranslateService.translate(reaper.damageType);
-        reaper.affinityLabel = reaper.effectAffinity === 0 ? null :  reaper.effectAffinity.toString();
+        reaper.affinityLabel = reaper.effectAffinity === 0 ? (reaper.reaperAffinity === 0 ? null : reaper.reaperAffinity.toString() ) :  reaper.effectAffinity.toString();
         reaper.benedictionTitleLabel = this.BENEDICTION_LABEL;
         reaper.maledictionTitleLabel = this.MALEDICTION_LABEL;
         reaper.activablesTitleLabel = this.ACTIVABLES_LABEL;

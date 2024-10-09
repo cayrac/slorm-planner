@@ -423,7 +423,7 @@ export class SlormancerStatsExtractorService {
                     for(const level of levels) {
                         if (level > 0) {
                             totalLevel += level;
-                            const reaper = this.slormancerReaperService.getReaperById(reaperId, character.heroClass, false, level, 0, 'TOREMOVE', 0, 0, character.reaper.reaperAffinity, character.reaper.effectAffinity, character.reaper.bonusAffinity, character.reaper.masteryLevel);
+                            const reaper = this.slormancerReaperService.getReaperById(reaperId, character.heroClass, false, level, 0, 0, 0, character.reaper.reaperAffinity, character.reaper.effectAffinity, character.reaper.bonusAffinity, character.reaper.masteryLevel);
                             if (reaper !== null) {
                                 totalDamage = add(totalDamage, reaper.damages) as MinMax;
                             }
