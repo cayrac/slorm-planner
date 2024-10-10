@@ -209,7 +209,6 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     6: {
         masteryRequired: null,
         override: values => {
-            setStat(values, 0, 'physical_damage');
             setUpgrade(values, 0, 5);
             setStat(values, 0, 'physical_damage');
             setUpgrade(values, 1, 7);
@@ -375,7 +374,6 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
     27: {
         masteryRequired: 2,
         override: values => {
-            setStat(values, 0, 'mana_on_hit_add');
             setAsUpgrade(values, 0);
         }
     },
@@ -777,11 +775,9 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setStat(values, 0, 'enemy_under_control_additional_damage');
             setSynergyAllowMinMax(values, 0, false);
             setAsUpgrade(values, 0);
-            setSource(values, 1, 'attack_speed');
             setSynergyPrecision(values, 1, 0);
             synergyMultiply100(values, 1);
             setStat(values, 1, 'enemy_under_control_attack_speed');
-            setAsUpgrade(values, 0);
             
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'cost_mult_skill_per_enemy_under_control');
         }
@@ -1552,8 +1548,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 7,
         override: values => { 
             addConstant(values, 3, false, EffectValueValueType.Upgrade, 'astral_retribution_on_cast');
-        },
-        additionalClassMechanics: [217]
+        }
     },
     185: {
         masteryRequired: 8,
@@ -3404,7 +3399,6 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 2,
         order: 26,
         override: values => {
-            setStat(values, 0, 'rotation_speed');
             setAsUpgrade(values, 0);
         }
     },
@@ -3525,8 +3519,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     45: {
         masteryRequired: 1,
-        order: 40,
-        additionalClassMechanics: [ 216 ]
+        order: 40
     },
     46: {
         masteryRequired: 1,
@@ -3638,8 +3631,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'remnant_vulnerability_remnant_increased_damage_mult');
             setAsUpgrade(values, 0);
-        },
-        additionalClassMechanics: [ 217 ]
+        }
     },
     61: {
         masteryRequired: 2,
@@ -3714,8 +3706,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setStat(values, 0, 'remnant_recast_chance');
             setAsUpgrade(values, 0);
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'remnant_on_cast');
-        },
-        additionalClassMechanics: [ 217 ]
+        }
     },
     70: {
         masteryRequired: 7,
@@ -4519,8 +4510,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         }
     },
     180: {
-        masteryRequired: 5,
-        additionalMechanics: [MechanicType.InnerFire]
+        masteryRequired: 5
     },
     181: {
         masteryRequired: 6,
@@ -4555,7 +4545,6 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     186: {
         masteryRequired: 8,
         override: values => {
-            setStat(values, 0, 'cooldown_reduction_global_mult')
             addConstant(values, -50, false, EffectValueValueType.Stat, 'the_max_health_global_mult');
         }
     },

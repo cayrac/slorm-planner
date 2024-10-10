@@ -341,6 +341,8 @@
 - Reaper list no longer show reapers with a base affinity of 100
 - Fixed an issue causing reaper affinity to be hidden
 
+fix de l'export
+check tous les legendaires
 
 ## changes
 - export / import defensive stat
@@ -352,9 +354,6 @@ EXPORT :
 ## TODO
 - mise à jour packages
 - parsing loadouts
-- formule resistance / armure
--
-## TODO
-slorm legendaries
-affichage export
+- slorm legendaries
+- affichage export
 

@@ -524,7 +524,6 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'aura_equipped_per_aura_active_add');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'aura_equipped_per_aura_equipped_multiplier');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'aura_increased_effect_percent');
-            overrideSynergySource(ba, 2, 'aura_equipped_per_aura_active');
             changeValue(ba, 2, 100);
             nullifySynergyUpgrade(ba, 2);
 
@@ -922,14 +921,12 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             allowSynergyToCascade(ma, 0);
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'crit_chance_melee');
             synergyMultiply100(ma, 0);
-            overrideSynergySource(ma, 1, 'recast_chance');
             allowSynergyToCascade(ma, 1);
             overrideValueTypeAndStat(ma, 1, EffectValueValueType.Stat, 'garbage_stat');
             overrideSynergySource(ma, 2, 'ancestral_chance');
             allowSynergyToCascade(ma, 2);
             overrideValueTypeAndStat(ma, 2, EffectValueValueType.Stat, 'ancestral_chance_melee');
             synergyMultiply100(ma, 2);
-            overrideSynergySource(ma, 3, 'recast_chance');
             allowSynergyToCascade(ma, 3);
             overrideValueTypeAndStat(ma, 3, EffectValueValueType.Stat, 'garbage_stat');
 

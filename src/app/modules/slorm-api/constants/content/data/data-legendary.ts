@@ -191,6 +191,7 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     39: {
         override: (effect) => {
             setStat(effect, 0, 'physical_damage');
+            allowSynergyToCascade(effect, 0);
             // valueMultiply100(effect, 0);
         }
     },
