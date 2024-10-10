@@ -42,7 +42,7 @@ export class SlormancerMergedStatUpdaterService {
         const minMax = stat.values.max.length > 0 || stat.values.maxPercent.length > 0 || stat.values.maxMultiplier.length > 0;
         const flat = this.addValues(stat.values.flat.filter(v => v.extra === false && v.synergy === false).map(v => v.value), minMax);
 
-        if (minMax) { // TODO FIX le raw max synergy
+        if (minMax) {
             (<MinMax>flat).max += this.addNumberValues(stat.values.max.filter(v => !v.extra && v.synergy === false).map(v => v.value));
         }
         

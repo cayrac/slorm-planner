@@ -30,9 +30,9 @@ export const DATA_CLASS_MECHANIC: GameHeroesData<{ [key: number]:  DataClassMech
         },
         217: {
             values: [
-                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'astral_retribution_damage', EffectValueValueType.Stat, undefined, 3, undefined, undefined, undefined, true),
+                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'astral_retribution_damage', 'physical_damage', EffectValueValueType.Stat, undefined, 3, undefined, undefined, undefined, true),
                 effectValueConstant(ASTRAL_RETRIBUTION_DAMAGE_PERCENT, false, 'garbage_stat', EffectValueValueType.Stat),
-                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'skill_damage', 'astral_meteor_damage', EffectValueValueType.Stat, undefined, 3, undefined, undefined, undefined, true),
+                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'astral_meteor_damage', 'physical_damage', EffectValueValueType.Stat, undefined, 3, undefined, undefined, undefined, true),
                 effectValueConstant(ASTRAL_METEOR_DAMAGE_PERCENT, false, 'garbage_stat', EffectValueValueType.Stat),
                 effectValueConstant(ASTRAL_METEOR_AOE, false, 'astral_meteor_aoe', EffectValueValueType.AreaOfEffect),
             ]

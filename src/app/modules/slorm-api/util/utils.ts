@@ -171,8 +171,6 @@ export function isDamageType(stat: string): boolean {
         || stat === 'weapon_damage'
         || stat === 'bleed_damage'
         || stat === 'damage'
-        || stat === 'astral_retribution_damage'
-        || stat === 'astral_meteor_damage'
         || stat === 'ravenous_dagger_damage'
         || stat === 'trap_damage'
         || stat === 'poison_damage'

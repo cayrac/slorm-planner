@@ -134,7 +134,7 @@ export class SlormancerStatsExtractorService {
 
         if (character.heroClass === HeroClass.Warrior) {
             mapping = mergedStatMapping.find(m => m.stat === 'astral_retribution_damage');
-            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(ASTRAL_RETRIBUTION_DAMAGE_PERCENT, 0, EffectValueUpgradeType.None, false, 'weapon_damage', 'astral_retribution_damage_add', EffectValueValueType.Unknown, undefined, null, true, true, true, true), 0, { synergy: 'Reaper damage'}, [ { stat: 'astral_retribution_damage', mapping } ]));
+            extractedStats.synergies.push(synergyResolveData(effectValueSynergy(ASTRAL_RETRIBUTION_DAMAGE_PERCENT, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'astral_retribution_damage_add', EffectValueValueType.Unknown, undefined, null, true, true, true, true), 0, { synergy: 'Skill damage'}, [ { stat: 'astral_retribution_damage', mapping } ]));
             mapping = mergedStatMapping.find(m => m.stat === 'astral_meteor_damage');
             extractedStats.synergies.push(synergyResolveData(effectValueSynergy(ASTRAL_METEOR_DAMAGE_PERCENT, 0, EffectValueUpgradeType.None, false, 'physical_damage', 'astral_meteor_damage_add', EffectValueValueType.Unknown, undefined, null, true, true, true, true), 0, { synergy: 'Skill damage' }, [ { stat: 'astral_meteor_damage', mapping } ]));
         }

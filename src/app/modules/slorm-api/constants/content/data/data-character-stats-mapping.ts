@@ -2413,7 +2413,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             allowMinMax: true,
             suffix: '',
             source: {
-                flat: [{ stat: 'astral_retribution_damage_add' }],
+                flat: [{ stat: 'astral_retribution_damage_add', addAsNonConvertion: true }],
                 max: [],
                 percent: [],
                 maxPercent: [],
@@ -2427,7 +2427,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             allowMinMax: true,
             suffix: '',
             source: {
-                flat: [{ stat: 'astral_meteor_damage_add' }],
+                flat: [{ stat: 'astral_meteor_damage_add', addAsNonConvertion: true }],
                 max: [],
                 percent: [],
                 maxPercent: [],
@@ -2446,7 +2446,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             allowMinMax: true,
             suffix: '',
             source: {
-                flat: [{ stat: 'ravenous_dagger_damage_add' }],
+                flat: [{ stat: 'ravenous_dagger_damage_add', addAsNonConvertion: true }],
                 max: [],
                 percent: [],
                 maxPercent: [],
@@ -2461,7 +2461,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             allowMinMax: true,
             suffix: '',
             source: {
-                flat: [{ stat: 'trap_damage_add' }],
+                flat: [{ stat: 'trap_damage_add', addAsNonConvertion: true }],
                 max: [],
                 percent: [],
                 maxPercent: [],
@@ -2494,7 +2494,7 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             allowMinMax: true,
             suffix: '',
             source: {
-                flat: [{ stat: 'poison_damage_add' }],
+                flat: [{ stat: 'poison_damage_add', addAsNonConvertion: true }],
                 max: [],
                 percent: [],
                 maxPercent: [],
@@ -2514,8 +2514,8 @@ export const HERO_MERGED_STATS_MAPPING: GameHeroesData<Array<MergedStatMapping>>
             suffix: '',
             source: {
                 flat: [
-                    { stat: 'arcane_bond_damage_add' },
-                    { stat: 'arcane_bond_damage_add_from_restored_mana', condition: (_, stats) => hasStat(stats, 'percent_restored_mana_as_arcane_bond_damage'), multiplier: (_, stats) => getFirstStat(stats, 'percent_restored_mana_as_arcane_bond_damage') / 100 },
+                    { stat: 'arcane_bond_damage_add', addAsNonConvertion: true },
+                    { stat: 'arcane_bond_damage_add_from_restored_mana', condition: (_, stats) => hasStat(stats, 'percent_restored_mana_as_arcane_bond_damage'), multiplier: (_, stats) => getFirstStat(stats, 'percent_restored_mana_as_arcane_bond_damage') / 100, addAsNonConvertion: true },
                 ],
                 max: [],
                 percent: [],
