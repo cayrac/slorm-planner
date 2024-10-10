@@ -32,5 +32,5 @@ export const APP_TO_GAME_VERSION_MAPPER: { [key: string]: string } = {
     '0.6.2': '0.8.0i',
     '0.6.3': '0.8.0i',
     '0.6.4': '0.8.0i',
-    '0.7.0': '0.9.1h',
+    '0.7.0': '0.9.3b',
 }

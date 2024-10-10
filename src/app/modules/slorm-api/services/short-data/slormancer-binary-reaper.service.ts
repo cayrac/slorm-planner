@@ -24,6 +24,7 @@ export class SlormancerBinaryReaperService {
         if (reaper.id === 90 && reaper.primordial) {
             result.push(...numberToBinary(reaper.baseEffectAffinity, 10));
         }
+        result.push(...numberToBinary(reaper.masteryLevel, 7));
 
         return result;
     }
@@ -35,6 +36,7 @@ export class SlormancerBinaryReaperService {
         const kills = 0;
 
         const hasAffinityData = compareVersions(version, '0.2.0') >= 0;
+        const hasReaperMasteryData = compareVersions(version, '0.7.0') >= 0;
 
         const reaperAffinity = hasAffinityData ? binaryToNumber(takeBitsChunk(binary, 7)) : MAX_REAPER_AFFINITY_BASE;
        
@@ -43,7 +45,9 @@ export class SlormancerBinaryReaperService {
             effectAffinity = binaryToNumber(takeBitsChunk(binary, 10));
         }
 
-        const reaper = this.slormancerReaperService.getReaperById(reaperId, heroClass, primordial, baseLevel, 0, kills, kills, reaperAffinity, effectAffinity);
+        const reaperMastery = hasReaperMasteryData ? binaryToNumber(takeBitsChunk(binary, 7)) : 0;
+
+        const reaper = this.slormancerReaperService.getReaperById(reaperId, heroClass, primordial, baseLevel, 0, kills, kills, reaperAffinity, effectAffinity, 0, reaperMastery);
 
         if (reaper === null) {
             throw new Error('Failed to parse reaper from binary : ' + binary.join());

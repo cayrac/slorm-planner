@@ -67,7 +67,9 @@ export interface CharacterUltimatum {
 
 export interface CharacterMight {
     skill: number;
+    investedSkillSlorm: number | null;
     ancestral: number;
+    investedAncestralLegacySlorm: number | null;
 }
 
 export interface Character {

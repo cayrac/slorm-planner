@@ -535,6 +535,8 @@ export class SlormancerCharacterBuilderService {
             might: {
                 ancestral: 0,
                 skill: 0,
+                investedAncestralLegacySlorm: null,
+                investedSkillSlorm: null,
             },
         
             gear: {

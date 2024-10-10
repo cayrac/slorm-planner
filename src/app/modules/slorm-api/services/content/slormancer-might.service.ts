@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Character, CharacterMight } from '../../model';
+import { Character } from '../../model';
 import { round } from '../../util';
 
 @Injectable()
@@ -9,7 +9,7 @@ export class SlormancerMightService {
 
     private readonly MIGHT_COEFFICIENT = - 7.5 * Math.LN2;
 
-    private getInvestedSkillSlorm(character: Character) {
+    public getInvestedSkillSlorm(character: Character) {
         let invested = 0;
         for(const skill of character.skills) {
             for (const upgrade of skill.upgrades) {
@@ -19,7 +19,7 @@ export class SlormancerMightService {
         return invested;
     }
 
-    private getTotalSkillSlorm(character: Character) {
+    public getTotalSkillSlorm(character: Character) {
         let total = 0;
         for(const skill of character.skills) {
             for (const upgrade of skill.upgrades) {
@@ -30,7 +30,7 @@ export class SlormancerMightService {
         return total;
     }
 
-    private getInvestedAncestralSlorm(character: Character) {
+    public getInvestedAncestralSlorm(character: Character) {
         let invested = 0;
         for(const ancestralLegacy of character.ancestralLegacies.ancestralLegacies) {
             invested += ancestralLegacy.investedSlorm;
@@ -38,7 +38,7 @@ export class SlormancerMightService {
         return invested;
     }
 
-    private getTotalAncestralSlorm(character: Character) {
+    public getTotalAncestralSlorm(character: Character) {
         let total = 0;
         for(const ancestralLegacy of character.ancestralLegacies.ancestralLegacies) {
             total += ancestralLegacy.totalSlormCost;
@@ -72,10 +72,6 @@ export class SlormancerMightService {
         return result;
     }
 
-    public forceMight(character: Character, might: CharacterMight) {
-        character.might = { ...might };
-    }
-
     public updateMight(character: Character) {
         character.might.skill = this.getSkillMight(character);
         character.might.ancestral = this.getAncestralMight(character);
@@ -83,13 +79,13 @@ export class SlormancerMightService {
   
     private getSkillMight(character: Character): number {
         const totalSlorm = this.getTotalSkillSlorm(character);
-        const investedSlorm = this.getInvestedSkillSlorm(character);
+        const investedSlorm = character.might.investedSkillSlorm ?? this.getInvestedSkillSlorm(character);
         return this.computeMight(totalSlorm, investedSlorm);
     }
 
     private getAncestralMight(character: Character): number {
         const totalSlorm = this.getTotalAncestralSlorm(character);
-        const investedSlorm = this.getInvestedAncestralSlorm(character);
+        const investedSlorm = character.might.investedAncestralLegacySlorm ?? this.getInvestedAncestralSlorm(character);
         return this.computeMight(totalSlorm, investedSlorm);
     }
 }

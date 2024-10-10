@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { MAX_HERO_LEVEL, MAX_REAPER_AFFINITY_BONUS, PERCENT_STATS } from '../constants/common';
 import { DATA_HERO_BASE_STATS } from '../constants/content/data/data-hero-base-stats';
 import { AncestralLegacyType, MergedStat, SkillType } from '../model';
-import { Character, CharacterMight } from '../model/character';
+import { Character } from '../model/character';
 import { CharacterConfig } from '../model/character-config';
 import { Activable } from '../model/content/activable';
 import { AncestralLegacy } from '../model/content/ancestral-legacy';
@@ -703,7 +703,7 @@ export class SlormancerCharacterUpdaterService {
         }
     }
 
-    public updateCharacter(character: Character, config: CharacterConfig, updateViews: boolean = true, additionalItem: EquipableItem | null = null, additionalRunes: Array<Rune> = [], forcedMight: CharacterMight | null = null) {
+    public updateCharacter(character: Character, config: CharacterConfig, updateViews: boolean = true, additionalItem: EquipableItem | null = null, additionalRunes: Array<Rune> = []) {
         character.issues = [];
 
         character.name = this.slormancerTranslateService.translate('hero_' + character.heroClass);
@@ -726,11 +726,7 @@ export class SlormancerCharacterUpdaterService {
 
         this.updateEquipmentBonuses(character, config);
 
-        if (forcedMight === null) {
-            this.slormancerMightService.updateMight(character);
-        } else {
-            this.slormancerMightService.forceMight(character, forcedMight);
-        }
+        this.slormancerMightService.updateMight(character);
 
         this.updateCharacterStats(character, updateViews, config, additionalItem, additionalRunes);
 

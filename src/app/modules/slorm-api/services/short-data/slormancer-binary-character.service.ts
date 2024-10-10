@@ -6,15 +6,16 @@ import { ALL_ATTRIBUTES, Attribute } from '../../model/content/enum/attribute';
 import { ALL_GEAR_SLOT_VALUES, GearSlot, gearSlotToBase } from '../../model/content/enum/gear-slot';
 import { HeroClass } from '../../model/content/enum/hero-class';
 import { EquipableItem } from '../../model/content/equipable-item';
+import { BinaryParseReport } from '../../model/export/binary-parse-report';
 import { Bits } from '../../model/export/bits';
+import { compareVersions } from '../../util';
 import { binaryToBoolean, binaryToNumber, booleanToBinary, numberToBinary, takeBitsChunk } from '../../util/bits.util';
+import { SlormancerMightService } from '../content';
 import { SlormancerCharacterBuilderService } from '../slormancer-character-builder.service';
 import { SlormancerBinaryItemService } from './slormancer-binary-item.service';
 import { SlormancerBinaryReaperService } from './slormancer-binary-reaper.service';
 import { SlormancerBinaryRuneService } from './slormancer-binary-rune.service';
 import { SlormancerBinaryUltimatumService } from './slormancer-binary-ultimatum.service';
-import { compareVersions } from '../../util';
-import { BinaryParseReport } from '../../model/export/binary-parse-report';
 
 @Injectable()
 export class SlormancerBinaryCharacterService {
@@ -24,8 +25,9 @@ export class SlormancerBinaryCharacterService {
                 private slormancerBinaryUltimatumService: SlormancerBinaryUltimatumService,
                 private slormancerCharacterBuilderService: SlormancerCharacterBuilderService,
                 private slormancerBinaryRuneService: SlormancerBinaryRuneService,
-                ) {
-                }
+                private slormancerMightService: SlormancerMightService,
+    ) {
+    }
 
     private ancestralLegaciesToBinary(characterAncestralLegacies: CharacterAncestralLegacies): Bits {
         let result: Bits = [];
@@ -222,6 +224,14 @@ export class SlormancerBinaryCharacterService {
             : (1 + ('isActivable' in character.activable4 ? character.activable4.id : character.activable4.id + 200));
         result.push(...numberToBinary(activable4Id, 10));
 
+        const investedSkillSlorm = this.slormancerMightService.getInvestedSkillSlorm(character);
+        result.push(...numberToBinary(investedSkillSlorm, 25));
+        const investedAncestralSlorm = this.slormancerMightService.getInvestedAncestralSlorm(character);
+        result.push(...numberToBinary(investedAncestralSlorm, 25));
+
+        console.log(this.slormancerMightService.getTotalAncestralSlorm(character));
+        console.log(this.slormancerMightService.getTotalSkillSlorm(character));
+
         return result;
     }
 
@@ -299,7 +309,15 @@ export class SlormancerBinaryCharacterService {
         const activable3Value = binaryToNumber(takeBitsChunk(binary, 10));
         const activable4Value = binaryToNumber(takeBitsChunk(binary, 10));
 
-        return this.slormancerCharacterBuilderService.getCharacter(
+        const hasInvestedSlorm = compareVersions(version, '0.7.0') >= 0;
+        let investedSkillSlorm: number | null = null;
+        let investedAncestralSlorm: number | null = null;
+        if (hasInvestedSlorm) {
+            investedSkillSlorm = binaryToNumber(takeBitsChunk(binary, 25));
+            investedAncestralSlorm = binaryToNumber(takeBitsChunk(binary, 25));
+        }
+
+        const character = this.slormancerCharacterBuilderService.getCharacter(
             heroClass,
             level,
             GAME_VERSION,
@@ -343,5 +361,12 @@ export class SlormancerBinaryCharacterService {
             activable4Value === 0 ? null : (activable4Value - 1),
             report.fromCorrupted
         );
+
+        if (character !== null) {
+            character.might.investedAncestralLegacySlorm = investedAncestralSlorm
+            character.might.investedSkillSlorm = investedSkillSlorm;
+        }
+
+        return character;
     }
 }
