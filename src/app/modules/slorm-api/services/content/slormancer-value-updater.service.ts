@@ -876,25 +876,17 @@ export class SlormancerValueUpdaterService {
         const increased_power = stats.extractedStats['effect_rune_increased_effect'] ? valueOrNull(stats.extractedStats['effect_rune_increased_effect'][0]?.value) : null;
         const power_override = stats.extractedStats['rune_power_override'] ? valueOrNull(stats.extractedStats['rune_power_override'][0]?.value) : null;
         
-        const rps = stats.extractedStats['effect_rune_reduced_power'];
-        if (rps) {
-            console.log(rps, rps[0], rps[0]?.value, reduced_power);
-        }
-        console.log('power : ', character.runes.effect?.constraint);
         if (reduced_power !== null) {
             let enhancement_rune_increased_effect = stats.stats.find(stat => stat.stat === 'enhancement_rune_increased_effect');
             if (enhancement_rune_increased_effect) {
-                console.log((<MergedStat<number>>enhancement_rune_increased_effect));
                 reduced_power = reduced_power * (100 + (<MergedStat<number>>enhancement_rune_increased_effect).total) / 100;
             }
         }
-        console.log('power 2 : ', character.runes.effect?.constraint, reduced_power, increased_power);
 
         for (const rune of allRunes) {
             if (isEffectRune(rune)) {
                 if (reduced_power !== null) {
                     rune.constraint = bankerRound(rune.baseConstraint * (100 - reduced_power) / 100, 2);
-                    console.log(rune.baseConstraint, reduced_power, rune.constraint)
                 } else if (increased_power !== null) {
                     rune.constraint = bankerRound(rune.baseConstraint * (100 + increased_power) / 100, 2);
                 } else if (power_override !== null) {
@@ -906,7 +898,6 @@ export class SlormancerValueUpdaterService {
 
         const power = character.runes.effect !== null ? character.runes.effect.constraint : 100;
 
-        console.log('power 3 : ', character.runes.effect?.constraint, power);
         const powerMultiplier = power / 100;
         const effectMultiplier = (100 + <number>valueOrDefault(stats.stats.find(stat => stat.stat === 'effect_rune_effect')?.total, 100)) / 100;
         const ignoredEffectMultiplierStats = [

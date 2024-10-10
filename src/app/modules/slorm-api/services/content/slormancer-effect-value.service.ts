@@ -26,8 +26,6 @@ export class SlormancerEffectValueService {
             let displayValue = effectValue.baseValue;
             let precision = 3;
 
-            console.log('update rune effect value', effectValue.value, upgradeMultiplier, effectMultiplier);
-
             value = bankerRound(value * effectMultiplier, precision);
             displayValue = value;
             const realUpgrade = effectValue.baseUpgrade * effectMultiplier
@@ -51,7 +49,6 @@ export class SlormancerEffectValueService {
             }
         }
 
-        console.log('update rune effect result', effectValue.value);
         return effectValue;
     }
 
