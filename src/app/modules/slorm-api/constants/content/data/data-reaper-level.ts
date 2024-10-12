@@ -101,3 +101,121 @@ export const DATA_REAPER_LEVEL: Array<{ level: number, next: null | number }> = 
     { level: 99,   next: 12626411 }, // 256772729
     { level: 100,  next: null     }, // 256772729
 ];
+
+export const DATA_REAPER_MASTERY_LEVEL: Array<{ level: number, next: number | null }> = [
+                                      // xp pour niveau suivant à 0%
+    { level: 1,    next: 2065      }, // 2065
+    { level: 2,    next: 4847         }, // 4847
+    { level: 3,    next: 8606         }, // 8606
+    { level: 4,    next: 13681         }, // 13681
+    { level: 5,    next: 20531         }, // 20531
+    { level: 6,    next: 29780         }, // 29780
+    { level: 7,    next: 42265         }, // 42265
+    { level: 8,    next: 59120         }, // 59120
+    { level: 9,    next: 81874         }, // 81874
+    { level: 10,   next: 112593         }, // 112593
+    { level: 11,   next: 154062         }, // 154062
+    { level: 12,   next: 202582         }, // 202582
+    { level: 13,   next: 259350         }, // 259350
+    { level: 14,   next: 325769         }, // 325769
+    { level: 15,   next: 403478         }, // 403478 .
+    { level: 16,   next: 494399         }, // 494399
+    { level: 17,   next: 600775         }, // 600775
+    { level: 18,   next: 725236         }, // 725236
+    { level: 19,   next: 870855         }, // 870855
+    { level: 20,   next: 1041230         }, // 1041230
+    { level: 21,   next: 1240568         }, // 1240568 .
+    { level: 22,   next: 1454856         }, // 1454856
+    { level: 23,   next: 1685216         }, // 1685216
+    { level: 24,   next: 1932853         }, // 1932853
+    { level: 25,   next: 2199063        }, // 2199063
+    { level: 26,   next: 2485239         }, // 2485239
+    { level: 27,   next: 2792878         }, // 2792878
+    { level: 28,   next: 3123589        }, // 3123589
+    { level: 29,   next: 3479104         }, // 3479104
+    { level: 30,   next: 3861283         }, // 3861283
+    { level: 31,   next: 4272125         }, // 4272125
+    { level: 32,   next: 4713780         }, // 4713780
+    { level: 33,   next: 5188560         }, // 5188560
+    { level: 34,   next: 5698947         }, // 5698947
+    { level: 35,   next: 6247614         }, // 6247614
+    { level: 36,   next: 6837431         }, // 6837431
+    { level: 37,   next: 7471484         }, // 7471484
+    { level: 38,   next: 8153092         }, // 8153092
+    { level: 39,   next: 8885819        }, // 8885819
+    { level: 40,   next: 9673502         }, // 9673502
+    { level: 41,   next: 10520260        }, // 10520260
+    { level: 42,   next: 11430525        }, // 11430525
+    { level: 43,   next: 12409061        }, // 12409061
+    { level: 44,   next: 13460986         }, // 13460986
+    { level: 45,   next: 14591806         }, // 14591806
+    { level: 46,   next: 15807437        }, // 15807437
+    { level: 47,   next: 17114241         }, // 17114241
+    { level: 48,   next: 18519055         }, // 18519055
+    { level: 49,   next: 20029230         }, // 20029230
+    { level: 50,   next: 21652668         }, // 21652668
+    { level: 51,   next: 23397864        }, // 23397864
+    { level: 52,   next: 25258242        }, // 25258242
+    { level: 53,   next: 27241406        }, // 27241406
+    { level: 54,   next: 29355459         }, // 29355459
+    { level: 55,   next: 31609039         }, // 31609039
+    { level: 56,   next: 34011355         }, // 34011355
+    { level: 57,   next: 36572225         }, // 36572225
+    { level: 58,   next: 39302111         }, // 39302111
+    { level: 59,   next: 42212171         }, // 42212171
+    { level: 60,   next: 45314294         }, // 45314294
+    { level: 61,   next: 48621157         }, // 48621157
+    { level: 62,   next: 52146273         }, // 52146273
+    { level: 63,   next: 55904047         }, // 55904047
+    { level: 64,   next: 59909834         }, // 59909834
+    { level: 65,   next: 64180003         }, // 64180003
+    { level: 66,   next: 68732003         }, // 68732003
+    { level: 67,   next: 73584435         }, // 73584435
+    { level: 68,   next: 78757128         }, // 78757128
+    { level: 69,   next: 84271218         }, // 84271218
+    { level: 70,   next: 90149238         }, // .70045544
+    { level: 71,   next: 96415208         }, // .74071690
+    { level: 72,   next: 103094731         }, // .78299144
+    { level: 73,   next: 110215103         }, // .82737970
+    { level: 74,   next: 117805420         }, // .87398738
+    { level: 75,   next: 125896698         }, // .92292544
+    { level: 76,   next: 134521999         }, // .97431040
+    { level: 77,   next: 143716571         }, // .102826461
+    { level: 78,   next: 153517985         }, // .108491654
+    { level: 79,   next: 163966292         }, // .114440106
+    { level: 80,   next: 175104187         }, // .120685981
+    { level: 81,   next: 186977183         }, // .127244150
+    { level: 82,   next: 199633797         }, // .134130226
+    { level: 83,   next: 213125747         }, // .141360608
+    { level: 84,   next: 227508166         }, // .148952508
+    { level: 85,   next: 242839825         }, // .156924003
+    { level: 86,   next: 259183374         }, // .165294071
+    { level: 87,   next: 276605596         }, // .174082644
+    { level: 88,   next: 295177685         }, // .183310645
+    { level: 89,   next: 314975532         }, // .193000046
+    { level: 90,   next: 336080037         }, // .203173918
+    { level: 91,   next: 358577440         }, // .213856483
+    { level: 92,   next: 382559671         }, // .225073176
+    { level: 93,   next: 408124729         }, // .236850705
+    { level: 94,   next: 435377081         }, // .249217110
+    { level: 95,   next: 464428088         }, // .262201835
+    { level: 96,   next: 495396461         }, // .275835796
+    { level: 97,   next: 528408748         }, // .290151455
+    { level: 98,   next: 563599845         }, // .305182898
+    { level: 99,   next: 601113555         }, // .320965911
+    { level: 100,  next: 0         }, // .320965911
+
+];
+
+/*
+let previousLine
+let level = 0;
+let result = [];
+for (const line of DATA_REAPER_MASTERY_LEVEL) {
+    level++;
+    const 
+    result.push('    { level: ' + (level + ',').padEnd(6, ' ') + 'next: 0         }, // ' + line.next);
+    previousLine = line
+}
+console.log(result.join("\n"));
+*/
