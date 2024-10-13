@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { MAX_EFFECT_AFFINITY_BASE, MAX_REAPER_AFFINITY_BASE, MAX_REAPER_LEVEL, UNITY_REAPERS } from '../../constants';
-import { DATA_REAPER_LEVEL } from '../../constants/content/data/data-reaper-level';
+import { DATA_REAPER_LEVEL, DATA_REAPER_MASTERY_LEVEL } from '../../constants/content/data/data-reaper-level';
 import { Activable } from '../../model/content/activable';
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
@@ -49,6 +49,49 @@ export class SlormancerReaperService {
                 private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerEffectValueService: SlormancerEffectValueService,
                 private slormancerActivableService: SlormancerActivableService) { }
+
+    public getReaperMastery(gameWeapons: GameWeapon[]): number {
+        const remainingWeapons = [ ...gameWeapons ].filter(gameWeapon => gameWeapon.id !== 114);
+
+        let level = 0;
+        let xp = 0;
+        for (let data of DATA_REAPER_MASTERY_LEVEL) {
+            level = data.level;
+            if (data.next !== null) {
+                xp += data.next;
+            }
+            
+            // summing all xp is too much for a javascript number, we have to find a smarter way
+            while (xp > 0 && remainingWeapons.length > 0) {
+                const weapon = remainingWeapons.splice(0, 1)[0] as GameWeapon;
+                xp -= weapon.basic.experience + weapon.primordial.experience;
+            }
+
+            if (xp > 0) {
+                break;
+            }
+        }
+
+        return level
+    }
+
+    public getReaperLevel(xp: number): number {
+        let level = 1;
+
+        for (let data of DATA_REAPER_LEVEL) {
+            level = data.level;
+
+            if (data.next !== null) {
+                xp -= data.next;
+            }
+            
+            if (data.next === null || xp < 0) {
+                break;
+            }
+        }
+
+        return level;
+    }
 
     private getAffinityMultiplier(affinity: number): number {
         return 1 + affinity / 200;
@@ -116,24 +159,6 @@ export class SlormancerReaperService {
         }
 
         return this.slormancerTemplateService.replaceAnchor(nameTemplate, weaponName, this.slormancerTemplateService.TYPE_ANCHOR);
-    }
-
-    public getReaperLevel(xp: number): number {
-        let level = 1;
-
-        for (let data of DATA_REAPER_LEVEL) {
-            level = data.level;
-
-            if (data.next !== null) {
-                xp -= data.next;
-            }
-            
-            if (data.next === null || xp < 0) {
-                break;
-            }
-        }
-
-        return level;
     }
 
     public getReaperMinimumLevel(reaperId: number): number {
@@ -353,9 +378,9 @@ export class SlormancerReaperService {
         return removeEmptyValues(contents).join('<br/><br/>');
     }
 
-    public getReaperFromGameWeapon(data: GameWeapon, weaponClass: HeroClass, primordial: boolean): Reaper | null {
+    public getReaperFromGameWeapon(data: GameWeapon, weaponClass: HeroClass, primordial: boolean, reaperMastery: number): Reaper | null {
         const level = this.getReaperLevel(data.basic.experience + data.primordial.experience);
-        return this.getReaperById(data.id, weaponClass, primordial, level, 0, data.basic.kills, data.primordial.kills, 0, 0, 0);
+        return this.getReaperById(data.id, weaponClass, primordial, level, 0, data.basic.kills, data.primordial.kills, 0, 0, 0, reaperMastery);
     }
 
     private getReaperEffectClone(reaperEffect: ReaperEffect): ReaperEffect {

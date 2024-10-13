@@ -89,8 +89,10 @@ export class SlormancerCharacterBuilderService {
         const reaperId = weaponEquip % reaperCount;
         const reaperData = valueOrNull(save.weapon_data[heroClass][reaperId]);
 
+        const reaperMastery = this.slormancerReaperService.getReaperMastery(save.weapon_data[heroClass])
+
         if (reaperData !== null) {
-            reaper = this.slormancerReaperService.getReaperFromGameWeapon(reaperData, heroClass, primordial);
+            reaper = this.slormancerReaperService.getReaperFromGameWeapon(reaperData, heroClass, primordial, reaperMastery);
         }
 
         if (reaper === null) {

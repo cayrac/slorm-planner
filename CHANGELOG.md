@@ -344,7 +344,7 @@
 fix de l'export
 check tous les legendaires
 
-=> rajouter invested slorm dans skill et ancestral legacy
+=> tester un peu le calcul du reaper mastery
 
 ## changes
 - export / import defensive stat

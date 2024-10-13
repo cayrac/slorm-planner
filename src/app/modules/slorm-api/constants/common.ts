@@ -52,7 +52,7 @@ export const POISON_DURATION = 7;
 export const ARCANE_BOND_DURATION = 7;
 export const TIME_LOCK_DURATION = 3;
 
-export const GAME_VERSION = '0.8.0i';
+export const GAME_VERSION = '0.9.3b';
 export const API_VERSION = '0.7.0';
 
 export const API_TO_GAME_VERSION_MAPPER: { [key: string]: string } = {
