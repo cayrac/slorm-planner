@@ -76,13 +76,13 @@ export class SlormancerTemplateService {
             const percent = craftedEffect.effect.percent ? '%' : '';
 
             if (isEffectValueVariable(craftedEffect.effect)) {
-                const value = this.asSpan(craftedEffect.effect.value + percent, 'value');
+                const value = this.asSpan(craftedEffect.effect.displayValue + percent, 'value');
                 const details = this.getCraftedEffectDetails(craftedEffect);
                 template = this.replaceAnchor(template, value + details, this.VALUE_ANCHOR);
             } else if (isEffectValueConstant(craftedEffect.effect)) {
                 const anchor = findFirst(template, this.CONSTANT_ANCHORS);
                 if (anchor !== null) {
-                    const value = this.asSpan(craftedEffect.effect.value + percent, 'value');
+                    const value = this.asSpan(craftedEffect.effect.displayValue + percent, 'value');
                     template = this.replaceAnchor(template, value, anchor);
                 }
             } else if (isEffectValueSynergy(craftedEffect.effect)) {

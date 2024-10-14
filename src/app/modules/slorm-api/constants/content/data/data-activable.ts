@@ -37,7 +37,7 @@ function setBaseValue(values: Array<AbstractEffectValue>, index: number, baseVal
 function setUpgradeValue(values: Array<AbstractEffectValue>, index: number, upgrade: number) {
     const value = values[index]
 
-    if (value && isEffectValueVariable(value)) {
+    if (value && (isEffectValueVariable(value) || isEffectValueSynergy(value))) {
         value.baseUpgrade = upgrade;
         value.upgrade = upgrade;
     } else {
@@ -169,21 +169,23 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     7: {
         override: values => {
             overrideValueStat(values, 0, 'health_restored');
-            overrideValueStat(values, 1, 'ring_of_life_health_restored_over_time');
-            overrideValueStat(values, 2, 'ring_of_health_duration');
-
+            allowSynergyToCascade(values, 0);
             halveSynergy(values, 0);
+            overrideValueStat(values, 1, 'ring_of_life_health_restored_over_time');
+            allowSynergyToCascade(values, 1);
             halveSynergy(values, 1);
+            overrideValueStat(values, 2, 'ring_of_health_duration');
         }
     },
     8: {
         override: values => {
             overrideValueStat(values, 0, 'mana_restored');
-            overrideValueStat(values, 1, 'mana_restored_over_time');
-            overrideValueStat(values, 2, 'mana_restored_over_time_duration');
-            
+            allowSynergyToCascade(values, 0);
             halveSynergy(values, 0);
+            overrideValueStat(values, 1, 'mana_restored_over_time');
+            allowSynergyToCascade(values, 1);
             halveSynergy(values, 1);
+            overrideValueStat(values, 2, 'mana_restored_over_time_duration');
         }
     },
     9: {
@@ -193,7 +195,7 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     },
     10: {
         override: values => {
-            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'inextricable_torment_aura_range');
+            addConstant(values, 4, false, EffectValueValueType.AreaOfEffect, 'inextricable_torment_aura_range');
             overrideValueStat(values, 0, 'inextricable_torment_aura_enemy_increased_damage');
             overrideValueStat(values, 1, 'inextricable_torment_aura_enemy_cooldown_reduction_percent');
         }
@@ -206,6 +208,9 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     12: {
         override: values => {
             overrideValueStat(values, 0, 'physical_damage');
+            setBaseValue(values, 0, 150);
+            setUpgradeValue(values, 0, 10);
+            allowSynergyToCascade(values, 0);
             overrideValueStat(values, 1, 'septimius_blade_delay');
         }
     },

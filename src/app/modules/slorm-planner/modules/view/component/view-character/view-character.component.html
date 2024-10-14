@@ -10,6 +10,17 @@
                 </app-reaper-slot>
                 <app-runes-slot [character]="character" [readonly]="true"></app-runes-slot>
             </div>
+            <div class="attributes">
+                <ng-container *ngFor="let attribute of ALL_ATTRIBUTES">
+                    <app-attribute-line *ngIf="showAttribute(attribute)"
+                        [short]="true"
+                        [readonly]="true"
+                        [iconShift]="true"
+                        [attribute]="character.attributes.allocated[attribute]"
+                        [remainingPoints]="character.attributes.remainingPoints">
+                    </app-attribute-line>
+                </ng-container>
+            </div>
         </mat-card-content>
         <mat-card-actions>
             <mat-checkbox color="primary" [formControl]="combatBuffControl">Activate combat buffs</mat-checkbox>
@@ -36,6 +47,18 @@
                 </div>
             </div>
             <div class="skill-info">
+                <div class="might">
+                    <div class="skill-might">
+                        {{SKILL_MIGHT_LABEL}} :
+                        <span class="value">{{character.might.skill}}</span>
+                        <img src="assets/img/icon/stat/physical.png">
+                    </div>
+                    <div class="ancestral-might">
+                        {{ANCESTRAL_MIGHT_LABEL}} :
+                        <span class="value">{{character.might.ancestral}}</span>
+                        <img src="assets/img/icon/stat/magical.png">
+                    </div>
+                </div>
                 <h4>Support Skill</h4>
                 <div class="skill-line">
                     <div class="skill">
@@ -138,17 +161,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="attributes">
-                <ng-container *ngFor="let attribute of ALL_ATTRIBUTES">
-                    <app-attribute-line *ngIf="showAttribute(attribute)"
-                        [short]="true"
-                        [readonly]="true"
-                        [iconShift]="true"
-                        [attribute]="character.attributes.allocated[attribute]"
-                        [remainingPoints]="character.attributes.remainingPoints">
-                    </app-attribute-line>
-                </ng-container>
             </div>
         </mat-card-content>
     </mat-card>

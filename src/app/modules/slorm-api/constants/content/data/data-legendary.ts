@@ -79,9 +79,10 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     },
     15: {
         override: (effect) => {
-            synergySetAllowMinMax(effect, 1, false);
             setStat(effect, 0, 'immortal_grasp_health_restored');
             setStat(effect, 0, 'immortal_grasp_duration');
+            synergySetAllowMinMax(effect, 1, false);
+            allowSynergyToCascade(effect, 1);
         }
     },
     16: {
@@ -121,8 +122,8 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     },
     24: {
         override: (effect) => {
-            setStat(effect, 0, 'enemy_full_life_crit_chance_global_mult');
-            setStat(effect, 1, 'enemy_full_life_crit_chance_global_mult_treshold');
+            setStat(effect, 0, 'enemy_low_life_crit_chance_global_mult');
+            setStat(effect, 1, 'enemy_low_life_crit_chance_global_mult_treshold');
         }
     },
     26: {
@@ -186,6 +187,7 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     38: {
         override: (effect) => {
             setStat(effect, 0, 'slorm_reaper_copy_chance');
+            allowSynergyToCascade(effect, 1);
         }
     },
     39: {
@@ -207,6 +209,12 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
             setStat(effect, 2, 'vilinis_reapply_chance');
         }
     },
+    43: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+            setStat(effect, 1, 'garbage_stat');
+        }
+    },
     45: {
         override: (effect) => {
             setStat(effect, 0, 'splintered_max_stacks');
@@ -220,7 +228,10 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     },
     50: {
         override: (effect) => {
-            setStat(effect, 0, 'banner_radius_add_per_second');
+            if (effect.effects[0]) {
+                effect.effects[0].effect = effectValueConstant(0.1, false, 'garbage_stat');
+                effect.template = effect.template.replace('@', '~');
+            }
         }
     },
     52: {
@@ -248,7 +259,8 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     },
     57: {
         override: (effect) => {
-            addConstant(effect, 4, <string><any>null, EffectValueValueType.Stat);
+            setStat(effect, 0, 'garbage_stat');
+            addConstant(effect, 4, 'garbage_stat', EffectValueValueType.AreaOfEffect);
         }
     },
     58: {
@@ -263,7 +275,7 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     },
     62: {
         override: (effect) => {
-            addConstant(effect, 5, 'trap_pull_distance', EffectValueValueType.Stat);
+            addConstant(effect, 5, 'trap_pull_distance', EffectValueValueType.AreaOfEffect);
         }
     },
     63: {
@@ -282,18 +294,23 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     65: {
         override: (effect) => {
             setStat(effect, 0, 'rift_nova_autocast_chance');
-            setStat(effect, 1, 'rift_nova_autocast_tick');
+            if (effect.effects[1]) {
+                effect.effects[1].effect = effectValueConstant(1.5, false, 'garbage_stat');
+                effect.template = effect.template.replace('every @', 'every ~');
+            }
         }
     },
     67: {
         override: (effect) => {
-            addConstant(effect, 1, 'disable_orb_arcane_master_maluses', EffectValueValueType.Stat);
+            setStat(effect, 0, 'orb_of_the_arcane_master_max_reduction');
+            // hack for orb_of_the_arcane_master_max_reduction until i find a better solution
+            addConstant(effect, 0.5, 'orb_of_the_arcane_master_reduction_multiplier', EffectValueValueType.Upgrade);
         }
     },
     69: {
         override: (effect) => {
-            setStat(effect, 0, 'time_lock_damage_max_health_percent_treshold');
-            addConstant(effect, 2.6, 'distortion_wave_push_distance', EffectValueValueType.AreaOfEffect);
+            allowSynergyToCascade(effect, 0);
+            addConstant(effect, 2, 'distortion_wave_push_distance', EffectValueValueType.AreaOfEffect);
         }
     },
     70: {
@@ -305,6 +322,7 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     72: {
         override: (effect) => {
             setStat(effect, 0, 'arcane_bond_duration_add');
+            setStat(effect, 1, 'garbage_stat');
         }
     },
     73: {

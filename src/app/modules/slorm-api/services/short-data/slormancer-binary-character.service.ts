@@ -229,9 +229,6 @@ export class SlormancerBinaryCharacterService {
         const investedAncestralSlorm = this.slormancerMightService.getInvestedAncestralSlorm(character);
         result.push(...numberToBinary(investedAncestralSlorm, 25));
 
-        console.log(this.slormancerMightService.getTotalAncestralSlorm(character));
-        console.log(this.slormancerMightService.getTotalSkillSlorm(character));
-
         return result;
     }
 

@@ -322,7 +322,7 @@
 - Total mastery count no longer ignore the last skill mastery
 - Unkillable berzerker reaper additional damage multiplier is now correctly applied
 
-## Release 0.7.0 (TBD)
+## Release 0.7.0 (2024-10-14)
 ### Added
 - Added all the changes from the balance update
 ### Changed
@@ -334,28 +334,15 @@
 - Fixed some incorrect ancestral legacy nodes mapping
 - Fixed an issue causing skill related class mechanics to not be shown
 - Fixed an issue causing class mechanics to not be uptated
-- Fixed many old and new skills interactions
+- Fixed many skills interactions
 - Summon maximum possible skeletons config should now correctly work with evasive magic
 - Reaper affinity should now apply it's value to stats the same way the game does
 - Equiping an item using the context menu now correctly update the current layer
-- Reaper list no longer show reapers with a base affinity of 100
+- Reaper list page no longer show reapers with a base affinity of 100
 - Fixed an issue causing reaper affinity to be hidden
-
-fix de l'export
-check tous les legendaires
-
-=> tester un peu le calcul du reaper mastery
-
-## changes
-- export / import defensive stat
-
-EXPORT : 
-===>>>>> important : il faut checker le reaper dans l'export + mise à jour depuis ancienne version
-=> prendre en compte la suppression des legion primordiaux des configs
+- Legendary activables are now correctly capped at 15 reinforcment
 
 ## TODO
-- mise à jour packages
-- parsing loadouts
-- slorm legendaries
-- affichage export
-
+- update packages ?
+- legendary list
+- patch compatibility service

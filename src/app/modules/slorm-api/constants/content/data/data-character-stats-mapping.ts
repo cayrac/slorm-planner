@@ -321,7 +321,7 @@ export const COOLDOWN_MAPPING: MergedStatMapping = {
     source: {
         flat: [
             { stat: 'cooldown_time_add' },
-            { stat: 'orb_arcane_master_cooldown_time_add', condition: (_, stats) => !hasStat(stats, 'disable_orb_arcane_master_maluses') },
+            { stat: 'orb_arcane_master_cooldown_time_add' },
             { stat: 'spectral_shape_cooldown_time', extra: true },
         ],
         max: [],
@@ -949,7 +949,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             multiplier: [
                 { stat: 'crit_chance_global_mult' },
                 { stat: 'crit_chance_global_mult_after_hit_taken', condition: config => config.took_physical_damage_recently || config.took_elemental_damage_recently },
-                { stat: 'enemy_full_life_crit_chance_global_mult', condition: (config, stats) => config.use_enemy_state && (100 - config.enemy_percent_missing_health) >= getFirstStat(stats, 'enemy_full_life_crit_chance_global_mult_treshold', 0) },
+                { stat: 'enemy_low_life_crit_chance_global_mult', condition: (config, stats) => config.use_enemy_state && (100 - config.enemy_percent_missing_health) >= (100 - getFirstStat(stats, 'enemy_low_life_crit_chance_global_mult_treshold', 0)) },
                 { stat: 'crit_chance_global_mult_per_yard', condition: config => config.use_enemy_state && config.distance_with_target > 0, multiplier: config => config.distance_with_target },
                 { stat: 'academician_critical_chance_mult' },
             ],
@@ -2225,7 +2225,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'traumatized_stack_double_damages', condition: config => config.enemy_traumatized_stacks > 0, multiplier: (config, stats) => Math.pow(2, Math.min(config.enemy_traumatized_stacks, getMaxStacks(stats, 'traumatized_max_stacks'))) },
                 { stat: 'obliteration_breach_stack_skill_increased_damage_mult', condition: config => config.obliteration_breach_collision_stacks > 0, multiplier: (config, stats) => Math.min(config.obliteration_breach_collision_stacks, getMaxStacks(stats, 'breach_collision_max_stacks')) },
                 { stat: 'skill_increased_damage_mult_per_obliteration_emblem', condition: config => config.obliteration_emblems > 0, multiplier: config => config.obliteration_emblems },
-                { stat: 'orb_arcane_master_skill_decreased_damage_mult', condition: (_, stats) => !hasStat(stats, 'disable_orb_arcane_master_maluses'), multiplier: () => -1 },
+                { stat: 'orb_arcane_master_skill_decreased_damage_mult', multiplier: (_, stats) => -1 * getFirstStat(stats, 'orb_of_the_arcane_master_reduction_multiplier', 1) },
                 { stat: 'skill_decreased_damage_mult_if_only_obliteration', condition: config => config.temporal_emblems === 0 && config.arcanic_emblems === 0 },
                 { stat: 'lightning_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Lightning) },
                 { stat: 'light_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Light) },
@@ -2844,7 +2844,25 @@ export const SKILL_MERGED_STATS_MAPPING: GameHeroesData<{ [key: number]: Array<M
         ]
     },
     2: {
-        
+        6: [
+            {
+                stat: 'skill_elemental_damage_mult',
+                precision: 1,
+                allowMinMax: false,
+                suffix: '',
+                source: {
+                    flat: [
+                        { stat: 'skill_elemental_damage_mult' }
+                    ],
+                    max: [],
+                    percent: [],
+                    maxPercent: [],
+                    multiplier: [],
+                    maxMultiplier: [],
+                } 
+            }
+            
+        ]
     },
 }
 

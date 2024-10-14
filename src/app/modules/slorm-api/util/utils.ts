@@ -176,6 +176,7 @@ export function isDamageType(stat: string): boolean {
         || stat === 'poison_damage'
         || stat === 'righteous_sunlight_damage'
         || stat === 'butterfly_elemental_damage'
+        || stat === 'wandering_arrow_damage'
     ;
 }
 

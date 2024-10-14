@@ -525,6 +525,15 @@ export class SlormancerCharacterUpdaterService {
 
         this.slormancerValueUpdater.updateRuneValues(character, additionalRunes, statsResult, config);
 
+        for (const gearSlot of ALL_GEAR_SLOT_VALUES) {
+            const item = character.gear[gearSlot];
+            if (item !== null && item.legendaryEffect !== null) {
+                if (this.slormancerValueUpdater.updateLegendaryValues(character, item.legendaryEffect, statsResult)) {
+                    statsResult.changed.items.push(item);
+                }
+            }
+        }
+
         const classMechanics = this.slormancerClassMechanicService.getClassMechanics(character.heroClass);
         for (const classMechanic of classMechanics) {
             this.slormancerValueUpdater.updateClassMechanic(classMechanic, statsResult);
@@ -683,9 +692,9 @@ export class SlormancerCharacterUpdaterService {
                 || character.primarySkill === skill.skill
                 || character.secondarySkill === skill.skill;
 
-            skill.activeUpgrades = [ ...skill.selectedUpgrades ];
 
             if (skill.skill.type === SkillType.Support) {
+                skill.activeUpgrades = equipped ? [ ...skill.selectedUpgrades ] : [];
                 if (equipped) {
                     if (removeEquippedSpecPassives) {  
                         skill.activeUpgrades = skill.activeUpgrades
@@ -699,6 +708,8 @@ export class SlormancerCharacterUpdaterService {
                         .filter(upgrade => skill.selectedUpgrades.includes(upgrade.id) && upgrade.type === SkillType.Passive)
                         .map(upgrade => upgrade.id);
                 }
+            } else {
+                skill.activeUpgrades = [ ...skill.selectedUpgrades ];
             }
         }
     }

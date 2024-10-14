@@ -3,6 +3,9 @@
 @import "src/assets/scss/abstracts/color";
 @import "src/assets/scss/abstracts/spacing";
 
+
+$value-color-text  : rgb(206, 70, 7);
+
 main {
     @include flex-row-to-column('tablet', stretch, center);
     @include flex-gap($space-content);
@@ -45,6 +48,14 @@ main {
 
         mat-checkbox {
             margin-right: auto;
+        }
+
+        .attributes {
+            padding: $space-unit;
+            
+            app-attribute-line {
+                float: left;
+            }
         }
     }
 
@@ -92,6 +103,23 @@ main {
 
             h4 {
                 margin: 0;
+            }
+
+            .might {
+                @include flex(column, stretch);
+                > * {
+                    @include flex(row, center);
+                    @include flex-gap($space-unit);
+                }
+                .value {
+                    color: $value-color-text;
+                }
+                margin-bottom: $space-unit * 4;
+
+                img {
+                    height: 20px;
+                    image-rendering: pixelated;
+                }
             }
 
             .skill-line {
@@ -151,14 +179,6 @@ main {
                         padding: $space-unit;
                     }
 
-                }
-            }
-
-            .attributes {
-                padding: $space-unit;
-                
-                app-attribute-line {
-                    float: left;
                 }
             }
         }

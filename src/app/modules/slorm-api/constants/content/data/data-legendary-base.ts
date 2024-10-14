@@ -49,7 +49,7 @@ export const DATA_LEGENDARY_BASE: { [key: number]: string } = {
     47: 'atk_phy-ret',
     48: 'aura',
     49: 'def_mag-mana',
-    50: 'def_phy-def_mag',
+    50: 'def_mag-def_phy',
     51: 'def_mag',
     52: 'atk_phy-def_phy',
     53: 'ret',

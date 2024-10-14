@@ -7,7 +7,7 @@ import {
     MANA_COST_MAPPING,
     MergedStatMapping,
 } from '../../constants/content/data/data-character-stats-mapping';
-import { Skill } from '../../model';
+import { LegendaryEffect, Skill } from '../../model';
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
 import { CharacterConfig } from '../../model/character-config';
 import { Activable } from '../../model/content/activable';
@@ -789,20 +789,20 @@ export class SlormancerValueUpdaterService {
         for (const value of ancestralLegacy.values) {
             if (isEffectValueSynergy(value)) {
 
-                let addedFlatDamage = 0
-
+                let multipliers: number[] = [];
+                
                 // spark machine and high voltage interaction
                 if (ancestralLegacy.id === 30) {
                     const highVoltageMaxStacks = statsResult.extractedStats['high_voltage_max_stacks'];
                     const highVoltageStackIncreasedDamage = statsResult.extractedStats['high_voltage_stack_spark_machine_increased_damage'];
 
                     if (highVoltageMaxStacks && highVoltageMaxStacks[0] && highVoltageStackIncreasedDamage && highVoltageStackIncreasedDamage[0]) {
-                        addedFlatDamage += highVoltageStackIncreasedDamage[0].value * Math.min(config.high_voltage_stacks, highVoltageMaxStacks[0].value);
+                        multipliers.push(highVoltageStackIncreasedDamage[0].value * Math.min(config.high_voltage_stacks, highVoltageMaxStacks[0].value));
                     }
                 }
 
                 if (isDamageType(value.stat)) {
-                    this.updateDamage(value, ancestralLegacy.genres, skillStats, statsResult, ancestralLegacy.element, false, [], addedFlatDamage);
+                    this.updateDamage(value, ancestralLegacy.genres, skillStats, statsResult, ancestralLegacy.element, false, multipliers);
                 }
             } else if (value.valueType === EffectValueValueType.AreaOfEffect) {
                 value.value = value.baseValue;
@@ -1000,6 +1000,22 @@ export class SlormancerValueUpdaterService {
                 stats.changed.runes.push(rune);
             }
         }
+    }
+
+    public updateLegendaryValues(character: Character, legendaryEffect: LegendaryEffect, stats: CharacterStatsBuildResult): boolean {
+        let changed = false;
+
+        for (const effect of legendaryEffect.effects) {
+            const value = effect.effect;
+            if (value.valueType === EffectValueValueType.AreaOfEffect) {
+                const skillStats = this.getSkillStats(stats, character);
+                value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
+                value.displayValue = bankerRound(value.value, 2);
+                changed = true;
+            }
+        }
+
+        return changed;
     }
 
     private spreadAdditionalDamages(damages: Array<EffectValueSynergy>, additional: number | MinMax) {
@@ -1241,6 +1257,14 @@ export class SlormancerValueUpdaterService {
                     if (elementalMultipliers) {
                         additionamMultipliers.push(...elementalMultipliers.map(v => v.value));
                     }
+                    const elementalMultiplierSynergy = statsResult.stats.find(stat => stat.stat === 'skill_elemental_damage_mult');
+                    if (elementalMultiplierSynergy) {
+                        additionamMultipliers.push(elementalMultiplierSynergy.total as number);
+                    }
+                }
+
+                if (damageValue.stat === 'wandering_arrow_damage') {
+                    additionamMultipliers.push(skillStats.minionIncreasedDamage.total);
                 }
 
                 if (damageValue.stat === 'physical_damage') {

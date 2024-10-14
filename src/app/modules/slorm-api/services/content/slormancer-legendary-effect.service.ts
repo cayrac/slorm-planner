@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { MAX_REINFORCMENT_UPGRADE } from '../../constants';
 import { CraftableEffect } from '../../model/content/craftable-effect';
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
@@ -157,7 +158,7 @@ export class SlormancerLegendaryEffectService {
         for (const craftedEffect of legendaryEffect.effects) {
             if (isEffectValueVariable(craftedEffect.effect) || isEffectValueSynergy(craftedEffect.effect)) {
                 craftedEffect.craftedValue = Math.min(craftedEffect.maxPossibleCraftedValue, Math.max(craftedEffect.minPossibleCraftedValue, legendaryEffect.value));
-                const upgrade = 100 * craftedEffect.effect.upgrade * Math.min(15, legendaryEffect.reinforcment) / 100;
+                const upgrade = 100 * craftedEffect.effect.upgrade * Math.min(MAX_REINFORCMENT_UPGRADE, legendaryEffect.reinforcment) / 100;
                 craftedEffect.possibleCraftedValues = this.slormancerItemValueService.computeEffectRange(
                     craftedEffect.score,
                     craftedEffect.minPossibleCraftedValue,
@@ -170,7 +171,7 @@ export class SlormancerLegendaryEffectService {
         }
 
         if (legendaryEffect.activable !== null) {
-            legendaryEffect.activable.level = legendaryEffect.reinforcment;
+            legendaryEffect.activable.level = Math.min(MAX_REINFORCMENT_UPGRADE, legendaryEffect.reinforcment);
             this.slormanderActivableService.updateActivableModel(legendaryEffect.activable);
         }
     }

@@ -916,7 +916,7 @@ export class SlormancerStatsExtractorService {
 
     private addUpgradeValues(skillAndUpgrades: CharacterSkillAndUpgrades, extractedStats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>, config: CharacterConfig) {
         for (const upgrade of skillAndUpgrades.upgrades) {
-            const equipped = skillAndUpgrades.activeUpgrades.includes(upgrade.id);
+            const equipped = skillAndUpgrades.selectedUpgrades.includes(upgrade.id);
             for (const upgradeValue of upgrade.values) {
                 if (upgradeValue.valueType === EffectValueValueType.Upgrade) {
                     if (isEffectValueSynergy(upgradeValue)) {

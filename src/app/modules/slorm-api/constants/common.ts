@@ -10,6 +10,8 @@ export const MAX_MAGIC_STATS = 1;
 export const MAX_RARE_STATS = 1;
 export const MAX_EPIC_STATS = 3;
 
+export const MAX_REINFORCMENT_UPGRADE = 15;
+
 export const INVENTORY_SIZE = 64;
 export const STASH_SIZE = 35;
 

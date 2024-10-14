@@ -5,21 +5,21 @@ import { SharedData } from '@shared/model/shared-data';
 import { BuildStorageService } from '@shared/services/build-storage.service';
 import { BuildService } from '@shared/services/build.service';
 import {
-  ALL_ATTRIBUTES,
-  AncestralLegacy,
-  Attribute,
-  Character,
-  CharacterConfig,
-  COMBAT_CONFIG,
-  DEFAULT_CONFIG,
-  isNotNullOrUndefined,
-  MinMax,
-  Skill,
-  SkillType,
-  SkillUpgrade,
-  SlormancerCharacterUpdaterService,
-  SlormancerDpsService,
-  SlormancerTranslateService,
+    ALL_ATTRIBUTES,
+    AncestralLegacy,
+    Attribute,
+    Character,
+    CharacterConfig,
+    COMBAT_CONFIG,
+    DEFAULT_CONFIG,
+    isNotNullOrUndefined,
+    MinMax,
+    Skill,
+    SkillType,
+    SkillUpgrade,
+    SlormancerCharacterUpdaterService,
+    SlormancerDpsService,
+    SlormancerTranslateService,
 } from '@slorm-api';
 
 // TODO
@@ -32,6 +32,8 @@ import {
 })
 export class ViewCharacterComponent {
 
+    public readonly SKILL_MIGHT_LABEL = this.slormancerTranslateService.translate('bonus_raw_damage');
+    public readonly ANCESTRAL_MIGHT_LABEL = this.slormancerTranslateService.translate('bonus_elemental_damage');
     public readonly PHYSICAL_DAMAGE_LABEL = this.slormancerTranslateService.translate('tt_physical_damage');
     public readonly ELEMENTAL_DAMAGE_LABEL = this.slormancerTranslateService.translate('tt_elemental_damage');
     public readonly MAX_LIFE_LABEL = this.slormancerTranslateService.translate('max_health');
