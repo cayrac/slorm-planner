@@ -14,6 +14,7 @@ export const MAX_REINFORCMENT_UPGRADE = 15;
 
 export const INVENTORY_SIZE = 64;
 export const STASH_SIZE = 35;
+export const STASH_TABS_COUNT = 12;
 
 export const SKILL_MAX_MASTERY = 15;
 export const ULTIMATUM_MAX_LEVEL = 15;

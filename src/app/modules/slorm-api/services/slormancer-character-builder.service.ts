@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HeroClass } from '..//model/content/enum/hero-class';
-import { GAME_VERSION, INVENTORY_SIZE, MAX_HERO_LEVEL, STASH_SIZE, UNITY_REAPERS } from '../constants/common';
+import { GAME_VERSION, INVENTORY_SIZE, MAX_HERO_LEVEL, STASH_SIZE, STASH_TABS_COUNT, UNITY_REAPERS } from '../constants/common';
 import { CharacterConfig } from '../model';
 import { Character, CharacterSkillAndUpgrades } from '../model/character';
 import { Activable } from '../model/content/activable';
@@ -507,8 +507,6 @@ export class SlormancerCharacterBuilderService {
             reaper = this.slormancerReaperService.getDefaultReaper(heroClass);
         }
 
-
-
         const character: Character = {
             heroClass,
             version,
@@ -555,7 +553,7 @@ export class SlormancerCharacterBuilderService {
                 cape
             },
             inventory: inventory === null ? list(INVENTORY_SIZE).map(() => null) : inventory,
-            sharedInventory: sharedInventory === null ? list(4).map(() => list(STASH_SIZE).map(() => null)) : sharedInventory,
+            sharedInventory: sharedInventory === null ? list(STASH_TABS_COUNT).map(() => list(STASH_SIZE).map(() => null)) : sharedInventory,
 
             ultimatum,
 

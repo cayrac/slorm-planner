@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { compareVersions, DEFAULT_CONFIG, GAME_VERSION, MAX_REAPER_AFFINITY_BASE } from '@slorm-api';
+import { compareVersions, DEFAULT_CONFIG, GAME_VERSION, list, MAX_REAPER_AFFINITY_BASE, STASH_SIZE, STASH_TABS_COUNT } from '@slorm-api';
 
 import { Build } from '../model/build';
 
@@ -422,11 +422,9 @@ export class BuildRetrocompatibilityService {
                 delete (build.configuration as any).unity_level_2_52_p;
 
                 for (const layer of build.layers) {
-                    layer.character.reaper.primordialKills = (layer.character.reaper as any).primordialInfo.kills;
-                    layer.character.reaper.baseKills = (layer.character.reaper as any).baseKills.kills;
-                    layer.character.reaper.masteryLevel = 0;
-                    delete (layer.character.reaper as any).primordialInfo;
-                    delete (layer.character.reaper as any).baseInfo;
+                    while (layer.character.sharedInventory.length < STASH_TABS_COUNT) {
+                        layer.character.sharedInventory.push(list(STASH_SIZE).map(() => null));
+                    }
                 }
             }
         },
