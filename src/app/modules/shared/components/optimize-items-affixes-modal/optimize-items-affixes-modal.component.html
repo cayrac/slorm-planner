@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>Choose the affixes you want for your items</h2>
 <mat-dialog-content>
     <form id="form" (submit)="submit()" [formGroup]="form">
-        <p>Each affix below will be applied in order to the {{items.length > 1 ? items.length + ' selected items' : 'selected item'}} (at maximum crafting value) using the first available affix slot.</p>
+        <p>Each affix below will be applied in order to the {{items.length > 1 ? items.length + ' selected items' : 'selected item'}} at maximum crafting value using the first available affix slot.</p>
         <p>Items will lose their affixes before being updated.</p>
         <mat-form-field appearance="outline" color="primary" class="no-error-padding">
             <mat-label>Highest rarity to allow</mat-label>

@@ -16,13 +16,35 @@ function setStat(effect: LegendaryEffect, index: number, stat: string) {
     }
 }
 
+function setValueType(effect: LegendaryEffect, index: number, type: EffectValueValueType) {
+    const value = effect.effects[index]
+
+    if (value) {
+        warnIfEqual(value.effect.type, type, 'legendary(' + effect.id + ') setValueType at index ' + index + ' did not changed anthing', effect);
+        value.effect.valueType = type;
+    } else {
+        throw new Error('failed to update value type for legendary(' + effect.id + ') effect at index ' + index);
+    }
+}
+
+function setScore(effect: LegendaryEffect, index: number, score: number) {
+    const value = effect.effects[index]
+
+    if (value) {
+        warnIfEqual(value.score, score, 'legendary(' + effect.id + ') setValue at index ' + index + ' did not changed anthing', effect);
+        value.score = score;
+    } else {
+        throw new Error('failed to update value for legendary(' + effect.id + ') effect at index ' + index);
+    }
+}
+
 function valueMultiply100(effect: LegendaryEffect, index: number) {
     const value = effect.effects[index]
 
     if (value) {
         value.score = value.score * 100;
     } else {
-        throw new Error('failed to multiply legendary(' + effect.id + ') synergy percent at index ' + index);
+        throw new Error('failed to multiply legendary(' + effect.id + ') synergy value at index ' + index);
     }
 }
 
@@ -37,7 +59,7 @@ function synergySetAllowMinMax(effect: LegendaryEffect, index: number, allowMinM
     }
 }
 
-function addConstant(effect: LegendaryEffect, value: number, stat: string, valueType: EffectValueValueType) {
+function addConstant(effect: LegendaryEffect, value: number, stat: string, valueType: EffectValueValueType, percent: boolean = false) {
 
     effect.effects.push({
         score: value,
@@ -45,7 +67,7 @@ function addConstant(effect: LegendaryEffect, value: number, stat: string, value
         possibleCraftedValues: [],
         maxPossibleCraftedValue: 0,
         minPossibleCraftedValue: 0,
-        effect: effectValueConstant(value, false, stat, valueType)
+        effect: effectValueConstant(value, percent, stat, valueType)
     });
 }
 
@@ -57,6 +79,36 @@ function allowSynergyToCascade(effect: LegendaryEffect, index: number) {
         value.effect.cascadeSynergy = true;
     } else {
         throw new Error('failed to update legendary(' + effect.id + ') synergy cascading at index ' + index);
+    }
+}
+
+function setSource(effect: LegendaryEffect, index: number, source: string) {
+    const value = effect.effects[index];
+
+    if (value && isEffectValueSynergy(value.effect)) {
+        value.effect.source = source;
+    } else {
+        throw new Error('failed to update source at index ' + index);
+    }
+}
+
+function useOnlyMaxSource(effect: LegendaryEffect, index: number) {
+    const value = effect.effects[index];
+
+    if (value && isEffectValueSynergy(value.effect)) {
+        value.effect.useOnlyMaxSource = true;
+    } else {
+        throw new Error('failed to update useOnlyMaxSource at index ' + index);
+    }
+}
+
+function setSynergyPrecision(effect: LegendaryEffect, index: number, precision: number) {
+    const value = effect.effects[index];
+
+    if (value && isEffectValueSynergy(value.effect)) {
+        value.effect.precision = precision;
+    } else {
+        throw new Error('failed to update synergy precision at index ' + index);
     }
 }
 
@@ -115,9 +167,11 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     },
     23: {
         override: (effect) => {
-            setStat(effect, 2, 'buff_indomptable_mountain_def_phy_mult');
+            setStat(effect, 1, 'indomptable_mountain_res_phy_add');
+            setStat(effect, 2, 'garbage_stat'); // BUG Indomitable Mountain actualy increase by 200% when hit
             setStat(effect, 3, 'buff_indomptable_mountain_def_phy_duration');
             allowSynergyToCascade(effect, 1);
+            addConstant(effect, 200, 'buff_indomptable_mountain_def_phy_mult', EffectValueValueType.Stat);
         }
     },
     24: {
@@ -363,6 +417,342 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     83: {
         override: (effect) => {
             setStat(effect, 0, 'min_reaper_level');
+        }
+    },
+    96: {
+        override: (effect) => {
+            valueMultiply100(effect, 0);
+            valueMultiply100(effect, 1);
+            allowSynergyToCascade(effect, 1);
+        }
+    },
+    98: {
+        override: (effect) => {
+            setStat(effect, 1, 'projectile_ancestral_chance')
+        }
+    },
+    99: {
+        override: (effect) => {
+            valueMultiply100(effect, 0);
+            setValueType(effect, 1, EffectValueValueType.AreaOfEffect);
+            addConstant(effect, 3, 'garbage_stat', EffectValueValueType.AreaOfEffect);
+        }
+    },
+    100: {
+        override: (effect) => {
+            valueMultiply100(effect, 0);
+        }
+    },
+    101: {
+        override: (effect) => {
+            setSource(effect, 0, 'overdrive_damage');
+            synergySetAllowMinMax(effect, 0, false);
+            useOnlyMaxSource(effect, 0);
+        }
+    },
+    105: {
+        override: (effect) => {
+            setStat(effect, 0, 'all_skill_cost_reduction');
+            addConstant(effect, 1, 'skill_mana_cost_to_life_cost', EffectValueValueType.Stat);
+        }
+    },
+    108: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+            setStat(effect, 1, 'garbage_stat');
+            setStat(effect, 2, 'skill_retention_stack_basic_damage_global_mult');
+            setStat(effect, 3, 'elemental_retention_stack_elemental_damage_global_mult');
+            setStat(effect, 4, 'garbage_stat');
+            setStat(effect, 5, 'retention_max_stacks');
+        }
+    },
+    112: {
+        override: (effect) => {
+            allowSynergyToCascade(effect, 0);
+        }
+    },
+    114: {
+        override: (effect) => {
+            effect.template = effect.template.replace('@ for each', '~ for each')
+            setStat(effect, 0, 'first_slot_cooldown_reduction_global_mult');
+            setStat(effect, 1, 'non_first_slot_cooldown_reduction_global_mult');
+            setScore(effect, 1, 500);
+            addConstant(effect, 5, 'garbage_stat', EffectValueValueType.Static, true);
+        }
+    },
+    115: {
+        override: (effect) => {  
+            effect.template = effect.template.replace('@ for each', '~ for each');
+            setStat(effect, 0, 'second_slot_activable_cost_reduction');
+            setStat(effect, 1, 'non_second_slot_activable_cost_reduction');
+            setScore(effect, 1, 500);
+            addConstant(effect, 5, 'garbage_stat', EffectValueValueType.Static, true);
+        }
+    },
+    116: {
+        override: (effect) => {
+            effect.template = effect.template.replace('@ for each', '~ for each');
+            setStat(effect, 0, 'thirst_slot_increased_damage');
+            setStat(effect, 1, 'non_thirst_slot_increased_damage');
+            setScore(effect, 1, 500);
+            addConstant(effect, 5, 'garbage_stat', EffectValueValueType.Static, true);
+        }
+    },
+    117: {
+        override: (effect) => {
+            effect.template = effect.template.replace('@ for each', '~ for each')
+            setStat(effect, 0, 'garbage_stat');
+            setStat(effect, 1, 'garbage_stat');
+            setScore(effect, 1, 500);
+            addConstant(effect, 5, 'garbage_stat', EffectValueValueType.Static, true);
+        }
+    },
+    118: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+            addConstant(effect, 10, 'garbage_stat', EffectValueValueType.Duration);
+        }
+    },
+    120: {
+        override: (effect) => {
+            synergySetAllowMinMax(effect, 0, false);
+        }
+    },
+    121: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+            setStat(effect, 1, 'garbage_stat');
+            setStat(effect, 2, 'garbage_stat');
+            setStat(effect, 3, 'garbage_stat');
+        }
+    },
+    122: {
+        override: (effect) => {
+            setSource(effect, 0, 'critical_chance');
+            valueMultiply100(effect, 0);
+        }
+    },
+    123: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+            setStat(effect, 1, 'garbage_stat');
+            setStat(effect, 2, 'garbage_stat');
+            setStat(effect, 3, 'garbage_stat');
+        }
+    },
+    124: {
+        override: (effect) => {
+            addConstant(effect, 4, 'garbage_stat', EffectValueValueType.AreaOfEffect);
+        }
+    },
+    125: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+            setStat(effect, 1, 'garbage_stat');
+        }
+    },
+    126: {
+        override: (effect) => {
+            setStat(effect, 0, 'secondary_skill_additional_damages');
+            setSynergyPrecision(effect, 0, 0);
+            allowSynergyToCascade(effect, 0);
+        }
+    },
+    130: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+            setStat(effect, 1, 'transference_max_stack');
+            setStat(effect, 2, 'transference_stack_increased_indirect_damage');
+        }
+    },
+    131: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+            setStat(effect, 1, 'garbage_stat');
+            setStat(effect, 2, 'garbage_stat');
+            addConstant(effect, 7, 'garbage_stat', EffectValueValueType.AreaOfEffect);
+        }
+    },
+    134: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+            setStat(effect, 1, 'garbage_stat');
+        }
+    },
+    139: {
+        override: (effect) => {
+            setStat(effect, 1, 'garbage_stat');
+        }
+    },
+    140: {
+        override: (effect) => {
+            setStat(effect, 0, 'secondary_boost_max_stacks');
+            setStat(effect, 1, 'secondary_boost_stack_secondary_skill_decreased_damage_mult');
+        }
+    },
+    143: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+        }
+    },
+    144: {
+        override: (effect) => {
+            setStat(effect, 0, 'undamaged_crit_chance_percent');
+            setStat(effect, 1, 'garbage_stat');
+        }
+    },
+    145: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+        }
+    },
+    146: {
+        override: (effect) => {
+            synergySetAllowMinMax(effect, 0, false);
+            setStat(effect, 0, 'garbage_stat');
+        }
+    },
+    147: {
+        override: (effect) => {
+            setStat(effect, 0, 'ultimatum_increased_level');
+        }
+    },
+    148: {
+        override: (effect) => {
+            setStat(effect, 0, 'steel_manipulator_min_weapon_damage_add');
+            synergySetAllowMinMax(effect, 0, false);
+            allowSynergyToCascade(effect, 0);
+            addConstant(effect, 0, 'basic_not_added_to_skill_damage', EffectValueValueType.AreaOfEffect);
+        }
+    },
+    151: {
+        override: (effect) => {
+            setStat(effect, 0, 'ring_defensive_stat_multiplier');
+        }
+    },
+    153: {
+        override: (effect) => {
+            setStat(effect, 0, 'necromancy_set_minion_increased_damage_percent');
+            allowSynergyToCascade(effect, 0);
+        }
+    },
+    154: {
+        override: (effect) => {
+            setStat(effect, 0, 'necromancy_set_minion_increased_damage_percent');
+            allowSynergyToCascade(effect, 0);
+        }
+    },
+    155: {
+        override: (effect) => {
+            setStat(effect, 0, 'necromancy_set_minion_increased_damage_percent');
+            allowSynergyToCascade(effect, 0);
+        }
+    },
+    156: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+            setStat(effect, 1, 'garbage_stat');
+            setStat(effect, 2, 'elemental_damage');
+            setValueType(effect, 2, EffectValueValueType.AreaOfEffect);
+            addConstant(effect, 2, 'garbage_stat', EffectValueValueType.AreaOfEffect);
+        }
+    },
+    160: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+        }
+    },
+    161: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+        }
+    },
+    163: {
+        override: (effect) => {
+            setStat(effect, 0, 'extreme_confidence_attack_speed_global_mult');
+            setStat(effect, 1, 'extreme_confidence_cooldown_reduction_global_mult');
+        }
+    },
+    165: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+            addConstant(effect, 5, 'garbage_stat', EffectValueValueType.AreaOfEffect);
+        }
+    },
+    168: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+            setStat(effect, 1, 'garbage_stat');
+        }
+    },
+    169: {
+        override: (effect) => {
+            setStat(effect, 0, 'remnant_chance_to_pierce_percent');
+        }
+    },
+    178: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+            setStat(effect, 1, 'garbage_stat');
+            setStat(effect, 2, 'garbage_stat');
+        }
+    },
+    181: {
+        override: (effect) => {
+            setStat(effect, 0, 'fate_crusher_reapersmith_all');
+        }
+    },
+    184: {
+        override: (effect) => {
+            setStat(effect, 1, 'garbage_stat');
+        }
+    },
+    185: {
+        override: (effect) => {
+            setStat(effect, 0, 'primary_secondary_skill_additional_damage');
+        }
+    },
+    186: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+        }
+    },
+    187: {
+        override: (effect) => {
+            setStat(effect, 0, 'wreak_havoc_max_stacks');
+            setStat(effect, 1, 'garbage_stat');
+            setStat(effect, 2, 'garbage_stat');
+        }
+    },
+    189: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+        }
+    },
+    190: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+            setStat(effect, 1, 'garbage_stat');
+            setStat(effect, 2, 'garbage_stat');
+        }
+    },
+    192: {
+        override: (effect) => {
+            setStat(effect, 0, 'fisherman_set_booster_max_cooldown_reduction_global_mult');
+            setStat(effect, 1, 'fisherman_set_booster_max_elemental_damage_percent');
+            setStat(effect, 2, 'fisherman_set_booster_max_basic_damage_percent_percent');
+            setStat(effect, 3, 'fisherman_set_booster_max_cooldown');
+            addConstant(effect, -45, 'fisherman_set_booster_max_cooldown_reduce', EffectValueValueType.Stat);
+        }
+    },
+    201: {
+        override: (effect) => {
+            setStat(effect, 0, 'blorm_increased_damage');
+        }
+    },
+    202: {
+        override: (effect) => {
+            setStat(effect, 0, 'avatar_of_shadow_duration_add');
         }
     },
 }

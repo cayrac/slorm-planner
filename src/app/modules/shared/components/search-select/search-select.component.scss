@@ -7,4 +7,14 @@
 
 mat-form-field {
     width: 100%;
+
+    ::ng-deep {
+        .mat-select-placeholder {
+            color: #d0d0d0;
+        }
+    }
+
+    mat-hint {
+        color: #f44336;
+    }
 }

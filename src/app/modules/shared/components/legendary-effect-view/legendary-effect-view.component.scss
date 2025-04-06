@@ -1,0 +1,95 @@
+$normal-color-text     : rgb(137, 137, 137);
+$normal-color-bg       : rgb(89, 81, 60);
+$magic-color-text      : rgb(46, 135, 38);
+$magic-color-bg        : rgb(97, 70, 45);
+$rare-color-text       : rgb(23, 106, 177);
+$rare-color-bg         : rgb(119, 145, 161);
+$epic-color-text       : rgb(198, 141, 32);
+$epic-color-bg         : rgb(239, 198, 92);
+$legendary-color-text  : rgb(206, 70, 7);
+$legendary-color-bg    : rgb(245, 178, 80);
+$item-bg               : rgb(21,20,18);
+$item-gray             : rgb(104, 104, 104);
+$item-value-color      : white;
+$item-range-color      : $item-gray;
+$legendary-border-gray : rgb(46, 44, 37);
+$activable-gold-border : rgb(190, 135, 31);
+$mana-color            : rgb(51, 151, 221);
+$genre-color           : rgb(49, 85, 188);
+$life-color            : rgb(37, 117, 57);
+$buff-border-color     : rgb(59, 56, 49); 
+$reaper-buff-color     : rgb(20, 142, 137); 
+$skill-buff-color      : rgb(206, 70, 7); 
+$toughness-color       : rgb(47, 89, 150); 
+$savagery-color        : rgb(168, 48, 7); 
+$fury-color            : rgb(121, 181, 73); 
+$determination-color   : rgb(208, 181, 69); 
+$zeal-color            : rgb(75, 193, 178); 
+$willpower-color       : rgb(117, 48, 152); 
+$dexterity-color       : rgb(205, 112, 40); 
+$bravery-color         : rgb(191, 60, 89); 
+$pure-color            : rgb(70, 231, 176);
+
+.legendary-effect .description {
+    color: $legendary-color-text;
+}
+
+.legendary-effect.outer-border {
+    border: 3px solid black;
+    .border {
+        border: 2px solid $legendary-border-gray;
+        .inner-border {
+            border: 3px solid black;
+        }
+    }
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 15px;
+}
+
+.legendary-description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 30px;
+    gap: 5px;
+
+    &::ng-deep {
+        .legendary-effect .value, .buff .value {
+            color: $item-value-color;
+        }
+    }
+
+    .title {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        color: $item-gray;
+    }
+
+    .description {
+        text-align: center;
+    }
+
+    .icon {
+        margin-top: 5px;
+        min-width: 36px;
+        min-height: 36px;
+        width: 36px;
+        height: 36px;
+        border: 3px solid black;
+        padding: 2px;
+        background-color: $legendary-border-gray;
+    
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}

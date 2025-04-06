@@ -41,7 +41,7 @@ export class BuildStorageService {
         this.oldFormatTransition();
 
         this.saveTrigger
-            .pipe(debounceTime(500))
+            .pipe(debounceTime(500)) // retirer le debounce, et voir si je peux pas faire mieux
             .subscribe(() => this.saveToStorage());
     }
 
@@ -123,7 +123,7 @@ export class BuildStorageService {
         }
     }
 
-    public saveBuild() {
+    public saveBuild(instantSave: boolean = false) {
         if (this.build !== null) {
             for (const layer of this.build.layers) {
                 this.slormancerCharacterUpdaterService.updateCharacter(layer.character, this.build.configuration);
@@ -144,7 +144,11 @@ export class BuildStorageService {
             }
             
 
-            this.saveTrigger.next();
+            if (instantSave) {
+                this.saveToStorage();
+            } else {
+                this.saveTrigger.next();
+            }
 
             this.buildChanged.next(this.build);
             this.layerChanged.next(this.layer);
@@ -215,7 +219,7 @@ export class BuildStorageService {
         this.layer = valueOrDefault(build.layers[0], null);
 
         localStorage.setItem(this.CURRENT_BUILD_STORAGE_KEY, preview.storageKey);
-        this.saveBuild();
+        this.saveBuild(true);
     }
 
     public getBuilds(): Array<BuildPreview> {

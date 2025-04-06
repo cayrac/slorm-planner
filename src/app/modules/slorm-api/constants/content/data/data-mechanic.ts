@@ -44,14 +44,14 @@ export const DATA_MECHANIC: { [key: string]:  DataMechanic} = {
     },
     [MechanicType.Dart]: {
         values: [
-            effectValueSynergy(25, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat, undefined, undefined, undefined, undefined, undefined, true),
-            effectValueConstant(25, false, 'garbage_stat', EffectValueValueType.Stat),
+            effectValueSynergy(40, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat, undefined, undefined, undefined, undefined, undefined, true),
+            effectValueConstant(40, false, 'garbage_stat', EffectValueValueType.Stat),
         ]
     },
     [MechanicType.Frostbolt]: {
         values: [
-            effectValueSynergy(80, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat, undefined, 1, undefined, undefined, undefined, true),
-            effectValueConstant(80, false, 'garbage_stat', EffectValueValueType.Stat),
+            effectValueSynergy(120, 0, EffectValueUpgradeType.None, false, 'elemental_damage', 'elemental_damage', EffectValueValueType.Stat, undefined, 1, undefined, undefined, undefined, true),
+            effectValueConstant(120, false, 'garbage_stat', EffectValueValueType.Stat),
         ]
     },
     [MechanicType.LightningRod]: {

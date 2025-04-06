@@ -12,6 +12,7 @@
                 <div class="split">-</div>
                 <div class="base">{{item.baseLabel}}</div>
                 <div>{{item.levelLabel}}</div>
+                <div class="graft" *ngIf="item.graftLabel">{{item.graftLabel}}</div>
             </div>
             <div class="separator"></div>
             <div class="stats">
@@ -65,29 +66,12 @@
                         </li>
                     </ul>
                 </div>
+                <app-legendary-effect-view *ngIf="!hasAffixes()" [legendaryEffect]="item.legendaryEffect" [reinforcment]="item.reinforcment">
+                </app-legendary-effect-view>
             </div>
         </div>
-        <div class="legendary-effect outer-border" *ngIf="item.legendaryEffect !== null">
-            <div class="border">
-                <div class="inner-border legendary-description">
-                    <div class="title">
-                        <div class="bullet"><div class="legendary"></div></div>
-                        {{item.legendaryEffect.title}}
-                        <div class="bullet"><div class="legendary"></div></div>
-                    </div>
-                    <div class="description">
-                        <span [innerHTML]="item.legendaryEffect.description"></span>
-                        <span class="value" *ngIf="item.legendaryEffect.activable !== null"> {{item.legendaryEffect.activable.name}}</span>
-                    </div>
-                    <div class="icon" *ngIf="item.legendaryEffect.skillIcon !== null">
-                        <img [src]="item.legendaryEffect.skillIcon" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <app-activable-view *ngIf="item.legendaryEffect !== null && item.legendaryEffect.activable !== null"
-            [activable]="item.legendaryEffect.activable"
-            [reinforcment]="item.reinforcment"></app-activable-view>
+        <app-legendary-effect-view *ngIf="hasAffixes()" [legendaryEffect]="item.legendaryEffect" [reinforcment]="item.reinforcment">
+        </app-legendary-effect-view>
         <div class="buff reaper" *ngIf="item.reaperEnchantment !== null">
             <img [src]="item.reaperEnchantment.icon"/>
             <div class="info" [innerHTML]="item.reaperEnchantment.label"></div>

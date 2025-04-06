@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
 
+import { PRIME_TOTEM_SKILL } from '../../constants';
 import {
     GLOBAL_MERGED_STATS_MAPPING,
     HERO_MERGED_STATS_MAPPING,
+    INNER_FIRE_CHANCE_MAPPING,
+    INNER_FIRE_DAMAGE_MAPPING,
     MergedStatMapping,
+    OVERDRIVE_CHANCE_MAPPING,
+    OVERDRIVE_DAMAGE_MAPPING,
     REAPER_STATS_MAPPING,
     SKILL_MERGED_STATS_MAPPING,
 } from '../../constants/content/data/data-character-stats-mapping';
@@ -22,7 +27,7 @@ import { Rune } from '../../model/content/rune';
 import { Skill } from '../../model/content/skill';
 import { SkillUpgrade } from '../../model/content/skill-upgrade';
 import { MinMax } from '../../model/minmax';
-import { isDamageType, isEffectValueSynergy, isNotNullOrUndefined, valueOrDefault } from '../../util/utils';
+import { getAllLegendaryEffects, isDamageType, isEffectValueSynergy, isNotNullOrUndefined, valueOrDefault } from '../../util/utils';
 import { SlormancerMergedStatUpdaterService } from './slormancer-merged-stat-updater.service';
 import { SlormancerReaperService } from './slormancer-reaper.service';
 import { SlormancerStatMappingService } from './slormancer-stat-mapping.service';
@@ -99,6 +104,56 @@ export class SlormancerStatsService {
         }
     }
 
+    private applyAuthorityChanges(character: Character, mapping: MergedStatMapping[], stats: ExtractedStatMap) {
+        if (getAllLegendaryEffects(character.gear).some(legendaryEffect => legendaryEffect.id === 96)) {
+            const authorityInnerFireChanceLower = 'authority_inner_fire_chance_lower' in stats;
+            const authorityOverdriveChanceLower = 'authority_overdrive_chance_lower' in stats
+            const authorityInnerFireHigher = 'authority_inner_fire_damage_higher' in stats
+            const authorityOverdriveDamageHigher = 'authority_overdrive_damage_higher' in stats
+
+            if (authorityInnerFireChanceLower || authorityOverdriveChanceLower || authorityInnerFireHigher || authorityOverdriveDamageHigher) {
+                // apply authority meta changes
+                const innerFireDamage = mapping.find(mergedStat => mergedStat.stat === 'inner_fire_damage');
+                const overdriveDamage = mapping.find(mergedStat => mergedStat.stat === 'overdrive_damage');
+                const innerFireChance = mapping.find(mergedStat => mergedStat.stat === 'inner_fire_chance');
+                const overdriveChance = mapping.find(mergedStat => mergedStat.stat === 'overdrive_chance');
+                const innerOrOverdriveDamageHigh = mapping.find(mergedStat => mergedStat.stat === 'inner_or_overdrive_damage_high');
+
+    
+                if (innerFireChance && overdriveChance) {
+                    if (authorityInnerFireChanceLower) {
+                        overdriveChance.source = { ...INNER_FIRE_CHANCE_MAPPING.source };
+                    } else if (authorityOverdriveChanceLower) {
+                        innerFireChance.source = { ...OVERDRIVE_CHANCE_MAPPING.source };
+                    }
+                }
+                if (innerFireDamage && overdriveDamage && innerOrOverdriveDamageHigh) {
+                    if (authorityInnerFireHigher) {
+                        overdriveDamage.source = { 
+                            ...INNER_FIRE_DAMAGE_MAPPING.source,
+                            flat: overdriveDamage.source.flat
+                        };
+                        innerOrOverdriveDamageHigh.source.flat = [
+                            { stat: 'hundred' },
+                            ...INNER_FIRE_DAMAGE_MAPPING.source.percent
+                        ];
+                        innerOrOverdriveDamageHigh.source.multiplier = [ ...INNER_FIRE_DAMAGE_MAPPING.source.multiplier ];
+                    } else if (authorityOverdriveDamageHigher) {
+                        innerFireDamage.source = {
+                            ...OVERDRIVE_DAMAGE_MAPPING.source,
+                            flat: innerFireDamage.source.flat
+                        };
+                        innerOrOverdriveDamageHigh.source.flat = [ 
+                            { stat: 'hundred' },
+                            ...OVERDRIVE_DAMAGE_MAPPING.source.percent
+                        ];
+                        innerOrOverdriveDamageHigh.source.multiplier = [ ...OVERDRIVE_DAMAGE_MAPPING.source.multiplier ];
+                    }
+                }
+            }
+        }
+    }
+
     public updateCharacterStats(character: Character, config: CharacterConfig, additionalItem: EquipableItem | null = null, additionalRunes: Array<Rune> = [], additionalStats: ExtractedStatMap = {}): CharacterStatsBuildResult {
         const result: CharacterStatsBuildResult = {
             unlockedAncestralLegacies: [],
@@ -118,10 +173,15 @@ export class SlormancerStatsService {
                 runes: [],
             }
         }
+
+
         const mapping = this.getStatsMapping(character);
+        this.applyAuthorityChanges(character, mapping, additionalStats);
+
         const extractedStats = this.slormancerStatsExtractorService.extractCharacterStats(character, config, additionalItem, additionalRunes, mapping, additionalStats);
         
         this.applyReaperSpecialChanges(character, config);
+
 
         result.extractedStats = extractedStats.stats;
         result.stats = this.slormancerStatMappingService.buildMergedStats(extractedStats.stats, mapping, config);
@@ -178,6 +238,12 @@ export class SlormancerStatsService {
         if (extractedStats.stats['skill_is_fast'] !== undefined && !skillAndUpgrades.skill.genres.includes(SkillGenre.Fast)) {
             skillAndUpgrades.skill.genres.push(SkillGenre.Fast)
         }
+        if (extractedStats.stats['skill_is_no_longer_fast'] !== undefined && skillAndUpgrades.skill.genres.includes(SkillGenre.Fast)) {
+            const index = skillAndUpgrades.skill.genres.findIndex(genre => genre === SkillGenre.Fast)
+            if (index !== -1) {
+                skillAndUpgrades.skill.genres.splice(index, 1);
+            }
+        }
 
         if (character.heroClass === HeroClass.Huntress && skillAndUpgrades.skill.id === 4) {
             const physicalDamage = extractedStats.stats['damage_type_to_elemental'] === undefined;
@@ -214,7 +280,7 @@ export class SlormancerStatsService {
             }
         }
 
-        if (skillAndUpgrades.skill.id === 3 && config.add_totem_tag_to_prime_totem_skills && [71, 72].includes(character.reaper.id) && !skillAndUpgrades.skill.genres.includes(SkillGenre.Totem)) {
+        if (PRIME_TOTEM_SKILL[character.heroClass] === skillAndUpgrades.skill.id && config.add_totem_tag_to_prime_totem_skills && [71, 72].includes(character.reaper.id) && !skillAndUpgrades.skill.genres.includes(SkillGenre.Totem)) {
             skillAndUpgrades.skill.genres.push(SkillGenre.Totem);
         }
     }
@@ -241,7 +307,17 @@ export class SlormancerStatsService {
             result.push(...reaperMapping);
         }
 
-        return result;
+        return result.map(mapping => ({
+            ...mapping,
+            source: {
+                flat: mapping.source.flat.map(v => ({ ...v })),
+                max: mapping.source.max.map(v => ({ ...v })),
+                maxMultiplier: mapping.source.maxMultiplier.map(v => ({ ...v })),
+                maxPercent: mapping.source.maxPercent.map(v => ({ ...v })),
+                multiplier: mapping.source.multiplier.map(v => ({ ...v })),
+                percent: mapping.source.percent.map(v => ({ ...v })),
+            }
+        }));
 
     }
 

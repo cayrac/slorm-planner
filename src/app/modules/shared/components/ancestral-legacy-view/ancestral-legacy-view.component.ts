@@ -8,8 +8,8 @@ import { AncestralLegacy, SlormancerTranslateService } from '@slorm-api';
 })
 export class AncestralLegacyViewComponent {
 
-    public readonly NEXT_RANK_LABEL = this.slormancerTranslateService.translate('tt_next_rank');
-    public readonly MAX_RANK_LABEL = this.slormancerTranslateService.translate('tt_max_rank');
+    public readonly NEXT_RANK_LABEL: string;
+    public readonly MAX_RANK_LABEL: string;
 
     @Input()
     public readonly ancestralLegacy: AncestralLegacy | null = null;
@@ -17,5 +17,8 @@ export class AncestralLegacyViewComponent {
     @Input()
     public readonly hideNextRank: boolean = false;
 
-    constructor(private slormancerTranslateService: SlormancerTranslateService) { }
+    constructor(private slormancerTranslateService: SlormancerTranslateService) {
+      this.NEXT_RANK_LABEL = this.slormancerTranslateService.translate('tt_next_rank');
+      this.MAX_RANK_LABEL = this.slormancerTranslateService.translate('tt_max_rank');
+    }
 }

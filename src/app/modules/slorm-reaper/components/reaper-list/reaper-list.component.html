@@ -27,7 +27,7 @@
     <mat-card class="reapers">
 
         <mat-card-content>
-            <div class="reaper" *ngFor="let reaper of filteredReapers">
+            <div class="reaper" *ngFor="let reaper of filteredReapers" (click)="debug(reaper)">
                 <div class="reaper-container">
                     <div class="actions">
                         <mat-icon class="warn" *ngIf="isNotAvailable(reaper)" matTooltip="This reaper is not available in game yet">warning</mat-icon>

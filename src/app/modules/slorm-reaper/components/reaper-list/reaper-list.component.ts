@@ -55,10 +55,7 @@ export class ReaperListComponent extends AbstractUnsubscribeComponent implements
                 private clipboardService: ClipboardService) {
         super();
 
-        const search = this.form.get('search');
-        if (search !== null) {
-            search.valueChanges.subscribe(value => this.searchService.setSearch(value));
-        }
+        this.form.controls.search.valueChanges.subscribe(value => this.searchService.setSearch(value));
 
         combineLatest([
             this.form.controls.heroClass.valueChanges,
@@ -67,9 +64,6 @@ export class ReaperListComponent extends AbstractUnsubscribeComponent implements
         ])
         .subscribe(([heroClass, primordial, maxLevelAndAffinity]) => this.buildReaperList(heroClass, primordial, maxLevelAndAffinity));
 
-        this.searchService.searchChanged
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(() => this.filterReaperList());
     }
 
     public ngOnInit() {
@@ -79,6 +73,10 @@ export class ReaperListComponent extends AbstractUnsubscribeComponent implements
             primordial: false,
             maxLevelAndAffinity: false
         });
+        
+        this.searchService.searchChanged
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(() => this.filterReaperList());
     }
 
     private buildReaperList(heroClass: HeroClass, primordial: boolean, maxLevelAndAffinity: boolean) {
@@ -142,5 +140,9 @@ export class ReaperListComponent extends AbstractUnsubscribeComponent implements
     public isCopyable(): boolean {
         return this.clipboardService.canCopyImage();
     }
+    
+        public debug(reaper: Reaper) {
+            console.log(reaper);
+        }
 
 }

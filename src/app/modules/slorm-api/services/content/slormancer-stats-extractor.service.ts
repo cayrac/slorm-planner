@@ -19,11 +19,11 @@ import {
     UNITY_REAPERS,
 } from '../../constants/common';
 import { MAX_MANA_MAPPING, MergedStatMapping } from '../../constants/content/data/data-character-stats-mapping';
-import { Activable, AncestralLegacy, AncestralLegacyType, GameHeroesData, MinMax } from '../../model';
+import { Activable, AncestralLegacy, AncestralLegacyType, GameHeroesData, MinMax, SkillElement } from '../../model';
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
 import { CharacterConfig } from '../../model/character-config';
 import { SynergyResolveData } from '../../model/content/character-stats';
-import { AbstractEffectValue } from '../../model/content/effect-value';
+import { AbstractEffectValue, EffectValueVariable } from '../../model/content/effect-value';
 import { ALL_ATTRIBUTES } from '../../model/content/enum/attribute';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
 import { EffectValueValueType } from '../../model/content/enum/effect-value-value-type';
@@ -41,10 +41,11 @@ import { RuneType } from '../../model/content/rune-type';
 import { SkillType } from '../../model/content/skill-type';
 import { Entity } from '../../model/entity';
 import { EntityValue } from '../../model/entity-value';
-import { add, bankerRound, round } from '../../util';
+import { add, bankerRound, getAllLegendaryEffects, isEffectValueVariable, isFirst, round } from '../../util';
 import { effectValueSynergy } from '../../util/effect-value.util';
 import { synergyResolveData } from '../../util/synergy-resolver.util';
 import { isDamageType, isEffectValueSynergy, isNotNullOrUndefined, minAndMax, valueOrDefault } from '../../util/utils';
+import { SlormancerAncestralLegacyNodesService } from './slormancer-ancestral-legacy-nodes.service';
 import { SlormancerClassMechanicService } from './slormancer-class-mechanic.service';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerMergedStatUpdaterService } from './slormancer-merged-stat-updater.service';
@@ -77,6 +78,7 @@ export class SlormancerStatsExtractorService {
                 private slormancerReaperService: SlormancerReaperService,
                 private slormancerSkillService: SlormancerSkillService,
                 private slormancerClassMechanicService: SlormancerClassMechanicService,
+                private slormancerAncestralLegacyNodeService: SlormancerAncestralLegacyNodesService
         ) { }
 
     private getSynergyStatsItWillUpdate(stat: string, mergedStatMapping: Array<MergedStatMapping>, config: CharacterConfig, stats: ExtractedStatMap): Array<{ stat: string, mapping?: MergedStatMapping }> {
@@ -128,6 +130,9 @@ export class SlormancerStatsExtractorService {
         } else {
             extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'overdrive_damage_add', EffectValueValueType.Unknown, undefined, null, true, true, true, true), 0, { synergy: 'Raw damage' }, [ { stat: 'overdrive_damage', mapping } ], true));
         }
+
+        // flat_overdrive_damage
+        extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'overdrive_damage', 'flat_overdrive_damage_add', EffectValueValueType.Unknown, undefined, null, false, true, true, true), 0, { synergy: 'Overdrive damage' }, [ { stat: 'flat_overdrive_damage', mapping } ]));
  
         mapping = mergedStatMapping.find(m => m.stat === 'inner_fire_damage');
         extractedStats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'basic_damage', 'inner_fire_damage_add', EffectValueValueType.Unknown, undefined, null, true, true, true, true), 0, { synergy: 'Raw damage' }, [ { stat: 'inner_fire_damage', mapping } ], true));
@@ -198,7 +203,10 @@ export class SlormancerStatsExtractorService {
     }
 
     private addCharacterValues(character: Character, config: CharacterConfig, stats: ExtractedStats) {
+        const legendaryEffects = getAllLegendaryEffects(character.gear);
         const activables = this.getAllActiveActivables(character);
+        this.addStat(stats.stats, 'hundred', 100, { character });
+        this.addStat(stats.stats, 'light_shield', 0, { character });
         this.addStat(stats.stats, 'half_level', character.level / 2, { character });
         this.addStat(stats.stats, 'remnant_damage_reduction_mult', -REMNANT_DAMAGE_REDUCTION, { synergy: 'Remnant base damage reduction' });
         this.addStat(stats.stats, 'arcane_clone_attack_speed_global_mult', ARCANE_CLONE_ATTACK_SPEED_REDUCTION, { synergy: 'Arcane clone base attack speed reduction' });
@@ -224,6 +232,12 @@ export class SlormancerStatsExtractorService {
         const equippedAuraSkills = auraSkills.filter(skill => equippedActivables.some(equipped => equipped.name === skill.name));
         this.addStat(stats.stats, 'equipped_active_aura_count', equippedAuraSkills.length, { character });
 
+        this.addStat(stats.stats, 'activable_1', character.activable1 === null ? 0 : character.activable1.id, { synergy: 'Activable 1 id' });
+        this.addStat(stats.stats, 'activable_2', character.activable2 === null ? 0 : character.activable2.id, { synergy: 'Activable 2 id' })
+        this.addStat(stats.stats, 'activable_3', character.activable3 === null ? 0 : character.activable3.id, { synergy: 'Activable 3 id' })
+        this.addStat(stats.stats, 'activable_4', character.activable4 === null ? 0 : character.activable4.id, { synergy: 'Activable 4 id' })
+
+        
         if (character.heroClass === HeroClass.Mage) {
             const maxedUpgrades = typeof config.maxed_upgrades === 'number'
                 ? config.maxed_upgrades
@@ -245,9 +259,46 @@ export class SlormancerStatsExtractorService {
             }
         }
         
+        const hasArmorOfDeepShadow = legendaryEffects.some(legendaryEffect => legendaryEffect.id === 201);
+        if (hasArmorOfDeepShadow) {
+            const activeRealms = this.slormancerAncestralLegacyNodeService.getActiveRealms(character)
+                .map(realm => realm.realm);
+            const shadowRealms = this.slormancerDataService.getAncestralRealmColors(activeRealms)
+                .filter(color => color === SkillElement.Shadow)
+                .length;
+            this.addStat(stats.stats, 'shadow_stone', shadowRealms * 100, { synergy: 'Active shadow realms * 100' });
+        }
+
         const allCharacterMasteries = character.skills.reduce((total, skill) => total + skill.skill.level, 0);
         this.addStat(stats.stats, 'all_character_masteries', allCharacterMasteries, { synergy: 'Character skill masteries' });
-        stats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'critical_damage', 'brut_damage_percent', EffectValueValueType.Unknown, undefined, null, true, true, true, true), 0, { synergy: 'Critical strike damage' }, [ { stat: 'ancestral_damage' } ], true));
+        stats.synergies.push(synergyResolveData(effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'critical_damage', 'brut_damage_percent_from_crit_damage', EffectValueValueType.Unknown, undefined, null, true, true, true, true), 0, { synergy: 'Critical strike damage' }, [ { stat: 'ancestral_damage' } ], true));
+    
+        // has fisherman set
+        const hasFishermanSet = legendaryEffects.some(legendaryEffect => legendaryEffect.id === 190)
+            && legendaryEffects.some(legendaryEffect => legendaryEffect.id === 191)
+            && legendaryEffects.some(legendaryEffect => legendaryEffect.id === 192);
+        if (hasFishermanSet) {
+            this.addStat(stats.stats, 'has_fisherman_set', 1, { synergy: 'Fisherman set' });
+        }
+
+        // jewel set
+        const jewels = [ 114, 115, 116, 117 ];
+        const equippedJewels = legendaryEffects
+            .filter(legendaryEffect => jewels.includes(legendaryEffect.id))
+            .filter(isFirst);
+        this.addStat(stats.stats, 'jewel_set', equippedJewels.length, { synergy: 'Number of equipped jewels' });
+
+        // necromancy set necromancy_set
+        const necromancyItems = [ 153, 154, 155 ];
+        const equippedNecromancyItems = legendaryEffects
+            .filter(legendaryEffect => necromancyItems.includes(legendaryEffect.id))
+            .filter(isFirst);
+        this.addStat(stats.stats, 'necromancy_set', equippedNecromancyItems.length * 100, { synergy: 'Number of equipped necromancy items' });
+
+        if (character.ultimatum !== null) {
+            this.addStat(stats.stats, 'equipped_ultimatum', character.ultimatum.type, { synergy: 'Equipped ultimatum type' });
+            this.addStat(stats.stats, 'ultimatum_' + character.ultimatum.value.stat, character.ultimatum.value.value, { ultimatum: character.ultimatum });
+        }
     }
     
     private addConfigValues(character: Character, config: CharacterConfig, stats: ExtractedStats) {
@@ -274,6 +325,8 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'moonlight_stacks', config.moonlight_stacks, { synergy: 'Moonlight stacks' });
         this.addStat(stats.stats, 'sunlight_stacks', config.sunlight_stacks, { synergy: 'Sunlight stacks' });
         this.addStat(stats.stats, 'enlight_10', config.enlightenment_stacks * 100, { synergy: 'Shield globes picked up recently' });
+        this.addStat(stats.stats, 'lifebender_stored', config.life_mana_stored, { synergy: 'Mana and life restored by lifebender effects' });
+        this.addStat(stats.stats, 'reaper_owned', Math.min(620, config.reaper_owned), { synergy: 'Reaper owned across all characters' });
         
         let rune_affinity = config.effect_rune_affinity;
         if (character.runes.effect !== null && character.runes.effect.reapersmith === character.reaper.smith.id) {
@@ -361,6 +414,11 @@ export class SlormancerStatsExtractorService {
         }
     }
 
+    private getReaperVariableValue(effectValue: EffectValueVariable, level: number): number {
+        const value = effectValue.upgrade > 0 ? round(effectValue.upgrade * level, 2) : effectValue.value;
+        return value;
+    }
+
     private addReaperValues(character: Character, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>, config: CharacterConfig) {
         const source = { reaper: character.reaper };
         this.addStat(stats.stats, 'min_weapon_damage_add', character.reaper.damages.min, source);
@@ -370,6 +428,12 @@ export class SlormancerStatsExtractorService {
 
         if (character.reaper.id === 30 || character.reaper.id === 31) {
             this.addStat(stats.stats, 'remain_damage', 1000, { synergy: 'Remain damage' });
+        }
+
+        if (character.reaper.id === 114) {
+            this.addStat(stats.stats, 'victims_114_all', character.reaper.kills + config.victims_114_others, { synergy: 'Reaper victims across all characters' });
+            this.addStat(stats.stats, 'victims_114', character.reaper.kills, { synergy: 'Reaper victims' });
+            
         }
 
         const effectValues: Array<AbstractEffectValue> = character.reaper.templates.base.map(effect => effect.values).flat();
@@ -386,13 +450,18 @@ export class SlormancerStatsExtractorService {
                     stats.synergies.push(synergyResolveData(effectValue, effectValue.displaySynergy, { reaper: character.reaper }, this.getSynergyStatsItWillUpdate(effectValue.stat, mergedStatMapping, config, stats.stats)));
                 }
             } else {
-                this.addStat(stats.stats, effectValue.stat, effectValue.value, source);
+                let value = effectValue.value;
+                if (isEffectValueVariable(effectValue)) {
+                    value = this.getReaperVariableValue(effectValue, character.reaper.level);
+                }
+                this.addStat(stats.stats, effectValue.stat, value, source);
             }
         }
 
         if (UNITY_REAPERS.includes(character.reaper.id)) {
             let totalDamage: MinMax = { min: 0, max: 0 };
             let totalLevel = 0;
+            let legion5And6 = 0;
             for(const reaperId of UNITY_REAPERS) {
                 const reaperData = this.slormancerDataService.getGameDataReaper(reaperId);
 
@@ -430,11 +499,19 @@ export class SlormancerStatsExtractorService {
                         }
                     }
                     
-                    this.addStat(stats.stats, 'legion_' + (reaperId - 46), levels.filter(level => level > 0).length, { synergy: 'Number of legion ' + (reaperId - 46) + ' reapers' });
+                    const reaperNumber = reaperId - 46;
+                    const reaperCount = levels.filter(level => level > 0).length;
+
+                    if (reaperNumber >= 5) {
+                        legion5And6 += reaperCount;
+                    }
+
+                    this.addStat(stats.stats, 'legion_' + reaperNumber, reaperCount, { synergy: 'Number of legion ' + (reaperId - 46) + ' reapers' });
                 }
 
             }
 
+            this.addStat(stats.stats, 'legion_5_6', legion5And6, { synergy: 'Number of legion 5 and 6 reapers' });
             this.addStat(stats.stats, 'legion_level_all', totalLevel, { synergy: 'Total level of legion reapers' });
             this.addStat(stats.stats, 'legion_reaper_dmg', round((totalDamage.min + totalDamage.max) / 2, 0), { synergy: 'Total damage of legion reapers' });
         }
@@ -499,6 +576,7 @@ export class SlormancerStatsExtractorService {
                     ...affixEffectValues,
                     ...(item.legendaryEffect !== null ? item.legendaryEffect.effects.map(c => c.effect) : []),
                     ...(item.legendaryEffect !== null && item.legendaryEffect.activable !== null ? item.legendaryEffect.activable.values : [])
+                        .filter(effect => isEffectValueSynergy(effect) && isDamageType(effect.stat))
                 ]
                 .flat();
             
@@ -570,10 +648,11 @@ export class SlormancerStatsExtractorService {
     }
 
     private addSkillPassiveValues(character: Character, config: CharacterConfig, stats: ExtractedStats, mergedStatMapping: Array<MergedStatMapping>) {
+        const useNonEquippedSupportPassives = [12, 13, 14].includes(character.reaper.id) && character.reaper.primordial;
         let poisonUpgrades = 0;
         for (const sau of character.skills) {
-            const skillEquiped = character.supportSkill === sau.skill || character.primarySkill === sau.skill || character.secondarySkill === sau.skill;
-            
+            const skillEquiped = (character.supportSkill === sau.skill || character.primarySkill === sau.skill || character.secondarySkill === sau.skill)
+                || (useNonEquippedSupportPassives && sau.skill.specialization !== null);
             for (const skillValue of sau.skill.values) {
                 if (skillValue.valueType !== EffectValueValueType.Upgrade) {
                     if (isEffectValueSynergy(skillValue)) {
@@ -781,8 +860,8 @@ export class SlormancerStatsExtractorService {
         const lockedManaPercent = this.getLockedManaPercent(activables, config, stats, character);
         const lockedHealthPercent = this.getLockedHealthPercent(activables, config, stats);
 
-        const percentMissingMana = lockedManaPercent > config.percent_missing_mana ? lockedManaPercent : config.percent_missing_mana;
-        const percentMissingHealth = lockedHealthPercent > config.percent_missing_health ? lockedHealthPercent : config.percent_missing_health;
+        const percentMissingMana = Math.min(100, lockedManaPercent > config.percent_missing_mana ? lockedManaPercent : config.percent_missing_mana);
+        const percentMissingHealth = Math.min(100, lockedHealthPercent > config.percent_missing_health ? lockedHealthPercent : config.percent_missing_health);
         
         this.addStat(stats.stats, 'mana_lock_percent', lockedManaPercent, { synergy: 'Percent locked mana' });
         this.addStat(stats.stats, 'mana_lock_percent_ungift', lockedManaPercent, { synergy: 'Percent locked mana (ungifted)' });

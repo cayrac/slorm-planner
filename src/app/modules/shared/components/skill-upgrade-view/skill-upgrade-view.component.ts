@@ -8,15 +8,19 @@ import { Buff, ClassMechanic, Mechanic, SkillType, SkillUpgrade, SlormancerTrans
 })
 export class SkillUpgradeViewComponent {
 
-    public readonly RANK_LABEL = this.slormancerTranslateService.translate('tt_rank');
-    public readonly MASTERY_LABEL = this.slormancerTranslateService.translate('tt_mastery');
+    public readonly RANK_LABEL: string;
+    public readonly MASTERY_LABEL: string;
 
     @Input()
     public readonly upgrade: SkillUpgrade | null = null;
 
     public mouseOverElement: Mechanic | ClassMechanic | Buff | null = null
 
-    constructor(private slormancerTranslateService: SlormancerTranslateService) { }
+    constructor(private slormancerTranslateService: SlormancerTranslateService
+    ) {
+        this.RANK_LABEL = this.slormancerTranslateService.translate('tt_rank');
+        this.MASTERY_LABEL = this.slormancerTranslateService.translate('tt_mastery');
+    }
 
     public getTypeLabel(type: SkillType): string {
         return this.slormancerTranslateService.translate('tt_' + type);

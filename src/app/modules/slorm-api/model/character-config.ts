@@ -76,6 +76,7 @@ export interface CharacterConfig {
     took_elemental_damage_recently: boolean;
     took_physical_damage_recently: boolean;
     damage_stored: number;
+    life_mana_stored: number;
     cast_support_before_next_cast: boolean;
     crit_recently: boolean;
     dodge_recently: boolean;
@@ -143,6 +144,9 @@ export interface CharacterConfig {
     ancestral_preparation_stacks: number;
     wreak_havoc_stacks: number;
     unrelenting_stacks: number;
+    skill_retention_stacks: number;
+    elemental_retention_stacks: number;
+    transference_stacks: number;
     moonlight_side: boolean;
     life_orbs_count: number;
     has_elemental_temper_buff: boolean;
@@ -175,6 +179,7 @@ export interface CharacterConfig {
     has_avatar_of_shadow_buff: boolean;
     has_blood_frenzy_buff: boolean;
     has_life_bargain_buff: boolean;
+    has_extreme_confidence_buff: boolean;
     concentration_buff: boolean;
     ultima_momentum_buff: boolean;
     exposed_armor_buff: boolean;
@@ -225,5 +230,9 @@ export interface CharacterConfig {
     unity_level_2_52: number;
     absorbed_damage_wrath: number;
     maxed_upgrades: number | null;
+    apply_indirect_increased_damage: boolean;
+    reaper_owned: number;
+    victims_114_others: number;
+    // TODO victims_114 + tester perfect
 }
 

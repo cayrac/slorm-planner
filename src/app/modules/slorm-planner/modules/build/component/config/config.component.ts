@@ -106,6 +106,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             condition: character => character.reaper.id === 5,
             configurations: [
                 { type: 'number', key: 'indirect_defense_stacks', label: 'Number of indirect defense stacks' },
+                { type: 'boolean', key: 'apply_indirect_increased_damage', label: 'Apply indirect damage multiplier', info: 'Do not apply additional damage to critical strikes' },
             ]
         },
         {
@@ -229,6 +230,13 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Khalahan\'s Ire',
+            condition: character => character.reaper.id === 73 && this.hasLegendaryEffect(character, 185),
+            configurations: [
+                { type: 'number', key: 'life_mana_stored', label: 'Highest life and mana restored' },
+            ]
+        },
+        {
             title: 'Reaper (Manabender)',
             condition: character => character.reaper.id === 74,
             configurations: [
@@ -327,10 +335,24 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Reaper (Altior, Arah\'s Perfect)',
+            condition: character => character.reaper.id === 99,
+            configurations: [
+                { type: 'number', key: 'reaper_owned', label: 'Number of reaper owned across all characters', info: 'Maximum : 620' },
+            ]
+        },
+        {
             title: 'Reaper (Warlock)',
             condition: character => character.reaper.id === 106 ||character.reaper.id === 107,
             configurations: [
                 { type: 'boolean', key: 'has_life_bargain_buff', label: 'Is life bargain active' },
+            ]
+        },
+        {
+            title: 'Reaper (Vengeance, Ohm Agad\'s Cursed)',
+            condition: character => character.reaper.id === 114,
+            configurations: [
+                { type: 'number', key: 'victims_114_others', label: 'Victims across other 2 characters' },
             ]
         },
         {
@@ -612,6 +634,29 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             condition: character => this.hasLegendaryEffect(character, 74),
             configurations: [
                 { type: 'boolean', key: 'frostbolt_shot_recently', label: 'Frostbolt shot recently' },
+            ]
+        },
+        {
+            title: 'Visage of Relentless Transferance',
+            condition: character => this.hasLegendaryEffect(character, 130),
+            configurations: [
+                { type: 'number', key: 'transference_stacks', label: 'Number of transference stacks' },
+                { type: 'boolean', key: 'apply_indirect_increased_damage', label: 'Apply indirect damage multiplier' },
+            ]
+        },
+        {
+            title: 'Ironclad Retaliation',
+            condition: character => this.hasLegendaryEffect(character, 108),
+            configurations: [
+                { type: 'number', key: 'skill_retention_stacks', label: 'Number of Skill Retention stacks' },
+                { type: 'number', key: 'elemental_retention_stacks', label: 'Number of Elemental Retention stacks' },
+            ]
+        },
+        {
+            title: 'Boots of Extreme Confidence',
+            condition: character => this.hasLegendaryEffect(character, 163),
+            configurations: [
+                { type: 'boolean', key: 'has_extreme_confidence_buff', label: 'Did you remain idle after casting Tumble ?' },
             ]
         },
         {

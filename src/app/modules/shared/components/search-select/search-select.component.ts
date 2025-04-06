@@ -22,6 +22,9 @@ export class SearchSelectComponent extends AbstractUnsubscribeComponent implemen
     public readonly label: string | null = null;
 
     @Input()
+    public readonly placeholder: string | null = null;
+
+    @Input()
     public readonly control: FormControl | null = null;
 
     @Input()
@@ -35,6 +38,9 @@ export class SearchSelectComponent extends AbstractUnsubscribeComponent implemen
 
     @Input()
     public readonly notFoundMessage: string | null = null;
+
+    @Input()
+    public readonly trigger: string | null = null;
 
     public filteredOptions: Array<FilteredSelectOption<any>> = [];
 

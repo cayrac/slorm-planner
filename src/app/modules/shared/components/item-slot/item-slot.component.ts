@@ -7,6 +7,7 @@ import {
     EquipableItem,
     EquipableItemBase,
     GearSlot,
+    getAllLegendaryEffects,
     SlormancerCharacterBuilderService,
     SlormancerItemService,
 } from '@slorm-api';
@@ -20,6 +21,7 @@ import { CompareItemModalComponent, CompareItemModalData } from '../compare-item
 import { ItemBaseChoiceModalComponent } from '../item-base-choice-modal/item-base-choice-modal.component';
 import { ItemEditModalComponent, ItemEditModalData } from '../item-edit-modal/item-edit-modal.component';
 import { RemoveConfirmModalComponent } from '../remove-confirm-modal/remove-confirm-modal.component';
+import { ViewData, ViewModalComponent } from '../view-modal/view-modalcomponent';
 
 @Component({
   selector: 'app-item-slot',
@@ -167,14 +169,15 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
     public edit(item: EquipableItem | null = this.item) {
         const character = this.character;
         if (character !== null) {
+            const defensiveStatMultiplier = this.slormancerItemService.getDefensiveStatMultiplier(getAllLegendaryEffects(character.gear));
             if (item === null) {
                 if (this.base !== null) {
-                    this.edit(this.slormancerItemService.getEmptyEquipableItem(this.base, character.heroClass, character.level));
+                    this.edit(this.slormancerItemService.getEmptyEquipableItem(this.base, character.heroClass, character.level, defensiveStatMultiplier));
                 } else {
                     this.dialog.open(ItemBaseChoiceModalComponent)
                     .afterClosed().subscribe((base: EquipableItemBase | undefined) => {
                         if (base !== undefined && base !== null) {
-                            this.edit(this.slormancerItemService.getEmptyEquipableItem(base, character.heroClass, character.level));
+                            this.edit(this.slormancerItemService.getEmptyEquipableItem(base, character.heroClass, character.level, defensiveStatMultiplier));
                         }
                     });
                 }
@@ -240,5 +243,19 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
                 this.dialog.open(CompareItemModalComponent, { data })
             }
         }
+    }
+            
+    public showModalTooltip(event: MouseEvent, item: EquipableItem | null) {
+        let skip = false;
+
+        if (event.ctrlKey && item !== null) {
+            skip = true;
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            const data: ViewData = { entity: { item } };
+            this.dialog.open(ViewModalComponent, { data });
+        }
+
+        return skip;
     }
 }

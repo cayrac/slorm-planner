@@ -8,8 +8,8 @@
             <div class="form-line">
                 <mat-form-field appearance="outline">
                     <mat-label>Item level</mat-label>
-                    <input matInput type="number" step="1" min="1" [max]="MAX_ITEM_LEVEL" formControlName="level">
-                    <mat-error>Level must be between 1 and {{MAX_ITEM_LEVEL}}</mat-error>
+                    <input matInput type="number" step="1" formControlName="level">
+                    <mat-error>Level must be between 1 and {{MAX_NEITHER_ITEM_LEVEL}}</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Item reinforcment</mat-label>
@@ -116,6 +116,7 @@
             </ng-container>
             <app-item-edit-legendary-effect
                 [base]="item.base"
+                [itemLevel]="item.level"
                 [itemReinforcment]="item.reinforcment"
                 [heroClass]="item.heroClass"
                 [form]="form.controls.legendary">
@@ -135,6 +136,6 @@
     <mat-dialog-actions>
         <button mat-flat-button type="button" color="primary" [mat-dialog-close]="">Cancel</button>
         <button mat-flat-button type="button" color="primary" (click)="reset()">Reset</button>
-        <button mat-flat-button type="submit" color="primary">Apply</button>
+        <button mat-flat-button [disabled]="!form.valid || !possible" type="submit" color="primary">Apply</button>
     </mat-dialog-actions>
 </form>

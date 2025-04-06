@@ -3,8 +3,8 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import {
-  DeleteLayerModalComponent,
-  DeleteLayerModalData,
+    DeleteLayerModalComponent,
+    DeleteLayerModalData,
 } from '@shared/components/delete-layer-modal/delete-layer-modal.component';
 import { EditLayerModalComponent, EditLayerModalData } from '@shared/components/edit-layer-modal/edit-layer-modal.component';
 import { Layer } from '@shared/model/layer';
@@ -124,7 +124,7 @@ export class BuildHeaderComponent extends AbstractUnsubscribeComponent implement
             .afterClosed().subscribe(del => {
                 if (del && build !== null) {
                     this.buildService.deleteLayer(build, layer);
-                    this.buildStorageService.saveBuild();
+                    this.buildStorageService.saveBuild(true);
                 }
             });
         }

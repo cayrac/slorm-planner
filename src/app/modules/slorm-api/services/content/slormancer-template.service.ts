@@ -29,7 +29,7 @@ import { SlormancerTranslateService } from './slormancer-translate.service';
 @Injectable()
 export class SlormancerTemplateService {
 
-    private readonly MAX_LABEL = this.slormancerTranslateService.translate('max');
+    private readonly MAX_LABEL: string;
 
     public readonly STAT_ANCHOR = '£';
     public readonly TYPE_ANCHOR = '$';
@@ -42,7 +42,9 @@ export class SlormancerTemplateService {
     public readonly DAMAGE_PREFIX = 'damage:';
     public readonly RETURN_REGEXP = /#/g;
 
-    constructor(private slormancerTranslateService: SlormancerTranslateService) { }
+    constructor(private slormancerTranslateService: SlormancerTranslateService) {
+        this.MAX_LABEL = this.slormancerTranslateService.translate('max');
+    }
 
     public asSpan(content: string, className: string): string {
         return '<span class="' + className + '">' + content + '</span>';
@@ -213,7 +215,7 @@ export class SlormancerTemplateService {
                 const synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
                 const value = this.asSpan(this.formatValue(effectValue.value, true), 'value');
 
-                if (typeof effectValue.synergy === 'number') {
+                if (typeof effectValue.synergy === 'number' && !isDamageType(effectValue.stat)) {
                     template = this.replaceAnchor(template, synergy, valueOrDefault(effectValue.anchor, this.VALUE_ANCHOR));
                     if (effectValue.showValue) {
                         template = this.replaceAnchor(template, value + details, this.SYNERGY_ANCHOR);
@@ -315,6 +317,9 @@ export class SlormancerTemplateService {
     }
 
     public formatAncestralLegacyDescription(template: string, effectValues: Array<AbstractEffectValue>): string {
+        const stats = effectValues.map(value => value.stat);
+        template = this.injectStatsToTemplates(template, stats)
+
         for (let effectValue of effectValues) {
             const percent = effectValue.percent ? '%' : '';
 
@@ -433,9 +438,8 @@ export class SlormancerTemplateService {
         const stats = splitData(data.DESC_VALUE)
             .filter(value => !value.startsWith('*'));
         const types = splitData(data.DESC_VALUE_REAL);
-        
         const template = data.EN_DESCRIPTION.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
-        return this.parseTemplate(template, stats, types);
+        return this.parseAncestralLegacyTemplate(template, stats, types);
     }
 
     public getAttributeTemplate(data: GameDataAttribute): string {
@@ -547,6 +551,14 @@ export class SlormancerTemplateService {
 
     private parseTemplate(template: string, stats: Array<string> = [], types: Array<string> = []): string {
         template = this.injectStatsToTemplates(template, stats)
+        template = this.injectSynergyTypesToTemplates(template, types);
+        template = this.normalizeTemplate(template);
+
+        return template;
+    }
+
+    private parseAncestralLegacyTemplate(template: string, stats: Array<string> = [], types: Array<string> = []): string {
+        //template = this.injectStatsToTemplates(template, stats)
         template = this.injectSynergyTypesToTemplates(template, types);
         template = this.normalizeTemplate(template);
 

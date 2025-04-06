@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { CreateBuildModalComponent } from '@shared/components/create-build-modal/create-build-modal.component';
 import {
-  DeleteBuildModalComponent,
-  DeleteBuildModalData,
+    DeleteBuildModalComponent,
+    DeleteBuildModalData,
 } from '@shared/components/delete-build-modal/delete-build-modal.component';
 import { EditBuildModalComponent, EditBuildModalData } from '@shared/components/edit-build-modal/edit-build-modal.component';
 import { EditLayerModalComponent, EditLayerModalData } from '@shared/components/edit-layer-modal/edit-layer-modal.component';
@@ -34,7 +34,8 @@ import { environment } from '../../../../../../../environments/environment';
 export class BuildSidenavComponent extends AbstractUnsubscribeComponent implements OnInit {
 
     public readonly SHORTCUTS: Array<{ link: string, icon: string, label: string }> = [
-        { link: '/slorm-reaper', icon: 'assets/img/reaper/0/0.png', label: 'Slorm reapers' }
+        { link: '/slorm-reaper', icon: 'assets/img/reaper/0/0.png', label: 'Slorm reapers' },
+        { link: '/slorm-legendary', icon: 'assets/img/icon/item/ring/adventure.png', label: 'Slorm legendaries' }
     ];
 
     public readonly VERSION = environment.version;
@@ -48,7 +49,7 @@ export class BuildSidenavComponent extends AbstractUnsubscribeComponent implemen
 
     public busy: boolean = false;
 
-    public readonly buildControl = new FormControl(this.buildStorageService.getBuildPreview());
+    public readonly buildControl = new FormControl();
 
     constructor(private messageService: MessageService,
                 private downloadService: DownloadService,
@@ -70,6 +71,7 @@ export class BuildSidenavComponent extends AbstractUnsubscribeComponent implemen
     }
 
     public ngOnInit() {
+        this.buildControl.reset(this.buildStorageService.getBuildPreview());
     }
 
     private closeSideNav() {
@@ -219,7 +221,7 @@ export class BuildSidenavComponent extends AbstractUnsubscribeComponent implemen
                 .afterClosed().subscribe((name: string) => {
                     if (name) {
                         build.name = name;
-                        this.buildStorageService.saveBuild();
+                        this.buildStorageService.saveBuild(true);
                     }
                 });
         }

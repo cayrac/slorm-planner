@@ -12,12 +12,13 @@ const ALL_HEROES_BASE_STATS = [
     { stat: 'crit_damage_percent', base: 150, perLevel: 0 },
     { stat: 'inner_fire_max_number_add', base: 5, perLevel: 0 },
     { stat: 'inner_fire_duration_add', base: 7, perLevel: 0 },
-    { stat: 'inner_fire_damage_percent', base: -50, perLevel: 0 },
+    { stat: 'base_inner_fire_damage_percent', base: -50, perLevel: 0 },
     { stat: 'overdrive_bounce_number_add', base: 2, perLevel: 0 },
     { stat: 'overdrive_damage_percent', base: -40, perLevel: 0 },
     { stat: 'shield_globe_duration_add', base: 3, perLevel: 0 },
     { stat: 'shield_globe_value_add', base: 0, perLevel: 3 },
 ];
+
 
 export const DATA_HERO_BASE_STATS: GameHeroesData<HeroBaseStats> = {
     0: {
@@ -271,6 +272,66 @@ export const DATA_HERO_BASE_STATS: GameHeroesData<HeroBaseStats> = {
             ],
             80: [
                 { stat: 'min_basic_damage_add', value: 1107.4 }, { stat: 'max_basic_damage_add', value: round(1476.2 - 1107.4, 3) }
+            ],
+            81: [
+                { stat: 'min_basic_damage_add', value: 1128.856 }, { stat: 'max_basic_damage_add', value: round(1504.808 - 1128.856, 3) }
+            ],
+            82: [
+                { stat: 'min_basic_damage_add', value: 1150.504 }, { stat: 'max_basic_damage_add', value: round(1533.672 - 1150.504, 3) }
+            ],
+            83: [
+                { stat: 'min_basic_damage_add', value: 1172.344 }, { stat: 'max_basic_damage_add', value: round(1562.792 - 1172.344, 3) }
+            ],
+            84: [
+                { stat: 'min_basic_damage_add', value: 1194.376 }, { stat: 'max_basic_damage_add', value: round(1592.168 - 1194.376, 3) }
+            ],
+            85: [
+                { stat: 'min_basic_damage_add', value: 1216.6 }, { stat: 'max_basic_damage_add', value: round(1621.8 - 1216.6, 3) }
+            ],
+            86: [
+                { stat: 'min_basic_damage_add', value: 1239.016 }, { stat: 'max_basic_damage_add', value: round(1651.688 - 1239.016, 3) }
+            ],
+            87: [
+                { stat: 'min_basic_damage_add', value: 1261.624 }, { stat: 'max_basic_damage_add', value: round(1681.832 - 1261.624, 3) }
+            ],
+            88: [
+                { stat: 'min_basic_damage_add', value: 1284.424 }, { stat: 'max_basic_damage_add', value: round(1712.232 - 1284.424, 3) }
+            ],
+            89: [
+                { stat: 'min_basic_damage_add', value: 1307.416 }, { stat: 'max_basic_damage_add', value: round(1742.888 - 1307.416, 3) }
+            ],
+            90: [
+                { stat: 'min_basic_damage_add', value: 1330.6 }, { stat: 'max_basic_damage_add', value: round(1773.8 - 1330.6, 3) }
+            ],
+            91: [
+                { stat: 'min_basic_damage_add', value: 1353.976 }, { stat: 'max_basic_damage_add', value: round(1804.968 - 1353.976, 3) }
+            ],
+            92: [
+                { stat: 'min_basic_damage_add', value: 1377.544 }, { stat: 'max_basic_damage_add', value: round(1836.392 - 1377.544, 3) }
+            ],
+            93: [
+                { stat: 'min_basic_damage_add', value: 1401.304 }, { stat: 'max_basic_damage_add', value: round(1868.072 - 1401.304, 3) }
+            ],
+            94: [
+                { stat: 'min_basic_damage_add', value: 1425.256 }, { stat: 'max_basic_damage_add', value: round(1900.008 - 1425.256, 3) }
+            ],
+            95: [
+                { stat: 'min_basic_damage_add', value: 1449.4 }, { stat: 'max_basic_damage_add', value: round(1932.2 - 1449.4, 3) }
+            ],
+            96: [
+                { stat: 'min_basic_damage_add', value: 1473.736 }, { stat: 'max_basic_damage_add', value: round(1964.648 - 1473.736, 3) }
+            ],
+            97: [
+                { stat: 'min_basic_damage_add', value: 1498.264 }, { stat: 'max_basic_damage_add', value: round(1997.352 - 1498.264, 3) }
+            ],
+            98: [
+                { stat: 'min_basic_damage_add', value: 1522.984 }, { stat: 'max_basic_damage_add', value: round(2030.312 - 1522.984, 3) }
+            ],
+            99: [
+                { stat: 'min_basic_damage_add', value: 1547.896 }, { stat: 'max_basic_damage_add', value: round(2063.528 - 1547.896, 3) }
+            ],
+            100: [
+                { stat: 'min_basic_damage_add', value: 1573 }, { stat: 'max_basic_damage_add', value: round(2097 - 1573, 3) }
             ]
         },
     },
@@ -522,6 +583,66 @@ export const DATA_HERO_BASE_STATS: GameHeroesData<HeroBaseStats> = {
             ],
             80: [
                 { stat: 'min_basic_damage_add', value: 1681 }, { stat: 'max_basic_damage_add', value: round(3350 - 1681, 3) }
+            ],
+            81: [
+                { stat: 'min_basic_damage_add', value: 1714.76 }, { stat: 'max_basic_damage_add', value: round(3417.52 - 1714.76, 3) }
+            ],
+            82: [
+                { stat: 'min_basic_damage_add', value: 1748.84 }, { stat: 'max_basic_damage_add', value: round(3485.68 - 1748.84, 3) }
+            ],
+            83: [
+                { stat: 'min_basic_damage_add', value: 1783.24 }, { stat: 'max_basic_damage_add', value: round(3554.48 - 1783.24, 3) }
+            ],
+            84: [
+                { stat: 'min_basic_damage_add', value: 1817.96 }, { stat: 'max_basic_damage_add', value: round(3623.92 - 1817.96, 3) }
+            ],
+            85: [
+                { stat: 'min_basic_damage_add', value: 1853 }, { stat: 'max_basic_damage_add', value: round(3694 - 1853, 3) }
+            ],
+            86: [
+                { stat: 'min_basic_damage_add', value: 1888.36 }, { stat: 'max_basic_damage_add', value: round(3764.72 - 1888.36, 3) }
+            ],
+            87: [
+                { stat: 'min_basic_damage_add', value: 1924.04 }, { stat: 'max_basic_damage_add', value: round(3836.08 - 1924.04, 3) }
+            ],
+            88: [
+                { stat: 'min_basic_damage_add', value: 1960.04 }, { stat: 'max_basic_damage_add', value: round(3908.08 - 1960.04, 3) }
+            ],
+            89: [
+                { stat: 'min_basic_damage_add', value: 1996.36 }, { stat: 'max_basic_damage_add', value: round(3980.72 - 1996.36, 3) }
+            ],
+            90: [
+                { stat: 'min_basic_damage_add', value: 2033 }, { stat: 'max_basic_damage_add', value: round(4054 - 2033, 3) }
+            ],
+            91: [
+                { stat: 'min_basic_damage_add', value: 2069.96 }, { stat: 'max_basic_damage_add', value: round(4127.92 - 2069.96, 3) }
+            ],
+            92: [
+                { stat: 'min_basic_damage_add', value: 2107.24 }, { stat: 'max_basic_damage_add', value: round(4202.48 - 2107.24, 3) }
+            ],
+            93: [
+                { stat: 'min_basic_damage_add', value: 2144.84 }, { stat: 'max_basic_damage_add', value: round(4277.68 - 2144.84, 3) }
+            ],
+            94: [
+                { stat: 'min_basic_damage_add', value: 2182.76 }, { stat: 'max_basic_damage_add', value: round(4353.52 - 2182.76, 3) }
+            ],
+            95: [
+                { stat: 'min_basic_damage_add', value: 2221 }, { stat: 'max_basic_damage_add', value: round(4430 - 2221, 3) }
+            ],
+            96: [
+                { stat: 'min_basic_damage_add', value: 2259.56 }, { stat: 'max_basic_damage_add', value: round(4507.12 - 2259.56, 3) }
+            ],
+            97: [
+                { stat: 'min_basic_damage_add', value: 2298.44 }, { stat: 'max_basic_damage_add', value: round(4584.88 - 2298.44, 3) }
+            ],
+            98: [
+                { stat: 'min_basic_damage_add', value: 2337.64 }, { stat: 'max_basic_damage_add', value: round(4663.28 - 2337.64, 3) }
+            ],
+            99: [
+                { stat: 'min_basic_damage_add', value: 2377.16 }, { stat: 'max_basic_damage_add', value: round(4742.32 - 2377.16, 3) }
+            ],
+            100: [
+                { stat: 'min_basic_damage_add', value: 2417 }, { stat: 'max_basic_damage_add', value: round(4822 - 2417, 3) }
             ]
         }
     },
@@ -859,6 +980,86 @@ export const DATA_HERO_BASE_STATS: GameHeroesData<HeroBaseStats> = {
             80: [
                 { stat: 'min_elemental_damage_add', value: 368.8 }, { stat: 'max_elemental_damage_add', value: round(552.2 - 368.8, 3) },
                 { stat: 'min_basic_damage_add', value: 760.2 }, { stat: 'max_basic_damage_add', value: round(1609 - 760.2, 3) }
+            ],
+            81: [
+                { stat: 'min_elemental_damage_add', value: 375.952 }, { stat: 'max_elemental_damage_add', value: round(562.928 - 375.952, 3) },
+                { stat: 'min_basic_damage_add', value: 771.708 }, { stat: 'max_basic_damage_add', value: round(1633.68 - 771.708, 3) }
+            ],
+            82: [
+                { stat: 'min_elemental_damage_add', value: 383.168 }, { stat: 'max_elemental_damage_add', value: round(1658.44 - 383.168, 3) },
+                { stat: 'min_basic_damage_add', value: 783.272 }, { stat: 'max_basic_damage_add', value: round(573.752 - 783.272, 3) }
+            ],
+            83: [
+                { stat: 'min_elemental_damage_add', value: 390.448 }, { stat: 'max_elemental_damage_add', value: round(584.672 - 390.448, 3) },
+                { stat: 'min_basic_damage_add', value: 794.892 }, { stat: 'max_basic_damage_add', value: round(1683.34 - 794.892, 3) }
+            ],
+            84: [
+                { stat: 'min_elemental_damage_add', value: 397.792 }, { stat: 'max_elemental_damage_add', value: round(595.688 - 397.792, 3) },
+                { stat: 'min_basic_damage_add', value: 806.568 }, { stat: 'max_basic_damage_add', value: round(1708.36 - 806.568, 3) }
+            ],
+            85: [
+                { stat: 'min_elemental_damage_add', value: 405.2 }, { stat: 'max_elemental_damage_add', value: round(606.8 - 405.2, 3) },
+                { stat: 'min_basic_damage_add', value: 818.3 }, { stat: 'max_basic_damage_add', value: round(1733.5 - 818.3, 3) }
+            ],
+            86: [
+                { stat: 'min_elemental_damage_add', value: 412.672 }, { stat: 'max_elemental_damage_add', value: round(618.008 - 412.672, 3) },
+                { stat: 'min_basic_damage_add', value: 830.088 }, { stat: 'max_basic_damage_add', value: round(1758.76 - 830.088, 3) }
+            ],
+            87: [
+                { stat: 'min_elemental_damage_add', value: 420.208 }, { stat: 'max_elemental_damage_add', value: round(629.312 - 420.208, 3) },
+                { stat: 'min_basic_damage_add', value: 841.932 }, { stat: 'max_basic_damage_add', value: round(1784.14 - 841.932, 3) }
+            ],
+            88: [
+                { stat: 'min_elemental_damage_add', value: 427.808 }, { stat: 'max_elemental_damage_add', value: round(640.712 - 427.808, 3) },
+                { stat: 'min_basic_damage_add', value: 853.832 }, { stat: 'max_basic_damage_add', value: round(1809.64 - 853.832, 3) }
+            ],
+            89: [
+                { stat: 'min_elemental_damage_add', value: 435.472 }, { stat: 'max_elemental_damage_add', value: round(652.208 - 435.472, 3) },
+                { stat: 'min_basic_damage_add', value: 865.788 }, { stat: 'max_basic_damage_add', value: round(1835.26 - 865.788, 3) }
+            ],
+            90: [
+                { stat: 'min_elemental_damage_add', value: 443.2 }, { stat: 'max_elemental_damage_add', value: round(663.8 - 443.2, 3) },
+                { stat: 'min_basic_damage_add', value: 877.8 }, { stat: 'max_basic_damage_add', value: round(1861 - 877.8, 3) }
+            ],
+            91: [
+                { stat: 'min_elemental_damage_add', value: 450.992 }, { stat: 'max_elemental_damage_add', value: round(675.488 - 450.992, 3) },
+                { stat: 'min_basic_damage_add', value: 889.868 }, { stat: 'max_basic_damage_add', value: round(1886.86 - 889.868, 3) }
+            ],
+            92: [
+                { stat: 'min_elemental_damage_add', value: 458.848 }, { stat: 'max_elemental_damage_add', value: round(687.272 - 458.848, 3) },
+                { stat: 'min_basic_damage_add', value: 901.848 }, { stat: 'max_basic_damage_add', value: round(1912.84 - 901.848, 3) }
+            ],
+            93: [
+                { stat: 'min_elemental_damage_add', value: 466.768 }, { stat: 'max_elemental_damage_add', value: round(699.152 - 466.768, 3) },
+                { stat: 'min_basic_damage_add', value: 914.172 }, { stat: 'max_basic_damage_add', value: round(1938.94 - 914.172, 3) }
+            ],
+            94: [
+                { stat: 'min_elemental_damage_add', value: 474.752 }, { stat: 'max_elemental_damage_add', value: round(711.128 - 474.752, 3) },
+                { stat: 'min_basic_damage_add', value: 926.408 }, { stat: 'max_basic_damage_add', value: round(1965.16 - 926.408, 3) }
+            ],
+            95: [
+                { stat: 'min_elemental_damage_add', value: 482.8 }, { stat: 'max_elemental_damage_add', value: round(723.2 - 482.8, 3) },
+                { stat: 'min_basic_damage_add', value: 938.7 }, { stat: 'max_basic_damage_add', value: round(1991.5 - 938.7, 3) }
+            ],
+            96: [
+                { stat: 'min_elemental_damage_add', value: 490.912 }, { stat: 'max_elemental_damage_add', value: round(735.368 - 490.912, 3) },
+                { stat: 'min_basic_damage_add', value: 951.048 }, { stat: 'max_basic_damage_add', value: round(2017.96 - 951.048, 3) }
+            ],
+            97: [
+                { stat: 'min_elemental_damage_add', value: 499.088 }, { stat: 'max_elemental_damage_add', value: round(747.632 - 499.088, 3) },
+                { stat: 'min_basic_damage_add', value: 963.452 }, { stat: 'max_basic_damage_add', value: round(2044.54 - 963.452, 3) }
+            ],
+            98: [
+                { stat: 'min_elemental_damage_add', value: 507.328 }, { stat: 'max_elemental_damage_add', value: round(759.992 - 507.328, 3) },
+                { stat: 'min_basic_damage_add', value: 975.912 }, { stat: 'max_basic_damage_add', value: round(2071.24 - 975.912, 3) }
+            ],
+            99: [
+                { stat: 'min_elemental_damage_add', value: 515.632 }, { stat: 'max_elemental_damage_add', value: round(772.448 - 515.632, 3) },
+                { stat: 'min_basic_damage_add', value: 988.428 }, { stat: 'max_basic_damage_add', value: round(2098.06 - 988.428, 3) }
+            ],
+            100: [
+                { stat: 'min_elemental_damage_add', value: 524 }, { stat: 'max_elemental_damage_add', value: round(785 - 524, 3) },
+                { stat: 'min_basic_damage_add', value: 1001 }, { stat: 'max_basic_damage_add', value: round(2125 - 1001, 3) }
             ]
         },
     }

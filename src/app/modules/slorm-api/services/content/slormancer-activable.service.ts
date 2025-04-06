@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { PRIME_TOTEM_SKILL } from '../../constants';
+import { GameHeroesData } from '../../model';
 import { Activable } from '../../model/content/activable';
 import { DataActivable } from '../../model/content/data/data-activable';
 import { AbstractEffectValue } from '../../model/content/effect-value';
@@ -19,14 +21,25 @@ import { SlormancerTranslateService } from './slormancer-translate.service';
 @Injectable()
 export class SlormancerActivableService {
 
-    private readonly COST_LABEL = this.slormancerTranslateService.translate('tt_cost');
-    private readonly COOLDOWN_LABEL = this.slormancerTranslateService.translate('tt_cooldown');
-    private readonly SECONDS_LABEL = this.slormancerTranslateService.translate('tt_seconds');
+    private readonly COST_LABEL: string;
+    private readonly COOLDOWN_LABEL: string;
+    private readonly SECONDS_LABEL: string;
+
+    private readonly PRIME_TOTEM_SKILL_NAME: GameHeroesData<string>;
 
     constructor(private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerDataService: SlormancerDataService,
-                private slormancerEffectValueService: SlormancerEffectValueService) { }
+                private slormancerEffectValueService: SlormancerEffectValueService) {
+        this.PRIME_TOTEM_SKILL_NAME = {
+            [HeroClass.Huntress]: this.slormancerDataService.getGameDataSkill(HeroClass.Huntress, PRIME_TOTEM_SKILL[HeroClass.Huntress])?.EN_NAME ?? '',
+            [HeroClass.Mage]: this.slormancerDataService.getGameDataSkill(HeroClass.Mage, PRIME_TOTEM_SKILL[HeroClass.Mage])?.EN_NAME ?? '',
+            [HeroClass.Warrior]: this.slormancerDataService.getGameDataSkill(HeroClass.Warrior, PRIME_TOTEM_SKILL[HeroClass.Warrior])?.EN_NAME ?? '',
+        }
+        this.COST_LABEL = this.slormancerTranslateService.translate('tt_cost');
+        this.COOLDOWN_LABEL = this.slormancerTranslateService.translate('tt_cooldown');
+        this.SECONDS_LABEL = this.slormancerTranslateService.translate('tt_seconds');
+    }
 
     private parseEffectValues(data: GameDataActivable, upgradeType: EffectValueUpgradeType): Array<AbstractEffectValue> {
         const valueBases = splitFloatData(data.DESC_VALUE_BASE);
@@ -175,6 +188,7 @@ export class SlormancerActivableService {
 
         activable.description = this.slormancerTemplateService.formatActivableDescription(activable.template, activable.values)
                 .replace(/\{weaponClass\}/g, this.slormancerTranslateService.translate('weapon_' + activable.heroClass))
-                .replace(/\[([a-zA-Z ]+)\/([a-zA-Z ]+)\/([a-zA-Z ]+)\]/g, '$' + (activable.heroClass + 1));
+                .replace(/\[([a-zA-Z ]+)\/([a-zA-Z ]+)\/([a-zA-Z ]+)\]/g, '$' + (activable.heroClass + 1))
+                .replace('[class_skill_3]', this.PRIME_TOTEM_SKILL_NAME[activable.heroClass]);
     }
 }

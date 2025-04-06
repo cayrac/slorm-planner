@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { MAX_ATTRIBUTE_RANK } from '../../constants';
 import { DATA_ATTRIBUTE } from '../../constants/content/data/data-attribute';
 import { AttributeTraits } from '../../model/content/attribute-traits';
 import { AbstractEffectValue, EffectValueVariable } from '../../model/content/effect-value';
@@ -26,21 +27,27 @@ import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerEffectValueService } from './slormancer-effect-value.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 import { SlormancerTranslateService } from './slormancer-translate.service';
-import { MAX_ATTRIBUTE_RANK } from '../../constants';
 
 @Injectable()
 export class SlormancerAttributeService {
 
-    private readonly TRAIT_LEVEL_LABEL = this.slormancerTranslateService.translate('trait_level');
-    private readonly TRAIT_LOCKED_LABEL = this.slormancerTranslateService.translate('trait_locked');
-    private readonly TRAIT_DEFAULT_LABEL = this.slormancerTranslateService.translate('trait_default');
-    private readonly TRAIT_RECAP_ALL_LABEL = this.slormancerTranslateService.translate('trait_recap_all');
-    private readonly TRAIT_RECAP_LABEL = this.slormancerTranslateService.translate('trait_recap');
+    private readonly TRAIT_LEVEL_LABEL: string;
+    private readonly TRAIT_LOCKED_LABEL: string;
+    private readonly TRAIT_DEFAULT_LABEL: string;
+    private readonly TRAIT_RECAP_ALL_LABEL: string;
+    private readonly TRAIT_RECAP_LABEL: string;
 
     constructor(private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerEffectValueService: SlormancerEffectValueService,
-                private slormancerDataService: SlormancerDataService) { }
+                private slormancerDataService: SlormancerDataService
+    ) {
+        this.TRAIT_LEVEL_LABEL = this.slormancerTranslateService.translate('trait_level');
+        this.TRAIT_LOCKED_LABEL = this.slormancerTranslateService.translate('trait_locked');
+        this.TRAIT_DEFAULT_LABEL = this.slormancerTranslateService.translate('trait_default');
+        this.TRAIT_RECAP_ALL_LABEL = this.slormancerTranslateService.translate('trait_recap_all');
+        this.TRAIT_RECAP_LABEL = this.slormancerTranslateService.translate('trait_recap');
+    }
      
     private isDamageStat(stat: string): boolean {
         return stat === 'physical_damage' || stat === 'elemental_damage' || stat === 'bleed_damage';

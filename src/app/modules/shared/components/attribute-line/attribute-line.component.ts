@@ -1,7 +1,9 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { AttributeTraits, MinMax, SlormancerAttributeService, Trait } from '@slorm-api';
 
+import { MatDialog } from '@angular/material/dialog';
 import { BuildStorageService } from '../../services/build-storage.service';
+import { ViewData, ViewModalComponent } from '../view-modal/view-modalcomponent';
 
 @Component({
   selector: 'app-attribute-line',
@@ -40,7 +42,8 @@ export class AttributeLineComponent implements OnInit, OnChanges {
     public cursorIndex: number | null = null;
     
     constructor(private slormancerAttributeService: SlormancerAttributeService,
-                private buildStorageService: BuildStorageService) { }
+                private buildStorageService: BuildStorageService,
+                private dialog: MatDialog) { }
 
     public ngOnInit() {
         this.updateCursor();
@@ -122,5 +125,19 @@ export class AttributeLineComponent implements OnInit, OnChanges {
 
     public trackByTrait(index: number, trait: Trait): number {
         return index;
+    }
+        
+    public showModalTooltip(event: MouseEvent, attribute: AttributeTraits) {
+        let skip = false;
+
+        if (event.ctrlKey) {
+            skip = true;
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            const data: ViewData = { entity: { attribute } };
+            this.dialog.open(ViewModalComponent, { data });
+        }
+
+        return skip;
     }
 }

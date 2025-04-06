@@ -3,7 +3,9 @@ import { SearchService } from '@shared/services/search.service';
 import { Rune, RuneType } from '@slorm-api';
 import { takeUntil } from 'rxjs';
 
+import { MatDialog } from '@angular/material/dialog';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
+import { ViewData, ViewModalComponent } from '../view-modal/view-modalcomponent';
 
 @Component({
   selector: 'app-rune-slot',
@@ -35,7 +37,10 @@ export class RuneSlotComponent extends AbstractUnsubscribeComponent implements O
         this.showOverlay = false;
     }
     
-    constructor(private searchService: SearchService) {
+    constructor(
+        private searchService: SearchService,
+        private dialog: MatDialog
+    ) {
         super()
         this.searchService.searchChanged
             .pipe(takeUntil(this.unsubscribe))
@@ -52,6 +57,20 @@ export class RuneSlotComponent extends AbstractUnsubscribeComponent implements O
 
     public hasAura(rune: Rune) {
         return rune.type === RuneType.Effect;
+    }
+                    
+    public showModalTooltip(event: MouseEvent, rune: Rune | null) {
+        let skip = false;
+
+        if (event.ctrlKey && rune !== null) {
+            skip = true;
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            const data: ViewData = { entity: { rune } };
+            this.dialog.open(ViewModalComponent, { data });
+        }
+
+        return skip;
     }
     
 }

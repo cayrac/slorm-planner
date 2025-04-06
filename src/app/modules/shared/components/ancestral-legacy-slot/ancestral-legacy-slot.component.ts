@@ -2,9 +2,11 @@ import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@a
 import { AncestralLegacy, SlormancerAncestralLegacyService } from '@slorm-api';
 import { takeUntil } from 'rxjs/operators';
 
+import { MatDialog } from '@angular/material/dialog';
 import { BuildStorageService } from '../../services/build-storage.service';
 import { SearchService } from '../../services/search.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
+import { ViewData, ViewModalComponent } from '../view-modal/view-modalcomponent';
 
 
 @Component({
@@ -48,7 +50,8 @@ export class AncestralLegacySlotComponent extends AbstractUnsubscribeComponent i
 
     constructor(private searchService: SearchService,
                 private slormancerAncestralLegacyService: SlormancerAncestralLegacyService,
-                private buildStorageService: BuildStorageService) {
+                private buildStorageService: BuildStorageService,
+                private dialog: MatDialog) {
         super();
     }
 
@@ -80,6 +83,20 @@ export class AncestralLegacySlotComponent extends AbstractUnsubscribeComponent i
             this.changed.emit(this.ancestralLegacy);
         }
         return false;
+    }
+    
+    public showModalTooltip(event: MouseEvent, ancestralLegacy: AncestralLegacy) {
+        let skip = false;
+
+        if (event.ctrlKey) {
+            skip = true;
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            const data: ViewData = { entity: { ancestralLegacy } };
+            this.dialog.open(ViewModalComponent, { data });
+        }
+
+        return skip;
     }
 }
     

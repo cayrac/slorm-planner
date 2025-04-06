@@ -1,7 +1,8 @@
-import { ALL_UPGRADABLE_REAPER_SMITH } from "../model";
+import { ALL_UPGRADABLE_REAPER_SMITH, GameHeroesData, HeroClass } from "../model";
 
-export const MAX_HERO_LEVEL = 80;
+export const MAX_HERO_LEVEL = 100;
 export const MAX_ITEM_LEVEL = MAX_HERO_LEVEL;
+export const MAX_NEITHER_ITEM_LEVEL = MAX_ITEM_LEVEL + 20;
 export const MAX_ATTRIBUTE_RANK = 75;
 export const MAX_REAPER_LEVEL = 100;
 
@@ -49,6 +50,11 @@ export const FAST_SKILL_BASE_COOLDOWN = 0.33;
 export const ATTACK_SPEED_PER_ARCANIC_EMBLEM = 5;
 export const COOLDOWN_REDUCTION_PER_TEMPORAL_EMBLEM = 3;
 export const DAMAGE_PER_OBLITERATION_EMBLEM = 5;
+export const PRIME_TOTEM_SKILL: GameHeroesData<number> = {
+    [HeroClass.Huntress]: 3,
+    [HeroClass.Mage]: 3,
+    [HeroClass.Warrior]: 4,
+}
 
 export const SHIELD_DURATION = 3;
 export const POISON_DURATION = 7;
@@ -85,6 +91,7 @@ export const API_TO_GAME_VERSION_MAPPER: { [key: string]: string } = {
     '0.6.2': '0.8.0i',
     '0.6.4': '0.8.0i',
     '0.7.0': '0.9.3b',
+    '0.8.0': '1.0.0i',
 }
 
 export const PERCENT_STATS: string[] = [

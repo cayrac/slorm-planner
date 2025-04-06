@@ -1,17 +1,18 @@
-export const GAME_DATA_NAME = [{
+export const GAME_DATA_NAME = [
+    {
         "REF": 0,
         "ORIGIN": "Adrien Lagarde",
         "FINAL": "Arin De Lagarde",
         "ID": 25,
         "BASE_ID": 0,
         "NAME": "The Skeleton Soldier",
-        "COUNT": 3
+        "COUNT": 2
     },
     {
         "REF": 1,
         "ORIGIN": "Allan Weishaupl",
         "FINAL": "Alan Paul Whiles",
-        "ID": 1,
+        "ID": 37,
         "BASE_ID": 7,
         "NAME": "The Sneaky Rogue",
         "COUNT": 3
@@ -23,16 +24,16 @@ export const GAME_DATA_NAME = [{
         "ID": 24,
         "BASE_ID": 1,
         "NAME": "The Skeleton Archer",
-        "COUNT": 3
+        "COUNT": 2
     },
     {
         "REF": 3,
         "ORIGIN": "Artifactvs",
         "FINAL": "Avrit Scaft",
-        "ID": 0,
+        "ID": 6,
         "BASE_ID": 5,
         "NAME": "The Corrupted Pudding",
-        "COUNT": 3
+        "COUNT": 2
     },
     {
         "REF": 4,
@@ -41,7 +42,7 @@ export const GAME_DATA_NAME = [{
         "ID": 24,
         "BASE_ID": 4,
         "NAME": "The Treacherous Wizard",
-        "COUNT": 3
+        "COUNT": 2
     },
     {
         "REF": 5,
@@ -50,7 +51,7 @@ export const GAME_DATA_NAME = [{
         "ID": 0,
         "BASE_ID": 3,
         "NAME": "The Fallen Knight",
-        "COUNT": 3
+        "COUNT": 2
     },
     {
         "REF": 6,
@@ -59,7 +60,7 @@ export const GAME_DATA_NAME = [{
         "ID": 10,
         "BASE_ID": 10,
         "NAME": "The Hex Shroud",
-        "COUNT": 3
+        "COUNT": 2
     },
     {
         "REF": 7,
@@ -68,13 +69,13 @@ export const GAME_DATA_NAME = [{
         "ID": 18,
         "BASE_ID": 17,
         "NAME": "The Condemned Prisoner",
-        "COUNT": 4
+        "COUNT": 3
     },
     {
         "REF": 8,
         "ORIGIN": "Christopher Street",
         "FINAL": "Chris Hester Potters",
-        "ID": 4,
+        "ID": 36,
         "BASE_ID": 15,
         "NAME": "The Entangling Spider",
         "COUNT": 3
@@ -86,7 +87,7 @@ export const GAME_DATA_NAME = [{
         "ID": 14,
         "BASE_ID": 16,
         "NAME": "The Suffering Soul",
-        "COUNT": 3
+        "COUNT": 2
     },
     {
         "REF": 10,
@@ -104,7 +105,7 @@ export const GAME_DATA_NAME = [{
         "ID": 7,
         "BASE_ID": 18,
         "NAME": "The Executioner",
-        "COUNT": 4
+        "COUNT": 3
     },
     {
         "REF": 12,
@@ -113,7 +114,7 @@ export const GAME_DATA_NAME = [{
         "ID": 8,
         "BASE_ID": 23,
         "NAME": "The Academy Student",
-        "COUNT": 3
+        "COUNT": 2
     },
     {
         "REF": 13,
@@ -122,13 +123,13 @@ export const GAME_DATA_NAME = [{
         "ID": 23,
         "BASE_ID": 9,
         "NAME": "The Burning Pudding",
-        "COUNT": 3
+        "COUNT": 2
     },
     {
         "REF": 14,
         "ORIGIN": "Geoffrey Moes",
         "FINAL": "Geoff Moesrey",
-        "ID": 17,
+        "ID": 36,
         "BASE_ID": 24,
         "NAME": "The Academy Witch",
         "COUNT": 3
@@ -140,13 +141,13 @@ export const GAME_DATA_NAME = [{
         "ID": 32,
         "BASE_ID": 25,
         "NAME": "The Strict Tutor",
-        "COUNT": 3
+        "COUNT": 2
     },
     {
         "REF": 16,
         "ORIGIN": "Guillaume Daunac",
         "FINAL": "Guillaume Ad'Acun",
-        "ID": 25,
+        "ID": 6,
         "BASE_ID": 26,
         "NAME": "The Mana-Devouring Imp",
         "COUNT": 3
@@ -158,7 +159,7 @@ export const GAME_DATA_NAME = [{
         "ID": 32,
         "BASE_ID": 8,
         "NAME": "The Zombie Peasant",
-        "COUNT": 4
+        "COUNT": 3
     },
     {
         "REF": 18,
@@ -182,10 +183,10 @@ export const GAME_DATA_NAME = [{
         "REF": 20,
         "ORIGIN": "Jonathan Hall",
         "FINAL": "Jon Hall Athan",
-        "ID": 18,
+        "ID": 2,
         "BASE_ID": 32,
         "NAME": "The Shepherd",
-        "COUNT": 3
+        "COUNT": 2
     },
     {
         "REF": 21,
@@ -194,79 +195,79 @@ export const GAME_DATA_NAME = [{
         "ID": 16,
         "BASE_ID": 11,
         "NAME": "The Plague Doctor",
-        "COUNT": 3
+        "COUNT": 2
     },
     {
         "REF": 22,
         "ORIGIN": "Karelin Innokentiy",
         "FINAL": "Karelin Ikon Ninety",
-        "ID": 16,
-        "BASE_ID": null,
-        "NAME": "",
-        "COUNT": null
+        "ID": 38,
+        "BASE_ID": 35,
+        "NAME": "The Loot Thief",
+        "COUNT": 2
     },
     {
         "REF": 23,
         "ORIGIN": "Kelton",
         "FINAL": "Keltonolis",
         "ID": 33,
-        "BASE_ID": null,
-        "NAME": "",
-        "COUNT": null
+        "BASE_ID": 36,
+        "NAME": "The Decaying Domestic",
+        "COUNT": 2
     },
     {
         "REF": 24,
         "ORIGIN": "Legrems",
         "FINAL": "Le Grems",
         "ID": 4,
-        "BASE_ID": null,
-        "NAME": "",
-        "COUNT": null
+        "BASE_ID": 37,
+        "NAME": "The Ominous Jester",
+        "COUNT": 2
     },
     {
         "REF": 25,
         "ORIGIN": "Mehbreo",
         "FINAL": "Meb Rheo",
-        "ID": 32,
-        "BASE_ID": null,
-        "NAME": "",
-        "COUNT": null
+        "ID": 34,
+        "BASE_ID": 38,
+        "NAME": "The Undead Paladin",
+        "COUNT": 2
     },
     {
         "REF": 26,
         "ORIGIN": "Michael Brown",
         "FINAL": "Mich Arlen Bow",
         "ID": 1,
-        "BASE_ID": null,
-        "NAME": "",
-        "COUNT": null
+        "BASE_ID": 39,
+        "NAME": "The Spectrum of Justice",
+        "COUNT": 2
     },
     {
         "REF": 27,
         "ORIGIN": "Mortalcloth",
         "FINAL": "Al' Mortcloth",
-        "ID": 8,
-        "BASE_ID": null,
-        "NAME": "",
-        "COUNT": null
+        "ID": 37,
+        "BASE_ID": 34,
+        "NAME": "The Scarecrow",
+        "COUNT": 2
     },
     {
         "REF": 28,
         "ORIGIN": "Night Wolf",
         "FINAL": "Wight Nolf",
-        "ID": 23,
-        "BASE_ID": null,
-        "NAME": "",
-        "COUNT": null
+        "ID": 39,
+        "BASE_ID": 2,
+        "NAME": "The Dreadful Colossus",
+        "COUNT": 2
     },
     {
         "REF": 29,
         "ORIGIN": "NxHunter",
         "FINAL": "Enex Hunter",
         "ID": 18,
-        "BASE_ID": null,
-        "NAME": "",
-        "COUNT": null
+        "BASE_ID": 6,
+        "NAME": "The Necromancer",
+        "COUNT": 2
     },
     {
         "REF": 30,
@@ -281,7 +282,7 @@ export const GAME_DATA_NAME = [{
         "REF": 31,
         "ORIGIN": "pavel zolotarev",
         "FINAL": "Pavel Oz Levator",
-        "ID": null,
+        "ID": 39,
         "BASE_ID": null,
         "NAME": "",
         "COUNT": null
@@ -353,7 +354,7 @@ export const GAME_DATA_NAME = [{
         "REF": 39,
         "ORIGIN": "Vlad Patrascu",
         "FINAL": "Vlad Pac Artus",
-        "ID": 10,
+        "ID": 34,
         "BASE_ID": null,
         "NAME": "",
         "COUNT": null
@@ -362,7 +363,7 @@ export const GAME_DATA_NAME = [{
         "REF": 40,
         "ORIGIN": "William Quasar",
         "FINAL": "Will Quasariam",
-        "ID": 3,
+        "ID": 2,
         "BASE_ID": null,
         "NAME": "",
         "COUNT": null
@@ -398,7 +399,7 @@ export const GAME_DATA_NAME = [{
         "REF": 44,
         "ORIGIN": "DenOwl",
         "FINAL": "Owl Denos",
-        "ID": 5,
+        "ID": 35,
         "BASE_ID": null,
         "NAME": "",
         "COUNT": null
@@ -442,8 +443,8 @@ export const GAME_DATA_NAME = [{
     {
         "REF": 49,
         "ORIGIN": "Blacksad",
-        "FINAL": "Sad Balackerolis",
-        "ID": 9,
+        "FINAL": "Sad Balckerolis",
+        "ID": 35,
         "BASE_ID": null,
         "NAME": "",
         "COUNT": null
@@ -551,7 +552,7 @@ export const GAME_DATA_NAME = [{
         "REF": 61,
         "ORIGIN": "Nade-aleckelter",
         "FINAL": "Nade Aleck Elter",
-        "ID": 11,
+        "ID": 38,
         "BASE_ID": null,
         "NAME": "",
         "COUNT": null

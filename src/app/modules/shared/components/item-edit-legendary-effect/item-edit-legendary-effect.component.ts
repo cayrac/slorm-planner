@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSliderChange } from '@angular/material/slider';
-import { EquipableItemBase, getCraftValue, HeroClass, LegendaryEffect, SlormancerLegendaryEffectService } from '@slorm-api';
+import { EquipableItemBase, getCraftValue, HeroClass, LegendaryEffect, MAX_ITEM_LEVEL, SlormancerLegendaryEffectService } from '@slorm-api';
 
 import { takeUntil } from 'rxjs';
 import { SelectOption } from '../../model/select-option';
@@ -23,6 +23,9 @@ export class ItemEditLegendaryEffectComponent extends AbstractUnsubscribeCompone
     public readonly heroClass: HeroClass = HeroClass.Huntress;
 
     @Input()
+    public readonly itemLevel: number = 0;
+
+    @Input()
     public readonly itemReinforcment: number = 0;
 
     @Input()
@@ -33,6 +36,10 @@ export class ItemEditLegendaryEffectComponent extends AbstractUnsubscribeCompone
     public displayedValue: string = '';
 
     public legendaryEffect: LegendaryEffect | null = null;
+
+    public placeholder: string | null = null;
+
+    public possible = true;
 
     constructor(private itemFormService: FormOptionsService,
                 private slormancerLegendaryEffectService: SlormancerLegendaryEffectService) {
@@ -46,19 +53,26 @@ export class ItemEditLegendaryEffectComponent extends AbstractUnsubscribeCompone
                     .pipe(takeUntil(this.unsubscribe))
                     .subscribe(legendaryEffect => {
                         this.updateLegendaryEffect(legendaryEffect.id ?? null, legendaryEffect.value ?? 0);
+                        this.possible = this.isLegendaryPossible(legendaryEffect.id ?? null);
                     });
             }
 
             this.updateLegendaryEffect(this.form.controls.id.value, this.form.controls.value.value);
         }
-
-        this.options = this.itemFormService.getLegendaryOptions(this.base, this.heroClass);
+        const graft = this.itemLevel > MAX_ITEM_LEVEL;
+        this.options = graft
+            ? this.itemFormService.getAllLegendaryOptions(this.heroClass)
+            : this.itemFormService.getLegendaryOptions(this.base, this.heroClass);
+        if (this.form !== null) {
+            this.possible = this.isLegendaryPossible(this.form.controls.id.value);
+        }
     }
 
     private updateLegendaryEffect(id: number | null, value: number) {
         this.legendaryEffect = (this.form === null || id === null) ? null
             : this.slormancerLegendaryEffectService.getLegendaryEffectById(id, this.form.controls.value.value, this.itemReinforcment, this.heroClass);
-            
+              
+        this.placeholder = this.legendaryEffect === null ? null : this.legendaryEffect.name;
         if (this.legendaryEffect !== null) {
             this.updateLegendaryValueLabel(this.legendaryEffect.value);
         }
@@ -105,5 +119,9 @@ export class ItemEditLegendaryEffectComponent extends AbstractUnsubscribeCompone
                 value: 100
             });
         }
+    }
+
+    private isLegendaryPossible(id: number |null) {
+        return this.options.some(option => option.value === id);
     }
 }

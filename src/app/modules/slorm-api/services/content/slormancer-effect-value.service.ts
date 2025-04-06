@@ -62,7 +62,7 @@ export class SlormancerEffectValueService {
                 // TODO bankerRound à remplacer par round ?
                 value = bankerRound(value * context.globalMultiplier, context.globalMultiplierPrecision);
                 displayValue = value;
-                effectValue.upgrade = bankerRound(effectValue.baseUpgrade * context.globalMultiplier, context.globalMultiplierPrecision);
+                effectValue.upgrade = round(effectValue.baseUpgrade * context.globalMultiplier, context.globalMultiplierPrecision);
             }
             
             if (effectValue.upgradeType === EffectValueUpgradeType.Every3) {
@@ -86,11 +86,11 @@ export class SlormancerEffectValueService {
                         effectValue.upgrade = effectValue.baseUpgrade;
                         displayValue += effectValue.upgrade * affinityMultiplier * upgradeMultiplier;
                         value += effectValue.upgrade * affinityMultiplier * upgradeMultiplier;
-                        effectValue.upgrade = bankerRound(effectValue.baseUpgrade * affinityMultiplier, 2);
+                        effectValue.upgrade = round(effectValue.baseUpgrade * affinityMultiplier, 2);
                     } else {
                         effectValue.upgrade = effectValue.baseUpgrade;
                         displayValue += effectValue.upgrade * affinityMultiplier * upgradeMultiplier;
-                        effectValue.upgrade = bankerRound(effectValue.baseUpgrade * affinityMultiplier, 2);
+                        effectValue.upgrade = round(effectValue.baseUpgrade * affinityMultiplier, 2);
                         value += effectValue.upgrade * upgradeMultiplier;
                     }
                 } else {

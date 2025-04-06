@@ -8,6 +8,8 @@ $epic-color-text       : rgb(198, 141, 32);
 $epic-color-bg         : rgb(239, 198, 92);
 $legendary-color-text  : rgb(206, 70, 7);
 $legendary-color-bg    : rgb(245, 178, 80);
+$neither-color-text    : rgb(119, 44, 170);
+$neither-color-bg    : rgb(119, 44, 170);
 $item-bg               : rgb(21,20,18);
 $item-gray             : rgb(104, 104, 104);
 $item-value-color      : white;
@@ -30,7 +32,7 @@ $dexterity-color       : rgb(205, 112, 40);
 $bravery-color         : rgb(191, 60, 89); 
 $pure-color            : rgb(70, 231, 176);
 
-.equipped, .rarity, .split, .base, .head, .legendary-effect .description {
+.equipped, .rarity, .split, .graft, .base, .head, .legendary-effect .description {
     .item.normal & {
         color: $normal-color-text;
     }
@@ -45,6 +47,9 @@ $pure-color            : rgb(70, 231, 176);
     }
     .item.legendary & {
         color: $legendary-color-text;
+    }
+    .item.neither & {
+        color: $neither-color-text;
     }
 }
 
@@ -63,6 +68,9 @@ $pure-color            : rgb(70, 231, 176);
     }
     .item.legendary & {
         border-color: $legendary-color-bg;
+    }
+    .item.neither & {
+        border-color: $neither-color-bg;
     }
 }
     

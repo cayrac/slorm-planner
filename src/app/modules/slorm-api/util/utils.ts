@@ -1,4 +1,5 @@
 import { environment } from 'src/environments/environment';
+import { CharacterGear, EquipableItem, LegendaryEffect, MinMax } from '../model';
 import { CraftableEffect } from '../model/content/craftable-effect';
 import {
     AbstractEffectValue,
@@ -8,6 +9,32 @@ import {
 } from '../model/content/effect-value';
 import { EffectValueType } from '../model/content/enum/effect-value-type';
 import { Rarity } from '../model/content/enum/rarity';
+
+export function debugNumber(value: number | MinMax): string {
+    return typeof value === 'number' ? value.toString() : value.min + '-' + value.max;
+}
+
+export function getAllItems(gear: CharacterGear): EquipableItem[] {
+    return [
+        gear.amulet,
+        gear.belt,
+        gear.body,
+        gear.boot,
+        gear.bracer,
+        gear.cape,
+        gear.glove,
+        gear.helm,
+        gear.ring_l,
+        gear.ring_r,
+        gear.shoulder,
+    ].filter(isNotNullOrUndefined);
+}
+
+export function getAllLegendaryEffects(gear: CharacterGear): LegendaryEffect[] {
+    return getAllItems(gear)
+        .map(item => item.legendaryEffect)
+        .filter(isNotNullOrUndefined);
+}
 
 export function isNotNullOrUndefined<T>(value: T | null | undefined): value is T {
     return value !== null && value !== undefined;
@@ -37,12 +64,14 @@ export function compareRarities(a: Rarity, b: Rarity): number {
     if (a === Rarity.Epic) numA = 4;
     if (a === Rarity.Rare) numA = 3;
     if (a === Rarity.Magic) numA = 2;
-    if (a === Rarity.Defensive) numA = 6;
+    if (a === Rarity.Defensive) numA = 1;
+    if (a === Rarity.Normal) numA = 0;
     if (b === Rarity.Legendary) numB = 5;
     if (b === Rarity.Epic) numB = 4;
     if (b === Rarity.Rare) numB = 3;
     if (b === Rarity.Magic) numB = 2;
-    if (b === Rarity.Defensive) numB = 6;
+    if (b === Rarity.Defensive) numB = 1;
+    if (b === Rarity.Normal) numB = 0;
 
     return compare(numA, numB);
 }
@@ -214,4 +243,10 @@ export function warnIfEqual(a: any, b: any, ...message: any[]) {
 
 export function numberToString(value: number): string {
     return value.toLocaleString().replace(/(\s)/g, '$1$1');
+}
+
+export function getOlorinUltimatumBonusLevel(gear: CharacterGear): number {
+    return getAllLegendaryEffects(gear)
+    .filter(legendaryEffect => legendaryEffect.id === 147)
+    .map(legendaryEffect => legendaryEffect.effects[0]?.effect.value)[0] ?? 0;
 }

@@ -2,6 +2,8 @@ import { EffectValueVariable } from './effect-value';
 import { UltimatumType } from './enum/ultimatum-type';
 
 export interface Ultimatum {
+    baseLevel: number;
+    bonusLevel: number;
     level: number;
     type: UltimatumType;
     icon: string;

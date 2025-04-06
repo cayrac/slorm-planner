@@ -27,6 +27,7 @@ export interface ExternalSynergyResolveData {
     method: ((...values: Array<number | MinMax>) => number | MinMax);
     statsItWillUpdate: Array<{ stat: string, mapping?: MergedStatMapping }>;
     cascadeSynergy: boolean;
+    allowMinMax: boolean;
 }
 
 export interface MergedStatValue<T = number | MinMax> {

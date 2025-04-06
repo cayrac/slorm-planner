@@ -1,4 +1,5 @@
-<div *ngIf="attribute !== null" class="bar attribute-{{attribute.attribute}}" cdkOverlayOrigin
+<div *ngIf="attribute !== null" class="bar attribute-{{attribute.attribute}}" (click)="showModalTooltip($event, attribute)"
+    cdkOverlayOrigin
     #trigger="cdkOverlayOrigin"
     [class.icon-shift]="iconShift"
     [class.readonly]="readonly"

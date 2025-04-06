@@ -9,7 +9,7 @@ export interface GameSave {
     shared_inventory: GameSharedInventory,
     first_hero: string,
     weapon_data: GameWeaponData,
-    gamemode: GameHeroesData<number>,
+    gamemode: GameMode,
     skill_equip: GameSkillEquip,
     hero: string,
     missions: GameMissions,
@@ -46,6 +46,7 @@ export declare type GameEquipmentList = GameHeroesData<Array<string>>;
 export declare type GameInfluence = Array<number>;
 export declare type GameInventory = GameHeroesData<GameHeroInventory>;
 export declare type GameMissions = GameHeroesData<Array<number>>;
+export declare type GameMode = GameHeroesData<Array<string>>; // figure out later what it means
 export declare type GameProfile = GameHeroesData<Array<number>>;
 export declare type GameSharedInventory = { materials: Array<GameItem | null>, items: Array<GameItem | null> };
 export declare type GameSkillEquip = GameHeroesData<Array<number>>;

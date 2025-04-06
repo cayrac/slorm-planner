@@ -2,9 +2,11 @@ import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Activable, AncestralLegacy, compare, isFirst, isNotNullOrUndefined } from '@slorm-api';
 
+import { MatDialog } from '@angular/material/dialog';
 import { BuildStorageService } from '../../services/build-storage.service';
 import { ItemMoveService } from '../../services/item-move.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
+import { ViewData, ViewModalComponent } from '../view-modal/view-modalcomponent';
 
 
 @Component({
@@ -57,7 +59,8 @@ export class ActivableSlotComponent extends AbstractUnsubscribeComponent impleme
     }
     
     constructor(private buildStorageService: BuildStorageService,
-                private itemMoveService: ItemMoveService) {
+                private itemMoveService: ItemMoveService,
+                private dialog: MatDialog) {
         super();
     }
 
@@ -126,6 +129,20 @@ export class ActivableSlotComponent extends AbstractUnsubscribeComponent impleme
     public updateActivable(activable: Activable | AncestralLegacy | null) {
         if (this.activable !== activable) {
             this.changed.emit(activable);
+        }
+    }
+
+    public showModalTooltip(event: MouseEvent, activable: Activable | AncestralLegacy | null) {
+        if (activable !== null && event.ctrlKey) {
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            if (this.isActivable(activable)) {
+                const data: ViewData = { entity: { activable } };
+                this.dialog.open(ViewModalComponent, { data })
+            } else if (this.isAncestralLegacy(activable)) {
+                const data: ViewData = { entity: { ancestralLegacy: activable }, hideNextRank: true };
+                this.dialog.open(ViewModalComponent, { data })
+            }
         }
     }
 }

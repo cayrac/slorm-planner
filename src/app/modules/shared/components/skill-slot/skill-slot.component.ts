@@ -2,8 +2,10 @@ import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Skill, SKILL_MAX_MASTERY, SkillType, SlormancerTranslateService } from '@slorm-api';
 
+import { MatDialog } from '@angular/material/dialog';
 import { BuildStorageService } from '../../services/build-storage.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
+import { ViewData, ViewModalComponent } from '../view-modal/view-modalcomponent';
 
 
 @Component({
@@ -15,7 +17,7 @@ export class SkillSlotComponent extends AbstractUnsubscribeComponent implements 
 
     public readonly SKILL_MAX_MASTERY = SKILL_MAX_MASTERY;
 
-    public readonly MASTERY_LABEL = this.slormancerTranslateService.translate('tt_mastery');
+    public readonly MASTERY_LABEL: string;
 
     @Input()
     public readonly skill: Skill | null = null;
@@ -45,8 +47,10 @@ export class SkillSlotComponent extends AbstractUnsubscribeComponent implements 
     }
     
     constructor(private buildStorageService: BuildStorageService,
-                private slormancerTranslateService: SlormancerTranslateService) {
+                private slormancerTranslateService: SlormancerTranslateService,
+                private dialog: MatDialog) {
         super();
+        this.MASTERY_LABEL = this.slormancerTranslateService.translate('tt_mastery');
     }
 
     public ngOnInit() {}
@@ -84,5 +88,19 @@ export class SkillSlotComponent extends AbstractUnsubscribeComponent implements 
             this.menu.openMenu();
         }
         return false;
+    }
+                        
+    public showModalTooltip(event: MouseEvent, skill: Skill | null) {
+        let skip = false;
+
+        if (event.ctrlKey && skill !== null) {
+            skip = true;
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            const data: ViewData = { entity: { skill } };
+            this.dialog.open(ViewModalComponent, { data });
+        }
+
+        return skip;
     }
 }

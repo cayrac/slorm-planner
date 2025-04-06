@@ -274,13 +274,14 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         }
     },
     13: {
-        masteryRequired: 4,
+        masteryRequired: 4, // TODO constante qui manque skewering swing
         order: 22,
         override: values => { 
             setStat(values, 0, 'skewer_chance');
             setAsUpgrade(values, 0);
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'skewer_chance_if_perfect');
-        }
+        },
+        additionalClassMechanics: [ 215, 216 ]
     },
     14: {
         masteryRequired: 7,
@@ -294,7 +295,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'health_leech_percent_if_perfect')
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [215]
     },
     16: {
         masteryRequired: 2,
@@ -302,7 +304,9 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setStat(values, 0, 'overdrive_chance_percent')
             setAsUpgrade(values, 0);
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'overdrive_chance_percent_if_fortunate_or_perfect');
-        }
+        },
+        additionalMechanics: [MechanicType.Overdrive],
+        additionalClassMechanics: [215]
     },
     17: {
         masteryRequired: 2,
@@ -310,7 +314,9 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setStat(values, 0, 'inner_fire_chance_percent')
             setAsUpgrade(values, 0);
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'inner_fire_chance_percent_if_fortunate_or_perfect');
-        }
+        },
+        additionalMechanics: [MechanicType.InnerFire],
+        additionalClassMechanics: [215]
     },
     18: {
         masteryRequired: 5,
@@ -340,7 +346,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         order: 14,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'block_stack_on_hit');
-        }
+        },
+        additionalClassMechanics: [ 218 ]
     },
     22: {
         masteryRequired: 8,
@@ -348,7 +355,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setStat(values, 0, 'recast_chance_percent')
             setAsUpgrade(values, 0);
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'recast_chance_percent_if_fortunate_or_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     23: {
         masteryRequired: 8,
@@ -358,7 +366,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             addConstant(values, 5, false, EffectValueValueType.Stat, 'frenzy_stack_duration');
             addConstant(values, 3, false, EffectValueValueType.Stat, 'frenzy_stack_per_hit_if_fortunate_of_perfect');
             addConstant(values, 1, false, EffectValueValueType.Stat, 'frenzy_stack_per_hit');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     24: {
         masteryRequired: 9,
@@ -382,7 +391,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 2,
         override: values => {
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'chance_to_pierce_percent_if_fortunate_of_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     27: {
         masteryRequired: 2,
@@ -398,7 +408,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             addConstant(values, 10, false, EffectValueValueType.Stat, 'oak_bark_armor_max_stack');
             addConstant(values, 3, false, EffectValueValueType.Stat, 'oak_bark_armor_stack_on_hit_if_fortunate_or_perfect');
             addConstant(values, 1, false, EffectValueValueType.Stat, 'oak_bark_armor_stack_on_hit');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     29: {
         masteryRequired: 2,
@@ -413,7 +424,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setStat(values, 0, 'astral_retribution_chance');
             setAsUpgrade(values, 0);
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'astral_retribution_chance_if_perfect');
-        }
+        },
+        additionalClassMechanics: [ 215, 217 ]
     },
     31: {
         masteryRequired: 4,
@@ -421,7 +433,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setStat(values, 0, 'crit_damage_percent');
             setAsUpgrade(values, 0);
             addConstant(values, 0, false, EffectValueValueType.Upgrade, 'non_critical_damage');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     32: {
         masteryRequired: 4,
@@ -444,7 +457,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setAsUpgrade(values, 0);
             addConstant(values, 50, false, EffectValueValueType.Upgrade, 'skill_decreased_damage_mult');
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'skill_increased_max_damage_mult');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     35: {
         masteryRequired: 8,
@@ -464,7 +478,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 5,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'skewer_on_hit_after_skewered_hit');
-        }
+        },
+        additionalClassMechanics: [ 216 ]
     },
     38: {
         masteryRequired: 6,
@@ -476,7 +491,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 9,
         override: values => { 
             addConstant(values, 6, false, EffectValueValueType.Upgrade, 'perfect_additional_projectile_add');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     40: {
         masteryRequired: 9,
@@ -486,7 +502,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'skill_root_aoe');
             addConstant(values, 2, false, EffectValueValueType.Upgrade, 'skill_root_duration');
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'skill_root_chance_if_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     41: {
         masteryRequired: 10,
@@ -525,7 +542,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         line: 2,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'block_stack_per_projectile');
-        }
+        },
+        additionalClassMechanics: [ 218 ]
     },
     46: {
         masteryRequired: 3,
@@ -564,14 +582,16 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'fork_chance_percent');
             addConstant(values, 100, false, EffectValueValueType.Flat, 'fork_chance_percent_if_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     51: {
         masteryRequired: 6,
         line: 4,
         override: values => { 
             addConstant(values, 4, false, EffectValueValueType.Duration, 'training_dummy_duration');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     52: {
         masteryRequired: 7,
@@ -581,7 +601,9 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setAsUpgrade(values, 0);
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'overdrive_chance_percent_if_perfect');
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'overdrive_apply_bleed');
-        }
+        },
+        additionalMechanics: [MechanicType.Overdrive],
+        additionalClassMechanics: [215]
     },
     53: {
         masteryRequired: 7,
@@ -605,7 +627,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setAsUpgrade(values, 0);
             addConstant(values, 2, false, EffectValueValueType.Upgrade, 'chance_additional_projectile_add');
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'chance_additional_projectile_if_fortunate_or_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     56: {
         masteryRequired: 9,
@@ -617,7 +640,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 9,
         override: values => {
             addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'skewer_on_hit');
-        }
+        },
+        additionalClassMechanics: [ 216 ]
     },
     58: {
         masteryRequired: 1,
@@ -626,14 +650,16 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setAsUpgrade(values, 0);
             addConstant(values, 2, false, EffectValueValueType.Upgrade, 'silence_duration');
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'silence_chance_if_fortunate_or_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     59: {
         masteryRequired: 1,
         override: values => {
             setStat(values, 0, 'increased_damage_if_fortunate_or_perfect');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [215]
     },
     60: {
         masteryRequired: 1,
@@ -664,7 +690,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setStat(values, 0, 'crit_chance_percent');
             synergyMultiply100(values, 0);
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [ 218 ]
     },
     64: {
         masteryRequired: 3,
@@ -678,7 +705,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         line: 3,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'magnified_if_fortunate_or_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     66: {
         masteryRequired: 5,
@@ -688,7 +716,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setAsUpgrade(values, 0);
             addConstant(values, 2, false, EffectValueValueType.Stat, 'cadence_critically_critical_multiplier_if_fortunate');
             addConstant(values, 4, false, EffectValueValueType.Stat, 'cadence_critically_critical_multiplier_if_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     67: {
         masteryRequired: 6,
@@ -705,7 +734,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
 
             setAsUpgrade(values, 0);
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'chance_to_cast_whirlwind_on_cast_if_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     69: {
         masteryRequired: 7,
@@ -720,7 +750,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         line: 5,
         override: values => { 
             addConstant(values, 5, false, EffectValueValueType.Upgrade, 'recast_multiplier_if_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     71: {
         masteryRequired: 8,
@@ -734,14 +765,16 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         override: values => { 
             addConstant(values, 5, false, EffectValueValueType.Upgrade, 'astral_beat_max_stacks');
             addConstant(values, 3, false, EffectValueValueType.Upgrade, 'astral_beat_astral_retribution_count');
-        }
+        },
+        additionalClassMechanics: [ 217 ]
     },
     73: {
         masteryRequired: 1,
         override: values => { 
             addConstant(values, 0, false, EffectValueValueType.Upgrade, 'garbage_stat');
             addConstant(values, -100, false, EffectValueValueType.Upgrade, 'cooldown_time_multiplier_if_fortunate_or_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     74: {
         masteryRequired: 1,
@@ -753,7 +786,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 1,
         override: values => {
             addConstant(values, 0, false, EffectValueValueType.Upgrade, 'block_stack_per_hit');
-        }
+        },
+        additionalClassMechanics: [ 218 ]
     },
     76: {
         masteryRequired: 1,
@@ -771,7 +805,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setStat(values, 1, 'physical_damage');
             setAsUpgrade(values, 1);
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'eagle_punch_increased_damage_if_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     78: {
         masteryRequired: 2,
@@ -825,7 +860,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'stun_aoe');
             addConstant(values, 3, false, EffectValueValueType.Duration, 'stun_duration');
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'stun_chance_if_fortunate');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     83: {
         masteryRequired: 5,
@@ -859,7 +895,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setAsUpgrade(values, 0);
             addConstant(values, 3, false, EffectValueValueType.Upgrade, 'earthquake_duration');
             addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'earthquake_aoe');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     87: {
         masteryRequired: 8,
@@ -872,7 +909,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 1,
         override: values =>  { 
             setStat(values, 0, 'block_stacks_min');
-        }
+        },
+        additionalClassMechanics: [ 218 ]
     },
     89: {
         masteryRequired: 1,
@@ -894,7 +932,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setStat(values, 0, 'broken_armor_chance');
             setAsUpgrade(values, 0);
             addConstant(values, 100, false, EffectValueValueType.Flat, 'broken_armor_chance_if_fortunate');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     92: {
         masteryRequired: 1,
@@ -904,7 +943,9 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setAsUpgrade(values, 0);
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'inner_fire_chance_percent_if_perfect');
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'can_trigger_inner_fire');
-        }
+        },
+        additionalMechanics: [MechanicType.InnerFire],
+        additionalClassMechanics: [215]
     },
     93: {
         masteryRequired: 2,
@@ -923,21 +964,24 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setSource(values, 0, 'block_stacks');
             synergyMultiply100(values, 0);
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [ 218 ]
     },
     95: {
         masteryRequired: 3,
         line: 3,
         override: values =>  { 
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'larger_crest_shield_on_cast_if_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     96: {
         masteryRequired: 3,
         line: 3,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'block_stack_per_second');
-        }
+        },
+        additionalClassMechanics: [ 217, 218 ]
     },
     97: {
         masteryRequired: 4,
@@ -946,7 +990,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setStat(values, 0, 'astral_retribution_on_cast_chance_per_hit');
             setAsUpgrade(values, 0);
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'astral_retribution_on_cast_chance_if_perfect');
-        }
+        },
+        additionalClassMechanics: [ 215, 217 ]
     },
     98: {
         masteryRequired: 4,
@@ -971,14 +1016,16 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setStat(values, 0, 'halfway_duplicate_chance');
             setAsUpgrade(values, 0);
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'halfway_duplicate_chance_if_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     101: {
         masteryRequired: 7,
         line: 5,
         override: values => { 
             addConstant(values, 4, false, EffectValueValueType.Upgrade, 'multicast_count_if_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     102: {
         masteryRequired: 7,
@@ -1024,7 +1071,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         line: 2,
         override: values =>  { 
             addConstant(values, 8, false, EffectValueValueType.Upgrade, 'astral_retribution_if_enemies_in_range_count');
-        }
+        },
+        additionalClassMechanics: [ 217 ]
     },
     108: {
         masteryRequired: 1,
@@ -1039,7 +1087,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         override: values =>  {
             setStat(values, 0, 'block_stack_per_critical');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [ 218 ]
     },
     110: {
         masteryRequired: 1,
@@ -1057,7 +1106,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setStat(values, 0, 'arcane_beam_chance');
             setAsUpgrade(values, 0);
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'arcane_beam_chance_if_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     112: {
         masteryRequired: 3,
@@ -1084,14 +1134,16 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             allowSynergyToCascade(values, 1);
             setAsUpgrade(values, 1);
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'skill_perfect_dancing_blade_chance');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     115: {
         masteryRequired: 5,
         line: 4,
         override: values => { 
             addConstant(values, 5, false, EffectValueValueType.Upgrade, 'arcane_beam_cast_if_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     116: {
         masteryRequired: 5,
@@ -1108,7 +1160,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         override: values => { 
             addConstant(values, 5, false, EffectValueValueType.Upgrade, 'skewing_max_stack');
             addConstant(values, 5, false, EffectValueValueType.Upgrade, 'skewing_stack_count_conversion');
-        }
+        },
+        additionalClassMechanics: [ 216 ]
     },
     118: {
         masteryRequired: 6,
@@ -1142,7 +1195,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setStat(values, 0, 'training_lance_astral_retribution_chance_on_hit');
             setAsUpgrade(values, 0);
             addConstant(values, 100, false, EffectValueValueType.Flat, 'training_lance_astral_retribution_chance_on_hit_if_perfect');
-        }
+        },
+        additionalClassMechanics: [ 215, 217 ]
     },
     122: {
         masteryRequired: 1,
@@ -1163,7 +1217,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         line: 2,
         override: values => { 
             addConstant(values, 1, false, EffectValueValueType.Stat, 'cosmic_stack_astral_retribution_increased_damage');
-        }
+        },
+        additionalClassMechanics: [ 217 ]
     },
     125: {
         masteryRequired: 1,
@@ -1208,7 +1263,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         line: 4,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'apply_max_skewer_on_hit');
-        }
+        },
+        additionalClassMechanics: [ 216 ]
     },
     131: {
         masteryRequired: 4,
@@ -1241,7 +1297,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'additional_elder_lance_if_perfect');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [215]
     },
     135: {
         masteryRequired: 6,
@@ -1279,13 +1336,15 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 1,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'skewer_on_hit_if_fortunate');
-        }
+        },
+        additionalClassMechanics: [ 215, 216 ]
     },
     140: {
         masteryRequired: 1,
         override: values => {
             setStat(values, 0, 'increased_damage_if_target_is_skewered');
-        }
+        },
+        additionalClassMechanics: [ 216 ]
     },
     141: {
         masteryRequired: 2,
@@ -1317,13 +1376,15 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 3,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'block_stack_on_critical');
-        }
+        },
+        additionalClassMechanics: [ 218 ]
     },
     147: {
         masteryRequired: 3,
         override: values => {
             setStat(values, 0, 'skewer_max_stack_add');
-        }
+        },
+        additionalClassMechanics: [ 216 ]
     },
     148: {
         masteryRequired: 4,
@@ -1352,13 +1413,15 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         override: values => {
             addConstant(values, 3, false, EffectValueValueType.Stat, 'banner_haste_block_stack_per_second');
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'banner_knockback_on_land');
-        }
+        },
+        additionalClassMechanics: [ 218 ]
     },
     152: {
         masteryRequired: 5,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'cooldown_reset_on_block');
-        }
+        },
+        additionalClassMechanics: [ 218 ]
     },
     153: {
         masteryRequired: 5,
@@ -1370,7 +1433,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 5,
         override: values => {
             setStat(values, 0, 'skewer_damage_percent_add');
-        }
+        },
+        additionalClassMechanics: [ 216 ]
     },
     155: {
         masteryRequired: 6,
@@ -1405,7 +1469,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 7,
         override: values => {
             addConstant(values, 0, false, EffectValueValueType.Stat, 'skewer_as_critical');
-        }
+        },
+        additionalClassMechanics: [ 216 ]
     },
     161: {
         masteryRequired: 8,
@@ -1418,7 +1483,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 8,
         override: values => {
             setStat(values, 0, 'skewer_damage_per_second_percent');
-        }
+        },
+        additionalClassMechanics: [ 216 ]
     },
     163: {
         masteryRequired: 1,
@@ -1427,7 +1493,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 1,
         override: values => {
             setStat(values, 0, 'astral_retribution_increased_damage_mult');
-        }
+        },
+        additionalClassMechanics: [ 217 ]
     },
     165: {
         masteryRequired: 1,
@@ -1440,7 +1507,9 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 2,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'block_chance_is_lucky');
-        }
+        },
+        additionalClassMechanics: [ 218 ],
+        additionalMechanics: [MechanicType.Lucky]
     },
     167: {
         masteryRequired: 2,
@@ -1448,7 +1517,7 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'astral_retribution_on_fortunate');
             addConstant(values, 1, false, EffectValueValueType.Stat, 'astral_meteor_on_perfect');
         },
-        additionalClassMechanics: [217]
+        additionalClassMechanics: [215, 217]
     },
     168: {
         masteryRequired: 2,
@@ -1457,7 +1526,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
             setAsUpgrade(values, 0);
             addConstant(values, 2, false, EffectValueValueType.Upgrade, 'stun_duration');
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'stun_chance_add_if_fortunate_or_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     169: {
         masteryRequired: 3,
@@ -1471,19 +1541,22 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'inner_fire_is_lucky');
             addConstant(values, 1, false, EffectValueValueType.Stat, 'overdrive_is_lucky');
-        }
+        },
+        additionalMechanics: [MechanicType.InnerFire, MechanicType.Overdrive, MechanicType.Lucky]
     },
     171: {
         masteryRequired: 3,
         override: values => {
             setStat(values, 0, 'astral_retribution_chance_on_astral_kill');
-        }
+        },
+        additionalClassMechanics: [ 217 ]
     },
     172: {
         masteryRequired: 4,
         override: values => { 
             addConstant(values, 4, false, EffectValueValueType.Upgrade, 'crest_shield_cast_on_perfect_cast');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     173: {
         masteryRequired: 4,
@@ -1495,13 +1568,15 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 4,
         override: values => {
             setStat(values, 0, 'whirlwind_cast_on_block');
-        }
+        },
+        additionalClassMechanics: [ 218 ]
     },
     175: {
         masteryRequired: 5,
         override: values => { 
             addConstant(values, 1, false, EffectValueValueType.Stat, 'ancestral_strike_chance_is_lucky');
-        }
+        },
+        additionalMechanics: [MechanicType.Lucky]
     },
     176: {
         masteryRequired: 5,
@@ -1521,13 +1596,15 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 6,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'always_max_damage_if_fortunate_or_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     179: {
         masteryRequired: 6,
         override: values => {
             setStat(values, 0, 'astral_meteor_increased_damage_mult');
-        }
+        },
+        additionalClassMechanics: [ 217 ]
     },
     180: {
         masteryRequired: 6,
@@ -1546,12 +1623,13 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 7,
         override: values => {
             setStat(values, 0, 'astral_meteor_recast_chance');
-        }
+        },
+        additionalClassMechanics: [ 217 ]
     },
     183: {
         masteryRequired: 7,
         override: values => { 
-            addConstant(values, 75, false, EffectValueValueType.Flat, 'chivalry_low_life_reduced_damage');
+            addConstant(values, 50, false, EffectValueValueType.Flat, 'chivalry_low_life_reduced_damage');
             addConstant(values, 25, false, EffectValueValueType.Duration, 'chivalry_low_life_treshold');
             setStat(values, 0, 'chivalry_high_life_increased_damage');
             addConstant(values, 25, false, EffectValueValueType.Duration, 'chivalry_high_life_treshold');
@@ -1561,20 +1639,23 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 7,
         override: values => { 
             addConstant(values, 3, false, EffectValueValueType.Upgrade, 'astral_retribution_on_cast');
-        }
+        },
+        additionalClassMechanics: [ 217 ]
     },
     185: {
         masteryRequired: 8,
         override: values => { 
             addConstant(values, 4, false, EffectValueValueType.Flat, 'perfect_additional_projectile_add');
             addConstant(values, 100, false, EffectValueValueType.Flat, 'recast_chance_percent_if_perfect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     186: {
         masteryRequired: 8,
         override: values => {
             setStat(values, 0, 'keep_luck_chance');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     187: {
         masteryRequired: 1,
@@ -1586,13 +1667,15 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 1,
         override: values => {
             setStat(values, 0, 'block_stack_on_nullify');
-        }
+        },
+        additionalClassMechanics: [ 218 ]
     },
     190: {
         masteryRequired: 2,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Flat, 'block_stack_per_second');
-        }
+        },
+        additionalClassMechanics: [ 218 ]
     },
     191: {
         masteryRequired: 2,
@@ -1608,7 +1691,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 3,
         override: values => {
             addConstant(values, 0, false, EffectValueValueType.Stat, 'min_block_stacks');
-        }
+        },
+        additionalClassMechanics: [ 218 ]
     },
     194: {
         masteryRequired: 3,
@@ -1627,19 +1711,22 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'retaliate_percent_on_blocked_hit');
             setStat(values, 1, 'thorns_percent_on_blocked_hit');
-        }
+        },
+        additionalClassMechanics: [ 218 ]
     },
     198: {
         masteryRequired: 4,
         override: values => {
             addConstant(values, 0, false, EffectValueValueType.Stat, 'astral_retribution_on_block');
-        }
+        },
+        additionalClassMechanics: [ 217, 218 ]
     },
     199: {
         masteryRequired: 4,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'astral_retribution_per_nullified_attack_on_buff_end');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     200: {
         masteryRequired: 5,
@@ -1660,7 +1747,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 5,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'skewer_on_hit_taken');
-        }
+        },
+        additionalClassMechanics: [ 216 ]
     },
     203: {
         masteryRequired: 5,
@@ -1673,7 +1761,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'stun_on_block_chance');
             addConstant(values, 3, false, EffectValueValueType.Duration, 'stun_on_block_duration');
-        }
+        },
+        additionalClassMechanics: [ 218 ]
     },
     205: {
         masteryRequired: 6,
@@ -1698,7 +1787,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         override: values => {
             addConstant(values, 100, false, EffectValueValueType.Flat, 'garbage_stat');
             addConstant(values, 10, false, EffectValueValueType.Stat, 'block_damage_reduction_add');
-        }
+        },
+        additionalClassMechanics: [ 218 ]
     },
     209: {
         masteryRequired: 7,
@@ -1719,7 +1809,8 @@ export const DATA_SKILL_0: { [key: number]: DataSkill } = {
         masteryRequired: 8,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'block_stack_gain_add');
-        }
+        },
+        additionalClassMechanics: [ 218 ]
     },
     222: {
         masteryRequired: 10,
@@ -1867,7 +1958,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 3,
         override: values => { 
             setStat(values, 0, 'trap_increased_damage_if_tracked');
-        }
+        },
+        additionalClassMechanics: [ 210 ]
     },
     15: {
         masteryRequired: 4,
@@ -1912,6 +2004,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
             setStat(values, 0, 'crit_chance_percent');
             setAsUpgrade(values, 0);
             addConstant(values, 1, false, EffectValueValueType.Flat, 'cooldown_set');
+            addConstant(values, 1, false, EffectValueValueType.Flat, 'skill_is_no_longer_fast');
         }
     },
     21: {
@@ -1963,7 +2056,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'ravenous_dagger_spawn_on_cast_if_tormented');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [ 209 ]
     },
     28: {
         masteryRequired: 2,
@@ -1976,7 +2070,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     29: {
         masteryRequired: 3,
         override: values => { 
-            setStat(values, 0, 'aoe_increased_size_percent');
+            setStat(values, 0, 'skill_aoe_increased_size_percent');
             setAsUpgrade(values, 0);
             setStat(values, 1, 'skill_decreased_damage_mult');
             setAsUpgrade(values, 1);
@@ -2010,7 +2104,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'trap_spawn_on_cast_chance');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [ 210 ]
     },
     34: {
         masteryRequired: 5,
@@ -2032,7 +2127,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 7,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'pull_ravenous_dagger_on_hit');
-        }
+        },
+        additionalClassMechanics: [ 209 ]
     },
     37: {
         masteryRequired: 7,
@@ -2116,7 +2212,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 3,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'garbage_stat');
-        }
+        },
+        additionalClassMechanics: [ 211 ]
     },
     48: {
         masteryRequired: 4,
@@ -2134,7 +2231,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
             setStat(values, 0, 'physical_damage');
             setAsUpgrade(values, 0);
             allowSynergyToCascade(values, 0);
-        }
+        },
+        additionalClassMechanics: [ 209 ]
     },
     50: {
         masteryRequired: 5,
@@ -2162,14 +2260,16 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 7,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'overdrive_on_kill');
-        }
+        },
+        additionalMechanics: [MechanicType.InnerFire]
     },
     54: {
         masteryRequired: 7,
         override: values => {
             setStat(values, 0, 'garbage_stat');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [ 211 ]
     },
     55: {
         masteryRequired: 8,
@@ -2240,20 +2340,23 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         line: 3,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'trap_spawn_on_first_hit');
-        }
+        },
+        additionalClassMechanics: [ 210 ]
     },
     65: {
         masteryRequired: 4,
         line: 3,
         override: values => {
             addConstant(values, 5, false, EffectValueValueType.Upgrade, 'ravenous_dagger_spawn_on_first_hit');
-        }
+        },
+        additionalClassMechanics: [ 209 ]
     },
     66: {
         masteryRequired: 5,
         override: values => {
             addConstant(values, 5, false, EffectValueValueType.Upgrade, 'poison_on_hit');
-        }
+        },
+        additionalClassMechanics: [ 211 ]
     },
     67: {
         masteryRequired: 5,
@@ -2356,9 +2459,9 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 2,
         line: 2,
         override: values => {
-            setStat(values, 0, 'elemental_damage');
+            setStat(values, 0, 'physical_damage');
             allowSynergyToCascade(values, 0);
-            addConstant(values, 0.5, false, EffectValueValueType.AreaOfEffect, 'shearing_winds_aoe');
+            addConstant(values, 0.5, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
         }
     },
     81: {
@@ -2486,7 +2589,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'overdrive_chance_percent');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalMechanics: [MechanicType.InnerFire]
     },
     97: {
         masteryRequired: 5,
@@ -2614,7 +2718,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         line: 4,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'spawn_trap_on_climax_and_tormented');
-        }
+        },
+        additionalClassMechanics: [ 210 ]
     },
     115: {
         masteryRequired: 5,
@@ -2623,11 +2728,13 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
             setStat(values, 0, 'overdrive_chance_percent');
             setAsUpgrade(values, 0);
             addConstant(values, 2, false, EffectValueValueType.Flat, 'overdrive_count_mult')
-        }
+        },
+        additionalMechanics: [MechanicType.InnerFire]
     },
     116: {
         masteryRequired: 6,
-        line: 5
+        line: 5,
+        additionalClassMechanics: [ 209 ]
     },
     117: {
         masteryRequired: 7,
@@ -2675,10 +2782,11 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 1,
         line: 2,
         override: values => {
-            setStat(values, 0, 'inner_fire_chance_percent');
+            setStat(values, 0, 'garbage_stat'); // inner_fire_chance_percent
             setAsUpgrade(values, 0);
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'can_trigger_inner_fire');
-        }
+        },
+        additionalMechanics: [MechanicType.InnerFire]
     },
     124: {
         masteryRequired: 1,
@@ -2785,7 +2893,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 3,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'garbage_stat');
-        }
+        },
+        additionalClassMechanics: [ 209, 211 ]
     },
     141: {
         masteryRequired: 3,
@@ -2797,7 +2906,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 4,
         override: values => { 
             addConstant(values, 1, false, EffectValueValueType.Stat, 'ravenous_dagger_pull_enemies')
-        }
+        },
+        additionalClassMechanics: [ 209 ]
     },
     143: {
         masteryRequired: 4,
@@ -2812,19 +2922,22 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 4,
         override: values => {
             setStat(values, 0, 'trap_arm_time_reduction_mult');
-        }
+        },
+        additionalClassMechanics: [ 210 ]
     },
     146: {
         masteryRequired: 5,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'garbage_stat');
-        }
+        },
+        additionalClassMechanics: [ 211 ]
     },
     147: {
         masteryRequired: 5,
         override: values => {
             setStat(values, 0, 'trap_increased_damage_percent');
-        }
+        },
+        additionalClassMechanics: [ 210 ]
     },
     148: {
         masteryRequired: 5,
@@ -2836,7 +2949,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 6,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'trap_additional_rearm');
-        }
+        },
+        additionalClassMechanics: [ 210 ]
     },
     150: {
         masteryRequired: 6,
@@ -2926,7 +3040,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 3,
         override: values => { 
             setStat(values, 0, 'poisoned_enemy_increased_damage');
-        }
+        },
+        additionalClassMechanics: [ 211 ]
     },
     166: {
         masteryRequired: 3,
@@ -2947,13 +3062,15 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 4,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'ravenous_dagger_spawn_on_tumble_cast');
-        }
+        },
+        additionalClassMechanics: [ 209 ]
     },
     170: {
         masteryRequired: 4,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'trap_spawn_on_tumble_cast');
-        }
+        },
+        additionalClassMechanics: [ 210 ]
     },
     171: {
         masteryRequired: 5
@@ -2978,7 +3095,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 6,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'ravenous_dagger_pull_on_tumble_land');
-        }
+        },
+        additionalClassMechanics: [ 209 ]
     },
     177: {
         masteryRequired: 7,
@@ -3034,7 +3152,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         }
     },
     187: {
-        masteryRequired: 2
+        masteryRequired: 2,
+        additionalMechanics: [MechanicType.InnerFire]
     },
     188: {
         masteryRequired: 2,
@@ -3047,14 +3166,16 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 3,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'trigger_all_ravenous_dagger_at_once');
-        }
+        },
+        additionalClassMechanics: [ 209 ]
     },
     190: {
         masteryRequired: 3,
         override: values => {
             setAsUpgrade(values, 0);
             setStat(values, 0, 'ravenous_dagger_explosions_on_trigger');
-        }
+        },
+        additionalClassMechanics: [ 209 ]
     },
     191: {
         masteryRequired: 3,
@@ -3082,33 +3203,38 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'trap_spawn_on_cast');
             addConstant(values, 1, false, EffectValueValueType.Stat, 'trap_spawn_on_buff_end');
-        }
+        },
+        additionalClassMechanics: [ 210 ]
     },
     196: {
         masteryRequired: 5,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'ravenous_dagger_spawn_on_tormented');
             addConstant(values, 1, false, EffectValueValueType.Stat, 'ravenous_dagger_spawn_on_delighted');
-        }
+        },
+        additionalClassMechanics: [ 209 ]
     },
     197: {
         masteryRequired: 5,
         override: values => { 
             setStat(values, 0, 'poison_increased_damage_per_poisoned_enemy');
             addConstant(values, 5, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
-        }
+        },
+        additionalClassMechanics: [ 211 ]
     },
     198: {
         masteryRequired: 5,
         override: values => {
             setStat(values, 0, 'movement_speed_after_trap_triggered');
-        }
+        },
+        additionalClassMechanics: [ 210 ]
     },
     199: {
         masteryRequired: 6,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'ravenous_dagger_spawn_on_evade');
-        }
+        },
+        additionalClassMechanics: [ 209 ]
     },
     200: {
         masteryRequired: 6
@@ -3119,7 +3245,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
             addConstant(values, 1.5, false, EffectValueValueType.Upgrade, 'smoke_screen_stun_aoe_on_cast_range');
             setAsUpgrade(values, 0);
             setStat(values, 0, 'smoke_screen_stun_aoe_on_cast_duration');
-        }
+        },
+        additionalClassMechanics: [ 211 ]
     },
     202: {
         masteryRequired: 7,
@@ -3135,26 +3262,30 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 7,
         override: values => {
             setStat(values, 0, 'poison_increased_damage');
-        }
+        },
+        additionalClassMechanics: [ 211 ]
     },
     205: {
         masteryRequired: 8,
         override: values => {
             setStat(values, 0, 'garbage_stat');
-        }
+        },
+        additionalClassMechanics: [ 211 ]
     },
     206: {
         masteryRequired: 8,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'ravenous_dagger_pull_on_smoke_screen_end');
-        }
+        },
+        additionalClassMechanics: [ 209, 210 ]
     },
     217: {
         masteryRequired: 8,
         override: values => {
             setStat(values, 0, 'cooldown_time_reduction_multiplier');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [ 210 ]
     },
     218: {
         masteryRequired: 1,
@@ -3328,7 +3459,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     14: {
         masteryRequired: 2,
-        line: 1
+        line: 1,
+        additionalClassMechanics: [217, 218]
     },
     15: {
         masteryRequired: 6,
@@ -3365,27 +3497,31 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 5,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'cast_by_clone');
-        }
+        },
+        additionalClassMechanics: [218]
     },
     20: {
         masteryRequired: 4,
         override: values => {
             addConstant(values, 2, false, EffectValueValueType.Upgrade, 'remnant_cast_on_cast_count');
             addConstant(values, 2, false, EffectValueValueType.Upgrade, 'remnant_cast_on_cast_chance');
-        }
+        },
+        additionalClassMechanics: [217, 218]
     },
     21: {
         masteryRequired: 7,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'arcane_on_hit_if_at_least_one_obliteration_emblem');
-        }
+        },
+        additionalClassMechanics: [214, 216]
     },
     22: {
         masteryRequired: 8,
         override: values => {
             setStat(values, 0,'remnant_time_lock_chance');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [215, 217]
     },
     23: {
         masteryRequired: 8,
@@ -3402,7 +3538,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'lost_in_time_aoe');
             setValueType(values, 0, EffectValueValueType.AreaOfEffect);
-        }
+        },
+        additionalClassMechanics: [215]
     },
     26: {
         masteryRequired: 9,
@@ -3424,21 +3561,25 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'inner_fire_chance_tick');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalMechanics: [MechanicType.InnerFire],
+        additionalClassMechanics: [218]
     },
     29: {
         masteryRequired: 8,
         override: values => {
             setStat(values, 0, 'physical_damage');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [218]
     },
     30: {
         masteryRequired: 2,
         order: 26,
         override: values => {
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [218]
     },
     31: {
         masteryRequired: 3,
@@ -3461,7 +3602,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         order: 39,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'cast_by_clone');
-        }
+        },
+        additionalClassMechanics: [218]
     },
     34: {
         masteryRequired: 4,
@@ -3485,7 +3627,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setSource(values, 0, 'overdrive_chance');
             setAsUpgrade(values, 0);
             setStat(values, 1, 'overdrive_chance_percent_while_channeling_ray_of_obliteration');
-        }
+        },
+        additionalClassMechanics: [218]
     },
     37: {
         masteryRequired: 5,
@@ -3557,7 +3700,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     45: {
         masteryRequired: 1,
-        order: 40
+        order: 40,
+        additionalClassMechanics: [216]
     },
     46: {
         masteryRequired: 1,
@@ -3573,7 +3717,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         line: 2,
         override: values => {
             setStat(values, 0, 'overdrive_inner_fire_additional_damage_when_triggered_by_book_smash');
-        }
+        },
+        additionalMechanics: [MechanicType.InnerFire, MechanicType.Overdrive]
     },
     48: {
         masteryRequired: 3,
@@ -3592,14 +3737,16 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setAsUpgrade(values, 0);
             setStat(values, 1, 'rift_nova_remnant_cast_chance_per_temporal_emblem');
             setAsUpgrade(values, 1);
-        }
+        },
+        additionalClassMechanics: [214, 217]
     },
     51: {
         masteryRequired: 4,
         line: 3,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'remnant_per_non_obliteration_emblem');
-        }
+        },
+        additionalClassMechanics: [214, 217]
     },
     52: {
         masteryRequired: 5,
@@ -3616,7 +3763,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'elemental_damage');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [214]
     },
     54: {
         masteryRequired: 7,
@@ -3624,14 +3772,16 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'increased_damage_mult_per_inner_fire');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalMechanics: [MechanicType.InnerFire]
     },
     55: {
         masteryRequired: 7,
         line: 4,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'has_betime_effect');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     56: {
         masteryRequired: 8,
@@ -3641,7 +3791,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setAsUpgrade(values, 0);
             setStat(values, 1, 'cost_reduction_mult_skill_per_arcanic_emblem');
             setAsUpgrade(values, 1);
-        }
+        },
+        additionalClassMechanics: [214]
     },
     57: {
         masteryRequired: 1,
@@ -3649,27 +3800,31 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'recast_chance_percent_per_non_obliteration_emblem');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [214]
     },
     58: {
         masteryRequired: 1,
         override: values => {
             addConstant(values, 2, false, EffectValueValueType.Upgrade, 'emblems_on_cast');
-        }
+        },
+        additionalClassMechanics: [214]
     },
     59: {
         masteryRequired: 1,
         override: values => {
             setStat(values, 0, 'crit_damage_percent_per_arcanic_emblem');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [214]
     },
     60: {
         masteryRequired: 1,
         override: values => {
             setStat(values, 0, 'remnant_vulnerability_remnant_increased_damage_mult');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [217]
     },
     61: {
         masteryRequired: 2,
@@ -3692,7 +3847,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 3,
         line: 2,
         override: values => { 
-            setStat(values, 0, 'aoe_increased_size_percent');
+            setStat(values, 0, 'skill_aoe_increased_size_percent');
             setAsUpgrade(values, 0);
         }
     },
@@ -3744,14 +3899,16 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setStat(values, 0, 'remnant_recast_chance');
             setAsUpgrade(values, 0);
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'remnant_on_cast');
-        }
+        },
+        additionalClassMechanics: [217]
     },
     70: {
         masteryRequired: 7,
         line: 4,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'cast_by_clone');
-        }
+        },
+        additionalClassMechanics: [218]
     },
     71: {
         masteryRequired: 7,
@@ -3766,7 +3923,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'skill_increased_damage_mult_per_non_temporal_emblem');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [214]
     },
     73: {
         masteryRequired: 9,
@@ -3786,7 +3944,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 1,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'time_lock_on_critical');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     76: {
         masteryRequired: 1,
@@ -3796,7 +3955,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setStat(values, 1, 'elemental_damage');
             setAsUpgrade(values, 1);
             allowSynergyToCascade(values, 1);
-        }
+        },
+        additionalClassMechanics: [214]
     },
     77: {
         masteryRequired: 1,
@@ -3847,7 +4007,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'multi_hit_remnant_chance');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [214, 217]
     },
     83: {
         masteryRequired: 3,
@@ -3855,7 +4016,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'arcane_bond_hit_count');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [216, 217]
     },
     84: {
         masteryRequired: 4,
@@ -3863,7 +4025,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'inner_fire_chance_percent');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalMechanics: [MechanicType.InnerFire]
     },
     85: {
         masteryRequired: 4,
@@ -3886,7 +4049,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         line: 4,
         override: values => {
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'mana_lost_and_refunded_on_arcane_bond_hit');
-        }
+        },
+        additionalClassMechanics: [216]
     },
     88: {
         masteryRequired: 6,
@@ -3911,21 +4075,24 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'lost_in_time_increased_damage_mult');
             setAsUpgrade(values, 0)
-        }
+        },
+        additionalClassMechanics: [215]
     },
     91: {
         masteryRequired: 1,
         override: values => {
             setStat(values, 0, 'arcane_bond_on_hit_if_arcane');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [216]
     },
     92: {
         masteryRequired: 1,
         override: values => {
             setStat(values, 0, 'time_lock_on_hit_if_temporal');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [215]
     },
     93: {
         masteryRequired: 1,
@@ -3976,7 +4143,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         line: 2,
         override: values => {
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'increased_duration_on_clone_hit');
-        }
+        },
+        additionalClassMechanics: [218]
     },
     99: {
         masteryRequired: 3,
@@ -3984,7 +4152,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'crit_chance_percent_per_same_emblems');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [214]
     },
     100: {
         masteryRequired: 4,
@@ -4001,14 +4170,16 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         line: 3,
         override: values => {
             addConstant(values, 3, false, EffectValueValueType.Upgrade, 'remnant_cast_if_same_emblem');
-        }
+        },
+        additionalClassMechanics: [214, 217]
     },
     102: {
         masteryRequired: 7,
         line: 5,
         override: values => {
             addConstant(values, 3, false, EffectValueValueType.Upgrade, 'remnant_cast_if_last_3_emblems_different');
-        }
+        },
+        additionalClassMechanics: [214]
     },
     103: {
         masteryRequired: 6,
@@ -4016,7 +4187,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         line: 4,
         override: values => {
             addConstant(values, 3, false, EffectValueValueType.Stat, 'remnant_cast_if_target_has_all_discordance');
-        }
+        },
+        additionalClassMechanics: [217]
     },
     104: {
         masteryRequired: 5,
@@ -4031,7 +4203,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         line: 5,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'cast_by_clone');
-        }
+        },
+        additionalClassMechanics: [218]
     },
     106: {
         masteryRequired: 8,
@@ -4047,7 +4220,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             addConstant(values, 40, false, EffectValueValueType.Upgrade, 'size_reduction');
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'skill_is_projectile');
-        }
+        },
+        additionalClassMechanics: [217]
     },
     108: {
         masteryRequired: 1,
@@ -4080,7 +4254,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setStat(values, 0, 'cooldown_time_reduction_multiplier');
             setAsUpgrade(values, 0);
             addConstant(values, 100, false, EffectValueValueType.Upgrade, 'cost_mult_skill_per_arcanic_emblem');
-        }
+        },
+        additionalClassMechanics: [214]
     },
     112: {
         masteryRequired: 1,
@@ -4096,13 +4271,14 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         line: 2,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'refresh_arcane_bond_on_hit');
-        }
+        },
+        additionalClassMechanics: [216]
     },
     114: {
         masteryRequired: 1,
         line: 2,
         override: values => {
-            setStat(values, 0, 'aoe_increased_size_percent');
+            setStat(values, 0, 'skill_aoe_increased_size_percent');
             setAsUpgrade(values, 0);
             addConstant(values, 2, false, EffectValueValueType.Upgrade, 'delay_spawn');
         }
@@ -4112,14 +4288,16 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         line: 3,
         override: values => {
             setStat(values, 0, 'crit_chance_percent_if_remnant_and_target_in_breach');
-        }
+        },
+        additionalClassMechanics: [217]
     },
     116: {
         masteryRequired: 2,
         line: 3,
         override: values => {
             setStat(values, 0, 'arcane_bond_increased_damage_mult_if_in_breach_range');
-        }
+        },
+        additionalClassMechanics: [216]
     },
     117: {
         masteryRequired: 3,
@@ -4141,7 +4319,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 4,
         line: 4,
         override: values => {
-            setStat(values, 0, 'aoe_increased_size_percent');
+            setStat(values, 0, 'skill_aoe_increased_size_percent');
             setAsUpgrade(values, 0);
             addConstant(values, 3, false, EffectValueValueType.Upgrade, 'garbage_stat');
             addConstant(values, 4, false, EffectValueValueType.Upgrade, 'skill_duration_reduction');
@@ -4166,7 +4344,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'arcane_clone_attack_speed_global_mult_if_in_breach');
             
-        }
+        },
+        additionalClassMechanics: [218]
     },
     122: {
         masteryRequired: 5,
@@ -4188,9 +4367,10 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 7,
         line: 5,
         override: values => {
-            setStat(values, 0, 'skill_increased_damage_mult_per_obliteration_emblem');
+            setStat(values, 0, 'skill_increased_damage_mult_per_arcanic_emblem');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [214]
     },
     125: {
         masteryRequired: 1,
@@ -4211,7 +4391,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setSynergyPrecision(values, 0, 0);
             addConstant(values, 3, false, EffectValueValueType.Upgrade, 'bounce_to_remnant_count');
             addConstant(values, 5, false, EffectValueValueType.Upgrade, 'rebound_chance_percent');
-        }
+        },
+        additionalClassMechanics: [217]
     },
     127: {
         masteryRequired: 1,
@@ -4231,20 +4412,23 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setAsUpgrade(values, 1);
             setStat(values, 2, 'brut_chance_percent_per_temporal_emblem');
             setAsUpgrade(values, 2);
-        }
+        },
+        additionalClassMechanics: [214]
     },
     129: {
         masteryRequired: 1,
         line: 2,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'cast_by_clone');
-        }
+        },
+        additionalClassMechanics: [218]
     },
     130: {
         masteryRequired: 2,
         line: 3,
         override: values => {
-            setStat(values, 0, 'cooldown_time_reduction_multiplier');
+            setStat(values, 0, 'mastery_cooldown_time_reduction_multiplier');
+            allowSynergyToCascade(values, 0);
             setAsUpgrade(values, 0);
         }
     },
@@ -4254,7 +4438,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'cooldown_time_reduction_multiplier');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [218]
     },
     132: {
         masteryRequired: 3,
@@ -4274,7 +4459,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     134: {
         masteryRequired: 4,
-        line: 4
+        line: 4,
+        additionalClassMechanics: [217]
     },
     135: {
         masteryRequired: 5,
@@ -4308,7 +4494,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'skill_decreased_damage_mult_if_only_obliteration');
             setAsUpgrade(values, 0);
-        }
+        },
+        additionalClassMechanics: [214]
     },
     139: {
         masteryRequired: 7,
@@ -4317,7 +4504,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setStat(values, 0, 'remnant_orb_arcane_master_cast_count');
             setAsUpgrade(values, 0);
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'remnant_orb_arcane_master_cast_tick');
-        }
+        },
+        additionalClassMechanics: [214, 217]
     },
     140: {
         masteryRequired: 7,
@@ -4371,7 +4559,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 3,
         override: values => {
             setStat(values, 0, 'increased_damage_mult_if_target_is_time_locked');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     149: {
         masteryRequired: 3,
@@ -4383,7 +4572,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 4,
         override: values => {
             setStat(values, 0, 'crit_chance_percent_if_target_is_time_locked');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     151: {
         masteryRequired: 4,
@@ -4404,13 +4594,15 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setStat(values, 0, 'invigorate_stack_elemental_damage_percent');
             setStat(values, 1, 'invigorate_max_stacks');
             addConstant(values, 6, false, EffectValueValueType.Duration, 'invigorate_stack_duration');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     155: {
         masteryRequired: 5,
         override: values => {
             addConstant(values, 2, false, EffectValueValueType.Stat, 'arcane_bond_on_hit_if_last_emblems_different');
-        }
+        },
+        additionalClassMechanics: [214, 216]
     },
     156: {
         masteryRequired: 6,
@@ -4422,14 +4614,17 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 6,
         override: values => {
             addConstant(values, 35, false, EffectValueValueType.Stat, 'remnant_rift_nova_cast_if_low_life_treshold');
-        }
+        },
+        additionalClassMechanics: [217]
     },
     158: {
         masteryRequired: 6,
         override: values => {
             setStat(values, 0, 'additional_projectile_add_if_next_cast_is_new_emblem');
             setStat(values, 1, 'overdrive_chance_percent_if_next_cast_is_new_emblem');
-        }
+        },
+        additionalMechanics: [MechanicType.Overdrive],
+        additionalClassMechanics: [214]
     },
     159: {
         masteryRequired: 7,
@@ -4438,7 +4633,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 7,
         override: values => {
             setStat(values, 0, 'time_lock_duration_add');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     161: {
         masteryRequired: 7,
@@ -4465,7 +4661,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setStat(values, 1, 'cooldown_reduction_per_temporal_emblem');
             setStat(values, 2, 'damage_per_obliteration_emblem');
             setStat(values, 3, 'garbage_stat');
-        }
+        },
+        additionalClassMechanics: [214]
     },
     165: {
         masteryRequired: 1,
@@ -4483,7 +4680,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 1,
     },
     168: {
-        masteryRequired: 6,
+        masteryRequired: 6
     },
     169: {
         masteryRequired: 2,
@@ -4499,7 +4696,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         }
     },
     172: {
-        masteryRequired: 2,
+        masteryRequired: 2
     },
     173: {
         masteryRequired: 3,
@@ -4516,7 +4713,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 4,
         override: values => {
             setStat(values, 0, 'remnant_increased_damage_mult');
-        }
+        },
+        additionalClassMechanics: [217]
     },
     176: {
         masteryRequired: 4,
@@ -4524,13 +4722,15 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             setStat(values, 0, 'elemental_damage');
             setAsUpgrade(values, 0);
             addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'mana_resonance_aoe');
-        }
+        },
+        additionalClassMechanics: [216]
     },
     177: {
         masteryRequired: 4,
         override: values => {
             addConstant(values, 10, false, EffectValueValueType.Upgrade, 'cooldown_reset_if_health_lost_treshold');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     178: {
         masteryRequired: 5,
@@ -4545,7 +4745,9 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 5,
         override: values => {
             setStat(values, 0, 'remnant_overdrive_overdrive_chance_percent');
-        }
+        },
+        additionalMechanics: [MechanicType.Overdrive],
+        additionalClassMechanics: [217]
     },
     180: {
         masteryRequired: 5
@@ -4564,7 +4766,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             addConstant(values, 3, false, EffectValueValueType.Upgrade, 'recast_duration');
             addConstant(values, 2, false, EffectValueValueType.Upgrade, 'cooldown_time_add_per_recast');
-        }
+        },
+        additionalClassMechanics: [214]
     },
     183: {
         masteryRequired: 7,
@@ -4588,6 +4791,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     187: {
         masteryRequired: 2,
+        additionalClassMechanics: [217]
     },
     188: {
         masteryRequired: 8,
@@ -4596,13 +4800,15 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
             addConstant(values, 4, false, EffectValueValueType.Stat, 'remnant_cloud_max_grow');
             addConstant(values, 1, false, EffectValueValueType.Stat, 'remnant_cloud_explosion_delay');
             addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'remnant_cloud_explosion_aoe');
-        }
+        },
+        additionalClassMechanics: [217]
     },
     189: {
         masteryRequired: 1,
         override: values => {
             setStat(values, 0, 'retaliate_percent_if_channeling_arcane_barrier');
-        }
+        },
+        additionalClassMechanics: [218]
     },
     190: {
         masteryRequired: 1,
@@ -4617,7 +4823,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         }
     },
     192: {
-        masteryRequired: 1,
+        masteryRequired: 1
     },
     193: {
         masteryRequired: 2,
@@ -4628,7 +4834,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     194: {
         masteryRequired: 2,
-        additionalMechanics: [MechanicType.InnerFire]
+        additionalMechanics: [MechanicType.InnerFire],
+        additionalClassMechanics: [214, 218]
     },
     195: {
         masteryRequired: 2,
@@ -4638,12 +4845,14 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     196: {
         masteryRequired: 3,
+        additionalClassMechanics: [216]
     },
     197: {
         masteryRequired: 3,
         override: values => {
             setStat(values, 0, 'time_lock_chance_on_hit_taken');
-        }
+        },
+        additionalClassMechanics: [215]
     },
     198: {
         masteryRequired: 4,
@@ -4656,14 +4865,16 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 4,
         override: values => {
             setStat(values, 0, 'arcane_clone_cooldown_reduction')
-        }
+        },
+        additionalClassMechanics: [218]
     },
     200: {
         masteryRequired: 4,
         override: values => {
             setStat(values, 0, 'elemental_damage');
             allowSynergyToCascade(values, 0);
-        }
+        },
+        additionalClassMechanics: [216]
     },
     201: {
         masteryRequired: 5,
@@ -4675,7 +4886,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 5,
         override: values => {
             setStat(values, 0, 'remnant_crit_chance_percent')
-        }
+        },
+        additionalClassMechanics: [217]
     },
     203: {
         masteryRequired: 5,
@@ -4692,7 +4904,8 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 6,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'max_arcane_clone_add');
-        }
+        },
+        additionalClassMechanics: [218]
     },
     206: {
         masteryRequired: 6,
@@ -4703,6 +4916,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     },
     207: {
         masteryRequired: 7,
+        additionalClassMechanics: [216]
     },
     208: {
         masteryRequired: 7,
@@ -4725,13 +4939,15 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         masteryRequired: 8,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'max_arcane_clone_add');
-        }
+        },
+        additionalClassMechanics: [218]
     },
     210: {
         masteryRequired: 8,
         override: values => {
             setStat(values, 0, 'percent_restored_mana_as_arcane_bond_damage');
-        }
+        },
+        additionalClassMechanics: [216]
     },
     211: {
         masteryRequired: 8,
@@ -4748,13 +4964,15 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
         override: values => {
             setStat(values, 0, 'recast_chance_percent');
             addConstant(values, 1, false, EffectValueValueType.Upgrade, 'recast_is_remnant');
-        }
+        },
+        additionalClassMechanics: [217]
     },
     224: {
         masteryRequired: 8,
     },
     225: {
         masteryRequired: 10,
+        additionalClassMechanics: [214, 217, 218]
     },
 }
 

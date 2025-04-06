@@ -74,7 +74,7 @@ export const DATA_CLASS_MECHANIC: GameHeroesData<{ [key: number]:  DataClassMech
     [HeroClass.Mage]: {
         214: {
             values: [
-                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'max_emblems', 'max', EffectValueValueType.Stat, undefined, 3),
+                effectValueSynergy(100, 0, EffectValueUpgradeType.None, false, 'max_emblems', 'max', EffectValueValueType.Stat, undefined, 3, false),
             ],
             templateOverride: template => template.replace('¥', '$')
         },

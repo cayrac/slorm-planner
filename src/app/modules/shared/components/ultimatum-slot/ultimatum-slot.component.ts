@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs';
 import { ItemMoveService } from '../../services/item-move.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 import { UltimatumEditModalComponent, UltimatumEditModalData } from '../ultimatum-edit-modal/ultimatum-edit-modal.component';
+import { ViewData, ViewModalComponent } from '../view-modal/view-modalcomponent';
 
 @Component({
   selector: 'app-ultimatum-slot',
@@ -68,7 +69,9 @@ export class UltimatumSlotComponent extends AbstractUnsubscribeComponent impleme
 
     public edit() {
         if (!this.readonly) {
-            const data: UltimatumEditModalData = { ultimatum: this.ultimatum };
+            const data: UltimatumEditModalData = {
+                ultimatum: this.ultimatum
+            };
             this.dialog.open(UltimatumEditModalComponent, { data })
             .afterClosed().subscribe((ultimatum: Ultimatum | null | undefined) => {
                 if (ultimatum) {
@@ -76,5 +79,19 @@ export class UltimatumSlotComponent extends AbstractUnsubscribeComponent impleme
                 }
             });
         }
+    }
+                            
+    public showModalTooltip(event: MouseEvent, ultimatum: Ultimatum | null) {
+        let skip = false;
+
+        if (event.ctrlKey && ultimatum !== null) {
+            skip = true;
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            const data: ViewData = { entity: { ultimatum } };
+            this.dialog.open(ViewModalComponent, { data });
+        }
+
+        return skip;
     }
 }

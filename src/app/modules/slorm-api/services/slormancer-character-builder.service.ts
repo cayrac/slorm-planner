@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HeroClass } from '..//model/content/enum/hero-class';
 import { GAME_VERSION, INVENTORY_SIZE, MAX_HERO_LEVEL, STASH_SIZE, STASH_TABS_COUNT, UNITY_REAPERS } from '../constants/common';
 import { CharacterConfig } from '../model';
-import { Character, CharacterSkillAndUpgrades } from '../model/character';
+import { Character, CharacterGear, CharacterSkillAndUpgrades } from '../model/character';
 import { Activable } from '../model/content/activable';
 import { AncestralLegacy } from '../model/content/ancestral-legacy';
 import { Attribute } from '../model/content/enum/attribute';
@@ -18,7 +18,7 @@ import { GameItem } from '../model/parser/game/game-item';
 import { GameSave, GameSharedInventory, GameUltimatum } from '../model/parser/game/game-save';
 import { RunesCombination } from '../model/runes-combination';
 import { list } from '../util/math.util';
-import { isNotNullOrUndefined, valueOrDefault, valueOrNull } from '../util/utils';
+import { getOlorinUltimatumBonusLevel, isNotNullOrUndefined, valueOrDefault, valueOrNull } from '../util/utils';
 import { SlormancerAncestralLegacyNodesService } from './content';
 import { SlormancerAncestralLegacyService } from './content/slormancer-ancestral-legacy.service';
 import { SlormancerAttributeService } from './content/slormancer-attribute.service';
@@ -74,7 +74,7 @@ export class SlormancerCharacterBuilderService {
         let result: EquipableItem | null = null;
 
         if (this.slormancerItemservice.isEquipableItem(item)) {
-            result = this.slormancerItemservice.getEquipableItemFromGame(item, heroClass);
+            result = this.slormancerItemservice.getEquipableItemFromGame(item, heroClass, 0);
         }
 
         return result;
@@ -155,12 +155,12 @@ export class SlormancerCharacterBuilderService {
         return result;
     }
 
-    private getEquippedUltimatum(save: GameSave, heroClass: HeroClass): Ultimatum | null {
+    private getEquippedUltimatum(save: GameSave, heroClass: HeroClass, bonusLevel: number): Ultimatum | null {
         let result: Ultimatum | null = null;
 
         const equippedIndex = save.ultimatums.findIndex(ultimatum => ultimatum.equipped[heroClass]);
         if (equippedIndex !== -1) {
-            result = this.slormancerUltimatumService.getUltimatum(equippedIndex, (<GameUltimatum>save.ultimatums[equippedIndex]).level)
+            result = this.slormancerUltimatumService.getUltimatum(equippedIndex, (<GameUltimatum>save.ultimatums[equippedIndex]).level, bonusLevel)
         }
 
         return result;
@@ -372,7 +372,23 @@ export class SlormancerCharacterBuilderService {
         const xp = save.xp[heroClass];
 
         const reaper = this.getEquippedReaper(save, heroClass);
-        
+
+        const gear: CharacterGear = {
+            helm: this.getItem(valueOrNull(inventory.helm), heroClass),
+            body: this.getItem(valueOrNull(inventory.body), heroClass),
+            shoulder: this.getItem(valueOrNull(inventory.shoulder), heroClass),
+            bracer: this.getItem(valueOrNull(inventory.bracer), heroClass),
+            glove: this.getItem(valueOrNull(inventory.glove), heroClass),
+            boot: this.getItem(valueOrNull(inventory.boot), heroClass),
+            ring_l: this.getItem(valueOrNull(inventory.ring_l), heroClass),
+            ring_r: this.getItem(valueOrNull(inventory.ring_r), heroClass),
+            amulet: this.getItem(valueOrNull(inventory.amulet), heroClass),
+            belt: this.getItem(valueOrNull(inventory.belt), heroClass),
+            cape: this.getItem(valueOrNull(inventory.cape), heroClass)
+        };
+
+        const ultimatumBonusLevel = getOlorinUltimatumBonusLevel(gear);
+
         const character = this.getCharacter(heroClass,
             this.getHeroLevel(xp),
             save.version,
@@ -380,23 +396,23 @@ export class SlormancerCharacterBuilderService {
             null,
             reaper,
             this.getRunesCombination(save, heroClass, reaper.id),
-            this.getEquippedUltimatum(save, heroClass),
+            this.getEquippedUltimatum(save, heroClass, ultimatumBonusLevel),
             this.getActiveNodes(save.element_equip[heroClass]),
             this.getFirstNode(save.element_equip[heroClass]),
             element_rank,
             skill_equip,
             skill_rank,
-            this.getItem(valueOrNull(inventory.helm), heroClass),
-            this.getItem(valueOrNull(inventory.body), heroClass),
-            this.getItem(valueOrNull(inventory.shoulder), heroClass),
-            this.getItem(valueOrNull(inventory.bracer), heroClass),
-            this.getItem(valueOrNull(inventory.glove), heroClass),
-            this.getItem(valueOrNull(inventory.boot), heroClass),
-            this.getItem(valueOrNull(inventory.ring_l), heroClass),
-            this.getItem(valueOrNull(inventory.ring_r), heroClass),
-            this.getItem(valueOrNull(inventory.amulet), heroClass),
-            this.getItem(valueOrNull(inventory.belt), heroClass),
-            this.getItem(valueOrNull(inventory.cape), heroClass),
+            gear.helm,
+            gear.body,
+            gear.shoulder,
+            gear.bracer,
+            gear.glove,
+            gear.boot,
+            gear.ring_l,
+            gear.ring_r,
+            gear.amulet,
+            gear.belt,
+            gear.cape,
             inventory.bag.map(item => this.getItem(item, heroClass)),
             this.getSharedInventory(save.shared_inventory, heroClass),
             Math.max(0, valueOrDefault(traits[Attribute.Toughness], 0)),

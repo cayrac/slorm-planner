@@ -1,6 +1,4 @@
 export interface GameDataLegendary {
-    FIELD1: string,
-    FIELD2: number | null,
     REF: number,
     ITEM: string,
     EN_NAME: string,
@@ -23,6 +21,12 @@ export interface GameDataLegendary {
     RU_DESC: string,
     PT_NAME: string,
     PT_DESC: string,
+    PO_NAME: string,
+    PO_DESC: string,
+    KR_NAME: string,
+    KR_DESC: string,
+    TUR_NAME: string,
+    TUR_DESC: string,
     VALUE: string,
     TYPE: string,
     UPGRADABLE: string,
@@ -30,7 +34,7 @@ export interface GameDataLegendary {
     STAT: string,
     DAMAGE_GENRE: string,
     SPRITE: number,
-    HERO: -1 | 0 | 1 | 2 | 99,
+    HERO: -1 | 0 | 1 | 2 | 99 | 999,
     SKILL: string,
     STAT_ONLY: boolean | null,
     LOOTABLE: boolean

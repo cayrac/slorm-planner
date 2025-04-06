@@ -428,6 +428,21 @@ export class BuildRetrocompatibilityService {
                 }
             }
         },
+        {
+            version: '0.8.0',
+            update: build => {
+                build.version = '0.8.0';
+
+                build.configuration.has_extreme_confidence_buff = false;
+                build.configuration.life_mana_stored = 0;
+                build.configuration.apply_indirect_increased_damage = false;
+                build.configuration.skill_retention_stacks = 0;
+                build.configuration.elemental_retention_stacks = 0;
+                build.configuration.transference_stacks = 0;
+                build.configuration.reaper_owned = 0;
+                build.configuration.victims_114_others = 0;
+            }
+        }
     ];
 
     constructor() { }

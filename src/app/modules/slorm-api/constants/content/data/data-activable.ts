@@ -55,6 +55,16 @@ function setSynergyAnchor(values: Array<AbstractEffectValue>, index: number, anc
     }
 }
 
+function setSynergySource(values: Array<AbstractEffectValue>, index: number, source: string) {
+    const value = values[index]
+
+    if (value && isEffectValueSynergy(value)) {
+        value.source = source;
+    } else {
+        throw new Error('failed to change synergy source at index ' + index);
+    }
+}
+
 
 function setSynergyShowValue(values: Array<AbstractEffectValue>, index: number, showValue: boolean) {
     const value = values[index]
@@ -91,6 +101,7 @@ function synergyMultiply100(effects: Array<AbstractEffectValue>, index: number) 
         throw new Error('failed to change value for effect value at index ' + index);
     }
 }
+
 function setSynergyAllowMinMax(values: Array<AbstractEffectValue>, index: number, allowMinMax: boolean) {
     const value = values[index];
 
@@ -208,9 +219,9 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     12: {
         override: values => {
             overrideValueStat(values, 0, 'physical_damage');
+            allowSynergyToCascade(values, 0);
             setBaseValue(values, 0, 150);
             setUpgradeValue(values, 0, 10);
-            allowSynergyToCascade(values, 0);
             overrideValueStat(values, 1, 'septimius_blade_delay');
         }
     },
@@ -242,9 +253,9 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
             overrideValueStat(values, 0, 'garbage_stat');
             setSynergyAnchor(values, 1, '@');
             overrideValueStat(values, 1, 'physical_damage');
+            allowSynergyToCascade(values, 1);
             setSynergyAllowMinMax(values, 1, false);
             setSynergyPrecision(values, 1, 0);
-            allowSynergyToCascade(values, 1);
             overrideValueStat(values, 2, 'garbage_stat');
         }
     },
@@ -329,8 +340,8 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
             synergyMultiply100(values, 1);
             setSynergyShowValue(values, 1, false);
             setValueType(values, 2, EffectValueValueType.Damage);
-            allowSynergyToCascade(values, 2);
             overrideValueStat(values, 2, 'physical_damage');
+            allowSynergyToCascade(values, 2);
             addConstant(values, 1.5, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
         }
     },
@@ -339,9 +350,9 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
             overrideValueStat(values, 0, 'garbage_stat');
             setValueType(values, 0, EffectValueValueType.Duration);
             overrideValueStat(values, 1, 'physical_damage');
+            allowSynergyToCascade(values, 1);
             setValueType(values, 1, EffectValueValueType.Static);
             setBaseValue(values, 1, 150);
-            allowSynergyToCascade(values, 1);
             addConstant(values, 2.5, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
         }
     },
@@ -367,8 +378,8 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
         override: values => {
             setBaseValue(values, 0, 200);
             overrideValueStat(values, 0, 'physical_damage');
-            overrideValueStat(values, 1, 'garbage_stat');
             allowSynergyToCascade(values, 0);
+            overrideValueStat(values, 1, 'garbage_stat');
             addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
         }
     },
@@ -499,10 +510,129 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
             setSynergyAllowMinMax(values, 1, false);
         }
     },
+    56: {
+        override: values => {
+            setValueType(values, 0, EffectValueValueType.Static);
+            overrideValueStat(values, 0, 'garbage_stat');
+            overrideValueStat(values, 1, 'physical_damage');
+            setBaseValue(values, 1, 30);
+            allowSynergyToCascade(values, 1);
+            overrideValueStat(values, 2, 'elemental_damage');
+            setBaseValue(values, 2, 30);
+            allowSynergyToCascade(values, 2);
+        }
+    },
     57: {
         override: values => {
             overrideValueStat(values, 0, 'garbage_stat');
             addConstant(values, 0, false, EffectValueValueType.Stat, 'mana_cost_to_life_cost');
         }
-    }
+    },
+    58: {
+        override: values => {
+            overrideValueStat(values, 0, 'garbage_stat');
+            setValueType(values, 0, EffectValueValueType.Static);
+            addConstant(values, 7, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
+        }
+    },
+    59: {
+        override: values => {
+            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
+        }
+    },
+    60: {
+        override: values => {
+            overrideValueStat(values, 0, 'garbage_stat');
+            setValueType(values, 0, EffectValueValueType.Static);
+            overrideValueStat(values, 1, 'physical_damage');
+            allowSynergyToCascade(values, 1);
+            overrideValueStat(values, 2, 'garbage_stat');
+            setSynergySource(values, 2, 'percent_locked_health');
+            allowSynergyToCascade(values, 2);
+            overrideValueStat(values, 3, 'garbage_stat');
+            allowSynergyToCascade(values, 3);
+            addConstant(values, 4, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
+        }
+    },
+    61: {
+        override: values => {
+            overrideValueStat(values, 0, 'the_max_health_global_mult');
+            setValueType(values, 0, EffectValueValueType.Static);
+        }
+    },
+    62: {
+        override: values => {
+            overrideValueStat(values, 0, 'physical_damage');
+            allowSynergyToCascade(values, 0);
+            setBaseValue(values, 0, 70);
+            overrideValueStat(values, 1, 'garbage_stat');
+            allowSynergyToCascade(values, 1);
+            overrideValueStat(values, 2, 'garbage_stat');
+            setValueType(values, 2, EffectValueValueType.Static);
+        }
+    },
+    63: {
+        override: values => {
+            overrideValueStat(values, 0, 'elemental_damage');
+            allowSynergyToCascade(values, 0);
+            overrideValueStat(values, 1, 'garbage_stat');
+            allowSynergyToCascade(values, 1);
+            overrideValueStat(values, 2, 'garbage_stat');
+            setValueType(values, 2, EffectValueValueType.Static);
+        }
+    },
+    64: {
+        override: values => {
+            overrideValueStat(values, 0, 'elemental_damage');
+            allowSynergyToCascade(values, 0);
+            overrideValueStat(values, 1, 'garbage_stat');
+            allowSynergyToCascade(values, 1);
+            overrideValueStat(values, 2, 'garbage_stat');
+            setValueType(values, 2, EffectValueValueType.Static);
+        }
+    },
+    65: {
+        override: values => {
+            overrideValueStat(values, 0, 'garbage_stat');
+            setValueType(values, 0, EffectValueValueType.Static);
+            overrideValueStat(values, 1, 'garbage_stat');
+            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
+        }
+    },
+    66: {
+        override: values => {
+            overrideValueStat(values, 0, 'garbage_stat');
+            setValueType(values, 0, EffectValueValueType.Static);
+            overrideValueStat(values, 1, 'garbage_stat');
+            setValueType(values, 1, EffectValueValueType.Static);
+            overrideValueStat(values, 2, 'garbage_stat');
+            setValueType(values, 2, EffectValueValueType.Static);
+            addConstant(values, 3, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
+        }
+    },
+    67: {
+        override: values => {
+            overrideValueStat(values, 0, 'garbage_stat');
+            addConstant(values, 5, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
+        }
+    },
+    68: {
+        override: values => {
+            overrideValueStat(values, 0, 'elemental_damage');
+            allowSynergyToCascade(values, 0);
+            addConstant(values, 4, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
+        }
+    },
+    69: {
+        override: (values) => {
+            overrideValueStat(values, 0, 'physical_damage');
+            allowSynergyToCascade(values, 0);
+            setValueType(values, 0, EffectValueValueType.AreaOfEffect);
+            overrideValueStat(values, 1, 'elemental_damage');
+            allowSynergyToCascade(values, 1);
+            setValueType(values, 1, EffectValueValueType.AreaOfEffect);
+            addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
+        }
+    },
 }

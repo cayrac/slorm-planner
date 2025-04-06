@@ -15,9 +15,9 @@ import { EquipableItem } from '../model/content/equipable-item';
 import { Reaper } from '../model/content/reaper';
 import { Rune } from '../model/content/rune';
 import { SkillElement } from '../model/content/skill-element';
-import { round } from '../util';
-import { isEffectValueSynergy, isFirst, isNotNullOrUndefined, valueOrDefault } from '../util/utils';
-import { SlormancerAncestralLegacyNodesService, SlormancerMightService } from './content';
+import { getAllItems, getAllLegendaryEffects, getOlorinUltimatumBonusLevel, round } from '../util';
+import { isEffectValueSynergy, isEffectValueVariable, isFirst, isNotNullOrUndefined, valueOrDefault } from '../util/utils';
+import { SlormancerAncestralLegacyNodesService, SlormancerMightService, SlormancerUltimatumService } from './content';
 import { SlormancerActivableService } from './content/slormancer-activable.service';
 import { SlormancerAncestralLegacyService } from './content/slormancer-ancestral-legacy.service';
 import { SlormancerAttributeService } from './content/slormancer-attribute.service';
@@ -36,7 +36,7 @@ import { SlormancerValueUpdaterService } from './content/slormancer-value-update
 @Injectable()
 export class SlormancerCharacterUpdaterService {
 
-    private readonly LEVEL_LABEL = this.slormancerTranslateService.translate('level').toLowerCase();
+    private readonly LEVEL_LABEL: string;
 
     constructor(private slormancerAttributeService: SlormancerAttributeService,
                 private slormancerAncestralLegacyService: SlormancerAncestralLegacyService,
@@ -53,7 +53,10 @@ export class SlormancerCharacterUpdaterService {
                 private slormancerSynergyResolverService: SlormancerSynergyResolverService,
                 private slormancerAncestralLegacyNodesService: SlormancerAncestralLegacyNodesService,
                 private slormancerMightService: SlormancerMightService,
-        ) { }
+                private slormancerUltimatumService: SlormancerUltimatumService,
+        ) {
+        this.LEVEL_LABEL = this.slormancerTranslateService.translate('level').toLowerCase();
+    }
 
     private applyReaperAffinities(character: Character, reaper: Reaper, config: CharacterConfig) {
         const items = ALL_GEAR_SLOT_VALUES.map(slot => character.gear[slot]).filter(isNotNullOrUndefined);
@@ -160,9 +163,9 @@ export class SlormancerCharacterUpdaterService {
         }
     }
 
-    private updateChangedEntities(statsResult: CharacterStatsBuildResult) {
+    private updateChangedEntities(statsResult: CharacterStatsBuildResult, defensiveStatMultiplier: number) {
         for (const item of statsResult.changed.items.filter(isFirst)) {
-            this.slormancerItemService.updateEquipableItemView(item);
+            this.slormancerItemService.updateEquipableItemView(item, defensiveStatMultiplier);
         }
         for (const ancestralLegacy of statsResult.changed.ancestralLegacies.filter(isFirst)) {
             this.slormancerAncestralLegacyService.updateAncestralLegacyView(ancestralLegacy); 
@@ -346,9 +349,9 @@ export class SlormancerCharacterUpdaterService {
     private applyReaperBonusLevel(character: Character, config: CharacterConfig): boolean {
         let changed = false;
         let minLevel = 0;
-
-        if (character.gear.amulet !== null && character.gear.amulet.legendaryEffect !== null && character.gear.amulet.legendaryEffect.id === 83) {
-            const legendaryAffix = character.gear.amulet.legendaryEffect.effects.find(effect => effect.effect.stat === 'min_reaper_level');
+        const legendaryEffect = getAllLegendaryEffects(character.gear).find(legendaryEffect => legendaryEffect.id === 83);
+        if (legendaryEffect) {
+            const legendaryAffix = legendaryEffect.effects.find(effect => effect.effect.stat === 'min_reaper_level');
 
             if (legendaryAffix) {
                 minLevel = Math.min(legendaryAffix.effect.value, config.highest_same_type_reaper_level);
@@ -446,7 +449,80 @@ export class SlormancerCharacterUpdaterService {
         return result;
     }
 
+    private extractAuthorityStats(character: Character, stats: CharacterStatsBuildResult): ExtractedStatMap {
+        const result: ExtractedStatMap = {};
+
+        // used in SlormancerstatService.applyAuthorityChanges 
+        const authorityItem = getAllItems(character.gear).find(item => item.legendaryEffect !== null && item.legendaryEffect.id === 96);
+        if (authorityItem) {
+            const innerFireDamage = stats.stats.find(mergedStat => mergedStat.stat === 'inner_fire_damage');
+            const overdriveDamage = stats.stats.find(mergedStat => mergedStat.stat === 'overdrive_damage');
+            const innerFireChance = stats.stats.find(mergedStat => mergedStat.stat === 'inner_fire_chance');
+            const overdriveChance = stats.stats.find(mergedStat => mergedStat.stat === 'overdrive_chance');
+
+            if (innerFireChance && overdriveChance) {
+                if (innerFireChance.total < overdriveChance.total) {
+                    result['authority_inner_fire_chance_lower'] = [{ value: 1, source: { item: authorityItem } }];
+                } else {
+                    result['authority_overdrive_chance_lower'] = [{ value: 1, source: { item: authorityItem } }];
+                }
+            }
+            if (innerFireDamage && overdriveDamage) {
+                const innerFirePercent = innerFireDamage.values.percent.reduce((total, value) => value.value + total, 0);
+                const overdriveFirePercent = overdriveDamage.values.percent.reduce((total, value) => value.value + total, 0);
+                if (innerFirePercent > overdriveFirePercent) {
+                    result['authority_inner_fire_damage_higher'] = [{ value: 1, source: { item: authorityItem } }];
+                } else {
+                    result['authority_overdrive_damage_higher'] = [{ value: 1, source: { item: authorityItem } }];
+                }
+            }
+        }
+
+        return result;
+    }
+
+    private applySetChanges(character: Character, additionalItem: EquipableItem | null, stats: CharacterStatsBuildResult) {
+        const boosterMax = character.reaper.activables.find(activable => activable.id === 6);
+
+        if (boosterMax) {
+            const hasFishermanSet = 'has_fisherman_set' in stats.extractedStats
+            for (const value of boosterMax.values) {
+                if (isEffectValueVariable(value)) {
+                    if (value.stat === 'booster_max_cooldown_reduction_global_mult'
+                        || value.stat === 'booster_max_elemental_damage_percent'
+                        || value.stat === 'booster_max_basic_damage_percent_percent'
+                    ) {
+                        const setValue = stats.extractedStats['fisherman_set_' + value.stat];
+                        if (setValue) {
+                            value.value = hasFishermanSet ? setValue[0]?.value as number : value.baseValue;
+                            value.upgradedValue = value.value;
+                            value.displayValue = value.value;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private updateCharacterStats(character: Character, updateViews: boolean, config: CharacterConfig, additionalItem: EquipableItem | null, additionalRunes: Array<Rune> = []) {
+
+        if (character.ultimatum !== null) {
+            this.slormancerUltimatumService.updateUltimatumModel(character.ultimatum, character.ultimatum.baseLevel, getOlorinUltimatumBonusLevel(character.gear));
+            this.slormancerUltimatumService.updateUltimatumView(character.ultimatum);
+        }
+
+        const defensiveStatMultiplier = this.slormancerItemService.getDefensiveStatMultiplier(getAllLegendaryEffects(character.gear));
+        const changedRings: EquipableItem[] = [];
+        if (defensiveStatMultiplier > 0) {
+            if (character.gear.ring_l !== null) {
+                this.slormancerItemService.updateEquipableItemModel(character.gear.ring_l, defensiveStatMultiplier)
+                changedRings.push(character.gear.ring_l);
+            }
+            if (character.gear.ring_r !== null) {
+                this.slormancerItemService.updateEquipableItemModel(character.gear.ring_r, defensiveStatMultiplier)
+                changedRings.push(character.gear.ring_r);
+            }
+        }
 
         const reaperChanged = this.applyReaperBonusLevel(character, config);
 
@@ -460,7 +536,12 @@ export class SlormancerCharacterUpdaterService {
             character.ultimatum.locked = statResultPreComputing.extractedStats['disable_ultimatum'] !== undefined;
         }
 
-        const additionalStats = this.extractAcademicianStats(character, statResultPreComputing);
+        this.applySetChanges(character, additionalItem, statResultPreComputing);
+
+        const additionalStats = {
+            ...this.extractAcademicianStats(character, statResultPreComputing),
+            ...this.extractAuthorityStats(character, statResultPreComputing)
+        };
 
         const statsResult = this.getCharacterStatsResult(character, config, additionalItem, additionalRunes, additionalStats);
         character.stats = statsResult.stats;
@@ -469,6 +550,7 @@ export class SlormancerCharacterUpdaterService {
             statsResult.changed.reapers.push(character.reaper);
         }
 
+        statsResult.changed.items.push(...changedRings);
         statsResult.changed.items.push(...preComputingChanged.items);
         statsResult.changed.items.push(...statResultPreComputing.changed.items);
         statsResult.changed.ancestralLegacies.push(...preComputingChanged.ancestralLegacies);
@@ -548,7 +630,7 @@ export class SlormancerCharacterUpdaterService {
         this.updateIssues(character, statsResult)
 
         if (updateViews) {
-            this.updateChangedEntities(statsResult);
+            this.updateChangedEntities(statsResult, defensiveStatMultiplier);
             this.slormancerClassMechanicService.updateClassMechanicViews(character.heroClass);
         }
 
@@ -590,6 +672,7 @@ export class SlormancerCharacterUpdaterService {
     }
 
     private updateAncestralLegacySkills(character: Character) {
+        const legendaryEffects = getAllLegendaryEffects(character.gear);
         character.ancestralLegacies.activeAncestralLegacies = this.slormancerAncestralLegacyNodesService.getAncestralLegacyIds(character);
 
         for (const ancestralLegacy of character.ancestralLegacies.ancestralLegacies) {
@@ -676,6 +759,88 @@ export class SlormancerCharacterUpdaterService {
                 .map(ancestralLegacy => ancestralLegacy.id);
             character.ancestralLegacies.activeAncestralLegacies = character.ancestralLegacies.activeAncestralLegacies
                 .filter(ancestralLegacyId => normalOrFireAncestralLegacies.includes(ancestralLegacyId));
+        }
+
+        if (character.gear.cape !== null && character.gear.cape.legendaryEffect !== null) {
+            // Cloak of the Fire Zealot
+            if (legendaryEffects.find(legendaryEffect => legendaryEffect.id === 196)) {
+                const fireSeals = character.ancestralLegacies.ancestralLegacies
+                    .filter(ancestralLegacy => ancestralLegacy.element === SkillElement.Fire && ancestralLegacy.types.includes(AncestralLegacyType.Seal));
+                for (const fireSeal of fireSeals) {
+                    this.addAdditionalAncestralLegacySkillAtMaxRank(character, fireSeal);
+                }
+            }
+
+            // Cloak of the Ice Zealot
+            if (legendaryEffects.find(legendaryEffect => legendaryEffect.id === 197)) {
+                const iceSeals = character.ancestralLegacies.ancestralLegacies
+                    .filter(ancestralLegacy => ancestralLegacy.element === SkillElement.Ice && ancestralLegacy.types.includes(AncestralLegacyType.Seal));
+                for (const iceSeal of iceSeals) {
+                    this.addAdditionalAncestralLegacySkillAtMaxRank(character, iceSeal);
+                }
+            }
+    
+            // Cloak of the Lightning Zealot
+            if (legendaryEffects.find(legendaryEffect => legendaryEffect.id === 198)) {
+                const lightningSeals = character.ancestralLegacies.ancestralLegacies
+                    .filter(ancestralLegacy => ancestralLegacy.element === SkillElement.Lightning && ancestralLegacy.types.includes(AncestralLegacyType.Seal));
+                for (const lightningSeal of lightningSeals) {
+                    this.addAdditionalAncestralLegacySkillAtMaxRank(character, lightningSeal);
+                }
+            }
+    
+            // Cloak of the Light Zealot
+            if (legendaryEffects.find(legendaryEffect => legendaryEffect.id === 199)) {
+                const lightSeals = character.ancestralLegacies.ancestralLegacies
+                    .filter(ancestralLegacy => ancestralLegacy.element === SkillElement.Light && ancestralLegacy.types.includes(AncestralLegacyType.Seal));
+                for (const lightSeal of lightSeals) {
+                    this.addAdditionalAncestralLegacySkillAtMaxRank(character, lightSeal);
+                }
+            }
+    
+            // Cloak of the Shadow Zealot
+            if (legendaryEffects.find(legendaryEffect => legendaryEffect.id === 200)) {
+                const shadowSeals = character.ancestralLegacies.ancestralLegacies
+                    .filter(ancestralLegacy => ancestralLegacy.element === SkillElement.Shadow && ancestralLegacy.types.includes(AncestralLegacyType.Seal));
+                for (const shadowSeal of shadowSeals) {
+                    this.addAdditionalAncestralLegacySkillAtMaxRank(character, shadowSeal);
+                }
+            }
+        }
+
+        // Impartiality changes
+        const reverseBoosts = legendaryEffects.find(legendaryEffect => legendaryEffect.id === 149);
+        const elementalBoosts = character.ancestralLegacies.ancestralLegacies.filter(a => [96, 97, 100].includes(a.id));
+        const rawBoosts = character.ancestralLegacies.ancestralLegacies.filter(a => [98, 99].includes(a.id));
+        const firstElementalHasElemental = elementalBoosts[0]?.values[0]?.stat?.indexOf('elemental');
+        const needUpdate = firstElementalHasElemental !== undefined && (reverseBoosts
+            ? ( firstElementalHasElemental !== -1 )
+            : ( firstElementalHasElemental === -1 ))
+        
+        if (needUpdate) {
+            for (const elementalBoost of elementalBoosts) {
+                for (const value of elementalBoost.values) {
+                    let newStat =  value.percent
+                        ? (reverseBoosts ? 'basic_damage_percent' : 'elemental_damage_percent')
+                        : (reverseBoosts ? 'min_basic_damage_add' : 'min_elemental_damage_add');
+                    if (value.stat !== newStat) {
+                        value.stat = newStat
+                    }
+                }
+                this.slormancerAncestralLegacyService.updateAncestralLegacyModel(elementalBoost);
+                this.slormancerAncestralLegacyService.updateAncestralLegacyView(elementalBoost);
+            }
+
+            for (const rawBoost of rawBoosts) {
+                for (const value of rawBoost.values) {
+                    let newStat =  value.percent
+                        ? (reverseBoosts ? 'elemental_damage_percent' : 'basic_damage_percent')
+                        : (reverseBoosts ? 'min_elemental_damage_add' : 'min_basic_damage_add');
+                    value.stat = newStat;
+                }
+                this.slormancerAncestralLegacyService.updateAncestralLegacyModel(rawBoost);
+                this.slormancerAncestralLegacyService.updateAncestralLegacyView(rawBoost);
+            }
         }
     }
 

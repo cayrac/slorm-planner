@@ -78,6 +78,14 @@ export class SlormancerBinaryConfigurationService {
             result.push(...numberToBinary(config.completed_achievements, 7));
         }
 
+        if (character.reaper.id === 99) {
+            result.push(...numberToBinary(Math.min(620, config.reaper_owned), 10));
+        }
+
+        if (character.reaper.id === 114) {
+            result.push(...numberToBinary(config.victims_114_others, 25));
+        }
+
         return result;
     }
 
@@ -114,6 +122,14 @@ export class SlormancerBinaryConfigurationService {
 
         if (this.requireNumberOfAchievements(character, version)) {
             config.completed_achievements = binaryToNumber(takeBitsChunk(bits, 7));
+        }
+
+        if (character.reaper.id === 99) {
+            config.reaper_owned = binaryToNumber(takeBitsChunk(bits, 10));
+        }
+
+        if (character.reaper.id === 114) {
+            config.victims_114_others = binaryToNumber(takeBitsChunk(bits, 25));
         }
 
         return config;

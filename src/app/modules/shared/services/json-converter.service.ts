@@ -5,10 +5,12 @@ import {
     AncestralLegacy,
     Attribute,
     Character,
+    CharacterGear,
     CharacterSkillAndUpgrades,
     compareVersions,
     EquipableItem,
     EquipableItemBase,
+    getOlorinUltimatumBonusLevel,
     HeroClass,
     isNotNullOrUndefined,
     MAX_REAPER_AFFINITY_BASE,
@@ -25,7 +27,7 @@ import {
     SlormancerRuneService,
     SlormancerUltimatumService,
     Ultimatum,
-    valueOrDefault,
+    valueOrDefault
 } from '@slorm-api';
 
 import { Build } from '../model/build';
@@ -87,6 +89,7 @@ export class JsonConverterService {
             base: requireBase ? item.base : null,
             level: item.level,
             reinforcment: item.reinforcment,
+            grafts: item.grafts,
             affixes: item.affixes.map(aff => ({ rarity: this.rarityToNumber(aff.rarity), pure: aff.pure === 100 ? 0 : aff.pure, stat: valueOrDefault(this.REVERSE_STAT_MAPPING[aff.craftedEffect.effect.stat], 0), craftedValue: aff.craftedEffect.craftedValue })),
             legendaryEffect: item.legendaryEffect === null ? null : { craftedValue: item.legendaryEffect.value , id: item.legendaryEffect.id },
             reaperEnchantment: item.reaperEnchantment === null ? null : { craftedValue: item.reaperEnchantment.craftedValue, reaperSmith: item.reaperEnchantment.craftedReaperSmith },
@@ -153,7 +156,7 @@ export class JsonConverterService {
 
         if (ultimatum !== null) {
             result = {
-                level: ultimatum.level,
+                level: ultimatum.baseLevel,
                 type: ultimatum.type
             }
         }
@@ -342,7 +345,7 @@ export class JsonConverterService {
             let skillEnchantment = item.skillEnchantment === null ? null : this.slormancerItemService.getSkillEnchantment(item.skillEnchantment.skill, item.skillEnchantment.craftedValue);
             let attributeEnchantment = item.attributeEnchantment === null ? null : this.slormancerItemService.getAttributeEnchantment(item.attributeEnchantment.attribute, item.attributeEnchantment.craftedValue);
 
-            result = this.slormancerItemService.getEquipableItem(base, heroClass, item.level, affixes, item.reinforcment, legendaryEffect, reaperEnchantment, skillEnchantment, attributeEnchantment);
+            result = this.slormancerItemService.getEquipableItem(base, heroClass, item.level, affixes, item.reinforcment, item.grafts, legendaryEffect, reaperEnchantment, skillEnchantment, attributeEnchantment, 0);
         }
 
         return result;
@@ -362,6 +365,26 @@ export class JsonConverterService {
         if (compareVersions(character.version, '0.7.0') < 0) {
             character.reaper.mastery = 0;
         }
+        if (compareVersions(character.version, '0.7.0') <= 0) {
+            const items = [
+                character.gear.amulet,
+                character.gear.belt,
+                character.gear.body,
+                character.gear.boot,
+                character.gear.bracer,
+                character.gear.cape,
+                character.gear.glove,
+                character.gear.helm,
+                character.gear.ring_l,
+                character.gear.ring_r,
+                character.gear.shoulder,
+                ...(character.inventory === null ? [] : character.inventory),
+                ...(character.sharedInventory === null ? [] : character.sharedInventory.flat())
+            ].filter(isNotNullOrUndefined);
+            for (const item of items) {
+                item.grafts = 0;
+            }
+        }
     }
 
     public jsonToCharacter(character: JsonCharacter): Character {
@@ -379,9 +402,25 @@ export class JsonConverterService {
             0,
             character.reaper.mastery);
 
+        const gear: CharacterGear = {
+            helm: this.jsonToItem(character.gear.helm, character.heroClass, EquipableItemBase.Helm),
+            body: this.jsonToItem(character.gear.body, character.heroClass, EquipableItemBase.Body),
+            shoulder: this.jsonToItem(character.gear.shoulder, character.heroClass, EquipableItemBase.Shoulder),
+            bracer: this.jsonToItem(character.gear.bracer, character.heroClass, EquipableItemBase.Bracer),
+            glove: this.jsonToItem(character.gear.glove, character.heroClass, EquipableItemBase.Glove),
+            boot: this.jsonToItem(character.gear.boot, character.heroClass, EquipableItemBase.Boot),
+            ring_l: this.jsonToItem(character.gear.ring_l, character.heroClass, EquipableItemBase.Ring),
+            ring_r: this.jsonToItem(character.gear.ring_r, character.heroClass, EquipableItemBase.Ring),
+            amulet: this.jsonToItem(character.gear.amulet, character.heroClass, EquipableItemBase.Amulet),
+            belt: this.jsonToItem(character.gear.belt, character.heroClass, EquipableItemBase.Belt),
+            cape: this.jsonToItem(character.gear.cape, character.heroClass, EquipableItemBase.Cape),
+        }
+
+        const ultimatumBonusLevel = getOlorinUltimatumBonusLevel(gear);
+            
         const ultimatum = character.ultimatum === null
             ? null
-            : this.slormancerUltimatumService.getUltimatum(character.ultimatum.type, character.ultimatum.level);
+            : this.slormancerUltimatumService.getUltimatum(character.ultimatum.type, character.ultimatum.level, ultimatumBonusLevel);
 
         const ancestralRanks = this.slormancerDataService.getGameDataAncestralLegacyIds()
             .map((_, index) => character.ancestralLegacies.ancestralLegacies.find(a => a.id === index))
@@ -424,17 +463,17 @@ export class JsonConverterService {
             ancestralRanks,
             skillEquipped,
             skillRanks,
-            this.jsonToItem(character.gear.helm, character.heroClass, EquipableItemBase.Helm),
-            this.jsonToItem(character.gear.body, character.heroClass, EquipableItemBase.Body),
-            this.jsonToItem(character.gear.shoulder, character.heroClass, EquipableItemBase.Shoulder),
-            this.jsonToItem(character.gear.bracer, character.heroClass, EquipableItemBase.Bracer),
-            this.jsonToItem(character.gear.glove, character.heroClass, EquipableItemBase.Glove),
-            this.jsonToItem(character.gear.boot, character.heroClass, EquipableItemBase.Boot),
-            this.jsonToItem(character.gear.ring_l, character.heroClass, EquipableItemBase.Ring),
-            this.jsonToItem(character.gear.ring_r, character.heroClass, EquipableItemBase.Ring),
-            this.jsonToItem(character.gear.amulet, character.heroClass, EquipableItemBase.Amulet),
-            this.jsonToItem(character.gear.belt, character.heroClass, EquipableItemBase.Belt),
-            this.jsonToItem(character.gear.cape, character.heroClass, EquipableItemBase.Cape),
+            gear.helm,
+            gear.body,
+            gear.shoulder,
+            gear.bracer,
+            gear.glove,
+            gear.boot,
+            gear.ring_l,
+            gear.ring_r,
+            gear.amulet,
+            gear.belt,
+            gear.cape,
             character.inventory === null ? null : character.inventory.map(item => this.jsonToItem(item, character.heroClass, null)),
             character.sharedInventory === null ? null : character.sharedInventory.map(items => items.map(item => this.jsonToItem(item, character.heroClass, null))),
             character.attributes[Attribute.Toughness],

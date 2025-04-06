@@ -41,9 +41,13 @@ export class FormOptionsService {
         'tenacity_percent',
     ];
 
+    private STATS_LABELS: { [key in string]: string }= {};
+
     private STATS_OPTIONS_CACHE: { [key: string]: { P: Array<SelectOption<string>>, S: Array<SelectOption<string>>, E: Array<SelectOption<string>>, D: Array<SelectOption<string>> } } = {};
 
     private LEGENDARY_OPTIONS_CACHE: { [key: string]: GameHeroesData<Array<SelectOption<number>>> } = {};
+
+    private ALL_LEGENDARY_OPTIONS_CACHE: GameHeroesData<Array<SelectOption<number>>> = { 0: [], 1: [], 2: [] };
 
     private ALL_STATS_OPTIONS_CACHE: Array<SelectOption<string>> = [];
 
@@ -80,7 +84,7 @@ export class FormOptionsService {
         return this.ALL_REAPER_OPTIONS_CACHE[primordial ? 'p' : 'b'][heroClass];
     }
 
-    public getAllStatsoptions(): Array<SelectOption<string>> {
+    public getAllStatsOptions(): Array<SelectOption<string>> {
         return this.ALL_STATS_OPTIONS_CACHE;
     }
 
@@ -119,6 +123,10 @@ export class FormOptionsService {
         return result;
     }
 
+    public getAllLegendaryOptions(heroClass: HeroClass): Array<SelectOption<number>> {
+        return this.ALL_LEGENDARY_OPTIONS_CACHE[heroClass];
+    }
+
     public getReaperBuffOptions(): Array<SelectOption<number>> {
         return this.ALL_REAPER_BUFF_OPTIONS_CACHE;
     }
@@ -135,6 +143,10 @@ export class FormOptionsService {
         return this.ULTIMATUM_OPTIONS_CACHE;
     }
 
+    public getStatsLabels(): { [key in string]: string } {
+        return this.STATS_LABELS;
+    }
+
     private getBaseKey(base: EquipableItemBase): keyof GameDataStat {
         return <keyof GameDataStat>(base === EquipableItemBase.Body ? 'ARMOR' : base.toUpperCase());
     }
@@ -149,14 +161,18 @@ export class FormOptionsService {
     private initStatOptionsCache() {
         const stats = this.slormancerDataService.getGameDataStats().filter(stat => stat.PERCENT !== 'X');
 
+        /*
+         * P : normal / magic / rare
+         * S : magic / rare / epic
+         */
+
         this.STATS_OPTIONS_CACHE = {};
         this.ALL_STATS_OPTIONS_CACHE = [];
 
         for (const stat of stats) {
-            const option: SelectOption<string> = {
-                label: this.slormancerTranslateService.translate(stat.REF) + (stat.PERCENT === '%' ? ' (%)' : ''),
-                value: stat.REF
-            }
+            const label = this.slormancerTranslateService.translate(stat.REF) + (stat.PERCENT === '%' ? ' (%)' : '');
+            const option: SelectOption<string> = { label, value: stat.REF };
+            this.STATS_LABELS[stat.REF] = label;
 
             this.ALL_STATS_OPTIONS_CACHE.push(option);
 
@@ -180,7 +196,6 @@ export class FormOptionsService {
                     if (rarity === 'P') {
                         statBase.P.push(option);
                         statBase.S.push(option);
-                        statBase.E.push(option);
 
                         if (this.DEFENSIVE_STATS.includes(stat.REF)) {
                             statBase.D.push(option);
@@ -229,12 +244,16 @@ export class FormOptionsService {
                 this.LEGENDARY_OPTIONS_CACHE[legendary.ITEM] = data;
             }
 
-            if (legendary.HERO === -1 || legendary.HERO === 99) {
+            if (legendary.HERO === -1 || legendary.HERO === 99 || legendary.HERO === 999) {
                 data[0].push(option);
+                this.ALL_LEGENDARY_OPTIONS_CACHE[0].push(option);
                 data[1].push(option);
+                this.ALL_LEGENDARY_OPTIONS_CACHE[1].push(option);
                 data[2].push(option);
+                this.ALL_LEGENDARY_OPTIONS_CACHE[2].push(option);
             } else {
                 data[legendary.HERO].push(option);
+                this.ALL_LEGENDARY_OPTIONS_CACHE[legendary.HERO].push(option);
             }
         }
     }

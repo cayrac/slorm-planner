@@ -1,5 +1,5 @@
 
-<div class="rune" [class.selected]="selected" [class.hidden-search]="hiddenBySearch">
+<div class="rune" [class.selected]="selected" [class.hidden-search]="hiddenBySearch" (click)="showModalTooltip($event, rune)">
     <div class="overlay-position" cdkOverlayOrigin #trigger="cdkOverlayOrigin"></div>
     <div class="inner-slot"></div>
     <ng-container *ngIf="rune !== null">

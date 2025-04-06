@@ -12,14 +12,14 @@ import { GameDataStat } from '../../model/content/game/data/game-data-stat';
 import { LegendaryEffect } from '../../model/content/legendary-effect';
 import { ReaperEnchantment } from '../../model/content/reaper-enchantment';
 import { SkillEnchantment } from '../../model/content/skill-enchantment';
+import { BinaryParseReport } from '../../model/export/binary-parse-report';
 import { Bits } from '../../model/export/bits';
+import { compareVersions } from '../../util';
 import { binaryToBoolean, binaryToNumber, booleanToBinary, numberToBinary, takeBitsChunk } from '../../util/bits.util';
 import { SlormancerAffixService } from '../content/slormancer-affix.service';
 import { SlormancerDataService } from '../content/slormancer-data.service';
 import { SlormancerItemService } from '../content/slormancer-item.service';
 import { SlormancerLegendaryEffectService } from '../content/slormancer-legendary-effect.service';
-import { compareVersions } from '../../util';
-import { BinaryParseReport } from '../../model/export/binary-parse-report';
 
 @Injectable()
 export class SlormancerBinaryItemService {
@@ -72,6 +72,9 @@ export class SlormancerBinaryItemService {
 
         result.push(...numberToBinary(item.level, 7));
         result.push(...numberToBinary(item.reinforcment, 8));
+        if (item.level > 100) {
+            result.push(...numberToBinary(item.grafts, 4));
+        }
 
         result.push(...numberToBinary(item.affixes.length, 4));
 
@@ -101,6 +104,7 @@ export class SlormancerBinaryItemService {
     public binaryToItem(binary: Bits, base: EquipableItemBase, heroClass: HeroClass, version: string, report: BinaryParseReport): EquipableItem {
         
         const has6BitsLevel = compareVersions(version, '0.4.1') < 0;
+        const hasGrafts = compareVersions(version, '0.7.0') > 0;
         let level = binaryToNumber(takeBitsChunk(binary, has6BitsLevel ? 6 : 7));
 
         if (has6BitsLevel && level <= 16) {
@@ -109,6 +113,10 @@ export class SlormancerBinaryItemService {
         }
 
         const reinforcment = binaryToNumber(takeBitsChunk(binary, 8));
+        let grafts = 0;
+        if (hasGrafts && level > 100) {
+            grafts = binaryToNumber(takeBitsChunk(binary, 4));
+        }
 
         const affixCount = binaryToNumber(takeBitsChunk(binary, 4));
         const affixes: Array<Affix> = [];
@@ -144,6 +152,6 @@ export class SlormancerBinaryItemService {
             legendary = this.slormancerLegendaryEffectService.getLegendaryEffectById(legendaryId - 1, legendaryValue, reinforcment, heroClass);
         }
 
-        return this.slormancerItemService.getEquipableItem(base, heroClass, level, affixes, reinforcment, legendary, reaper, skill, attribute);
+        return this.slormancerItemService.getEquipableItem(base, heroClass, level, affixes, reinforcment, grafts, legendary, reaper, skill, attribute, 0);
     }
 }

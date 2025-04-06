@@ -22,6 +22,13 @@ export class SlormToolsComponent {
             name: 'Slorm reapers',
             info: 'A list of all available slorm reapers (beware of spoilers)',
             action: 'Load Slorm Reapers'
+        },
+        { 
+            link: '/slorm-legendary',
+            icon: 'assets/img/icon/item/ring/adventure.png',
+            name: 'Slorm legendaries',
+            info: 'A list of all available slorm legendaries (beware of spoilers)',
+            action: 'Load Slorm Legendaries'
         }
     ];
 

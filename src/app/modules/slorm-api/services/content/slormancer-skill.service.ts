@@ -40,11 +40,11 @@ import { SlormancerTranslateService } from './slormancer-translate.service';
 @Injectable()
 export class SlormancerSkillService {
 
-    private readonly RANK_LABEL = this.slormancerTranslateService.translate('tt_rank');
-    private readonly MASTERY_LABEL = this.slormancerTranslateService.translate('tt_mastery');
-    private readonly COST_LABEL = this.slormancerTranslateService.translate('tt_cost');
-    private readonly COOLDOWN_LABEL = this.slormancerTranslateService.translate('tt_cooldown');
-    private readonly SECONDS_LABEL = this.slormancerTranslateService.translate('tt_seconds');
+    private readonly RANK_LABEL: string;
+    private readonly MASTERY_LABEL: string;
+    private readonly COST_LABEL: string;
+    private readonly COOLDOWN_LABEL: string;
+    private readonly SECONDS_LABEL: string;
 
     constructor(private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerTranslateService: SlormancerTranslateService,
@@ -53,6 +53,11 @@ export class SlormancerSkillService {
                 private slormancerDataService: SlormancerDataService,
                 private slormancerBuffService: SlormancerBuffService,
                 private slormancerEffectValueService: SlormancerEffectValueService) {
+        this.RANK_LABEL = this.slormancerTranslateService.translate('tt_rank');
+        this.MASTERY_LABEL = this.slormancerTranslateService.translate('tt_mastery');
+        this.COST_LABEL = this.slormancerTranslateService.translate('tt_cost');
+        this.COOLDOWN_LABEL = this.slormancerTranslateService.translate('tt_cooldown');
+        this.SECONDS_LABEL = this.slormancerTranslateService.translate('tt_seconds');
     }
 
     public getSkillLevelFromXp(heroClass: HeroClass, skill: number, experience: number): number {

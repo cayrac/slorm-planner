@@ -1,5 +1,5 @@
 
-<div class="item"
+<div class="item" (click)="showModalTooltip($event, item)"
     [class.readonly]="readonly"
     [class.forced-base-compatible]="isItemCompatible && base !== null"
     [class.drop-compatible]="!isDraggedItem && isMouseOver && isDragging && isItemCompatible"

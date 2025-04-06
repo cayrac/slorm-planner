@@ -3,6 +3,8 @@ import { Bit, Bits } from '../model/export/bits';
 export function numberToBinary(value: number, maxBits: number): Bits  {
     let result: Bits = [];
 
+    value = Math.min(Math.pow(2, maxBits), value);
+
     for (let i = 0 ; i < maxBits ; i++) {
         result.push(<Bit>(value % 2))
         value = Math.floor(value / 2);

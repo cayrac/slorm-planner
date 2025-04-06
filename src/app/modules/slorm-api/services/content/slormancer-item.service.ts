@@ -23,7 +23,7 @@ import {
     firstValue,
     isNotNullOrUndefined,
     lastValue,
-    valueOrDefault,
+    valueOrDefault
 } from '../../util/utils';
 import { SlormancerAffixService } from './slormancer-affix.service';
 import { SlormancerDataService } from './slormancer-data.service';
@@ -35,9 +35,10 @@ import { SlormancerTranslateService } from './slormancer-translate.service';
 @Injectable()
 export class SlormancerItemService {
 
-    private readonly REAPER_ENCHANTMENT_LABEL = this.slormancerTranslateService.translate('tt_RP_roll_item');
-    private readonly SKILL_ENCHANTMENT_LABEL = this.slormancerTranslateService.translate('tt_MA_roll_item');
-    private readonly RARE_PREFIX = this.slormancerTranslateService.translate('RAR_loot_epic');
+    private readonly REAPER_ENCHANTMENT_LABEL: string;
+    private readonly SKILL_ENCHANTMENT_LABEL: string;
+    private readonly RARE_PREFIX: string;
+    private readonly GRAFTS_LABEL: string;
 
     private readonly AFFIX_ORDER = ['life', 'mana', 'ret', 'cdr', 'crit', 'minion', 'atk_phy', 'atk_mag', 'def_dodge', 'def_mag', 'def_phy', 'adventure'];
 
@@ -48,7 +49,13 @@ export class SlormancerItemService {
                 private slormancerItemValueService : SlormancerItemValueService,
                 private slormancerLegendaryEffectService: SlormancerLegendaryEffectService,
                 private slormancerItemAffixService: SlormancerAffixService,
-                private slormancerDataService: SlormancerDataService) { }
+                private slormancerDataService: SlormancerDataService
+    ) {
+        this.REAPER_ENCHANTMENT_LABEL = this.slormancerTranslateService.translate('tt_RP_roll_item');
+        this.SKILL_ENCHANTMENT_LABEL = this.slormancerTranslateService.translate('tt_MA_roll_item');
+        this.RARE_PREFIX = this.slormancerTranslateService.translate('RAR_loot_epic');
+        this.GRAFTS_LABEL = this.slormancerTranslateService.translate('nether_grafts');
+    }
 
     public getEquipableItemBase(item: GameEquippableItem): EquipableItemBase {
         let slot: EquipableItemBase = EquipableItemBase.Helm;
@@ -136,7 +143,9 @@ export class SlormancerItemService {
         const rarities = item.affixes.map(affix => affix.rarity);
         let rarity = Rarity.Normal;
 
-        if (item.legendaryEffect !== null) {
+        if (item.level > 100) {
+            rarity = Rarity.Neither;
+        } else if (item.legendaryEffect !== null) {
             rarity = Rarity.Legendary;
         } else if (rarities.indexOf(Rarity.Epic) !== -1) {
             rarity = Rarity.Epic;
@@ -228,10 +237,12 @@ export class SlormancerItemService {
                             level: number,
                             affixes: Array<Affix>,
                             reinforcment: number = 0,
+                            grafts: number = 0,
                             legendaryEffect: LegendaryEffect | null,
                             reaperEnchantment: ReaperEnchantment | null,
                             skillEnchantment: SkillEnchantment | null,
-                            attributeEnchantment : AttributeEnchantment | null): EquippableItem {
+                            attributeEnchantment : AttributeEnchantment | null,
+                            defensivestatsMultiplier: number): EquippableItem {
         
         if (legendaryEffect !== null) {
             legendaryEffect.reinforcment = reinforcment;
@@ -243,6 +254,7 @@ export class SlormancerItemService {
             legendaryEffect,
             level,
             reinforcment,
+            grafts,
             reaperEnchantment,
             skillEnchantment,
             attributeEnchantment,
@@ -252,18 +264,19 @@ export class SlormancerItemService {
             name: '',
             baseLabel: '',
             rarityLabel: '',
+            graftLabel: null,
             levelLabel: '',
             icon: '',
             itemIconBackground: ''
         };
 
-        this.updateEquipableItemModel(result);
-        this.updateEquipableItemView(result);
+        this.updateEquipableItemModel(result, defensivestatsMultiplier);
+        this.updateEquipableItemView(result, defensivestatsMultiplier);
 
         return result;
     }
 
-    public getEmptyEquipableItem(base: EquipableItemBase, heroClass: HeroClass, level: number): EquippableItem {
+    public getEmptyEquipableItem(base: EquipableItemBase, heroClass: HeroClass, level: number, defensivestatsMultiplier: number): EquippableItem {
         const numberBasicstats = this.slormancerDataService.getBaseMaxBasicStat(base);
         const baseKey = <keyof GameDataStat>(base === EquipableItemBase.Body ? 'ARMOR' : base.toUpperCase());
         const affixes = this.slormancerDataService.getGameDataStats()
@@ -278,6 +291,7 @@ export class SlormancerItemService {
             legendaryEffect: null,
             level,
             reinforcment: 0,
+            grafts: 0,
             reaperEnchantment: null,
             skillEnchantment: null,
             attributeEnchantment: null,
@@ -288,17 +302,18 @@ export class SlormancerItemService {
             baseLabel: '',
             rarityLabel: '',
             levelLabel: '',
+            graftLabel: null,
             icon: '',
             itemIconBackground: ''
         };
 
-        this.updateEquipableItemModel(result);
-        this.updateEquipableItemView(result);
+        this.updateEquipableItemModel(result, defensivestatsMultiplier);
+        this.updateEquipableItemView(result, defensivestatsMultiplier);
 
         return result;
     }
 
-    public getEquipableItemFromGame(item: GameEquippableItem, heroClass: HeroClass): EquippableItem {
+    public getEquipableItemFromGame(item: GameEquippableItem, heroClass: HeroClass, defensivestatsMultiplier: number): EquippableItem {
         const base = this.getEquipableItemBase(item);
         const affixes = item.affixes
             .filter(affix => affix.rarity !== 'L')
@@ -315,6 +330,7 @@ export class SlormancerItemService {
             legendaryEffect: legendaryAffix === undefined ? null : this.slormancerLegendaryEffectService.getLegendaryEffect(legendaryAffix, item.reinforcment, heroClass),
             level: item.level,
             reinforcment: item.reinforcment,
+            grafts: item.grafts,
             reaperEnchantment: reaperEnchantment ? this.getReaperEnchantmentByGameEnchantment(reaperEnchantment) : null,
             skillEnchantment: skillEnchantment ? this.getSkillEnchantmentByGameEnchantment(skillEnchantment) : null,
             attributeEnchantment: attributeEnchantment ? this.getAttributeEnchantmentByGameEnchantment(attributeEnchantment) : null,
@@ -325,24 +341,27 @@ export class SlormancerItemService {
             baseLabel: '',
             rarityLabel: '',
             levelLabel: '',
+            graftLabel: null,
             icon: '',
             itemIconBackground: ''
         };
 
-        this.updateEquipableItemModel(result);
-        this.updateEquipableItemView(result);
+        this.updateEquipableItemModel(result, defensivestatsMultiplier);
+        this.updateEquipableItemView(result, defensivestatsMultiplier);
 
         return result;
     }
 
-    public updateEquipableItemModel(item: EquipableItem) {
+    public updateEquipableItemModel(item: EquipableItem, defensivestatsMultiplier: number) {
         item.rarity = this.getItemRarity(item);
+
+        defensivestatsMultiplier = item.base === EquipableItemBase.Ring ? defensivestatsMultiplier : 0;
 
         for (const affix of item.affixes) {
             affix.itemLevel = item.level;
             affix.reinforcment = item.reinforcment;
 
-            this.slormancerItemAffixService.updateAffix(affix);
+            this.slormancerItemAffixService.updateAffix(affix, affix.rarity === Rarity.Defensive ? defensivestatsMultiplier : 0);
         }
 
         if (item.legendaryEffect !== null) {
@@ -366,7 +385,7 @@ export class SlormancerItemService {
         }
     }
 
-    public updateEquipableItemView(item: EquipableItem) {
+    public updateEquipableItemView(item: EquipableItem, defensivestatsMultiplier: number) {
         item.name = this.getItemName(item);
         item.baseLabel =  this.slormancerTranslateService.removeGenre(this.slormancerTranslateService.translate('PIECE_' + item.base));
         item.rarityLabel = this.slormancerTranslateService.translate('RAR_loot_' + item.rarity);
@@ -374,13 +393,20 @@ export class SlormancerItemService {
         item.levelLabel = this.slormancerTranslateService.translate('lvl') + '. ' + item.level;
         item.itemIconBackground = 'assets/img/background/bg-' + item.rarity + '.png';
 
+        defensivestatsMultiplier = item.base === EquipableItemBase.Ring ? defensivestatsMultiplier : 0;
+
         for (const affix of item.affixes) {
-            this.slormancerItemAffixService.updateAffix(affix);
+            this.slormancerItemAffixService.updateAffix(affix, affix.rarity === Rarity.Defensive ? defensivestatsMultiplier : 0);
         }
         item.affixes.sort((a, b) => {
             const rarity = compareRarities(a.rarity, b.rarity);
             return rarity === 0 ? compareString(a.statLabel, b.statLabel) : rarity;
-        });;
+        });
+
+        item.graftLabel = null;
+        if (item.rarity === Rarity.Neither) {
+            item.graftLabel = this.GRAFTS_LABEL + ' : ' + item.grafts;
+        }
 
         if (item.legendaryEffect !== null) {
             this.slormancerLegendaryEffectService.updateLegendaryEffectView(item.legendaryEffect);
@@ -425,5 +451,16 @@ export class SlormancerItemService {
             attributeEnchantment: item.attributeEnchantment === null ? null : { ...item.attributeEnchantment },
             legendaryEffect: item.legendaryEffect === null ? null : this.slormancerLegendaryEffectService.getLegendaryEffectClone(item.legendaryEffect)
         };
+    }
+
+    public getDefensiveStatMultiplier(legendaryEffects: LegendaryEffect[]): number {
+        let result = 0;
+
+        const defendersTwin = legendaryEffects.find(legendaryEffect => legendaryEffect.id === 151);
+        if (defendersTwin) {
+            result = defendersTwin.effects[0]?.effect.displayValue as number;
+        }
+        
+        return result;
     }
 }

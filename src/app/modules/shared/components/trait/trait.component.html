@@ -8,6 +8,7 @@
     [class.bonus]="bonus"
     [class.highlight]="highlight"
     [class.hidden-by-search]="isHiddenBySearch"
+    (click)="showModalTooltip($event, trait)"
     cdkOverlayOrigin
     #trigger="cdkOverlayOrigin">
     <div class="additive" *ngIf="trait.additive"></div>

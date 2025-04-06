@@ -1,0 +1,54 @@
+<div class="content">
+    <mat-card class="header">
+        <mat-card-content>
+            <form [formGroup]="form">
+                <div class="options">
+                    <div class="classes">
+                        <div class="head" *ngFor="let heroClass of HERO_CLASSES" [class.selected]="isSelectedClass(heroClass)" (click)="toggleClass(heroClass)">
+                            <img src="assets/img/character/icon/{{heroClass}}/head.png" />
+                        </div>
+                    </div>
+                    <div class="bases">
+                        <mat-form-field appearance="outline" color="primary" class="no-error-padding">
+                            <mat-label>Item bases</mat-label>
+                            <mat-select formControlName="bases" multiple>
+                                <mat-option *ngFor="let option of baseOptions" [value]="option.value">{{option.label}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="flags">
+                        <mat-checkbox color="primary" formControlName="maxReinforcment">Max. reinforcment</mat-checkbox>
+                    </div>
+                </div>
+                <div class="search">
+                    <mat-form-field appearance="outline" color="primary" class="no-error-padding">
+                        <mat-label>Search</mat-label>
+                        <input matInput type="text" formControlName="search" autocomplete="off"/>
+                        <mat-icon matSuffix *ngIf="hasSearch()" (click)="removeSearch()">close</mat-icon>
+                    </mat-form-field>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+    
+    <mat-card class="legendaries">
+        <mat-card-content>
+            <div class="legendary" *ngFor="let item of filteredLegendaries" (click)="debug(item)">
+                <div class="legendary-container">
+                    <div class="actions">
+                        <div class="hero-class">
+                            <ng-container *ngIf="item.legendaryEffect !== null && item.legendaryEffect.classSpecific !== null">
+                                <img src="assets/img/character/icon/{{item.legendaryEffect.classSpecific}}/head.png"
+                                    [matTooltip]="classSpecificLabels[item.legendaryEffect.classSpecific]"/>
+                            </ng-container>
+                        </div> 
+                        <mat-icon class="button hidden" *ngIf="isCopyable()" (click)="copy(legendaryDom)" matTooltip="Copy legendary as image to clipboard">photo</mat-icon>
+                    </div>
+                    <div class="legendary-window" #legendaryDom>
+                        <app-item-view [item]="item"></app-item-view>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

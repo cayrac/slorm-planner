@@ -24,6 +24,7 @@ import {
 import { SlormancerActivableService } from './slormancer-activable.service';
 import { SlormancerDataService } from './slormancer-data.service';
 import { SlormancerItemValueService } from './slormancer-item-value.service';
+import { SlormancerReaperService } from './slormancer-reaper.service';
 import { SlormancerTemplateService } from './slormancer-template.service';
 import { SlormancerTranslateService } from './slormancer-translate.service';
 
@@ -31,14 +32,17 @@ import { SlormancerTranslateService } from './slormancer-translate.service';
 @Injectable()
 export class SlormancerLegendaryEffectService {
 
-    private readonly LEGENDARY_TITLE = this.slormancerTranslateService.translate('tt_l_roll');
+    private readonly LEGENDARY_TITLE: string;
 
     constructor(private slormancerDataService: SlormancerDataService,
                 private slormanderActivableService: SlormancerActivableService,
                 private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerTranslateService: SlormancerTranslateService,
-                private slormancerItemValueService: SlormancerItemValueService
-                ) { }
+                private slormancerItemValueService: SlormancerItemValueService,
+                private slormancerReaperService: SlormancerReaperService
+    ) {
+        this.LEGENDARY_TITLE = this.slormancerTranslateService.translate('tt_l_roll');
+    }
 
     public parseLegendaryEffectValue(type: string | null, score: number, upgrade: number, range: boolean, stat: string | null, craftedValue: number): CraftableEffect {
         let effect: AbstractEffectValue;
@@ -96,7 +100,6 @@ export class SlormancerLegendaryEffectService {
     private getIcon(hero: number, skill: string): string | null {
         let icon: string | null = null;
 
-        
         if (hero !== -1) {
             let skillValue: number | null = null;
 
@@ -124,10 +127,19 @@ export class SlormancerLegendaryEffectService {
 
         if (gameData !== null) {
             const base = this.slormancerDataService.getBaseFromLegendaryId(gameData.REF);
+
+            let reaperName: string | null = null;
+            if (gameData.HERO === 999) {
+                const reaper = this.slormancerDataService.getGameDataReaper(parseInt(gameData.SKILL));
+                if (reaper !== null) {
+                    reaperName = this.slormancerReaperService.getReaperName(reaper.EN_NAME, false, heroClass);
+                }
+            }
             
             legendaryEffect = {
                 id: gameData.REF,
                 name: gameData.EN_NAME,
+                classSpecific: [0, 1, 2].includes(gameData.HERO) ? gameData.HERO as HeroClass : null,
                 reinforcment,
                 itemIcon: 'assets/img/icon/item/' + gameData.ITEM + '/' + base + '.png',
                 value,
@@ -135,7 +147,7 @@ export class SlormancerLegendaryEffectService {
                 onlyStat: gameData.STAT_ONLY === true,
                 skillIcon: this.getIcon(gameData.HERO, gameData.SKILL),
                 effects: this.getEffectValues(gameData, value),
-                
+                reaperName,
                 title: this.LEGENDARY_TITLE,
                 description: '',
                 template: this.slormancerTemplateService.getLegendaryDescriptionTemplate(gameData),
@@ -159,12 +171,19 @@ export class SlormancerLegendaryEffectService {
             if (isEffectValueVariable(craftedEffect.effect) || isEffectValueSynergy(craftedEffect.effect)) {
                 craftedEffect.craftedValue = Math.min(craftedEffect.maxPossibleCraftedValue, Math.max(craftedEffect.minPossibleCraftedValue, legendaryEffect.value));
                 const upgrade = 100 * craftedEffect.effect.upgrade * Math.min(MAX_REINFORCMENT_UPGRADE, legendaryEffect.reinforcment) / 100;
-                craftedEffect.possibleCraftedValues = this.slormancerItemValueService.computeEffectRange(
-                    craftedEffect.score,
-                    craftedEffect.minPossibleCraftedValue,
-                    craftedEffect.maxPossibleCraftedValue,
-                    upgrade);
                 
+                if (craftedEffect.effect.upgrade === 0 && craftedEffect.minPossibleCraftedValue === 100 && craftedEffect.maxPossibleCraftedValue === 100) {
+                    craftedEffect.possibleCraftedValues = [
+                        { craft: 100, value: craftedEffect.score }
+                    ];
+                } else {
+                    craftedEffect.possibleCraftedValues = this.slormancerItemValueService.computeEffectRange(
+                        craftedEffect.score,
+                        craftedEffect.minPossibleCraftedValue,
+                        craftedEffect.maxPossibleCraftedValue,
+                        upgrade);
+                }
+
                 craftedEffect.effect.value = getCraftValue(craftedEffect, craftedEffect.craftedValue);
                 craftedEffect.effect.displayValue = craftedEffect.effect.value;
             }

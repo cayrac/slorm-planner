@@ -63,7 +63,11 @@ export class SlormancerDataService {
     }
 
     public getGameDataAvailableReaper(): Array<GameDataReaper> {
-        return GAME_DATA.REAPER.filter(stat => stat.EN_NAME !== '' && ![99, 114].includes(stat.REF));
+        return GAME_DATA.REAPER.filter(stat => stat.EN_NAME !== '');
+    }
+
+    public getGameDataAvailableLegendaries(): Array<GameDataLegendary> {
+        return GAME_DATA.LEGENDARY;
     }
 
     public getGameDataReaper(id: number): GameDataReaper | null {
@@ -164,6 +168,14 @@ export class SlormancerDataService {
             .find(ancestralLegacy => ancestralLegacy.REALM === realm));
 
         return gameData === null ? 0 : gameData.REALM_COLOR;
+    }
+    
+    public getAncestralRealmColors(realms: number[]): number[] {
+        const colors = GAME_DATA.ANCESTRAL_LEGACY
+            .filter(ancestralLegacy => realms.includes(ancestralLegacy.REALM))
+            .map(realm => realm.REALM_COLOR);
+
+        return colors;
     }
 
     public getAncestralLegacies(): GameDataAncestralLegacy[] {

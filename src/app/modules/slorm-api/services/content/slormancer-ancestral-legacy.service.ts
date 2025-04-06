@@ -37,10 +37,10 @@ import { SlormancerTranslateService } from './slormancer-translate.service';
 export class SlormancerAncestralLegacyService {
 
     private readonly ACTIVE_PREFIX = 'active_skill_add';
-    private readonly COST_LABEL = this.slormancerTranslateService.translate('tt_cost');
-    private readonly COOLDOWN_LABEL = this.slormancerTranslateService.translate('tt_cooldown');
-    private readonly SECONDS_LABEL = this.slormancerTranslateService.translate('tt_seconds');
-    private readonly RANK_LABEL = this.slormancerTranslateService.translate('tt_rank');
+    private readonly COST_LABEL: string;
+    private readonly COOLDOWN_LABEL: string;
+    private readonly SECONDS_LABEL: string;
+    private readonly RANK_LABEL: string;
     private readonly TIER_ID: { [key: number]: number[] } = {
         1: [15, 24, 32, 53, 80, 96, 101, 126, 127, 148],
         2: [0, 16, 57, 81, 94, 102, 125, 128, 129, 143],
@@ -59,7 +59,13 @@ export class SlormancerAncestralLegacyService {
                 private slormancerEffectValueService: SlormancerEffectValueService,
                 private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerTemplateService: SlormancerTemplateService,
-                private slormancerMechanicService: SlormancerMechanicService) { }
+                private slormancerMechanicService: SlormancerMechanicService
+    ) {
+        this.COST_LABEL = this.slormancerTranslateService.translate('tt_cost');
+        this.COOLDOWN_LABEL = this.slormancerTranslateService.translate('tt_cooldown');
+        this.SECONDS_LABEL = this.slormancerTranslateService.translate('tt_seconds');
+        this.RANK_LABEL = this.slormancerTranslateService.translate('tt_rank');
+    }
            
     private isActivable(types: Array<AncestralLegacyType>): boolean {
         return types.indexOf(AncestralLegacyType.Active) !== -1;
@@ -133,10 +139,12 @@ export class SlormancerAncestralLegacyService {
         return result;
     }
 
-    private extractBuffs(template: string): Array<Buff> {
-        return valueOrDefault<string[]>(template.match(/<(.*?)>/g), [])
+    private extractBuffs(template: string, additional: string[]): Array<Buff> {
+        const extractedBuffs = valueOrDefault<string[]>(template.match(/<(.*?)>/g), [])
             .map(m => this.slormancerDataService.getDataSkillBuff(m))
             .filter(isNotNullOrUndefined)
+
+        return [ ...extractedBuffs, ...additional ]
             .filter(isFirst)
             .map(ref => this.slormancerBuffService.getBuff(ref))
             .filter(isNotNullOrUndefined);
@@ -217,7 +225,7 @@ export class SlormancerAncestralLegacyService {
                 investedSlorm: 0,
                 totalSlormCost: 0,
 
-                relatedBuffs: this.extractBuffs(gameData.EN_DESCRIPTION),
+                relatedBuffs: this.extractBuffs(gameData.EN_DESCRIPTION, data !== null && data.additionalBuffs ? data.additionalBuffs : []),
                 relatedMechanics: this.extractMechanics(gameData.EN_DESCRIPTION, values, data !== null && data.additionalMechanics ? data.additionalMechanics : []),
 
                 typeLabel: '',
@@ -231,7 +239,7 @@ export class SlormancerAncestralLegacyService {
             }
 
             if (data !== null && data.override) {
-                data.override(ancestralLegacy.values);
+                data.override(ancestralLegacy.values, ancestralLegacy);
             }
 
             this.updateAncestralLegacyModel(ancestralLegacy, baseRank, bonusRank);

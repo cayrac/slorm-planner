@@ -7,7 +7,7 @@ import {
     MANA_COST_MAPPING,
     MergedStatMapping,
 } from '../../constants/content/data/data-character-stats-mapping';
-import { LegendaryEffect, Skill } from '../../model';
+import { ALL_REAPER_SMITH, LegendaryEffect, Skill } from '../../model';
 import { Character, CharacterSkillAndUpgrades } from '../../model/character';
 import { CharacterConfig } from '../../model/character-config';
 import { Activable } from '../../model/content/activable';
@@ -31,6 +31,7 @@ import { EntityValue } from '../../model/entity-value';
 import { MinMax } from '../../model/minmax';
 import { add, bankerRound, mult, round } from '../../util/math.util';
 import {
+    getAllLegendaryEffects,
     isDamageType,
     isEffectValueConstant,
     isEffectValueSynergy,
@@ -53,6 +54,7 @@ interface SkillStats {
     life: MergedStat<number>;
     cooldownReduction: MergedStat<number>;
     increasedDamage: MergedStat<number>;
+    indirectIncreasedDamage: MergedStat<number>;
     skillIncreasedDamage: MergedStat<number>;
     skillIncreasedAoe: MergedStat<number>;
     dotIncreasedDamage: MergedStat<number>;
@@ -110,9 +112,13 @@ export class SlormancerValueUpdaterService {
         return valid;
     }
 
-    private getValidDamageMultipliers(genres: Array<SkillGenre>, skillStats: SkillStats, stats: SkillStatsBuildResult, stat: string, isSkill: boolean, element: SkillElement = SkillElement.Neutral): Array<number> {
+    private getValidDamageMultipliers(genres: Array<SkillGenre>, skillStats: SkillStats, stats: SkillStatsBuildResult, stat: string, isSkill: boolean, element: SkillElement = SkillElement.Neutral, isDirectDamage: boolean = false): Array<number> {
         const multipliers: Array<number> = [];
         const isBleeding = stat === 'bleed_damage';
+
+        if (!isDirectDamage) {
+            multipliers.push(...skillStats.indirectIncreasedDamage.values.multiplier.map(entity => entity.value))
+        }
 
         multipliers.push(skillStats.increasedDamage.values.percent.reduce((t, v) => t + v.value, 0));
         multipliers.push(...skillStats.increasedDamage.values.multiplier
@@ -220,6 +226,7 @@ export class SlormancerValueUpdaterService {
             skillIncreasedDamage: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'skill_increased_damages'),
             skillIncreasedAoe: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'skill_aoe_increased_size'),
             dotIncreasedDamage: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'dot_increased_damage'),
+            indirectIncreasedDamage: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'indirect_increased_damage'),
             increasedDamage: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'increased_damages'),
             totemIncreasedEffect: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'totem_increased_effect'),
             auraIncreasedEffect: <MergedStat<number>>this.getStatValueOrDefault(stats.stats, 'aura_increased_effect'),
@@ -311,6 +318,7 @@ export class SlormancerValueUpdaterService {
             if (isEffectValueSynergy(value) && isDamageType(value.stat)) {
                 
                 const additionalDamageMultipliers: number[] = [];
+                let addedFlatDamage: number | MinMax = 0;
 
                 if (mechanic.type === MechanicType.Burn) {
 
@@ -338,9 +346,22 @@ export class SlormancerValueUpdaterService {
                     if (blormIncreasedDamage) {
                         additionalDamageMultipliers.push((<EntityValue<number>>blormIncreasedDamage[0]).value);
                     }
+                    // il faudrait gérer la synergie si d'autres blorm_increased_damage se rajoutent
+                    const leg = getAllLegendaryEffects(character.gear).find(legendaryEffect => legendaryEffect.id === 201);
+                    if (leg) {
+                        const value = (leg.effects[0]?.effect as EffectValueSynergy).synergy as number;
+                        additionalDamageMultipliers.push(value);
+                    }
                 }
 
-                this.updateDamage(value, mechanic.genres, skillStats, statsResult, mechanic.element, false, additionalDamageMultipliers);
+                if (mechanic.type === MechanicType.Dart) {
+                    const flashingDartAdditionalDamage = <MergedStat>this.getStatValueOrDefault(statsResult.stats, 'flashing_dart_additional_damage')
+                    if (flashingDartAdditionalDamage) {
+                        addedFlatDamage = add(addedFlatDamage, flashingDartAdditionalDamage.total);
+                    }
+                }
+
+                this.updateDamage(value, mechanic.genres, skillStats, statsResult, mechanic.element, false, additionalDamageMultipliers, addedFlatDamage);
             }
         }
     }
@@ -353,6 +374,23 @@ export class SlormancerValueUpdaterService {
         ];
 
         const dotIncreasedDamage = <MergedStat<number>>this.getStatValueOrDefault(statsResult.stats, 'dot_increased_damage')
+
+        if (reaper.id === 53 && statsResult.extractedStats['fate_crusher_reapersmith_all']) {
+            const reapersmithAll = statsResult.extractedStats['fate_crusher_reapersmith_all'][0];
+            if (reapersmithAll) {
+                for (const reapersmith of ALL_REAPER_SMITH) {
+                    const smithStat = 'reapersmith_' + reapersmith;
+
+                    let stat = statsResult.extractedStats[smithStat];
+                    statsResult.extractedStats[smithStat] = stat ? [ ...stat, reapersmithAll ] : [ reapersmithAll ];
+                }
+
+                let stat = statsResult.extractedStats['reaper_bonus'];
+                statsResult.extractedStats['reaper_bonus'] = stat ? [ ...stat, reapersmithAll ] : [ reapersmithAll ];
+                
+            }
+            // 
+        }
 
         if (reaper.id === 96) {
             const righteousSunlightAdditionalDamage = <EffectValueSynergy>effectValues.find(effect => effect.stat === 'righteous_sunlight_additional_damage');
@@ -591,6 +629,10 @@ export class SlormancerValueUpdaterService {
             const cooldownstats: Array<EntityValue<number>> = [];
             const entity: Entity = 'level' in source ? { activable: source } : { ancestralLegacy: source }
             
+            if (source.genres.includes(SkillGenre.Movement)) {
+                extraStats['skill_is_movement'] = [ { source: entity, value: 1 } ];
+            }
+            
             if (stats['cooldown_time_add']) {
                 cooldownstats.push(...stats['cooldown_time_add']);
             }
@@ -623,7 +665,7 @@ export class SlormancerValueUpdaterService {
         return result;
     }
 
-    private getSkillCooldown(stats: ExtractedStatMap, config: CharacterConfig, skill: Skill, cooldownReduction: number): number {
+    private getSkillCooldown(stats: SkillStatsBuildResult, config: CharacterConfig, skill: Skill, cooldownReduction: number): number {
         let result = 0;
 
         if (skill.baseCooldown !== null) {
@@ -634,22 +676,33 @@ export class SlormancerValueUpdaterService {
                 { value: ALL_SKILL_COST_TYPES.indexOf(skill.manaCostType), source: { skill } },
                 { value: ALL_SKILL_COST_TYPES.indexOf(skill.lifeCostType), source: { skill } }
             ];
+            
+            if (skill.genres.includes(SkillGenre.Movement)) {
+                extraStats['skill_is_movement'] = [ { source: { skill }, value: 1 } ];
+            }
+
+            const masteryCooldownReduction = stats.stats.find(s => s.stat === 'mastery_cooldown_time_reduction_multiplier');
+            if (masteryCooldownReduction) {
+                const value = typeof masteryCooldownReduction.total === 'number' ? masteryCooldownReduction.total : masteryCooldownReduction.total.min;
+                extraStats['cooldown_time_reduction_multiplier'] = [ { source: { skill }, value } ];
+                
+            }
     
             if (skill.genres.includes(SkillGenre.Fast)) {
                 extraStats['cooldown_time_add'] = [ { source: { skill }, value: FAST_SKILL_BASE_COOLDOWN } ];
-            } else if (stats['cooldown_time_add']) {
-                extraStats['cooldown_time_add'] = [ ...stats['cooldown_time_add'] ];
+            } else if (stats.extractedStats['cooldown_time_add']) {
+                extraStats['cooldown_time_add'] = [ ...stats.extractedStats['cooldown_time_add'] ];
             }
              
             extraStats['skill_id'] = [ { value: skill.id, source: { skill } } ];
 
             let minCooldown = 0;
-            const minCooldownStat = stats['min_cooldown_time'];
+            const minCooldownStat = stats.extractedStats['min_cooldown_time'];
             if (minCooldownStat !== undefined && minCooldownStat.length > 0) {
                 minCooldown = Math.min(...minCooldownStat.map(v => v.value));
             }
 
-            const cooldown = Math.max(minCooldown, this.getSpecificStat<number>(stats, COOLDOWN_MAPPING, config, extraStats));
+            const cooldown = Math.max(minCooldown, this.getSpecificStat<number>(stats.extractedStats, COOLDOWN_MAPPING, config, extraStats));
             
             result = Math.max(0, round(cooldown * (100 - cooldownReduction) / 100, 2));
         }
@@ -659,6 +712,9 @@ export class SlormancerValueUpdaterService {
 
     public updateActivable(character: Character, activable: Activable, statsResult: SkillStatsBuildResult, config: CharacterConfig) {
         const skillStats = this.getSkillStats(statsResult, character);
+
+        const slot = this.getActivableSlot(character, activable);
+        const extractedStats = this.addActivableExtraStats(statsResult, slot, activable);
 
         // Manabender (activable) cooldown
         if (activable.id === 2) {
@@ -670,14 +726,16 @@ export class SlormancerValueUpdaterService {
             }
         }
 
-        this.updateActivableCost(statsResult.extractedStats, config, activable);
-        activable.cooldown = this.getActivableCooldown(statsResult.extractedStats, config, activable, skillStats.cooldownReduction.total);
+        this.updateActivableCost(extractedStats, config, activable);
+        activable.cooldown = this.getActivableCooldown(extractedStats, config, activable, skillStats.cooldownReduction.total);
         
         for (const value of activable.values) {
             const isSynergy = isEffectValueSynergy(value);
             if (isSynergy || activable.id === 21) {
                 if (isDamageType(value.stat)) {
                     const additionalMultipliers: Array<number> = [];
+
+                    additionalMultipliers.push(...this.getAmhenostDamageMultiplier(statsResult, slot));
 
                     // Unstable bones increase damage multiplier (+ bug precision)
                     if (activable.id === 18) {
@@ -692,6 +750,14 @@ export class SlormancerValueUpdaterService {
                         const miniKeeperIncreasedDamages = statsResult.stats.find(stat => stat.stat === 'mini_keeper_increased_damage');
                         if (miniKeeperIncreasedDamages !== undefined) {
                             additionalMultipliers.push(...miniKeeperIncreasedDamages.values.flat.map(flat => <number>flat.value));
+                        }
+                    }
+
+                    // Reaper storm increase damage multiplier
+                    if (activable.id === 56) {
+                        const miniKeeperIncreasedDamages = statsResult.extractedStats['reaper_storm_increased_damage'];
+                        if (miniKeeperIncreasedDamages !== undefined) {
+                            additionalMultipliers.push(...miniKeeperIncreasedDamages.map(flat => <number>flat.value));
                         }
                     }
 
@@ -771,15 +837,69 @@ export class SlormancerValueUpdaterService {
             }
         }
     }
+
+    private getActivableSlot(character: Character, activable: Activable | AncestralLegacy): number | null {
+        let slot = null;
+        if (character.activable1 === activable) {
+            slot = 1;
+        } else if (character.activable2 === activable) {
+            slot = 2;
+        } else if (character.activable3 === activable) {
+            slot = 3;
+        } else if (character.activable4 === activable) {
+            slot = 4;
+        }
+
+        return slot
+    }
+
+    private addActivableExtraStats(statsResult: SkillStatsBuildResult, slot: number | null, activable: Activable | AncestralLegacy) {
+        let extractedStats = statsResult.extractedStats;
+        if (slot !== null) {
+            const extra: ExtractedStatMap = {
+                'activable_slot': [ { source: { synergy: 'Activable slot' }, value: slot }]
+            };
+
+            const nonSecondSlotActivableCostReduction = statsResult.stats.find(stat => stat.stat === 'non_second_slot_activable_cost_reduction');
+            if (nonSecondSlotActivableCostReduction) {
+                const value = typeof nonSecondSlotActivableCostReduction.total === 'number'
+                    ? nonSecondSlotActivableCostReduction.total
+                    : nonSecondSlotActivableCostReduction.total.min;
+                extra['non_second_slot_activable_cost_reduction'] = [
+                    { source: { synergy: 'Istrahsil non second slot effect' }, value }
+                ];
+            }
+
+            const nonFirstSlotCooldownReductionGlobalMult = statsResult.stats.find(stat => stat.stat === 'non_first_slot_cooldown_reduction_global_mult');
+            if (nonFirstSlotCooldownReductionGlobalMult) {
+                const value = typeof nonFirstSlotCooldownReductionGlobalMult.total === 'number'
+                    ? nonFirstSlotCooldownReductionGlobalMult.total
+                    : nonFirstSlotCooldownReductionGlobalMult.total.min;
+                extra['non_first_slot_cooldown_reduction_global_mult'] = [
+                    { source: { synergy: 'Odhor non first slot effect' }, value }
+                ];
+            }
+
+            extractedStats = { 
+                ...extractedStats,
+                ...extra,
+            } as ExtractedStatMap;
+        }
+
+        return extractedStats;
+    }
     
     public updateAncestralLegacyActivable(character: Character, config: CharacterConfig, ancestralLegacy: AncestralLegacy, statsResult: SkillStatsBuildResult) {
         const skillStats = this.getSkillStats(statsResult, character);
 
+        const slot = this.getActivableSlot(character, ancestralLegacy);
+        const extractedStats = this.addActivableExtraStats(statsResult, slot, ancestralLegacy);
+
         if (ancestralLegacy.currentRankCost !== null) {
-            this.updateActivableCost(statsResult.extractedStats, config, ancestralLegacy);
+            this.updateActivableCost(extractedStats, config, ancestralLegacy);
         }
         if (ancestralLegacy.baseCooldown !== null) {
-            ancestralLegacy.cooldown = this.getActivableCooldown(statsResult.extractedStats, config, ancestralLegacy, skillStats.cooldownReduction.total);
+            ancestralLegacy.cooldown = this.getActivableCooldown(extractedStats, config, ancestralLegacy, skillStats.cooldownReduction.total);
         }
 
         const isIcyVeins = ancestralLegacy.id === 29;
@@ -790,11 +910,13 @@ export class SlormancerValueUpdaterService {
             if (isEffectValueSynergy(value)) {
 
                 let multipliers: number[] = [];
+
+                multipliers.push(...this.getAmhenostDamageMultiplier(statsResult, slot));
                 
                 // spark machine and high voltage interaction
                 if (ancestralLegacy.id === 30) {
-                    const highVoltageMaxStacks = statsResult.extractedStats['high_voltage_max_stacks'];
-                    const highVoltageStackIncreasedDamage = statsResult.extractedStats['high_voltage_stack_spark_machine_increased_damage'];
+                    const highVoltageMaxStacks = extractedStats['high_voltage_max_stacks'];
+                    const highVoltageStackIncreasedDamage = extractedStats['high_voltage_stack_spark_machine_increased_damage'];
 
                     if (highVoltageMaxStacks && highVoltageMaxStacks[0] && highVoltageStackIncreasedDamage && highVoltageStackIncreasedDamage[0]) {
                         multipliers.push(highVoltageStackIncreasedDamage[0].value * Math.min(config.high_voltage_stacks, highVoltageMaxStacks[0].value));
@@ -815,6 +937,18 @@ export class SlormancerValueUpdaterService {
                 }
 
                 value.value = value.value * (100 + skillStats.aoeIncreasedSize.total) / 100;
+                value.displayValue = bankerRound(value.value, 2);
+            } else if (value.valueType === EffectValueValueType.Duration) {
+                value.value = value.baseValue;
+                if (value.stat === 'avatar_of_shadow_duration') {
+                    const avatarOfShadowDurationAdd = extractedStats['avatar_of_shadow_duration_add'];
+                    if (avatarOfShadowDurationAdd !== undefined) {
+                        for (const addedValue of avatarOfShadowDurationAdd) {
+                            value.value = value.value + addedValue.value;
+                        }
+                    }
+                }
+
                 value.displayValue = bankerRound(value.value, 2);
             } else if (value.valueType !== EffectValueValueType.Static && !isIcyVeins) {
                 const statMultipliers = this.getValidStatMultipliers(ancestralLegacy.genres, skillStats);
@@ -842,11 +976,17 @@ export class SlormancerValueUpdaterService {
                 }
                 value.displayValue = round(value.value, 3);
             }
+
+            if (ancestralLegacy.id === 1) {
+                const auraReduction = Math.min(50, skillStats.auraIncreasedEffect.total);
+                const value = ancestralLegacy.values[0] as EffectValueVariable;
+                value.value = value.upgradedValue * (100 - auraReduction) / 100;
+                value.displayValue = round(value.value, 3);
+            }
         }
     }
 
     public updateSkillAndUpgradeValues(character: Character, skillAndUpgrades: CharacterSkillAndUpgrades, stats: SkillStatsBuildResult, config: CharacterConfig): Array<SkillUpgrade> {
-        
         const skillStats = this.getSkillStats(stats, character);
 
         this.updateSkillValues(skillAndUpgrades, skillStats, stats, config);
@@ -1004,13 +1144,28 @@ export class SlormancerValueUpdaterService {
 
     public updateLegendaryValues(character: Character, legendaryEffect: LegendaryEffect, stats: CharacterStatsBuildResult): boolean {
         let changed = false;
+        const skillStats = this.getSkillStats(stats, character);
 
         for (const effect of legendaryEffect.effects) {
             const value = effect.effect;
             if (value.valueType === EffectValueValueType.AreaOfEffect) {
-                const skillStats = this.getSkillStats(stats, character);
-                value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
-                value.displayValue = bankerRound(value.value, 2);
+                if (isEffectValueSynergy(value)) {
+                    const precision = valueOrDefault(value.precision, 0);
+                    if (typeof value.synergy === 'number') {
+                        value.synergy = value.synergy * (100 + skillStats.aoeIncreasedEffect.total) / 100;
+                        value.displaySynergy = bankerRound(value.synergy, precision);
+                    } else {
+                        value.synergy.min = value.synergy.min * (100 + skillStats.aoeIncreasedEffect.total) / 100;
+                        value.synergy.max = value.synergy.max * (100 + skillStats.aoeIncreasedEffect.total) / 100;
+                        value.displaySynergy = {
+                            min: bankerRound(value.synergy.min, precision),
+                            max: bankerRound(value.synergy.max, precision)
+                        }
+                    }
+                } else {
+                    value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
+                    value.displayValue = bankerRound(value.value, 2);
+                }
                 changed = true;
             }
         }
@@ -1031,17 +1186,13 @@ export class SlormancerValueUpdaterService {
         }
     }
 
-    private updateDamage(damage: EffectValueSynergy, genres: Array<SkillGenre>, skillStats: SkillStats, statsResult: SkillStatsBuildResult, element: SkillElement, isSkill: boolean = false, additionalMultipliers: Array<number> = [], addedFlatDamage = 0) {
-        const multipliers = this.getValidDamageMultipliers(genres, skillStats, statsResult, damage.stat, isSkill, element);
+    private updateDamage(damage: EffectValueSynergy, genres: Array<SkillGenre>, skillStats: SkillStats, statsResult: SkillStatsBuildResult, element: SkillElement, isSkill: boolean = false, additionalMultipliers: Array<number> = [], addedFlatDamage: number | MinMax = 0, isDirectDamage: boolean = false) {
+        const multipliers = this.getValidDamageMultipliers(genres, skillStats, statsResult, damage.stat, isSkill, element, isDirectDamage);
 
+        addedFlatDamage = mult(addedFlatDamage, ...multipliers, ...additionalMultipliers);
 
-        if (addedFlatDamage > 0) {
-            for (const multiplier of multipliers) {
-                addedFlatDamage = addedFlatDamage * (100 + multiplier) / 100;
-            }            
-            for (const multiplier of additionalMultipliers) {
-                addedFlatDamage = addedFlatDamage * (100 + multiplier) / 100;
-            }
+        if (typeof addedFlatDamage === 'number') {
+            addedFlatDamage = { min: addedFlatDamage, max: addedFlatDamage };
         }
 
         if (element === SkillElement.Lightning && typeof damage.synergy === 'number') {
@@ -1095,12 +1246,12 @@ export class SlormancerValueUpdaterService {
 
                     const reaper = statsResult.stats.find(v => v.stat === 'weapon_damage');
                     const reaperMaximumDamage = reaper ? (typeof reaper.total === 'number' ? reaper.total : reaper.total.max) * damage.value / 100 : 0;
-                    minimumDamage = ((damage.synergy.max - reaperMaximumDamage * reaperDamageRatio) * (100 - (value.total as number)) / 100) + addedFlatDamage;
+                    minimumDamage = ((damage.synergy.max - reaperMaximumDamage * reaperDamageRatio) * (100 - (value.total as number)) / 100) + addedFlatDamage.min;
                 }
             }
             damage.displaySynergy = {
-                min: bankerRound(Math.max(minimumDamage, damage.synergy.min + addedFlatDamage), valueOrDefault(damage.precision, 0)),
-                max: bankerRound(damage.synergy.max + addedFlatDamage, valueOrDefault(damage.precision, 0)),
+                min: bankerRound(Math.max(minimumDamage, damage.synergy.min + addedFlatDamage.min), valueOrDefault(damage.precision, 0)),
+                max: bankerRound(damage.synergy.max + addedFlatDamage.max, valueOrDefault(damage.precision, 0)),
             };
         }
     }
@@ -1123,6 +1274,7 @@ export class SlormancerValueUpdaterService {
         const lifeCostAdd: Array<EntityValue<number>> = [];
         const entity: Entity = { skill: skillAndUpgrades.skill };
         const convertManaToLifeCost = statsResult.extractedStats['mana_cost_to_life_cost'] && config.has_life_bargain_buff;
+        const convertSkillManaToLifeCost = statsResult.extractedStats['skill_mana_cost_to_life_cost'];
         const addManaCostToLifeCost = statsResult.extractedStats['add_life_cost_to_mana_cost'];
         const noLongerCostPersecond = statsResult.extractedStats['no_longer_cost_per_second'] !== undefined;
         let skillHasNoCost = (statsResult.extractedStats['last_cast_tormented_remove_cost'] !== undefined && config.last_cast_tormented)
@@ -1153,7 +1305,7 @@ export class SlormancerValueUpdaterService {
             }
         }
         
-        if (convertManaToLifeCost) {
+        if (convertManaToLifeCost || convertSkillManaToLifeCost) {
             lifeCostAdd.push({ value: Math.max(0, skillStats.mana.total), source: entity });
             if (skillAndUpgrades.skill.manaCostType === SkillCostType.ManaPercent) {
                 skillAndUpgrades.skill.lifeCostType = SkillCostType.LifePercent;
@@ -1161,6 +1313,10 @@ export class SlormancerValueUpdaterService {
             }
             if (skillAndUpgrades.skill.manaCostType === SkillCostType.Mana) {
                 skillAndUpgrades.skill.lifeCostType = SkillCostType.Life;
+                skillAndUpgrades.skill.manaCostType = SkillCostType.None;
+            }
+            if (convertSkillManaToLifeCost && skillAndUpgrades.skill.manaCostType === SkillCostType.ManaSecond) {
+                skillAndUpgrades.skill.lifeCostType = SkillCostType.LifeSecond;
                 skillAndUpgrades.skill.manaCostType = SkillCostType.None;
             }
         } else {
@@ -1191,9 +1347,10 @@ export class SlormancerValueUpdaterService {
     }
 
     private updateSkillValues(skillAndUpgrades: CharacterSkillAndUpgrades, skillStats: SkillStats, statsResult: SkillStatsBuildResult, config: CharacterConfig) {
+        const isNonSupportSkill = skillAndUpgrades.skill.specialization === null;
 
         this.updateSkillCost(skillAndUpgrades, skillStats, statsResult, config);
-        skillAndUpgrades.skill.cooldown = this.getSkillCooldown(statsResult.extractedStats, config, skillAndUpgrades.skill, skillStats.cooldownReduction.total);
+        skillAndUpgrades.skill.cooldown = this.getSkillCooldown(statsResult, config, skillAndUpgrades.skill, skillStats.cooldownReduction.total);
 
         const damageValues = skillAndUpgrades.skill.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
 
@@ -1274,7 +1431,7 @@ export class SlormancerValueUpdaterService {
                     }
                 }
 
-                this.updateDamage(damageValue, skillAndUpgrades.skill.genres, skillStats, statsResult, SkillElement.Neutral, true, additionamMultipliers);
+                this.updateDamage(damageValue, skillAndUpgrades.skill.genres, skillStats, statsResult, SkillElement.Neutral, true, additionamMultipliers, 0, isNonSupportSkill);
             }
         }
     
@@ -1372,5 +1529,21 @@ export class SlormancerValueUpdaterService {
                 value.displayValue = round(value.value, precision);
             }
         }
+    }
+
+    private getAmhenostDamageMultiplier(stats: SkillStatsBuildResult, slot: number | null): number[] {
+        let multipliers: number[] = [];
+
+        if (slot !== null) {
+            const thirdSlotIncreasedDamage = stats.extractedStats['thirst_slot_increased_damage'];
+            const nonThirdSlotIncreasedDamage = stats.stats.find(stat => stat.stat === 'non_thirst_slot_increased_damage');
+            if (thirdSlotIncreasedDamage && slot === 3) {
+                multipliers.push(...thirdSlotIncreasedDamage.map(flat => flat.value));
+            } else if (nonThirdSlotIncreasedDamage && slot !== 3) {
+                multipliers.push(...nonThirdSlotIncreasedDamage.values.flat.map(flat => <number>flat.value));
+            }
+        }
+
+        return multipliers;
     }
 }

@@ -342,7 +342,36 @@
 - Fixed an issue causing reaper affinity to be hidden
 - Legendary activables are now correctly capped at 15 reinforcment
 
+## Release 0.8.0 (TBD)
+### Added
+- Added all new legendaries
+- Added an "apply indirect damage multiplier" option for Relentless Transferance reaper
+- Added neither item edition
+- Added the 2 last reapers (todo)
+### Fixes
+- Fixed an computing issue with increased aoe ultimatum and increased aoe from skills
+- Savagery 60 should now correctly work with Raw Lock
+- Fixed a computing between with Splintering Vine and Splintered
+- Fixed incorrect base damage from Frostbolt and Flashing Dart
+- Missing mana can no longer use more than 100% of your maximum mana
+- Light Diffusion now correctly increase Flashing Dart damages
+- Aura increased effect now correctly reduce Lowey's Gratitude's time between Fireballs
+- Master the Arcane Missile now correctly apply it's cooldown reduction
+- Swift Wings of Hermesal now correctly apply it's cooldown reduction
+- Rifts of Oblivion now correctly increase damages based on arcanic emblems instead of obliteration emblems
+- Optimise items now correctly work with defensive stats
+- Indomitable Mountain bonus effect is now correctly enabled if any "took_x_damage_recently" is enabled
+- Primordial Support reapers now correctly apply other specialization passive effects
+- Shaman reapers configuration now correctly apply totem tag to Wood Stick instead of Mighty Swing
+- Fixed item edition modal suggesting the wrong stats for an item and rarity
+- Fixed reaper stat values not being applied the way the game do
+- Fixed many synergies and damage values not being updated correctly
+- Updated Honorary Sigil of Chivalry decreased damage value
+- Non primordial Elemental Overload reaper no longer reduce critical strike damage
+- Unity reaper now correctly count the number of vigilant blades
+- Ultimatum of Impeccable Technique now correctly increased inner fire damage instead
+- Fixed Shearing Winds damage type
+## retours
+
 ## TODO
 - update packages ?
-- legendary list
-- patch compatibility service

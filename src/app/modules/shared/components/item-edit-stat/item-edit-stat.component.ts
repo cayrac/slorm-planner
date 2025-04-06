@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSliderChange } from '@angular/material/slider';
-import { Affix, EquipableItemBase, SlormancerAffixService, getCraftValue } from '@slorm-api';
+import { Affix, EquipableItemBase, MAX_ITEM_LEVEL, Rarity, SlormancerAffixService, getCraftValue } from '@slorm-api';
 
 import { takeUntil } from 'rxjs';
 import { SelectOption } from '../../model/select-option';
@@ -15,6 +15,8 @@ import { ItemAffixFormGroup } from '../item-edit-modal/item-edit-modal.component
   styleUrls: ['./item-edit-stat.component.scss']
 })
 export class ItemEditStatComponent extends AbstractUnsubscribeComponent implements OnChanges {
+
+    public readonly STATS_LABELS: { [key in string]: string }
 
     @Input()
     public readonly itemBase: EquipableItemBase = EquipableItemBase.Amulet;
@@ -46,6 +48,7 @@ export class ItemEditStatComponent extends AbstractUnsubscribeComponent implemen
     constructor(private itemFormService: FormOptionsService,
                 private slormancerAffixService: SlormancerAffixService) {
         super();
+        this.STATS_LABELS = this.itemFormService.getStatsLabels();
     }
 
     public ngOnChanges(changes: SimpleChanges) {
@@ -54,7 +57,7 @@ export class ItemEditStatComponent extends AbstractUnsubscribeComponent implemen
                 this.form.controls.rarity.valueChanges
                     .pipe(takeUntil(this.unsubscribe))
                     .subscribe(rarity => {
-                        this.options = this.itemFormService.getStatsOptions(this.itemBase, rarity);
+                        this.options = this.getOptions(this.itemLevel, this.itemBase, rarity);
                     })
     
                 this.form.valueChanges
@@ -62,14 +65,20 @@ export class ItemEditStatComponent extends AbstractUnsubscribeComponent implemen
                     .subscribe(() => this.updateAffix());
             }
             
-            if ('form' in changes || 'itemBase' in changes) {
-                this.options = this.itemFormService.getStatsOptions(this.itemBase, this.form.controls.rarity.value);
+            if ('form' in changes || 'itemBase' in changes || 'itemLevel' in changes) {
+                this.options = this.getOptions(this.itemLevel, this.itemBase, this.form.controls.rarity.value);
             }
             
             if ('form' in changes || 'itemLevel' in changes || 'itemReinforcment' in changes) {
                 this.updateAffix();
             }
         }
+    }
+
+    private getOptions(itemLevel: number, base: EquipableItemBase, rarity: Rarity): Array<SelectOption<string>> {
+        return itemLevel > MAX_ITEM_LEVEL
+            ? this.itemFormService.getAllStatsOptions()
+            : this.itemFormService.getStatsOptions(this.itemBase, rarity)
     }
 
     private updateAffix() {

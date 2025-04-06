@@ -8,6 +8,7 @@ import { ItemMoveService } from '../../services/item-move.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 import { ReaperEditModalComponent, ReaperEditModalData } from '../reaper-edit-modal/reaper-edit-modal.component';
 import { ReaperViewComponent } from '../reaper-view/reaper-view.component';
+import { ViewData, ViewModalComponent } from '../view-modal/view-modalcomponent';
 
 @Component({
   selector: 'app-reaper-slot',
@@ -86,6 +87,20 @@ export class ReaperSlotComponent extends AbstractUnsubscribeComponent implements
             this.reaperView.scroll(event);
         }
         return false;
+    }
+                    
+    public showModalTooltip(event: MouseEvent, reaper: Reaper) {
+        let skip = false;
+
+        if (event.ctrlKey) {
+            skip = true;
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            const data: ViewData = { entity: { reaper } };
+            this.dialog.open(ViewModalComponent, { data });
+        }
+
+        return skip;
     }
     
 }

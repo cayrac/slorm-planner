@@ -10,7 +10,7 @@
         </div>
         <div class="mechanic-name">{{classMechanic.name}}</div>
     </div>
-    <div class="mechanic" *ngFor="let mechanic of mechanics"
+    <div class="mechanic" *ngFor="let mechanic of mechanics" (click)="showModalTooltip($event, mechanic)"
         cdkOverlayOrigin
         #trigger="cdkOverlayOrigin"
         (mouseenter)="showOverlay(trigger, mechanic)"

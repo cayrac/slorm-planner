@@ -33,14 +33,14 @@ import { SlormancerTranslateService } from './slormancer-translate.service';
 @Injectable()
 export class SlormancerReaperService {
 
-    private readonly BENEDICTION_LABEL = this.slormancerTranslateService.translate('tt_ancient_bonus');
-    private readonly MALEDICTION_LABEL = this.slormancerTranslateService.translate('tt_ancient_malus');
-    private readonly ACTIVABLES_LABEL = this.slormancerTranslateService.translate('tt_unlocked_actives');
-    private readonly VICTIMS_LABEL = this.slormancerTranslateService.translate('tt_victims');
-    private readonly LEVEL_LABEL = this.slormancerTranslateService.translate('level');
-    private readonly REAPERSMITH_LABEL = this.slormancerTranslateService.translate('weapon_reapersmith_light');
-    private readonly PRIMORDIAL_REAPER_LABEL = this.slormancerTranslateService.translate('tt_reaper_corrupted');
-    private readonly GRANTED_BY_MASTERY_LABEL = this.slormancerTranslateService.translate('reaper_mastery_tt_from');
+    private readonly BENEDICTION_LABEL: string;
+    private readonly MALEDICTION_LABEL: string;
+    private readonly ACTIVABLES_LABEL: string;
+    private readonly VICTIMS_LABEL: string;
+    private readonly LEVEL_LABEL: string;
+    private readonly REAPERSMITH_LABEL: string;
+    private readonly PRIMORDIAL_REAPER_LABEL: string;
+    private readonly GRANTED_BY_MASTERY_LABEL: string;
 
     private readonly DESCRIPTION_SKILL_REGEXP = /act:[0-9]+/g;
 
@@ -48,7 +48,17 @@ export class SlormancerReaperService {
                 private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerEffectValueService: SlormancerEffectValueService,
-                private slormancerActivableService: SlormancerActivableService) { }
+                private slormancerActivableService: SlormancerActivableService) {
+                        
+        this.BENEDICTION_LABEL = this.slormancerTranslateService.translate('tt_ancient_bonus');
+        this.MALEDICTION_LABEL = this.slormancerTranslateService.translate('tt_ancient_malus');
+        this.ACTIVABLES_LABEL = this.slormancerTranslateService.translate('tt_unlocked_actives');
+        this.VICTIMS_LABEL = this.slormancerTranslateService.translate('tt_victims');
+        this.LEVEL_LABEL = this.slormancerTranslateService.translate('level');
+        this.REAPERSMITH_LABEL = this.slormancerTranslateService.translate('weapon_reapersmith_light');
+        this.PRIMORDIAL_REAPER_LABEL = this.slormancerTranslateService.translate('tt_reaper_corrupted');
+        this.GRANTED_BY_MASTERY_LABEL = this.slormancerTranslateService.translate('reaper_mastery_tt_from');
+    }
 
     public getReaperMastery(gameWeapons: GameWeapon[]): number {
         const remainingWeapons = [ ...gameWeapons ].filter(gameWeapon => gameWeapon.id !== 114);
@@ -497,7 +507,8 @@ export class SlormancerReaperService {
             'moon_effect_health_on_hit_global_mult',
             'righteous_sunlight_damage',
             'butterfly_elemental_damage',
-            'overdriving_overdrive_damage_percent'
+            'overdriving_overdrive_damage_percent',
+            'minion_increased_damage_global_mult',
         ]
 
         if (statsUsingRealValues.includes(value.stat)) {

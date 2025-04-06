@@ -1,2 +1,7 @@
 @import "src/assets/scss/abstracts/flex";
 @import "src/assets/scss/abstracts/variables";
+
+
+.stat-line .additional {
+    min-width: 100px;
+}

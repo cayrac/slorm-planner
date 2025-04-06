@@ -1,6 +1,8 @@
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Buff, ClassMechanic, Mechanic } from '@slorm-api';
+import { ViewData, ViewModalComponent } from '../view-modal/view-modalcomponent';
 
 @Component({
   selector: 'app-mechanics-view',
@@ -22,7 +24,7 @@ export class MechanicsViewComponent {
 
     public overlayMechanic: Mechanic | ClassMechanic | Buff | null = null;
 
-    constructor() { }
+    constructor(private dialog: MatDialog) { }
 
     public showOverlay(trigger: CdkOverlayOrigin, mechanic: Mechanic | ClassMechanic | Buff) {
         this.overlayMechanic = mechanic;
@@ -32,5 +34,19 @@ export class MechanicsViewComponent {
     public hideOverlay() {
         this.overlayTrigger = null;
         this.overlayMechanic = null;
+    }
+                
+    public showModalTooltip(event: MouseEvent, mechanic: Mechanic) {
+        let skip = false;
+
+        if (event.ctrlKey) {
+            skip = true;
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            const data: ViewData = { entity: { mechanic } };
+            this.dialog.open(ViewModalComponent, { data });
+        }
+
+        return skip;
     }
 }

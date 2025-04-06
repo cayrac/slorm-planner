@@ -7,6 +7,7 @@ import {
     AttributeTraits,
     Character,
     EquipableItem,
+    getAllLegendaryEffects,
     isNotNullOrUndefined,
     ReaperSmith,
     Skill,
@@ -94,8 +95,9 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
 
             this.getGearItems().forEach(item => {
                 item.reaperEnchantment = this.slormancerItemService.getReaperEnchantmentClone(reaperEnchantment);
-                this.slormancerItemService.updateEquipableItemModel(item);
-                this.slormancerItemService.updateEquipableItemView(item);
+                const defensiveStatMultiplier = this.getDefensiveStatMultiplier();
+                this.slormancerItemService.updateEquipableItemModel(item, defensiveStatMultiplier);
+                this.slormancerItemService.updateEquipableItemView(item, defensiveStatMultiplier);
             });
 
             this.buildStorageService.saveLayer();
@@ -120,8 +122,9 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
 
             this.getGearItems().forEach(item => {
                 item.attributeEnchantment = this.slormancerItemService.getAttributeEnchantmentClone(attributeEnchantment);
-                this.slormancerItemService.updateEquipableItemModel(item);
-                this.slormancerItemService.updateEquipableItemView(item);
+                const defensiveStatMultiplier = this.getDefensiveStatMultiplier();
+                this.slormancerItemService.updateEquipableItemModel(item, defensiveStatMultiplier);
+                this.slormancerItemService.updateEquipableItemView(item, defensiveStatMultiplier);
             });
 
             this.buildStorageService.saveLayer();
@@ -146,8 +149,9 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
 
             this.getGearItems().forEach(item => {
                 item.skillEnchantment = this.slormancerItemService.getSkillEnchantmentClone(skillEnchantment);
-                this.slormancerItemService.updateEquipableItemModel(item);
-                this.slormancerItemService.updateEquipableItemView(item);
+                const defensiveStatMultiplier = this.getDefensiveStatMultiplier();
+                this.slormancerItemService.updateEquipableItemModel(item, defensiveStatMultiplier);
+                this.slormancerItemService.updateEquipableItemView(item, defensiveStatMultiplier);
             });
             
             this.buildStorageService.saveLayer();
@@ -161,8 +165,9 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
             const level = this.character.level;
             this.getGearItems().forEach(item => {
                 item.level = level;
-                this.slormancerItemService.updateEquipableItemModel(item);
-                this.slormancerItemService.updateEquipableItemView(item);
+                const defensiveStatMultiplier = this.getDefensiveStatMultiplier();
+                this.slormancerItemService.updateEquipableItemModel(item, defensiveStatMultiplier);
+                this.slormancerItemService.updateEquipableItemView(item, defensiveStatMultiplier);
             });
             
             this.buildStorageService.saveLayer();
@@ -178,8 +183,9 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
                 if (typeof reinforcment === 'number') {
                     this.getGearItems().forEach(item => {
                         item.reinforcment = reinforcment;
-                        this.slormancerItemService.updateEquipableItemModel(item);
-                        this.slormancerItemService.updateEquipableItemView(item);
+                        const defensiveStatMultiplier = this.getDefensiveStatMultiplier();
+                        this.slormancerItemService.updateEquipableItemModel(item, defensiveStatMultiplier);
+                        this.slormancerItemService.updateEquipableItemView(item, defensiveStatMultiplier);
                     });
             
                     this.buildStorageService.saveLayer();
@@ -199,6 +205,12 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
                 }
             });
         }
+    }
+
+    private getDefensiveStatMultiplier(): number {
+        return this.character === null
+            ? 0
+            : this.slormancerItemService.getDefensiveStatMultiplier(getAllLegendaryEffects(this.character.gear))
     }
 }
     

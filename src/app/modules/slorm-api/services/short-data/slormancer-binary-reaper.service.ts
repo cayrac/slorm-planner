@@ -20,9 +20,12 @@ export class SlormancerBinaryReaperService {
         result.push(...booleanToBinary(reaper.primordial));
         result.push(...numberToBinary(reaper.baseLevel, 7));
         result.push(...numberToBinary(reaper.baseReaperAffinity, 7));
-        // havoc reaper
+        // Havoc reaper
         if (reaper.id === 90 && reaper.primordial) {
             result.push(...numberToBinary(reaper.baseEffectAffinity, 10));
+        }
+        if (reaper.id === 114) {
+            result.push(...numberToBinary(reaper.kills, 25));
         }
         result.push(...numberToBinary(reaper.masteryLevel, 7));
 
@@ -33,7 +36,7 @@ export class SlormancerBinaryReaperService {
         const reaperId = binaryToNumber(takeBitsChunk(binary, 10));
         const primordial = binaryToBoolean(takeBitsChunk(binary, 1));
         const baseLevel = binaryToNumber(takeBitsChunk(binary, 7));
-        const kills = 0;
+        let kills = 0;
 
         const hasAffinityData = compareVersions(version, '0.2.0') >= 0;
         const hasReaperMasteryData = compareVersions(version, '0.7.0') >= 0;
@@ -43,6 +46,9 @@ export class SlormancerBinaryReaperService {
         let effectAffinity = reaperAffinity;
         if (reaperId === 90 && primordial) {
             effectAffinity = binaryToNumber(takeBitsChunk(binary, 10));
+        }
+        if (reaperId === 114) {
+            kills = binaryToNumber(takeBitsChunk(binary, 25));
         }
 
         const reaperMastery = hasReaperMasteryData ? binaryToNumber(takeBitsChunk(binary, 7)) : 0;

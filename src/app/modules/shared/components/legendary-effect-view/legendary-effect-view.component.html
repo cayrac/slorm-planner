@@ -1,0 +1,26 @@
+
+<div class="content" *ngIf="legendaryEffect !== null">
+    <div class="legendary-effect outer-border">
+        <div class="border">
+            <div class="inner-border legendary-description">
+                <div class="title">
+                    <div class="bullet"><div class="legendary"></div></div>
+                    {{legendaryEffect.title}}
+                    <div class="bullet"><div class="legendary"></div></div>
+                </div>
+                <div class="reaper-name" *ngIf="legendaryEffect !== null">{{legendaryEffect.reaperName}}</div>
+                <div class="description">
+                    <span [innerHTML]="legendaryEffect.description"></span>
+                    <span class="value" *ngIf="legendaryEffect.activable !== null"> {{legendaryEffect.activable.name}}</span>
+                </div>
+                <div class="icon" *ngIf="legendaryEffect.skillIcon !== null">
+                    <img [src]="legendaryEffect.skillIcon" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-activable-view *ngIf="legendaryEffect.activable !== null && reinforcment !== null"
+        [activable]="legendaryEffect.activable"
+        [reinforcment]="reinforcment">
+    </app-activable-view>
+</div>

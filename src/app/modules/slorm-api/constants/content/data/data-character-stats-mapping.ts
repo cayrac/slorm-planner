@@ -1,9 +1,10 @@
-import { HeroClass } from '../../../model';
+import { HeroClass, UltimatumType } from '../../../model';
 import { CharacterConfig } from '../../../model/character-config';
 import { ALL_SKILL_COST_TYPES, SkillCostType } from '../../../model/content/enum/skill-cost-type';
 import { SkillElement } from '../../../model/content/skill-element';
 import { GameHeroesData } from '../../../model/parser/game/game-save';
 import { ExtractedStatMap } from '../../../services/content/slormancer-stats-extractor.service';
+import { round } from '../../../util';
 import { minAndMax, valueOrDefault } from '../../../util/utils';
 import { DELIGHTED_VALUE } from '../../common';
 
@@ -28,6 +29,11 @@ function getMaxStacks(stats: ExtractedStatMap, stat: string, defaultValue: numbe
     return getFirstStat(stats, stat, defaultValue) + Math.ceil(getFirstStat(stats, 'increased_max_stacks', 0));
 }
 
+function getEmblems(stats: ExtractedStatMap, emblems: number): number {
+    const maxEmblems = getMaxStat(stats, 'max_emblems');
+    return Math.min(maxEmblems, emblems);
+}
+
 function getMinionsUnderYourControl(stats: ExtractedStatMap, config: CharacterConfig): number {
     return config.controlled_minions + getSumStats(stats, 'summoned_skeleton_squires', 0);
 }
@@ -38,6 +44,10 @@ function getMaxStat(stats: ExtractedStatMap, stat: string): number {
 
 function hasStat(stats: ExtractedStatMap, stat: string): boolean {
     return stats[stat] !== undefined;
+}
+
+function hasUltimatum(stats: ExtractedStatMap, type: UltimatumType): boolean {
+    return getFirstStat(stats, 'equipped_ultimatum') === type && !hasStat(stats, 'disable_ultimatum')
 }
 
 function statHasValue(stats: ExtractedStatMap, stat: string, value: number): boolean {
@@ -177,15 +187,22 @@ export const MANA_COST_MAPPING: MergedStatMapping = {
                 multiplier: config => -config.skill_cast_recently,
                 extra: true,
             },
+            { stat: 'all_skill_cost_reduction',
+                condition: (config, stats) => hasCostType(stats, SkillCostType.Mana, SkillCostType.ManaSecond, SkillCostType.Life, SkillCostType.LifeSecond),
+                multiplier: () => -1,
+                extra: true,
+            },
+            { stat: 'second_slot_activable_cost_reduction', condition: (_, stats) => getFirstStat(stats, 'activable_slot') === 2 , multiplier: () => -1 },
+            { stat: 'non_second_slot_activable_cost_reduction', condition: (_, stats) => hasStat(stats, 'activable_slot') && getFirstStat(stats, 'activable_slot') !== 2, multiplier: () => -1 },
             { stat: 'life_cost_reduction_skill_mult', condition: (_, stats) => hasCostType(stats, SkillCostType.Mana, SkillCostType.ManaSecond) },
             { stat: 'aura_elemental_swap_cost_increase', condition: (_, stats) => hasCostType(stats, SkillCostType.Mana, SkillCostType.ManaSecond, SkillCostType.Life, SkillCostType.LifeSecond) },
             { stat: 'summon_skeleton_squire_cost_lock_reduction', condition: (_, stats) => hasCostType(stats, SkillCostType.LifeLockFlat, SkillCostType.ManaLockFlat), multiplier: () => -1 },  
             { stat: 'cost_lock_reduction', condition: (_, stats) => hasCostType(stats, SkillCostType.LifeLockFlat, SkillCostType.ManaLockFlat), multiplier: () => -1 },
             { stat: 'cost_per_second_reduction', condition: (_, stats) => hasCostType(stats, SkillCostType.LifeSecond, SkillCostType.ManaSecond), multiplier: () => -1 },
-            { stat: 'cost_mult_skill_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
+            { stat: 'cost_mult_skill_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: (config, stats) => getEmblems(stats, config.arcanic_emblems) },
             { stat: 'cost_reduction_mult_per_frozen_or_chilled_enemy_nearby', condition: config => config.chilled_enemy_nearby > 0, multiplier: config => - config.chilled_enemy_nearby, extra: true },
-            { stat: 'cost_reduction_mult_skill_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => - config.arcanic_emblems },
-            { stat: 'cost_reduction_mult_skill_per_arcanic_emblem_if_not_arcanic', condition: (config, stats) => config.arcanic_emblems > 0 && !hasStat(stats, 'skill_is_arcanic'), multiplier: config => - config.arcanic_emblems },
+            { stat: 'cost_reduction_mult_skill_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: (config, stats) => - getEmblems(stats, config.arcanic_emblems) },
+            { stat: 'cost_reduction_mult_skill_per_arcanic_emblem_if_not_arcanic', condition: (config, stats) => config.arcanic_emblems > 0 && !hasStat(stats, 'skill_is_arcanic'), multiplier: (config, stats) => - getEmblems(stats, config.arcanic_emblems) },
             { stat: 'cost_mult_skill_per_enemy_under_control', multiplier: config => -1 + config.enemy_under_command + config.elite_under_command * 10 },
             { stat: 'efficiency_skill_reduction_skill_mult', condition: config => config.efficiency_buff, multiplier: () => -1 },
             { stat: 'spectral_shape_mana_cost_override', condition: (_, stats) => getFirstStat(stats, 'activable_id') === 32 },
@@ -218,16 +235,23 @@ export const LIFE_COST_MAPPING: MergedStatMapping = {
                 condition: (config, stats) => config.skill_cast_recently > 0 && hasCostType(stats, SkillCostType.Mana, SkillCostType.ManaSecond, SkillCostType.Life, SkillCostType.LifeSecond),
                 multiplier: config => -config.skill_cast_recently,
                 extra: true,
-            },           
+            },    
+            { stat: 'all_skill_cost_reduction',
+                condition: (config, stats) => hasCostType(stats, SkillCostType.Mana, SkillCostType.ManaSecond, SkillCostType.Life, SkillCostType.LifeSecond),
+                multiplier: () => -1,
+                extra: true,
+            },
+            { stat: 'second_slot_activable_cost_reduction', condition: (_, stats) => getFirstStat(stats, 'activable_slot') === 2 , multiplier: () => -1 },
+            { stat: 'non_second_slot_activable_cost_reduction', condition: (_, stats) => hasStat(stats, 'activable_slot') && getFirstStat(stats, 'activable_slot') !== 2, multiplier: () => -1 },
             { stat: 'aura_elemental_swap_cost_increase', condition: (_, stats) => hasCostType(stats, SkillCostType.Mana, SkillCostType.ManaSecond, SkillCostType.Life, SkillCostType.LifeSecond) },
             { stat: 'cost_lock_reduction', condition: (_, stats) => hasCostType(stats, SkillCostType.LifeLockFlat, SkillCostType.ManaLockFlat), multiplier: () => -1 },
             { stat: 'cost_per_second_reduction', condition: (_, stats) => hasCostType(stats, SkillCostType.LifeSecond, SkillCostType.ManaSecond), multiplier: () => -1 },
-            { stat: 'cost_mult_skill_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
+            { stat: 'cost_mult_skill_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: (config, stats) => getEmblems(stats, config.arcanic_emblems) },
             { stat: 'cost_reduction_mult_per_frozen_or_chilled_enemy_nearby', condition: config => config.chilled_enemy_nearby > 0, multiplier: config => - config.chilled_enemy_nearby, extra: true },
-            { stat: 'cost_reduction_mult_skill_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => - config.arcanic_emblems },
-            { stat: 'cost_reduction_mult_skill_per_arcanic_emblem_if_not_arcanic', condition: (config, stats) => config.arcanic_emblems > 0 && !hasStat(stats, 'skill_is_arcanic'), multiplier: config => - config.arcanic_emblems },
+            { stat: 'cost_reduction_mult_skill_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: (config, stats) => - getEmblems(stats, config.arcanic_emblems) },
+            { stat: 'cost_reduction_mult_skill_per_arcanic_emblem_if_not_arcanic', condition: (config, stats) => config.arcanic_emblems > 0 && !hasStat(stats, 'skill_is_arcanic'), multiplier: (config, stats) => - getEmblems(stats, config.arcanic_emblems) },
             { stat: 'cost_mult_skill_per_enemy_under_control', multiplier: config => -1 + config.enemy_under_command + config.elite_under_command * 10 },
-            { stat: 'life_cost_multiplier' }
+            { stat: 'life_cost_multiplier', condition: (_, stats) => hasCostType(stats, SkillCostType.LifeSecond, SkillCostType.Life, SkillCostType.LifePercent) }
         ],
         maxMultiplier: [],
     } 
@@ -254,18 +278,19 @@ export const COOLDOWN_REDUCTION_MAPPING: MergedStatMapping =
             { stat: 'exhilerating_senses_stack_attack_speed_global_mult', condition: config => config.exhilerating_senses_stacks > 0, multiplier: config => config.exhilerating_senses_stacks },
             { stat: 'arcane_clone_cooldown_reduction', condition: (_, stats) => hasStat(stats, 'cast_by_clone' ) },
             { stat: 'chrono_speed_stack_cooldown_reduction_global_mult', condition: config => config.chrono_speed_stacks > 0, multiplier: (config, stats) => Math.min(config.chrono_speed_stacks, getMaxStacks(stats, 'chrono_speed_max_stacks') + getFirstStat(stats, 'increased_max_chrono_stacks')) },
-            { stat: 'base_cooldown_reduction_per_temporal_emblem', condition: (config, stats) => !hasStat(stats, 'cooldown_reduction_per_temporal_emblem') && config.temporal_emblems > 0, multiplier: config => config.temporal_emblems },
-            { stat: 'cooldown_reduction_per_temporal_emblem', condition: config => config.temporal_emblems > 0, multiplier: config => config.temporal_emblems },
+            { stat: 'base_cooldown_reduction_per_temporal_emblem', condition: (config, stats) => !hasStat(stats, 'cooldown_reduction_per_temporal_emblem') && config.temporal_emblems > 0, multiplier: (config, stats) => getEmblems(stats, config.temporal_emblems) },
+            { stat: 'cooldown_reduction_per_temporal_emblem', condition: config => config.temporal_emblems > 0, multiplier: (config, stats) => getEmblems(stats, config.temporal_emblems) },
             { stat: 'cooldown_reduction_global_mult_per_enfeeble_in_radius', condition: config => config.enfeeble_stacks_in_radius > 0, multiplier: config => config.enfeeble_stacks_in_radius },
             { stat: 'shadow_bargain_cooldown_reduction_global_mult', condition: config => config.has_shadow_bargain_buff },
             { stat: 'aurelon_bargain_stack_increased_attack_speed', condition: config => config.aurelon_bargain_stacks > 0,  multiplier: (config, stats) => Math.min(config.aurelon_bargain_stacks, getMaxStacks(stats, 'aurelon_bargain_max_stacks')) },
-            { stat: 'overcharged_stack_cooldown_reduction_global_mult', condition: config => config.overcharged_stacks > 0,  multiplier: config => config.overcharged_stacks },
+            { stat: 'overcharged_stack_cooldown_reduction_global_mult', condition: config => config.overcharged_stacks > 0,  multiplier: (config, stats) => Math.min(config.overcharged_stacks, getMaxStacks(stats, 'charging_up_max_stacks')) },
             { stat: 'cooldown_reduction_global_mult_on_combo', condition: config => config.victims_combo > 0 },
             { stat: 'cooldown_reduction_global_mult_while_curving_time_or_time_shifting', condition: config => config.is_curving_time_or_time_shifting },
             { stat: 'cooldown_reduction_global_mult_while_not_curving_time_or_time_shifting', condition: config => !config.is_curving_time_or_time_shifting },
+            { stat: 'extreme_confidence_cooldown_reduction_global_mult', condition: config => config.has_extreme_confidence_buff },
             {
                 stat: 'wreak_havoc_cooldown_reduction_global_mult',
-                multiplier: (config, stats) => - getFirstStat(stats, 'wreak_havoc_max_stacks') + Math.max(0, Math.min(config.wreak_havoc_stacks, getFirstStat(stats, 'wreak_havoc_max_stacks')))
+                multiplier: (config, stats) => - 4 + Math.max(0, Math.min(config.wreak_havoc_stacks, getMaxStat(stats, 'wreak_havoc_max_stacks')))
             }
         ],
         maxMultiplier: [],
@@ -295,11 +320,11 @@ export const ATTACK_SPEED_MAPPING: MergedStatMapping =
             { stat: 'frenzy_stack_attack_speed_global_mult', condition: config => config.frenzy_stacks > 0, duplicate: (config, stats) => minAndMax(0, config.frenzy_stacks, getMaxStacks(stats, 'frenzy_max_stacks')) },
             { stat: 'arcane_clone_attack_speed_global_mult', condition: (_, stats) => hasStat(stats, 'cast_by_clone' )},
             { stat: 'arcane_clone_attack_speed_global_mult_if_in_breach', condition: (config, stats) => hasStat(stats, 'cast_by_clone') && config.clone_is_in_breach_range },
-            { stat: 'base_attack_speed_per_arcanic_emblem', condition: (config, stats) => !hasStat(stats, 'attack_speed_per_arcanic_emblem') && config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
-            { stat: 'attack_speed_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
+            { stat: 'base_attack_speed_per_arcanic_emblem', condition: (config, stats) => !hasStat(stats, 'attack_speed_per_arcanic_emblem') && config.arcanic_emblems > 0, multiplier: (config, stats) => getEmblems(stats, config.arcanic_emblems) },
+            { stat: 'attack_speed_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: (config, stats) => getEmblems(stats, config.arcanic_emblems) },
             { stat: 'arcane_flux_stack_cooldown_reduction_global_mult', condition: config => config.arcane_flux_stacks > 0, multiplier: (config, stats) => Math.min(config.arcane_flux_stacks, getMaxStacks(stats, 'arcane_flux_max_stacks')) },
             { stat: 'booster_max_cooldown_reduction_global_mult', condition: config => config.has_booster_max_buff },
-
+            { stat: 'extreme_confidence_attack_speed_global_mult', condition: config => config.has_extreme_confidence_buff },
 
             // retrouver chaque stat et la replacer là ou il faut
             // il faudrait mettre à jour les fichiers js
@@ -323,6 +348,7 @@ export const COOLDOWN_MAPPING: MergedStatMapping = {
             { stat: 'cooldown_time_add' },
             { stat: 'orb_arcane_master_cooldown_time_add' },
             { stat: 'spectral_shape_cooldown_time', extra: true },
+            { stat: 'fisherman_set_booster_max_cooldown_reduce', condition: (_, stats) => getFirstStat(stats, 'activable_id') === 6 && hasStat(stats, 'has_fisherman_set') },
         ],
         max: [],
         percent: [],
@@ -331,6 +357,7 @@ export const COOLDOWN_MAPPING: MergedStatMapping = {
             //{ stat: 'turret_syndrome_reduced_cooldown_per_serenity', condition: (config, stats) => config.serenity > 0 && getFirstStat(stats, 'skill_id') === 0, multiplier: config => - minAndMax(0, config.serenity, DELIGHTED_VALUE) },
             { stat: 'cooldown_time_multiplier'},
             { stat: 'cooldown_time_reduction_multiplier', multiplier: () => -1 },
+            { stat: 'movement_skill_cooldown_reduction_percent', condition: (_, stats) => hasStat(stats, 'skill_is_movement'), multiplier: () => -1 },
             { stat: 'cooldown_time_multiplier_if_tormented', condition: config => config.serenity <= 0 },
             { stat: 'grappling_hook_crest_shield_cooldown_time_reduction_multiplier', condition: (_, stats) => [7, 8].includes(getFirstStat(stats, 'skill_id')), multiplier: () => -1 },
             {
@@ -338,12 +365,15 @@ export const COOLDOWN_MAPPING: MergedStatMapping = {
                 multiplier: (config, stats) => - Math.max(getFirstStat(stats, 'quick_silver_min_cooldown_time_reduction_multiplier'), getFirstStat(stats, 'quick_silver_max_cooldown_time_reduction_multiplier') - config.enemy_bleed_stacks)
             },
             { stat: 'cooldown_time_multiplier_if_fortunate_or_perfect', condition: config => config.next_cast_is_perfect || config.next_cast_is_fortunate },
-            { stat: 'cooldown_time_reduction_multiplier_per_temporal_emblem_if_not_temporal', condition: (config, stats) => config.temporal_emblems > 0 && !hasStat(stats, 'skill_is_temporal'), multiplier: config => - config.temporal_emblems },
-            { stat: 'cooldown_time_reduction_multiplier_per_temporal_emblem', condition: config => config.temporal_emblems > 0, multiplier: config => - config.temporal_emblems },
+            { stat: 'cooldown_time_reduction_multiplier_per_temporal_emblem_if_not_temporal', condition: (config, stats) => config.temporal_emblems > 0 && !hasStat(stats, 'skill_is_temporal'), multiplier: (config, stats) => - getEmblems(stats, config.temporal_emblems) },
+            { stat: 'cooldown_time_reduction_multiplier_per_temporal_emblem', condition: config => config.temporal_emblems > 0, multiplier: (config, stats) => - getEmblems(stats, config.temporal_emblems) },
             { stat: 'cooldown_time_muliplier_per_inner_fire', condition: config => config.active_inner_fire > 0, multiplier: config => config.active_inner_fire },
             { stat: 'spectral_shape_cooldown_time_override' },
             // currently life bargain is not affected by the cooldown reduction
             { stat: 'cooldown_time_reduction_if_life_cost', condition: (config, stats) => hasCostType(stats, SkillCostType.Life, SkillCostType.LifePercent) && (!hasStat(stats, 'activable_id') || getFirstStat(stats, 'activable_id') !== 57), multiplier: () => -1 },
+            { stat: 'first_slot_cooldown_reduction_global_mult', condition: (_, stats) => getFirstStat(stats, 'activable_slot') === 1 , multiplier: () => -1 },
+            { stat: 'non_first_slot_cooldown_reduction_global_mult', condition: (_, stats) => hasStat(stats, 'activable_slot') && getFirstStat(stats, 'activable_slot') !== 1, multiplier: () => -1 },
+        
         ],
         maxMultiplier: [],
     } 
@@ -356,17 +386,18 @@ export const AOE_INCREASED_SIZE_MAPPING: MergedStatMapping = {
     suffix: '%',
     source: {
         flat: [
-            { stat: 'aoe_increased_size_percent' },
+            { stat: 'aoe_increased_size_percent', condition: (_, stats) => !hasUltimatum(stats, UltimatumType.MarvelousJudgment) },
             { stat: 'max_charged_aoe_increased_size_percent', condition: config => config.rift_nova_fully_charged },
             { stat: 'arcane_breach_collision_stack_aoe_increased_size_percent', condition: config => config.arcane_breach_collision_stacks > 0, multiplier: (config, stats) => Math.min(config.arcane_breach_collision_stacks, getMaxStacks(stats, 'breach_collision_max_stacks')) },
-            { stat: 'aura_aoe_increased_size_percent', condition: (_, stats) => hasStat(stats, 'skill_is_aura') , extra: true }
+            { stat: 'aura_aoe_increased_size_percent', condition: (_, stats) => hasStat(stats, 'skill_is_aura') , extra: true },
+            { stat: 'skill_aoe_increased_size_percent' },
         ],
         max: [],
         percent: [],
         maxPercent: [],
         multiplier: [
-            { stat: 'aoe_increased_size_percent_mult' },
-            { stat: 'academician_aoe_increased_size_mult' }
+            { stat: 'aoe_increased_size_percent_mult', condition: (_, stats) => !hasUltimatum(stats, UltimatumType.MarvelousJudgment) },
+            { stat: 'academician_aoe_increased_size_mult', condition: (_, stats) => !hasUltimatum(stats, UltimatumType.MarvelousJudgment) },
         ],
         maxMultiplier: [],
     } 
@@ -404,7 +435,8 @@ export const MIN_BASIC_DAMAGE: MergedStatMapping = {
         flat: [
             { stat: 'min_basic_damage_add' },
             { stat: 'min_basic_damage_add_extra', extra: true },
-            { stat: 'merchant_stack_min_basic_damage_add', condition: config => config.merchant_stacks > 0, multiplier: (config, stats) => Math.min(getMaxStacks(stats, 'merchant_stack_max_stack', 0), config.merchant_stacks) }
+            { stat: 'merchant_stack_min_basic_damage_add', condition: config => config.merchant_stacks > 0, multiplier: (config, stats) => Math.min(getMaxStacks(stats, 'merchant_stack_max_stack', 0), config.merchant_stacks) },
+            { stat: 'raw_emergency_min_raw_damage_add_on_low_life', condition: (config, stats) => getFirstStat(stats, 'percent_missing_health', 0) > (100 - getFirstStat(stats, 'raw_emergency_min_raw_damage_add_on_low_life_treshold', 0)) },
         ],
         max: [],
         percent: [
@@ -418,8 +450,13 @@ export const MIN_BASIC_DAMAGE: MergedStatMapping = {
             { stat: 'basic_damage_percent_mult' },
             { stat: 'basic_damage_percent_global_mult' },
             { stat: 'basic_damage_global_mult' },
-            { stat: 'base_damage_per_obliteration_emblem', condition: (config, stats) => !hasStat(stats, 'damage_per_obliteration_emblem') && config.obliteration_emblems > 0, multiplier: config => config.obliteration_emblems },
-            { stat: 'damage_per_obliteration_emblem', condition: config => config.obliteration_emblems > 0, multiplier: config => config.obliteration_emblems },
+            { stat: 'base_damage_per_obliteration_emblem', condition: (config, stats) => !hasStat(stats, 'damage_per_obliteration_emblem') && config.obliteration_emblems > 0, multiplier: (config, stats) => getEmblems(stats, config.obliteration_emblems) },
+            { stat: 'damage_per_obliteration_emblem', condition: config => config.obliteration_emblems > 0, multiplier: (config, stats) => getEmblems(stats, config.obliteration_emblems) },
+            {
+                stat: 'skill_retention_stack_basic_damage_global_mult',
+                condition: config => config.skill_retention_stacks > 0,
+                multiplier: (config, stats) => Math.min(getMaxStacks(stats, 'retention_max_stacks'), config.skill_retention_stacks),
+            }
 
         ],
         maxMultiplier: [],
@@ -538,7 +575,7 @@ export const RECAST_CHANCE_MAPPING: MergedStatMapping =
             { stat: 'recast_chance_percent' },
             { stat: 'recast_chance_percent_if_perfect', condition: config => config.next_cast_is_perfect },
             { stat: 'recast_chance_percent_if_fortunate_or_perfect', condition: config => config.next_cast_is_perfect || config.next_cast_is_fortunate },
-            { stat: 'recast_chance_percent_per_non_obliteration_emblem', condition: config => (config.arcanic_emblems + config.temporal_emblems) > 0, multiplier: config => config.arcanic_emblems + config.temporal_emblems },
+            { stat: 'recast_chance_percent_per_non_obliteration_emblem', condition: config => (config.arcanic_emblems + config.temporal_emblems) > 0, multiplier: (config, stats) => getEmblems(stats, config.arcanic_emblems + config.temporal_emblems) },
             { stat: 'academician_recast_chance_extra', extra: true }
         ],
         max: [],
@@ -548,6 +585,110 @@ export const RECAST_CHANCE_MAPPING: MergedStatMapping =
         maxMultiplier: [],
     } 
 };
+
+export const OVERDRIVE_DAMAGE_MAPPING: MergedStatMapping = {
+    stat: 'overdrive_damage',
+    precision: 0,
+    allowMinMax: true,
+    suffix: '',
+    source: {
+        flat: [
+            { stat: 'overdrive_damage_add' },
+            { stat: 'overdrive_inner_fire_additional_damage_when_triggered_by_book_smash', extra: true, condition: config => config.is_triggered_by_book_smash },
+        ],
+        max: [],
+        percent: [
+            { stat: 'overdrive_damage_percent' },
+            { stat: 'overdriving_overdrive_damage_percent' }
+        ],
+        maxPercent: [],
+        multiplier: [
+            { stat: 'overdrive_damage_global_mult' },
+            { stat: 'overdrive_damage_global_mult_per_bounce_left', extra: true, condition: config => config.overdrive_bounces_left > 0, multiplier: config => config.overdrive_bounces_left },
+            { stat: 'overdrive_damage_global_mult_last_bounce', extra: true, condition: config => config.overdrive_last_bounce }
+        ],
+        maxMultiplier: [],
+    } 
+};
+
+export const OVERDRIVE_CHANCE_MAPPING: MergedStatMapping = {
+    stat: 'overdrive_chance',
+    precision: 3,
+    allowMinMax: false,
+    suffix: '%',
+    source: {
+        flat: [
+            { stat: 'overdrive_chance_percent' },
+            { stat: 'overdrive_chance_percent_if_fortunate_or_perfect', condition: config => config.next_cast_is_perfect || config.next_cast_is_fortunate },
+            { stat: 'overdrive_chance_percent_if_next_cast_is_new_emblem', condition: (config, stats) => config.next_cast_is_new_emblem && hasStat(stats, 'skill_is_melee') },
+            { stat: 'overdrive_chance_percent_while_channeling_ray_of_obliteration', condition: (config) => config.is_channeling_ray_of_obliteration },
+            { stat: 'academician_overdrive_chance_extra', extra: true },
+        ],
+        max: [],
+        percent: [],
+        maxPercent: [],
+        multiplier: [
+            { stat: 'academician_overdrive_chance_mult' },
+            { stat: 'overdrive_chance_multiplier' }
+        ],
+        maxMultiplier: [],
+    } 
+};
+
+export const INNER_FIRE_CHANCE_MAPPING: MergedStatMapping = {
+    stat: 'inner_fire_chance',
+    precision: 3,
+    allowMinMax: false,
+    suffix: '%',
+    source: {
+        flat: [
+            { stat: 'inner_fire_chance_percent' },
+            { stat: 'inner_fire_chance_percent_if_fortunate_or_perfect', condition: config => config.next_cast_is_perfect || config.next_cast_is_fortunate },
+            { stat: 'academician_inner_fire_chance_extra', extra: true }
+        ],
+        max: [],
+        percent: [],
+        maxPercent: [],
+        multiplier: [{ stat: 'academician_inner_fire_chance_mult' }],
+        maxMultiplier: [],
+    } 
+}
+
+export const INNER_FIRE_DAMAGE_MAPPING: MergedStatMapping = {
+    stat: 'inner_fire_damage',
+    precision: 0,
+    allowMinMax: true,
+    suffix: '',
+    source: {
+        flat: [
+            { stat: 'inner_fire_damage_add' },
+            { stat: 'overdrive_inner_fire_additional_damage_when_triggered_by_book_smash', extra: true, condition: config => config.is_triggered_by_book_smash },
+            { stat: 'inner_fire_damage_add_extra' },
+            { stat: 'elder_inner_fire_damage_add_extra', extra: true, condition: config => config.show_elder_inner_fire_damage },
+        ],
+        max: [],
+        percent: [
+            { stat: 'base_inner_fire_damage_percent', condition: (_, stats) => !hasUltimatum(stats, UltimatumType.ImpeccableTechnique) },
+            { stat: 'inner_fire_damage_percent', condition: (_, stats) => !hasUltimatum(stats, UltimatumType.ImpeccableTechnique) },
+            { stat: 'concentration_buff_inner_fire_damage_percent', condition: (config, stats) => !hasUltimatum(stats, UltimatumType.ImpeccableTechnique) && config.concentration_buff },
+        ],
+        maxPercent: [],
+        multiplier: [
+            {
+                stat: 'inner_fire_damage_mult_if_channeling_whirlwind',
+                extra: true,
+                condition: (config, stats) => !hasUltimatum(stats, UltimatumType.ImpeccableTechnique) && config.is_channeling_whirlwind && !hasStat(stats, 'no_longer_cost_per_second')
+            },
+            {
+                stat: 'inner_weakness_increased_damage',
+                extra: true,
+                condition: (config, stats) => !hasUltimatum(stats, UltimatumType.ImpeccableTechnique) && config.use_enemy_state && config.enemy_inner_weakness_stacks > 0 ,
+                multiplier: (config, stats) => Math.min(config.enemy_inner_weakness_stacks, getMaxStacks(stats, 'inner_weakness_max_stacks'))
+            }
+        ],
+        maxMultiplier: [],
+    } 
+}
 
 export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     {
@@ -673,6 +814,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxPercent: [],
             multiplier: [
                 { stat: 'health_recovery_mult' },
+                { stat: 'health_regen_global_mult' },
                 { stat: 'high_life_health_recovery_mult', condition: (config, stats) => config.percent_missing_health < (100 - getFirstStat(stats, 'reverse_life_regeneration_life_treshold', 0)) },
                 { stat: 'sun_effect_health_regen_global_mult', condition: (config) => !config.moonlight_side },
                 { stat: 'moon_effect_health_regen_global_mult', condition: (config) => config.moonlight_side },
@@ -936,12 +1078,13 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'crit_chance_percent_if_book_smash_or_chrono_puncture', condition: (_, stats) => [5, 7].includes(getFirstStat(stats, 'skill_id')) },
                 { stat: 'remnant_crit_chance_percent', condition: config => config.is_remnant },
                 { stat: 'crit_chance_percent_if_obliteration', condition: (_, stats) => hasStat(stats, 'skill_is_obliteration') },
-                { stat: 'crit_chance_percent_per_same_emblems', multiplier: (config, stats) => hasStat(stats, 'skill_is_temporal') ? config.temporal_emblems : hasStat(stats, 'skill_is_arcanic') ? config.arcanic_emblems : config.obliteration_emblems },
+                { stat: 'crit_chance_percent_per_same_emblems', multiplier: (config, stats) => hasStat(stats, 'skill_is_temporal') ? getEmblems(stats, config.temporal_emblems) : hasStat(stats, 'skill_is_arcanic') ? getEmblems(stats, config.arcanic_emblems) : getEmblems(stats, config.obliteration_emblems) },
                 { stat: 'crit_chance_percent_if_remnant_and_target_in_breach', condition: config => config.is_remnant && config.target_is_in_breach_range },
-                { stat: 'crit_chance_percent_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
+                { stat: 'crit_chance_percent_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: (config, stats) => getEmblems(stats, config.arcanic_emblems) },
                 { stat: 'crit_chance_percent_against_burning', condition: config => config.target_is_burning && config.use_enemy_state },
                 { stat: 'academician_critical_chance_extra', extra: true },
                 { stat: 'crit_chance_percent_while_curving_time_or_time_shifting', condition: config => config.is_curving_time_or_time_shifting },
+                { stat: 'undamaged_crit_chance_percent', condition: config => !config.took_physical_damage_recently && !config.took_elemental_damage_recently },
             ],
             max: [],
             percent: [],
@@ -975,8 +1118,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 },
                 { stat: 'burning_shadow_buff_crit_damage_percent', condition: config => config.has_burning_shadow_buff },
                 { stat: 'mighty_swing_cadence_whirlwind_crit_damage_percent', condition: (_, stats) => [3, 6, 9].includes(getFirstStat(stats, 'skill_id')) },
-                { stat: 'crit_damage_percent_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: config => config.arcanic_emblems },
-                { stat: 'crit_damage_percent_per_obliteration_emblem', condition: config => config.obliteration_emblems > 0, multiplier: config => config.obliteration_emblems },
+                { stat: 'crit_damage_percent_per_arcanic_emblem', condition: config => config.arcanic_emblems > 0, multiplier: (config, stats) => getEmblems(stats, config.arcanic_emblems) },
+                { stat: 'crit_damage_percent_per_obliteration_emblem', condition: config => config.obliteration_emblems > 0, multiplier: (config, stats) => getEmblems(stats, config.obliteration_emblems) },
                 { stat: 'crit_damage_percent_while_curving_time_or_time_shifting', condition: config => config.is_curving_time_or_time_shifting },
                 { stat: 'isoperimetry_crit_damage_percent_extra', condition: (_, stats) => hasStat(stats, 'critical_chance_equal_ancestral_chance') },
             ],
@@ -1008,8 +1151,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                     stat: 'brut_chance_percent_while_ancestral_stab_slash_buff',
                     condition: config => config.has_ancestral_stab_slash_buff, 
                 },
-                { stat: 'brut_chance_percent_per_temporal_emblem', condition: config => config.temporal_emblems > 0, multiplier: config => config.temporal_emblems },
-                { stat: 'brut_chance_percent_per_temporal_emblem', condition: config => config.temporal_emblems > 0, multiplier: config => config.temporal_emblems },
+                { stat: 'brut_chance_percent_per_temporal_emblem', condition: config => config.temporal_emblems > 0, multiplier: (config, stats) => getEmblems(stats, config.temporal_emblems) },
+                { stat: 'brut_chance_percent_per_temporal_emblem', condition: config => config.temporal_emblems > 0, multiplier: (config, stats) => getEmblems(stats, config.temporal_emblems) },
                 { stat: 'academician_ancestral_chance_extra', extra: true },
             ],
             max: [],
@@ -1028,25 +1171,29 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         allowMinMax: false,
         suffix: '%',
         source: {
-            flat: [
-                { stat: 'brut_damage_percent' },
+            flat: [ // brut_damage_equal_crit_damage
+                { stat: 'brut_damage_percent_from_crit_damage', addAsNonConvertion: true },
+                { stat: 'brut_damage_percent', condition: (_, stats) => !hasStat(stats, 'brut_damage_equal_crit_damage') },
                 { stat: 'nimble_buff_brut_damage_percent',
                     condition: config => config.has_nimble_buff, 
                     multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getMaxStacks(stats, 'nimble_champion_max_stacks'), 0))
                 },
                 { stat: 'ancestral_instability_brut_damage_percent',
-                    condition: config => config.has_ancestral_instability_buff, 
+                    condition: (config, stats) => config.has_ancestral_instability_buff && !hasStat(stats, 'brut_damage_equal_crit_damage'), 
                     multiplier: (config, stats) => 1 + 0.25 * config.ancestral_instability_buff_duration
                 },
-                { stat: 'brut_damage_percent_extra', extra: true },
-                { stat: 'brut_damage_percent_per_ancestral_preparation_stack', condition: config => config.ancestral_preparation_stacks > 0, multiplier: config => config.ancestral_preparation_stacks },
+                { stat: 'brut_damage_percent_extra', condition: (_, stats) => !hasStat(stats, 'brut_damage_equal_crit_damage') , extra: true },
+                { stat: 'brut_damage_percent_per_ancestral_preparation_stack',
+                    condition: (config, stats) => config.ancestral_preparation_stacks > 0 && !hasStat(stats, 'brut_damage_equal_crit_damage'),
+                    multiplier: config => config.ancestral_preparation_stacks },
             ],
             max: [],
             percent: [],
             maxPercent: [],
             multiplier: [
-                { stat: 'brut_damage_global_mult' },
-                { stat: 'academician_ancestral_damage_mult' }
+                { stat: 'brut_damage_global_mult', condition: (_, stats) => !hasStat(stats, 'brut_damage_equal_crit_damage') },
+                { stat: 'academician_ancestral_damage_mult' },
+                { stat: 'brut_damage_global_mult_elemental_overload_bug' }
             ],
             maxMultiplier: [],
         } 
@@ -1132,7 +1279,22 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         allowMinMax: false,
         suffix: '',
         source: {
-            flat: [{ stat: 'res_phy_add' }],
+            flat: [
+                { stat: 'res_phy_add' },
+                {
+                    stat: 'indomptable_mountain_res_phy_add',
+                    multiplier: (config, stats) => {
+                        let multiplier = 1;
+
+                        const buff = getFirstStat(stats, 'buff_indomptable_mountain_def_phy_mult');
+                        if (buff > 0 && (config.took_elemental_damage_recently || config.took_physical_damage_recently)) {
+                            multiplier = round((100 + buff) / 100, 1);
+                        }
+
+                        return multiplier;
+                    }
+                 }
+            ],
             max: [],
             percent: [
                 { stat: 'res_phy_percent' },
@@ -1365,7 +1527,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             max: [],
             percent: [],
             maxPercent: [],
-            multiplier: [{ stat: 'academician_tenacity_mult' }],
+            multiplier: [
+                { stat: 'academician_tenacity_mult' },
+                { stat: 'tenacity_global_mult' },
+            ],
             maxMultiplier: [],
         } 
     },
@@ -1558,24 +1723,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxMultiplier: [],
         } 
     },
-    {
-        stat: 'inner_fire_chance',
-        precision: 3,
-        allowMinMax: false,
-        suffix: '%',
-        source: {
-            flat: [
-                { stat: 'inner_fire_chance_percent' },
-                { stat: 'inner_fire_chance_percent_if_fortunate_or_perfect', condition: config => config.next_cast_is_perfect || config.next_cast_is_fortunate },
-                { stat: 'academician_inner_fire_chance_extra', extra: true }
-            ],
-            max: [],
-            percent: [],
-            maxPercent: [],
-            multiplier: [{ stat: 'academician_inner_fire_chance_mult' }],
-            maxMultiplier: [],
-        } 
-    },
+    INNER_FIRE_CHANCE_MAPPING,
     {
         stat: 'inner_fire_max_number',
         precision: 2,
@@ -1608,31 +1756,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxMultiplier: [],
         } 
     },
-    {
-        stat: 'inner_fire_damage',
-        precision: 0,
-        allowMinMax: true,
-        suffix: '',
-        source: {
-            flat: [
-                { stat: 'inner_fire_damage_add' },
-                { stat: 'overdrive_inner_fire_additional_damage_when_triggered_by_book_smash', extra: true, condition: config => config.is_triggered_by_book_smash },
-                { stat: 'inner_fire_damage_add_extra' },
-                { stat: 'elder_inner_fire_damage_add_extra', extra: true, condition: config => config.show_elder_inner_fire_damage },
-            ],
-            max: [],
-            percent: [
-                { stat: 'inner_fire_damage_percent' },
-                { stat: 'concentration_buff_inner_fire_damage_percent', condition: config => config.concentration_buff },
-            ],
-            maxPercent: [],
-            multiplier: [
-                { stat: 'inner_fire_damage_mult_if_channeling_whirlwind', extra: true, condition: (config, stats) => config.is_channeling_whirlwind && !hasStat(stats, 'no_longer_cost_per_second') },
-                { stat: 'inner_weakness_increased_damage', extra: true, condition: config => config.use_enemy_state && config.enemy_inner_weakness_stacks > 0 , multiplier: (config, stats) => Math.min(config.enemy_inner_weakness_stacks, getMaxStacks(stats, 'inner_weakness_max_stacks')) }
-            ],
-            maxMultiplier: [],
-        } 
-    },
+    INNER_FIRE_DAMAGE_MAPPING,
     {
         stat: 'shield_globe_value',
         precision: 2,
@@ -1653,29 +1777,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxMultiplier: [],
         } 
     },
-    {
-        stat: 'overdrive_chance',
-        precision: 3,
-        allowMinMax: false,
-        suffix: '%',
-        source: {
-            flat: [
-                { stat: 'overdrive_chance_percent' },
-                { stat: 'overdrive_chance_percent_if_fortunate_or_perfect', condition: config => config.next_cast_is_perfect || config.next_cast_is_fortunate },
-                { stat: 'overdrive_chance_percent_if_next_cast_is_new_emblem', condition: (config, stats) => config.next_cast_is_new_emblem && hasStat(stats, 'skill_is_melee') },
-                { stat: 'overdrive_chance_percent_while_channeling_ray_of_obliteration', condition: (config) => config.is_channeling_ray_of_obliteration },
-                { stat: 'academician_overdrive_chance_extra', extra: true },
-            ],
-            max: [],
-            percent: [],
-            maxPercent: [],
-            multiplier: [
-                { stat: 'academician_overdrive_chance_mult' },
-                { stat: 'overdrive_chance_multiplier' }
-            ],
-            maxMultiplier: [],
-        } 
-    },
+    OVERDRIVE_CHANCE_MAPPING,
     {
         stat: 'overdrive_bounce_number',
         precision: 0,
@@ -1692,27 +1794,20 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxMultiplier: [],
         } 
     },
+    OVERDRIVE_DAMAGE_MAPPING,
     {
-        stat: 'overdrive_damage',
+        stat: 'flat_overdrive_damage',
         precision: 0,
-        allowMinMax: true,
+        allowMinMax: false,
         suffix: '',
         source: {
             flat: [
-                { stat: 'overdrive_damage_add' },
-                { stat: 'overdrive_inner_fire_additional_damage_when_triggered_by_book_smash', extra: true, condition: config => config.is_triggered_by_book_smash },
+                { stat: 'flat_overdrive_damage_add' },
             ],
             max: [],
-            percent: [
-                { stat: 'overdrive_damage_percent' },
-                { stat: 'overdriving_overdrive_damage_percent' }
-            ],
+            percent: [],
             maxPercent: [],
-            multiplier: [
-                { stat: 'overdrive_damage_global_mult' },
-                { stat: 'overdrive_damage_global_mult_per_bounce_left', extra: true, condition: config => config.overdrive_bounces_left > 0, multiplier: config => config.overdrive_bounces_left },
-                { stat: 'overdrive_damage_global_mult_last_bounce', extra: true, condition: config => config.overdrive_last_bounce }
-            ],
+            multiplier: [],
             maxMultiplier: [],
         } 
     },
@@ -1928,13 +2023,14 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'minion_increased_damage',
-        precision: 2,
+        precision: 3,
         allowMinMax: false,
         suffix: '%',
         source: {
             flat: [
                 { stat: 'minion_increased_damage_percent' },
                 { stat: 'minion_increased_damage_percent_necromancy', addAsNonConvertion: true },
+                { stat: 'necromancy_set_minion_increased_damage_percent', addAsNonConvertion: true },
                 { stat: 'minion_increased_damage_percent_per_controlled_minion', condition: (config, stats) => getMinionsUnderYourControl(stats, config) > 0, multiplier: (config, stats) => getMinionsUnderYourControl(stats, config) },
             ],
             max: [],
@@ -1956,7 +2052,6 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             flat: [
                 { stat: 'min_elemental_damage_add' },
                 { stat: 'weapon_to_elemental_damage' },
-                { stat: 'elemental_emergency_min_elemental_damage_add_on_low_life', condition: (config, stats) => getFirstStat(stats, 'percent_missing_health', 0) > (100 - getFirstStat(stats, 'elemental_emergency_min_elemental_damage_add_on_low_life_treshold', 0)) },
                 { stat: 'elemental_resources_min_elemental_damage_add_on_low_mana', condition: (config, stats) => getFirstStat(stats, 'percent_missing_mana', 0) > (100 - getFirstStat(stats, 'elemental_resources_min_elemental_damage_add_on_low_mana_treshold', 0)) },
                 { stat: 'enligntment_stack_min_elemental_damage_add', addAsNonConvertion: true }
             ],
@@ -1982,8 +2077,9 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'elemental_weakness_stack_elemental_damage_mult',
                     condition: (config, stats) => config.elemental_weakness_stacks > 0 && hasStat(stats, 'skill_id') && [getFirstStat(stats, 'primary_skill'), getFirstStat(stats, 'secondary_skill')].includes(4),
                     multiplier: (config, stats) => Math.min(config.elemental_weakness_stacks, getFirstStat(stats, 'elemental_weakness_max_stacks')) },
-                { stat: 'base_damage_per_obliteration_emblem', condition: (config, stats) => !hasStat(stats, 'damage_per_obliteration_emblem') && config.obliteration_emblems > 0, multiplier: config => config.obliteration_emblems },
-                { stat: 'damage_per_obliteration_emblem', condition: config => config.obliteration_emblems > 0, multiplier: config => config.obliteration_emblems },
+                { stat: 'base_damage_per_obliteration_emblem', condition: (config, stats) => !hasStat(stats, 'damage_per_obliteration_emblem') && config.obliteration_emblems > 0, multiplier: (config, stats) => getEmblems(stats, config.obliteration_emblems) },
+                { stat: 'damage_per_obliteration_emblem', condition: config => config.obliteration_emblems > 0, multiplier: (config, stats) => getEmblems(stats, config.obliteration_emblems) },
+                { stat: 'elemental_retention_stack_basic_damage_global_mult', condition: config => config.elemental_retention_stacks > 0, multiplier: (config, stats) => Math.min(getMaxStacks(stats, 'retention_max_stacks'), config.elemental_retention_stacks) },
             ],
             maxMultiplier: [],
         } 
@@ -2011,6 +2107,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'min_weapon_damage_add' },
+                { stat: 'steel_manipulator_min_weapon_damage_add', addAsNonConvertion: true,  },
                 { stat: 'blood_frenzy_min_weapon_damage_add', condition: config => config.has_blood_frenzy_buff }
             ],
             max: [{ stat: 'max_weapon_damage_add' }],
@@ -2030,7 +2127,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         suffix: '',
         source: {
             flat: [
-                { stat: 'basic_to_physical_damage' }, 
+                { stat: 'basic_to_physical_damage', condition: (_, stats) => !hasStat(stats, 'basic_not_added_to_skill_damage') }, 
                 { stat: 'weapon_to_physical_damage' }
             ],
             max: [],
@@ -2090,9 +2187,10 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'additional_damage_add' },
-                { stat: 'primary_skill_additional_damages', condition: (_, stats) => hasStat(stats, 'skill_is_equipped_primary') },
-                { stat: 'primary_secondary_skill_additional_damage', condition: (_, stats) => hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary') },
-                { stat: 'moon_effect_primary_secondary_skill_additional_damage', condition: (config, stats) => config.moonlight_side && (hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')) },
+                { stat: 'primary_skill_additional_damages', multiplier: (_, stats) => hasStat(stats, 'skill_is_equipped_primary') ? 1 : 0 },
+                { stat: 'secondary_skill_additional_damages', multiplier: (_, stats) => hasStat(stats, 'skill_is_equipped_secondary') ? 1 : 0, addAsNonConvertion: true },
+                { stat: 'primary_secondary_skill_additional_damage', multiplier: (_, stats) => (hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')) ? 1 : 0 },
+                { stat: 'moon_effect_primary_secondary_skill_additional_damage', multiplier: (config, stats) => (config.moonlight_side && (hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary'))) ? 1 : 0 },
             ],
             max: [],
             percent: [],
@@ -2146,7 +2244,14 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'chivalry_low_life_reduced_damage', condition: (config, stats) => config.use_enemy_state && getFirstStat(stats, 'chivalry_low_life_treshold') > (100 - config.enemy_percent_missing_health), multiplier: () => -1 },
                 { stat: 'chivalry_high_life_increased_damage', condition: (config, stats) => config.use_enemy_state && getFirstStat(stats, 'chivalry_high_life_treshold') < (100 - config.enemy_percent_missing_health) },
                 { stat: 'increased_damage_mult_if_no_legendaries', condition: (_, stats) => getFirstStat(stats, 'number_equipped_legendaries', -1) === 0 },
-                { stat: 'increased_damage_mult_on_splintered_enemy', condition: config => config.enemy_splintered_stacks > 0, multiplier: (config, stats) => 1 + Math.max(0, Math.min(config.enemy_splintered_stacks, getMaxStacks(stats, 'splintered_max_stacks', 1)) - 1) * getFirstStat(stats, 'splintered_stack_increased_effect') / 100 },
+                {
+                    stat: 'increased_damage_mult_on_splintered_enemy',
+                    condition: config => config.enemy_splintered_stacks > 0,
+                    multiplier: (config, stats) => {
+                        const stacks = Math.max(0, Math.min(config.enemy_splintered_stacks, getMaxStacks(stats, 'splintered_max_stacks', 1)));
+                        return stacks * (100 + Math.max(0, stacks - 1) * getFirstStat(stats, 'splintered_stack_increased_effect') ) / 100
+                    }
+                },
                 { stat: 'increased_damage_if_fortunate_or_perfect', condition: config => config.next_cast_is_fortunate || config.next_cast_is_perfect },
                 { stat: 'increased_damage_mult_if_target_is_time_locked', condition: config => config.target_is_time_locked },
                 { stat: 'remnant_damage_reduction_mult', condition: config => config.is_remnant },
@@ -2182,7 +2287,94 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         } 
     },
     {
-        stat: 'skill_increased_damages',
+        stat: 'increased_damages',
+        precision: 1,
+        allowMinMax: false,
+        suffix: '%',
+        source: {
+            flat: [
+            ],
+            max: [],
+            percent: [],
+            maxPercent: [],
+            multiplier: [
+                { stat: 'nimble_buff_primary_skill_increased_damages',
+                    condition: (config, stats) => config.has_nimble_buff && hasStat(stats, 'skill_is_equipped_primary'), 
+                    multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getMaxStacks(stats, 'nimble_champion_max_stacks'), 0))
+                },
+                { stat: 'increased_damage_for_each_yard_with_target', condition: config => config.use_enemy_state && config.distance_with_target > 0, multiplier:  config => config.distance_with_target },
+                { stat: 'exposed_armor_primary_secondary_skill_increased_damage_mult', condition: (config, stats) => config.exposed_armor_buff && (hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')) },
+                { stat: 'melee_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee') },
+                { stat: 'melee_skill_decreased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee'), multiplier: () => -1 },
+                { stat: 'light_arrow_increased_damage' },
+                { stat: 'isolated_target_increased_damage', condition: config => config.use_enemy_state && config.target_is_isolated },
+                { stat: 'negative_effect_target_increased_damage', condition: config => config.use_enemy_state && config.target_negative_effects > 0 },
+                { 
+                    stat: 'increased_damage_per_negative_effect',
+                    condition: (config, stats) => config.use_enemy_state && config.target_negative_effects > 0 && statHasValue(stats, 'skill_elements', SkillElement.Light),
+                    multiplier: config => config.target_negative_effects
+                },
+                { stat: 'close_target_increased_damage', condition: (config, stats) => config.use_enemy_state && config.distance_with_target <= getFirstStat(stats, 'close_target_radius') },
+                { stat: 'smoke_screen_buff_increased_damage', condition: config => config.has_smoke_screen_buff },
+                { stat: 'increased_damage_per_rebound', condition: config => config.rebounds_before_hit > 0, multiplier: config => config.rebounds_before_hit },
+                { stat: 'first_hit_after_rebound_increased_damage', condition: config => config.rebounds_before_hit > 0 && config.is_first_arrow_shot_hit },
+                { stat: 'increased_damage_per_pierce', condition: config => config.pierces_before_hit > 0, multiplier: config => config.pierces_before_hit },
+                { stat: 'increased_damage_mult' },
+                { stat: 'decreased_damage', multiplier: () => -1 },
+                { stat: 'increased_damage_per_volley_before', condition: config => config.is_last_volley, multiplier: (_, stats) => getFirstStat(stats, 'additional_volleys') },
+                { stat: 'latent_storm_stack_increased_damage', condition: config => config.target_latent_storm_stacks > 0, multiplier: (config, stats) => Math.min(config.target_latent_storm_stacks, getMaxStacks(stats, 'latent_storm_max_stacks')) },
+                { stat: 'increased_damage_mult_if_fully_charged', condition: (config, stats) => config.void_arrow_fully_charged && hasStat(stats, 'max_charge'), multiplier: (_, stats) => getMaxStat(stats, 'max_charge') },
+                { stat: 'increased_damage_mult_per_target_left_health_percent', condition: config => config.use_enemy_state && config.enemy_percent_missing_health < 100, multiplier: config => 100 - config.enemy_percent_missing_health },
+                { stat: 'increased_damage_mult_per_target_missing_health_percent', condition: config => config.use_enemy_state && config.enemy_percent_missing_health > 0, multiplier: config => config.enemy_percent_missing_health },
+                { stat: 'increased_damage_if_target_is_skewered', condition: config => config.target_is_skewered },
+                { stat: 'increased_damage_if_not_fortunate_or_perfect', condition: config => !config.next_cast_is_fortunate && !config.next_cast_is_perfect },
+                { stat: 'chivalry_low_life_reduced_damage', condition: (config, stats) => config.use_enemy_state && getFirstStat(stats, 'chivalry_low_life_treshold') > (100 - config.enemy_percent_missing_health), multiplier: () => -1 },
+                { stat: 'chivalry_high_life_increased_damage', condition: (config, stats) => config.use_enemy_state && getFirstStat(stats, 'chivalry_high_life_treshold') < (100 - config.enemy_percent_missing_health) },
+                { stat: 'increased_damage_mult_if_no_legendaries', condition: (_, stats) => getFirstStat(stats, 'number_equipped_legendaries', -1) === 0 },
+                {
+                    stat: 'increased_damage_mult_on_splintered_enemy',
+                    condition: config => config.enemy_splintered_stacks > 0,
+                    multiplier: (config, stats) => {
+                        const stacks = Math.max(0, Math.min(config.enemy_splintered_stacks, getMaxStacks(stats, 'splintered_max_stacks', 1)));
+                        return stacks * (100 + Math.max(0, stacks - 1) * getFirstStat(stats, 'splintered_stack_increased_effect') ) / 100
+                    }
+                },
+                { stat: 'increased_damage_if_fortunate_or_perfect', condition: config => config.next_cast_is_fortunate || config.next_cast_is_perfect },
+                { stat: 'increased_damage_mult_if_target_is_time_locked', condition: config => config.target_is_time_locked },
+                { stat: 'remnant_damage_reduction_mult', condition: config => config.is_remnant },
+                { stat: 'remnant_increased_damage_mult', condition: config => config.is_remnant },
+                { stat: 'remnant_vulnerability_remnant_increased_damage_mult', condition: config => config.is_remnant && config.target_has_remnant_vulnerability },
+                /*{ // blood frenzy damage bonus is currently not visible in stats
+                    stat: 'increased_damage_mult_per_bloodthirst_stack',
+                    condition: config => config.bloodthirst_stacks > 0 && config.has_blood_frenzy_buff,
+                    multiplier: (config, stats) => Math.max(0, Math.min(config.bloodthirst_stacks, getMaxStacks(stats, 'bloodthirst_max_stacks')))
+                },*/
+                { 
+                    stat: 'enfeeble_stack_increased_damage',
+                    condition: config => config.enemy_enfeeble_stacks > 0 && config.use_enemy_state,
+                    multiplier: (config, stats) => Math.min(config.enemy_enfeeble_stacks, valueOrDefault(getMaxStacks(stats, 'enfeeble_max_stacks'), 0))
+                },
+                {
+                    stat: 'aoe_primary_secondary_support_damage_mult',
+                    condition: (config, stats) => hasStat(stats, 'skill_is_aoe') && (hasStat(stats, 'skill_is_equipped_support') || hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary'))
+                },
+                {
+                    stat: 'suport_streak_increased_damage',
+                    condition: (config, stats) => hasStat(stats, 'skill_is_equipped_support') && (getFirstStat(stats, 'hero_class', 0) !== HeroClass.Warrior || getFirstStat(stats, 'skill_id', 0) !== 2) ,
+                    multiplier: (config, stats) => 1 + (getFirstStat(stats, 'support_streak_increased_effect_per_stack', 0) * Math.max(0, Math.min(config.support_streak_stacks, getMaxStacks(stats, 'support_streak_max_stacks'))) / 100)
+                },
+                { stat: 'non_projectile_increased_damage_mult', condition: (_, stats) => !hasStat(stats, 'skill_is_projectile'), multiplier: () => -1 },
+                { stat: 'increased_damage_while_curving_time_or_time_shifting', condition: config => config.is_curving_time_or_time_shifting },
+                // non pris en compte { stat: 'skill_increased_damage_if_mana_full', condition: (_, stats) => getFirstStat(stats, 'percent_missing_mana', 0) === 0  },
+                { stat: 'increased_damage_per_poison_upgrade', condition: (_, stats) => getFirstStat(stats, 'poison_upgrades', 0) > 0, multiplier: (_, stats) => getFirstStat(stats, 'poison_upgrades', 0)  },
+                { stat: 'area_projectile_increased_damage', condition: (_, stats) => hasStat(stats, 'skill_is_aoe') && hasStat(stats, 'skill_is_projectile')  },
+            ],
+            maxMultiplier: [
+            ],
+        } 
+    },
+    {
+        stat: 'indirect_increased_damage',
         precision: 1,
         allowMinMax: false,
         suffix: '%',
@@ -2191,69 +2383,17 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             ],
             max: [],
             percent: [
-                { stat: 'increased_damage_per_power', condition: (_, stats) => getFirstStat(stats, 'max_power', 0) > 0, multiplier: (config, stats) => Math.min(config.ray_of_obliteration_power, getFirstStat(stats, 'max_power', 0)) },
             ],
             maxPercent: [],
             multiplier: [
-                { stat: 'skill_decreased_damage_mult', multiplier: () => -1 },
-                { stat: 'skill_increased_damage_mult' },
-                { stat: 'skill_and_enemy_under_control_increased_damage_mult' },
-                { stat: 'primary_secondary_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')},
-                { stat: 'primary_secondary_skill_decreased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary'), multiplier: () => -1},
-                { stat: 'skill_increased_damage_mult_against_broken_armor', condition: config => config.use_enemy_state && config.target_has_broken_armor },
-                { stat: 'skill_increased_damage_mult_while_channeling_whirlwind', condition: config => config.is_channeling_whirlwind },
-                { stat: 'skill_increased_damage_mult_per_second_while_channeling_whirlwind',
-                    condition: (config, stats) => config.is_channeling_whirlwind && config.time_spend_channeling > 0 && !hasStat(stats, 'no_longer_cost_per_second'),
-                    multiplier: (config, stats) => Math.min(config.time_spend_channeling, Math.round(getFirstStat(stats, 'skill_increased_damage_mult_max_while_channeling_whirlwind') / getFirstStat(stats, 'skill_increased_damage_mult_per_second_while_channeling_whirlwind'))),
-                },
-                { stat: 'increased_damage_mult_per_obliteration_emblem_if_not_obliteration', condition: (config, stats) => config.obliteration_emblems > 0 && !hasStat(stats, 'skill_is_obliteration'), multiplier: config => config.obliteration_emblems },
-                { stat: 'skill_melee_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee') },
-                { stat: 'skill_projectile_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_projectile') },
-                { stat: 'skill_aoe_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_aoe') },
-                { stat: 'skill_increased_damage_mult_if_short', condition: config => config.ray_of_obliteration_is_short },
-                { stat: 'high_spirit_stacks_skill_increased_damage_mult', condition: config => config.high_spirit_stacks > 0, multiplier: config => config.high_spirit_stacks },
-                { stat: 'skill_increased_damage_mult_per_non_temporal_emblem', condition: config => (config.arcanic_emblems + config.obliteration_emblems) > 0, multiplier: config => config.arcanic_emblems + config.obliteration_emblems },
-                { stat: 'chrono_pucture_skill_increased_damage_mult', condition: config => config.is_remnant, multiplier: () => 2 },
-                { stat: 'chrono_empower_stack_skill_increased_damage_mult',
-                    condition: (config, stats) => config.chrono_empower_stacks > 0
-                            && (
-                                (hasStat(stats, 'chrono_puncture_is_obliteration') && (hasStat(stats, 'skill_is_temporal') || hasStat(stats, 'skill_is_arcanic') ))
-                                || (!hasStat(stats, 'chrono_puncture_is_obliteration') && (hasStat(stats, 'skill_is_obliteration') || hasStat(stats, 'skill_is_arcanic') ))
-                            ),
-                    multiplier: (config, stats) => Math.min(config.chrono_empower_stacks, getMaxStacks(stats, 'chrono_empower_max_stacks') + getFirstStat(stats, 'increased_max_chrono_stacks'))
-                },
-                { stat: 'traumatized_stack_double_damages', condition: config => config.enemy_traumatized_stacks > 0, multiplier: (config, stats) => Math.pow(2, Math.min(config.enemy_traumatized_stacks, getMaxStacks(stats, 'traumatized_max_stacks'))) },
-                { stat: 'obliteration_breach_stack_skill_increased_damage_mult', condition: config => config.obliteration_breach_collision_stacks > 0, multiplier: (config, stats) => Math.min(config.obliteration_breach_collision_stacks, getMaxStacks(stats, 'breach_collision_max_stacks')) },
-                { stat: 'skill_increased_damage_mult_per_obliteration_emblem', condition: config => config.obliteration_emblems > 0, multiplier: config => config.obliteration_emblems },
-                { stat: 'orb_arcane_master_skill_decreased_damage_mult', multiplier: (_, stats) => -1 * getFirstStat(stats, 'orb_of_the_arcane_master_reduction_multiplier', 1) },
-                { stat: 'skill_decreased_damage_mult_if_only_obliteration', condition: config => config.temporal_emblems === 0 && config.arcanic_emblems === 0 },
-                { stat: 'lightning_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Lightning) },
-                { stat: 'light_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Light) },
-                { stat: 'shadow_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Shadow) },
-                { stat: 'ice_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Ice) },
-                { stat: 'fire_imbued_skill_increased_damage', condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Fire) },
+                { stat: 'increased_indirect_damage', condition: config => config.apply_indirect_increased_damage },
                 {
-                    stat: 'imbued_skill_increased_damage',
-                    condition: (_, stats) => statHasValue(stats, 'skill_elements', SkillElement.Shadow)
-                                          || statHasValue(stats, 'skill_elements', SkillElement.Fire)
-                                          || statHasValue(stats, 'skill_elements', SkillElement.Ice)
-                                          || statHasValue(stats, 'skill_elements', SkillElement.Light)
-                                          || statHasValue(stats, 'skill_elements', SkillElement.Lightning)
-                                          || statHasValue(stats, 'skill_elements', SkillElement.Shadow)
+                    stat: 'transference_stack_increased_indirect_damage',
+                    condition: (config, stats) => config.apply_indirect_increased_damage && config.transference_stacks > 0 && !hasStat(stats, 'increased_indirect_damage'),
+                    multiplier: (config, stats) => Math.min(config.transference_stacks, valueOrDefault(getMaxStacks(stats, 'transference_max_stack'), 0))
                 },
-                {
-                    stat: 'imbued_skill_increased_damage_per_elemental_fury_stack',
-                    condition: (config) => config.elemental_fury_stacks > 0,
-                    multiplier: (config, stats) => Math.max(0, Math.min(config.elemental_fury_stacks, getMaxStacks(stats, 'elemental_fury_max_stacks')))
-                },
-                { stat: 'primary_skill_increased_damage', condition: (_, stats) => hasStat(stats, 'skill_is_equipped_primary')},
-                { stat: 'imbued_skills_and_ancestral_beam_increased_damage_per_imbue', condition: (_, stats) => hasStat(stats, 'skill_elements'), multiplier: (_, stats) => getFirstStat(stats, 'equipped_imbues', 0)},
-                { stat: 'chill_frozen_increased_damage', condition: (config, stats) => config.use_enemy_state && config.enemy_is_chill_or_frozen},
-                { stat: 'increased_damage_mult_per_inner_fire', condition: config => config.active_inner_fire > 0, multiplier: config => config.active_inner_fire },
             ],
-            maxMultiplier: [
-                { stat: 'skill_increased_max_damage_mult' },
-            ],
+            maxMultiplier: [],
         } 
     },
     {
@@ -2350,6 +2490,34 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             flat: [
                 { stat: 'enhancement_rune_increased_effect' }
             ],
+            max: [],
+            percent: [],
+            maxPercent: [],
+            multiplier: [],
+            maxMultiplier: [],
+        } 
+    },
+    {
+        stat: 'inner_or_overdrive_damage_high',
+        precision: 0,
+        allowMinMax: false,
+        suffix: '',
+        source: {
+            flat: [],
+            max: [],
+            percent: [],
+            maxPercent: [],
+            multiplier: [],
+            maxMultiplier: [],
+        } 
+    },
+    {
+        stat: 'inner_or_overdrive_damage_high',
+        precision: 0,
+        allowMinMax: false,
+        suffix: '',
+        source: {
+            flat: [],
             max: [],
             percent: [],
             maxPercent: [],

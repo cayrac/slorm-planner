@@ -38,4 +38,8 @@ export class ItemViewComponent {
     public getEpicAffixes(): Array<Affix> {
         return this.item === null ? [] : this.item.affixes.filter(affix => affix.rarity === Rarity.Epic);
     }
+
+    public hasAffixes() {
+        return this.item !== null && this.item.affixes.length > 0;
+    }
 }

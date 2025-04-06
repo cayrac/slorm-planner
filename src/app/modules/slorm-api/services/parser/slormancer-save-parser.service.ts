@@ -58,6 +58,7 @@ import {
     GameInfluence,
     GameInventory,
     GameMissions,
+    GameMode,
     GameProfile,
     GameReaperAffinities,
     GameReaperRune,
@@ -85,7 +86,7 @@ import {
     toFloatArray,
     toHeroes,
     toNumberArray,
-    toWeapon,
+    toWeapon
 } from '../../util/parse.util';
 import { splitData, valueOrNull } from '../../util/utils';
 import { SlormancerItemParserService } from './slormancer-item-parser.service';
@@ -171,8 +172,8 @@ export class SlormancerSaveParserService {
         return toHeroes(mapHeroesArray(splitHeroesData(data), v => v.split(',').map((data, index) => toWeapon(data, index))));
     }
 
-    private parseGameMode(data: string): GameHeroesData<number> {
-        return toHeroes(mapHeroesArray(splitHeroesData(data), strictParseInt));
+    private parseGameMode(data: string): GameMode {
+        return toHeroes(mapHeroesArray(splitHeroesData(data), v => strictSplit(v, ',', 71)));
     }
 
     private parseSkillEquip(data: string): GameSkillEquip {
@@ -395,7 +396,7 @@ export class SlormancerSaveParserService {
 
         this.normalizeSave(parsedData);
 
-        console.log('parsed data : ', parsedData);
+        console.log(parsedData);
 
         return {
             stats_fetched: this.parseStatsFetched(this.getOrFail(parsedData, 'stats_fetched')),

@@ -95,20 +95,23 @@ export class SlormancerSynergyResolverService {
             stat: 'raw_elem_diff',
             statsItWillUpdate: [ { stat: 'raw_elem_diff' } ],
             cascadeSynergy: true,
+            allowMinMax: true,
+        });
+        resolveDatas.push({
+            type: ResolveDataType.ExternalSynergy,
+            value: 0,
+            precision: 3,
+            method: (innerFire, overdrive) => {
+                return Math.min(innerFire as number, overdrive as number)
+            },
+            objectSource: { synergy: 'Lowest value between inner fire chances and overdrive chances'},
+            sources: ['inner_fire_chance', 'overdrive_chance'],
+            stat: 'inner_or_overdrive_chance_low',
+            statsItWillUpdate: [ { stat: 'inner_or_overdrive_chance_low' } ],
+            cascadeSynergy: true,
+            allowMinMax: false,
         });
     }
-
-    /*private sourceHasNoDependency(resolveData: SynergyResolveData | ExternalSynergyResolveData, resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>, debug = false): boolean {
-        return resolveDatas.find(s => s.statsItWillUpdate.find(statItWillUpdate => {
-                let found = false;
-                if (resolveData.type === ResolveDataType.Synergy) {
-                    found = statItWillUpdate.stat === resolveData.effect.source;
-                } else {
-                    found = resolveData.sources.some(source => statItWillUpdate.stat === source);
-                }
-                return found;
-            }) !== undefined) === undefined
-    }*/
 
     private sourceWontBeChanged(sources: string[], ignoreCascading: boolean, resolveDatas: Array<SynergyResolveData | ExternalSynergyResolveData>): boolean {
         // a non cascading synergy can ignore another non cascading synergy that modify it's source
@@ -160,7 +163,6 @@ export class SlormancerSynergyResolverService {
     private updateSynergyValue(resolveData: SynergyResolveData | ExternalSynergyResolveData, characterStats: Array<MergedStat>, extractedStats: ExtractedStatMap) {       
         if (isSynergyResolveData(resolveData)) {
             const source = characterStats.find(stat => stat.stat === resolveData.effect.source);
-            const allowMinMax = resolveData.statsItWillUpdate.reduce((t, c) => (c.mapping === undefined || c.mapping.allowMinMax) && t, resolveData.effect.allowMinMax);
             const cascadeSynergies = 'effect' in resolveData ? resolveData.cascadeSynergy : false;
 
             let precision = resolveData.effect.precision;
@@ -182,8 +184,14 @@ export class SlormancerSynergyResolverService {
                 }
             }
 
-            if (typeof sourceValue !== 'number' && !allowMinMax) {
-                sourceValue = (sourceValue.min + sourceValue.max) / 2;
+            if (typeof sourceValue !== 'number') {
+                const allowMinMax = resolveData.statsItWillUpdate.reduce((t, c) => (c.mapping === undefined || c.mapping.allowMinMax) && t, resolveData.effect.allowMinMax);
+                const useMaxOnly = 'effect' in resolveData ? resolveData.effect.useOnlyMaxSource === true : false;
+                if (useMaxOnly) {
+                    sourceValue = sourceValue.max;
+                } else if (!allowMinMax) {
+                    sourceValue = (sourceValue.min + sourceValue.max) / 2;
+                }
             }
             
             const newValue = typeof sourceValue === 'number'
@@ -209,9 +217,6 @@ export class SlormancerSynergyResolverService {
                 return  stat ? stat.total : 0;
             });
             resolveData.value = resolveData.method(...sources);
-            //const debugStat = resolveData.statsItWillUpdate.map(s => s.stat).join(', ');
-            //console.log(resolveData.value + ' ' + (debugStat.length === 0 ? '#' + resolveData.stat : debugStat)
-            //+ ' from ' + sources.map(source => typeof source === 'number' ? source : source.min + '-' + source.max).join(', ') + ' ' + resolveData.sources.join(', '));
         }
     }
 
@@ -239,7 +244,7 @@ export class SlormancerSynergyResolverService {
                     total: 0,
                     totalWithoutSynergy: 0,
                     totalDisplayed: 0,
-                    allowMinMax: true,
+                    allowMinMax: 'allowMinMax' in synergyResolveData ? synergyResolveData.allowMinMax : true,
                     readonly: false,
                     suffix: '',
                     values: {

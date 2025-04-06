@@ -120,7 +120,8 @@ export class SlormancerItemValueService {
                 4: { min: 75, max: 100 },
                 5: { min: 75, max: 100 },
             }
-        }
+        },
+        [Rarity.Neither]: { }
     }
 
     constructor() { }
@@ -192,13 +193,14 @@ export class SlormancerItemValueService {
         return ratio;
     }
 
-    private computeAffixValue(level: number, stat: string, reinforcment: number, score: number, value: number, percent: boolean, pure: number | null): number {
+    private computeAffixValue(level: number, stat: string, reinforcment: number, score: number, value: number, percent: boolean, pure: number | null, multiplier: number | null): number {
         const baseValue = this.getComputedBaseValue(level, stat, score, percent);
         const reinforcmentRatio = this.getReinforcmentratio(reinforcment);
         const valueRatio = this.getValueRatio(level, value, percent);
         const pureRatio = pure === null || pure === 0 ? 100 : pure;
+        const multiplierRatio = 100 + (multiplier === null ? 0 : multiplier);
 
-        return this.roundValue(baseValue * reinforcmentRatio * valueRatio * pureRatio / (100 * 100 * 100), score < 2.5, percent);
+        return this.roundValue(baseValue * reinforcmentRatio * valueRatio * pureRatio * multiplierRatio / (100 * 100 * 100 * 100), score < 2.5, percent);
     }
 
     private getAffixMinMax(rarity: Rarity, percent: boolean, levelScore: number): MinMax | null {
@@ -216,33 +218,17 @@ export class SlormancerItemValueService {
         return minMax;
     }
 
-    public getAffixValues(level: number, stat: string, reinforcment: number, score: number, percent: boolean, rarity: Rarity, pure: number | null): Array<{ craft: number, value: number }> {
+    public getAffixValues(level: number, stat: string, reinforcment: number, score: number, percent: boolean, rarity: Rarity, pure: number | null, multiplier: number | null): Array<{ craft: number, value: number }> {
         let values: Array<{ craft: number, value: number }> = [];
         const levelScore = this.getLevelPercentScore(level);
 
         const range = this.getAffixMinMax(rarity, percent, levelScore);
 
         if (range !== null) {
-            values = list(range.min, range.max).map(v => ({ craft: v, value: this.computeAffixValue(level, stat, reinforcment, score, v, percent, pure) }));
+            values = list(range.min, range.max).map(v => ({ craft: v, value: this.computeAffixValue(level, stat, reinforcment, score, v, percent, pure, multiplier) }));
         }
 
         return values;
-    }
-
-    public getAffixValuesMinMax(level: number, stat: string, reinforcment: number, score: number, percent: boolean, rarity: Rarity, pure: number | null): MinMax {
-        let value: MinMax = { min: 0, max: 0 };
-        const levelScore = this.getLevelPercentScore(level);
-        const range = this.getAffixMinMax(rarity, percent, levelScore);
-
-        if (range !== null) {
-            value = {
-                min: this.computeAffixValue(level, stat, reinforcment, score, range.min, percent, pure),
-                max: this.computeAffixValue(level, stat, reinforcment, score, range.max, percent, pure)
-            }
-            
-        }
-
-        return value;
     }
 
     public computeEffectRange(value: number, min: number, max: number, upgrade: number): Array<{ craft: number, value: number }> {

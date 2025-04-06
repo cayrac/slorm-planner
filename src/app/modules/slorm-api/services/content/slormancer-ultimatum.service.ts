@@ -11,13 +11,17 @@ import { SlormancerTranslateService } from './slormancer-translate.service';
 @Injectable()
 export class SlormancerUltimatumService {
 
-    private LEVEL_LABEL = this.slormancerTranslateService.translate('level');
-    private BONUS_TITLE_LABEL = this.slormancerTranslateService.translate('ultimatum_bonus');
-    private MALUS_TITLE_LABEL = this.slormancerTranslateService.translate('ultimatum_malus');
+    private readonly LEVEL_LABEL: string;
+    private readonly BONUS_TITLE_LABEL: string;
+    private readonly MALUS_TITLE_LABEL: string;
 
     constructor(private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerTemplateService: SlormancerTemplateService,
-                private slormancerEffectValueService: SlormancerEffectValueService) { }
+                private slormancerEffectValueService: SlormancerEffectValueService) {
+        this.LEVEL_LABEL = this.slormancerTranslateService.translate('level');
+        this.BONUS_TITLE_LABEL = this.slormancerTranslateService.translate('ultimatum_bonus');
+        this.MALUS_TITLE_LABEL = this.slormancerTranslateService.translate('ultimatum_malus');
+    }
 
     public getUltimatumClone(ultimatum: Ultimatum): Ultimatum {
         return {
@@ -26,11 +30,13 @@ export class SlormancerUltimatumService {
         }
     }
 
-    public getUltimatum(type: UltimatumType, level: number): Ultimatum {
+    public getUltimatum(type: UltimatumType, baseLevel: number, bonusLevel: number): Ultimatum {
         const value = DATA_ULTIMATUM[type].value();
         const result = {
             type,
-            level,
+            baseLevel,
+            bonusLevel,
+            level: 0,
             icon: 'ultimatum/' + type,
             locked: false,
         
@@ -54,20 +60,22 @@ export class SlormancerUltimatumService {
             levelIcon: '',
         };
 
-        this.updateUltimatumModel(result, level);
+        this.updateUltimatumModel(result, baseLevel, bonusLevel);
         this.updateUltimatumView(result);
 
         return result;
     }
 
-    public updateUltimatumModel(ultimatum: Ultimatum, level: number) {
-        ultimatum.level = level;
-        this.slormancerEffectValueService.updateEffectValue(ultimatum.value, level);
+    public updateUltimatumModel(ultimatum: Ultimatum, baseLevel: number, bonusLevel: number) {
+        ultimatum.baseLevel = baseLevel;
+        ultimatum.bonusLevel = bonusLevel;
+        ultimatum.level = ultimatum.baseLevel + ultimatum.bonusLevel;
+        this.slormancerEffectValueService.updateEffectValue(ultimatum.value, ultimatum.level);
     }
 
     public updateUltimatumView(ultimatum: Ultimatum) {
         ultimatum.levelLabel = this.LEVEL_LABEL + ' ' + ultimatum.level;
-        ultimatum.levelIcon = 'level/' + ultimatum.level;
+        ultimatum.levelIcon = 'level/' + Math.min(15, ultimatum.level);
         ultimatum.bonusLabel = this.slormancerTemplateService.formatUltimatumTemplate(ultimatum.bonusLabelTemplate, ultimatum.value);
     }
 

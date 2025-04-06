@@ -11,6 +11,7 @@ import {
     MAX_EPIC_STATS,
     MAX_ITEM_LEVEL,
     MAX_MAGIC_STATS,
+    MAX_NEITHER_ITEM_LEVEL,
     MAX_RARE_STATS,
     Rarity,
     ReaperSmith,
@@ -20,8 +21,9 @@ import {
     SlormancerLegendaryEffectService,
     SlormancerTranslateService,
     compareString,
+    getAllLegendaryEffects,
     isNotNullOrUndefined,
-    valueOrNull,
+    valueOrNull
 } from '@slorm-api';
 
 import { BuildStorageService } from '../../services/build-storage.service';
@@ -116,7 +118,7 @@ export interface ItemFormData {
 })
 export class ItemEditModalComponent {
 
-    public readonly MAX_ITEM_LEVEL = MAX_ITEM_LEVEL;
+    public readonly MAX_NEITHER_ITEM_LEVEL = MAX_NEITHER_ITEM_LEVEL;
 
     private readonly originalItem: EquipableItem;
 
@@ -130,8 +132,10 @@ export class ItemEditModalComponent {
 
     public item!: EquipableItem;
 
+    public possible: boolean = true;
+
     public form: FormGroup<ItemFormGroup> = new FormGroup({
-        level: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(1), Validators.max(this.MAX_ITEM_LEVEL), Validators.pattern(/^[0-9]+$/)] }),
+        level: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(1), Validators.max(MAX_NEITHER_ITEM_LEVEL), Validators.pattern(/^[0-9]+$/)] }),
         reinforcment: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(0), Validators.pattern(/^[0-9]+$/)] }),
         affixes: new FormArray<FormGroup<ItemAffixFormGroup>>([]),
         legendary: new FormGroup({
@@ -168,6 +172,7 @@ export class ItemEditModalComponent {
         this.form.valueChanges.subscribe(() => {
             this.updatePreview();
             this.alreadyUsedStats = this.form.controls.affixes.getRawValue().map(affix => affix.stat);
+            this.possible = this.isItemPossible(this.form);
         });
 
         this.form.controls.affixes.valueChanges.subscribe(() => {
@@ -247,12 +252,14 @@ export class ItemEditModalComponent {
             item.attributeEnchantment = value.attribute.attribute === null ? null
                 : this.slormancerItemService.getAttributeEnchantment(value.attribute.attribute, value.attribute.value);
             
-            this.slormancerItemService.updateEquipableItemModel(item);
+            const legendaryEffects = [ ...getAllLegendaryEffects(this.character.gear), ...(item.legendaryEffect ? [ item.legendaryEffect ] : []) ];
+            const defensiveStatMultiplier = this.slormancerItemService.getDefensiveStatMultiplier(legendaryEffects);
+            this.slormancerItemService.updateEquipableItemModel(item, defensiveStatMultiplier);
             
             const build = this.buildStorageService.getBuild();
             this.slormancerCharacterUpdaterService.updateCharacter(this.character, build !== null ? build.configuration : DEFAULT_CONFIG, false, item);
 
-            this.slormancerItemService.updateEquipableItemView(item);
+            this.slormancerItemService.updateEquipableItemView(item, defensiveStatMultiplier);
         }
     }
 
@@ -365,6 +372,31 @@ export class ItemEditModalComponent {
                 this.updatePreview();
             }
         }
+    }
+
+    private isItemPossible(form: FormGroup<ItemFormGroup>): boolean {
+        const itemLevel = form.controls.level.value;
+        const neither = itemLevel > MAX_ITEM_LEVEL;
+        let possible = true;
+
+        if (!neither) {
+            for (const affixForm of form.controls.affixes.controls) {
+                const options = this.formOptionsService.getStatsOptions(this.item.base, affixForm.controls.rarity.value);
+                if (!options.some(option => option.value === affixForm.controls.stat.value)) {
+                    possible = false;
+                    break;
+                }
+            }
+
+            if (possible && form.controls.legendary.value !== null) {
+                const options = this.formOptionsService.getLegendaryOptions(this.item.base, this.item.heroClass);
+                if (!options.some(option => option.value === form.controls.legendary.value)) {
+                    possible = false;
+                }
+            }
+        }
+
+        return possible;
     }
 
     public addBasicAffix() {

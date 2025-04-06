@@ -1,0 +1,21 @@
+<mat-dialog-content>
+    <app-reaper-view *ngIf="isReaper(entity)" [reaper]="entity.reaper" [tooltip]="tooltip"></app-reaper-view>
+    <app-attribute-summary-view *ngIf="isAttribute(entity)" [attributeTraits]="entity.attribute" ></app-attribute-summary-view>
+    <app-item-view *ngIf="isItem(entity)" [item]="entity.item" [details]="details"></app-item-view>
+    <app-ancestral-legacy-view *ngIf="isAncestralLegacy(entity)" [ancestralLegacy]="entity.ancestralLegacy" [hideNextRank]="hideNextRank"></app-ancestral-legacy-view>
+    <app-activable-view *ngIf="isActivable(entity)" [activable]="entity.activable"></app-activable-view>
+    <div *ngIf="isMechanic(entity)" class="slormancer-tooltip">
+        <div class="inner-box">
+            <h3 [innerHTML]="entity.mechanic.name"></h3>
+            <p [innerHTML]="entity.mechanic.description"></p>
+        </div>
+    </div>
+    <app-rune-view *ngIf="isRune(entity)" [rune]="entity.rune"></app-rune-view>
+    <app-skill-view *ngIf="isSkill(entity)" [skill]="entity.skill"></app-skill-view>
+    <app-trait-view *ngIf="isTrait(entity)" [trait]="entity.trait" ></app-trait-view>
+    <app-ultimatum-view *ngIf="isUltimatum(entity)" [ultimatum]="entity.ultimatum"></app-ultimatum-view>
+    <app-skill-upgrade-view *ngIf="isUpgrade(entity)" [upgrade]="entity.upgrade"></app-skill-upgrade-view>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-flat-button type="button" color="primary" [mat-dialog-close]="null">Close</button>
+</mat-dialog-actions>

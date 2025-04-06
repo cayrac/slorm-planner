@@ -12,6 +12,7 @@ export interface EquipableItem {
     rarity: Rarity;
     level: number;
     reinforcment: number;
+    grafts: number;
     affixes: Array<Affix>;
     legendaryEffect: LegendaryEffect | null;
     reaperEnchantment: ReaperEnchantment | null;
@@ -23,6 +24,7 @@ export interface EquipableItem {
     baseLabel: string;
     rarityLabel: string;
     levelLabel: string;
+    graftLabel: string | null;
     icon: string;
     itemIconBackground: string
 }

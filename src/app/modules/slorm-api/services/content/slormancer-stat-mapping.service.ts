@@ -89,30 +89,41 @@ export class SlormancerStatMappingService {
         }
 
         if (stat) {
-            stat.readonly = true;
+            stat.readonly = stat.stat !== 'inner_fire_damage';
             
-            const multipliers: Array<{ extra: boolean, value: number, source: Entity, synergy: boolean }> = [];
+            const multipliers: EntityValue<number>[] = [];
 
-            multipliers.push(...valueOrDefault(extractedStats['ultimatum_increased_effect'], []).map(mult => ({ ...mult, extra: true, synergy: false })));
+            multipliers.push(...valueOrDefault(extractedStats['ultimatum_increased_effect'], []));
 
             if (config.ultima_momentum_buff) {
-                multipliers.push(...valueOrDefault(extractedStats['ultimatum_increased_effect_momentum_buff'], []).map(mult => ({ ...mult, extra: true, synergy: false })));
+                multipliers.push(...valueOrDefault(extractedStats['ultimatum_increased_effect_momentum_buff'], []));
             }
 
-            // Ultima momentum bug on movement speed
-            stat.values.flat = [];
-            if (stat.stat === 'movement_speed') {
-                stat.values.flat.push({ value: round(ultimatum.value.value - BASE_MOVEMENT_SPEED, 2), extra: false, source: { ultimatum }, synergy: false});
-                stat.values.flat.push({ value: BASE_MOVEMENT_SPEED, extra: true, source: { ultimatum }, synergy: false});
-                stat.precision = 2;
+            const totalMultipliers = multipliers.reduce((total, entity) => total + entity.value, 0);
+            const value = round(ultimatum.value.value * (100 + totalMultipliers) / 100, stat.precision);
+            if (stat.stat === 'inner_fire_damage') {
+                stat.values.percent.push({ value: value - 100, extra: false, source: { ultimatum }, synergy: false}); 
+            } else if (stat.stat === 'aoe_increased_size') { // testing a new way to apply ultimatums
+                stat.values.flat.push({ value, extra: false, source: { ultimatum }, synergy: false}); 
             } else {
-                stat.values.flat.push({ value: ultimatum.value.value, extra: false, source: { ultimatum }, synergy: false});
+                const mappingMultipliers: Array<{ extra: boolean, value: number, source: Entity, synergy: boolean }> = multipliers
+                    .map(mult => ({ ...mult, extra: true, synergy: false }));
+
+                // Ultima momentum bug on movement speed
+                stat.values.flat = [];
+                if (stat.stat === 'movement_speed') {
+                    stat.values.flat.push({ value: round(ultimatum.value.value - BASE_MOVEMENT_SPEED, 2), extra: false, source: { ultimatum }, synergy: false});
+                    stat.values.flat.push({ value: BASE_MOVEMENT_SPEED, extra: true, source: { ultimatum }, synergy: false});
+                    stat.precision = 2;
+                } else {
+                    stat.values.flat.push({ value: ultimatum.value.value, extra: false, source: { ultimatum }, synergy: false});
+                }
+                stat.values.max = [];
+                stat.values.percent = mappingMultipliers;
+                stat.values.maxPercent = [];
+                stat.values.multiplier = [];
+                stat.values.maxMultiplier = [];
             }
-            stat.values.max = [];
-            stat.values.percent = multipliers;
-            stat.values.maxPercent = [];
-            stat.values.multiplier = [];
-            stat.values.maxMultiplier = [];
         }
     }
 

@@ -1,4 +1,5 @@
 import { Character } from './character';
+import { Trait } from './content';
 import { Activable } from './content/activable';
 import { AncestralLegacy } from './content/ancestral-legacy';
 import { AttributeTraits } from './content/attribute-traits';
@@ -20,6 +21,7 @@ export declare type Entity =
     { item: EquipableItem } |
     { ancestralLegacy: AncestralLegacy } |
     { attribute: AttributeTraits } |
+    { trait: Trait } |
     { reaper: Reaper } |
     { activable: Activable } |
     { mechanic: Mechanic } |

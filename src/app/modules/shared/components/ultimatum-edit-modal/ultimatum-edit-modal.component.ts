@@ -23,6 +23,8 @@ export class UltimatumEditModalComponent {
 
     public readonly options: Array<SelectOption<number>> = [];
 
+    public bonusLevel: number;
+
     public ultimatum!: Ultimatum;
 
     public form!: FormGroup;
@@ -32,8 +34,9 @@ export class UltimatumEditModalComponent {
                 private formOptionsService: FormOptionsService,
                 @Inject(MAT_DIALOG_DATA) data: UltimatumEditModalData
                 ) {
+        this.bonusLevel = data.ultimatum === null ? 0 : data.ultimatum.bonusLevel;
         this.originalUltimatum = data.ultimatum === null
-            ? this.slormancerUltimatumService.getUltimatum(UltimatumType.AdamantAbundance, 1)
+            ? this.slormancerUltimatumService.getUltimatum(UltimatumType.AdamantAbundance, 1, this.bonusLevel)
             : this.slormancerUltimatumService.getUltimatumClone(data.ultimatum);
         this.options = this.formOptionsService.getUltimatumOptions();
         this.reset();
@@ -53,7 +56,7 @@ export class UltimatumEditModalComponent {
     private updatePreview(form: FormGroup) {
         if (form.valid) {
             const value = form.value;
-            this.ultimatum = this.slormancerUltimatumService.getUltimatum(value.type, value.level);
+            this.ultimatum = this.slormancerUltimatumService.getUltimatum(value.type, value.level, this.bonusLevel);
         }
     }
 
@@ -63,7 +66,7 @@ export class UltimatumEditModalComponent {
 
     private buildForm(): FormGroup {      
         const newForm = new FormGroup({
-            level: new FormControl(this.ultimatum.level, [Validators.required, Validators.min(1), Validators.max(ULTIMATUM_MAX_LEVEL)]),
+            level: new FormControl(this.ultimatum.baseLevel, [Validators.required, Validators.min(1), Validators.max(ULTIMATUM_MAX_LEVEL)]),
             type: new FormControl(this.ultimatum.type, [Validators.required]),
         });
         

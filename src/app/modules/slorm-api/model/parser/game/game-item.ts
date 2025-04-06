@@ -16,7 +16,7 @@ export interface GameEquippableItem {
     reinforcment: number;
     rarity: number;
     generic_4: number;
-    generic_5: number;
+    grafts: number;
     potential: number;
     affixes: Array<GameAffix>;
     enchantments: Array<GameEnchantment>;

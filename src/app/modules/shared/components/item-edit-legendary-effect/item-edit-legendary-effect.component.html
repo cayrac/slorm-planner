@@ -7,13 +7,13 @@
 </div>
 <div class="stat-line" [formGroup]="form"  *ngIf="form !== null && legendaryEffect !== null">
     <div class="select">
-        <mat-form-field appearance="outline" class="no-error-padding">
-            <mat-label>Legendary effect</mat-label>
-            <mat-select formControlName="id">
+        <mat-form-field appearance="outline">
+            <mat-select formControlName="id" [placeholder]="legendaryEffect.name">
                 <mat-option *ngFor="let option of options" [value]="option.value">
                     <span [innerHTML]="option.label"></span>
                 </mat-option>
             </mat-select>
+            <mat-hint *ngIf="!possible">This legendary effect is not possible for this rarity</mat-hint>
         </mat-form-field>
     </div>
     <div class="slider">

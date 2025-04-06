@@ -3,7 +3,8 @@
     [class.hidden-search]="hiddenBySearch"
     [class.passive]="isPassive(upgrade)"
     [class.readonly]="readonly"
-    cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+    cdkOverlayOrigin #trigger="cdkOverlayOrigin"
+    (click)="showModalTooltip($event, upgrade)">
     <div class="equipped-border" [class.equipped]="equipped">
         <img class="skill-icon" [src]="upgrade.icon" />
     </div>

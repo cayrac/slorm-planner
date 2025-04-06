@@ -1,10 +1,10 @@
 <div class="stat-line" [formGroup]="form"  *ngIf="form !== null && affix !== null">
     <div class="select">
-        <app-search-select label="Stat"
+        <app-search-select [placeholder]="STATS_LABELS[form.controls.stat.value] ?? null"
             [control]="form.controls.stat"
             [options]="options"
             [disabledOptions]="alreadyUsedStats"
-            notFoundMessage="This stat is not longer available">
+            notFoundMessage="This stat is not possible for this rarity">
         </app-search-select>
     </div>
     <div class="slider">

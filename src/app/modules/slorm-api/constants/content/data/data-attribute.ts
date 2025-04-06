@@ -86,6 +86,7 @@ export const DATA_ATTRIBUTE: { [key: number]: DataAttribute } = {
         override: trait => {
             setSynergyPrecision(trait, 0, 3);
             synergySetAllowMinMax(trait, 0, false);
+            allowSynergyToCascade(trait, 0);
         }
     },
     28: {

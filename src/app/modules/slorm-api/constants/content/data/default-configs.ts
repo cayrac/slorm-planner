@@ -145,6 +145,9 @@ export const DEFAULT_CONFIG: CharacterConfig = {
     ancestral_preparation_stacks: 0,
     wreak_havoc_stacks: 0,
     unrelenting_stacks: 0,
+    skill_retention_stacks: 0,
+    elemental_retention_stacks: 0,
+    transference_stacks: 0,
     moonlight_side: true,
     life_orbs_count: 0,
     distance_with_target: 0,
@@ -176,6 +179,7 @@ export const DEFAULT_CONFIG: CharacterConfig = {
     has_frostfire_buff: false,
     has_ancestral_instability_buff: false,
     has_avatar_of_shadow_buff: false,
+    has_extreme_confidence_buff: false,
     concentration_buff: false,
     ultima_momentum_buff: false,
     exposed_armor_buff: false,
@@ -187,6 +191,7 @@ export const DEFAULT_CONFIG: CharacterConfig = {
     ancestral_instability_buff_duration: 0,
     idle: false,
     damage_stored: 0,
+    life_mana_stored: 0,
     overdrive_bounces_left: 0,
     time_spend_channeling: 0,
     overdrive_last_bounce: false,
@@ -226,8 +231,10 @@ export const DEFAULT_CONFIG: CharacterConfig = {
     unity_level_2_51: 0,
     unity_level_2_52: 0,
     absorbed_damage_wrath: 0,
-
-    maxed_upgrades: null
+    maxed_upgrades: null,
+    apply_indirect_increased_damage: false,
+    reaper_owned: 0,
+    victims_114_others: 0,
 }
 
 export const COMBAT_CONFIG: CharacterConfig = {
@@ -373,6 +380,9 @@ export const COMBAT_CONFIG: CharacterConfig = {
     ancestral_preparation_stacks: 0,
     wreak_havoc_stacks: 0,
     unrelenting_stacks: 10,
+    skill_retention_stacks: 15,
+    elemental_retention_stacks: 15,
+    transference_stacks: 50,
     moonlight_side: true,
     life_orbs_count: 10,
     distance_with_target: 0,
@@ -404,6 +414,7 @@ export const COMBAT_CONFIG: CharacterConfig = {
     has_ancestral_instability_buff: true,
     has_avatar_of_shadow_buff: true,
     has_frostfire_buff: true,
+    has_extreme_confidence_buff: true,
     concentration_buff: true,
     ultima_momentum_buff: true,
     exposed_armor_buff: true,
@@ -415,6 +426,7 @@ export const COMBAT_CONFIG: CharacterConfig = {
     ancestral_instability_buff_duration: 0,
     idle: true,
     damage_stored: 0,
+    life_mana_stored: 0,
     overdrive_bounces_left: 0,
     time_spend_channeling: 20,
     overdrive_last_bounce: false,
@@ -454,6 +466,8 @@ export const COMBAT_CONFIG: CharacterConfig = {
     unity_level_2_51: 0,
     unity_level_2_52: 0,
     absorbed_damage_wrath: 0,
-
-    maxed_upgrades: null
+    maxed_upgrades: null,
+    apply_indirect_increased_damage: false,
+    reaper_owned: 0,
+    victims_114_others: 0,
 }

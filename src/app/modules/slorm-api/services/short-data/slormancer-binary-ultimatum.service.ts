@@ -15,15 +15,15 @@ export class SlormancerBinaryUltimatumService {
         let result: Bits = [];
 
         result.push(...numberToBinary(ultimatum === null ? 0 : ultimatum.type + 1, 5));
-        result.push(...numberToBinary(ultimatum === null ? 0 : ultimatum.level, 5));
+        result.push(...numberToBinary(ultimatum === null ? 0 : ultimatum.baseLevel, 5));
         
         return result;
     }
 
-    public binaryToUltimatum(binary: Bits): Ultimatum | null {
+    public binaryToUltimatum(binary: Bits, bonusLevel: number): Ultimatum | null {
         const type = binaryToNumber(takeBitsChunk(binary, 5));
         const level = binaryToNumber(takeBitsChunk(binary, 5));
 
-        return type === 0 ? null : this.slormancerUltimatumService.getUltimatum(<UltimatumType>type - 1, level);
+        return type === 0 ? null : this.slormancerUltimatumService.getUltimatum(<UltimatumType>type - 1, level, bonusLevel);
     }
 }

@@ -2,12 +2,14 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
-  ALL_RARITIES,
-  EquipableItem,
-  Rarity,
-  SlormancerAffixService,
-  SlormancerDataService,
-  SlormancerItemService,
+    ALL_RARITIES,
+    compareRarities,
+    EquipableItem,
+    isNotNullOrUndefined,
+    Rarity,
+    SlormancerAffixService,
+    SlormancerDataService,
+    SlormancerItemService,
 } from '@slorm-api';
 
 import { SelectOption } from '../../model/select-option';
@@ -26,8 +28,7 @@ export class OptimizeItemsAffixesModalComponent {
 
     public AFFIX_OPTIONS: Array<SelectOption<string>> = [];
 
-    public readonly RARITY_OPTIONS: Array<SelectOption<Rarity>> = this.formOptionsService.getAllRaritiesOptions()
-        .filter(option => option.value !== Rarity.Legendary);
+    public readonly RARITY_OPTIONS: Array<SelectOption<Rarity>>;
 
     public readonly items: Array<EquipableItem>;
 
@@ -35,13 +36,23 @@ export class OptimizeItemsAffixesModalComponent {
 
     public readonly form: FormGroup;
 
+    private defensiveStatMultiplier: number = 0; 
+
     constructor(private dialogRef: MatDialogRef<OptimizeItemsAffixesModalComponent>,
                 @Inject(MAT_DIALOG_DATA) data: OptimizeItemsAffixesModalData,
                 private slormancerItemService: SlormancerItemService,
                 private slormancerDataService: SlormancerDataService,
                 private slormancerAffixService: SlormancerAffixService,
                 private formOptionsService: FormOptionsService) {
+        this.RARITY_OPTIONS = this.formOptionsService.getAllRaritiesOptions()
+            .filter(option => option.value !== Rarity.Legendary)
+            .sort((a, b) => compareRarities(a.value, b.value));
+
         this.items = data.items;
+
+        this.defensiveStatMultiplier = this.slormancerItemService.getDefensiveStatMultiplier(data.items
+            .map(item => item.legendaryEffect)
+            .filter(isNotNullOrUndefined));
 
         const affixControl = new FormControl();
         this.form = new FormGroup({
@@ -62,12 +73,12 @@ export class OptimizeItemsAffixesModalComponent {
     }
 
     private updateOptions() {
-        this.AFFIX_OPTIONS = this.formOptionsService.getAllStatsoptions().filter(option => !this.selectedAffixes.includes(option));
+        this.AFFIX_OPTIONS = this.formOptionsService.getAllStatsOptions().filter(option => !this.selectedAffixes.includes(option));
     }
 
     private applyStatsToItem(item: EquipableItem) {
         const highestRarity: Rarity = this.form.value.rarity;
-        const allowedRarities = ALL_RARITIES.filter(rarity => ALL_RARITIES.indexOf(rarity) <= ALL_RARITIES.indexOf(highestRarity));
+        const allowedRarities = ALL_RARITIES.filter(rarity => compareRarities(rarity, highestRarity) <= 0);
 
         const maxStats: { [key in Rarity]: number } = {
             [Rarity.Normal]: this.slormancerDataService.getBaseMaxBasicStat(item.base),
@@ -75,7 +86,8 @@ export class OptimizeItemsAffixesModalComponent {
             [Rarity.Magic]: 1,
             [Rarity.Rare]: 1,
             [Rarity.Epic]: 3,
-            [Rarity.Legendary]: 0
+            [Rarity.Legendary]: 0,
+            [Rarity.Neither]: 0
         }
         const options: { [key in Rarity]: Array<SelectOption<string>> } = {
             [Rarity.Normal]: this.formOptionsService.getStatsOptions(item.base, Rarity.Normal),
@@ -83,7 +95,8 @@ export class OptimizeItemsAffixesModalComponent {
             [Rarity.Magic]: this.formOptionsService.getStatsOptions(item.base, Rarity.Magic),
             [Rarity.Rare]: this.formOptionsService.getStatsOptions(item.base, Rarity.Rare),
             [Rarity.Epic]: this.formOptionsService.getStatsOptions(item.base, Rarity.Epic),
-            [Rarity.Legendary]: []
+            [Rarity.Legendary]: [],
+            [Rarity.Neither]: []
         }
 
         item.affixes = [];
@@ -122,8 +135,8 @@ export class OptimizeItemsAffixesModalComponent {
             }
         }
 
-        this.slormancerItemService.updateEquipableItemModel(item);
-        this.slormancerItemService.updateEquipableItemView(item);
+        this.slormancerItemService.updateEquipableItemModel(item, this.defensiveStatMultiplier);
+        this.slormancerItemService.updateEquipableItemView(item, this.defensiveStatMultiplier);
     }
 
     public removeStat(index: number) {

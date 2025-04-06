@@ -115,7 +115,7 @@ export class SlormancerAffixService {
         return result;
     }
 
-    public updateAffix(itemAffix: Affix) {
+    public updateAffix(itemAffix: Affix, multiplier: number = 0) {
 
         itemAffix.isPure = itemAffix.pure > 100;
         itemAffix.pureMarks = itemAffix.isPure ? (itemAffix.pure <= 150 ? 1 : (itemAffix.pure <= 190 ? 2 : 3)) : 0
@@ -125,7 +125,7 @@ export class SlormancerAffixService {
         }
 
         itemAffix.craftedEffect.possibleCraftedValues = this.slormancerItemValueService
-            .getAffixValues(itemAffix.itemLevel, itemAffix.craftedEffect.effect.stat, itemAffix.reinforcment, itemAffix.craftedEffect.score, itemAffix.craftedEffect.effect.percent, itemAffix.rarity, itemAffix.pure);
+            .getAffixValues(itemAffix.itemLevel, itemAffix.craftedEffect.effect.stat, itemAffix.reinforcment, itemAffix.craftedEffect.score, itemAffix.craftedEffect.effect.percent, itemAffix.rarity, itemAffix.pure, multiplier);
         
         const minValue = itemAffix.craftedEffect.possibleCraftedValues[0];
         const maxValue = itemAffix.craftedEffect.possibleCraftedValues[Math.max(0, itemAffix.craftedEffect.possibleCraftedValues.length - 1)];

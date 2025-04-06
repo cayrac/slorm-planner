@@ -1,0 +1,29 @@
+@import "src/assets/scss/abstracts/flex";
+@import "src/assets/scss/abstracts/variables";
+@import "src/assets/scss/abstracts/color";
+
+$mechanic-bg-color : rgb(20, 19, 16);
+$physical-color-text  : rgb(206, 70, 7);
+
+.slormancer-tooltip {
+    max-width: 350px;
+    h3 {
+        margin: $space-unit * 2 0;
+        font-weight: normal;
+        color: $section-title-color;
+    }
+    p {
+        margin: $space-unit * 2 0;
+    }
+
+    ::ng-deep {
+        .value {
+            color: $physical-color-text;
+        }
+    }
+}
+
+app-item-view {
+    display: block;
+    width: 350px;
+}

@@ -1,2 +1,17 @@
 @import "src/assets/scss/abstracts/flex";
 @import "src/assets/scss/abstracts/variables";
+
+.stat-line mat-hint {
+    color: #f44336;
+}
+mat-form-field {
+    ::ng-deep {
+        .mat-select-placeholder {
+            color: #d0d0d0;
+        }
+    }
+}
+
+.stat-line .additional {
+    min-width: 100px;
+}

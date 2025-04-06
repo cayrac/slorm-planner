@@ -16,6 +16,11 @@ const appRoutes: Routes = [
         data: { title: 'Slorm-Reaper' }
     },
     {
+        path: 'slorm-legendary',
+        loadChildren: () => import('./modules/slorm-legendary/slorm-legendary.module').then((m) => m.SlormLegendaryModule),
+        data: { title: 'Slorm-Legendary' }
+    },
+    {
         path: '',
         component: SlormToolsComponent,
         data: { title: 'Slorm-Tools' }

@@ -40,6 +40,7 @@ import {
 } from './components/item-reinforcment-edit-modal/item-reinforcment-edit-modal.component';
 import { ItemSlotComponent } from './components/item-slot/item-slot.component';
 import { ItemViewComponent } from './components/item-view/item-view.component';
+import { LegendaryEffectViewComponent } from './components/legendary-effect-view/legendary-effect-view.component';
 import { MainStatsComponent } from './components/main-stats/main-stats.component';
 import { MechanicsViewComponent } from './components/mechanics-view/mechanics-view.component';
 import { MergedStatViewComponent } from './components/merged-stat-view/merged-stat-view.component';
@@ -66,6 +67,7 @@ import { UltimatumEditModalComponent } from './components/ultimatum-edit-modal/u
 import { UltimatumSlotComponent } from './components/ultimatum-slot/ultimatum-slot.component';
 import { UltimatumViewComponent } from './components/ultimatum-view/ultimatum-view.component';
 import { UpgradeSlotComponent } from './components/upgrade-slot/upgrade-slot.component';
+import { ViewModalComponent } from './components/view-modal/view-modalcomponent';
 import { MaterialModule } from './material.module';
 
 @NgModule({
@@ -115,6 +117,7 @@ import { MaterialModule } from './material.module';
         UltimatumSlotComponent,
         UltimatumViewComponent,
         UltimatumEditModalComponent,
+        LegendaryEffectViewComponent,
         OptimizeItemsAffixesModalComponent,
         CreateBuildFromGameComponent,
         CreateBuildFromExportComponent,
@@ -127,6 +130,7 @@ import { MaterialModule } from './material.module';
         RuneSlotComponent,
         RuneViewComponent,
         RunesEditModalComponent,
+        ViewModalComponent,
     ],
     imports: [
         CommonModule,

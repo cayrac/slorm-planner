@@ -32,15 +32,15 @@ import {
 })
 export class ViewCharacterComponent {
 
-    public readonly SKILL_MIGHT_LABEL = this.slormancerTranslateService.translate('bonus_raw_damage');
-    public readonly ANCESTRAL_MIGHT_LABEL = this.slormancerTranslateService.translate('bonus_elemental_damage');
-    public readonly PHYSICAL_DAMAGE_LABEL = this.slormancerTranslateService.translate('tt_physical_damage');
-    public readonly ELEMENTAL_DAMAGE_LABEL = this.slormancerTranslateService.translate('tt_elemental_damage');
-    public readonly MAX_LIFE_LABEL = this.slormancerTranslateService.translate('max_health');
-    public readonly MAX_MANA_LABEL = this.slormancerTranslateService.translate('max_mana');
-    public readonly MAX_ARMOR_LABEL = this.slormancerTranslateService.translate('armor');
-    public readonly MAX_DODGE_LABEL = this.slormancerTranslateService.translate('dodge');
-    public readonly MAX_ELEMENTAL_RESISTANCE_LABEL = this.slormancerTranslateService.translate('elemental_resist');
+    public readonly SKILL_MIGHT_LABEL: string;
+    public readonly ANCESTRAL_MIGHT_LABEL: string;
+    public readonly PHYSICAL_DAMAGE_LABEL: string;
+    public readonly ELEMENTAL_DAMAGE_LABEL: string;
+    public readonly MAX_LIFE_LABEL: string;
+    public readonly MAX_MANA_LABEL: string;
+    public readonly MAX_ARMOR_LABEL: string;
+    public readonly MAX_DODGE_LABEL: string;
+    public readonly MAX_ELEMENTAL_RESISTANCE_LABEL: string;
 
     public readonly ALL_ATTRIBUTES = ALL_ATTRIBUTES;
 
@@ -78,6 +78,16 @@ export class ViewCharacterComponent {
 
         this.combatBuffControl.valueChanges.subscribe(() => this.updateConfiguration());
         this.updateConfiguration();
+
+       this.SKILL_MIGHT_LABEL = this.slormancerTranslateService.translate('bonus_raw_damage');
+       this.ANCESTRAL_MIGHT_LABEL = this.slormancerTranslateService.translate('bonus_elemental_damage');
+       this.PHYSICAL_DAMAGE_LABEL = this.slormancerTranslateService.translate('tt_physical_damage');
+       this.ELEMENTAL_DAMAGE_LABEL = this.slormancerTranslateService.translate('tt_elemental_damage');
+       this.MAX_LIFE_LABEL = this.slormancerTranslateService.translate('max_health');
+       this.MAX_MANA_LABEL = this.slormancerTranslateService.translate('max_mana');
+       this.MAX_ARMOR_LABEL = this.slormancerTranslateService.translate('armor');
+       this.MAX_DODGE_LABEL = this.slormancerTranslateService.translate('dodge');
+       this.MAX_ELEMENTAL_RESISTANCE_LABEL = this.slormancerTranslateService.translate('elemental_resist');
     }
 
     private updateConfiguration() {

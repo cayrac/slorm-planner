@@ -1,5 +1,5 @@
 
-<div class="skill" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+<div class="skill" cdkOverlayOrigin #trigger="cdkOverlayOrigin" (click)="showModalTooltip($event, activable)">
     <ng-container *ngIf="activable !== null">
         <img [src]="activable.icon">
         <ng-template cdkConnectedOverlay

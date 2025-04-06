@@ -34,7 +34,7 @@ export const DATA_ULTIMATUM = {
         extendedMalus: true
     },
     [UltimatumType.ImpeccableTechnique]: <DataUltimatum>{
-        value: () => effectValueVariable(25, 15, EffectValueUpgradeType.UpgradeRank, true, 'inner_fire_chance', EffectValueValueType.Stat),
+        value: () => effectValueVariable(25, 15, EffectValueUpgradeType.UpgradeRank, true, 'inner_fire_damage', EffectValueValueType.Stat),
         extendedMalus: true
     },
     [UltimatumType.FlawlessPower]: <DataUltimatum>{

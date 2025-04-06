@@ -567,10 +567,12 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'elemental_fury_max_stacks');
             overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'imbued_skill_increased_damage_per_elemental_fury_stack');
             overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'garbage_stat');
-
-            addConstant(ba, -100, false, EffectValueValueType.Stat, 'brut_damage_global_mult');
+            
+            //addConstant(be, -100, false, EffectValueValueType.Stat, 'brut_damage_global_mult');
 
             if (ma) {
+                addConstant(ma, 1, false, EffectValueValueType.Stat, 'brut_damage_equal_crit_damage');
+                addConstant(ma, 100, false, EffectValueValueType.Stat, 'brut_damage_global_mult_elemental_overload_bug');
                 ma.values.push(effectValueSynergy(100, 0, EffectValueUpgradeType.None, true, 'critical_damage', 'brut_damage_percent_extra', EffectValueValueType.Stat))
             }
         }
@@ -765,6 +767,7 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
         override: (ba, be, ma) => {
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'garbage_stat');
+            overrideSynergySource(ba, 1, 'legion_5_6');
             synergyMultiply100(ba, 1);
         }
     },
@@ -781,15 +784,23 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 5, EffectValueValueType.Damage, 'physical_damage');
             allowSynergyToCascade(ba, 5);
 
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'garbage_stat');
             synergyMultiply100(ba, 4);
+            overrideValueTypeAndStat(ba, 6, EffectValueValueType.Stat, 'garbage_stat');
             synergyMultiply100(ba, 6);
+            overrideValueTypeAndStat(ba, 7, EffectValueValueType.Stat, 'garbage_stat');
             synergyMultiply100(ba, 7);
+            overrideValueTypeAndStat(ba, 8, EffectValueValueType.Stat, 'garbage_stat');
             synergyMultiply100(ba, 8);
+            overrideValueTypeAndStat(ba, 9, EffectValueValueType.Stat, 'garbage_stat');
             synergyMultiply100(ba, 9);
+            overrideValueTypeAndStat(ba, 10, EffectValueValueType.Stat, 'garbage_stat');
             synergyMultiply100(ba, 10);
-            synergyMultiply100(ba, 11);
             overrideValueTypeAndStat(ba, 11, EffectValueValueType.Stat, 'fulgurorn_dedication_max_stacks');
+            synergyMultiply100(ba, 11);
+            overrideValueTypeAndStat(ba, 12, EffectValueValueType.Stat, 'garbage_stat');
             synergyMultiply100(ba, 12);
+            overrideValueTypeAndStat(ba, 13, EffectValueValueType.Stat, 'garbage_stat');
             synergyMultiply100(ba, 13);
         }
     },
@@ -1336,6 +1347,20 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ma, 0, EffectValueValueType.Stat, 'melee_skill_decreased_damage_mult');
         }
     },
+    99: {
+        override: (ba, be, ma, reaperId) => {
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'reaper_storm_increased_damage');
+            overrideValueTypeAndStat(ba, 3, EffectValueValueType.Stat, 'basic_damage_global_mult');
+            overrideValueTypeAndStat(ba, 4, EffectValueValueType.Stat, 'elemental_damage_mult');
+            synergyMultiply100BaseAndUpgrade(ba, 3);
+            synergyMultiply100BaseAndUpgrade(ba, 4);
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'garbage_stat');
+        }
+        
+    },
     100: {
         override: (ba, be, ma, reaperId) => {
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'garbage_stat');
@@ -1474,6 +1499,25 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             allowSynergyToCascade(be, 3);
 
             addConstant(ma, -100, false, EffectValueValueType.Stat, 'overdrive_chance_multiplier');
+        }
+    },
+    114: {
+        override: (ba, be) => {
+            overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'garbage_stat');
+            synergyMultiply100(ba, 1);
+            allowSynergyToCascade(ba, 1);
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'the_max_health_add');
+            synergyMultiply100(ba, 2);
+            allowSynergyToCascade(ba, 2);
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'garbage_stat');
+            overrideValueTypeAndStat(be, 2, EffectValueValueType.Stat, 'basic_damage_global_mult');
+            synergyMultiply100(be, 2);
+            allowSynergyToCascade(be, 2);
+            overrideValueTypeAndStat(be, 3, EffectValueValueType.Stat, 'elemental_damage_global_mult');
+            synergyMultiply100(be, 3);
+            allowSynergyToCascade(be, 3);
         }
     },
     115: {

@@ -1,6 +1,6 @@
 
 <div class="ancestral-legacy" *ngIf="ancestralLegacy !== null"
-    (click)="increasesRank()"
+    (click)="!showModalTooltip($event, ancestralLegacy) && increasesRank()"
     (contextmenu)="decreasesRank()"
     [class.ranked]="ancestralLegacy.rank > 0"
     [class.equipped]="equipped"

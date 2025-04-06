@@ -8,7 +8,7 @@ import { HeroClass } from '../../model/content/enum/hero-class';
 import { EquipableItem } from '../../model/content/equipable-item';
 import { BinaryParseReport } from '../../model/export/binary-parse-report';
 import { Bits } from '../../model/export/bits';
-import { compareVersions } from '../../util';
+import { compareVersions, getOlorinUltimatumBonusLevel } from '../../util';
 import { binaryToBoolean, binaryToNumber, booleanToBinary, numberToBinary, takeBitsChunk } from '../../util/bits.util';
 import { SlormancerMightService } from '../content';
 import { SlormancerCharacterBuilderService } from '../slormancer-character-builder.service';
@@ -275,8 +275,10 @@ export class SlormancerBinaryCharacterService {
         const skillsData = this.binaryToSkills(binary);
 
         const gearData = this.binaryToGear(binary, heroClass, version, report);
+        
+        const ultimatumBonusLevel = getOlorinUltimatumBonusLevel(gearData);
 
-        const ultimatum = this.slormancerBinaryUltimatumService.binaryToUltimatum(binary);
+        const ultimatum = this.slormancerBinaryUltimatumService.binaryToUltimatum(binary, ultimatumBonusLevel);
 
         const has6BitsRank = compareVersions(version, '0.4.1') < 0;
         const attributes: { [key in Attribute]: number } = {
@@ -295,6 +297,7 @@ export class SlormancerBinaryCharacterService {
         }
 
         if (has6BitsRank) {
+            // i used to save ranks with 6 bits which was a mistake when the maximum level increased
             this.smartGuessMissingAttributes(attributes, level, report);
         }
 

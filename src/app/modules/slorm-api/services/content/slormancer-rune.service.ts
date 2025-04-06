@@ -29,19 +29,14 @@ import { SlormancerTranslateService } from './slormancer-translate.service';
 @Injectable()
 export class SlormancerRuneService {
 
-    private readonly REAPERSMITH_BY = this.slormancerTranslateService.translate('weapon_reapersmith_light');
-
-    private readonly RUNE_FLAVOR_ACTIVATION = this.slormancerTranslateService.translate('tt_rune_0_help');
-    private readonly RUNE_FLAVOR_ACTIVATION_POWER = this.slormancerTranslateService.translate('tt_rune_0_help_power');
-
-    private readonly RUNE_FLAVOR_EFFECT = this.slormancerTranslateService.translate('tt_rune_1_help');
-    private readonly RUNE_FLAVOR_EFFECT_PREVENT = this.slormancerTranslateService.translate('tt_rune_1_prevent_reaper');
-
-    private readonly RUNE_FLAVOR_ENHANCEMENT = this.slormancerTranslateService.translate('tt_rune_2_help');
-
-    private readonly CONSTRAINT = this.slormancerTranslateService.translate('rune_power');
-    
-    private readonly DURATION_DESCRIPTION = this.slormancerTranslateService.translate('tt_rune_effect');
+    private readonly REAPERSMITH_BY: string;
+    private readonly RUNE_FLAVOR_ACTIVATION: string;
+    private readonly RUNE_FLAVOR_ACTIVATION_POWER: string;
+    private readonly RUNE_FLAVOR_EFFECT: string;
+    private readonly RUNE_FLAVOR_EFFECT_PREVENT: string;
+    private readonly RUNE_FLAVOR_ENHANCEMENT: string;
+    private readonly CONSTRAINT: string;
+    private readonly DURATION_DESCRIPTION: string;
 
     private TRIGGER_EFFECT_RUNE_BASE_COOLDOWN: number = 0;
 
@@ -49,7 +44,16 @@ export class SlormancerRuneService {
                 private slormancerTemplateService: SlormancerTemplateService,
                 private slormancerTranslateService: SlormancerTranslateService,
                 private slormancerEffectValueService: SlormancerEffectValueService,
-                private slormancerActivableService: SlormancerActivableService) { }
+                private slormancerActivableService: SlormancerActivableService) {
+        this.REAPERSMITH_BY = this.slormancerTranslateService.translate('weapon_reapersmith_light');
+        this.RUNE_FLAVOR_ACTIVATION = this.slormancerTranslateService.translate('tt_rune_0_help');
+        this.RUNE_FLAVOR_ACTIVATION_POWER = this.slormancerTranslateService.translate('tt_rune_0_help_power');
+        this.RUNE_FLAVOR_EFFECT = this.slormancerTranslateService.translate('tt_rune_1_help');
+        this.RUNE_FLAVOR_EFFECT_PREVENT = this.slormancerTranslateService.translate('tt_rune_1_prevent_reaper');
+        this.RUNE_FLAVOR_ENHANCEMENT = this.slormancerTranslateService.translate('tt_rune_2_help');
+        this.CONSTRAINT = this.slormancerTranslateService.translate('rune_power');
+        this.DURATION_DESCRIPTION = this.slormancerTranslateService.translate('tt_rune_effect');
+    }
          
 
     private isDamageStat(stat: string): boolean {

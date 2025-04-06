@@ -37,7 +37,7 @@ export class SlormancerItemParserService {
 
     private parseAffixe(affixe: string): GameAffix {
         const [rarity, type, value, locked, pure, _ ] = strictSplit(affixe, '.', { min: 4, max: 6 });
-
+    
         if (this.AFFIXE_RARITIES.indexOf(<string>rarity) === -1) {
             throw new Error('parse affixe error : Unknown rarity "' + rarity + '"');
         }
@@ -77,19 +77,19 @@ export class SlormancerItemParserService {
         const data = toNumberArray(<string>generic, '.', 6);
         let potentialData = (<string>xp).split('.');
 
-        let generic_5 = potentialData[potentialData.length - 1];
+        let remainingGrafts = potentialData[potentialData.length - 1];
         let rarity = potentialData[potentialData.length - 2];
         let potential =  potentialData.length === 4 ? potentialData[0] + '.' + potentialData[1] : potentialData[0];
 
         const item: GameEquippableItem = {
-            generic_1: <number>data[0],
+            generic_1: <number>data[0], // effet inconnu
             slot: <number>data[1],
             level: <number>data[2],
             reinforcment: <number>data[5],
             potential: strictParseFloat(<string>potential),
             rarity: strictParseInt(<string>rarity),
-            generic_4: <number>data[3],
-            generic_5: strictParseInt(<string>generic_5),
+            generic_4: <number>data[3], // toujours 0 ?
+            grafts: strictParseInt(<string>remainingGrafts),
             affixes: bonuses.filter(a => this.isAffixe(a)).map(a => this.parseAffixe(a)),
             enchantments: bonuses.filter(a => this.isEnchantment(a)).map(a => this.parseEnchantment(a))
         }
