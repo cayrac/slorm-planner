@@ -15,6 +15,12 @@ export class AppComponent {
     constructor(private router: Router,
                 private titleService: Title) {
         this.updateTitleOnRouteChange();
+
+        const route = new URL(window.location.href).searchParams.get('route');
+        console.log('beta redirection : ', route);
+        if (route !== null) {
+            this.router.navigate([route]);
+        }
     }
 
     private updateTitleOnRouteChange() {

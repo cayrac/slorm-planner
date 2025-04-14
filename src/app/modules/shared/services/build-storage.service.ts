@@ -14,11 +14,11 @@ export class BuildStorageService {
 
     private readonly MAX_LAYERS = 10;
 
-    private readonly BUILDS_STORAGE_KEY = 'builds';
+    private readonly BUILDS_STORAGE_KEY = 'beta-builds';
     
-    private readonly CURRENT_BUILD_STORAGE_KEY = 'current-build';
+    private readonly CURRENT_BUILD_STORAGE_KEY = 'beta-current-build';
 
-    private readonly CURRENT_LAYER_STORAGE_KEY = 'current-layer';
+    private readonly CURRENT_LAYER_STORAGE_KEY = 'beta-current-layer';
 
     private builds: Array<BuildPreview> = [];
 

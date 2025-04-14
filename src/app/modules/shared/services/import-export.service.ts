@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import {
-  Character,
-  CharacterConfig,
-  HeroClass,
-  SlormancerCharacterBuilderService,
-  SlormancerSaveParserService,
-  SlormancerShortDataService,
-  valueOrNull,
+    Character,
+    CharacterConfig,
+    HeroClass,
+    SlormancerCharacterBuilderService,
+    SlormancerSaveParserService,
+    SlormancerShortDataService,
+    valueOrNull,
 } from '@slorm-api';
 
 import { Build } from '../model/build';
@@ -24,15 +24,7 @@ export class ImportExportService {
                 private slormancerShortDataService: SlormancerShortDataService,
                 private jsonConverterService: JsonConverterService) {
 
-        const base = document.getElementsByTagName('base')[0];
-        let baseHref = '/';
-        if (base !== undefined) {
-            const href = base.getAttribute('href');
-            if (href !== null) {
-                baseHref = href;
-            }
-        }
-        this.VIEW_BUILD_PATH = window.origin + baseHref + 'slorm-planner/view/build/';
+        this.VIEW_BUILD_PATH = 'https://cayrac.github.io/beta/slorm-planner/view/build/';
     }
 
     private parseSaveData(content: string, heroClass: HeroClass): SharedData {
