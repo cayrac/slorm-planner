@@ -161,7 +161,9 @@ export class SlormancerItemService {
     private getItemIcon(item: EquippableItem): string {
         let base: string | null = null;
 
-        if (item.legendaryEffect !== null) {
+        if (item.rarity === Rarity.Neither) {
+            base = 'assets/img/icon/item/' + item.base + '/neither.png';
+        } else if (item.legendaryEffect !== null) {
             base = item.legendaryEffect.itemIcon;
         } else {
             const affixes = item.affixes

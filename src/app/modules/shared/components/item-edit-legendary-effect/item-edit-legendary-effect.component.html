@@ -7,14 +7,11 @@
 </div>
 <div class="stat-line" [formGroup]="form"  *ngIf="form !== null && legendaryEffect !== null">
     <div class="select">
-        <mat-form-field appearance="outline">
-            <mat-select formControlName="id" [placeholder]="legendaryEffect.name">
-                <mat-option *ngFor="let option of options" [value]="option.value">
-                    <span [innerHTML]="option.label"></span>
-                </mat-option>
-            </mat-select>
-            <mat-hint *ngIf="!possible">This legendary effect is not possible for this rarity</mat-hint>
-        </mat-form-field>
+        <app-search-select [placeholder]="legendaryEffect.name"
+            [control]="form.controls.id"
+            [options]="options"
+            notFoundMessage="This legendary effect is not possible for this rarity">
+        </app-search-select>
     </div>
     <div class="slider">
         <mat-slider *ngIf="hasLegendaryValues()"

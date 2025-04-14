@@ -259,15 +259,13 @@ export class SlormancerStatsExtractorService {
             }
         }
         
-        const hasArmorOfDeepShadow = legendaryEffects.some(legendaryEffect => legendaryEffect.id === 201);
-        if (hasArmorOfDeepShadow) {
-            const activeRealms = this.slormancerAncestralLegacyNodeService.getActiveRealms(character)
-                .map(realm => realm.realm);
-            const shadowRealms = this.slormancerDataService.getAncestralRealmColors(activeRealms)
-                .filter(color => color === SkillElement.Shadow)
-                .length;
-            this.addStat(stats.stats, 'shadow_stone', shadowRealms * 100, { synergy: 'Active shadow realms * 100' });
-        }
+
+        const activeRealms = this.slormancerAncestralLegacyNodeService.getActiveRealms(character)
+            .map(realm => realm.realm);
+        const shadowRealms = this.slormancerDataService.getAncestralRealmColors(activeRealms)
+            .filter(color => color === SkillElement.Shadow)
+            .length;
+        this.addStat(stats.stats, 'shadow_stone', shadowRealms * 100, { synergy: 'Active shadow realms * 100' });
 
         const allCharacterMasteries = character.skills.reduce((total, skill) => total + skill.skill.level, 0);
         this.addStat(stats.stats, 'all_character_masteries', allCharacterMasteries, { synergy: 'Character skill masteries' });
@@ -327,6 +325,8 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'enlight_10', config.enlightenment_stacks * 100, { synergy: 'Shield globes picked up recently' });
         this.addStat(stats.stats, 'lifebender_stored', config.life_mana_stored, { synergy: 'Mana and life restored by lifebender effects' });
         this.addStat(stats.stats, 'reaper_owned', Math.min(620, config.reaper_owned), { synergy: 'Reaper owned across all characters' });
+        this.addStat(stats.stats, 'life_restored', 0, { synergy: 'life restored' });
+        this.addStat(stats.stats, 'evasion_chance_wrath', 0, { synergy: 'Evasion at this wrath level' });
         
         let rune_affinity = config.effect_rune_affinity;
         if (character.runes.effect !== null && character.runes.effect.reapersmith === character.reaper.smith.id) {

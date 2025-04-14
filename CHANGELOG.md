@@ -27,7 +27,7 @@
 - Added a compare item option
 - Added a compare layers page
 - Added a change equipped items level option
-- Added a change equipped items reinforcment option
+- Added a change equipped items reinforcement option
 - Added a link to slormite studio website in the sidenav
 ### Changed
 - Aura and buff effects are now only added to stats if the related activable is in the skill bar
@@ -245,7 +245,7 @@
 ### Added
 - Raised max level to 80
 - Added new legendaries data
-- Added reinforcment cap to legendaries
+- Added reinforcement cap to legendaries
 - Ancestral legacies map now show all ancestral legacies
 ## Fixes
 - Fixed Replenish upgrade order 
@@ -340,9 +340,9 @@
 - Equiping an item using the context menu now correctly update the current layer
 - Reaper list page no longer show reapers with a base affinity of 100
 - Fixed an issue causing reaper affinity to be hidden
-- Legendary activables are now correctly capped at 15 reinforcment
+- Legendary activables are now correctly capped at 15 reinforcements
 
-## Release 0.8.0 (TBD)
+## Release 0.8.0 (2025-04-06)
 ### Added
 - Added all new legendaries
 - Added an "apply indirect damage multiplier" option for Relentless Transferance reaper
@@ -372,6 +372,23 @@
 - Ultimatum of Impeccable Technique now correctly increased inner fire damage instead
 - Fixed Shearing Winds damage type
 ## retours
+
+## Release 0.8.1 (TBD)
+### Added
+- Added a search bar for the legendary effect on the item edition modal
+- Searching for a reaper name in the search bar now show legendary effects for that reaper
+- Added new icons transparency
+### Fixes
+- Fixed an item parsing issue
+- Fixed some legendary synergies not being computed correctly when in the shared inventory
+- Fixed Fist of the Wild (and it's upgrades) damage types
+- Fixed reinforcement typo
+- Fixed item edition stuck when editing a non neither items without legendary effects
+- Fixed Holy Benediction activable healing values
+- Fixed some translations errors
+- Removed the poison tag from Dazing Smoke and added it back to Toxic Fire
+- Fixed missing value for buff descriptions
+- Fixed tooltip position getting out of screen for item and reapers
 
 ## TODO
 - update packages ?

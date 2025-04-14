@@ -1869,7 +1869,8 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
             setStat(values, 0, 'physical_damage');
             allowSynergyToCascade(values, 0);
             setUpgrade(values, 0, 4);
-        }
+        },
+        additionalGenres: [ SkillGenre.Fast ]
     },
     6: {
         masteryRequired: null,
@@ -1887,13 +1888,14 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
             setStat(values, 0, 'physical_damage');
             allowSynergyToCascade(values, 0);
             setUpgrade(values, 0, 4);
-            setStat(values, 1, 'elemental_damage');
+            setStat(values, 1, 'physical_damage');
             allowSynergyToCascade(values, 1);
             setUpgrade(values, 1, 20);
             addConstant(values, 3, false, EffectValueValueType.Duration, 'skill_duration');
             setAsUpgrade(values, 0);
             setAsUpgrade(values, 1);
-        }
+        },
+        additionalGenres: [ SkillGenre.Fast ]
     },
     8: {
         masteryRequired: null,
@@ -2484,7 +2486,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
         masteryRequired: 4,
         line: 3,
         override: values => {
-            setStat(values, 0, 'elemental_damage');
+            setStat(values, 0, 'physical_damage');
             allowSynergyToCascade(values, 0);
             addConstant(values, 1, false, EffectValueValueType.AreaOfEffect, 'skill_explosion_aoe');
         }
@@ -3245,15 +3247,15 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
             addConstant(values, 1.5, false, EffectValueValueType.Upgrade, 'smoke_screen_stun_aoe_on_cast_range');
             setAsUpgrade(values, 0);
             setStat(values, 0, 'smoke_screen_stun_aoe_on_cast_duration');
-        },
-        additionalClassMechanics: [ 211 ]
+        }
     },
     202: {
         masteryRequired: 7,
         override: values => {
             addConstant(values, 1, false, EffectValueValueType.Stat, 'garbage_stat');
         },
-        additionalMechanics: [MechanicType.InnerFire]
+        additionalMechanics: [MechanicType.InnerFire],
+        additionalClassMechanics: [ 211 ]
     },
     203: {
         masteryRequired: 7

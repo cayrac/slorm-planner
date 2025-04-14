@@ -82,10 +82,13 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
 
     @HostListener('mouseup', ['$event'])
     public onMouseUp(event: MouseEvent) {
-        if (event.button === 0 && !this.readonly) {
-            if (this.isDragging) {
+        if (event.button === 0) {
+            if (this.isDragging &&  !this.readonly) {
                 this.itemMoveService.swap(this.item, this.base, ((success, item) => this.moveCallback(success, item)) as DragCallback);
-            } else {
+            } else if (event.ctrlKey && this.item !== null) {
+                const data: ViewData = { entity: { item: this.item } };
+                this.dialog.open(ViewModalComponent, { data });
+            } else if (!this.readonly) {
                 this.edit();
             }
         }
@@ -243,19 +246,5 @@ export class ItemSlotComponent extends AbstractUnsubscribeComponent implements O
                 this.dialog.open(CompareItemModalComponent, { data })
             }
         }
-    }
-            
-    public showModalTooltip(event: MouseEvent, item: EquipableItem | null) {
-        let skip = false;
-
-        if (event.ctrlKey && item !== null) {
-            skip = true;
-            event.stopPropagation();
-            event.stopImmediatePropagation();
-            const data: ViewData = { entity: { item } };
-            this.dialog.open(ViewModalComponent, { data });
-        }
-
-        return skip;
     }
 }

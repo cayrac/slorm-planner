@@ -15,9 +15,12 @@ export class SlormancerBuffService {
         let buff: Buff | null = null;
 
         if (gameDataBuff !== null) {
+            // aucune data dans les json du jeu mais par chance @ est toujours à 50% (pour le moment)
+            const template = gameDataBuff.EN_DESCRIPTION.replace('@', '50');
+
             buff = {
                 name: gameDataBuff.EN_NAME,
-                description: this.slormancerTemplateService.prepareBuffTemplate(gameDataBuff.EN_DESCRIPTION),
+                description: this.slormancerTemplateService.prepareBuffTemplate(template),
                 icon: 'buff/' + ref
             };
         }

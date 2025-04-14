@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import {
-  Activable,
-  AncestralLegacy,
-  EquipableItem,
-  isNotNullOrUndefined,
-  Reaper,
-  Rune,
-  SkillUpgrade,
-  Trait,
-  Ultimatum,
+    Activable,
+    AncestralLegacy,
+    EquipableItem,
+    isNotNullOrUndefined,
+    Reaper,
+    Rune,
+    SkillUpgrade,
+    Trait,
+    Ultimatum,
 } from '@slorm-api';
 import { BehaviorSubject } from 'rxjs';
 
@@ -79,6 +79,7 @@ export class SearchService {
             item.rarity,
             ...item.affixes.map(affix => [ affix.isPure ? 'pure': null, this.removeHtmlTags(affix.valueLabel + ' ' + affix.statLabel, ['details']) ]).flat(),
             item.legendaryEffect === null ? null : this.removeHtmlTags(item.legendaryEffect.description, ['details']),
+            item.legendaryEffect === null || item.legendaryEffect.reaperName === null ? null : item.legendaryEffect.reaperName,
             item.reaperEnchantment !== null ? this.removeHtmlTags(item.reaperEnchantment.label, ['details']) : null,
             item.skillEnchantment !== null ? this.removeHtmlTags(item.skillEnchantment.label, ['details']) : null,
             item.attributeEnchantment !== null ? this.removeHtmlTags(item.attributeEnchantment.label, ['details']) : null

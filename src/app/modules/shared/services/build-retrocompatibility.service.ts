@@ -442,6 +442,12 @@ export class BuildRetrocompatibilityService {
                 build.configuration.reaper_owned = 0;
                 build.configuration.victims_114_others = 0;
             }
+        },
+        {
+            version: '0.8.1',
+            update: build => {
+                build.version = '0.8.1';
+            }
         }
     ];
 

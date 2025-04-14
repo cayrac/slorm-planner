@@ -1,5 +1,5 @@
 
-<div class="item" (click)="showModalTooltip($event, item)"
+<div class="item"
     [class.readonly]="readonly"
     [class.forced-base-compatible]="isItemCompatible && base !== null"
     [class.drop-compatible]="!isDraggedItem && isMouseOver && isDragging && isItemCompatible"
@@ -16,7 +16,9 @@
     <ng-container *ngIf="isMouseOver || isMenuOpen()">
         <ng-template cdkConnectedOverlay
             [cdkConnectedOverlayOpen]="!isDragging && isMouseOver"
-            [cdkConnectedOverlayOrigin]="trigger">
+            [cdkConnectedOverlayOrigin]="trigger"
+            [cdkConnectedOverlayGrowAfterOpen]="true"
+            [cdkConnectedOverlayOffsetX]="54">
             <app-item-view [item]="item" [details]="false"></app-item-view>
         </ng-template>
         <div [matMenuTriggerFor]="menu"></div>

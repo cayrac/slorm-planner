@@ -16,6 +16,7 @@ export class SlormancerTranslateService {
 
     private readonly TRANSLATION_KEY_MAPPING: { [key: string]: string } = {
         training_lance_additional_damage_add: 'physical_damage',
+        wandering_arrow_damage: 'physical_damage',
         percent_missing_mana_base_100: 'percent_missing_mana',
         damage_taken_to_mana: 'damage',
         atk_arcanic: 'school_0',

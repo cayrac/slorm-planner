@@ -21,3 +21,5 @@ Run `npm run start` to start the server on http://localhost:4200/
 for file in *.png; do convert "$file" -transparent white "$file"; done
 `
 
+TODO
+fonds transparent

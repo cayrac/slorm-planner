@@ -250,3 +250,21 @@ export function getOlorinUltimatumBonusLevel(gear: CharacterGear): number {
     .filter(legendaryEffect => legendaryEffect.id === 147)
     .map(legendaryEffect => legendaryEffect.effects[0]?.effect.value)[0] ?? 0;
 }
+
+export function adaptTooltip(element: HTMLElement) {
+    const clientRect = element.getBoundingClientRect();
+    const screenHeight = window.innerHeight;
+    if (clientRect.top < 0) {
+        const cdk = document.getElementsByClassName('cdk-overlay-pane');
+        for (const element of Array.from(cdk)) {
+            (element as HTMLElement).style.top = '0';
+            (element as HTMLElement).style.bottom = '';
+        }
+    } else if (clientRect.bottom > screenHeight) {
+        const cdk = document.getElementsByClassName('cdk-overlay-pane');
+        for (const element of Array.from(cdk)) {
+            (element as HTMLElement).style.top = '';
+            (element as HTMLElement).style.bottom = '0';
+        }
+    }
+}

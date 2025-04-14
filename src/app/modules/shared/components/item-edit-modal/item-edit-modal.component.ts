@@ -388,9 +388,10 @@ export class ItemEditModalComponent {
                 }
             }
 
-            if (possible && form.controls.legendary.value !== null) {
+            if (possible && form.controls.legendary.value !== null && form.controls.legendary.value.id !== null) {
+                const legendary = form.controls.legendary.value.id;
                 const options = this.formOptionsService.getLegendaryOptions(this.item.base, this.item.heroClass);
-                if (!options.some(option => option.value === form.controls.legendary.value)) {
+                if (!options.some(option => option.value === legendary)) {
                     possible = false;
                 }
             }

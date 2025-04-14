@@ -1,4 +1,4 @@
-<div *ngIf="reaper !== null" class="reaper" [style.maxHeight]="maxHeight" [class.mobile-view]="tooltip">
+<div *ngIf="reaper !== null" class="reaper" [style.maxHeight]="maxHeight" [class.mobile-view]="tooltip" #main>
     <div class="head">{{reaper.name}}</div>
     <div class="content" #content>
         <div class="info">

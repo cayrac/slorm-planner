@@ -87,7 +87,7 @@ export class SlormancerItemParserService {
             level: <number>data[2],
             reinforcment: <number>data[5],
             potential: strictParseFloat(<string>potential),
-            rarity: strictParseInt(<string>rarity),
+            rarity: rarity === '' ? 0 : strictParseInt(<string>rarity),
             generic_4: <number>data[3], // toujours 0 ?
             grafts: strictParseInt(<string>remainingGrafts),
             affixes: bonuses.filter(a => this.isAffixe(a)).map(a => this.parseAffixe(a)),
