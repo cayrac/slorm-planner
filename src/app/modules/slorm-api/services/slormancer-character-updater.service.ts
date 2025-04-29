@@ -632,6 +632,11 @@ export class SlormancerCharacterUpdaterService {
         if (updateViews) {
             this.updateChangedEntities(statsResult, defensiveStatMultiplier);
             this.slormancerClassMechanicService.updateClassMechanicViews(character.heroClass);
+
+            const attackSpeed = statsResult.stats.find(stat => stat.stat === 'attack_speed')?.total as number ?? 0;
+            for (const skill of character.skills) {
+                this.slormancerSkillService.updateSkillCooldownDetails(skill.skill, attackSpeed);
+            }
         }
 
     }

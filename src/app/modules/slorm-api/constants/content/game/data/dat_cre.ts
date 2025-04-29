@@ -1,4 +1,5 @@
-export const GAME_DATA_CREDITS = [{
+export const GAME_DATA_CREDITS = [
+    {
         "NAME": "Jeremy Sammarcelli",
         "FIRM": "slormite",
         "EN_ROLE": "Developer, Programmer",
@@ -10,7 +11,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Aurélien Chavoix",
@@ -24,7 +28,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Aurélien Poudat",
@@ -38,7 +45,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Elisabeth Maler",
@@ -52,7 +62,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Lenophie",
@@ -66,7 +79,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Level Up Translation",
@@ -80,7 +96,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Adrien Lagarde",
@@ -94,7 +113,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Allan Weishaupl",
@@ -108,7 +130,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Andrew Burman",
@@ -122,7 +147,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Artifactvs",
@@ -136,7 +164,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "BloodyScythe",
@@ -150,7 +181,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Callum Schuit",
@@ -164,7 +198,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "cheazy",
@@ -178,7 +215,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Chob P",
@@ -192,7 +232,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Christopher Street",
@@ -206,7 +249,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Darkvoras",
@@ -220,7 +266,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Dave Dubé",
@@ -234,7 +283,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "David GAILLARD",
@@ -248,7 +300,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Dreckers",
@@ -262,7 +317,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Fadigas",
@@ -276,7 +334,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Geoffrey Moes",
@@ -290,7 +351,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "GIZMOE",
@@ -304,7 +368,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Guillaume Daunac",
@@ -318,7 +385,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Heberom",
@@ -332,7 +402,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Hyvr0",
@@ -346,7 +419,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "James Olsen",
@@ -360,7 +436,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Jonathan Hall",
@@ -374,7 +453,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Joseph Ford",
@@ -388,7 +470,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Karelin Innokentiy",
@@ -402,7 +487,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Kelton",
@@ -416,7 +504,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Legrems",
@@ -430,7 +521,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Mehbreo",
@@ -444,7 +538,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Michael Brown",
@@ -458,7 +555,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Mortalcloth",
@@ -472,7 +572,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Night Wolf",
@@ -486,7 +589,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "NxHunter",
@@ -500,7 +606,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Ole-Morten Sundheim",
@@ -514,7 +623,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "pavel zolotarev",
@@ -528,7 +640,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Peredur",
@@ -542,7 +657,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Roger Means",
@@ -556,7 +674,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Serele",
@@ -570,7 +691,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Setharial",
@@ -584,7 +708,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Silversicer",
@@ -598,7 +725,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "solaris212",
@@ -612,7 +742,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "TheyCallMeStadi",
@@ -626,7 +759,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Vlad Patrascu",
@@ -640,7 +776,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "William Quasar",
@@ -654,7 +793,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Alarack",
@@ -668,7 +810,44 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "Akezhar",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "Al_3x",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Bestio",
@@ -682,7 +861,44 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "Blacksad",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "Blitzy",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Bodeln",
@@ -696,7 +912,61 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "Calavontis",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "Cayrac",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "DaddyDeGrand",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Darkvoras",
@@ -710,7 +980,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "DenOwl",
@@ -724,7 +997,27 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "DevilsAdvocate",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Doghouse",
@@ -738,7 +1031,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Dylan",
@@ -752,7 +1048,61 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "Entity",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "faraddox",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "kechop3000",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Legrems",
@@ -766,7 +1116,61 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "llli1liliill",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "MrPoirot",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "MuffinRichter",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Nightxwolf",
@@ -780,7 +1184,27 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "Nx",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "NxHunter",
@@ -794,7 +1218,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Peredur",
@@ -808,7 +1235,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Sawyer",
@@ -822,7 +1252,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Setharial",
@@ -836,7 +1269,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Silversicer",
@@ -850,7 +1286,10 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "TasakaSama",
@@ -864,7 +1303,61 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "TheConcepteur",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "TheHobomice",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "Torinux",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     },
     {
         "NAME": "Twing",
@@ -878,6 +1371,60 @@ export const GAME_DATA_CREDITS = [{
         "ES_ROLE": "",
         "IT_ROLE": "",
         "RU_ROLE": "",
-        "PT_ROLE": ""
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "Vil",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "Wiffle",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
+    },
+    {
+        "NAME": "Yeljerolis",
+        "FIRM": "thanks",
+        "EN_ROLE": "",
+        "FR_ROLE": "",
+        "CH_ROLE": "",
+        "TW_ROLE": "",
+        "JP_ROLE": "",
+        "DE_ROLE": "",
+        "ES_ROLE": "",
+        "IT_ROLE": "",
+        "RU_ROLE": "",
+        "PT_ROLE": "",
+        "PO_ROLE": "",
+        "KR_ROLE": "",
+        "TUR_ROLE": ""
     }
 ]

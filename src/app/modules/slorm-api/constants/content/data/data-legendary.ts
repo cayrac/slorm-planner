@@ -65,6 +65,7 @@ function addConstant(effect: LegendaryEffect, value: number, stat: string, value
         score: value,
         craftedValue: 0,
         possibleCraftedValues: [],
+        basePossibleCraftedValues: [],
         maxPossibleCraftedValue: 0,
         minPossibleCraftedValue: 0,
         effect: effectValueConstant(value, percent, stat, valueType)
@@ -445,9 +446,9 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     },
     101: {
         override: (effect) => {
-            setSource(effect, 0, 'overdrive_damage');
-            synergySetAllowMinMax(effect, 0, false);
-            useOnlyMaxSource(effect, 0);
+            setSource(effect, 1, 'overdrive_damage');
+            synergySetAllowMinMax(effect, 1, false);
+            useOnlyMaxSource(effect, 1);
         }
     },
     105: {
@@ -697,6 +698,12 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
             setStat(effect, 2, 'garbage_stat');
         }
     },
+    180: {
+        override: (effect) => {
+            setStat(effect, 0, 'garbage_stat');
+            setStat(effect, 1, 'garbage_stat');
+        }
+    },
     181: {
         override: (effect) => {
             setStat(effect, 0, 'fate_crusher_reapersmith_all');
@@ -731,6 +738,7 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     },
     190: {
         override: (effect) => {
+            console.log('replace', effect.template);
             setStat(effect, 0, 'garbage_stat');
             setStat(effect, 1, 'garbage_stat');
             setStat(effect, 2, 'garbage_stat');

@@ -173,7 +173,7 @@ export class SlormancerSaveParserService {
     }
 
     private parseGameMode(data: string): GameMode {
-        return toHeroes(mapHeroesArray(splitHeroesData(data), v => strictSplit(v, ',', 71)));
+        return toHeroes(mapHeroesArray(splitHeroesData(data), v => v === '0' ? ['0'] : strictSplit(v, ',', 71)));
     }
 
     private parseSkillEquip(data: string): GameSkillEquip {

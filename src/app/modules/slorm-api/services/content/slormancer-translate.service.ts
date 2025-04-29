@@ -27,7 +27,7 @@ export class SlormancerTranslateService {
         living_inferno_burn_increased_damage: 'increased_damage',
         enduring_blorms_blorm_increased_damage: 'increased_damage',
         electrify_increased_lightning_damage: 'increased_damage',
-        elemental_damage_percent_per_active_aura: 'increased_damage',
+        elemental_damage_percent_per_active_aura: 'elemental_damage',
         shadow_imbued_skill_increased_damage: 'increased_damage',
         avatar_of_shadow_basic_damage_percent: 'basic_damage',
         avatar_of_shadow_elemental_damage_percent: 'elemental_damage',

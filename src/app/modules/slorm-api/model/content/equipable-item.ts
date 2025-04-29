@@ -11,7 +11,7 @@ export interface EquipableItem {
     base: EquipableItemBase;
     rarity: Rarity;
     level: number;
-    reinforcment: number;
+    reinforcement: number;
     grafts: number;
     affixes: Array<Affix>;
     legendaryEffect: LegendaryEffect | null;

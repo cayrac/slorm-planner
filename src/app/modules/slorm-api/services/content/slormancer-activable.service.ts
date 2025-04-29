@@ -135,7 +135,7 @@ export class SlormancerActivableService {
 
     public getLegendaryActivable(legendaryId: number, heroClass: HeroClass): Activable | null {
         const gameDataActivable = this.slormancerDataService.getGameDataLegendaryActivableBasedOn(legendaryId);
-        return gameDataActivable === null ? null : this.buildActivable(gameDataActivable, EffectValueUpgradeType.Reinforcment, 0, heroClass);
+        return gameDataActivable === null ? null : this.buildActivable(gameDataActivable, EffectValueUpgradeType.Reinforcement, 0, heroClass);
     }
 
     public getRuneActivable(id: number, heroClass: HeroClass): Activable | null {

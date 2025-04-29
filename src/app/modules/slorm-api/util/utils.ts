@@ -193,6 +193,11 @@ export function getCraftValue(craftedValue: CraftableEffect, craft: number, defa
     return found ? found.value : defaultValue;
 }
 
+export function getBaseCraftValue(craftedValue: CraftableEffect, craft: number, defaultValue: number = 0) {
+    const found = craftedValue.basePossibleCraftedValues.find(v => v.craft === craft);
+    return found ? found.value : defaultValue;
+}
+
 export function isDamageType(stat: string): boolean {
     return stat === 'elemental_damage'
         || stat === 'physical_damage'
@@ -251,20 +256,30 @@ export function getOlorinUltimatumBonusLevel(gear: CharacterGear): number {
     .map(legendaryEffect => legendaryEffect.effects[0]?.effect.value)[0] ?? 0;
 }
 
-export function adaptTooltip(element: HTMLElement) {
+export function adaptOverlay(element: HTMLElement) {
     const clientRect = element.getBoundingClientRect();
     const screenHeight = window.innerHeight;
     if (clientRect.top < 0) {
         const cdk = document.getElementsByClassName('cdk-overlay-pane');
         for (const element of Array.from(cdk)) {
-            (element as HTMLElement).style.top = '0';
-            (element as HTMLElement).style.bottom = '';
+            if (!element.classList.contains('force-top')) {
+                element.classList.add('force-top');
+            }
         }
     } else if (clientRect.bottom > screenHeight) {
         const cdk = document.getElementsByClassName('cdk-overlay-pane');
         for (const element of Array.from(cdk)) {
-            (element as HTMLElement).style.top = '';
-            (element as HTMLElement).style.bottom = '0';
+            if (!element.classList.contains('force-bottom')) {
+                element.classList.add('force-bottom');
+            }
         }
+    }
+}
+
+export function resetOverlay() {
+    const cdk = document.getElementsByClassName('cdk-overlay-pane');
+    for (const element of Array.from(cdk)) {
+        element.classList.remove('force-bottom');
+        element.classList.remove('force-top');
     }
 }

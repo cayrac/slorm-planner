@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { MAX_REINFORCMENT_UPGRADE } from '../../constants';
+import { MAX_REINFORCEMENT_UPGRADE } from '../../constants';
 import { CraftableEffect } from '../../model/content/craftable-effect';
 import { AbstractEffectValue } from '../../model/content/effect-value';
 import { EffectValueUpgradeType } from '../../model/content/enum/effect-value-upgrade-type';
@@ -13,6 +13,7 @@ import { list } from '../../util/math.util';
 import { strictParseInt } from '../../util/parse.util';
 import {
     emptyStringToNull,
+    getBaseCraftValue,
     getCraftValue,
     isEffectValueSynergy,
     isEffectValueVariable,
@@ -48,17 +49,18 @@ export class SlormancerLegendaryEffectService {
         let effect: AbstractEffectValue;
         
         if (type === null || type === '%') {
-            effect = effectValueVariable(0, upgrade, EffectValueUpgradeType.Reinforcment, type === '%', stat);
+            effect = effectValueVariable(0, upgrade, EffectValueUpgradeType.Reinforcement, type === '%', stat);
         } else {
             const typeValues = splitData(type, ':');
             const source = <string>typeValues[1];
-            effect = effectValueSynergy(0, upgrade, EffectValueUpgradeType.Reinforcment, type === '%', source, stat);
+            effect = effectValueSynergy(0, upgrade, EffectValueUpgradeType.Reinforcement, type === '%', source, stat);
         }
 
         return {
             score,
             craftedValue: range ? craftedValue : 100,
             possibleCraftedValues: [],
+            basePossibleCraftedValues: [],
             maxPossibleCraftedValue: 100,
             minPossibleCraftedValue: range ? 75 : 100,
             effect,
@@ -121,7 +123,7 @@ export class SlormancerLegendaryEffectService {
         return icon;
     }
 
-    public getLegendaryEffectById(id: number, value: number, reinforcment: number, heroClass: HeroClass): LegendaryEffect | null {
+    public getLegendaryEffectById(id: number, value: number, reinforcement: number, heroClass: HeroClass): LegendaryEffect | null {
         const gameData = this.slormancerDataService.getGameDataLegendary(id);
         let legendaryEffect: LegendaryEffect | null = null;
 
@@ -140,7 +142,7 @@ export class SlormancerLegendaryEffectService {
                 id: gameData.REF,
                 name: gameData.EN_NAME,
                 classSpecific: [0, 1, 2].includes(gameData.HERO) ? gameData.HERO as HeroClass : null,
-                reinforcment,
+                reinforcement,
                 itemIcon: 'assets/img/icon/item/' + gameData.ITEM + '/' + base + '.png',
                 value,
                 activable: this.slormanderActivableService.getLegendaryActivable(gameData.REF, heroClass),
@@ -162,35 +164,47 @@ export class SlormancerLegendaryEffectService {
         return legendaryEffect;
     }
 
-    public getLegendaryEffect(affix: GameAffix, reinforcment: number, heroClass: HeroClass): LegendaryEffect | null {
-        return this.getLegendaryEffectById(affix.type, affix.value, reinforcment, heroClass);
+    public getLegendaryEffect(affix: GameAffix, reinforcement: number, heroClass: HeroClass): LegendaryEffect | null {
+        return this.getLegendaryEffectById(affix.type, affix.value, reinforcement, heroClass);
     } 
     
     public updateLegendaryEffectModel(legendaryEffect: LegendaryEffect) {
         for (const craftedEffect of legendaryEffect.effects) {
             if (isEffectValueVariable(craftedEffect.effect) || isEffectValueSynergy(craftedEffect.effect)) {
                 craftedEffect.craftedValue = Math.min(craftedEffect.maxPossibleCraftedValue, Math.max(craftedEffect.minPossibleCraftedValue, legendaryEffect.value));
-                const upgrade = 100 * craftedEffect.effect.upgrade * Math.min(MAX_REINFORCMENT_UPGRADE, legendaryEffect.reinforcment) / 100;
+                const upgrade = 100 * craftedEffect.effect.upgrade * Math.min(MAX_REINFORCEMENT_UPGRADE, legendaryEffect.reinforcement) / 100;
                 
                 if (craftedEffect.effect.upgrade === 0 && craftedEffect.minPossibleCraftedValue === 100 && craftedEffect.maxPossibleCraftedValue === 100) {
                     craftedEffect.possibleCraftedValues = [
                         { craft: 100, value: craftedEffect.score }
                     ];
+                    craftedEffect.basePossibleCraftedValues = [
+                        { craft: 100, value: craftedEffect.score }
+                    ];
                 } else {
+                    const precision = craftedEffect.score === 2.5 || craftedEffect.score === 0.6;
+                    craftedEffect.basePossibleCraftedValues = this.slormancerItemValueService.computeEffectRange(
+                        craftedEffect.score,
+                        craftedEffect.minPossibleCraftedValue,
+                        craftedEffect.maxPossibleCraftedValue,
+                        0,
+                        precision);
                     craftedEffect.possibleCraftedValues = this.slormancerItemValueService.computeEffectRange(
                         craftedEffect.score,
                         craftedEffect.minPossibleCraftedValue,
                         craftedEffect.maxPossibleCraftedValue,
-                        upgrade);
+                        upgrade,
+                        precision);
                 }
 
+                craftedEffect.effect.baseValue = getBaseCraftValue(craftedEffect, craftedEffect.craftedValue);
                 craftedEffect.effect.value = getCraftValue(craftedEffect, craftedEffect.craftedValue);
                 craftedEffect.effect.displayValue = craftedEffect.effect.value;
             }
         }
 
         if (legendaryEffect.activable !== null) {
-            legendaryEffect.activable.level = Math.min(MAX_REINFORCMENT_UPGRADE, legendaryEffect.reinforcment);
+            legendaryEffect.activable.level = Math.min(MAX_REINFORCEMENT_UPGRADE, legendaryEffect.reinforcement);
             this.slormanderActivableService.updateActivableModel(legendaryEffect.activable);
         }
     }

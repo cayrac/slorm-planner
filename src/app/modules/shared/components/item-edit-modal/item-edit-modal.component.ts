@@ -93,7 +93,7 @@ export interface ItemSkillFormData {
 
 export interface ItemFormGroup {
     level: FormControl<number>,
-    reinforcment: FormControl<number>,
+    reinforcement: FormControl<number>,
     affixes: FormArray<FormGroup<ItemAffixFormGroup>>;
     legendary: FormGroup<ItemLegendaryEffectFormGroup>;
     reaper: FormGroup<ItemReaperFormGroup>;
@@ -103,7 +103,7 @@ export interface ItemFormGroup {
 
 export interface ItemFormData {
     level: number,
-    reinforcment: number,
+    reinforcement: number,
     affixes: ItemAffixFormData[];
     legendary: ItemLegendaryEffectFormData;
     reaper: ItemReaperFormData;
@@ -136,7 +136,7 @@ export class ItemEditModalComponent {
 
     public form: FormGroup<ItemFormGroup> = new FormGroup({
         level: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(1), Validators.max(MAX_NEITHER_ITEM_LEVEL), Validators.pattern(/^[0-9]+$/)] }),
-        reinforcment: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(0), Validators.pattern(/^[0-9]+$/)] }),
+        reinforcement: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(0), Validators.pattern(/^[0-9]+$/)] }),
         affixes: new FormArray<FormGroup<ItemAffixFormGroup>>([]),
         legendary: new FormGroup({
             id: new FormControl<number | null>(null),
@@ -193,7 +193,7 @@ export class ItemEditModalComponent {
 
         this.form.reset({
             level: this.item.level,
-            reinforcment: this.item.reinforcment,
+            reinforcement: this.item.reinforcement,
             affixes: this.item.affixes.map(affix => ({
                 pure: affix.isPure,
                 purity: affix.pure,
@@ -234,14 +234,14 @@ export class ItemEditModalComponent {
         if (this.form.valid) {
             const value = this.form.getRawValue();
             item.level = value.level;
-            item.reinforcment = value.reinforcment;
+            item.reinforcement = value.reinforcement;
 
             item.affixes = value.affixes
-                .map(affix =>  this.slormancerAffixService.getAffixFromStat(affix.stat, item.level, item.reinforcment, affix.rarity, affix.value, affix.pure ? affix.purity : 0))
+                .map(affix =>  this.slormancerAffixService.getAffixFromStat(affix.stat, item.level, item.reinforcement, affix.rarity, affix.value, affix.pure ? affix.purity : 0))
                 .filter(isNotNullOrUndefined);
             
             item.legendaryEffect = value.legendary.id === null ? null
-                : this.slormancerLegendaryEffectService.getLegendaryEffectById(value.legendary.id, value.legendary.value, item.reinforcment, item.heroClass);
+                : this.slormancerLegendaryEffectService.getLegendaryEffectById(value.legendary.id, value.legendary.value, item.reinforcement, item.heroClass);
 
             item.reaperEnchantment = value.reaper.smith === null ? null
                 : this.slormancerItemService.getReaperEnchantment(value.reaper.smith, value.reaper.value);
@@ -365,7 +365,7 @@ export class ItemEditModalComponent {
 
         const stat = possibleStats[0];
         if (stat) {
-            const affix = this.slormancerAffixService.getAffixFromStat(stat.value, this.item.level, this.item.reinforcment, rarity, 1000);
+            const affix = this.slormancerAffixService.getAffixFromStat(stat.value, this.item.level, this.item.reinforcement, rarity, 1000);
 
             if (affix !== null) {
                 this.form.controls.affixes.push(this.affixToForm(affix))

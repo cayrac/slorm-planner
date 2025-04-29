@@ -185,9 +185,6 @@ export const DATA_RUNE: { [key: number]: DataRune } = {
             rune.values[3] = effectValueSynergy(75, 0, EffectValueUpgradeType.RuneLevel, false, 'current_mana', 'elemental_damage', undefined, undefined, undefined, undefined, undefined, undefined, true);
 
             setUpgrade(rune, 1, 5);
-
-            
-            setValue(rune, 1, 10);
         }
     },
     14: {

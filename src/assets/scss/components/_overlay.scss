@@ -1,0 +1,11 @@
+
+.cdk-overlay-pane {
+    &.force-top {
+        top: 0 !important;
+        bottom: unset !important;
+    }
+    &.force-bottom {
+        bottom: 0 !important;
+        top: unset !important;
+    }
+}

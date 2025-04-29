@@ -1,5 +1,5 @@
 export enum EffectValueUpgradeType {
-    Reinforcment = 'reinforcment',
+    Reinforcement = 'reinforcement',
     UpgradeRank = 'upgrade_rank',
     Mastery = 'mastery',
     AncestralRank = 'attribute_rank',

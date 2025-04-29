@@ -6,7 +6,7 @@ export interface LegendaryEffect {
     id: number;
     name: string;
     classSpecific: HeroClass | null;
-    reinforcment: number;
+    reinforcement: number;
     itemIcon: string;
     activable: Activable | null;
     skillIcon: string | null;

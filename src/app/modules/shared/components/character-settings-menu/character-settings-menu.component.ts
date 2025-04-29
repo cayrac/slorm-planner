@@ -19,7 +19,7 @@ import { BuildStorageService } from '../../services/build-storage.service';
 import { MessageService } from '../../services/message.service';
 import { AbstractUnsubscribeComponent } from '../abstract-unsubscribe/abstract-unsubscribe.component';
 import { CharacterLevelEditModalComponent } from '../character-level-edit-modal/character-level-edit-modal.component';
-import { ItemReinforcmentEditModalComponent } from '../item-reinforcment-edit-modal/item-reinforcment-edit-modal.component';
+import { ItemReinforcementEditModalComponent } from '../item-reinforcement-edit-modal/item-reinforcement-edit-modal.component';
 import {
     OptimizeItemsAffixesModalComponent,
     OptimizeItemsAffixesModalData,
@@ -174,15 +174,15 @@ export class CharacterSettingsMenuComponent extends AbstractUnsubscribeComponent
         }
     }
 
-    public changeReinforcmentLevel() {
+    public changeReinforcementLevel() {
         if (this.character !== null) {
 
-            const maxReinforcment = Math.max(...this.getGearItems().map(item => item.reinforcment));
-            this.dialog.open(ItemReinforcmentEditModalComponent, { data: { reinforcment: maxReinforcment } })
-            .afterClosed().subscribe(reinforcment => {
-                if (typeof reinforcment === 'number') {
+            const maxReinforcement = Math.max(...this.getGearItems().map(item => item.reinforcement));
+            this.dialog.open(ItemReinforcementEditModalComponent, { data: { reinforcement: maxReinforcement } })
+            .afterClosed().subscribe(reinforcement => {
+                if (typeof reinforcement === 'number') {
                     this.getGearItems().forEach(item => {
-                        item.reinforcment = reinforcment;
+                        item.reinforcement = reinforcement;
                         const defensiveStatMultiplier = this.getDefensiveStatMultiplier();
                         this.slormancerItemService.updateEquipableItemModel(item, defensiveStatMultiplier);
                         this.slormancerItemService.updateEquipableItemView(item, defensiveStatMultiplier);

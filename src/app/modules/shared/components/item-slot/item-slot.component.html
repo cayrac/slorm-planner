@@ -19,7 +19,7 @@
             [cdkConnectedOverlayOrigin]="trigger"
             [cdkConnectedOverlayGrowAfterOpen]="true"
             [cdkConnectedOverlayOffsetX]="54">
-            <app-item-view [item]="item" [details]="false"></app-item-view>
+            <app-item-view [item]="item" [details]="false" [tooltip]="true"></app-item-view>
         </ng-template>
         <div [matMenuTriggerFor]="menu"></div>
         <mat-menu #menu="matMenu" xPosition="after" [overlapTrigger]="true">

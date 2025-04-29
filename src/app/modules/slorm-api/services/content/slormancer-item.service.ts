@@ -132,8 +132,8 @@ export class SlormancerItemService {
     
         }
 
-        if (item.reinforcment > 0) {
-            resultFragments.push('+' + item.reinforcment);
+        if (item.reinforcement > 0) {
+            resultFragments.push('+' + item.reinforcement);
         }
 
         return resultFragments.join(' ');
@@ -198,7 +198,7 @@ export class SlormancerItemService {
             craftedReaperSmith: smith,
             craftableValues: this.slormancerItemValueService.computeReaperEnchantmentValues(),
             craftedValue: value,
-            effect: effectValueVariable(0, 0, EffectValueUpgradeType.Reinforcment, false, '', EffectValueValueType.Stat),
+            effect: effectValueVariable(0, 0, EffectValueUpgradeType.Reinforcement, false, '', EffectValueValueType.Stat),
             label: '',
             icon: 'assets/img/icon/enchantment/reaper.png'
         }
@@ -213,7 +213,7 @@ export class SlormancerItemService {
             craftedSkill: skillId,
             craftableValues: this.slormancerItemValueService.computeSkillEnchantmentValues(),
             craftedValue: value,
-            effect: effectValueVariable(0, 0, EffectValueUpgradeType.Reinforcment, false, '', EffectValueValueType.Stat),
+            effect: effectValueVariable(0, 0, EffectValueUpgradeType.Reinforcement, false, '', EffectValueValueType.Stat),
             label: '',
             icon: ''
         };
@@ -228,7 +228,7 @@ export class SlormancerItemService {
             craftedAttribute: attribute,
             craftableValues: this.slormancerItemValueService.computeAttributeEnchantmentValues(),
             craftedValue: value,
-            effect: effectValueVariable(0, 0, EffectValueUpgradeType.Reinforcment, false, '', EffectValueValueType.Stat),
+            effect: effectValueVariable(0, 0, EffectValueUpgradeType.Reinforcement, false, '', EffectValueValueType.Stat),
             label: '',
             icon: ''
         };
@@ -238,7 +238,7 @@ export class SlormancerItemService {
                             heroClass: HeroClass,
                             level: number,
                             affixes: Array<Affix>,
-                            reinforcment: number = 0,
+                            reinforcement: number = 0,
                             grafts: number = 0,
                             legendaryEffect: LegendaryEffect | null,
                             reaperEnchantment: ReaperEnchantment | null,
@@ -247,7 +247,7 @@ export class SlormancerItemService {
                             defensivestatsMultiplier: number): EquippableItem {
         
         if (legendaryEffect !== null) {
-            legendaryEffect.reinforcment = reinforcment;
+            legendaryEffect.reinforcement = reinforcement;
         }
 
         const result: EquipableItem = {
@@ -255,7 +255,7 @@ export class SlormancerItemService {
             affixes,
             legendaryEffect,
             level,
-            reinforcment,
+            reinforcement,
             grafts,
             reaperEnchantment,
             skillEnchantment,
@@ -292,7 +292,7 @@ export class SlormancerItemService {
             affixes,
             legendaryEffect: null,
             level,
-            reinforcment: 0,
+            reinforcement: 0,
             grafts: 0,
             reaperEnchantment: null,
             skillEnchantment: null,
@@ -319,7 +319,7 @@ export class SlormancerItemService {
         const base = this.getEquipableItemBase(item);
         const affixes = item.affixes
             .filter(affix => affix.rarity !== 'L')
-            .map(affix => this.slormancerItemAffixService.getAffix(affix, item.level, item.reinforcment))
+            .map(affix => this.slormancerItemAffixService.getAffix(affix, item.level, item.reinforcement))
             .filter(isNotNullOrUndefined);
         const legendaryAffix = item.affixes.find(affix => affix.rarity === 'L');        
         const reaperEnchantment = item.enchantments.find(c => c.target === 'RP');
@@ -329,9 +329,9 @@ export class SlormancerItemService {
         const result = {
             base,
             affixes,
-            legendaryEffect: legendaryAffix === undefined ? null : this.slormancerLegendaryEffectService.getLegendaryEffect(legendaryAffix, item.reinforcment, heroClass),
+            legendaryEffect: legendaryAffix === undefined ? null : this.slormancerLegendaryEffectService.getLegendaryEffect(legendaryAffix, item.reinforcement, heroClass),
             level: item.level,
-            reinforcment: item.reinforcment,
+            reinforcement: item.reinforcement,
             grafts: item.grafts,
             reaperEnchantment: reaperEnchantment ? this.getReaperEnchantmentByGameEnchantment(reaperEnchantment) : null,
             skillEnchantment: skillEnchantment ? this.getSkillEnchantmentByGameEnchantment(skillEnchantment) : null,
@@ -361,13 +361,13 @@ export class SlormancerItemService {
 
         for (const affix of item.affixes) {
             affix.itemLevel = item.level;
-            affix.reinforcment = item.reinforcment;
+            affix.reinforcement = item.reinforcement;
 
             this.slormancerItemAffixService.updateAffix(affix, affix.rarity === Rarity.Defensive ? defensivestatsMultiplier : 0);
         }
 
         if (item.legendaryEffect !== null) {
-            item.legendaryEffect.reinforcment = item.reinforcment;
+            item.legendaryEffect.reinforcement = item.reinforcement;
             this.slormancerLegendaryEffectService.updateLegendaryEffectModel(item.legendaryEffect);
         }
 

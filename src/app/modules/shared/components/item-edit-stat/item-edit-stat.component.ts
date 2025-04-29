@@ -25,7 +25,7 @@ export class ItemEditStatComponent extends AbstractUnsubscribeComponent implemen
     public readonly itemLevel: number = 0;
 
     @Input()
-    public readonly itemReinforcment: number = 0;
+    public readonly itemReinforcement: number = 0;
 
     @Input()
     public readonly alreadyUsedStats: Array<string> = [];
@@ -69,7 +69,7 @@ export class ItemEditStatComponent extends AbstractUnsubscribeComponent implemen
                 this.options = this.getOptions(this.itemLevel, this.itemBase, this.form.controls.rarity.value);
             }
             
-            if ('form' in changes || 'itemLevel' in changes || 'itemReinforcment' in changes) {
+            if ('form' in changes || 'itemLevel' in changes || 'itemReinforcement' in changes) {
                 this.updateAffix();
             }
         }
@@ -86,7 +86,7 @@ export class ItemEditStatComponent extends AbstractUnsubscribeComponent implemen
             this.affix = this.slormancerAffixService.getAffixFromStat(
                 this.form.controls.stat.value,
                 this.itemLevel,
-                this.itemReinforcment,
+                this.itemReinforcement,
                 this.form.controls.rarity.value,
                 this.form.controls.value.value,
                 this.form.controls.purity.value

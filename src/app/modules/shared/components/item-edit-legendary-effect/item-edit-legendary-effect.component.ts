@@ -26,7 +26,7 @@ export class ItemEditLegendaryEffectComponent extends AbstractUnsubscribeCompone
     public readonly itemLevel: number = 0;
 
     @Input()
-    public readonly itemReinforcment: number = 0;
+    public readonly itemReinforcement: number = 0;
 
     @Input()
     public readonly form: FormGroup<ItemLegendaryEffectFormGroup> | null = null;
@@ -70,7 +70,7 @@ export class ItemEditLegendaryEffectComponent extends AbstractUnsubscribeCompone
 
     private updateLegendaryEffect(id: number | null, value: number) {
         this.legendaryEffect = (this.form === null || id === null) ? null
-            : this.slormancerLegendaryEffectService.getLegendaryEffectById(id, this.form.controls.value.value, this.itemReinforcment, this.heroClass);
+            : this.slormancerLegendaryEffectService.getLegendaryEffectById(id, this.form.controls.value.value, this.itemReinforcement, this.heroClass);
               
         this.placeholder = this.legendaryEffect === null ? null : this.legendaryEffect.name;
         if (this.legendaryEffect !== null) {

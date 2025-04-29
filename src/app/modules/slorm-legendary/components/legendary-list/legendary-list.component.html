@@ -17,7 +17,7 @@
                         </mat-form-field>
                     </div>
                     <div class="flags">
-                        <mat-checkbox color="primary" formControlName="maxReinforcment">Max. reinforcement</mat-checkbox>
+                        <mat-checkbox color="primary" formControlName="maxReinforcement">Max. reinforcement</mat-checkbox>
                     </div>
                 </div>
                 <div class="search">
@@ -33,7 +33,7 @@
     
     <mat-card class="legendaries">
         <mat-card-content>
-            <div class="legendary" *ngFor="let item of filteredLegendaries" (click)="debug(item)">
+            <div class="legendary" *ngFor="let item of filteredLegendaries; trackBy: trackLegendary" (click)="debug(item)">
                 <div class="legendary-container">
                     <div class="actions">
                         <div class="hero-class">

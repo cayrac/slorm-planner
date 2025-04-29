@@ -35,9 +35,7 @@ import {
 } from './components/item-edit-legendary-effect/item-edit-legendary-effect.component';
 import { ItemEditModalComponent } from './components/item-edit-modal/item-edit-modal.component';
 import { ItemEditStatComponent } from './components/item-edit-stat/item-edit-stat.component';
-import {
-    ItemReinforcmentEditModalComponent,
-} from './components/item-reinforcment-edit-modal/item-reinforcment-edit-modal.component';
+import { ItemReinforcementEditModalComponent } from './components/item-reinforcement-edit-modal/item-reinforcement-edit-modal.component';
 import { ItemSlotComponent } from './components/item-slot/item-slot.component';
 import { ItemViewComponent } from './components/item-view/item-view.component';
 import { LegendaryEffectViewComponent } from './components/legendary-effect-view/legendary-effect-view.component';
@@ -111,7 +109,7 @@ import { MaterialModule } from './material.module';
         FileUploadButtonComponent,
         CompareItemModalComponent,
         CompareViewComponent,
-        ItemReinforcmentEditModalComponent,
+        ItemReinforcementEditModalComponent,
         MechanicsViewComponent,
         MergedStatViewComponent,
         UltimatumSlotComponent,
@@ -174,7 +172,7 @@ import { MaterialModule } from './material.module';
         FileUploadButtonComponent,
         CompareItemModalComponent,
         CompareViewComponent,
-        ItemReinforcmentEditModalComponent,
+        ItemReinforcementEditModalComponent,
         MechanicsViewComponent,
         MergedStatViewComponent,
         UltimatumSlotComponent,

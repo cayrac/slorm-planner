@@ -1,12 +1,12 @@
-import { AfterViewChecked, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { adaptTooltip, Reaper } from '@slorm-api';
+import { AfterViewChecked, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
+import { adaptOverlay, Reaper, resetOverlay } from '@slorm-api';
 
 @Component({
   selector: 'app-reaper-view',
   templateUrl: './reaper-view.component.html',
   styleUrls: ['./reaper-view.component.scss']
 })
-export class ReaperViewComponent implements AfterViewChecked {
+export class ReaperViewComponent implements AfterViewChecked, OnDestroy {
     
     @Input()
     public readonly reaper: Reaper | null = null;
@@ -26,9 +26,13 @@ export class ReaperViewComponent implements AfterViewChecked {
     constructor() { }
 
     public ngAfterViewChecked() {
-        if (this.main) {
-            adaptTooltip(this.main.nativeElement);
+        if (this.main && this.tooltip) {
+            adaptOverlay(this.main.nativeElement);
         }
+    }
+
+    public ngOnDestroy() {
+        resetOverlay();
     }
 
     public scroll(event: WheelEvent) {

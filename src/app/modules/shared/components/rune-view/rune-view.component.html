@@ -13,8 +13,7 @@
         <div class="separator"></div>
         <div class="description" [innerHTML]="rune.description"></div>
         <app-activable-view *ngIf="rune.activable !== null"
-            [activable]="rune.activable"
-            [reinforcment]="rune.level"></app-activable-view>
+            [activable]="rune.activable"></app-activable-view>
         <div class="separator"></div>
         <div class="flavor" [innerHTML]="rune.flavor"></div>
         <div class="bottom-level">

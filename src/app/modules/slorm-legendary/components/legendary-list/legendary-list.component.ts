@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TrackByFunction } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
 import { SelectOption } from '@shared/model/select-option';
@@ -27,7 +27,7 @@ interface LegendaryListForm {
     search: FormControl<string>;
     heroClasses: FormControl<HeroClass[]>;
     bases: FormControl<EquipableItemBase[]>;
-    maxReinforcment: FormControl<boolean>;
+    maxReinforcement: FormControl<boolean>;
 }
 
 @Component({
@@ -50,8 +50,10 @@ export class LegendaryListComponent extends AbstractUnsubscribeComponent impleme
         search: new FormControl<string>('', { nonNullable: true }),
         heroClasses: new FormControl<HeroClass[]>([], { nonNullable: true }),
         bases: new FormControl<EquipableItemBase[]>([], { nonNullable: true }),
-        maxReinforcment: new FormControl<boolean>(false, { nonNullable: true }),
+        maxReinforcement: new FormControl<boolean>(false, { nonNullable: true }),
     });
+
+    public readonly trackLegendary: TrackByFunction<EquipableItem> = (index, item) => item.legendaryEffect?.id;
 
     constructor(private slormancerDataService: SlormancerDataService,
                 private searchService: SearchService,
@@ -67,8 +69,8 @@ export class LegendaryListComponent extends AbstractUnsubscribeComponent impleme
 
         this.buildLegendaryList();
 
-        this.form.controls.maxReinforcment.valueChanges
-            .subscribe(maxReinforcment => this.updateLegendaryEffects(maxReinforcment));
+        this.form.controls.maxReinforcement.valueChanges
+            .subscribe(maxReinforcement => this.updateLegendaryEffects(maxReinforcement));
         this.form.controls.heroClasses.valueChanges
             .subscribe(() => this.filterLegendaryList());
         this.form.controls.bases.valueChanges
@@ -103,13 +105,13 @@ export class LegendaryListComponent extends AbstractUnsubscribeComponent impleme
         this.filterLegendaryList();
     }
 
-    private updateLegendaryEffects(maxReinforcment: boolean) {
+    private updateLegendaryEffects(maxReinforcement: boolean) {
         for (const item of this.allLegendaries) {
-            item.reinforcment = maxReinforcment ? 15 : 0;
+            item.reinforcement = maxReinforcement ? 15 : 0;
             if (item.legendaryEffect !== null) {
                 for(const effect of item.legendaryEffect.effects) {
-                    effect.craftedValue = maxReinforcment ? effect.maxPossibleCraftedValue : effect.minPossibleCraftedValue;
-                    this.slormancerEffectValueService.updateEffectValue(effect.effect, item.reinforcment);
+                    effect.craftedValue = maxReinforcement ? effect.maxPossibleCraftedValue : effect.minPossibleCraftedValue;
+                    this.slormancerEffectValueService.updateEffectValue(effect.effect, item.reinforcement);
                 } 
                 this.slormancerLegendaryEffectService.updateLegendaryEffectModel(item.legendaryEffect);
             }
@@ -121,7 +123,7 @@ export class LegendaryListComponent extends AbstractUnsubscribeComponent impleme
     private buildLegendaryItem(legendaryData: GameDataLegendary, maxed: boolean = false): EquipableItem | null {
         let result: EquipableItem | null = null;
         const heroClass = [0, 1, 2].includes(legendaryData.HERO) ? legendaryData.HERO as HeroClass : HeroClass.Huntress;
-        const legendaryEffect = this.slormancerLegendaryEffectService.getLegendaryEffectById(legendaryData.REF, 0, 0, heroClass);
+        const legendaryEffect = this.slormancerLegendaryEffectService.getLegendaryEffectById(legendaryData.REF, 100, 0, heroClass);
 
         if (legendaryData !== null) {
             
@@ -157,7 +159,7 @@ export class LegendaryListComponent extends AbstractUnsubscribeComponent impleme
             search: '',
             heroClasses: [],
             bases: [],
-            maxReinforcment: false,
+            maxReinforcement: false,
         });
     }
 

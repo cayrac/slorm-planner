@@ -3,7 +3,7 @@ import { EquipableItemBase } from '@slorm-api';
 export interface JsonItem {
     base: EquipableItemBase | null;
     level: number;
-    reinforcment: number;
+    reinforcement: number;
     grafts: number;
     affixes: Array<{ rarity: number; pure: number; stat: number; craftedValue: number; }>;
     legendaryEffect: { id: number; craftedValue: number } | null;

@@ -14,6 +14,7 @@ import { MinMax } from '../../model/minmax';
 import { bankerRound, round } from '../../util/math.util';
 import {
     findFirst,
+    getBaseCraftValue,
     getCraftValue,
     isDamageType,
     isEffectValueConstant,
@@ -59,15 +60,19 @@ export class SlormancerTemplateService {
         let result : Array<string> = [];
 
         if (craftedEffect.minPossibleCraftedValue < craftedEffect.maxPossibleCraftedValue) {
-            const min = getCraftValue(craftedEffect, craftedEffect.minPossibleCraftedValue);
-            const max = getCraftValue(craftedEffect, craftedEffect.maxPossibleCraftedValue);
-            result.push(min + percent + '-' + max + percent);
-        }
-        if ((isEffectValueSynergy(craftedEffect.effect) || isEffectValueVariable(craftedEffect.effect)) && craftedEffect.effect.upgrade > 0) {
-            if (result.length === 0) {
-                result.push(craftedEffect.effect.value + percent);
+            const min = getBaseCraftValue(craftedEffect, craftedEffect.minPossibleCraftedValue);
+            const max = getBaseCraftValue(craftedEffect, craftedEffect.maxPossibleCraftedValue);
+            if (min !== max) {
+                result.push(min + percent + '-' + max + percent);
+            } else {
+                result.push(min + percent);
             }
-            result.push('+ ' + craftedEffect.effect.upgrade + percent + ' per reinforcment');
+        }
+        if ((isEffectValueSynergy(craftedEffect.effect) || isEffectValueVariable(craftedEffect.effect)) && craftedEffect.effect.upgrade !== 0) {
+            if (result.length === 0) {
+                result.push(craftedEffect.effect.baseValue + percent);
+            }
+            result.push((craftedEffect.effect.upgrade > 0 ? '+ ' : '- ') + Math.abs(craftedEffect.effect.upgrade) + percent + ' per reinforcement');
         }
 
         return result.length === 0 ? '' : this.asSpan(' (' + result.join(' ') + ')', 'details');
@@ -112,12 +117,21 @@ export class SlormancerTemplateService {
             }
         } else {
             const showUpgrade = effectValue.upgrade !== 0;
-            const showBase = (isEffectValueSynergy(effectValue) && isDamageType(effectValue.source)) && !hideBase && effectValue.value !== 0;
+            // 
+            let showBase = (effectValue.upgrade !== 0)
+                && !hideBase
+                && effectValue.value !== 0
+                && effectValue.upgradeType !== EffectValueUpgradeType.RanksAfterInThisTrait;
             const hasDetails = showUpgrade || showBase;
 
+
             if (hasDetails) {
+                const addUpgradeToBaseValue = effectValue.upgradeType !== EffectValueUpgradeType.Reinforcement
+                    && effectValue.upgradeType !== EffectValueUpgradeType.Every3
+                    && effectValue.upgradeType !== EffectValueUpgradeType.Every3RuneLevel
+                    && effectValue.upgradeType !== EffectValueUpgradeType.Every5RuneLevel;
                 const sign = showBase ? effectValue.upgrade < 0 ? '- ' : '+ ' : effectValue.upgrade < 0 ? '-' : '+';
-                const base = showBase ? numberToString(effectValue.displayValue) + percent + ' ': '';
+                const base = showBase ? numberToString(effectValue.baseValue + (addUpgradeToBaseValue ? effectValue.upgrade : 0)) + percent + ' ': '';
                 const upgrade = showUpgrade ? sign + numberToString(bankerRound(Math.abs(effectValue.upgrade), 2)) + percent : '';
 
                 result = base;
@@ -141,8 +155,8 @@ export class SlormancerTemplateService {
                         result += upgrade + ' per Non-Primordial Level';
                     } else if (effectValue.upgradeType === EffectValueUpgradeType.RanksAfterInThisTrait) {
                         result += upgrade + ' for every point after this one in this Trait';
-                    } else if (effectValue.upgradeType === EffectValueUpgradeType.Reinforcment) {
-                        result += upgrade + ' per reinforcment';
+                    } else if (effectValue.upgradeType === EffectValueUpgradeType.Reinforcement) {
+                        result += upgrade + ' per reinforcement';
                     }
                 } else if (isEffectValueSynergy(effectValue)) {
                     result += this.slormancerTranslateService.translate(effectValue.source);
@@ -351,7 +365,7 @@ export class SlormancerTemplateService {
 
             if (isEffectValueVariable(effectValue)) {
                 const value = this.asSpan(numberToString(effectValue.displayValue) + percent, 'value');
-                const details = this.getEffectValueDetails(effectValue, false);
+                const details = this.getEffectValueDetails(effectValue, true);
                 template = this.replaceAnchor(template, value + ' ' + details, this.VALUE_ANCHOR);
             } else if (isEffectValueConstant(effectValue)) {
                 const anchor = findFirst(template, this.CONSTANT_ANCHORS);
@@ -362,7 +376,7 @@ export class SlormancerTemplateService {
             } else if (isEffectValueSynergy(effectValue)) {
                 let synergy = this.asSpan(this.formatValue(effectValue.displaySynergy, effectValue.percent), 'value');
                 if (effectValue.detailOnSynergy) {
-                    synergy += this.getEffectValueDetails(effectValue, false)
+                    synergy += this.getEffectValueDetails(effectValue, true)
                 }
                 template = this.replaceAnchor(template, synergy, this.SYNERGY_ANCHOR);
                 template = this.replaceAnchor(template, this.slormancerTranslateService.translate(effectValue.source), this.TYPE_ANCHOR);

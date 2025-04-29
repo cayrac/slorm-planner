@@ -11,9 +11,6 @@ export class ActivableViewComponent {
     @Input()
     public readonly activable: Activable | null = null;
 
-    @Input()
-    public readonly reinforcment: number = 0;
-
     constructor() { }
 
 }

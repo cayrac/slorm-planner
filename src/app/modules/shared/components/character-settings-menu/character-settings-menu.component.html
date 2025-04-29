@@ -8,7 +8,7 @@
         <button mat-menu-item color="primary" *ngIf="character !== null && hasItems()" [matMenuTriggerFor]="skills">Optimize items for Skill</button>
         <button mat-menu-item color="primary" *ngIf="character !== null && hasItems()" (click)="optimizeItemsAffixes()">Optimise items affixes</button>
         <button mat-menu-item color="primary" *ngIf="character !== null && hasItems()" (click)="maximizeItemsLevel()">Maximize items level</button>
-        <button mat-menu-item color="primary" *ngIf="character !== null && hasItems()" (click)="changeReinforcmentLevel()">Change items reinforcement level</button>
+        <button mat-menu-item color="primary" *ngIf="character !== null && hasItems()" (click)="changeReinforcementLevel()">Change items reinforcement level</button>
     </ng-template>
     <mat-menu color="primary" #attributes="matMenu">
         <button mat-menu-item color="primary" *ngFor="let trait of getTraits()"

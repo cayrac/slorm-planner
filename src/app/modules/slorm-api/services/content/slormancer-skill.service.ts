@@ -314,23 +314,27 @@ export class SlormancerSkillService {
         }
 
         skill.cooldownLabel = null;
-        skill.cooldownDetailsLabel = null;
         if (skill.cooldown !== null && skill.baseCooldown !== null && skill.baseCooldown > 0) {
             skill.cooldownLabel = this.COOLDOWN_LABEL
                 + ': ' + this.slormancerTemplateService.asSpan(skill.cooldown.toString(), 'value')
                 + ' ' + this.SECONDS_LABEL;
-
-
-            const precastSeconds = skill.precastTime === null ? 0 : round(skill.precastTime / 60, 3)
-            const castSeconds = skill.castTime === null ? 0 : round(skill.castTime / 60, 3)
-            const estimatedRealCooldown = round(precastSeconds + castSeconds + skill.cooldown, 3);
-
-            skill.cooldownDetailsLabel = 'Precast time : ' + precastSeconds + 's (' + skill.precastTime + '/60)'
-                + "\n" + 'Cast time : ' + castSeconds + 's (' + skill.castTime + '/60)' 
-                + "\n" + 'Estimated time between casts : ' + estimatedRealCooldown + 's'
         }
         skill.description = this.slormancerTemplateService.formatSkillDescription(skill.template, skill.values);
         skill.levelIcon = 'level/' + Math.max(1, skill.baseLevel);
+    }
+
+    public updateSkillCooldownDetails(skill: Skill, attackSpeed = 0) {
+        const cooldown = skill.cooldown !== null ? skill.cooldown : 0;
+        const precastSeconds = skill.precastTime === null ? 0 : skill.precastTime / 60;
+        const castSeconds = skill.castTime === null ? 0 : skill.castTime / 60;
+        const estimatedRealCooldown = round(precastSeconds + (castSeconds * (100 - attackSpeed) / 100) + cooldown, 3);
+        const formula = 'round(' + skill.precastTime + '/60 + ' + skill.castTime + '/60 * (100 - ' + attackSpeed + ') / 100 + ' + cooldown + ')';
+
+        skill.cooldownDetailsLabel = 'Precast frames : ' + skill.precastTime + ' (' +  round(precastSeconds, 3) + 's)'
+            + "\n" + 'Cast frames : ' + skill.castTime + ' (' +  round(castSeconds, 3) + 's)'
+            + "\n" + 'Attack speed : ' + attackSpeed + '%'
+            + "\n" + 'Estimated time between casts : ' + estimatedRealCooldown + 's'
+            + "\n" + 'Formula : ' + formula
     }
 
     public getMechanicClone(mechanic: Mechanic): Mechanic {

@@ -373,7 +373,7 @@
 - Fixed Shearing Winds damage type
 ## retours
 
-## Release 0.8.1 (TBD)
+## Release 0.8.1 (2025-04-14)
 ### Added
 - Added a search bar for the legendary effect on the item edition modal
 - Searching for a reaper name in the search bar now show legendary effects for that reaper
@@ -389,6 +389,13 @@
 - Removed the poison tag from Dazing Smoke and added it back to Toxic Fire
 - Fixed missing value for buff descriptions
 - Fixed tooltip position getting out of screen for item and reapers
+
+## Release 0.8.2 (2025-04-14)
+### Changed
+- Value range for all effects should now be similar to the game descriptions
+- Updated cooldown details to include attack speed
+### Fixes
+- Fixed a select display issue on item edit modal
 
 ## TODO
 - update packages ?

@@ -7,7 +7,7 @@ export interface Affix {
     rarity: Rarity;
     pure: number;
     itemLevel: number;
-    reinforcment: number;
+    reinforcement: number;
     locked: boolean;
     minLevel: number;
 

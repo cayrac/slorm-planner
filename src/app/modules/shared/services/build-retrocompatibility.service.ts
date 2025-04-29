@@ -448,6 +448,12 @@ export class BuildRetrocompatibilityService {
             update: build => {
                 build.version = '0.8.1';
             }
+        },
+        {
+            version: '0.8.2',
+            update: build => {
+                build.version = '0.8.2';
+            }
         }
     ];
 

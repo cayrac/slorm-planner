@@ -43,7 +43,7 @@ export class SlormancerBinaryItemService {
         return result;
     }
 
-    private binaryToAffix(binary: Bits, level: number, reinforcment: number): Affix {
+    private binaryToAffix(binary: Bits, level: number, reinforcement: number): Affix {
         const rarityValue = binaryToNumber(takeBitsChunk(binary, 3));
         const statValue = binaryToNumber(takeBitsChunk(binary, 9));
         const craftedValue = binaryToNumber(takeBitsChunk(binary, 9));
@@ -57,7 +57,7 @@ export class SlormancerBinaryItemService {
             throw new Error('Failed to parse affix from binary : ' + binary.join());
         }
 
-        const affix = this.slormancerItemAffixService.getAffixFromStat(stat.REF, level, reinforcment, rarity, craftedValue, pure);
+        const affix = this.slormancerItemAffixService.getAffixFromStat(stat.REF, level, reinforcement, rarity, craftedValue, pure);
 
         if (affix === null) {
             throw new Error('Failed to parse affix from binary : ' + binary.join());
@@ -71,7 +71,7 @@ export class SlormancerBinaryItemService {
         let result: Bits = [];
 
         result.push(...numberToBinary(item.level, 7));
-        result.push(...numberToBinary(item.reinforcment, 8));
+        result.push(...numberToBinary(item.reinforcement, 8));
         if (item.level > 100) {
             result.push(...numberToBinary(item.grafts, 4));
         }
@@ -112,7 +112,7 @@ export class SlormancerBinaryItemService {
             report.fromCorrupted = true;
         }
 
-        const reinforcment = binaryToNumber(takeBitsChunk(binary, 8));
+        const reinforcement = binaryToNumber(takeBitsChunk(binary, 8));
         let grafts = 0;
         if (hasGrafts && level > 100) {
             grafts = binaryToNumber(takeBitsChunk(binary, 4));
@@ -121,7 +121,7 @@ export class SlormancerBinaryItemService {
         const affixCount = binaryToNumber(takeBitsChunk(binary, 4));
         const affixes: Array<Affix> = [];
         for (let i = 0 ; i < affixCount ; i++) {
-            affixes.push(this.binaryToAffix(binary, level, reinforcment));
+            affixes.push(this.binaryToAffix(binary, level, reinforcement));
         }
 
         const attributeType = binaryToNumber(takeBitsChunk(binary, 4));
@@ -149,9 +149,9 @@ export class SlormancerBinaryItemService {
         const legendaryValue = binaryToNumber(takeBitsChunk(binary, 8));
         let legendary: LegendaryEffect |null = null;
         if (legendaryId > 0) {
-            legendary = this.slormancerLegendaryEffectService.getLegendaryEffectById(legendaryId - 1, legendaryValue, reinforcment, heroClass);
+            legendary = this.slormancerLegendaryEffectService.getLegendaryEffectById(legendaryId - 1, legendaryValue, reinforcement, heroClass);
         }
 
-        return this.slormancerItemService.getEquipableItem(base, heroClass, level, affixes, reinforcment, grafts, legendary, reaper, skill, attribute, 0);
+        return this.slormancerItemService.getEquipableItem(base, heroClass, level, affixes, reinforcement, grafts, legendary, reaper, skill, attribute, 0);
     }
 }

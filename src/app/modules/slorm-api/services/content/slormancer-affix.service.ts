@@ -50,12 +50,12 @@ export class SlormancerAffixService {
         return item !== null && item.hasOwnProperty('quantity');
     }
 
-    private buildAffix(stat: GameDataStat, itemLevel: number, reinforcment: number, rarity: Rarity, locked: boolean, pure: number, value: number): Affix {
+    private buildAffix(stat: GameDataStat, itemLevel: number, reinforcement: number, rarity: Rarity, locked: boolean, pure: number, value: number): Affix {
         return {
             primaryNameType: stat.PRIMARY_NAME_TYPE,
             rarity: rarity,
             itemLevel,
-            reinforcment,
+            reinforcement,
             locked,
             pure,
             isPure: false,
@@ -65,6 +65,7 @@ export class SlormancerAffixService {
             craftedEffect: {
                 score: stat.SCORE,
                 possibleCraftedValues: [],
+                basePossibleCraftedValues: [],
                 minPossibleCraftedValue: value,
                 craftedValue: value,
                 maxPossibleCraftedValue: value,
@@ -86,18 +87,18 @@ export class SlormancerAffixService {
 
     }
 
-    public getAffixFromStat(statName: string, itemLevel: number, reinforcment: number, rarity: Rarity, value: number = Number.MAX_VALUE, pure: number = 100): Affix | null {
+    public getAffixFromStat(statName: string, itemLevel: number, reinforcement: number, rarity: Rarity, value: number = Number.MAX_VALUE, pure: number = 100): Affix | null {
         let result: Affix | null = null;
 
         const stat = this.slormancerDataService.getGameDataStatByRef(statName);
         if (stat !== null) {
-            result = this.buildAffix(stat, itemLevel, reinforcment, rarity, false, pure, value);
+            result = this.buildAffix(stat, itemLevel, reinforcement, rarity, false, pure, value);
         }
 
         return result;
     }
     
-    public getAffix(affix: GameAffix, itemLevel: number, reinforcment: number): Affix | null {
+    public getAffix(affix: GameAffix, itemLevel: number, reinforcement: number): Affix | null {
         let result: Affix | null = null;
 
         const stat = this.slormancerDataService.getGameDataStat(affix);
@@ -105,7 +106,7 @@ export class SlormancerAffixService {
             result = this.buildAffix(
                 stat,
                 itemLevel,
-                reinforcment,
+                reinforcement,
                 this.getRarity(affix.rarity),
                 affix.locked, affix.pure === null || affix.pure === 0 ? 100 : affix.pure,
                 affix.value
@@ -125,8 +126,9 @@ export class SlormancerAffixService {
         }
 
         itemAffix.craftedEffect.possibleCraftedValues = this.slormancerItemValueService
-            .getAffixValues(itemAffix.itemLevel, itemAffix.craftedEffect.effect.stat, itemAffix.reinforcment, itemAffix.craftedEffect.score, itemAffix.craftedEffect.effect.percent, itemAffix.rarity, itemAffix.pure, multiplier);
-        
+            .getAffixValues(itemAffix.itemLevel, itemAffix.craftedEffect.effect.stat, itemAffix.reinforcement, itemAffix.craftedEffect.score, itemAffix.craftedEffect.effect.percent, itemAffix.rarity, itemAffix.pure, multiplier);
+        itemAffix.craftedEffect.basePossibleCraftedValues = itemAffix.craftedEffect.possibleCraftedValues;
+
         const minValue = itemAffix.craftedEffect.possibleCraftedValues[0];
         const maxValue = itemAffix.craftedEffect.possibleCraftedValues[Math.max(0, itemAffix.craftedEffect.possibleCraftedValues.length - 1)];
         itemAffix.craftedEffect.minPossibleCraftedValue = minValue ? minValue.craft : itemAffix.craftedEffect.craftedValue;

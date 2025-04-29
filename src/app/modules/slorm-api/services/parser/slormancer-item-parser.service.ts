@@ -85,7 +85,7 @@ export class SlormancerItemParserService {
             generic_1: <number>data[0], // effet inconnu
             slot: <number>data[1],
             level: <number>data[2],
-            reinforcment: <number>data[5],
+            reinforcement: <number>data[5],
             potential: strictParseFloat(<string>potential),
             rarity: rarity === '' ? 0 : strictParseInt(<string>rarity),
             generic_4: <number>data[3], // toujours 0 ?

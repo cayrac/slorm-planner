@@ -13,8 +13,8 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Item reinforcement</mat-label>
-                    <input matInput type="number" step="1" min="0" formControlName="reinforcment">
-                    <mat-error>Reinforcment must be >= 0</mat-error>
+                    <input matInput type="number" step="1" min="0" formControlName="reinforcement">
+                    <mat-error>Reinforcement must be >= 0</mat-error>
                 </mat-form-field>
             </div>
             <div class="form-info">
@@ -31,7 +31,7 @@
                         [form]="affixControl"
                         [itemBase]="item.base"
                         [itemLevel]="item.level"
-                        [itemReinforcment]="item.reinforcment"
+                        [itemReinforcement]="item.reinforcement"
                         [alreadyUsedStats]="alreadyUsedStats"
                         [removable]="false"
                         (remove)="removeAffix(affixControl)">
@@ -51,7 +51,7 @@
                     [form]="affixControl"
                     [itemBase]="item.base"
                     [itemLevel]="item.level"
-                    [itemReinforcment]="item.reinforcment"
+                    [itemReinforcement]="item.reinforcement"
                     [alreadyUsedStats]="alreadyUsedStats"
                     [removable]="!hasRareStats() && !hasEpicStats() && !hasMagicStats()"
                     (remove)="removeAffix(affixControl)">
@@ -70,7 +70,7 @@
                     [form]="affixControl"
                     [itemBase]="item.base"
                     [itemLevel]="item.level"
-                    [itemReinforcment]="item.reinforcment"
+                    [itemReinforcement]="item.reinforcement"
                     [alreadyUsedStats]="alreadyUsedStats"
                     [removable]="!hasRareStats() && !hasEpicStats()"
                     (remove)="removeAffix(affixControl)">
@@ -89,7 +89,7 @@
                     [form]="affixControl"
                     [itemBase]="item.base"
                     [itemLevel]="item.level"
-                    [itemReinforcment]="item.reinforcment"
+                    [itemReinforcement]="item.reinforcement"
                     [alreadyUsedStats]="alreadyUsedStats"
                     [removable]="!hasEpicStats()"
                     (remove)="removeAffix(affixControl)">
@@ -108,7 +108,7 @@
                     [form]="affixControl"
                     [itemBase]="item.base"
                     [itemLevel]="item.level"
-                    [itemReinforcment]="item.reinforcment"
+                    [itemReinforcement]="item.reinforcement"
                     [alreadyUsedStats]="alreadyUsedStats"
                     [removable]="true"
                     (remove)="removeAffix(affixControl)">
@@ -117,7 +117,7 @@
             <app-item-edit-legendary-effect
                 [base]="item.base"
                 [itemLevel]="item.level"
-                [itemReinforcment]="item.reinforcment"
+                [itemReinforcement]="item.reinforcement"
                 [heroClass]="item.heroClass"
                 [form]="form.controls.legendary">
             </app-item-edit-legendary-effect>

@@ -88,7 +88,7 @@ export class JsonConverterService {
         return item === null ? null : {
             base: requireBase ? item.base : null,
             level: item.level,
-            reinforcment: item.reinforcment,
+            reinforcement: item.reinforcement,
             grafts: item.grafts,
             affixes: item.affixes.map(aff => ({ rarity: this.rarityToNumber(aff.rarity), pure: aff.pure === 100 ? 0 : aff.pure, stat: valueOrDefault(this.REVERSE_STAT_MAPPING[aff.craftedEffect.effect.stat], 0), craftedValue: aff.craftedEffect.craftedValue })),
             legendaryEffect: item.legendaryEffect === null ? null : { craftedValue: item.legendaryEffect.value , id: item.legendaryEffect.id },
@@ -332,7 +332,7 @@ export class JsonConverterService {
         
         if (item !== null) {
             const affixes = item.affixes
-                .map(affix => this.slormancerAffixService.getAffixFromStat(<string>this.STAT_MAPPING[affix.stat], item.level, item.reinforcment, this.numberToRarity(affix.rarity), affix.craftedValue, affix.pure))
+                .map(affix => this.slormancerAffixService.getAffixFromStat(<string>this.STAT_MAPPING[affix.stat], item.level, item.reinforcement, this.numberToRarity(affix.rarity), affix.craftedValue, affix.pure))
                 .filter(isNotNullOrUndefined);
             
                 let base = forcedBase;
@@ -340,12 +340,12 @@ export class JsonConverterService {
                 base = item.base === null ? EquipableItemBase.Amulet : item.base;
             }
 
-            let legendaryEffect = item.legendaryEffect === null ? null : this.slormancerLegendaryService.getLegendaryEffectById(item.legendaryEffect.id, item.legendaryEffect.craftedValue, item.reinforcment, heroClass);
+            let legendaryEffect = item.legendaryEffect === null ? null : this.slormancerLegendaryService.getLegendaryEffectById(item.legendaryEffect.id, item.legendaryEffect.craftedValue, item.reinforcement, heroClass);
             let reaperEnchantment = item.reaperEnchantment === null ? null : this.slormancerItemService.getReaperEnchantment(item.reaperEnchantment.reaperSmith, item.reaperEnchantment.craftedValue);
             let skillEnchantment = item.skillEnchantment === null ? null : this.slormancerItemService.getSkillEnchantment(item.skillEnchantment.skill, item.skillEnchantment.craftedValue);
             let attributeEnchantment = item.attributeEnchantment === null ? null : this.slormancerItemService.getAttributeEnchantment(item.attributeEnchantment.attribute, item.attributeEnchantment.craftedValue);
 
-            result = this.slormancerItemService.getEquipableItem(base, heroClass, item.level, affixes, item.reinforcment, item.grafts, legendaryEffect, reaperEnchantment, skillEnchantment, attributeEnchantment, 0);
+            result = this.slormancerItemService.getEquipableItem(base, heroClass, item.level, affixes, item.reinforcement, item.grafts, legendaryEffect, reaperEnchantment, skillEnchantment, attributeEnchantment, 0);
         }
 
         return result;
@@ -383,6 +383,26 @@ export class JsonConverterService {
             ].filter(isNotNullOrUndefined);
             for (const item of items) {
                 item.grafts = 0;
+            }
+        }
+        if (compareVersions(character.version, '0.8.2') <= 0) {
+            const items = [
+                character.gear.amulet,
+                character.gear.belt,
+                character.gear.body,
+                character.gear.boot,
+                character.gear.bracer,
+                character.gear.cape,
+                character.gear.glove,
+                character.gear.helm,
+                character.gear.ring_l,
+                character.gear.ring_r,
+                character.gear.shoulder,
+                ...(character.inventory === null ? [] : character.inventory),
+                ...(character.sharedInventory === null ? [] : character.sharedInventory.flat())
+            ].filter(isNotNullOrUndefined);
+            for (const item of items) {
+                item.reinforcement = item.reinforcement ?? (item as any).reinforcment ?? 0;
             }
         }
     }

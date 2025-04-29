@@ -12,6 +12,6 @@ export class LegendaryEffectViewComponent {
     public readonly legendaryEffect: LegendaryEffect | null = null;
 
     @Input()
-    public readonly reinforcment: number | null = null;
+    public readonly reinforcement: number | null = null;
 
 }

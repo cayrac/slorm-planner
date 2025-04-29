@@ -66,11 +66,11 @@
                         </li>
                     </ul>
                 </div>
-                <app-legendary-effect-view *ngIf="!hasAffixes()" [legendaryEffect]="item.legendaryEffect" [reinforcment]="item.reinforcment">
+                <app-legendary-effect-view *ngIf="!hasAffixes()" [legendaryEffect]="item.legendaryEffect" [reinforcement]="item.reinforcement">
                 </app-legendary-effect-view>
             </div>
         </div>
-        <app-legendary-effect-view *ngIf="hasAffixes()" [legendaryEffect]="item.legendaryEffect" [reinforcment]="item.reinforcment">
+        <app-legendary-effect-view *ngIf="hasAffixes()" [legendaryEffect]="item.legendaryEffect" [reinforcement]="item.reinforcement">
         </app-legendary-effect-view>
         <div class="buff reaper" *ngIf="item.reaperEnchantment !== null">
             <img [src]="item.reaperEnchantment.icon"/>

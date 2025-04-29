@@ -22,7 +22,7 @@ export class SlormancerItemValueService {
         'dodge_add',
     ]
 
-    private readonly REINFORCMENT_CACHE: { [key: number]: number } = {}; 
+    private readonly REINFORCEMENT_CACHE: { [key: number]: number } = {}; 
 
     private readonly AFFIX_MIN_MAX: { [key in Rarity]: { [key: string]: { [key: number]: MinMax }}} = {
         [Rarity.Normal]: {
@@ -165,7 +165,11 @@ export class SlormancerItemValueService {
                 result = bankerRound(value / 50) / 2;
             }
         } else {
-            result = Math.max(1, bankerRound(value));
+            if (precisionValue) {
+                result = bankerRound(value, 1);
+            } else {
+                result = Math.max(1, bankerRound(value));
+            }
         }
 
         return result;
@@ -182,25 +186,25 @@ export class SlormancerItemValueService {
         return ratio;
     }
 
-    private getReinforcmentratio(reinforcment: number): number {
-        let ratio = this.REINFORCMENT_CACHE[reinforcment];
+    private getReinforcementratio(reinforcement: number): number {
+        let ratio = this.REINFORCEMENT_CACHE[reinforcement];
 
         if (ratio === undefined) {
-            ratio = 100 + Math.max(reinforcment - 14, 0) + Array.from(new Array(Math.min(14, reinforcment)).keys()).map(i => Math.max(1, 15 - i)).reduce((current, sum) => current + sum, 0);
-            this.REINFORCMENT_CACHE[reinforcment] = ratio;
+            ratio = 100 + Math.max(reinforcement - 14, 0) + Array.from(new Array(Math.min(14, reinforcement)).keys()).map(i => Math.max(1, 15 - i)).reduce((current, sum) => current + sum, 0);
+            this.REINFORCEMENT_CACHE[reinforcement] = ratio;
         }
 
         return ratio;
     }
 
-    private computeAffixValue(level: number, stat: string, reinforcment: number, score: number, value: number, percent: boolean, pure: number | null, multiplier: number | null): number {
+    private computeAffixValue(level: number, stat: string, reinforcement: number, score: number, value: number, percent: boolean, pure: number | null, multiplier: number | null): number {
         const baseValue = this.getComputedBaseValue(level, stat, score, percent);
-        const reinforcmentRatio = this.getReinforcmentratio(reinforcment);
+        const reinforcementRatio = this.getReinforcementratio(reinforcement);
         const valueRatio = this.getValueRatio(level, value, percent);
         const pureRatio = pure === null || pure === 0 ? 100 : pure;
         const multiplierRatio = 100 + (multiplier === null ? 0 : multiplier);
 
-        return this.roundValue(baseValue * reinforcmentRatio * valueRatio * pureRatio * multiplierRatio / (100 * 100 * 100 * 100), score < 2.5, percent);
+        return this.roundValue(baseValue * reinforcementRatio * valueRatio * pureRatio * multiplierRatio / (100 * 100 * 100 * 100), score < 2.5, percent);
     }
 
     private getAffixMinMax(rarity: Rarity, percent: boolean, levelScore: number): MinMax | null {
@@ -218,27 +222,27 @@ export class SlormancerItemValueService {
         return minMax;
     }
 
-    public getAffixValues(level: number, stat: string, reinforcment: number, score: number, percent: boolean, rarity: Rarity, pure: number | null, multiplier: number | null): Array<{ craft: number, value: number }> {
+    public getAffixValues(level: number, stat: string, reinforcement: number, score: number, percent: boolean, rarity: Rarity, pure: number | null, multiplier: number | null): Array<{ craft: number, value: number }> {
         let values: Array<{ craft: number, value: number }> = [];
         const levelScore = this.getLevelPercentScore(level);
 
         const range = this.getAffixMinMax(rarity, percent, levelScore);
 
         if (range !== null) {
-            values = list(range.min, range.max).map(v => ({ craft: v, value: this.computeAffixValue(level, stat, reinforcment, score, v, percent, pure, multiplier) }));
+            values = list(range.min, range.max).map(v => ({ craft: v, value: this.computeAffixValue(level, stat, reinforcement, score, v, percent, pure, multiplier) }));
         }
 
         return values;
     }
 
-    public computeEffectRange(value: number, min: number, max: number, upgrade: number): Array<{ craft: number, value: number }> {
-        return list(min, max).map(ratio => ({ craft: ratio, value: this.roundValue(value * ratio / 100, false, false) + upgrade }));
+    public computeEffectRange(value: number, min: number, max: number, upgrade: number, precision = false): Array<{ craft: number, value: number }> {
+        return list(min, max).map(ratio => ({ craft: ratio, value: this.roundValue(value * ratio / 100, precision, false) + upgrade }));
     }
 
-    public computeEffectVariableDetails(effect: EffectValueVariable, itemValue: number, reinforcment: number): ComputedEffectValue {
+    public computeEffectVariableDetails(effect: EffectValueVariable, itemValue: number, reinforcement: number): ComputedEffectValue {
 
 
-        let upgradeMultiplier = reinforcment;
+        let upgradeMultiplier = reinforcement;
         if (effect.upgradeType === EffectValueUpgradeType.Every3 || effect.upgradeType === EffectValueUpgradeType.Every3RuneLevel) {
             upgradeMultiplier = Math.floor(upgradeMultiplier / 3);
         } else if (effect.upgradeType === EffectValueUpgradeType.Every5RuneLevel) {
@@ -263,9 +267,9 @@ export class SlormancerItemValueService {
         return result;
     }
 
-    public computeEffectSynergyDetails(effect: EffectValueSynergy, itemValue: number, reinforcment: number): ComputedEffectValue {
+    public computeEffectSynergyDetails(effect: EffectValueSynergy, itemValue: number, reinforcement: number): ComputedEffectValue {
 
-        const upgradeMultiplier = (effect.upgradeType === EffectValueUpgradeType.Every3 || effect.upgradeType === EffectValueUpgradeType.Every3RuneLevel) ? Math.floor(reinforcment / 3) : reinforcment;
+        const upgradeMultiplier = (effect.upgradeType === EffectValueUpgradeType.Every3 || effect.upgradeType === EffectValueUpgradeType.Every3RuneLevel) ? Math.floor(reinforcement / 3) : reinforcement;
 
         const result: ComputedEffectValue = {
             value: 0,

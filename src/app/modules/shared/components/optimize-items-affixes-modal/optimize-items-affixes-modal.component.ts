@@ -107,7 +107,7 @@ export class OptimizeItemsAffixesModalComponent {
                 const availableOptions = options[rarity];
 
                 if (hasRoomForMoreAffixes && availableOptions.includes(stat)) {
-                    const affix = this.slormancerAffixService.getAffixFromStat(stat.value, item.level, item.reinforcment, rarity);
+                    const affix = this.slormancerAffixService.getAffixFromStat(stat.value, item.level, item.reinforcement, rarity);
 
                     if (affix !== null) {
                         item.affixes.push(affix);
@@ -126,7 +126,7 @@ export class OptimizeItemsAffixesModalComponent {
                 
                 noAffixFound = true;
                 if (firstAvailable !== undefined) {
-                    const affix = this.slormancerAffixService.getAffixFromStat(firstAvailable.value, item.level, item.reinforcment, rarity);
+                    const affix = this.slormancerAffixService.getAffixFromStat(firstAvailable.value, item.level, item.reinforcement, rarity);
                     if (affix !== null) {
                         item.affixes.push(affix);
                         noAffixFound = false;

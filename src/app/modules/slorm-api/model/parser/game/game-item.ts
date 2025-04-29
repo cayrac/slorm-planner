@@ -13,7 +13,7 @@ export interface GameEquippableItem {
     generic_1: number;
     slot: number;
     level: number;
-    reinforcment: number;
+    reinforcement: number;
     rarity: number;
     generic_4: number;
     grafts: number;

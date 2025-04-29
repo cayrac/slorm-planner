@@ -1,12 +1,12 @@
-import { AfterViewChecked, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { adaptTooltip, Affix, EquipableItem, Rarity } from '@slorm-api';
+import { AfterViewChecked, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
+import { adaptOverlay, Affix, EquipableItem, Rarity, resetOverlay } from '@slorm-api';
 
 @Component({
   selector: 'app-item-view',
   templateUrl: './item-view.component.html',
   styleUrls: ['./item-view.component.scss']
 })
-export class ItemViewComponent implements AfterViewChecked {
+export class ItemViewComponent implements AfterViewChecked, OnDestroy {
 
     @Input()
     public readonly item: EquipableItem | null = null;
@@ -16,6 +16,9 @@ export class ItemViewComponent implements AfterViewChecked {
 
     @Input()
     public readonly details: boolean = true;
+
+    @Input()
+    public readonly tooltip: boolean = false;
     
     @ViewChild('main')
     private main: ElementRef<HTMLElement> | null = null; 
@@ -23,9 +26,13 @@ export class ItemViewComponent implements AfterViewChecked {
     constructor() { }
 
     public ngAfterViewChecked() {
-        if (this.main) {
-            adaptTooltip(this.main.nativeElement);
+        if (this.main && this.tooltip) {
+            adaptOverlay(this.main.nativeElement);
         }
+    }
+    
+    public ngOnDestroy() {
+        resetOverlay();
     }
 
     public getNormalAffixes(): Array<Affix> {
