@@ -104,7 +104,6 @@ export class SlormancerBinaryItemService {
     public binaryToItem(binary: Bits, base: EquipableItemBase, heroClass: HeroClass, version: string, report: BinaryParseReport): EquipableItem {
         
         const has6BitsLevel = compareVersions(version, '0.4.1') < 0;
-        const hasGrafts = compareVersions(version, '0.7.0') > 0;
         let level = binaryToNumber(takeBitsChunk(binary, has6BitsLevel ? 6 : 7));
 
         if (has6BitsLevel && level <= 16) {
@@ -114,7 +113,7 @@ export class SlormancerBinaryItemService {
 
         const reinforcement = binaryToNumber(takeBitsChunk(binary, 8));
         let grafts = 0;
-        if (hasGrafts && level > 100) {
+        if (level > 100) {
             grafts = binaryToNumber(takeBitsChunk(binary, 4));
         }
 
