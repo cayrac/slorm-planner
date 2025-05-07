@@ -206,7 +206,7 @@ export class MergedStatViewComponent {
         if (this.slormancerStatUpdaterService.hasDiminishingResult(mergedStat.stat)) {
             formula = '( 1 - ' + [flat, percent, ...multipliers, ...extraMultipliers]
                 .filter(v => v !== 0)
-                .map(p => Math.max(0, 100 - p) / 100)
+                .map(p => round(Math.max(0, 100 - p) / 100, 4))
                 .join(' * ')
                 + ') * 100';
         } else {

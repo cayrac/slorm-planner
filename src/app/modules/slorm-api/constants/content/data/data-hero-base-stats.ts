@@ -656,6 +656,7 @@ export const DATA_HERO_BASE_STATS: GameHeroesData<HeroBaseStats> = {
             { stat: 'max_arcane_clone_add', base: 1, perLevel: 0 },
             { stat: 'arcane_bond_duration_add', base: ARCANE_BOND_DURATION, perLevel: 0 },
             { stat: 'max_emblems_add', base: MAX_EMBLEMS, perLevel: 0 },
+            { stat: 'max_emblems', base: MAX_EMBLEMS, perLevel: 0 },
             { stat: 'time_lock_duration_add', base: TIME_LOCK_DURATION, perLevel: 0 },
             ...ALL_HEROES_BASE_STATS
         ],

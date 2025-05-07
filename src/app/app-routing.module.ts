@@ -25,6 +25,11 @@ const appRoutes: Routes = [
         component: SlormToolsComponent,
         data: { title: 'Slorm-Tools' }
     },
+    /* TODO {
+        path: 'beta/[path]',
+        pathMatch: 'full',
+        redirectTo: '{path}'
+    },*/
     {
         path: '**',
         pathMatch: 'full',

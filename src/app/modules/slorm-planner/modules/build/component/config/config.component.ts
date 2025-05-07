@@ -660,6 +660,13 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             ]
         },
         {
+            title: 'Neriya’s Boosting Girdle',
+            condition: character => this.hasLegendaryEffect(character, 140),
+            configurations: [
+                { type: 'number', key: 'secondary_boost_stacks', label: 'Number of Secondary Boost stacks' },
+            ]
+        },
+        {
             title: 'Ancestral Instability',
             condition: character => this.isAncestralLegacyEquipped(character, 91),
             configurations: [

@@ -10,7 +10,12 @@
             </mat-select>
         </mat-form-field>
         <p>
-        <p *ngFor="let affix of selectedAffixes; let i = index" class="stat" (click)="removeStat(i)">#{{i + 1}} : {{affix.label}}</p>
+        <ng-container *ngFor="let affix of selectedAffixes; let i = index">
+            <div class="selected-affix">
+                <span class="stat" (click)="removeStat(i)">#{{i + 1}} : {{affix.affix.label}}</span>
+                <mat-checkbox [checked]="affix.purity" (change)="affix.purity = $event.checked" color="primary">Pure</mat-checkbox>
+            </div>
+        </ng-container>
         <app-search-select [label]="selectedAffixes.length > 0 ? 'Add another affix' : 'Choose an affix'"
             [control]="getAffixControl()"
             [options]="AFFIX_OPTIONS"

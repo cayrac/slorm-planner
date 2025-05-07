@@ -1,3 +1,4 @@
+import { environment } from "src/environments/environment";
 import { ALL_UPGRADABLE_REAPER_SMITH, GameHeroesData, HeroClass } from "../model";
 
 export const MAX_HERO_LEVEL = 100;
@@ -61,8 +62,8 @@ export const POISON_DURATION = 7;
 export const ARCANE_BOND_DURATION = 7;
 export const TIME_LOCK_DURATION = 3;
 
-export const GAME_VERSION = '0.9.3b';
-export const API_VERSION = '0.7.0';
+export const GAME_VERSION = environment.gameVersion;
+export const API_VERSION = environment.version;
 
 export const API_TO_GAME_VERSION_MAPPER: { [key: string]: string } = {
     '0.0.9': '0.3.015',
@@ -94,6 +95,7 @@ export const API_TO_GAME_VERSION_MAPPER: { [key: string]: string } = {
     '0.8.0': '1.0.0i',
     '0.8.1': '1.0.0i',
     '0.8.2': '1.0.0m',
+    '0.8.3': '1.0.0p',
 }
 
 export const PERCENT_STATS: string[] = [

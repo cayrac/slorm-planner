@@ -1101,7 +1101,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'critical_damage',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -1167,7 +1167,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'ancestral_damage',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -1344,7 +1344,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'fire_resistance',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -1361,7 +1361,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'ice_resistance',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -1378,7 +1378,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'lightning_resistance',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -1392,7 +1392,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'light_resistance',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -1406,7 +1406,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'shadow_resistance',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -1536,7 +1536,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
     },
     {
         stat: 'reduced_on_all',
-        precision: 1,
+        precision: 2,
         allowMinMax: false,
         suffix: '%',
         source: {
@@ -2216,16 +2216,17 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                     multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getMaxStacks(stats, 'nimble_champion_max_stacks'), 0))
                 },
                 { stat: 'increased_damage_for_each_yard_with_target', condition: config => config.use_enemy_state && config.distance_with_target > 0, multiplier:  config => config.distance_with_target },
-                { stat: 'exposed_armor_primary_secondary_skill_increased_damage_mult', condition: (config, stats) => config.exposed_armor_buff && (hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')) },
-                { stat: 'melee_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee') },
-                { stat: 'melee_skill_decreased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee'), multiplier: () => -1 },
+                { stat: 'exposed_armor_primary_secondary_skill_increased_damage_mult', condition: (config, stats) => config.exposed_armor_buff, multiplier: (_, stats) => (hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')) ? 1 : 0 },
+                { stat: 'primary_secondary_skill_increased_damage_mult', multiplier: (_, stats) => (hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')) ? 1 : 0 },
+                { stat: 'melee_skill_increased_damage_mult', multiplier: (_, stats) => hasStat(stats, 'skill_is_melee') ? 1 : 0 },
+                { stat: 'melee_skill_decreased_damage_mult', multiplier: (_, stats) => hasStat(stats, 'skill_is_melee') ? -1 : 0 },
                 { stat: 'light_arrow_increased_damage' },
                 { stat: 'isolated_target_increased_damage', condition: config => config.use_enemy_state && config.target_is_isolated },
                 { stat: 'negative_effect_target_increased_damage', condition: config => config.use_enemy_state && config.target_negative_effects > 0 },
                 { 
                     stat: 'increased_damage_per_negative_effect',
-                    condition: (config, stats) => config.use_enemy_state && config.target_negative_effects > 0 && statHasValue(stats, 'skill_elements', SkillElement.Light),
-                    multiplier: config => config.target_negative_effects
+                    condition: (config, stats) => config.use_enemy_state && config.target_negative_effects > 0,
+                    multiplier: (config, stats) => statHasValue(stats, 'skill_elements', SkillElement.Light) ? config.target_negative_effects : 0
                 },
                 { stat: 'close_target_increased_damage', condition: (config, stats) => config.use_enemy_state && config.distance_with_target <= getFirstStat(stats, 'close_target_radius') },
                 { stat: 'smoke_screen_buff_increased_damage', condition: config => config.has_smoke_screen_buff },
@@ -2280,94 +2281,8 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                 { stat: 'increased_damage_while_curving_time_or_time_shifting', condition: config => config.is_curving_time_or_time_shifting },
                 // non pris en compte { stat: 'skill_increased_damage_if_mana_full', condition: (_, stats) => getFirstStat(stats, 'percent_missing_mana', 0) === 0  },
                 { stat: 'increased_damage_per_poison_upgrade', condition: (_, stats) => getFirstStat(stats, 'poison_upgrades', 0) > 0, multiplier: (_, stats) => getFirstStat(stats, 'poison_upgrades', 0)  },
-                { stat: 'area_projectile_increased_damage', condition: (_, stats) => hasStat(stats, 'skill_is_aoe') && hasStat(stats, 'skill_is_projectile')  },
-            ],
-            maxMultiplier: [
-            ],
-        } 
-    },
-    {
-        stat: 'increased_damages',
-        precision: 1,
-        allowMinMax: false,
-        suffix: '%',
-        source: {
-            flat: [
-            ],
-            max: [],
-            percent: [],
-            maxPercent: [],
-            multiplier: [
-                { stat: 'nimble_buff_primary_skill_increased_damages',
-                    condition: (config, stats) => config.has_nimble_buff && hasStat(stats, 'skill_is_equipped_primary'), 
-                    multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getMaxStacks(stats, 'nimble_champion_max_stacks'), 0))
-                },
-                { stat: 'increased_damage_for_each_yard_with_target', condition: config => config.use_enemy_state && config.distance_with_target > 0, multiplier:  config => config.distance_with_target },
-                { stat: 'exposed_armor_primary_secondary_skill_increased_damage_mult', condition: (config, stats) => config.exposed_armor_buff && (hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary')) },
-                { stat: 'melee_skill_increased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee') },
-                { stat: 'melee_skill_decreased_damage_mult', condition: (_, stats) => hasStat(stats, 'skill_is_melee'), multiplier: () => -1 },
-                { stat: 'light_arrow_increased_damage' },
-                { stat: 'isolated_target_increased_damage', condition: config => config.use_enemy_state && config.target_is_isolated },
-                { stat: 'negative_effect_target_increased_damage', condition: config => config.use_enemy_state && config.target_negative_effects > 0 },
-                { 
-                    stat: 'increased_damage_per_negative_effect',
-                    condition: (config, stats) => config.use_enemy_state && config.target_negative_effects > 0 && statHasValue(stats, 'skill_elements', SkillElement.Light),
-                    multiplier: config => config.target_negative_effects
-                },
-                { stat: 'close_target_increased_damage', condition: (config, stats) => config.use_enemy_state && config.distance_with_target <= getFirstStat(stats, 'close_target_radius') },
-                { stat: 'smoke_screen_buff_increased_damage', condition: config => config.has_smoke_screen_buff },
-                { stat: 'increased_damage_per_rebound', condition: config => config.rebounds_before_hit > 0, multiplier: config => config.rebounds_before_hit },
-                { stat: 'first_hit_after_rebound_increased_damage', condition: config => config.rebounds_before_hit > 0 && config.is_first_arrow_shot_hit },
-                { stat: 'increased_damage_per_pierce', condition: config => config.pierces_before_hit > 0, multiplier: config => config.pierces_before_hit },
-                { stat: 'increased_damage_mult' },
-                { stat: 'decreased_damage', multiplier: () => -1 },
-                { stat: 'increased_damage_per_volley_before', condition: config => config.is_last_volley, multiplier: (_, stats) => getFirstStat(stats, 'additional_volleys') },
-                { stat: 'latent_storm_stack_increased_damage', condition: config => config.target_latent_storm_stacks > 0, multiplier: (config, stats) => Math.min(config.target_latent_storm_stacks, getMaxStacks(stats, 'latent_storm_max_stacks')) },
-                { stat: 'increased_damage_mult_if_fully_charged', condition: (config, stats) => config.void_arrow_fully_charged && hasStat(stats, 'max_charge'), multiplier: (_, stats) => getMaxStat(stats, 'max_charge') },
-                { stat: 'increased_damage_mult_per_target_left_health_percent', condition: config => config.use_enemy_state && config.enemy_percent_missing_health < 100, multiplier: config => 100 - config.enemy_percent_missing_health },
-                { stat: 'increased_damage_mult_per_target_missing_health_percent', condition: config => config.use_enemy_state && config.enemy_percent_missing_health > 0, multiplier: config => config.enemy_percent_missing_health },
-                { stat: 'increased_damage_if_target_is_skewered', condition: config => config.target_is_skewered },
-                { stat: 'increased_damage_if_not_fortunate_or_perfect', condition: config => !config.next_cast_is_fortunate && !config.next_cast_is_perfect },
-                { stat: 'chivalry_low_life_reduced_damage', condition: (config, stats) => config.use_enemy_state && getFirstStat(stats, 'chivalry_low_life_treshold') > (100 - config.enemy_percent_missing_health), multiplier: () => -1 },
-                { stat: 'chivalry_high_life_increased_damage', condition: (config, stats) => config.use_enemy_state && getFirstStat(stats, 'chivalry_high_life_treshold') < (100 - config.enemy_percent_missing_health) },
-                { stat: 'increased_damage_mult_if_no_legendaries', condition: (_, stats) => getFirstStat(stats, 'number_equipped_legendaries', -1) === 0 },
-                {
-                    stat: 'increased_damage_mult_on_splintered_enemy',
-                    condition: config => config.enemy_splintered_stacks > 0,
-                    multiplier: (config, stats) => {
-                        const stacks = Math.max(0, Math.min(config.enemy_splintered_stacks, getMaxStacks(stats, 'splintered_max_stacks', 1)));
-                        return stacks * (100 + Math.max(0, stacks - 1) * getFirstStat(stats, 'splintered_stack_increased_effect') ) / 100
-                    }
-                },
-                { stat: 'increased_damage_if_fortunate_or_perfect', condition: config => config.next_cast_is_fortunate || config.next_cast_is_perfect },
-                { stat: 'increased_damage_mult_if_target_is_time_locked', condition: config => config.target_is_time_locked },
-                { stat: 'remnant_damage_reduction_mult', condition: config => config.is_remnant },
-                { stat: 'remnant_increased_damage_mult', condition: config => config.is_remnant },
-                { stat: 'remnant_vulnerability_remnant_increased_damage_mult', condition: config => config.is_remnant && config.target_has_remnant_vulnerability },
-                /*{ // blood frenzy damage bonus is currently not visible in stats
-                    stat: 'increased_damage_mult_per_bloodthirst_stack',
-                    condition: config => config.bloodthirst_stacks > 0 && config.has_blood_frenzy_buff,
-                    multiplier: (config, stats) => Math.max(0, Math.min(config.bloodthirst_stacks, getMaxStacks(stats, 'bloodthirst_max_stacks')))
-                },*/
-                { 
-                    stat: 'enfeeble_stack_increased_damage',
-                    condition: config => config.enemy_enfeeble_stacks > 0 && config.use_enemy_state,
-                    multiplier: (config, stats) => Math.min(config.enemy_enfeeble_stacks, valueOrDefault(getMaxStacks(stats, 'enfeeble_max_stacks'), 0))
-                },
-                {
-                    stat: 'aoe_primary_secondary_support_damage_mult',
-                    condition: (config, stats) => hasStat(stats, 'skill_is_aoe') && (hasStat(stats, 'skill_is_equipped_support') || hasStat(stats, 'skill_is_equipped_primary') || hasStat(stats, 'skill_is_equipped_secondary'))
-                },
-                {
-                    stat: 'suport_streak_increased_damage',
-                    condition: (config, stats) => hasStat(stats, 'skill_is_equipped_support') && (getFirstStat(stats, 'hero_class', 0) !== HeroClass.Warrior || getFirstStat(stats, 'skill_id', 0) !== 2) ,
-                    multiplier: (config, stats) => 1 + (getFirstStat(stats, 'support_streak_increased_effect_per_stack', 0) * Math.max(0, Math.min(config.support_streak_stacks, getMaxStacks(stats, 'support_streak_max_stacks'))) / 100)
-                },
-                { stat: 'non_projectile_increased_damage_mult', condition: (_, stats) => !hasStat(stats, 'skill_is_projectile'), multiplier: () => -1 },
-                { stat: 'increased_damage_while_curving_time_or_time_shifting', condition: config => config.is_curving_time_or_time_shifting },
-                // non pris en compte { stat: 'skill_increased_damage_if_mana_full', condition: (_, stats) => getFirstStat(stats, 'percent_missing_mana', 0) === 0  },
-                { stat: 'increased_damage_per_poison_upgrade', condition: (_, stats) => getFirstStat(stats, 'poison_upgrades', 0) > 0, multiplier: (_, stats) => getFirstStat(stats, 'poison_upgrades', 0)  },
-                { stat: 'area_projectile_increased_damage', condition: (_, stats) => hasStat(stats, 'skill_is_aoe') && hasStat(stats, 'skill_is_projectile')  },
+                { stat: 'area_projectile_increased_damage', multiplier: (_, stats) => (hasStat(stats, 'skill_is_aoe') && hasStat(stats, 'skill_is_projectile')) ? 1 : 0  },
+                { stat: 'secondary_boost_stack_secondary_skill_decreased_damage_mult', multiplier: (config, stats) => hasStat(stats, 'skill_is_equipped_secondary') ? Math.max(0, Math.min(config.secondary_boost_stacks, getMaxStacks(stats, 'secondary_boost_max_stacks'))) : 0  },
             ],
             maxMultiplier: [
             ],

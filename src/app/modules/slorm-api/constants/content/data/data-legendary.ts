@@ -738,7 +738,6 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     },
     190: {
         override: (effect) => {
-            console.log('replace', effect.template);
             setStat(effect, 0, 'garbage_stat');
             setStat(effect, 1, 'garbage_stat');
             setStat(effect, 2, 'garbage_stat');

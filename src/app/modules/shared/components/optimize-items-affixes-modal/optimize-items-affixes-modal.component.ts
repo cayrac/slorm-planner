@@ -19,6 +19,11 @@ export interface OptimizeItemsAffixesModalData {
     items: Array<EquipableItem>;
 }
 
+interface SelectAffix {
+    affix: SelectOption<string>;
+    purity: boolean;
+}
+
 @Component({
   selector: 'app-optimize-items-affixes-modal',
   templateUrl: './optimize-items-affixes-modal.component.html',
@@ -32,7 +37,7 @@ export class OptimizeItemsAffixesModalComponent {
 
     public readonly items: Array<EquipableItem>;
 
-    public readonly selectedAffixes: Array<SelectOption<string>> = [];
+    public readonly selectedAffixes: Array<SelectAffix> = [];
 
     public readonly form: FormGroup;
 
@@ -63,7 +68,7 @@ export class OptimizeItemsAffixesModalComponent {
         affixControl.valueChanges.subscribe((value: string | null) => {
             const affixOption = this.AFFIX_OPTIONS.find(option => option.value === value)
             if (affixOption !== undefined) {
-                this.selectedAffixes.push(affixOption);
+                this.selectedAffixes.push({ affix: affixOption, purity: false });
                 this.updateOptions();
                 affixControl.setValue(null);
             }
@@ -73,7 +78,7 @@ export class OptimizeItemsAffixesModalComponent {
     }
 
     private updateOptions() {
-        this.AFFIX_OPTIONS = this.formOptionsService.getAllStatsOptions().filter(option => !this.selectedAffixes.includes(option));
+        this.AFFIX_OPTIONS = this.formOptionsService.getAllStatsOptions().filter(option => !this.selectedAffixes.map(a => a.affix).includes(option));
     }
 
     private applyStatsToItem(item: EquipableItem) {
@@ -106,8 +111,9 @@ export class OptimizeItemsAffixesModalComponent {
                 const hasRoomForMoreAffixes = item.affixes.filter(affix => affix.rarity === rarity).length < maxStats[rarity];
                 const availableOptions = options[rarity];
 
-                if (hasRoomForMoreAffixes && availableOptions.includes(stat)) {
-                    const affix = this.slormancerAffixService.getAffixFromStat(stat.value, item.level, item.reinforcement, rarity);
+                if (hasRoomForMoreAffixes && availableOptions.includes(stat.affix)) {
+                    console.log('Pure ? ', stat.purity);
+                    const affix = this.slormancerAffixService.getAffixFromStat(stat.affix.value, item.level, item.reinforcement, rarity, undefined, stat.purity ? 200 : 100);
 
                     if (affix !== null) {
                         item.affixes.push(affix);

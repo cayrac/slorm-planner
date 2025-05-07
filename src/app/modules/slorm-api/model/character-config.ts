@@ -147,6 +147,7 @@ export interface CharacterConfig {
     skill_retention_stacks: number;
     elemental_retention_stacks: number;
     transference_stacks: number;
+    secondary_boost_stacks: number;
     moonlight_side: boolean;
     life_orbs_count: number;
     has_elemental_temper_buff: boolean;

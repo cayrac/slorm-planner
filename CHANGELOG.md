@@ -397,5 +397,18 @@
 ### Fixes
 - Fixed a select display issue on item edit modal
 
+## Release 0.8.3 (2025-05-07)
+### Added
+- Added Secondary Boost stacks configuration for Neriya's Boosting Girdle
+- It is now possible to build optimised items with pure values
+### Fixes
+- Fixed item percentage affixes precision
+- Fixed skill upgrades applying damage bonuses twice
+- Fixed Glassier Cannon max life multiplier
+- Fixed Primordial staff reaper names
+- Fixed a parse issue with nether item exported builds
+- Fixed some values based on emblems always counting as having 0 emblems
+- Fixed skill tags or slot not being used correctly for skill damages
+
 ## TODO
 - update packages ?

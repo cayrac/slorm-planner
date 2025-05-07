@@ -4788,7 +4788,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     186: {
         masteryRequired: 8,
         override: values => {
-            addConstant(values, -50, false, EffectValueValueType.Stat, 'the_max_health_global_mult');
+            addConstant(values, -30, false, EffectValueValueType.Stat, 'the_max_health_global_mult');
         }
     },
     187: {

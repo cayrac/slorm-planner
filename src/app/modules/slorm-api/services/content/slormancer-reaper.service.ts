@@ -56,7 +56,7 @@ export class SlormancerReaperService {
         this.VICTIMS_LABEL = this.slormancerTranslateService.translate('tt_victims');
         this.LEVEL_LABEL = this.slormancerTranslateService.translate('level');
         this.REAPERSMITH_LABEL = this.slormancerTranslateService.translate('weapon_reapersmith_light');
-        this.PRIMORDIAL_REAPER_LABEL = this.slormancerTranslateService.translate('tt_reaper_corrupted');
+        this.PRIMORDIAL_REAPER_LABEL = this.slormancerTranslateService.translate('tt_reaper_corrupted').split('/')[0] as string;
         this.GRANTED_BY_MASTERY_LABEL = this.slormancerTranslateService.translate('reaper_mastery_tt_from');
     }
 

@@ -11,10 +11,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Was für ein Phänomen!/\nWas für eine Kraft!!/\nNa komm! Einmal geht noch!/§\n[bryan]Da seid ihr ja! Wir haben auf euch gewartet!/§\n[bryan]Ich heiße Bryan ... Bryan McMuckies!/\nIhr habt sicher schon von mir gehört, ich bin der Champion dieses Königreichs. Mit meinen UNGLAUBLICHEN Fähigkeiten beschütze ich die Leute hier./\nIch könnte stundenlang von mir erzählen, aber wir haben nicht viel Zeit .../\nAuf dem Friedhof von Adreart gehen seltsame Dinge vor sich. Skelette kommen aus dem Boden und verbreiten Angst und Schrecken .../\nDer Totengräber will, dass wir kurzen Prozess mit den Knochenmännern machen, damit er endlich wieder in Ruhe arbeiten kann./\nAllerdings ... öhm ... habe ich da ein Problem ... privater Natur ... das mich leider daran hindert, diese Mission anzunehmen./\nUnd darum brauche ich die Unterstützung MÄCHTIGER Abenteurer wie euch!/\nDer Wirt meinte, dass er fähige Kandidaten für mich finden würde und ich muss sagen, ich bin ... ein wenig überrascht./\nAllerdings brauche ich für diese Mission nur eine Person. Wer will?/§\n[bryan]Hm ... Jemand anderes wär mir ja lieber gewesen, aber man kann eben nicht alles haben./\n[bryan]Du hast keine Ausrüstung, wie ich sehe./\nGeh doch mal zum alten Adam Nostrus am Ostrand des Dorfes und lass dir eine meiner alten Waffen geben. Dann komm wieder zu mir./\nAch ja, und hol unterwegs noch meinen Proteindrink ab. Die macht Jean-Pierre für mich, der Koch./\nDas Dorf ist zwar nicht groß, aber ich hab die zwei Orte trotzdem mal auf deiner Karte markiert. Man weiß ja nie .../",
         "ES_DIAL": "[bryan]¡Eres el mejor!/\n¡Qué fuerza descomunal!/\n¡Vamos! ¡Una más!/§\n[bryan]¡Ahí estás! ¡Te hemos estado esperando!/§\n[bryan]Primero que nada, mi nombre es Ramiro... ¡Ramiro Recio!/\nTal vez hayas oído hablar de mí. Soy el Campeón de este Reino. Estoy a cargo de mantener a la gente a salvo gracias a mis INCREÍBLES habilidades./\nPodría hablar de mí todo el día, pero no tenemos mucho tiempo.../\nEstán ocurriendo cosas extrañas en el Cementerio de Adreart. Los esqueletos están saliendo de la tierra y sembrando miedo.../\nEl Sepulturero nos ha dado la misión de luchar y derrotarlos para que pueda volver a trabajar lo antes posible.../\nSin embargo... emm... tengo un problema... de personal... lo que desafortunadamente me impide ocuparme de esta misión.../\n¡Por eso estoy llamando a GRANDES Aventureros como tú!/\nEl tabernero me dijo que encontraría candidatos fuertes y debo decir que estoy... bastante impresionado./\nNo obstante, solo necesito a una persona para esta misión. ¿Quién quisiera participar?/§\n[bryan]Bueno... hubiera preferido a alguien más, pero tendremos que conformarnos con.../\n[bryan]Veo que te falta equipo.../\n¿Por qué no empiezas visitando al viejo Adam Nostrus en el extremo este del pueblo y le pides que te dé una de mis antiguas armas? Luego vuelve a verme./\nAh, y recoge mi bebida proteica de regreso. El Chef Jean-Pierre la prepara para mí.../\nEl pueblo no es muy grande, pero me tomé la libertad de marcar estos dos puntos en tu mapa... por las dudas.../",
         "RU_DIAL": "[bryan]Ты настоящий мужчина!/\nТак много силы!!/\nДавай! Еще раз!/§\n[bryan]Вот ты где! Мы тебя ждали!/§\n[bryan]Прежде всего, меня зовут Брайан... Брайан МакРиппед!/\nТы, возможно, слышал обо мне, я чемпион этого королевства. Я отвечаю за безопасность людей благодаря своим Невероятным способностям./\nЯ мог бы говорить о себе целый день, но у нас не так много времени.../\nСтранные вещи происходят на кладбище Адреарт: скелеты вылезают из земли и сеют ужас.../\nЭто Могильщик дал нам задание сражаться и победить их, чтобы он мог вернуться к работе как можно скорее.../\nОднако... э... я сталкиваюсь с проблемой... личного характера... которая, к сожалению, мешает мне заняться этой миссией.../\nВот почему я обращаюсь к ВЕЛИКИМ Искателям приключений, таким как ты!/\nХозяин таверны сказал мне, что найдет мне сильных кандидатов, и я должен сказать, что я... довольно удивлён./\nТем не менее, мне нужен только один человек для этой миссии. Кто хотел бы участвовать?/§\n[bryan]Ну... я бы предпочёл кого-то другого, но нам придётся обойтись.../\n[bryan]Я вижу, что у тебя не хватает снаряжения.../\nПочему бы тебе не начать с того, чтобы посетить старого Адама Ноструса на восточном краю деревни и попросить его дать тебе одно из моих старых оружий, а затем вернуться ко мне./\nО, и забери мой протеиновый напиток по пути, шеф Жан-Пьер готовит его для меня.../\nДеревня не такая большая, но я взял на себя смелость отметить эти две точки на твоей карте... Никогда не знаешь.../",
+        "KR_DIAL": "[bryan]당신이 최고입니다!/\n엄청난 힘이군요!!/\n자, 한 번 더!/§\n[bryan]거기 있군요! 우리는 당신을 기다리고 있었어요!/§\n[bryan]우선, 제 이름은 브라이언입니다... 브라이언 맥립트!/\n당신은 저에 대해 들어봤을지도 모르겠네요, 저는 이 왕국의 챔피언입니다. 저는 제 놀라운 능력 덕분에 사람들을 안전하게 지키는 일을 맡고 있습니다./\n저는 하루 종일 저에 대해 이야기할 수 있지만, 시간이 많지 않아요.../\n아드레아르트의 묘지에서 이상한 일들이 일어나고 있습니다: 해골들이 땅에서 나와 공포를 퍼뜨리고 있습니다.../\n그들은 우리가 싸워서 그들을 물리치도록 임무를 준 묘지 파는 사람입니다, 그가 가능한 한 빨리 일로 돌아갈 수 있도록.../\n하지만... 어... 개인적인 문제에 직면해 있습니다... 불행히도 이 퀘스트를 처리하는 것을 방해하고 있습니다.../\n그래서 저는 당신과 같은 훌륭한 모험가들에게 도움을 요청하는 것입니다!/\n여관 주인이 저에게 강력한 후보들을 찾아주겠다고 했고, 저는... 꽤 놀랐습니다./\n그럼에도 불구하고, 이 임무에는 한 사람만 필요합니다. 누가 참여하고 싶나요?/§\n[bryan]음... 다른 누군가를 선호했겠지만, 우리는.../\n[bryan]장비가 부족한 것 같군요.../\n마을 동쪽 끝에 있는 오래된 아담 노스트루스를 방문해서 제 오래된 무기 중 하나를 달라고 요청한 다음 저에게 돌아오세요./\n아, 그리고 가는 길에 제 단백질 음료도 챙겨주세요, 셰프 장-피에르가 저를 위해 준비해 줍니다.../\n마을은 그리 크지 않지만, 제가 당신의 지도에 이 두 지점을 표시해 두었습니다... 모르는 일이니까요.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -29,10 +29,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[knight]Du meinst, wir sollen gegen die Skelette KÄMPFEN? Uff ... Dann wird das eher nichts.#\nIch habe zwar eine dicke Rüstung, aber das wird KEINESFALLS reichen, um meinen popligen Schaden und meine Anfälligkeit für Elementarmagie auszugleichen. Ich wäre völlig nutzlos./",
         "ES_DIAL": "[knight]¿Dijiste \"PELEAR\"? Ah... Bueno, entonces... No será posible...#\nTengo una armadura sólida, pero no es SUFICIENTE para compensar mis débiles daños y mi completa ineptitud en la Magia Elemental... Sería una pérdida de tiempo./",
         "RU_DIAL": "[рыцарь]Вы сказали \"БИТЬСЯ\"?.... Ах... Ну, тогда... Это будет невозможно...#\nУ меня есть прочная броня, но этого АБСОЛЮТНО недостаточно, чтобы компенсировать мои слабые повреждения и мою полную некомпетентность в Элементарной Магии... Я был бы совершенно бесполезен./",
+        "KR_DIAL": "[knight]너가 \"싸움\"이라고 말했니?.... 아... 그럼... 그건 불가능할 거야...#\n나는 튼튼한 갑옷을 가지고 있지만, 내 약한 피해와 원소 마법에 대한 완전한 무능력을 보완하기에는 절대적으로 부족해... 나는 완전히 쓸모없을 거야./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -47,10 +47,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[huntress]Ah, nee ... Ich bin raus. Ich bin eigentlich nur gekommen, weil ich gehört habe, dass es Croissants gibt.#\nIch hab so wenig Resistenzen und Leben, dass es schon lächerlich ist. Okay, mein Angriffstempo ist ganz ordentlich, aber mein Schaden ist ein Witz. Ich bin da echt nicht die beste Wahl./",
         "ES_DIAL": "[huntress]Ah, no... Yo... Vine porque me dijeron que habría cruasanes...#\nTengo muy poca resistencia y mi vitalidad es ridícula... Sí, tengo una velocidad de ataque decente, pero mi daño es inexistente... No soy una opción adecuada en absoluto.../",
         "RU_DIAL": "[huntress]Ах нет... Не я... Я пришла, потому что мне сказали, что будут круассаны...#\nУ меня так мало сопротивления и жизненной силы, что это смешно... Да, у меня приличная скорость атаки, но мой урон несущественен... Я совсем не подходящий выбор.../",
+        "KR_DIAL": "[huntress]아니... 나 아니야... 크루아상 있을 거라고 해서 왔어...#\n저항력과 생명력이 너무 적어서 우스워... 맞아, 공격 속도는 괜찮지만 내 피해는 전혀 없어... 나는 전혀 적합한 선택이 아니야.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -65,10 +65,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[mage]Mein Opa hat mich gezwungen, herzukommen ...#\nAlso tu am besten so, als wäre ich gar nicht da. Ja, ich kann zwar ein, zwei Zauber ... und die haben auch ganz ordentlich Wumms ... Allerdings jage ich mich damit oft genug selbst in die Luft. Ich bin eine echte Gefahr für die öffentliche Sicherheit!/",
         "ES_DIAL": "[mage]Mi abuelo me obligó a venir...#\nAsí que finge que no existo... Sí, puedo lanzar uno o dos hechizos... Y son bastante devastadores... Pero tanto para mí como para los demás... ¡Soy un verdadero peligro para todos!/",
         "RU_DIAL": "[mage]Мой дедушка заставил меня прийти...# Так что, притворись, что меня нет... Да, я могу наложить заклинание или два... И они довольно разрушительны... Но так же для меня, как и для других... Я настоящая общественная угроза!/",
+        "KR_DIAL": "[mage]할아버지가 나를 강제로 데려왔어...#\n그러니 내가 존재하지 않는 척 해... 그래, 나는 마법을 한두 개 쓸 수 있어... 그리고 그것들은 꽤 파괴적이야... 하지만 나에게나 다른 사람들에게나 마찬가지야... 나는 진짜 공공의 위험이야!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -83,10 +83,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Geh zuerst zu Adam Nostrus am Ostrand des Dorfes und lass dir von ihm eine Waffe geben. Und dann geh zu Jean-Pierre, dem Koch, um meinen Proteindrink abzuholen./",
         "ES_DIAL": "Primero visita a Adam Nostrus, en el extremo este del pueblo, para que te dé un arma. Luego ve con el Chef Jean-Pierre y recoge mi bebida proteica./",
         "RU_DIAL": "Начните с визита к Адаму Нострусу, на самом востоке деревни, чтобы он мог достать вам оружие, затем отправляйтесь к шефу Жан-Пьеру и заберите мой протеиновый напиток./",
+        "KR_DIAL": "아담 노스트루스를 방문하여 무기를 얻고, 그 다음 셰프 장-피에르에게 가서 내 단백질 음료를 가져가세요./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -101,10 +101,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du hast noch immer keine Waffe .../",
         "ES_DIAL": "Aún te falta un arma.../",
         "RU_DIAL": "Ты все еще не хватает оружия.../",
+        "KR_DIAL": "당신은 아직 무기가 부족합니다.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -119,10 +119,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Adam muss dir doch eine Waffe hingelegt haben. Geh und hol sie dir./",
         "ES_DIAL": "Adam debe haberte dado un arma... Tienes que recogerla.../",
         "RU_DIAL": "Адам, должно быть, дал тебе оружие... Ты должен его взять.../",
+        "KR_DIAL": "아담이 너에게 무기를 줬음에 틀림없어... 너는 그것을 집어 들어야 해.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -137,10 +137,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du hast die Waffe von Adam Nostrus, aber meinen Proteindrink hast du wohl vergessen?/",
         "ES_DIAL": "Veo que Adam Nostrus te confió un arma, pero no recogiste mi bebida proteica, ¿verdad?/",
         "RU_DIAL": "Я вижу, что Адам Нострус доверил тебе оружие, но ты не забрал мой протеиновый напиток, не так ли?/",
+        "KR_DIAL": "나는 아담 노스트루스가 너에게 무기를 맡겼다는 것을 보지만, 너는 내 단백질 음료를 챙기지 않았지?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -155,10 +155,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hast du dich auch genau ans Rezept gehalten? Na dann, worauf wartest du? Bring Bryan seinen Drink!/",
         "ES_DIAL": "¿Seguiste las instrucciones al pie de la letra? Bueno... ¿Qué estás esperando? ¡Llévasela a Ramiro!/",
         "RU_DIAL": "Ты следовал инструкциям до мелочей? Ну что ж... Чего ты ждешь? Отнеси это обратно к Брайану!/",
+        "KR_DIAL": "지침을 철저히 따랐나요? 그럼... 무엇을 기다리고 있나요? 브라이언에게 가져다 주세요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -173,10 +173,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[jeanpierre]Isch ’abe keine Zeit mit eusch Abenteurern zu verschwenden. Bist du ’ergekommen, um meine Käse zu klauen, oui?/\nAh ... Du willst le Drink pour Bryan abholen? Isch ’atte keine Zeit, misch darum zu kümmern, aber du findest die Zutaten auf dem Tisch dort. Du musst nur die Rezept befolgen./\nDas ist eine brandneue Rezept, die isch ’eute Morgen habe reinbekommen. Isch will wissen, was er davon ’ält./",
         "ES_DIAL": "[jeanpierre]No puedo perder el tiempo contigo. ¿Quieres robarme queso? ¡¿Es eso?!/\nAh… ¿Vienes por la bebida de Ramiro? No tuve tiempo de prepararla… Pero tienes todo lo que necesitas sobre la mesa, ¡solo tienes que seguir las instrucciones al pie de la letra!/\nEs una receta nueva que recibí esta mañana... Me gustaría saber qué opina él de ella.../",
         "RU_DIAL": "[jeanpierre]У меня нет времени тратить на искателя приключений. Ты хочешь украсть у меня сыр, так?!/\nАх... Ты здесь за напитком для Брайана? У меня не было времени его сделать... Но на столе есть всё, что тебе нужно! Тебе просто нужно строго следовать инструкциям./\nЭто совершенно новый рецепт, который я получил сегодня утром... Мне хотелось бы знать, что он об этом думает.../",
+        "KR_DIAL": "[jeanpierre]나는 모험가와 시간을 낭비할 여유가 없어. 네가 나에게서 치즈를 훔치고 싶다는 거지?!/\n아... 브라이언의 음료를 가지러 온 거야? 나는 만들 시간이 없었어... 하지만 저기 테이블에 필요한 모든 것이 있어! 너는 지침을 철저히 따라야 해./\n이건 오늘 아침에 받은 완전히 새로운 레시피야... 나는 그가 어떻게 생각하는지 알고 싶어.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -191,10 +191,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[table]Auf dem Tisch siehst du einen Zettel, auf dem steht: „Proton, der Drink für wahre Champions“./\nDann folgt das Rezept:/\n„Eine Portion Eiweißpulver und Wasser in eine Flasche geben.“#\n„Gut schütteln.“#\n„Für mehr extradicke Muckis einen Löffel Rattengift beimengen.“/\nDie letzte Zeile erscheint dir suspekt, aber du bist kein ausgebildeter Koch und du solltest ja das Rezept exakt befolgen. Da versteht Jean-Pierre sicher keinen Spaß./\nDu entschließt dich, nicht vom Rezept abzuweichen./\n... ... Der Drink ist fertig!/",
         "ES_DIAL": "[table]En la mesa, hay un papel que dice: \"Proton, la bebida para Verdaderos Campeones.\"/\nLuego la receta dice:/\n\"Vierte una dosis de proteína y agua en un frasco.\"#\n\"Agita.\"#\n\"Para músculos más grandes, añade una cucharada de veneno para ratas.\"/\nLa última línea parece sospechosa, pero no eres cocinero y te dijeron que sigas las instrucciones cuidadosamente, y el Chef Jean-Pierre no es muy amigable./\nAsí que sigues la receta meticulosamente./\n... ¡Está lista!/",
         "RU_DIAL": "[table]На столе лежит кусок бумаги с надписью: \"Протон, напиток для истинных чемпионов.\"/\nЗатем идет рецепт:/\n\"Налейте дозу протеина и воды в колбу.\"#\n\"Встряхните.\"#\n\"Для больших мышц добавьте ложку крысиного яда.\"/\nПоследняя строка выглядит подозрительно, но вы не повар, и вам сказали внимательно следовать инструкциям, а шеф-повар Жан-Пьер не очень дружелюбен./\nПоэтому вы тщательно следуете рецепту./\n... ... Готово!/",
+        "KR_DIAL": "[table]테이블 위에는 \"프로톤, 진정한 챔피언을 위한 음료.\"라고 적힌 종이가 있다./\n그 다음은 레시피가 온다:/ \n\"플라스크에 단백질과 물을 한 번 부어라.\"#\n\"흔들어라.\"#\n\"더 큰 근육을 원한다면, 쥐 독 한 스푼을 추가하라.\"/\n마지막 줄은 의심스럽지만, 당신은 요리사가 아니고 지침을 주의 깊게 따르라고 들었으며, 장-피에르 셰프는 그리 친절하지 않다./\n그래서 당신은 레시피를 철저히 따른다./\n... ... 준비 완료!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -209,10 +209,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[statue]Hallo, (Abenteurer&Abenteuerin)! Ich grüße dich!/\nMein Name ist Adam Nostrus. Ich kümmere mich unter anderem um den Schrein der Champions von Arah, den du hier vor dir siehst!/\nBryan McMuckies hat dich geschickt, oder?/\nIch bewahre alle seine alten Waffen auf. Sie sind sehr wertvoll ... Schließlich ist er ein Champion von Arah!/\nWir finden bestimmt was Schönes für dich./\nHmm. Lass dich mal anschauen. Hmmm. Aha!/\nVielleicht könnten wir ja ... Nein. Oder doch? Ganz bestimmt .../\nIch habe die richtige Waffe für dich! Es ist keine von Bryans, aber ich glaube, dass sie zu deinem ... äh ... atypischen Profil hervorragend passt./\nEs ist ein Schlurm-Schnitter – eine Waffe, die besiegten Gegnern ihren Schlurm entzieht./\nNormalerweise dürfen nur Champions einen Schlurm-Schnitter führen ... aber was soll schon schiefgehen./\nBring ihn mir wieder, wenn du fertig bist. Viel Glück!<First Reaper>/",
         "ES_DIAL": "[statue]¡Hola, aventurero! ¡Hola!/\nMi nombre es Adam Nostrus. Entre muchas otras cosas, estoy a cargo del Santuario de los Campeones de Arah que tienes enfrente./\nRamiro Recio te envió, ¿verdad? /\nConservo sus viejas armas... Son muy valiosas... Después de todo, él es un Campeón de Arah.../\nDebería poder darte algo, sí.../\nMmm... Déjame observarte... Mmm... Ya veo.../\nQuizá haya... No... Sí... Eso es seguro.../\n¡Tengo el arma perfecta para ti! No le pertenecía a Ramiro, pero creo que encaja con un perfil tan... emm... atípico... como el tuyo.../\nEs una Segadora de Slorm... Un arma que cosecha el Slorm de los enemigos derrotados.../\nUsualmente están reservadas para los Campeones... pero no deberías tener problemas.../\nTráemela de vuelta cuando termines... ¡Buena suerte!<First Reaper>/",
         "RU_DIAL": "[statue]Привет, искатель приключений! Здравствуй!/\nМеня зовут Адам Нострус. Среди многих других дел, я отвечаю за Святилище Чемпионов Арах, которое перед тобой!/\nБрайан МакРипп прислал тебя, не так ли? /\nЯ храню его старое оружие... Они очень ценны... В конце концов, он Чемпион Арах.../\nЯ должен быть в состоянии дать тебе что-то, да.../\nМммх... Позволь мне тебя наблюдать... Мммх... Я вижу.../\nМожет быть, есть... Нет... Да... Это точно.../\nУ меня есть подходящее оружие для тебя! Оно не принадлежало Брайану, но я думаю, что оно подходит для профиля, как uh... нетипичного... как твой.../\nЭто Слорм Жнец... Оружие, которое жнет Слорм из поверженных врагов.../\nОни обычно ограничены Чемпионами... но с тобой все будет в порядке.../\nВерни его мне, когда закончишь... И удачи!<First Reaper>/",
+        "KR_DIAL": "[statue]안녕하세요 모험가! 안녕하세요!/\n내 이름은 아담 노스트루스입니다. 여러 가지 일 중에서, 저는 당신 앞에 있는 아라의 챔피언의 신전의 책임을 맡고 있습니다!/\n브라이언 맥립트가 당신을 보냈죠, 그렇죠? /\n저는 그의 오래된 무기를 보관하고 있습니다... 그것들은 매우 소중합니다... 그는 결국 아라의 챔피언이니까요.../\n저는 당신에게 뭔가 줄 수 있을 것 같습니다, 네.../\n음... 당신을 관찰해 보겠습니다... 음... 알겠습니다.../\n아마도... 아니... 네... 확실합니다.../\n당신에게 맞는 무기가 있습니다! 그것은 브라이언의 것이 아니지만, 당신과 같은 어... 비정상적인 프로필에 잘 맞을 것 같습니다.../\n그것은 슬롬 리퍼입니다... 패배한 적들로부터 슬롬을 수확하는 무기입니다.../\n보통 챔피언에게만 제한되지만... 당신은 괜찮을 것입니다.../\n끝나면 저에게 가져다 주세요... 그리고 행운을 빕니다!<First Reaper>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -227,10 +227,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Ah, da bist du ja!#Und du hast eine Waffe gefunden! Jetzt können wir loslegen!/\n[bryan]Hast du auch an meinen Proteinshake gedacht?/§\n[bryan]Danke!/§\n[bryan]Gift ...!/\n[bryan]In meinem Drink .../\n[bryan]Ich beiß ins Gras .../§\n[bryan_dead]Was zur ... Was ist mit mir passiert?/\nBei Arah! Ich bin komplett tot!/\nDas kann doch nicht wahr sein!/\nMein Adoniskörper! Meine Muskeln! Meine güldenen Locken!/\nSchau mich nur an! Schau mich an! Was ist aus mir geworden?/\nDas ist eine Katastrophe!/§\n[bryan_dead]Okay, Bryan ... Du bist tot, aber das ist nicht das Ende der Welt. Du hast schon ganz andere Sachen überstanden./\nEs könnte schlimmer sein. Du brauchst jetzt nur einen Plan B .../§\n[bryan_dead]Also gut. Ich hab mich entschieden: Du bist jetzt auf dich allein gestellt, ich geh in den Ruhest.../§\n[bryan_dead]HUCH!/\nHui ... Was war das nun wieder?/\nWo sind die anderen hin?/§\n[duke]Hiiilfeee!/\nSir Bryan! Sir Bryan! Hilfe!/§\n[duke]Es ist eine Katastrophe! Alle Dorfbewohner sind verschwunden!/\nHelft uns, Sir Bryan!/\nWas zum ...?/\nSir Bryan?!/\nEINE KATASTROPHE!/\nSIR BRYAN IST TOT!/\nUNSER CHAMPION IST TOT!/\nWEH UNS, AAAAHHHHH!!!!/§\n[bryan_dead]Das läuft langsam ein bisschen aus dem Ruder./\nSo viel zum Thema Ruhestand. Mangels einer besseren Alternative wirst du uns wohl aus diesem Schlamassel rausholen müssen .../\nGehen wir zuerst zum König./\nSei vorsichtig, das Dorf ist nicht mehr sicher .../",
         "ES_DIAL": "[bryan]Ah, ¡ahí estás!#¡Veo que encontraste un arma! ¡Ahora podemos empezar!/\n[bryan]¿Pensaste en mi bebida proteica...?/§\n[bryan]¡Gracias!/§\n[bryan]Envenenada.../\n[bryan]Mi bebida está.../\n[bryan]Me estoy muriendo.../§\n[bryan_dead]¿Qué... qué me pasó?/\n¡En el nombre de Arah! ¡Estoy muerto!/\n¡Este es mi fin!/\n¡Mi cuerpo tallado por los dioses! ¡Mis músculos! ¡Mi sedoso cabello rubio!/\n¡Solo mírame! ¡Mira en lo que me he convertido...! /\n¡Esto es un desastre!/§\n[bryan_dead]Está bien, Ramiro... Estás muerto, no es el fin del mundo... Has pasado por otras pruebas.../\nNo es tan malo... Solo necesitas un plan de respaldo.../§\n[bryan_dead]Bueno... Ya está decidido... Estoy solo en esto... Me voy a reti.../§\n[bryan_dead]¡AH!/\nBueno, esto... es nuevo.../\n¿Qué les pasó a los demás?/§\n[duke]¡Socorrooo!/\n¡Señor Ramiro! ¡Señor Ramiro! ¡Ayuda!/§\n[duke]¡Es un desastre! ¡Todos los aldeanos han desaparecido!/\n¡Ayúdenos, Señor Ramiro!/\n¿Qué rayos...?/\n¡¿Señor Ramiro?!/\n¡ESTO ES UN DESASTRE!/\n¡EL SEÑOR RAMIRO ESTÁ MUERTO!/\n¡NUESTRO CAMPEÓN ESTÁ MUERTO!/\n¡TODO SE ACABÓ!/§\n[bryan_dead]Esto se está saliendo de control.../\nAdiós a la jubilación... A falta de algo mejor, creo que tú tendrás que sacarnos de este problema.../\nEmpecemos yendo a ver al Rey./\nTen cuidado, el pueblo ya no es seguro.../",
         "RU_DIAL": "[bryan]Ах, вот ты где!#Я вижу, ты нашел оружие! Теперь мы можем приступить к делу!/\n[bryan]Ты думал о моем протеиновом коктейле?.../§\n[bryan]Спасибо!/§\n[bryan]Отравлено.../\n[bryan]Мой напиток.../\n[bryan]Я умираю здесь.../§\n[bryan_dead]Что за... Что со мной случилось?/\nВо имя Арах! Я полностью мертв!/\nЭто конец для меня!/\nМое божественное тело! Мои мышцы! Мои шелковистые блондинистые волосы!/\nПросто посмотри на меня! Посмотри на меня! Кем я стал... /\nЭто катастрофа!/§\n[bryan_dead]Ладно, Брайан... Ты мёртв, но это не конец света... Ты уже проходил через другие испытания.../\nВсё не так уж плохо... Тебе просто нужен запасной план.../§\n[bryan_dead]Ну что ж... Решено... Ты сам по себе... Я собираюсь уйти на пенсию.../§\n[bryan_dead]ААА!/\nНу, теперь... Это ново.../\nЧто случилось с остальными?/§\n[duke]Помогите!/\nСэр Брайан! Сэр Брайан! Помогите!/§\n[duke]Это катастрофа! Все деревенские жители исчезли!/\nПомогите нам, сэр Брайан!/\nЧто за...?/\nСэр Брайан?!/\nЭТО КАТАСТРОФА!/\nСЭР БРАЙАН МЕРТВ!/\nНАШ ГЕРОЙ МЕРТВ!/\nВСЕ ЗАКОНЧИЛОСЬ./§\n[bryan_dead]Дела идут не так.../\nТак много для пенсии... Из-за отсутствия чего-то лучшего, я думаю, тебе придется вытащить нас из этого беспорядка..../\nДавай начнем с того, чтобы пойти к королю./\nБерегись, деревня больше не безопасна.../",
+        "KR_DIAL": "[bryan]아, 거기 있군요!#무기를 찾은 것 같군요! 이제 시작할 수 있어요!/\n[bryan]내 단백질 쉐이크에 대해 생각해봤나요?.../§\n[bryan]감사합니다!/§\n[bryan]독이 들어갔어요.../\n[bryan]내 음료.../\n[bryan]여기서 죽어가고 있어요.../§\n[bryan_dead]뭐야... 나에게 무슨 일이 일어난 거지?/\n아라의 이름으로! 나는 완전히 죽었어요!/\n이제 끝이에요!/\n내 신성한 몸! 내 근육! 내 부드러운 금발 머리!/\n날 좀 봐! 날 좀 봐! 내가 어떻게 변했는지... /\n이건 재앙이에요!/§\n[bryan_dead]좋아, 브라이언... 너는 죽었어, 세상의 끝은 아니야... 너는 다른 시련을 겪어왔어.../\n그렇게 나쁘지 않아... 그냥 백업 계획이 필요해.../§\n[bryan_dead]음... 결정됐어... 너는 혼자야... 나는 은퇴할 거야.../§\n[bryan_dead]아악!/\n음, 이제... 그건 새롭군.../\n다른 사람들은 어떻게 되었지?/§\n[duke]도와주세요!/\n브라이언 경! 브라이언 경! 도와주세요!/§\n[duke]재앙이에요! 모든 마을 사람들이 사라졌어요!/\n도와주세요, 브라이언 경!/\n뭐야...?/\n브라이언 경?!/\n이건 재앙이에요!/\n브라이언 경이 죽었어요!/\n우리의 챔피언이 죽었어요!/\n모든 것이 끝났어요./§\n[bryan_dead]일이 손을 벗어나고 있어.../\n은퇴는 이제 끝났군... 더 나은 방법이 없으니, 너가 이 혼란에서 우리를 구해야 할 것 같아.../\n왕을 보러 가는 것으로 시작하자./\n조심해, 마을은 더 이상 안전하지 않아.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -245,10 +245,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[duke]Es ist eine Katastrophe./\nMein getreuer Alistor ... Meine geliebte Alena ... Einfach weg .../\nAh! Wer bist du? Ach, du bist (dieser Abenteurer&diese Abenteuerin)!#\nDann ist vielleicht noch nicht alles verloren!/\nHast du mitbekommen, was passiert ist? Erst war alles ganz wunderbar und dann kam plötzlich ein blauer Blitz! Und schon waren alle verschwunden .../\nAußerdem ist da jetzt dieses riesige Siegel an meiner Tür! Ich komme nicht mehr rein./\nDu hilfst mir doch sicher, oder?/\n[bryan]Seltsam. Ich glaube, er kann mich nicht sehen .../\n[bryan]Außerdem ist es bestimmt kein Zufall, dass dieses rätselhafte Siegel auftaucht und die Dorfbewohner verschwinden, direkt nachdem ich gestorben bin./\nKönnte es sein, dass ...?/\nWir sollten uns das Siegel näher ansehen./",
         "ES_DIAL": "[duke]Esto es un desastre.../\nMi fiel Alistor... Y mi querida Alena... Se fueron.../\n¡Ah! ¿Quién eres tú? Ah, sí, eres el aventurero.#\nDespués de todo, no todo está perdido.../\n¿Viste lo que sucedió? Todo iba bien cuando de repente, ¡hubo un destello azul! Y todos desaparecieron.../\nTambién está este enorme Sello en mi puerta. Ya no puedo entrar.../\n¿Vas a ayudarme, verdad?/\n[bryan]Esto es extraño... Creo que no puede verme.../\n[bryan]También siento que la aparición de este misterioso Sello y la desaparición de los aldeanos ocurrió justo después de mi muerte.../\n¿Podrá ser que...?/\nDeberíamos echar un vistazo más de cerca al Sello./",
         "RU_DIAL": "[duke]Это катастрофа.../\nМой верный Алистор... Моя дорогая Алена... Пропали.../\nАх! ... Кто вы? Ах да, вы искатель приключений!#\nВсё ещё не потеряно!/\nВы видели, что произошло? Всё шло хорошо, когда вдруг синий всплеск! И все пропали.../\nНа моей двери также есть этот огромный Печать! Я больше не могу войти.../\nВы собираетесь мне помочь, не так ли?/\n[bryan]Это странно... Я не думаю, что он может меня видеть..../\n[bryan]Мне также кажется, что появление этой загадочной Печати и исчезновение деревенских жителей произошло сразу после моей смерти.../\nНеужели это...?/\nНам следует внимательнее взглянуть на Печать./",
+        "KR_DIAL": "[duke]재앙이야.../\n내 충실한 알리스토르... 내 사랑하는 알레나... 사라졌어.../\n아! ... 당신은 누구인가요?. 아, 맞아 당신은 모험가군요!#\n결국 모든 것이 잃은 것은 아니야!/\n무슨 일이 일어났는지 보았나요? 모든 것이 잘 진행되고 있었는데 갑자기 파란 불꽃이! 그리고 모든 사람이 사라졌어.../\n내 문에 이 거대한 봉인이 있어! 더 이상 안으로 들어갈 수 없어.../\n당신이 나를 도와줄 거죠, 그렇죠?/\n[bryan]이상하군... 그가 나를 볼 수 없을 것 같아..../\n[bryan]이 신비로운 봉인의 출현과 마을 사람들의 실종이 내 죽음 직후에 일어난 것 같은 기분이 들어.../\n그럴 수 있을까...?/\n우리는 봉인을 좀 더 자세히 살펴봐야 해./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -263,10 +263,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Wusste ich’s doch! Ich kenne diese Symbole!/\nDas ist das Siegel des Schlurmanten! Nur er kann das gewesen sein .../\nDieser niederträchtige Schuft muss meine Ermordung geplant haben! Um dann ungehindert seinem fiesen Vorhaben nachgehen zu können!/\nEr wusste, dass nur ein Champion wie ich es mit seinen enormen Kräften aufnehmen könnte .../\nOhm Eigad ...#Der Schlurmant ...#ist zurückgekehrt!/\n.../\nHorch ... Hinter der Tür sind Stimmen zu hören./\n[ohmji_hidden]Das hätten wir! Der Champion ist tot und ich habe den alten König aus dem Schloss ausgesperrt. Das lief ja wie geschmiert!/\nJetzt müssen wir uns nur noch um Alena kümmern, damit ich endlich meine alten Kräfte zurückbekomme!/\n[palstrang_hidden]Sehr wohl, Meister./\n[ohmji_hidden]Sieh an, sieh an ... Jemand belauscht uns. Ich dachte, ich hätte alle verschwinden lassen./\nNicht weiter schlimm, das lässt sich auch anders lösen ...<Seal Enemies>/",
         "ES_DIAL": "[bryan]¡Lo sabía! ¡Reconozco estos símbolos!/\n¡Es un Sello del Slormante! Solo él es capaz de.../\n¡Ese vil sinvergüenza debe haber planeado mi asesinato! Su plan ya está en marcha.../\nSabía que solo un Campeón como yo podría oponerse a sus inmensos poderes.../\nOhm Agad...#El Slormante...#¡Ha vuelto!/\n.../\nEscucha... Podemos oír voces detrás de la puerta.../\n[ohmji_hidden]¡Aquí vamos! El Campeón está muerto y he privado al viejo Rey de su castillo... Un movimiento muy astuto.../\nTodo lo que queda por hacer ahora es ocuparme de Alena para finalmente recuperar mis antiguos poderes./\n[palstrang_hidden]... Sí, Maestro.../\n[ohmji_hidden]Vaya, vaya... Alguien me está escuchando... Pensé que había hecho desaparecer a todos.../\nEstá bien, tengo otras opciones...<Seal Enemies>/",
         "RU_DIAL": "[bryan]Я это знал! Я узнал эти символы!/\nЭто печать Слормансера! Это может быть только он.../\nЭтот подлый негодяй, должно быть, спланировал мое убийство! Его план теперь в действии.../\nОн знал, что только чемпион, как я, может противостоять его огромным силам.../\nОм Агада...#Слормансер...#вернулся!/\n.../\nСлушай... Мы слышим голоса за дверью.../\n[ohmji_hidden]Вот и мы! Чемпион мертв, и я лишил старого короля его замка... Очень хитрый ход.../\nВсе, что нам осталось сделать, это позаботиться об Алене, чтобы я наконец смог вернуть свои старые силы!/\n[palstrang_hidden]... Да, мастер.../\n[ohmji_hidden]Ну-ну... Кто-то слушает... Я думал, что заставил всех исчезнуть.../\nЭто нормально, у меня есть другие варианты...<Seal Enemies>/",
+        "KR_DIAL": "[bryan]나는 알았다! 나는 이 기호들을 알아본다!/\n이것은 슬로르맨서의 인장이다! 그만이 할 수 있는 일이다.../\n그 악랄한 악당은 내 암살을 계획했음에 틀림없다! 그의 계획은 이제 실행 중이다.../\n그는 나 같은 챔피언만이 그의 막대한 힘에 맞설 수 있다는 것을 알고 있었다.../\n오므 아가드...#슬로르맨서...#가 돌아왔다!/\n.../\n들어봐... 우리는 문 뒤에서 목소리를 들을 수 있어.../\n[ohmji_hidden]자, 시작하자! 챔피언은 죽었고 나는 옛 왕에게 그의 성을 빼앗았다... 매우 교활한 수작이다.../\n이제 우리가 해야 할 일은 알레나를 처리하는 것뿐이다, 그래야 내가 드디어 내 옛 힘을 되찾을 수 있다!/\n[palstrang_hidden]... 네, 주인님.../\n[ohmji_hidden]좋아, 좋아... 누군가 듣고 있군... 나는 모두를 사라지게 했다고 생각했는데.../\n괜찮아, 나는 다른 선택지가 있어...<Seal Enemies>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -281,10 +281,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[duke]Was ist passiert? Hast du das Siegel angefasst?/\nDas ist alles so verwirrend./\nMein getreuer Alistor wüsste jetzt, was zu tun ist ... Wir müssen ihn finden!/\nKurz vor der Katastrophe habe ich ihn zum Hafen geschickt. Könntest du herausfinden, was mit ihm passiert ist?/\n[bryan]Ja, gehen wir Alistor suchen. Vielleicht weiß er ja tatsächlich, was wir jetzt tun sollten.<First Breach>/",
         "ES_DIAL": "[duke]¿Qué acaba de pasar? ¿Tocaste el Sello?/\nEs tan confuso./\nMi fiel Alistor sabría qué hacer… Debemos encontrarlo./\nLo envié en una misión al puerto antes del desastre… ¿Podrías averiguar qué le pasó?/\n[bryan]Sí, vayamos a buscar a Alistor, tal vez él sepa qué hacer…<First Breach>/",
         "RU_DIAL": "[duke]Что только что произошло? Ты тронул печать?/\nЭто так запутанно./\nМой верный Алистор знал бы, что делать... Мы должны найти его!/\nЯ отправил его с заданием в порт перед катастрофой... Можешь узнать, что с ним случилось?/\n[bryan]Да, давай найдем Алистора, может, он знает, что делать...<First Breach>/",
+        "KR_DIAL": "[duke]방금 무슨 일이 일어났나요? 봉인을 만졌나요?/\n너무 혼란스러워요./\n내 충실한 알리스토르가 무엇을 해야 할지 알 거예요... 그를 찾아야 해요!/\n재앙이 일어나기 전에 그를 항구로 임무를 보냈어요... 그에게 무슨 일이 있었는지 찾아줄 수 있나요?/\n[bryan]네, 알리스토르를 찾아봅시다, 아마 그가 무엇을 해야 할지 알 거예요...<First Breach>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -299,10 +299,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Siehst du dieses riesige Siegel an meiner Tür? Ich komme nicht mehr hinein .../",
         "ES_DIAL": "¿Ves ese enorme Sello en mi puerta? No me permite entrar…/",
         "RU_DIAL": "Ты видишь ту огромную печать на моей двери? Я больше не могу войти.../",
+        "KR_DIAL": "너 내 문에 있는 그 거대한 물개 보이니? 더 이상 안으로 들어갈 수 없어.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -317,10 +317,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich habe Alistor mit einem Auftrag zum Hafen geschickt. Könntest du herausfinden, was mit ihm passiert ist?/",
         "ES_DIAL": "Envié a Alistor en una misión al puerto… ¿Podrías averiguar qué le pasó?/",
         "RU_DIAL": "Я отправил Алистора на задание в порт... Можешь узнать, что с ним случилось?/",
+        "KR_DIAL": "알리스토르를 항구로 임무를 보냈어요... 그에게 무슨 일이 있었는지 찾아줄 수 있나요?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -335,10 +335,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[alistor]Hui, was für eine seltsame Erfahrung. Ich habe da drin ein paar ziemlich schräge Sachen gesehen .../\nDanke, dass du mich rausgeholt hast!/\nIst der König in Sicherheit? Ich muss ihn über meine schreckliche Entdeckung unterrichten!/\nTreffen wir uns vor dem Schloss wieder./",
         "ES_DIAL": "[alistor]Bueno, qué momento tan extraño... Acabo de ver cosas muy raras dentro... /\nGracias por sacarme de ahí.../\n¿El Rey está a salvo? ¡Debo hablar con él sobre mi terrible descubrimiento! /\nEncontrémonos frente al castillo./",
         "RU_DIAL": "[alistor]Ну что ж, какое странное переживание... Я только что увидел очень странные вещи внутри... /  \nСпасибо, что вытащили меня оттуда... /  \nКороль в безопасности? Я должен поговорить с ним о своем ужасном открытии! /  \nДавайте встретимся перед замком./",
+        "KR_DIAL": "[alistor]음, 정말 이상한 경험이었어... 나는 방금 안에서 매우 이상한 것들을 보았어... /  \n거기서 나를 구해줘서 고마워... /  \n왕은 안전한가? 나는 내 끔찍한 발견에 대해 그와 이야기해야 해! /  \n성 앞에서 만나자./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -353,10 +353,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wir treffen uns dort, ich kenn eine Abkürzung!/",
         "ES_DIAL": "Te veré allí. ¡Conozco un atajo! /",
         "RU_DIAL": "Я встречу тебя там, я знаю короткий путь! /",
+        "KR_DIAL": "거기서 만날게, 지름길을 알아! /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -371,10 +371,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[duke]Sprich, mein tapferer Alistor. Was ist dir widerfahren?/\n[alistor]Mein König ... Ich war auf dem Weg zum Hafen, als ich mich plötzlich in einer Art Gefängnis aus Schatten und Schlurm wiederfand./\nDarin war es dunkel und schleimig. Ich sah allerlei bizarre Dinge, doch vor allem ... sah ich IHN, wie er mich musterte .../\nMein König ... Er war genau so, wie er in Erzählungen beschrieben wird: finster und furchteinflößend. Es besteht kein Zweifel an seiner Identität./\n[alistor]Ohm Eigad, der Schlurmant./\nDas alles ist sein Werk!/\n[duke]Das habe ich befürchtet. Er hat den besten Augenblick gewählt, um zuzuschlagen./\n[alistor]Alles ist verloren. Außer dem Champion von Arah kann niemand Ohm Eigad besiegen. Höchstens Arah selbst .../\nWir sollten die Beine in die Hand nehmen und fliehen!/\n[duke]Und mein Schloss und mein Dorf aufgeben? Niemals! Wir müssen uns einen Plan überlegen!/\n.../\n.../\nIch weiß!/\nWir brechen das Siegel, öffnen die Tür und vernichten diesen Ohm Eigad!/\n[alistor].../\n[bryan].../\n[alistor]Mein König ... Ein glänzender Einfall! Nur ... ist dieses Siegel nicht einfach irgendein Siegel. Es ist das Siegel eines Schlurmanten: Es ist unzerstörbar und unverwüstlich./\n[duke]Sagtest du, dieses Siegel sei unzerstörbar und unverwüstlich?#Dann ist das kein Problem!/\nEs gibt da ein Artefakt: den Zerstörer unzerstörbarer und unverwüstlicher Siegel! Wir müssen es nur finden!/\n[alistor]Mein König, ein glänzender Einfall! Nur ... Wie alle Artefakte ist auch der Zerstörer unzerstörbarer und unverwüstlicher Siegel tief unter der Erde versteckt./\nEr ist vergraben unter der Familiengruft der McMuckies, im Herzen des Friedhofs von Adreart!/\n[duke]Das ist mir wohl bewusst, mein getreuer Alistor, aber der Friedhof ist gleich nebenan. Wir müssen nur hinübergehen, ihn ausgraben und meinen Plan in die Tat umsetzen!/\n[alistor]Oh, mein König ... Ein glänzender Einfall! Nur ... brauchen wir eine Schaufel, um das Artefakt auszugraben.#\nUnd leider hat Pedro der Totengräber die einzige Schaufel im ganzen Königreich./\n[duke]Dann müssen wir Pedro finden, um seine Schaufel zu finden, um den Zerstörer unzerstörbarer und unverwüstlicher Siegel auszugraben, um das Siegel zu zerstören und Ohm Eigad zu besiegen./\n[alistor]Aber mein König ... Ein glänzender Einfall! Nur ... wer soll das alles machen, jetzt wo der Champion tot ist?/\n[duke]Nun, da kommt (dieser junge Abenteurer&diese junge Abenteuerin) doch wie gerufen!/\n[bryan]Also dann, schauen wir uns erst mal auf dem Friedhof um. Wahrscheinlich finden wir Pedro dort. Der Eingang ist gleich neben meiner Hütte.<Forward Act 1>/",
         "ES_DIAL": "[duke]Bueno, mi valiente Alistor… ¿Qué te pasó?/\n[alistor]Mi señor… Estaba de camino al puerto cuando de repente me encontré en una especie de prisión hecha de sombras y Slorm... /\nTodo estaba oscuro y pegajoso… Vi todo tipo de cosas extrañas, pero sobre todo… lo vi a Él... Él... observándome…/\nMi señor… Era tal como se describe en los cuentos… Siniestro y aterrador… No hay duda alguna sobre su identidad…/\n[alistor]Ohm Agad, el Slormante.../\nÉl es el responsable de todo esto…/\n[duke]Lo sospechaba... Eligió el mejor momento para actuar…/\n[alistor]Está todo perdido… Sin el Campeón de Arah, nadie puede derrotar a Ohm Agad… Excepto el propio Arah…/\n¡Deberíamos huir a toda prisa!/\n[duke]¿Y abandonar mi castillo y mi aldea? ¡Jamás! ¡Debemos pensar en un plan!/\n…/\n…/\n¡Tengo un plan!/\nVamos a destruir ese Sello, abrir esa puerta y derrotar a Ohm Agad.../\n[alistor].../\n[bryan].../\n[alistor]Mi señor… ¡Brillante idea! Pero… Este Sello no es como cualquier otro… Es un Sello de Slormante. Es indestructible e irrompible./\n[duke]¿Dices que es indestructible e irrompible?#¡Eso no será un problema!/\nConozco la existencia de una Reliquia: ¡El Destructor de Sellos Definitivo! ¡Todo lo que tenemos que hacer es ir a buscarla! /\n[alistor]Mi señor… ¡Brillante idea! Pero… Como todas las Reliquias, el Destructor de los Sellos Definitivo ha sido escondido en las profundidades de la Tierra./\nEstá enterrado bajo la Cripta de los Recio, en lo más profundo del Cementerio de Adreart. /\n[duke]Lo conozco bien, mi fiel Alistor, pero el Cementerio está justo al lado… Solo tenemos que ir allí y desenterrarlo para poner en marcha mi plan./\n[alistor]Pero mi señor… ¡Brillante idea! Pero para desenterrar una Reliquia, necesitamos una pala...#\nLamentablemente, Pedro el Sepulturero es el dueño de la única Pala del Reino.../\n[duke]Entonces debemos encontrar a Pedro, tomar su pala, desenterrar el Destructor de Sellos Definitivo, hacernos con el Sello y derrotar a Ohm Agad./\n[alistor]Pero mi señor… ¡Qué brillante idea! Pero, ¿quién va a hacer todo eso ahora que el Campeón está muerto?/\n[duke]Bueno, ese joven aventurero es justo la persona que necesitamos./\n[bryan]Bueno… Deberíamos empezar por buscar en el Cementerio… Probablemente encontremos a Pedro allí… La entrada está justo al lado de mi choza.<Forward Act 1>/",
         "RU_DIAL": "[duke]Ну, мой храбрый Алистор... Что с тобой случилось?/\n[alistor]Мой лорд... Я был на пути к гавани, когда вдруг оказался в неком тюрьме из теней и Слорма.../\nВсе было темным и слизистым... Я видел всевозможные странные вещи, но больше всего... Я видел Его... Его... наблюдающим за мной.../\nМой лорд... Он был таким, как описано в Сказаниях... Зловещим и Ужасающим... Нет никаких сомнений в его личности.../\n[alistor]Ом Агада, Слорманцер.../\nОн стоит за всем этим.../\n[duke]Я это подозревал... Он выбрал лучший момент для действия.../\n[alistor]Все потеряно... Без Чемпиона Арах, никто не сможет победить Ом Агада... Кроме самого Арах.../\nНам следует бежать на всех ногах!/\n[duke]И покинуть мой замок и мою деревню? Никогда! Мы должны придумать план!/\n.../\n.../\nУ меня есть план!/\nМы собираемся уничтожить эту Печать, открыть ту дверь и победить Ом Агада!/\n[alistor].../\n[bryan].../\n[alistor]Мой лорд... Блестящая идея! Но... Эта Печать не такая, как любая другая Печать... Это Печать Слорманцера: Она Неразрушима и Непробиваема./\n[duke]Ты говоришь, что эта Печать Неразрушима и Непробиваема?#Это не проблема!/\nЯ знаю о существовании Реликвии: Уничтожителя Неразрушимых и Непробиваемых Печать! Все, что нам нужно сделать, это пойти и забрать ее!/\n[alistor]Мой лорд... Блестящая идея! Но... Как и все Реликвии, Уничтожитель Неразрушимых и Непробиваемых Печать был скрыт в недрах Земли./\nОн похоронен под Криптой МакРиппедов, глубоко внутри Кладбища Адреарта!/\n[duke]Я хорошо это знаю, мой верный Алистор, но Кладбище прямо рядом... Нам всего лишь нужно пойти туда и выкопать его, чтобы осуществить мой план!/\n[alistor]Но мой лорд... Блестящая идея! Но чтобы выкопать Реликвию, нам нужна Лопата...#\nК сожалению, у Педро, Могильщика, есть единственная Лопата Королевства.../\n[duke]Тогда мы должны найти Педро, чтобы найти его Лопату, чтобы выкопать Уничтожителя Неразрушимых и Непробиваемых Печать, чтобы уничтожить Печать и победить Ом Агада./\n[alistor]Но мой лорд... Блестящая идея! Но кто будет делать все это теперь, когда Чемпион мертв?/\n[duke]Ну, этот молодой искатель приключений как раз тот человек, который нам нужен!/\n[bryan]Ну... Нам следует начать с поиска на Кладбище... Мы, вероятно, найдем Педро там... Вход прямо рядом с моей хижиной.<Forward Act 1>/",
+        "KR_DIAL": "[duke]잘했어, 용감한 알리스토르... 너에게 무슨 일이 있었니?/\n[alistor]주님... 나는 항구로 가는 길이었는데 갑자기 그림자와 슬롬으로 만들어진 감옥 같은 곳에 갇혔어요.../\n모든 것이 어둡고 끈적거렸어요... 나는 온갖 이상한 것들을 보았지만 가장 많이 본 것은... 그를 보았어요... 그를... 나를 지켜보고 있었어요.../\n주님... 그는 이야기에서 묘사된 대로... 음산하고 무서웠어요... 그의 정체성에 대한 의심의 여지가 없어요.../\n[alistor]오므 아가드, 슬롬맨서.../\n그가 모든 일의 배후예요.../\n[duke]그럴 줄 알았어... 그는 행동하기에 가장 좋은 순간을 선택했어.../\n[alistor]모든 것이 잃었어요... 아라의 챔피언이 없으면 아무도 오므 아가드를 이길 수 없어요... 아라 자신을 제외하고는.../\n우리는 모든 다리로 도망쳐야 해요!/\n[duke]내 성과 내 마을을 버리라고? 절대 안 돼! 우리는 계획을 세워야 해!/\n.../\n.../\n나는 계획이 있어요!/\n우리는 그 봉인을 파괴하고, 그 문을 열고, 오므 아가드를 물리칠 거예요!/\n[alistor].../\n[bryan].../\n[alistor]주님... 훌륭한 아이디어예요! 하지만... 이 봉인은 그냥 봉인이 아니에요... 그것은 슬롬맨서의 봉인입니다: 파괴할 수 없고 깨뜨릴 수 없어요./\n[duke]너는 이 봉인이 파괴할 수 없고 깨뜨릴 수 없다고 말하니?#그건 문제가 아니야!/\n나는 파괴할 수 없고 깨뜨릴 수 없는 봉인을 파괴하는 유물의 존재를 알아요! 우리가 해야 할 일은 그것을 가지러 가는 것뿐이에요!/\n[alistor]주님... 훌륭한 아이디어예요! 하지만... 모든 유물처럼, 파괴할 수 없고 깨뜨릴 수 없는 봉인을 파괴하는 자는 지구의 깊은 곳에 숨겨져 있어요./\n그것은 맥리펜드의 묘소 아래에 묻혀 있어요, 아드레아르트의 묘지 깊숙이!/\n[duke]나는 그것을 잘 알고 있어, 나의 충실한 알리스토르, 하지만 묘지는 바로 옆에 있어... 우리는 거기 가서 그것을 파내기만 하면 내 계획을 실행할 수 있어!/\n[alistor]하지만 주님... 훌륭한 아이디어예요! 하지만 유물을 파내려면 삽이 필요해요...#\n불행히도, 페드로라는 묘지 파는 사람이 왕국의 유일한 삽을 소유하고 있어요.../\n[duke]그렇다면 우리는 페드로를 찾아야 해, 그의 삽을 찾기 위해, 파괴할 수 없고 깨뜨릴 수 없는 봉인을 파내기 위해, 봉인을 파괴하고 오므 아가드를 물리치기 위해./\n[alistor]하지만 주님... 훌륭한 아이디어예요! 하지만 챔피언이 죽었는데 누가 그 모든 일을 할 건가요?/\n[duke]그 젊은 모험가가 바로 우리가 필요한 사람이야!/\n[bryan]음... 우리는 묘지부터 수색해야 해요... 아마 거기서 페드로를 찾을 수 있을 거예요... 입구는 내 오두막 바로 옆에 있어요.<Forward Act 1>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -389,10 +389,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[duke]Wie? Du hast eine Notiz gefunden? Zeig her .../\nDa steht geschrieben:#\n„Ich hap das glitzerdink keklaut.\nihr krikt mich nicht.#\ngezaichnet: Grotagrom“/\n[alistor]Mein König ... Wir sind verloren .../\n[duke]Das macht die Sache komplizierter, aber noch ist nicht aller Tage Abend. Ich weiß, wo wir Grotagrom finden./\nEr wurde aufgrund diverser Bagatelldelikte ins Gefängnis geworfen: Fluchen, Schmierereien, Sachbeschädigung und Beleidigung meiner erlauchten Person./\nJetzt darbt er tief im Gefängnis, im allerdunkelsten Verlies./\nNa ja, seine Verbrechen sind nicht so schwerwiegend, wir hatten einfach keine andere Zelle frei./\n[alistor]Mein König ... Ein glänzender Einfall! Nur ... wurde das Gefängnis von Monstern überrannt. Grotagrom ist wahrscheinlich längst hinüber./\n[duke]Das werden wir herausfinden müssen. (Abenteurer&Abenteuerin), begib dich zum Gefängnis und finde Grotagrom!/\nAber sei auf der Hut: Er ist ebenso gerissen, wie seine Rechtschreibung miserabel ist.<Forward Act 2>/",
         "ES_DIAL": "[duke]¿Qué? ¿Encontraste una nota? Muéstramela.../\nDice:#\n\"Yo robé el obgeto brilloso.\nNunca me atraparas.#\nfirmado: Grotagrom\"/\n[alistor]Mi Señor... Es nuestro fin.../\n[duke]Esto complica las cosas, pero no todo está perdido... Sé dónde está Grotagrom.../\nFue encarcelado por muchos delitos menores: decir groserías, pintar murales, daños la propiedad privada e insultar a mi ilustre persona... /\nEstá retenido en lo más profundo de La Prisión, en el calabozo más oscuro./\nOh, sus crímenes no son tan graves, pero era la única celda disponible./\n[alistor]Mi Señor... ¡Brillante idea! Pero... La Prisión ha sido invadida por monstruos... Probablemente esté muerto…/\n[duke]Debemos asegurarnos... Aventurero... Ve a La Prisión... Y encuentra a Grotagrom.../\nPero ten cuidado: Es tan astuto como malo con la ortografía.<Forward Act 2>/",
         "RU_DIAL": "[duke]Что? Ты нашел записку? Покажи мне.../\nВ ней написано:#\n\"Я украл сияющий объект. \nты не поймаешь меня.#\nподписано: Грогатром\"/\n[alistor]Мой лорд... Это конец для нас.../\n[duke]Это усложняет ситуацию, но не все потеряно... Я знаю, где Грогатром.../\nОн был брошен в тюрьму за множество мелких преступлений: ругань, настенные росписи, повреждение имущества и оскорбления моего выдающегося лица.../\nОн содержится глубоко внутри тюрьмы, в самых темных подземельях./\nО, его преступления не так уж серьезны, но это было единственное доступное подземелье./\n[alistor]Мой лорд... Блестящая идея! Но... Тюрьма была захвачена монстрами... Он, вероятно, уже мертв.../\n[duke]Мы должны выяснить это наверняка... Искатель приключений... Иди в тюрьму... И найди Грогатрома.../\nНо будь осторожен: он так же хитёр, как и плох в правописании.<Forward Act 2>/",
+        "KR_DIAL": "[duke] 뭐라고? 당신이 메모를 찾았다고요? 나에게 보여주세요.../\n내용은 다음과 같습니다:#\n\"나는 빛나는 물체를 훔쳤다. \n너는 나를 잡지 못할 것이다.#\n서명: 그로타그롬\"/\n[alistor] 나의 주여... 우린 끝났습니다.../\n[duke] 일이 복잡해지지만, 모든 게 잃은 건 아닙니다... 나는 그로타그롬이 어디에 있는지 압니다.../\n그는 여러 작은 범죄들로 감옥에 갇혔습니다: 욕설, 벽화, 재산 피해 및 나의 유명한 인격에 대한 모욕... /\n그는 감옥 깊숙이, 가장 어두운 던전에 갇히고 있습니다./\n오, 그의 범죄는 그리 심각하지 않지만, 사용 가능한 던전은 그곳뿐이었습니다./\n[alistor] 나의 주여... 훌륭한 아이디어입니다! 하지만... 감옥은 괴물들에 의해 침범당했습니다... 지금쯤 그는 죽었을 것입니다.../\n[duke] 우리는 확실히 알아내야 합니다... 모험가... 감옥으로 가서... 그로타그롬을 찾아주세요.../\n하지만 조심하세요: 그는 철자법이 서툴지만 교활합니다.<Forward Act 2>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -407,10 +407,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[duke]Wie? Grotagrom hatte den Zerstörer unzerstörbarer und unverwüstlicher Siegel nicht?/\nO je! Was soll nur aus uns werden? Wo ist dieses verdammte Ding bloß?/\n[archmage]Mein König, ähm ... Ich habe zufällig eurer Gespräch bela... öh ... mitangehört./\nUnd ... Wie es der Zufall so will, habe ich möglicherweise – in völliger Unschuld, versteht sich – diesem Grotagrom den ein oder anderen Schnickschnack abgekauft .../\nUnd es könnte sein, dass darunter etwas war, das, öhm ... ganz oberflächlich dem Zerstörer unzerstörbarer und unverwüstlicher Siegel ähnlich sieht./\nIch benutze es als Briefbeschwerer. Ich fand es ganz apart .../\n[duke].../\nSo sprich! Wo ist dein „Briefbeschwerer“?!/\n[archmage]In meinem Büro, mein König ... auf einem Stapel Papiere ... ganz oben in meinem Turm ... der von Monstern überrannt wurde./\n[duke](Unser Abenteurer&Unsere Abenteuerin) wird sich der Sache mit Freuden annehmen, nicht wahr?/\nBegib dich in Olorins Magierakademie, das ist der große Turm in der Dorfmitte. Und bring uns den Briefbeschwe... den Zerstörer unzerstörbarer und unverwüstlicher Siegel!<Forward Act 3>/",
         "ES_DIAL": "[duke]¿Cómo? ¿Grotagrom no tenía el Destructor de Sellos Definitivo?/\n¡Oh, cielos! ¿Qué será de nosotros? ¿Dónde está esa maldita reliquia?/\n[archmage]Mi señor… Eh… No pude evitar escucu… eh… escuchar su conversación…/\nY… Resulta que en mi emh… extrema inocencia… pude… posiblemente… comprarle un cachivache o dos a este tipo Grotagrom…/\nY podría ser que… uno de ellos eh… encaje con la descripción del Destructor de Sellos Definitivo…/\nLo uso como pisapapeles… Creo que se ve bien…/\n[duke]…/\n¡Habla! ¿Dónde está tu… pisapapeles?/\n[archmage]En mi oficina, mi señor… sobre una pila de papeles… En lo alto de mi torre… que resulta estar infestada de monstruos…/\n[duke]Nuestro aventurero estará encantado de encargarse de eso, ¿verdad?/\nVe a la Academia de Magia de Olorín, es la gran torre en el centro del pueblo. Y encuentra ese pisa… el Destructor de Sellos Definitivo.<Forward Act 3>/",
         "RU_DIAL": "[duke]Как? У Грогатрома не было Уничтожителя Неразрушимых и Непробиваемых Печатов?/\nО, боже! Что с нами будет? Где эта чертовщина?/\n[archmage]Мой лорд... Эм... Я не мог не подслушать ваш разговор.../\nИ... Так случилось, что в моей эм... крайней невинности... я смог... возможно... купить пару безделушек у этого Грогатрома.../\nИ может быть, что... одна из них эм... подходит под описание Уничтожителя Неразрушимых и Непробиваемых Печатов.../\nЯ использую это как пресс для бумаги... Думаю, это выглядит хорошо.../\n[duke].../\nНу, говори! Где твой... пресс для бумаги?!/\n[archmage]В моем офисе, мой лорд... на вершине кучи бумаг... На вершине моей башни... которая, кстати, заражена монстрами.../\n[duke]Нашему искателю приключений будет приятно позаботиться об этом, не так ли?/\nИди в Академию Магов Олорина, это большая башня прямо в центре деревни. И найди нам этот пресс для бумаги... Уничтожителя Неразрушимых и Непробиваемых Печатов!<Forward Act 3>/",
+        "KR_DIAL": "[duke]어떻게? 그로타그롬이 파괴할 수 없는 봉인과 부서지지 않는 봉인의 파괴자를 갖고 있지 않았다고?/\n오, 세상에! 우리에게 무슨 일이 일어날까요? 그 쌍놈은 어디에 있죠?/\n[archmage]저의 주님... 아... 저는 여러분의 대화를 듣게 되어... 아... 우연히 들었습니다.../\n그리고... 제 극도의 순진함 덕분에... 이 그로타그롬이라는 자에게서 장신구 하나나 둘을 살 수 있었던 것 같습니다.../\n그리고 그 중 하나가... 아... 파괴할 수 없는 봉인과 부서지지 않는 봉인의 파괴자에 대한 설명에 맞을 수도 있습니다.../\n저는 그것을 종이 무게로 사용하고 있습니다... 괜찮아 보인다고 생각해요.../\n[duke].../\n제발 말해보세요! 당신의... 종이 무게는 어디에 있죠?!/\n[archmage]저의 사무실에 있습니다, 제 주님... 서류 더미 위에... 저의 탑 위에... 그곳은 괴물들로 감염되어 있습니다.../\n[duke]우리의 모험가는 그것을 잘 처리할 것입니다, 그렇죠?/\n오르모스의 마법 아카데미로 가세요, 마을 한가운데에 있는 큰 탑입니다. 그리고 그 종이 무게... 즉 파괴할 수 없는 봉인과 부서지지 않는 봉인의 파괴자를 찾아오세요!<Forward Act 3>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -425,10 +425,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[archmage]Mein König! Wir bringen den Zerstörer unzerstörbarer und unverwüstlicher Siegel!/\nEndlich können wir das große Schlosstor öffnen und Ohm Eigad das Handwerk legen!/\n[duke].../\nWas ist das denn für ein Ding?#Dieser rostige Schlüssel ist nicht der Zerstörer unzerstörbarer und unverwüstlicher Siegel .../\nDas ist der Entsperrer zerstörbarer und überwindbarer Portale! Der hilft uns hier überhaupt nicht weiter!/\n[archmage]Potztausend! Grotagrom hat mich getäuscht!/\n[duke].../\n[alistor]Jetzt stehen wir wieder ganz am Anfang .../\n[duke]Ich habe womöglich eine Idee./\nWenn wir nicht durch die Vordertür reinkommen, können wir einen Geheimgang nehmen!/\nJedes Schloss hat doch Geheimgänge./\nAlistor, mein guter Mann. Gibt es einen Geheimgang, der ins Schloss führt?/\n[alistor]Mein König ... Ein glänzender Einfall! Es gibt in der Tat einen Geheimgang, dessen Eingang sich in den Gärten befindet und der über den königlichen Flügel zum Thronsaal führt./\nJedoch ist das Portal zu den Gärten verschlossen. Da kommen wir niemals hinein!/\n[duke].../\n[bryan].../\n[alistor]Ach, hätten wir bloß den Zerstörer unzerstörbarer und unverwüstlicher Siegel gefunden anstatt dieses nutzlosen Entsperrers zerstörbarer und überwindbarer Portale!/\n[archmage].../\n[hero].../\n[alistor]Ah, mein König! Wir können den Entsperrer verwenden, um in die Gärten zu gelangen!/\n[duke]Clever!/\nAlso ist dieses Artefakt doch zu etwas nutze./\nEin wirklich bemerkenswerter Zufall. Das Schicksal meint es gut mit uns!/\n[bryan]Oder der Autor hat keine Ahnung, wie man eine Story schreibt./\n[duke]Wohlan! Begib dich in die Gärten und finde den Geheimgang, der ins Schloss führt!/\n[alistor]Der Geheimgang befindet sich im hintersten Teil des Gartens .../\nwo es momentan von allerlei Kriechgetier nur so wimmelt ...#Viel Glück ...<Forward Act 4>/",
         "ES_DIAL": "[archmage]¡Mi señor! ¡Hemos vuelto con el Destructor de Sellos Definitivo!/\n¡Por fin podemos abrir la gran puerta del castillo y enfrentarnos a Ohm Agad!/\n[duke].../\n¿Qué es esa cosa?#Esta llave oxidada no es el Destructor de Sellos Definitivo.../\nEs el Rompeportales Definitivo... No tiene absolutamente nada que ver.../\n[archmage]¡Maldita sea! ¡Grotagrom me engañó!/\n[duke].../\n[alistor]Volvimos al punto de partida.../\n[duke]Creo que tengo una idea.../\nSi no podemos entrar por la puerta principal, podemos usar un pasaje secreto./\nSiempre hay pasajes secretos.../\nAlistor, mi buen hombre... ¿Hay algún pasaje secreto al castillo?/\n[alistor]Mi señor... ¡Brillante idea! De hecho, hay uno cuya entrada está en los Jardines y que luego cruza el Ala Real hasta la Sala del Trono.../\nPero el Portal hacia los Jardines está cerrado... Es inútil.../\n[duke].../\n[bryan].../\n[alistor]Si tan solo hubiéramos encontrado el Destructor de Sellos Definitivo en lugar de este inútil Rompeportales Definitivo.../\n[archmage].../\n[hero].../\n[alistor]¡Ah, mi señor! ¡Deberíamos usar el Rompeportales en el portal que lleva a los Jardines!/\n[duke]¡Ingenioso!/\nLo encontramos en el momento justo.../\nLa coincidencia es bastante fabulosa... Parece que el destino es nuestro aliado.../\n[bryan]O que el escritor no sabe lo que está haciendo.../\n[duke]¡Bien! Ve a los Jardines y encuentra el pasaje secreto al castillo./\n[alistor]Se encuentra al fondo de los Jardines.../\nY el lugar está actualmente infestado de todo tipo de bichos...#Buena suerte...<Forward Act 4>/",
         "RU_DIAL": "[archmage]Мой лорд! Мы вернулись с Уничтожителем Неразрушимых и Непроницаемых Печатов!/\nНаконец-то мы можем открыть великие ворота замка и столкнуться с Омом Агада!/\n[duke].../\nЧто это за вещь?#Этот ржавый ключ не является Уничтожителем Неразрушимых и Неразрывных Печатов.../\nЭто Ломатель Разрушимых и Преодолимых Порталов... Он абсолютно не имеет никакого отношения к делу.../\n[archmage]Проклятие! Грогатром обманул меня!/\n[duke].../\n[alistor]Мы вернулись к началу.../\n[duke]У меня может быть идея.../\nЕсли мы не можем войти через главные двери, мы можем пройти через секретный проход!/\nВсегда есть секретные проходы.../\nАлистор, мой хороший человек... Есть ли секретный проход в замок?/\n[alistor]Мой лорд... Блестящая идея! Действительно, есть секретный проход, вход в который находится в Садах и который затем пересекает Королевское Крыло к Тронному Залу.../\nНо Портал в Сады закрыт... Это безнадежно.../\n[duke].../\n[bryan].../\n[alistor]Если бы мы только нашли Уничтожителя Неразрушимых и Неразрывных Печатов вместо этого бесполезного Ломателя Разрушимых и Преодолимых Порталов./\n[archmage].../\n[hero].../\n[alistor]Ах, мой лорд! Мы должны использовать Ломатель Порталов на портале, который ведет в Сады!/\n[duke]Умно!/\nМы нашли этого Ломателя Порталов в нужное время.../\nСовпадение просто великолепно... Кажется, судьба на нашей стороне!/\n[bryan]Или что писатель не знает, что делает.../\n[duke]Ну! Идите в Сады и найдите секретный проход в замок!/\n[alistor]Секретный проход находится в самом конце Садов.../\nИ это место в настоящее время переполнено всевозможными насекомыми...#Удачи...<Forward Act 4>/",
+        "KR_DIAL": "[archmage]주인님! 우리는 파괴할 수 없고 뚫을 수 없는 봉인의 파괴자를 가지고 돌아왔습니다!/\n드디어 우리는 대성의 성문을 열고 오므 아가드와 마주할 수 있습니다!/\n[duke].../\n저것은 뭐죠?#이 녹슨 열쇠는 파괴할 수 없고 깨지지 않는 봉인의 파괴자가 아닙니다.../\n그것은 파괴 가능하고 극복 가능한 포털의 파괴자입니다... 그것은 아무것과도 관련이 없습니다.../\n[archmage]저주받을 놈! 그로타그롬이 나를 속였습니다!/\n[duke].../\n[alistor]우리는 원점으로 돌아왔습니다.../\n[duke]아이디어가 있을지도 모르겠습니다.../\n정문으로 들어갈 수 없다면 비밀 통로로 들어갈 수 있습니다!/\n항상 비밀 통로가 있습니다.../\n알리스토르, 좋은 친구여... 성으로 가는 비밀 통로가 있습니까?/\n[alistor]주인님... 훌륭한 아이디어입니다! 실제로 정원에 입구가 있는 비밀 통로가 있으며, 그 통로는 왕실 날개를 지나 왕좌의 방으로 이어집니다.../\n하지만 정원으로 가는 포털은 닫혀 있습니다... 희망이 없습니다.../\n[duke].../\n[bryan].../\n[alistor]우리가 이 쓸모없는 파괴 가능하고 극복 가능한 포털의 파괴자 대신 파괴할 수 없고 깨지지 않는 봉인의 파괴자를 찾았다면 좋았을 텐데./\n[archmage].../\n[hero].../\n[alistor]아, 주인님! 우리는 정원으로 가는 포털에 포털 파괴자를 사용해야 합니다!/\n[duke]영리하군요!/\n우리는 적절한 시기에 이 포털 파괴자를 찾았습니다.../\n우연의 일치는 정말 멋집니다... 운명이 우리 편인 것 같습니다!/\n[bryan]아니면 작가가 뭘 하고 있는지 모르는 것일 수도 있습니다.../\n[duke]좋습니다! 정원으로 가서 성으로 가는 비밀 통로를 찾으세요!/\n[alistor]비밀 통로는 정원의 맨 끝에 있습니다.../\n그리고 그곳은 현재 온갖 종류의 벌레로 가득 차 있습니다...#행운을 빕니다...<Forward Act 4>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -443,10 +443,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[hero].../\n[duke]Wie?! Du meinst, du hast keinen Geheimgang gefunden?/\n[hero].../\n[duke]Aber er hätte genau dort sein sollen .../\n[alistor]Mein König, der Geheimgang wurde jahrhundertelang nicht genutzt. Vielleicht ist er mittlerweile überwuchert./\n[duke]Gut möglich ... Enrique hat sich ewig nicht um die Gärten gekümmert./\nAber was dann? Ist alles verloren?/\nMir fällt nichts mehr ein./\nVielleicht sollten wir einfach auf gut Glück nach irgendeinem anderen vergrabenen Artefakt suchen, das uns helfen kann?/\nEs gibt doch sicher einen Mythischen Detektor verfallener Geheimgänge?/\nOder vielleicht können wir Pedros Kompassschaufel aufmotzen?!/\nOder eine legendäre magische Spitzhacke, die aus einem Metall mit seltenen Buchstaben im Namen geschmiedet wurde und mit der wir ein Loch in mein Tor schlagen können?!/\nOder ein sagenumwobenes Seil aus dem Barthaar von Ziegenmenschen, mit dem wir zu den Fenstern dieses verdammten Schlosses hochklettern können?!/\n[alistor]Mein König ... Ich weiß nicht, ob das .../\n[duke]Ich weiß ja, Alistor! Wir sind in einer Sackgasse./\n[alistor].../\n[duke].../\n[Bryan].../\n[jeanpierre]Es gibt da eine Ge’eimgang, die von meinem Restaurant in das Schloss führt. Isch benutze ihn, wenn isch Essen für Bankette liefern muss./\nIsch wollte bisher nur nischts sagen, weil ... darin mieft es stark nach Sauerkraut .../\n[duke]Jean-Pierre ... Du ... Hä?!/\nGrrmpf. Na gut, weiter im Text ...#\nDas ist unsere Rettung!/\nWir nehmen den Geheimgang, der nach Sauerkraut mieft!/\nBegib dich umgehend in Jean-Pierres Restaurant und gehe durch den Geheimgang ins Schloss!/\nAuf zum Thronsaal! Sieh dich vor, Ohm Eigad!/\nUnd was dich betrifft, Jean-Pierre ... Auf ein Wort ...<Forward Act 5>/",
         "ES_DIAL": "[hero].../\n[duke]¡¿Qué?! ¿Cómo que no había ningún pasaje secreto?/\n[hero].../\n[duke]Pero debería haber estado donde fuiste.../\n[alistor]Mi señor... No ha sido utilizado en siglos... Tal vez esté cubierto por la vegetación.../\n[duke]Es posible... Enrique no ha hecho jardinería allí en años.../\nEntonces, ¿qué? ¿Está todo perdido...?/\nYa no tengo más ideas.../\n¿Tal vez deberíamos conseguir alguna reliquia ancestral enterrada en un lugar incongruente que pudiera ayudarnos?/\n¿Acaso no hay un Detector Ancestral de Pasajes Enterrados?/\n¡¿O tal vez podríamos mejorar la Pala-Brújula de Pedro?!/\n¿O un Pico Mágico Ancestral forjado en acero con un nombre inapropiado para hacer un agujero en mi puerta?!/\n¿O una Cuerda Ancestral hecha de pelo de Hombre-Cabra para trepar por las ventanas de este maldito castillo?/\n[alistor]Mi señor... No estoy seguro de que.../\n[duke]¡Ya lo sé, Alistor! ¡Estamos en un callejón sin salida.../\n[alistor].../\n[duke].../\n[Bryan].../\n[jeanpierre]Hay un pasaje que va desde mi restaurante hasta el castillo... Lo uso para entregar banquetes.../\nPero no me atreví a sugerírselo... Tiene un fuerte olor a chucrut.../\n[duke]Jean-Pierre... Tú... ¡¿Qué...?!/\nMmmh, bien… Sigamos adelante...#.\n¡Aquí está nuestra solución!/\n¡Usaremos el camino que tiene un fuerte olor a chucrut!/\nVe al restaurante de Jean-Pierre sin más demora y usa el pasaje para llegar al castillo./\n¡Hacia la Sala del Trono! ¡Ohm Agad, más vale que te prepares!/\nY tú, Jean-Pierre... Una palabra.<Forward Act 5>/",
         "RU_DIAL": "[герой].../\n[герцог]Что?! Ты хочешь сказать, что не было секретного прохода?/\n[герой].../\n[герцог]Но он должен был быть там, куда ты пошел.../\n[алистор]Мой лорд... Он не использовался веками... Возможно, он зарос растительностью.../\n[герцог]Это возможно... Энрике не занимался садоводством там уже ages.../\nЧто тогда? Все потеряно?.../\nУ меня нет идей.../\nМожет, нам стоит раздобыть какой-нибудь предковый реликт, похороненный в неуместном месте, который мог бы нам помочь?/\nРазве нет детектора предков, похороненного прохода?/\nИли, может быть, мы могли бы улучшить Лопату-Компас Педро?!/\nИли какой-нибудь Магический Предковый Кирка, выкованная из стали с неподобающим названием, чтобы сделать дыру в моей двери?!/\nИли Предковая Веревка, сделанная из волос козломана, чтобы залезть в окна этого чертового замка?!/\n[алистор]Мой лорд... Я не уверен, что.../\n[герцог]Я знаю, Алистор! Мы в тупике.../\n[алистор].../\n[герцог].../\n[Брайан].../\n[жанпьер]Есть проход, который ведет от моего ресторана к замку... Я использую его для доставки банкетов.../\nНо я не осмеливался предложить это тебе... У него сильный запах квашеной капусты.../\n[герцог]Жан-Пьер... Ты... Что?!.../\nМмм... Ну... Давайте двигаться дальше...#\nВот наше решение!/\nМы пройдем по пути, который имеет сильный запах квашеной капусты!/\nИдите в ресторан Жан-Пьера без дальнейших задержек и используйте проход, чтобы добраться до замка./\nВ сторону Тронного Зала! Охм Агада лучше остерегаться!/\nА что касается тебя, Жан-Пьер... Слово.<Forward Act 5>/",
+        "KR_DIAL": "[hero].../\n[duke]뭐?! 비밀 통로가 없었다는 거야?/\n[hero].../\n[duke]하지만 네가 간 곳에 있어야 했어.../\n[alistor]주인님... 수세기 동안 사용되지 않았습니다... 아마도 식물에 덮여 있을 것입니다.../\n[duke]그럴 가능성이 있어... 엔리케는 그곳에서 오랫동안 정원을 가꾸지 않았어.../\n그럼 뭐? 모든 게 잃어버린 건가?.../\n아이디어가 없어.../\n어쩌면 우리가 도움이 될 수 있는 엉뚱한 곳에 묻힌 조상 유물을 찾아야 할까요?/\n조상 묻힌 통로 탐지기가 없나요?/\n아니면 페드로의 삽-나침반을 개선할 수 있을까요?!/\n아니면 내 문에 구멍을 내기 위해 부적절한 이름으로 만들어진 강철로 단조된 마법 조상 곡괭이?!/\n아니면 이 빌어먹을 성의 창문을 오르기 위해 염소인간 털로 만든 조상 밧줄?!/\n[alistor]주인님... 그게 확실한지 모르겠습니다.../\n[duke]알겠어, 알리스토르! 우리는 막다른 길에 있어.../\n[alistor].../\n[duke].../\n[Bryan].../\n[jeanpierre]내 레스토랑에서 성으로 이어지는 통로가 있어... 나는 그것을 연회를 배달하는 데 사용해.../\n하지만 나는 그것을 너에게 제안할 용기가 없었어... 강한 사우어크라우트 냄새가 나.../\n[duke]장-피에르... 너... 뭐?!.../\n음... 자, 넘어가자...#\n여기 우리의 해결책이야!/\n강한 사우어크라우트 냄새가 나는 길로 갈 거야!/\n지체 없이 장-피에르의 레스토랑으로 가서 통로를 이용해 성으로 가./\n왕좌의 방으로! 오므 아가드 조심해야 해!/\n그리고 너는, 장-피에르... 한마디.<Forward Act 5>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -461,10 +461,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[duke]Wenn das stimmt, was meine Tochter sagt ...#\nDann ist Ohm Eigad nun im Besitz der Kraft der Champions von Arah./\nDas ist ein noch nie dagewesenes Desaster.#\nEine echte Katastrophe .../\n[alistor]Das Siegel an der Tür ist weg./\n[duke]Oh ...#\nTatsache./\nDas sieht nach einer Einladung aus.#\nVielleicht sollten wir einfach anklopfen?/\n[alistor].../\n[hero].../\n[bryan].../\nKlar! Wieso nicht?<Forward Act 6>/",
         "ES_DIAL": "[duke]Si lo que dice mi hija es cierto...#\nEntonces, Ohm Agad ahora posee el poder de los Campeones de Arah.../\nEsto nunca antes había sucedido...#\nEs una catástrofe.../\n[alistor]El Sello de la puerta se ha roto.../\n[duke]Oh...#\nEs cierto.../\nParece una invitación...#\n¿Quizás deberíamos intentar golpear?/\n[alistor]…/\n[hero].../\n[bryan].../\n¡Claro! ¿Por qué no?<Forward Act 6>/",
         "RU_DIAL": "[duke]Если то, что говорит моя дочь, правда...#\nТогда Охм Агада теперь обладает силой Чемпионов Арах.../\nЭто никогда не происходило раньше...#\nЭто катастрофа.../\n[alistor]Печать на двери пропала.../\n[duke]Ох...#\nЭто правда.../\nЭто выглядит как приглашение...#\nМожет, нам стоит попробовать постучать?/\n[alistor].../\n[hero].../\n[bryan].../\nКонечно! Почему бы и нет?<Forward Act 6>/",
+        "KR_DIAL": "[duke]내 딸이 말하는 것이 사실이라면...#\n그렇다면 오므 아가드는 이제 아라의 챔피언들의 힘을 가지고 있다.../\n이런 일은 이전에 없었다...#\n재앙이다.../\n[alistor]문에 있는 봉인이 사라졌다.../\n[duke]오...#\n사실이다.../\n초대장처럼 보인다...#\n아마도 우리는 노크해보는 것이 좋을까?/\n[alistor].../\n[hero].../\n[bryan].../\n물론! 왜 안 되겠어?<Forward Act 6>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -479,10 +479,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[ohmji]Da bist du ja endlich .../\nDu hast zwar meine Kriegsfürsten besiegt, aber du kommst zu spät!#Ich habe nun die Kraft des Champions./\nSparen wir uns die Prahlerei und den üblichen Bösewicht-Monolog. Jetzt fliegen die Fetzen!<Start Boss>/",
         "ES_DIAL": "[ohmji]Finalmente.../\nAunque derrotaste a mis Señores de la Guerra, llegas demasiado tarde…#Ahora poseo el Poder del Campeón. /\nNo habrá un gran discurso ni monólogo... ¡Terminemos con esto!<Start Boss>/",
         "RU_DIAL": "[ohmji]Наконец-то.../\nХотя вы и победили моих Вождей, вы слишком поздно...#Теперь у меня есть Сила Чемпиона. /\nНе будет ни великой речи, ни монолога... Давайте закончим это!<Start Boss>/",
+        "KR_DIAL": "[ohmji]드디어.../\n내 군주들을 물리쳤지만, 너는 너무 늦었어...#나는 이제 챔피언의 힘을 가지고 있어. /\n웅장한 연설이나 독백은 없을 거야... 이걸 끝내자!<Start Boss>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -497,10 +497,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[ohmji]Nein .../\nDas kann doch nicht sein .../\nSchon wieder besiegt .../\nAdam ... hat dich gut trainiert .../",
         "ES_DIAL": "[ohmji]Yo.../\nNo.../\nDerrotado de nuevo.../\nAdam... te entrenó bien…/",
         "RU_DIAL": "[ohmji]Я.../\nНет.../\nСнова побежден.../\nАдам... хорошо тебя обучил.../",
+        "KR_DIAL": "[ohmji]나.../\n아니.../\n또 패배했어.../\n아담... 너를 잘 훈련시켰구나.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -515,10 +515,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Verrecke!|\nDas ist dein Ende!|\nDein letztes Stündlein hat geschlagen!|\nEs ist aus mit dir.|\nStirb, du Wurm!|",
         "ES_DIAL": "¡Conoce tu destino!|\n¡Este es el final!|\nNo habrá un mañana...|\nSe acabó para ti...|\n¡Muere, insecto!|",
         "RU_DIAL": "Встреть свою судьбу!|  \nЭто конец!|  \nЗавтра не будет...|  \nДля тебя всё кончено...|  \nУмри, Насекомое!|",
+        "KR_DIAL": "당신의 운명을 만나라!|  \n이것이 끝이다!|  \n내일은 없다...|  \n당신에게는 끝났다...|  \n벌레야 죽어라!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -533,10 +533,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "So was von langweilig ...|\nMehr hast du nicht drauf?|\nWas für eine Zeitverschwendung ...|\nIst das dein Ernst?|\nIch schlaf hier gleich ein ...|",
         "ES_DIAL": "Estoy aburrido...|\n¿Eso es todo lo que tienes?|\nEsto no tiene sentido...|\n¿No puedes hacerlo mejor?|\nEstoy a punto de quedarme dormido...|",
         "RU_DIAL": "Мне скучно...|\nЭто всё, что у тебя есть?|\nЭто бессмысленно...|\nНе можешь сделать лучше?|\nЯ вот-вот усну...|",
+        "KR_DIAL": "지루해...|  \n그게 전부야?|  \n이건 무의미해...|  \n더 잘할 수 없니?|  \n잠이 올 것 같아...|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -551,10 +551,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Das ist kein Kampf, das ist ein Witz.|\nEnttäuschend.|\nWieso gibst du nicht einfach auf?|\nIch könnte ewig so weitermachen, aber dir geht offenbar schon die Puste aus.|\nDieser Kampf ist eine alberne Zirkusnummer, und du bist der Clown!|",
         "ES_DIAL": "Esto no es una pelea, es una farsa. |\nQué decepción. | \n¿Por qué no te rindes? | \nPodría hacer esto todo el día, pero parece que ya estás al límite. | \nEsta pelea es un espectáculo patético, y tú eres el anfitrión.|",
         "RU_DIAL": "Это не бой, это фарс. |  \nКакое разочарование. |  \nПочему бы просто не сдаться? |  \nЯ мог бы делать это весь день, но, похоже, ты на пределе. |  \nЭтот бой - жалкое зрелище, а ты - клоун.|",
+        "KR_DIAL": "이건 싸움이 아니라 희극이야. |  \n정말 실망이야. |  \n왜 그냥 포기하지 않니? |  \n나는 하루 종일 이걸 할 수 있지만, 너는 한계에 다다른 것 같아. |  \n이 싸움은 한심한 쇼고, 너는 광대야.|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -569,10 +569,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Es reicht!|\nIch werde dich zu Staub zermalmen!|\nFürchte meinen Zorn!|\nIch musste deine Dreistigkeit nun lange genug ertragen!|\nBeenden wir es hier und jetzt!|",
         "ES_DIAL": "¡Basta! |\n¡Te haré polvo! |\n¡Siente mi ira! |\n¡Tu insolencia ha durado demasiado! |\n¡Así es como todo se termina ahora!|",
         "RU_DIAL": "Достаточно! |\nЯ сведу тебя в прах! |\nБойся моего гнева! |\nТвое дерзость длилась достаточно долго! |\nВот как все это заканчивается!|",
+        "KR_DIAL": "충분해! |\n나는 너를 먼지로 만들겠다! |\n내 분노를 두려워해라! |\n너의 무례함은 너무 오래 지속되었다! |\n이것이 모든 것이 끝나는 방법이다!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -587,10 +587,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[duke]Ohm Eigad ist besiegt!/\nDer Ruhm gebührt euch, meine Freunde!/\nIhr habt das Schloss gerettet! Endlich kann ich wieder in meinem eigenen Bett schlafen!/\n[ormos]Nicht schlecht für einen Menschen!/\n[oleros]Auch wenn wir Schlurmschmiede natürlich viel mächtiger sind./\n[almerolis]Und wir Puddings viel erhabener .../\n[alena]Du hättest uns hier echt auch etwas fixer rausholen können, muss ich sagen!#Mein Rock ist völlig zerknittert!/\n[duke]Aber, aber! Das was kein leichtes Unterfangen! Meine Güte, könnt ihr nicht ein wenig Begeisterung zeigen?#Alistor, mein Bester, was sagst du?/\n[alistor]... Ruhm und Ehre .../\n[duke]Mhm, schon besser ... Und du, Olorin?/\n[archmage]Pah! Das war doch reines Glück!/\n[duke]Undankbarer Haufen!#Aber meinen Dank hast du!/\nHerzlichen Glückwunsch!#Jetzt kannst du dir ein wohlverdientes Päuschen gönnen!<Forward End> /§",
         "ES_DIAL": "[duke]¡Ohm Agad ha sido derrotado! /\n¡Gloria a ustedes, mis amigos! /\n¡Han salvado este castillo! ¡Ahora, por fin, podré volver a dormir en mi propia cama! /\n[ormos]¡No está mal para ser un humano! /\n[oleros]Aunque no se compara con nuestros poderes como Slormartífices... /\n[almerolis]Y nuestra grandeza en Pudín... /\n[alena]¡Podrías habernos sacado de aquí un poco antes! #¡Mi falda está toda arrugada! /\n[duke]¡Vamos! ¡Esto no es poca cosa! ¡Un mínimo de entusiasmo, por el amor de Dios! #Mi querido Alistor, ¿tú qué dices? /\n[alistor]... Gloria... /\n[duke]Mmm, claro... ¿Y tú, Olorín? /\n[archmage]Mmm... ¡Solo fue un golpe de suerte! /\n[duke]¡Qué grupo tan desagradecido! #¡Yo si estoy agradecido! /\n¡Felicitaciones! #¡Te espera un merecido descanso! <Forward End> /§",
         "RU_DIAL": "[duke]Ом Агада был повержен! /\nСлава вам, мои друзья! /\nВы спасли этот замок! Теперь я наконец могу вернуться спать в своей постели! /\n[ormos]Неплохо для человека! /\n[oleros]Хотя это и не сравнимо с нашими силами как Слормартифицировщиков... /\n[almerolis]И нашим величием Пудинга... /\n[alena]Ты мог бы вытащить нас отсюда немного раньше, знаешь ли! #Моя юбка вся помята! /\n[duke]Давай же! Это не мелочь! Немного энтузиазма, ради бога! #Мой дорогой Алистор, что ты скажешь? /\n[alistor]... Слава... /\n[duke]Ммм, верно... А ты, Олорин? /\n[archmage]Фу... Просто удача! /\n[duke]Какая неблагодарная компания! #Ну, я вас благодарю! /\nПоздравляю! #Вас ждет заслуженный отдых! <Forward End> /§",
+        "KR_DIAL": "[duke]오므 아가드가 패배했습니다! /\n여러분에게 영광을! /\n여러분이 이 성을 구했습니다! 이제 드디어 내 침대에서 다시 잘 수 있습니다! /\n[ormos]인간치고는 나쁘지 않군요! /\n[oleros]우리 슬로르마르티피서의 힘과 비교할 수는 없지만... /\n[almerolis]그리고 우리의 푸딩 위대함... /\n[alena]조금 더 빨리 우리를 여기서 빼낼 수 있었잖아요! #내 치마가 다 구겨졌어요! /\n[duke]자, 이제! 이건 작은 일이 아니에요! 제발 조금은 열정을 가져요! #내 사랑하는 알리스토르, 당신은 뭐라고 생각하나요? /\n[alistor]... 영광... /\n[duke]음, 맞아요... 그리고 당신은, 올라린? /\n[archmage]쳇... 그냥 운이 좋았을 뿐이에요! /\n[duke]정말 고마운 무리네요! #그래도 감사합니다! /\n축하합니다! #잘 자격이 있는 휴식이 기다리고 있습니다! <Forward End> /§",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -604,11 +604,11 @@ export const GAME_DATA_DIALOGUES = [
         "JP_DIAL": "やあ、(少年&お嬢ちゃん)！",
         "DE_DIAL": "Hallo, (junger Mann&junge Dame)!",
         "ES_DIAL": "¡Hola, (jovencito&jovencita)!",
-        "RU_DIAL": "Привет, молодые (мужчина и девушка)!",
+        "RU_DIAL": "Привет, молодые (мужчина&девушка)!",
+        "KR_DIAL": "안녕 젊은 (남자&여자)!",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -623,10 +623,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hilfe! Das ist eine Katastrophe!",
         "ES_DIAL": "¡Ayuda! ¡Esto es un desastre!",
         "RU_DIAL": "Помогите! Это катастрофа!",
+        "KR_DIAL": "도와주세요! 재앙이에요!",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -641,10 +641,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Mein Schloss! Erobert!|\nEigad, dieser dreckige Schuft!|\nMeine Tochter ... Wir müssen sie finden!|\nSoll ich jetzt auf der Straße leben ...?|",
         "ES_DIAL": "¡Mi castillo fue invadido!|\n¡Agad... ese sucio bribón!|\n¡Debemos encontrar... a mi hija!|\n¿Estoy viviendo en la calle...?|",
         "RU_DIAL": "Мой замок! Вторглись!|\nАгад... Гнусный негодяй!|\nМоя дочь... Мы должны её найти!|\nЯ живу на улице... ?|",
+        "KR_DIAL": "내 성! 침략당했어!|\n아가드... 그 더러운 악당!|\n내 딸... 우리는 그녀를 찾아야 해!|\n나는 거리에서 살고 있어... ?|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -659,10 +659,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Lasst mich in Ruhe, ihr Schurken!",
         "ES_DIAL": "¡Déjenme en paz, maleantes!",
         "RU_DIAL": "Оставьте меня в покое, злодеи!",
+        "KR_DIAL": "나를 혼자 내버려 둬, 악당들!",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -676,11 +676,11 @@ export const GAME_DATA_DIALOGUES = [
         "JP_DIAL": "やあ、(少年&お嬢ちゃん)！/\nブライアンにお遣いを頼まれたわけじゃあるまいな？/",
         "DE_DIAL": "Hallo, (junger Mann&junge Dame)!/\nHat Bryan dich vielleicht geschickt, um seinen Proteindrink abzuholen?/",
         "ES_DIAL": "¡Hola, (jovencito&jovencita)!/\n¿Ramiro te envió a buscar su bebida proteica, verdad?/",
-        "RU_DIAL": "Привет, молодые (мужчина и девушка)!/\nБрайан не послал вас за его протеиновым напитком, не так ли?/",
+        "RU_DIAL": "Привет, молодые (мужчина&девушка)!/\nБрайан не послал вас за его протеиновым напитком, не так ли?/",
+        "KR_DIAL": "안녕 젊은 (남자&여자)!/\n브라이언이 너를 그의 단백질 음료를 가져오라고 보낸 거 아니지?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -695,10 +695,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du musst den Zerstörer unzerstörbarer und unverwüstlicher Siegel finden, um das Siegel des Ohm Eigad zu zerstören, das sowohl unzerstörbar als auch unverwüstlich ist./\nEr ist tief unter der Familiengruft der McMuckies vergraben, die sich am anderen Ende des Friedhofs befindet. Wir zählen auf dich!/",
         "ES_DIAL": "Debes encontrar el Destructor de Sellos Definitivo para destruir y romper el Sello de Ohm Agad, que es tanto Indestructible como Irrompible./\nEstá profundamente enterrado bajo la Cripta de los Recio en el extremo del Cementerio. ¡Contamos contigo!/",
         "RU_DIAL": "Вы должны найти Разрушителя Неразрушимых и Непробиваемых Печатов, чтобы уничтожить и сломать Печать Ома Агада, которая является как Неразрушимой, так и Непробиваемой./ Она глубоко зарыта под Криптой МакРипа на дальнем конце Кладбища. Мы рассчитываем на вас!/",
+        "KR_DIAL": "당신은 파괴할 수 없고 깨뜨릴 수 없는 봉인의 파괴자를 찾아야 오므 아가드의 봉인을 파괴하고 깨뜨릴 수 있습니다./ 그것은 묘지의 끝자락에 있는 맥립트의 지하 묘소 아래 깊이 묻혀 있습니다. 우리는 당신에게 의존하고 있습니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -713,10 +713,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du musst Grotagrom finden, um den Zerstörer unzerstörbarer und unverwüstlicher Siegel zurückzubekommen, den er gestohlen hat./\nGrotagrom ist ganz unten im Gefängnis, im allerdunkelsten Verlies eingesperrt. Wer weiß, was nach Ohm Eigads Angriff aus ihm geworden ist?/",
         "ES_DIAL": "Debes encontrar a Grotagrom para recuperar el Destructor de Sellos Definitivo que se robó./\nGrotagrom está encerrado en lo más profundo de La Prisión, en las mazmorras más oscuras. ¿Quién sabe qué ha sido de él desde el ataque de Ohm Agad?/",
         "RU_DIAL": "Вы должны найти Грогатром, чтобы заполучить Уничтожитель Неразрушимых и Непробиваемых Печатов, который он украл./  \nГрогатром заперт глубоко внутри Тюрьмы, в самых темных подземельях. Кто знает, что с ним стало с тех пор, как произошла атака Ома Агада?/",
+        "KR_DIAL": "그로타그롬을 찾아야 당신이 훔친 파괴할 수 없는 봉인의 파괴자를 손에 넣을 수 있습니다./ \n그로타그롬은 가장 어두운 던전인 감옥 깊숙한 곳에 갇혀 있습니다. 오므 아가드의 공격 이후 그가 어떻게 되었는지 아는 사람은 없습니다?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -731,10 +731,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Der Zerstörer unzerstörbarer und unverwüstlicher Siegel befindet sich im obersten Stock der Magierakademie./\nDu musst ihn holen! Um unser aller willen!/",
         "ES_DIAL": "El Destructor de Sellos Definitivo está ubicado en la cima de la Academia de Magia./\n¡Debes conseguirlo, por nuestro bien!/",
         "RU_DIAL": "Уничтожитель Неразрушимых и Непробиваемых Печатов находится на вершине Академии Магов./ Ты должен его получить! Ради нас!/",
+        "KR_DIAL": "파괴할 수 없고 깨지지 않는 봉인의 파괴자는 마법사 아카데미의 꼭대기에 있습니다./ 당신은 그것을 가져와야 합니다! 우리의 안위를 위해!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -749,10 +749,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Nun, hast du den Geheimgang gefunden, der ins Schloss führt?/",
         "ES_DIAL": "¿Y bien? ¿Encontraste el pasaje secreto al castillo?/",
         "RU_DIAL": "Ну, ты нашел секретный проход к замку?/",
+        "KR_DIAL": "글쎄, 성으로 가는 비밀 통로를 찾았나요?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -767,10 +767,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Begib dich zu Jean-Pierres Restaurant und benutze den Geheimgang, der nach Sauerkraut mieft!/\nAuf zum Thronsaal!/",
         "ES_DIAL": "Ve al restaurante de Jean-Pierre para tomar el pasaje que tiene un fuerte olor a chucrut./\n¡En camino a la Sala del Trono!/",
         "RU_DIAL": "Идите в ресторан Жан-Пьера, чтобы пройти мимо, где сильный запах квашеной капусты!/\nПо пути в Тронный зал!/",
+        "KR_DIAL": "장-피에르의 레스토랑으로 가서 강한 사우어크라우트 냄새가 나는 통로를 지나세요!/\n왕좌의 방으로 가는 길!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -785,10 +785,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wirst du Ohm Eigad demnächst mal besiegen?/\nIch möchte wirklich wieder nach Hause .../",
         "ES_DIAL": "¿Planeas derrotar a Ohm Agad dentro de poco?/\nRealmente me gustaría volver a casa.../",
         "RU_DIAL": "Ты планируешь победить Ома Агада в ближайшее время?/ Мне действительно хотелось бы вернуться домой.../",
+        "KR_DIAL": "오므 아가드를 곧 이길 계획이 있나요?/ 집에 가고 싶어요.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -803,10 +803,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich bin ein Pudding!",
         "ES_DIAL": "¡Soy un Pudín!",
         "RU_DIAL": "Я Пудинг!",
+        "KR_DIAL": "나는 푸딩이야!",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -821,10 +821,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich bin frei!|",
         "ES_DIAL": "¡Soy libre!|",
         "RU_DIAL": "Я свободен!|",
+        "KR_DIAL": "나는 자유다!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -839,10 +839,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Bist du bereit?|\nKomm vorbei, wenn du bereit bist.|\nMachen wir uns an die Arbeit.|",
         "ES_DIAL": "¿Estás listo?|\nVen a hablar conmigo cuando estés preparado.|\n¡Manos a la obra!|",
         "RU_DIAL": "Ты готов?|\nПодойди ко мне, когда будешь готов.|\nДавайте приступим к работе.|",
+        "KR_DIAL": "준비됐나요?|준비되면 저에게 이야기해 주세요.|일을 시작합시다.|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -857,10 +857,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hast du Prinzessin Alena gesehen? Der König macht sich Sorgen um sie.",
         "ES_DIAL": "¿Has visto a la Princesa Alena? El Rey está preocupado por ella.",
         "RU_DIAL": "Вы видели принцессу Алёну? Король беспокоится о ней.",
+        "KR_DIAL": "알레나 공주를 보셨나요? 왕이 그녀를 걱정하고 있습니다.",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -875,10 +875,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Danke, dass du mich hier rausgeholt hast. Wir sehen uns im Dorf!/",
         "ES_DIAL": "Gracias por sacarme de este lío. ¡Nos vemos en el pueblo!/",
         "RU_DIAL": "Спасибо, что вытащили меня из этой передряги. Увидимся в деревне!/",
+        "KR_DIAL": "이 혼란에서 나를 구해줘서 고마워. 마을에서 다시 보자!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -893,10 +893,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich heiße Palstrang und bin ein Pudding im Dienste Seiner Majestät./\nFür gewöhnlich arbeite ich in der Dorfverwaltung und kümmere mich darum, dass hier alles reibungslos läuft./\nWie alle Puddings habe ich Schlurmschmied-Fähigkeiten. Und mit der Hilfe von Pedros Kompassschaufel kann ich dir sicher behilflich sein./\nWenn du willst, kann ich dir Bereiche zeigen, wo die gegnerischen Kräfte besonders stark sind. Wo Ohm Eigad Truppen ansammelt, muss irgendwas Wichtiges sein./\nDann kannst du, wenn du möchtest, diese Gebiete aufsuchen und wieder unter unsere Kontrolle bringen./\nKomm vorbei, wenn du zu einer solchen Expedition aufbrechen möchtest./",
         "ES_DIAL": "Mi nombre es Palstrang, soy un Pudín al servicio del Rey./\nNormalmente, estoy a cargo de la administración del pueblo y me aseguro de que todo funcione sin problemas./\nComo otros Pudines, tengo talentos de Slormartífice... Y con la ayuda de la Pala-Brújula de Pedro, creo que podré ayudarte.../\nSi te interesa, puedo mostrarte las áreas donde la presencia enemiga es particularmente intensa... Deben ser importantes para Ohm Agad si ha movilizado tropas allí.../\nSi lo deseas, puedes ir a la región indicada y recuperar el control del área./\nVen a hablar conmigo cuando quieras partir a una Expedición./",
         "RU_DIAL": "Меня зовут Пальстранг, я Пудинг на службе у Короля./ \nОбычно я отвечаю за администрацию деревни и слежу за тем, чтобы все шло гладко./ \nКак и другие Пудинги, у меня есть таланты Слормартифицера... И с помощью Лопаты-Компаса Педро, я думаю, смогу помочь вам.../ \nЕсли вам интересно, я могу показать вам районы, где присутствие врагов особенно интенсивно... Они должны быть важны для Ома Агада, если он мобилизует там войска.../ \nЕсли вы хотите, вы можете затем отправиться в указанный регион и восстановить контроль над территорией./ Подойдите ко мне, когда захотите отправиться в Экспедицию./",
+        "KR_DIAL": "내 이름은 팔스트랑입니다, 저는 왕을 위한 푸딩입니다./  \n보통 저는 마을의 행정을 담당하고 모든 것이 원활하게 운영되도록 합니다./  \n다른 푸딩들과 마찬가지로 저는 슬로르마르티피서의 재능을 가지고 있습니다... 그리고 페드로의 삽-나침반의 도움으로, 제가 당신을 도울 수 있을 것 같습니다.../  \n관심이 있다면 적의 존재가 특히 강한 지역을 보여드릴 수 있습니다... 그곳에 군대를 동원한다면 오므 아가드에게 중요할 것입니다.../  \n원하신다면, 그 후에 지정된 지역으로 가서 그 지역의 통제를 회복할 수 있습니다./  \n탐험을 떠나고 싶을 때 저에게 이야기하세요./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -911,10 +911,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Es gibt mehrere Expeditionen, die deine Aufmerksamkeit erfordern. Bist du bereit, aufzubrechen?<Run Start?>/|\nMöchtest du dir die verfügbaren Expeditionen ansehen?<Run Start?>/|\nWollen wir es wieder angehen?<Run Start?>/|",
         "ES_DIAL": "Hay varias Expediciones que requieren de tu atención. ¿Estás listo para partir?<Run Start?>/|\n¿Quieres echar un vistazo a las Expediciones disponibles?<Run Start?>/|\nVolvamos a ello, ¿de acuerdo?<Run Start?>/|",
         "RU_DIAL": "Есть несколько Экспедиций, которые требуют вашего внимания. Вы готовы отправиться?<Run Start?>/|\nВы хотите взглянуть на доступные Экспедиции?<Run Start?>/|\nДавайте вернемся к этому, не так ли?<Run Start?>/|",
+        "KR_DIAL": "여러 개의 탐험이 당신의 주의를 필요로 합니다. 준비가 되셨나요?<Run Start?>/|\n사용 가능한 탐험을 살펴보시겠습니까?<Run Start?>/|\n다시 시작해 볼까요?<Run Start?>/|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -929,10 +929,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ah! Hast du mich erschreckt!/\nWas ... Was machst du hier?/\nIch? Also, äh ...#\nDer König hat mich gebeten, ihm ein paar Sachen aus dem Schloss zu holen./\nEs wäre ja sonst auch verdächtig, dass ich hier herumschleiche./\n.../\nTja, ähm ...#\nDu suchst sicher den Thronsaal?/\nWenn das so ist, dann geh durch die Küche, bis du eine Treppe siehst, die nach oben führt./\nGenau ... Von dort erreichst du die Trophäenhalle.#\nDie Trophäenhalle sollte völlig monsterfrei sein./\nVon dort kommst du in die königlichen Gemächer, und dahinter ist schon der Thronsaal./\nViel, äh, Glück .../",
         "ES_DIAL": "¡Ay! ¡Me asustaste!/\n¿Qué... qué haces aquí?/\n¿Yo? Bueno, mm...#\nEl Rey me pidió que le trajera algunos objetos del castillo./\nSino, sería sospechoso que anduviera por aquí./\n.../\nSí, bueno, mm...#\n¿Estás buscando la Sala del Trono?/\nMuy bien, entonces... Sigue por la parte trasera de la cocina hasta que encuentres una escalera que te llevará al piso superior.../\nDesde allí, podrás llegar a la Sala de Trofeos...#\nNo debería haber ningún monstruo allí.../\nLa Sala de Trofeos te llevará a la cámara del Rey, justo antes de la Sala del Trono./\nBuena... suerte.../",
         "RU_DIAL": "Ах! Ты меня напугал!/\nЧто... Что ты здесь делаешь?/\nЯ? Ну, э...#\nКороль попросил меня принести ему несколько предметов из замка./\nВ противном случае, было бы подозрительно, если бы я бродил здесь./\n.../\nДа, ну, э...#\nТы ищешь Тронный зал?/\nХорошо, тогда... Проходи через заднюю кухню, пока не найдешь лестницу, которая приведет тебя на верхний этаж.../\nДа... Оттуда ты сможешь добраться до Зала трофеев...#\nТам не должно быть никаких монстров.../\nЗал трофеев приведет тебя в покои короля, прямо перед Тронным залом./\nУдачи.../",
+        "KR_DIAL": "아! 너 나 놀랐어!/\n뭐... 여기서 뭐하고 있어?/\n나? 음...#\n왕이 나에게 성에서 몇 가지 물건을 가져오라고 했어./\n그렇지 않으면 여기서 돌아다니는 게 의심스러울 거야./\n.../\n응, 음...#\n왕좌의 방을 찾고 있어?/\n좋아, 그럼... 뒷주방을 지나서 위층으로 올라가는 계단을 찾을 때까지 가세요.../\n응... 거기서 트로피 홀에 도착할 수 있어...#\n거기에는 괴물이 전혀 없어야 해.../\n트로피 홀이 왕좌의 방 바로 앞에 있는 왕의 방으로 안내할 거야./\n행운을 빌어.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -947,10 +947,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Oh, du schon wieder!/\nIch? Äh, ja, der König hat mich gebeten, in Vorbereitung auf seine Rückkehr den Boden zu wischen. Er möchte, dass bis dahin alles schön sauber ist./\nAber sag mal ... Bist du unterwegs nie in einen Hinterhalt geraten?/\nNa dann ... Geh mal schön weiter ... Die Richtung stimmt./\n[bryan]Was für ein komisches kleines Kerlchen./",
         "ES_DIAL": "¡Oh, eres tú otra vez!/\n¿Yo? Mm, sí, el Rey me pidió que barriera los pisos para preparar su regreso. Quiere que todo esté limpio./\nPero, emm... ¿No te has encontrado con emboscadas en el camino?/\nBueno, entonces... sigue adelante... vas en la dirección correcta.../\n[bryan]Qué personaje tan peculiar./",
         "RU_DIAL": "О, это снова ты!/\nЯ? Эм, да, король попросил меня подмести полы в подготовке к его возвращению. Он хочет, чтобы все было чисто./\nНо, эээ... Ты не столкнулся с засадами на своем пути?/\nНу, тогда... продолжай... ты движешься в правильном направлении.../\n[bryan]Какой странный маленький персонаж./",
+        "KR_DIAL": "오, 또 너구나!/\n나? 음, 맞아, 왕이 그의 귀환을 준비하기 위해 바닥을 쓸어달라고 나에게 부탁했어. 그는 모든 것이 깨끗하길 원해./\n하지만, 어... 가는 길에 매복을 만난 적은 없니?/\n음, 그럼... 계속 가... 너는 올바른 방향으로 가고 있어.../\n[bryan]참 이상한 작은 캐릭터군./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -965,10 +965,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Oh, du schon wieder?!/\nDu lebst ja immer noch!#\nÄh ... Upps ... Tja, ähm ...#\nGratuliere, du lebst noch!#\nIch freu mich für dich!/\nGeh einfach in die Richtung weiter, da ist es sicher!#\nKeinerlei Gefahren zu erwarten! Einfach geradeaus bis zum Thronsaal!/\n[bryan]Er benimmt sich wirklich, wirklich verdächtig./",
         "ES_DIAL": "¡Oh, eres tú de nuevo!/\n¿Aún no estás muerto?#\nMm... Ups... Ah, mm...#\n¡Felicidades, no estás muerto!#\nEstoy muy feliz por ti./\nSigue por esa dirección que estarás a salvo.#\nNo hay absolutamente ningún peligro. ¡Directo a la Sala del Trono!/\n[bryan]Tiene un comportamiento muy, muy sospechoso./",
         "RU_DIAL": "О, это снова ты?!/\nТы еще не мертв?#\nЭм... Ой... Да, эм...#\nПоздравляю, ты не мертв!#\nЯ очень рад!/\nИди в том направлении, это безопасно!#\nСовершенно нет никакой опасности! Прямо к Тронному залу!/\n[bryan]У него действительно очень, очень подозрительное поведение./",
+        "KR_DIAL": "오, 또 너구나?!/\n아직 죽지 않았어?#\n음... 오ops... 응, 음...#\n축하해, 넌 죽지 않았어!#\n나는 매우 기뻐!/\n그 방향으로 계속 가, 안전해!#\n전혀 위험이 없어! 직진해서 왕좌의 방으로!/\n[bryan]그는 매우, 매우 의심스러운 행동을 하고 있어./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -983,10 +983,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hmmm ...|",
         "ES_DIAL": "Mmm...|",
         "RU_DIAL": "Мммх...|",
+        "KR_DIAL": "음...|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1001,10 +1001,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Was zum Kuckuck ...|",
         "ES_DIAL": "¿Por qué demonios...?|",
         "RU_DIAL": "Почему на свете...|",
+        "KR_DIAL": "도대체 왜...|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1019,10 +1019,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wir sind verloren ...|\nFrüher gab es noch echte Helden ...|\nHast du nicht eine Mission zu erfüllen?|\nIch will nicht mit dir reden.|\nLass mich jetzt in Ruhe.|",
         "ES_DIAL": "Está todo perdido...|\n¿Dónde están los verdaderos héroes de antaño...?|\n¿No tienes una misión que continuar?|\nNo quiero hablar contigo...|\nVamos, déjame de una vez...|",
         "RU_DIAL": "Все потеряно...|\nГде настоящие герои прошлых лет...|\nУ тебя нет квеста, который нужно продолжить?|\nЯ не хочу с тобой говорить...|\nДавай, оставь меня сейчас...|",
+        "KR_DIAL": "모든 것이 잃어버렸어...|  \n옛날의 진정한 영웅들은 어디에 있지...|  \n계속할 퀘스트가 없니?|  \n너와 이야기하고 싶지 않아...|  \n제발, 이제 나를 떠나줘...|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1037,10 +1037,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du wirst uns noch alle ins Verderben führen, das spüre ich./",
         "ES_DIAL": "Nos llevarás a nuestra perdición... Lo puedo sentir./",
         "RU_DIAL": "Ты приведешь нас к нашей гибели... Я это чувствую./",
+        "KR_DIAL": "당신은 우리를 파멸로 이끌 것입니다... 나는 그것을 느낍니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1055,10 +1055,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Gehen wir schnell zurück zum König! Ich muss ihn über meine schreckliche Entdeckung unterrichten!/",
         "ES_DIAL": "¡Apresurémonos a hablar con el Rey! ¡Debo contarle sobre mi terrible descubrimiento!/",
         "RU_DIAL": "Давайте поторопимся и поговорим с Королем! Я должен поговорить с ним о своем ужасном открытии!/",
+        "KR_DIAL": "왕에게 가서 이야기하자! 나는 그에게 내 끔찍한 발견에 대해 이야기해야 해!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1073,10 +1073,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Worauf wartest du noch? Ich habe dir alles gesagt. Du musst so schnell wie möglich den Zerstörer unzerstörbarer und unverwüstlicher Siegel finden!/",
         "ES_DIAL": "Bueno, ¿qué estás esperando? No tengo nada más que decirte... ¡Debes encontrar el Destructor de Sellos Definitivo lo antes posible! /",
         "RU_DIAL": "Ну что ты ждешь? Мне больше нечего тебе сказать... Ты должен как можно скорее найти Уничтожителя Неразрушимых и Непробиваемых Печатов! /",
+        "KR_DIAL": "뭘 기다리고 있는 거야? 더 이상 너에게 말할 게 없어... 가능한 한 빨리 파괴할 수 없는 불가침의 봉인을 찾아야 해! /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1091,10 +1091,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Was willst du noch? Grotagrom hat den Zerstörer unzerstörbarer und unverwüstlicher Siegel gestohlen. Also musst du ihn so schnell wie möglich ausfindig machen!/",
         "ES_DIAL": "¿Qué quieres? Grotagrom ha robado el Destructor de Sellos Definitivo. Así que debes encontrarlo lo antes posible. /",
         "RU_DIAL": "Ну что ты хочешь? Грогатром украл Уничтожитель Неразрушимых и Непробиваемых Печатов. Так что ты должен найти его как можно скорее! /",
+        "KR_DIAL": "잘하시는군요! 그로타그롬이 파괴할 수 없는 불가침 봉인을 훔쳤습니다. 그래서 가능한 한 빨리 그것을 찾아야 합니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1109,10 +1109,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Was nun? Der Zerstörer unzerstörbarer und unverwüstlicher Siegel ist im obersten Stock der Akademie.#Hast du Angst vorm Treppensteigen?/",
         "ES_DIAL": "Bueno, ¿y qué? El Destructor de Sellos Definitivo está en la cima de la Academia.#¿Le tienes miedo a unas escaleras?/",
         "RU_DIAL": "Ну? Уничтожитель Неразрушимых и Непробиваемых Печатов на вершине Академии.#Ты боишься каких-то лестниц?/",
+        "KR_DIAL": "잘? 파괴할 수 없고 깨지지 않는 봉인의 파괴자가 아카데미의 정점에 있다.#계단이 무섭니?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1127,10 +1127,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Worauf wartest du noch? Ich habe dir doch alles erklärt. Durchquere die Gärten und finde den Geheimgang, der ins Schloss führt!/",
         "ES_DIAL": "Bueno, ¿qué estás esperando? No tengo más nada que decirte... ¡Tienes que cruzar los Jardines para encontrar el pasaje secreto que lleva al castillo!/",
         "RU_DIAL": "Ну, чего ты ждешь? Мне больше нечего тебе сказать... Тебе нужно пересечь Сады, чтобы найти секретный проход, который ведет в замок!/",
+        "KR_DIAL": "자, 무엇을 기다리고 있나요? 당신에게 더 이상 할 말이 없어요... 성으로 이어지는 비밀 통로를 찾으려면 정원을 건너야 해요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1145,10 +1145,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Worauf wartest du noch? Begib dich ins „Vieux Homard“, um dich ins Schloss zu schleichen./",
         "ES_DIAL": "Bueno, ¿qué estás esperando? Ve al restaurante \"Vieux Homard\" para infiltrarte en el castillo./",
         "RU_DIAL": "Ну, чего ты ждешь? Иди в ресторан \"Vieux Homard\", чтобы проникнуть в замок./",
+        "KR_DIAL": "자, 무엇을 기다리고 있나요? 성에 침투하기 위해 \"비유 옴바르\" 레스토랑으로 가세요./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1163,10 +1163,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du bist ja immer noch da .../",
         "ES_DIAL": "Aún merodeando por aquí.../",
         "RU_DIAL": "Все еще болтаюсь.../",
+        "KR_DIAL": "아직도 어슬렁거리고 있어.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1181,10 +1181,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "",
         "ES_DIAL": "",
         "RU_DIAL": "",
+        "KR_DIAL": "",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1199,10 +1199,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Welch Grauen musste ich durchmachen!/\nAlso, worauf wartest du?#\nIch bin eine Jungfrau in Nöten, darf ich dich also höflichst bitten, mich hier rauszuholen?/",
         "ES_DIAL": "¡Qué horror he experimentado!/\nBueno, ¿qué estás esperando?#\n¡Soy una damisela en apuros, así que te pido amablemente que me ayudes a salir de aquí!/",
         "RU_DIAL": "Какой ужас я испытала!/\nНу, чего ты ждешь?#\nЯ девушка в беде, поэтому я любезно прошу тебя помочь мне выбраться отсюда!/",
+        "KR_DIAL": "무슨 끔찍한 일을 겪었는지!/\n자, 무엇을 기다리고 있나요?#\n저는 곤경에 처한 처녀이니, 제발 저를 여기서 구해 주세요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1217,10 +1217,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[duke]Alena, meine Tochter! Was ist geschehen?!/\n[alena]Vati! Es war furchtbar!#\nIch fand mich an einem gar schmuddeligen Ort wieder .../\nMit ihm ... Dem Schmurla... Dem Schnurma... Dem Schluma.../\n[duke]Mit Ohm Eigad?! Dem Schlurmanten?!/\n[alena]Genau!/\nUnd dann begann ich mit einem Mal zu leuchten und fühlte mich ganz ... stark .../\n[bryan]Der Wirt hatte recht ... Sie ist diejenige, die meine Championkräfte geerbt hat./\n[bryan]Das ist es, was Ohm Eigad immer wollte./\n[alena]Der böse Mann meinte dann, dass er lange auf diesen Moment gewartet habe. Was ich ziemlich widerlich fand und ihm auch zu verstehen gab .../\nDaraufhin steckte er mich in einen Apparat, um meine Kräfte zu extrahieren, wie er sagte./\nDas hat erst mal eine ganze Weile gedauert ...#\nAnschließend übergab er mich mit zufriedener Miene an Palstrang. Und dann kam (der Abenteurer&die Abenteuerin), um mich zu retten./\n(Er&Sie) gab Palstrang eine verdiente Tracht Prügel, und nun sind wir wieder hier./\n[duke]...#\nDas Wichtigste ist, dass du wohlauf bist!/\n[duke](Abenteurer&Abenteuerin), auf ein Wort, bitte .../",
         "ES_DIAL": "[duke]¡Alena, hija mía! ¿Qué te ha sucedido?/\n[alena]¡Padre, fue horrible!#\nEstaba en un lugar sórdido…/\nCon él... El Slorman... El Slarmon... El Slorma.../\n[duke]¡¿Ohm Agad?! ¡¿El Slormante?!/\n[alena]¡Así es! ¡Él mismísimo!/\nY en un momento, comencé a irradiar y a sentirme… poderosa.../\n[bryan]El tabernero tenía razón... Ella es quien heredó mis poderes de Campeón.../\n[bryan]Eso es lo que Ohm Agad ha estado buscando todo este tiempo./\n[alena]Este malvado hombre dijo que había estado esperando esto por mucho tiempo... Me pareció repugnante, así que lo enfrenté…/\nLuego me colocó en un extraño aparato... Para extraer mi poder./\nDuró mucho tiempo...#\nDespués, me entregó a Palstrang, con una mirada satisfecha... Y luego, el aventurero llegó para salvarme./\nLe dio una buena paliza a Palstrang... Y después regresamos.../\n[duke]...#\nLo que importa es que estás sana y salva.../\n[duke]Aventurero, una palabra, por favor.../",
         "RU_DIAL": "[duke]Алена, моя дочь! Что случилось?!/\n[alena]Отец! Это было ужасно!#\nЯ оказалась в грязном месте.../\nС ним... Слорминком... Сланрмо... Слормом.../\n[duke]Ом Агада?! Слормансер?!/\n[alena]Именно! Он!/\nИ в какой-то момент я начала излучать и чувствовать... силу.../\n[bryan]Хозяин гостиницы был прав... Она та, кто унаследовала мои силы Чемпиона.../\n[bryan]Вот что Ом Агада искал всё это время./\n[alena]Этот злой человек тогда сказал, что ждал этого долгое время... Мне это показалось отвратительным, поэтому я его отчитала.../\nОн затем поместил меня в странную машину... Чтобы извлечь мою силу, сказал он./\nЭто длилось очень долго...#\nПосле этого он передал меня Палстрангу с удовлетворённым видом... А затем пришёл искатель приключений, чтобы спасти меня./\nОн хорошенько отделал Палстранга... Затем мы вернулись.../\n[duke]...#\nВажно, что ты в безопасности.../\n[duke]Искатель приключений, слово, пожалуйста.../",
+        "KR_DIAL": "[duke]알레나, 내 딸! 무슨 일이야?!/\n[alena]아버지! 끔찍했어요!#\n나는 더러운 곳에 갇혔어요.../\n그와 함께... 슬로르민크... 슬란르모... 슬로르메.../\n[duke]옴 아가드?! 슬로르맨서?!/\n[alena]정확해요! 그 사람이에요!/\n그리고 어느 순간, 나는 방출하기 시작했고... 강력함을 느꼈어요.../\n[bryan]여관 주인이 맞았어요... 그녀가 내 챔피언 능력을 물려받은 사람이에요.../\n[bryan]그게 바로 옴 아가드가 계속해서 찾고 있던 것이에요./\n[alena]그 악당은 자신이 이를 오랫동안 기다려왔다고 말했어요... 나는 그것이 역겹다고 생각해서 그에게 따졌어요.../\n그는 나를 이상한 장치에 넣었어요... 내 힘을 추출하기 위해서라고 했어요./\n아주 오랜 시간이 걸렸어요...#\n그 후, 그는 만족스러운 표정으로 나를 팔스트랑에게 넘겼어요... 그리고 모험가가 나를 구하러 왔어요./\n그는 팔스트랑에게 좋은 주먹질을 했어요... 그리고 우리는 돌아왔어요.../\n[duke]...#\n중요한 것은 네가 안전하다는 거야.../\n[duke]모험가, 한마디 해주세요.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1235,10 +1235,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": ".../",
         "ES_DIAL": ".../",
         "RU_DIAL": ".../",
+        "KR_DIAL": ".../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1253,10 +1253,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Mein Bruder Oleros ist keinen müden Goldus wert!",
         "ES_DIAL": "¡Mi hermano Oleros no vale un Orus!",
         "RU_DIAL": "Мой брат Олерос не стоит ни одного Голдуса!",
+        "KR_DIAL": "내 형 오레로스는 골두스의 가치가 없다!",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1271,10 +1271,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Aaah! Frische Luft!",
         "ES_DIAL": "¡Aaah! ¡Aire fresco!",
         "RU_DIAL": "Ааа! Свежий воздух!",
+        "KR_DIAL": "아아! 신선한 공기!",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1289,10 +1289,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich kann Schlurm manipulieren wie kein anderer!|\nMan sagt, wenn ein Champion stirbt, wird er zu einem Schlurmi ...|\nSteh auuuf, wenn du ein Pudding bist ...|\nMein Bruder Oleros ist keinen müden Goldus wert!|",
         "ES_DIAL": "¡Puedo manipular el Slorm como nadie más!|\nSe dice que cuando un Campeón muere, se convierte en un Slormy....|\n¡Aplaude si estás orgulloso de ser un Pudín!|\n¡Mi hermano Oleros no vale un Orus!|",
         "RU_DIAL": "Я могу манипулировать Слормом как никто другой!|\nГоворят, что когда Чемпион умирает, он становится Слормом...|\nЕсли ты гордишься тем, что ты Пудинг, хлопай в ладоши!|\nМой брат Олерос не стоит ни одного Голдуса!|",
+        "KR_DIAL": "나는 슬롬을 누구보다 잘 조작할 수 있어!|\n챔피언이 죽으면 슬롬이가 된다고 해...|\n푸딩이 자랑스럽다면 손을 쳐!|\n내 형 올레로스는 골두스의 가치도 없어!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1307,10 +1307,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich habe viel zu tun. Wieso gehst du nicht meinem Bruder Oleros auf den Senkel? Der wird zwar auch sagen, dass er viel zu tun hat – aber das ist gelogen./",
         "ES_DIAL": "Tengo mucho que hacer... ¿Por qué no molestas a mi hermano Oleros...? Te dirá que está ocupado... pero es mentira.../",
         "RU_DIAL": "У меня много дел... Почему бы тебе не побеспокоить моего брата Олероса... Он скажет тебе, что занят... но это ложь.../",
+        "KR_DIAL": "할 일이 많아요... 왜 제 형 올레로스에게 귀찮게 하지 않나요... 그는 바쁘다고 할 거예요... 하지만 그건 거짓말이에요.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1325,10 +1325,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Danke für deine Hilfe! Ich schaffe es alleine wieder ins Dorf. Wenn du zurück bist, komm bei mir vorbei./",
         "ES_DIAL": "¡Gracias por tu ayuda! Puedo volver al pueblo por mi cuenta. Ven a verme cuando estés de regreso. /",
         "RU_DIAL": "Спасибо за вашу помощь! Я смогу вернуться в деревню сам. Приходите ко мне, когда вернетесь /",
+        "KR_DIAL": "도와주셔서 감사합니다! 저는 혼자서 마을로 돌아갈 수 있습니다. 돌아오면 저를 보러 오세요 /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1343,10 +1343,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Danke, dass du mich befreit hast!#\nIch heiße Ormos und bin ein Pudding!#\nIch und meine Brüder Oleros und Almerolis, wir sind die königlichen Schlurmschmiede./\nWir sind supertalentiert! Ich kann zum Beispiel den Schlurm, den du in deine Fertigkeiten investiert hast, extrahieren!/\nDas ist so ziemlich das Einzige, was ich kann ... Aber immerhin! Kannst du’s denn?!/\nBesuche mich, wenn du Schlurm aus deinen Fertigkeiten extrahieren willst./",
         "ES_DIAL": "¡Gracias por liberarme!#\nMi nombre es Ormos, ¡soy un Pudín!#\nMis hermanos, Oleros y Almerolis, y yo somos los Slormartífices del castillo./\n¡Somos supertalentosos! Yo, personalmente, tengo la habilidad de extraer el Slorm que invertiste en tus Habilidades./\nEs prácticamente lo único que puedo hacer… ¡Pero no es poca cosa! ¿Sabes siquiera cómo hacerlo?/\nVuelve a verme cuando quieras extraer el Slorm que has usado en tus Habilidades./",
         "RU_DIAL": "Спасибо, что освободили меня!#\nМеня зовут Ормос, я Пудинг!#\nЯ и мои братья, Олерос и Альмеролис, являемся Слормартификациями замка./\nМы супер талантливы! Я сам обладаю способностью извлекать Слорм, который вы вложили в свои Навыки!/\nЭто, в общем-то, единственное, что я могу делать... Но это не ничего!... Вы вообще знаете, как?/\nВернитесь и увидьте меня, когда захотите извлечь Слорм, который вы вложили в свои Навыки./",
+        "KR_DIAL": "감사합니다, 저를 자유롭게 해주셔서!#\n제 이름은 오르모스, 저는 푸딩입니다!#\n저와 제 형제들, 올라로스와 알메롤리스는 성의 슬로르마르티피서입니다./\n우리는 정말 재능이 뛰어나요! 저 자신은 당신이 기술에 투자한 슬로름을 추출할 수 있는 능력이 있습니다!/ \n그게 제가 할 수 있는 거의 유일한 일입니다... 하지만 아무것도 아닌 건 아닙니다!... 당신은 방법을 알고 있나요?/\n기술에 투자한 슬로름을 추출하고 싶을 때 다시 저를 찾아와 주세요./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1361,10 +1361,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Lass mich raten, du hast Schlurm in die falsche Fertigkeit investiert und ich soll’s wieder richten?<Reset Skills?>/",
         "ES_DIAL": "Déjame adivinar. Invertiste Slorm en la Habilidad equivocada... Y ahora quieres mi ayuda, ¿verdad?<Reset Skills?>/",
         "RU_DIAL": "Позволь мне угадать, ты вложил Slorm не в тот навык... И теперь ты хочешь моей помощи?<Reset Skills?>/",
+        "KR_DIAL": "내가 추측해보자면, 당신은 잘못된 스킬에 Slorm을 투자했군요... 그리고 이제 제 도움이 필요하다는 건가요?<Reset Skills?>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1379,10 +1379,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Bitteschön, da hast du’s.",
         "ES_DIAL": "Ahí lo tienes... Está hecho...",
         "RU_DIAL": "Вот и всё... Это сделано...",
+        "KR_DIAL": "거기 가세요... 끝났어요...",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1397,10 +1397,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Da gab’s nichts zu extrahieren. Danke auch für die Zeitverschwendung.",
         "ES_DIAL": "No había nada que extraer... Gracias por hacer perdernos el tiempo a todos...",
         "RU_DIAL": "Нечего было извлекать... Спасибо за то, что потратили время всех...",
+        "KR_DIAL": "추출할 것이 없었습니다... 모두의 시간을 낭비해 주셔서 감사합니다...",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1415,10 +1415,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Schalt das nächste Mal dein Hirn ein, bevor du fragst .../",
         "ES_DIAL": "La próxima vez, piénsalo antes de preguntar.../",
         "RU_DIAL": "В следующий раз подумай об этом, прежде чем спрашивать.../",
+        "KR_DIAL": "다음 번에는 물어보기 전에 생각해 보세요.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1433,10 +1433,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Danke, dass du mich befreit hast!",
         "ES_DIAL": "¡Gracias por sacarme de aquí!",
         "RU_DIAL": "Спасибо, что вытащили меня!",
+        "KR_DIAL": "나를 구해줘서 고마워!",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1451,10 +1451,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "",
         "ES_DIAL": "",
         "RU_DIAL": "",
+        "KR_DIAL": "",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1469,10 +1469,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich kann Schlurm manipulieren wie kein anderer!|\nMan sagt, wenn ein Champion stirbt, wird er zu einem Schlurmi ...|\nSteh auuuf, wenn du ein Pudding bist ...|\nMein Bruder Ormos ist ein Pickel am Hintern der Geschichte!|",
         "ES_DIAL": "¡Puedo manipular el Slorm como nadie más!|\nSe dice que cuando un Campeón muere, se convierte en un Slormy...|\n¡Aplaude si estás orgulloso de ser un Pudín!|\n¡Mi hermano Ormos es un pesado!|",
         "RU_DIAL": "Я могу манипулировать Слормом как никто другой!|\nГоворят, что когда Чемпион умирает, он становится Слормом...|\nЕсли ты гордишься тем, что ты Пудинг, хлопай в ладоши!|\nМой брат Ормос - это прыщ!|",
+        "KR_DIAL": "나는 슬롬을 누구보다 잘 조작할 수 있어!|\n챔피언이 죽으면 슬롬이가 된다고 해...|\n푸딩이 자랑스럽다면 손을 쳐!|\n내 형 오르모스는 여드름이야!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1487,10 +1487,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich habe viel zu tun. Wieso gehst du nicht meinem Bruder Ormos auf den Zeiger? Der wird zwar auch sagen, dass er viel zu tun hat – aber das ist gelogen./",
         "ES_DIAL": "Tengo mucho que hacer... ¿Por qué no molestas a mi hermano Ormos...? Te dirá que está ocupado... pero es mentira.../",
         "RU_DIAL": "У меня много дел... Почему бы тебе не побеспокоить моего брата Ормоса... Он скажет тебе, что занят... но это ложь.../",
+        "KR_DIAL": "할 일이 많아... 왜 내 형 오르모스를 괴롭히지 않니... 그는 바쁘다고 말할 거야... 하지만 그건 거짓이야.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1505,10 +1505,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Danke für deine Hilfe! Ich schaffe es alleine wieder ins Dorf. Wenn du zurück bist, komm bei mir vorbei./",
         "ES_DIAL": "¡Gracias por tu ayuda! Puedo volver al pueblo por mi cuenta. Ven a verme cuando estés de regreso. /",
         "RU_DIAL": "Спасибо за вашу помощь! Я смогу вернуться в деревню сам. Приходите ко мне, когда вернетесь /",
+        "KR_DIAL": "도와주셔서 감사합니다! 저는 혼자서 마을로 돌아갈 수 있습니다. 돌아오면 저를 보러 오세요 /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1523,10 +1523,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich sehe, dass du Schlurm zu nutzen weißt, um dich zu stärken. Das ist clever ... aber ich bin ein richtiger Schlurmschmied!/\nIch habe hart gearbeitet, um die Schlurmmanipulation zu perfektionieren. Das Ergebnis steht nun vor dir:/\nIch bin Oleros, der Große Manipulator! Und ich kann den Schlurm, den du in deine Ahnenfertigkeiten investiert hast, extrahieren!/\nJa, so ähnlich wie mein Bruder ... na und? Ich bin viel besser als er. Das hat Mama mir immer gesagt!!/\nAußerdem arbeite ich mit Ahnenfertigkeiten. Das hat ja wohl mehr Prestige!!/\nBesuche mich, wenn du deine Entscheidungen bereust./",
         "ES_DIAL": "Veo que sabes usar el Slorm para fortalecerte... Es muy ingenioso... pero ¡yo soy el verdadero Slormartífice!/\nHe trabajado duro para alcanzar nuevos estándares en la manipulación del Slorm... El resultado está frente a ti:/\n¡Soy Oleros, el Gran Manipulador! Y puedo extraer el Slorm que has invertido en tus Habilidades Ancestrales./\nSí, es un poco como lo que hace mi hermano... ¿y qué? Soy mucho mejor que él... ¡Mamá siempre me lo dijo!/\nAdemás, yo me encargo de las Habilidades Ancestrales... ¡Es un trabajo más prestigioso!/\nVuelve a verme si te arrepientes de tus decisiones./",
         "RU_DIAL": "Я вижу, что ты можешь использовать Slorm, чтобы укрепить себя... Это умно... но я настоящий Slormartificer!/\nЯ усердно работал, чтобы достичь новых высот манипуляции Slorm... Результат перед тобой:/\nЯ Олерос, Великий Манипулятор! И я могу извлечь Slorm, который ты вложил в свои Предковые Навыки!/\nДа, это немного похоже на моего брата... и что с того? Я намного лучше него... Мама всегда говорила мне это!!/\nКроме того, я занимаюсь Предковыми Навыками... Это гораздо более престижно!!/\nВернись и увидь меня, если пожалеешь о своих выборах./",
+        "KR_DIAL": "나는 네가 Slorm을 사용하여 자신을 강화할 수 있다는 것을 보았다... 똑똑하군... 하지만 나는 진짜 Slormartificer야!/\n나는 Slorm 조작의 새로운 경지에 도달하기 위해 열심히 일했다... 결과는 너 앞에 있다:/\n나는 Oleros, 위대한 조작자다! 그리고 나는 네가 조상 기술에 투자한 Slorm을 추출할 수 있다!/\n그래, 내 형과 비슷하긴 해... 그래서 뭐? 나는 그보다 훨씬 낫다... 엄마는 항상 나에게 그렇게 말했어!!/\n게다가, 나는 조상 기술을 돌본다... 훨씬 더 명망이 있다!!/\n네 선택을 후회한다면 다시 와서 나를 보아라./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1541,10 +1541,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Was darf es heute sein? Einmal Schlurmextraktion? Was anderes kann ich sowieso nicht ...<Reset Elements?>/",
         "ES_DIAL": "¿Qué será hoy? ¿Una pequeña extracción de Slorm? Como sea, eso es todo lo que puedo hacer... <Reset Elements?>/",
         "RU_DIAL": "Что это будет сегодня? Немного извлечения Слорма? В любом случае, это всё, что я могу сделать... <Reset Elements?>/",
+        "KR_DIAL": "오늘은 뭐가 될까요? 슬롬 추출 좀 할까요? 어차피 그게 전부니까요... <Reset Elements?>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1559,10 +1559,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Danke, es ist mir stets eine Freude!/",
         "ES_DIAL": "Gracias, ¡siempre es un placer!/",
         "RU_DIAL": "Спасибо, всегда приятно!/",
+        "KR_DIAL": "감사합니다, 항상 기쁨입니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1577,10 +1577,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Bravo ... Ganz toller Witz ... Da gab’s nichts zu extrahieren./",
         "ES_DIAL": "Bueno... Excelente broma... No había nada que extraer... /",
         "RU_DIAL": "Молодец... Отличная шутка... Нечего было извлекать... /",
+        "KR_DIAL": "잘했어요... 훌륭한 농담이에요... 추출할 것이 없었어요... /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1595,10 +1595,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Was für eine Zeitverschwendung ... Gehst du dann langsam mal?/",
         "ES_DIAL": "Qué pérdida de tiempo... ¿Puedes irte ya?/",
         "RU_DIAL": "Какое desperdicio времени... Можешь уйти от меня сейчас?/",
+        "KR_DIAL": "시간 낭비가 뭐야... 지금 나를 떠날 수 있어?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1613,10 +1613,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hast du meinen schicken Hut gesehen?/|",
         "ES_DIAL": "¿Has visto mi hermoso sombrero?/|",
         "RU_DIAL": "Вы видели мою красивую шляпу?/|",
+        "KR_DIAL": "내 아름다운 모자를 봤나요?/|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1631,10 +1631,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Danke, dass du uns befreit hast, meinen schicken Hut und mich!",
         "ES_DIAL": "¡Gracias por sacarnos de allí, a mí y a mi hermoso sombrero!",
         "RU_DIAL": "Спасибо, что вытащили нас оттуда, меня и мою красивую шляпу!",
+        "KR_DIAL": "거기서 우리를 빼내줘서 고마워, 나와 내 아름다운 모자!",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1649,10 +1649,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Meine Brüder Ormos und Oleros sind Pflaumen!|\nKennst du dich mit Hüten aus?|\nIch sammle Hüte!|\nIch wünschte, ich hätte so einen Hut wie Palstrang!|",
         "ES_DIAL": "Mis hermanos Ormos y Oleros son unos sacos de papas.|\n¿Sabes algo sobre sombreros?|\n¡Colecciono sombreros!|\n¡Me encantaría tener el mismo sombrero que Palstrang!|",
         "RU_DIAL": "Мои братья Ормос и Олерос - картошки!|\nТы что-нибудь знаешь о шляпах?|\nЯ собираю шляпы!|\nЯ бы хотел иметь такую же шляпу, как у Пальстранга!|",
+        "KR_DIAL": "내 형제 오르모스와 올레로스는 감자야!|\n모자에 대해 아는 게 있어?|\n나는 모자를 수집해!|\n팔스트랑과 같은 모자가 있었으면 좋겠어!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1667,10 +1667,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Na? Was gibt’s? Noch nie einen Pudding mit so ’nem schicken Hut gesehen?",
         "ES_DIAL": "Bueno... ¿Qué pasa? ¿Nunca has visto un pudín con un sombrero tan bonito?",
         "RU_DIAL": "Ну... Что случилось? Ты никогда не видел пудинг с такой красивой шляпой раньше?",
+        "KR_DIAL": "음... 무슨 일이야? 이렇게 예쁜 모자를 쓴 푸딩을 본 적이 없니?",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1685,10 +1685,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du hast dir mit meiner Befreiung ganz schön Zeit gelassen .../\nAber immerhin konnte ich in meinem Gefängnis einiges über Schlurm lernen, was nützlich sein könnte./\nWir sehen uns im Dorf./",
         "ES_DIAL": "Te tomaste tu tiempo para liberarme.../\nAl menos tuve tiempo para estudiar y creo que puedo ser de ayuda.../\nNos veremos en el pueblo./",
         "RU_DIAL": "Ты не спешил освободить меня.../\nПо крайней мере, у меня было время изучить окрестности, и я думаю, что смогу помочь.../\nУвидимся в деревне./",
+        "KR_DIAL": "너는 나를 자유롭게 하는 데 시간을 들였구나.../\n적어도 나는 그곳에서 공부할 시간이 좀 있었고, 도와줄 수 있을 것 같아.../\n마을에서 다시 보자./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1703,10 +1703,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich habe im Riss einiges gesehen, was sich als nützlich erwiesen hat./\nIch habe gerade mit Palstrang gesprochen und wir konnten unser Wissen kombinieren, um deinen Aktionsradius zu erweitern und die Präzision der Kompassschaufel zu verbessern!/\nAb jetzt ist es dir möglich, gefährlichere Expeditionen anzutreten und viel bessere Belohnungen zu finden!/\nViel Glück!/",
         "ES_DIAL": "Gracias a lo que vi en la Brecha, pude obtener información útil.../\nAcabo de hablar con Palstrang y combinamos nuestros conocimientos para expandir tu campo de acción y la precisión de la Pala-Brújula./\nAhora podrás realizar Expediciones más peligrosas y obtener mejores recompensas./\n¡Buena suerte!/",
         "RU_DIAL": "Спасибо за то, что я увидел в Разломе, я смог получить полезную информацию.../\nЯ только что говорил с Пальстрангом, и мы смогли объединить наши знания, чтобы расширить ваше поле действия и точность Лопато-Компаса!/\nТеперь вы сможете отправляться в более опасные Экспедиции и находить гораздо лучшие награды!/\nУдачи!/",
+        "KR_DIAL": "브리치에서 본 덕분에 유용한 정보를 회수할 수 있었습니다.../\n저는 방금 팔스트랑과 이야기했고, 우리는 우리의 지식을 결합하여 당신의 행동 범위와 삽-나침반의 정확성을 확장할 수 있었습니다!/\n이제 더 위험한 탐험에 나서고 훨씬 더 나은 보상을 찾을 수 있게 될 것입니다!/\n행운을 빕니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1721,10 +1721,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wie laufen die Expeditionen? Machst du Fortschritte?",
         "ES_DIAL": "¿Cómo van las Expediciones? ¿Estás progresando?",
         "RU_DIAL": "Как идут Экспедиции? Вы делаете успехи?",
+        "KR_DIAL": "탐험은 어떻게 진행되고 있나요? 진전을 이루고 있나요?",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1739,10 +1739,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Es gibt mehrere Expeditionen, die deine Aufmerksamkeit erfordern. Bist du bereit, aufzubrechen?<Run Start?>/|\nMöchtest du dir die verfügbaren Expeditionen ansehen?<Run Start?>/|\nWollen wir es wieder angehen?<Run Start?>/|",
         "ES_DIAL": "Hay varias Expediciones que requieren de tu atención. ¿Estás listo para partir?<Run Start?>/|\n¿Quieres echar un vistazo a las Expediciones disponibles?<Run Start?>/|\nVolvamos a ello, ¿de acuerdo?<Run Start?>/|",
         "RU_DIAL": "Есть несколько Экспедиций, которые требуют вашего внимания. Вы готовы отправиться? <Run Start?>/|\nВы хотите взглянуть на доступные Экспедиции? <Run Start?>/|\nДавайте вернемся к этому, не так ли? <Run Start?>/|",
+        "KR_DIAL": "여러 개의 탐험이 당신의 주의를 필요로 합니다. 준비가 되셨나요?<Run Start?>/|\n사용 가능한 탐험을 살펴보시겠습니까?<Run Start?>/|\n다시 시작해 볼까요?<Run Start?>/|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1757,10 +1757,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hallo!#\nPalstrang ist verschwunden, also hat der König mich gebeten, für ihn einzuspringen./\nVielleicht kommt er gar nicht mehr wieder .../\nWie dem auch sei ...#\nBist du bereit, zu einer weiteren Expedition aufzubrechen?<Run Start?>/",
         "ES_DIAL": "¡Hola! #\nPalstrang ha desaparecido, así que el Rey me pidió que lo reemplazara./\nTal vez nunca regrese.../\nEn fin...#\n¿Estás listo para embarcarte en otra Expedición? <Run Start?>/",
         "RU_DIAL": "Привет! #\nПалстранг исчез, поэтому король попросил меня заменить его./\nМожет быть, он никогда не вернется.../\nВ любом случае...#\nТы готов снова отправиться в экспедицию? <Run Start?>/",
+        "KR_DIAL": "안녕하세요! #\n팔스트랑이 사라져서 왕이 저에게 그를 대신하라고 요청했습니다./\n그는 아마 다시는 돌아오지 않을 것입니다.../\n어쨌든...#\n다시 탐험을 시작할 준비가 되셨나요? <Run Start?>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1775,10 +1775,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich habe mich dem Studium der Schlurm-Schnitter verschrieben.",
         "ES_DIAL": "Me dedico al estudio de las Segadoras de Slorm...",
         "RU_DIAL": "Я посвящаю себя изучению Слорм Жнецов...",
+        "KR_DIAL": "나는 Slorm Reapers의 연구에 헌신합니다...",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1793,10 +1793,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Faszinierende Erfahrung!",
         "ES_DIAL": "¡Una experiencia fascinante!",
         "RU_DIAL": "Увлекательный опыт!",
+        "KR_DIAL": "매혹적인 경험!",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1811,10 +1811,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich liebe Schlurm-Schnitter!|\nSchlurm-Schnitter sind mein Leben!|\nIch habe mich dem Studium der Schlurm-Schnitter verschrieben.|\nSchlurm-Schnitter könnten unsere Rettung sein ...|\nHast du neue Schlurm-Schnitter gefunden?|",
         "ES_DIAL": "Me encantan las Segadoras de Slorm... |\nLas Segadoras de Slorm son mi vida.|\nEstoy muy metido en el estudio de Las Segadoras de Slorm.|\nLas Segadoras de Slorm podrían salvarnos...|\n¿Encontraste nuevas Segadoras de Slorm?|",
         "RU_DIAL": "Я люблю Slorm Reapers... |\nSlorm Reapers - это моя жизнь!|\nЯ посвящаю себя изучению Slorm Reapers!|\nSlorm Reapers могут спасти нас...|\nТы нашел новых Slorm Reapers ?|",
+        "KR_DIAL": "슬롬 리퍼스를 사랑해요... |\n슬롬 리퍼스는 제 인생이에요!|\n슬롬 리퍼스를 연구하는 데 헌신하고 있어요!|\n슬롬 리퍼스가 우리를 구할 수 있어요...|\n새로운 슬롬 리퍼스를 찾았나요?|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1829,10 +1829,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "„Altior, der Erste Schlurm-Schnitter, der mächtigste von allen, geschaffen von Arah höchstselbst, offenbart sich nur demjenigen, der ...“#\nJa? Komm später wieder, ich lese gerade eine packende Schriftrolle über Schlurm-Schnitter./",
         "ES_DIAL": "\"Altior, la Primera Segadora de Slorm, la más poderosa de todas, la venido del mismo Arah, solo se revelará a una persona con... \"#\n¿Sí? Vuelve más tarde... Estoy leyendo un pergamino emocionante sobre las Segadoras de Slorm.../",
         "RU_DIAL": "\"Алтиор, Первый Жнец Слорм, самый мощный из всех, тот, кто от самого Арах, будет раскрыт только человеку с... \"#\nДа? Вернись позже... Я читаю захватывающий свиток о Жнецах Слорм.../",
+        "KR_DIAL": "\"알티오르, 첫 번째 슬롬 수확자, 모든 것 중 가장 강력한, 아라 자신이 선택한 자, 오직... \"#\n네? 나중에 돌아와... 나는 슬롬 수확자에 대한 흥미진진한 두루마리를 읽고 있어.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1847,10 +1847,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Was für eine erstaunliche Erfahrung! Ich muss schnell ins Dorf zurück, um ... Oh, aber ich sehe, dass du einen Schlurm-Schnitter hast!/\nIch bin selbst Experte auf dem Gebiet! Besuch mich, wenn du im Dorf bist, ich kann dir ein paar Tipps geben./",
         "ES_DIAL": "¡Qué experiencia increíble! Tengo que regresar al pueblo de inmediato para... Oh, pero veo que tienes una Segadora de Slorm./\n¡Estás frente a un experto! Ven a verme al pueblo, podría darte un par de consejos./",
         "RU_DIAL": "Какой удивительный опыт! Мне нужно быстро вернуться в деревню, чтобы... О, но я вижу, что у вас есть Слорм Жнец!/\nЯ сам эксперт! Приходите ко мне в деревню, я мог бы дать вам пару советов./",
+        "KR_DIAL": "정말 놀라운 경험이에요! 빨리 마을로 돌아가야겠어요... 아, 하지만 당신이 슬롬의 사신을 가지고 있군요!/\n저도 전문가입니다! 마을에서 저를 찾아오세요, 팁을 한두 개 줄 수 있어요./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1865,10 +1865,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Mein Name ist Geranium! Die Leute nennen mich oft den Schnitter-Prof!/\nSchlurm-Schnitter sind wirklich spannende Waffen, weißt du? Sie haben eine eigene Seele ... erweckt durch den Schlurm .../\nEs gibt zahlreiche von ihnen und jeder wurde seinerzeit für einen Champion von Arah geschmiedet./\nSchlurm-Schnitter sind begehrte Sammlerobjekte, aber manchmal werden sie noch für den Kampf benutzt./\nAngesichts deiner Inkompetenz im Kampf bist du sicher ein Sammler, so wie ich. Respekt! Das sind wirklich seltene Waffen, sehr schwer zu finden!/\n[hero].../\n[geranium]Ah ... Ich verstehe ... Du bist eher auf der Kämpferseite .../\nDann lass mich dir helfen. Du nutzt überhaupt nicht das volle Potenzial deines Schnitters, schau ... *klick*<Anim Blessing>/\nDas wär’s. Von nun an wird dein Schlurm-Schnitter jedes Mal stärker, wenn du Schlurm absorbierst. Ist das nicht wunderbar?/\nAuf deinen Abenteuern wirst du sicher noch weitere finden, aber pass auf, sie sind äußerst selten! Besuch mich wieder, sobald du einen neuen gefunden hast!<Reaper Pity>/",
         "ES_DIAL": "Mi nombre es Geranio. ¡La gente a menudo me llama el Prof. Segadora!/\nLas Segadoras de Slorm son armas fascinantes, ¿sabes? Tienen su propia alma... despertada por el Slorm... /\nHay muchas de ellas y cada una ha sido forjada para un Campeón de Arah del pasado./\nPara algunos, las Segadoras de Slorm son objetos de colección, otros las usan para luchar./\nDada tu incompetencia para el combate, debes ser un coleccionista como yo... ¡Tienes mérito! ¡Son armas muy raras y difíciles de encontrar!/\n[hero].../\n[geranium]Ah... Ya veo... Los usas para luchar.../\nEntonces déjame ayudarte... No las estás usando a su máximo potencial, mira... *clic*<Anim Blessing>/\nY listo... A partir de ahora, tu Segadora de Slorm se volverá más poderosa cada vez que absorbas Slorm, ¿no es maravilloso? /\nPodrás encontrar otras durante tus aventuras, pero ten cuidado, ¡son muy raras! Vuelve a verme tan pronto encuentres tu primer Segadora.<Reaper Pity>/",
         "RU_DIAL": "Меня зовут Герань! Люди часто называют меня Профессор Жнец!/\nСлорм Жнецы — это захватывающее оружие, знаешь ли... У них есть своя душа... пробуждённая Слормом... /\nИх много, и каждое было выковано для Чемпиона Арахи из прошлого./\nДля некоторых Слорм Жнецы — это предметы для коллекционирования, другие используют их для боёв./\nУчитывая вашу некомпетентность в бою, вы, должно быть, коллекционер, как и я... У вас есть заслуга! Это очень редкое оружие и очень трудно найти!/\n[герой].../\n[герань]Ах... Я вижу... Вы используете его для боя.../\nТогда позвольте мне помочь вам... Вы совсем не используете его на полную мощность, смотрите... *щелчок*<Anim Blessing>/\nВот оно... С этого момента ваш Слорм Жнец будет становиться сильнее каждый раз, когда вы поглощаете Слорм, разве это не замечательно? /\nВы сможете найти других во время своих приключений, но будьте осторожны, они очень редкие! Вернитесь ко мне, как только найдёте своего первого!<Reaper Pity>/",
+        "KR_DIAL": "내 이름은 제라늄이야! 사람들은 종종 나를 수확자 교수라고 불러!/\n슬롬 수확자는 흥미로운 무기야... 그들은 저마다의 영혼을 가지고 있어... 슬롬에 의해 깨어났지... /\n그들은 많고 각각은 과거 아라의 챔피언을 위해 만들어졌어./\n어떤 이들에게는 슬롬 수확자가 수집할 아이템이지만, 다른 이들은 그것을 싸움에 사용해./\n너의 전투 능력이 부족하니, 나처럼 수집가일 거야... 너는 가치가 있어! 그것들은 매우 희귀한 무기고 찾기 힘들어!/\n[영웅].../\n[제라늄]아... 알겠어... 너는 그것을 싸우는 데 사용하고 있구나.../\n그럼 내가 도와줄게... 너는 그것을 전혀 최대한 활용하고 있지 않아, 봐... *클릭*<Anim Blessing>/\n이게 바로 그거야... 이제부터 너의 슬롬 수확자는 슬롬을 흡수할 때마다 더 강력해질 거야, 멋지지? /\n모험 중에 다른 것들을 찾을 수 있을 거지만 조심해, 그것들은 매우 희귀해! 첫 번째 것을 찾는 대로 나에게 다시 와!<Reaper Pity>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1883,10 +1883,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Schön, dich wiederzusehen! Wie kommt deine Sammlung voran? Lass mal sehen .../\nDu hast nur einen! Streng dich etwas mehr an./",
         "ES_DIAL": "Es bueno verte de nuevo. ¿Cómo va tu colección? Déjame echarle un vistazo... /\n¡Solo tienes una! Tienes que esforzarte más... /",
         "RU_DIAL": "Хорошо видеть тебя снова. Как у тебя дела с коллекцией? Давай посмотрим... /\nУ тебя только одна! Тебе нужно постараться... /",
+        "KR_DIAL": "다시 만나서 반가워요. 수집은 잘 하고 있나요? 한번 보죠... /\n당신은 하나밖에 없어요! 노력을 해야 해요... /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1901,10 +1901,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Schön, dich wiederzusehen! Wie kommt deine Sammlung voran? Lass mal sehen .../\nWie ich sehe, hast du noch nicht viele Schlurm-Schnitter gefunden. Such weiter!/",
         "ES_DIAL": "Es bueno verte de nuevo. ¿Cómo va tu colección? Déjame echarle un vistazo... /\nVeo que no has encontrado muchas Segadoras de Slorm... Sigue buscando.../",
         "RU_DIAL": "Хорошо видеть тебя снова. Как у тебя дела с коллекцией? Давай посмотрим... /\nЯ вижу, что ты не нашел много Слорм Жнецов... Продолжай искать.../",
+        "KR_DIAL": "다시 만나서 반가워요. 수집은 잘 하고 있나요? 한번 보죠... /\n슬롬 리퍼를 많이 찾지 못한 것 같네요... 계속 찾아보세요.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1919,10 +1919,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Schön, dich wiederzusehen! Wie kommt deine Sammlung voran? Lass mal sehen .../\nWie ich sehe, hast du kaum neue Schlurm-Schnitter gefunden. Schade .../",
         "ES_DIAL": "Es bueno verte de nuevo. ¿Cómo va tu colección? Déjame echarle un vistazo... /\nVeo que no has encontrado muchas nuevas Segadoras de Slorm... Qué pena.../",
         "RU_DIAL": "Хорошо видеть тебя снова. Как у тебя дела с коллекцией? Давай посмотрим... /\nЯ вижу, что ты не нашел много новых Слорм Жнецов... Жаль.../",
+        "KR_DIAL": "다시 만나서 반가워요. 수집은 잘 하고 있나요? 한번 보죠... /\n새로운 Slorm Reapers를 많이 찾지 못한 것 같네요... 아쉽네요.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1937,10 +1937,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Schön, dich wiederzusehen! Wie kommt deine Sammlung voran? Lass mal sehen .../\nWie ich sehe, hast du nun einige Schlurm-Schnitter, das ist schon mal ein Anfang. Na los! Such noch mehr!/",
         "ES_DIAL": "Es bueno verte de nuevo. ¿Cómo va tu colección? Déjame echarle un vistazo... /\nVeo que ahora tienes algunas Segadoras de Slorm... ¡Es un buen comienzo! ¡Vamos! ¡Ve a buscar más!/",
         "RU_DIAL": "Хорошо видеть тебя снова. Как у тебя дела с коллекцией? Давай посмотрим... /\nЯ вижу, что теперь у тебя есть несколько Слорм Жнецов... Это хороший старт! Давай! Иди и получи еще!/",
+        "KR_DIAL": "다시 만나서 반가워요. 수집은 잘 하고 있나요? 한번 보죠... /\n이제 Slorm Reapers를 몇 개 소유하고 있군요... 좋은 시작이에요! 자, 더 많이 가져오세요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1955,10 +1955,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Schön, dich wiederzusehen! Wie kommt deine Sammlung voran? Lass mal sehen .../\nToll! Du hast bereits mehr Schlurm-Schnitter als jeder andere Sammler!/",
         "ES_DIAL": "Es bueno verte de nuevo. ¿Cómo va tu colección? Déjame echarle un vistazo... /\n¡Es genial! ¡Ya tienes más Segadoras de Slorm que cualquier otro coleccionista! /",
         "RU_DIAL": "Хорошо видеть тебя снова. Как у тебя дела с коллекцией? Давай посмотрим... /\nЭто здорово! У тебя уже больше Слорм Жнецов, чем у любого коллекционера до тебя! /",
+        "KR_DIAL": "다시 만나서 반가워요. 수집은 잘 하고 계신가요? 한번 보죠... /\n대단해요! 당신은 이전의 어떤 수집가보다 더 많은 슬롬의 사신을 소유하고 있군요! /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1973,10 +1973,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Schön, dich wiederzusehen! Wie kommt deine Sammlung voran? Lass mal sehen .../\nDeine Sammlung ist ja gigantisch! Dank dir kann ich vielleicht endlich mein Buch „Legendäre Schnitter“ fertigschreiben!/\nWeiter so!/",
         "ES_DIAL": "Es bueno verte de nuevo. ¿Cómo va tu colección? Déjame echarle un vistazo... /\n¡Tu colección es gigantesca! ¡Gracias a ti, podré terminar de escribir mi libro: \"Segadoras de Leyenda\"!/\n¡Sigue así! /",
         "RU_DIAL": "Хорошо видеть тебя снова. Как у тебя дела с коллекцией? Давай посмотрим... /\nТвоя коллекция гигантская! Благодаря тебе я смогу закончить писать свою книгу: \"Жнецы Легенды\"!/\nПродолжай в том же духе! /",
+        "KR_DIAL": "다시 만나서 반가워요. 당신의 수집품은 어떻게 되고 있나요? 한번 보죠... /\n당신의 수집품은 거대하군요! 당신 덕분에 제 책 \"전설의 수확자들\"을 완성할 수 있을 것 같아요! /\n계속 그렇게 하세요! /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -1991,10 +1991,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Schön, dich wiederzusehen! Wie ich sehe, hast du deinen ersten Schlurm-Schnitter gefunden. Ganz wunderbar! Ich hoffe, er gefällt dir./\nWusstest du, dass man Schlurm-Schnitter nur finden kann, indem man Schlurm-Risse zerstört?/\nWenn du also neue Schlurm-Schnitter finden willst, solltest du am besten dort hingehen, wo Risse in großer Zahl auftauchen – zum Beispiel in Expeditionen!/",
         "ES_DIAL": "¡Es bueno verte de nuevo! ¡Veo que encontraste tu primera Segadora de Slorm! Excelente... Excelente... ¡Espero que te guste!/\n¿Sabías que? Las Segadoras de Slorm solo pueden encontrarse destruyendo Brechas de Slorm!/\nAsí que, si buscas nuevas Segadoras de Slorm, lo mejor es buscarlas donde aparecen muchas Brechas... como en las Expediciones!/",
         "RU_DIAL": "Рад тебя снова видеть! Я вижу, ты нашел своего первого Слорм Жнеца. Отлично... Отлично... Надеюсь, он тебе понравится!/\nТы знал? Слорм Жнецы могут быть найдены только путем разрушения Слорм Разломов!/\nТак что, если ты ищешь новых Слорм Жнецов, лучше всего искать там, где Разломы появляются в большом количестве... например, в Экспедициях!/",
+        "KR_DIAL": "다시 만난 것이 반갑습니다! 첫 번째 슬롬의 사신을 찾으신 것 같군요. 훌륭합니다... 훌륭합니다... 마음에 드시길 바랍니다!/\n아셨나요? 슬롬의 사신은 슬롬 균열을 파괴해야만 찾을 수 있습니다!/\n따라서 새로운 슬롬의 사신을 찾고 계신다면, 균열이 많이 나타나는 곳을 찾는 것이 최선입니다... 탐험과 같은 곳에서!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2009,10 +2009,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Vielleicht kommt dir ein neuer Schlurm-Schnitter mal schwächer vor als der, den du benutzt. Dann hätte ich vielleicht etwas, was dich interessieren könnte .../\nDieses Amulett habe ich von einem früheren Champion erhalten.#Ich habe es nie an Bryan weitergegeben, da er bekanntermaßen inkompetent war.#Möge er in Frieden ruhen./\n[bryan]Hey!!/\n[geranium]Ich hoffe, dass es dir von Nutzen sein wird.<Geranium Amulet Gift>/",
         "ES_DIAL": "Si las nuevas Segadoras de Slorm que encuentres parecen ser más débiles que la que estás usando, podría tener algo que te interese.../\nEste es un amuleto que obtuve de un antiguo Campeón…#Nunca se lo pasé a Ramiro porque era notoriamente incompetente.#Que su alma descanse en paz./\n[bryan]¡Oye!/\n[geranium]Espero que te sea útil.<Geranium Amulet Gift>/",
         "RU_DIAL": "Если новые Слорм Жнецы, которые вы находите, кажутся слабее того, который вы используете, у меня может быть кое-что, что вас заинтересует.../\nЭто амулет, который я получил от древнего Чемпиона...#Я никогда не передавал его Брайану, потому что он был известен своей некомпетентностью.#Пусть его душа покоится с миром./\n[bryan]Эй!/\n[geranium]Надеюсь, вы найдете его полезным.<Geranium Amulet Gift>/",
+        "KR_DIAL": "새로 찾은 Slorm Reapers가 당신이 사용하고 있는 것보다 약해 보인다면, 당신에게 흥미로운 것이 있을지도 모릅니다.../\n이것은 제가 고대 챔피언에게서 받은 부적입니다...#브라이언에게는 결코 넘기지 않았습니다. 그가 악명 높은 무능력자였기 때문입니다.#그의 영혼이 평화롭게 쉬기를 바랍니다./\n[bryan]안녕!/\n[geranium]유용하게 사용되길 바랍니다.<Geranium Amulet Gift>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2027,10 +2027,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du besitzt nun mehrere Schlurm-Schnitter! Gratuliere! Ich hoffe, du hast Freude daran!/\nWusstest du, dass einige Schlurm-Schnitter sich weiterentwickeln und ihre Form verändern, wenn sie ausreichend Schlurm absorbiert haben?/\nIn den meisten Fällen werden sie einfach mächtiger, aber manchmal können sich auch ihre Effekte drastisch ändern!/",
         "ES_DIAL": "¡Ahora tienes varias Segadoras de Slorm! ¡Felicitaciones! ¡Espero que lo estés disfrutando!/\n¿Sabías que algunas Segadoras de Slorm evolucionan y cambian de forma cuando han absorbido suficiente Slorm!/\nEn la mayoría de los casos, solo se vuelven más poderosas, pero en otros, ¡sus efectos pueden cambiar drásticamente!/",
         "RU_DIAL": "Теперь у вас есть несколько Жнецов Слорма! Поздравляю! Надеюсь, вы отлично проводите время!/\nВы знали? Некоторые Жнецы Слорма эволюционируют и меняют свою форму, когда поглотят достаточно Слорма!/\nВ большинстве случаев они просто становятся более мощными, в других их эффекты могут измениться кардинально!/",
+        "KR_DIAL": "여러 개의 슬롬의 사신을 보유하게 되셨군요! 축하합니다! 즐거운 시간 보내고 계시길 바랍니다!/\n알고 계셨나요? 일부 슬롬의 사신은 충분한 슬롬을 흡수하면 진화하고 형태가 변화합니다!/\n대부분의 경우, 그들은 단지 더 강력해지지만, 다른 경우에는 그들의 효과가 극적으로 변화할 수 있습니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2045,10 +2045,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hallo, (mein junger Freund&meine junge Freundin)! Du hast Glück, ich bin gerade über ein interessantes Archiv gestolpert! Das hier habe ich dabei herausgefunden:/\nWusstest du, dass Schlurm-Schnitter ihre wahre Natur vor ihren Besitzern verbergen? Ihre wahren Kräfte sind wilder ... unkontrollierbarer .../\nJeder Schlurm-Schnitter hat eine wahre Gestalt, in der sich seine eigentliche Natur offenbart. Wir nennen sie ... die „Urform“./\nWenn du die Urform eines Schlurm-Schnitters enthüllen willst, musst du mit ihm viele Schlachten schlagen, bis er dich für würdig befindet./\nDas ist allerdings alles reine Theorie, da ich so etwas bisher noch nie beobachtet habe./\nViel Glück!/",
         "ES_DIAL": "¡Hola, mi joven amigo! Tienes suerte, acabo de encontrar un archivo interesante... Aquí está lo que descubrí:/\n¿Sabías que las Segadoras de Slorm esconden su verdadera naturaleza de aquellos que las usan... Su verdadero poder es más salvaje... más incontrolable... /\nCada Segadora de Slorm tiene una verdadera forma... Donde su verdadera naturaleza se revela... Esta forma se llama... la Forma Primordial... /\nSi quieres desvelar la Forma Primordial de una Segadora de Slorm, tendrás que luchar muchas batallas con ella... Hasta que te considere digno.../\nAunque es pura especulación, ya que nunca he podido observar este fenómeno.../\n¡Buena suerte! /",
         "RU_DIAL": "Привет, мой молодой друг! Тебе повезло, я только что нашел интересный архив... Вот что я обнаружил:/\nТы знал? Слорм Жнецы скрывают свою истинную природу от тех, кто их использует... Их истинная сила более дикая... более неконтролируемая... /\nКаждый Слорм Жнец имеет истинную форму... Где раскрывается их истинная природа... Мы называем эту форму... Первозданной Формой... /\nЕсли ты хочешь раскрыть Первозданную Форму Слорм Жнеца, тебе придется с ним сразиться во многих битвах... Пока он не сочтет тебя достойным.../\nЭто чистая спекуляция, однако, так как я не смог наблюдать это явление.../\nУдачи! /",
+        "KR_DIAL": "안녕, 젊은 친구! 운이 좋구나, 나는 방금 흥미로운 아카이브를 발견했어... 내가 발견한 것은 이거야:/\n너는 알고 있었니? 슬롬 수확자들은 그것을 사용하는 사람들에게 그들의 진정한 본성을 숨겨... 그들의 진정한 힘은 더 거칠고... 더 통제할 수 없어... /\n각 슬롬 수확자는 진정한 형태를 가지고 있어... 그들의 진정한 본성이 드러나는 곳... 우리는 이 형태를... 원시 형태라고 불러... /\n슬롬 수확자의 원시 형태를 드러내고 싶다면, 그것과 많은 전투를 해야 해... 그것이 너를 가치 있다고 여길 때까지.../\n하지만 이것은 순전히 추측이야, 왜냐하면 나는 이 현상을 관찰할 수 없었거든.../\n행운을 빌어! /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2063,10 +2063,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Schön, dich wiederzusehen! Wie ich sehe, wächst deine Sammlung rasant, sehr beeindruckend!/\nWusstest du, dass Schlurm-Schnitter den Schlurm besiegter Monster absorbieren? Deshalb sind sie unverzichtbar, wenn du Ohm Eigad besiegen willst!/\nMeinen Recherchen zufolge gibt es über hundert verschiedene Schlurm-Schnitter! Stell dir das mal vor!/",
         "ES_DIAL": "Es bueno verte de nuevo. ¡Veo que tu colección está creciendo rápidamente! ¡Es impresionante!/\n¿Sabías que las Segadoras de Slorm absorben el Slorm de los monstruos derrotados? ¡Por eso son esenciales para derrotar a Ohm Agad!/\n¡Según mis investigaciones, hay al menos cien Segadoras de Slorm diferentes! ¡Puedes imaginarlo!/",
         "RU_DIAL": "Хорошо видеть тебя снова! Я вижу, что твоя коллекция быстро растет, это впечатляет!/\nТы знал? Слорм Жнецы поглощают Слорм побежденных монстров, вот почему они необходимы для победы над Омом Агада!/\nСогласно моим исследованиям, существует как минимум сто различных Слорм Жнецов! Можешь себе это представить!/",
+        "KR_DIAL": "다시 만나서 반가워요! 당신의 수집품이 빠르게 성장하고 있네요, 인상적이에요!/\n알고 있었나요? 슬롬 리퍼는 패배한 몬스터의 슬롬을 흡수해요, 그래서 그들이 오므 아가드를 물리치는 데 필수적이에요!/\n내 연구에 따르면, 최소한 백 가지의 다양한 슬롬 리퍼가 있어요! 상상할 수 있나요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2081,10 +2081,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Schön, dich wiederzusehen! Wie kommt deine Sammlung voran? Oh, wie ich sehe, machst du gute Fortschritte!/\nWusstest du, dass es ganz besonderer Fertigkeiten bedarf, um einen Schlurm-Schnitter zu schmieden? Man muss fähig sein, Schlurm zu manipulieren, und gleichzeitig ein meisterlicher Waffenschmied sein!/\nLaut meinen Quellen gab es in der gesamten Geschichte nur sieben Schnitterschmiede! Und sie alle verschwanden vor langer Zeit .../\nJeder Schlurm-Schnitter in deinem Besitz trägt das Zeichen seines Schmieds! Faszinierend, oder?/",
         "ES_DIAL": "Es bueno verte de nuevo. ¿Cómo va tu colección? ¡Oh, veo que estás progresando bien! /\n¿Sabías que se necesitan habilidades muy especiales para crear una Segadora de Slorm? ¡Tienes que ser capaz de manipular Slorm, pero también ser un Herrero excepcional!/\nSegún mis fuentes, ¡solo ha habido 7 Forjadores de Segadoras a lo largo de la historia! ¡Y todos desaparecieron hace mucho tiempo.../\nCada una de las Segadoras de Slorm que posees lleva la marca de su Forjador! ¡¿No te parece fascinante?!/",
         "RU_DIAL": "Хорошо видеть тебя снова. Как у тебя дела с коллекцией? О, вижу, что ты делаешь хорошие успехи! /\nТы знал? Для создания Слорм Жнеца нужны очень особые навыки! Ты должен уметь манипулировать Слормом, но также быть исключительным кузнецом! /\nСогласно моим источникам, на протяжении всей истории было всего 7 Жнецов-кузнецов! И все они исчезли давно... /\nКаждый из Слорм Жнецов, которыми ты обладаешь, несет знак своего Жнеца-кузнеца! Это fascinates!/",
+        "KR_DIAL": "다시 만나서 반가워요. 당신의 수집은 잘 되고 있나요? 오, 잘 진행되고 있는 것 같네요! /\n알고 있었나요? 슬롬의 사신을 제작하려면 매우 특별한 기술이 필요해요! 슬롬을 조작할 수 있어야 하고, 뛰어난 대장장이도 되어야 해요! /\n내 정보에 따르면 역사상 단 7명의 사신 대장장이만 있었어요! 그리고 그들은 모두 오래 전에 사라졌어요... /\n당신이 소유한 각 슬롬의 사신은 그 사신 대장장이의 표식을 가지고 있어요! 정말 매혹적이에요! /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2099,10 +2099,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich habe beim Studium dieser alten Schriftrolle soeben etwas Unglaubliches entdeckt! Bleib ein Weilchen und hör zu:/\n„In den Flammen des Schicksalsbergs schmiedete sich Eigad insgeheim den Einen Schlurm-Schnitter. Er ließ all seine Macht und seinen Zorn hineinströmen, um den mächtigsten Schlurm-Schnitter aller Zeiten zu erschaffen.“/\nIch wusste nicht, dass Eigad in der Lage war, Schlurm-Schnitter zu schmieden. Seine Talente sind wahrlich grenzenlos .../\nDieser Schlurm-Schnitter muss schlicht unglaublich sein! Gut möglich, dass er sich noch in Eigads Besitz befindet!/",
         "ES_DIAL": "¡Acabo de descubrir algo increíble mientras estudiaba este pergamino antiguo! Quédate un rato y escucha con atención:/\n\"En las llamas del Monte Doom, Agad secretamente forjó para sí mismo una Segadora de Slorm Maestra... Vertió todo su poder y rabia en ella, para crear la Segadora de Slorm más poderosa de todos los tiempos.\"/\nNo sabía que Agad fuera capaz de forjar Segadoras de Slorm. Claramente, su talento no tiene límites…/\n¡Esta Segadora de Slorm debe ser simplemente increíble! ¡Es muy posible que aún la tenga en su poder!/",
         "RU_DIAL": "Я только что обнаружил нечто невероятное, изучая этот старый свиток! Оставайтесь немного и слушайте:/\n\"В огнях Горы Судьбы Агад тайно создал себе Мастера Слорм Жнеца... Он вложил всю свою силу и гнев в него, чтобы создать самого мощного Слорм Жнеца всех времен.\"/\nЯ не знал, что Агад способен к созданию Слорм Жнецов. Очевидно, его талант не имеет границ.../\nЭтот Слорм Жнец просто должен быть невероятным! Вполне возможно, что он все еще находится в его владении!/",
+        "KR_DIAL": "나는 이 오래된 두루마리를 공부하면서 믿을 수 없는 것을 발견했다! 잠시 머물며 들어봐:/\n\"운명의 산의 불꽃 속에서, 아가드는 비밀리에 자신을 위한 마스터 슬롬 수확기를 만들었다... 그는 그것에 자신의 모든 힘과 분노를 쏟아부어 역대 가장 강력한 슬롬 수확기를 만들었다.\"/\n나는 아가드가 슬롬 수확기를 만들 수 있는 능력이 있다는 것을 몰랐다. 분명히 그의 재능은 한계가 없다.../\n이 슬롬 수확기는 정말 놀라워야 한다! 여전히 그의 소유일 가능성이 꽤 있다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2117,10 +2117,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Schön, dich wiederzusehen! Wie kommt deine Sammlung voran? Lass mal sehen .../\nDu besitzt jetzt mehr als 100 verschiedene Schlurm-Schnitter! Dank dir kann ich endlich meine Forschungen abschließen!/\nEs gibt nicht mehr viel, was ich dir beibringen könnte, aber ich kann dir zumindest noch ein letztes Mal helfen./\nHier ist Altior! Das ist ein Schlurm-Schnitter, der schon seit mehreren Generationen in unserem Familienbesitz ist.<Altior Unlock>/\nEr gehört nun dir! Ich hoffe, du wirst ihn zu nutzen wissen!/",
         "ES_DIAL": "Es bueno verte de nuevo. ¿Cómo va tu colección? Déjame echarle un vistazo... /\n¡Ya tienes más de 100 Segadoras de Slorm diferentes! ¡Gracias a ti, finalmente puedo completar mi investigación!/\nNo tengo mucho más que enseñarte, pero aún puedo ayudarte una última vez./\nAquí tienes a Altior. ¡Es una Segadora de Slorm que hemos guardado en mi familia durante varias generaciones! <Altior Unlock>/\n¡Quiero que la tengas! ¡Espero que la uses bien!/",
         "RU_DIAL": "Хорошо видеть тебя снова. Как у тебя дела с коллекцией? Давай посмотрим... /\nТеперь у тебя есть более 100 различных Слорм Жнецов! Благодаря тебе, я наконец могу завершить свои исследования!/\nУ меня больше нечему тебя учить, но я все еще могу помочь тебе в последний раз./\nВот Альтиор! Это Слорм Жнец, который мы храним в моей семье на протяжении нескольких поколений. <Altior Unlock>/\nЭто для тебя! Надеюсь, ты хорошо его используешь!/",
+        "KR_DIAL": "다시 만나서 반가워요. 컬렉션은 어떻게 되고 있나요? 한번 보죠... /\n이제 100개 이상의 다양한 슬롬의 사신을 소유하고 있군요! 당신 덕분에 저는 드디어 제 연구를 완성할 수 있게 되었어요!/\n더 이상 가르쳐 줄 것이 많지 않지만 마지막으로 도와드릴 수 있어요./\n여기 알티오르가 있어요! 이것은 저희 가족이 몇 대에 걸쳐 지켜온 슬롬의 사신입니다. <Altior Unlock>/\n당신을 위한 것입니다! 잘 활용하시길 바라요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2135,10 +2135,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "AH, HALLO!|",
         "ES_DIAL": "¡AH, HOLA!|",
         "RU_DIAL": "АХ ЗДРАВСТВУЙТЕ!|",
+        "KR_DIAL": "안녕하세요!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2153,10 +2153,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "DANKE, DASS DU MICH BEFREIT HAST, (GROẞER&GROẞE)!",
         "ES_DIAL": "¡GRACIAS POR SACARME DE AHÍ!",
         "RU_DIAL": "СПАСИБО, ЧТО ВЫТАЩИЛ МЕНЯ ОТТУДА, РЕБЕНОК!",
+        "KR_DIAL": "거기서 나를 빼내줘서 고마워, 애기!",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2171,10 +2171,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "HALLÖCHEN!|\nHALLO (GROẞER&GROẞE)!|\nWIE GEHT’S (MEINEM LIEBLINGSABENTEURER&MEINER LIEBLINGSABENTEUERIN)?|\nJUCKT DICH DER GOLDUS IN DER TASCHE?|\nHAST DU GEGENSTÄNDE, DIE DU VERKAUFEN WILLST?|\nHAHA!|\nICH LACHE GERN!|\nICH BIN BESTENS GELAUNT!|\nBEIM GROẞEN FULGURORN!|",
         "ES_DIAL": "¡HOLA!|\n¡HOLA, CHICO!|\n¿CÓMO ESTÁ MI AVENTURERO FAVORITO?|\n¿VIENES A GASTAR ORUS EN MI TIENDA?|\n¿TIENES OBJETOS PARA VENDER?|\n¡JA, JA!|\n¡ME ENCANTA REÍRME!|\n¡HOY ESTOY DE BUEN HUMOR!|\n¡POR EL GRAN FULGURÓRN!|",
         "RU_DIAL": "ПРИВЕТ!|\nПРИВЕТ, РЕБЕНОК!|\nКАК МОЙ ЛЮБИМЫЙ ПРИКЛЮЧЕНЕЦ?|\nТЫ ПРИДЕШЬ ПОТРАТИТЬ ЗОЛОТО В МОЕМ МАГАЗИНЕ?|\nУ ТЕБЯ ЕСТЬ ТОВАРЫ НА ПРОДАЖУ?|\nХА-ХА!|\nЯ ЛЮБЛЮ СМЕЯТЬСЯ!|\nУ МЕНЯ ХОРОШЕЕ НАСТРОЕНИЕ!|\nПО ВЕЛИКОМУ ФУЛЬГУРОРНУ!|",
+        "KR_DIAL": "안녕하세요!|  \n안녕, 꼬마!|  \n내가 가장 좋아하는 모험가는 어떻게 지내? |  \n내 가게에서 골두스를 쓰러 올 건가요? |  \n판매할 아이템이 있나요? |  \n하하!|  \n나는 웃는 것을 좋아해!|  \n나는 기분이 좋다!|  \n위대한 풀구론에게!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2189,10 +2189,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "HALLO! TUT MIR LEID, MEIN LADEN IST GERADE GESCHLOSSEN!/HA! ICH SCHREIE FÜR MEIN LEBEN GERN!/",
         "ES_DIAL": "¡HOLA! ¡PERDÓN, LA TIENDA ESTÁ CERRADA POR AHORA!/¡JA! ¡ME ENCANTA GRITAR!/",
         "RU_DIAL": "ПРИВЕТ! ИЗВИНИТЕ, МАГАЗИН ПОКА ЗАКРЫТ!/ХА! Я ПРОСТО ОБОЖАЮ КРИЧАТЬ!/",
+        "KR_DIAL": "안녕하세요! 죄송하지만, 지금 가게는 문을 닫았습니다!/하! 나는 소리 지르는 것을 정말 좋아해요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2207,10 +2207,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "DANKE, MEIN FREUND! ICH WÜRDE DIR JA ZUM DANK EIN LEGENDÄRES OBJEKT AUS MEINER SCHMIEDE GEBEN .../\nABER ICH KENNE EUCH ABENTEURER ... IHR BENUTZT ES FÜNF MINUTEN LANG UND VERKAUFT ODER VERSCHROTTET ES DANN WIEDER! HA HA!/\nNICHTS FÜR UNGUT, JA?! WIR SEHEN UNS IM DORF!/",
         "ES_DIAL": "¡GRACIAS, AMIGO! TE DARÍA UN OBJETO LEGENDARIO DE MI CREACIÓN COMO AGRADECIMIENTO.../\n¡PERO SÉ CÓMO SON USTEDES, LOS AVENTUREROS… LO USARÁS COMO MUCHO CINCO MINUTOS Y LUEGO LO VENDERÁS O LO DESGUAZARÁS! ¡JA, JA!/\nLO SIENTO... ¿SIN RENCORES? ¡NOS VEMOS EN EL PUEBLO!/",
         "RU_DIAL": "СПАСИБО, МОЙ ДРУГ! Я БЫ ДАЛ ТЕБЕ ЛЕГЕНДАРНЫЙ ПРЕДМЕТ МОЕГО СОЗДАНИЯ, ЧТОБЫ ПОБЛАГОДАРИТЬ ТЕБЯ.../\nНО Я ЗНАЮ ВАС, ПРИКЛЮЧЕНЦЫ... ВЫ БУДЕТЕ ИСПОЛЬЗОВАТЬ ЕГО ПРИМЕРНО ПЯТЬ МИНУТ, А ПОТОМ ПРОДАДИТЕ ИЛИ УТИЛИЗИРУЕТЕ! ХА ХА!/\nИЗВИНИ... НИКАКИХ ОБИД?! УВИДИМСЯ В ДЕРЕВНЕ!/",
+        "KR_DIAL": "고마워 내 친구! 감사의 의미로 내가 만든 전설적인 물건을 줄게.../\n하지만 나는 너희 모험가들을 알아... 너희는 그것을 5분 정도 사용하고 나서 팔거나 부수겠지! 하하!/\n미안해... 기분 나쁘지 않지?! 마을에서 보자!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2225,10 +2225,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "AH! HALLO! ICH BIN FRIEDRICH, DER SCHMIED! ICH KANN DEINE AUSRÜSTUNG UMSCHMIEDEN! HA HA!/\nABER ICH BIN NICHT BESONDERS GUT! HA HA HA! DESWEGEN WEIẞ MAN NIE, WAS AM ENDE RAUSKOMMT! HA HA!/\nDU SIEHST AUS, ALS HÄTTEST DU EIN PAAR GOLDUS ÜBRIG, UND DU BRAUCHST DEFINITIV NEUE SCHUHE! WIR WERDEN UNS PRÄCHTIG VERSTEHEN!/\nMEIN LADEN IST JETZT OFFEN! HA HA HA!/\nNOCH EINS: DENK DARAN, SCHLURMALIN-FRAGMENTE EINZUSAMMELN, DIE DEINE GEGNER BEI SICH HABEN! DIE KANN ICH GUT GEBRAUCHEN!/",
         "ES_DIAL": "¡AH! ¡HOLA! ¡SOY FEDERICO, EL HERRERO! ¡PUEDO REFORJAR TU EQUIPO! ¡JA, JA!/\n¡PERO TENGO MUY POCO TALENTO! ¡JA, JA, JA! ¡ASÍ QUE LOS RESULTADOS SON MUY ALEATORIOS! ¡JA, JA!/\n¡PARECES TENER ORUS PARA GASTAR Y DEFINITIVAMENTE NECESITAS UN NUEVO CALZADO! ¡NOS LLEVAREMOS MUY BIEN!/\n¡MI TIENDA AHORA ESTÁ ABIERTA PARA TI! ¡JA, JA, JA!/\nOTRA COSA: ¡RECUERDA RECOGER CUALQUIER FRAGMENTO DE SLORMELINA QUE ENCUENTRES EN TUS ENEMIGOS! ¡SERÁN MUY ÚTILES PARA MÍ!/",
         "RU_DIAL": "АХ! ЗДРАВСТВУЙТЕ! Я ФРИДРИХ, КОВАЛЬ! Я МОГУ ПЕРЕКОВАТЬ ВАШЕ ОБОРУДОВАНИЕ! ХА ХА!/\nНО У МЕНЯ ОЧЕНЬ МАЛО ТАЛАНТА! ХА ХА ХА! ПОЭТОМУ РЕЗУЛЬТАТЫ ОЧЕНЬ СЛУЧАЙНЫЕ! ХА ХА!/\nВЫ ПОХОЖИ НА ТОГО, У КОГО ЕСТЬ НЕМНОГО ЗОЛОТА, И ВАМ ОДНОЗНАЧНО НУЖНЫ НОВЫЕ БОТИНКИ! МЫ БУДЕМ ОЧЕНЬ ХОРОШО ЛАДИТЬ!/\nМОЙ МАГАЗИН СЕЙЧАС ОТКРЫТ ДЛЯ ВАС! ХА ХА ХА!/\nЕЩЕ ОДНА ВЕЩЬ: ПОМНИТЕ, ЧТО НУЖНО СОБИРАТЬ ЛЮБЫЕ ФРАГМЕНТЫ СЛОРМЕЛИНЫ, КОТОРЫЕ ВЫ НАЙДЕТЕ У СВОИХ ВРАГОВ! ОНИ БУДУТ ОЧЕНЬ ПОЛЕЗНЫ ДЛЯ МЕНЯ!/",
+        "KR_DIAL": "아! 안녕하세요! 저는 프리드리히, 대장장이입니다! 저는 당신의 장비를 재단할 수 있습니다! 하하!/\n하지만 저는 재능이 매우 부족합니다! 하하하! 그래서 결과는 매우 랜덤합니다! 하하!/\n당신은 쓸 금이 좀 있어 보이고 새로운 신발이 꼭 필요합니다! 우리는 아주 잘 지낼 것입니다!/\n제 가게는 이제 당신을 위해 열려 있습니다! 하하하!/\n또 다른 것: 적에서 발견한 슬로르멜라인 조각을 꼭 챙기세요! 그것들은 저에게 매우 유용할 것입니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2243,10 +2243,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "HALLO (GROẞER&GROẞE)! HAST DU EINEN GEGENSTAND, DER UMGESCHMIEDET WERDEN MUSS?<Open Blacksmith?>|\nHALLO (GROẞER&GROẞE)! MÖCHTEST DU ETWAS UMSCHMIEDEN?<Open Blacksmith?>|",
         "ES_DIAL": "¡HOLA, CHICO! ¿TIENES UN OBJETO QUE NECESITE SER REFORJADO?<Open Blacksmith?>|\n¡HOLA, CHICO! ¿NECESITAS REFORJAR ALGO?<Open Blacksmith?>|",
         "RU_DIAL": "ПРИВЕТ, РЕБЕНОК! У ТЕБЯ ЕСТЬ ВЕЩЬ, КОТОРУЮ НУЖНО ПЕРЕКОВАТЬ?<Open Blacksmith?>|  \nПРИВЕТ, РЕБЕНОК! НУЖНО ПЕРЕКОВАТЬ ЧТО-ТО?<Open Blacksmith?>|",
+        "KR_DIAL": "안녕, 꼬마! 재단조가 필요한 아이템이 있니?<Open Blacksmith?>|  \n안녕, 꼬마! 뭔가를 재단조해야 해?<Open Blacksmith?>|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2261,10 +2261,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Kennst du dich mit Schlurmiten aus?",
         "ES_DIAL": "¿Sabes algo acerca de las Slormitas?",
         "RU_DIAL": "Ты что-нибудь знаешь о Слормитах?",
+        "KR_DIAL": "Slormites에 대해 아는 것이 있나요?",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2279,10 +2279,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Danke, dass du mich befreit hast!#Ich hab dort drin kein einziges Schlurmit gefunden!/",
         "ES_DIAL": "¡Gracias por sacarme de ahí!#¡De todas maneras, no había Slormitas!/",
         "RU_DIAL": "Спасибо, что вытащил меня оттуда!#Слормитов там всё равно не было!/",
+        "KR_DIAL": "거기서 나를 빼줘서 고마워!#어차피 슬로르미트는 없었어!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2297,10 +2297,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hast du schon Schlurmite gefunden?|\nHast du neue Schlurmite gefunden?|\nEs gibt viele verschiedene Schlurmite ...|\nIch bin Rick Manalan, ein Schlurmitexperte!|\nAh! Da ist ja das zweite Mitglied der Schlurmologenzunft von Adreart!|\nHallo, verehrter Schlurmologenkollege!|",
         "ES_DIAL": "¿Encontraste Slormitas?|\n¿Encontraste nuevos tipos de Slormitas?|\nHay muchos tipos diferentes de Slormitas...|\n¡Soy Rick Manalan, experto en Slormitas!|\n¡Ah! Aquí está el otro miembro del Gremio de Slormitólogos de Adreart!|\n¡Hola, amigo Slormitólogo!|",
         "RU_DIAL": "Нашли ли вы какие-нибудь Слормиты?|\nНашли ли вы какие-нибудь новые виды Слормитов?|\nСуществует много разных Слормитов...|\nЯ Рик Маналан, эксперт по Слормитам!|\nАх! Вот другой член Гильдии Слормитологов Адреарта!|\nЗдравствуйте, дружелюбный Слормитолог!|",
+        "KR_DIAL": "슬로르미트를 찾았나요?|  \n새로운 종류의 슬로르미트를 찾았나요?|  \n다양한 슬로르미트가 있습니다...|  \n저는 슬로르미트 전문가 릭 마날란입니다!|  \n아! 아드레아르트 슬로르미톨로지 길드의 다른 멤버입니다!|  \n안녕하세요, 친근한 슬로르미톨로지스트!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2315,10 +2315,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Guten Morgen, (Herr Vorsitzender&Frau Vorsitzende)!|\nWie geht’s, wie steht’s, (Herr Vorsitzender&Frau Vorsitzende)?|",
         "ES_DIAL": "¡Buenos días, Presidente!|\n¿Cómo estás, Presidente?|",
         "RU_DIAL": "Доброе утро, Президент!| Как дела, Президент?|",
+        "KR_DIAL": "좋은 아침입니다, 대통령님!|  \n어떻게 지내고 계신가요, 대통령님?|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2333,10 +2333,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich rede nur mit anderen Schlurmologen .../",
         "ES_DIAL": "Solo hablo con otros Slormitólogos.../",
         "RU_DIAL": "Я говорю только с коллегами-слормитологами.../",
+        "KR_DIAL": "나는 동료 슬로르미톨로지스트와만 이야기해.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2351,10 +2351,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Danke, dass du mich befreit hast! Ich habe dort drin kein einziges Schlurmit gefunden!/\nAls Dank ernenne ich dich zum Ehrenmitglied der Schlurmologenzunft von Adreart!/\nKomm mich im Dorf besuchen, ich stelle dir einen Mitgliedsausweis aus!/",
         "ES_DIAL": "¡Gracias por sacarme de ahí! ¡De todas maneras, no había Slormitas!/\nPara agradecerte, te nombro miembro honorario del Gremio de Slormitólogos de Adreart!/\n¡Encuéntrame en el pueblo para que te de una tarjeta de miembro!/",
         "RU_DIAL": "Спасибо, что вытащили меня оттуда! Слормитов там всё равно не было!/\nЧтобы поблагодарить вас, я назначаю вас почётным членом Гильдии слормитологов Адреарта!/\nВстретимся обратно в деревне, я сделаю вам членскую карту!/",
+        "KR_DIAL": "거기서 나가게 해줘서 고마워! 어차피 슬로르미트는 없었어!/\n감사의 뜻으로, 당신을 아드레아르 슬로르미톨로지스트 길드의 명예 회원으로 임명합니다!/\n마을에서 다시 만나, 회원 카드를 만들어 줄게!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2369,10 +2369,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Erlaube mir, mich noch mal richtig vorzustellen: Ich bin Rick Manalan, meines Zeichens Vorsitzender und einziges Mitglied der Schlurmologenzunft von Adreart!/\nBevor du mich fragst: Versprochen ist versprochen! Hier ist dein Mitgliedsausweis!/\nNun?! Wie viele Schlurmite hast du schon gefunden?/\n[hero].../\n[rick]Wie? Du weißt nicht, was ein Schlurmit ist? Für ein Mitglied der Schlurmologenzunft schon komisch, aber lass mich erklären./\nSchlurmite, musst du wissen, sind kleine Steinchen, die unscheinbar aussehen, aber über geheimnisvolle Kräfte verfügen. Und es gibt viele verschiedene Arten davon./\nMan kann damit Ausrüstung verstärken oder sogar deren Eigenschaften verändern./\nDie Leute verwechseln Schlurmite oft mit gewöhnlichen Kieseln ... dabei müssten sie nur mal richtig hinschauen!<Anim Blessing>/\nVoilà! Von nun an solltest du in der Lage sein, Schlurmite zu erkennen./\nKomm zu mir, wenn du eines gefunden hast, und ich erkläre dir, wie sie funktionieren! Sie werden von besiegten Gegnern hinterlassen!/",
         "ES_DIAL": "Permíteme presentarme adecuadamente. Soy Rick Manalan, presidente y único miembro del Gremio de Slormitólogos de Adreart!/\nAntes de que me lo preguntes, esto es lo que fue prometido y esto es lo que debe ser entregado. ¡Aquí está tu tarjeta de membresía!/\nEntonces, ¿cuántos Slormitas tienes hasta ahora?/\n[hero].../\n[rick]¿Qué? ¿No sabes lo qué es la Slormita? Es curioso para un miembro del Gremio de Slormitólogos, pero… Déjame que te explique./\nLas Slormitas, como puedes ver, son pequeñas piedras que no parecen gran cosa, pero tienen poderes misteriosos. Y hay todo tipo de ellas./\nAl usarlas, puedes fortalecer tu equipo o incluso cambiar sus propiedades./\nLa gente a menudo piensa que las Slormitas son solo rocas… ¡Cuando lo único que tienen que hacer es abrir los ojos!<Anim Blessing>/\n¡Aquí tienes! A partir de ahora, deberías poder ver las Slormitas./\n¡Vuelve a verme cuando hayas encontrado una, te explicaré cómo funcionan! Deberías poder encontrarlas en los enemigos derrotados./",
         "RU_DIAL": "Позвольте мне правильно представиться: я Рик Маналан, президент и единственный член Гильдии Слормитологов Адреарта!/\nПрежде чем вы спросите меня: Это то, что было обещано, и это то, что должно быть выполнено! Вот ваша членская карта!/\nИтак!? Сколько слормитов вы нашли?/\n[герой].../\n[рик]Что? Вы не знаете, что такое слормит? Это смешно для члена Гильдии Слормитологов, но... Позвольте мне просветить вас./\nСлормиты, видите ли, это маленькие камни, которые не выглядят как нечто особенное, но у них есть загадочные силы. И их существует множество видов./\nИспользуя их, вы можете усилить свое снаряжение или даже изменить его свойства./\nЛюди часто думают, что слормиты просто камни... Когда все, что им нужно сделать, это открыть глаза!<Anim Blessing>/\nВот! С этого момента вы должны быть в состоянии видеть слормиты./\nВернитесь ко мне, когда найдете один, я объясню вам, как они работают! Вы должны быть в состоянии найти их на поверженных врагах!/",
+        "KR_DIAL": "내 소개를 제대로 하겠습니다: 저는 아드레아르의 슬로르미톨로지스트 길드의 회장이자 유일한 회원인 릭 마날란입니다!/\n물어보기 전에: 이것이 약속된 것이고 이것이 전달되어야 할 것입니다! 여기 당신의 회원 카드입니다!/\n그래서!? 당신은 몇 개의 슬로르마이트를 찾았나요?/\n[hero].../\n[rick] 뭐라고? 당신은 슬로르마이트가 무엇인지 모릅니까? 슬로르미톨로지스트 길드의 회원으로서는 웃긴 일이지만... 제가 알려드리겠습니다./\n슬로르마이트는 보시다시피 별로 보이지 않는 작은 돌들이지만, 신비로운 힘을 가지고 있습니다. 그리고 그들은 여러 종류가 있습니다./\n이들을 사용하면 장비를 강화하거나 심지어 속성을 변경할 수 있습니다./\n사람들은 종종 슬로르마이트가 단순한 돌이라고 생각합니다... 그들이 해야 할 일은 눈을 뜨는 것뿐입니다!<Anim Blessing>/\n자! 이제부터 당신은 슬로르마이트를 볼 수 있어야 합니다./\n하나를 찾으면 저에게 다시 오세요, 그들이 어떻게 작동하는지 설명해 드리겠습니다! 당신은 패배한 적들에서 그들을 찾을 수 있어야 합니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2387,10 +2387,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Statte mir einen Besuch ab, wenn du ein Schlurmit gefunden hast und ich zeige dir, wie der Schlurmparat funktioniert!/",
         "ES_DIAL": "Vuelve a verme cuando encuentres una Slormita, ¡te mostraré cómo funciona el Slormitizador!/",
         "RU_DIAL": "Вернись ко мне, когда найдешь Слормита, я покажу тебе, как работает Слормитизатор!/",
+        "KR_DIAL": "슬로르마이트를 찾으면 나에게 돌아와, 슬로르미타이저가 어떻게 작동하는지 보여줄게!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2405,10 +2405,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ah, (junger Schlurmologe&junge Schlurmologin), möchtest du den Schlurmparat benutzen?<Open Crafter?>/|\nBereit, ein paar Schlurmite zu verschmelzen?<Open Crafter?>/|\nMöchtest du ein paar Schlurmite verschmelzen?<Open Crafter?>/|",
         "ES_DIAL": "Ah, joven Slormitólogo, ¿quieres usar el Slormitizador? <Open Crafter?>/|\n¿Listo para fusionar algunas Slormitas?<Open Crafter?>/|\n¿Quieres fusionar algunas Slormitas?<Open Crafter?>/|",
         "RU_DIAL": "Ах, молодой Слормитолог, ты хочешь использовать Слормитизатор? <Open Crafter?>/|\nГотов ли ты объединить немного Слормитов?<Open Crafter?>/|\nТы хочешь объединить немного Слормитов?<Open Crafter?>/|",
+        "KR_DIAL": "아, 젊은 슬로르미톨로지스트여, 슬로르미타이저를 사용하고 싶니? <Open Crafter?>/|  \n슬로르마이트를 합칠 준비가 되었니?<Open Crafter?>/|  \n슬로르마이트를 합치고 싶니?<Open Crafter?>/|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2423,10 +2423,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hallo, (Herr Vorsitzender&Frau Vorsitzende), möchtest du den Schlurmparat benutzen?<Open Crafter?>/|\nGrüße, (Herr Co-Vorsitzender&Frau Co-Vorsitzende)! Bereit, ein paar Schlurmite zu verschmelzen?<Open Crafter?>/|\nMöchtest du ein paar Schlurmite verschmelzen?<Open Crafter?>/|",
         "ES_DIAL": "Hola, presidente. ¿Quieres usa el Slormitizador? <Open Crafter?>/|\n¡Hola, copresidente! ¿Listo para fusionar algunas Slormitas?<Open Crafter?>/|\n¿Quieres fusionar algunas Slormitas?<Open Crafter?>/|",
         "RU_DIAL": "Здравствуйте, Президент, вы хотите использовать Слормитизатор? <Open Crafter?>/|\nПривет, Со-President! Готовы объединить немного Слормитов? <Open Crafter?>/|\nВы хотите объединить немного Слормитов? <Open Crafter?>/|",
+        "KR_DIAL": "안녕하세요 대통령님, Slormitizer를 사용하시겠습니까? <Open Crafter?>/|\n안녕하세요 공동 대통령님! Slormites를 합칠 준비가 되셨나요?<Open Crafter?>/|\nSlormites를 합치고 싶으신가요?<Open Crafter?>/|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2441,10 +2441,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ah, ich sehe, du hast dein erstes Schlurmit gefunden! Toll!/\nIn meinem Laden habe ich eine Vorrichtung, die Schlurmparat genannt wird. Damit kannst du Schlurmite verarbeiten und deine Ausrüstung verstärken!/\nDer Vorgang ist relativ simpel: Man wählt einen Ausrüstungsgegenstand und ein Schlurmit, legt beides in den Schlurmparat und drückt den Knopf!/\nSei aber vorsichtig, denn die Prozedur kann schiefgehen. Dann ist dein Schlurmit verschwendet! Nimm dir also Zeit, um dich vorzubereiten und die korrekten Elemente auszuwählen./\nSollen wir es direkt mal ausprobieren?<Open Crafter?>/",
         "ES_DIAL": "¡Ah, veo que encontraste tu primera Slormita! ¡Felicitaciones!/\nEn mi tienda, tengo una máquina llamada Slormitizador, que te permitirá usar Slormitas y reforzar tu equipo./\nEl proceso es bastante sencillo. Eliges una pieza de equipo y una Slormita, los colocas en el Slormitizador y presionas el botón./\nSin embargo, ten cuidado porque la operación puede fallar y te hará perder la Slormita. Así que tómate el tiempo necesario para prepararte y elegir los elementos correctos./\n¿Lo intentamos ahora mismo?<Open Crafter?>/",
         "RU_DIAL": "Ах, я вижу, ты нашел своего первого Слормита! Отлично!/\nВ моем магазине есть машина под названием Слормитизатор, которая позволит тебе использовать Слормиты и усиливать свое оборудование!/\nПроцесс довольно прост: ты выбираешь предмет оборудования и Слормит, помещаешь их в Слормитизатор и нажимаешь кнопку!/\nОднако будь осторожен, операция может провалиться, и ты потеряешь свой Слормит, поэтому потрать время, чтобы подготовиться и выбрать правильные элементы./\nПопробуем прямо сейчас?<Open Crafter?>/",
+        "KR_DIAL": "아, 첫 번째 슬로르마이트를 찾았군요! 훌륭해요!/\n제 가게에는 슬로르미타이저라는 기계가 있어, 슬로르마이트를 사용하고 장비를 강화할 수 있게 해줍니다!/\n과정은 매우 간단합니다: 장비 한 개와 슬로르마이트를 선택하고, 그것들을 슬로르미타이저에 넣고 버튼을 누르세요!/\n하지만 조심하세요, 작업이 실패할 수 있어 슬로르마이트를 잃을 수 있으니, 준비할 시간을 충분히 갖고 올바른 요소를 선택하세요./\n지금 바로 시도해 볼까요?<Open Crafter?>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2459,10 +2459,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich sehe, du hast einige Schlurmite gefunden. Klasse! Ich ernenne dich hiermit (zum&zur) (Gesellen&Gesellin) der Schlurmologenzunft von Adreart!<Anim Blessing>/\nAls (Geselle&Gesellin) bist du in der Lage, eine neue Art von Mineral zu finden: Schlurmalin./\nSchlurmaline sind äußerst nützlich! Friedrich kann sie benutzen, um deine Ausrüstung zu modifizieren und aufzuwerten!/\nWie auch Schlurmite werden Schlurmaline von besiegten Gegnern hinterlassen. Viel Glück!/",
         "ES_DIAL": "Veo que encontraste algunas Slormitas. ¡Estúpendo! Te nombro... Compañero del Gremio de Slormitólogos de Adreart.<Anim Blessing>/\nComo Compañero, podrás encontrar un nuevo tipo de piedra: Slormelinas./\n¡Son muy útiles! ¡Federico puede usarlas para modificar y mejorar tu equipo!/\nAl igual que las Slormitas, podrás encontrarlas en los enemigos. ¡Buena suerte!/",
         "RU_DIAL": "Я вижу, ты нашел несколько Слормитов. Это здорово! Я назначаю тебя... Спутником Гильдии Слормитологов Адреарта!<Anim Blessing>/\nВ качестве Спутника ты сможешь находить новый тип камня: Слормелин./\nОни очень полезны! Фридрих может использовать их для модификации и улучшения твоего снаряжения!/\nКак и Слормиты, ты сможешь находить их у врагов. Удачи!/",
+        "KR_DIAL": "나는 네가 몇 개의 슬로르미트를 찾은 것을 보았어. 멋지다! 나는 너를... 아드레아르의 슬로르미톨로지스트 길드의 동반자로 명명한다!<Anim Blessing>/\n동반자로서, 너는 새로운 종류의 돌: 슬로르마인즈를 찾을 수 있을 거야./\n그들은 매우 유용해! 프리드리히는 그것들을 사용하여 너의 장비를 수정하고 업그레이드할 수 있어!/\n슬로르미트처럼, 너는 적들에서 그것들을 찾을 수 있을 거야. 행운을 빌어!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2477,10 +2477,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du hast eine ordentliche Menge an Schlurmiten gefunden! Gratuliere! Ich ernenne dich hiermit (zum&zur) (Meister&Meisterin) der Schlurmologenzunft von Adreart!<Anim Blessing>/\nAls (Meister&Meisterin) bist du in der Lage, eine weitere Art von Stein zu finden: Schlurmaliten!/\nSchlurmaliten sind schwieriger zu finden, aber ebenfalls äußerst nützlich!/\nWie auch Schlurmite und Schlurmaline werden Schlurmaliten von besiegten Gegnern hinterlassen. Viel Glück!/",
         "ES_DIAL": "¡Encontraste bastantes Slormitas! ¡Felicidades! Te nombro... ¡Maestro del Gremio de Slormitólogos de Adreart!<Anim Blessing>/\nComo Maestro, podrás encontrar otro tipo de piedra: Slormandritas./\nLas Slormandritas son más difíciles de encontrar, pero también son muy útiles./\nAl igual que las Slormitas, podrás encontrarlas en tus enemigos. ¡Mucha suerte!/",
         "RU_DIAL": "Вы нашли довольно много слормитов! Поздравляю! Я именую вас... Мастером Гильдии Слормитологов Адреарта!<Anim Blessing>/\nВ качестве Мастера вы сможете найти другой тип камня: слормандриты!/\nСлормандриты труднее найти, но они также очень полезны!/\nКак и слормиты, вы сможете найти их у своих врагов. Удачи!/",
+        "KR_DIAL": "당신은 꽤 많은 슬로르미트를 찾았습니다! 축하합니다! 나는 당신을... 아드레아르의 슬로르미톨로지스트 길드의 대가로 임명합니다!<Anim Blessing>/\n대가로서, 당신은 또 다른 종류의 돌: 슬로르만드라이트를 찾을 수 있게 될 것입니다!/\n슬로르만드라이트는 찾기 더 어렵지만 매우 유용합니다!/\n슬로르미트처럼, 당신은 적들에서 그것들을 찾을 수 있을 것입니다. 행운을 빕니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2495,10 +2495,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Was für ein Talent! Du hast so viele Schlurmite gefunden! Ich ernenne dich hiermit (zum&zur) (Großmeister&Großmeisterin) der Schlurmologenzunft von Adreart!<Anim Blessing>/\nEs ist schön, ein so engagiertes Mitglied zu haben!/",
         "ES_DIAL": "¡Qué talento! ¡Encontraste muchas Slormitas! Te nombro... ¡Gran Maestro del Gremio de Slormitólogos de Adreart!<Anim Blessing>/\n¡Es bueno ver a un miembro tan dedicado!/",
         "RU_DIAL": "Так много таланта! Вы нашли так много слормитов! Я назначаю вас... Великим Мастером Гильдии Слормитологов Адреарта!<Anim Blessing>/\nПриятно видеть такого преданного участника!/",
+        "KR_DIAL": "너무 많은 재능이 있어요! 당신은 많은 슬로르미트를 찾았군요! 나는 당신을... 아드레아르의 슬로르미톨로지스트 길드의 대사부로 임명합니다!<Anim Blessing>/\n이렇게 헌신적인 회원을 보니 기쁩니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2513,10 +2513,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Was für ein Ausnahmetalent! Schlurmite und unsere Zunft müssen wirklich einen besonderen Platz in deinem Herzen haben! Ich ernenne dich hiermit (zum&zur) Co-Vorsitzenden der Schlurmologenzunft von Adreart!<Anim Blessing>/\nGratuliere ... (Herr Vorsitzender&Frau Vorsitzende)!/",
         "ES_DIAL": "¡Vaya talento! ¡Debes amar mucho las Slormitas y llevar al Gremio en tu corazón! Te nombro... ¡Copresidente del Gremio de Slormitólogos de Adreart!<Anim Blessing>/\n¡Felicitaciones, Copresidente...!/",
         "RU_DIAL": "Действительно талант! Вы, должно быть, действительно любите Слормитов и носите Гильдию в своем сердце! Я назначаю вас... Со-President Гильдии Слормитологов Адреарта!<Anim Blessing>/\nПоздравляю... Президент!/",
+        "KR_DIAL": "상당한 재능이군요! 당신은 정말 슬로르미트를 사랑하고 길드를 마음에 품고 있어야 합니다! 나는 당신을... 아드레아르의 슬로르미톨로지스트 길드의 공동 회장으로 임명합니다!<Anim Blessing>/\n축하합니다... 회장님!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2531,10 +2531,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "-nicht verwendet-",
         "ES_DIAL": "-no usado-",
         "RU_DIAL": "-не используется-",
+        "KR_DIAL": "-사용되지 않음-",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2549,10 +2549,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich habe da drin ein paar echt seltsame Dinge gesehen!",
         "ES_DIAL": "¡Vi algunas cosas extrañas ahí!",
         "RU_DIAL": "Я видел там странные вещи!",
+        "KR_DIAL": "나는 그 안에서 이상한 것들을 보았다!",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2567,10 +2567,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Oh! Äh ... Hallo!|\nMöchtest du etwas einlagern?|",
         "ES_DIAL": "¡Ah! Eh... ¡Hola!|\n¿Tienes algo que guardar?|",
         "RU_DIAL": "Ах! Эм... Привет!|\nУ вас есть что-нибудь для хранения?|",
+        "KR_DIAL": "아! 어... 안녕하세요!| 물건을 보관할 것이 있나요?|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2585,10 +2585,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Oh! Äh ... Hallo! Mein Lagerhaus ist gerade geschlossen, tut mir leid. Komm bitte später wieder./\n[friedrich]MÄUSCHEN! SEI NETT ZU DEINEN KUNDEN!/\n[storage]Ja, Papa!/",
         "ES_DIAL": "¡Ah! Eh... ¡Hola! Mi almacén está cerrado por el momento, lo siento... Por favor, vuelve más tarde./\n[friedrich]¡CARIÑO! ¡SÉ AMABLE CON TUS CLIENTES!/\n[storage]¡Sí, papi!/",
         "RU_DIAL": "Ах! Эм... Здравствуйте! Мой склад сейчас закрыт, извините... Пожалуйста, приходите позже./  \n[фридрих]ДОРОГАЯ! БУДЬ ВЕЖЛИВА СВОИМИ КЛИЕНТАМИ!/  \n[склад]Да, папа!/",
+        "KR_DIAL": "아! 어... 안녕하세요! 제 창고는 현재 닫혀 있습니다, 죄송합니다... 나중에 다시 와 주세요./  \n[프리드리히] 여보! 고객에게 예의 바르게 대하세요!/  \n[저장] 네, 아빠!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2603,10 +2603,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Danke, dass du mich befreit hast! Ich glaube, mein Vater ist noch drinnen gefangen! Er ist der Dorfschmied .../\nEr hat eine sehr laute Stimme, aber er ist eigentlich sehr nett!/\nDu wirst ihn doch befreien, oder?/",
         "ES_DIAL": "¡Gracias por sacarme de allí! Creo que mi papá aún está atrapado dentro. Es el herrero del pueblo.../\nHabla muy fuerte, pero también es muy amable./\nVas a encontrarlo, ¿verdad?/",
         "RU_DIAL": "Спасибо, что вытащил меня оттуда! Я думаю, мой папа все еще trapped внутри! Это кузнец деревни.../\nОн говорит очень громко, но он также очень хороший!/\nТы собираешься его найти, не так ли?/",
+        "KR_DIAL": "거기서 나가게 해줘서 고마워! 아빠가 아직 안에 갇혀 있는 것 같아! 마을의 대장장이야.../\n그는 정말 큰 소리로 말하지만 아주 친절해!/\n너 그를 찾을 거지?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2620,11 +2620,11 @@ export const GAME_DATA_DIALOGUES = [
         "JP_DIAL": "あっ！いらっしゃいませ、冒険者さん！私の倉庫へようこそ！/\n保管したいアイテムがあったら私に預けてくださいね！/\n父があなたによろしくと言っていたわ！/\n父は鍛冶師なの…父を助けてくれますよね？/",
         "DE_DIAL": "Oh! Hallo (Herr Abenteurer&Frau Abenteuerin)! Ich verwalte das Lagerhaus!/\nWenn du Gegenstände hast, die du einlagern möchtest, kannst du sie mir anvertrauen!/\nMein Papa hat gesagt, ich soll nett zu dir sein!/\nEr ist der Dorfschmied ... Du wirst ihn doch befreien, oder?/",
         "ES_DIAL": "¡Ah! ¡Hola, (Sr. Aventurero&Srta. Aventurera)! Yo me encargo del almacén./\nSi tienes objetos que quieras almacenar, ¡puedes dejármelos!/\nMi papá me dijo que fuera amable contigo./\nMi papá es el herrero... Vas a encontrarlo, ¿verdad?/",
-        "RU_DIAL": "Ах! привет (г-н Приключенец и г-жа Приключенец)! Я занимаюсь складом!/\nЕсли у вас есть вещи, которые вы хотите хранить, вы можете оставить их мне!/\nМой папа сказал мне быть добрым к вам!/\nОн кузнец... Вы собираетесь его найти, не так ли?/",
+        "RU_DIAL": "Ах! привет (г-н Приключенец&г-жа Приключенец)! Я занимаюсь складом!/\nЕсли у вас есть вещи, которые вы хотите хранить, вы можете оставить их мне!/\nМой папа сказал мне быть добрым к вам!/\nОн кузнец... Вы собираетесь его найти, не так ли?/",
+        "KR_DIAL": "아! 안녕하세요 (모험가님과&모험가님)! 저는 창고를 관리합니다!/\n저장하고 싶은 물건이 있으면 저에게 맡기세요!/\n아빠가 저에게 당신들에게 친절하라고 하셨어요!/\n그분은 대장장이에요... 당신은 그를 찾으러 가겠죠?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2639,10 +2639,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Oh! Äh ... Hallo! Du möchtest an deine Truhe ran?<Storage?>/|\nOh!! Äh ... Hallo auch! Möchtest du an deine Truhe ran?<Storage?>/|\nHallo auch! Du möchtest sicher an deine Truhe ran?<Storage?>/|",
         "ES_DIAL": "¡Ah! Eh... ¡Hola! ¿Quieres acceder a tu Cofre? <Storage?>/|\n¡Ah! Eh... ¡Hola! ¿Quieres acceder a tu Cofre? <Storage?>/|\n¡Hola! ¿Te gustaría acceder a tu Cofre? <Storage?>/|",
         "RU_DIAL": "Ах! Эм... Привет! Вы хотите получить доступ к вашему Stash? <Storage?>/|\nАх!! Эм... Привет! Вы хотите получить доступ к вашему Stash? <Storage?>/|\nПривет! Вы хотите получить доступ к вашему Stash? <Storage?>/|",
+        "KR_DIAL": "안녕하세요! 음... 당신은 당신의 저장소에 접근하고 싶습니까? <Storage?>/|\n안녕하세요!! 음... 안녕하세요! 당신은 당신의 저장소에 접근하고 싶습니까? <Storage?>/|\n안녕하세요! 당신은 당신의 저장소에 접근하시겠습니까? <Storage?>/|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2657,10 +2657,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich habe da drin Sachen gesehen, die waren nicht normal!",
         "ES_DIAL": "¡Vi algunas cosas raras allí!",
         "RU_DIAL": "Я видел там странные вещи!",
+        "KR_DIAL": "나는 거기서 이상한 것들을 보았어!",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2675,10 +2675,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ja ...|\nInteressant ...|\nSeltsam ...|\nHmm ...|\nWer hätte das gedacht ...|\nMerkwürdig ...|\nKurios ...|\nAußergewöhnlich ...|\nErstaunlich ...|\nFaszinierend ...|\nVerblüffend ...|\nGrandios ...|",
         "ES_DIAL": "Sí... |\nInteresante... |\nExtraño... |\nMmm... |\n¿Qué sabes tú... |\nExtraño... |\nCurioso... |\nExtraordinario... |\nIncreíble... |\nAsombroso... |\nFabuloso... |\nMaravilloso... |",
         "RU_DIAL": "Да... |\nИнтересно... |\nСтранно... |\nМммх... |\nЧто ты знаешь... |\nСтранно... |\nЛюбопытно... |\nНеобычно... |\nНевероятно... |\nУдивительно... |\nФантастично... |\nПрекрасно... |",
+        "KR_DIAL": "네... |  \n흥미롭군요... |  \n이상하군요... |  \n음... |  \n당신은 무엇을 아는지... |  \n이상하군요... |  \n호기심이 생기네요... |  \n비범하군요... |  \n믿을 수 없군요... |  \n놀랍군요... |  \n환상적이군요... |  \n멋지군요... |",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2693,10 +2693,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ah, (der Abenteurer&die Abenteuerin)! Konntest du schon meinen Schlurm-Schnitter ausprobieren?/\nPass auf, dass du damit niemanden verletzt ... sonst muss ich ihn dir wieder wegnehmen./\nNa hopp, lauf schon!/",
         "ES_DIAL": "¡Hola! ¿Has probado mi Segadora de Slorm?/\nTen cuidado de no herir a alguien... o tendré que quitártela./\n¡Adelante!/",
         "RU_DIAL": "Ах, искатель приключений! Ты пробовал мой Слорм Жнец?/\nБудь осторожен, чтобы не навредить кому-то... ...иначе мне придется забрать это у тебя./\nНу, вперед!/",
+        "KR_DIAL": "아, 모험가! 내 슬롬 리퍼를 사용해봤나요?/\n누군가를 다치게 하지 않도록 조심하세요... ...그렇지 않으면 제가 당신에게서 그것을 빼앗아야 할 거예요./\n그럼 계속하세요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2711,10 +2711,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich bin zu alt für diesen Unfug .../\nUnd wer bist du? Du musst ja sehr mutig sein, alleine gegen Eigads Armee anzutreten!/\nAch ja! (Der Abenteurer&Die Abenteuerin)! Dir hatte ich ja einen Schlurm-Schnitter gegeben! Entschuldige, ich bin ein wenig zerstreut .../\nIch habe da noch eine Kleinigkeit für dich parat. Besuche mich, wenn du zurück im Dorf bist .../",
         "ES_DIAL": "Estoy demasiado viejo para estas tonterías.../\nBueno, ¿quién eres? ¡Debes ser muy valiente para enfrentarte solo a los ejércitos de Agad!/\n¡Ah, sí! ¡El aventurero! ¡Te di una Segadora de Slorm! Perdón, estoy un poco confundido.../\nCreo que tengo otra pequeña cosita que podría ayudarte. Ven a verme cuando regreses al pueblo.../",
         "RU_DIAL": "Я слишком стар для этой ерунды.../\nНу, кто ты? Ты, должно быть, очень смелый, чтобы столкнуться с армиями Агада в одиночку!/\nАх да! Приключенец! Я дал тебе Жнеца Слорма! Извини, я немного запутался.../\nЯ думаю, у меня есть еще кое-что, что может помочь тебе. Приходи ко мне, когда вернешься в деревню.../",
+        "KR_DIAL": "나는 이 헛소리에 너무 나이가 많아.../\n그런데, 당신은 누구인가요? 혼자서 아가드의 군대에 맞서다니 정말 용감하군요!/\n아, 맞아요! 모험가! 나는 당신에게 슬롬 리퍼를 줬어요! 미안해요, 조금 혼란스러워요.../\n당신에게 도움이 될 만한 또 다른 작은 것이 있는 것 같아요. 마을로 돌아오면 나를 보러 와요.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2729,10 +2729,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ah! Da bist du ja! Ich habe eine kleine Belohnung für dich. Als Dank dafür, dass du mich dort rausgeholt hast./\nIch habe etwas in meinem Besitz, was man Ahnensteine nennt. Mit ihrer Hilfe kannst du die Macht der früheren Champions nutzen. Hier hast du einen!<Ancestral Stone>/\nDiese Ahnensteine sind überaus nützlich, aber ich selbst habe keine Verwendung dafür. Trotzdem werde ich sie dir nicht einfach so überlassen! Also mache ich dir ein Angebot./\nIch habe ein Faible für Mode und trendige Accessoires ... Das Problem ist nur, dass diese ganze Gegend hoffnungslos konservativ ist./\nMein Angebot ist also wie folgt: Wenn du mir angesagte Klamotten und Accessoires bringst, gebe ich dir neue Ahnensteine./\n[bryan].../\n[hero].../\n[statue]Ausgezeichnet!/\nFangen wir gleich an: Während ich im Riss gefangen war, habe ich auf dem Friedhof einen Hexenmeister mit einem absolut genialen Hut gesehen./\nDen will ich haben! Wenn du mir den Hut bringst, bekommst du von mir einen neuen Ahnenstein!/\nViel Glück!/",
         "ES_DIAL": "¡Ah! ¡Ahí estás! Tengo una pequeña recompensa para ti... Para agradecerte por sacarme de allí.../\nTengo en mi poder algo llamado Piedras Ancestrales que te permitirán aprovechar el poder de los Campeones Ancestrales. ¡Aquí tienes una!<Ancestral Stone>/\nEstas Piedras Ancestrales son muy útiles, pero no para mí... Y tampoco te las voy a dar gratis... Así que te tengo una propuesta./\nDigamos que tengo una pasión por la moda y los accesorios en tendencia... El problema es que es muy difícil encontrar algunos por aquí.../\nEste es el trato. Si me traes ropa y accesorios súper modernos, te daré nuevas Piedras Ancestrales./\n[bryan].../\n[hero].../\n[statue]¡Genial!/\nPara empezar, cuando estaba atrapado dentro de la Brecha, vi un sombrero magnífico en la cabeza de un Nigromante que rondaba por el Cementerio.../\n¡Necesito ese sombrero! Te daré una nueva Piedra Ancestral si me lo traes./\n¡Buena suerte! /",
         "RU_DIAL": "Ах! Вот ты где! У меня есть маленькое вознаграждение для тебя... Чтобы поблагодарить тебя за то, что ты вытащил меня оттуда.../\nУ меня есть нечто, называемое Предковыми Камнями, которое позволит тебе черпать силу Предковых Чемпионов. Вот один для тебя!<Ancestral Stone>/\nЭти Предковые Камни очень полезны, но не для меня... И я не собираюсь отдавать их тебе бесплатно... Так что у меня есть сделка для тебя!/\nНу вот она... У меня есть страсть к моде и стильным аксессуарам... Проблема в том, что здесь очень трудно что-то найти.../\nВот мое предложение: если ты принесешь мне супер стильную одежду и аксессуары, я дам тебе новые Предковые Камни.../\n[bryan].../\n[hero].../\n[statue]Отлично!/\nДля начала, когда я был заперт внутри Разлома, я увидел великолепную шляпу на голове Некроманта, который бродил по Кладбищу.../\nМне нужна эта шляпа! Я дам тебе новый Предковый Камень, если ты принесешь ее мне./\nУдачи! /",
+        "KR_DIAL": "아! 거기 있군요! 당신을 위해 작은 보상이 있어요... 저를 거기서 구해준 것에 대한 감사로.../\n저는 조상 챔피언의 힘을 끌어낼 수 있는 조상 돌이라는 것을 소유하고 있어요. 여기 당신을 위한 하나가 있어요!<Ancestral Stone>/\n이 조상 돌들은 매우 유용하지만 저에게는 필요 없어요... 그리고 무료로 드릴 생각도 없어요... 그래서 거래를 제안할게요!/\n자, 여기 있습니다... 저는 패션과 트렌디한 액세서리에 대한 열정이 있어요... 문제는 이 근처에서 찾기가 매우 어렵다는 거예요.../\n제 제안은 이렇습니다: 당신이 저에게 슈퍼 트렌디한 옷과 액세서리를 가져오면, 새로운 조상 돌을 드릴게요.../\n[bryan].../\n[hero].../\n[statue]좋아요!/\n우선, 제가 균열 안에 갇혀 있었을 때, 묘지 주변을 돌아다니고 있던 강령술사의 머리에 멋진 모자를 봤어요.../\n그 모자가 필요해요! 당신이 그것을 저에게 가져다주면 새로운 조상 돌을 드릴게요./\n행운을 빕니다! /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2747,10 +2747,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wusstest du, dass die Champions von Arah immer irgendeines absurden Todes sterben? Das ist so eine Art Fluch. Möchtest du eine Geschichte dazu hören?<Ancestral Story?>/|\nDie Champions von Arah sterben immer irgendeines absurden Todes. Es ist fast schon lustig. Wie eine Art Fluch ... Möchtest du eine Geschichte dazu hören? Die sind immer für einen Lacher gut!<Ancestral Story?>/|\nWenn man sich dem Studium der Geschichte widmet, merkt man bald, dass alle Champions von Arah irgendeines völlig absurden Todes gestorben sind. Man nennt das ... den „Fluch der Champions“!/\nMöchtest du eine Geschichte dazu hören? Ich kenne eine besonders peinliche.<Ancestral Story?>/|",
         "ES_DIAL": "¿Sabías que los Campeones de Arah siempre mueren de manera ridícula? Es una especie de maldición. ¿Quieres escuchar una de sus historias?<Ancestral Story?>/|\nLos Campeones de Arah siempre mueren de manera ridícula... Es muy divertido... Es como una especie de maldición... ¿Quieres escuchar una de sus historias? Nunca decepcionan.<Ancestral Story?>/|\nCuando estudias historia, te das cuenta rápidamente de que todos los Campeones de Arah han muerto de una manera completamente tonta. Esto se llama... ¡La Maldición de los Campeones!/\n¿Quieres escuchar una de sus historias? Es bastante embarazoso.<Ancestral Story?>/|",
         "RU_DIAL": "Знаете ли вы? Чемпионы Арахи всегда умирают смешным образом. Это своего рода проклятие. Хотите услышать одну из их историй?<Ancestral Story?>/|\nЧемпионы Арахи всегда умирают смешным образом... Это действительно весело... Своего рода проклятие... Хотите услышать одну из их историй? Это никогда не разочаровывает.<Ancestral Story?>/|\nКогда вы изучаете историю, вы быстро понимаете, что каждый чемпион Арахи умер совершенно смешным образом. Это называется... Проклятие чемпионов!/\nХотите услышать одну из их историй? Это довольно неловко.<Ancestral Story?>/|",
+        "KR_DIAL": "알고 있었나요? 아라의 챔피언들은 항상 우스꽝스럽게 죽습니다. 일종의 저주입니다. 그들의 이야기 중 하나를 듣고 싶으신가요?<Ancestral Story?>/|\n아라의 챔피언들은 항상 우스꽝스럽게 죽습니다... 정말 재미있습니다... 일종의 저주입니다... 그들의 이야기 중 하나를 듣고 싶으신가요? 절대 실망하지 않습니다.<Ancestral Story?>/|\n역사를 공부할 때, 아라의 모든 챔피언이 완전히 우스꽝스럽게 죽었다는 것을 빠르게 깨닫게 됩니다. 이것을... 챔피언의 저주라고 부릅니다!/\n그들의 이야기 중 하나를 듣고 싶으신가요? 꽤 부끄럽습니다.<Ancestral Story?>/|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2765,10 +2765,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hier ist eine ziemlich aktuelle Geschichte:#\n„Bryan McMuckies, der bisher letzte Champion von Arah, wurde bei seinem täglichen Workout vergiftet. Das Gift befand sich in einem Proteindrink mit höchst suspekter Rezeptur.“/\nDer Unglückselige konnte noch nicht einmal sein Workout beenden./",
         "ES_DIAL": "Aquí tienes una historia bastante reciente:#\n\"Ramiro Recio, el último Campeón de Arah hasta la fecha, fue envenenado durante su rutina de ejercicios diarios. El veneno se encontró en una bebida proteica con una receta altamente sospechosa\"./\nEl desafortunado ni siquiera terminó su entrenamiento./",
         "RU_DIAL": "Вот довольно недавняя история:#\n\"Брайан МакРиппед, последний чемпион Арах на сегодняшний день, был отравлен во время своей ежедневной тренировки. Яд был найден в протеиновом напитке с крайне подозрительным рецептом.\"/\nНесчастный даже не закончил свою тренировку./",
+        "KR_DIAL": "여기 꽤 최근의 이야기입니다:#\n\"브라이언 맥립트, 현재까지 아라의 마지막 챔피언, 일상적인 운동 중에 독살당했습니다. 그 독은 매우 의심스러운 레시피의 단백질 음료에서 발견되었습니다.\"/\n불행히도 그는 운동을 끝내지도 못했습니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2783,10 +2783,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hier ist eine über Aurelon, den ersten Champion:#\n„Bei einem Kampf auf Leben und Tod gegen den König der Riesen wirkte Aurelon einen so mächtigen Lichtzauber, dass er sich selbst kurzzeitig blendete, stolperte und in einen Abgrund stürzte.“/\nEr hatte wohl *blindes Vertrauen* in seine Fähigkeiten .../",
         "ES_DIAL": "Aquí tienes una sobre Aurelón, el primer Campeón:#\n\"Durante una pelea a muerte al borde de un precipicio frente al Rey de los Gigantes, el gran Aurelón lanzó un hechizo de Luz tan poderoso que se cegó a sí mismo por un momento, tropezó y cayó al barranco...\"/\nNo pude *cerrar mis ojos* a esta historia. /",
         "RU_DIAL": "Вот один о Аурелоне, первом Чемпионе :#\n\"Во время боя на смерть на краю обрыва, лицом к Королю Гигантов, великий Аурелон наложил заклинание Света такой силы, что на мгновение ослеп сам себя, споткнулся и упал в овраг...\"/\nЯ не мог *закрыть глаза* на эту историю. /",
+        "KR_DIAL": "여기 첫 번째 챔피언인 아우렐론에 대한 이야기가 있습니다 :#\n\"거대한 거인의 왕과 마주한 절벽 가장자리에서 죽음을 향한 싸움 중, 위대한 아우렐론은 너무 강력한 빛의 주문을 시전하여 순간적으로 자신을 눈멀게 하고 비틀거리며 협곡으로 떨어졌습니다...\"/\n나는 이 이야기에 *눈을 감을 수* 없었습니다. /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2801,10 +2801,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hier ist eine über Arvoth, den „Wirbelsturm“, wie er genannt wurde:#\n„Eines Tages, als er im Wald gegen eine Horde schlurmierter Monster kämpfte, beschwor Arvoth einen so starken Windstoß, dass er einen Kastanienbaum entwurzelte, der neben ihm stand.“/\n„Der Baum erhob sich einige Schritt in die Luft und fiel Arvoth dann direkt auf den Kopf – zack, tot.“#\nSeit jenem Tag halte ich gebührenden Abstand zu Kastanien./",
         "ES_DIAL": "Aquí tienes una sobre Arvoth... o \"El Tornado\", como lo llamaban.#\n\"Un día, mientras luchaba contra un grupo de monstruos Slormanciados en un bosque, Arvoth invocó una ráfaga de viento tan poderosa que derribó un árbol de castañas que estaba junto a él\"./\n\"El árbol se elevó unos metros y cayó directamente sobre su cabeza, matándolo instantáneamente\".#\nDesde ese día, he tenido mucho cuidado cerca de los castaños./",
         "RU_DIAL": "Вот один о Арвоте... \"Смерч\", как его называли:#\n\"Однажды, сражаясь с пакетом слормансированных монстров в лесу, Арвот вызвал порыв ветра такой силы, что он сбил каштановое дерево, стоящее рядом с ним.\"/\n\"Каштановое дерево поднялось на несколько футов и упало прямо ему на голову, мгновенно убив его.\"#\nС тех пор я очень осторожен рядом с каштановыми деревьями./",
+        "KR_DIAL": "여기 아르보스에 대한 이야기가 있습니다... \"토네이도\"라고 불렸던:#\n\"어느 날, 숲에서 슬로르맨스 몬스터 무리와 싸우던 중, 아르보스는 그 옆에 서 있던 밤나무를 쓰러뜨릴 만큼 강력한 바람을 소환했습니다.\"/\n\"밤나무는 몇 피트 올라갔다가 그의 머리 위로 떨어져 즉사하게 만들었습니다.\"#\n그날 이후로, 저는 밤나무 근처에서 매우 조심하게 되었습니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2819,10 +2819,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hier ist meine Lieblingsgeschichte:#\n„Hans Branau der Weise hatte geschworen, sich nur zu rasieren, wenn er besiegt würde. Nach einigen Jahrzehnten brach er sich das Genick, als er über seinen eigenen Bart stolperte.“/\nMit meinem markanten Bart sollte ich lieber auch aufpassen./",
         "ES_DIAL": "Aquí tienes mi favorita:#\n\"Hans Branau el Sabio había prometido que solo se afeitaría la barba si era derrotado. Después de unas pocas décadas, se rompió el cuello cuando sus pies se enredaron en ella\"./\nTengo que tener cuidado con mi barba prominente./",
         "RU_DIAL": "Вот мой любимый :#\n\"Ханс Бранау Мудрый поклялся сбрить свою бороду только в случае поражения. Спустя несколько десятилетий он сломал шею, когда его ноги запутались в ней.\"/\nМне нужно быть осторожным, у меня самой довольно заметная борода./",
+        "KR_DIAL": "여기 내가 가장 좋아하는 :#\n\"현명한 한스 브라나우는 패배할 경우에만 수염을 깎겠다고 맹세했다. 몇십 년 후, 그의 발이 수염에 걸려 목이 부러졌다.\"/\n나는 조심해야 한다, 나도 꽤 두드러진 수염이 있다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2837,10 +2837,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Diese hier bringt mich immer wieder zum Schmunzeln:#\n„Cortos, der Starke wollte einen Baum mit bloßen Händen fällen, um eine junge Dame zu beeindrucken. Dabei brach er sich die Hand und starb einige Tage darauf an seinen Verletzungen.“/\nBaum: 1 – Cortos: 0./",
         "ES_DIAL": "Esta me divierte mucho:#\n\"Cortos el Poderoso intentó cortar un tronco con sus manos desnudas para impresionar a una joven... Se fracturó la mano y murió unos días después por las lesiones ocasionadas.\"/\nTronco 1 - Cortos 0./",
         "RU_DIAL": "Этот меня очень развлекает:#\n\"Кортос Могучий пытался срубить ствол дерева голыми руками, чтобы впечатлить молодую леди... Он сломал руку и умер через несколько дней от полученных травм.\"/\nСтвол 1 - Кортос 0./",
+        "KR_DIAL": "이것은 나를 많이 즐겁게 한다:#\n\"강력한 코르토스는 젊은 여성을 감동시키기 위해 맨손으로 나무 줄기를 자르려고 했다... 그는 손을 부러뜨리고 며칠 후 부상으로 사망했다.\"/\n줄기 1 - 코르토스 0./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2855,10 +2855,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Der Hut des Hexenmeisters! Er ist ohne den Kopf des Hexenmeisters sogar noch schöner! Vielen Dank!/\nHier hast du einen neuen Ahnenstein!<Ancestral Stone>/\nIch habe gehört, dass du zum Gefängnis unterwegs bist. Einer der Gefangenen hat einen goldenen Gürtel von allerfeinster Qualität!/\nWenn du mir den Gürtel bringst, bekommst du von mir einen neuen Ahnenstein!/",
         "ES_DIAL": "¡El Sombrero del Nigromante! ¡Es aún más hermoso en la vida real! ¡Gracias!/\n¡Aquí tienes una nueva Piedra Ancestral para ti! <Ancestral Stone>/\nTengo entendido que te diriges a La Prisión. ¡Allí uno de los reclusos tiene un cinturón dorado de alta calidad!/\n¡Te daré una nueva Piedra Ancestral si me lo traes! /",
         "RU_DIAL": "Шляпа Некроманта! В реальной жизни она еще красивее! Спасибо!/\nВот новый Предковый Камень для тебя! <Ancestral Stone>/\nЯ понимаю, что ты направляешься в Тюрьму: один из заключенных имеет пояс из золота высшего качества!/\nЯ дам тебе новый Предковый Камень, если ты принесешь его мне обратно! /",
+        "KR_DIAL": "네크로맨서의 모자! 실제로는 더욱 아름답습니다! 감사합니다!/\n여기 당신을 위한 새로운 조상 돌이 있습니다! <Ancestral Stone>/\n당신이 감옥으로 가고 있다는 것을 이해합니다: 수감자 중 한 명이 최고 품질의 금벨트를 가지고 있습니다!/\n그것을 저에게 가져다 주면 새로운 조상 돌을 드리겠습니다! /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2873,10 +2873,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Grotagroms goldener Gürtel!#Er ist hinreißend!/\nMit dem werde ich sowas von gut aussehen!/\nVersprochen ist versprochen: Hier hast du einen neuen Ahnenstein!<Ancestral Stone>/\nIch weiß nicht, wie du das siehst, aber ich denke, es ist wirklich an der Zeit, dass ich meinen Gehstock modernisiere. Mir steht da der Sinn nach etwas ... Spektakulärem./\nEin ehemaliger Lehrling von Olorin hatte einen prächtigen Stock. Vielleicht befindet er sich noch in der Akademie .../",
         "ES_DIAL": "¡El Cinturón Dorado de Grotagrom!#¡Es hermoso!/\n¡Voy a lucir genial con esto!/\nHice una promesa y la estoy cumpliendo. ¡Aquí tienes una nueva Piedra Ancestral! <Ancestral Stone>/\nNo sé tú, pero realmente quiero modernizar mi bastón... Algo un poco más espectacular.../\nUn antiguo aprendiz de Olorín tenía uno hermoso... Puede que todavía esté en su Academia.../",
         "RU_DIAL": "Золотой пояс Грогатгрома!#Он великолепен!/\nЯ буду выглядеть так хорошо с этим!/\nЯ дал обещание и сдерживаю его: вот новый Предковый Камень! <Ancestral Stone>/\nНе знаю, как насчет вас, но я действительно хочу модернизировать свою трость... На что-то немного более зрелищное.../\nУ бывшего ученика Олорина был красивый... Возможно, он все еще в его Академии.../",
+        "KR_DIAL": "그로타그롬의 황금 벨트!#정말 멋져요!/\n이걸로 정말 잘 보일 거예요!/\n약속을 지켰어요: 새로운 조상 돌이 여기 있어요! <Ancestral Stone>/\n당신은 모르겠지만, 저는 제 지팡이를 현대화하고 싶어요... 좀 더 화려한 것으로.../\n올로린의 전 제자가 아름다운 것을 가지고 있었어요... 아직 그의 아카데미에 있을지도 몰라요.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2891,10 +2891,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Alarins Stab!/\nDer wird als Gehstock richtig was hermachen!/\nVersprochen ist versprochen: Hier hast du einen weiteren Ahnenstein!<Ancestral Stone>/\nIch sehe mittlerweile verdammt gut aus. Fast schon trendy./\nAber es wird langsam kälter und ich könnte wirklich was zum Warmhalten gebrauchen .../\nIch verlasse mich auf dein Talent, mir etwas zu finden, was bequem und zugleich modern ist./",
         "ES_DIAL": "¡El Bastón de Alarin!/\n¡Será un bastón perfectamente adecuado!/\nLo prometido es deuda. ¡Aquí tienes otra Piedra Ancestral! <Ancestral Stone>/\nEstoy empezando a verme bastante bien. Muy al día con las tendencias./\nPero está empezando a refrescar y definitivamente podría usar una capa extra.../\nCuento con tu talento para encontrarme algo cómodo y moderno./",
         "RU_DIAL": "С staff Аларана!/\nЭто будет совершенно подходящая трость!/\nОбещание дано, обещание выполнено: вот еще один Предковый Камень! <Ancestral Stone>/\nЯ начинаю выглядеть довольно хорошо. Прямо на уровне с современностью./\nНо становится прохладнее, и мне определенно не помешает дополнительный слой.../\nЯ рассчитываю на твой талант, чтобы найти мне что-то и удобное, и современное./",
+        "KR_DIAL": "알라린의 지팡이!/\n완벽하게 적합한 지팡이를 만들어 줄 거야!/\n약속한 대로, 약속을 지켰어: 또 다른 조상 돌이 여기 있어! <Ancestral Stone>/\n나는 점점 더 멋져 보이기 시작하고 있어. 시대에 뒤떨어지지 않게./\n하지만 날씨가 쌀쌀해지고 있고, 추가적인 겹이 필요해.../\n편안하면서도 현대적인 것을 찾아줄 너의 재능을 믿고 있어./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2909,10 +2909,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Der Schal der Vogelscheuche!#\nEr ist wirklich hübsch!/\nGlückwunsch, mein junger Freund!/\nHier hast du einen neuen Ahnenstein!<Ancestral Stone>/\nIch weiß nicht, wohin du jetzt aufbrechen wirst, aber du scheinst ein gutes Auge für Klamotten zu haben, die mir ausgezeichnet stehen./\nIch verlasse mich also darauf, dass du mir etwas Umwerfendes bringst!/",
         "ES_DIAL": "¡La Bufanda del Espantapájaros!#\n¡Es hermosa!/\n¡Felicitaciones, mi joven amistad!/\n¡Aquí tienes una nueva Piedra Ancestral para ti! <Ancestral Stone>/\nNo sé a dónde vas ahora, pero parece que tienes un buen ojo para la ropa que me queda perfectamente./\nAsí que confío en que me traigas algo espectacular./",
         "RU_DIAL": "Шарф Пугала!#\nОн красивый!/\nПоздравляю, мой молодой друг!/\nВот новый Предковый Камень для тебя! <Ancestral Stone>/\nЯ не знаю, куда ты идешь с этого момента, но, похоже, у тебя есть глаз на одежду, которая идеально мне подходит./\nТак что я доверяю тебе принести мне что-то великолепное!/",
+        "KR_DIAL": "허수아비의 스카프!#\n아름다워요!/\n축하해요, 젊은 친구여!/\n여기 당신을 위한 새로운 조상 돌이 있어요! <Ancestral Stone>/\n앞으로 어디로 가는지 모르겠지만, 당신은 저에게 완벽하게 맞는 옷을 고르는 눈이 있는 것 같아요./\n그래서 저는 당신이 저에게 멋진 것을 가져다 줄 것이라고 믿고 있어요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2927,10 +2927,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ah, du bist es .../\nDu hast Palstrang besiegt, sagst du?/\nUnd Ohm Eigad hat sich die Kräfte der Champions einverleibt, sagst du?!/\nUnd du willst dich ihm stellen, sagst du?!!/\nLiebe Freunde, ich muss euch um Einhalt bitten. Ihr habt keine Chance .../\nOhm Eigad ist ein ungeheuer mächtiger Gegner.#\nIch weiß das, weil ich einst gegen ihn gekämpft habe .../\nNur, dass er damals noch nicht im Besitz der Championkräfte gewesen ist! Es ist schwer zu sagen, um wie vieles mächtiger er nun ist .../\nEines ist jedoch sicher: Du bist noch nicht bereit!/\nSprechen wir lieber über realistischere Sachen ...#\nSo wie diesen prachtvollen Hut, den du gefunden hast!/\nIch weiß gar nicht, warum man immer nur einen Hut tragen soll, wo zwei doch eindeutig besser sind!#\nWir sollten das zum Trend machen!/\nOh, für mich?! Das ist aber nett von dir.#\nHier hast du noch einen Ahnenstein!<Ancestral Stone>/\n.../\nTja nun ...#\nWas Ohm Eigad betrifft ...#\nDas müssen wir schlau angehen./\nGebt mir ein wenig Zeit, darüber nachzudenken .../",
         "ES_DIAL": "Ah, eres tú.../\n¿Dices que derrotaste a Palstrang?/\n¡¿Y que Ohm Agad se apoderó de los poderes del Campeón?!/\n¡¿Y que deseas enfrentarte a él?!/\nMis queridos amigos, debo detenerlos ahí. No tienen ninguna oportunidad.../\nOhm Agad es un enemigo tremendamente poderoso...#\nLo sé porque lo enfrenté en el pasado.../\nPero en ese entonces, no había tomado posesión de los poderes del Campeón... Es difícil estimar cuánto más fuerte se ha vuelto.../\nPero algo es seguro, ¡no están listos!/\nHablemos de cosas más realistas en su lugar...#\nComo este magnífico Sombrero que encontraste.../\nNo sé quién decidió que solo debíamos usar un sombrero, ¡cuando claramente dos son mejores que uno!#\n¡Deberíamos comenzar una nueva moda!/\n¿Es para mí? ¡Qué amable...#\n¡Aquí tienes otra Piedra Ancestral! <Ancestral Stone>/\n.../\nBueno...#\nEn cuanto a Ohm Agad...#\nNecesitaremos un plan.../\nNecesito algo de tiempo para pensarlo.../",
         "RU_DIAL": "Ах, это ты.../\nТы говоришь, что победил Палстранга?/\nИ что силы Чемпиона были забраны Омом Агада?!!/\nИ что ты хочешь с ним столкнуться?!!/\nМои дорогие друзья, я должен остановить вас прямо здесь; у вас нет шансов.../\nОм Агад - это чрезвычайно мощный враг...#\nЯ знаю это, потому что сталкивался с ним раньше.../\nНо тогда он не завладел силами Чемпиона... Трудно сказать, насколько он стал сильнее.../\nНо одно можно сказать точно, вы не готовы!/\nДавайте поговорим о более реалистичных вещах...#\nНапример, об этой великолепной Шляпе, которую ты нашел!/\nЯ не знаю, кто решил, что мы должны носить только одну шляпу, когда две определенно лучше, чем одна!#\nМы должны начать тренд!/\nЭто для меня?! Это очень мило...#\nВот еще один Предковый Камень! <Ancestral Stone>/\n.../\nНу...#\nЧто касается Ома Агада...#\nНам нужен план.../\nМне нужно время, чтобы обдумать это.../",
+        "KR_DIAL": "아, 당신이군요.../\n당신이 팔스트랑을 물리쳤다고요?/\n그리고 챔피언의 힘이 오므 아가드에게 빼앗겼다고요?!!/\n그리고 그와 맞서고 싶다고요?!!/\n친애하는 친구들, 그만 말씀하시죠; 당신들은 기회가 없어요.../\n오므 아가드는 엄청나게 강력한 적입니다...#\n이것은 제가 그와 맞서본 적이 있기 때문에 압니다.../\n하지만 그때는 그가 챔피언의 힘을 소유하지 않았습니다... 그가 얼마나 더 강해졌는지 말하기는 어렵습니다.../\n하지만 한 가지는 확실합니다, 당신들은 준비가 되어 있지 않아요!/\n좀 더 현실적인 이야기로 바꿉시다...#\n당신이 찾은 이 멋진 모자처럼!/\n누가 우리에게 하나의 모자만 써야 한다고 결정했는지 모르겠어요, 두 개가 확실히 하나보다 낫잖아요!#\n우리는 트렌드를 시작해야 해요!/\n저를 위한 건가요?! 정말 친절하네요...#\n여기 또 다른 조상석이 있습니다! <Ancestral Stone>/\n.../\n음...#\n오므 아가드에 관해서는...#\n우리는 계획이 필요합니다.../\n생각할 시간이 필요해요.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2945,10 +2945,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich hatte jetzt ein paar Sekunden, um über die ganze Sache mit Ohm Eigad nachzudenken./\nEr scheint sich im Schloss wohlzufühlen, woraus ich schlussfolgere, dass kein Grund zur Eile besteht./\nMit meiner Hilfe und einem kleinen Fitnessprogramm ...#\nsolltest du im Nu in der Lage sein, ihn in die Schranken zu weisen./\nAber du wirst alle Schritte minutiös befolgen müssen!#\nDu musst viel, viel stärker werden, da beißt die Maus keinen Faden ab./\nDas wird nicht einfach ... aber es ist machbar./\nBegib dich zur Großen Tafel vor dem Schloss, wo ich eine Reihe von Prüfungen zusammengestellt habe, die dir helfen werden./\nKomm zu mir zurück, wenn du ein paar davon abgeschlossen hast!<Adam Trials>/",
         "ES_DIAL": "Tuve unos segundos para reconsiderar la situación con Ohm Agad.../\nParece estar cómodo en el Castillo, lo que me hace pensar que no hay prisa.../\nCon mi ayuda, y un pequeño programa de entrenamiento...#\nDeberías poder enfrentarlo en poco tiempo.../\nPero tendrás que seguir los pasos con mucho cuidado...#\nNo hay otra opción más que hacerte mucho más fuerte.../\nNo será fácil... Pero no es imposible.../\nVe al Gran Panel frente al Castillo, donde he reunido una serie de pruebas que te ayudarán a prepararte./\n¡Vuelve conmigo cuando hayas completado algunas de ellas! <Adam Trials>/",
         "RU_DIAL": "У меня было несколько секунд, чтобы пересмотреть эту ситуацию с Омом Агада.../\nОн, похоже, чувствует себя комфортно в Замке, что заставляет меня верить, что нет спешки.../\nС моей помощью и небольшой программой тренировок...#\nТы должен смочь противостоять ему в кратчайшие сроки.../\nНо тебе придется тщательно следовать шагам...#\nНет других вариантов, кроме как сделать тебя намного сильнее.../\nЭто будет нелегко... Но это возможно.../\nДоберись до Большой Панели перед Замком, где я собрал серию испытаний, которые помогут тебе подготовиться./\nВернись ко мне, как только ты завершишь несколько из них! <Adam Trials>/",
+        "KR_DIAL": "오므 아가드와 이 상황을 재고할 몇 초가 있었습니다.../\n그는 성에서 편안해 보이는데, 이는 제가 서두를 필요가 없다고 믿게 만듭니다.../\n제 도움과 약간의 훈련 프로그램으로...#\n당신은 그와 곧 대면할 수 있을 것입니다.../\n하지만 당신은 단계를 철저히 따라야 합니다...#\n당신을 훨씬 더 강하게 만드는 것 외에는 다른 선택이 없습니다.../\n쉽지 않을 것입니다... 하지만 가능할 수 있습니다.../\n성 앞에 있는 큰 패널로 가세요, 제가 당신이 준비하는 데 도움이 될 일련의 시험을 마련해 두었습니다./\n몇 개를 완료한 후에 저에게 돌아오세요! <Adam Trials>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2963,10 +2963,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wie ich sehe, hast du deine ersten Prüfungen abgeschlossen!/\nUnd auch wenn du diesmal kein neues schickes Kleidungsstück für mich dabei hast, gebe ich dir einen weiteren Ahnenstein!<Ancestral Stone>/\nDie neuen Prüfungen, die auf dich warten, sind anspruchsvoller, aber das schaffst du schon./",
         "ES_DIAL": "¡Veo que has completado tus primeras pruebas!/\nY aunque no me hayas traído una nueva prenda de calidad, aquí tienes una nueva Piedra Ancestral! <Ancestral Stone>/\nLa nueva serie de Pruebas que te esperan son aún más desafiantes, pero seguro no tendrás problema./",
         "RU_DIAL": "Я вижу, что вы завершили свои первые испытания!/\nИ даже если вы не принесли мне новую качественную одежду, вот новый Предковый Камень! <Ancestral Stone>/\nНовая серия Испытаний, которые вас ждут, более сложная, но с вами все будет в порядке./",
+        "KR_DIAL": "당신이 첫 번째 시험을 완료한 것을 보았습니다!/\n새로운 품질의 의상을 가져오지 않았더라도, 여기 새로운 조상석이 있습니다! <Ancestral Stone>/\n당신을 기다리고 있는 새로운 시험 시리즈는 더 도전적이지만, 괜찮을 것입니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2981,10 +2981,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hast du dir die neuen Prüfungen angesehen, die auf dich warten?/\nEine davon ist ein Kampf gegen meine Wenigkeit.#\nDas ist die beste Möglichkeit für mich, deine Fähigkeiten auf die Probe zu stellen!/\nIch mag mittlerweile ziemlich verschrumpelt sein, aber nimm dich in Acht ...#\nEs steckt immer noch Kampfgeist in mir./\nAußerdem rüstest du mich jetzt schon eine ganze Weile mit den allerfeinsten Artefakten aus .../\nWenn du dein Glück versuchen willst, tritt durch dieses Portal.<Adam Port>/",
         "ES_DIAL": "¿Has revisado las nuevas pruebas que te esperan?/\nUna de las Pruebas es una batalla contra mi ilustre persona.#\n¡Es la mejor manera de probar tus habilidades!/\nPuedo parecer desgastado, pero cuidado...#\nAún me queda algo de pelea.../\nAdemás... Me has estado equipando con los mejores artefactos durante un buen tiempo.../\nCuando quieras probar suerte... Pasa por este portal...<Adam Port>/",
         "RU_DIAL": "Ты проверял новые испытания, которые тебя ждут?/\nОдно из Испытаний - битва с моим выдающимся я.#\nЭто лучший способ для меня проверить твои навыки!/\nЯ могу выглядеть изможденным, но остерегайся...#\nУ меня все еще есть немного сил в запасе.../\nКроме того... Ты уже некоторое время снабжаешь меня лучшими артефактами.../\nКогда ты захочешь испытать удачу... Пройди через этот портал...<Adam Port>/",
+        "KR_DIAL": "새로운 시도가 당신을 기다리고 있는지 확인해 보셨나요?/\n시도 중 하나는 저의 화려한 자아와의 전투입니다.#\n당신의 기술을 테스트하는 가장 좋은 방법입니다!/\n제가 다소 시들어 보일지라도, 조심하세요...#\n아직 제 안에 싸울 힘이 남아 있습니다.../\n게다가... 당신은 한동안 저에게 최고의 유물을 장착해 주었습니다.../\n운을 시험해 보고 싶다면... 이 포털을 통과하세요...<Adam Port>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -2999,10 +2999,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du kommst gut voran!/\nUnd du hast es sogar geschafft, mich zu besiegen, was keine leichte Aufgabe war!/\nDies ist mein letzter Ahnenstein ... Er ist ganz besonders und wird dir im Kampf gegen Ohm Eigad eine große Hilfe sein!<Primal Ancestral Stone>/",
         "ES_DIAL": "¡Estás progresando bien!/\nY hasta lograste derrotarme... Lo cual no es poca cosa.../\nEsta es mi última Piedra Ancestral... Es muy especial y será de gran ayuda contra Ohm Agad!<Primal Ancestral Stone>/",
         "RU_DIAL": "Ты делаешь хорошие успехи!/\nИ ты даже смог меня победить... Что не простое дело.../\nЭто мой последний Камень Предков... Он очень особенный и будет большой помощью против Ома Агада!<Primal Ancestral Stone>/",
+        "KR_DIAL": "너는 좋은 진전을 이루고 있어!/\n그리고 너는 나를 이기기까지 했어... 이는 결코 쉬운 일이 아니야.../\n이것은 나의 마지막 조상 돌이야... 매우 특별하고 오므 아가드에 맞서 큰 도움이 될 거야!<Primal Ancestral Stone>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3017,10 +3017,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Jetzt, da du etwas Übung hattest, ist es an der Zeit, in die Unterwelt zurückzukehren und Ohm Eigads Truppen zu schwächen./\nSobald du alle seine Kriegsfürsten besiegt hast, bist du bereit für den letzten Kampf ... gegen ihn selbst!/\nViel Glück!/",
         "ES_DIAL": "Ahora que has practicado con este viejo, es hora de regresar al Inframundo y debilitar las fuerzas de Ohm Agad. /\nUna vez que hayas derrotado a todos sus Señores de la Guerra, estarás listo para enfrentarte... A él. /\n¡Buena suerte! /",
         "RU_DIAL": "Теперь, когда вы немного попрактиковались с этим стариком, пришло время вернуться в Подземный мир и ослабить силы Ома Агада. /\nКак только вы победите всех его Вождей, вы будете готовы встретиться... с Ним. /\nУдачи! /",
+        "KR_DIAL": "이 노인과 연습을 했으니, 이제 지하 세계로 돌아가 오므 아가드의 세력을 약화시킬 시간입니다. /\n그의 모든 전쟁 군주를 물리치면... 그를 맞이할 준비가 될 것입니다. /\n행운을 빕니다! /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3035,10 +3035,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Allerhand. Ich hätte nicht geglaubt, dich lebend wiederzusehen .../\nDu hast alle Kriegsfürsten der Unterwelt bezwungen.#Das war keine leichte Aufgabe!/\nAh ... Beinahe hätte ich’s vergessen: Das hier ist mein Schlurm-Schnitter. Ich hatte ihn für jemanden aufbewahrt, der sich seiner würdig erweisen würde./\nUnd warte immer noch./\n.../\nDAS WAR ’N WITZ!#Hier, er gehört dir!<Reaper Gift>/",
         "ES_DIAL": "Bueno, no pensé que te vería vivo de nuevo... /\nHas vencido a todos los Señores de la Guerra del Inframundo. #Eso no es poca cosa... /\nAh... Casi lo olvido... Aquí está mi Segadora de Slorm... La estaba guardando para alguien que demostrara ser digno./\nAsí que sigo esperando... /\n... /\n¡ES BROMA!#¡Toma, es tuya!<Reaper Gift>/",
         "RU_DIAL": "Ну, я не думал, что увижу тебя снова живым... /\nТы победил всех Вождей Войны Низов. #Это не маленькое достижение... /\nАх... Я почти забыл... Вот мой Слорм Жнец... Я сохранял его для кого-то, кто докажет свою ценность./\nТак что я все еще жду... /\n... /\nШУТКА!#Вот, он твой!<Reaper Gift>/",
+        "KR_DIAL": "글쎄, 나는 다시 너를 살아있는 모습으로 볼 줄은 몰랐어... /\n너는 네더의 모든 전쟁군주를 물리쳤어. #그건 작은 업적이 아니야... /\n아... 거의 잊어버릴 뻔했어... 여기 내 슬롬 리퍼가 있어... 나는 그것을 가치 있는 사람을 위해 아껴두고 있었어./\n그래서 나는 아직 기다리고 있어... /\n... /\n농담이야!#여기, 네 거야!<Reaper Gift>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3053,10 +3053,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Genug gescherzt. Ich denke, du bist bereit, Ohm Eigad gegenüberzutreten!/\nGehe zum Schloss und zeig mir, dass mein Vertrauen in dich gerechtfertigt war!/\nViel Glück!/\nUnd wenn du nicht lebend zurückkehrst, kann ich dann deine Stiefel haben? Schließlich ist das mittlerweile eine Art Tradition unter uns ...<Agad Open>/",
         "ES_DIAL": "Basta de bromas. Creo que estás listo para enfrentarte a Ohm Agad. /\n¡Ve al Castillo y demuéstrame que tenía razón al confiar en ti! /\n¡Buena suerte! /\nSi no regresas, ¿puedo quedarme con tus botas? Ya es casi una tradición entre nosotros... <Agad Open>/",
         "RU_DIAL": "Хватит шутить. Я думаю, ты готов встретиться с Омом Агада! /\nИди в Замок и покажи мне, что я был прав, доверяя тебе! /\nУдачи! /\nЕсли ты не вернешься, могу я оставить твои ботинки? Это теперь своего рода традиция между нами... <Agad Open>/",
+        "KR_DIAL": "농담은 그만하자. 너는 오므 아가드를 맞이할 준비가 된 것 같아! /\n성으로 가서 내가 너를 믿은 것이 맞았다는 것을 보여줘! /\n행운을 빌어! /\n네가 돌아오지 않으면, 네 부츠를 가져가도 될까? 이제 우리 사이의 전통 같은 거니까... <Agad Open>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3071,10 +3071,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Es ist Zeit, Ohm Eigad direkt an der Quelle zu schwächen. Bevor seine Truppen durch die Risse in unsere Welt gelangen, sammeln sie sich in der Unterwelt./\nBegib dich dorthin und bekämpfe die Armee von Ohm Eigad in ihrem eigenen Revier!/\nDer verwundbarste Punkt seiner Armee sind die Kriegsfürsten. Ohne ihre Anführer verlieren seiner Truppen sicher den Zusammenhalt!/\nViel Glück!/",
         "ES_DIAL": "¡Es hora de debilitar a Ohm Agad! Antes de cruzar las Brechas hacia nuestro mundo, sus fuerzas esperan en el Inframundo. /\n¡Ve allí y enfréntate al ejército de Ohm Agad en su propio terreno! /\nLa mejor manera de debilitar a su ejército es derrotar a sus Señores de la Guerra. ¡Sin sus líderes, sus fuerzas probablemente se desmoronarán! /\n¡Buena suerte! /",
         "RU_DIAL": "Пришло время ослабить Ома Агада непосредственно у источника. Прежде чем пересечь Разломы в наш мир, его силы ждут в Подземном мире. /\nИди туда и столкнись с армией Ома Агада на его собственной земле! /\nЛучший способ ослабить его армию - это победить его Вождей. Без своих лидеров его силы, вероятно, развалятся! /\nУдачи! /",
+        "KR_DIAL": "오므 아가드를 직접적으로 약화시킬 시간입니다. 우리의 세계로 넘어가기 전에, 그의 군대는 저승에서 기다리고 있습니다. /\n거기로 가서 오므 아가드의 군대와 그들의 땅에서 맞서 싸우세요! /\n그의 군대를 약화시키는 가장 좋은 방법은 그의 전쟁군주들을 물리치는 것입니다. 그들의 지도자가 없으면, 그의 군대는 아마도 무너질 것입니다! /\n행운을 빕니다! /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3089,10 +3089,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ein anderes Mitglied deiner Gruppe hat bereits meine Prüfungen abgeschlossen, aber du hast dir trotzdem einen Schlurm-Schnitter verdient./\nHier, nimm!#Mach was draus!<Reaper Gift>/",
         "ES_DIAL": "Otro miembro de tu grupo completó mis Pruebas, pero tú no eres menos merecedor de una Segadora de Slorm. /\n¡Aquí tienes! #¡Úsalo bien! <Reaper Gift>/",
         "RU_DIAL": "Другой член вашей группы завершил мои Испытания, но вы не менее достойны Слорм Жнеца. /\nВот, держите! #Используйте его хорошо! <Reaper Gift>/",
+        "KR_DIAL": "당신 그룹의 또 다른 멤버가 내 시험을 완료했지만, 당신도 슬롬 리퍼를 받을 자격이 있습니다. /\n여기 있습니다! #잘 사용하세요! <Reaper Gift>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3107,10 +3107,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Dein Mut ist beeindruckend ...#\nAber gegen einen Mann mit zwei Hüten kommst du nicht an!/\nVersuch es nur! Meine Hüften sind noch gut in Schuss ... möchte ich meinen ...<Start Boss>/",
         "ES_DIAL": "Cuánto coraje...#\nPero no puedes vencer a un hombre con dos sombreros.../\n¡Adelante! Mis caderas aún son fuertes... Creo...<Start Boss>/",
         "RU_DIAL": "Такое мужество...#  \nНо ты не можешь победить человека с двумя шляпами!/  \nДавай! Мои бедра все еще сильны... Я думаю...<Start Boss>/",
+        "KR_DIAL": "그런 용기...#  \n하지만 두 개의 모자를 쓴 남자를 이길 수는 없어!/  \n해봐! 내 엉덩이는 아직 강해... 생각해...<Start Boss>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3125,10 +3125,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Alle Achtung!#\nNatürlich habe ich mich zurückgehalten, um dich nicht zu verletzen .../\nUnd wie ich sehe, hast du keine Skrupel, einen alten Mann zu schlagen .../\nGratuliere, du hast einen alten Mann mit Arthrose besiegt./",
         "ES_DIAL": "¡Lo hiciste genial!#\nPor supuesto, me contuve para no lastimarte.../\nY veo que golpear a un anciano no te molesta en absoluto.../\nFelicidades, has derrotado a un anciano con artritis.../",
         "RU_DIAL": "Ты справился отлично!#\nКонечно, я сдерживался, чтобы не навредить тебе.../\nИ я вижу, что ударить старика тебя совсем не беспокоит.../\nПоздравляю, ты победил старика с артритом.../",
+        "KR_DIAL": "너 잘했어!#\n물론, 나는 너를 다치게 하지 않기 위해서 조절했어.../\n그리고 나는 노인을 때리는 것이 너에게 전혀 신경 쓰이지 않는다는 것을 봐.../\n축하해, 너는 관절염이 있는 노인을 이겼어.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3143,10 +3143,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "",
         "ES_DIAL": "",
         "RU_DIAL": "",
+        "KR_DIAL": "",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3161,10 +3161,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Unn einen kleinen Krug ... Nur einen!|\nGrüssich, mein Freund!|\nKomm doch aufn Gläschen rein!|",
         "ES_DIAL": "Y una pequeña pinta... ¡Una!|\n¡Hola! ¡Compañero!|\n¿Vienes por un trago?|",
         "RU_DIAL": "И один маленький пинт... Один!|  \nПривет тебе! Товарищ!|  \nТы заходишь выпить?|",
+        "KR_DIAL": "그리고 작은 한 파인트... 하나!|\n안녕하세요! 동료!|\n한 잔 하러 들어오시나요?|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3179,10 +3179,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[innkeeper]Aaaah ... (Der Ampteurer&Die Ampteuerin) ... Weissu ... Bei mir inner Taverne kommen einem allerlei Geschichten ssu Ohren ... Die mussich dir irgendwann mal erzähln!/",
         "ES_DIAL": "[innkeeper]Aaaah... El aventurero... Sabes... Escucho historias divertidas todo el tiempo en mi Taberna... ¡Tendré que compartir algunas contigo algún día!/",
         "RU_DIAL": "[innkeeper]Аааах... Приключенец... Знаешь... Я постоянно слышу забавные истории в своем трактире... Мне нужно будет поделиться некоторыми из них с тобой когда-нибудь!/",
+        "KR_DIAL": "[innkeeper]아아... 모험가... 너도 알다시피... 나는 내 여관에서 항상 재미있는 이야기들을 듣곤 해... 언젠가 그 중 일부를 너와 나눠야겠어!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3196,11 +3196,11 @@ export const GAME_DATA_DIALOGUES = [
         "JP_DIAL": "さあ、生き返ったぞ！#\n本当にありがとう、(少年&お嬢ちゃん)！/\nみんなを助けようとしているのはあんたなのか！？/\nあとで酒場に寄ってくれ…役に立つかもしれない情報がいくつか手に入ったんだ。/\nさあ、おしゃべりはこの辺にしておこう…今すぐ一杯飲みに行きたいな！/\nまたな、(少年&お嬢ちゃん)！/",
         "DE_DIAL": "Tja, da wär ich wieder, zurück unner den Lebenen!#\nDanke, (Bürschchen&Frollein)!/\nBissu (derjenige&diejenige), (der&die) hier versucht, alle ssu retten?/\nDu solltest später in meiner Taverne vorbeikommen ... Ich hab da ’n paar Infos, die nüsslich sein könntn./\nNa, genug gequasselt ... Ich könnt jess echt ’nen Krug vertragen!/\nWir seh’n uns, (Bürschchen&Frollein)!/",
         "ES_DIAL": "¡Bueno, aquí estoy de vuelta entre los vivos!#\n¡Muchas gracias, (compañero&compañera)! /\n¿Eres tú el que está tratando de salvar a todos?/\nDeberías pasarte por la taberna más tarde... Tengo algunas cositas de información que podrían ser útiles./\nEn fin, basta de charla... ¡Realmente me vendría bien una pinta ahora mismo!/\n¡Nos vemos luego, (compañero&compañera)!/",
-        "RU_DIAL": "Ну вот, я снова среди живых!#\nБольшое спасибо, (друг и подруга)! /\nТы тот, кто пытается спасти всех?!/\nТебе стоит заглянуть в таверну позже... У меня есть несколько кусочков информации, которые могут пригодиться./\nВ любом случае, хватит болтовни... Я бы сейчас не прочь выпить пинту!/\nУвидимся позже, (друг и подруга)!/",
+        "RU_DIAL": "Ну вот, я снова среди живых!#\nБольшое спасибо, (друг&подруга)! /\nТы тот, кто пытается спасти всех?!/\nТебе стоит заглянуть в таверну позже... У меня есть несколько кусочков информации, которые могут пригодиться./\nВ любом случае, хватит болтовни... Я бы сейчас не прочь выпить пинту!/\nУвидимся позже, (друг&подруга)!/",
+        "KR_DIAL": "잘 있네, 여기 다시 살아있는 사람들 사이에 돌아왔어!#\n정말 고마워, (친구&여자친구)! /\n너가 모두를 구하려고 하는 사람이야?!/\n나중에 선술집에 들러야 해... 유용할 수 있는 정보 몇 가지가 있어./\n어쨌든, 잡담은 그만... 지금 당장 한 잔 하고 싶어!/\n나중에 보자, (친구&여자친구)!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3215,10 +3215,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Karanos, der Name! Ich bin der Wirt! Stolzer Besitzer der allseiss beliebten Taverne hier vor dir./\nIch wollte dich sehen, weil, na ja, ich weiß eben Sachen .../\nSachen, die sonst niemand weiß. Ich bin sossusagen die Augen und Ohren dieses Dorfes, weissu was ich mein?#\nSchließlich passiert in einer Taverne so Einiges .../\nWeissu ... Ich hab gehört, was mit unserem armen alten Bryan passiert ist. Tragische Sache und so. Aber pass auf .../\nMan munkelt, dass Bryan und Alena, die Tochter des Königs ... Na ja, die zwei soll’n sich ziemlich gut verstanden hamn, wennu weißt, was ich mein!/\nEnrique hat mir davon erzählt ... Hat die zwei in den Gärten rumalbern seh’n .../\n[bryan].../\n[innkeeper]Ich erzähl dir das, weil mir aufgefallen is, dass gleich, nachdem Bryan abgemurkst wurde – ZACK! – hat sich sein Schatzi in Luft aufgelöst!/\nKomischer Zufall, finnst du nicht? Ich kauf denen diesen ganzen Stuss von wegen Auserwählten und Champions nich ab!/\nDa ging’s um Liebe und Rache, da wette ich mein lesses Hemd drauf!#\nWenn ich du wär, würd ich nach einem eifersüchtigen Mann Ausschau halt’n .../\nFinde den verprellten Lover und du weißt, wer Bryan vergiftet hat!/\nAber hey, ich könnt mich natürlich auch irren .../",
         "ES_DIAL": "¡Se llama Caranos! ¡Yo soy el tabernero! El orgulloso dueño de esta famosa Taberna que tienes delante.../\nQuería verte porque, ya sabes, sé cosas.../\nCosas que la gente no sabe... Soy los ojos y oídos de este pueblo, ¿ves...?#\nDespués de todo, muchas cosas suceden en una taberna.../\nYa sabes... Escuché lo que le pasó al pobre viejo Ramiro... Es muy triste... Pero escucha esto.../\nSe rumorea que Ramiro y Alena, la hija del Rey... Bueno, estaban poniéndose algo cariñosos... Compartiendo algunos dulces momentos.../\nEnrique los vio retozando en los jardines.../\n[bryan].../\n[innkeeper]Te lo digo porque lo que me hizo pensar... Es que justo después de que mataran a Ramiro... ¡BAM! Su dama desapareció sin dejar rastro.../\nVaya coincidencia, ¿no crees? ¡No me trago ninguna de esas historias del elegido o del campeón!/\nApostaría mi última moneda a que es una historia de amor y venganza!#\nSi fuera tú, estaría buscando a un hombre celoso.../\n¡Si lo encuentras, y sabrás quién envenenó a Ramiro!/\nPero, oye, tal vez solo estoy diciendo tonterías.../",
         "RU_DIAL": "Меня зовут Каранос! Я хозяин таверны! Гордый владелец этой знаменитой гостиницы прямо перед тобой.../\nХотел тебя увидеть, потому что, знаешь, я знаю вещи.../\nВещи, о которых люди не подозревают... Я глаза и уши этого города, понимаешь...#\nВ конце концов, в таверне происходит много событий.../\nЗнаешь... Я слышал о том, что случилось с бедным старым Брайаном... Печальное дело, это... Но послушай это.../\nСлухи говорят, что Брайан и Алёна, дочь короля... Ну, они сближались... Делили сладкие моменты, они были!/\nЭнрике проболтался... Видел их, как они резвились в садах.../\n[брайан].../\n[хозяин таверны]Я говорю тебе, потому что это заставило меня задуматься... Прямо после того, как Брайан был убит, БАХ! Его возлюбленная исчезла в воздухе.../\nСовпадение, не правда ли? Я не верю ни в какие истории о избранных или чемпионах!/\nЯ бы поставил последнюю монету, что это история о любви и мести!#\nЕсли бы я был на твоем месте, я бы искал в сторону ревнивого человека.../\nНайди ревнивца, и ты узнаешь, кто отравил Брайана!/\nНо эй, возможно, я просто несу чепуху.../",
+        "KR_DIAL": "이름은 카라노스야! 나는 주점 주인이야! 바로 너 앞에 있는 이 유명한 여관의 자랑스러운 주인이지.../\n너를 보고 싶었어, 왜냐면, 나는 아는 게 많거든.../\n사람들이 모르는 것들... 나는 이 마을의 눈과 귀야, 알겠지...#\n결국, 주점에서는 많은 일이 일어나거든.../\n알겠지... 나는 불쌍한 브라이언에게 무슨 일이 있었는지 들었어... 슬픈 일이야, 그거... 하지만 이걸 들어봐.../\n소문에 의하면 브라이언과 왕의 딸 알레나가... 음, 그들은 친밀해지고 있었어... 달콤한 순간을 나누고 있었지!/\n엔리케가 비밀을 털어놨어... 그들이 정원에서 뛰어노는 걸 봤다고.../\n[브라이언].../\n[주점 주인]내가 너에게 말하는 이유는 내가 생각하게 만든 게... 브라이언이 맞고 나서 바로, BAM! 그의 사랑이 사라졌거든.../\n정말 우연의 일치지, 않니? 나는 그런 선택받은 자나 챔피언 이야기 하나도 믿지 않아!/\n내 마지막 동전을 걸어도 좋을 만큼 사랑과 복수의 이야기라고 생각해!#\n내가 너라면, 질투하는 남자를 찾아볼 거야.../\n질투하는 사람을 찾으면 브라이언을 독살한 사람이 누군지 알게 될 거야!/\n하지만, 어쩌면 내가 그냥 쓸데없는 소리를 하고 있을지도 몰라.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3233,10 +3233,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ah ... Tut mir leid, (Bürschchen&Frollein). Hab keine neuen Geschichten für dich auf Lager./|\nAh ... Du bisses. Tut mir leid, keine frischen Gerüchte in Sicht./|\nNein, keine neuen Geschichten für dich, tut mir leid .../|",
         "ES_DIAL": "Ah... No te preocupes, compañero. ¿No hay nuevas historias que compartir, eh?/|\nAh... ¿Eres tú de nuevo? Lo siento, no hay chismes frescos de momento/|\nNah, me temo que no tengo nuevas historias para ti.../|",
         "RU_DIAL": "Ах... Не переживай, приятель. Новых историй для меня нет, а?/|  \nАх... Это снова ты. Извини, свежих сплетен на горизонте нет, а?/|  \nНет, новых историй для тебя у меня, боюсь, нет.../|",
+        "KR_DIAL": "아... 걱정하지 마, 친구. 나눌 새로운 이야기는 없구나, 응?/|  \n아... 또 너구나. 미안, 수평선에 신선한 가십은 없어, 응?/|  \n아니, 너한테 줄 새로운 이야기는 없어서 안타깝구나.../|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3251,10 +3251,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ah, in meinem vornehmen Etablissement kommen Reisende von überall her vorbei, um ihre Kehle anzufeuchten./\nUnd manchmal reden sie, und einige von ihnen hamn dann Sachen zu erzählen, sag ich dir! Die wissen so einiges, glaub mir!/\nEinmal war da dieser Bursche, der behauptet hat, ein Hissoriker zu sein, jawoll! Der hat mir eine Geschichte aufgetischt, das kannste dir nich ausdenken!/\nAnscheinend is das nicht das ersse Mal, dass der alte Ohm Eigad Ärger macht!/\nMan sagt, dass es schon das vierte Mal ist, aber die Schreiberlinge mit ihren Büchern sind wohl nicht so erpicht darauf, darüber zu reden .../\n„Ein Teil dieser Geschichte würde die Bevölkerung verunsichern“, heisses .../",
         "ES_DIAL": "¡Ah, supongo que me llegan todo tipo de vagabundos a tomar una copa en mi noble taberna, de vez en cuando!/\nY a veces, ¡hablan, y algunos son bien sabiondos, te digo! ¡Saben cosas, que sí!/\nUna vez, vino un tipo que decía ser historiador! Me soltó una historia, ¡la mera verdad!/\nParece que no es la primera vez que el viejo Ohm Agad se ha dado una vuelta por aquí, ¿sabes?/\nDicen que es la cuarta vez, pero esa gente que escribe esos libros, no les gusta mucho hablar del tema.../\nParece que asusta a la gente común.../",
         "RU_DIAL": "Ах, я полагаю, что ко мне время от времени приходят всякие странники, чтобы утолить жажду в моем благородном заведении./  \nА иногда они разговаривают, и некоторые из них очень осведомлены, скажу я вам! Они знают вещи, действительно знают! /  \nОднажды был этот парень, который утверждал, что он историк, да, сэр! Он рассказал мне историю, настоящую историю!/  \nПохоже, что это не в первый раз старый Охм Агада приходит, понимаете! Да, сэр!/  \nГоворят, что это в четвертый раз, но те люди, которые пишут книги, не слишком охотно обсуждают это.../  \nПохоже, это пугает простых людей, понимаете.../",
+        "KR_DIAL": "아, 나는 내 고귀한 시설에 때때로 목을 축이러 오는 온갖 방랑자들이 오는 것 같아./  \n그리고 가끔 그들은 이야기하고, 그 중 일부는 정말로 지식이 많아, 내가 말해줄게! 그들은 아는 게 있어, 정말로!/  \n한 번은 역사학자라고 주장하는 이 친구가 있었어, 맞아! 그는 나에게 진짜 이야기 하나를 들려줬어!/  \n옛날 오흠 아가드가 돌아온 것은 처음이 아닌 것 같아, 알겠지! 맞아!/  \n그들은 네 번째라고 하지만, 그 책을 쓰는 사람들은 그것에 대해 이야기하는 것을 별로 좋아하지 않아.../  \n보통 사람들을 겁주게 하는 것 같아, 알겠지.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3269,10 +3269,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Man sagt, dass die Kraft des Champions von Arah ... die, die auch der Herr Bryan McMuckies hatte ... weiterwandert, wenn der Champion den Löffel abgibt./\nAber keiner kann sagen, wer genau sie bekommt!/\nVermute mal, man muss sich irgendwie würdig erweisen .../\nUnd es heißt, dass nur der Champion von Arah Ohm Eigad besiegen kann./\nWir sollten also besser schnell rausfinden, wer diese Championkräfte geerbt hat, sonst nimmt das ein böses Ende mit uns, das sag ich dir!/\nDas hab ich alles auss’n Inschriften am Schrein der Champions bei Adam Nostrus rausgelesen .../\nJawoll, (der Herr&die Dame), ich kann lesen! Hab zwar nicht alles verstanden, aber es schien wichtig zu sein!/",
         "ES_DIAL": "Se dice que el poder del Campeón de Arah, el mismo que poseía Ramiro Recio, se transmite a alguien más cuando el Campeón es derrotado./\nPero ¿sabías que esto ocurre de manera aleatoria a alguien del Reino?/\nSupongo que tienes que demostrarte digno.../\nY se dice por ahí que solo el Campeón de Arah puede derrotar a Ohm Agad./\nAsí que será mejor que averigüemos rápido quién terminó heredando esos poderes de Campeón, o habrá problemas./\nAprendí todo esto leyendo las inscripciones en el Santuario de los Campeones cerca del viejo Adam Nostrus.../\nOh sí, señor, ¡sé leer! No entendí todo, pero parecía importante./",
         "RU_DIAL": "Ах, так сила Чемпиона Арах, та самая сила, которой обладал мистер Брайан МакРипп, говорят, передается, когда Чемпион умирает./  \nНо она передается случайным образом, знаешь, кому-то из Королевства!/  \nТы должен доказать свою ценность, я полагаю.../  \nИ слухи на улице гласят, что только Чемпион Арах может победить Ома Агада./  \nТак что нам лучше быстро выяснить, кто в итоге унаследовал эти Чемпионские силы, иначе будут проблемы, запомни мои слова!/  \nЯ узнал все это, читая надписи в Убежище Чемпионов рядом со старым Адамом Нострусом.../  \nО да, сэр, я умею читать! Не все понял, но это определенно казалось важным!/",
+        "KR_DIAL": "아, 그래서 아라의 챔피언의 힘, 바로 브라이언 맥립트 씨가 가졌던 그 힘이 챔피언이 죽을 때 전해진다고 하네./  \n하지만 그건 왕국의 누군가에게 무작위로 전해진다고, 알겠지?/  \n너는 스스로 가치가 있음을 증명해야 해, 내 생각엔.../  \n그리고 소문에 의하면 아라의 챔피언만이 오므 아가드를 물리칠 수 있다고 해./  \n그러니 누가 그 챔피언의 힘을 상속받았는지 빨리 알아내야 해, 그렇지 않으면 문제가 생길 거야, 내 말을 명심해!/  \n나는 옛 아담 노스트루스 근처의 챔피언 성소에서 새겨진 글을 읽으면서 이 모든 것을 배웠어.../  \n오, 예, 선생님, 나는 읽을 수 있어! 모든 것을 이해하지는 못했지만, 분명 중요해 보였어!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3287,10 +3287,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hör zu, ich hab da so ’ne Theorie:#\nDass der gute Bryan McMuckies ins Gras gebissen hat, das war Teil von Ohm Eigads Plan, damit Bryans Kräfte an jemand anderen im Königreich gehen./\nJemand, der neu im Geschäft ist, nicht so stark wie der Herr McMuckies!/\nAlles eiskalt kalkuliert!#\nApropos eiskalt: Lust auf ein kühles Blondes?/\nHmm, gut ... Wo war ich eben?/\nAch ja! Danach musst er nur noch alle Bewohner des Königreichs kidnappen und abwarten, wer die Kräfte des Champions bekommt./\nDas klingt vielleicht abgedreht, aber sonst kann ich mir keinen Reim drauf machen. Wieso hätte er uns sonst alle kidnappen müssen?/\nUnd dann ... äh ... dann sind alle Dorfbewohner zurückgekommen ...#\nAlle bis auf Alena, die Tochter des Königs./\nVielleicht hat Alena ja die Kräfte des Champions vererbt gekriegt ...#\nUnd jetzt absorbiert Ohm Eigad ihre neugewonnenen Kräfte!/\nAber nimm mein Gebrabbel nicht zu ernst ... Ich hatte mal wieder ’nen Krug zu viel und rede jetzt Unfug .../",
         "ES_DIAL": "Tengo una teoría que quiero compartir contigo.#\nPara mí, en realidad, Ohm Agad necesitaba que ese tal Ramiro Recio mordiera el polvo para que su poder pudiera pasarse a alguien en este reino./\nAlguien nuevo en el trabajo y que no sea tan fuerte como el Sr. Ramiro./\nEs como matar dos pájaros de un tiro.#\nPor cierto, hablando de matar algo... ¿Te gustaría una cerveza stout?/\nMmm, bueno... ¿en qué estaba?/\n¡Ah, sí! Luego, todo lo que tenía que hacer era capturar a toda la gente del reino y esperar para ver quién heredaría el poder del Campeón./\nPuede sonar descabellado, pero no entiendo por qué nos habrían capturado a todos si no fuera por eso.../\nY luego... mmm... todos los aldeanos regresaron...#\nExcepto Alena, la hija del Rey./\nQuizás es Alena quien heredó los poderes del Campeón...#\nY Ohm Agad está absorbiendo todos sus nuevos poderes./\nPero bueno, no le des mucha importancia a lo que digo... Seguro que he bebido demasiado y estoy hablando tonterías.../",
         "RU_DIAL": "У меня есть теория, которой я хочу с вами поделиться, давайте посмотрим:#\nНа самом деле, Охм Агада нужен был этот парень Брайан МакРиппед, чтобы он пал, чтобы его сила могла быть передана кому-то в этом королевстве./\nКому-то новому на работе, не такому сильному, как мистер МакРиппед!/\nУбить двух зайцев одним выстрелом, понимаете?#\nКстати, говоря о камне... не хотите ли крепкого пива?/\nХмм, ну... что я говорил снова?/\nАх да! Тогда все, что ему нужно было сделать, это захватить всех людей в королевстве и ждать, чтобы увидеть, кто унаследует силу Чемпиона./\nЭто может звучать странно, но я не понимаю, почему бы они иначе захватили нас всех.../\nА потом... эм... все деревенские жители вернулись...#\nКроме Алёны, дочери короля./\nМожет быть, именно Алёна унаследовала силы Чемпиона...#\nА Охм Агада поглощает все её новые силы!/\nНо эй, не обращайте слишком много внимания на то, что я говорю... Я, вероятно, выпил слишком много, так что, скорее всего, просто бормочу чепуху.../",
+        "KR_DIAL": "나는 너와 공유할 이론이 있어, 보자:#\n사실, 오므 아가드는 그 남자 브라이언 맥립트가 죽어야 그의 힘이 이 왕국의 누군가에게 전해질 수 있었어./\n새로운 직무에 있는 누군가, 맥립트 씨만큼 강하지 않은!/ \n일석이조, 알지?#\n그런데 돌 이야기가 나와서 말인데... 스타우트 한 잔 어때?/\n음, 글쎄... 내가 뭐라고 말하고 있었지?/\n아 맞다! 그러니까, 그가 해야 할 일은 왕국의 모든 사람들을 포획하고 누가 챔피언의 힘을 상속받을지 기다리는 것이었어./\n이상하게 들릴 수도 있지만, 그렇지 않았다면 왜 그들이 우리 모두를 포획했는지 이해가 안 돼.../\n그리고 나서... 음... 모든 마을 사람들이 돌아왔어...#\n알레나, 왕의 딸을 제외하고./\n아마도 챔피언의 힘을 상속받은 것은 알레나일 거야...#\n그리고 오므 아가드는 그녀의 새로 얻은 모든 힘을 흡수하고 있어!/\n하지만 이봐, 내가 하는 말에 너무 신경 쓰지 마... 아마도 내가 너무 많이 마셔서 그냥 헛소리하고 있을 거야.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3305,10 +3305,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[innkeeper]Sieh an, wer da is! Schau mal, was ich gefunden habe./\nEin Brief. Der dürfte dich interessieren ... Er ist auf ein paar Wochen vor dem Tod vom Herrn McMuckies datiert./\nDer alte Adam meint, er hat ihn auf einer Bank in meiner Taverne gefunden./\nIch hab ihn behalten, weil ich die Verse echt schön fand .../\n[bryan]Verse? Ein Gedicht?/\n[innkeeper]Da steht:/\n„Erneut und wieder ist mein Herz#\nWegen Alena und Bryan voller Schmerz/\nEs ist nun beschlossen, ich schreite zur Tat#\nUm den Champion zu töten, verbünd ich mich mit Ohm Eigad!/\nSobald ich diese Schandtat vollbracht#\nWird Alenas Liebe zu mir entfacht/\nUnd ohne Bryan wird uns das Glück zugedacht.“/\n[bryan]Das ist doch der letzte SCHUND!#\nDer Autor hat KEINERLEI Talent!/\n[bryan]Ich kenne in Adreart keine Poeten ...#\nAber mehr als genug untalentierte Stümper .../\n[bryan]Wo soll man da überhaupt anfangen?/\n[innkeeper]Neben dem Gedicht ist so eine komische Zeichnung ...#\nIch denke, das soll der Herr Bryan sein. Und ... Oh ... Hm ... Er muss da diverse Gewalttaten über sich ergehen lassen./\nDer Name „Bryan“ ist überall am Rand hingekritzelt und durchgestrichen./\nAußerdem steht da der Name „Alena“ und ein Herzchen ist drumherum gemalt./\nUnd signiert isser Brief mit „P.“/\nDa hassus, hoffentlich kannsu damit was anfangen./",
         "ES_DIAL": "[innkeeper]Mira quién llegó… Echa un vistazo a lo que encontré./\nUna carta que creo que te interesará… Está fechada unas semanas antes de la muerte del Sr. Ramiro…/\nEl viejo Adam dice que la encontró en un banco de mi taberna./\nLa guardé porque me parecieron bonitos los versos…/\n[bryan]¿Versos? ¿Se trata de un poema?/\n[innkeeper] Dice así:/\n\"Otra vez y siempre, mi corazón duele,#\npor culpa de Alena y Ramiro, eso es evidente./\nEsta vez he decidido que voy a actuar,#\nme uniré a Ohm Agad para eliminar al Campeón de Adreart./\nUna vez cometido este malvado acto,#\nAlena y yo estaremos juntos, es una promesa./\nVivir sin Ramiro es lo mejor que me podría pasar.#\nEs una vida feliz que he esperado por mucho\"./\n[bryan]¡Es RIDÍCULO!#\nEl autor NO tiene talento.../\n[bryan]No conozco a ningún poeta en Adreart...#\nPero sí conozco a un montón de gente sin talento.../\n[bryan]¿Por dónde empezamos...?/\n[innkeeper]Junto al poema, hay un dibujo raro...#\nCreo que es usted... Y... Oh... Bueno... Está siendo sometido a múltiples actos violentos.../\nEl nombre \"Ramiro\" está escrito y tachado por toda la carta.../\nTambién está el nombre \"Alena\" rodeado por un corazoncito.../\nY está firmado con una \"P\"./\nAhí lo tienes, espero que te sirva de algo./",
         "RU_DIAL": "[innkeeper]Ну, посмотрите, кто здесь... Посмотрите, что я нашел./\nПисьмо. Это должно вас заинтересовать... Оно датировано за несколько недель до смерти мистера МакРипеда.../\nСтарый Адам говорит, что нашел его на скамейке в моей таверне./\nЯ сохранил его, потому что нашел стихи довольно красивыми.../\n[bryan]Стихи? Поэма?/\n[innkeeper] В нем говорится:/\nСнова и всегда, моё сердце в боли,#\nИз-за Алёны, и Брайана, это очевидно./\nНа этот раз я решил, что приму меры,#\nЯ объединю силы с Омом Агада, для вычитания Чемпиона./\nКак только я совершу этот злодейский поступок,#\nАлёна и я действительно будем вместе,/\nЧтобы жить без Брайана, заслуженная радость,#\nСчастье, которого долго ждали, чтобы все увидели./\n[bryan]Это СМЕШНО...#\nУ автора НЕТ таланта.../\n[bryan]Я не знаю поэтов в Адреарте...#\nНо я знаю много бездарных людей.../\n[bryan]С чего нам вообще начать.../\n[innkeeper]Рядом с поэмой есть этот странный рисунок...#\nЯ думаю, это мистер Брайан... И... О... Ну... Его подвергают множественным актам насилия.../\nИмя \"Брайан\" написано и зачеркивается по всему письму.../\nТакже имя \"Алёна\" обведено в маленьком сердечке рядом.../\nИ подписано \"П.\"/\nВот и всё, надеюсь, это будет вам полезно./",
+        "KR_DIAL": "[innkeeper]자, 여기 누가 왔는지 보세요... 제가 찾은 것을 한번 보세요./  \n편지입니다. 당신에게 흥미로울 것입니다... 맥립 씨의 죽기 몇 주 전 날짜가 적혀 있습니다.../  \n옛날 아담이 제 선술집의 벤치에서 그것을 찾았다고 합니다./  \n저는 그 구절이 꽤 예쁘다고 생각해서 보관했습니다.../  \n[bryan]구절? 시인가요?/  \n[innkeeper] 이렇게 적혀 있습니다:/  \n다시 그리고 항상, 내 마음은 아픕니다,#  \n알레나와 브라이언 때문에, 분명합니다./  \n이번에는 제가 결심했습니다, 행동을 취할 것입니다,#  \n챔피언의 빼기를 위해 오흠 아가드와 힘을 합칠 것입니다./  \n이 사악한 일을 완수하면,#  \n알레나와 저는 정말로 하나가 될 것입니다,/  \n브라이언 없이 사는 것은, 잘 자격이 있는 기쁨입니다,#  \n모두가 볼 수 있는, 오랫동안 기다려온 행복입니다./  \n[bryan]이건 터무니없어요...#  \n저자는 재능이 전혀 없습니다.../  \n[bryan]저는 아드레아르트에 시인이 아무도 없어요...#  \n하지만 재능 없는 사람들은 많이 알고 있습니다.../  \n[bryan]어디서부터 시작해야 할까요.../  \n[innkeeper]시 옆에 그 이상한 그림이 있습니다...#  \n저는 그게 브라이언 씨라고 생각합니다... 그리고... 오... 글쎄... 그는 여러 폭력 행위에 시달리고 있습니다.../  \n\"브라이언\"이라는 이름이 편지 곳곳에 적혀 있고 지워져 있습니다.../  \n근처에 작은 하트 안에 \"알레나\"라는 이름도 동그라미 쳐져 있습니다.../  \n그리고 \"P.\"로 서명되어 있습니다./  \n여기 있습니다, 당신에게 도움이 되길 바랍니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3323,10 +3323,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "",
         "ES_DIAL": "",
         "RU_DIAL": "",
+        "KR_DIAL": "",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3341,10 +3341,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Möchtest du das Feld dem Ritter überlassen?<Hero Switcher 0?>/",
         "ES_DIAL": "[bryan]¿Quieres cederle el paso al Caballero?<Hero Switcher 0?>/",
         "RU_DIAL": "[bryan]Ты хочешь уступить место Рыцарю?<Hero Switcher 0?>/",
+        "KR_DIAL": "[bryan]기사에게 길을 내고 싶으신가요?<Hero Switcher 0?>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3359,10 +3359,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Sollen wir die Jägerin vorschicken?<Hero Switcher 1?>/",
         "ES_DIAL": "[bryan]¿Deberíamos parar y dejar que la Cazadora lo haga?<Hero Switcher 1?>/",
         "RU_DIAL": "[bryan]Остановимся и позволим Охотнице сделать это?<Hero Switcher 1?>/",
+        "KR_DIAL": "[bryan]사냥꾼이 하게 할까요?<Hero Switcher 1?>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3377,10 +3377,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Soll der Magier sich die Beine vertreten?<Hero Switcher 2?>/",
         "ES_DIAL": "[bryan]¿Dejamos que el Mago estire las piernas?<Hero Switcher 2?>/",
         "RU_DIAL": "[bryan]Позволим Магу размять ноги?<Hero Switcher 2?>/",
+        "KR_DIAL": "[bryan]마법사가 다리를 좀 펴게 할까요?<Hero Switcher 2?>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3395,10 +3395,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich wünschte, ich könnte dir helfen,#aber ich darf meinen Posten nicht verlassen.",
         "ES_DIAL": "Me gustaría ayudarte,#pero no puedo dejar mi puesto.",
         "RU_DIAL": "Я бы хотел помочь тебе#но я не могу покинуть свой пост.",
+        "KR_DIAL": "나는 당신을 도와줄 수 있기를 바라지만#내 자리를 떠날 수는 없습니다.",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3413,10 +3413,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich hab dich im Auge!|\nPass auf, was du tust ... Strolch!|\nIch beobachte dich ...|\nUnd nun beginnt meine Wacht ...|\nIch bin das Auge auf den Mauern ...|\nIch trimme meinen Schnurrbart mehrmals am Tag.|",
         "ES_DIAL": "¡Te estoy vigilando!|\nCuidado con lo que haces... ¡cobarde!|\nTe estoy observando... |\nY ahora comienza mi vigilancia... |\nSoy el vigilante de los muros...|\nMe recorto el bigote varias veces al día.|",
         "RU_DIAL": "Я за тобой наблюдаю!|  \nСмотри, что ты делаешь... негодяй!|  \nЯ слежу за тобой... |  \nА теперь мои часы начинаются... |  \nЯ наблюдатель на стенах...|  \nЯ подравниваю свои усы несколько раз в день.|",
+        "KR_DIAL": "너를 주시하고 있어!|\n네가 하는 일을 조심해... 악당!|\n나는 너를 지켜보고 있어... |\n이제 내 감시가 시작된다... |\n나는 성벽 위의 감시자다...|\n나는 하루에 여러 번 내 콧수염을 다듬는다.|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3431,10 +3431,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich hab dich im Auge!|",
         "ES_DIAL": "¡Te tengo vigilado!|",
         "RU_DIAL": "Я за тобой наблюдаю!|",
+        "KR_DIAL": "너를 주목하고 있어!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3449,10 +3449,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hast du das gesehen?! Ich bin nicht verschwunden! Seltsam .../\nDas heißt sicher, dass ich eine ganz besondere Rolle spiele./",
         "ES_DIAL": "¿Viste eso? ¡No desaparecí! No lo entiendo.../\nSupongo que tengo un propósito si me dejaron aquí. /",
         "RU_DIAL": "Ты это видел!? Я не исчез! Я не понимаю.../\nНаверное, у меня есть цель, если меня оставили здесь. /",
+        "KR_DIAL": "너 그거 봤어!? 나는 사라지지 않았어! 이해가 안 돼.../\n내가 여기 남겨졌다면 나에게 목적이 있는 것 같아. /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3467,10 +3467,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Die Bittekommens sind seit 18 Generationen Wachen.|\nIch nehme meine Arbeit als Wache sehr ernst.|\nGlaubst du, dass eine Schwalbe eine Kokosnuss tragen kann?|",
         "ES_DIAL": "Los Patrulleros han sido Guardianes de padres a hijos durante 18 generaciones.|\nMe tomo mi trabajo de Guardián muy en serio.|\n¿Crees que una golondrina puede levantar un coco?|",
         "RU_DIAL": "Калдиспатч были Стражами от отца к сыну на протяжении 18 поколений.|\nЯ очень серьезно отношусь к своей работе как Страж.|\nВы думаете, что ласточка может поднять кокос?|",
+        "KR_DIAL": "칼디스패치 가문은 18대에 걸쳐 아버지에서 아들로 이어져 온 경비원입니다.|\n저는 경비원으로서의 직무를 매우 진지하게 생각합니다.|\n제비가 코코넛을 들어올릴 수 있다고 생각하나요?|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3485,10 +3485,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Heda! Du da drüben! Komm sofort her!/§\nDu wolltest doch nicht etwa abhauen, oder?/\nJenseits der Brücke gibt es sowieso nichts zu sehen .../",
         "ES_DIAL": "¡Ey! ¡Tú! ¡Regresa aquí!/§\nNo estarás intentando huir, ¿verdad?/\nDe todas formas, no hay nada para ver después de ese puente... /",
         "RU_DIAL": "Эй! Ты там! Вернись сюда!/§  \nТы не пытался сбежать случайно, а? /  \nВ любом случае, после этого моста нечего смотреть... /",
+        "KR_DIAL": "헤이! 너 거기 있어! 여기로 돌아와!/§  \n혹시 도망치려던 건 아니지? /  \n어쨌든 그 다리 뒤에는 볼 게 없어... /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3503,10 +3503,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Zzzz...|\nZzz... Zzz... Zzz...|",
         "ES_DIAL": "Zzzz... |\nZzz... Zzz... Zzz...|",
         "RU_DIAL": "Зззз... |  \nЗзз... Ззз... Ззз...|",
+        "KR_DIAL": "Zzzz... |  \nZzz... Zzz... Zzz...|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3521,10 +3521,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "",
         "ES_DIAL": "",
         "RU_DIAL": "",
+        "KR_DIAL": "",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3539,10 +3539,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "",
         "ES_DIAL": "",
         "RU_DIAL": "",
+        "KR_DIAL": "",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3557,10 +3557,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Zzz... Zzz... Zzz.../",
         "ES_DIAL": "Zzz... Zzz... Zzz.../",
         "RU_DIAL": "Ззз... Ззз... Ззз.../",
+        "KR_DIAL": "Zzz... Zzz... Zzz.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3575,10 +3575,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "",
         "ES_DIAL": "",
         "RU_DIAL": "",
+        "KR_DIAL": "",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3593,10 +3593,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "",
         "ES_DIAL": "",
         "RU_DIAL": "",
+        "KR_DIAL": "",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3611,10 +3611,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "",
         "ES_DIAL": "",
         "RU_DIAL": "",
+        "KR_DIAL": "",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3629,10 +3629,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Das hier ist ein Gefängnis und keine Touristenattraktion ...|\nDu hast hier nichts zu suchen.|",
         "ES_DIAL": "Esto es una prisión, no una atracción turística...|\nNo tienes nada que hacer aquí.|",
         "RU_DIAL": "Здесь тюрьма, а не туристическая достопримечательность...|\nВам здесь не место.|",
+        "KR_DIAL": "여기는 감옥이지 관광 명소가 아니야...| 너는 여기 있을 이유가 없어.|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3647,10 +3647,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich bin wieder da!|",
         "ES_DIAL": "¡Ya estoy de regreso!|",
         "RU_DIAL": "Я вернулся!|",
+        "KR_DIAL": "나는 돌아왔다!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3665,10 +3665,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Verrückte Zeiten sind das ...|\nHast du meinen tollen Schlüssel gesehen?|\nIch bin der Gefängniswärter.|",
         "ES_DIAL": "Qué tiempos tan extraños para estar vivos...|\n¿Has visto mi bonita llave?|\nSoy el alcaide de la Prisión.|",
         "RU_DIAL": "Какое странное время быть живым...|  \nТы видел мой красивый ключ?|  \nЯ смотритель тюрьмы.|",
+        "KR_DIAL": "이렇게 이상한 시대에 살아있다니...|\n내 예쁜 열쇠 봤어?|\n나는 감옥의 교도관이야.|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3683,10 +3683,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Mein schönes Gefängnis ...|\nWie läuft’s?|\nViel Glück!|",
         "ES_DIAL": "Mi hermosa prisión...|\n¿Cómo estás?|\n¡Buena suerte!|",
         "RU_DIAL": "Моя прекрасная тюрьма...|\nКак дела?|\nУдачи!|",
+        "KR_DIAL": "내 아름다운 감옥...| 어떻게 지내?| 행운을 빌어!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3701,10 +3701,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Willst du direkt ins Gefängnis? Ohne über „Los“ zu gehen?/\nÄh ... Was red ich denn da?/",
         "ES_DIAL": "¿Quieres ir directamente a la Prisión sin pasar por \"Go\"?/\nEh... ¿Qué estoy diciendo?/",
         "RU_DIAL": "Ты хочешь сразу попасть в тюрьму? Не проходя \"Старт\"?.../\nЭм... О чем я говорю?/",
+        "KR_DIAL": "감옥에 바로 가고 싶나요? \"출발\"을 지나치지 않고?…/  \n어... 내가 뭘 이야기하고 있죠?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3719,10 +3719,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Danke, dass du mich befreit hast! Mit meinem Schlüssel bekomme ich diese Risse nicht auf ... die haben ja kein Schlüsselloch .../",
         "ES_DIAL": "¡Gracias por sacarme de ahí! No hay forma de abrir estas Brechas con mi llave... no tienen cerradura.../",
         "RU_DIAL": "Спасибо, что вытащили меня оттуда! Никак не открыть эти Разломы с моим ключом... у них нет замочной скважины.../",
+        "KR_DIAL": "거기서 나가게 해줘서 고마워! 내 열쇠로는 이 균열들을 열 수 없어... 열쇠 구멍이 없어.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3737,10 +3737,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Danke, dass du mich befreit hast! Mein Gefängnis sieht ... ähm ... besetzt aus./\nFrag mal Palstrang, er wird sicher Expeditionen ins Gefängnis haben.<Prison Expedition>/",
         "ES_DIAL": "¡Gracias por sacarme de ahí! Mi prisión parece un poco... ocupada./\nConsulta con Palstrang, probablemente tenga Expediciones disponibles para la Prisión. <Prison Expedition>/",
         "RU_DIAL": "Спасибо, что вытащили меня оттуда! Моя тюрьма выглядит, эээ... занята./ Свяжитесь с Пальстрангом, у него, вероятно, будут экспедиции для Тюрьмы. <Prison Expedition>/",
+        "KR_DIAL": "거기서 나가게 해줘서 고마워! 내 감옥은, 어... 차지된 것 같아./ 팔스트랑과 체크인해, 그는 아마도 감옥을 위한 탐험을 제공할 거야. <Prison Expedition>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3755,10 +3755,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "In meinem Gefängnis ist alles ins Butter, danke der Nachfrage. Nein, es sind keine Monster drin .../\nNein, sie haben mich auch nicht vor die Tür gesetzt! Ich bin nur hier draußen, um, äh ... frische Luft zu schnappen./\nAber sollte Palstrang je Expeditionen ins Gefängnis planen, dann, äh, nur zu ... Oder auch nicht ... Ganz wie du magst .../",
         "ES_DIAL": "Mi prisión va muy bien, muchas gracias... No, no hay monstruos adentro.../\nNo, no me echaron... solo estoy afuera para... tomar un poco de aire fresco./\nPero si Palstrang tiene alguna Expedición a la Prisión... Siéntete libre... o no... lo que sea... mmm.../",
         "RU_DIAL": "Моя тюрьма чувствует себя очень хорошо, большое спасибо... Нет, внутри нет монстров.../\nНет, они меня не выгнали! Я просто на улице, чтобы, э... подышать свежим воздухом./\nНо если Палстранг когда-нибудь организует экспедиции в Тюрьму, э... Не стесняйтесь... или нет... как хотите... хм.../",
+        "KR_DIAL": "내 감옥은 아주 잘 지내고 있어, 정말 고마워... 아니, 안에 괴물은 없어.../\n아니, 그들이 나를 쫓아내지 않았어! 나는 그냥 바깥에 나와서, 어... 공기를 좀 쐬고 있어./\n하지만 만약 팔스트랑이 감옥으로 탐험을 간다면, 어... 마음대로 해... 아니면 말든지... 뭐... 흠.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3773,10 +3773,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du musst ins Gefängnis? Fühl dich wie zu Hause .../\nIch hoffe, du hast keine Angst vor Skeletten./",
         "ES_DIAL": "¿Tienes que ir a la Prisión? Siéntete como en casa.../\nEspero que no le tengas miedo a los esqueletos/",
         "RU_DIAL": "Тебе нужно идти в тюрьму? Чувствуй себя как дома.../\nЯ надеюсь, ты не боишься скелетов?/",
+        "KR_DIAL": "감옥에 가야 하나요? 편하게 계세요.../\n해골이 무섭지 않기를 바랍니다?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3791,10 +3791,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ah, ja ... Ich habe es mir herausgenommen, dich zu begleiten. Vielleicht kann ich dir ein paar Tipps geben./\nSeit der Ankunft Ohm Eigads hat sich im Gefängnis so einiges verändert./\nDie Gefangenen, die Wärter ... Alle haben sich in Monster verwandelt. Und keiner ist mehr in seiner Zelle!/\n.../\nDu suchst nach einem Gefangenen namens Grotagrom?/\nWenn ich mich recht entsinne, ist Grotagrom ganz tief im Gefängnis eingesperrt, im Verlies. Dort würde ich suchen, wenn ich du wäre./\nDazu musst du allerdings einmal durchs ganze Gefängnis./\nViel Glück!/",
         "ES_DIAL": "Oh, sí... me tomé la libertad de acompañarte... Podría darte un par de consejos.../\nLas cosas han cambiado mucho en la prisión desde la llegada de Ohm Agad./\nLos prisioneros, los guardias... todos se han convertido en estos extraños monstruos... ¡Y ya nadie está en su celda!/\n.../\n¿Estás buscando a un prisionero llamado Grotagrom?/\nSi mal no recuerdo, Grotagrom está encerrado en la parte más profunda de la prisión, en las mazmorras... Si fuera tú, empezaría por ahí./\nTendrás que recorrer toda la prisión.../\n¡Buena suerte!/",
         "RU_DIAL": "О да... Я взял на себя смелость прийти с тобой... Я мог бы дать тебе пару советов.../\nС тех пор как пришел Охм Агада, в тюрьме многое изменилось./\nЗаключенные, охранники... Все они превратились в этих странных монстров... И никто больше не находится в своей камере!/\n.../\nТы ищешь заключенного по имени Грогатром?/\nЕсли я правильно помню, Грогатром заперт в самой глубокой части тюрьмы, в подземельях... Я бы начал с этого, если бы был на твоем месте./\nТебе придется пройти через всю тюрьму.../\nУдачи!/",
+        "KR_DIAL": "오, 네... 당신과 함께 가는 자유를 가졌습니다... 몇 가지 팁을 드릴 수 있습니다.../\n오므 아가드가 도착한 이후로 감옥은 많이 변했습니다./\n죄수들, 경비원들... 그들은 모두 이상한 괴물로 변했습니다... 그리고 이제 아무도 그들의 감방에 없습니다!/\n.../\n당신은 그로타그롬이라는 수감자를 찾고 있습니까?/\n내가 기억하기로, 그로타그롬은 감옥의 가장 깊은 곳, 지하 감옥에 갇혀 있습니다... 당신이라면 거기서 시작할 것입니다./\n당신은 감옥 전체를 통과해야 할 것입니다.../\n행운을 빕니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3809,10 +3809,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Auf zum Verlies! Immer geradeaus!/",
         "ES_DIAL": "¡El camino a la mazmorra es todo recto!/",
         "RU_DIAL": "По пути к подземелью! Это прямо впереди!/",
+        "KR_DIAL": "던전으로 가는 길! 바로 앞입니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3827,10 +3827,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Um zum Verlies zu gelangen, müssen wir durch die Vorratskammer./\nAber wie ich befürchtet habe, ist die Vorratskammer verschlossen .../\nDie Tür wird mithilfe eines Schaltersystems entriegelt. Wir hätten auch ein Schloss benutzen können, aber der Architekt wollte eine modernere Lösung .../\nUm die Tür zur Vorratskammer zu öffnen, musst du also drei Schalter finden und umlegen./\nUnd aus Sicherheitsgründen, die uns damals sinnvoll erschienen, befinden sich die Schalter an verschiedenen Stellen:#\nDer erste ist in der alten Wachstube.\nDer zweite ist im Westflügel des Gefängnisses.\nUnd der dritte ist im Ostflügel./\n.../\nSchalter sind nicht so prickelnd, wenn man’s eilig hat, was?#Ich werde mal ein Wörtchen mit dem Architekten reden .../\nDu kannst mit einem beliebigen Schalter anfangen. Wir müssen sowieso alle drei finden .../",
         "ES_DIAL": "Tenemos que pasar por la Reserva para llegar a las mazmorras./\nPero como sospechaba... La Reserva está cerrada.../\nLa puerta se maneja con un sistema de palancas. Podríamos haber usado una cerradura, pero el arquitecto optó por algo un poco más moderno.../\nAsí que tendrás que encontrar las tres palancas y bajarlas para desbloquear la puerta de la Reserva./\nY por razones de seguridad que parecían obvias en el momento de la construcción, las palancas están en diferentes lugares:#\nLa primera está en la antigua Sala de Guardias.\nLa segunda está en el Ala Oeste de la Prisión...\nY la tercera está en el Ala Este.../\n.../\nLas palancas no son tan geniales cuando tienes prisa, ¿eh?...#Voy a tener unas palabras con el arquitecto.../\nPuedes empezar por la que quieras... pero, aun así, tendremos que abrir las tres.../",
         "RU_DIAL": "Мы вынуждены пройти через Резерв, чтобы добраться до подземелий./  \nНо, как я и подозревал... Резерв закрыт.../  \nДверь управляется системой рычагов. Мы могли бы использовать замок, но архитектор выбрал что-то немного более современное.../  \nТак что вам придется найти и опустить три рычага, чтобы открыть дверь Резерва./  \nИ по соображениям безопасности, которые казались очевидными во время строительства, рычаги находятся в разных местах :#  \nПервый находится в старой комнате охраны.  \nВторой - в Западном крыле тюрьмы...  \nА третий - в Восточном крыле.../  \n.../  \nРычаги не так хороши, когда вы спешите, а? ...#Я поговорю с архитектором.../  \nВы можете начать с того, который хотите... Нам все равно придется открыть все три.../",
+        "KR_DIAL": "우리는 던전에 도달하기 위해 예약 구역을 통과해야 합니다./ 하지만 내가 의심했던 대로... 예약 구역은 닫혀 있습니다.../ 문은 레버 시스템으로 작동됩니다. 우리는 잠금을 사용할 수도 있었지만 건축가는 좀 더 현대적인 것을 선택했습니다.../ 그래서 예약 구역의 문을 잠금 해제하려면 세 개의 레버를 찾아 내리고 내려야 합니다./ 건설 당시 명백하게 보였던 보안상의 이유로, 레버는 서로 다른 장소에 있습니다 :# 첫 번째는 오래된 경비실에 있습니다. 두 번째는 감옥의 서쪽 날개에... 그리고 세 번째는 동쪽 날개에 있습니다.../ .../ 급할 때 레버는 별로 좋지 않죠, huh? ...# 건축가와 얘기를 좀 나누겠습니다.../ 원하는 레버부터 시작할 수 있습니다... 어쨌든 세 개 모두 열어야 합니다.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3845,10 +3845,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du musst drei Schalter finden und umlegen, um die Tür zur Vorratskammer zu öffnen./",
         "ES_DIAL": "Tienes que encontrar y bajar tres palancas para desbloquear la puerta de la Reserva./",
         "RU_DIAL": "Вам нужно найти и опустить три рычага, чтобы открыть дверь Резерва./",
+        "KR_DIAL": "저장소의 문을 열기 위해 세 개의 레버를 찾아서 내리셔야 합니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3863,10 +3863,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Seit der Rückkehr von Ohm Eigad und der Befreiung der Gefangenen stehen beide Gefängnisflügel unter der Kontrolle rivalisierender Banden./\nBei meinen heimlichen Besuchen hier konnte ich herausfinden, dass der Westflügel von einer Gruppe von Skeletten mit explosivem Temperament kontrolliert wird. Sie nennen sich ... „die Müden Knochen“!/\nUnd um in den Bereich zu gelangen, wo sich einer der Schalter befindet, müssen wir durch ihr Revier .../",
         "ES_DIAL": "Desde el regreso de Ohm Agad y la liberación de los prisioneros, ambas alas de la Prisión están bajo el control de pandillas rivales de exprisioneros./\nPor lo que entendí mientras me escabullía en la Prisión, un grupo de esqueletos con un temperamento \"explosivo\" ha reclamado el control del Ala Oeste. Se hacen llamar... ¡Huesos Viejos!/\nY tendremos que atravesar su territorio para llegar a la siguiente área, donde se encuentra una de las palancas.../",
         "RU_DIAL": "С тех пор как вернулся Охм Агада и были освобождены заключенные, оба крыла Тюрьмы находятся под контролем соперничающих банд бывших заключенных./ \nИз того, что я понял, пробираясь в Тюрьму, группа скелетов с \"взрывным\" характером заявила о контроле над Западным Крылом. Их называют... Старые Кости!/ \nИ нам придется пройти через их территорию, чтобы добраться до следующей зоны, где находится один из рычагов.../",
+        "KR_DIAL": "오므 아가드의 귀환과 수감자들의 석방 이후, 교도소의 두 날개는 모두 전 수감자들로 구성된 경쟁 갱단의 통제 하에 있습니다./ 내가 교도소에 몰래 들어가면서 이해한 바에 따르면, \"폭발적인\" 성격을 가진 해골 무리가 서쪽 날개를 장악했다고 합니다. 그들은... 올드 본즈로 알려져 있습니다!/ 그리고 우리는 다음 지역으로 가기 위해 그들의 영토를 지나야 합니다. 그곳에는 레버 중 하나가 위치해 있습니다.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3881,10 +3881,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wir nähern uns dem Zentrum des Territoriums der Müden Knochen./\nDort befindet sich der Schalter .../",
         "ES_DIAL": "Estamos por llegar al corazón del territorio de Los Huesos Viejos.../\nAhí es donde está la palanca.../",
         "RU_DIAL": "Мы собираемся добраться до сердца территории Старых Костей.../ Там находится рычаг.../",
+        "KR_DIAL": "우리는 Old Bones의 영토의 중심에 도달할 것입니다.../\n그곳에 레버가 있습니다.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3899,10 +3899,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du musst drei Schalter finden und umlegen, um die Tür zur Vorratskammer zu öffnen./",
         "ES_DIAL": "Tienes que encontrar y bajar tres palancas para desbloquear la puerta de la Reserva./",
         "RU_DIAL": "Вам нужно найти и опустить три рычага, чтобы разблокировать дверь Резерва./",
+        "KR_DIAL": "세 개의 레버를 찾아서 내리면 Reserve의 문을 열 수 있습니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3917,10 +3917,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Das hier ist der Ostflügel./\nSeit der Rückkehr von Ohm Eigad macht eine Gruppe von Knackis diesen Ort unsicher. Sie nennen sich ... „Das Kapuzensyndikat“!/\nUm in den Bereich zu gelangen, wo sich einer der Schalter befindet, müssen wir durch ihr Revier .../",
         "ES_DIAL": "Este es el Ala Este./\nDesde el regreso de Ohm Agad, un grupo de exprisioneros ha estado aterrorizando este lugar. Se hacen llamar el Sindicato de la Capucha./\nTendremos que cruzar su territorio para llegar a una de las palancas que desbloquea la puerta de la Reserva.../",
         "RU_DIAL": "Это Восточное Крыло./ С момента возвращения Ома Агада группа бывших заключенных терроризирует это место. Они называют себя... Синдикат Капюшонов!/ Нам придется пересечь их территорию, чтобы добраться до одного из рычагов, который открывает дверь в Резерв.../",
+        "KR_DIAL": "이곳은 동쪽 날개입니다./ 오므 아가드의 귀환 이후, 한 무리의 전직 수감자들이 이곳을 테러하고 있습니다. 그들은 자신들을... 후드 신디케이트라고 부릅니다! / 우리는 예약소의 문을 여는 레버 중 하나에 도달하기 위해 그들의 영토를 넘어야 합니다.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3935,10 +3935,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Der Schalter befindet sich im nächsten Bereich./\nDort treibt sich auch der Anführer des Kapuzensyndikats herum .../",
         "ES_DIAL": " La palanca está en la siguiente área./\nAquí también es donde está el líder del Sindicato de la Capucha.../",
         "RU_DIAL": "Рычаг находится в следующей зоне./ Это также место, где находится глава Синдиката Капюшонов.../",
+        "KR_DIAL": "레버는 다음 지역에 있습니다./ 후드 신디케이트의 수장도 여기 있습니다.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3953,10 +3953,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du musst drei Schalter finden und umlegen, um die Tür zur Vorratskammer zu öffnen./",
         "ES_DIAL": "Tienes que encontrar y bajar tres palancas para desbloquear la puerta de la Reserva./",
         "RU_DIAL": "Вам нужно найти и опустить три рычага, чтобы открыть дверь Резерва./",
+        "KR_DIAL": "저장소의 문을 열기 위해 세 개의 레버를 찾아서 내리셔야 합니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3971,10 +3971,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wir sind hier in der alten Wachstube./\nWahrscheinlich sind meine ehemaligen Kollegen auch noch da. Nur in etwas veränderter Form .../\nDer Schalter sollte hier irgendwo sein./",
         "ES_DIAL": "Estamos en la vieja sala de guardias.../\nMe imagino que mis antiguos colegas aún deben estar por aquí... Aunque probablemente algo diferentes.../\nLa palanca debería estar en algún lugar por aquí.../",
         "RU_DIAL": "Мы в старой комнате охраны.../\nДумаю, мои бывшие коллеги все еще здесь... Наверное, немного изменились.../\nРычаг должен быть где-то здесь.../",
+        "KR_DIAL": "우리는 오래된 경비실에 있습니다.../\n내 전 동료들이 아직 여기 있을 것 같아요... 아마 조금 다를 거예요.../\n레버는 이 근처 어딘가에 있어야 해요.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -3989,10 +3989,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ein Schalter weniger./",
         "ES_DIAL": "Una palanca menos por bajar./",
         "RU_DIAL": "Один рычаг меньше, чтобы тянуть./",
+        "KR_DIAL": "레버를 하나 덜 당겨야 합니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4007,10 +4007,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Da ist der Schalter!/\nEin bisschen zu einfach, findest du nicht?/",
         "ES_DIAL": "¡Ahí está la palanca!/\nEs un poco fácil, ¿no crees?/",
         "RU_DIAL": "Есть рычаг!/\nЭто немного слишком просто, не так ли?/",
+        "KR_DIAL": "레버가 있어요!/\n조금 너무 쉽지 않나요?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4025,10 +4025,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Das war zu erwarten .../",
         "ES_DIAL": "Era de esperarse.../",
         "RU_DIAL": "Это было ожидаемо.../",
+        "KR_DIAL": "예상할 수 있는 일이었다.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4043,10 +4043,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Da ist der Schalter!/\nLegen wir ihn um und dann nichts wie weg hier!/",
         "ES_DIAL": "¡Ahí está la palanca!/\n¡Tiremos de ella y sigamos adelante!/",
         "RU_DIAL": "Есть рычаг!/\nДавайте потянем его и выйдем!/",
+        "KR_DIAL": "레버가 있다!/\n당겨서 나가자!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4061,10 +4061,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Keine Auas?/",
         "ES_DIAL": "¿No hay nada roto?/",
         "RU_DIAL": "Нет ли ошибок?/",
+        "KR_DIAL": "아프지 않나요?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4079,10 +4079,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wir sind nun in der Vorratskammer./\nIch komme nur selten hier rein. Hier lauern immer irgendwelche seltsamen Kreaturen .../\nHm ... Du hast hoffentlich keine Angst vor Spinnen?/",
         "ES_DIAL": "Ahora estamos en la Reserva…/\nRara vez pongo un pie aquí... Siempre hay criaturas extrañas merodeando por estos lares.../\nMmm... Espero que no le temas a las arañas.../",
         "RU_DIAL": "Мы сейчас в Резерве.../\nЯ редко здесь бываю... Здесь всегда прячутся странные существа.../\nХм... Я надеюсь, ты не боишься пауков?/",
+        "KR_DIAL": "우리는 지금 보호구역에 있습니다.../ 나는 여기 발을 들여놓는 일이 드뭅니다... 항상 이상한 생물들이 여기 주변에 숨어 있습니다.../ 음... 당신은 거미를 두려워하지 않기를 바랍니다?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4097,10 +4097,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Zum Verlies! Immer geradeaus!/",
         "ES_DIAL": "¡Al calabozo! ¡Es todo recto!/",
         "RU_DIAL": "В подземелье! Прямо вперед!/",
+        "KR_DIAL": "던전으로! 바로 앞입니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4115,10 +4115,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Der Korridor, der uns zum Verlies führen sollte, ist eingestürzt .../\nWir müssen einen kleinen Umweg machen. Sollt eigentlich kein Problem sein./\nDu hast doch keine Angst vor Gespenstern, oder?/",
         "ES_DIAL": "El pasillo que debería llevarnos al calabozo se ha derrumbado.../\nTendremos que hacer un pequeño desvío... Nada de qué preocuparse.../\nNo me digas que le tienes miedo a los fantasmas.../",
         "RU_DIAL": "Коридор, который должен был привести нас в подземелье, обрушился.../\nНам придется сделать небольшой объезд... Ничего страшного.../\nТы не боишься призраков, правда?/",
+        "KR_DIAL": "지하 감옥으로 우리를 인도해야 했던 복도가 무너졌습니다.../\n우리는 조금 우회해야 할 것입니다... 걱정할 필요 없습니다.../\n당신은 유령이 두렵지 않죠?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4133,10 +4133,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du betrittst gleich Grotagroms Revier./\nUnd du musst die Rädelsführer seiner Bande besiegen, wenn du bis zu ihm vordringen willst./\nDas wird kein leichtes Unterfangen. Sie sind allesamt schreckliche Halunken./\nViel Glück!/",
         "ES_DIAL": "Estás a punto de entrar en el territorio de Grotagrom./\nY tendrás que derrotar a los cabecillas de su banda si quieres llegar hasta él./\nNo será fácil. Son todos unos terribles sinvergüenzas./\n¡Buena suerte!/",
         "RU_DIAL": "Вы собираетесь войти на территорию Грогатрома./  \nИ вам придется победить главарей его банды, если вы надеетесь добраться до него./  \nЭто будет нелегко. Они все ужасные негодяи./  \nУдачи!/",
+        "KR_DIAL": "당신은 그로타그롬의 영역에 들어가려 하고 있습니다./  \n그를 만나고 싶다면 그의 무리의 두목들을 물리쳐야 할 것입니다./  \n쉽지 않을 것입니다. 그들은 모두 끔찍한 악당들입니다./  \n행운을 빕니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4151,10 +4151,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Grotagrom wartet im nächsten Bereich auf uns!#\nGehen wir!/",
         "ES_DIAL": "Grotagrom nos espera en la siguiente zona.#\n¡Vamos!/",
         "RU_DIAL": "Грогатром ждет нас в следующей зоне!#\nПойдем!/",
+        "KR_DIAL": "그로타그롬이 다음 지역에서 우리를 기다리고 있어요!#\n가자!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4169,10 +4169,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Grotagrom ist sehr mächtig!/\nDu wirst ihn nicht auf die klassische Weise besiegen können./\nLas dir besser etwas anderes einfallen .../\nViel Glück!/",
         "ES_DIAL": "Grotagrom es muy poderoso.../\nNo podrás derrotarlo con los métodos usuales./\nTendrás que encontrar otra manera.../\n¡Buena suerte!/",
         "RU_DIAL": "Грогатгром очень силен!/\nТы не сможешь победить его обычными методами./\nТебе придется найти что-то другое.../\nУдачи!/",
+        "KR_DIAL": "그로타그롬은 매우 강력합니다!/\n당신은 일반적인 방법으로 그를 이길 수 없을 것입니다./\n다른 무언가를 찾아야 할 것입니다.../\n행운을 빕니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4187,10 +4187,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Viel Glück!/",
         "ES_DIAL": "¡Buena Suerte!/",
         "RU_DIAL": "Удачи!/",
+        "KR_DIAL": "행운을 빕니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4205,10 +4205,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich habe da drin wirklich seltsame Dinge gesehen./",
         "ES_DIAL": "He visto cosas muy extrañas ahí adentro./",
         "RU_DIAL": "Я видел там очень странные вещи./",
+        "KR_DIAL": "나는 그 안에서 매우 이상한 것들을 보았다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4223,10 +4223,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Finster ist die Nacht ...|\nGrämlich ist die Dämmerung ...|\nDüster ist mir zumute ...|\nTrostlos ist der Tagesanbruch ...|",
         "ES_DIAL": "Oscura es la noche...|\nMelancólico es ese crepúsculo...|\nEstoy de un humor sombrío...|\nGris es el amanecer...|",
         "RU_DIAL": "Темна ночь...|  \nУныл закат...|  \nЯ в мрачном настроении...|  \nСумеречен рассвет...|",
+        "KR_DIAL": "어두운 밤이다...|  \n우울한 황혼이다...|  \n나는 음침한 기분이다...|  \n우울한 새벽이다...|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4241,10 +4241,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Mach nicht alles kaputt ...|\nHier entlang ...|\nGehen wir!|\nGeh schon ... Ich bleibe hier ...|",
         "ES_DIAL": "Trata de no arruinarlo todo...|\nEs por aquí...|\n¡Vamos!|\nSigue adelante... Yo me quedaré atrás...|",
         "RU_DIAL": "Постарайся не разрушить всё...|  \nЭто так...|  \nПошли!|  \nИди... Я останусь позади...|",
+        "KR_DIAL": "모든 것을 망치지 않도록 해봐...|  \n이쪽이야...|  \n가자!|  \n가서 가... 나는 뒤에 있을게...|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4259,10 +4259,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Meine Laune ist gruftig .../\nSeltsame Dinge gehen auf dem Friedhof vor sich, aber Bryan scheint es nicht eilig zu haben, mir zu helfen .../\nWenn du mich fragst, ist er ein Feigling./",
         "ES_DIAL": "Estoy de un humor macabro.../\nCosas extrañas están ocurriendo en el Cementerio... pero parece que Ramiro no tiene prisa por ayudarme.../\nSi me preguntas, creo que es un cobarde.../",
         "RU_DIAL": "Я в мрачном настроении.../\nСтранные вещи происходят на кладбище... но Брайан, похоже, не спешит мне помочь.../\nЕсли вы спросите меня, я думаю, что он трус.../",
+        "KR_DIAL": "나는 섬뜩한 기분이야.../\n묘지에서 이상한 일들이 일어나고 있어... 하지만 브라이언은 나를 도와줄 급한 마음이 없는 것 같아.../\n내 생각에는 그가 겁쟁이인 것 같아.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4277,10 +4277,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Danke, dass du mich gerettet hast. Das war eine seltsame Erfahrung .../\nWie? Du brauchst eine Schaufel?/\nDann bist du bei mir genau richtig. Ich habe eine großartige Schaufel! Aber gehen wir erst einmal ins Dorf zurück./\nGeh schon vor, wir treffen uns dort./",
         "ES_DIAL": "Gracias por sacarme de ahí... Fue una experiencia muy extraña.../\n¿Qué? ¿Necesitas una pala...?/\nHas llegado al lugar indicado... ¡Tengo una gran pala! Pero volvamos al pueblo primero./\nAdelántate, te alcanzaré allá./",
         "RU_DIAL": "Спасибо, что вытащили меня оттуда... Это был странный опыт.../\nЧто? Тебе нужна лопата?.../\nТы пришел к нужному человеку... У меня есть отличная лопата! Но давай сначала вернемся в деревню./\nТы иди вперед, я встречу тебя там./",
+        "KR_DIAL": "거기서 나가게 해줘서 고마워... 이상한 경험이었어.../\n뭐? 너 삽이 필요해?.../\n너는 올바른 사람에게 왔어... 나는 훌륭한 삽이 있어! 하지만 먼저 마을로 돌아가자./\n너 먼저 가, 거기서 만날게./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4295,10 +4295,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Die Familiengruft der McMuckies ist am anderen Ende des Friedhofs ... und der Zerstörer unzerstörbarer und unverwüstlicher Siegel ist darunter vergraben./",
         "ES_DIAL": "La Cripta de los Recio está al fondo del Cementerio... y el Destructor de Sellos Definitivo está enterrado debajo./",
         "RU_DIAL": "Крипта МакРиппедов находится в дальнем конце Кладбища... и Уничтожитель Неразрушимых и Непробиваемых Печатов похоронен под ней./",
+        "KR_DIAL": "맥리펙스의 무덤은 묘지의 끝자락에 위치해 있으며... 깨지지 않고 파괴할 수 없는 봉인의 파괴자가 그 아래에 묻혀 있습니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4313,10 +4313,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Es sind noch immer Monster auf dem Friedhof. Kann denn niemand etwas unternehmen?/\nIch möchte gerne wieder zurück an die Arbeit .../\nDer junge McMuckies muss noch beigesetzt werden. Und er riecht schon ziemlich streng .../",
         "ES_DIAL": "Todavía hay monstruos en el Cementerio... ¿Es que nadie puede hacer algo por mí...?/\nMe gustaría volver al trabajo.../\nTodavía tengo el cuerpo del joven Recio para enterrar... Y ya no huele muy bien... /",
         "RU_DIAL": "В кладбище все еще есть монстры... Никто не может мне помочь?.../\nЯ хотел бы вернуться к работе.../\nУ меня все еще есть тело молодого МакРиппеда, которое нужно положить в землю... И оно уже не очень приятно пахнет... /",
+        "KR_DIAL": "묘지에는 여전히 괴물들이 있습니다... 아무도 저를 위해 뭔가 할 수 없나요?.../\n저는 다시 일하러 가고 싶습니다.../\n저는 아직 젊은 맥립트의 시신을 땅에 묻어야 합니다... 그리고 이제는 냄새가 그리 좋지 않습니다... /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4331,10 +4331,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Nochmals danke, dass du mich da rausgeholt hast .../\nDu suchst nach einer Schaufel, nicht wahr? Nun ... Ich habe eine! Es ist eine ganz besondere Schaufel! Sie gräbt ganz wunderbare Löcher, aber das ist noch nicht alles./\nDank einer ausgefeilten Mechanik kann meine Schaufel außerdem ... nach Norden zeigen! Ich nenne sie die „Kompassschaufel“! Und sie liegt mir wirklich am Herzen .../\nAber ich habe sie verloren ... Oder besser gesagt: Ich habe sie zurückgelassen!/\nIch war gerade dabei, eines meiner besten Löcher aller Zeiten zu graben – nicht zu tief, nicht zu weit – als überall um mich herum Monster aus dem Boden kamen!/\nDa habe ich natürlich die Beine in die Hand genommen und meine Kompassschaufel ihrem Schicksal überlassen./\nDu holst sie mir doch zurück, nicht wahr? Sie sollte nicht allzu weit von der Stelle entfernt sein, wo du mich gefunden hast./\n[bryan]Gehen wir diese „Kompassschaufel“ holen./",
         "ES_DIAL": "Te agradezco por traerme de vuelta.../\n¿Estás buscando una pala, no es así? Bueno... ¡tengo una! ¡Es una pala muy especial! Es útil para cavar agujeros, pero no solo para eso./\nGracias a unas brillantes modificaciones, mi Pala es capaz de... ¡apuntar hacia el norte! La llamo la Pala-Brújula y le tengo mucho cariño.../\nPero... la perdí... O, tal vez, ¡debería decir que la abandoné! /\nEstaba cavando uno de mis agujeros más hermosos. Un agujero que no era ni demasiado profundo ni demasiado irregular, cuando monstruos empezaron a aparecer a mi alrededor. /\nAsí que, naturalmente, salí huyendo con todas mis piernas, abandonando mi Pala-Brújula a su suerte./\n¿Vas a buscarla, verdad? No debería estar muy lejos de donde me encontraste./\n[bryan]Vamos a recuperar esa... Pala-Brújula.../",
         "RU_DIAL": "Я благодарен тебе за то, что ты вернул меня.../\nТы ищешь лопату, не так ли? Ну... У меня есть одна! Это очень особенная лопата! Она полезна для копания ям, но не только для этого!/\nБлагодаря блестящим модификациям, моя лопата способна... указывать на север! Я называю её Лопата-Компас! И я действительно забочусь о ней.../\nНо... Я её потерял... Или, скорее, я её бросил!/\nЯ копал одну из моих самых красивых ям с ней: яму, которая не была слишком глубокой и не слишком неправильной, когда вокруг меня начали появляться монстры. /\nПоэтому я, естественно, сбежал на всех своих ногах, оставив свою Лопату-Компас на произвол судьбы./\nТы собираешься её забрать, не так ли? Она не должна быть слишком далеко от того места, где ты меня нашёл./\n[bryan]Давай заберём эту... Лопату-Компас.../",
+        "KR_DIAL": "당신이 나를 되돌려줘서 고맙습니다.../\n당신은 삽을 찾고 있죠, 그렇죠? 음... 저는 하나 가지고 있어요! 아주 특별한 삽이에요! 구멍을 파는 데 유용하지만, 그뿐만이 아니에요!/\n뛰어난 수정 덕분에, 제 삽은... 북쪽을 가리킬 수 있어요! 저는 그것을 삽-나침반이라고 부릅니다! 그리고 저는 그것을 정말 소중히 여깁니다.../\n하지만... 저는 그것을 잃어버렸어요... 아니면 제가 그것을 버렸다고 말해야 할까요!/\n저는 그것으로 제 가장 아름다운 구멍 중 하나를 파고 있었어요: 너무 깊지도 않고, 너무 불규칙하지도 않은 구멍이었는데, 괴물들이 저를 둘러싸고 나타나기 시작했어요. /\n그래서 저는 자연스럽게 모든 다리로 도망쳤고, 제 삽-나침반을 운명에 맡겼습니다./\n당신은 그것을 찾으러 갈 거죠, 그렇죠? 당신이 저를 찾은 곳에서 그리 멀지 않아야 해요./\n[bryan]그 삽-나침반을 가지러 가자.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4349,10 +4349,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hast du meine Kompassschaufel gefunden? Die einzige Schaufel, die Kompass und Schaufel zugleich ist?",
         "ES_DIAL": "¿Encontraste mi Pala-Brújula? ¿Una Pala que es tanto una Pala como una Brújula?",
         "RU_DIAL": "Ты нашел мою Лопату-Компас? Лопата, которая является и Лопатой, и Компасом?",
+        "KR_DIAL": "너는 내 삽-나침반을 찾았니? 삽이자 나침반인 삽?",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4367,10 +4367,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich habe meine Kompassschaufel ein Stück weiter hinten zurückgelassen. Du findest sie sicher sofort./\nAußer natürlich, irgendein Schuft hat sie mitgenommen .../",
         "ES_DIAL": "Dejé mi Pala-Brújula un poco más lejos, deberías encontrarla fácilmente./\nSiempre y cuando un villano no me la haya arrebatado.../",
         "RU_DIAL": "Я оставил свою Лопату-Компас немного подальше, ты легко её найдёшь./ Только если злодей не вырвал её у меня../",
+        "KR_DIAL": "나는 내 삽-나침반을 조금 더 멀리 두었어, 너는 쉽게 찾을 수 있을 거야./ \n오직 악당이 그것을 내게서 빼앗지 않았다면..../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4385,10 +4385,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Meine Kompassschaufel! Vielen Dank! Ich war außer mir vor Sorge!/\nNur ist sie leider völlig demoliert .../\nIn diesem Zustand kann sie wohl keine Löcher mehr graben. Aber nach Norden zeigt sie immer noch!/\nJetzt ist es ein Kompass am Stiel .../\nDu brauchst nicht zufällig einen Kompass?/\nAnsonsten können wir sie immer noch reparieren. Es gibt ein Kompassschaufel-Reparaturset, das ich auf dem Platz in der Mitte des Friedhofs zurückgelassen habe./\n[bryan]Was es nicht alles für Sachen gibt ... Also gut, gehen wir’s holen!/",
         "ES_DIAL": "¡Mi Pala-Brújula! ¡Gracias! Estaba tan preocupado.../\nPero... Está toda rota.../\nEn este estado, será difícil cavar un agujero con ella... pero aún apunta hacia el norte.../\nEs una brújula con un palo.../\n¿No necesitarás una brújula, por casualidad?/\nDe lo contrario, siempre podemos arreglarla... Tengo un Kit de Reparación de Pala-Brújula que dejé en la plaza central del Cementerio un poco más allá./\n[bryan]Es un objeto muy específico... ¡Vayamos a buscarlo!/",
         "RU_DIAL": "Моя Лопата-Компас! Спасибо! Я так волновался!/\nНо... Она вся сломана.../\nВ таком состоянии будет трудно выкопать яму с ней... но она все еще указывает на север!/\nЭто компас на палке..../\nТебе случайно не нужен компас, а?/\nВ противном случае мы всегда можем его починить... У меня есть Набор для Ремонта Лопаты-Компаса, который я оставил на центральной площади Кладбища немного дальше./\n[bryan]Это очень специфический объект... Пойдем заберем его!/",
+        "KR_DIAL": "내 삽 나침반! 고마워! 너무 걱정했어!/\n하지만... 다 부서졌어.../\n이 상태로는 구멍을 파기 어려울 거야... 하지만 여전히 북쪽을 가리키고 있어!/\n막대기에 달린 나침반이야..../\n혹시 나침반이 필요하지는 않겠지?/\n그렇지 않으면 항상 고칠 수 있어... 나는 조금 더 멀리 있는 묘지의 중앙 광장에 두고 온 삽 나침반 수리 키트가 있어./\n[bryan]물건으로서 매우 구체적이야... 가서 가져가자!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4403,10 +4403,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Oh, fast hätte ich es vergessen ...#Den hier habe ich in den Taschen des unglückseligen Bryan McMuckies gefunden .../\nIch dachte mir, er hätte sicher gewollt, dass du ihn bekommst./\n[bryan]Hey, das ist der Siegelring meiner Familie .../\n[bryan].../\n[bryan]Schon gut, kannst ihn haben. Ist ja nicht so, als bräuchte ich ihn jetzt noch.<Gravedigger Ring Gift>/",
         "ES_DIAL": "Oh, lo había olvidado...#Encontré esto en los bolsillos del desafortunado Ramiro Recio.../\nParece útil, así que pensé que querría que lo tuvieras./\n[bryan]Oye, ese es mi anillo con el emblema familiar.../\n[bryan].../\n[bryan]Bueno, llévatelo. No es como si yo fuera a poder usarlo.<Gravedigger Ring Gift>/",
         "RU_DIAL": "О, я забыл...#Я нашел это в карманах несчастного Брайана МакРиппеда.../\nЭто выглядит полезно, так что я подумал, что он хотел бы, чтобы ты это получил./\n[bryan]Эй, это мое семейное печатное кольцо.../\n[bryan].../\n[bryan]Ну ладно, забирай. Не то чтобы я смог его использовать.<Gravedigger Ring Gift>/",
+        "KR_DIAL": "오, 잊어버렸어...#불행한 브라이언 맥립트의 주머니에서 이걸 찾았어.../\n유용해 보이길래 그가 너에게 주고 싶어 할 것 같았어./\n[bryan]이건 내 가족의 인장 반지야.../\n[bryan].../\n[bryan]아, 어쨌든 가져가. 내가 사용할 수 있을 것 같지도 않으니까.<Gravedigger Ring Gift>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4421,10 +4421,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wenn du die Kompassschaufel reparieren willst, brauche ich mein Kompassschaufel-Reparaturset, das sich ein Stück weiter weg befindet.",
         "ES_DIAL": "Si quieres reparar la Pala-Brújula, necesito mi Kit de Reparación de la Pala-Brújula, que está un poco más allá.",
         "RU_DIAL": "Если вы хотите починить Лопато-компас, мне нужен мой Набор для ремонта Лопато-компаса, который находится немного дальше.",
+        "KR_DIAL": "만약 너가 삽 나침반을 고치고 싶다면, 나는 조금 더 멀리 있는 내 삽 나침반 수리 키트가 필요해.",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4439,10 +4439,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Mein Kompassschaufel-Reparaturset ist nicht in diesem Bereich, aber wir müssen hier durch./\nHm ... Das ist seltsam ... Meine Kompassschaufel zeigt nicht mehr nach Norden, sondern da lang./\nVielleicht sollten wir ihr folgen./",
         "ES_DIAL": "Mi Kit de Reparación de la Pala-Brújula no está en esta zona, pero tenemos que pasar por aquí.../\nBueno... Eso es extraño... Mi Pala-Brújula ya no apunta al norte, sino hacia esa dirección.../\nQuizás deberíamos seguir el camino que apunta.../",
         "RU_DIAL": "Мой набор для ремонта Лопаты-Коммаса не в этой области, но нам нужно пройти через нее.../\nНу... Это странно... Моя Лопата-Компас больше не указывает на север, а вон в том направлении.../\nМожет, нам стоит следовать в том направлении, куда она указывает.../",
+        "KR_DIAL": "내 삽-나침반 수리 키트는 이 지역에 없지만, 우리는 그것을 지나가야 해.../\n음... 이상하네... 내 삽-나침반은 더 이상 북쪽을 가리키지 않고 저쪽 방향을 가리키고 있어.../\n아마도 우리는 그것이 가리키는 방향으로 따라가야 할 것 같아.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4457,10 +4457,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Heißt das, meine Kompassschaufel kann Risse orten? Wirklich außergewöhnlich .../\nAber wir müssen trotzdem noch mein Kompassschaufel-Reparaturset finden!/\n[bryan]Wir sollten den Dorfbewohner besuchen, den wir gerettet haben. Er wird uns sicher etwas zu berichten wissen .../",
         "ES_DIAL": "¿Estás diciendo que mi Pala-Brújula puede localizar Brechas? Eso ES realmente increíble.../\n¡Pero aún necesitamos encontrar mi Kit de Reparación de la Pala-Brújula! /\n[bryan]Deberíamos visitar al aldeano que trajimos de vuelta... Seguramente tendrá cosas que contarnos.../",
         "RU_DIAL": "Ты говоришь, что мой Лопато-Компасс может находить Бреши? Он действительно исключительный.../\nНо нам все еще нужно найти мой Набор для Ремонта Лопато-Компаса! /\n[bryan]Нам стоит навестить деревенского жителя, которого мы привели... У него определенно есть что нам рассказать.../",
+        "KR_DIAL": "당신이 내 삽 나침반이 균열을 찾을 수 있다고 말하는 건가요? 정말 특별하네요.../\n하지만 우리는 아직 내 삽 나침반 수리 키트를 찾아야 해요! /\n[bryan]우리가 데려온 마을 사람을 방문해야 해요... 그는 분명히 우리에게 할 이야기가 있을 거예요.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4475,10 +4475,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wenn du die Kompassschaufel reparieren willst, brauche ich mein Kompassschaufel-Reparaturset, das sich ein Stück weiter weg befindet.",
         "ES_DIAL": "Si quieres reparar la Pala-Brújula, necesito mi Kit de Reparación que está un poco más adelante.",
         "RU_DIAL": "Если вы хотите отремонтировать Лопато-компас, мне нужен мой Набор для ремонта Лопато-компаса, который находится немного дальше.",
+        "KR_DIAL": "만약 너가 삽 나침반을 수리하고 싶다면, 나는 조금 더 멀리 있는 내 삽 나침반 수리 키트가 필요해.",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4493,10 +4493,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Meine Kompassschaufel hat einen Riss in der Nähe geortet. Wir sollten ihn schließen. Er liegt sowieso auf dem Weg zum Kompassschaufel-Reparaturset.",
         "ES_DIAL": "Mi Pala-Brújula indica una Brecha en esta zona. Deberíamos cerrarla. De todas maneras, nos queda de camino hacia el Kit de Reparación de la Pala-Brújula.",
         "RU_DIAL": "Мой Лопато-Компасс указывает на Прорыв в этой области. Мы должны его закрыть. В любом случае, он на нашем пути к Набору для Ремонта Лопато-Компаса.",
+        "KR_DIAL": "내 삽 나침반이 이 지역에 균열이 있음을 나타냅니다. 우리는 그것을 닫아야 합니다. 어쨌든 그것은 삽 나침반 수리 키트로 가는 길에 있습니다.",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4511,10 +4511,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wenn du die Kompassschaufel reparieren willst, brauche ich mein Kompassschaufel-Reparaturset, das sich im nächsten Bereich befindet.",
         "ES_DIAL": "Si quieres reparar la Pala-Brújula, necesito mi Kit de Reparación de la Pala-Brújula, que está en la siguiente zona.",
         "RU_DIAL": "Если вы хотите отремонтировать Лопату-Компас, мне нужен мой Набор для Ремонта Лопаты-Компаса, который находится в следующей области.",
+        "KR_DIAL": "삽-나침반을 수리하고 싶다면, 다음 지역에 있는 내 삽-나침반 수리 키트가 필요합니다.",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4529,10 +4529,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Mein Kompassschaufel-Reparaturset muss hier irgendwo sein, aber ich kann mich nicht mehr erinnern, wo genau./\nGib mir ein paar Minuten zum Überlegen ./\nVorsicht! Monster sind im Anmarsch!/",
         "ES_DIAL": "Dejé mi Kit de Reparación de la Pala-Brújula aquí, pero no recuerdo exactamente dónde./\nNecesito unos minutos para recordarlo./\n¡Cuidado! ¡Los monstruos están llegando!/",
         "RU_DIAL": "Я оставил свой набор для ремонта лопаты-компаса здесь, но не помню точно, где я его оставил./\nМне нужно несколько минут, чтобы вспомнить./\nОсторожно! Монстры идут!/",
+        "KR_DIAL": "나는 여기에서 내 삽-나침반 수리 키트를 두고 왔지만, 정확히 어디에 두었는지 기억이 나지 않아./  \n기억하는 데 몇 분이 필요해./  \n조심해! 괴물들이 오고 있어!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4547,10 +4547,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich versuche, mich zu erinnern, wo das Kompassschaufel-Reparaturset ist.",
         "ES_DIAL": "Estoy tratando de recordar dónde está mi Kit de Reparación de la Pala-Brújula.",
         "RU_DIAL": "Я пытаюсь вспомнить, где мой набор для ремонта лопаты-компаса находится.",
+        "KR_DIAL": "내 삽-나침반 수리 키트가 어디 있는지 기억하려고 하고 있어.",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4565,10 +4565,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hmm ... Ja, es muss irgendwo hier sein ... Oder war es dort drüben?|\nWo zum Henker ist das verdammte Kompassschaufel-Reparaturset?|\nIst es vielleicht hier irgendwo? Oder doch da drüben?|",
         "ES_DIAL": "Mmm... Sí, debe estar por aquí... ¿O estaba allí?|\n¿Dónde demonios está el maldito Kit de Reparación de la Pala-Brújula?|\nTal vez esté por aquí. ¿O estaba allí?|",
         "RU_DIAL": "Ммх... Да, оно должно быть где-то здесь... Или это было там?| Где, черт возьми, этот чертов набор для ремонта лопаты-компаса?| Может быть, он где-то здесь. Или это там?|",
+        "KR_DIAL": "음... 네, 이 근처에 있어야 할 텐데... 아니면 저기였나?|\n젠장, 삽-나침반 수리 키트는 도대체 어디에 있는 거지?|\n아마 이 근처에 있을 거야. 아니면 저기일까?|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4583,10 +4583,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du wirst lachen .../\nIch erinnere mich wieder./\nIch habe das Kompassschaufel-Reparaturset vor ein paar Tagen ins Dorf mitgenommen./\nEs ist also in meiner Hütte .../\nInsofern ... öh ... können wir jetzt wieder umdrehen./",
         "ES_DIAL": "Te vas a reír.../\nYa me acuerdo.../\nLlevé mi Kit de Reparación de la Pala-Brújula al pueblo hace unos días.../\nAsí que está en mi cabaña.../\nBueno... Uh... Entonces podemos volver al pueblo.../",
         "RU_DIAL": "Ты сейчас посмеешься.../\nЯ теперь помню.../\nЯ вернул свой набор для ремонта лопаты-компаса в деревню несколько дней назад.../\nТак что он в моей хижине.../\nНу... Эм... Так что мы можем вернуться в деревню.../",
+        "KR_DIAL": "너는 웃을 거야.../\n이제 기억났어.../\n며칠 전에 내 삽-나침반 수리 키트를 마을로 가져갔어.../\n그래서 내 오두막에 있어.../\n음... 어... 그래서 우리는 마을로 돌아갈 수 있어.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4601,10 +4601,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Alles gut! Ich habe mein Reparaturset gefunden und die Kompassschaufel repariert!/\nJetzt müssen wir nur noch zur Familiengruft der McMuckies und den Zerstörer unzerstörbarer und unverwüstlicher Siegel ausgraben./\nDie Gruft befindet sich am anderen Ende des Friedhofs und wir werden einige sehr gefährliche Bereiche durchqueren müssen, um sie zu erreichen./\nGehen wir!/",
         "ES_DIAL": "¡Todo está bien! Recuperé mi Kit e hice algunas reparaciones en la Pala-Brújula./\nAhora solo tenemos que llegar a la Cripta de los Recio para desenterrar el Destructor de Sellos Definitivo./\nLa Cripta está al final del Cementerio y tendremos que atravesar zonas muy peligrosas para llegar allí. /\n¡En marcha!/",
         "RU_DIAL": "Все хорошо! Я вернул свой комплект и сделал некоторые ремонты на Лопато-компасе!/\nТеперь нам просто нужно добраться до Крипты МакРиппедов, чтобы раскопать Уничтожитель Неразрушимых и Непробиваемых Печатов./\nКрипта находится в самом конце Кладбища, и нам придется пересечь очень опасные районы, чтобы добраться до нее /\nДавайте начнем!/",
+        "KR_DIAL": "모든 게 좋아! 나는 내 키트를 되찾았고 삽-나침반을 수리했어!/\n이제 우리는 맥리펙스의 무덤에 도달해 파괴할 수 없는 불가침의 봉인을 파내야 해./\n무덤은 묘지의 끝에 위치해 있고, 우리는 그것에 도달하기 위해 매우 위험한 지역을 지나야 해 /\n가자!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4619,10 +4619,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Entschuldige die kleine Panne mit dem Kompassschaufel-Reparaturset ... Aber sieh es mal positiv: Wir kommen ziemlich weit herum./",
         "ES_DIAL": "Lo siento por los contratiempos con el Kit de Reparación de la Pala-Brújula… Pero mira el lado positivo… Estamos visitando lugares encantadores…/",
         "RU_DIAL": "Извините за проблемы с набором для ремонта Лопата-Компас... Но смотрите на светлую сторону... Мы посещаем очаровательные места.../",
+        "KR_DIAL": "죄송합니다, 삽-나침반 수리 키트에 문제가 있었습니다... 하지만 긍정적인 면을 보세요... 우리는 매력적인 장소들을 방문하고 있습니다.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4637,10 +4637,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Die Kompassschaufel schlägt aus, es muss ein Riss in der Nähe sein./\nDu solltest ihn zerstören./",
         "ES_DIAL": "La Pala-Brújula está volviéndose loca, debe haber una Brecha cerca./\nDeberías destruirla./",
         "RU_DIAL": "Лопата-компас выходит из строя, рядом должен быть разрыв./ Вам следует уничтожить его./",
+        "KR_DIAL": "삽-나침반이 이상해지고 있어, 근처에 균열이 있어야 해./ 그것을 파괴해야 해./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4655,10 +4655,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Gehen wir weiter zur Familiengruft der McMuckies!/",
         "ES_DIAL": "Sigamos hasta la Cripta de los Recio./",
         "RU_DIAL": "Давайте продолжим к Крипте МакРиппедов!/",
+        "KR_DIAL": "맥리펜드의 지하묘지로 계속 가자!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4673,10 +4673,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Was für ein seltsames Gefühl ... Hier geht eine eigenartige böse Präsenz um./\nIch fühle mich ganz aufgedunsen .../",
         "ES_DIAL": "Qué sensación tan extraña… Hay un curioso mal que se está extendiendo por aquí…/\nMe siento hinchado.../",
         "RU_DIAL": "Какое странное чувство... Здесь витает любопытное зло.../\nЯ чувствую себя таким вздутым.../",
+        "KR_DIAL": "이상한 기분이야... 여기 주변에 호기심 많은 악이 만연해.../\n나는 부풀어 오른 기분이야.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4691,10 +4691,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du wirst lachen .../\nMir ist eben etwas eingefallen./\nUm in die Familiengruft der McMuckies zu gelangen, brauchen wir die Gruftschlüssel!/\nIch habe sie ein Stück weiter vorne versteckt./\nWir müssen sie mitnehmen./",
         "ES_DIAL": "Te vas a reír.../\nAcabo de recordar algo/\nPara entrar en la Cripta de los Recio, necesitamos las Llaves de la Cripta. /\nLas escondí un poco más adelante... /\nTendremos que recuperarlas.../",
         "RU_DIAL": "Ты сейчас посмеешься.../\nЯ только что вспомнил кое-что.../\nЧтобы попасть в Крипту МакРиппедов, нам нужны Ключи от Крипты! /\nЯ спрятал их немного подальше... /\nНам придется подумать о том, как их вернуть.../",
+        "KR_DIAL": "너는 웃을 거야.../\n나는 방금 뭔가를 기억해냈어.../\n맥립펫의 지하실에 들어가려면, 우리는 지하실의 열쇠가 필요해! /\n나는 그것들을 조금 더 멀리 숨겼어... /\n우리는 그것들을 되찾는 방법에 대해 생각해야 해.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4709,10 +4709,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Um in die Familiengruft der McMuckies zu gelangen, müssen wir erst die Gruftschlüssel finden!/",
         "ES_DIAL": "Necesitamos encontrar las Llaves de la Cripta para entrar en la Cripta de los Recio./",
         "RU_DIAL": "Нам нужно найти Ключи к Крипте, чтобы войти в Крипту МакРиппедов!/",
+        "KR_DIAL": "우리는 맥리핏의 지하 묘지에 들어가기 위해 지하 묘지의 열쇠를 찾아야 합니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4727,10 +4727,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ein weiteres bizarres Phänomen .../\nAls ich das letzte Mal hier war, sah das noch nicht so aus./",
         "ES_DIAL": "Otro fenómeno extraño en marcha.../\nNo era así la última vez que estuve aquí.../",
         "RU_DIAL": "Еще одно странное явление на работе.../\nВ прошлый раз, когда я был здесь, не было так.../",
+        "KR_DIAL": "또 다른 기괴한 현상이 작용하고 있어.../\n내가 여기 마지막으로 왔을 때는 이러지 않았어.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4745,10 +4745,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Um in die Familiengruft der McMuckies zu gelangen, müssen wir erst die Gruftschlüssel finden!/\nAlso los!/",
         "ES_DIAL": "Necesitamos encontrar las Llaves de la Cripta para poder entrar en la Cripta de los Recio./\n¡Vamos por ellas!/",
         "RU_DIAL": "Нам нужно найти Ключи к Крипте, чтобы иметь возможность войти в Крипту МакРиппедов!/\nДавайте продолжим!/",
+        "KR_DIAL": "지하 묘지의 열쇠를 찾아야 맥리핏의 지하 묘지에 들어갈 수 있습니다!  /\n빨리 시작합시다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4763,10 +4763,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ja ... Hier habe ich die Gruftschlüssel versteckt./\nSie müssen hier irgendwo sein, wahrscheinlich in einem der Krüge oder auf einem Grab .../\nAm besten machen wir alles kaputt, dann stoßen wir irgendwann automatisch drauf./",
         "ES_DIAL": "Sí... Aquí es donde escondí las Llaves de la Cripta.../\nDeben estar por aquí, probablemente en una olla o en una tumba.../\nLo más fácil sería romper todo... Tarde o temprano daremos con ellas.../",
         "RU_DIAL": "Да... Здесь я спрятал ключи от крипты.../\nОни, должно быть, где-то здесь, вероятно, в горшке или на могиле.../\nСамое простое - это всё сломать... Мы рано или поздно наткнёмся на них.../",
+        "KR_DIAL": "네... 이곳이 내가 지하 묘지의 열쇠를 숨긴 곳입니다.../ 주변 어딘가에 있어야 하는데, 아마도 항아리 안이나 무덤 위에 있을 겁니다.../ 가장 쉬운 방법은 모든 것을 부수는 것입니다... 결국 우리는 그것을 찾게 될 것입니다.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4781,10 +4781,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du hast die Gruftschlüssel gefunden!/\nPrima. Später musst du allerdings nochmal zurückkommen und die Sauerei aufräumen, die du hier angerichtet hast./\nErst mal steht aber die Familiengruft der McMuckies auf dem Programm./",
         "ES_DIAL": "¡Encontraste las Llaves de la Cripta!/\nGenial... Sin embargo, tendrás que volver y limpiar todo el desastre que hiciste.../\nMientras tanto, vamos a llevarte a la Cripta de los Recio./",
         "RU_DIAL": "Вы нашли Ключи от Крипты!/\nОтлично... Но вам придется вернуться и убрать весь беспорядок, который вы устроили.../\nТем временем, давайте отведем вас в Крипту МакРиппедов./",
+        "KR_DIAL": "지하 묘지의 열쇠를 찾았습니다!/\n좋습니다... 하지만 당신이 만든 모든 엉망을 치우기 위해 돌아와야 할 것입니다.../\n그동안, 당신을 맥리핏의 지하 묘지로 안내하겠습니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4799,10 +4799,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Jetzt, da wir die Gruftschlüssel haben, können wir zur Familiengruft der McMuckies!/",
         "ES_DIAL": "Ahora que tenemos las Llaves de la Cripta, ¡podemos ir a la Cripta de los Recio!/",
         "RU_DIAL": "Теперь, когда у нас есть Ключи к Крипте, мы можем пойти в Крипту МакРиппедов!/",
+        "KR_DIAL": "이제 우리가 지하 묘지의 열쇠를 가지고 있으니, 맥리핏의 지하 묘지로 갈 수 있습니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4817,10 +4817,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Die Kompassschaufel spielt verrückt! Hier muss es mehrere Risse geben!/\nViel Glück!/",
         "ES_DIAL": "¡La Pala-Brújula está muy agitada! ¡Hay varias brechas cerca!/\n¡Buena suerte!/",
         "RU_DIAL": "Лопата-Компас очень взволнован! Вокруг несколько нарушений!/\nУдачи!/",
+        "KR_DIAL": "삽 나침반이 매우 동요하고 있습니다! 주변에 여러 개의 균열이 있습니다!/\n행운을 빕니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4835,10 +4835,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wir sind schon ein gutes Team, findest du nicht?/",
         "ES_DIAL": "Hacemos un gran equipo, ¿no lo crees?/",
         "RU_DIAL": "Мы отличная команда вместе, не так ли?/",
+        "KR_DIAL": "우리는 함께 훌륭한 팀을 이루고 있어, 그렇지 않니?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4853,10 +4853,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hier ist eine sehr mächtige Macht am Werk .../\n[bryan]Pedro hat recht, da muss ein mächtiger Hexenmeister in der Nähe sein./\nPass auf, die Gegner sehen ziemlich gefährlich aus./",
         "ES_DIAL": "Hay un poder muy fuerte actuando aquí.../\n[bryan]Pedro tiene razón, estamos muy cerca de un poderoso Nigromante./\nTen cuidado, los enemigos parecen fuertes./",
         "RU_DIAL": "Здесь действует очень мощная сила.../\n[bryan]Педро прав, мы очень близки к мощному Некроманту./\nОсторожно, враги выглядят грозно./",
+        "KR_DIAL": "여기에서 매우 강력한 힘이 작용하고 있습니다.../\n[bryan]페드로가 맞습니다, 우리는 강력한 네크로맨서에 매우 가깝습니다./\n조심하세요, 적들이 강해 보입니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4871,10 +4871,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du näherst dich der Vorkammer der Familiengruft der McMuckies. Wir sind fast da./",
         "ES_DIAL": "Te estás acercando a la Antesala de la Cripta de los Recio. Ya casi estamos allí./",
         "RU_DIAL": "Вы приближаетесь к Преддверию Крипты МакРиппедов. Мы почти на месте./",
+        "KR_DIAL": "맥리핏 가문의 지하 묘지 전실에 가까워지고 있어. 거의 다 왔어!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4889,10 +4889,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wir sind nun in der Vorkammer der Gruft. Wir sind fast da./",
         "ES_DIAL": "Aquí estamos en la Antesala de la Cripta. Ya casi llegamos./",
         "RU_DIAL": "Вот мы в Преддверии Крипты. Мы почти на месте./",
+        "KR_DIAL": "여기 우리는 지하실의 전실에 있습니다. 거의 다 왔습니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4907,10 +4907,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Das war der letzte Bereich vor der Gruft, unserem Ziel./",
         "ES_DIAL": "Esa fue la última zona antes de la Cripta, que es nuestra próxima parada./",
         "RU_DIAL": "Это была последняя зона перед Криптой, которая является нашей следующей остановкой./",
+        "KR_DIAL": "크립 바로 전에 마지막 구역이었고, 그곳이 우리의 다음 정거장입니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4925,10 +4925,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Bereite dich gut vor, bevor du die Gruft betrittst. Der Kampf wird hart.",
         "ES_DIAL": "Asegúrate de estar bien preparado antes de ir a la Cripta. La batalla será dura.",
         "RU_DIAL": "Убедитесь, что вы хорошо подготовлены, прежде чем отправиться в Крипту. Битва будет тяжелой.",
+        "KR_DIAL": "크립에 가기 전에 잘 준비되어 있는지 확인하세요. 전투는 힘들 것입니다.",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4943,10 +4943,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ein unheimlicher Gang ... Ein großer, leerer Saal vor uns ... Bedrohliche Musik ... Sieht ganz nach einem Bosskampf aus ...",
         "ES_DIAL": "Un callejón siniestro... Una gran sala vacía delante de nosotros... Una música inquietante... Parece que se acerca un jefe...",
         "RU_DIAL": "Зловещий переулок... Большая пустая комната перед нами... Тревожная музыка... Кажется, босс идет...",
+        "KR_DIAL": "음산한 골목... 우리 앞에 있는 넓고 빈 방... 걱정스러운 음악... 보스가 오는 것 같은 느낌...",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4961,10 +4961,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Willst du klauen meine Baguettes?!|\nDu scheinst kein Kenner der feinen Küsche zu sein, non ...|\nFort mit dir! Das ’ier ist kein Etablissement für die Pöbel!|",
         "ES_DIAL": "¡¿Quieres robarme mis baguettes?! |\nNo pareces ser gourmet...|\n¡Vete! Este es un lugar de buen servicio...|",
         "RU_DIAL": "Ты хочешь украсть мои багеты?! |\nТы не выглядишь как гурман...|\nУйди! Здесь много людей...|",
+        "KR_DIAL": "너 내 바게트를 훔치고 싶어?! | 너는 미식가 같지 않네...| 꺼져! 여기 사람들 많아...|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4979,10 +4979,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Jetzt ein leckeres Croissant .../",
         "ES_DIAL": "Realmente quiero comer un cruasán.../",
         "RU_DIAL": "Я действительно хочу съесть круассан.../",
+        "KR_DIAL": "나는 정말 크루아상을 먹고 싶어.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -4997,10 +4997,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Willst du klauen meine Baguettes?!|\nDu scheinst kein Kenner der feinen Küsche zu sein, non ...|",
         "ES_DIAL": "¡¿Quieres robarme mis baguettes?! |\nNo pareces ser un gourmet...|",
         "RU_DIAL": "Ты хочешь украсть мои багеты?! | Ты не кажешься гурманом...|",
+        "KR_DIAL": "너 내 바게트를 훔치고 싶어?! | 너는 미식가 같지 않네...|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5015,10 +5015,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Parbleu! (Ein Abenteurer&Eine Abenteuerin) ... Geh und koch dir ein Ei!/",
         "ES_DIAL": "¡Oh, no! Un aventurero... ¡Ve a cocinarte un huevo!/",
         "RU_DIAL": "О нет! Приключенец... Иди приготовь себе яйцо!/",
+        "KR_DIAL": "오, 안돼! 모험가... 스스로 계란이나 요리해!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5033,10 +5033,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Grmbl ... Merci .../\nIch gehe zurück an meinen ’erd ...#Das Essen kocht sisch schließlisch nischt von selbst!/\nIch finde zurück ins Dorf alleine ... Und nein, isch brauche keine ’ilfe./",
         "ES_DIAL": "Gracias.../\nVoy a volver a mi estufa...#La comida no se va a preparar sola.../\nVoy a volver al pueblo solo... Y no, no necesito ayuda./",
         "RU_DIAL": "Mgrbl... Спасибо.../\nЯ возвращаюсь к своей плите...#Еда сама себя не приготовит!/\nЯ возвращаюсь в деревню одна... И нет, мне не нужна помощь./",
+        "KR_DIAL": "Mgrbl... 감사합니다.../\n나는 내 난로로 돌아갈 거야...#식사는 스스로 준비되지 않아!/\n나는 혼자 마을로 돌아갈 거야... 그리고 아니, 나는 도움이 필요하지 않아./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5051,10 +5051,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Isch ’abe deine ’ilfe nischt gebraucht./\nIsch ’abe in dem Riss nur etwas gastronomische Espionnage betrieben!/\nUnd jetzt fort mit dir! Das ’ier ist kein Etablissement für die Pöbel!/",
         "ES_DIAL": "Lo estaba haciendo bien por mi cuenta.../\nSolo estaba haciendo un poco de espionaje gastronómico dentro de esas Brechas.../\nBueno, ahora ¡largo! Aquí es un lugar bien atendido.../",
         "RU_DIAL": "Я прекрасно справлялся сам.../\nЯ просто занимался небольшим гастрономическим шпионажем внутри этих Разрывов.../\nНу, теперь убирайся! Здесь много народу.../",
+        "KR_DIAL": "난 혼자서 잘 지내고 있었어.../\n난 그 균열 안에서 조금 맛집 스파이 활동을 하고 있었어.../\n자, 이제 가! 여기 사람들로 붐비는 곳이야.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5069,10 +5069,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Oh, du bist es ... Geh und koch dir ein Ei!/",
         "ES_DIAL": "Oh, eres tú... ¡Ve a cocinar un huevo!/",
         "RU_DIAL": "О, это ты... Иди приготовь яйцо!/",
+        "KR_DIAL": "오, 너구나... 가서 계란이나 요리해!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5087,10 +5087,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Da bist du ja, du Straßenköter!/\nUm zu gelangen in die Schloss, musst du dem Gang folgen, dursch den isch Essen für die königlischen Bankette liefere./\nDa drin riescht es furschtbar, aber nischt so furschtbar wie du./\nUnd tritt dir die Füße ab, bevor du reingehst!/",
         "ES_DIAL": "¡Ahí estás, cobarde!/\nPara llegar al castillo, tendrás que seguir el camino que tomo para entregar los banquetes reales./\nHuele mal, pero no tan mal como tú./\n¡Y límpiate los pies antes de entrar!/",
         "RU_DIAL": "Вот ты где, негодяй!/\nЧтобы добраться до замка, тебе придется следовать по пути, который я выбираю для доставки королевских банкетов./\nПахнет плохо, но не так плохо, как ты./\nИ вытирай ноги перед входом!/",
+        "KR_DIAL": "거기 있군, 너의 악당!/\n성으로 가려면 내가 왕실 연회를 배달하는 길을 따라가야 해./\n냄새는 나쁘지만, 너만큼 나쁘진 않아./\n들어가기 전에 발을 닦아!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5105,10 +5105,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Schlag mich nicht, ich bin zwar scheußlich, aber nicht böse!/",
         "ES_DIAL": "¡No me golpees, soy repulsivo, pero no soy malo!/",
         "RU_DIAL": "Не бей меня, я отвратителен, но я не злой!/",
+        "KR_DIAL": "나를 때리지 마, 나는 불쾌하지만 나쁘지는 않아!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5122,11 +5122,11 @@ export const GAME_DATA_DIALOGUES = [
         "JP_DIAL": "ああ…ええと…おはようございます、(おぼっちゃん&お嬢さん)…|\nああ…(おぼっちゃん&お嬢さん)…|\nああ…おはようございます、(おぼっちゃん&お嬢さん)…|\n(おぼっちゃん&お嬢さん)、ご機嫌いかが？|\n(おぼっちゃん&お嬢さん)がうまくいくよう願ってるよ…|\nスロームを注入された身だけど、内面は善人だよ！|",
         "DE_DIAL": "Ah ... Guten Morgen, (gnä’ Herr&gnä’s Fräulein) ...|\nAh ... (Mein Herr&Mein Fräulein) ...|\nAh ... Guten Morgen, (Herr Abenteurer&Fräulein Abenteuerin) ...|\n(Gnä’ Herr&Gnä’s Fräulein), wie ist das Befinden?|\n(Gnä’ Herr&Gnä’s Fräulein), ich hoffe, du kriegst das hin ...|\nIch bin schlurmiert, aber ich habe ein gutes Herz!|",
         "ES_DIAL": "Ah... Uh... Buenos días, (Señor&Señora)... |\nAh... (Señor&Señora)... |\nAh... Buenos días, (Señor&Señora)... |\n(Señor&Señora), ¿cómo está?|\n(Señor&Señora), espero que lo logre... |\n¡Soy Slormanciado, pero soy una buena persona!|",
-        "RU_DIAL": "Ах... Эм... Утро (Сэр и Мадам)... |  \nАх... (Сэр и Мадам)... |  \nАх... Утро (Сэр и Мадам)... |  \n(Сэр и Мадам), как вы? |  \n(Сэр и Мадам), надеюсь, вы справитесь... |  \nЯ в Слормансе, но я хороший человек! |",
+        "RU_DIAL": "Ах... Эм... Утро (Сэр&Мадам)... |  \nАх... (Сэр&Мадам)... |  \nАх... Утро (Сэр&Мадам)... |  \n(Сэр&Мадам), как вы? |  \n(Сэр&Мадам), надеюсь, вы справитесь... |  \nЯ в Слормансе, но я хороший человек! |",
+        "KR_DIAL": "아... 어... 아침 (사님&여사님)... |  \n아... (사님&여사님)... |  \n아... 아침 (사님&여사님)... |  \n(사님&여사님), 어떻게 지내세요?|  \n(사님&여사님), 잘 되길 바랍니다... |  \n저는 슬로르맨스드지만 좋은 사람입니다!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5140,11 +5140,11 @@ export const GAME_DATA_DIALOGUES = [
         "JP_DIAL": "怖がる必要はないよ、(おぼっちゃん&お嬢さん)。見た目は悪いかもしれないけれど、性格は悪くないんだ。/\n(おぼっちゃん&お嬢さん)、僕はエンリケだよ！王様の庭師をしてるんだ！ここではとても重要な存在なんだよ！/",
         "DE_DIAL": "Hab keine Angst, (gnä’ Herr&gnä’s Fräulein), ich bin abstoßend, aber nicht böse./\nIch bin Enrique, (gnä’ Herr&gnä’s Fräulein)! Ich bin der königliche Gärtner und im Dorf sehr angesehen!/",
         "ES_DIAL": "No tenga miedo, (Señor&Señora), puede que me vea repulsivo, pero no soy malo./\nSoy Enrique, ¡(Señor&Señora)! ¡Soy el jardinero del Rey! Soy muy importante aquí./",
-        "RU_DIAL": "Не бойтесь (Сэр и Мадам), я могу быть отталкивающим, но я не злой./  \nЯ Энрике, (Сэр и Мадам)! Я садовник короля! Я очень важен здесь!/",
+        "RU_DIAL": "Не бойтесь (Сэр&Мадам), я могу быть отталкивающим, но я не злой./  \nЯ Энрике, (Сэр&Мадам)! Я садовник короля! Я очень важен здесь!/",
+        "KR_DIAL": "두려워하지 마세요 (사님&여사님), 저는 불쾌할 수 있지만 나쁘지는 않아요./  \n저는 엔리케입니다, (사님&여사님)! 저는 왕의 정원사입니다! 저는 이곳에서 매우 중요해요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5158,11 +5158,11 @@ export const GAME_DATA_DIALOGUES = [
         "JP_DIAL": "ああ…ええと…おはようございます、(おぼっちゃん&お嬢さん)…/\n僕を殴らないでね！僕はゾンビだけど、内面は善人だよ！/\n(おぼっちゃん&お嬢さん)、僕はエンリケだよ！王様の庭師をしてるんだ！/\n村でまた会おうね！/",
         "DE_DIAL": "Ah ... Guten Morgen, (gnä’ Herr&gnä’s Fräulein) .../\nSchlag mich nicht! Ich bin ein Zombie, aber ich habe ein gutes Herz!/\nIch bin Enrique, (gnä’ Herr&gnä’s Fräulein)! Ich bin der königliche Gärtner!/\nWir sehen uns im Dorf!/",
         "ES_DIAL": "Ah... Uh... Buenos días, (Señor&Señora).../\n¡No me golpeen! ¡Soy un zombi, pero soy una buena gente!/\nSoy Enrique, ¡(Señor&Señora)! ¡Soy el jardinero del Rey!/\nNos vemos en el pueblo./",
-        "RU_DIAL": "Ах... Эм... Утро (Сэр и Мадам).../\nНе бейте меня! Я зомби, но я хороший человек!/\nЯ Энрике, (Сэр и Мадам)! Я садовник короля!/\nУвидимся в деревне!/",
+        "RU_DIAL": "Ах... Эм... Утро (Сэр&Мадам).../\nНе бейте меня! Я зомби, но я хороший человек!/\nЯ Энрике, (Сэр&Мадам)! Я садовник короля!/\nУвидимся в деревне!/",
+        "KR_DIAL": "아... 어... 아침 (사님&여사님).../\n때리지 마세요! 저는 좀비지만, 착한 사람이에요!/\n저는 엔리케입니다, (사님&여사님)! 저는 왕의 정원사입니다!/\n마을에서 만나요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5177,10 +5177,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich bin Enrique, (gnä’ Herr&gnä’s Fräulein)! Ich bin der königliche Gärtner!/\nIch bin als Kind schlurmiert worden und habe mich in einen Zombie verwandelt .../\nAber komischer Weise bin ich eigentlich noch ganz normal. Nur meine Haut fault ab .../\nHerr Olorin meinte, dass ich eine kuriose Laune der Natur bin, aber dass er nichts für mich tun könne./\nAber keine Sorge! Es könnte schlimmer sein. Ich könnte ein Skelett sein ... oder eins von diesen fürchterlichen Gespenstern .../",
         "ES_DIAL": "Me llamo Enrique, ¡(Señor&Señora)! ¡Soy el jardinero del Rey!/\nTal vez no lo sepa... pero fui Slormanciado cuando era niño... E incluso me convertí en un zombi.../\nPero es raro porque realmente sigo siendo normal... Solo que mi piel se está descomponiendo.../\nEl Sr. Olorín dijo que era una rareza de la naturaleza pero que no podía hacer nada por mí.../\nPero no te preocupes. Podría ser peor... Podría ser un esqueleto... O uno de esos horribles fantasmas.../",
         "RU_DIAL": "Меня зовут Энрике, (Sir&M'Lady)! Я садовник короля!/\nЗнаете... Меня заколдовали, когда я был ребенком... И я даже превратился в зомби.../\nНо это странно, потому что я на самом деле все еще нормальный... Только моя кожа разлагается.../\nМистер Олорин сказал, что я аномалия природы, но что он не может мне помочь.../\nНо не волнуйтесь! Могло быть хуже... Я мог бы быть скелетом... Или одним из тех ужасных призраков.../",
+        "KR_DIAL": "내 이름은 엔리케입니다, (사님&여사님)! 저는 왕의 정원사입니다!/\n알다시피... 저는 어렸을 때 슬로맨스에 걸렸어요... 그리고 좀비로 변하기도 했어요.../\n하지만 이상한 것은 제가 정말로 여전히 정상이라는 거예요... 단지 제 피부가 부패하고 있을 뿐이에요.../\n올로린 씨는 제가 자연의 기이함이라고 했지만 저를 위해 아무것도 할 수 없다고 했어요.../\n하지만 걱정하지 마세요! 더 나쁠 수 있어요... 저는 해골이 될 수도 있었어요... 아니면 그런 끔찍한 유령 중 하나가 될 수도 있었어요.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5195,10 +5195,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Nicht auf die Blumen treten!/",
         "ES_DIAL": "¡Cuidado con las flores!/",
         "RU_DIAL": "Осторожно с цветами!/",
+        "KR_DIAL": "꽃을 조심하세요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5212,11 +5212,11 @@ export const GAME_DATA_DIALOGUES = [
         "JP_DIAL": "[enrique]庭園へようこそ、(おぼっちゃん&お嬢さん)！/\n庭師の僕がお供するね。#\n庭園は広大で神秘に満ちているから、迷子にならないようにお手伝いするよ。/\nでも、戦闘は苦手なんだ。/\nなるべく目立たないようにするね、(おぼっちゃん&お嬢さん)！/",
         "DE_DIAL": "[enrique]Willkommen in den Gärten, (gnä’ Herr&gnä’s Fräulein)!/\nDa ich der Gärtner bin, komme ich mit.#\nDie Gärten sind groß und voller Geheimnisse, also wirst du vielleicht meine Hilfe brauchen, damit du dich nicht verläufst./\nAber im Kämpfen bin ich nicht gut./\nIch werde versuchen, nicht im Weg umzugehen, (gnä’ Herr&gnä’s Fräulein)!/",
         "ES_DIAL": "[enrique]¡Bienvenidos al Jardín, (Señor&Señora)!/\nComo soy el jardinero, lo acompañaré el día de hoy.#\nEl Jardín es grande y está lleno de misterios, así que podría necesitar mi ayuda para no perderse./\nPero no soy bueno peleando./\nAsí que trataré de ser discreto, (Señor&Señora)./",
-        "RU_DIAL": "[enrique]Добро пожаловать в Сады (Сэр и Моя Леди)!/\nПоскольку я садовник, я пойду с вами.#\nСад большой и полон тайн, так что вам может понадобиться моя помощь, чтобы не заблудиться./\nНо я не умею драться./\nЯ постараюсь быть сдержанным (Сэр и Моя Леди)!/",
+        "RU_DIAL": "[enrique]Добро пожаловать в Сады (Сэр&Моя Леди)!/\nПоскольку я садовник, я пойду с вами.#\nСад большой и полон тайн, так что вам может понадобиться моя помощь, чтобы не заблудиться./\nНо я не умею драться./\nЯ постараюсь быть сдержанным (Сэр&Моя Леди)!/",
+        "KR_DIAL": "[enrique]정원에 오신 것을 환영합니다 (사님&여사님)!/\n제가 정원사이니, 함께 가겠습니다.# \n정원은 크고 신비로 가득 차 있으니 길을 잃지 않도록 제 도움이 필요할 수도 있습니다./\n하지만 저는 싸움에 소질이 없습니다./\n최대한 조심스럽게 하도록 하겠습니다 (사님&여사님)!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5231,10 +5231,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Bravo, (gnä’ Herr&gnä’s Fräulein)! Du hast dich nicht verlaufen!/\n„Wohlan!“ Wie ihr Abenteurer zu sagen pflegt./",
         "ES_DIAL": "¡Bravo, (Señor&Señora)! ¡No te perdiste!/\n¡En marcha! Como dicen los aventureros./",
         "RU_DIAL": "Браво (Сэр. & Мадам.)! Вы не заблудились!/\nВперед! Как говорят искатели приключений./",
+        "KR_DIAL": "브라보 (경. & 숙녀님.)! 당신은 길을 잃지 않았습니다!/\n앞으로! 모험가들이 말하듯이./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5248,11 +5248,11 @@ export const GAME_DATA_DIALOGUES = [
         "JP_DIAL": "気をつけてね、(おぼっちゃん&お嬢さん)！いつ誰が来るかわからないので！/",
         "DE_DIAL": "Vorsicht, (gnä’ Herr&gnä’s Fräulein)! Es können jederzeit noch mehr auftauchen!/",
         "ES_DIAL": "¡Cuidado, (Señor&Señora)! ¡Otros pueden aparecer en cualquier momento!/",
-        "RU_DIAL": "Осторожно (Сэр и Мадам)! Другие могут прийти в любое время!/",
+        "RU_DIAL": "Осторожно (Сэр&Мадам)! Другие могут прийти в любое время!/",
+        "KR_DIAL": "조심하세요 (사님&여사님)! 다른 사람들이 언제든지 올 수 있습니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5266,11 +5266,11 @@ export const GAME_DATA_DIALOGUES = [
         "JP_DIAL": "(おぼっちゃん&お嬢さん)のような冒険者になりたいな！/\nすごく強いもんね！/",
         "DE_DIAL": "Was würde ich dafür geben, ein Abenteurer wie du zu sein, (gnä’ Herr&gnä’s Fräulein)!/\nDu bist superstark!/",
         "ES_DIAL": "Me encantaría ser un aventurero como usted, (Señor&Señora)!/\n¡Es súper fuerte!/",
-        "RU_DIAL": "Я бы хотел быть искателем приключений, как вы (Сэр и Леди)!/\nВы супер сильные!/",
+        "RU_DIAL": "Я бы хотел быть искателем приключений, как вы (Сэр&Леди)!/\nВы супер сильные!/",
+        "KR_DIAL": "나는 당신처럼 모험가가 되고 싶어요 (사님&여사님)!/\n당신은 정말 강해요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5284,11 +5284,11 @@ export const GAME_DATA_DIALOGUES = [
         "JP_DIAL": "[enrique](おぼっちゃん&お嬢さん)は字が読めるの？僕はあまり読めなくて…/\nでも、庭園の一角には標識があるからね！/\n迷子になりたくなければ、ちゃんと読んでね…/",
         "DE_DIAL": "[enrique]Kannst du lesen, (gnä’ Herr&gnä’s Fräulein)? Ich nämlich nicht so gut .../\nAber in diesem Teil der Gärten sind Schilder aufgestellt!/\nWenn du dich nicht verirren willst, musst du sie lesen .../",
         "ES_DIAL": "[enrique]¿Sabe leer, (Señor&Señora)? Porque yo no sé muy bien cómo hacerlo.../\n¡Pero hay señales en esta parte del jardín!/\nTendrá que leerlas si no quiere perderse.../",
-        "RU_DIAL": "[enrique]Ты можешь читать (Сэр и Мадам)? Потому что я не очень знаю, как это делать.../\nНо в этой части сада есть знаки!/\nТебе придется их читать, если не хочешь заблудиться.../",
+        "RU_DIAL": "[enrique]Ты можешь читать (Сэр&Мадам)? Потому что я не очень знаю, как это делать.../\nНо в этой части сада есть знаки!/\nТебе придется их читать, если не хочешь заблудиться.../",
+        "KR_DIAL": "[enrique]당신은 (사님&여사님)를 읽을 수 있나요? 나는 정말로 어떻게 읽는지 잘 모르겠어요.../\n하지만 이 정원의 이 부분에는 표지판이 있어요!/\n길을 잃고 싶지 않다면 그것들을 읽어야 해요.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5303,10 +5303,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Gut gemacht, (gnä’ Herr&gnä’s Fräulein)!/\nDu bist gut im Kämpfen und auch im Rätsellösen!/",
         "ES_DIAL": "¡Bien hecho, (Señor&Señora)!/\n¡Es bueno peleando y también con los acertijos!/",
         "RU_DIAL": "Молодцы, (Sir&M'Lady)!/\nВы хорошо умеете сражаться и также решать головоломки!/",
+        "KR_DIAL": "잘했어요, (사님&여사님)!/\n당신은 싸움과 퍼즐 모두에 능숙해요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5321,10 +5321,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[enrique]Wir sind im Labyrinth angelangt!/\nHier wird mir immer ein bisschen mulmig, aber ich reiße mich zusammen!/",
         "ES_DIAL": "[enrique]¡Llegamos al Laberinto!/\nMe da un poco de miedo, ¡pero todo va a estar bien!/",
         "RU_DIAL": "[enrique]Мы прибыли в Лабиринт!/\nМне это немного страшно, но всё будет хорошо!/",
+        "KR_DIAL": "[enrique]우리는 미로에 도착했어요!/\n조금 무섭지만 괜찮을 거예요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5339,10 +5339,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich dachte wirklich schon, dass wir uns verirrt hätten, (gnä’ Herr&gnä’s Fräulein)!/",
         "ES_DIAL": "¡De verdad pensé que estábamos perdidos, (Señor&Señora)!/",
         "RU_DIAL": "Я действительно думал, что мы потерялись (Sir&M'Lady)!/",
+        "KR_DIAL": "정말 우리는 길을 잃었다고 생각했어요 (사님&여사님)!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5357,10 +5357,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[enrique]So weit habe ich mich noch nie hinausgewagt .../\nVor ein paar Jahren gab es da diesen Zwischenfall ...#Herr Olorin sagt, dass dadurch eine „Nanomalie“ entstanden sei./\nIch weiß nicht, was das ist, es sieht aber gefährlich aus./\nAußerdem geschehen seltsame Dinge, wenn man sich nähert ...#\nAlso gehe ich da nicht hin./",
         "ES_DIAL": "[enrique]Nunca me había aventurado tan lejos.../\nHubo un incidente hace algunos años...#El Sr. Olorín dice que creó una \"nanomalía\"./\nNo sé qué es, pero parece peligroso.../\nAdemás, suceden cosas extrañas cuando te acercas...#\nAsí que no voy allí.../",
         "RU_DIAL": "[enrique]Я никогда не заходил так далеко.../\nНесколько лет назад произошел инцидент...#Мистер Олорин говорит, что это создало \"наномалию\"./\nЯ не знаю, что это, но это выглядит опасно.../\nТакже странные вещи происходят, когда ты приближаешься...#\nПоэтому я туда не хожу.../",
+        "KR_DIAL": "[엔리케] 나는 이렇게 먼 곳에 가본 적이 없어.../\n몇 년 전 사건이 있었어...#올로린 씨가 \"나노말\"을 만들었다고 해./\n그게 무엇인지 모르는 데 위험해 보이네.../\n또한 가까이 가면 이상한 일이 일어나...#\n그래서 나는 거기 가지 않아.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5375,10 +5375,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du bist so mutig!#\nDu scheinst vor nichts Angst zu haben .../\nGlaubst du, ich kann eines Tages genauso ein mutiger Abenteurer werden wie du?/",
         "ES_DIAL": "¡Es tan valiente!#\nParece que no le teme a nada.../\n¿Cree que algún día podría ser un aventurero valiente como usted?/",
         "RU_DIAL": "Ты такой смелый!#\nКажется, ты не боишься ничего..../\nТы думаешь, я смогу стать таким же смелым искателем приключений, как ты, однажды?/",
+        "KR_DIAL": "너무 용감해요!#\n아무것도 두려워하지 않는 것 같아요..../\n언젠가 저도 당신처럼 용감한 모험가가 될 수 있을까요?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5393,10 +5393,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[enrique]Wir nähern uns Herr Olorins „Nanomalie“ .../\nIch habe ein klein wenig Angst, aber ich versuche, mich zusammenzureißen./",
         "ES_DIAL": "[enrique]Nos estamos acercando a la \"nanomalía\" del Sr. Olorín.../\nTengo un poco de miedo, pero intentaré no huir.../",
         "RU_DIAL": "[enrique]Мы приближаемся к \"наномалии\" мистера Олорина.../\nМне немного страшно, но я постараюсь не убежать../",
+        "KR_DIAL": "[enrique] 우리는 오르모스 씨의 \"나노말리\"에 점점 가까워지고 있습니다.../\n조금 무섭지만 도망치지 않으려고 노력할 것입니다../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5411,10 +5411,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich dachte wirklich schon, dass wir uns verirrt hätten, (gnä’ Herr&gnä’s Fräulein)!/",
         "ES_DIAL": "¡De verdad pensé que estábamos perdidos, (Señor&Señora)!/",
         "RU_DIAL": "Я действительно думал, что мы потерялись (Sir&M'Lady)!/",
+        "KR_DIAL": "정말 우리는 길을 잃었다고 생각했어요 (선생님&여사님)!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5428,11 +5428,11 @@ export const GAME_DATA_DIALOGUES = [
         "JP_DIAL": "[enrique]標識を読むのを忘れないでね、(おぼっちゃん&お嬢さん)！#\n僕は読み方がわからないけれど、きっと重要な内容だよ！/",
         "DE_DIAL": "[enrique]Denk daran, die Schilder zu lesen, (gnä’ Herr&gnä’s Fräulein)!#\nIch bin nicht so gut im Lesen, aber sie sehen wichtig aus!/",
         "ES_DIAL": "[enrique]¡Recuerde leer las señales, (Señor&Señora)!#\nNo sé cómo leerlas, ¡pero parecen importantes!/",
-        "RU_DIAL": "[enrique]Помни, чтобы читать знаки (Сэр и Мадам)!#\nЯ не знаю, как читать их хорошо, но это выглядит важно!/",
+        "RU_DIAL": "[enrique]Помни, чтобы читать знаки (Сэр&Мадам)!#\nЯ не знаю, как читать их хорошо, но это выглядит важно!/",
+        "KR_DIAL": "[enrique]표지판을 읽는 것을 잊지 마세요 (선생님&여사님)!#\n저는 그것들을 잘 읽는 방법을 모르지만, 중요해 보입니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5447,10 +5447,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Gut gemacht, (gnä’ Herr&gnä’s Fräulein)!#\nDu bist gut im Kämpfen und auch im Rätsellösen!/",
         "ES_DIAL": "¡Bien hecho, (Señor&Señora)!#\n¡Es bueno peleando y también con los acertijos!/",
         "RU_DIAL": "Молодцы, (Sir&M'Lady)!# Вы хорошо справляетесь с боями и также с головоломками!/",
+        "KR_DIAL": "잘했어요, (선생님&여사님)!# 당신은 싸움과 퍼즐 모두에 능숙해요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5464,11 +5464,11 @@ export const GAME_DATA_DIALOGUES = [
         "JP_DIAL": "オローリン先生が言ってた「ナノマリー」はもうすぐだよ…/\nたぶん危険だから、本当に気をつけてね！/\n大好きだから…気をつけて！/\n僕には(お父さん&お母さん)のような存在なんだ…/",
         "DE_DIAL": "Wir sind gleich bei Herr Olorins „Nanomalie“ .../\nSei äußerst vorsichtig, sie ist wahrscheinlich sehr gefährlich!/\nIch will nicht, dass dir etwas zustößt!/\nDu bist wie (ein Vater&eine Mutter) für mich .../",
         "ES_DIAL": "Estamos por llegar a la \"nanomalía\" del Sr. Olorín.../\n¡Tenga mucho cuidado, probablemente será muy peligroso!/\nY usted me agrada... Así que ¡tenga cuidado!/\nUsted es lo más cercano a un (padre&madre) para mí.../",
-        "RU_DIAL": "Мы собираемся добраться до \"наномалии\" мистера Олорина.../\nБудь очень осторожен, это, вероятно, будет очень опасно!/\nИ ты мне нравишься... Так что будь осторожен!/\nТы для меня самое близкое к (отцу и матери).../",
+        "RU_DIAL": "Мы собираемся добраться до \"наномалии\" мистера Олорина.../\nБудь очень осторожен, это, вероятно, будет очень опасно!/\nИ ты мне нравишься... Так что будь осторожен!/\nТы для меня самое близкое к (отцу&матери).../",
+        "KR_DIAL": "우리는 오로린 씨의 \"나노말리\"에 다가가고 있습니다.../\n매우 조심하세요, 아마도 매우 위험할 것입니다!/\n그리고 저는 당신이 마음에 들어요... 그러니 조심하세요!/\n당신은 저에게 (부모님)과 가장 가까운 존재입니다.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5482,11 +5482,11 @@ export const GAME_DATA_DIALOGUES = [
         "JP_DIAL": "[enrique]これがオローリン先生が言ってた「ナノマリー」だよ！/\n気をつけてね、(おぼっちゃん&お嬢さん)！<Start Boss>/",
         "DE_DIAL": "[enrique]Hier ist Herr Olorins „Nanomalie“!/\nPass auf dich auf, (gnä’ Herr&gnä’s Fräulein)!<Start Boss>/",
         "ES_DIAL": "[enrique]Aquí está la \"nanomalía\" del Sr. Olorín!/\n¡Cuídese, (Señor&Señora)!<Start Boss>/",
-        "RU_DIAL": "[enrique]Вот \"наномалия\" мистера Олорина!/\nБерегите себя (Сэр и Леди)!<Start Boss>/",
+        "RU_DIAL": "[enrique]Вот \"наномалия\" мистера Олорина!/\nБерегите себя (Сэр&Леди)!<Start Boss>/",
+        "KR_DIAL": "[enrique]여기 오로린 씨의 \"나노말리\"가 있습니다!/\n몸 조심하세요 (신사님과 숙녀님)!<Start Boss>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5500,11 +5500,11 @@ export const GAME_DATA_DIALOGUES = [
         "JP_DIAL": "道に迷った？|\n迷ったみたい…|\n怖いよ。|\n怖いよ…でも、大丈夫…|\n置いていかないで、(おぼっちゃん&お嬢さん)！|\n待ってよ！|\n同じところをぐるぐる回ってるみたいだぞ。|\n助けて！|\n村に戻ったほうが良さそう…|",
         "DE_DIAL": "Haben wir uns verlaufen?|\nIch glaube, wir haben uns verlaufen ...|\nIch habe Angst.|\nIch habe Angst ... Aber alles wird gut ...|\nLass mich nicht allein, (gnä’ Herr&gnä’s Fräulein)!|\nWarte auf mich!|\nIch glaube, wir laufen im Kreis.|\nHilfe!|\nWir sollten lieber zurück ins Dorf ...|",
         "ES_DIAL": "¿Estamos perdidos?|\nCreo que estamos perdidos...|\nTengo miedo.|\nTengo miedo... Pero está bien...|\n¡No me deje, (Señor&Señora)!|\n¡Espéreme!|\nCreo que estamos dando vueltas en círculos.|\n¡Ayuda!|\nDeberíamos regresar al pueblo...|",
-        "RU_DIAL": "Мы потерялись?|  \nЯ думаю, мы потерялись...|  \nМне страшно.|  \nМне страшно... Но всё в порядке...|  \nНе оставляй меня (Сэр и Леди)!|  \nПодожди меня!|  \nЯ думаю, мы ходим по кругу.|  \nПомогите!|  \nНам нужно вернуться в деревню...|",
+        "RU_DIAL": "Мы потерялись?|  \nЯ думаю, мы потерялись...|  \nМне страшно.|  \nМне страшно... Но всё в порядке...|  \nНе оставляй меня (Сэр&Леди)!|  \nПодожди меня!|  \nЯ думаю, мы ходим по кругу.|  \nПомогите!|  \nНам нужно вернуться в деревню...|",
+        "KR_DIAL": "우리가 길을 잃었나요?|  \n우리가 길을 잃은 것 같아요...|  \n무서워요.|  \n무서워요... 하지만 괜찮아요...|  \n저를 두고 가지 마세요 (선생님&여사님)!|  \n기다려 주세요!|  \n우리가 같은 곳을 돌고 있는 것 같아요.|  \n도와주세요!|  \n우리는 마을로 돌아가야 해요...|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5518,11 +5518,11 @@ export const GAME_DATA_DIALOGUES = [
         "JP_DIAL": "怖いよ…でも、大丈夫だよ…|\n置いていかないでね、(おぼっちゃん&お嬢さん)！|\n待ってよ！|\n戦闘が得意なんだよね！|\n僕から離れないでね！|\nここは良いね！|\n怖くないの？|",
         "DE_DIAL": "Ich habe Angst ... Aber alles wird gut ...|\nLass mich nicht allein, (gnä’ Herr&gnä’s Fräulein)!|\nWarte auf mich!|\nDu bist (ein guter Kämpfer&eine gute Kämpferin)!|\nLass mich hier nicht zurück!|\nEigentlich ganz nett hier!|\nHast du keine Angst?|",
         "ES_DIAL": "Tengo miedo... Pero en realidad estoy bien...|\n¡No me deje, (Señor&Señora)!|\n¡Espéreme!|\n¡Es genial peleando!|\n¡No se aleje de mí!|\n¡Está lindo aquí!|\n¿No tiene miedo?|",
-        "RU_DIAL": "Я боюсь... Но на самом деле я в порядке...|\nНе оставляй меня (Сэр и Леди)!|\nПодожди меня!|\nТы отлично сражаешься!|\nНе уходи от меня!|\nЗдесь приятно!|\nТы не боишься?|",
+        "RU_DIAL": "Я боюсь... Но на самом деле я в порядке...|\nНе оставляй меня (Сэр&Леди)!|\nПодожди меня!|\nТы отлично сражаешься!|\nНе уходи от меня!|\nЗдесь приятно!|\nТы не боишься?|",
+        "KR_DIAL": "나는 두려워... 하지만 사실 괜찮아...|  \n날 두고 가지 마 (선생님&여사님)!|  \n기다려 줘!|  \n너는 싸움을 잘해!|  \n나에게서 멀리 가지 마!|  \n여기는 좋아!|  \n너는 무섭지 않아?|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5537,10 +5537,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "(Ein Abenteurer&Eine Abenteuerin) ... Ekelhaft!|\nSolche wie dich wollen wir hier nicht haben! Geh weg!|\nJeder weiß, dass man Warzen bekommt, wenn man einem Abenteurer in die Augen sieht ...|\nGeh mir nicht auf den Geist ...|",
         "ES_DIAL": "Un aventurero... Qué asco...|\n¡No te queremos aquí! ¡Vete!|\nSe dice que mirar a un aventurero a los ojos te puede dar verrugas...|\nAnda, márchate ya... |",
         "RU_DIAL": "Приключенец... Отвратительно...|  \nМы не хотим тебя здесь! Убирайся!|  \nИзвестно, что смотреть приключенцу в глаза может дать тебе бородавки...|  \nДавай, оставь меня сейчас... |",
+        "KR_DIAL": "모험가... 역겹다...|  \n우리는 당신이 여기 있는 것을 원하지 않습니다! 가세요!|  \n모험가의 눈을 바라보는 것이 사마귀를 줄 수 있다는 것이 알려져 있습니다...|  \n제발, 지금 나를 떠나세요... |",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5555,10 +5555,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Was für ein abscheuliches Erlebnis!/",
         "ES_DIAL": "¡Qué experiencia tan repugnante!/",
         "RU_DIAL": "Какое отвратительное переживание!/",
+        "KR_DIAL": "역겨운 경험이군요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5573,10 +5573,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Der Schlurm-Tempel ist voller Geheimnisse!|\nWir sind hier noch nicht fertig ...|",
         "ES_DIAL": "¡El Templo de Slorm está lleno de misterios!|\nAún no hemos terminado...|",
         "RU_DIAL": "Храм Слорма полон тайн!| Мы еще не закончили...|",
+        "KR_DIAL": "슬롬 사원은 신비로 가득 차 있습니다!|아직 끝나지 않았습니다...|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5591,10 +5591,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Pfui, (ein Abenteurer&eine Abenteuerin) .../",
         "ES_DIAL": "Qué asquito, un aventurero.../",
         "RU_DIAL": "Еурк, искатель приключений.../",
+        "KR_DIAL": "유르크, 모험가.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5609,10 +5609,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Endlich! Wie lange soll ich denn noch warten?#Hast du Freude daran, alte Menschen in schmutzigen Gefängnissen verrotten zu lassen?!/\nIch habe es geschafft, aus dem Riss zu entkommen. Aber ich finde nicht aus diesem verflixten Gefängnis raus .../\nNicht trödeln jetzt. Geh zurück ins Dorf, ich folge dir./",
         "ES_DIAL": "Al final... Te tomó bastante tiempo...#¿Disfrutas dejando que los ancianos se queden atrapados en lugares sórdidos?/\nLogré salir de la Brecha yo solo... Pero no puedo encontrar la salida de esta maldita prisión.../\nBueno, no perdamos más tiempo... Regresa al pueblo, te seguiré.../",
         "RU_DIAL": "Наконец-то... Это заняло у тебя достаточно времени...#Тебе нравится позволять старикам сидеть в грязных местах?!/\nМне удалось выбраться из Разлома самостоятельно... Но я не могу найти выход из этой чертовой Тюрьмы.../\nНу, давай не будем медлить... Вернись в деревню, я последую за тобой.../",
+        "KR_DIAL": "마침내... 당신은 너무 오랜 시간이 걸렸군요...#늙은 사람들이 더러운 곳에 갇히는 것을 즐기나요?!/\n나는 혼자서 균열에서 빠져나왔어요... 하지만 이 빌어먹을 감옥에서 나가는 길을 찾을 수가 없어요.../\n자, 지체하지 말고... 마을로 돌아가세요, 제가 따라갈게요.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5627,10 +5627,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Oh, da bist du ja. Hast du dich unterwegs verlaufen?/\nWärst du so freundlich, nicht rumzutrödeln? Wir haben wichtige Dinge zu erledigen!/\n[bryan]Dieser griesgrämige alte ...#Er war früher mein Tutor. Die ganze Zeit hat er mich mit seinen Belehrungen genervt .../\n[archmage]Und ich bin noch lange nicht mit dir fertig, Bryan McMuckies! Ob tot oder lebendig, du hast noch viel zu lernen!/\n[bryan]Du ... Du kannst mich sehen?/\n[archmage]Natürlich! Ich mag alt sein, aber noch nicht blind, du kleiner Rotzbengel./\n[bryan]Aber ...?/\n[archmage]Wir haben jetzt keine Zeit für ein tränenreiches Wiedersehen, junger McMuckies! Wir haben Wichtiges zu besprechen./\nIn meinem Besitz befinden sich einige alte Grimoires, die Ohm Eigads erste Invasionsversuche erwähnen./\nDie Texte sprechen von einem geheimnisvollen Ort – dem Schlurm-Tempel – der eine wichtige Rolle beim Sieg über Ohm Eigad gespielt zu haben scheint./\nIch weiß nicht, was wir dort vorfinden werden, aber so ein alter Tempel muss einfach wichtig sein! Wir sollten dort hingehen./\nMit großer Sicherheit warten drinnen äußerst mächtige Artefakte auf uns, das steht fest./\nAllerdings ist es sehr schwierig, zum Schlurm-Tempel zu gelangen ... und sogar noch schwieriger, dort zu bleiben. Wir werden dich und deine Teleportationsfähigkeiten brauchen, Bryan, aber auch Edelschlurm./\nDas ist eine instabile Form von Schlurm, die man nur in den stärksten Gegnern findet.<Anim Blessing>/\nSo ... Ab jetzt ist es dir möglich, Edelschlurm zu sammeln. Er ist ein wenig wie Schlurm, aber in edel!/\nZieht gemeinsam los und versucht, etwas Edelschlurm zu finden. Wenn ihr genug habt, kommt wieder zu mir./\nIch werde euch dann erklären, wie man zum Schlurm-Tempel kommt./",
         "ES_DIAL": "Oh, ahí estás... ¿Te perdiste en el camino?/\nSi fueras tan amable de dejar de perder el tiempo... ¡Tenemos asuntos importantes que atender!.../\n[bryan]Qué cascarrabias...#Solía ser mi tutor... Me regañaba todo el tiempo.../\n[archmage]¡Y aún no he terminado contigo, Ramiro Recio! Muerto o no, todavía tienes mucho que aprender./\n[bryan]Tú... ¿Puedes verme?/\n[archmage]Por supuesto... Soy viejo, pero no ciego, mocoso./\n[bryan]Pero.../\n[archmage]¡Pero acabemos con esta emotiva reunión, joven Recio! Tenemos asuntos importantes que discutir./\nTengo en mi poder algunos viejos grimorios que mencionan los primeros intentos de invasión de Ohm Agad.../\nLos escritos se refieren a un lugar misterioso... El Templo de Slorm... que parece haber jugado un papel crucial en la derrota de Ohm Agad./\nNo sé qué encontraremos allí, pero parece muy antiguo, ¡así que debe ser importante! Deberíamos dirigirnos allí./\nEs casi seguro que encontraremos artefactos extremadamente poderosos en su interior, eso es un hecho./\nSin embargo, es bastante difícil llegar al Templo de Slorm... y aún más difícil quedarse allí. Te necesitaremos, Ramiro, y a tus habilidades de teletransportación, pero también necesitaremos Slorm Ancestral./\nEs una forma inestable de Slorm que se encuentra en los enemigos más fuertes.<Anim Blessing>/\nAhora podrás recolectar Slorm Ancestral. ¡Se parece un poco al Slorm, pero más viejo!/\nSalgan juntos, y traten de encontrar un poco de Slorm Ancestral, luego regresen a mí cuando tengan suficiente./\nEntonces les diré cómo llegar al Templo de Slorm./",
         "RU_DIAL": "О, вот ты где... Ты заблудился по дороге?/\nЕсли ты будешь так добр, перестань медлить... У нас есть важные дела!/\n[bryan]Какой же ты ворчливый...#Он раньше был моим наставником... Он постоянно читал мне лекции.../\n[archmage]И я с тобой еще не закончил, Брайан МакРиппед! Мертвый ты или нет, тебе все еще многому нужно научиться./\n[bryan]Ты... Ты можешь меня видеть?/\n[archmage]Конечно... Я стар, но не слеп, ты юный проказник./\n[bryan]Но...?/\n[archmage]Но давай закончим эту слезливую встречу, юный МакРиппед! У нас есть важные вопросы для обсуждения./\nУ меня есть в possession несколько старых гримуаров, которые упоминают о первых попытках вторжения Ома Агада.../\nЗаписи ссылаются на загадочное место... Храм Слорма... который, похоже, сыграл важную роль в поражении Ома Агада./\nЯ не знаю, что мы там найдем, но это выглядит очень старым, так что это должно быть важно! Нам стоит направиться туда./\nВнутри нас определенно ждут чрезвычайно мощные артефакты, это факт./\nОднако добраться до Храма Слорма довольно сложно... и еще сложнее остаться там. Нам понадобишься ты, Брайан, и твои способности телепортации, но нам также понадобится Старый Слорм./\nЭто нестабильная форма Слорма, найденная у самых сильных врагов.<Anim Blessing>/\nВот... Теперь ты сможешь собирать Старый Слорм. Это немного похоже на Слорм, но старше!/\nВыходите вместе и постарайтесь найти немного Старого Слорма, а затем вернитесь ко мне, когда у вас будет достаточно./\nТогда я скажу вам, как добраться до Храма Слорма./",
+        "KR_DIAL": "오, 거기 있군요... 길을 잃으셨나요?/\n너무 꾸물거리지 않도록 친절히 부탁드립니다... 우리는 중요한 일이 있습니다!/\n[bryan]무척 심술궂군요...#그는 예전 내 튜터였어요... 항상 나를 가르쳤죠.../\n[archmage]그리고 나는 아직 너와 끝나지 않았어, 브라이언 맥립트! 죽었든 아니든, 너는 여전히 배워야 할 것이 많아./\n[bryan]너... 나를 볼 수 있어?/\n[archmage]물론이지... 나는 나이가 많지만 눈이 멀지는 않았어, 젊은 악동아./\n[bryan]하지만...?/\n[archmage]하지만 이 슬픈 재회를 끝내자, 젊은 맥립트! 우리는 논의할 중요한 문제가 있어./\n나는 오므 아가드의 첫 침공 시도를 언급한 오래된 그리모어를 소유하고 있어.../\n그 글들은 신비로운 장소를 언급하고 있어... 슬롬 사원... 오므 아가드의 패배에 중요한 역할을 한 것 같아./\n우리가 거기서 무엇을 찾을지는 모르겠지만, 매우 오래된 것처럼 보이니, 분명 중요할 거야! 우리는 그곳으로 가야 해./\n극도로 강력한 유물들이 분명 우리를 기다리고 있을 거야, 그건 사실이야./\n하지만 슬롬 사원에 가는 것은 꽤 어렵고... 거기서 머무는 것은 더 어렵다. 우리는 너, 브라이언, 그리고 너의 순간이동 능력이 필요할 거야, 하지만 엘더 슬롬도 필요해./\n그것은 가장 강력한 적들에서 발견되는 불안정한 형태의 슬롬이야.<Anim Blessing>/\n거기... 이제 엘더 슬롬을 수집할 수 있을 거야. 슬롬과 비슷하지만, 더 오래된 것이야!/\n함께 나가서 엘더 슬롬을 조금 찾아보고, 충분히 모으면 나에게 돌아와./\n그때 슬롬 사원에 가는 방법을 알려줄게./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5645,10 +5645,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Um Edelschlurm zu finden, musst du starke Gegner besiegen./\nEtwa 30 Edelschlurm sollte mehr als genug sein für unsere erste Expedition./",
         "ES_DIAL": "Deben derrotar a enemigos fuertes para encontrar Slorm Ancestral./\nConseguir unos 30 Slorm Ancestral debería ser más que suficiente para nuestra primera expedición./",
         "RU_DIAL": "Вы должны победить сильных врагов, чтобы найти Старшего Слорма./ Получение около 30 Старших Слормов должно быть более чем достаточно для нашей первой экспедиции./",
+        "KR_DIAL": "고대 슬롬을 찾기 위해 강력한 적들을 물리쳐야 합니다./ 첫 번째 탐험을 위해 약 30마리의 고대 슬롬이면 충분할 것입니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5663,10 +5663,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich denke, du hast genug Edelschlurm für deine erste Expedition gesammelt!#Hier, ich habe selbst noch welchen gefunden. Den kannst du haben.<Elder Gift>/\nIch hoffe, dass wir dort Antworten finden ... denn das unzerstörbare und unverwüstliche Siegel zu zerstören ist eine Sache, aber Ohm Eigad zu besiegen nochmal eine ganz andere./\nUnd ich teile nicht den Enthusiasmus des Königs, was deine Erfolgschancen angeht .../\nHoffen wir, dass wir irgendein Artefakt in die Finger bekommen, mit dem wir das Blatt wenden können./\nAber auch das wird nicht einfach sein ... der Schlurm-Tempel verfügt über ein beeindruckendes Verteidigungssystem!#\nWir müssen schnell handeln, wenn wir einmal dort sind./\nGeht und sprecht mit Palstrang, ich habe ihm gezeigt, wo der Schlurm-Tempel ist.#Ich werde euch dort erwarten./",
         "ES_DIAL": "¡Creo que has encontrado suficiente Slorm Ancestral para tu primera expedición!#Aquí encontré algo que puedes usar.<Elder Gift>/\nEspero que podamos encontrar respuestas allí... porque destruir el Sello Indestructible e Irrompible es una cosa, pero derrotar a Ohm Agad es otra muy diferente.../\nY no comparto el entusiasmo del Rey respecto a tus posibilidades de éxito.../\nEsperemos poder poner nuestras manos en algún tipo de artefacto que nos ayude a cambiar las cosas./\nPero eso tampoco será fácil... ¡El Templo de Slorm tiene un sistema de defensa formidable!#\nTendremos que ser rápidos cuando lleguemos./\nHablen con Palstrang, le he mostrado la ubicación del Templo de Slorm.#Te veré allí./",
         "RU_DIAL": "Я думаю, вы нашли достаточно Древнего Слорма для вашей первой экспедиции!#Вот, я сам нашел немного, что вы можете использовать.<Elder Gift>/\nНадеюсь, мы сможем найти там ответы... потому что разрушить Неразрушимую и Непробиваемую Печать — это одно, а победить Ома Агада — совсем другое.../\nИ я не разделяю энтузиазма Короля относительно ваших шансов на успех.../\nДавайте надеяться, что мы сможем заполучить какой-то артефакт, который поможет нам изменить ход событий./\nНо это тоже не будет легко... Храм Слорма имеет formidable защитную систему!#\nНам придется быть быстрыми, когда мы доберемся туда./\nВы двое поговорите с Пальстрангом, я показал ему местоположение Храма Слорма.#Я встречу вас там./",
+        "KR_DIAL": "당신이 첫 번째 탐험을 위해 충분한 고대 슬롬을 찾은 것 같아요!#여기, 제가 사용할 수 있는 것도 찾았어요.<Elder Gift>/\n우리가 거기서 답을 찾을 수 있기를 바랍니다... 불멸의 봉인과 깨지지 않는 봉인을 파괴하는 것은 한 가지 일이지만, 오므 아가드를 물리치는 것은 또 다른 일입니다.../\n저는 당신의 성공 가능성에 대한 왕의 열정에 동의하지 않습니다.../\n우리가 전세를 뒤집는 데 도움이 될 어떤 유물을 손에 넣을 수 있기를 바랍니다./\n하지만 그것도 쉽지 않을 것입니다... 슬롬 사원은 강력한 방어 시스템을 가지고 있습니다!#\n우리가 거기에 도착하면 신속해야 합니다./\n당신 두 사람은 팔스트랑과 이야기하세요, 저는 그에게 슬롬 사원의 위치를 보여주었습니다.#거기서 만날게요./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5681,10 +5681,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ah ... Du bist es. Hast du Reinschlurm, den du loswerden willst?<Open Mage?>",
         "ES_DIAL": "Ah... Eres tú... ¿Tienes alguna Slorm Pura para intercambiar conmigo?<Open Mage?>",
         "RU_DIAL": "Ах... Это ты... У тебя есть какой-нибудь Чистый Слорм, чтобы обменяться со мной?<Open Mage?>",
+        "KR_DIAL": "아... 너구나... 나에게 거래할 순수 슬롬이 있니?<Open Mage?>",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5699,10 +5699,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich sehe, du hast Reinschlurm in deinem Besitz .../\nMöchtest du etwas kaufen?<Open Mage?>/",
         "ES_DIAL": "Veo que tienes Slorm Pura en tu poder.../\n¿Te gustaría comprar algo?<Open Mage?>/",
         "RU_DIAL": "Я вижу, что у вас есть Pure Slorm.../\nВы хотите что-то купить?<Open Mage?>/",
+        "KR_DIAL": "당신이 순수 슬롬을 소유하고 있는 것 같군요.../\n무언가를 구매하고 싶으신가요?<Open Mage?>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5717,10 +5717,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "So, das hier ist der berühmte Schlurm-Tempel./\nHübsch und glänzend .../\nDa könntest du dir ’ne Scheibe von abschneiden, Bryan. Das letzte Mal, als ich in deiner Hütte war, hat es da gestunken wie in einem Stall .../\n.../\nHier mag es momentan friedlich wirken, aber lasst euch nicht täuschen: Sobald der Schlurm-Tempel Eindringlinge erkennt, werden seine Verteidigungsmechanismen aktiv./\nDanach bleibt uns nur wenig Zeit, den Ort fertig zu erkunden und abzuhauen ... bevor ER erwacht./\nDer Wächter ... Der ultimative Verteidiger des Tempels! Ein zehn Schritt hoher Koloss! Ganz aus Stein! Unsterblich! Und von MONUMENTALER Kraft!/\nSteht jedenfalls so in meinen alten Grimoires .../\n[bryan].../\n[archmage]Worauf wartet ihr denn noch? Ab mit euch, geht erkunden!/\nIch bin mir nicht sicher, wonach wir suchen, aber viel gibt es hier eh nicht ...#Sollte also einfach zu finden sein./",
         "ES_DIAL": "Así que este es el famoso Templo de Slorm./\nEs bonito... y brillante.../\nDeberías aprender de esto, Ramiro. La última vez que estuve en tu cabaña, olía a establo.../\n.../\nEl lugar parece tranquilo de momento, pero no te dejes engañar: una vez que el Templo de Slorm detecta intrusos, sus mecanismos de defensa se activan./\nEntonces tendremos poco tiempo para terminar de explorar el lugar y escapar... antes de que ÉL despierte.../\n¡El Guardián! ¡La defensa definitiva del Templo! ¡Un coloso de más de 9 metros de altura! ¡Todo hecho de piedra! ¡Inmortal! ¡Y de un COLOSAL poder!/\nEso es lo que leí en mis viejos grimorios.../\n[bryan].../\n[archmage]Bueno, ¿qué esperas? ¡Adelante, explora!/\nNo sé bien qué estamos buscando, pero no hay mucho de todos modos...#Así que debería ser fácil de encontrar./",
         "RU_DIAL": "Итак, это знаменитый храм Слорма./  \nОн красивый... и блестящий.../  \nТебе стоит этому поучиться, Брайан. В последний раз, когда я был в твоей хижине, там пахло конюшней.../  \n.../  \nМесто выглядит тихим в данный момент, но не обманывайся: как только храм Слорма обнаружит вторжение, его защитные механизмы активируются./  \nУ нас будет мало времени, чтобы закончить исследование места и убежать... прежде чем ОНО проснется.../  \nХранитель... Последняя защита Храма! Чудовище высотой 30 футов! Все сделано из камня! Бессмертный! И с КОЛОССАЛЬНОЙ силой!/  \nВот что я читал в своих старых гримуарах.../  \n[брайан].../  \n[архимаг] Ну, чего ты ждешь? Иди и исследуй!/  \nЯ не совсем знаю, что мы ищем, но в любом случае здесь не так много...#Так что это должно быть легко найти./",
+        "KR_DIAL": "그래서, 이것이 유명한 슬롬 사원입니다./  \n멋지고... 반짝입니다.../  \n브라이언, 이걸 배워야 해. 내가 너의 오두막에 마지막으로 갔을 때, 마구간처럼 냄새가 났어.../  \n.../  \n지금은 조용해 보이지만 속지 마세요: 슬롬 사원이 침입을 감지하면 방어 기제가 작동합니다./  \n그때 우리는 이곳을 탐험하고 도망칠 시간이 거의 없을 것입니다... IT가 깨어나기 전에.../  \n수호자... 사원의 궁극적인 방어! 30피트 높이의 거대 생물! 모두 돌로 만들어졌습니다! 불멸입니다! 그리고 거대한 힘을 가지고 있습니다!/  \n그것이 내가 오래된 마법서에서 읽은 내용입니다.../  \n[브라이언].../  \n[대마법사] 자, 무엇을 기다리고 있나요? 가서 탐험하세요!/  \n우리가 무엇을 찾고 있는지 잘 모르겠지만 어쨌든 별로 없습니다...#그래서 찾기 쉬울 것입니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5735,10 +5735,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Im Schlurm-Tempel gibt es Reinschlurm zu finden. Der ist sehr wertvoll für mich./\nMit Reinschlurm kann ich Verbesserungen erschaffen, die dir sicher weiterhelfen werden./\nWir werden aber wesentlich mehr Reinschlurm benötigen, also schlage ich vor, dass du den Tempel weiter erkundest./\nMomentan kannst du noch nicht viel kaufen, aber ich kann dir die verfügbaren Aufwertungen zeigen. Möchtest du einen Blick drauf werfen?<Open Mage?>/",
         "ES_DIAL": "El Templo de Slorm contiene Slorm Pura que es muy valiosa para mí.../\nManipulándola, puedo proporcionarte mejoras que nos ayudarán a progresar./\nVamos a necesitar mucha más Slorm Pura, así que te sugiero que continúes explorando el Templo./\nNo puedes comprar mucho ahora mismo, pero puedo mostrarte las mejoras disponibles. ¿Te gustaría verlas?<Open Mage?>/",
         "RU_DIAL": "Так что Храм Слорма содержит Чистый Слорм... Он очень ценен для меня.../\nМанипулируя им, я могу предоставить вам улучшения, которые помогут нашему прогрессу./\nНам понадобится гораздо больше Чистого Слорма, так что я предлагаю вам продолжить исследовать Храм./\nВы сейчас не можете много купить, но я могу показать вам доступные улучшения. Хотите их увидеть?<Open Mage?>/",
+        "KR_DIAL": "슬롬 사원에는 순수 슬롬이 들어 있습니다... 그것은 저에게 매우 소중합니다.../\n이를 조작함으로써, 저는 우리의 진행에 도움이 될 개선 사항을 제공할 수 있습니다./\n우리는 훨씬 더 많은 순수 슬롬이 필요할 것이므로, 사원을 계속 탐험할 것을 제안합니다./\n지금은 많이 구매할 수 없지만, 제가 제공할 수 있는 업그레이드를 보여드릴 수 있습니다. 보시겠습니까?<Open Mage?>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5753,10 +5753,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ah, ja ... Der Tempelwächter ... Ich habe das eine oder andere über ihn gelesen./\nEr ist uns schon eine ganze Weile gefolgt, es war also nur eine Frage der Zeit, bis wir uns ihm stellen mussten./\nAber ich denke nicht, dass wir ihn endgültig geschlagen haben. Er wird sicher zurückkommen .../",
         "ES_DIAL": "Ah, sí... El Guardián del Templo... He leído una o dos cosas sobre él.../\nNos ha estado siguiendo durante mucho tiempo... Ya era hora de enfrentarlo.../\nPero no creo que lo hayamos vencido del todo... Definitivamente volverá.../",
         "RU_DIAL": "Ах да... Хранитель Храма... Я читал о нем пару вещей.../\nОн следит за нами уже долгое время... Пора было встретиться с ним.../\nНо я не думаю, что мы победили его навсегда... Он определенно вернется.../",
+        "KR_DIAL": "아, 맞아... 사원 지키는 자... 그에 대해 몇 가지 읽어봤어.../\n그는 오랫동안 우리를 따라왔어... 우리가 그와 마주할 때가 되었어.../\n하지만 우리가 그를 완전히 이긴 것 같지는 않아... 그는 분명히 돌아올 거야.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5771,10 +5771,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Der Schlurm-Tempel birgt viele Geheimnisse .../\nDer Gegenstand, den du soeben gefunden hast, ist ein so genannter „Ultimus“! Das ist ein immens mächtiges Artefakt .../\nIch habe schon einiges darüber gelesen. Unter anderem wird in meinen Büchern erwähnt, dass es noch andere Ultimi gibt./\nWir sollten unsere Erkundung des Schlurm-Tempels fortsetzen, um weitere zu finden./",
         "ES_DIAL": "El Templo de Slorm guarda muchos secretos.../\nEl objeto que acabas de encontrar se llama Ultimátum. ¡Es un artefacto de gran poder!/\nHe leído una o dos cosas sobre ellos... Entre otras cosas, mis libros mencionaban la existencia de otros Ultimátums./\nDeberíamos continuar nuestra exploración del Templo de Slorm para buscar más./",
         "RU_DIAL": "Храм Слорма хранит много тайн.../\nПредмет, который вы только что нашли, называется Ультиматум! Это артефакт великой силы.../\nЯ читал о них кое-что... Среди прочего, в моих книгах упоминалась существование других Ультиматумов./\nНам следует продолжить наше исследование Храма Слорма в поисках большего./",
+        "KR_DIAL": "슬롬 사원은 많은 비밀을 간직하고 있습니다.../\n당신이 방금 찾은 아이템은 얼티메이텀이라고 불립니다! 그것은 강력한 힘을 가진 유물입니다.../\n나는 그것들에 대해 몇 가지 읽어본 적이 있습니다... 다른 것들 중에서, 내 책들은 다른 얼티메이텀의 존재를 언급했습니다./\n우리는 더 많은 것을 찾기 위해 슬롬 사원의 탐험을 계속해야 합니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5789,10 +5789,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ein neuer Ultimus!/\nHoffentlich ist er mächtiger als der vorherige!/",
         "ES_DIAL": "¡Un nuevo Ultimátum!/\n¡Espero que sea más poderoso que el anterior!/",
         "RU_DIAL": "Новое Ультиматум!/\nНадеюсь, оно будет более мощным, чем предыдущее!/",
+        "KR_DIAL": "새로운 최후통첩!/\n이전 것보다 더 강력하길 바랍니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5807,10 +5807,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Der Zerstörer unzerstörbarer und unverwüstlicher Siegel ist in meinem Büro./\nDann mal los./",
         "ES_DIAL": "El Destructor de Sellos Definitivo está en mi oficina./\nEmpecemos./",
         "RU_DIAL": "Разрушитель Неразрушимых и Непробиваемых Печатов в моем офисе./ Давайте начнем./",
+        "KR_DIAL": "파괴할 수 없고 깨지지 않는 봉인의 파괴자가 내 사무실에 있습니다./ 시작합시다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5825,10 +5825,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Zerkratz mir nicht den Boden.|\nVorsicht mit dem Lack.|",
         "ES_DIAL": "No dañes el piso.|\nTen cuidado con la pintura.|",
         "RU_DIAL": "Не повреждайте пол.| Будьте осторожны с краской.|",
+        "KR_DIAL": "바닥을 손상시키지 마세요.|페인트에 조심하세요.|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5843,10 +5843,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wir befinden uns in der großen Halle./\nHier kannst du die Portraits der illustren Gründer der vier großen Häuser bewundern, die die Akademie bilden: Arkaiman, Tempopotamus, Oblitelikan und Nekromanchovi./\nAuf diese Häuser werden Schüler bei ihrer Ankunft hier verteilt./\nAber genug geschwätzt, gehen wir weiter,#Mein Büro befindet sich am Ende der großen Halle.",
         "ES_DIAL": "Estamos en el Gran Salón./\nAquí puedes admirar los retratos de los ilustres fundadores de las cuatro grandes casas que conforman la Academia: Arcaimán, Tempopótamo, Obliterlicano y Necromanchoa./\nCuando llegan los estudiantes se dividen entre estas casas./\nPero basta de charla, sigamos adelante.#Mi oficina está ubicada al final del Gran Salón.",
         "RU_DIAL": "Мы находимся в Великом зале./ Здесь вы можете полюбоваться портретами выдающихся основателей четырех великих домов, которые составляют Академию: Аркаиман, Темпопотамус, Облителикан и Некроманчови./ Именно в эти дома делятся студенты, когда они прибывают./ Но хватит болтовни, давайте двигаться дальше.#Мой офис находится в конце Великого зала.",
+        "KR_DIAL": "우리는 대강당에 있습니다./  \n여기에서 아카데미를 구성하는 네 개의 위대한 집의 저명한 창립자들의 초상화를 감상할 수 있습니다: 아르카이만, 템포포타무스, 오블리텔리칸, 그리고 네크로맨초비./  \n학생들은 도착할 때 이 집들로 나뉘게 됩니다./  \n하지만 충분한 잡담은 그만하고, 시작합시다.#내 사무실은 대강당 끝에 위치해 있습니다.",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5861,10 +5861,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Seltsam ... Die magische Treppe zu meinem Büro ist weg .../\nWir werden sie rekonstruieren müssen./\nDas geht ganz einfach:#Wir müssen die Embleme der vier Häuser der Akademie finden, um daraus das Schulwappen zusammenzusetzen./\nHaben wir alle vier Embleme, erscheint die Treppe wieder und wir können in mein Büro./\nFangen wir mit dem Arkaiman-Emblem an. Der Arkaiman-Schlafsaal ist direkt nebenan./\nDanach müssen wir das Tempopotamus-Emblem finden, dann das von Oblitelikan und schließlich das der Nekromanchovis./\nVorwärts!/",
         "ES_DIAL": "Qué extraño... La escalera mágica hacia mi oficina ha desaparecido.../\nTendremos que reconstruirla./\nEl mecanismo para crear una escalera mágica hacia mi oficina es bastante simple:#Necesitamos encontrar los Emblemas de las cuatro casas de la Academia para reformar su escudo./\nUna vez que tengamos los cuatro Emblemas, la escalera reaparecerá y podremos acceder a mi oficina./\nComencemos con el Emblema de Arcaimán, que debería estar en su dormitorio, justo al lado./\nLuego tendremos que encontrar el Emblema de Tempopótamo, después el de Obliterlicano, y finalmente el de Necromanchoa./\n¡Adelante!/",
         "RU_DIAL": "Странно... Волшебная лестница в мой офис пропала.../\nНам придется её восстановить./\nМеханизм для создания волшебной лестницы в мой офис довольно прост :#Нам нужно найти Эмблемы четырех домов Академии, чтобы восстановить Герб Школы./\nКак только у нас будут все четыре Эмблемы, лестница снова появится, и мы сможем попасть в мой офис./\nНачнем с Эмблемы Аркаиман, которая должна быть в их общежитии, прямо рядом./\nДалее нам нужно найти Эмблему Темпопотамуса, затем Эмблему Облителикана и, наконец, Эмблему Некроманчов./\nВперед!/",
+        "KR_DIAL": "이상하군... 내 사무실로 가는 마법의 계단이 사라졌어.../\n우리는 그것을 다시 만들어야 해./\n내 사무실로 가는 마법의 계단을 만드는 메커니즘은 꽤 간단해 :#학교 문장을 재구성하기 위해 아카데미의 네 집의 엠블럼을 찾아야 해./\n네 개의 엠블럼을 모두 모으면 계단이 다시 나타나고 우리는 내 사무실에 접근할 수 있을 거야./\n먼저 그들의 기숙사에 있어야 할 아르카이만 엠블럼부터 시작하자, 바로 옆에 있어./\n다음으로 템포포타무스 엠블럼을 찾아야 하고, 그 다음은 오블리텔리칸의, 마지막으로 네크로맨초비의 엠블럼이야./\n전진!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5879,10 +5879,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wir sind jetzt im Arkaiman-Schlafsaal./\nHier muss sich irgendwo das Arkaiman-Emblem befinden./",
         "ES_DIAL": "Estamos en el dormitorio de Arcaimán./\nNecesitamos encontrar el Emblema de Arcaimán, que debería estar en algún lugar de esta área./",
         "RU_DIAL": "Мы находимся в общежитии Аркаиман./ Нам нужно найти эмблему Аркаиман, которая должна быть где-то в этом районе./",
+        "KR_DIAL": "아르카이만 기숙사에 있습니다./ 이 지역 어딘가에 있어야 하는 아르카이만 엠블럼을 찾아야 합니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5897,10 +5897,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wir haben jetzt eines der Embleme./\nNoch drei und wir haben Zugang zu meinem Büro./\nJetzt müssen wir durch das Planetarium, um zur Tempopotamus-Festung zu gelangen./",
         "ES_DIAL": "Ya tenemos un Emblema en nuestro poder./\nSolo nos faltan tres más para tener acceso a mi oficina./\nAhora debemos cruzar el Planetario para llegar al Bastión de Tempopótamo./",
         "RU_DIAL": "Теперь у нас есть эмблема./  \nЕще три, и у нас будет доступ к моему офису./  \nТеперь нам нужно пересечь Планетарий, чтобы добраться до бастиона Темпопотамуса./",
+        "KR_DIAL": "우리는 이제 우리의 소유에 엠블럼이 있습니다./  \n세 개 더 있으면 제 사무실에 접근할 수 있습니다./  \n이제 템포포타무스 요새에 가기 위해 플라네타리움을 건너야 합니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5915,10 +5915,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Gehen wir durch das Planetarium./\nDas Haus Tempopotamus liegt auf der anderen Seite./",
         "ES_DIAL": "Crucemos el Planetario lo antes posible./\nLa Casa Tempopótamo está un poco más adelante... /",
         "RU_DIAL": "Давайте пройдем через Планетарий как можно скорее./ Дом Темпопотамуса немного дальше... /",
+        "KR_DIAL": "가능한 한 빨리 플라네타륨을 지나갑시다./ 템포포타무스 하우스는 조금 더 가야 합니다... /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5933,10 +5933,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Das Haus Tempopotamus ...#\nAls ich hier Schüler war, war das mein Haus./\nWeißt du, wie die Schüler auf die Häuser verteilt werden?/\nDafür gibt es eine spezielle Zeremonie, die Zeremonie der unschlüssigen Socke!/\nDiese Zeremonie wird abgehalten, wenn neue Schüler in die Akademie kommen./\nDabei wird die erlauchte unschlüssige Socke über den Fuß des neuen Schülers gezogen und entscheidet rein willkürlich und komplett parteiisch, welchem Haus er oder sie angehören soll./\nDie Schüler werden dabei auf die vier Häuser aufgeteilt: Arkaiman, Tempopotamus, Oblitelikan und Nekromanchovi./\nAllerdings ist die unschlüssige Socke so alt wie die Akademie selbst.#Sie ist schon seit mehreren Jahrhunderten völlig senil und ihre Entscheidungen ergeben keinerlei Sinn mehr./\nDoch alte Traditionen sterben bekanntlich langsam .../",
         "ES_DIAL": "La Casa Tempopótamo…#\nEsta fue mi casa cuando era estudiante aquí…/\n¿Sabes cómo se dividen los estudiantes en las casas?/\nBueno, ¡gracias a la Ceremonia del Calcetín Dubitativo!/\nLa Ceremonia del Calcetín Dubitativo se lleva a cabo cuando los nuevos estudiantes llegan a la Academia./\nEl Ilustre Calcetín Dubitativo se coloca en el pie del nuevo estudiante y decide, basado en criterios puramente aleatorios y sin ninguna forma de objetividad, a qué casa pertenecerá./\nLos estudiantes se distribuyen entre las cuatro casas: Arcaimán, Tempopótamo, Obliterlicano y Necromanchoa./\nSin embargo, el Calcetín Dubitativo es tan viejo como la Academia.#Ha estado completamente senil durante varios siglos y sus elecciones ya no tienen sentido…/\nPero las viejas tradiciones son difíciles de romper…/",
         "RU_DIAL": "Темппопотамский дом...#\nЭто был мой дом, когда я был студентом здесь.../\nТы знаешь, как студенты делятся на дома?/\nНу, благодаря Церемонии Сомнительного Носка!/\nЦеремония Сомнительного Носка проходит, когда новые студенты прибывают в Академию./\nИллюстрированный Сомнительный Носок помещается на ногу нового студента и решает, основываясь исключительно на случайных критериях и без какой-либо объективности, к какому дому он или она будет принадлежать./\nСтуденты распределяются между четырьмя домами: Аркаиман, Темппопотам, Облителикан и Некроманчи./\nОднако Сомнительный Носок так же стар, как и Академия.# Он полностью слабоумен на протяжении нескольких столетий, и его выборы больше не имеют смысла.../\nНо старые традиции умирают трудно.../",
+        "KR_DIAL": "템포포타무스 하우스...#\n이곳은 내가 여기 학생이었을 때의 집이었어.../\n학생들이 어떻게 하우스로 나뉘는지 아나요?/\n글쎄, 의심스러운 양말 의식 덕분이야!/\n의심스러운 양말 의식은 신입생이 아카데미에 도착할 때 열려./\n저명한 의심스러운 양말은 신입생의 발에 놓이고, 순전히 무작위 기준에 따라 그리고 어떤 형태의 객관성 없이 그가 속할 하우스를 결정해./\n학생들은 네 개의 하우스: 아르카이만, 템포포타무스, 오블리텔리칸, 그리고 네크로맨초비스에 분배돼./\n하지만 의심스러운 양말은 아카데미만큼 오래되었어.# 수세기 동안 완전히 노쇠해져서 그 선택은 더 이상 아무 의미가 없어.../\n하지만 오래된 전통은 쉽게 사라지지 않아.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5951,10 +5951,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ein weiteres Emblem!/\nAuf zum nächsten!/",
         "ES_DIAL": "¡Un nuevo Emblema!/\n¡Sigamos adelante!/",
         "RU_DIAL": "Новый эмблема!/\nДавайте продолжать!/",
+        "KR_DIAL": "새로운 엠블럼!/\n계속 나아갑시다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5969,10 +5969,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wir sind in den Alchemiekammern.#\nDer nächste Schlafsaal ist der von Oblitelikan. Er ist ganz in der Nähe./",
         "ES_DIAL": "Estamos en las Salas de Alquimia.#\nEl próximo dormitorio es el de los Obliterlicano. Está un poco más adelante./",
         "RU_DIAL": "Мы находимся в Алхимических Комнатах.#\nСледующее общежитие - это общежитие Облителиканов. Оно расположено немного дальше./",
+        "KR_DIAL": "우리는 연금술 방에 있습니다.#\n다음 기숙사는 오블리텔리칸의 기숙사입니다. 위치는 조금 더 가면 있습니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -5987,10 +5987,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich habe ein ungutes Gefühl .../\nJemand hat absichtlich den Weg in mein Büro versperrt./\nUnd Ohm Eigad selbst hätte keinen Grund dazu, da er nicht weiß, dass wir nach dem Zerstörer unzerstörbarer und unverwüstlicher Siegel suchen, oder wo er sich überhaupt befindet./\nHier muss jemand anderes am Werk sein ...#\nNur wer?/",
         "ES_DIAL": "Tengo un mal presentimiento…/\nAlguien cerró mi oficina a propósito…/\nY Ohm Agad no tiene razón para hacerlo, ya que no sabe que estamos buscando el Destructor de Sellos Definitivo, ni siquiera sabe dónde está…/\nAlguien más debe estar detrás de esto…#\nPero, ¿quién podrá ser?/",
         "RU_DIAL": "У меня плохое предчувствие.../\nКто-то специально запер мой офис.../\nИ у Ома Агада нет причины это делать, потому что он не знает, что мы ищем Уничтожителя Неразрушимых и Непробиваемых Печатов, или даже где он находится.../\nЗдесь, должно быть, работает кто-то другой...#\nНо кто?/",
+        "KR_DIAL": "나는 나쁜 예감이 들어.../\n누군가 일부러 내 사무실을 잠갔어.../\n그리고 오므 아가드는 우리가 파괴할 수 없는 봉인의 파괴자를 찾고 있다는 것을 모르기 때문에 그럴 이유가 없어, 또는 그것이 어디에 있는지도.../\n다른 누군가가 여기서 작업하고 있어야 해...#\n하지만 누구지?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6005,10 +6005,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wir haben jetzt drei Embleme./\nIndem ich sie als Fokus verwende, kann ich die Kontrolle über einige Gegner übernehmen, damit sie dir helfen./\nGeh weiter!/",
         "ES_DIAL": "Ya tenemos tres Emblemas./\nUsándolos como catalizadores, debería poder ayudarte tomando el control de algunos de los enemigos para que te asistan./\n¡Sigue adelante!/",
         "RU_DIAL": "Теперь у нас есть три Эмблемы./ Используя их как катализатор, я смогу помочь вам, взяв под контроль некоторых врагов, чтобы они могли помочь вам./ Продолжайте!/",
+        "KR_DIAL": "우리는 이제 세 개의 엠블럼을 가지고 있습니다./ 그것들을 촉매로 사용하여, 나는 일부 적들을 제어하여 당신을 도울 수 있을 것입니다./ 계속 가세요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6023,10 +6023,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Sieh nur, was ich in der Bibliothek gefunden habe!/\nDie erlauchte unschlüssige Socke!/\nSie riecht nicht besonders gut und ist nicht besonders mächtig ...#\nIm Grunde ist sie ziemlich nutzlos geworden.#\nIch schenke sie dir!/\nBrauchst mir nicht zu danken.<Sock Gift>/",
         "ES_DIAL": "¡Mira lo que encontré en la Biblioteca!/\n¡El Ilustre Calcetín Dubitativo!/\nNo huele muy bien y no es muy poderoso…#\nY ya no sirve mucho.#\n¡Te lo obsequio!/\nNo me agradezcas.<Sock Gift>/",
         "RU_DIAL": "Смотри, что я нашел в библиотеке!/\nСлавный Сомнительный Носок!/\nОн не очень приятно пахнет, и он не очень мощный...#\nИ он больше не очень полезен.#\nЯ дарю его тебе!/\nНе благодарите меня.<Sock Gift>/",
+        "KR_DIAL": "도서관에서 내가 찾은 것을 봐!/\n영광스러운 의심스러운 양말!/\n냄새가 별로 좋지 않고, 힘도 별로 없어...#\n이제 별로 쓸모도 없어.# \n너에게 줄게!/\n고맙다고 하지 마.<Sock Gift>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6041,10 +6041,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Alle vier Embleme sind nun in unserem Besitz./\nDie Treppe zu meinem Büro müsste wieder benutzbar sein./\nGehen wir!/",
         "ES_DIAL": "Ya tenemos los cuatro Emblemas en nuestro poder./\nLas escaleras a mi oficina deberían ser accesibles de nuevo./\n¡Vamos!/",
         "RU_DIAL": "Теперь у нас есть все четыре Эмблемы./\nЛестница в мой офис снова должна быть доступна./\nПойдем!/",
+        "KR_DIAL": "이제 우리는 네 개의 엠블럼을 모두 소유하고 있습니다./  \n내 사무실로 가는 계단은 다시 접근 가능해야 합니다./  \n가자!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6059,10 +6059,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "So, das hier ist mein Büro./",
         "ES_DIAL": "Esta es mi oficina./",
         "RU_DIAL": "Это мой офис./",
+        "KR_DIAL": "이곳은 내 사무실입니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6077,10 +6077,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Alarin ... Mein Bruder .../\nImmer am Ränke Schmieden .../\nEr wird es wieder versuchen ... ganz sicher./",
         "ES_DIAL": "Alarín… Mi hermano…/\nSiempre conspirando…/\nÉl volverá… estoy seguro…/",
         "RU_DIAL": "Аларин... Мой брат.../\nВсегда замышляет.../\nОн вернется... точно.../",
+        "KR_DIAL": "알라린... 내 형.../\n항상 음모를 꾸미고.../\n그는 돌아올 거야... 확실히.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6095,10 +6095,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Der Schlurm-Tempel ist nun geschlossen.#Du kannst in meinem Laden vorbeikommen, um mit Reinschlurm Aufwertungen zu kaufen./\nIch warte am Eingang meiner Akademie auf dich – das ist der große Turm südlich des Friedhofs./\nWenn wir uns das nächste Mal in den Schlurm-Tempel begeben, wird er anders aufgebaut sein. Bereite dich also vor, bevor du aufbrichst./",
         "ES_DIAL": "El Templo de Slorm está cerrado.#Puedes pasar por mi tienda para usar tu Slorm Pura en Mejoras./\nTe estoy esperando en la entrada de mi academia. Es la gran torre al sur del Cementerio./\nLa próxima vez que volvamos al Templo de Slorm, su estructura habrá cambiado, así que prepárate antes de ir./",
         "RU_DIAL": "Храм Слорма теперь закрыт#Вы можете зайти в мой магазин, чтобы использовать свой Чистый Слорм на Улучшениях./\nЯ жду вас у входа в свою академию, это большая башня к югу от Кладбища./\nВ следующий раз, когда мы вернемся в Храм Слорма, его структура изменится. Так что подготовьтесь перед тем, как уйти./",
+        "KR_DIAL": "슬롬 사원은 이제 닫혔습니다# 당신은 내 가게에 와서 업그레이드에 순수 슬롬을 사용할 수 있습니다./\n나는 내 아카데미 입구에서 당신을 기다리고 있습니다. 그것은 묘지 남쪽에 있는 큰 탑입니다./\n다음에 우리가 슬롬 사원으로 돌아올 때, 그 구조가 바뀔 것입니다. 그러니 떠나기 전에 준비하세요./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6113,10 +6113,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Der Schlurm-Tempel hat sich geschlossen …#Wir müssen von vorne anfangen!/",
         "ES_DIAL": "El Templo de Slorm está cerrado…#¡Tendremos que empezar de nuevo!/",
         "RU_DIAL": "Храм Слорма закрылся...#Нам нужно начать заново!/",
+        "KR_DIAL": "슬롬 사원이 닫혔습니다...#우리는 다시 시작해야 합니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6131,10 +6131,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "-",
         "ES_DIAL": "-",
         "RU_DIAL": "-",
+        "KR_DIAL": "-",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6149,10 +6149,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "-",
         "ES_DIAL": "-",
         "RU_DIAL": "-",
+        "KR_DIAL": "-",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6167,10 +6167,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "-",
         "ES_DIAL": "-",
         "RU_DIAL": "-\"\"\"",
+        "KR_DIAL": "-",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6185,10 +6185,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "\"Wenn du dies liest, hast du mich im Schlurm-Tempel sitzenlassen. Komm sofort zurück, du kleiner Racker!/\nWenn du mit der Erkundung des Tempels fertig bist, solltest du ihn schließen … damit ich wieder ins Dorf komme …\"# – Olorin, Erzmagier",
         "ES_DIAL": "\"Si estás leyendo esto, significa que me dejaste solo en el Templo de Slorm. ¡Vuelve de inmediato, granuja!/\nSi ya terminaste de explorar el Templo, deberías cerrarlo… así puedo volver a la aldea…\"#–Olorín, el Archimago",
         "RU_DIAL": "\"Если вы читаете эту записку, вы оставили меня одного в Храме Слорма. Вернитесь немедленно, юный негодяй!/\nЕсли вы закончили исследовать Храм, вам следует закрыть его... чтобы я мог вернуться в деревню... \"#-Олорин, Архимаг",
+        "KR_DIAL": "\"이 노트를 읽고 있다면, 당신은 나를 슬롬 사원에 혼자 두고 떠난 것입니다. 즉시 돌아오세요, 젊은 악동!/\n사원을 탐험이 끝났다면, 닫아야 합니다... 그래야 제가 마을로 돌아갈 수 있습니다... \"#-Olorin, 대마법사",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6203,10 +6203,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Danke, dass du mich befreit hast, (tapferer Abenteurer&tapfere Abenteuerin)!",
         "ES_DIAL": "¡Gracias por sacarme de ahí, valiente busca aventuras!",
         "RU_DIAL": "Спасибо, что вытащили меня оттуда, смелый искатель приключений!",
+        "KR_DIAL": "거기서 나를 구해줘서 고마워, 용감한 모험가!",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6220,11 +6220,11 @@ export const GAME_DATA_DIALOGUES = [
         "JP_DIAL": "こんにちは、素敵な人…|\nこんにちは、いとしい人…|\nねぇ、(イケメンくん&美人さん)…|\nこんにちは、かわいい人…|\n何か私に買って欲しいのかしら？|\n私が売っているのはレアものばかりよ…|\nねぇ、君が好きそうなものばかりを用意したわよ…|",
         "DE_DIAL": "Hallo, (Süßer&Süße) ...|\nHallo, mein Herzchen ...|\nHi, (mein Hübscher&meine Hübsche) ...|\nHallo, Schnucki ...|\nHast du was zu verkaufen?|\nIch handle mit seltenen Gegenständen.|\nHey, (mein Hübscher&meine Hübsche), ich habe jede Menge Objekte, die dich interessieren könnten ...|",
         "ES_DIAL": "Hola, cariño… |\nHola, corazón… |\nHola, (guapo&preciosa)… |\nHola, dulce corazón… |\n¿Tienes algo que quieras venderme? |\nVendo los objetos más raros… |\nOye, guapo, tengo muchos objetos que podrían interesarte…|",
-        "RU_DIAL": "Привет, дорогой... |  \nЗдравствуйте, сладкий горошек... |  \nПривет, (красавчик и красавица)... |  \nЗдравствуйте, прекрасное сердце... |  \nУ вас есть что-то, что вы хотите мне продать? |  \nЯ продаю самые редкие объекты... |  \nЭй, красавчик, у меня есть много объектов, которые могут вас заинтересовать... |",
+        "RU_DIAL": "Привет, дорогой... |  \nЗдравствуйте, сладкий горошек... |  \nПривет, (красавчик&красавица)... |  \nЗдравствуйте, прекрасное сердце... |  \nУ вас есть что-то, что вы хотите мне продать? |  \nЯ продаю самые редкие объекты... |  \nЭй, красавчик, у меня есть много объектов, которые могут вас заинтересовать... |",
+        "KR_DIAL": "안녕, 귀여운이야... |  \n안녕하세요, 사랑스러운 콩... |  \n안녕, (잘생긴&아름다운)... |  \n안녕하세요, 예쁜 마음... |  \n판매하고 싶은 물건이 있나요? |  \n나는 가장 희귀한 물건들을 판매해... |  \n안녕 잘생긴, 너가 관심 있을 만한 물건이 많아...|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6239,10 +6239,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich verkaufe die kostbarsten Waren! Aber nicht an dich, Schnucki, du bist zu knapp bei Kasse .../",
         "ES_DIAL": "¡Vendo los bienes más preciados! Pero no a ti, guapo. No tienes suficientes recursos…/",
         "RU_DIAL": "Я продаю самые ценные товары! Но не тебе, красавчик, у тебя недостаточно ресурсов.../",
+        "KR_DIAL": "가장 소중한 상품을 판매합니다! 하지만 당신에게는 판매하지 않아요, 잘생긴 당신은 자원이 충분하지 않아요.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6257,10 +6257,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Danke, dass du mich aus diesem grausigen Loch befreit hast ...#Bevor du gekommen bist, habe ich mir ein paar wertvolle Sachen unter den Nagel gerissen./\nIch zeige dir meine Ausbeute, wenn wir wieder im Dorf sind./",
         "ES_DIAL": "Gracias por sacarme de ese lugar repugnante…#Logré robar algunos objetos valiosos antes de que llegaras…/\nTe mostraré mi botín cuando volvamos al pueblo./",
         "RU_DIAL": "Спасибо, что вытащили меня из этого грязного места...#Мне удалось украсть несколько ценных вещей, прежде чем вы пришли.../\nЯ покажу вам свою добычу, когда мы вернемся в деревню./",
+        "KR_DIAL": "이 더러운 곳에서 나를 구해줘서 고마워...#너가 오기 전에 몇 가지 귀중한 물건을 훔칠 수 있었어.../\n우리가 마을로 돌아가면 내 전리품을 보여줄게./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6275,10 +6275,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hallo, (mein Hübscher&meine Hübsche), ich heiße Jemma. Ich kaufe und verkaufe allerlei seltene Objekte./\nDu scheinst ja ordentlich Goldus zu scheffeln, also kommen wir sicher ins Geschäft!/\nWenn du willst, kannst du dir meine Ware ansehen./",
         "ES_DIAL": "Hola, guapo. Mi nombre es Gemma. Compro y vendo todo tipo de objetos raros./\nPareces estar haciéndote rico, deberíamos poder hacer negocios./\nPuedes echar un vistazo a mis bienes si quieres./",
         "RU_DIAL": "Привет, красавчик, меня зовут Джемма. Я покупаю и продаю всевозможные редкие предметы./ Ты выглядишь так, будто разбогател, нам стоит заняться бизнесом! / Ты можешь взглянуть на мои товары, если хочешь./",
+        "KR_DIAL": "안녕 잘생긴 남자, 내 이름은 제마야. 나는 모든 종류의 희귀한 물건을 사고팔아./  \n너는 부자가 될 것 같은데, 우리는 사업을 할 수 있을 거야!/  \n원한다면 내 물건을 살펴볼 수 있어./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6293,10 +6293,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hallo, Schnucki ... Suchst du etwas Bestimmtes?<Open Digger?>|\nHallo, (mein Hübscher&meine Hübsche) ... Was darf es heute sein?<Open Digger?>|\nHallo, mein Herzchen ... Meine Ware ist vom Allerfeinsten. Interesse?<Open Digger?>|",
         "ES_DIAL": "Hola, guapo… ¿Estás buscando algo en particular?<Open Digger?>|\nHola, (niño&niña)… ¿Necesitas algo hoy?<Open Digger?>|\nHola, dulzura… Tengo algunos bienes de la mejor calidad, ¿te interesan?<Open Digger?>|",
         "RU_DIAL": "Привет, красавчик... Ты ищешь что-то конкретное?<Open Digger?>|  \nПривет, красавчик (мальчик&девочка)... Тебе что-то нужно сегодня?<Open Digger?>|  \nПривет, красивое сердце... У меня есть товары высшего качества, ты заинтересован?<Open Digger?>|",
+        "KR_DIAL": "안녕 잘생긴 사람... 특별히 찾고 있는 게 있어요?<Open Digger?>|  \n안녕하세요 예쁜 (남자&여자)... 오늘 필요한 게 있어요?<Open Digger?>|  \n안녕 예쁜 마음... 제가 최고급 상품을 가지고 있는데, 관심 있어요?<Open Digger?>|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6311,10 +6311,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "",
         "ES_DIAL": "",
         "RU_DIAL": "",
+        "KR_DIAL": "",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6329,10 +6329,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Bevor du fragst: Nein, es beißt nichts an …|\nDiese Ruhe ... Herrlich ...|\nAngelst du gern?|\nAngeln ist meine Leidenschaft!|\nKomm, setz dich für ein paar Minuten zu mir ...|\nNicht so laut ... Du vertreibst noch die Fische ...|",
         "ES_DIAL": "Antes de que preguntes… no, no muerde… |\n… Qué tranquilidad… es agradable… |\n¿Te gusta pescar?|\n¡La pesca es mi pasión! |\nVen, siéntate un momento… |\nShhh… vas a asustar a los peces… |",
         "RU_DIAL": "Прежде чем ты спросишь... Нет, он не кусается... |\n... Как тихо... Это приятно ... |\nТебе нравится рыбалка?|\nРыбалка - моя страсть! |\nПодойди и сядь на несколько минут... |\nТсс... Ты испугаешь рыбу... |",
+        "KR_DIAL": "너가 묻기 전에... 아니, 물지 않아... |\n... 얼마나 조용한지... 좋다 ... |\n낚시 좋아해?|\n낚시는 내 열정이야! |\n잠깐 앉아봐... |\n쉿... 물고기를 놀라게 할 거야... |",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6347,10 +6347,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Oh, hallo ... Wer bist du? Du bist (ein Abenteurer&eine Abenteuerin), nicht wahr? Angelst du auch gern?/\nDie Fische sind in letzter Zeit unruhig. Seltsame Dinge gehen vor sich .../",
         "ES_DIAL": "…Ah, hola… ¿Quién eres? ¿Estás en una aventura, verdad? ¿Te gusta pescar?/\nLos peces están inquietos últimamente… Pasan cosas extrañas… /",
         "RU_DIAL": "... Ах, привет... Кто ты? Ты искатель приключений, не так ли? Тебе нравится рыбалка?/\nРыба в последнее время беспокойна... Странные вещи происходят... /",
+        "KR_DIAL": "... 아 안녕하세요... 당신은 누구인가요? 당신은 모험가죠? 낚시를 좋아하나요?/\n최근에 물고기가 불안해요... 이상한 일들이 일어나고 있어요... /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6365,10 +6365,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "",
         "ES_DIAL": "",
         "RU_DIAL": "",
+        "KR_DIAL": "",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6383,10 +6383,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "",
         "ES_DIAL": "",
         "RU_DIAL": "",
+        "KR_DIAL": "",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6401,10 +6401,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "",
         "ES_DIAL": "",
         "RU_DIAL": "",
+        "KR_DIAL": "",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6419,10 +6419,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Mmmpf!/",
         "ES_DIAL": "¡Mmmm!/",
         "RU_DIAL": "Мммпф!/",
+        "KR_DIAL": "음음프!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6437,10 +6437,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hmmm ...|\nMmmpf!|",
         "ES_DIAL": "Emm…|\n¡Mmmm!|",
         "RU_DIAL": "Мммх...|  \nМмпф!|",
+        "KR_DIAL": "음...| 음흐!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6455,10 +6455,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Sei vorsichtig!/",
         "ES_DIAL": "¡Ten cuidado!/",
         "RU_DIAL": "Будь осторожен!/",
+        "KR_DIAL": "조심하세요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6473,10 +6473,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Viel Glück!/",
         "ES_DIAL": "¡Buena suerte!/",
         "RU_DIAL": "Удачи!/",
+        "KR_DIAL": "행운을 빕니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6491,10 +6491,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hmmm .../",
         "ES_DIAL": "Mmm.../",
         "RU_DIAL": "Мммх.../",
+        "KR_DIAL": "음.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6509,10 +6509,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Danke für deine Hilfe, (Jungchen&Mädchen)!/\nIch heiße Cory ... Cory Eisenbieger!/\nMach dir keine Sorgen um mich, ich finde zurück.#Treffen wir uns im Dorf wieder!/",
         "ES_DIAL": "¡Gracias por tu ayuda, (niño&niña)!/\nMi nombre es Cory… ¡Cory Doblacero!/\nNo te preocupes por mí, encontraré mi camino de regreso.#Nos vemos en el pueblo./",
         "RU_DIAL": "Спасибо за вашу помощь (boy&girl)!/\nМеня зовут Кори... Кори Железный Изгиб!/\nНе беспокойтесь обо мне, я найду дорогу назад.#Давайте встретимся в деревне./",
+        "KR_DIAL": "당신의 도움에 감사드립니다 (소년&소녀)!/\n내 이름은 코리... 코리 아이언벤더입니다!/\n나에 대해 걱정하지 마세요, 나는 돌아갈 길을 찾을 것입니다.#마을에서 만나요./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6527,10 +6527,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Oh! Ich sehe, du besitzt einen Schlurm-Schnitter./\nDas sind gefährliche Waffen. Ich hoffe du machst keine Dummheiten damit!/\nVor langer Zeit habe ich selber einige der mächtigsten Schlurm-Schnitter geschmiedet .../\nAber das ist alles längst Geschichte./\nZu viele Leute haben meine Waffen für üble Zwecke missbraucht./\nIch bin noch immer Schmied, aber jetzt schmiede ich nur noch Sachen, die völlig harmlos sind ... so wie Löffel oder Eimer./\nIch mache nichts Scharfes mehr. Ist zu gefährlich.#Keine Sensen, keine Spitzhacken, nicht mal Gabeln!/\nHöchstens noch Hufeisen. Für vertrauenswürdige Kunden./\nAber vermutlich interessiert dich das nicht ...#Du hast ja auch gar kein Pferd./\nAlso dann, viel Glück mit deinem kleinen Abenteuer ... Und wenn du mal einen Löffel brauchen solltest, weißt du ja jetzt, wo du mich findest./",
         "ES_DIAL": "¡Oh! Veo que tienes una Segadora de Slorm…/\nEstas son armas peligrosas, ¡espero que no hagas nada estúpido con ellas!/\nHace mucho tiempo, personalmente forjé algunas de las Segadoras de Slorm más poderosas…/\nPero eso ya es historia…/\nDemasiadas personas usaron mis armas para el mal…/\nTodavía trabajo como herrero, pero me limito a forjar cosas completamente inofensivas… Como cucharas o cubos…/\nYa no hago nada afilado… Ni demasiado peligroso…#Ni segadoras, ni picos, ni siquiera tenedores…/\nHerraduras, como mucho… si siento que puedo confiar en el cliente…/\nPero supongo que no te interesa…#No tienes un caballo de todas formas…/\nAsí que, buena suerte con tus pequeñas aventuras… Y si alguna vez buscas una cuchara, ya sabes dónde encontrarme…/",
         "RU_DIAL": "О! Я вижу, у вас есть Слорм Жнец.../\nЭто опасное оружие, надеюсь, вы не сделаете с ним ничего глупого!/\nДавным-давно я лично ковал некоторые из самых мощных Слорм Жнецов.../\nНо это все в прошлом.../\nСлишком много людей использовали мое оружие для зла.../\nЯ все еще кузнец, но я занимаюсь ковкой вещей, которые совершенно безвредны... Например, ложек или ведер.../\nЯ больше не делаю ничего острого... Слишком опасно...#Никаких кос, никаких кирок, даже вилок!.../\nПодковы, в лучшем случае... если я почувствую, что могу доверять клиенту.../\nНо, думаю, вам это не интересно...#У вас все равно нет лошади.../\nТак что, удачи вам в ваших маленьких приключениях... И если вам когда-нибудь понадобится ложка, вы знаете, где меня найти.../",
+        "KR_DIAL": "오! 당신이 슬롬 리퍼를 소유하고 있군요.../\n이것들은 위험한 무기입니다, 당신이 그것들로 바보 같은 짓을 하지 않기를 바랍니다!/\n오래 전, 저는 개인적으로 가장 강력한 슬롬 리퍼를 몇 개 제작했습니다.../\n하지만 그건 모두 과거의 일입니다.../\n너무 많은 사람들이 제 무기를 악용했습니다.../\n저는 여전히 대장장이지만, 완전히 무해한 것들만 제작하고 있습니다... 숟가락이나 양동이 같은 것들.../\n저는 더 이상 날카로운 것을 만들지 않습니다... 너무 위험해요...#낫도 없고, 곡괭이도 없고, 포크조차도 없습니다!.../\n말굽 정도가 최대입니다... 고객을 신뢰할 수 있다고 느낄 때만.../\n하지만 당신은 관심이 없는 것 같군요...#어쨌든 당신은 말이 없잖아요.../\n그러니 당신의 작은 모험에 행운을 빕니다... 그리고 만약 숟가락이 필요하다면, 저를 찾는 곳을 아실 겁니다.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6545,10 +6545,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Weißt du, was ich gern tun würde? Zu meiner alten Schmiede zurückkehren und ein bisschen den Hammer schwingen./\nEin herrlicher Ort ist das ...#Es ist warm, die Lava fließt in Strömen und meine Werkzeuge sind immer perfekt poliert .../\nDas Problem sind die Monster./\nTausende von ihnen sind aus den Tiefen aufgetaucht .../\nAlleine komme ich da jetzt unmöglich hin./\nWenn mir bloß jemand helfen würde .../\nEin tapferer und treuherziger Abenteurer .../\nNicht ...?/\n.../\n[bryan].../\n[reapersmith].../\nWenn du mitkommst, kann ich deine Schlurm-Schnitter aufwerten!/\n[bryan]Gut, wir kommen mit./\n[reapersmith]Na also!#Fragt Palstrang, wie ihr zur Großen Schmiede kommt!/\nNa los, auf geht’s! Wir treffen uns dort./",
         "ES_DIAL": "¿Sabías que me gustaría hacer? Volver a mi vieja forja y hacer un poco de herrería…/\nEs un lugar maravilloso…#Es cálido, la lava fluye de forma hermosa y mis herramientas siempre están perfectamente pulidas…/\nEl problema son los monstruos…/\nMiles de ellos han surgido desde las profundidades…/\nAsí que es imposible ir solo…/\nSi tan solo alguien me ayudara a regresar allá…/\nUn aventurero valiente y sin tacha…/\n¿Nadie…?/\n…/\n[bryan]…/\n[reapersmith]…/\n¡Puedo mejorar esas Segadoras de Slorm tuyas si vienes conmigo!/\n[bryan]Muy bien, vamos./\n[reapersmith] ¡Ese es el espíritu!#Pídele a Palstrang que te envíe a la Gran Forja./\n¡Vamos, vamos! Te veré allá./",
         "RU_DIAL": "Ты знаешь, что я хотел бы сделать? Вернуться к своей старой кузнице и немного поработать.../\nЭто замечательное место...#Там тепло, лава течет прекрасно, а мои инструменты всегда идеально отполированы.../\nПроблема в монстрах.../\nТысячи из них восстали из глубин.../\nТак что невозможно идти одному.../\nЕсли бы только кто-то помог мне вернуться туда.../\nСмелый и безупречный искатель приключений.../\nНикто?.../\n.../\n[bryan].../\n[reapersmith].../\nЯ могу улучшить этих ваших Слорм Жнецов, если ты пойдешь со мной!/\n[bryan]Хорошо, мы идем./\n[reapersmith] Вот это дух!#Попроси Палстранга отправить тебя в Великую Кузницу!/\nДавай, пойдем! Я встречу тебя там./",
+        "KR_DIAL": "너는 내가 무엇을 하고 싶어하는지 알아? 내 옛 대장간으로 돌아가서 조금 단조하고 싶어.../\n정말 멋진 곳이야...#따뜻하고, 용암이 아름답게 흐르고 내 도구는 항상 완벽하게 닦여 있어.../\n문제는 괴물들이야.../\n수천 마리가 깊은 곳에서 올라왔어.../\n그래서 혼자 가는 것은 불가능해.../\n누군가 나를 도와서 거기로 돌아갈 수만 있다면..../\n용감하고 결백한 모험가.../\n아무도 없니?.../\n.../\n[bryan].../\n[reapersmith].../\n너와 함께 간다면 이 슬롬 리퍼들을 업그레이드할 수 있어!/\n[bryan]좋아, 우리는 간다./\n[reapersmith] 그 정신이야!#팔스트랭에게 너를 대장간으로 보내달라고 요청해!/\n자, 가자! 거기서 만날게./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6563,10 +6563,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wie ich sehe, hast du eine Schnitter-Rune gefunden!/\nMit Runen kenne ich mich aus.#Ich habe sie selbst geschmiedet!/\nDas sind mächtige Artefakte, aber damit sie ihre Macht entfalten können, muss man mehrere davon kombinieren./\nIch müsste noch eine in meiner Tasche haben .../\nDa ist sie ja!#Nimm sie. Das wird dir den Einstieg erleichtern.<Forge New Rune>/",
         "ES_DIAL": "¡Veo que encontraste una Runa Segadora!/\nSé algunas cosas sobre Runas…#¡Las forjé yo mismo!/\nSon artefactos poderosos… Pero para que funcionen, tienes que combinar varias de ellas…/\nDebo tener una guardada en el fondo de mi bolsillo…/\n¡Aquí está!#Tómala… Te ayudará a empezar…<Forge New Rune>/",
         "RU_DIAL": "Я вижу, ты нашел Руну Жнеца!/\nЯ знаю несколько вещей о Рунах...#Я сам их ковал!/\nЭто мощные артефакты... Но чтобы они работали, нужно объединить несколько из них.../\nУ меня, должно быть, одна осталась в заднем кармане.../\nВот она!#Возьми ее... Это поможет тебе начать...<Forge New Rune>/",
+        "KR_DIAL": "당신이 리퍼 룬을 찾은 것 같군요!/\n룬에 대해 몇 가지 아는 것이 있습니다...#제가 직접 만들었거든요!/\n그들은 강력한 유물입니다... 하지만 작동하려면 여러 개를 조합해야 합니다.../\n주머니 뒤쪽에 하나 남아있어야 합니다.../\n여기 있습니다!#가져가세요... 시작하는 데 도움이 될 것입니다...<Forge New Rune>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6581,10 +6581,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Da wären wir!/\nMan sagt, der Bau dieser Schmiede hat nur eine Bartlänge gedauert./\nWir Zwerge messen die Zeit in Bartlängen: Ein Zwergenbart braucht genau vier Monate, bis er den Boden berührt, und das ist dann eine Bartlänge./\nUnd genau so lange hat es gedauert, bis die Schmiede fertig war!/\nZiemlich kurz also. Anders als mein Bart. Der lang ist. Weißt du, was ich meine?/\n.../\nDu fragst dich sicher, warum ich dich gebeten habe, mitzukommen .../\nDu musst mich vor den Monsterhorden beschützen, während ich schmiede.#Ein Kinderspiel also!/\nFür die Dauer unserer kleinen Expedition – die wahrscheinlich weniger lang dauern wird als ein viertel Schnurrbart, was dem Sechzehntel einer Bartlänge entspricht – werde ich deine Truhe mit allerlei Schätzen füllen, die wir finden oder die ich schmiede./\nKomm zu mir zurück, wenn du gehen möchtest./\nIch kann die Monster schon hören ...#Bist du bereit?/",
         "ES_DIAL": "¡Aquí estamos!/\nDicen que este lugar tomó el crecimiento de una sola barba para construirse…/\nLos enanos contamos en crecimiento de barba: Toma exactamente cuatro meses para que una barba enana toque el suelo, lo que equivale a un crecimiento de barba./\n¡Ese es exactamente el tiempo que tomó construir este lugar!/\nEs poco. No como mi barba. Que es larga. ¿Entiendes lo que quiero decir?/\n…/\nDebes estar preguntándote por qué te pedí que vinieras…/\nTendrás que defenderme de hordas de monstruos mientras forjo…#¡Pan comido!/\nDurante nuestra pequeña Expedición, que probablemente dure menos de un cuarto de crecimiento de bigote, o un dieciseisavo de barba. Estaré llenando tu cofre con todo tipo de tesoros que encontremos o que yo forje./\nVuelve a mí cuando quieras irte…/\nYa puedo oír venir a los monstruos…#¿Ya preparaste todo?/",
         "RU_DIAL": "Вот мы и здесь!/\nГоворят, что это место построили всего за один рост бороды.../\nМы гномы считаем по росту бороды: ровно четыре месяца требуется, чтобы борода гнома коснулась земли, что и есть один рост бороды./\nИменно столько времени понадобилось, чтобы построить это место!/\nЭто коротко. Не как моя борода. Которая длинная. Ты понимаешь, о чем я?/\n.../\nТы, наверное, задаешься вопросом, почему я попросил тебя прийти.../\nТебе придется защищать меня от орд монстров, пока я кую...#Детская игра!/\nНа время нашей маленькой экспедиции - которая, вероятно, продлится меньше четверти роста усов или шестнадцатой части бороды - я буду наполнять твой сундук всевозможными сокровищами, которые мы найдем или которые я буду ковать./\nВернись ко мне, когда захочешь уйти.../\nЯ уже слышу, как приближаются монстры...#Ты готов?/",
+        "KR_DIAL": "여기 있습니다!/\n이곳은 단 한 번의 수염 성장으로 지어졌다고 합니다.../\n우리는 난쟁이들이 수염 성장으로 계산합니다: 난쟁이 수염이 땅에 닿는 데 정확히 4개월이 걸리며, 이는 한 번의 수염 성장입니다./\n이곳을 만드는 데 정확히 그만큼 걸렸습니다!/\n짧습니다. 제 수염처럼 길지 않죠. 무슨 뜻인지 아시겠죠?/\n.../\n왜 당신에게 오라고 했는지 궁금하겠죠.../\n제가 대장간을 하는 동안 괴물의 무리로부터 저를 방어해야 합니다...#아이들 장난이죠!/\n우리의 작은 탐험 기간 동안 - 아마도 콧수염 성장의 4분의 1 또는 수염의 16분의 1보다 짧을 것입니다 - 저는 당신의 가슴을 우리가 찾거나 제가 만들 보물로 가득 채울 것입니다./\n떠나고 싶을 때 저에게 돌아오세요.../\n괴물이 이미 오는 소리가 들립니다...#준비되셨나요?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6599,10 +6599,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Möchtest du etwas schmieden?<Open Forge?>/",
         "ES_DIAL": "¿Quieres forjar algo?<Open Forge?>/",
         "RU_DIAL": "Ты хочешь что-то создать ?<Open Forge?>/",
+        "KR_DIAL": "무언가 만들고 싶으신가요?<Open Forge?>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6617,10 +6617,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Bewunderst du meinen Bart?/",
         "ES_DIAL": "¿Estás admirando mi barba?/",
         "RU_DIAL": "Ты восхищаешься моей бородой?/",
+        "KR_DIAL": "당신은 내 수염을 감탄하고 있나요?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6635,10 +6635,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Pass auf! Es sind noch Gegner übrig!/",
         "ES_DIAL": "¡Cuidado! ¡Quedan enemigos!/",
         "RU_DIAL": "Осторожно! Слева враги!/",
+        "KR_DIAL": "조심하세요! 적이 남아 있습니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6653,10 +6653,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wenn du ins Dorf zurückkehren möchtest, musst du zunächst die Beute in deiner Kriegstruhe einsammeln./",
         "ES_DIAL": "Si deseas regresar al pueblo, primero debes recoger el botín de tu Cofre de Guerra./",
         "RU_DIAL": "Если вы хотите вернуться в деревню, вам сначала нужно собрать добычу из вашего Военного Сундука./",
+        "KR_DIAL": "마을로 돌아가고 싶다면, 먼저 전쟁 금고에서 전리품을 수집해야 합니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6671,10 +6671,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Möchtest du etwas schmieden, bevor du gehst?<Open Forge?>/",
         "ES_DIAL": "¿Quieres forjar algo antes de irte?<Open Forge?>/",
         "RU_DIAL": "Ты хочешь что-то создать перед тем, как уйдешь?<Open Forge?>/",
+        "KR_DIAL": "떠나기 전에 무언가를 만들고 싶으신가요?<Open Forge?>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6689,10 +6689,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Sollen wir zurück ins Dorf?<Forge Summon Bryan?>/",
         "ES_DIAL": "¿Volvemos al pueblo?<Forge Summon Bryan?>/",
         "RU_DIAL": "Вернемся в деревню?<Forge Summon Bryan?>/",
+        "KR_DIAL": "마을로 돌아갈까요?<Forge Summon Bryan?>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6707,10 +6707,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich bin eine Maschine!|\nMmm, diese Muckis!|\nIch bin so stark!|\nNoch 270 Wiederholungen ...|",
         "ES_DIAL": "¡Qué monstruo!|\n¡Tengo músculos enormes!|\n¡Soy muy fuerte!|\n270 repeticiones más…|",
         "RU_DIAL": "Какой монстр!|\nУ меня большие мышцы!|\nЯ такой сильный!|\nЕще 270 повторений...|",
+        "KR_DIAL": "무슨 괴물이지!|  \n나는 큰 근육을 가지고 있어!|  \n나는 정말 강해!|  \n270회 더 반복...|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6725,10 +6725,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Willst du mitpumpen?/",
         "ES_DIAL": "¿Quieres entrenar?/",
         "RU_DIAL": "Ты хочешь позаниматься?/",
+        "KR_DIAL": "운동하고 싶으세요?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6743,10 +6743,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Komm, holen wir Pedro den Totengräber!/",
         "ES_DIAL": "[bryan]En marcha. Vayamos a buscar a Pedro el Sepulturero!/",
         "RU_DIAL": "[bryan]Давай, пойдем заберем Педро Копателя!/",
+        "KR_DIAL": "[bryan]가자, 페드로 묘지 파는 사람을 만나러 가자!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6761,10 +6761,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Es könnte gefährlich werden!/",
         "ES_DIAL": "¡Podría ser peligroso!/",
         "RU_DIAL": "Это может быть опасно!/",
+        "KR_DIAL": "위험할 수 있습니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6779,10 +6779,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Keiner da ... Gehen wir zurück ins Dorf./\nIch kann mich in eine Tür verwandeln, damit wir schneller von A nach B kommen. Schau!/",
         "ES_DIAL": "[bryan]No hay nadie aquí… Volvamos al pueblo…/\nPuedo convertirme en una puerta para facilitar nuestros viajes…¡Mira!/",
         "RU_DIAL": "[bryan]Никого нет... Давайте вернемся в деревню.../\nЯ могу превратиться в дверь, чтобы облегчить наши путешествия... Смотри!/",
+        "KR_DIAL": "[bryan]여기 아무도 없어... 마을로 돌아가자.../\n나는 우리의 여행을 더 쉽게 만들기 위해 문으로 변할 수 있어... 봐!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6797,10 +6797,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Pedro war nicht im ersten Teil des Friedhofs. Erkunden wir den nächsten Bereich!/",
         "ES_DIAL": "[bryan]Pedro no estaba en la primera parte del Cementerio, exploremos la siguiente área!/",
         "RU_DIAL": "[bryan]Педро не был в первой части Кладбища, давайте исследуем следующую область!/",
+        "KR_DIAL": "[bryan]페드로는 묘지의 첫 번째 부분에 없었어요, 다음 지역을 탐험해 봅시다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6815,10 +6815,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Vielleicht werden wir hier fündig./",
         "ES_DIAL": "Quizá tengamos mejor suerte aquí./",
         "RU_DIAL": "Может быть, нам повезет здесь./",
+        "KR_DIAL": "아마 여기서 더 나은 운이 있을 거예요./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6833,10 +6833,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Da ist die Kompassschaufel!/\nEs ist eine Schaufel ... mit einem Kompass am Stiel./\nDer Kompass sieht kaputt aus und die Schaufel ist schartig .../\nIch glaube nicht, dass man damit noch ein Loch gegraben kriegt. Bringen wir sie zu Pedro zurück .../",
         "ES_DIAL": "[bryan]¡Ahí está la Pala-Brújula! /\nEs una Pala… con una Brújula en el mango… /\nLa brújula parece rota y la pala está toda agrietada…/\nNo estoy seguro de que esté en condiciones de cavar un agujero… Llevémosla de vuelta a Pedro…/",
         "RU_DIAL": "[bryan]Вот Лопата-Компас! /\nЭто лопата... с компасом на ручке... /\nКомпас выглядит сломанным, а лопата вся треснутая... /\nЯ не уверен, что она в состоянии выкопать яму... Давайте отнесем ее Педро.../",
+        "KR_DIAL": "[bryan]저기 삽 나침반이 있어! /\n그건 삽이야... 손잡이에 나침반이 달려 있어... /\n나침반은 고장난 것 같고 삽은 다 갈라져 있어..../\n구멍을 파기에는 상태가 좋지 않은 것 같아... 페드로에게 가져가자.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6851,10 +6851,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Ein Dorfbewohner ist gerade aus dem Riss aufgetaucht!/\nOffenbar zeigt die Kompassschaufel immer auf den nächsten Riss .../\nWir sollten weiter Risse schließen und noch mehr Dorfbewohner retten./",
         "ES_DIAL": "[bryan]¡Un aldeano acaba de salir de la Brecha!/\nParece que la Pala-Brújula apunta en la dirección de la Brecha más cercana…/\nDeberíamos usarla para cerrar Brechas y salvar a más aldeanos… /",
         "RU_DIAL": "[bryan]Селянин только что вышел из Разлома!/\nПохоже, что Лопато-компас указывает направление к ближайшему Разлому.../\nМы должны использовать его, чтобы закрыть Разломы и спасти больше селян... /",
+        "KR_DIAL": "[bryan]한 마을 사람이 균열에서 나왔어요!/\n삽-나침반이 가장 가까운 균열 방향을 가리키는 것 같아요.../\n우리는 그것을 사용하여 균열을 닫고 더 많은 마을 사람들을 구해야 해요... /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6869,10 +6869,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Da ist noch ein Dorfbewohner!/\nDieser Kompass ist ja wirklich zu was gut .../",
         "ES_DIAL": "[bryan]¡Ahí hay otro aldeano!/\nEsta Brújula es realmente útil…/",
         "RU_DIAL": "[bryan]Там еще один житель!/\nЭтот компас на самом деле полезен.../",
+        "KR_DIAL": "[bryan]또 다른 마을 사람이 있어!/\n이 나침반은 실제로 유용해.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6887,10 +6887,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Hier gibt es nichts mehr für uns zu tun! Verlassen wir diesen seltsamen Ort .../",
         "ES_DIAL": "[bryan]¡No tenemos nada más que hacer aquí! Vámonos de este lugar extraño…/",
         "RU_DIAL": "[bryan]У нас больше нечего здесь делать! Давайте покинем это странное место.../",
+        "KR_DIAL": "[bryan]우리는 여기서 더 이상 할 일이 없어! 이 이상한 곳을 떠나자.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6905,10 +6905,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Hier gibt es nichts weiter für uns zu tun! Verlassen wir diesen verfluchten Ort .../",
         "ES_DIAL": "[bryan]¡No tenemos nada más que hacer aquí! Vámonos de este lugar maldito…/",
         "RU_DIAL": "[bryan]Нам больше нечего здесь делать! Давайте покинем это проклятое место.../",
+        "KR_DIAL": "[bryan]우리는 여기서 할 일이 아무것도 없어! 이 저주받은 곳을 떠나자.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6923,10 +6923,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Das sind ohne Zweifel die Schlüssel zur Familiengruft ... Gehen wir zurück ins Dorf!/",
         "ES_DIAL": "[bryan]Estas son ciertamente las Llaves de la Cripta… ¡Volvamos al pueblo!/",
         "RU_DIAL": "[bryan]Это определенно Ключи от Крипты... Давайте вернемся в деревню!/",
+        "KR_DIAL": "[bryan]이것들은 분명히 지하실의 열쇠입니다... 마을로 돌아가자!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6941,10 +6941,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Hier gibt es nichts mehr für uns zu tun! Gehen wir zurück ins Dorf!",
         "ES_DIAL": "[bryan]¡No tenemos más asuntos que atender aquí! ¡Volvamos al pueblo!",
         "RU_DIAL": "[bryan]У нас больше нет дел здесь! Давайте отправимся в деревню!",
+        "KR_DIAL": "[bryan]우리는 여기서 더 이상 할 일이 없어! 마을로 가자!",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6959,10 +6959,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Ah, hab ich dich gefunden! Komisch, du steckst gar nicht in einem Riss wie die anderen Dorfbewohner .../\nIch kann dich da rausholen, aber du musst noch ein Stück weitergehen ./\nHier kann ich mich nicht in eine Tür verwandeln./",
         "ES_DIAL": "[bryan]Ah, te encontré… No estás en una Brecha como los otros aldeanos… Es raro…/\nPuedo sacarte de ahí, pero tendrás que avanzar un poco más…/\nNo puedo convertirme en una puerta aquí…/",
         "RU_DIAL": "[bryan]Ах, я нашел тебя... Ты не в Разломе, как другие жители деревни... Это странно.../\nЯ могу вытащить тебя оттуда, но тебе придется пройти немного дальше.../\nЯ не могу превратиться в дверь здесь.../",
+        "KR_DIAL": "[브라이언] 아, 찾았다... 너는 다른 마을 사람들처럼 균열에 있지 않아... 이상하네.../\n내가 너를 거기서 꺼낼 수 있지만, 조금 더 나아와야 해.../\n여기서는 문으로 변할 수 없어.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6977,10 +6977,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Bis gleeeiiich!/",
         "ES_DIAL": "¡Te veré alláaaaaaaaaa!/",
         "RU_DIAL": "Увижу тебя там!/",
+        "KR_DIAL": "거기서 만나요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -6995,10 +6995,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Perfekt, da bist du ja! Du steckst auch nicht in einem Riss ... Merkwürdig./\nIch kann dich da rausholen, aber du musst noch ein Stück weitergehen./\nHier kann ich mich nicht in eine Tür verwandeln./",
         "ES_DIAL": "[bryan]¡Perfecto, ahí estás! Tú tampoco estás en una Brecha… Qué extraño…/\nPuedo sacarte de ahí, pero tendrás que avanzar un poco más…/\nNo puedo convertirme en una puerta aquí…/",
         "RU_DIAL": "[bryan]Идеально, вот ты где! Ты тоже не в Нарушении... Как странно.../\nЯ могу вытащить тебя оттуда, но тебе придется пройти немного дальше.../\nЯ не могу превратиться в дверь здесь.../",
+        "KR_DIAL": "[bryan]완벽해, 여기에 있네! 너도 균열 안에 있지 않구나... 이상하네.../\n내가 너를 거기에서 빼낼 수 있지만, 조금 더 나아와야 해.../\n여기서는 문으로 변할 수 없어.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7013,10 +7013,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Mir naaaaach!!/",
         "ES_DIAL": "¡Síguemeeeeeeeeeeeeeeeeee!/",
         "RU_DIAL": "Следуй за мной!/",
+        "KR_DIAL": "나를 따라와!!!!!!!!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7031,10 +7031,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Die Monster werden immer stärker .../\nWie sagt man doch: „Wenn die Monster stärker werden, bist du auf dem richtigen Weg.“/\nGehen wir also weiter./",
         "ES_DIAL": "[bryan]Los monstruos se están volviendo más fuertes…/\nHay un dicho que dice: \"Si los monstruos se vuelven más fuertes, vas por el camino correcto…\"/\nAsí que sigamos avanzando./",
         "RU_DIAL": "[bryan]Монстры становятся сильнее.../\nСуществует пословица: \"Если монстры становятся сильнее, значит, ты на правильном пути...\"/\nТак что давайте продолжим./",
+        "KR_DIAL": "[bryan]괴물들이 점점 더 강해지고 있어.../\n괴물이 강해지고 있다면, 당신은 올바른 길을 가고 있다는 말이 있어.../\n그러니 계속 나아가자./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7049,10 +7049,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Wir sollten bald da sein .../\nDiese Elitesoldaten waren nicht zufällig hier. Sie bewachen sicher was .../\nFinden wir heraus, was es ist!/",
         "ES_DIAL": "[bryan]Ya casi llegamos…/\nEstos soldados de élite no estaban aquí por casualidad… Deben estar protegiendo algo…/\n¡Descubramos qué es!/",
         "RU_DIAL": "[bryan]Мы приближаемся.../\nЭти элитные солдаты не оказались там случайно... Они, должно быть, защищают что-то.../\nДавайте выясним, что!/",
+        "KR_DIAL": "[bryan]우리는 거기에 가고 있어.../\n이 엘리트 군인들은 우연히 거기에 있는 것이 아니야... 그들은 뭔가를 보호하고 있어야 해.../\n무엇인지 알아보자!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7067,10 +7067,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Dieser schicke Hut da ... Der würde Adam Nostrus garantiert gefallen./\nWir sollten ihm den Hut für seine Sammlung mitbringen./",
         "ES_DIAL": "[bryan]Este hermoso Sombrero… Sin duda le agradaría a Adam Nostrus…/\nDeberíamos llevárselo para su colección…/",
         "RU_DIAL": "[bryan]Этот красивый головной убор... Он определенно понравится Адаму Нострусу.../\nМы должны вернуть его ему для его коллекции.../",
+        "KR_DIAL": "[bryan]이 아름다운 모자... 분명 아담 노스트루스를 기쁘게 할 것입니다.../  \n우리는 그의 컬렉션을 위해 그것을 그에게 가져가야 합니다.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7085,10 +7085,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Die Familiengruft der McMuckies! Die Gruft meiner Ahnen!/\nSchau! Da ist ein Zettel auf dem Boden .../\n.../\n.../\nO je! Der Zerstörer unzerstörbarer und unverwüstlicher Siegel wurde gestohlen!/\nOhne den können wir das Siegel des Ohm Eigad nicht zerstören, weil das ganz klar unzerstörbar und unverwüstlich ist./\nWir müssen dem König Bericht erstatten!/",
         "ES_DIAL": "[bryan]¡La Cripta de los Recio! ¡La Cripta de mis Ancestros!/\nMira, hay una nota en el suelo…/\n…/\n…/\n¡Oh, cielos! ¡El Destructor de Sellos Definitivo ha sido robado!/\nSin él, no podemos destruir el Sello de Ohm Agad, considerado Indestructible e Irrompible./\n¡Debemos informar al Rey!/",
         "RU_DIAL": "[bryan]Крипта МакРиппедов! Крипта моих предков!/\nСмотри! На земле записка.../\n.../\n.../\nО боже! Уничтожитель Неразрушимых и Непробиваемых Печатов был украден!/\nБез него мы не можем разрушить Печать Ома Агада, признанную Неразрушимой и Непробиваемой./\nМы должны сообщить королю!/",
+        "KR_DIAL": "[bryan]맥립펫의 무덤! 나의 조상들의 무덤!/\n봐! 땅에 메모가 있어.../\n.../\n.../\n오 마이! 파괴할 수 없는 불가침의 봉인이 도난당했어!/\n그것 없이는, 우리는 파괴할 수 없고 깨지지 않는 오므 아가드의 봉인을 파괴할 수 없어./\n우리는 왕에게 알려야 해!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7103,10 +7103,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Lass uns dem König von unserer Entdeckung erzählen!/",
         "ES_DIAL": "[bryan]¡Hablemos con el Rey sobre nuestro descubrimiento!/",
         "RU_DIAL": "[bryan]Давайте поговорим с Королем о нашем открытии!/",
+        "KR_DIAL": "[bryan]우리의 발견에 대해 왕과 이야기해 보자!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7121,10 +7121,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Ein Schalter weniger!#\nGehen wir zurück ins Dorf./",
         "ES_DIAL": "[bryan]Falta una palanca menos…#\nVolvamos al pueblo./",
         "RU_DIAL": "[bryan]Одна рычаг меньше!#\nДавайте вернемся в деревню./",
+        "KR_DIAL": "[bryan]레버가 하나 줄어들었군!#\n마을로 돌아가자./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7139,10 +7139,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Oh-oh!/",
         "ES_DIAL": "¡Ooooh!/",
         "RU_DIAL": "Ух Оооох!/",
+        "KR_DIAL": "어우!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7157,10 +7157,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wir kriegen Besuch!/",
         "ES_DIAL": "¡Aquí viene compañía!/",
         "RU_DIAL": "Вот немного компании!/",
+        "KR_DIAL": "여기 회사가 있습니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7175,10 +7175,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Ich glaube, wir haben’s geschafft .../\nPuh ... Dieser Schalter muss denen ja wirklich am Herzen gelegen haben .../\nGehen wir jetzt lieber, bevor noch mehr Gegner auftauchen!/",
         "ES_DIAL": "[bryan]Creo que se acabó…/\nBueno… Parecía importarles mucho esta palanca…/\nVámonos ya… ¡Podrían venir más!/",
         "RU_DIAL": "[bryan]Я думаю, это конец.../\nНу... Они, похоже, очень заботились об этом рычаге.../\nДавайте уйдем сейчас... Могут прийти еще!/",
+        "KR_DIAL": "[bryan]이제 끝난 것 같아.../\n음... 그들은 이 레버에 대해 많이 신경 쓰는 것 같았어.../\n이제 가자... 더 올 수도 있어!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7193,10 +7193,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Ich denke, das passt so .../\nDer Schalter ist umgelegt und sonst gibt es hier nichts mehr für uns zu tun./\nGehen wir!/",
         "ES_DIAL": "[bryan]Creo que estamos bien…/\nLa palanca está bajada, no tenemos nada más que hacer por aquí…/\n¡Salgamos de aquí!/",
         "RU_DIAL": "[bryan]Я думаю, что мы в порядке.../\nРычаг опущен, нам больше нечего здесь делать.../\nДавайте выберемся отсюда !/",
+        "KR_DIAL": "[bryan]우리는 괜찮은 것 같아.../\n레버는 내려가 있고, 여기서 할 일이 없어.../\n여기서 나가자 !/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7211,10 +7211,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Das war ja ein ganz schönes Ungetüm .../\nGehen wir weiter, der Weg ist frei./",
         "ES_DIAL": "[bryan]Vaya bestia la que enfrentamos ahí…/\nSigamos adelante… El camino está despejado./",
         "RU_DIAL": "[bryan]Довольно зверь, с которым мы столкнулись там.../\nДавайте продолжим... Путь свободен./",
+        "KR_DIAL": "[bryan]우리가 마주한 것은 꽤나 괴물 같았어.../\n계속 가자... 길은 뚫려 있어./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7229,10 +7229,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[archmage]Es ist besser, wenn ich mitkomme. Ohne mich wirst du den Fluch, der hier am Werk ist, nämlich nicht brechen können./\nBleib in meiner Nähe und beschütz mich, während ich die Barrieren aufhebe, die uns den Weg versperren./\nUnd damit eines klar ist: Das hier ist keine typische Eskortenmission, wo man immer auf den anderen warten muss .../\nIch bin für mein Alter noch ziemlich gut zu Fuß, also trödel nicht!/\nÜbrigens, da ich wenig von Schmerzen halte, habe ich uns mit einem Zauber verbunden. Dadurch bekommst du sämtlichen Schaden ab, den ich nehme./\nDu hast doch sicher keine Einwände?/",
         "ES_DIAL": "[archmage]Me tomé la libertad de venir contigo… De todas formas, vas a necesitar mi ayuda para romper la maldición de aquí./\nTendrás que permanecer cerca de mí y protegerme mientras derribo las barreras que se interpongan en nuestro camino./\nY no esperes una de esas misiones de escolta donde tienes que estar esperando al otro…/\nA pesar de mi edad, soy bastante rápido, ¡así que no te quedes atrás!/\nPor cierto, como soy un poco sentimental, he usado un hechizo que nos une. Así que cualquier daño que reciba, lo sufrirás tú también./\n¿No te molesta, verdad?/",
         "RU_DIAL": "[архимаг]Я взял на себя смелость прийти с вами... Вам понадобится моя помощь, чтобы разрушить проклятие, которое здесь действует./ \nВам придется оставаться рядом со мной и защищать меня, пока я разбиваю барьеры, которые стоят перед нами./ \nИ не ожидайте одной из тех миссий по сопровождению, где вам нужно постоянно ждать другого.../ \nНесмотря на мой возраст, я довольно быстр, так что не медлите!/ \nКстати, поскольку я немного сентиментален, я использовал заклинание, которое связывает нас вместе. Так что любой урон, который я получу, будет нанесен вам./ \nНадеюсь, вы не против?/",
+        "KR_DIAL": "[archmage]나는 당신과 함께 오는 것을 허락받았습니다... 어쨌든 여기서 작용하는 저주를 풀기 위해서는 제 도움이 필요할 것입니다./ \n당신은 저에게 가까이 있어야 하고, 제가 우리 앞에 있는 장벽을 허물 때 저를 보호해야 합니다./ \n그리고 다른 사람을 기다려야 하는 그런 호위 임무는 기대하지 마세요.../ \n제 나이에 비해 저는 꽤 빠르니, 지체하지 마세요!/ \n그런데 제가 좀 부드러운 성격이라, 우리를 묶는 마법을 사용했습니다. 그래서 제가 입는 피해는 당신에게도 가해질 것입니다./ \n괜찮으신가요?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7247,10 +7247,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[archmage]Dieses merkwürdige Gespenst war für den Fluch verantwortlich .../\nMöglicherweise eine ehemalige Wache, die auch nach dem Tod noch ihre Pflicht erfüllt hat./\nWie dem auch sei ... Der Weg zum Verlies sollte nun frei sein./\nUnd nichts zu danken.#Es war ein ausgesprochen belebender Spaziergang!/",
         "ES_DIAL": "[archmage]Ese curioso fantasma era el responsable de la maldición…/\nQuizás un viejo guardia que siguió en su deber incluso después de morir…/\nNo importa… Ahora el camino hacia el calabozo debería estar despejado./\nNo me lo agradezcas.#Fue un paseo de lo más vigorizante./",
         "RU_DIAL": "[архимаг]Этот любопытный призрак был ответственен за проклятие.../\nВозможно, это был старый страж, который продолжал нести службу даже после своей смерти.../\nНеважно... Путь теперь должен быть свободен к подземелью./\nНе благодарите меня.#Это была очень бодрящая прогулка./",
+        "KR_DIAL": "[archmage]이 호기심 많은 유령이 저주를 일으킨 장본인이었습니다.../\n아마도 그의 죽음 이후에도 계속 근무하던 옛 경비원일 것입니다.../\n상관없습니다... 이제 던전으로 가는 길은 명확해야 합니다./\n감사하지 마세요.#매우 상쾌한 산책이었습니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7265,10 +7265,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Upps, sorry für die Landung ...\nIch konnte nichts Besseres finden./\nDie Gefangenen hier sehen übel aus, sei vorsichtig!/",
         "ES_DIAL": "[bryan]Ups, perdón por el aterrizaje…\nNo encontré nada mejor…/\nLos prisioneros encerrados aquí parecen duros, ¡ten cuidado!/",
         "RU_DIAL": "[bryan]Упс, извините за приземление...\nЯ не смог найти ничего лучше.../\nЗаключенные, которые здесь заперты, выглядят жестко, будьте осторожны!/",
+        "KR_DIAL": "[bryan]앗, 착륙에 대해 미안해...\n더 나은 것을 찾을 수 없었어.../\n여기 갇혀 있는 죄수들은 강해 보이니, 조심해!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7283,10 +7283,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Alle Rädelsführer sind tot.#\nGehen wir zurück ins Dorf.#\nAls nächstes ist Grotagrom dran./",
         "ES_DIAL": "[bryan]Todos los cabecillas han caído.#\nVolvamos al pueblo.#\nGrotagrom es el siguiente./",
         "RU_DIAL": "[bryan]Все главари мертвы.#\nДавайте вернемся в деревню.#\nГрогатром следующий./",
+        "KR_DIAL": "[bryan]모든 주모자는 죽었다.#\n마을로 돌아가자.#\n그로타그롬이 다음이다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7301,10 +7301,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Nimm dich in Acht – Grotagrom und seine Bande müssen ganz in der Nähe sein./",
         "ES_DIAL": "[bryan]Cuidado, Grotagrom y su banda no deben estar lejos./",
         "RU_DIAL": "[bryan]Берегись, Грогатром и его банда не могут быть далеко./",
+        "KR_DIAL": "[브라이언] 조심하세요, 그로타그롬과 그의 무리는 멀리 있지 않을 것입니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7319,10 +7319,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Schau dir diesen tollen Gürtel an! Der würde Adam Nostrus sicher gefallen!/\nWir sollten den Gürtel für ihn mitnehmen./\n.../\nDer Zerstörer unzerstörbarer und unverwüstlicher Siegel scheint nicht hier zu sein .../\nUnd auch sonst nirgendwo im Raum./\nGehen wir zurück ins Dorf. Es könnten jederzeit mehr Gegner auftauchen .../",
         "ES_DIAL": "[bryan]¡Mira este hermoso cinturón! ¡A Adam Nostrus le encantará!/\nDeberíamos llevárselo./\n…/\nEl Destructor de Sellos Definitivo no parece estar aquí…/\nY tampoco parece estar en la habitación…/\nVolvamos al pueblo… Podrían venir más enemigos en cualquier momento…/",
         "RU_DIAL": "[bryan]Посмотри на этот красивый пояс! Адаму Нострусу он точно понравится!/\nНам стоит отнести его обратно к нему!/\n.../\nРазрушитель Неразрушимых и Непробиваемых Печатов, пох parece, не здесь.../\nИ, похоже, его тоже нет в комнате.../\nДавайте вернемся в деревню... В любой момент могут прийти новые враги.../",
+        "KR_DIAL": "[bryan]이 아름다운 벨트를 봐! 아담 노스트루스가 분명 좋아할 거야!/\n그를 위해 가져가야 해!/\n.../\n파괴할 수 없는 불가침의 봉인을 파괴하는 자는 거기 없는 것 같아.../\n그리고 방 안에도 없는 것 같아.../\n마을로 돌아가자... 언제든지 더 많은 적들이 올 수 있어.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7337,10 +7337,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Eine falsche Fährte ... Grotagrom hatte den Zerstörer unzerstörbarer und unverwüstlicher Siegel gar nicht./\nWir sollten dem König davon berichten./",
         "ES_DIAL": "[bryan]Era una pista falsa… Grotagrom no tenía el Destructor de Sellos Definitivo…/\nDeberíamos ir a hablar con el Rey./",
         "RU_DIAL": "[bryan]Ложный след... Грогатром не имел Уничтожителя Неразрушимых и Непробиваемых Печей.../\nНам следует поговорить с Королем./",
+        "KR_DIAL": "[bryan]거짓 힌트... 그로타그롬은 파괴할 수 없고 부서지지 않는 봉인을 파괴하는 자를 가지고 있지 않았습니다.../\n왕과 이야기하러 가야 합니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7355,10 +7355,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Unser erstes Emblem./\nMachen wir, dass wir hier rauskommen!/",
         "ES_DIAL": "[bryan]Nuestro primer Emblema./\n¡Salgamos de aquí!/",
         "RU_DIAL": "[bryan]Наш первый Эмблема./ Убираемся отсюда!/",
+        "KR_DIAL": "[bryan]우리의 첫 번째 엠블럼./  \n여기서 나가자!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7373,10 +7373,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Wir sind im Schlafsaal von Oblitelikan!/\nUnterschätze ihre Kräfte nicht!/\nDie Studenten mögen tot und besessen sein, aber sie sind immer noch sehr gefährlich!/",
         "ES_DIAL": "[bryan]¡Estamos en el dormitorio de los Obliterlicanos!/\n¡Cuidado con sus temibles poderes!/\nLos estudiantes pueden estar muertos y poseídos, ¡pero siguen siendo muy peligrosos!/",
         "RU_DIAL": "[bryan]Мы в общежитии Облителиканов!/\nОстерегайтесь их ужасных сил!/\nСтуденты могут быть мертвы и одержимы, но они все еще очень опасны!/",
+        "KR_DIAL": "[브라이언]우리는 오블리텔리칸의 기숙사에 있습니다!/\n그들의 무서운 힘에 주의하세요!/\n학생들은 죽어있고 악령에 사로잡혔을지 모르지만, 여전히 매우 위험합니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7391,10 +7391,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Die Nekromanchovis benutzen Verdoppelungsmagie!/\nSei vorsichtig, das kann schnell ausarten!/",
         "ES_DIAL": "[bryan]¡Los Necromanchoas usan técnicas de duplicación!/\nTen mucho cuidado, esto se puede salir de control./",
         "RU_DIAL": "[bryan]Некроманчи используют техники дублирования!/\nБудьте очень осторожны, это может выйти из-под контроля./",
+        "KR_DIAL": "[bryan]네크로맨초비는 복제 기술을 사용합니다!/\n매우 조심하세요, 통제할 수 없게 될 수 있습니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7409,10 +7409,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Alarin hat seinen Stab zurückgelassen! Wir sollten ihn zu Adam Nostrus bringen./\nSchau nur, wie hübsch er glänzt ... Das wird Adam garantiert gefallen!/",
         "ES_DIAL": "[bryan]¡Alarín dejó su báculo! Deberíamos llevárselo a Adam Nostrus./\nMira qué hermoso y brillante es… ¡Seguro que le gustará!/",
         "RU_DIAL": "[bryan]Аларин оставил свой посох! Мы должны вернуть его Адаму Нострусу./\nПосмотри, как он красивый и блестящий... Ему это точно понравится!/",
+        "KR_DIAL": "[bryan]알라린이 그의 지팡이를 두고 갔어! 우리는 그것을 아담 노스트루스에게 가져가야 해./ 얼마나 아름답고 반짝이는지 봐... 그는 분명히 좋아할 거야!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7427,10 +7427,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Der Zerstörer unzerstörbarer und unverwüstlicher Siegel!/\nBeeindruckend sieht der ja nicht gerade aus./\nEher wie ein rostiger Schlüssel./\n[archmage]Ich sage euch, das ist der Zerstörer unzerstörbarer und unverwüstlicher Siegel!/\nIch hatte schon befürchtet, dass Alarin ihn gestohlen hätte .../\nDieses Artefakt hat mich ein Vermögen gekostet .../\nGehen wir zurück zum König!/",
         "ES_DIAL": "[bryan]¡El Destructor de Sellos Definitivo!/\nNo es muy impresionante./\nParece una llave oxidada./\n[archmage]¡Definitivamente es el Destructor de Sellos Definitivo!/\nTenía miedo de que Alarín lo hubiera robado…/\nEste cachivache me costó una fortuna…/\n¡Volvamos con el Rey!/",
         "RU_DIAL": "[bryan]Уничтожитель Неразрушимых и Непробиваемых Печатов!/\nЭто не очень впечатляюще./\nОн выглядит как ржавый ключ./\n[archmage]Это определенно Уничтожитель Неразрушимых и Непробиваемых Печатов!/\nЯ боялся, что Аларин мог его украсть.../\nЭтот безделушка стоила мне целое состояние.../\nДавайте вернемся к Королю!/",
+        "KR_DIAL": "[bryan]파괴할 수 없는 불가사의한 봉인의 파괴자!/\n그리 인상적이지 않다./\n녹슨 열쇠처럼 보인다./\n[archmage]확실히 파괴할 수 없는 불가사의한 봉인의 파괴자다!/\n알라린이 그것을 훔쳤을까 두려웠다.../\n이 장신구는 나에게 큰 돈이 들었다.../\n왕에게 돌아가자!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7445,10 +7445,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Hier steht:#„Ich trage in mir neues Leben, doch bleib ich ganz, kann ich’s nicht geben.#Was bin ich?“/",
         "ES_DIAL": "[bryan]Dice: #\"Tengo que romperme antes de que me puedan usar.#¿Qué soy?\"/",
         "RU_DIAL": "[bryan]Это читается: #\"Я должен быть сломан, прежде чем меня можно будет использовать.#Что я?\" /",
+        "KR_DIAL": "[bryan]그것은 다음과 같이 읽힙니다: #\"내가 사용되기 전에 부서져야 한다.#나는 무엇인가?\"/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7463,10 +7463,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Hier steht:#„Ich hab ’nen Hut, doch keinen Kopf, ich hab ’nen Fuß, doch keinen Schuh.#Was bin ich?“/",
         "ES_DIAL": "[bryan]Dice: #\"Soy una habitación, pero no tengo puertas ni ventanas.#¿Qué soy?\"/",
         "RU_DIAL": "[bryan]Это звучит: #\"Я комната, но у меня нет ни дверей, ни окон.#Что я?\" /",
+        "KR_DIAL": "[bryan]그것은 다음과 같이 읽힙니다: #\"나는 방이지만, 문이나 창문이 없다.#나는 무엇일까요?\"/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7481,10 +7481,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Hier steht:#„Als Kind bin ich groß, im Alter bin ich klein.#Was bin ich?“/\n[enrique]Du musst das Rätsel lösen, um den richtigen Weg zu finden!/",
         "ES_DIAL": "[bryan]Dice: #\"Soy alto cuando soy joven, y bajo cuando soy viejo.#¿Qué soy?\"/\n[enrique]¡Tienes que resolver el acertijo para encontrar el camino correcto!/",
         "RU_DIAL": "[bryan]Это говорит: #\"Я высокий, когда молод, и я низкий, когда стар.#Что я?\"/\n[enrique]Вам нужно решить загадку, чтобы найти правильный путь!/",
+        "KR_DIAL": "[bryan]그것은 읽습니다: #\"나는 어릴 때 키가 크고, 나이가 들면 작아진다.#나는 무엇일까요?\"/\n[enrique]당신은 올바른 길을 찾기 위해 수수께끼를 풀어야 합니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7499,10 +7499,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Hier steht:#\n„Anleitung, wie man heil wieder rauskommt:#\nGehe nach LINKS.#\nGehe HOCH, nachdem du die zwei Zauberer besiegt hast.“/\n„Gehe am Pool vorbei weiter HOCH zum Raum mit den Bänken.#\nGehe nach RECHTS, dann RUNTER und folge dem Fluss nach RECHTS. Gehe dann nach RECHTS durch die nächsten zwei Räume.“/\n.../\nErstaunlich, wie viel auf so ein kleines Schild passt./\nIst jedenfalls ziemlich eindeutig./\nHast du dir alles gemerkt? Nach LINKS, dann HOCH, HOCH, RECHTS, RUNTER, RECHTS, RECHTS, RECHTS. Gar nicht schwer, oder?/",
         "ES_DIAL": "[bryan]Dice:#\nInstrucciones para salir de una pieza:#\nVe a la IZQUIERDA.#\nLuego, dirígete ARRIBA después de derrotar a los dos magos./\nContinúa ARRIBA pasando la piscina hasta la sala del banco.#\nVe a la DERECHA, luego ABAJO y sigue el río hacia la DERECHA. Luego atraviesa las dos siguientes habitaciones hacia la DERECHA.\"/\n…/\nEs increíble lo que se puede escribir en un cartel tan pequeño./\nDe todos modos, es bastante específico./\n¿Lo recordarás? A la IZQUIERDA, luego ARRIBA, ARRIBA, DERECHA, ABAJO, DERECHA, DERECHA, DERECHA. Fácil, ¿verdad?/",
         "RU_DIAL": "[bryan]Здесь написано:#\nИнструкции, как выйти целым и невредимым:#\nИдите НАЛЕВО.#\nЗатем поднимитесь ВВЕРХ после того, как победите двух волшебников./\nПродолжайте ВВЕРХ мимо бассейна к комнате с скамейками.#\nИдите НАПРАВО, затем ВНИЗ и следуйте по реке НАПРАВО, затем через следующие две комнаты НАПРАВО.\"/\n.../\nУдивительно, что можно написать на таком маленьком знаке./\nВ любом случае, это довольно конкретно./\nЗапомнишь? НАЛЕВО, затем ВВЕРХ, ВВЕРХ, НАПРАВО, ВНИЗ, НАПРАВО, НАПРАВО, НАПРАВО. Легко, правда?/",
+        "KR_DIAL": "[bryan]다음과 같이 적혀 있습니다:#\n한 조각으로 나가는 방법 :#\n왼쪽으로 가세요.#\n그런 다음 두 마법사를 물리친 후 위로 가세요./\n수영장을 지나 벤치 방으로 계속 위로 가세요.#\n오른쪽으로 간 다음 아래로 가서 강을 따라 오른쪽으로 가세요, 그런 다음 다음 두 방을 오른쪽으로 지나세요.\"/\n.../\n이렇게 작은 표지판에 쓸 수 있는 것이 놀랍습니다./\n어쨌든, 꽤 구체적입니다./\n기억할 수 있겠어요? 왼쪽, 그 다음 위, 위, 오른쪽, 아래, 오른쪽, 오른쪽, 오른쪽. 쉽죠?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7517,10 +7517,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Hier steht:#\n„Gehe RUNTER und durch ZWEI neue Räume, bis du zu einem langen Gang gelangst.“/\n„Gehe im Gang nach RECHTS, bis du zu einem Springbrunnen kommst.#\nFolge dem Weg HOCH und dann UNTEN entlang, bis du einen Eingang findest.“/\n„Gehe durch diesen neuen Raum bis nach UNTEN und nimm dann den HINTERSTEN Eingang.“/\n„Dann bei der nächsten Gelegenheit RECHTS.“/\n.../\nIch fasse zusammen: RUNTER, dann RUNTER, RUNTER, im Gang nach RECHTS, dann HOCH, RUNTER, RUNTER, NACH HINTEN und RECHTS. Vorwärts!/",
         "ES_DIAL": "[bryan]Dice:#\nVe ABAJO y cruza DOS habitaciones nuevas hasta llegar a un largo pasillo./\nDesde allí, camina por el pasillo a la DERECHA hasta llegar a una fuente.#\nSigue el camino ARRIBA y luego por la parte INFERIOR hasta que encuentres una entrada./\nPasa por esta nueva habitación hacia ABAJO, luego usa la entrada MÁS LEJANA./\nLuego, primero a la DERECHA./\n…/\nHaré un resumen: ABAJO, luego ABAJO, ABAJO, Pasillo luego ARRIBA, ABAJO, ABAJO, ATRÁS y DERECHA. ¡Adelante!/",
         "RU_DIAL": "[bryan]Говорится :#\nИдите ВНИЗ и пройдите ДВА новых помещения, пока не дойдете до длинного коридора./\nОттуда идите по коридору НАПРАВО, пока не дойдете до фонтана.#\nСледуйте по пути ВВЕРХ, а затем вдоль НИЖНЕЙ стороны, пока не найдете вход./\nПройдите через эту новую комнату вниз, затем используйте САМОЕ ДАЛЕКОЕ вход./\nЗатем, сначала НАПРАВО./\n.../\nЯ повторю: ВНИЗ, затем ВНИЗ, ВНИЗ, Коридор, затем НАПРАВО, ВВЕРХ, ВНИЗ, ВНИЗ, НАЗАД и НАПРАВО. Вперед!\"/",
+        "KR_DIAL": "[bryan]다음과 같이 적혀 있습니다 :#\n아래로 가서 두 개의 새로운 방을 지나 긴 복도에 도착하세요./\n거기서 복도를 따라 오른쪽으로 가면 분수에 도착합니다.#\n위로 올라가고 나서 바닥 쪽을 따라가면 입구를 찾을 수 있습니다./\n이 새로운 방을 지나 아래로 가고, 가장 먼 입구를 사용하세요./\n그런 다음, 첫 번째 오른쪽./\n.../\n요약하자면: 아래로, 그 다음 아래로, 아래로, 복도, 그 다음 오른쪽, 위로, 아래로, 아래로, 뒤로, 그리고 오른쪽. 계속 나아갑시다!\"/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7534,11 +7534,11 @@ export const GAME_DATA_DIALOGUES = [
         "JP_DIAL": "[bryan]何か書かれている。#「ここが終点だ…#ここにあるのは狂気だけだ」/\n[enrique]すべて終わったんだよ、(おぼっちゃん&お嬢さん)…僕たちは失敗したんだ…村に戻らない？/\n[bryan]待てよ…側面に…小さな手彫りの文字があるぞ…#おそらく「2…4…2…3…1…」と書いてある。#これはどういう意味だ？/",
         "DE_DIAL": "[bryan]Hier steht:#„Du bist am Ende des Weges angelangt ...#Nur der Wahnsinn erwartet dich hier.“/\n[enrique]Es war alles umsonst, (gnä’ Herr&gnä’s Fräulein)! Wir haben versagt ... Sollen wir zurück ins Dorf gehen?/\n[bryan]Moment ... Da am Rand ist etwas eingeritzt ...#Ich glaube, da steht: „2 ... 4 ... 2 ... 3 ... 1 ...“#Was könnte das bedeuten?/",
         "ES_DIAL": "[bryan]Dice:#\"Estás al final del camino…#Solo la locura te espera aquí./\n[enrique]Todo ha terminado, (señor&señora)… Hemos fallado… ¿Volvemos al pueblo?/\n[bryan]Espera… En el lateral… Veo pequeñas inscripciones talladas a mano…#Creo que dice \"2… 4… 2… 3… 1…\"#¿Qué podría significar?/",
-        "RU_DIAL": "[bryan]Здесь написано:#\"Вы находитесь в конце дороги...#Только безумие ждет вас здесь./\n[enrique]Все кончено (сэр и милая)... Мы потерпели неудачу... Вернемся в деревню?/\n[bryan]Подождите... На стороне... Я вижу мелкие резные надписи...#Думаю, там написано \"2... 4... 2... 3... 1...\"#Что это может значить?/",
+        "RU_DIAL": "[bryan]Здесь написано:#\"Вы находитесь в конце дороги...#Только безумие ждет вас здесь./\n[enrique]Все кончено (сэр&милая)... Мы потерпели неудачу... Вернемся в деревню?/\n[bryan]Подождите... На стороне... Я вижу мелкие резные надписи...#Думаю, там написано \"2... 4... 2... 3... 1...\"#Что это может значить?/",
+        "KR_DIAL": "[bryan]길의 끝에 있습니다...#여기에는 오직 광기만이 기다리고 있습니다./  \n[enrique]모든 것이 끝났습니다 (선생님&여사님)... 우리는 실패했습니다... 마을로 돌아갈까요?/  \n[bryan]기다려... 옆에... 작은 손으로 새긴 글씨가 보입니다...#\"2... 4... 2... 3... 1...\"이라고 적혀 있는 것 같습니다.#무슨 의미일까요?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7553,10 +7553,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Hier steht:#„Ein Dreh lässt dich herein, der nächste sperrt dich ein.#Was bin ich?“/",
         "ES_DIAL": "[bryan]Dice: #\"Giro una vez, lo que está fuera no entrará. Giro otra vez, lo que está dentro no saldrá.#¿Qué soy?\"/",
         "RU_DIAL": "[bryan]Это читается: #\"Я поворачиваюсь один раз, то, что снаружи, не войдет. Я поворачиваюсь снова, то, что внутри, не выйдет.#Что я?\"/",
+        "KR_DIAL": "[bryan]그것은 다음과 같이 읽힙니다: #\"나는 한 번 돌고, 밖에 있는 것은 들어오지 않을 것이다. 나는 다시 돌고, 안에 있는 것은 나가지 않을 것이다.#나는 무엇인가?\"/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7571,10 +7571,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Hier steht:#„Ich habe Flüsse, doch kein Wasser, ich habe Berge, doch keinen Stein, ich habe Städte, doch keine Häuser.#Was bin ich?“/",
         "ES_DIAL": "[bryan]Dice: #\"Tengo lagos sin agua, montañas sin piedra y ciudades sin edificios.#¿Qué soy?\"/",
         "RU_DIAL": "[bryan]Это звучит: #\"У меня есть озера без воды, горы без камня и города без зданий.#Что я?\" /",
+        "KR_DIAL": "[bryan]그것은 다음과 같이 읽힙니다: #\"나는 물이 없는 호수, 돌이 없는 산, 건물이 없는 도시가 있습니다.#나는 무엇일까요?\"/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7589,10 +7589,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Hier steht:#„Ich bin stets hungrig, was ich fresse wird rot, doch fütterst du mich nicht, bin ich bald tot.#Was bin ich?“/",
         "ES_DIAL": "[bryan]Dice: #\"Siempre tengo hambre y moriré si no me alimentan, pero todo lo que toco pronto se vuelve rojo.#¿Qué soy?\"/",
         "RU_DIAL": "[bryan]Это говорит: #\"Я всегда голоден и умру, если меня не накормят, но все, что я трогаю, вскоре становится красным.#Что я?\"/",
+        "KR_DIAL": "[bryan]그것은 다음과 같이 읽힙니다: #\"나는 항상 배고프고 먹이지 않으면 죽을 것이지만, 내가 만지는 것은 곧 빨갛게 변할 것이다.#나는 무엇인가?\"/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7607,10 +7607,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Hier steht:#\n„Du bist hier. Also bist du nicht dort.“/\n.../\nAh, ich sehe die Anweisungen:#\n„Gehe zunächst RUNTER, dann erneut RUNTER.“/\n„Biege vor dem Riss nach LINKS ab.#\nGehe dann HOCH an den zwei Springbrunnen vorbei, dann zweimal LINKS.“/\n„Dann RUNTER zum Riss.“/\nKannst du dir das merken? RUNTER, RUNTER, LINKS, HOCH, LINKS, LINKS, RUNTER! Simpel./",
         "ES_DIAL": "[bryan]Dice:#\nEstás aquí. Así que no estás allí./\n…/\nAh, veo indicaciones:#\nEmpieza yendo ABAJO, luego ABAJO nuevamente./\nGira a la IZQUIERDA frente a la Brecha.#\nLuego ARRIBA pasando las dos Fuentes, luego IZQUIERDA dos veces./\nLuego ABAJO hasta la Brecha./\n¿Lo recordarás? ABAJO, ABAJO, IZQUIERDA, ARRIBA, IZQUIERDA, IZQUIERDA, ABAJO. Facilito./",
         "RU_DIAL": "[bryan]Написано:#\nТы здесь. Значит, ты не там./\n.../\nАх, я вижу указания:#\nНачни, идя ВНИЗ, затем снова ВНИЗ./\nПоверни НАЛЕВО перед Разломом.#\nЗатем ВВЕРХ мимо двух Фонтанов, затем НАЛЕВО дважды./\nЗатем ВНИЗ к Разлому./\nТы запомнишь? ВНИЗ, ВНИЗ, НАЛЕВО, ВВЕРХ, НАЛЕВО, НАЛЕВО, ВНИЗ! Легко./",
+        "KR_DIAL": "[bryan]기록되어 있습니다:#\n당신은 여기 있습니다. 그래서 당신은 거기에 없습니다./\n.../\n아, 나는 징후를 봅니다:#\n먼저 아래로 가고, 다시 아래로 가세요./\n균열 앞에서 왼쪽으로 돌세요.#\n그런 다음 두 개의 분수를 지나 위로, 그 다음 왼쪽으로 두 번./\n그런 다음 균열로 아래로 가세요./\n기억할 수 있겠습니까? 아래, 아래, 왼쪽, 위, 왼쪽, 왼쪽, 아래! 쉽습니다./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7625,10 +7625,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Hier steht:#\n„Den Gang zu deiner LINKEN HOCH und dann nach RECHTS.#\nHalte dich an der Wand, um einen Eingang zur LINKEN zu finden.“/\n„Gehe weiter HOCH, bis du an einem Riss angelangst.#\nBiege dann nach RECHTS ab.“/\nZusammengefasst: LINKS, HOCH, RECHTS, LINKS, HOCH, RECHTS./",
         "ES_DIAL": "[bryan]Dice:#\nARRIBA por el pasillo a tu IZQUIERDA y hacia la DERECHA.#\nCamina a lo largo de la pared hasta encontrar una entrada a la IZQUIERDA./\nContinúa ARRIBA hasta llegar a una Brecha.#\nY luego gira a la DERECHA./\nEn resumen: IZQUIERDA, ARRIBA, DERECHA, IZQUIERDA, ARRIBA, DERECHA./",
         "RU_DIAL": "[bryan]Написано:#\nВверх по коридору слева и справа.#\nИдите вдоль стены, чтобы найти вход слева./\nПродолжайте вверх, пока не достигнете разрыва.#\nА затем поверните направо./\nВкратце: СЛЕВА, ВВЕРХ, НАПРАВО, СЛЕВА, ВВЕРХ, НАПРАВО./",
+        "KR_DIAL": "[bryan]기록되어 있습니다:#\n복도에서 왼쪽으로 그리고 오른쪽으로 올라가세요.#\n벽을 따라가면 왼쪽에 입구가 있습니다./\n계속 위로 올라가면 균열에 도달합니다.#\n그리고 나서 오른쪽으로 돌세요./\n요약하자면: 왼쪽, 위, 오른쪽, 왼쪽, 위, 오른쪽./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7643,10 +7643,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Hier steht:#\n„Finde einen Riss im Labyrinth, das vor dir liegt,#\num zum Ende zu gelangen.“/",
         "ES_DIAL": "[bryan]Dice:#\nEn el laberinto que se encuentra adelante,#\nencuentra una Brecha para llegar al final./",
         "RU_DIAL": "[bryan]Находится:#\nВ лабиринте, который лежит впереди,#\nНайдите Пробел, чтобы добраться до конца./",
+        "KR_DIAL": "[bryan]다음과 같이 적혀 있습니다:#\n앞에 있는 미로에서,#\n끝에 도달하기 위해 Breach를 찾으세요./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7661,10 +7661,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Hier steht:#\n„Gehe nach RECHTS und dann zwei Mal HOCH.#\nGehe am Pool entlang nach LINKS und dann RUNTER.“/\n„Gehe dann nach LINKS und wieder RUNTER.#\nFolge der oberen Mauer, um HOCH zu gelangen.“/\nAlso: RECHTS, HOCH, HOCH, LINKS, RUNTER, LINKS, RUNTER und HOCH./",
         "ES_DIAL": "[bryan]Dice:#\nVe a la DERECHA, luego continúa ARRIBA dos veces.#\nCamina a lo largo de la piscina hacia la IZQUIERDA y luego ABAJO./\nContinúa a la IZQUIERDA y luego ABAJO nuevamente.#\nCamina a lo largo de la pared superior para seguir ARRIBA./\nEs decir: DERECHA, ARRIBA, ARRIBA, IZQUIERDA, ABAJO, IZQUIERDA, ABAJO y ARRIBA./",
         "RU_DIAL": "[bryan]Говорит:#\nИдите НАПРАВО, затем продолжайте ВВЕРХ дважды.#\nИдите вдоль бассейна НАЛЕВО, а затем ВНИЗ./\nПродолжайте НАЛЕВО, а затем снова ВНИЗ.#\nИдите вдоль верхней стены, чтобы продолжить ВВЕРХ./\nЭто: НАПРАВО, ВВЕРХ, ВВЕРХ, НАЛЕВО, ВНИЗ, НАЛЕВО, ВНИЗ и ВВЕРХ./",
+        "KR_DIAL": "[bryan]다음과 같이 말합니다:#\n오른쪽으로 가고, 그 다음 위로 두 번 계속 가세요.#\n수영장을 따라 왼쪽으로 가고, 그 다음 아래로 가세요./\n왼쪽으로 계속 가고, 다시 아래로 가세요.#\n위쪽 벽을 따라 계속 위로 가세요./\n즉: 오른쪽, 위쪽, 위쪽, 왼쪽, 아래, 왼쪽, 아래, 그리고 위쪽./",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7679,10 +7679,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Der Schal der Vogelscheuche!/\nWir sollten ihn Adam Nostrus geben. Er wird ihm bestimmt gefallen./\nAber ich sehe hier keinerlei Geheimgänge, die ins Schloss führen könnten .../\nTja ... Immerhin haben wir etwas Schickes für den alten Adam gefunden./\nGehen wir zurück zum König und überlegen uns, was wir als Nächstes tun .../",
         "ES_DIAL": "[bryan]¡La bufanda del Espantapájaros!/\nSerá mejor que se la llevemos a Adam Nostrus. Seguro que le gustará./\nPero no veo ningún pasadizo secreto hacia el castillo por aquí…/\nBueno… Al menos encontramos algo para vestir al viejo Adam./\nVolvamos con el rey y decidamos qué hacer a continuación…/",
         "RU_DIAL": "[bryan]Шарф Страшилы!/\nНам лучше отнести его Адаму Нострусу. Ему это должно понравиться./\nНо я не вижу никаких секретных проходов к замку вокруг.../\nНу... По крайней мере, мы нашли что-то, чтобы нарядить старого Адама./\nДавайте вернемся к королю и решим, что делать дальше.../",
+        "KR_DIAL": "[bryan]허수아비의 스카프!/\n우리는 그것을 아담 노스트루스에게 가져가야 해. 그는 좋아할 거야./\n하지만 여기 주변에 성으로 가는 비밀 통로는 보이지 않아.../\n음... 적어도 우리는 오래된 아담을 꾸밀 무언가를 찾았어./\n왕에게 돌아가서 다음에 무엇을 할지 결정하자.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7697,10 +7697,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Palstrang! Dieser Halunke!/\nWas sollte der Spott?/",
         "ES_DIAL": "[bryan]¡Palstrang! ¡Ese maldito!/\n¿Por qué se burló de nosotros?/",
         "RU_DIAL": "[bryan]Палстранг! Этот негодяй!/\nПочему он нас высмеивает?/",
+        "KR_DIAL": "[bryan]팔스트랑! 그 악당!/\n왜 그가 우리를 조롱했지?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7715,10 +7715,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Palstrangs Hut .../\nÜber Mode lässt sich bekanntlich streiten ...#\nAber ich denke, wir sollten ihn zum alten Adam Nostrus bringen./\nWer weiß? Vielleicht lässt er einen Ahnenstein dafür springen./",
         "ES_DIAL": "[bryan] El sombrero de Palstrang…/\nNo es el mejor momento para hablar de moda…#\nPero creo que deberíamos devolvérselo al viejo Adam Nostrus…/\n¿Quién sabe? ¿Quizás tenga una de esas Piedras Ancestrales para nosotros?/",
         "RU_DIAL": "[bryan] Шляпа Пальстранга.../\nНе лучшее время для обсуждения моды...#\nНо я считаю, что мы должны вернуть её старому Адаму Нострусу.../\nКто знает? Возможно, у него есть один из этих Предковых Камней для нас?/",
+        "KR_DIAL": "[bryan] 팔스트랭의 모자.../\n패션에 대해 논의하기에 가장 좋은 시점은 아닙니다...#\n하지만 우리는 그것을 옛 아담 노스트루스에게 돌려줘야 한다고 믿습니다.../\n누가 알겠습니까? 그는 우리를 위해 이러한 조상 돌 중 하나를 가지고 있을지도 모릅니다?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7733,10 +7733,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Pass auf! Skelette!/",
         "ES_DIAL": "¡Cuidado! ¡Esqueletos!/",
         "RU_DIAL": "Берегись! Скелеты!/",
+        "KR_DIAL": "조심해! 해골들!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7751,10 +7751,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Was ist das?/",
         "ES_DIAL": "¿Qué es eso?/",
         "RU_DIAL": "Что это?/",
+        "KR_DIAL": "그게 뭐예요?/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7769,10 +7769,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Dann mal los!|\nZeig mir, was du kannst!|\nHau die Skelette kurz und klein!|\nVorwärts!|\nGehen wir’s an!|",
         "ES_DIAL": "¡Aquí vamos de nuevo!|\n¡Hazme sentir orgulloso!|\n¡Abajo los esqueletos!|\n¡Vamos!|\n¡Hagámoslo!|",
         "RU_DIAL": "Вот мы снова здесь!|\nСделай меня гордым!|\nДолой скелетов!|\nПоехали!|\nДавайте сделаем это!|",
+        "KR_DIAL": "여기 다시 시작합니다!|  \n자랑스럽게 해주세요!|  \n해골을 무너뜨리자!|  \n가자!|  \n해봅시다!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7787,10 +7787,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Gehen wir!/|\nLass uns gehen!/|\nKomm schon!/|\nWeiter!/|",
         "ES_DIAL": "¡Salgamos de aquí!/|\n¡Ven!/|\n¡Vamos!/|\n¡Siguiente!/|",
         "RU_DIAL": "Давайте выйдем!/|  \nПойдем!/|  \nДавай!/|  \nСледующий!/|",
+        "KR_DIAL": "나가자!/|  \n가자!/|  \n자!/|  \n다음!/|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7805,10 +7805,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Upps ... Ich bin genau auf dem einzigen Riss in der Gegend gelandet .../|",
         "ES_DIAL": "Ups… Creo que caí en la única Brecha por aquí…/|",
         "RU_DIAL": "Упс... Я думаю, я приземлился на единственный Разлом здесь.../|",
+        "KR_DIAL": "앗... 여기 유일한 균열에 내려앉은 것 같아요.../|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7823,10 +7823,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ein Riss!/",
         "ES_DIAL": "¡Una Brecha!/",
         "RU_DIAL": "Нарушение!/",
+        "KR_DIAL": "위반!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7841,10 +7841,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wir müssen uns beeilen!/",
         "ES_DIAL": "¡Tenemos que apurarnos!/",
         "RU_DIAL": "Нам нужно поторопиться!/",
+        "KR_DIAL": "우리는 서둘러야 해!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7859,10 +7859,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Der Tempel weiß, dass wir hier sind .../|\nGleich wird es gefährlich .../|",
         "ES_DIAL": "El Templo sabe que estamos aquí…/|\nSe va a poner peligroso…/|",
         "RU_DIAL": "Храм знает, что мы здесь.../| Здесь скоро станет опасно.../|",
+        "KR_DIAL": "사원은 우리가 여기 있다는 것을 알고 있습니다.../|  \n여기가 위험해질 것 같습니다.../|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7877,10 +7877,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Wir müssen hier raus!/",
         "ES_DIAL": "¡Tenemos que salir de aquí!/",
         "RU_DIAL": "Нам нужно выбраться отсюда !/",
+        "KR_DIAL": "여기서 나가야 해 !/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7895,10 +7895,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Triff ihn mit dem Felsen!/|\nDu musst Grotagrom treffen!/|\nZiele auf Grotagrom!/|\nGib ihm eins auf die Rübe!/|",
         "ES_DIAL": "¡Usa esa gran roca sobre él!/|\n¡Intenta golpear a Grotagrom!/|\n¡Apunta a Grotagrom!/|\n¡Intentemos darle en la cabeza!/|",
         "RU_DIAL": "Используй этот большой камень на нем!/|  \nПопробуй ударить Грогатгрома!/|  \nЦелься в Грогатгрома!/|  \nДавайте попробуем ударить его по голове!/|",
+        "KR_DIAL": "그 큰 바위를 그에게 사용해!/|  \n그로타그롬을 치려고 해봐!/|  \n그로타그롬을 겨냥해!/|  \n그의 머리를 가격해 보자!/|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7913,10 +7913,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Versuch mal, eines der Siegel auf dem Boden zu aktivieren!/",
         "ES_DIAL": "¡Intenta activar uno de los sellos del piso!/",
         "RU_DIAL": "Попробуйте активировать одну из печатей на полу!/",
+        "KR_DIAL": "바닥에 있는 봉인 중 하나를 활성화해 보세요!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7931,10 +7931,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Spitze!/|\nDas ist Reinschlurm!/|",
         "ES_DIAL": "¡Bien hecho!/|\n¡Slorm Pura!/|",
         "RU_DIAL": "Хорошо !/| Чистый Слорм !/|",
+        "KR_DIAL": "좋아 !/|  \n순수 슬롬 !/|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7949,10 +7949,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Klasse!/|\nWir sollten das zu Olorin bringen!/|\nEin Artefakt!/|\nIrgendein altes Artefakt ... Sicher eine Menge wert .../|",
         "ES_DIAL": "¡Excelente!/|\nDeberíamos llevarlo de vuelta a Olorín!/|\n¡Un artefacto!/|\nAlgún viejo artefacto… probablemente valga mucho…/|",
         "RU_DIAL": "Отлично !/|  \nМы должны вернуть это к Олорину !/|  \nАртефакт !/|  \nКакой-то старый артефакт... он, вероятно, стоит много.../|",
+        "KR_DIAL": "훌륭해요 !/|  \n우리는 그것을 올로린에게 가져가야 해요 !/|  \n유물 !/|  \n오래된 유물... 아마도 가치가 상당할 거에요.../|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7967,10 +7967,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Geht es dir gut?|\nKomm, ich bring dich hier raus.|\nDu siehst ganz schön übel aus ...|\nHm. Ich glaube, das reicht erst mal.|\nDas kannst du besser ...|",
         "ES_DIAL": "¿Estás bien?|\nVamos, déjame sacarte de aquí…|\nNo estás en las mejores condiciones ahora…|\nBueno… Deberíamos parar aquí…|\nSe puede hacer mejor…|",
         "RU_DIAL": "Ты в порядке?|  \nДавай, я вытащу тебя отсюда...|  \nТы сейчас не в лучшей форме...|  \nНу... Нам стоит остановиться на этом...|  \nМожем лучше...|",
+        "KR_DIAL": "괜찮아요?|  \n자, 여기서 나가게 해줄게요...|  \n지금 상태가 좋지 않아요...|  \n음... 거기서 멈춰야 해요...|  \n더 잘할 수 있어요...|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -7985,10 +7985,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ahnenschlaaaag!!|\nKritischer Treffer!|\nFantastisch!|\nBÄÄÄM!|\nWas für ’ne Power!|",
         "ES_DIAL": "¡Ancestraaaal!|\n¡Golpe crítico!|\n¡Buen trabajo!|\n¡BÚM!|\n¡Qué fuerza!|",
         "RU_DIAL": "Анцестраааал!!|  \nКритический удар!|  \nХороший ход!|  \nБУМ!|  \nТак много силы!|",
+        "KR_DIAL": "조상님!!|  \n치명타!|  \n잘했어!|  \n붐!|  \n너무 많은 힘!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8003,10 +8003,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Spitze! Eine Stufe!|\nDu wirst stärker!|\nEine weitere Stufe!|",
         "ES_DIAL": "¡Genial! ¡Un nivel!|\n¡Te estás volviendo más fuerte!|\n¡Un nivel más!|",
         "RU_DIAL": "Отлично! Уровень!|  \nТы становишься сильнее!|  \nЕще один уровень!|",
+        "KR_DIAL": "좋아! 레벨!|  \n더 강해지고 있어!|  \n한 단계 더!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8021,10 +8021,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du hast kein Mana mehr!|\nDein Mana ist alle!|\nHör auf, rumzuklicken!#Du nix mehr Mana!|",
         "ES_DIAL": "¡No tienes más Maná!|\nNo hay más Maná disponible|\n¡Deja de hacer clic!#¡No te queda Maná!|",
         "RU_DIAL": "Вы исчерпали ману!|  \nБольше маны нет доступно|  \nПерестаньте кликать!#У вас не осталось маны!|",
+        "KR_DIAL": "당신은 마나가 다 떨어졌습니다!| 더 이상 사용할 수 있는 마나가 없습니다| 클릭을 멈추세요!#당신은 남은 마나가 없습니다!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8039,10 +8039,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du hast kaum Leben mehr!|\nPass auf!|\nDas wird böse enden ...|",
         "ES_DIAL": "¡No tienes más Vida!|\n¡Cuidado!|\nEsto no va a terminar bien…|",
         "RU_DIAL": "Ты без жизни!|\nБерегись!|\nЭто не закончится хорошо...|",
+        "KR_DIAL": "당신은 생명이\n다했습니다!| 조심하세요!|\n이건 잘 끝나지 않을 것입니다...|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8057,10 +8057,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "BEUTEEEEE!!|\nEin legendärer Gegenstand!|\nUnglaublich!|\nGlück muss man haben!|",
         "ES_DIAL": "¡LOOOOOOTE!|\n¡Un objeto legendario!|\n¡Increíble!|\n¡Qué suerte!|",
         "RU_DIAL": "ЛООООТ!|\nЛегендарный предмет!|\nНевероятно!|\nТак повезло!|",
+        "KR_DIAL": "로또!|  \n전설적인 아이템!|  \n믿을 수 없어!|  \n너무 운이 좋다!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8075,10 +8075,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Oha!|\nEin epischer Gegenstand!|\nEin schöner Gegenstand!|\nNeuen Gegenstand ergattert!|",
         "ES_DIAL": "¡Oh!|\n¡Un objeto épico!|\n¡Qué hermoso objeto!|\n¡Nuevo objeto!|",
         "RU_DIAL": "О!|\nЭпический предмет!|\nКрасивый предмет!|\nНовый предмет!|",
+        "KR_DIAL": "오!|\n서사적인 아이템!|\n아름다운 아이템!|\n새로운 아이템!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8093,10 +8093,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du hast keinen Platz mehr ...|\nDeine Tasche ist voll!|",
         "ES_DIAL": "No tienes más espacio…|\nTu bolsa está llena…|",
         "RU_DIAL": "Вы вышли за пределы пространства...| Ваша сумка полна...|",
+        "KR_DIAL": "공간이 부족합니다...|\n가방이 가득 찼습니다...|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8111,10 +8111,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ganz schön mutig!|\nWeise Entscheidung ...|\nSo furchtlos!|",
         "ES_DIAL": "¡Eso es valiente!|\nSabia decisión…|\n¡Qué valentía!|",
         "RU_DIAL": "Это смело!|\nМудрое решение...|\nКак бесстрашно!|",
+        "KR_DIAL": "용감하네요!|  \n현명한 결정이에요...|  \n얼마나 두려움이 없네요!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8129,10 +8129,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ein neuer Schnitter!|\nDie Sammlung wächst!|\nUnglaublich! Ein Schnitter!|\nEin Schnitter! Ein Schnitter!|\nEin Schnitter! Hoffentlich ist es ein seltener!|",
         "ES_DIAL": "¡Un nuevo Segador!|\n¡Uno más para la colección!|\n¡Increíble! ¡Un Segador!|\n¡Un Segador! ¡Un Segador!|\n¡Un Segador! ¡Espero que sea uno raro!|",
         "RU_DIAL": "Новый Жнец!|  \nЕще один для коллекции!|  \nНевероятно! Жнец!|  \nЖнец! Жнец!|  \nЖнец! Надеюсь, он редкий!|",
+        "KR_DIAL": "새로운 수확자!|  \n컬렉션에 하나 더!|  \n믿을 수 없어! 수확자!|  \n수확자! 수확자!|  \n수확자! 희귀한 것이길 바래!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8147,10 +8147,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Dein Schnitter ist bereit, sich weiterzuentwickeln!|",
         "ES_DIAL": "¡Tu Segador está listo para evolucionar!|",
         "RU_DIAL": "Ваш Жнец готов к эволюции!|",
+        "KR_DIAL": "당신의 수확자가 진화할 준비가 되었습니다!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8165,10 +8165,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Was für ein Hübscher!|\nHui, feurig!|\nDonnerwetter!|\nBeißt der?|",
         "ES_DIAL": "¡Hermosa bestia!|\n¡Muy bien!|\n¡Madre mía!|\nNo me va a atacar, ¿o sí?|",
         "RU_DIAL": "Красивое чудовище!|\nОчень приятно!|\nСвятая корова!|\nОн не собирается на меня нападать, правда?|",
+        "KR_DIAL": "아름다운 짐승!|  \n아주 좋네요!|  \n세상에!|  \n그가 나를 공격하지는 않겠죠?|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8183,10 +8183,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ui, so glänzend!|\nDu hast ja Flügel!|\nDu strahlst heute ja richtig!|\nKannst du damit auch fliegen?|",
         "ES_DIAL": "¡Oh! ¡Brillas!|\n¡Tienes alas!|\n¡Hoy estás resplandeciente!|\n¿De verdad puedes volar?|",
         "RU_DIAL": "О! Ты сияешь!|\nУ тебя есть крылья!|\nТы сегодня светишься!|\nТы действительно можешь летать?|",
+        "KR_DIAL": "오! 너는 빛나!|\n너는 날개가 있어!|\n너는 오늘 빛나고 있어!|\n너는 실제로 날 수 있어?|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8201,10 +8201,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "DIE INKARNATION DES SCHRECKENS!|\nDAS NENN ICH MAL COOL!|\nMEGASTARK!|",
         "ES_DIAL": "¡LA ENCARNACIÓN DEL TERROR!|\n¡ESO ES TAN GENIAL!|\n¡PODEROSO! |",
         "RU_DIAL": "ВОПЛОЩЕНИЕ УЖАСА!|ЭТО ТАК КРУТО!|МОЩНО! |",
+        "KR_DIAL": "공포의 화신!|\n정말 멋져요!|\n강력해요! |",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8219,10 +8219,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ganz schön kühl geworden ...|\nBrrrr...|\nEs wird kalt hier ...|\nIch spüre meine Zehen nicht mehr!|",
         "ES_DIAL": "Está haciendo frío…|\nBrrrr…|\nEstá poniéndose helado…|\n¡No siento los dedos de los pies!|",
         "RU_DIAL": "Становится холодно...|\nБррр...|\nСтановится прохладно...|\nЯ не чувствую свои пальцы на ногах!|",
+        "KR_DIAL": "추워지고 있어...|\n부르르...|\n쌀쌀해지고 있어...|\n발가락이 느껴지지 않아!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8237,10 +8237,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Eine Kugel!|\nEine Schildkugel!|\nSchnell! Sammel sie ein!|\nSchild hier!|",
         "ES_DIAL": "¡Un Orbe!|\n¡Un Orbe de Escudo!|\n¡Rápido! ¡Recógelo!|\n¡Escudo por aquí!|",
         "RU_DIAL": "Орб!|  \nЩитовой орб!|  \nПоторопись! Подбери его!|  \nЩит здесь!|",
+        "KR_DIAL": "구슬!|\n방패 구슬!|\n서둘러! 집어 들어!|\n여기 방패!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8255,10 +8255,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Was für ein Hübscher!|\nEr sieht hungrig aus!|\nÖh ... Der beißt doch nicht, oder?|\nKackt der uns nicht überall hin?|",
         "ES_DIAL": "¡Una bestia preciosa!|\n¡Parece hambrienta!|\nUh… ¿no muerde, ¿verdad?|\n¿No va a hacer caca por todos lados?|",
         "RU_DIAL": "Красивый зверь!|\nОн выглядит голодным!|\nЭм... он не кусается, да?|\nОн собирается наделать делов повсюду?|",
+        "KR_DIAL": "아름다운 짐승!|  \n그는 배고파 보인다!|  \n어... 그는 물지 않겠지?|  \n그가 여기저기 똥을 싸게 될까?|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8273,10 +8273,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Der da sieht gefährlich aus!/",
         "ES_DIAL": "¡Este parece peligroso!/",
         "RU_DIAL": "Этот выглядит опасным!/",
+        "KR_DIAL": "이것은 위험해 보입니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8291,10 +8291,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "BUUUH!|\nDu Nichtsnutz!|\nSteck den Schnitter weg, du verletzt dich sonst noch!|\nDu kämpfst wie ein Schlurm!|\nDeine Technik ist kacke!|\nWieso helfe ich dir überhaupt?|\nIch kann dich nicht mal leiden!|\nDu bist so ein Vollpfosten!|\nDu bist schlecht.|\nSCHWÄÄÄÄCHLING!|\nDu bist ’ne Null.|\nGib lieber auf und mach was anderes.|\nSuch dir ’nen richtigen Job!|\nSeht euch diesen Trottel an!|\nDu hast keine Zukunft.|\nVersager!|\nSpatzenhirn.|\nDu kannst es nicht, sieh es ein.|\nBenutz lieber einfachere Fertigkeiten!|\nDu hast es einfach nicht drauf.|\nIch beneide jeden, der dich nie getroffen hat.|\nDu bist nicht hübsch genug, um so unfähig zu sein.|\nWarst du schon immer so dumm?|\nDich dumm zu nennen wäre dummen Menschen gegenüber beleidigend!|\nIch kenn Schafe, die schlauer sind als du.|\nDu bist dümmer als ein Sack Ziegel!|",
         "ES_DIAL": "¡BUUH!|\n¡Maldito!|\n¡Guarda esa Segadora, te vas a lastimar!|\n¡Peleas como un Slorm!|\nTu Habilidad apesta…|\nNo sé por qué te ayudo…|\nNi siquiera me caes bien…|\nEres un idiota.|\nEres malo.|\n¡DÉBIL!|\nEres débil.|\nDeberías rendirte y hacer otra cosa.|\nQuizás deberías conseguir un trabajo de verdad…|\n¡Tenemos un idiota por aquí!|\nNo tienes futuro.|\nApestas.|\nEres un burro.|\nEres malo en esto.|\nUsa habilidades más simples.|\nNo tienes lo que se necesita.|\nEnvidio a todos los que nunca te conocieron.|\nNo eres lo suficientemente bueno como para ser tan malo.|\n¿Eres naturalmente tan tonto?|\nLlamarte estúpido sería un insulto para los estúpidos.|\nHe conocido ovejas más inteligentes que tú.|\nEres más tonto que una bolsa de herramientas.|",
         "RU_DIAL": "БУУУХ!|\nТы негодяй!|\nУбери этого Жнеца, ты можешь пораниться!|\nТы дерешься как Слорм!|\nТвоя техника отстой...|\nЯ не знаю, почему я тебе помогаю...|\nМне даже не нравится ты...|\nТы такой идиот.|\nТы плохой.|\nСЛАБАК!|\nТы слабый.|\nТебе стоит сдаться и заняться чем-то другим.|\nМожет, тебе стоит найти настоящую работу...|\nУ нас тут идиот!|\nУ тебя нет будущего.|\nТы отстой.|\nТы осел.|\nТы плох в этом.|\nИспользуй более простые навыки.|\nУ тебя нет необходимых качеств.|\nЯ завидую всем, кого ты никогда не встречал.|\nТы недостаточно хорош, чтобы быть таким плохим.|\nТы от природы такой тупой?|\nНазывать тебя глупым было бы оскорблением для глупых людей!|\nЯ знал овец умнее тебя.|\nТы тупее, чем мешок инструментов!|",
+        "KR_DIAL": "부우!|\n너 이 자식!|\n그 리퍼를 치워, 너 다칠 거야!|\n너는 슬롬처럼 싸워!|\n너의 기술은 형편없어...|\n왜 너를 도와주는지 모르겠어...|\n나는 너를 좋아하지도 않아...|\n너는 정말 바보야.|\n너는 나빠.|\n너무 약해!|\n너는 약해.|\n포기하고 다른 일을 해야 해.|\n아마 진짜 직업을 가져야 할 거야...|\n여기 바보가 하나 있어!|\n너에게 미래는 없어.|\n너는 형편없어.|\n너는 당나귀야.|\n너는 이걸 잘하지 못해.|\n더 간단한 기술을 사용해.|\n너에게 필요한 게 없어.|\n너가 한 번도 만나지 못한 모든 사람이 부러워.|\n너는 이렇게 나쁠 정도로 충분히 좋지 않아.|\n너는 본래 그렇게 멍청한 거야?|\n너를 멍청하다고 부르는 것은 멍청한 사람들에게 모욕이야!|\n나는 너보다 똑똑한 양을 알고 있어.|\n너는 도구 가방보다 더 멍청해!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8309,10 +8309,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Komm schon ...|\nBeeil dich ...|\nKannst du mal schneller machen?|\nDa drüben ist einer!|",
         "ES_DIAL": "Vamos…|\nDate prisa…|\n¿Puedes seguir el ritmo?|\n¡Hay uno por allí!|",
         "RU_DIAL": "Давай...|\nПоторопись...|\nТы можешь не отставать?|\nТам один!|",
+        "KR_DIAL": "자, 가자...|  \n서둘러...|  \n따라올 수 있어? |  \n저기 하나 있어!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8327,10 +8327,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich bin in Gefahr!|\nHilfe!|\nZur Hülf!|\nAutsch!|\nMan tut mir weh!|\nIch werde behelligt!|",
         "ES_DIAL": "¡Estoy en peligro!|\n¡Ayuda!|\n¡Sálvameeee!|\n¡Auuch!|\n¡Me están lastimando!|\n¡Me están atormentando!|",
         "RU_DIAL": "Я в опасности!|  \nПомогите|  \nСпасите меняааа!|  \nАй!|  \nОни причиняют мне боль!|  \nМеня мучают!|",
+        "KR_DIAL": "나는 위험에 처해 있어!|  \n도와줘|  \n날 구해줘!|  \n아야!|  \n그들이 나를 아프게 하고 있어!|  \n나는 고통받고 있어!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8345,10 +8345,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Tod dem Feind!|\nZum Aaaaangriff!!|\nDein Ende ist nah!|\nBis hierher und nicht weiter!|\nDer Ruhm ist unser!|\nTod!|\nDu entkommst mir nicht!|",
         "ES_DIAL": "¡Muerte al enemigo!|\n¡Ataquemos!|\n¡Tu fin está cerca!|\n¡Hasta aquí llegaste!|\n¡Gloria a nosotros!|\n¡Muerte!|\n¡Te atraparé!|",
         "RU_DIAL": "Смерть врагу!|\nАтака!|\nТвой конец близок!|\nЭто всё, на что ты способен!|\nСлава нам!|\nСмерть!|\nЯ тебя поймаю!|",
+        "KR_DIAL": "적에게 죽음을!|\n공격하라!|\n너의 끝이 가까워!|\n여기까지가 네가 갈 수 있는 곳이야!|\n우리에게 경배하라!|\n죽음!|\n내가 너를 잡을 거야!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8363,10 +8363,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ruhm sei dem Schlurmanten!|\nFür Ohm Eigad!|\nFür den Schlurmanten!|\nMöge der Schlurm mit uns sein!|\nDer Schatten des Todes schwebt über dir!|\nSo ganz allein ist es gefährlich ...|",
         "ES_DIAL": "¡Gloria al Slormante!|\n¡Por Ohm Agad!|\n¡Por el Slormante!|\n¡Que el Slorm esté con nosotros!|\n¡La sombra de la muerte está sobre ti! |\nEs peligroso estar solo…|",
         "RU_DIAL": "Слава Слормансу!|\nЗа Охм Агада!|\nЗа Слормансера!|\nДа пребудет с нами Слорм!|\nТень смерти нависла над тобой!|\nОдиноко быть опасно...|",
+        "KR_DIAL": "슬로르맨서에게 영광을!|\n오흠 아가드!|\n슬로르맨서를 위하여!|\n슬로르가 우리와 함께하길!|\n죽음의 그림자가 너에게 드리워져 있다!|\n혼자 있는 것은 위험하다...|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8381,10 +8381,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Toooood|\nTöööö...teeeen|\nReeee...deeeen!|\nMoooord!|\nSchmeeeerz ...!|",
         "ES_DIAL": "Mueeeerte|\nMataaaaar|\n¡Hablaaaa!|\n¡Asesinatooo!|\n¡Dolooor!|",
         "RU_DIAL": "Деаааатх|  \nКиииии-иииил|  \nТаааааалк!|  \nМууууур-дееееер!|  \nПаааайн!|",
+        "KR_DIAL": "데아아아아아아스|  \n키이이이이이일|  \n타아아아아크!|  \n무우우우르더!|  \n파아아인!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8399,10 +8399,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich werde dich niedermähen wie Weizen!|\nErntezeit, Kameraden!|\nBauernrevolte!!|\nDu kämpfst wie eine Kuh!|",
         "ES_DIAL": "¡Te voy a rebanar cual jamón!|\n¡Vamos, amigos!|\n¡Revuelta campesina!|\n¡Peleas como gallina!|",
         "RU_DIAL": "Я срежу тебя, как пшеницу!|\nПоехали, друзья!|\nКрестьянское восстание!|\nТы дерешься, как корова!|",
+        "KR_DIAL": "너를 밀어버릴 거야, 밀처럼!|\n가자, 친구들!|\n농민 반란!|\n너는 소처럼 싸운다!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8417,10 +8417,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Puddings auf den Thron!|\nEhre den Puddings!|\nPuddings sind die Besten!|",
         "ES_DIAL": "¡Pudines en el trono!|\n¡Gloria a los Pudines! |\n¡Por la grandeza de los Pudines!|",
         "RU_DIAL": "Пудинги на троне!| Слава пудингам! | По величию пудингов!|",
+        "KR_DIAL": "푸딩이 왕좌에!|  \n푸딩에게 영광을! |  \n푸딩의 위대함으로!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8435,10 +8435,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Du Pestbeule!|\nDie schwarze Pest soll dich holen ...!|\nDu wirst meinem Miasma erliegen!|\nMein Gift wird dich in die Knie zwingen!|",
         "ES_DIAL": "¡Por la peste!|\n¡Que la peste negra te lleve!|\n¡Mis toxinas te atraparán!|\n¡Mi veneno te derribará!|",
         "RU_DIAL": "Черт возьми!|  \nПусть черная чума заберет тебя!|  \nМои токсины доберутся до тебя!|  \nМой яд тебя уничтожит!|",
+        "KR_DIAL": "전염병으로!|  \n검은 전염병이 너를 데려가길!|  \n내 독소가 너를 잡을 거야!|  \n내 독이 너를 쓰러뜨릴 거야!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8453,10 +8453,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Stirb!|\nAaaangriff!!|\nDein Ende ist nah!|\nHA!|\nIch schlage zu!|\nÜberraschungsangriff!!|\nTod!|\nDu entkommst mir nicht!|",
         "ES_DIAL": "¡Muere!|\n¡Ataquemos!|\n¡Tu fin está cerca!|\n¡JA!|\nEstoy golpeando|\n¡No me verás venir!|\n¡Muerte!|\n¡Te atraparé!|",
         "RU_DIAL": "Умри!|\nАтака!|\nТвой конец близок!|\nХа!|\nЯ бью!|\nТы не увидишь, как я подхожу!|\nСмерть!|\nЯ тебя поймаю!|",
+        "KR_DIAL": "죽어라!|\n공격이다!|\n너의 끝이 가까워!|\n하하!|\n나는 때리고 있어|\n너는 내가 오는 걸 보지 못할 거야!|\n죽음!|\n내가 너를 잡을 거야!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8471,10 +8471,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Attacke!!|\nSpüre meinen Zorn!|\nDein Schicksal ist besiegelt!|\nJetzt zeige ich dir meine wahre Macht!|",
         "ES_DIAL": "¡Ataca!|\n¡Sufre mi ira!|\n¡Este es tu fin!|\n¡Deja que mi poder supremo caiga sobre ti!|",
         "RU_DIAL": "Атакуйте!|\nПострадайте от моего гнева!|\nЭто конец для вас!|\nПусть моя всемогущая сила обрушится на вас!|",
+        "KR_DIAL": "공격하라!|  \n내 분노를 겪어라!|  \n너의 끝이다!|  \n내 전능한 힘이 너에게 쏟아지게 하라!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8489,10 +8489,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Hilfe!|\nDas tut weh!|\nIch sterbe!|\nIch werde ermordet!|\nAua!|\nHör auf!|\nDas wirst du bereuen!|\nRache!|\nIch werde angegriffen!|",
         "ES_DIAL": "¡Ayuda!|\n¡Me duele!|\n¡Me estoy muriendo!|\n¡Me están asesinando!|\n¡Ay!|\n¡Detente!|\n¡Te arrepentirás de esto!|\n¡Venganza!|\n¡Estoy bajo ataque!|",
         "RU_DIAL": "Помогите!|\nБольно!|\nЯ умираю!|\nМеня убивают!|\nАй!|\nПрекрати!|\nТы пожалеешь об этом!|\nМесть!|\nНа меня нападают!|",
+        "KR_DIAL": "도와줘!|  \n아파!|  \n죽겠어!|  \n살해당하고 있어!|  \n아야!|  \n그만해!|  \n후회할 거야!|  \n복수!|  \n공격받고 있어!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8507,10 +8507,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich scheide dahin!|\nMein Ende naht ...|\nWelche Kraft ...|\nDie wollen mich umbringen!|\nIch sterbe!|\nIch sehe den Tod kommen.|\nIch brauche Hilfe!|\nSanitäääter!|\nNehmt Rache für mich!|\nStopp! Ich habe keine Wertsachen bei mir!|\nSoll ich vergehen, wenn ich wanke!|\nEs ist aus mit mir ...!|",
         "ES_DIAL": "¡Me rindo!|\nEste es el fin para mí…|\nTanto poder…|\n¡Están tratando de matarme!|\n¡Me estoy muriendo!|\nVeo venir mi muerte.|\n¡Necesito ayuda!|\n¡Necesito atención!|\n¡Véngame!|\n¡Detente! No llevo ningún botín encima.|\n¡Moriré si me debilito!|\n¡Estoy a punto de morir!|",
         "RU_DIAL": "Я поддаюсь!|\nЭто конец для меня...|\nТак много силы...|\nОни пытаются меня убить!|\nЯ умираю!|\nЯ вижу свою смерть.|\nМне нужна помощь!|\nМне нужна забота!|\nОтомстите за меня!|\nСтоп! У меня нет с собой добычи!|\nПусть я умру, если ослабну!|\nЯ на грани смерти!|",
+        "KR_DIAL": "나는 굴복한다!|  \n이것이 나의 끝이다...|  \n너무 많은 힘...|  \n그들이 나를 죽이려고 하고 있어!|  \n나는 죽어가고 있어!|  \n내 죽음이 다가오는 게 보여. |  \n도움이 필요해!|  \n돌봄이 필요해!|  \n나를 복수해줘!|  \n멈춰! 나는 아무런 전리품도 없어!|  \n내가 약해지면 죽어도 좋다!|  \n나는 죽을 것 같아!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8525,10 +8525,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Das ist meine letzte Ernte!|\nIch sehe goldene Ähren ...|",
         "ES_DIAL": "¡Esta es mi última cosecha!|\nRegreso a la tierra.|",
         "RU_DIAL": "Это мой последний урожай!|Я возвращаюсь на землю.|",
+        "KR_DIAL": "이것이 나의 마지막 수확이야!| 나는 지구로 돌아갈 거야.|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8543,10 +8543,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[alarin]Da haben wir ja den Störenfried! Und meinen Bruder obendrein!/\n[archmage]Alarin! Mein böser Zwilling!/\n[alarin]Ein Narr wie eh und je, wie ich sehe .../\nAber ich weiß, warum ihr hier seid .../\nWie ich sucht auch ihr nach der uralten Schriftrolle verbotener Techniken, die ihrem Besitzer grenzenlose Macht verleiht, um die Welt zu beherrschen!/\n[archmage].../\n[bryan].../\n[alarin]Aber ihr kommt zu spät! Die Schriftrolle ist bereits mein!/\nEure Reise endet hier.#\nHier ist eine Kostprobe meiner brandneuen Technik!/\nMULTIKLON!!<Start Boss>/",
         "ES_DIAL": "[alarin]¡Aquí está el alborotador! Y con mi hermano a su lado…/\n[archmage]¡Alarín! ¡Mi malvado gemelo!/\n[alarin]Todavía sigue siendo un tonto…/\nPero sé lo que te trae por aquí… /\nAl igual que yo, buscas el Antiguo Pergamino de Técnicas Prohibidas que otorga un poder ilimitado a su dueño para dominar el mundo./\n[archmage]…/\n[bryan]…/\n[alarin]¡Pero es demasiado tarde para ti! ¡El Pergamino está en mi posesión!/\nTu viaje termina aquí…#\n¡Prueba mi nueva técnica!/\n¡Multiclones! <Start Boss>/",
         "RU_DIAL": "[alarin]Вот и нарушитель спокойствия! И с моим братом вдобавок!/\n[archmage]Аларин! Мой злой близнец!/\n[alarin]Все еще дурак, как я вижу.../\nНо я знаю, что привело тебя сюда... /\nКак и я, ты ищешь Древний Свиток Запретных Техник, который дарует безграничную силу своему владельцу, чтобы править миром!/\n[archmage].../\n[bryan].../\n[alarin]Но для тебя уже слишком поздно! Свиток в моих руках!/\nТвое путешествие заканчивается здесь...#\nПопробуй мою совершенно новую технику!/\nМульти-клонирование! <Start Boss>/",
+        "KR_DIAL": "[alarin]여기 문제아가 있다! 그리고 내 형과 함께!/\n[archmage]알라린! 내 악의 쌍둥이!/\n[alarin]여전히 바보인 것 같군.../\n하지만 내가 왜 너를 여기로 불렀는지 알고 있어... /\n나처럼 너도 세상을 지배하기 위해 무한한 힘을 주는 금지된 기술의 고대 두루마리를 찾고 있구나!/\n[archmage].../\n[bryan].../\n[alarin]하지만 너에게는 너무 늦었어! 두루마리는 내 손에 있어!/\n너의 여정은 여기서 끝난다...#\n내 새로운 기술을 맛보아라!/\n다중 복제! <Start Boss>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8561,10 +8561,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "Ich leide!|\nAlte Leute schlägt man nicht!|\nAua! Meine Arthrose!|\nMein Kreuz!|\nMeine Nieren!|",
         "ES_DIAL": "¡Estoy sufriendo!|\n¡No golpees a los ancianos!|\n¡Ay! ¡Mi artritis!|\n¡Me duele mi espalda!|\n¡Mis riñones!|",
         "RU_DIAL": "Я в боли!|\nНе бейте пожилых!|\nАй! Мой артрит!|\nБоль в спине!|\nМои почки!|",
+        "KR_DIAL": "나는 아파요!|  \n노인을 때리지 마세요!|  \n아야! 내 관절염!|  \n내 허리 통증!|  \n내 신장!|",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8579,10 +8579,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]Palstrang! Der Berüchtigte! Er steckt hinter allem!/\n[palstrang]Bryan McMuckies ... Nur noch eine kümmerliche blaue Lichtkugel im Dienste (eines Stümpers&einer Stümperin)./\nWenn ich mit euch fertig bin, mach ich dich zu meiner Nachttischlampe./\n[bryan]Du ... kannst mich sehen?/\n[palstrang]Natürlich, du Wicht!#\nIch dachte, wenn ich deinen Proteinshake vergifte, wäre ich dich los ... Aber offenbar hat die Macht des Champions dich beschützt./\n[bryan]Aber ... warum?/\n[palstrang]Ohm Eigad hat mir Prinzessin Alena versprochen, sobald sein Ritual vollendet ist./\nWenn du nicht mehr da wärst, hätte sie nur noch Augen für mich, ist doch wohl klar!/\n[alena]Echt jetzt?/\n[palstrang]Und nun, da Ohm Eigad Alenas Championkräfte extrahiert hat, steht unserem gemeinsamen Glück nichts mehr im Wege .../\nSobald ich dich endgültig vernichtet habe – und (deinen Partner&deine Partnerin)!/\nBringen wir es hinter uns!<Start Boss>/",
         "ES_DIAL": "[bryan]¡Palstrang! ¡El infame! ¡Él está detrás de todo esto!/\n[palstrang]Ramiro Recio… Reducido a una pequeña orbe azul de luz sirviendo a un incompetente./\nServirás como mi lámpara de cabecera cuando termine contigo…/\n[bryan]¿Puedes… verme?/\n[palstrang]¡Por supuesto, miserable!#\nPensé que envenenar tu batido de proteínas te eliminaría… Pero parece que el poder del Campeón te ha protegido…/\n[bryan]Pero… ¿por qué?/\n[palstrang]Ohm Agad me prometió a la Princesa Alena una vez que su ritual estuviera completo…/\nSin ti, ella solo tendría ojos para mí, es obvio./\n[alena]¡Oh, vamos!/\n[palstrang]Ahora que los poderes del Campeón que heredó han sido extraídos por Ohm Agad, somos libres de irnos…/\nUna vez que me asegure tu total aniquilación y la de tu compañero./\n¡Terminemos con esto! <Start Boss>/",
         "RU_DIAL": "[bryan]Палстранг! Печально известный! Он стоит за всем этим!/\n[palstrang]Брайан МакРиппед... Сведённый к маленькому синему шару света, служащему некомпетентному./\nТы будешь служить моим ночником, как только я с тобой покончу.../\n[bryan]Ты... видишь меня?/\n[palstrang]Конечно, ты, жалкий!#\nЯ думал, что отравление твоего протеинового коктейля позаботится о тебе... Но, похоже, сила Чемпиона защитила тебя.../\n[bryan]Но... почему?/\n[palstrang]Ом Агада пообещал мне принцессу Алёну, как только его ритуал будет завершён.../\nБез тебя она будет смотреть только на меня, это очевидно./\n[alena]О, да ладно!/\n[palstrang]Теперь, когда силы Чемпиона, которые она унаследовала, были извлечены Ом Агада, мы свободны покинуть это место.../\nКак только я обеспечу твоё полное уничтожение и уничтожение твоего партнёра!/\nДавайте закончим это! <Start Boss>/",
+        "KR_DIAL": "[bryan]팔스트랑! 악명 높은 자! 그가 이 모든 일의 배후야!/\n[palstrang]브라이언 맥립트... 무능한 자를 섬기는 작은 파란 빛의 구체로 줄어들었군./\n너는 내가 너를 다 끝내면 내 침대 옆 램프가 될 거야.../\n[bryan]너... 나를 볼 수 있어?/\n[palstrang]물론이지, 너 같은 불쌍한 자!#\n너의 단백질 쉐이크에 독을 넣으면 너를 처리할 수 있을 줄 알았는데... 챔피언의 힘이 너를 보호한 것 같군.../\n[bryan]하지만... 왜?/\n[palstrang]오므 아가드는 그의 의식이 끝나면 나에게 알레나 공주를 약속했어.../\n너가 없었다면, 그녀는 나만 바라볼 거야, 분명해./\n[alena]아, 제발!/\n[palstrang]오므 아가드가 그녀가 물려받은 챔피언의 힘을 추출했으니, 우리는 떠날 자유가 있어.../\n너와 너의 파트너를 완전히 멸망시키기만 하면!/\n이걸 끝내자! <Start Boss>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8597,10 +8597,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[palstrang]Ohm Eigad, mein Gebieter ...#\nIch ... brauche ... mehr Kraft ...#\nNur noch ein letztes Mal ...<Start Boss>/",
         "ES_DIAL": "[palstrang]Señor Ohm Agad…#\nNecesito… más poder…#\nUna última vez… <Start Boss>/",
         "RU_DIAL": "[palstrang]Лорд Охм Агад...#\nМне... нужно... больше силы...#\nВ последний раз... <Start Boss>/",
+        "KR_DIAL": "[palstrang]오름 아가드 경...#\n저... 더 많은 힘이 필요해...#\n마지막 한 번... <Start Boss>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8615,10 +8615,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[palstrang]ES IST VOLLBRACHT ...!/\nGRENZENLOSE!!#\nMACHT!!/\nKOMM ... UND ... KÄMPFE!<Start Boss>/",
         "ES_DIAL": "[palstrang]¡ESTÁ HECHO…!/\n¡¡MI PODER!!#\n¡¡ES ILIMITADO!!/\n¡¡VEN CON TODO!!<Start Boss>/",
         "RU_DIAL": "[palstrang]ЭТО СДЕЛАНО...!/\nМОЯ СИЛА!!#\nБЕЗГРАНИЧНА!!/\nПРИНОСИ... ЭТО...!<Start Boss>/",
+        "KR_DIAL": "[palstrang]완료되었습니다...!/\n내 힘!!#\n무한합니다!!/\n가져와... 그것을...!<Start Boss>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8633,10 +8633,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[palstrang]Mein letztes Stündlein hat geschlagen .../\nAlena ... meine Liebste .../\n[alena]Urgl ...#\nDu musst mich vergessen!/\n[palstrang]Jetzt ist sowieso alles egal .../\nDie Kräfte von Arah werden keinen neuen Champion mehr finden.#\nSie gehören nun Ohm Eigad .../\nMit den vereinten Kräften von Eigad und Arah ist er unbezwingbar .../\nDies ist mein letzter Atemzug .../\n.../\n[bryan]Das war’s mit ihm./\nLass uns Alena holen und dann abhauen ...#\nOhm Eigad wartet auf uns.<Start Boss>/",
         "ES_DIAL": "[palstrang]Se acabó para mí…/\nAlena… mi amada…/\n[alena]Ugh…#\nOlvídate de mí…/\n[palstrang]Ya nada importa…/\nLos Poderes de Arah ya no encontrarán un nuevo Campeón.#\nEstán en manos de Ohm Agad…/\nAl combinar los poderes de Agad y Arah, se ha vuelto invencible…/\nAquí llega mi último aliento…/\n…/\n[bryan]Está acabado…/\nVamos con Alena y salgamos de aquí…#\nOhm Agad nos está esperando.<Start Boss>/",
         "RU_DIAL": "[palstrang]Для меня всё кончено.../\nАлена... моя любимая.../\n[alena]Ух...#\nЗабудь обо мне!/\n[palstrang]Теперь ничего больше не имеет значения.../\nСилы Арах больше не найдут нового Чемпиона.#\nОни в руках Ома Агада.../\nОбъединив силы Агада и Арах, он стал непобедимым.../\nВот и мой последний вздох.../\n.../\n[bryan]Для него всё кончено.../\nДавайте пойдём к Алене, а затем покинем это место...#\nОм Агада ждёт нас.<Start Boss>/",
+        "KR_DIAL": "[palstrang]나에게는 끝났어.../\n알레나... 나의 사랑.../\n[alena]으...#\n나를 잊어버려!/\n[palstrang]이제 다른 것은 중요하지 않아.../\n아라의 힘은 더 이상 새로운 챔피언을 찾지 않을 거야.#  \n그들은 오흠 아가드의 손에 있어.../\n아가드와 아라의 힘을 결합함으로써 그는 무적이 되었어.../\n내 마지막 숨이 다가오고 있어.../\n.../\n[bryan]그에게는 끝났어.../\n알레나에게 가서 이곳을 떠나자...#\n오흠 아가드가 우리를 기다리고 있어.<Start Boss>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8651,10 +8651,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[seal]Das Siegel des Schlurmanten. Es ist unzerstörbar und unverwüstlich./\n[seal]Hinter der Tür kannst du Ohm Eigad lachen hören./",
         "ES_DIAL": "[seal]El Sello del Slormante. Es indestructible e impenetrable./\n[seal]Puedes escuchar a Ohm Agad riéndose detrás de la puerta. /",
         "RU_DIAL": "[seal]Печать Слормансера. Она неразрушима и непроницаема./  \n[seal]Вы можете слышать, как Охм Агада смеется за дверью. /",
+        "KR_DIAL": "[seal]슬로르맨서의 봉인. 그것은 파괴할 수 없고 침투할 수 없습니다./  \n[seal]문 뒤에서 오므 아가드가 웃는 소리를 들을 수 있습니다. /",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8669,10 +8669,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[hero]Klopf, klopf .../\n.../\n[bryan]Die Tür ist offen./\nWir sind da ...#\nDer letzte Showdown steht bevor.#\nBist du bereit?/\n[hero].../\n[duke]Einen Augenblick ...#\nDas wirkt alles viel zu einfach./\nVielleicht sollten wir das erst mit dem alten Adam Nostrus besprechen./\nEr wird wissen, was zu tun ist .../\nSchließlich weiß er alles, was es über die Kräfte des Champions von Arah zu wissen gibt./\n[bryan]Einen Versuch ist es wert ...#\nStatten wir ihm einen Besuch ab./",
         "ES_DIAL": "[hero]Toc, toc…/\n…/\n[bryan]La puerta está abierta…/\nEstamos aquí…#\nEs el enfrentamiento final…#\n¿Estás listo?/\n[hero]…/\n[duke]Espera un momento…#\nTodo esto parece demasiado fácil…/\nQuizás deberíamos consultarlo con el viejo Adam Nostrus primero…/\nÉl sabrá qué hacer…/\nDespués de todo, él lo sabe todo sobre los poderes de los Campeones de Arah…/\n[bryan]Vale la pena intentarlo…#\nVamos a visitarlo…/",
         "RU_DIAL": "[герой]Тук-тук.../\n.../\n[брайан]Дверь открыта.../\nМы здесь...#\nЭто финальная битва...#\nТы готов?/\n[герой].../\n[дук]Подожди минутку...#\nЭто все кажется слишком простым.../\nВозможно, нам стоит сначала обсудить это со старым Адамом Нострусом.../\nОн знает, что делать.../\nВ конце концов, он знает все о силах Чемпионов Арах.../\n[брайан]Стоит попробовать...#\nДавайте навестим его.../",
+        "KR_DIAL": "[hero]노크, 노크.../\n.../\n[bryan]문이 열려 있어.../\n우리는 여기 있어...#\n최종 대결이야...#\n준비됐어?/\n[hero].../\n[duke]잠깐만 기다려...#\n이 모든 게 좀 너무 쉬운 것 같아.../\n아마도 먼저 옛 아담 노스트루스와 이야기해야 할 것 같아.../\n그가 무엇을 해야 할지 알 거야.../\n결국, 그는 아라의 챔피언들의 힘에 대해 아는 모든 것을 알고 있어.../\n[bryan]한 번 시도해볼 가치가 있어...#\n그를 방문하자.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8687,10 +8687,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[table]Der Proteindrink ist fertig! Bringen wir ihn zu Bryan .../",
         "ES_DIAL": "[table]¡La bebida proteica está lista! Tenemos que llevársela a Ramiro ahora mismo…/",
         "RU_DIAL": "[table]Протеиновый напиток готов! Нам нужно вернуть его Брайану сейчас.../",
+        "KR_DIAL": "[table]단백질 음료가 준비되었습니다! 이제 브라이언에게 가져가야 합니다.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8705,10 +8705,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[table]Ein Küchentisch mit einem Rezept und Zutaten darauf./",
         "ES_DIAL": "[table]Es una mesa de cocina con una receta e ingredientes…/",
         "RU_DIAL": "[table]Это кулинарный стол с рецептом и ингредиентами .../",
+        "KR_DIAL": "[table]요리법과 재료가 있는 요리 테이블입니다 .../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8723,10 +8723,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[bryan]All die Workout-Sessions ... Nur um im Dreck zu verenden .../",
         "ES_DIAL": "[bryan]Todas esas sesiones de entrenamiento… Para terminar en el comiendo el polvo…/",
         "RU_DIAL": "[bryan]Все эти тренировки... Чтобы оказаться в грязи.../",
+        "KR_DIAL": "[bryan]모든 이 운동 세션들이... 진흙에 빠지다니.../",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8741,10 +8741,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[sanctuary]In diesem Schrein werden die ehemaligen Champions von Arah geehrt./\nAn der Statue ist eine lange Liste von Namen eingemeißelt ... und sie endet mit einem, der dir bekannt ist./\n[bryan]Ah! Das ging ja schnell!/\n[sanctuary]Am Ende der Liste ist „Bryan McNuckies“ zu lesen./\n[bryan]Hey! Die haben meinen Namen falsch geschrieben!/\n[statue]Möchtest du mehr über die Champions von Arah erfahren?/\nWenn du willst, kann ich dir erzählen, wo sie herkommen und was sie wirklich sind ... Es ist eine längere Geschichte, aber durchaus spannend!/\nSoll ich anfangen?<Sanctuary 2?>/",
         "ES_DIAL": "[sanctuary]Este Santuario honra a los Campeones de Arah…/\nHay una larga lista de nombres grabados en la Estatua… Y termina con un nombre que te resulta familiar…/\n[bryan]¡Ah! ¡No ha tardado mucho! /\n[sanctuary]Al final de la lista, puedes leer \"Ramiro Rancio\"./\n[bryan]¡Oye! ¡Hay un error en mi nombre!/\n[statue]¿Te interesa aprender un poco sobre los Campeones de Arah?/\nSi quieres, podría contarte de dónde vienen y quiénes son en realidad… Es una historia larga pero emocionante./\n¿Debería empezar?<Sanctuary 2?>/",
         "RU_DIAL": "[sanctuary]Этот Храм почитает Чемпионов Арахи .../\nВ списке имен, выгравированных на Статуе, много имен... И он заканчивается именем, которое тебе знакомо.../\n[bryan]Ах! Это не заняло много времени! /\n[sanctuary]В самом низу списка ты можешь прочитать \"Брайан МакРиппод\"./\n[bryan]Эй! В моем имени ошибка!/\n[statue]Ты хочешь узнать немного о Чемпионах Арахи?/\nЕсли хочешь, я могу рассказать, откуда они пришли и кто они на самом деле... Это довольно длинная история, но она захватывающая!/\nНачать?<Sanctuary 2?>/",
+        "KR_DIAL": "[sanctuary]이 신사는 아라의 챔피언들을 기립니다.../\n동상에 새겨진 이름 목록이 길고... 당신에게 익숙한 이름으로 끝납니다.../\n[bryan]아! 생각보다 빨리 끝났군요! /\n[sanctuary]목록의 가장 아래에서 \"브라이언 맥리폿\" 라는 이름을 읽을 수 있습니다./\n[bryan]이봐! 내 이름에 실수가 있어!/\n[statue]아라의 챔피언들에 대해 조금 알고 싶으신가요?/\n원하신다면 그들이 어디서 왔고, 그들이 진정 누구인지 말씀드릴 수 있습니다... 꽤 긴 이야기지만 흥미진진합니다!/\n시작할까요?<Sanctuary 2?>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8759,10 +8759,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[statue]Ähem, ähem .../\nAm Anfang ... war das Nichts! Und dann ... immer noch nichts! Aber viel, viel später ... kamen zwei Kinder auf die Welt. Zwillinge./\nAls sie aufwuchsen, verblüfften sie ihre Lehrmeister immer wieder mit ihrem außergewöhnlichen Talent in allen Bereichen: Waffenkunst, Alchemie, doch vor allem – Magie!/\nBeide merkten schon bald, dass sie besonders waren ... einzigartig sogar./\nSie waren in der Lage, die Essenz des Lebens selbst zu beherrschen ... den Schlurm./\nSo beginnt die Geschichte von Arah und Eigad!#\nSoll ich weitererzählen?<Sanctuary 3?>/",
         "ES_DIAL": "[statue]Hum… Hum…/\nAl principio… ¡No había nada! Y luego… ¡Siguió sin haber nada! Pero mucho después… Dos niños llegaron a este mundo… Gemelos…/\nA medida que crecieron, nunca dejaron de impresionar a sus tutores con sus habilidades sobresalientes en todas las áreas: manejo de armas, alquimia pero sobre todo… magia./\nAmbos se dieron cuenta rápidamente de que tenían algo más… Algo que los hacía únicos…/\nEran capaces de manipular la esencia misma de la vida… El Slorm./\nAsí comienza la historia de Arah y Agad.#\n¿Debo continuar?<Sanctuary 3?>/",
         "RU_DIAL": "[statue]Хм... Хм.../\nВ самом начале... Не было ничего! А потом... Всё ещё ничего! Но гораздо позже... В этот мир пришли двое детей... Близнецы.../\nПо мере их взросления они не переставали впечатлять своих наставников своими выдающимися навыками в каждой области: обращении с оружием, алхимии, но прежде всего... магии!/\nОба быстро поняли, что у них есть нечто большее... Нечто, что делало их уникальными.../\nОни могли манипулировать самой сутью жизни... Слормом./\nТак начинается история Ары и Агада!#\nПродолжить? <Sanctuary 3?>/",
+        "KR_DIAL": "[statue]흠... 흠.../\n처음에... 아무것도 없었습니다! 그리고 나서... 여전히 아무것도 없었습니다! 하지만 훨씬 나중에... 두 아이가 이 세상에 태어났습니다... 쌍둥이.../\n그들은 성장하면서 모든 분야에서 뛰어난 기술로 그들의 튜터들을 계속해서 감동시켰습니다: 무기 다루기, 연금술, 하지만 무엇보다도... 마법!/\n두 사람은 빠르게 그들이 더 특별한 무언가를 가지고 있다는 것을 깨달았습니다... 그들을 독특하게 만드는 무언가.../\n그들은 생명의 본질을 조작할 수 있었습니다... 슬롬./\n이것이 아라와 아가드의 이야기가 시작되는 방법입니다!#\n계속할까요?<Sanctuary 3?>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8777,10 +8777,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[statue]Während Arah seine Gabe nutzte, um anderen zu helfen, setzte Eigad sie nur für seine eigenen Zwecke ein, stets auf der Suche nach mehr und mehr Macht .../\nNach Jahren des Streits kam es schließlich zu einem erbitterten Duell./\nIn diesem letzten Kampf wurde Eigad schwer verwundet, während Arah einfach vom Antlitz der Welt verschwand./\nEigad brauchte Jahre, um sich vom Kampf zu erholen, von Arah hingegen fehlt noch immer jede Spur./\nSeit jenem Duell hat ihn niemand mehr gesehen. Die Menschen glauben, er sei tot ... vernichtet von seinem Bruder./\nDoch bevor er verschwand, soll Arah einen Teil seiner Kraft an seinen treuen Diener Aurelon weitergegeben haben./\nWillst du wissen, wie es weitergeht?<Sanctuary 4?>/",
         "ES_DIAL": "[statue]Mientras que Arah usaba su don para ayudar a los demás, Agad prefería usarlo para su propio beneficio, en una búsqueda interminable de poder…/\nDespués de años de conflicto, terminaron enfrentándose en un combate despiadado…/\nEn esta batalla final, Agad resultó gravemente herido mientras que Arah simplemente desapareció de la faz del universo…/\nA Agad le tomó muchos años recuperarse de la batalla, mientras que Arah nunca dio señales de vida nuevamente…/\nDesde esa confrontación, nadie lo ha vuelto a ver… La gente piensa que está muerto… destruido por el poder de su hermano…/\nAntes de desaparecer, parece que Arah pasó parte de su poder a Aurelón, su acólito de toda la vida…/\n¿Te cuento el resto de la historia?<Sanctuary 4?>/",
         "RU_DIAL": "[statue]Пока Арах использовал свой дар, чтобы помогать другим, Агад предпочитал использовать его для собственной выгоды, в бесконечном стремлении к власти.../\nПосле многих лет конфликта они в конечном итоге начали сражаться друг с другом в безжалостном бою.../\nВ этой финальной битве Агад был серьезно ранен, в то время как Арах просто исчез с лица земли.../\nАгаду потребовалось много лет, чтобы восстановиться после битвы, в то время как Арах больше никогда не проявлял признаков жизни.../\nС тех пор, как произошло это столкновение, никто больше его не видел... Люди думают, что он мертв... сокрушенный силой своего брата.../\nПеред тем как исчезнуть, похоже, что Арах передал часть своей силы Аурелону, своему пожизненному ученику.../\nСказать вам остальную часть истории?<Sanctuary 4?>/",
+        "KR_DIAL": "[statue]아라흐는 자신의 재능을 다른 사람들을 돕는 데 사용했지만, 아가드는 자신의 이익을 위해 그것을 사용하는 것을 선호했으며, 끝없는 권력 추구에 나섰습니다.../\n수년간의 갈등 끝에 그들은 무자비한 전투에서 서로 싸우게 되었습니다.../\n이 마지막 전투에서 아가드는 심각한 부상을 입었고 아라흐는 세상에서 사라졌습니다.../\n아가드는 전투에서 회복하는 데 많은 세월이 걸렸고, 아라흐는 다시는 생명의 징후를 보이지 않았습니다.../\n그 대결 이후로 아무도 그를 다시 본 적이 없습니다... 사람들은 그가 죽었다고 생각합니다... 그의 형의 힘에 의해 산산조각이 났다고.../\n그가 사라지기 전에 아라흐는 평생의 제자인 아우렐론에게 자신의 힘의 일부를 넘긴 것 같습니다.../\n나머지 이야기를 들려줄까요?<Sanctuary 4?>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8795,10 +8795,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[statue]Ähem, ähem ... Also, wie gesagt ... Aurelon erbte Arahs Kräfte und die Pflicht, das Königreich zu beschützen und Menschen in Not zu helfen. Er wurde der erste Champion./\nEr begründete damit eine lange Reihe von Champions, die den Schutz des Reiches bis heute sicherstellten.#\nZu ihren Ehren wurde dieser Schrein erbaut .../\nEs kann immer nur einen Champion von Arah geben. Stirbt dieser oder tritt er von seiner Verantwortung zurück, erwählt Arahs Kraft von selbst einen Nachfolger aus./\nEs ist daher unmöglich vorherzusagen, wer der nächste Champion sein wird ... und die Auswahlkriterien sind, gelinde gesagt ... unklar./\nBis vor Kurzem war ja Bryan McMuckies der Champion von Arah ... ein Hinweis darauf, dass Arahs Kraft nicht das beste Urteilsvermögen besitzt./\n[bryan]Hey!!/\n[statue]Außerdem weiß niemand, auf wen die Kraft des Champions nach Bryans Tod übergegangen ist. Eines ist aber sicher: Er oder sie wird bald erscheinen./\nSoll ich weitererzählen?<Sanctuary 5?>/",
         "ES_DIAL": "[statue]Mmm, mmm… Como decía… Aurelón heredó los poderes de Arah y la responsabilidad de proteger el Reino y ayudar a los necesitados… Él fue el primer Campeón…/\nDesde ese día, los Campeones se suceden y continúan asegurando la protección del Reino.#\nEste Santuario ha sido construido en su memoria…/\nSolo puede haber un Campeón de Arah, y cuando muere o renuncia a su rol, el próximo Campeón es elegido por el poder de Arah mismo…/\nPor lo tanto, es imposible predecir quién será el próximo Campeón… Y los criterios de selección son, por decir lo menos… poco claros…/\nHasta hace poco, Ramiro Recio era el Campeón actual de Arah… Aparentemente, el poder de Arah puede carecer de buen juicio…/\n[bryan]¡Oye!/\n[statue]Además, desde la muerte de Ramiro, nadie sabe quién heredó el poder del Campeón… Algo es seguro, no debería tardar mucho en aparecer…/\n¿Debo continuar?<Sanctuary 5?>/",
         "RU_DIAL": "[statue]Хм хм... Как я уже говорил... Аурелон таким образом унаследовал силы Арах и ответственность защищать Королевство и помогать нуждающимся... Он был первым Чемпионом.../\nС тех пор Чемпионы сменяют друг друга и продолжают обеспечивать защиту Королевства.#\nЭтот Храм был построен в их память.../\nМожет быть только один Чемпион Арах, и когда он умирает или отказывается от своей роли, следующий Чемпион выбирается силой самой Арах.../\nПоэтому невозможно предсказать, кто будет следующим Чемпионом... А критерии выбора, мягко говоря...неясны.../\nДо недавнего времени Брайан МакРиппед был текущим Чемпионом Арах... Сила Арах, похоже, может не обладать хорошим суждением.../\n[bryan]Эй!/\n[statue]Кроме того, с момента смерти Брайана никто не знает, кто унаследовал силу Чемпиона... Одно можно сказать точно, не должно пройти много времени, прежде чем он или она появится.../\nПродолжать?<Sanctuary 5?>/",
+        "KR_DIAL": "[statue]흠 흠... 내가 말하던 중이었지... 아우렐론은 아라의 힘과 왕국을 보호하고 도움이 필요한 사람들을 돕는 책임을 물려받았다... 그는 첫 번째 챔피언이었다.../\n그날 이후로 챔피언들은 서로 이어지며 왕국의 보호를 계속 보장하고 있다.#\n이 신사는 그들의 기억을 위해 세워졌다.../\n아라의 챔피언은 오직 한 명만 존재할 수 있으며, 그가 죽거나 역할을 포기할 때 다음 챔피언은 아라의 힘에 의해 선택된다.../\n따라서 다음 챔피언이 누가 될지 예측하는 것은 불가능하다... 그리고 선택 기준은, 최소한... 불분명하다.../\n최근까지 브라이언 맥립트가 아라의 현재 챔피언이었다... 아라의 힘은 분명히 좋은 판단력을 결여할 수 있다.../\n[bryan]이봐!/\n[statue]게다가, 브라이언의 죽음 이후로 챔피언의 힘을 물려받은 사람이 누구인지 아무도 모른다... 한 가지 확실한 것은, 그가 또는 그녀가 나타나는 데 오래 걸리지 않을 것이라는 것이다.../\n계속할까?<Sanctuary 5?>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8813,10 +8813,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[statue]Du hast vielleicht schon von den Ahnen-Champions gehört. Mithilfe der Ahnensteine, die du von mir bekommst, kannst du einen Teil ihres Vermächtnisses nutzen./\nVor hunderten von Jahren waren sie die ersten fünf Champions von Arah./\nAurelon kennst du schon, er war der erste Champion. Nach ihm kam Lowey, die Pyromantin, die so gewaltig wie ein ausbrechender Vulkan gewesen sein soll!/\nArahs Kraft ging dann auf Kah Rooj über und danach auf deren Tochter Neriya.#Zu guter Letzt kam Jerelzor, der Meister der Schatten ... ein wirklich feiner Kerl./\nGemeinsam gingen sie als die legendären Ahnen-Champions in die Geschichte ein und gelten als die fünf mächtigsten Champions von Arah, die es je gab./\nKein Vergleich zu den letzten paar Champions, die allesamt eingebildete Flaschen waren .../\n[bryan]Hurrk .../\n[statue]Soll ich fortfahren? Wir sind auch gleich durch.<Sanctuary 6?>/",
         "ES_DIAL": "[statue]¿Has oído hablar de los Campeones Ancestrales? Estás usando parte de su Legado gracias a las Piedras Ancestrales que te he dado./\nFueron los primeros cinco elegidos para convertirse en Campeones de Arah, hace cientos de años…/\nComo te dije, Aurelón fue el primer Campeón. Luego vino Lowey el Piromante, ¡quien se decía que era tan fuerte como un volcán en erupción!/\nEl poder de Arah pasó luego a Kah Ruy y después a su hija Neriya.#Finalmente llegó Jerelzor, el Manipulador de Sombras… un tipo realmente agradable…/\nJuntos, los cinco forman los Campeones Ancestrales y han entrado en la Leyenda como los cinco Campeones de Arah más poderosos que jamás hayan existido…/\nNo como los Campeones más recientes… que no son más que unos vanidosos holgazanes…/\n[bryan]Eso…/\n[statue]¿Debo continuar? Ya casi termino.<Sanctuary 6?>/",
         "RU_DIAL": "[statue]Вы когда-нибудь слышали о Предках Чемпионов? Вы используете часть их Наследия благодаря Предковым Камням, которые я вам даю./\nОни были первыми пятью, избранными стать Чемпионами Арах, сотни лет назад.../\nКак я уже говорил, Аурелон был первым Чемпионом. Затем пришел Лоуи Пиромант, о котором говорили, что он был так же силен, как erupting volcano!/\nСила Арах затем перешла к Ках Руджу, а затем к ее дочери Нерии.#Наконец пришел Джерелзор, Манипулятор Теней... действительно хороший парень.../\nВместе они образуют Предков Чемпионов и вошли в Легенду как пять самых мощных Чемпионов Арах, которые когда-либо существовали.../\nНе как самые последние Чемпионы... которые не более чем тщеславные бездельники.../\n[bryan]Это.../\n[statue]Продолжить? Почти закончилось.<Sanctuary 6?>/",
+        "KR_DIAL": "[statue]조상 챔피언에 대해 들어본 적이 있나요? 제가 당신에게 주는 조상 돌 덕분에 그들의 유산의 일부를 사용하고 있습니다./  \n그들은 수백 년 전 아라의 챔피언이 되기 위해 선택된 첫 다섯 명이었습니다.../  \n제가 말했듯이, 아우렐론이 첫 번째 챔피언이었습니다. 그 다음은 폭발하는 화산만큼 강하다고 전해지는 불의 마법사 로위가 등장했습니다!/  \n그 후 아라의 힘은 카 후지에게로, 그리고 그녀의 딸 네리야에게로 갔습니다.#마지막으로 그림자 조작자 제렐조르가 왔습니다... 정말 좋은 사람입니다.../  \n그들은 함께 조상 챔피언을 형성하고 아라에서 존재했던 가장 강력한 다섯 챔피언으로 전설에 들어갔습니다.../  \n최근의 챔피언들과는 다릅니다... 그들은 허영심 많은 게으름뱅이에 불과합니다.../  \n[bryan]그.../  \n[statue]계속할까요? 거의 끝났습니다.<Sanctuary 6?>/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     },
     {
@@ -8831,10 +8831,10 @@ export const GAME_DATA_DIALOGUES = [
         "DE_DIAL": "[statue]Trotz allem hatten die Champions durchaus ihren Nutzen, denn seit dem Verschwinden Arahs hat Eigad schon mehrmals versucht, die Welt zu erobern!/\nDas hier ist sein sechster Anlauf. Nur, dass wir diesmal keinen Champion haben .../\nNoch dazu ist und bleibt Eigad der einzige Schlurmant, weshalb wir stets wachsam sein müssen. Er ist extrem gefährlich!/\nAußerdem hat er sich selbst den Titel „Ohm“ gegeben, was in der alten Sprache „Tyrann“ heißt./\nEr hätte sich also auch gleich „Eigad der Tyrann“ nennen können, aber das klingt weniger schmissig./\nSeither kennt die Welt ihn unter dem Namen Ohm Eigad!/\nDas war’s! Hoffentlich hat’s dir gefallen!/",
         "ES_DIAL": "[statue]Sin embargo, los Campeones han demostrado su utilidad, ya que desde la desaparición de Arah, Agad nunca dejó de intentar conquistar el mundo./\nEsta es actualmente su sexta tentativa… Excepto que esta vez, no tenemos un Campeón…/\nAdemás, Agad es y sigue siendo el único Slormante, así que nunca debemos bajar la guardia. ¡Es muy peligroso!/\nDe hecho, se proclamó a sí mismo \"Ohm\", que significa \"Tirano\" en otro idioma…/\nAsí que podría haberse llamado Agad el Tirano, pero no sonaba tan bien…/\nEl mundo lo ha conocido desde entonces bajo el nombre de… …¡Ohm Agad!/\n¡Terminé! ¡Espero que lo hayas disfrutado!/",
         "RU_DIAL": "[statue]Тем не менее, Чемпионы доказали свою полезность, ведь с исчезновением Арах, Агада никогда не переставал пытаться завоевать мир!/\nВ настоящее время это его шестая попытка... Только на этот раз у нас нет Чемпиона.../\nБолее того, Агада есть и остается единственным Слормансером, поэтому мы никогда не должны ослаблять бдительность. Он очень опасен!/\nНа самом деле, он провозгласил себя \"Ом\", что означает \"Тиран\" на другом языке.../\nТак что его могли бы назвать Агада Тираном, но это не звучало бы так хорошо.../\nМир знал его с тех пор под именем... ...Ом Агада!/\nЯ закончил! Надеюсь, вам понравилось!/",
+        "KR_DIAL": "[statue]챔피언들은 그 유용성을 증명했지만, 아라의 실종 이후로 아가드는 세계 정복을 시도하는 것을 멈추지 않았습니다!/\n현재 그의 여섯 번째 시도입니다... 이번에는 챔피언이 없다는 점을 제외하고요.../\n더욱이, 아가드는 유일무이한 슬로르맨서이므로 우리는 결코 경계를 늦춰서는 안 됩니다. 그는 매우 위험합니다!/\n사실, 그는 자신을 \"옴\"이라고 선언했는데, 이는 다른 언어로 \"폭군\"을 의미합니다.../\n그래서 그는 아가드 폭군이라고 불릴 수 있었지만, 그렇게 들리지는 않았습니다.../\n세상은 그를 그 이름으로 알고 있습니다... ...옴 아가드!/\n끝났습니다! 즐거우셨기를 바랍니다!/",
         "IT_DIAL": "",
         "PT_DIAL": "",
         "PO_DIAL": "",
-        "KR_DIAL": "",
         "TUR_DIAL": ""
     }
 ]

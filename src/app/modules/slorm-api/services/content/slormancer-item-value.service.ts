@@ -162,7 +162,7 @@ export class SlormancerItemValueService {
             if (precisionValue) {
                 result = round(value / 100, 6);
             } else {
-                result = bankerRound(value / 50) / 2;
+                result = round(value / 100, 2);
             }
         } else {
             if (precisionValue) {
