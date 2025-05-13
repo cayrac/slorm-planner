@@ -342,7 +342,7 @@
 - Fixed an issue causing reaper affinity to be hidden
 - Legendary activables are now correctly capped at 15 reinforcements
 
-## Release 0.8.0 [beta] (2025-04-06)
+## Release 0.8.0 (2025-04-06)
 ### Added
 - Added all new legendaries
 - Added an "apply indirect damage multiplier" option for Relentless Transferance reaper
@@ -373,7 +373,7 @@
 - Fixed Shearing Winds damage type
 ## retours
 
-## Release 0.8.1 [beta] (2025-04-14)
+## Release 0.8.1 (2025-04-14)
 ### Added
 - Added a search bar for the legendary effect on the item edition modal
 - Searching for a reaper name in the search bar now show legendary effects for that reaper
@@ -390,14 +390,14 @@
 - Fixed missing value for buff descriptions
 - Fixed tooltip position getting out of screen for item and reapers
 
-## Release 0.8.2 [beta] (2025-04-14)
+## Release 0.8.2 (2025-04-14)
 ### Changed
 - Value range for all effects should now be similar to the game descriptions
 - Updated cooldown details to include attack speed
 ### Fixes
 - Fixed a select display issue on item edit modal
 
-## Release 0.8.3 [beta] (2025-05-07)
+## Release 0.8.3 (2025-05-07)
 ### Added
 - Added Secondary Boost stacks configuration for Neriya's Boosting Girdle
 - It is now possible to build optimised items with pure values
@@ -409,6 +409,14 @@
 - Fixed a parse issue with nether item exported builds
 - Fixed some values based on emblems always counting as having 0 emblems
 - Fixed skill tags or slot not being used correctly for skill damages
+
+## Release 1.0.0 (2025-05-13)
+### Fixes
+- Fixed Protective Rays damage type
+### Added
+- Beta builds are now loaded to non beta branch if any are found
+### Removed
+- beta branch is no longer available, existing beta build links are redirected to the non beta version
 
 ## TODO
 - update packages ?

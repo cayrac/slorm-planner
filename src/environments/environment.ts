@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  version: '0.8.3',
-  gameVersion: '1.0.0p',
+  version: '1.0.0',
+  gameVersion: '1.0.01a',
   debug: true,
 };
 

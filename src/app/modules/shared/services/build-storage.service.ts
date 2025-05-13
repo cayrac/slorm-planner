@@ -15,6 +15,8 @@ export class BuildStorageService {
     private readonly MAX_LAYERS = 10;
 
     private readonly BUILDS_STORAGE_KEY = 'builds';
+
+    private readonly BETA_BUILDS_STORAGE_KEY = 'beta-builds';
     
     private readonly CURRENT_BUILD_STORAGE_KEY = 'current-build';
 
@@ -77,6 +79,13 @@ export class BuildStorageService {
 
             if (buildsData !== null) {
                 this.builds = JSON.parse(buildsData);
+            }
+
+            const betaBuildsData = localStorage.getItem(this.BETA_BUILDS_STORAGE_KEY);
+            if (betaBuildsData) {
+                this.builds.push(...JSON.parse(betaBuildsData));
+                this.saveToStorage();
+                localStorage.removeItem(this.BETA_BUILDS_STORAGE_KEY);
             }
 
             if (buildData !== null) {

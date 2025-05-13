@@ -3570,7 +3570,7 @@ export const DATA_SKILL_2: { [key: number]: DataSkill } = {
     29: {
         masteryRequired: 8,
         override: values => {
-            setStat(values, 0, 'physical_damage');
+            setStat(values, 0, 'elemental_damage');
             setAsUpgrade(values, 0);
         },
         additionalClassMechanics: [218]

@@ -6,6 +6,10 @@ import { SlormToolsComponent } from './core/components/slorm-tools/slorm-tools.c
 
 const appRoutes: Routes = [
     {
+        path: 'beta/:path',
+        redirectTo: ':path'
+    },
+    {
         path: 'slorm-planner',
         loadChildren: () => import('./modules/slorm-planner/slorm-planner.module').then((m) => m.SlormPlannerModule),
         data: { title: 'Slorm-Planner' }
@@ -25,11 +29,6 @@ const appRoutes: Routes = [
         component: SlormToolsComponent,
         data: { title: 'Slorm-Tools' }
     },
-    /* TODO {
-        path: 'beta/[path]',
-        pathMatch: 'full',
-        redirectTo: '{path}'
-    },*/
     {
         path: '**',
         pathMatch: 'full',

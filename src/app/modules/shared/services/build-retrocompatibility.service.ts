@@ -461,6 +461,12 @@ export class BuildRetrocompatibilityService {
                 build.version = '0.8.3';
                 build.configuration.secondary_boost_stacks = 0;
             }
+        },
+        {
+            version: '1.0.0',
+            update: build => {
+                build.version = '1.0.0';
+            }
         }
     ];
 
