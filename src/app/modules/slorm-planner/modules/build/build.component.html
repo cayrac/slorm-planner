@@ -3,7 +3,7 @@
     <div class="tools">
         <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
     </div>
-    <nav mat-tab-nav-bar color="primary">
+    <nav mat-tab-nav-bar color="primary" *ngIf="error === null">
         <a mat-tab-link *ngFor="let route of ROUTES; let i = index"
             [routerLink]="route.route"
             routerLinkActive #rla="routerLinkActive"
@@ -17,10 +17,24 @@
         <app-build-sidenav [sidenav]="sidenav"></app-build-sidenav>
     </mat-sidenav>
     <mat-sidenav-content>
-        <app-build-header></app-build-header>
-        <router-outlet></router-outlet>
-        <img id="drag-background" [class.dragging]="isDragging" #dragBackground>
-        <img id="drag-image" [class.dragging]="isDragging" #dragImage>
+        <div *ngIf="error !== null" class="error">
+            <mat-card>
+                <mat-card-content>
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAkBAMAAABlFDcgAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAG1BMVEX///8pR3WCp85AZpdjksLJ2OaP0fYhSJD///8vXEhtAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAHdElNRQflCgwXBSdLL3NTAAAA2ElEQVQY01WRTXLDIAyFRaYH4GHYOw45gGsfoMSa7BmiG+QCuf+muDY/ZVjwSU/iCYj+lgK1pcytQzPxois54W2uwogXNwK7JlWWQ1pKEvyPnvx2jUTY1TrnRAopreIrpFPoIuHzgc7hnBKnjYXXe3g3onEP2ctOlMuiTwAhHpWGEwTx7Oo4zZDzQnWX7KTMq/zWD4tlrqSugiE08nFtBD+0Z8nTDtyT7UiF7013ZDoiVFtHV3REHV1swLXQxEDe41c+j4/8PYCdeTqEE/MCrDz+FPG2PkaiX0p3JXsh1hKHAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIxLTEwLTEyVDIxOjA1OjM5KzAyOjAwFRqLgwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMS0xMC0xMlQyMTowNTozOSswMjowMGRHMz8AAAAASUVORK5CYII=">
+                    <p>An unexpected error occured</p>
+                    <div class="report" (click)="copyCrash()">
+                        <span>Copy crash report</span>
+                        <mat-icon>content_copy</mat-icon>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <ng-container *ngIf="error === null">
+            <app-build-header></app-build-header>
+            <router-outlet></router-outlet>
+            <img id="drag-background" [class.dragging]="isDragging" #dragBackground>
+            <img id="drag-image" [class.dragging]="isDragging" #dragImage>
+        </ng-container>
     </mat-sidenav-content>
 </mat-sidenav-container>
 

@@ -52,7 +52,7 @@
         
         .actions {
             @include flex(row, center);
-            @include flex-gap($space-unit * 4);
+            @include flex-gap($space-unit * 2);
         }
     }
 

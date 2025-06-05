@@ -18,6 +18,8 @@ import { SlormPlannerRoutingModule } from './slorm-planner-routing.module';
         BuildModule,
         ViewModule,
         CreateModule
+    ],
+    providers: [
     ]
 })
 export class SlormPlannerModule { }

@@ -3054,7 +3054,7 @@ export const DATA_SKILL_1: { [key: number]: DataSkill } = {
     167: {
         masteryRequired: 3,
         override: values => {
-            setStat(values, 0, 'last_cast_tormented_crit_chance_percent');
+            setStat(values, 0, 'last_cast_tormented_crit_chance_percent_assassin_haste_buff');
         }
     },
     168: {

@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { SlormToolsComponent } from './core/components/slorm-tools/slorm-tools.component';
 import { MaterialModule } from './modules/shared/material.module';
 import { SlormApiModule } from './modules/slorm-api/slorm-api.module';
+import { BuildErrorHandler } from './modules/slorm-planner/handler/error-handler';
 
 @NgModule({
     declarations: [
@@ -22,6 +23,9 @@ import { SlormApiModule } from './modules/slorm-api/slorm-api.module';
         MaterialModule,
         HttpClientModule,
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    providers: [
+        {provide: ErrorHandler, useClass: BuildErrorHandler }
+    ]
 })
 export class AppModule { }

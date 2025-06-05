@@ -11,3 +11,13 @@ hr {
     margin-top: $space-unit * 4;
     margin-bottom: $space-unit * 4;
 }
+
+.more {
+    margin-top: $space-unit * 4;
+    text-align: right;
+    
+    a {
+        cursor: pointer;
+        opacity: 0.5;
+    }
+}

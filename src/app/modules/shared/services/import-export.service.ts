@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import {
-  Character,
-  CharacterConfig,
-  HeroClass,
-  SlormancerCharacterBuilderService,
-  SlormancerSaveParserService,
-  SlormancerShortDataService,
-  valueOrNull,
+    Character,
+    CharacterConfig,
+    HeroClass,
+    SlormancerCharacterBuilderService,
+    SlormancerSaveParserService,
+    SlormancerShortDataService,
+    valueOrNull,
 } from '@slorm-api';
 
 import { Build } from '../model/build';
@@ -123,6 +123,11 @@ export class ImportExportService {
     public exportCharacterAsLink(character: Character, config: CharacterConfig): string {
         const content = this.slormancerShortDataService.characterToShortData(character, config);
         return this.VIEW_BUILD_PATH + content
+    }
+
+    public exportCharacterAsDiscordLink(name: string, character: Character, config: CharacterConfig): string {
+        const link = this.exportCharacterAsLink(character, config);
+        return '[' + name + '](' + link + ')';
     }
 
     public importFromShortData(key: string): SharedData {

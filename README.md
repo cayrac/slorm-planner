@@ -20,3 +20,5 @@ Run `npm run start` to start the server on http://localhost:4200/
 `
 for file in *.png; do convert "$file" -transparent white "$file"; done
 `
+
+je vois que Exhilarating Speed ne s'applique pas en tourmenté, je note pour le fix plus tard

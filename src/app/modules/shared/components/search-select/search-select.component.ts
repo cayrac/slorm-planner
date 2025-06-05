@@ -31,6 +31,9 @@ export class SearchSelectComponent extends AbstractUnsubscribeComponent implemen
     public readonly options: Array<SelectOption<any>> = [];
 
     @Input()
+    public readonly validationOptions: Array<SelectOption<any>> | null = null;
+
+    @Input()
     public readonly noErrorPadding: boolean = false;
 
     @Input()
@@ -93,7 +96,12 @@ export class SearchSelectComponent extends AbstractUnsubscribeComponent implemen
     }
 
     public isStatInOptions(stat: string): boolean {
-        return this.options.some(option => option.value === stat);
+        let options = this.options;
+        if (this.validationOptions !== null) {
+            options = this.validationOptions;
+        }
+
+        return options.some(option => option.value === stat);
     }
 }
     

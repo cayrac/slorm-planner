@@ -36,10 +36,17 @@ export class ItemEditStatComponent extends AbstractUnsubscribeComponent implemen
     @Input()
     public readonly removable: boolean = false;
 
+    @Input()
+    public readonly hideGrafts: boolean = false;
+
     @Output()
     public readonly remove = new EventEmitter<void>();
 
     public options: Array<SelectOption<string>> = [];
+
+    public validationOptions: Array<SelectOption<string>> = [];
+
+
 
     public displayedValue: string = '';
 
@@ -57,7 +64,8 @@ export class ItemEditStatComponent extends AbstractUnsubscribeComponent implemen
                 this.form.controls.rarity.valueChanges
                     .pipe(takeUntil(this.unsubscribe))
                     .subscribe(rarity => {
-                        this.options = this.getOptions(this.itemLevel, this.itemBase, rarity);
+                        this.options = this.getOptions(this.itemLevel, this.itemBase, rarity, this.hideGrafts);
+                        this.validationOptions = this.getOptions(this.itemLevel, this.itemBase, rarity);
                     })
     
                 this.form.valueChanges
@@ -65,8 +73,9 @@ export class ItemEditStatComponent extends AbstractUnsubscribeComponent implemen
                     .subscribe(() => this.updateAffix());
             }
             
-            if ('form' in changes || 'itemBase' in changes || 'itemLevel' in changes) {
-                this.options = this.getOptions(this.itemLevel, this.itemBase, this.form.controls.rarity.value);
+            if ('form' in changes || 'itemBase' in changes || 'itemLevel' in changes || 'hideGrafts' in changes) {
+                this.options = this.getOptions(this.itemLevel, this.itemBase, this.form.controls.rarity.value, this.hideGrafts);
+                this.validationOptions = this.getOptions(this.itemLevel, this.itemBase, this.form.controls.rarity.value);
             }
             
             if ('form' in changes || 'itemLevel' in changes || 'itemReinforcement' in changes) {
@@ -75,8 +84,8 @@ export class ItemEditStatComponent extends AbstractUnsubscribeComponent implemen
         }
     }
 
-    private getOptions(itemLevel: number, base: EquipableItemBase, rarity: Rarity): Array<SelectOption<string>> {
-        return itemLevel > MAX_ITEM_LEVEL
+    private getOptions(itemLevel: number, base: EquipableItemBase, rarity: Rarity, hideGrafts: boolean = false): Array<SelectOption<string>> {
+        return (itemLevel > MAX_ITEM_LEVEL && !hideGrafts)
             ? this.itemFormService.getAllStatsOptions()
             : this.itemFormService.getStatsOptions(this.itemBase, rarity)
     }

@@ -1,0 +1,10 @@
+.discord-icon {
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+    background-color: currentColor;
+    -webkit-mask-image: url('../../img/discord.svg');
+    mask-image: url('../../img/discord.svg');
+    mask-repeat: no-repeat;
+    mask-size: 100%;
+}

@@ -3,13 +3,13 @@ import { BuildStorageService } from '@shared/services/build-storage.service';
 import { BuildService } from '@shared/services/build.service';
 import { MessageService } from '@shared/services/message.service';
 import {
-  Character,
-  CharacterConfig,
-  DEFAULT_CONFIG,
-  GameHeroesData,
-  HeroClass,
-  SlormancerCharacterBuilderService,
-  SlormancerSaveParserService,
+    Character,
+    CharacterConfig,
+    DEFAULT_CONFIG,
+    GameHeroesData,
+    HeroClass,
+    SlormancerCharacterBuilderService,
+    SlormancerSaveParserService,
 } from '@slorm-api';
 
 import { ClipboardService } from '../../services/clipboard.service';
@@ -90,6 +90,21 @@ export class CreateBuildFromGameComponent {
                 this.messageService.message('Link copied to clipboard');
             } else {
                 this.messageService.error('Failed to copy link to clipboard');
+            }
+        }
+    }
+
+    public copyDiscordLink() {
+        if (this.selectedClass !== null && this.characters !== null) {
+            let configuration = DEFAULT_CONFIG;
+            if (this.config !== null) {
+                configuration = { ...configuration, ...this.config }
+            }
+            const link = this.importExportService.exportCharacterAsDiscordLink(this.name, this.characters[this.selectedClass], configuration);
+            if (this.clipboardService.copyToClipboard(link)) {
+                this.messageService.message('Discord link copied to clipboard');
+            } else {
+                this.messageService.error('Failed to copy discord link to clipboard');
             }
         }
     }

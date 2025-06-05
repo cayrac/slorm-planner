@@ -7,12 +7,17 @@
         <div class="classes">
             <div class="head" *ngFor="let heroClass of HERO_CLASSES" [class.selected]="selectedClass === heroClass" (click)="selectedClass = heroClass">
                 <img src="assets/img/character/icon/{{heroClass}}/head.png" />
-                <div class="level">{{getLevel(heroClass)}}</div>
+                <div class="level"><span>{{getLevel(heroClass)}}</span></div>
             </div>
         </div>
     </div>
     <div class="actions">
         <button mat-flat-button class="create" color="primary" [disabled]="characters === null || selectedClass === null" (click)="createBuild()">Create build</button>
-        <button mat-icon-button [disabled]="characters === null || selectedClass === null" (click)="copyExternalLink()" matTooltip="Generate an external link of this build"><mat-icon>share</mat-icon></button>
+        <button mat-icon-button [disabled]="characters === null || selectedClass === null" (click)="copyExternalLink()" matTooltip="Generate an external link of this build">
+            <mat-icon>share</mat-icon>
+        </button>
+        <button mat-icon-button [disabled]="characters === null || selectedClass === null" (click)="copyDiscordLink()" matTooltip="Generate a discord link of this build">
+            <div class="discord-icon"></div>
+        </button>
     </div>
 </div>

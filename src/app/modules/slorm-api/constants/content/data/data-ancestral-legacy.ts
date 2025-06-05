@@ -229,7 +229,7 @@ export const DATA_ANCESTRAL_LEGACY: { [key: number]: DataAncestralLegacy } = {
     },
     34: {
         override: values => {
-            setStat(values, 0, 'garbage_stat');
+            setStat(values, 0, 'mana_on_hit_ancestral_strike');
             allowSynergyToCascade(values, 0);
             setSynergyAllowMinMax(values, 0, false);
         }
