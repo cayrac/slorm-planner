@@ -1,6 +1,6 @@
 import { GameDataTranslation } from "../../../../model";
 
-export const GAME_DATA_TRANSLATION: GameDataTranslation[] = [
+export const GAME_DATA_TRANSLATION: Array<Omit<GameDataTranslation, 'LOCAL'>> = [
     {
         "REF": "INTERFACE/BUTTONS/SETTINGS",
         "EN": "",

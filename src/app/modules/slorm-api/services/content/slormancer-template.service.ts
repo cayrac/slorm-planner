@@ -419,14 +419,14 @@ export class SlormancerTemplateService {
         const stats = splitData(data.STAT);
         const types = splitData(data.TYPE)
 
-        return this.parseTemplate(data.EN_DESC, stats, types)
+        return this.parseTemplate(data.LOCAL_DESC, stats, types)
     }
 
     public getActivableDescriptionTemplate(data: GameDataActivable): string {
         const stats = splitData(data.DESC_VALUE);
         const types = splitData(data.DESC_VALUE_REAL);
         
-        return this.parseTemplate(data.EN_DESCRIPTION, stats, types);
+        return this.parseTemplate(data.LOCAL_DESCRIPTION, stats, types);
     }
 
     public getSkillDescriptionTemplate(data: GameDataSkill): string {
@@ -434,7 +434,7 @@ export class SlormancerTemplateService {
             .map(stat => isDamageType(stat) ? '{damageType}' : stat);
         const types = splitData(data.DESC_VALUE_REAL);
         
-        const template = data.EN_DESCRIPTION.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
+        const template = data.LOCAL_DESCRIPTION.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
         return this.parseTemplate(template, stats, types);
     }
 
@@ -443,7 +443,7 @@ export class SlormancerTemplateService {
             .map(stat => isDamageType(stat) ? '{damageType}' : stat);
         const types = splitData(data.VALUE_REAL);
 
-        const template = data.EN_DESCRIPTION.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
+        const template = data.LOCAL_DESCRIPTION.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
 
         return this.parseTemplate(template, stats, types);
     }
@@ -452,7 +452,7 @@ export class SlormancerTemplateService {
         const stats = splitData(data.DESC_VALUE)
             .filter(value => !value.startsWith('*'));
         const types = splitData(data.DESC_VALUE_REAL);
-        const template = data.EN_DESCRIPTION.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
+        const template = data.LOCAL_DESCRIPTION.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
         return this.parseAncestralLegacyTemplate(template, stats, types);
     }
 
@@ -460,7 +460,7 @@ export class SlormancerTemplateService {
         const stats = splitData(data.STAT).filter(value => !value.startsWith('*'));
         const types = splitData(data.TYPE);
         
-        const template = data.EN_TEXT.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
+        const template = data.LOCAL_TEXT.replace(/ \([^\)]*?(%|\+|\-)[^\)]*?\)/g, '');
         return this.parseTemplate(template, stats, types);
     }
 

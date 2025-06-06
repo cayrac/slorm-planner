@@ -1,6 +1,4 @@
-import { GameDataAttribute } from "../../../../model";
-
-export const GAME_DATA_ATTRIBUTES: GameDataAttribute[] = [
+export const GAME_DATA_ATTRIBUTES = [
     {
         "REF": 0,
         "EN_TEXT": "",

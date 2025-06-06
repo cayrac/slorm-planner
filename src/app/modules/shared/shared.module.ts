@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { ActivableSlotComponent } from './components/activable-slot/activable-slot.component';
 import { ActivableViewComponent } from './components/activable-view/activable-view.component';
@@ -65,8 +66,9 @@ import { UltimatumEditModalComponent } from './components/ultimatum-edit-modal/u
 import { UltimatumSlotComponent } from './components/ultimatum-slot/ultimatum-slot.component';
 import { UltimatumViewComponent } from './components/ultimatum-view/ultimatum-view.component';
 import { UpgradeSlotComponent } from './components/upgrade-slot/upgrade-slot.component';
-import { ViewModalComponent } from './components/view-modal/view-modalcomponent';
+// import { ViewModalComponent } from './components/view-modal/view-modalcomponent';
 import { MaterialModule } from './material.module';
+import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 
 @NgModule({
     declarations: [
@@ -128,11 +130,12 @@ import { MaterialModule } from './material.module';
         RuneSlotComponent,
         RuneViewComponent,
         RunesEditModalComponent,
-        ViewModalComponent,
+        LanguageSelectorComponent,
     ],
     imports: [
         CommonModule,
         MaterialModule,
+        FormsModule,
     ],
     exports: [
         MaterialModule,
@@ -186,6 +189,7 @@ import { MaterialModule } from './material.module';
         RuneSlotComponent,
         RuneViewComponent,
         RunesEditModalComponent,
+        LanguageSelectorComponent,
     ],
     providers: [
     ],

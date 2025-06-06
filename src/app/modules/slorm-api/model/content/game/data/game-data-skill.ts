@@ -64,4 +64,7 @@ export interface GameDataSkill {
     AUTO_CD: number | null;
     COOLDOWN: number | null;
     EXTRA_NBR: string;
+    LOCAL: string;
+    LOCAL_NAME: string;
+    LOCAL_DESCRIPTION: string;
 }

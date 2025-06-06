@@ -38,4 +38,6 @@ export interface GameDataRune {
     DURATION_LEVEL: number | null;
     POWER: number | null;
     BLACKSMITH: number;
+    LOCAL_NAME: string;
+    LOCAL_DESCRIPTION: string;
 }
