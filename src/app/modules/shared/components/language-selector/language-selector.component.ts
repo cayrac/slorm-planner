@@ -1,8 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
 
 interface Language {
   code: string;
@@ -12,13 +8,7 @@ interface Language {
 @Component({
   selector: 'app-language-selector',
   templateUrl: './language-selector.component.html',
-  styleUrls: ['./language-selector.component.scss'],
-  imports: [
-    CommonModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    FormsModule
-  ]
+  styleUrls: ['./language-selector.component.scss']
 })
 export class LanguageSelectorComponent {
   languages: Language[] = [
