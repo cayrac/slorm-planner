@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { SlormancerTranslateService } from '@slorm-api';
+import { LanguageSelectorComponent } from '../../../modules/shared/components/language-selector/language-selector.component';
 
 @Component({
     selector: 'app-slorm-tools',
     templateUrl: './slorm-tools.component.html',
-    styleUrls: ['./slorm-tools.component.scss']
+    styleUrls: ['./slorm-tools.component.scss'],
+    imports: [LanguageSelectorComponent]
 })
 export class SlormToolsComponent {
 
