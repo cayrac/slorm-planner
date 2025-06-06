@@ -225,8 +225,8 @@ export class SlormancerAncestralLegacyService {
                 investedSlorm: 0,
                 totalSlormCost: 0,
 
-                relatedBuffs: this.extractBuffs(gameData.EN_DESCRIPTION, data !== null && data.additionalBuffs ? data.additionalBuffs : []),
-                relatedMechanics: this.extractMechanics(gameData.EN_DESCRIPTION, values, data !== null && data.additionalMechanics ? data.additionalMechanics : []),
+                relatedBuffs: this.extractBuffs(gameData.LOCAL_DESCRIPTION, data !== null && data.additionalBuffs ? data.additionalBuffs : []),
+                relatedMechanics: this.extractMechanics(gameData.LOCAL_DESCRIPTION, values, data !== null && data.additionalMechanics ? data.additionalMechanics : []),
 
                 typeLabel: '',
                 costLabel: null,

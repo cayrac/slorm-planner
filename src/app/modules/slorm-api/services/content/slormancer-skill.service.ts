@@ -406,9 +406,9 @@ export class SlormancerSkillService {
                 genresLabel: null,
                 costLabel: null,
 
-                relatedClassMechanics: this.extractSkillMechanics(gameDataSkill.EN_DESCRIPTION, heroClass, dataSkill === null || dataSkill.additionalClassMechanics === undefined ? [] : dataSkill.additionalClassMechanics, gameDataSkill.REF),
+                relatedClassMechanics: this.extractSkillMechanics(gameDataSkill.LOCAL_DESCRIPTION, heroClass, dataSkill === null || dataSkill.additionalClassMechanics === undefined ? [] : dataSkill.additionalClassMechanics, gameDataSkill.REF),
                 relatedMechanics: [],
-                relatedBuffs: this.extractBuffs(gameDataSkill.EN_DESCRIPTION),
+                relatedBuffs: this.extractBuffs(gameDataSkill.LOCAL_DESCRIPTION),
             
                 template: this.slormancerTemplateService.getSkillDescriptionTemplate(gameDataSkill),
                 values
@@ -416,7 +416,7 @@ export class SlormancerSkillService {
     
             this.applyOverride(upgrade, dataSkill);
 
-            upgrade.relatedMechanics = this.extractMechanics(gameDataSkill.EN_DESCRIPTION, values, dataSkill !== null && dataSkill.additionalMechanics ? dataSkill.additionalMechanics : []);
+            upgrade.relatedMechanics = this.extractMechanics(gameDataSkill.LOCAL_DESCRIPTION, values, dataSkill !== null && dataSkill.additionalMechanics ? dataSkill.additionalMechanics : []);
     
             this.updateUpgradeModel(upgrade);
             this.updateUpgradeView(upgrade);
