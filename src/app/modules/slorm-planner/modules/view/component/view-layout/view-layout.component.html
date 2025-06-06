@@ -1,0 +1,23 @@
+
+<div class="header">
+    <div class="tools">
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    </div>
+    <nav mat-tab-nav-bar color="primary">
+        <a mat-tab-link *ngFor="let route of ROUTES; let i = index"
+            [routerLink]="route.route"
+            routerLinkActive #rla="routerLinkActive"
+            [active]="rla.isActive">
+            <span translate>{{ route.name }}</span>
+        </a>
+    </nav>
+</div>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav>
+        <app-view-sidenav></app-view-sidenav>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <app-view-character></app-view-character>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
