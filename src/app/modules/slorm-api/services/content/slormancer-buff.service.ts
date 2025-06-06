@@ -19,7 +19,7 @@ export class SlormancerBuffService {
             const template = gameDataBuff.EN_DESCRIPTION.replace('@', '50');
 
             buff = {
-                name: gameDataBuff.EN_NAME,
+                name: gameDataBuff.LOCAL_NAME,
                 description: this.slormancerTemplateService.prepareBuffTemplate(template),
                 icon: 'buff/' + ref
             };

@@ -429,7 +429,7 @@ export class SlormancerItemService {
             const skill = this.slormancerDataService.getGameDataSkill(item.heroClass, item.skillEnchantment.craftedSkill);
             const min = valueOrDefault(firstValue(item.skillEnchantment.craftableValues), 0);
             const max = valueOrDefault(lastValue(item.skillEnchantment.craftableValues), 0);
-            item.skillEnchantment.label = this.slormancerTemplateService.getReaperEnchantmentLabel(this.SKILL_ENCHANTMENT_LABEL, item.skillEnchantment.effect.value, min, max, skill === null ? '??' : skill.EN_NAME);
+            item.skillEnchantment.label = this.slormancerTemplateService.getReaperEnchantmentLabel(this.SKILL_ENCHANTMENT_LABEL, item.skillEnchantment.effect.value, min, max, skill === null ? '??' : skill.LOCAL_NAME);
             item.skillEnchantment.icon = 'assets/img/icon/enchantment/skill/' + item.heroClass + '/' + item.skillEnchantment.craftedSkill + '.png';
         }
 

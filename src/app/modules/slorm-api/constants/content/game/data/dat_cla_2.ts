@@ -1,6 +1,6 @@
 import { GameDataSkill } from "../../../../model";
 
-export const GAME_DATA_MAGE_SKILL: GameDataSkill[] = [
+export const GAME_DATA_MAGE_SKILL: Array<Omit<GameDataSkill, 'LOCAL' | 'LOCAL_NAME' | 'LOCAL_DESCRIPTION'>> = [
     {
         "REF": 0,
         "EN_NAME": "Wall of Omen",

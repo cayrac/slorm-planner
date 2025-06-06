@@ -183,7 +183,7 @@ export class SlormancerSkillService {
                 maxLevel,
                 baseLevel,
                 bonusLevel,
-                name: gameDataSkill.EN_NAME,
+                name: gameDataSkill.LOCAL_NAME,
                 specialization: null,
                 specializationName: null,
                 icon: 'skill/' + heroClass + '/' + gameDataSkill.REF,
@@ -278,7 +278,7 @@ export class SlormancerSkillService {
         if (skill.specialization !== null) {
             const specialization = this.slormancerDataService.getGameDataSpecializationSkill(skill.heroClass, skill.specialization);
             if (specialization !== null) {
-                skill.specializationName = specialization.EN_NAME;
+                skill.specializationName = specialization.LOCAL_NAME;
             }
         }
         skill.nameLabel = [skill.specializationName, skill.name].filter(isNotNullOrUndefined).join('<br/>');
@@ -383,7 +383,7 @@ export class SlormancerSkillService {
                 upgradeLevel: gameDataSkill.UNLOCK_LEVEL,
                 maxRank,
                 baseRank: Math.min(maxRank, baseRank),
-                name: gameDataSkill.EN_NAME,
+                name: gameDataSkill.LOCAL_NAME,
                 icon: 'assets/img/icon/skill/' + heroClass + '/' + gameDataSkill.REF + '.png',
                 description: '',
                 initialCost: gameDataSkill.COST,

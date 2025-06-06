@@ -192,7 +192,7 @@ export class SlormancerAncestralLegacyService {
             const values = this.parseEffectValues(gameData);
             ancestralLegacy = {
                 id: ref,
-                name: gameData.EN_NAME,
+                name: gameData.LOCAL_NAME,
                 icon: 'assets/img/icon/legacy/' + ref + '.png',
                 description: '',
                 types: <Array<AncestralLegacyType>>splitData(gameData.TYPE, ','),
