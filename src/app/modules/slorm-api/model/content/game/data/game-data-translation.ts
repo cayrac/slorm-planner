@@ -13,4 +13,5 @@ export interface GameDataTranslation {
     PO: string;
     KR: string;
     TUR: string;
+    LOCAL: string;
 }

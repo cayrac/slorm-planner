@@ -51,7 +51,7 @@ export const GAME_DATA = {
         1: <Array<GameDataSkill>> localizeGameData(GAME_DATA_HUNTRESS_SKILL, ['', '_NAME', '_DESCRIPTION']),
         2: <Array<GameDataSkill>> localizeGameData(GAME_DATA_MAGE_SKILL, ['', '_NAME', '_DESCRIPTION'])
     },
-    TRANSLATION: <Array<GameDataTranslation>>GAME_DATA_TRANSLATION,
+    TRANSLATION: <Array<GameDataTranslation>> localizeGameData(GAME_DATA_TRANSLATION, ['']),
     BUFF: <Array<GameDataBuff>> localizeGameData(GAME_DATA_BUFF, ['_NAME', '_DESCRIPTION']),
     ANCESTRAL_LEGACY: <Array<GameDataAncestralLegacy>> localizeGameData(GAME_DATA_ANCESTRAL_LEGACY, ['_NAME', '_DESCRIPTION']),
     ATTRIBUTES: <Array<GameDataAttribute>> localizeGameData(GAME_DATA_ATTRIBUTES, ['_TEXT'])
