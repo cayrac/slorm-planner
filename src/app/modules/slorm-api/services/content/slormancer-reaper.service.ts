@@ -362,7 +362,7 @@ export class SlormancerReaperService {
         }
 
         return {
-            name: gameData.EN_NAME,
+            name: gameData.LOCAL_NAME,
             base: base.filter(isNotNullOrUndefined),
             benediction: benediction.filter(isNotNullOrUndefined),
             malediction: malediction.filter(isNotNullOrUndefined),
@@ -449,7 +449,7 @@ export class SlormancerReaperService {
             benediction: null,
             malediction: null,
             activables: [],
-            lore: this.slormancerTemplateService.getReaperLoreTemplate(gameData.EN_LORE),
+            lore: this.slormancerTemplateService.getReaperLoreTemplate(gameData.LOCAL_LORE),
             templates: this.getReaperTemplates(gameData, weaponClass),
             smith: { id: gameData.BLACKSMITH ?? ReaperSmith.Adrianne, name: '' },
             damageType: 'weapon_damage',

@@ -21,4 +21,5 @@ export interface GameDataAttribute {
     PO_TEXT: string;
     KR_TEXT: string;
     TUR_TEXT: string;
+    LOCAL_TEXT: string;
 }

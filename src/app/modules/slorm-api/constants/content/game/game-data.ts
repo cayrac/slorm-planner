@@ -1,3 +1,4 @@
+import { LanguageService } from '@shared/services/language.service';
 import { GameDataActivable } from '../../../model/content/game/data/game-data-activable';
 import { GameDataAncestralLegacy } from '../../../model/content/game/data/game-data-ancestral-legacy';
 import { GameDataAttribute } from '../../../model/content/game/data/game-data-attribute';
@@ -20,20 +21,38 @@ import { GAME_DATA_REAPER } from './data/dat_rea';
 import { GAME_DATA_RUNE } from './data/dat_run';
 import { GAME_DATA_STAT } from './data/dat_sta';
 import { GAME_DATA_TRANSLATION } from './data/dat_str';
+import { GameDataReaper } from '../../../model';
+
+const langService = new LanguageService();
+
+function localizeGameData(data: any, suffixList: string[]) {
+  const currentLang = langService.getCurrentLanguage();
+  const localizedData = data.map((item: any) => {
+    const newItem = { ...item };
+    suffixList.forEach(suffix => {
+      const key = `${currentLang}${suffix}`;
+      if (key in item) {
+        newItem[`LOCAL${suffix}`] = item[key];
+      }
+    });
+    return newItem;
+  });
+  return localizedData;
+}
 
 export const GAME_DATA = {
-    REAPER: GAME_DATA_REAPER,
+    REAPER: <Array<GameDataReaper>> localizeGameData(GAME_DATA_REAPER, ['_NAME', '_DESC', '_LORE']),
     STAT: <Array<GameDataStat>> GAME_DATA_STAT,
-    LEGENDARY: <Array<GameDataLegendary>> GAME_DATA_LEGENDARY,
-    RUNE: <Array<GameDataRune>> GAME_DATA_RUNE,
-    ACTIVABLE: <Array<GameDataActivable>> GAME_DATA_ACTIVABLES,
+    LEGENDARY: <Array<GameDataLegendary>> localizeGameData(GAME_DATA_LEGENDARY, ['_NAME', '_DESC']),
+    RUNE: <Array<GameDataRune>> localizeGameData(GAME_DATA_RUNE, ['_NAME', '_DESCRIPTION']),
+    ACTIVABLE: <Array<GameDataActivable>> localizeGameData(GAME_DATA_ACTIVABLES, ['_NAME', '_DESCRIPTION']),
     SKILL: <GameHeroesData<Array<GameDataSkill>>> {
-        0: <Array<GameDataSkill>>GAME_DATA_WARRIOR_SKILL,
-        1: <Array<GameDataSkill>>GAME_DATA_HUNTRESS_SKILL,
-        2: <Array<GameDataSkill>>GAME_DATA_MAGE_SKILL
+        0: <Array<GameDataSkill>> localizeGameData(GAME_DATA_WARRIOR_SKILL, ['', '_NAME', '_DESCRIPTION']),
+        1: <Array<GameDataSkill>> localizeGameData(GAME_DATA_HUNTRESS_SKILL, ['', '_NAME', '_DESCRIPTION']),
+        2: <Array<GameDataSkill>> localizeGameData(GAME_DATA_MAGE_SKILL, ['', '_NAME', '_DESCRIPTION'])
     },
     TRANSLATION: <Array<GameDataTranslation>>GAME_DATA_TRANSLATION,
-    BUFF: <Array<GameDataBuff>>GAME_DATA_BUFF,
-    ANCESTRAL_LEGACY: <Array<GameDataAncestralLegacy>>GAME_DATA_ANCESTRAL_LEGACY,
-    ATTRIBUTES: <Array<GameDataAttribute>>GAME_DATA_ATTRIBUTES
+    BUFF: <Array<GameDataBuff>> localizeGameData(GAME_DATA_BUFF, ['_NAME', '_DESCRIPTION']),
+    ANCESTRAL_LEGACY: <Array<GameDataAncestralLegacy>> localizeGameData(GAME_DATA_ANCESTRAL_LEGACY, ['_NAME', '_DESCRIPTION']),
+    ATTRIBUTES: <Array<GameDataAttribute>> localizeGameData(GAME_DATA_ATTRIBUTES, ['_TEXT'])
 };

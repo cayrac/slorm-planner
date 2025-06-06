@@ -37,5 +37,7 @@ export interface GameDataLegendary {
     HERO: -1 | 0 | 1 | 2 | 99 | 999,
     SKILL: string,
     STAT_ONLY: boolean | null,
-    LOOTABLE: boolean
+    LOOTABLE: boolean;
+    LOCAL_NAME: string;
+    LOCAL_DESC: string;
 }

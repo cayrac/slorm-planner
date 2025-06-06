@@ -27,5 +27,7 @@ export interface GameDataBuff {
     VISUAL: string;
     FLOAT_TEXT: string;
     IS_TICKING: boolean | null;
-    KEEP_ON_HUB: null
+    KEEP_ON_HUB: null;
+    LOCAL_NAME: string;
+    LOCAL_DESCRIPTION: string;
 }

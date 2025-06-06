@@ -34,4 +34,6 @@ export interface GameDataActivable {
   ID_BASED_ON: number;
   ON_REAPER_PRIMORDIAL: boolean;
   AURA_BUFF_NAME: string;
+  LOCAL_NAME: string;
+  LOCAL_DESCRIPTION: string;
 }
