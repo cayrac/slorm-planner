@@ -1,4 +1,5 @@
 <div appearance="fill" class="app-language-selector">
+    <mat-icon class="language-icon">language</mat-icon>
     <mat-select [(ngModel)]="selectedLanguage" (selectionChange)="onLanguageChange()">
         <mat-option *ngFor="let lang of languages" [value]="lang.code">
             {{lang.displayName}}
