@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { LanguageService } from '../../services/language.service';
 
 interface Language {
   code: string;
@@ -10,23 +11,33 @@ interface Language {
   templateUrl: './language-selector.component.html',
   styleUrls: ['./language-selector.component.scss']
 })
-export class LanguageSelectorComponent {
+export class LanguageSelectorComponent implements OnInit {
   languages: Language[] = [
     { code: 'EN', displayName: 'English' },
-    { code: 'FR', displayName: 'French' },
-    { code: 'CH', displayName: 'Chinese Simplified' },
-    { code: 'TW', displayName: 'Chinese Traditional' },
-    { code: 'JP', displayName: 'Japanese' },
-    { code: 'DE', displayName: 'German' },
-    { code: 'ES', displayName: 'Spanish' },
-    { code: 'RU', displayName: 'Russian' },
-    { code: 'KR', displayName: 'Korean' }
+    { code: 'FR', displayName: 'Français' },
+    { code: 'CH', displayName: '简体中文' },
+    { code: 'TW', displayName: '繁體中文' },
+    { code: 'JP', displayName: '日本語' },
+    { code: 'DE', displayName: 'Deutsch' },
+    { code: 'ES', displayName: 'Español' },
+    { code: 'RU', displayName: 'Русский' },
+    { code: 'KR', displayName: '한국어' }
   ];
 
-  selectedLanguage: string = 'EN';
+  selectedLanguage: string;
+
+  constructor(private languageService: LanguageService) {
+    this.selectedLanguage = this.languageService.getCurrentLanguage();
+  }
+
+  ngOnInit(): void {
+    // 订阅语言变更
+    this.languageService.getLanguageChanges().subscribe(language => {
+      this.selectedLanguage = language;
+    });
+  }
 
   onLanguageChange(): void {
-    // 暂时留空，后续可以添加具体实现
-    console.log('Selected language:', this.selectedLanguage);
+    this.languageService.setLanguage(this.selectedLanguage);
   }
 } 
