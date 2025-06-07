@@ -49,6 +49,7 @@ export interface Reaper {
     damagesBase: MinMax;
     damagesLevel: MinMax;
     damagesMultiplier: number;
+    evolve_into: number | null;
 
     smithLabel: string;
     victimsLabel: string;
