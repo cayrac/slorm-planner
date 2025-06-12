@@ -12762,7 +12762,7 @@ export const GAME_DATA_BUFF = [
         "VISUAL": "burn",
         "FLOAT_TEXT": "buff_burning",
         "IS_TICKING": true,
-        "KEEP_ON_HUB": null
+        "KEEP_ON_HUB": false
     },
     {
         "REF": "enemy_chill",

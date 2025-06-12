@@ -11028,7 +11028,7 @@ export const GAME_DATA_WARRIOR_SKILL: GameDataSkill[] = [
         "TW_NAME": "報仇雪恨",
         "TW_DESCRIPTION": "你獲得+@£。 #反擊在¥秒內造成傷害。",
         "JP_NAME": "復讐はじっくり時間をかけて",
-        "JP_DESCRIPTION": "#ERROR!",
+        "JP_DESCRIPTION": "+@が£される。#報復は¥秒間のダメージとして与えられるようになる。",
         "DE_NAME": "Rache ist süß",
         "DE_DESCRIPTION": "Du hast +@ £.#Vergeltung verursacht ihren Schaden nun im Laufe von ¥ Sekunden.",
         "ES_NAME": "La Venganza Se Sirve Fría",
