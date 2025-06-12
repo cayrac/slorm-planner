@@ -31,7 +31,12 @@ export class ItemEditLegendaryEffectComponent extends AbstractUnsubscribeCompone
     @Input()
     public readonly form: FormGroup<ItemLegendaryEffectFormGroup> | null = null;
 
+    @Input()
+    public readonly hideGrafts: boolean = false;
+
     public options: Array<SelectOption<number>> = [];
+
+    public validationOptions: Array<SelectOption<number>> = [];
 
     public displayedValue: string = '';
 
@@ -60,9 +65,11 @@ export class ItemEditLegendaryEffectComponent extends AbstractUnsubscribeCompone
             this.updateLegendaryEffect(this.form.controls.id.value, this.form.controls.value.value);
         }
         const graft = this.itemLevel > MAX_ITEM_LEVEL;
-        this.options = graft
+        this.options = (graft && !this.hideGrafts)
             ? this.itemFormService.getAllLegendaryOptions(this.heroClass)
             : this.itemFormService.getLegendaryOptions(this.base, this.heroClass);
+        this.validationOptions = this.itemFormService.getAllLegendaryOptions(this.heroClass);
+        
         if (this.form !== null) {
             this.possible = this.isLegendaryPossible(this.form.controls.id.value);
         }

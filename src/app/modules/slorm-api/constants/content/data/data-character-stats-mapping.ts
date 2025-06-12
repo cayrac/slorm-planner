@@ -1070,7 +1070,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
                     condition: config => config.has_nimble_buff, 
                     multiplier: (config, stats) => 1 + (valueOrDefault(getFirstStat(stats, 'nimble_champion_percent'), 100) / 100) * Math.min(config.nimble_champion_stacks, valueOrDefault(getMaxStacks(stats, 'nimble_champion_max_stacks'), 0))
                 },
-                { stat: 'last_cast_tormented_crit_chance_percent', condition: config => config.last_cast_tormented },
+                { stat: 'last_cast_tormented_crit_chance_percent_assassin_haste_buff', condition: config => config.last_cast_tormented && config.has_assassin_haste_buff },
                 { stat: 'smoke_screen_buff_crit_chance_percent', condition: config => config.has_smoke_screen_buff },
                 { stat: 'crit_chance_percent_per_enemy_in_aoe', condition: config => config.enemies_in_rain_of_arrow > 0, multiplier: config => config.enemies_in_rain_of_arrow },
                 { stat: 'blademaster_crit_chance_percent', multiplier: (_, stats) => [3, 9].includes(getFirstStat(stats, 'primary_skill', -1)) || [3, 9].includes(getFirstStat(stats, 'secondary_skill', -1)) ? 2 : 1 },

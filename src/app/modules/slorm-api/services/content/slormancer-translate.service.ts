@@ -41,6 +41,7 @@ export class SlormancerTranslateService {
         frostfire_armor_fire_resistance_percent: 'fire_resistance',
         frostfire_armor_ice_resistance_percent: 'ice_resistance',
         focus_mana_regen_percent: 'mana_regen_percent',
+        mana_on_hit_ancestral_strike: 'mana_on_hit',
         elemental_resources_min_elemental_damage_add_on_low_mana: 'elemental_damage',
         aura_air_conditionner_enemy_cooldown_reduction_global_mult: 'attack_speed',
         aura_neriya_shield_res_mag_add: 'elemental_resist',

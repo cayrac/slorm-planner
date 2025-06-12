@@ -92,8 +92,9 @@ export interface ItemSkillFormData {
 }
 
 export interface ItemFormGroup {
-    level: FormControl<number>,
-    reinforcement: FormControl<number>,
+    level: FormControl<number>;
+    reinforcement: FormControl<number>;
+    hideGrafts: FormControl<boolean>;
     affixes: FormArray<FormGroup<ItemAffixFormGroup>>;
     legendary: FormGroup<ItemLegendaryEffectFormGroup>;
     reaper: FormGroup<ItemReaperFormGroup>;
@@ -102,8 +103,9 @@ export interface ItemFormGroup {
 }
 
 export interface ItemFormData {
-    level: number,
-    reinforcement: number,
+    level: number;
+    reinforcement: number;
+    hideGrafts: boolean;
     affixes: ItemAffixFormData[];
     legendary: ItemLegendaryEffectFormData;
     reaper: ItemReaperFormData;
@@ -137,6 +139,7 @@ export class ItemEditModalComponent {
     public form: FormGroup<ItemFormGroup> = new FormGroup({
         level: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(1), Validators.max(MAX_NEITHER_ITEM_LEVEL), Validators.pattern(/^[0-9]+$/)] }),
         reinforcement: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(0), Validators.pattern(/^[0-9]+$/)] }),
+        hideGrafts: new FormControl<boolean>(false, { nonNullable: true }),
         affixes: new FormArray<FormGroup<ItemAffixFormGroup>>([]),
         legendary: new FormGroup({
             id: new FormControl<number | null>(null),
@@ -194,6 +197,7 @@ export class ItemEditModalComponent {
         this.form.reset({
             level: this.item.level,
             reinforcement: this.item.reinforcement,
+            hideGrafts: false,
             affixes: this.item.affixes.map(affix => ({
                 pure: affix.isPure,
                 purity: affix.pure,

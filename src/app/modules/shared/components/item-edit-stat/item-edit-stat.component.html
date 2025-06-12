@@ -1,8 +1,10 @@
 <div class="stat-line" [formGroup]="form"  *ngIf="form !== null && affix !== null">
     <div class="select">
-        <app-search-select [placeholder]="STATS_LABELS[form.controls.stat.value] ?? null"
+        <app-search-select
+            [placeholder]="STATS_LABELS[form.controls.stat.value] ?? null"
             [control]="form.controls.stat"
             [options]="options"
+            [validationOptions]="validationOptions"
             [disabledOptions]="alreadyUsedStats"
             notFoundMessage="This stat is not possible for this rarity">
         </app-search-select>

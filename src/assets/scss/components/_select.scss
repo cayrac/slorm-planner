@@ -24,7 +24,8 @@ mat-select.mat-select {
     }
 }
 
-.mat-select-panel {
+div.mat-select-panel {
+    max-height: 300px;
 
     &.has-search::before {
         content: '';
@@ -36,6 +37,9 @@ mat-select.mat-select {
         background-color: primary-color(400);
 
         mat-option.mat-option {
+            //line-height: 2.5em;
+            //height: 2.5em;
+
             .mat-option-text {
                 color: $text-color;
             }

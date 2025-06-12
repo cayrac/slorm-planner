@@ -1,6 +1,10 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { AbstractUnsubscribeComponent } from '@shared/components/abstract-unsubscribe/abstract-unsubscribe.component';
+import { CrashReport } from '@shared/model/crash-report';
+import { BuildStorageService } from '@shared/services/build-storage.service';
+import { ClipboardService } from '@shared/services/clipboard.service';
 import { ItemMoveService } from '@shared/services/item-move.service';
+import { MessageService } from '@shared/services/message.service';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -18,10 +22,11 @@ export class BuildComponent extends AbstractUnsubscribeComponent {
         { name: 'Stats', route: 'stats'},
         { name: 'Config', route: 'config'},
         { name: 'Compare', route: 'compare'},
-        //{ name: 'Calcs', route: 'calcs'},
     ];
 
     public isDragging: boolean = false;
+
+    public error: CrashReport | null = null;
 
     @ViewChild('dragImage')
     private dragImage: ElementRef<HTMLImageElement> | null = null;
@@ -52,7 +57,12 @@ export class BuildComponent extends AbstractUnsubscribeComponent {
         this.itemMoveService.releaseHoldItem();
     }
 
-    constructor(private itemMoveService: ItemMoveService) {
+    constructor(
+        private itemMoveService: ItemMoveService,
+        private buildStorageService: BuildStorageService,
+        private clipboardService: ClipboardService,
+        private messageService: MessageService,
+    ) {
         super();
         this.itemMoveService.draggingItem
             .pipe(takeUntil(this.unsubscribe))
@@ -64,5 +74,21 @@ export class BuildComponent extends AbstractUnsubscribeComponent {
                     this.dragBackground.nativeElement.src = item.itemIconBackground;
                 }
             });
+        
+        this.buildStorageService.errorChanged
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(error => this.error = error);
+    }
+
+    public copyCrash() {
+        if (this.error !== null) {
+            ;
+
+            if (this.clipboardService.copyToClipboard(JSON.stringify(this.error))) {
+                this.messageService.message('Crash report copied to clipboard');
+            } else {
+                this.messageService.error('Failed to copy crash report to clipboard');
+            }
+        }
     }
 }

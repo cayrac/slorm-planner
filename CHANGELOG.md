@@ -418,5 +418,17 @@
 ### Removed
 - beta branch is no longer available, existing beta build links are redirected to the non beta version
 
+## Release 1.0.1 (2025-06-XX)
+### Fixes
+- Fixed Power Surge description
+- Fixed Exhilarating Speed effect condition
+- Crashed builds can now be deleted
+### Added
+- Added a crash page in case of unexepcted error
+- Added an option in item edition to hide graft only affixes
+- Added an export as discord link button
+### Changed
+- The new build component now only show the build from save option by default
+
 ## TODO
 - update packages ?

@@ -17,6 +17,11 @@
                     <mat-error>Reinforcement must be >= 0</mat-error>
                 </mat-form-field>
             </div>
+            <div class="form-line" *ngIf="item.level > 100">
+                <mat-checkbox color="primary" formControlName="hideGrafts">
+                    Hide graft only affixes from selection
+                </mat-checkbox>
+            </div>
             <div class="form-info">
                 <div class="label">
                     Base Stats :
@@ -33,6 +38,7 @@
                         [itemLevel]="item.level"
                         [itemReinforcement]="item.reinforcement"
                         [alreadyUsedStats]="alreadyUsedStats"
+                        [hideGrafts]="form.controls.hideGrafts.value"
                         [removable]="false"
                         (remove)="removeAffix(affixControl)">
                     </app-item-edit-stat>
@@ -53,6 +59,7 @@
                     [itemLevel]="item.level"
                     [itemReinforcement]="item.reinforcement"
                     [alreadyUsedStats]="alreadyUsedStats"
+                    [hideGrafts]="form.controls.hideGrafts.value"
                     [removable]="!hasRareStats() && !hasEpicStats() && !hasMagicStats()"
                     (remove)="removeAffix(affixControl)">
                 </app-item-edit-stat>
@@ -72,6 +79,7 @@
                     [itemLevel]="item.level"
                     [itemReinforcement]="item.reinforcement"
                     [alreadyUsedStats]="alreadyUsedStats"
+                    [hideGrafts]="form.controls.hideGrafts.value"
                     [removable]="!hasRareStats() && !hasEpicStats()"
                     (remove)="removeAffix(affixControl)">
                 </app-item-edit-stat>
@@ -91,6 +99,7 @@
                     [itemLevel]="item.level"
                     [itemReinforcement]="item.reinforcement"
                     [alreadyUsedStats]="alreadyUsedStats"
+                    [hideGrafts]="form.controls.hideGrafts.value"
                     [removable]="!hasEpicStats()"
                     (remove)="removeAffix(affixControl)">
                 </app-item-edit-stat>
@@ -110,6 +119,7 @@
                     [itemLevel]="item.level"
                     [itemReinforcement]="item.reinforcement"
                     [alreadyUsedStats]="alreadyUsedStats"
+                    [hideGrafts]="form.controls.hideGrafts.value"
                     [removable]="true"
                     (remove)="removeAffix(affixControl)">
                 </app-item-edit-stat>
@@ -119,6 +129,7 @@
                 [itemLevel]="item.level"
                 [itemReinforcement]="item.reinforcement"
                 [heroClass]="item.heroClass"
+                [hideGrafts]="form.controls.hideGrafts.value"
                 [form]="form.controls.legendary">
             </app-item-edit-legendary-effect>
             <app-item-edit-buff-reaper

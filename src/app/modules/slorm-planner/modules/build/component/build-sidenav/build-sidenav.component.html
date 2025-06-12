@@ -19,7 +19,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <button mat-icon-button color="primary" matTooltip="Edit build name" (click)="editBuild()"><mat-icon>edit</mat-icon></button>
+            <button mat-icon-button color="primary" [disabled]="crashed" [matTooltip]="crashed ? 'Cannot edit a crashed build\'s name' : 'Edit build name'" (click)="editBuild()"><mat-icon>edit</mat-icon></button>
             <button mat-icon-button color="primary" matTooltip="Delete build" (click)="deleteBuild()"><mat-icon>delete</mat-icon></button>
         </div>
         <button mat-flat-button color="primary" (click)="createNewBuild()">New build</button>
@@ -34,15 +34,25 @@
             (import)="import($event)">
         </app-import-data>
     </div>
+    <ng-container *ngIf="!crashed">
     <hr/>
     <div class="export">
         <h3>Export</h3>
         <div class="export-details">
             <p>Current layer</p>
             <div class="actions">
-                <button mat-icon-button (click)="!busy && downloadLayer()" matTooltip="Download"><mat-icon>file_download</mat-icon></button>
-                <button mat-icon-button (click)="!busy && copyLayer()" matTooltip="Copy to clipboard"><mat-icon>content_copy</mat-icon></button>
-                <button mat-icon-button (click)="!busy && copyExternalLink()" matTooltip="External link"><mat-icon>share</mat-icon></button>
+                <button mat-icon-button (click)="!busy && downloadLayer()" matTooltip="Download">
+                    <mat-icon>file_download</mat-icon>
+                </button>
+                <button mat-icon-button (click)="!busy && copyLayer()" matTooltip="Copy to clipboard">
+                    <mat-icon>content_copy</mat-icon>
+                </button>
+                <button mat-icon-button (click)="!busy && copyExternalLink()" matTooltip="External link">
+                    <mat-icon>share</mat-icon>
+                </button>
+                <button mat-icon-button (click)="!busy && copyDiscordLink()" matTooltip="Discord link">
+                    <div class="discord-icon"></div>
+                </button>
                 
             </div>
         </div>
@@ -54,6 +64,7 @@
             </div>
         </div>
     </div>
+    </ng-container>
 
     <div class="info">
         Slorm Planner {{VERSION}} - <a target="blank" [href]="GITHUB_PROJECT_LINK">Github</a> - <a target="blank" [href]="GAME_LINK">The Slormancer</a>

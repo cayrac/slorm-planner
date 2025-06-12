@@ -49,6 +49,8 @@ export class BuildSidenavComponent extends AbstractUnsubscribeComponent implemen
 
     public busy: boolean = false;
 
+    public crashed: boolean = false;
+
     public readonly buildControl = new FormControl();
 
     constructor(private messageService: MessageService,
@@ -68,6 +70,9 @@ export class BuildSidenavComponent extends AbstractUnsubscribeComponent implemen
             .subscribe(() => {
                 this.buildControl.setValue(this.buildStorageService.getBuildPreview(), { emitEvent: false });
             });
+        this.buildStorageService.errorChanged
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(error => this.crashed = error !== null);
     }
 
     public ngOnInit() {
@@ -188,12 +193,28 @@ export class BuildSidenavComponent extends AbstractUnsubscribeComponent implemen
         }
     }
 
-    public deleteBuild() {
+    public copyDiscordLink() {
+        const layer = this.buildStorageService.getLayer();
         const build = this.buildStorageService.getBuild();
 
-        if (build !== null) {
+        if (layer !== null && build !== null) {
+            const discordLink = this.importExportService.exportCharacterAsDiscordLink(build.name, layer.character, build.configuration);
+            if (this.clipboardService.copyToClipboard(discordLink)) {
+                this.messageService.message('Discord link copied to clipboard');
+            } else {
+                this.messageService.error('Failed to copy discord link to clipboard');
+            }
+        }
+    }
+
+    public deleteBuild() {
+        const preview = this.buildStorageService.getBuildPreview();
+
+        console.log('delete build')
+
+        if (preview !== null) {
             const data: DeleteBuildModalData = {
-                name: build.name
+                name: preview.name
             }
             this.dialog.open(DeleteBuildModalComponent, { data })
                 .afterClosed().subscribe((confirm: boolean) => {

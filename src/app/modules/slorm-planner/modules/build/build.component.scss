@@ -8,9 +8,31 @@
     @include flex(column, stretch);
 }
 
+.error {
+    @include flex(column, center, flex-start);
+
+    mat-card {
+        width: 300px;
+
+        mat-card-content {
+            @include flex(column, center, flex-start);
+            img {
+                width: 100px;
+            }
+
+            .report {
+                @include flex(row, center);
+                gap: 8px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
 .header {
     @include flex(row, center);
     z-index: 2;
+    min-height: 30px;
 
     background-color: primary-color(700);
     @include mat.elevation(4, primary-color(100));

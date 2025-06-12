@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Character, SlormancerCharacterUpdaterService, valueOrDefault, valueOrNull } from '@slorm-api';
 import { BehaviorSubject, debounceTime, Subject } from 'rxjs';
 
+import { CrashReport } from '@shared/model/crash-report';
 import { environment } from '../../../../environments/environment';
 import { Build } from '../model/build';
 import { BuildPreview } from '../model/build-preview';
@@ -28,9 +29,13 @@ export class BuildStorageService {
 
     private layer: Layer | null = null;
 
+    private crash: CrashReport | null = null;
+
     public readonly buildChanged = new BehaviorSubject<Build | null>(null);
 
     public readonly layerChanged = new BehaviorSubject<Layer | null>(null);
+
+    public readonly errorChanged = new BehaviorSubject<CrashReport | null>(null);
 
     public readonly saveTrigger = new Subject<void>();
 
@@ -58,13 +63,23 @@ export class BuildStorageService {
         const oldData = localStorage.getItem(oldKey);
 
         if (oldData !== null && this.builds.length === 0) {
-            const build = this.jsonConverterService.jsonToBuild(JSON.parse(oldData))
+            let build: Build | null = null;
 
-            this.addBuild(build);
-            
-            localStorage.removeItem(oldKey);
+            try {
+                build = this.jsonConverterService.jsonToBuild(JSON.parse(oldData))
+            } catch (e) {
+                console.error('Failed to convert build from old format : ', e);
+            }
 
-            this.saveToStorage();
+            if (build !== null) {
+
+                this.addBuild(build);
+                
+                localStorage.removeItem(oldKey);
+
+                this.saveToStorage();
+
+            }
         }
     }
 
@@ -72,10 +87,15 @@ export class BuildStorageService {
         this.builds = [];
         this.build = null;
         this.layer = null;
+        this.crash = null;
+        let buildsData: string | null = null;
+        let buildStorageKey: string | null = null;
+        let buildData: string | null = null;
+        let layerIndex: number | null = null;
         try {
-            const buildsData = localStorage.getItem(this.BUILDS_STORAGE_KEY);
-            const buildData = localStorage.getItem(this.CURRENT_BUILD_STORAGE_KEY);
-            const layerIndex = this.getCurrentLayerIndex();
+            buildsData = localStorage.getItem(this.BUILDS_STORAGE_KEY);
+            buildStorageKey = localStorage.getItem(this.CURRENT_BUILD_STORAGE_KEY);
+            layerIndex = this.getCurrentLayerIndex();
 
             if (buildsData !== null) {
                 this.builds = JSON.parse(buildsData);
@@ -88,10 +108,10 @@ export class BuildStorageService {
                 localStorage.removeItem(this.BETA_BUILDS_STORAGE_KEY);
             }
 
-            if (buildData !== null) {
-                const buildContentData = localStorage.getItem(buildData);
-                if (buildContentData !== null) {
-                    this.build = this.jsonConverterService.jsonToBuild(JSON.parse(buildContentData));
+            if (buildStorageKey !== null) {
+                buildData = localStorage.getItem(buildStorageKey);
+                if (buildData !== null) {
+                    this.build = this.jsonConverterService.jsonToBuild(JSON.parse(buildData));
                     this.buildRetrocompatibilityService.updateToLatestVersion(this.build);
                 }
             }
@@ -110,10 +130,33 @@ export class BuildStorageService {
 
         } catch (e) {
             console.error('Failed to reload build : ', e);
+            this.crash = this.buildCrashReport(e, buildsData, buildStorageKey, buildData, layerIndex);
         }
 
-        this.buildChanged.next(this.build);
-        this.layerChanged.next(this.layer);
+        this.pushChanges(this.build, this.layer, this.crash);
+    }
+
+    private buildCrashReport(error: any, builds: string | null, buildKey: string | null, build: string | null, layerIndex: number | null): CrashReport {
+        let message = 'unknown error';
+        let stack = null;
+
+        if (error) {
+            if (error instanceof Error) {
+                message = error.message;
+                stack = error.stack ?? null;
+            } else if (typeof error === 'object' && 'constructor' in error) {
+                message = 'unknown error of type ' + error.constructor.name;
+            }
+        }
+
+        return {
+            message,
+            stack,
+            builds,
+            buildKey,
+            build,
+            layerIndex
+        };
     }
 
     private saveToStorage() {
@@ -129,6 +172,23 @@ export class BuildStorageService {
                 layerIndex = this.build.layers.indexOf(this.layer);
             }
             localStorage.setItem(this.CURRENT_LAYER_STORAGE_KEY, layerIndex < 0 ? '0' : layerIndex.toString());
+        }
+    }
+
+    private pushChanges(build: Build | null, layer: Layer | null, error: CrashReport | null) {
+        this.buildChanged.next(build);
+        this.layerChanged.next(layer);
+        this.errorChanged.next(error);
+    }
+
+    public pushCrashReport(error: any) {
+        if (this.crash === null) {
+            const buildsData = localStorage.getItem(this.BUILDS_STORAGE_KEY);
+            const buildStorageKey = localStorage.getItem(this.CURRENT_BUILD_STORAGE_KEY);
+            const layerIndex = this.getCurrentLayerIndex();
+            const buildData = buildStorageKey === null ? null : localStorage.getItem(buildStorageKey)
+            this.crash = this.buildCrashReport(error, buildsData, buildStorageKey, buildData, layerIndex);
+            this.errorChanged.next(this.crash);
         }
     }
 
@@ -159,8 +219,8 @@ export class BuildStorageService {
                 this.saveTrigger.next();
             }
 
-            this.buildChanged.next(this.build);
-            this.layerChanged.next(this.layer);
+            
+            this.pushChanges(this.build, this.layer, this.crash);
         }
     }
 

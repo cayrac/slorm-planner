@@ -38,6 +38,7 @@
                 }
     
                 .level {
+                    @include flex(column, center, center);
                     position: absolute;
                     bottom: $space-unit * -5;
                     width: $space-unit * 6;
