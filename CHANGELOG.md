@@ -418,15 +418,17 @@
 ### Removed
 - beta branch is no longer available, existing beta build links are redirected to the non beta version
 
-## Release 1.0.1 (2025-06-XX)
+## Release 1.0.1 (2025-06-XX) TODO 1.0.1e
 ### Fixes
 - Fixed Power Surge description
 - Fixed Exhilarating Speed effect condition
 - Crashed builds can now be deleted
+- Transference bonus is now correctly applied to non skill indirect damages
 ### Added
 - Added a crash page in case of unexepcted error
 - Added an option in item edition to hide graft only affixes
 - Added an export as discord link button
+- Added a checkbox to only show max evolution reapers on reapers list (by jaege)
 ### Changed
 - The new build component now only show the build from save option by default
 

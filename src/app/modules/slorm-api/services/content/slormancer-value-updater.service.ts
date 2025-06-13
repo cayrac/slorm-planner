@@ -361,7 +361,7 @@ export class SlormancerValueUpdaterService {
                     }
                 }
 
-                this.updateDamage(value, mechanic.genres, skillStats, statsResult, mechanic.element, false, additionalDamageMultipliers, addedFlatDamage);
+                this.updateDamage(value, mechanic.genres, skillStats, statsResult, mechanic.element, false, additionalDamageMultipliers, addedFlatDamage, false);
             }
         }
     }
@@ -373,7 +373,8 @@ export class SlormancerValueUpdaterService {
             ...reaper.templates.malediction.map(effect => effect.values).flat()
         ];
 
-        const dotIncreasedDamage = <MergedStat<number>>this.getStatValueOrDefault(statsResult.stats, 'dot_increased_damage')
+        const dotIncreasedDamage = this.getStatValueOrDefault(statsResult.stats, 'dot_increased_damage').total as number;
+        const indirectIncreaseDamage = <MergedStat<number>>this.getStatValueOrDefault(statsResult.stats, 'indirect_increased_damage');
 
         if (reaper.id === 53 && statsResult.extractedStats['fate_crusher_reapersmith_all']) {
             const reapersmithAll = statsResult.extractedStats['fate_crusher_reapersmith_all'][0];
@@ -389,7 +390,6 @@ export class SlormancerValueUpdaterService {
                 statsResult.extractedStats['reaper_bonus'] = stat ? [ ...stat, reapersmithAll ] : [ reapersmithAll ];
                 
             }
-            // 
         }
 
         if (reaper.id === 96) {
@@ -519,7 +519,13 @@ export class SlormancerValueUpdaterService {
 
                 // deadly accuracy damage over time
                 if ([87, 88, 89].includes(reaper.id)) {
-                    effectValue.synergy = mult(effectValue.synergy, dotIncreasedDamage.total);
+                    effectValue.synergy = mult(effectValue.synergy, dotIncreasedDamage);
+                    effectValue.displaySynergy = round(effectValue.synergy, 0);
+                }
+
+                console.log('indirectIncreaseDamage : ', indirectIncreaseDamage, statsResult);
+                if (indirectIncreaseDamage.values.multiplier.length > 0) {
+                    effectValue.synergy = mult(effectValue.synergy, ...indirectIncreaseDamage.values.multiplier.map(mult => mult.value));
                     effectValue.displaySynergy = round(effectValue.synergy, 0);
                 }
             }
@@ -778,10 +784,10 @@ export class SlormancerValueUpdaterService {
                     }
 
                     if (isSynergy) {
-                        this.updateDamage(value, activable.genres, skillStats, statsResult, SkillElement.Neutral, false, additionalMultipliers);
+                        this.updateDamage(value, activable.genres, skillStats, statsResult, SkillElement.Neutral, false, additionalMultipliers, undefined, false);
                     } else {
                         // special case mini keeper
-                        const multipliers = this.getValidDamageMultipliers(activable.genres, skillStats, statsResult, value.stat, false);
+                        const multipliers = this.getValidDamageMultipliers(activable.genres, skillStats, statsResult, value.stat, false, undefined, false);
                         value.value = mult(value.baseValue, ...multipliers, ...additionalMultipliers);
                         value.displayValue = bankerRound(value.value, 2);
                     }
@@ -924,7 +930,7 @@ export class SlormancerValueUpdaterService {
                 }
 
                 if (isDamageType(value.stat)) {
-                    this.updateDamage(value, ancestralLegacy.genres, skillStats, statsResult, ancestralLegacy.element, false, multipliers);
+                    this.updateDamage(value, ancestralLegacy.genres, skillStats, statsResult, ancestralLegacy.element, false, multipliers, undefined, false);
                 }
             } else if (value.valueType === EffectValueValueType.AreaOfEffect) {
                 value.value = value.baseValue;
@@ -1505,7 +1511,7 @@ export class SlormancerValueUpdaterService {
     private updateUpgradeValues(upgrade: SkillUpgrade, skillStats: SkillStats, statsResult: SkillStatsBuildResult) {  
         const damageValues = upgrade.values.filter(isEffectValueSynergy).filter(value => isDamageType(value.stat));
         for (const damageValue of damageValues) {
-            this.updateDamage(damageValue, upgrade.genres, skillStats, statsResult, SkillElement.Neutral);
+            this.updateDamage(damageValue, upgrade.genres, skillStats, statsResult, SkillElement.Neutral, undefined, undefined, undefined, false);
         }
     
         const durationValues = upgrade.values.filter(value => value.valueType === EffectValueValueType.Duration);

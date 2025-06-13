@@ -517,6 +517,7 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     120: {
         override: (effect) => {
             synergySetAllowMinMax(effect, 0, false);
+            setStat(effect, 0, 'garbage_stat');
         }
     },
     121: {

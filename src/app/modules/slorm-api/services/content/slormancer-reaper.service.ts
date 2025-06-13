@@ -462,7 +462,7 @@ export class SlormancerReaperService {
             damagesBase: { min: gameData.BASE_DMG_MIN ?? 0, max: gameData.BASE_DMG_MAX ?? 0 },
             damagesLevel: { min: gameData.MIN_DMG_LVL ?? 0, max: gameData.MAX_DMG_LVL ?? 0 },
             damagesMultiplier: gameData.DMG_MULTIPLIER ?? 1,
-            evolve_into: gameData.EVOLVE_IN,
+            evolveInto: gameData.EVOLVE_IN,
             benedictionTitleLabel: '',
             maledictionTitleLabel: '',
             activablesTitleLabel: '',

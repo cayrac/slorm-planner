@@ -23,7 +23,7 @@ interface ReaperListForm {
     heroClass: FormControl<HeroClass>;
     primordial: FormControl<boolean>;
     maxLevelAndAffinity: FormControl<boolean>;
-    onlyMaxEvolve: FormControl<Boolean>;
+    onlyMaxEvolve: FormControl<boolean>;
 }
 
 @Component({
@@ -80,7 +80,7 @@ export class ReaperListComponent extends AbstractUnsubscribeComponent implements
         
         this.searchService.searchChanged
             .pipe(takeUntil(this.unsubscribe))
-            .subscribe(() => this.filterReaperList());
+            .subscribe(() => this.filterReaperList(this.form.controls.onlyMaxEvolve.value));
     }
 
     private buildReaperList(heroClass: HeroClass, primordial: boolean, maxLevelAndAffinity: boolean, onlyMaxEvolve: boolean) {
@@ -98,15 +98,13 @@ export class ReaperListComponent extends AbstractUnsubscribeComponent implements
                 maxLevelAndAffinity ? MAX_REAPER_AFFINITY_BONUS : 0,
                 maxLevelAndAffinity ? MAX_REAPER_LEVEL : 0));
 
-        if (onlyMaxEvolve) {
-            this.filteredReapers = this.allReapers.filter(reaper => reaper.evolve_into === null);
-        }
-
-        this.filterReaperList();
+        this.filterReaperList(onlyMaxEvolve);
     }
 
-    private filterReaperList() {
-        this.filteredReapers = this.allReapers.filter(reaper => this.searchService.reaperMatchSearch(reaper));
+    private filterReaperList(onlyMaxEvolve: boolean) {
+        this.filteredReapers = this.allReapers
+            .filter(reaper => this.searchService.reaperMatchSearch(reaper))
+            .filter(reaper => onlyMaxEvolve ? (reaper.evolveInto === null) : true);
     }
 
     public hasSearch(): boolean {
