@@ -23,6 +23,7 @@ interface ReaperListForm {
     heroClass: FormControl<HeroClass>;
     primordial: FormControl<boolean>;
     maxLevelAndAffinity: FormControl<boolean>;
+    onlyMaxEvolve: FormControl<Boolean>;
 }
 
 @Component({
@@ -45,7 +46,8 @@ export class ReaperListComponent extends AbstractUnsubscribeComponent implements
         search: new FormControl<string>('', { nonNullable: true }),
         heroClass: new FormControl<HeroClass>(HeroClass.Huntress, { nonNullable: true }),
         primordial: new FormControl<boolean>(false, { nonNullable: true }),
-        maxLevelAndAffinity: new FormControl<boolean>(false, { nonNullable: true })
+        maxLevelAndAffinity: new FormControl<boolean>(false, { nonNullable: true }),
+        onlyMaxEvolve: new FormControl<boolean>(false, { nonNullable: true })
     });
 
     constructor(private slormancerDataService: SlormancerDataService,
@@ -60,9 +62,10 @@ export class ReaperListComponent extends AbstractUnsubscribeComponent implements
         combineLatest([
             this.form.controls.heroClass.valueChanges,
             this.form.controls.primordial.valueChanges,
-            this.form.controls.maxLevelAndAffinity.valueChanges
+            this.form.controls.maxLevelAndAffinity.valueChanges,
+            this.form.controls.onlyMaxEvolve.valueChanges
         ])
-        .subscribe(([heroClass, primordial, maxLevelAndAffinity]) => this.buildReaperList(heroClass, primordial, maxLevelAndAffinity));
+        .subscribe(([heroClass, primordial, maxLevelAndAffinity, onlyMaxEvolve]) => this.buildReaperList(heroClass, primordial, maxLevelAndAffinity, onlyMaxEvolve));
 
     }
 
@@ -71,7 +74,8 @@ export class ReaperListComponent extends AbstractUnsubscribeComponent implements
             search: '',
             heroClass: HeroClass.Huntress,
             primordial: false,
-            maxLevelAndAffinity: false
+            maxLevelAndAffinity: false,
+            onlyMaxEvolve: false
         });
         
         this.searchService.searchChanged
@@ -79,7 +83,7 @@ export class ReaperListComponent extends AbstractUnsubscribeComponent implements
             .subscribe(() => this.filterReaperList());
     }
 
-    private buildReaperList(heroClass: HeroClass, primordial: boolean, maxLevelAndAffinity: boolean) {
+    private buildReaperList(heroClass: HeroClass, primordial: boolean, maxLevelAndAffinity: boolean, onlyMaxEvolve: boolean) {
         this.allReapers = this.slormancerDataService.getGameDataAvailableReaper()
             .map(reaperData => this.slormancerReaperService.getReaper(
                 reaperData,
@@ -93,7 +97,11 @@ export class ReaperListComponent extends AbstractUnsubscribeComponent implements
                 maxLevelAndAffinity ? (this.slormancerReaperService.useDifferentAffinityForEffects({ id: reaperData.REF, primordial: primordial } as any as Reaper) ? MAX_EFFECT_AFFINITY_BASE : MAX_REAPER_AFFINITY_BASE) : 0,
                 maxLevelAndAffinity ? MAX_REAPER_AFFINITY_BONUS : 0,
                 maxLevelAndAffinity ? MAX_REAPER_LEVEL : 0));
-            
+
+        if (onlyMaxEvolve) {
+            this.filteredReapers = this.allReapers.filter(reaper => reaper.evolve_into === null);
+        }
+
         this.filterReaperList();
     }
 
