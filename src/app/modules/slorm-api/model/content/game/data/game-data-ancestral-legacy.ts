@@ -44,4 +44,6 @@ export interface GameDataAncestralLegacy {
     DESC_VALUE_TYPE: string;
     DESC_VALUE_REAL: string;
     EXTRA_NBR: string;
+    LOCAL_NAME: string;
+    LOCAL_DESCRIPTION: string;
 }

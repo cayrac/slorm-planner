@@ -134,13 +134,13 @@ export class SlormancerLegendaryEffectService {
             if (gameData.HERO === 999) {
                 const reaper = this.slormancerDataService.getGameDataReaper(parseInt(gameData.SKILL));
                 if (reaper !== null) {
-                    reaperName = this.slormancerReaperService.getReaperName(reaper.EN_NAME, false, heroClass);
+                    reaperName = this.slormancerReaperService.getReaperName(reaper.LOCAL_NAME, false, heroClass);
                 }
             }
             
             legendaryEffect = {
                 id: gameData.REF,
-                name: gameData.EN_NAME,
+                name: gameData.LOCAL_NAME,
                 classSpecific: [0, 1, 2].includes(gameData.HERO) ? gameData.HERO as HeroClass : null,
                 reinforcement,
                 itemIcon: 'assets/img/icon/item/' + gameData.ITEM + '/' + base + '.png',

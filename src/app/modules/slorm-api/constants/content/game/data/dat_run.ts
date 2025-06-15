@@ -1,6 +1,4 @@
-import { GameDataRune } from "../../../../model";
-
-export const GAME_DATA_RUNE: GameDataRune[] = [
+export const GAME_DATA_RUNE = [
     {
         "REF": 0,
         "SPRITE": 0,

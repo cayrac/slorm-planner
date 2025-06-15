@@ -1,6 +1,6 @@
 import { GameDataSkill } from "../../../../model";
 
-export const GAME_DATA_HUNTRESS_SKILL: GameDataSkill[] = [
+export const GAME_DATA_HUNTRESS_SKILL: Array<Omit<GameDataSkill, 'LOCAL' | 'LOCAL_NAME' | 'LOCAL_DESCRIPTION'>> = [
     {
         "REF": 0,
         "EN_NAME": "Turret Syndrome",

@@ -57,4 +57,7 @@ export interface GameDataReaper {
     MAX_LVL: number | null;
     EVOLVE_IN: number | null;
     '100': string;
+    LOCAL_NAME: string;
+    LOCAL_DESC: string;
+    LOCAL_LORE: string;
 };

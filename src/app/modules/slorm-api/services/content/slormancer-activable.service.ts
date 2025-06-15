@@ -32,9 +32,9 @@ export class SlormancerActivableService {
                 private slormancerDataService: SlormancerDataService,
                 private slormancerEffectValueService: SlormancerEffectValueService) {
         this.PRIME_TOTEM_SKILL_NAME = {
-            [HeroClass.Huntress]: this.slormancerDataService.getGameDataSkill(HeroClass.Huntress, PRIME_TOTEM_SKILL[HeroClass.Huntress])?.EN_NAME ?? '',
-            [HeroClass.Mage]: this.slormancerDataService.getGameDataSkill(HeroClass.Mage, PRIME_TOTEM_SKILL[HeroClass.Mage])?.EN_NAME ?? '',
-            [HeroClass.Warrior]: this.slormancerDataService.getGameDataSkill(HeroClass.Warrior, PRIME_TOTEM_SKILL[HeroClass.Warrior])?.EN_NAME ?? '',
+            [HeroClass.Huntress]: this.slormancerDataService.getGameDataSkill(HeroClass.Huntress, PRIME_TOTEM_SKILL[HeroClass.Huntress])?.LOCAL_NAME ?? '',
+            [HeroClass.Mage]: this.slormancerDataService.getGameDataSkill(HeroClass.Mage, PRIME_TOTEM_SKILL[HeroClass.Mage])?.LOCAL_NAME ?? '',
+            [HeroClass.Warrior]: this.slormancerDataService.getGameDataSkill(HeroClass.Warrior, PRIME_TOTEM_SKILL[HeroClass.Warrior])?.LOCAL_NAME ?? '',
         }
         this.COST_LABEL = this.slormancerTranslateService.translate('tt_cost');
         this.COOLDOWN_LABEL = this.slormancerTranslateService.translate('tt_cooldown');
@@ -80,7 +80,7 @@ export class SlormancerActivableService {
         const dataActivable = this.slormancerDataService.getDataActivable(data.REF);
         const activable = {
             id: data.REF,
-            name: data.EN_NAME,
+            name: data.LOCAL_NAME,
             icon: 'assets/img/icon/skill/activable/' + data.REF + '.png',
             description: '',
             baseCooldown: data.COOLDOWN,

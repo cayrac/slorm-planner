@@ -13,6 +13,12 @@
             @include flex(row, center);
             @include flex-gap($space-unit * 2);
             padding: $space-unit * 2;
+            justify-content: space-between;
+
+            .dialog-content {
+              @include flex(row, center);
+              @include flex-gap($space-unit * 2);
+            }
         }
 
         img {

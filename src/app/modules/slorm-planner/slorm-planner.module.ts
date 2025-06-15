@@ -9,7 +9,7 @@ import { SlormPlannerRoutingModule } from './slorm-planner-routing.module';
 
 
 @NgModule({
-    declarations: [
+    declarations: [      
     ],
     imports: [
         CommonModule,
