@@ -32,7 +32,7 @@ export class CreateBuildFromGameComponent {
     
     public characters: GameHeroesData<Character> | null = null;
 
-    public config: Partial<CharacterConfig> | null = null;
+    public config: GameHeroesData<Partial<CharacterConfig>> | null = null;
 
     public selectedClass: HeroClass | null = null;
 
@@ -52,7 +52,13 @@ export class CreateBuildFromGameComponent {
                 [HeroClass.Huntress] : this.slormancerCharacterBuilderService.getCharacterFromSave(gameSave, HeroClass.Huntress),
                 [HeroClass.Mage] : this.slormancerCharacterBuilderService.getCharacterFromSave(gameSave, HeroClass.Mage)
             }
-            this.config = this.slormancerCharacterBuilderService.getConfigFromSave(gameSave);
+            this.config = {
+                [HeroClass.Warrior] : this.slormancerCharacterBuilderService.getConfigFromSave(gameSave, HeroClass.Warrior),
+                [HeroClass.Huntress] : this.slormancerCharacterBuilderService.getConfigFromSave(gameSave, HeroClass.Huntress),
+                [HeroClass.Mage] : this.slormancerCharacterBuilderService.getConfigFromSave(gameSave, HeroClass.Mage)
+                
+            }
+
             this.selectedClass = null;
         } catch (e) {
             console.error(e);
@@ -72,7 +78,7 @@ export class CreateBuildFromGameComponent {
 
     public createBuild() {
         if (this.selectedClass !== null && this.characters !== null) {
-            const config = this.config === null ? DEFAULT_CONFIG : { ...DEFAULT_CONFIG, ...this.config };
+            const config = this.config === null ? DEFAULT_CONFIG : { ...DEFAULT_CONFIG, ...this.config[this.selectedClass] };
             const build = this.buildService.createBuildWithCharacter(this.name, 'New layer', this.characters[this.selectedClass], config);
             this.buildStorageService.addBuild(build);
             this.created.emit();

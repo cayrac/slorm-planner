@@ -149,8 +149,8 @@ export const DATA_ATTRIBUTE: { [key: number]: DataAttribute } = {
     },
     60: {
         override: trait => {
-            setStat(trait, 0, 'retaliate_percent_on_low_life');
-            setStat(trait, 1, 'retaliate_percent_on_low_life_treshold');
+            setStat(trait, 0, 'retaliate_multiplier_on_low_life');
+            setStat(trait, 1, 'retaliate_multiplier_on_low_life_treshold');
         }
     },
     63: {

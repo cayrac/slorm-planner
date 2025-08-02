@@ -432,5 +432,17 @@
 ### Changed
 - The create build component now only show the build from save option by default
 
+## Release 1.0.2 (2025-08-03)
+### Fixes
+- Fixed maximum life bonus from Vengeance, Ohm Agad's reaper not being applied correctly
+- Determination 60 is now correctly applied as a multiplier
+### Added
+- Loading a character with ohm agad's reaper now also load "victim across other 2 characters" config
+### Changed
+- Updated life and mana treshold conditions for attributes from "less" to "less or equal"
+- Elemental swap no longer increase per second costs
+- Elemental Pact is now a conversion
+- Steel Manipulator reaper damage is now a conversion
+
 ## TODO
 - update packages ?

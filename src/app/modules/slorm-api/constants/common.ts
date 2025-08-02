@@ -98,6 +98,7 @@ export const API_TO_GAME_VERSION_MAPPER: { [key: string]: string } = {
     '0.8.3': '1.0.0p',
     '1.0.0': '1.0.01a',
     '1.0.1': '1.0.1e',
+    '1.0.2': '1.0.2c',
 }
 
 export const PERCENT_STATS: string[] = [

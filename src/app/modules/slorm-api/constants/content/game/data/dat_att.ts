@@ -1742,7 +1742,7 @@ export const GAME_DATA_ATTRIBUTES: GameDataAttribute[] = [
     {
         "REF": 79,
         "EN_TEXT": "Your Secondary Skill has @ £ to Silence enemies hit for the next @ £.",
-        "FR_TEXT": "Vos Compétences Primaires et Secondaires ont @ de £ d'appliquer Silence aux ennemis touchés pour les @ prochaines £.",
+        "FR_TEXT": "Votre Compétence Secondaire a @ de £ d'appliquer Silence aux ennemis touchés pour les @ prochaines £.",
         "CH_TEXT": "副技能有@£可使击中的敌人沉默，持续@£。",
         "TW_TEXT": "副技能有@£可使擊中的敵人沉默，持續@£。",
         "JP_TEXT": "サブスキルが@の£で、命中した敵を@£間沈黙状態にする。",

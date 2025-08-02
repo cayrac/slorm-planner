@@ -1732,7 +1732,7 @@ export const GAME_DATA_WARRIOR_SKILL: GameDataSkill[] = [
     {
         "REF": 31,
         "EN_NAME": "Careful Throw",
-        "EN_DESCRIPTION": "Wood Stick's Non-Critical Strike Damage is reduced to ¥ anymore but it has an additional +@ £.##If Wood Stick is Fortunate or Perfect, this effect is doubled.",
+        "EN_DESCRIPTION": "Wood Stick's Non-Critical Strike Damage is reduced to ¥ but it has an additional +@ £.##If Wood Stick is Fortunate or Perfect, this effect is doubled.",
         "FR_NAME": "Lancé Minutieux",
         "FR_DESCRIPTION": "Les Dégâts Non-Critiques de Bout de Bois sont réduits de ¥% mais Bout de Bois a +@ de £ supplémentaire.##Cet effet est doublé si Bout de Bois est Favorable ou Parfait.",
         "CH_NAME": "小心投掷",
@@ -5619,7 +5619,7 @@ export const GAME_DATA_WARRIOR_SKILL: GameDataSkill[] = [
     },
     {
         "REF": 103,
-        "EN_NAME": "Independance Day",
+        "EN_NAME": "Independence Day",
         "EN_DESCRIPTION": "Whenever Crest Shield deals damage an enemy, its duration is refreshed.",
         "FR_NAME": "Jour de l'Indépendance",
         "FR_DESCRIPTION": "Chaque fois que le Bouclier d'Armoiries inflige des dégâts à un ennemi, sa durée est réinitialisée.",
@@ -8538,7 +8538,7 @@ export const GAME_DATA_WARRIOR_SKILL: GameDataSkill[] = [
         "EN_NAME": "Chivalry",
         "EN_DESCRIPTION": "Grappling Hook and The Elder Lance have -@ £.",
         "FR_NAME": "Chevalerie",
-        "FR_DESCRIPTION": "Grappin et Bouclier d'Armoiries ont -@ de £.",
+        "FR_DESCRIPTION": "Grappin et La Lance des Anciens ont -@ de £.",
         "CH_NAME": "骑士精神",
         "CH_DESCRIPTION": "抓钩和纹章盾获得-@£。",
         "TW_NAME": "騎士精神",

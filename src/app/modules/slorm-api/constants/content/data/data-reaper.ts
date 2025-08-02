@@ -1507,15 +1507,17 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'garbage_stat');
             synergyMultiply100(ba, 1);
             allowSynergyToCascade(ba, 1);
-            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'the_max_health_add');
+            overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'ohm_the_max_health_add');
             synergyMultiply100(ba, 2);
             allowSynergyToCascade(ba, 2);
             overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(be, 2, EffectValueValueType.Stat, 'basic_damage_global_mult');
+            setSynergyPrecision(be, 2, 0);
             synergyMultiply100(be, 2);
             allowSynergyToCascade(be, 2);
             overrideValueTypeAndStat(be, 3, EffectValueValueType.Stat, 'elemental_damage_global_mult');
+            setSynergyPrecision(be, 3, 0);
             synergyMultiply100(be, 3);
             allowSynergyToCascade(be, 3);
         }

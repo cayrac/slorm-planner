@@ -431,8 +431,8 @@ export class SlormancerStatsExtractorService {
         }
 
         if (character.reaper.id === 114) {
-            this.addStat(stats.stats, 'victims_114_all', character.reaper.kills + config.victims_114_others, { synergy: 'Reaper victims across all characters' });
-            this.addStat(stats.stats, 'victims_114', character.reaper.kills, { synergy: 'Reaper victims' });
+            this.addStat(stats.stats, 'victims_114_all', character.reaper.baseKills + character.reaper.primordialKills + config.victims_114_others, { synergy: 'Reaper victims across all characters' });
+            this.addStat(stats.stats, 'victims_114', character.reaper.baseKills + character.reaper.primordialKills, { synergy: 'Reaper victims' });
             
         }
 

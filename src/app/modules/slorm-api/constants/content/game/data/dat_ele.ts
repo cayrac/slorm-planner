@@ -3482,7 +3482,7 @@ export const GAME_DATA_ANCESTRAL_LEGACY: GameDataAncestralLegacy[] = [
     {
         "REF": 74,
         "EN_NAME": "Shadow Bargain",
-        "EN_DESCRIPTION": "You draw a Shadow Seal at target location that lasts ¥ seconds.##While there is at least on Elite enemy inside a Shadow Seal, you have +@ £.",
+        "EN_DESCRIPTION": "You draw a Shadow Seal at target location that lasts ¥ seconds.##While there is at least one Elite enemy inside a Shadow Seal, you have +@ £.",
         "FR_NAME": "Négociation avec les Ombres",
         "FR_DESCRIPTION": "Vous dessinez un Sceau de l'Ombre qui dure ¥ secondes sur la zone ciblée.##Vous avez +@ de £ tant qu'il y a au moins un Élite à l'intérieur d'un Sceau de l'Ombre.",
         "CH_NAME": "暗影交易",

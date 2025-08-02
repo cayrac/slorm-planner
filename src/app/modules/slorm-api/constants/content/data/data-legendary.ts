@@ -584,6 +584,7 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
     139: {
         override: (effect) => {
             setStat(effect, 1, 'garbage_stat');
+            allowSynergyToCascade(effect, 1);
         }
     },
     140: {
@@ -623,7 +624,6 @@ export const DATA_LEGENDARY: { [key: number]: DataLegendary } = {
         override: (effect) => {
             setStat(effect, 0, 'steel_manipulator_min_weapon_damage_add');
             synergySetAllowMinMax(effect, 0, false);
-            allowSynergyToCascade(effect, 0);
             addConstant(effect, 0, 'basic_not_added_to_skill_damage', EffectValueValueType.AreaOfEffect);
         }
     },

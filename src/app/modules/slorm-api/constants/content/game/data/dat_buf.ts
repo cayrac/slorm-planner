@@ -1926,7 +1926,7 @@ export const GAME_DATA_BUFF = [
     {
         "REF": "knight_fence",
         "EN_NAME": "Deflect",
-        "EN_DESCRIPTION": "Reduces Melee and Projectile damages to @.",
+        "EN_DESCRIPTION": "Reduces Melee and Projectile Damage to @.",
         "FR_NAME": "Déviation",
         "FR_DESCRIPTION": "Réduit les Dégâts de Mêlée et de Projectiles à @.",
         "CH_NAME": "偏斜",
@@ -8540,7 +8540,7 @@ export const GAME_DATA_BUFF = [
         "ASSOCIATED_EFFECT": "",
         "SPRITE": "spr_buffs",
         "INDEX": 119,
-        "BUFF_OR_DEBUFF": "buff",
+        "BUFF_OR_DEBUFF": "debuff",
         "VISUAL": "none",
         "FLOAT_TEXT": "",
         "IS_TICKING": null,
@@ -9576,7 +9576,7 @@ export const GAME_DATA_BUFF = [
         "ASSOCIATED_EFFECT": "",
         "SPRITE": "spr_buffs",
         "INDEX": 31,
-        "BUFF_OR_DEBUFF": "debuff",
+        "BUFF_OR_DEBUFF": "debuff_special",
         "VISUAL": "none",
         "FLOAT_TEXT": "",
         "IS_TICKING": null,
@@ -12022,7 +12022,7 @@ export const GAME_DATA_BUFF = [
         "VISUAL": "none",
         "FLOAT_TEXT": "",
         "IS_TICKING": null,
-        "KEEP_ON_HUB": null
+        "KEEP_ON_HUB": true
     },
     {
         "REF": "legendary_immense_vitality",
@@ -12096,7 +12096,7 @@ export const GAME_DATA_BUFF = [
         "VISUAL": "none",
         "FLOAT_TEXT": "",
         "IS_TICKING": null,
-        "KEEP_ON_HUB": null
+        "KEEP_ON_HUB": true
     },
     {
         "REF": "forge_ether",
@@ -12545,7 +12545,7 @@ export const GAME_DATA_BUFF = [
     {
         "REF": "mana_imp_curse",
         "EN_NAME": "Mana-Devouring Cut",
-        "EN_DESCRIPTION": "You have been hit by an Elite Mana-Devouring Imp.#Mana spent to cast Skills is also removed to your Life.",
+        "EN_DESCRIPTION": "You have been hit by an Elite Mana-Devouring Imp.#Mana spent to cast Skills is also removed from your Life.",
         "FR_NAME": "Coupure Dévorante",
         "FR_DESCRIPTION": "Vous avez été touché par un Diablotin Dévoreur de Mana.#Le Mana que vous dépensez pour lancer des Compétences est également retiré à votre Vie.",
         "CH_NAME": "法力吞噬之击",
@@ -12916,8 +12916,8 @@ export const GAME_DATA_BUFF = [
         "REF": "enemy_sight",
         "EN_NAME": "Blind",
         "EN_DESCRIPTION": "Reduced field of view.",
-        "FR_NAME": "",
-        "FR_DESCRIPTION": "",
+        "FR_NAME": "Aveuglement",
+        "FR_DESCRIPTION": "Réduit le champ de vision.",
         "CH_NAME": "致盲",
         "CH_DESCRIPTION": "视野范围缩小。",
         "TW_NAME": "致盲",

@@ -991,7 +991,7 @@ export const GAME_DATA_ACTIVABLES = [
     {
         "REF": 32,
         "EN_NAME": "Spectral Shape",
-        "EN_DESCRIPTION": "You turn into a Spectral Shape, becoming Untouchable for the next @ seconds or until you cast a Skill.##While in Spectral Shape, you can move throught enemies and you deal _ $ every second to enemies within a ~ yard radius.",
+        "EN_DESCRIPTION": "You turn into a Spectral Shape, becoming Untouchable for the next @ seconds or until you cast a Skill.##While in Spectral Shape, you can move through enemies and you deal _ $ every second to enemies within a ~ yard radius.",
         "FR_NAME": "Forme Spectrale",
         "FR_DESCRIPTION": "Vous vous transformez en Forme Spectrale et devenez Intouchable pour les @ prochaines secondes ou jusqu'à ce que vous lanciez une Compétence.##Lorsque vous êtes en Forme Spectrale, vous pouvez vous déplacer à travers les ennemis et vous infligez _ de $ toutes les secondes aux ennemis dans un rayon de ~ mètres.",
         "CH_NAME": "化身幽灵",
@@ -1507,7 +1507,7 @@ export const GAME_DATA_ACTIVABLES = [
     {
         "REF": 44,
         "EN_NAME": "Omnislash",
-        "EN_DESCRIPTION": "Omnislash deals _ $ to enemies in Melee range.#Omnislash has a @ £, @ £ and can trigger Ancestral Skills.##Omnislash can only be casted when you have @ Caster stacks.#While Omnislash can be casted, your other Skills are Locked.##Casting Omnislash consumes your Caster and Recaster stacks.",
+        "EN_DESCRIPTION": "Omnislash deals _ $ to enemies in Melee range.#Omnislash has a @ £, @ £ and can trigger Ancestral Strike Effects.##Omnislash can only be casted when you have @ Caster stacks.#While Omnislash can be casted, your other Skills are Locked.##Casting Omnislash consumes your Caster and Recaster stacks.",
         "FR_NAME": "Omnislash",
         "FR_DESCRIPTION": "Omnislash inflige _ de $ aux ennemis à portée.#Omnislash a @ de £, @ de £ et peut déclencher des Coups Ancestraux.##Omnislash ne peut être lancé que lorsque vous avez @ cumuls de Lanceur.##Tant qu'Omnislash peut être lancé, vos autres Compétences sont verrouillées.##Lancer Omnislash consume vos cumuls de Lanceur et de Relanceur.",
         "CH_NAME": "无敌劈斩",

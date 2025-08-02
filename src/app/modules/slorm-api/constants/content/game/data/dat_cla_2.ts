@@ -4432,9 +4432,9 @@ export const GAME_DATA_MAGE_SKILL: GameDataSkill[] = [
     {
         "REF": 81,
         "EN_NAME": "Chrono-Speed",
-        "EN_DESCRIPTION": "Whenever you hit an enemy with Chrono-Puncture, you gain a Chrono-Speed stack, granting you +¥% Attack Speed for the next ¥ seconds.#Chrono-Speed can stack up to @ times (µ + µ per rank).",
+        "EN_DESCRIPTION": "Whenever you hit an enemy with Chrono-Puncture, you gain a Chrono-Speed stack, granting you +¥% Cooldown Reduction for the next ¥ seconds.#Chrono-Speed can stack up to @ times (µ + µ per rank).",
         "FR_NAME": "Chrono-Vitesse",
-        "FR_DESCRIPTION": "Lorsque vous touchez un ennemi avec Chrono-Perforation, vous gagnez un cumul de Chrono-Vitesse, vous conférant +¥% de Vitesse d'Attaque pour les ¥ prochaines secondes.#Chrono-Vitesse peut se cumuler jusqu'à @ fois (µ + µ par rang).",
+        "FR_DESCRIPTION": "Lorsque vous touchez un ennemi avec Chrono-Perforation, vous gagnez un cumul de Chrono-Vitesse, vous conférant +¥% de Réduction de Temps de Recharge pour les ¥ prochaines secondes.#Chrono-Vitesse peut se cumuler jusqu'à @ fois (µ + µ par rang).",
         "CH_NAME": "时空加速",
         "CH_DESCRIPTION": "时空穿刺击中敌人时，获得一层时空加速，为你赋予+¥%攻击速度，持续¥秒。#时空加速最多可叠加@次（µ + 每级µ）。",
         "TW_NAME": "時空加速",
@@ -11938,7 +11938,7 @@ export const GAME_DATA_MAGE_SKILL: GameDataSkill[] = [
     {
         "REF": 218,
         "EN_NAME": "Arcane Clone",
-        "EN_DESCRIPTION": "An Arcane Clone is a clone of you that is casting the same skill over and over.#The Arcane Clone inherits all of your \"Attack\" stats but has a @% Attack Speed Multiplier.#You can only have one Arcane Clone at a time.#An Arcane Clone lasts indefinitely.##Exclusive to The Mischievous Mage.",
+        "EN_DESCRIPTION": "An Arcane Clone is a clone of you that is casting the same skill over and over.#The Arcane Clone inherits all of your \"Attack\" stats but has a @% Cooldown Multiplier.#You can only have one Arcane Clone at a time.#An Arcane Clone lasts indefinitely.##Exclusive to The Mischievous Mage.",
         "FR_NAME": "Clone Arcanique",
         "FR_DESCRIPTION": "Un Clone Arcanique est un clone de vous qui utilisera la même Compétence en boucle.#Votre Clone Arcanique hérite de toutes vos statistiques \"d'Attaque\" mais a @% de Multiplicateur de Vitesse d'Attaque.#Vous ne pouvez posséder qu'un seul Clone Arcanique à la fois.#Un Clone Arcanique dure indéfiniment.##Exclusif au Mage Malicieux.",
         "CH_NAME": "奥术替身",

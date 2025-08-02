@@ -5908,7 +5908,7 @@ export const GAME_DATA_ACHIEVEMENTS = [
         "EN_NAME": "Drawn to the Light",
         "EN_DESCRIPTION": "Close $ Breaches with [hero_2].",
         "FR_NAME": "Attirés par la lumière",
-        "FR_DESCRIPTION": "Fermer $ violations avec [hero_2].",
+        "FR_DESCRIPTION": "Fermer $ Brèches avec [hero_2].",
         "CH_NAME": "重归光明",
         "CH_DESCRIPTION": "使用[hero_2]关闭$个裂隙。",
         "TW_NAME": "重歸光明",

@@ -450,6 +450,17 @@ export class SlormancerCharacterBuilderService {
         return level;
     }
 
+    private getReaperKillsFromSave(save: GameSave, heroClass: HeroClass, reaperId: number): number {
+        const reaperData = valueOrNull(save.weapon_data[heroClass][reaperId]);
+        let kills = 0;
+
+        if (reaperData !== null) {
+            kills = reaperData.primordial.kills + reaperData.basic.kills;
+        }
+        
+        return kills;
+    }
+
     private isReaperObtained(save: GameSave, heroClass: HeroClass, reaperId: number, primordial: boolean): boolean {
         const reaperData = valueOrNull(save.weapon_data[heroClass][reaperId]);
         let obtained = false;
@@ -461,7 +472,7 @@ export class SlormancerCharacterBuilderService {
         return obtained;
     }
 
-    public getConfigFromSave(save: GameSave): Partial<CharacterConfig> {
+    public getConfigFromSave(save: GameSave, chosenHeroClass: HeroClass | null = null): Partial<CharacterConfig> {
         const config: Partial<CharacterConfig> = {};
 
         for (const heroClass of [HeroClass.Warrior, HeroClass.Huntress, HeroClass.Mage]) {
@@ -469,6 +480,17 @@ export class SlormancerCharacterBuilderService {
                 (config as any)['unity_level_' + heroClass + '_' + reaperId] = this.isReaperObtained(save, heroClass, reaperId, false) ? this.getReaperLevelFromSave(save, heroClass, reaperId, false) : 0;
                 (config as any)['unity_level_' + heroClass + '_' + reaperId + '_p'] = this.isReaperObtained(save, heroClass, reaperId, true) ? this.getReaperLevelFromSave(save, heroClass, reaperId, true) : 0;
             }
+        }
+
+        if (chosenHeroClass !== null) {
+            let victims = 0;
+            for (const heroClass of [HeroClass.Warrior, HeroClass.Huntress, HeroClass.Mage]) {
+                if (heroClass !== chosenHeroClass) {
+                    victims += this.getReaperKillsFromSave(save, heroClass, 114);
+                }
+            }
+
+            (config as any)['victims_114_others'] = victims;
         }
 
         return config;

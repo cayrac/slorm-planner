@@ -473,6 +473,12 @@ export class BuildRetrocompatibilityService {
             update: build => {
                 build.version = '1.0.1';
             }
+        },
+        {
+            version: '1.0.2',
+            update: build => {
+                build.version = '1.0.2';
+            }
         }
     ];
 

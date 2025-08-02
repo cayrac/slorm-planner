@@ -96,7 +96,7 @@ const CHANCE_TO_PIERCE: MergedStatMapping = {
     source: {
         flat: [
             { stat: 'chance_to_pierce_percent' },
-            { stat: 'chance_to_pierce_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) },
+            { stat: 'chance_to_pierce_percent_on_low_life', condition: (config, stats) => config.percent_missing_health >= (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) },
             { stat: 'chance_to_pierce_percent_if_fully_charged', condition: (config) => config.void_arrow_fully_charged },
             { stat: 'chance_to_pierce_percent_if_fortunate_of_perfect', condition: (config) => config.next_cast_is_fortunate || config.next_cast_is_perfect },
             { stat: 'chance_to_pierce_percent_if_projectile_passed_through_wall_of_omen', condition: (config, stats) => config.projectile_passed_through_wall_of_omen && hasStat(stats, 'skill_is_projectile') },
@@ -195,7 +195,7 @@ export const MANA_COST_MAPPING: MergedStatMapping = {
             { stat: 'second_slot_activable_cost_reduction', condition: (_, stats) => getFirstStat(stats, 'activable_slot') === 2 , multiplier: () => -1 },
             { stat: 'non_second_slot_activable_cost_reduction', condition: (_, stats) => hasStat(stats, 'activable_slot') && getFirstStat(stats, 'activable_slot') !== 2, multiplier: () => -1 },
             { stat: 'life_cost_reduction_skill_mult', condition: (_, stats) => hasCostType(stats, SkillCostType.Mana, SkillCostType.ManaSecond) },
-            { stat: 'aura_elemental_swap_cost_increase', condition: (_, stats) => hasCostType(stats, SkillCostType.Mana, SkillCostType.ManaSecond, SkillCostType.Life, SkillCostType.LifeSecond) },
+            { stat: 'aura_elemental_swap_cost_increase', condition: (_, stats) => hasCostType(stats, SkillCostType.Mana, SkillCostType.Life) },
             { stat: 'summon_skeleton_squire_cost_lock_reduction', condition: (_, stats) => hasCostType(stats, SkillCostType.LifeLockFlat, SkillCostType.ManaLockFlat), multiplier: () => -1 },  
             { stat: 'cost_lock_reduction', condition: (_, stats) => hasCostType(stats, SkillCostType.LifeLockFlat, SkillCostType.ManaLockFlat), multiplier: () => -1 },
             { stat: 'cost_per_second_reduction', condition: (_, stats) => hasCostType(stats, SkillCostType.LifeSecond, SkillCostType.ManaSecond), multiplier: () => -1 },
@@ -506,7 +506,8 @@ export const MAX_LIFE_MAPPING: MergedStatMapping = {
         flat: [
             { stat: 'the_max_health_set' },
             { stat: 'the_max_mana_add', condition: (_, stats) => hasStat(stats, 'mana_to_life_modifiers') },
-            { stat: 'the_max_health_add', condition: (_, stats) => stats['the_max_health_set'] === undefined }
+            { stat: 'the_max_health_add', condition: (_, stats) => stats['the_max_health_set'] === undefined },
+            { stat: 'ohm_the_max_health_add', condition: (_, stats) => stats['the_max_health_set'] === undefined, addAsNonConvertion: true }
         ],
         max: [],
         percent: [
@@ -831,7 +832,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'health_leech_percent' },
-                { stat: 'health_leech_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'health_leech_percent_on_low_life_treshold', 0)) },
+                { stat: 'health_leech_percent_on_low_life', condition: (config, stats) => config.percent_missing_health >= (100 - getFirstStat(stats, 'health_leech_percent_on_low_life_treshold', 0)) },
                 { stat: 'health_leech_percent_if_perfect', condition: config => config.next_cast_is_perfect },
                 { stat: 'shadow_shield_health_leech_percent', condition: config => config.has_shadow_shield_buff },
             ],
@@ -1309,7 +1310,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             maxPercent: [],
             multiplier: [
                 { stat: 'res_phy_global_mult' },
-                { stat: 'res_phy_global_mult_on_low_life',condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'res_phy_global_mult_on_low_life_treshold', 0)) },
+                { stat: 'res_phy_global_mult_on_low_life',condition: (config, stats) => config.percent_missing_health >= (100 - getFirstStat(stats, 'res_phy_global_mult_on_low_life_treshold', 0)) },
                 { stat: 'res_phy_mag_global_mult_on_low_life',condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'res_phy_mag_global_mult_on_low_life_treshold', 0)) },
                 { stat: 'res_mag_armor_global_mult_while_channeling_whirlwind', condition: config => config.is_channeling_whirlwind },
             ],
@@ -1482,7 +1483,6 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'retaliate_percent' },
-                { stat: 'retaliate_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'retaliate_percent_on_low_life_treshold', 0)) },
                 { stat: 'golden_buff_retaliate_percent', condition: config => config.has_gold_armor_buff },
                 { stat: 'retaliate_percent_on_blocked_hit', condition: config => config.is_hit_blocked },
                 { stat: 'retaliate_percent_if_channeling_arcane_barrier', condition: config => config.is_channeling_arcane_barrier },
@@ -1493,6 +1493,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
             percent: [],
             maxPercent: [],
             multiplier: [
+                { stat: 'retaliate_multiplier_on_low_life', condition: (config, stats) => config.percent_missing_health >= (100 - getFirstStat(stats, 'retaliate_multiplier_on_low_life_treshold', 0)) },
                 { stat: 'retaliate_global_mult' },
                 { stat: 'academician_retaliate_mult' }
             ],
@@ -1880,7 +1881,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'fork_chance_percent' },
-                { stat: 'fork_chance_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) },
+                { stat: 'fork_chance_percent_on_low_life', condition: (config, stats) => config.percent_missing_health >= (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) },
                 { stat: 'arrow_shot_fork_chance_percent', condition: (_, stats) => getFirstStat(stats, 'skill_id') === 3 },
                 { stat: 'academician_fork_chance_extra', extra: true }
             ],
@@ -1899,7 +1900,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'rebound_chance_percent' },
-                { stat: 'rebound_chance_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) },
+                { stat: 'rebound_chance_percent_on_low_life', condition: (config, stats) => config.percent_missing_health >= (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) },
                 { stat: 'arrow_shot_rebound_chance_percent', condition: (_, stats) => getFirstStat(stats, 'skill_id') === 3 },
                 { stat: 'rebound_chance_percent_if_fully_charged', condition: config => config.void_arrow_fully_charged },
                 { stat: 'academician_chance_to_rebound_extra', extra: true },
@@ -1922,7 +1923,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'increased_proj_speed_percent' },
-                { stat: 'increased_proj_speed_percent_on_low_life', condition: (config, stats) => config.percent_missing_health > (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) },
+                { stat: 'increased_proj_speed_percent_on_low_life', condition: (config, stats) => config.percent_missing_health >= (100 - getFirstStat(stats, 'pierce_fork_rebound_proj_speed_on_low_life_treshold', 0)) },
                 { stat: 'increased_proj_speed_percent_if_tormented', condition: (config) => config.serenity <= 0},
                 { stat: 'increased_proj_speed_percent_if_projectile_passed_through_wall_of_omen', condition: (config, stats) => config.projectile_passed_through_wall_of_omen && hasStat(stats, 'skill_is_projectile')},
             ],
@@ -1959,7 +1960,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'aoe_increased_effect_percent' },
-                { stat: 'aoe_increased_effect_percent_on_low_mana', condition: (_, stats) => getFirstStat(stats, 'percent_missing_mana', 0) > (100 - getFirstStat(stats, 'aoe_increased_effect_percent_on_low_mana_treshold', 0)) }
+                { stat: 'aoe_increased_effect_percent_on_low_mana', condition: (_, stats) => getFirstStat(stats, 'percent_missing_mana', 0) >= (100 - getFirstStat(stats, 'aoe_increased_effect_percent_on_low_mana_treshold', 0)) }
             ],
             max: [],
             percent: [],
@@ -2107,7 +2108,7 @@ export const GLOBAL_MERGED_STATS_MAPPING: Array<MergedStatMapping> = [
         source: {
             flat: [
                 { stat: 'min_weapon_damage_add' },
-                { stat: 'steel_manipulator_min_weapon_damage_add', addAsNonConvertion: true,  },
+                { stat: 'steel_manipulator_min_weapon_damage_add'  },
                 { stat: 'blood_frenzy_min_weapon_damage_add', condition: config => config.has_blood_frenzy_buff }
             ],
             max: [{ stat: 'max_weapon_damage_add' }],

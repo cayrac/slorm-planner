@@ -523,7 +523,6 @@ export class SlormancerValueUpdaterService {
                     effectValue.displaySynergy = round(effectValue.synergy, 0);
                 }
 
-                console.log('indirectIncreaseDamage : ', indirectIncreaseDamage, statsResult);
                 if (indirectIncreaseDamage.values.multiplier.length > 0) {
                     effectValue.synergy = mult(effectValue.synergy, ...indirectIncreaseDamage.values.multiplier.map(mult => mult.value));
                     effectValue.displaySynergy = round(effectValue.synergy, 0);
