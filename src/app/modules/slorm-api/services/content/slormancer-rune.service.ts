@@ -170,7 +170,7 @@ export class SlormancerRuneService {
             flavor: null,
             levelBorder: '',
             levelIcon: '',
-            name: data.EN_NAME,
+            name: data.LOCAL_NAME,
             reaper: data.REAPER,
             reapersmith: data.BLACKSMITH,
             runeIcon: '',

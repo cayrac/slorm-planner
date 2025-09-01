@@ -237,7 +237,7 @@ export class FormOptionsService {
         this.LEGENDARY_OPTIONS_CACHE = {};
 
         for (const legendary of legendaries) {
-            const option: SelectOption<number> = { value: legendary.REF, label: legendary.EN_NAME }
+            const option: SelectOption<number> = { value: legendary.REF, label: legendary.LOCAL_NAME }
             let data = this.LEGENDARY_OPTIONS_CACHE[legendary.ITEM];
             if (data === undefined) {
                 data = { 0: [], 1: [], 2: [] };
@@ -267,11 +267,11 @@ export class FormOptionsService {
     private initSkillBuffOptions() {
         this.ALL_SKILL_BUFF_OPTIONS_CACHE = {
             [HeroClass.Warrior]: this.slormancerDataService.getGameDataActiveSkills(HeroClass.Warrior)
-                .map(skill => ({ value: skill.REF, label: skill.EN_NAME })),
+                .map(skill => ({ value: skill.REF, label: skill.LOCAL_NAME })),
             [HeroClass.Huntress]: this.slormancerDataService.getGameDataActiveSkills(HeroClass.Huntress)
-                .map(skill => ({ value: skill.REF, label: skill.EN_NAME })),
+                .map(skill => ({ value: skill.REF, label: skill.LOCAL_NAME })),
             [HeroClass.Mage]: this.slormancerDataService.getGameDataActiveSkills(HeroClass.Mage)
-                .map(skill => ({ value: skill.REF, label: skill.EN_NAME }))
+                .map(skill => ({ value: skill.REF, label: skill.LOCAL_NAME }))
         }
     }
 
@@ -289,12 +289,12 @@ export class FormOptionsService {
         const reapers = this.slormancerDataService.getGameDataAvailableReaper();
 
         for (const reaper of reapers) {
-            this.ALL_REAPER_OPTIONS_CACHE.p[HeroClass.Warrior].push({ value: reaper.REF, label: this.slormancerReaperService.getReaperName(reaper.EN_NAME, true, HeroClass.Warrior ) });
-            this.ALL_REAPER_OPTIONS_CACHE.p[HeroClass.Huntress].push({ value: reaper.REF, label: this.slormancerReaperService.getReaperName(reaper.EN_NAME, true, HeroClass.Huntress ) });
-            this.ALL_REAPER_OPTIONS_CACHE.p[HeroClass.Mage].push({ value: reaper.REF, label: this.slormancerReaperService.getReaperName(reaper.EN_NAME, true, HeroClass.Mage ) });
-            this.ALL_REAPER_OPTIONS_CACHE.b[HeroClass.Warrior].push({ value: reaper.REF, label: this.slormancerReaperService.getReaperName(reaper.EN_NAME, false, HeroClass.Warrior ) });
-            this.ALL_REAPER_OPTIONS_CACHE.b[HeroClass.Huntress].push({ value: reaper.REF, label: this.slormancerReaperService.getReaperName(reaper.EN_NAME, false, HeroClass.Huntress ) });
-            this.ALL_REAPER_OPTIONS_CACHE.b[HeroClass.Mage].push({ value: reaper.REF, label: this.slormancerReaperService.getReaperName(reaper.EN_NAME, false, HeroClass.Mage ) });
+            this.ALL_REAPER_OPTIONS_CACHE.p[HeroClass.Warrior].push({ value: reaper.REF, label: this.slormancerReaperService.getReaperName(reaper.LOCAL_NAME, true, HeroClass.Warrior ) });
+            this.ALL_REAPER_OPTIONS_CACHE.p[HeroClass.Huntress].push({ value: reaper.REF, label: this.slormancerReaperService.getReaperName(reaper.LOCAL_NAME, true, HeroClass.Huntress ) });
+            this.ALL_REAPER_OPTIONS_CACHE.p[HeroClass.Mage].push({ value: reaper.REF, label: this.slormancerReaperService.getReaperName(reaper.LOCAL_NAME, true, HeroClass.Mage ) });
+            this.ALL_REAPER_OPTIONS_CACHE.b[HeroClass.Warrior].push({ value: reaper.REF, label: this.slormancerReaperService.getReaperName(reaper.LOCAL_NAME, false, HeroClass.Warrior ) });
+            this.ALL_REAPER_OPTIONS_CACHE.b[HeroClass.Huntress].push({ value: reaper.REF, label: this.slormancerReaperService.getReaperName(reaper.LOCAL_NAME, false, HeroClass.Huntress ) });
+            this.ALL_REAPER_OPTIONS_CACHE.b[HeroClass.Mage].push({ value: reaper.REF, label: this.slormancerReaperService.getReaperName(reaper.LOCAL_NAME, false, HeroClass.Mage ) });
         }
     }
 

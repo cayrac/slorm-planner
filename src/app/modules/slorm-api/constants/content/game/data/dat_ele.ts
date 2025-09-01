@@ -1,6 +1,4 @@
-import { GameDataAncestralLegacy } from "../../../../model";
-
-export const GAME_DATA_ANCESTRAL_LEGACY: GameDataAncestralLegacy[] = [
+export const GAME_DATA_ANCESTRAL_LEGACY = [
     {
         "REF": 0,
         "EN_NAME": "Burning Trail",

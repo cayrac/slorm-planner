@@ -29,11 +29,11 @@ export class SlormancerClassMechanicService {
                 const templateOverride = valueOrDefault(DATA_CLASS_MECHANIC[heroClass][id]?.templateOverride, template => template);
                 mechanic = {
                     id: data.REF,
-                    name: data.EN_NAME,
+                    name: data.LOCAL_NAME,
                     genres,
                     description: '',
                     icon: 'skill/' + heroClass + '/' + data.REF,
-                    template: this.slormancerTemplateService.prepareMechanicTemplate(templateOverride(data.EN_DESCRIPTION), values.map(value => value.stat).filter(isDamageType)),
+                    template: this.slormancerTemplateService.prepareMechanicTemplate(templateOverride(data.LOCAL_DESCRIPTION), values.map(value => value.stat).filter(isDamageType)),
                     values: values.map(value => ({ ...value }))
                 };
     

@@ -98,7 +98,7 @@ export class LegendaryListComponent extends AbstractUnsubscribeComponent impleme
     private buildLegendaryList() {
         this.allLegendaries = this.slormancerDataService.getGameDataAvailableLegendaries()
             .filter(legendaryData => legendaryData.REF !== 0)
-            .sort((a, b) => compareString(a.EN_NAME, b.EN_NAME))
+            .sort((a, b) => compareString(a.LOCAL_NAME, b.LOCAL_NAME))
             .map(legendaryData => this.buildLegendaryItem(legendaryData))
             .filter(isNotNullOrUndefined);
             

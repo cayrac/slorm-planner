@@ -2,8 +2,13 @@
     <mat-card>
         <mat-card-content>
             <div class="dialog">
-                <img class="mc-ripped" (click)="newMcRippedDialog()" src="assets/img/icon/message/success.png"/>
-                <p>{{dialog}}</p>
+                <div class="dialog-content">
+                    <img class="mc-ripped" (click)="newMcRippedDialog()" src="assets/img/icon/message/success.png"/>
+                    <p>{{dialog}}</p>
+                </div>
+                <div class="dialog-action">
+                    <app-language-selector></app-language-selector>
+                </div>
             </div>
         </mat-card-content>
     </mat-card>

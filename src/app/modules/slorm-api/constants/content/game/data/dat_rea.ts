@@ -1,6 +1,6 @@
 import { GameDataReaper } from '../../../../model/content/game/data/game-data-reaper';
 
-export const GAME_DATA_REAPER: Array<GameDataReaper> = [
+export const GAME_DATA_REAPER: Array<Omit<GameDataReaper, 'LOCAL_NAME' | 'LOCAL_DESC' | 'LOCAL_LORE'>> = [
     {
         "REF": 0,
         "EN_NAME": "Adam Nostrus' $",

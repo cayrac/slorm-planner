@@ -1,6 +1,4 @@
-import { GameDataLegendary } from "../../../../model";
-
-export const GAME_DATA_LEGENDARY: GameDataLegendary[] = [
+export const GAME_DATA_LEGENDARY = [
     {
         "REF": 0,
         "EN_NAME": "The Steaming Amulet of the Revered Judge",
