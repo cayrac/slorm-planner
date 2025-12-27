@@ -83,9 +83,10 @@ export function strictParseFloat(data: string): number {
         data = data.slice(0, data.length - 1);
     }
     let value = parseFloat(data);
-    if (value > Number.MAX_SAFE_INTEGER) {
+    const invalidParse = data !== value.toString();
+    if (value > Number.MAX_SAFE_INTEGER || (invalidParse && data.length >= 18)) {
         value = Number.MAX_SAFE_INTEGER;
-    } else if (data !== value.toString()) {
+    } else if (invalidParse) {
         throw new Error('Float parse error : expected "' + data + '" but got "' + value + '"');
     }
     return value;

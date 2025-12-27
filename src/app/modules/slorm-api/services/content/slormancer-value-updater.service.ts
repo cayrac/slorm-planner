@@ -721,8 +721,6 @@ export class SlormancerValueUpdaterService {
         const slot = this.getActivableSlot(character, activable);
         const extractedStats = this.addActivableExtraStats(statsResult, slot, activable);
 
-        const isSoundwave = activable.name === 'Ultrasound Wave';
-
         // Manabender (activable) cooldown
         if (activable.id === 2) {
             const manaRegen = character.stats.find(stat => stat.stat === 'mana_regeneration');
@@ -737,9 +735,6 @@ export class SlormancerValueUpdaterService {
         activable.cooldown = this.getActivableCooldown(extractedStats, config, activable, skillStats.cooldownReduction.total);
         
         for (const value of activable.values) {
-            if (isSoundwave) {
-                console.log('For on soundwave value : ' + value.displayValue, value);
-            }
 
             const isSynergy = isEffectValueSynergy(value);
             if (isSynergy || activable.id === 21) {
@@ -795,14 +790,6 @@ export class SlormancerValueUpdaterService {
                         const multipliers = this.getValidDamageMultipliers(activable.genres, skillStats, statsResult, value.stat, false, undefined, false);
                         value.value = mult(value.baseValue, ...multipliers, ...additionalMultipliers);
                         value.displayValue = bankerRound(value.value, 2);
-                    }
-
-                    // pour activable 69
-                    if (activable.genres.includes(SkillGenre.Aura)) {
-                        //value.value = mult(value.value, skillStats.auraIncreasedEffect.total);
-                        //value.displayValue = bankerRound(value.value, 2);
-
-                        console.log('new value (' + activable.name + ') : ', value, value.displayValue)
                     }
 
                 }

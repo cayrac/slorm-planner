@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  version: '1.0.2',
+  version: '1.0.3',
   gameVersion: '1.0.2c',
   debug: true,
 };

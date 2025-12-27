@@ -112,7 +112,6 @@ export class OptimizeItemsAffixesModalComponent {
                 const availableOptions = options[rarity];
 
                 if (hasRoomForMoreAffixes && availableOptions.includes(stat.affix)) {
-                    console.log('Pure ? ', stat.purity);
                     const affix = this.slormancerAffixService.getAffixFromStat(stat.affix.value, item.level, item.reinforcement, rarity, undefined, stat.purity ? 200 : 100);
 
                     if (affix !== null) {
