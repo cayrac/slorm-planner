@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { UNITY_REAPERS } from '../../constants';
+import { TOTAL_REAPERS_ACROSS_ALL_CHARACTERS, UNITY_REAPERS } from '../../constants';
 import { CharacterConfig, HeroClass } from '../../model';
 import { Character } from '../../model/character';
 import { Bits } from '../../model/export/bits';
@@ -79,7 +79,7 @@ export class SlormancerBinaryConfigurationService {
         }
 
         if (character.reaper.id === 99) {
-            result.push(...numberToBinary(Math.min(620, config.reaper_owned), 10));
+            result.push(...numberToBinary(Math.min(TOTAL_REAPERS_ACROSS_ALL_CHARACTERS, config.reaper_owned), 10));
         }
 
         if (character.reaper.id === 114) {

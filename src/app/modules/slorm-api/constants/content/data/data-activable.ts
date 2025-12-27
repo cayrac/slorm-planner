@@ -209,6 +209,7 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
             addConstant(values, 4, false, EffectValueValueType.AreaOfEffect, 'inextricable_torment_aura_range');
             overrideValueStat(values, 0, 'inextricable_torment_aura_enemy_increased_damage');
             overrideValueStat(values, 1, 'inextricable_torment_aura_enemy_cooldown_reduction_percent');
+            setValueType(values, 1, EffectValueValueType.Static)
         }
     },
     11: {
@@ -545,13 +546,17 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     60: {
         override: values => {
             overrideValueStat(values, 0, 'garbage_stat');
-            setValueType(values, 0, EffectValueValueType.Static);
+            setValueType(values, 0, EffectValueValueType.Stat);
             overrideValueStat(values, 1, 'physical_damage');
             allowSynergyToCascade(values, 1);
             overrideValueStat(values, 2, 'garbage_stat');
+            setValueType(values, 2, EffectValueValueType.Stat);
+            setSynergyPrecision(values, 2, 3);
             setSynergySource(values, 2, 'percent_locked_health');
             allowSynergyToCascade(values, 2);
             overrideValueStat(values, 3, 'garbage_stat');
+            setValueType(values, 3, EffectValueValueType.Stat);
+            setSynergyPrecision(values, 3, 3);
             allowSynergyToCascade(values, 3);
             addConstant(values, 4, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
         }
@@ -559,7 +564,7 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
     61: {
         override: values => {
             overrideValueStat(values, 0, 'the_max_health_global_mult');
-            setValueType(values, 0, EffectValueValueType.Static);
+            setValueType(values, 0, EffectValueValueType.Stat);
         }
     },
     62: {
@@ -629,10 +634,12 @@ export const DATA_ACTIVABLE: { [key: string]: DataActivable } = {
         override: (values) => {
             overrideValueStat(values, 0, 'physical_damage');
             allowSynergyToCascade(values, 0);
-            setValueType(values, 0, EffectValueValueType.AreaOfEffect);
+            setBaseValue(values, 0, 75);
+            setUpgradeValue(values, 0, 0);
             overrideValueStat(values, 1, 'elemental_damage');
             allowSynergyToCascade(values, 1);
-            setValueType(values, 1, EffectValueValueType.AreaOfEffect);
+            setBaseValue(values, 1, 75);
+            setUpgradeValue(values, 1, 0);
             addConstant(values, 2, false, EffectValueValueType.AreaOfEffect, 'garbage_stat');
         }
     },

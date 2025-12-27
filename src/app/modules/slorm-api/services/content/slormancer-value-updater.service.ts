@@ -721,6 +721,8 @@ export class SlormancerValueUpdaterService {
         const slot = this.getActivableSlot(character, activable);
         const extractedStats = this.addActivableExtraStats(statsResult, slot, activable);
 
+        const isSoundwave = activable.name === 'Ultrasound Wave';
+
         // Manabender (activable) cooldown
         if (activable.id === 2) {
             const manaRegen = character.stats.find(stat => stat.stat === 'mana_regeneration');
@@ -735,6 +737,10 @@ export class SlormancerValueUpdaterService {
         activable.cooldown = this.getActivableCooldown(extractedStats, config, activable, skillStats.cooldownReduction.total);
         
         for (const value of activable.values) {
+            if (isSoundwave) {
+                console.log('For on soundwave value : ' + value.displayValue, value);
+            }
+
             const isSynergy = isEffectValueSynergy(value);
             if (isSynergy || activable.id === 21) {
                 if (isDamageType(value.stat)) {
@@ -790,6 +796,18 @@ export class SlormancerValueUpdaterService {
                         value.value = mult(value.baseValue, ...multipliers, ...additionalMultipliers);
                         value.displayValue = bankerRound(value.value, 2);
                     }
+
+                    // pour activable 69
+                    if (activable.genres.includes(SkillGenre.Aura)) {
+                        //value.value = mult(value.value, skillStats.auraIncreasedEffect.total);
+                        //value.displayValue = bankerRound(value.value, 2);
+
+                        console.log('new value (' + activable.name + ') : ', value, value.displayValue)
+                    }
+
+                }
+                if (value.valueType === EffectValueValueType.Stat) {
+                    value.value = value.value * (100 + skillStats.auraIncreasedEffect.total) / 100;
                 }
             } else if (value.valueType === EffectValueValueType.AreaOfEffect) {
                 value.value = value.baseValue * (100 + skillStats.aoeIncreasedSize.total) / 100;
@@ -804,13 +822,13 @@ export class SlormancerValueUpdaterService {
                 }
 
                 // aura increase aoe
-                if (activable.genres.includes(SkillGenre.Aura)) {
-                    // BUG auracle increased aura aoe no longer apply
-                    /*const auraAoeIncreasedSizePercentStat = statsResult.stats.find(stat => stat.stat === 'aura_aoe_increased_size_percent');
-                    if (auraAoeIncreasedSizePercentStat !== undefined) {
-                        value.value = value.value * (100 + (auraAoeIncreasedSizePercentStat.total as number)) / 100;
-                    }*/
-                    value.value = value.value * (100 + skillStats.auraIncreasedEffect.total) / 100;
+                if (activable.genres.includes(SkillGenre.Aura) && activable.id !== 69) {
+                    // BUG auracle increased aura apply at 100% effect instead of 50%
+                    const auraAoeIncreasedSizePercentStat = statsResult.stats.find(stat => stat.stat === 'aura_aoe_increased_size_percent');
+                    if (auraAoeIncreasedSizePercentStat !== undefined && (auraAoeIncreasedSizePercentStat.total as number) > 0) {
+                        //value.value = value.value * (100 + (auraAoeIncreasedSizePercentStat.total as number)) / 100;
+                        value.value = value.value * (100 + skillStats.auraIncreasedEffect.total) / 100;
+                    }
                 }
 
                 value.displayValue = bankerRound(value.value, 2);
@@ -937,12 +955,12 @@ export class SlormancerValueUpdaterService {
                 value.value = value.baseValue;
                 // aura increase aoe
                 if (ancestralLegacy.genres.includes(SkillGenre.Aura)) {
-                    // BUG auracle increased aura aoe no longer apply
-                    /*const auraAoeIncreasedSizePercentStat = statsResult.stats.find(stat => stat.stat === 'aura_aoe_increased_size_percent');
-                    if (auraAoeIncreasedSizePercentStat !== undefined) {
-                        value.value = value.value * (100 + (auraAoeIncreasedSizePercentStat.total as number)) / 100;
-                    }*/
-                    value.value = value.value * (100 + skillStats.auraIncreasedEffect.total) / 100;
+                    // BUG auracle increased aura apply at 100% effect instead of 50%
+                    const auraAoeIncreasedSizePercentStat = statsResult.stats.find(stat => stat.stat === 'aura_aoe_increased_size_percent');
+                    if (auraAoeIncreasedSizePercentStat !== undefined && (auraAoeIncreasedSizePercentStat.total as number) > 0) {
+                        //value.value = value.value * (100 + (auraAoeIncreasedSizePercentStat.total as number)) / 100;
+                        value.value = value.value * (100 + skillStats.auraIncreasedEffect.total) / 100;
+                    }
                 }
 
                 value.value = value.value * (100 + skillStats.aoeIncreasedSize.total) / 100;
@@ -991,6 +1009,11 @@ export class SlormancerValueUpdaterService {
                 const value = ancestralLegacy.values[0] as EffectValueVariable;
                 value.value = value.upgradedValue * (100 - auraReduction) / 100;
                 value.displayValue = round(value.value, 3);
+            }
+
+            if (ancestralLegacy.id === 68 && value.stat === 'damage_taken_to_mana_percent' && value.value > 50) {
+                value.value = 50;
+                value.displayValue = 50;
             }
         }
     }

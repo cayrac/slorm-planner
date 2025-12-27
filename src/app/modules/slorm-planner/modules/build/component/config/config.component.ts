@@ -338,7 +338,7 @@ export class ConfigComponent extends AbstractUnsubscribeComponent implements OnI
             title: 'Reaper (Altior, Arah\'s Perfect)',
             condition: character => character.reaper.id === 99,
             configurations: [
-                { type: 'number', key: 'reaper_owned', label: 'Number of reaper owned across all characters', info: 'Maximum : 620' },
+                { type: 'number', key: 'reaper_owned', label: 'Number of reaper owned across all characters', info: 'Maximum : 720' },
             ]
         },
         {

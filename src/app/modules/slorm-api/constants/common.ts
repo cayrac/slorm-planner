@@ -11,6 +11,7 @@ export const MAX_DEFENSIVE_STATS = 1;
 export const MAX_MAGIC_STATS = 1;
 export const MAX_RARE_STATS = 1;
 export const MAX_EPIC_STATS = 3;
+export const TOTAL_REAPERS_ACROSS_ALL_CHARACTERS = 720;
 
 export const MAX_REINFORCEMENT_UPGRADE = 15;
 

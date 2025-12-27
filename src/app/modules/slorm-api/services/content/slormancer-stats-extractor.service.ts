@@ -15,6 +15,7 @@ import {
     POISON_DAMAGE_PERCENT,
     RAVENOUS_DAGGER_DAMAGE_PERCENT,
     REMNANT_DAMAGE_REDUCTION,
+    TOTAL_REAPERS_ACROSS_ALL_CHARACTERS,
     TRAP_DAMAGE_PERCENT,
     UNITY_REAPERS,
 } from '../../constants/common';
@@ -324,7 +325,7 @@ export class SlormancerStatsExtractorService {
         this.addStat(stats.stats, 'sunlight_stacks', config.sunlight_stacks, { synergy: 'Sunlight stacks' });
         this.addStat(stats.stats, 'enlight_10', config.enlightenment_stacks * 100, { synergy: 'Shield globes picked up recently' });
         this.addStat(stats.stats, 'lifebender_stored', config.life_mana_stored, { synergy: 'Mana and life restored by lifebender effects' });
-        this.addStat(stats.stats, 'reaper_owned', Math.min(620, config.reaper_owned), { synergy: 'Reaper owned across all characters' });
+        this.addStat(stats.stats, 'reaper_owned', Math.min(TOTAL_REAPERS_ACROSS_ALL_CHARACTERS, config.reaper_owned), { synergy: 'Reaper owned across all characters' });
         this.addStat(stats.stats, 'life_restored', 0, { synergy: 'life restored' });
         this.addStat(stats.stats, 'evasion_chance_wrath', 0, { synergy: 'Evasion at this wrath level' });
         

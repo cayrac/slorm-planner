@@ -447,7 +447,10 @@
 ## Release 1.0.3 (2025-12-27)
 ### Fixes
 - Fixed aura size calculation
-- 
+- Altior, Arah's Perfect total reapers owned across all characters maximum value is now 720 instead of 620
+- Black Pact damage to mana is now capped at 50%
+- Fixed activable auras not being affected correctly by aura increased effect
 
 ## TODO
 btw @Cayrac  since you are here, there were changes to certain auras from reapers and legendaries which let them now scale with aura increased effect such as immense vitality and life is overrated 
+Sauvegarde à tester
