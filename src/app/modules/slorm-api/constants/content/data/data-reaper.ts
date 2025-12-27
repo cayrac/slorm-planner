@@ -520,14 +520,15 @@ export const DATA_REAPER: { [key: number]: DataReaper } = {
     },
     28: {
         override: (ba, be, ma) => {
-            // TODO fix ça
             overrideValueTypeAndStat(ba, 0, EffectValueValueType.Stat, 'aura_equipped_per_aura_active_add');
             overrideValueTypeAndStat(ba, 1, EffectValueValueType.Stat, 'aura_equipped_per_aura_equipped_multiplier');
             overrideValueTypeAndStat(ba, 2, EffectValueValueType.Stat, 'aura_increased_effect_percent');
             changeValue(ba, 2, 100);
             nullifySynergyUpgrade(ba, 2);
 
+            overrideValueTypeAndStat(be, 0, EffectValueValueType.Stat, 'garbage_stat');
             overrideValueTypeAndStat(be, 1, EffectValueValueType.Stat, 'aura_aoe_increased_size_percent');
+            setSynergyPrecision(be, 1, 0);
             allowSynergyToCascade(be, 1);
             synergyMultiply100(be, 1);
 

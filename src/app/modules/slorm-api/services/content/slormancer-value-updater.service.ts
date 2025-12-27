@@ -805,10 +805,12 @@ export class SlormancerValueUpdaterService {
 
                 // aura increase aoe
                 if (activable.genres.includes(SkillGenre.Aura)) {
-                    const auraAoeIncreasedSizePercentStat = statsResult.stats.find(stat => stat.stat === 'aura_aoe_increased_size_percent');
+                    // BUG auracle increased aura aoe no longer apply
+                    /*const auraAoeIncreasedSizePercentStat = statsResult.stats.find(stat => stat.stat === 'aura_aoe_increased_size_percent');
                     if (auraAoeIncreasedSizePercentStat !== undefined) {
                         value.value = value.value * (100 + (auraAoeIncreasedSizePercentStat.total as number)) / 100;
-                    }
+                    }*/
+                    value.value = value.value * (100 + skillStats.auraIncreasedEffect.total) / 100;
                 }
 
                 value.displayValue = bankerRound(value.value, 2);
@@ -935,10 +937,12 @@ export class SlormancerValueUpdaterService {
                 value.value = value.baseValue;
                 // aura increase aoe
                 if (ancestralLegacy.genres.includes(SkillGenre.Aura)) {
-                    const auraAoeIncreasedSizePercentStat = statsResult.stats.find(stat => stat.stat === 'aura_aoe_increased_size_percent');
+                    // BUG auracle increased aura aoe no longer apply
+                    /*const auraAoeIncreasedSizePercentStat = statsResult.stats.find(stat => stat.stat === 'aura_aoe_increased_size_percent');
                     if (auraAoeIncreasedSizePercentStat !== undefined) {
                         value.value = value.value * (100 + (auraAoeIncreasedSizePercentStat.total as number)) / 100;
-                    }
+                    }*/
+                    value.value = value.value * (100 + skillStats.auraIncreasedEffect.total) / 100;
                 }
 
                 value.value = value.value * (100 + skillStats.aoeIncreasedSize.total) / 100;
@@ -996,7 +1000,7 @@ export class SlormancerValueUpdaterService {
 
         this.updateSkillValues(skillAndUpgrades, skillStats, stats, config);
 
-        // hack to add multiply and conquer bug
+        // BUG hack to add multiply and conquer
         if (skillAndUpgrades.skill.heroClass === HeroClass.Huntress && skillAndUpgrades.skill.id === 5 && skillAndUpgrades.activeUpgrades.includes(45) && skillAndUpgrades.activeUpgrades.includes(52)) {
             const critChanceToRemove = <number>skillAndUpgrades.upgrades.find(u => u.id === 45)?.values[0]?.value;
             const multiplyAndConquerSynergy = <EffectValueSynergy>skillAndUpgrades.upgrades.find(u => u.id === 52)?.values[0];

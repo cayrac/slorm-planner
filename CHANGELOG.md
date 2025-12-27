@@ -444,5 +444,10 @@
 - Elemental Pact is now a conversion
 - Steel Manipulator reaper damage is now a conversion
 
+## Release 1.0.3 (2025-12-27)
+### Fixes
+- Fixed aura size calculation
+- 
+
 ## TODO
-- update packages ?
+btw @Cayrac  since you are here, there were changes to certain auras from reapers and legendaries which let them now scale with aura increased effect such as immense vitality and life is overrated 
